@@ -43,6 +43,17 @@ When a plan doc results in execution work, split that execution into Symphony
 tasks and link back to the plan. When a task is complete, mark the task done and
 record evidence there instead of creating another plan doc.
 
+## Task Cleanup
+
+After completing a task, clean up the runtime state created for that task.
+Stop dev servers, preview servers, local agents, watchers, tunnels, and
+background jobs that are no longer needed.
+
+Pay special attention to localhost ports. Use the installed `ports` CLI to
+inspect and free stale ports instead of leaving orphaned processes behind.
+If a server should intentionally stay running for the user to inspect, say so
+explicitly in the final handoff.
+
 ## Documentation Boundaries
 
 - `README.md`: current human entrypoint for the project.

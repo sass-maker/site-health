@@ -5,11 +5,28 @@
 !/.gitignore
 !/README.md
 !/AGENTS.md
+!/CLAUDE.md
+!/docs/
+!/docs/**
+!/scripts/
+!/scripts/**
+!/.agents/
+!/.agents/skills/
+!/.agents/skills/**
+!/.claude/
+!/.claude/skills/
+!/.claude/skills/**
 
 # Local/system noise at the Fleet root.
 .DS_Store
 .env*
 .omx/
 .wrangler/
-.claude/
+.claude/settings.local.json
+.claude/.credentials*
+.claude/cache/
+.claude/projects/
+.claude/sessions/
+.claude/todos/
 .husky/
+.claude/

@@ -36,16 +36,46 @@ When a plan creates execution work, split that work into Symphony tasks. When
 work is done, mark the task done and record evidence on the task instead of
 creating another plan doc.
 
-Agent-facing instructions live in the fleet-level `AGENTS.md`, which applies to
-projects below this directory unless a project has a more specific `AGENTS.md`.
+Agent-facing instructions live in the fleet-level `AGENTS.md`. Claude uses
+`CLAUDE.md` as a bridge into the same policy. Child projects can opt into
+Fleet-owned skills and references with `scripts/link-project-agent-assets.sh`.
 
 ## Repository Boundary
 
-The Fleet root repo tracks only workspace-level control files:
+The Fleet root repo tracks only workspace-level control files and shared agent
+assets:
 
 - `README.md`
 - `AGENTS.md`
+- `CLAUDE.md`
 - `.gitignore`
+- `docs/`
+- `scripts/`
+- `.agents/skills/`
+- `.claude/skills/`
 
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.
+
+## Agent Layering
+
+Fleet uses three layers:
+
+- machine level: personal config in `~/.claude`, `~/.codex`, and
+  `~/.agents/skills`
+- Fleet level: shared policy and shared skill source in this repository
+- project level: explicit opt-in references and symlinks inside child projects
+
+Use a dry run before linking:
+
+```bash
+./scripts/link-project-agent-assets.sh --dry-run
+```
+
+Then link all immediate child Git repositories:
+
+```bash
+./scripts/link-project-agent-assets.sh
+```
+
+Details live in `docs/agent-layering.md`.
