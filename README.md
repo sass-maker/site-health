@@ -40,6 +40,28 @@ Agent-facing instructions live in the fleet-level `AGENTS.md`. Claude uses
 `CLAUDE.md` as a bridge into the same policy. Child projects can opt into
 Fleet-owned skills and references with `scripts/link-project-agent-assets.sh`.
 
+## How To Run The Fleet
+
+Use the Fleet runbook for the current operating procedure:
+
+- `docs/fleet-runbook.md` explains setup, daily checks, per-project run/test
+  commands, deploy commands, verification, and cleanup.
+- `docs/project-map.md` explains how Fleet root docs, child repositories,
+  Foundry/SaaS Maker, Symphony, GitHub, local agents, and Cloudflare deployments
+  connect.
+- `docs/agent-layering.md` explains how shared Fleet agent policy and skills
+  are linked into child projects.
+
+The short version:
+
+```bash
+cd /Users/sarthakagrawal/Desktop/Fleet/saas-maker
+pnpm symphony
+```
+
+Then enter the project named on the task and use that project's `README.md`,
+`AGENTS.md` or `agents.md`, and the command table in `docs/fleet-runbook.md`.
+
 ## Repository Boundary
 
 The Fleet root repo tracks only workspace-level control files and shared agent
