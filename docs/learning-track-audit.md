@@ -15,9 +15,9 @@ _Last audited: 2026-06-23._
 
 | State | Projects |
 |---|---|
-| **Has study queue** (15) | ai-game (25 topics), high-signal (14), codevetter (13), reel-pipeline (13), email-manager · reader · saas-maker · swe-interview-prep (12), pace (11), open-historia · starboard (10), free-ai · research-papers · taste (9), looptv (7) |
-| **Old scaffold — migrate** | tinygpt (`lessons.md`), truehire (`decisions.md`) |
-| **Exempt (plain full-stack)** | anime-list, drank, everythingrated, significanthobbies, today-little-log, rolepatch, materia, forecast-lab |
+| **Has study queue** (16) | ai-game (25 topics), high-signal (14), codevetter (13), reel-pipeline (13), email-manager · reader · saas-maker · swe-interview-prep (12), pace (11), open-historia · starboard (10), free-ai · research-papers · taste (9), looptv (7), tinygpt (14, migrated 2026-06-23) |
+| **Old scaffold — migrated/retired** | tinygpt → `new-things.md` (old `lessons.md` archived); truehire → exempt, `decisions.md` archived |
+| **Exempt (plain full-stack)** | anime-list, drank, everythingrated, significanthobbies, today-little-log, rolepatch, materia, forecast-lab, truehire |
 | **Fancy but no track — candidates** | karte (agent-trust/AI chat), knowledge-base (RAG), verified-bases (payments/Go) |
 
 ## Verdict
@@ -31,10 +31,10 @@ outstanding, human-side work; it is NOT something an agent should fabricate.
 
 ## Agent-side gaps (fixable without inventing understanding)
 
-1. **Migrate old scaffolds** — tinygpt (`docs/lessons.md`) and truehire
-   (`docs/decisions.md`) predate the standard. Distill their topics into
-   `docs/learning/new-things.md` stubs (`Why here: TBD`) and move the originals
-   to `docs/archive/`.
+1. ~~**Migrate old scaffolds**~~ — DONE 2026-06-23: tinygpt migrated to
+   `docs/learning/new-things.md` (14 topic stubs, all `Why here: TBD`); old
+   `lessons.md` archived. truehire judged plain full-stack (exempt); its
+   `decisions.md` was retired to `docs/archive/`.
 2. **This audit doc** — previously referenced by the standard but missing; now
    created here.
 3. **Candidate new tracks** — karte, knowledge-base, verified-bases use
