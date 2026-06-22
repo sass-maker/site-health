@@ -85,11 +85,14 @@ projects below this directory unless a project has a more specific `AGENTS.md`.
 
 ## Repository Boundary
 
-The Fleet root repo tracks only workspace-level control files:
+The Fleet root repo tracks only workspace-level control files and shared
+tooling. Its `.gitignore` ignores every child project (`/*`) and allowlists:
 
-- `README.md`
-- `AGENTS.md`
-- `.gitignore`
+- `README.md`, `AGENTS.md`, `CLAUDE.md`, `LANDING_STANDARD.md`, `.gitignore`
+- `assets/` — workspace logo + shared art
+- `docs/` — workspace-level reference + runbooks
+- `scripts/` + `.agents/` — fleet agent tooling and linkers
+- `fleet-ops/` — cross-fleet tooling (perf sweeps, audits) + retired-project archives
 
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.
