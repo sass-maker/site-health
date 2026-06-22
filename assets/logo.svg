@@ -1,0 +1,59 @@
+<svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sarthak-fleet">
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset=".5" stop-color="#5eead4"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <radialGradient id="bg" cx=".5" cy=".34" r=".85">
+      <stop offset="0" stop-color="#0c1f33"/>
+      <stop offset="1" stop-color="#05070d"/>
+    </radialGradient>
+    <radialGradient id="hub" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#a5f3fc"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- hex badge -->
+  <path d="M140 14 L249 77 L249 203 L140 266 L31 203 L31 77 Z"
+        fill="url(#bg)" stroke="url(#edge)" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M140 14 L249 77 L249 203 L140 266 L31 203 L31 77 Z"
+        fill="none" stroke="#22d3ee" stroke-width="1" stroke-linejoin="round" opacity=".25"/>
+
+  <!-- fleet network: hub + 6 orbiting product nodes -->
+  <g stroke="url(#edge)" stroke-width="2" opacity=".7">
+    <line x1="140" y1="140" x2="202" y2="140"/>
+    <line x1="140" y1="140" x2="171" y2="86"/>
+    <line x1="140" y1="140" x2="109" y2="86"/>
+    <line x1="140" y1="140" x2="78"  y2="140"/>
+    <line x1="140" y1="140" x2="109" y2="194"/>
+    <line x1="140" y1="140" x2="171" y2="194"/>
+  </g>
+  <g stroke="#5eead4" stroke-width="1.4" opacity=".35" fill="none">
+    <path d="M202 140 L171 86 L109 86 L78 140 L109 194 L171 194 Z"/>
+  </g>
+
+  <!-- orbiting nodes -->
+  <g fill="#5eead4" filter="url(#glow)">
+    <circle cx="202" cy="140" r="7"/>
+    <circle cx="171" cy="86"  r="7"/>
+    <circle cx="109" cy="86"  r="7"/>
+    <circle cx="78"  cy="140" r="7"/>
+    <circle cx="109" cy="194" r="7"/>
+    <circle cx="171" cy="194" r="7"/>
+  </g>
+
+  <!-- hub -->
+  <circle cx="140" cy="140" r="17" fill="url(#hub)" filter="url(#glow)"/>
+  <circle cx="140" cy="140" r="17" fill="none" stroke="#cffafe" stroke-width="1.5" opacity=".8"/>
+
+  <!-- wordmark -->
+  <text x="140" y="252" text-anchor="middle"
+        font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="13"
+        letter-spacing="5" fill="#67e8f9" opacity=".9">FLEET</text>
+</svg>
