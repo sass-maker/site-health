@@ -178,17 +178,27 @@ commands run from anywhere under `~/Desktop/fleet` default to it.
   filter the output so the value doesn't land in logs or a transcript).
 - **Read into a process:** `infisical run --env=dev -- <cmd>`, or fetch one with
   `infisical secrets get NAME --env=dev --plain`.
-- **Already stored:** `AGENTMAIL_API_KEY` (Fleet project, `dev` env).
+- **Already stored:** `AGENTMAIL_API_KEY`, `EIA_API_KEY` (Fleet project, `dev` env).
 
-**Capability boundary (important — don't overpromise):** with email alone an
-agent can complete only signups whose form is a plain POST with **no CAPTCHA /
-JS challenge**. Forms behind reCAPTCHA/hCaptcha/Turnstile (e.g. The Guardian,
-Regulations.gov / api.data.gov) need real browser automation and **cannot** be
-done with `curl` + email. EIA's form has no CAPTCHA but a plain POST did not
-trigger the key email (needs a session/JS), so even "no-CAPTCHA" is not a
-guarantee. To reliably automate signups, pair AgentMail with a browser MCP
-(e.g. Playwright); until then, key signups are mostly a manual 2-minute step and
-agents should say so rather than claim they can do it headless.
+**Automating API-key signups (what works, 2026-06-26).** Proven recipe:
+**Playwright** (isolated venv: `uv venv … && uv pip install playwright && playwright
+install chromium`) to drive the signup form + click the verification link, paired
+with the **AgentMail** inbox (poll `GET /v0/inboxes/<inbox>/messages`, fetch the
+message, regex the verify-link / key out of the body). This got **EIA** end to
+end — form → verification email → activation link → key email → stored in
+Infisical — where a plain `curl` POST had failed (the form needs JS).
+
+What it **cannot** do, and why each is a hard wall:
+- **OAuth-only signup** (OpenStates → Plural Policy: Google/GitHub only, no
+  email/password form) — needs the user's federated login; don't automate.
+- **reCAPTCHA / hCaptcha / Turnstile** (Regulations.gov / api.data.gov, The
+  Guardian) — Playwright fills the form but cannot solve the challenge; needs a
+  paid solver. Skip (and note Guardian/news is already covered keyless via RSS).
+- **GOV.UK One Login** (Companies House) — email OTP + authenticator app,
+  multi-step + low value; not pursued.
+
+So the rule: no-CAPTCHA email-verified forms → automatable with Playwright +
+AgentMail; OAuth-only or CAPTCHA-walled → still manual.
 
 ## Learning tracks for fancy-tech projects
 
