@@ -153,7 +153,7 @@ Rules:
   Cloudflare's GitHub integration. Do not "reconnect" them to Git to chase a green
   checkmark — the CLI/CI deploy is the source of truth.
 
-## Fleet agent email + API-key management (AgentMail + infinsiacal)
+## Fleet agent email + secrets management (AgentMail + Infisical)
 
 Agents have a programmatic email inbox via **AgentMail**, used to receive
 verification / key-delivery emails when signing up for free third-party API keys
@@ -162,15 +162,18 @@ verification / key-delivery emails when signing up for free third-party API keys
 - **Inbox:** `sarthakagrawal@agentmail.to`
 - **API:** `https://api.agentmail.to/v0/` — Bearer auth. List mail with
   `GET /v0/inboxes/<inbox_id>/messages`.
-- **Key location:** `~/.config/agentmail/api_key` (user-level, `chmod 600`,
-  outside every repo). **Never** commit the key value or paste it into a tracked
-  file — reference the path only. Read it at call time, e.g.
+- **AgentMail key location:** `~/.config/agentmail/api_key` (user-level,
+  `chmod 600`, outside every repo). **Never** commit the key value or paste it
+  into a tracked file — reference the path only. Read it at call time:
   `KEY=$(cat ~/.config/agentmail/api_key)`.
-- **Canonical key manager:** **infinsiacal** is the user's key-manager product
-  and the intended long-term home for managing obtained API keys. AgentMail is
-  the *email channel* for obtaining them; infinsiacal is where they're stored /
-  rotated. (Point an agent at the infinsiacal repo/integration to wire this up;
-  not yet integrated here.)
+
+**Secrets manager: Infisical** (`infisical` CLI, logged in as the user on
+`app.infisical.com`). This is the canonical home for obtained API keys — store
+them there, not in repos. Workflow once a project is linked (`infisical init`
+writes `.infisical.json`, or pass `--projectId`/`--env`):
+`infisical secrets set NAME="$(cat <path>)" --env=<env>`, and read them back into
+a process with `infisical run -- <cmd>`. The AgentMail key is mirrored here as
+`AGENTMAIL_API_KEY`.
 
 **Capability boundary (important — don't overpromise):** with email alone an
 agent can complete only signups whose form is a plain POST with **no CAPTCHA /
