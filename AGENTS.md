@@ -178,7 +178,7 @@ commands run from anywhere under `~/Desktop/fleet` default to it.
   filter the output so the value doesn't land in logs or a transcript).
 - **Read into a process:** `infisical run --env=dev -- <cmd>`, or fetch one with
   `infisical secrets get NAME --env=dev --plain`.
-- **Already stored:** `AGENTMAIL_API_KEY`, `EIA_API_KEY` (Fleet project, `dev` env).
+- **Already stored:** `AGENTMAIL_API_KEY`, `EIA_API_KEY`, `OPENSTATES_API_KEY` (Fleet project, `dev` env).
 
 **Automating API-key signups (what works, 2026-06-26).** Proven recipe:
 **Playwright** (isolated venv: `uv venv … && uv pip install playwright && playwright
