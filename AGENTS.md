@@ -125,6 +125,34 @@ When a Next.js marketing surface is consistently over 1 s LCP and the
 content is fully static, that's the signal to port it to Astro instead of
 optimising further.
 
+## Fleet Cloudflare account hygiene
+
+The Cloudflare account stays lean: **one Worker (or Pages project) per product surface.**
+No persistent preview/PR clones accumulating in the dashboard.
+
+Rules:
+- **Never create standalone preview/PR Workers** (`<name>-preview`, `<name>-pr-<n>`).
+  A `deploy-preview` CI job that runs `wrangler deploy --env preview` or
+  `wrangler deploy --name <name>-pr-$PR` creates a *separate* Worker script that is
+  never torn down when the PR closes. This is what produced the fleet's orphan
+  clutter (`email-manager-preview`, `high-signal-web-preview`,
+  `significanthobbies-preview`, `open-historia-pr-*`, `truehire-pr-*`).
+- **For PR previews, use ephemeral, self-cleaning mechanisms instead:**
+  - `wrangler versions upload` → a preview URL on the **same** Worker (no new script), or
+  - Cloudflare Pages preview deployments (auto-expire), or
+  - if a per-PR Worker is truly unavoidable, pair it with a teardown step
+    (`wrangler delete --name <name>-pr-$PR`) in an
+    `on: pull_request: types: [closed]` job so nothing persists.
+- **Deploy each product from one wrangler config to one name.** Don't suffix names
+  per branch/env unless the env is a real, permanent, separately-routed surface.
+- **When auditing the account,** orphan `-preview`/`-pr-N` Workers with no custom
+  domain or route are cleanup targets — delete them *and* remove the workflow job
+  that recreates them, or they come straight back on the next PR.
+- **Pages "Git Provider: No" is expected** for fleet products: they deploy via
+  `wrangler pages deploy` (direct upload) per the deployment standard above, not
+  Cloudflare's GitHub integration. Do not "reconnect" them to Git to chase a green
+  checkmark — the CLI/CI deploy is the source of truth.
+
 ## Learning tracks for fancy-tech projects
 
 Any fleet project using "fancy" / non-standard tech (ML/AI internals, novel runtimes, systems programming, exotic frameworks, research-y stacks) maintains a **short learning track** alongside the code. Skip for plain full-stack work (typical CRUD apps, standard Next.js + Drizzle + Turso glue, standard auth) — it's noise there.
