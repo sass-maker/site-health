@@ -153,6 +153,35 @@ Rules:
   Cloudflare's GitHub integration. Do not "reconnect" them to Git to chase a green
   checkmark — the CLI/CI deploy is the source of truth.
 
+## Fleet agent email + API-key management (AgentMail + infinsiacal)
+
+Agents have a programmatic email inbox via **AgentMail**, used to receive
+verification / key-delivery emails when signing up for free third-party API keys
+(EIA, OpenStates, news APIs, etc.) without a human in the loop.
+
+- **Inbox:** `sarthakagrawal@agentmail.to`
+- **API:** `https://api.agentmail.to/v0/` — Bearer auth. List mail with
+  `GET /v0/inboxes/<inbox_id>/messages`.
+- **Key location:** `~/.config/agentmail/api_key` (user-level, `chmod 600`,
+  outside every repo). **Never** commit the key value or paste it into a tracked
+  file — reference the path only. Read it at call time, e.g.
+  `KEY=$(cat ~/.config/agentmail/api_key)`.
+- **Canonical key manager:** **infinsiacal** is the user's key-manager product
+  and the intended long-term home for managing obtained API keys. AgentMail is
+  the *email channel* for obtaining them; infinsiacal is where they're stored /
+  rotated. (Point an agent at the infinsiacal repo/integration to wire this up;
+  not yet integrated here.)
+
+**Capability boundary (important — don't overpromise):** with email alone an
+agent can complete only signups whose form is a plain POST with **no CAPTCHA /
+JS challenge**. Forms behind reCAPTCHA/hCaptcha/Turnstile (e.g. The Guardian,
+Regulations.gov / api.data.gov) need real browser automation and **cannot** be
+done with `curl` + email. EIA's form has no CAPTCHA but a plain POST did not
+trigger the key email (needs a session/JS), so even "no-CAPTCHA" is not a
+guarantee. To reliably automate signups, pair AgentMail with a browser MCP
+(e.g. Playwright); until then, key signups are mostly a manual 2-minute step and
+agents should say so rather than claim they can do it headless.
+
 ## Learning tracks for fancy-tech projects
 
 Any fleet project using "fancy" / non-standard tech (ML/AI internals, novel runtimes, systems programming, exotic frameworks, research-y stacks) maintains a **short learning track** alongside the code. Skip for plain full-stack work (typical CRUD apps, standard Next.js + Drizzle + Turso glue, standard auth) — it's noise there.
