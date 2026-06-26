@@ -169,11 +169,16 @@ verification / key-delivery emails when signing up for free third-party API keys
 
 **Secrets manager: Infisical** (`infisical` CLI, logged in as the user on
 `app.infisical.com`). This is the canonical home for obtained API keys — store
-them there, not in repos. Workflow once a project is linked (`infisical init`
-writes `.infisical.json`, or pass `--projectId`/`--env`):
-`infisical secrets set NAME="$(cat <path>)" --env=<env>`, and read them back into
-a process with `infisical run -- <cmd>`. The AgentMail key is mirrored here as
-`AGENTMAIL_API_KEY`.
+them there, not in repos. The fleet root has a gitignored `.infisical.json`
+linking the **Fleet** project (`workspaceId 46e20071-…`), so `infisical`
+commands run from anywhere under `~/Desktop/fleet` default to it.
+
+- **Set a secret:** `infisical secrets set NAME="$(cat <path>)" --env=dev`
+  (heads-up: `secrets set` echoes the value in its result table — redirect /
+  filter the output so the value doesn't land in logs or a transcript).
+- **Read into a process:** `infisical run --env=dev -- <cmd>`, or fetch one with
+  `infisical secrets get NAME --env=dev --plain`.
+- **Already stored:** `AGENTMAIL_API_KEY` (Fleet project, `dev` env).
 
 **Capability boundary (important — don't overpromise):** with email alone an
 agent can complete only signups whose form is a plain POST with **no CAPTCHA /
