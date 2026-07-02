@@ -35,6 +35,15 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+git_path_exists() {
+  local repo="$1"
+  local pathspec="$2"
+  local path
+
+  path="$(git -C "$repo" rev-parse --git-path "$pathspec" 2>/dev/null || true)"
+  [[ -n "$path" && -e "$path" ]]
+}
+
 scan_repo() {
   local repo="$1"
 
@@ -54,6 +63,45 @@ scan_repo() {
     git -C "$repo" status --short
   else
     echo "Status: clean"
+  fi
+
+  local operation_states=()
+
+  if git_path_exists "$repo" "MERGE_HEAD"; then
+    operation_states+=("merge in progress")
+  fi
+
+  if git_path_exists "$repo" "rebase-merge" || git_path_exists "$repo" "rebase-apply"; then
+    operation_states+=("rebase in progress")
+  fi
+
+  if git_path_exists "$repo" "CHERRY_PICK_HEAD"; then
+    operation_states+=("cherry-pick in progress")
+  fi
+
+  if git_path_exists "$repo" "REVERT_HEAD"; then
+    operation_states+=("revert in progress")
+  fi
+
+  if git_path_exists "$repo" "BISECT_LOG"; then
+    operation_states+=("bisect in progress")
+  fi
+
+  if [[ ${#operation_states[@]} -gt 0 ]]; then
+    echo "Git operation state:"
+    printf '  - %s\n' "${operation_states[@]}"
+  fi
+
+  local stash_count
+  stash_count="$(git -C "$repo" stash list --format='%gd' | wc -l | tr -d ' ')"
+
+  if [[ "$stash_count" -gt 0 ]]; then
+    echo "Stashes: $stash_count"
+    git -C "$repo" stash list --format='%gd %s' | sed -n '1,5p' | sed 's/^/  - /'
+
+    if [[ "$stash_count" -gt 5 ]]; then
+      echo "  - ... $((stash_count - 5)) more"
+    fi
   fi
 
   local upstream
