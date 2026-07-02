@@ -1,0 +1,55 @@
+name: Fleet PSI Sweep
+
+on:
+  schedule:
+    # Every Monday 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: 'Runs per site'
+        required: false
+        default: '3'
+      concurrency:
+        description: 'Concurrent sites'
+        required: false
+        default: '2'
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install psi-swarm CLI
+        run: |
+          git clone https://github.com/sarthakagrawal927/psi-swarm.git /tmp/psi-swarm
+          cd /tmp/psi-swarm
+          npm install
+          npm run build --if-present
+          mkdir -p ~/.psi-swarm-local/cli
+          cp -r dist ~/.psi-swarm-local/cli/dist
+
+      - name: Run fleet perf sweep
+        run: |
+          cd fleet-ops
+          node scripts/fleet-perf-sweep.mjs \
+            --runs ${{ github.event.inputs.runs || '3' }} \
+            --concurrency ${{ github.event.inputs.concurrency || '2' }}
+
+      - name: Regression check
+        run: |
+          cd fleet-ops
+          node scripts/fleet-perf-regression-check.mjs --threshold 15 || true
+
+      - name: Commit scoreboard
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add fleet-ops/docs/fleet-perf-scoreboard-*.json
+          git commit -m "perf: weekly PSI sweep $(date -u +%Y-%m-%d)" || echo "No changes to commit"
+          git push
