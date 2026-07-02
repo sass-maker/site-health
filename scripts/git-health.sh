@@ -95,6 +95,18 @@ scan_repo() {
     echo "$gone" | sed 's/^/  - /'
   fi
 
+  local unmerged
+  unmerged="$(
+    git -C "$repo" branch --no-merged 2>/dev/null |
+      sed 's/^[* ]*//' |
+      sed '/^$/d'
+  )"
+
+  if [[ -n "$unmerged" ]]; then
+    echo "Local branches not merged into ${branch:-HEAD}:"
+    echo "$unmerged" | sed 's/^/  - /'
+  fi
+
   echo
 }
 
