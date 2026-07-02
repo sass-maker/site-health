@@ -6,6 +6,7 @@ ROOT="$(pwd)"
 TARGETS_FILE="saas-maker/cloudflare.targets.json"
 CHECK_GITHUB=true
 CHECK_CLOUDFLARE=true
+CHECK_STANDARDS=true
 GH_LIMIT=10
 
 usage() {
@@ -15,6 +16,7 @@ usage() {
   echo "  deploy-health.sh --targets path.json     # use a specific Cloudflare target map"
   echo "  deploy-health.sh --no-github             # skip GitHub Actions checks"
   echo "  deploy-health.sh --no-cloudflare         # skip Cloudflare deployment checks"
+  echo "  deploy-health.sh --no-standards          # skip deploy-standard checks"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -33,6 +35,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-cloudflare)
       CHECK_CLOUDFLARE=false
+      shift
+      ;;
+    --no-standards)
+      CHECK_STANDARDS=false
       shift
       ;;
     -h|--help)
@@ -111,6 +117,57 @@ origin_main_sha() {
     git -C "$repo" rev-parse main 2>/dev/null
 }
 
+is_fleet_root_repo() {
+  local repo="$1"
+  [[ "$(cd "$repo" && pwd)" == "$(cd "$ROOT" && pwd)" ]]
+}
+
+is_out_of_fleet_repo() {
+  local repo="$1"
+  local repo_name
+
+  repo_name="$(basename "$repo")"
+
+  case "$repo_name" in
+    local-ai|port-whisperer)
+      return 0
+      ;;
+  esac
+
+  return 1
+}
+
+package_has_deploy_script() {
+  local package_json="$1"
+
+  [[ -f "$package_json" ]] &&
+    jq -e '(.scripts // {}) | keys[]? | select(. == "deploy" or startswith("deploy:"))' "$package_json" >/dev/null
+}
+
+project_has_deploy_script() {
+  local repo="$1"
+
+  if package_has_deploy_script "$repo/package.json"; then
+    return 0
+  fi
+
+  while IFS= read -r -d '' package_json; do
+    if package_has_deploy_script "$package_json"; then
+      return 0
+    fi
+  done < <(
+    find "$repo" -mindepth 2 -maxdepth 3 -name package.json \
+      -not -path '*/node_modules/*' \
+      -not -path '*/.next/*' \
+      -not -path '*/dist/*' \
+      -not -path '*/out/*' \
+      -not -path '*/build/*' \
+      -print0
+  )
+
+  return 1
+}
+
 repo_dir_for_project() {
   local project="$1"
   local normalized
@@ -165,6 +222,11 @@ check_github_actions() {
     local at_head_count
 
     repo="${gitdir%/.git}"
+
+    if is_fleet_root_repo "$repo" || is_out_of_fleet_repo "$repo"; then
+      continue
+    fi
+
     slug="$(github_slug_for_repo "$repo" || true)"
 
     if [[ -z "$slug" ]]; then
@@ -188,7 +250,7 @@ check_github_actions() {
     run_count="$(jq 'length' <<<"$runs_json")"
 
     if [[ "$run_count" -eq 0 ]]; then
-      record "WARN" "$repo has no GitHub Actions runs on main"
+      record "FAIL" "$repo has no GitHub Actions runs on main"
       continue
     fi
 
@@ -224,6 +286,47 @@ check_github_actions() {
       record "WARN" "$repo has skipped latest workflow Actions ($skipped_count): $skipped_summary; latest $latest_summary"
     else
       record "OK" "$repo Actions clean; latest $latest_summary"
+    fi
+  done < <(find "$ROOT" -maxdepth 2 -type d -name ".git" -prune -print0)
+
+  echo
+}
+
+check_project_standards() {
+  echo "== Project Deploy Standards =="
+
+  if ! require_command jq; then
+    return
+  fi
+
+  while IFS= read -r -d '' gitdir; do
+    local repo
+    local workflow_count
+
+    repo="${gitdir%/.git}"
+
+    if is_fleet_root_repo "$repo" || is_out_of_fleet_repo "$repo"; then
+      continue
+    fi
+
+    if [[ -d "$repo/.github/workflows" ]]; then
+      workflow_count="$(
+        find "$repo/.github/workflows" -maxdepth 1 -type f \( -name '*.yml' -o -name '*.yaml' \) 2>/dev/null | wc -l | tr -d ' '
+      )"
+    else
+      workflow_count=0
+    fi
+
+    if [[ "$workflow_count" -eq 0 ]]; then
+      record "FAIL" "$repo has no GitHub Actions workflow files"
+    else
+      record "OK" "$repo has GitHub Actions workflow files ($workflow_count)"
+    fi
+
+    if project_has_deploy_script "$repo"; then
+      record "OK" "$repo has a package deploy script"
+    else
+      record "FAIL" "$repo has no package deploy script"
     fi
   done < <(find "$ROOT" -maxdepth 2 -type d -name ".git" -prune -print0)
 
@@ -351,6 +454,10 @@ check_cloudflare_targets() {
 
   echo
 }
+
+if [[ "$CHECK_STANDARDS" == true ]]; then
+  check_project_standards
+fi
 
 if [[ "$CHECK_GITHUB" == true ]]; then
   check_github_actions

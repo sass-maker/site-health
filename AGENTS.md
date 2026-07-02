@@ -110,6 +110,17 @@ Known Next.js caveat:
 
 Deployment standard:
 
+- `main` is the long-lived stable code line. Keep it releasable, reviewed, and
+  green; do not treat `main` as an automatic production deployment trigger.
+- Production deploys are manual. Deploy only after the relevant project is on
+  clean/synced `main`, GitHub Actions are green, the Cloudflare target is known,
+  and any intentionally batched changes are ready to ship together.
+- Every fleet project should have CI/CD on GitHub Actions and a repo-local
+  deploy command, usually a single package script such as `pnpm deploy`,
+  `npm run deploy`, or `bun run deploy`.
+- Deploy scripts must fail closed when the repo is not on clean/synced `main`
+  or when the latest `main` CI signal is not green. Prefer explicit guards over
+  hidden deploy assumptions.
 - Static Astro / Vite → Cloudflare Pages (`pages_build_output_dir: dist`).
 - Next.js → Cloudflare Workers via OpenNext, with:
   - `output: "standalone"` in `next.config.ts`

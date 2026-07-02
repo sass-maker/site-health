@@ -84,6 +84,17 @@ child repositories and checks Cloudflare deployments listed in
 to `origin/main` by commit prefix; Workers deployments confirm active
 deployment state but do not always expose a Git commit.
 
+Branch/deploy posture:
+
+- `main` is the long-lived stable code line, not an automatic production
+  trigger.
+- Deploys are manual and should happen only after the project is clean, synced
+  to `main`, green in GitHub Actions, and ready to ship as a batch.
+- Every fleet project should have GitHub Actions and a repo-local deploy command
+  such as `pnpm deploy`, `npm run deploy`, or `bun run deploy`.
+- Deploy commands should fail closed if the repo is not on clean/synced `main`
+  or if the latest `main` CI signal is not green.
+
 ## Running Symphony
 
 From `saas-maker`:
