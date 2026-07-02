@@ -69,18 +69,20 @@ Check child repository cleanliness:
 
 ```bash
 cd /Users/sarthak/Desktop/fleet
-find . -mindepth 2 -maxdepth 2 -name .git -type d \
-  -exec sh -c 'repo="${1%/.git}"; printf "\n%s\n" "$repo"; git -C "$repo" status --short --branch' sh {} \;
+./scripts/git-health.sh --all
 ```
 
-Check latest GitHub Actions for a project:
+Check GitHub Actions and Cloudflare deployment health:
 
 ```bash
-gh run list -R sarthakagrawal927/saas-maker --limit 5
+./scripts/deploy-health.sh
 ```
 
-Check Cloudflare deploys with Wrangler or the Cloudflare dashboard when a
-project's deploy target is Cloudflare Workers or Pages.
+The deploy health script is read-only. It checks GitHub Actions for immediate
+child repositories and checks Cloudflare deployments listed in
+`saas-maker/cloudflare.targets.json`. Pages deployments can usually be compared
+to `origin/main` by commit prefix; Workers deployments confirm active
+deployment state but do not always expose a Git commit.
 
 ## Running Symphony
 
