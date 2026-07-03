@@ -164,6 +164,25 @@ Rules:
   Cloudflare's GitHub integration. Do not "reconnect" them to Git to chase a green
   checkmark — the CLI/CI deploy is the source of truth.
 
+## Agent teammate delegation (call-* skills)
+
+Agents on this machine can delegate scoped work to other agent CLIs as
+teammates. The contracts live as skills (progressive disclosure — do not
+inline them here):
+
+- Skills: `~/.claude/skills/call-codex|call-grok|call-claude-code|call-devin`
+  (also visible to the `claude-work` profile via the `~/.claude-work/skills`
+  symlink). Each defines when-to-call, exact invocation, briefing template,
+  output schema, safety bounds, and the review loop.
+- Routing: `~/.claude/teammates/ROSTER.md` — who is strong at what.
+- Outcomes: `~/.claude/teammates/SCORECARD.md` — append one line per
+  delegation; skim before delegating similar work.
+
+Non-negotiables regardless of teammate: explicit sandbox/permission flags
+(never rely on CLI config defaults), delegate only from a clean checkout into
+a worktree, verify diffs and tests yourself, and `< /dev/null` on every
+teammate invocation. Devin is ACU-metered — confirm spend first.
+
 ## Fleet agent email + secrets management (AgentMail + Infisical)
 
 Agents have a programmatic email inbox via **AgentMail**, used to receive
