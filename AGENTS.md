@@ -168,20 +168,24 @@ Rules:
 
 Agents on this machine can delegate scoped work to other agent CLIs as
 teammates. The contracts live as skills (progressive disclosure — do not
-inline them here):
+inline them here). Canonical home: [`agent-teammates/`](./agent-teammates/)
+in this repo (see its README for the symlink wiring into both Claude
+profiles — edit there, not in `~/.claude/skills`):
 
-- Skills: `~/.claude/skills/call-codex|call-grok|call-claude-code|call-devin`
-  (also visible to the `claude-work` profile via the `~/.claude-work/skills`
-  symlink). Each defines when-to-call, exact invocation, briefing template,
-  output schema, safety bounds, and the review loop.
-- Routing: `~/.claude/teammates/ROSTER.md` — who is strong at what.
-- Outcomes: `~/.claude/teammates/SCORECARD.md` — append one line per
-  delegation; skim before delegating similar work.
+- Skills: `agent-teammates/skills/call-codex|call-grok|call-claude-code|call-devin`.
+  Each defines when-to-call, exact invocation, briefing template, output
+  schema, safety bounds, and the review loop.
+- Routing: `agent-teammates/ROSTER.md` — who is strong at what.
+- Outcomes: `agent-teammates/SCORECARD.md` — append one line per delegation;
+  skim before delegating similar work.
 
 Non-negotiables regardless of teammate: explicit sandbox/permission flags
 (never rely on CLI config defaults), delegate only from a clean checkout into
 a worktree, verify diffs and tests yourself, and `< /dev/null` on every
-teammate invocation. Devin is ACU-metered — confirm spend first.
+teammate invocation. Devin is ACU-metered — confirm spend first. If a
+teammate fails on usage/rate limits, fail over down the chain in
+`agent-teammates/ROSTER.md` and log the switch in the scorecard — don't
+retry the exhausted teammate or silently drop the task.
 
 ## Fleet agent email + secrets management (AgentMail + Infisical)
 
