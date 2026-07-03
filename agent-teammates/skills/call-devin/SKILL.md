@@ -8,10 +8,10 @@ description: "Delegate work to Devin CLI (Cognition's agent) as a teammate — l
 Same stance as all teammate skills: specialist contractor; you brief, bound,
 verify, accept or reject.
 
-Installed here: `devin 2026.8.18` (2026-07-03). **Contract documented from
-`--help`, not yet live-verified on this machine** — Devin bills in ACUs, so no
-smoke test was burned. Treat the first real delegation as the verification
-run and scrutinize accordingly.
+Installed here: `devin 2026.8.18`. Live-verified 2026-07-04: a sandboxed
+test-fix delegation produced a minimal in-scope diff, ran the tests itself,
+and reported honestly in a fenced JSON block. Devin bills in ACUs — keep
+delegations scoped and surface expected spend for anything sizable.
 
 ## When to call Devin
 
@@ -30,22 +30,27 @@ run and scrutinize accordingly.
 - Quick scoped edits (cold start + ACU overhead isn't worth it).
 - Without the user's OK on spend for sizable tasks. Say the estimated scope.
 
-## Command contract (from `devin --help`, unverified live)
+## Command contract (verified live 2026-07-04)
 
-Local non-interactive:
+Local non-interactive — **pick one authority model; they don't compose**
+(verified: `--sandbox` warns "always uses the autonomous permission mode"
+and ignores `--permission-mode`):
 
 ```bash
-devin --permission-mode accept-edits --sandbox \
-  --export <scratch>/devin_transcript.md \
-  -p -- "<brief>" < /dev/null
+# OS-sandboxed autonomous (preferred for implementation): seatbelt-enforced
+# read/write scopes, full-auto inside them
+devin --sandbox --export <scratch>/devin_transcript.md -p -- "<brief>" < /dev/null
+
+# Permission-gated, no OS sandbox (read-heavy/analysis work)
+devin --permission-mode auto -p -- "<brief>" < /dev/null
 ```
 
 | Flag | Purpose |
 | --- | --- |
 | `-p, --print` | Non-interactive: process prompt, print response, exit. |
 | `-- <PROMPT>` | Prompt goes after `--` (or `--prompt-file <file>` for long briefs). |
-| `--permission-mode` | `auto` (default, read-only auto-approved) \| `accept-edits` \| `smart` \| `dangerous`. Never `dangerous`. |
-| `--sandbox` | OS-level enforcement of read/write scopes (macOS seatbelt). Use for implementation runs. |
+| `--permission-mode` | `auto` (default, read-only auto-approved) \| `accept-edits` \| `smart` \| `dangerous`. Never `dangerous`. Ignored when `--sandbox` is set. |
+| `--sandbox` | OS-level enforcement of read/write scopes (macOS seatbelt) + autonomous mode. Use for implementation runs. |
 | `--model <m>` | e.g. `opus`, `claude-sonnet-4`, `codex`. |
 | `--export [<path>]` | Write the transcript after each turn — your audit trail. |
 | `-r, --resume [<id>]` | Resume a session (`devin list` shows sessions for the cwd). |

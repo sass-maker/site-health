@@ -172,7 +172,7 @@ inline them here). Canonical home: [`agent-teammates/`](./agent-teammates/)
 in this repo (see its README for the symlink wiring into both Claude
 profiles — edit there, not in `~/.claude/skills`):
 
-- Skills: `agent-teammates/skills/call-codex|call-grok|call-claude-code|call-devin`.
+- Skills: `agent-teammates/skills/call-codex|call-grok|call-claude-code|call-devin|call-cursor`.
   Each defines when-to-call, exact invocation, briefing template, output
   schema, safety bounds, and the review loop.
 - Routing: `agent-teammates/ROSTER.md` — who is strong at what.

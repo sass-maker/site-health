@@ -11,6 +11,8 @@ to brief it, how much authority to give it, and how to verify its work.
 - `skills/call-grok/` — Grok CLI; best-of-N, self-check, native worktrees.
 - `skills/call-claude-code/` — fresh headless Claude Code; both profiles.
 - `skills/call-devin/` — Devin CLI; cloud sessions; ACU-metered.
+- `skills/call-cursor/` — Cursor Agent CLI; fast implementation; verified
+  worktree isolation; separate quota.
 - `ROSTER.md` — comparative routing table (who is strong at what).
 - `SCORECARD.md` — append-only outcome log, one line per delegation.
 

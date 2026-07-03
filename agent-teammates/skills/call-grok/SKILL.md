@@ -57,8 +57,9 @@ grok -p "<brief>" --output-format json --always-approve \
   --max-turns 20 --cwd /tmp/wt-<task> < /dev/null
 ```
 
-(Granular `--allow` rules may permit narrower grants than
-`--always-approve` — untested here.)
+(Granular `--allow` rules do NOT substitute — verified failed: Claude-Code
+style rules like `--allow "Bash(python3 *)"` alongside `acceptEdits` still
+ended `Cancelled` before the first edit on 0.2.60.)
 
 Hard task, parallel attempts with self-verification:
 
