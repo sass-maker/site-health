@@ -3,54 +3,26 @@
 from __future__ import annotations
 
 import argparse
-import re
 import sys
+from pathlib import Path
 
-
-def norm(s: str) -> str:
-    s = s.lower().strip()
-    s = re.sub(r"^https?://", "", s)
-    s = re.sub(r"^www\.", "", s)
-    s = re.sub(r"\.[a-z]{2,}$", "", s)
-    return re.sub(r"[^a-z0-9]", "", s)
-
-
-def levenshtein(a: str, b: str) -> int:
-    if not a:
-        return len(b)
-    if not b:
-        return len(a)
-    prev = list(range(len(b) + 1))
-    for i, ca in enumerate(a, 1):
-        cur = [i]
-        for j, cb in enumerate(b, 1):
-            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
-        prev = cur
-    return prev[-1]
-
-
-def similarity(a: str, b: str) -> float:
-    if not a or not b:
-        return 0.0
-    if a == b:
-        return 1.0
-    d = levenshtein(a, b)
-    return 1 - d / max(len(a), len(b))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lib.common import load_lines, norm_name, parse_sld_line, seeds_for_category, similarity, skill_root
 
 
 def collision_level(sld: str, corpus: list[str]) -> tuple[str, str, float]:
-    t = norm(sld)
+    t = norm_name(sld)
     best_name = ""
     best_sim = 0.0
     substring = False
 
     for comp in corpus:
-        c = norm(comp)
-        if not c:
+        c = norm_name(comp)
+        if not c or len(c) < 3:
             continue
         if t == c:
             return "high", c, 1.0
-        if t in c or c in t:
+        if len(c) >= 4 and (t in c or c in t):
             substring = True
         sim = similarity(t, c)
         if sim > best_sim:
@@ -69,25 +41,27 @@ def main() -> None:
     p.add_argument("slds", nargs="*")
     p.add_argument("--competitors", default="", help="comma-separated")
     p.add_argument("--seeds-file", default="", help="path to seed list")
+    p.add_argument("--category", default="general", help="health|saas|devtools|consumer|ai|general")
     p.add_argument("--header", action="store_true")
     args = p.parse_args()
 
     corpus: list[str] = []
     if args.competitors:
-        corpus.extend(args.competitors.split(","))
-    if args.seeds_file:
-        with open(args.seeds_file, encoding="utf-8") as f:
-            corpus.extend(ln.strip() for ln in f if ln.strip() and not ln.startswith("#"))
+        corpus.extend(x.strip() for x in args.competitors.split(",") if x.strip())
+    seeds_path = Path(args.seeds_file) if args.seeds_file else seeds_for_category(args.category)
+    corpus.extend(load_lines(seeds_path))
 
-    slds = args.slds
-    if not slds and not sys.stdin.isatty():
-        slds = [ln.strip() for ln in sys.stdin if ln.strip()]
+    rows_in: list[str] = list(args.slds)
+    if not rows_in and not sys.stdin.isatty():
+        rows_in = [ln for ln in sys.stdin if ln.strip()]
 
     if args.header:
         print("sld\tcollision\tclosest\tsimilarity")
 
-    for raw in slds:
-        sld = raw.split()[0].lower().split(".")[0]
+    for raw in rows_in:
+        sld, _ = parse_sld_line(raw)
+        if not sld:
+            continue
         level, closest, sim = collision_level(sld, corpus)
         print(f"{sld}\t{level}\t{closest}\t{sim:.2f}")
 
