@@ -56,6 +56,7 @@ worked on together as one effort).
 
 **Data** — the data is the asset, public surface is the product
 
+- [everythingrated](https://github.com/sarthak-fleet/everythingrated) — multi-axis ratings platform (AI dev-tool adoption)
 - [materia](https://github.com/sarthak-fleet/materia) — evidence-graded herbs/supplements/drugs by body part
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
 - [starboard](https://github.com/sarthak-fleet/starboard) — GitHub stars organizer + semantic search
