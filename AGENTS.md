@@ -44,6 +44,38 @@ Fleet UI standard:
 - Do not add paid assets or broad UI dependencies without explicit approval. Explain any new UI dependency with why this, why now, and why existing code is insufficient.
 - Verify meaningful visual changes with a browser check or screenshot across relevant desktop/mobile states.
 
+Fleet spec-driven development standard (OpenSpec):
+- Any non-trivial new feature in any fleet project starts with the OpenSpec
+  workflow BEFORE feature code is written. This is a strong default, not a
+  suggestion. Invoke the `spec-driven` skill (symlinked into every agent's
+  skill dir) at the moment feature intent is detected.
+- **Trigger** when the user says "build X" / "add X" / "implement X" / "let's
+  add X", or when work introduces a new surface, route, command, capability,
+  or multi-file behavior change. **Skip** for bug fixes, cleanup, dep bumps,
+  copy edits, single-file polish, test additions for existing behavior, and
+  config/CI tweaks. When in doubt, run the workflow — a 5-minute proposal is
+  cheaper than building the wrong thing.
+- Workflow: `/opsx:explore` (optional, for ambiguous features) →
+  `/opsx:propose <feature>` (mandatory, creates `openspec/changes/<feature>/`
+  with proposal/specs/design/tasks) → `/opsx:apply` (implement tasks.md) →
+  `/opsx:archive` on ship.
+- Cross-repo features (umbrella + sub-product, support infra + consumer) use
+  OpenSpec **Stores** — one plan in a store, code lands in multiple repos.
+  Do not duplicate the same change into per-repo `openspec/changes/`.
+- Boundary with existing fleet docs: OpenSpec owns the **feature lifecycle**
+  (propose → apply → archive). `PROJECT_STATUS.md` owns the **product
+  lifecycle** (shipped / planned / blocked). They meet at archive time — the
+  shipped feature moves from OpenSpec into PROJECT_STATUS.md. Symphony tasks
+  remain the operational work queue for bug fixes, cleanup, and follow-ups.
+- Pre-flight: `openspec --version` (install `npm install -g
+  @fission-ai/openspec@latest` if missing), `openspec init` if the project
+  has no `openspec/` dir, `openspec list --specs` to read existing specs.
+- Anti-patterns: writing feature code before `proposal.md` exists, skipping
+  propose because "it's obvious", letting `openspec/changes/` accumulate
+  unarchived, duplicating proposals into `docs/plans/`, per-repo changes for
+  cross-repo features.
+- See `fleet-ops/skills/spec-driven/SKILL.md` for the full contract.
+
 Ownership has boundaries:
 - Do not run destructive commands unless explicitly asked.
 - Do not touch secrets, env files, SSH keys, cloud credentials, kube configs, or production configs unless explicitly asked.
@@ -183,7 +215,8 @@ fleet-ops/
 │   ├── fleet-deploy-guard/ ← subskill: deploy readiness gate
 │   ├── fleet-workspace/ ← subskill: cross-project workspace decisions
 │   ├── name-domains/    ← standalone: domain name generation
-│   └── codevetter-install/ ← standalone: reinstall CodeVetter desktop app
+│   ├── codevetter-install/ ← standalone: reinstall CodeVetter desktop app
+│   └── spec-driven/     ← standalone: OpenSpec spec-driven dev workflow for new features
 ├── teammates/skills/    ← delegation skills
 │   ├── call-teammate/   ← parent: routes to 5 call-* subskills
 │   ├── call-claude-code/ ← subskill
@@ -201,7 +234,7 @@ fleet-ops/
 
 ### Skill discovery (progressive disclosure)
 
-Only 5 skills are symlinked into each agent's skill dir — 2 parents + 3 standalones:
+Only 6 skills are symlinked into each agent's skill dir — 2 parents + 4 standalones:
 
 | Symlink | Type | Routes to |
 |---|---|---|
@@ -210,6 +243,7 @@ Only 5 skills are symlinked into each agent's skill dir — 2 parents + 3 standa
 | `name-domains` | standalone | — |
 | `codevetter-install` | standalone | — |
 | `psi-swarm` | standalone | — |
+| `spec-driven` | standalone | OpenSpec workflow for new features |
 
 Agent skill dirs wired (symlinks point to `fleet-ops/` paths):
 - `~/.claude/skills/` (Claude Code)
