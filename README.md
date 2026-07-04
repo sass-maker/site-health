@@ -44,7 +44,7 @@ child project remains its own separate repository.
 - [tinygpt](https://github.com/sarthak-fleet/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 - [truehire](https://github.com/sarthak-fleet/truehire) — verified-candidate GitHub scoring
 
-> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): psi-swarm, pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed).
+> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed). psi-swarm now lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool.
 
 ## Work Tracking
 
