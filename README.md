@@ -11,7 +11,7 @@ This directory is the local workspace for the personal project fleet.
 This root is its own lightweight repository for Fleet-wide policy and docs. Each
 child project remains its own separate repository.
 
-## Products (28)
+## Products (26 active)
 
 **Platform & shared infra**
 
@@ -27,7 +27,6 @@ child project remains its own separate repository.
 - [drank](https://github.com/sarthak-fleet/drank) — Ahrefs Domain Rating tracker, 100% client-side
 - [email-manager](https://github.com/sarthak-fleet/email-manager) — Gmail workspace with local semantic search
 - [everythingrated](https://github.com/sarthak-fleet/everythingrated) — multi-axis ratings platform (rate across aspect sets)
-- [forecast-lab](https://github.com/sarthak-fleet/forecast-lab) — eval-first ML lab: forecasting + recsys benchmarks
 - [high-signal](https://github.com/sarthak-fleet/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
 - [karte](https://github.com/sarthak-fleet/karte) — AI link-in-bio: chat, encyclopedia, roast modes ([karte.cc](https://karte.cc))
 - [looptv](https://github.com/sarthak-fleet/looptv) — TV-style random video player
@@ -43,9 +42,17 @@ child project remains its own separate repository.
 - [swe-interview-prep](https://github.com/sarthak-fleet/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [taste](https://github.com/sarthak-fleet/taste) — ShipRank: pre-A/B / screenshot ranking for teams
 - [tinygpt](https://github.com/sarthak-fleet/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
-- [today-little-log](https://github.com/sarthak-fleet/today-little-log) — personal life PWA: scoreboard, rituals, habits
 - [truehire](https://github.com/sarthak-fleet/truehire) — verified-candidate GitHub scoring
-- [verified-bases](https://github.com/sarthak-fleet/verified-bases) — storefront for verified software starter "Bases"
+
+**Delayed (parked, not archived)**
+
+- [companion-robot](https://github.com/sarthak-fleet/companion-robot) — Pace-brained home companion robot (no hardware ordered yet)
+- [forecast-lab](https://github.com/sarthak-fleet/forecast-lab) — eval-first ML learning lab (forecasting + recsys benchmarks)
+
+**Archived**
+
+- [today-little-log](https://github.com/sarthak-fleet/today-little-log) — merged into significanthobbies 2026-07-02; repo kept as history
+- [verified-bases](https://github.com/sarthak-fleet/verified-bases) — verified starter "Bases" storefront; paid checkout never landed, archived 2026-07-04
 
 > Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): psi-swarm, pinpoint, portfolio, local-ai.
 
