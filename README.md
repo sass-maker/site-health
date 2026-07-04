@@ -11,7 +11,7 @@ This directory is the local workspace for the personal project fleet.
 This root is its own lightweight repository for Fleet-wide policy and docs. Each
 child project remains its own separate repository.
 
-## Products (26 active)
+## Products (25 active)
 
 **Platform & shared infra**
 
@@ -44,17 +44,7 @@ child project remains its own separate repository.
 - [tinygpt](https://github.com/sarthak-fleet/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 - [truehire](https://github.com/sarthak-fleet/truehire) — verified-candidate GitHub scoring
 
-**Delayed (parked, not archived)**
-
-- [companion-robot](https://github.com/sarthak-fleet/companion-robot) — Pace-brained home companion robot (no hardware ordered yet)
-- [forecast-lab](https://github.com/sarthak-fleet/forecast-lab) — eval-first ML learning lab (forecasting + recsys benchmarks)
-
-**Archived**
-
-- [today-little-log](https://github.com/sarthak-fleet/today-little-log) — merged into significanthobbies 2026-07-02; repo kept as history
-- [verified-bases](https://github.com/sarthak-fleet/verified-bases) — verified starter "Bases" storefront; paid checkout never landed, archived 2026-07-04
-
-> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): psi-swarm, pinpoint, portfolio, local-ai.
+> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): psi-swarm, pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed).
 
 ## Work Tracking
 
