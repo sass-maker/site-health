@@ -168,15 +168,15 @@ Rules:
 
 Agents on this machine can delegate scoped work to other agent CLIs as
 teammates. The contracts live as skills (progressive disclosure — do not
-inline them here). Canonical home: [`agent-teammates/`](./agent-teammates/)
+inline them here). Canonical home: [`fleet-ops/teammates/`](./fleet-ops/teammates/)
 in this repo (see its README for the symlink wiring into both Claude
 profiles — edit there, not in `~/.claude/skills`):
 
-- Skills: `agent-teammates/skills/call-codex|call-grok|call-claude-code|call-devin|call-cursor`.
+- Skills: `fleet-ops/teammates/skills/call-codex|call-grok|call-claude-code|call-devin|call-cursor`.
   Each defines when-to-call, exact invocation, briefing template, output
   schema, safety bounds, and the review loop.
-- Routing: `agent-teammates/ROSTER.md` — who is strong at what.
-- Outcomes: `agent-teammates/SCORECARD.md` — append one line per delegation;
+- Routing: `fleet-ops/teammates/ROSTER.md` — who is strong at what.
+- Outcomes: `fleet-ops/teammates/SCORECARD.md` — append one line per delegation;
   skim before delegating similar work.
 
 Non-negotiables regardless of teammate: explicit sandbox/permission flags
@@ -184,7 +184,7 @@ Non-negotiables regardless of teammate: explicit sandbox/permission flags
 a worktree, verify diffs and tests yourself, and `< /dev/null` on every
 teammate invocation. Devin is ACU-metered — confirm spend first. If a
 teammate fails on usage/rate limits, fail over down the chain in
-`agent-teammates/ROSTER.md` and log the switch in the scorecard — don't
+`fleet-ops/teammates/ROSTER.md` and log the switch in the scorecard — don't
 retry the exhausted teammate or silently drop the task.
 
 ## Fleet agent email + secrets management (AgentMail + Infisical)
@@ -265,7 +265,7 @@ When starting work in a fancy-tech project:
 2. If missing, propose creating it as a short topic stub list (confirm first — it's a structural addition).
 3. If present, append a new stub when novel tech enters the code; leave `Why here:` as `TBD` for the user to fill after learning.
 
-The fleet-wide audit and per-project scaffold notes live at `docs/learning-track-audit.md`.
+The fleet-wide audit and per-project scaffold notes live at `fleet-ops/docs/learning-track-audit.md`.
 
 ## Out-of-fleet projects
 

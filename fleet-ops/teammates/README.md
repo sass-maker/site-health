@@ -21,9 +21,9 @@ to brief it, how much authority to give it, and how to verify its work.
 Claude Code discovers skills via symlinks from the profile skill dirs:
 
 ```
-~/.claude/skills/call-*      -> ~/Desktop/fleet/agent-teammates/skills/call-*
+~/.claude/skills/call-*      -> ~/Desktop/fleet/fleet-ops/teammates/skills/call-*
 ~/.claude-work/skills        -> ~/.claude/skills          (whole-dir symlink)
-~/.claude/teammates          -> ~/Desktop/fleet/agent-teammates
+~/.claude/teammates          -> ~/Desktop/fleet/fleet-ops/teammates
 ```
 
 Both hops are verified working (skill discovery follows symlinks). Other

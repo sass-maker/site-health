@@ -103,9 +103,7 @@ tooling. Its `.gitignore` ignores every child project (`/*`) and allowlists:
 
 - `README.md`, `AGENTS.md`, `CLAUDE.md`, `LANDING_STANDARD.md`, `.gitignore`
 - `assets/` — workspace logo + shared art
-- `docs/` — workspace-level reference + runbooks
-- `scripts/` + `.agents/` — fleet agent tooling and linkers
-- `fleet-ops/` — cross-fleet tooling (perf sweeps, audits) + retired-project archives
+- `fleet-ops/` — all fleet tooling: scripts, skills, teammates, docs, templates, psi-swarm, retired-project archives
 
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.
