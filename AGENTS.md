@@ -164,15 +164,13 @@ Rules:
   Cloudflare's GitHub integration. Do not "reconnect" them to Git to chase a green
   checkmark — the CLI/CI deploy is the source of truth.
 
-## Agent teammate delegation (call-* skills)
+## Agent teammate delegation (call-teammate parent skill)
 
 Agents on this machine can delegate scoped work to other agent CLIs as
-teammates. The contracts live as skills (progressive disclosure — do not
-inline them here). Canonical home: [`fleet-ops/teammates/`](./fleet-ops/teammates/)
-in this repo (see its README for the symlink wiring into both Claude
-profiles — edit there, not in `~/.claude/skills`):
+teammates. The `call-teammate` parent skill (at `fleet-ops/teammates/skills/call-teammate/`)
+routes to the right subskill based on which CLI the user names:
 
-- Skills: `fleet-ops/teammates/skills/call-codex|call-grok|call-claude-code|call-devin|call-cursor`.
+- Subskills: `fleet-ops/teammates/skills/call-codex|call-grok|call-claude-code|call-devin|call-cursor`.
   Each defines when-to-call, exact invocation, briefing template, output
   schema, safety bounds, and the review loop.
 - Routing: `fleet-ops/teammates/ROSTER.md` — who is strong at what.
