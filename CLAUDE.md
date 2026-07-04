@@ -7,5 +7,6 @@ Follow the shared fleet agent standard:
 
 @AGENTS.md
 
-See also `LANDING_STANDARD.md` for landing-page conventions and `fleet-ops/` for
-cross-fleet tooling (perf sweeps, audits) and retired-project archives.
+See also:
+- `LANDING_STANDARD.md` for landing-page conventions
+- `fleet-ops/` for all fleet tooling — skills, scripts, docs, templates, teammates, psi-swarm (see the "Fleet tooling architecture" section in AGENTS.md for the full structure and skill discovery model)

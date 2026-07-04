@@ -164,6 +164,70 @@ Rules:
   Cloudflare's GitHub integration. Do not "reconnect" them to Git to chase a green
   checkmark — the CLI/CI deploy is the source of truth.
 
+## Fleet tooling architecture (fleet-ops/)
+
+All fleet tooling — skills, scripts, docs, templates, teammates, and the
+psi-swarm tool — lives under `fleet-ops/` in this repo. It is the single
+version-controlled home. Agents discover skills via symlinks from their
+profile skill dirs into `fleet-ops/`; edit skills in the repo, never in
+the symlink targets.
+
+### Structure
+
+```
+fleet-ops/
+├── skills/              ← fleet operational skills
+│   ├── fleet-ops/       ← parent: routes to fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace
+│   ├── fleet-audit/     ← subskill: fleet health / status / full audit (3 modes)
+│   ├── fleet-init/      ← subskill: scaffold new fleet projects
+│   ├── fleet-deploy-guard/ ← subskill: deploy readiness gate
+│   ├── fleet-workspace/ ← subskill: cross-project workspace decisions
+│   ├── name-domains/    ← standalone: domain name generation
+│   └── codevetter-install/ ← standalone: reinstall CodeVetter desktop app
+├── teammates/skills/    ← delegation skills
+│   ├── call-teammate/   ← parent: routes to 5 call-* subskills
+│   ├── call-claude-code/ ← subskill
+│   ├── call-codex/      ← subskill
+│   ├── call-cursor/     ← subskill
+│   ├── call-devin/      ← subskill
+│   └── call-grok/       ← subskill
+├── psi-swarm/           ← standalone: Lighthouse perf audits (skill + CLI tool)
+├── scripts/             ← fleet scripts (health checks, perf sweeps, bench-launch, link/unlink)
+├── docs/                ← living docs (runbook, agent-layering, perf-monitoring, audits)
+│   └── archive/         ← dated snapshots (not living reference)
+├── templates/           ← shared code templates (api-timing.ts)
+└── teammates/           ← ROSTER.md, SCORECARD.md (delegation routing + outcomes)
+```
+
+### Skill discovery (progressive disclosure)
+
+Only 5 skills are symlinked into each agent's skill dir — 2 parents + 3 standalones:
+
+| Symlink | Type | Routes to |
+|---|---|---|
+| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace |
+| `call-teammate` | parent | call-claude-code, call-codex, call-cursor, call-devin, call-grok |
+| `name-domains` | standalone | — |
+| `codevetter-install` | standalone | — |
+| `psi-swarm` | standalone | — |
+
+Agent skill dirs wired (symlinks point to `fleet-ops/` paths):
+- `~/.claude/skills/` (Claude Code)
+- `~/.codex/skills/` (Codex CLI)
+- `~/.cursor/skills/` (Cursor)
+- `~/.config/devin/skills/` (Devin CLI)
+
+Agents load the parent skill, read the routing table, then load the relevant
+subskill's SKILL.md on demand. Subskills are not symlinked individually —
+they're discovered via the parent.
+
+### Adding a new skill
+
+1. Create `fleet-ops/skills/<name>/SKILL.md` (or under `teammates/skills/` for delegation).
+2. If it belongs under an existing parent, add a row to the parent's routing table.
+3. If standalone, symlink it into each agent skill dir: `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/skills/`, `~/.config/devin/skills/`.
+4. Commit and push.
+
 ## Agent teammate delegation (call-teammate parent skill)
 
 Agents on this machine can delegate scoped work to other agent CLIs as
@@ -267,12 +331,15 @@ The fleet-wide audit and per-project scaffold notes live at `fleet-ops/docs/lear
 
 ## Out-of-fleet projects
 
-The following directories under `fleet/` are personal sandboxes / external
-sources / library code and are NOT part of the fleet product surface.
-Do not include them in fleet-wide sweeps, perf audits, or standardisation
-passes; do not write fleet-wide tasks against them.
+The following projects have been moved to the personal GitHub account
+([sarthakagrawal927](https://github.com/sarthakagrawal927)) and are NOT part
+of the fleet product surface. Do not include them in fleet-wide sweeps, perf
+audits, or standardisation passes; do not write fleet-wide tasks against them.
 
-- `port-whisperer/` — sandbox / library
-- `local-ai/` — internal bridge service used during dev, not a fleet product
+- `today-little-log` — archived (merged into significanthobbies)
+- `verified-bases` — archived
+- `companion-robot` — delayed
+- `forecast-lab` — delayed
 
-If a sweep touches all fleet projects, exclude these by name.
+If a sweep touches all fleet projects, exclude these by name. The 25 active
+fleet products are listed in the fleet `README.md`.
