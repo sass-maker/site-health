@@ -21,14 +21,14 @@ worked on together as one effort).
 **Support** — infrastructure serving other fleet projects
 
 - [saas-maker](https://github.com/sarthak-fleet/saas-maker) — the Foundry: system-of-record, SDKs, widgets, CF API + cockpit ([sassmaker.com](https://sassmaker.com))
-- [free-ai](https://github.com/sarthak-fleet/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free providers
+- [free-ai](https://github.com/sarthak-fleet/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
 - [reel-pipeline](https://github.com/sarthak-fleet/reel-pipeline) — AI short-form video generation pipeline (feeds SaaS Maker marketing queue)
 - [drank](https://github.com/sarthak-fleet/drank) — Ahrefs Domain Rating tracker (feeds High Signal /domains)
 
 **Support + SaaS** — support infra that is also a public product
 
 - [codevetter](https://github.com/sarthak-fleet/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com))
-- [knowledge-base](https://github.com/sarthak-fleet/knowledge-base) — RAG service: retrieval + entity extraction + cited answers
+- [knowledge-base](https://github.com/sarthak-fleet/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
 - [high-signal](https://github.com/sarthak-fleet/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
 - [taste](https://github.com/sarthak-fleet/taste) — ShipRank: pre-A/B / screenshot ranking for teams
 
@@ -41,7 +41,7 @@ worked on together as one effort).
 
 **Personal + free-tool** — built for personal use, free public tool
 
-- [significanthobbies](https://github.com/sarthak-fleet/significanthobbies) — hobby discovery + journaling ([significanthobbies.com](https://significanthobbies.com))
+- [significanthobbies](https://github.com/sarthak-fleet/significanthobbies) — life planner: private daily rituals + public living (hobbies, bucket lists, side quests) ([significanthobbies.com](https://significanthobbies.com))
 - [reader](https://github.com/sarthak-fleet/reader) — research library: capture, annotate, AI-chat
 - [anime-list](https://github.com/sarthak-fleet/anime-list) — anime/manga discovery with multi-axis filtering + watchlists
 - [swe-interview-prep](https://github.com/sarthak-fleet/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
@@ -50,7 +50,7 @@ worked on together as one effort).
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
-- [rolepatch](https://github.com/sarthak-fleet/rolepatch) — LaTeX resume editor with AI job tailoring ([rolepatch.com](https://rolepatch.com)) — **umbrella for the hiring line**
+- [rolepatch](https://github.com/sarthak-fleet/rolepatch) — AI resume tailoring + job-application assistant (cover letters, company research, role-fit scoring, STAR prep) ([rolepatch.com](https://rolepatch.com)) — **umbrella for the hiring line**
   - [truehire](https://github.com/sarthak-fleet/truehire) — verified-candidate GitHub scoring (sub-product of rolepatch, separate repo)
 - [karte](https://github.com/sarthak-fleet/karte) — AI link-in-bio: chat, encyclopedia, roast modes ([karte.cc](https://karte.cc))
 
@@ -61,7 +61,7 @@ worked on together as one effort).
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
 - [starboard](https://github.com/sarthak-fleet/starboard) — GitHub stars organizer + semantic search
 
-> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed). psi-swarm now lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool.
+> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
 
 ## Work Tracking
 
