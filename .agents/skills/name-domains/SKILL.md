@@ -1,164 +1,174 @@
 ---
 name: name-domains
 description: >
-  Generate tasteful, likely-available domain names for a startup idea. Brainstorms
-  names, checks availability via public RDAP/DNS (scripts/check-domains.sh), scans
-  competitor collision, returns a grouped shortlist with live-check links. Use when
-  the user asks for domain names, naming help, brandable domains, "name my startup",
-  availability checks, or runs /name-domains. No backend, no signup — works out of
-  the box. Reads PROJECT_STATUS.md when working in a fleet repo.
+  Generate tasteful, likely-available domain names for a startup idea. Uses helper
+  scripts for taste scoring, collision scan, and RDAP/DNS availability. Reads
+  PROJECT_STATUS.md in fleet repos. Use for domain names, brandable domains, naming
+  help, "name my startup", availability checks, or /name-domains. No backend or
+  signup — works out of the box.
 ---
 
 # Name Domains
 
 Give me an idea. I'll return tasteful, likely-available domains that don't collide with the market.
 
-**Single skill. No backend. No API keys.** Use `scripts/check-domains.sh` for consistent availability probes.
+**Single skill. No backend. No API keys.**
 
-## Setup
+Skill root: `.agents/skills/name-domains/` (scripts + references below).
 
-**Default: nothing.** Invoke `/name-domains` and go.
+## Tools (always use these — do not reimplement)
 
-**Only ask the user for input** when the brief is incomplete (step 1). No registrar logins, API keys, or payment.
-
-**Helper script** (run from repo root or pass full path):
+| Script | Purpose |
+| --- | --- |
+| `scripts/check-domains.sh` | RDAP/DNS availability → TSV |
+| `scripts/score-taste.py` | Mechanical taste score 0–100 |
+| `scripts/score-collision.py` | Competitor collision → TSV |
+| `references/blocked-slds.txt` | Generic SLDs to skip |
+| `references/competitor-seeds-*.txt` | Category competitor seeds |
 
 ```bash
-bash .agents/skills/name-domains/scripts/check-domains.sh \
-  phytoproof evidcite remegram --tlds com,io
-# TSV: domain  status  source  note
+SKILL=".agents/skills/name-domains"
+
+# Availability (Pass A: .com only first)
+bash "$SKILL/scripts/check-domains.sh" --header sld1 sld2 --tlds com
+
+# Taste
+python3 "$SKILL/scripts/score-taste.py" --header --idea "..." --vibe "..." sld1 sld2
+
+# Collision
+python3 "$SKILL/scripts/score-collision.py" --header \
+  --competitors "Examine,BioDigital" \
+  --seeds-file "$SKILL/references/competitor-seeds-health.txt" \
+  sld1 sld2
 ```
 
-Stdin also works: `printf '%s\n' phytoproof evidcite | bash .../check-domains.sh --tlds com`
+## Mandatory checklist
+
+Before returning output, confirm every box:
+
+- [ ] Step 0: checked repo context + existing domain
+- [ ] Step 1: brief complete (`idea` minimum)
+- [ ] Step 2: ≥50 candidates across ≥4 naming styles
+- [ ] Step 3: pre-filtered blocked/generic/collision-high
+- [ ] Step 4–5: `score-taste.py` + say-aloud test on top 20
+- [ ] Step 6 Pass A: `check-domains.sh --tlds com` on top 20
+- [ ] Step 6 Pass B: `--tlds io,co` only on Pass A survivors (max 15 SLDs)
+- [ ] Step 7: `score-collision.py` on finalists
+- [ ] Step 8: live-check links on every listed domain
+- [ ] Output includes Existing name, Top picks (with say-aloud), Taken/skipped
 
 ## Workflow
 
-### 0. Project context (when in a repo)
+### 0. Project context (fleet repos)
 
-Before asking questions, check whether the project is already named:
+Read before asking questions:
 
-1. Read `PROJECT_STATUS.md` (Why/What, Products URLs)
-2. Read `package.json` → `homepage`, `name`, `description`
-3. Read `README.md` first paragraph if needed
+1. `PROJECT_STATUS.md` — Why/What, Products URLs
+2. `package.json` — `homepage`, `name`, `description`
+3. `README.md` lede if needed
 
-If a domain or product name exists (e.g. `materia.io`):
+If a domain exists, run `check-domains.sh --header {sld} --tlds com,io` first.
 
-- Run `check-domains.sh` on it **first**
-- Open with **"Keep vs switch"** — do not blindly generate 25 alternatives
-- If DNS says `likely_taken` with note `may_be_parked_or_reserved`, say: *may be yours, parked, or reserved — check registrar before discarding*
+Open with **Keep vs switch**:
 
-### 1. Collect the brief
+- `likely_taken` + `may_be_parked_or_reserved` → *may be yours, parked, or in use — check registrar*
+- Recommend **keep** when existing name is short, on-brand, and defensible
 
-Ask only for what's missing:
+### 1. Brief
 
 | Field | Required | Example |
 | --- | --- | --- |
-| `idea` | Yes | "AI calendar assistant for busy founders" |
-| `audience` | No | "solo SaaS founders" |
-| `vibe` | No | "minimal, warm, premium" |
-| `tlds` | No | `com`, `io` — default `com`, `io`, `co` |
-| `avoid` | No | words/substrings to skip |
-| `competitors` | No | names or URLs they know |
-| `existing_domain` | No | auto-filled from step 0 if found |
+| `idea` | Yes | "Evidence-graded herb reference with body explorer" |
+| `audience` | No | "health-curious researchers" |
+| `vibe` | No | "classy, warm, trustworthy, premium" |
+| `tlds` | No | default `com`, `io`, `co` |
+| `avoid` | No | `examine`, `diagnose`, substrings |
+| `competitors` | No | names/URLs + pick matching `references/competitor-seeds-*.txt` |
 
-### 2. Brainstorm 50–60 candidates
+### 2. Brainstorm ≥50 candidates
 
-Generate wide across naming directions:
+Extract **stems** from idea/audience (use in compounds/portmanteaus):
 
-- **compound** — `founderflow`, `calmstack`
-- **portmanteau** — blends from idea words
-- **metaphor** — `forge`, `nest`, `pulse`, `grove`
-- **abstract** — coined, pronounceable (`velora`, `evinleaf`)
-- **descriptive** — literal but tasteful (`evidcite`, `phytoproof`)
-- **playful** — only if vibe fits
+| Theme | Stems |
+| --- | --- |
+| Product | body, remedy, herb, plant, phyto, botan, leaf, root, layer |
+| Moat | evid, cite, proof, grade, study, graph, compound |
+| Tone | calm, clear, wise, true, vital, soma, corpus |
 
-Rules: SLD 3–14 chars (prefer 5–10); no hyphens/digits unless asked; honor `avoid`; skip bare generics (`app`, `get`, `hub`, `shop`).
+**Styles** (aim for ≥8 names each):
+
+| Style | Pattern |
+| --- | --- |
+| compound | `{stem}{suffix}` — proof, cite, graph, leaf, forge, atlas |
+| portmanteau | blend 2 stems — `evid`+`cite`, `phyto`+`proof` |
+| metaphor | grove, forge, proof, pulse — paired with stem |
+| abstract | coined 6–9 chars — pronounceable, premium |
+| descriptive | literal but tasteful — not generic SEO slugs |
+| playful | only if vibe allows |
+
+Skip SLDs in `references/blocked-slds.txt` unless part of a longer compound.
 
 ### 3. Pre-filter (no network)
 
-Drop candidates that:
+Drop: `avoid` hits; exact competitor match; blocked SLDs; high collision from `score-collision.py` sweep.
 
-- Hit `avoid` words
-- Exactly match a competitor (high collision)
-- Are obvious one-word `.com` grabs (`cloud`, `data`, `shop`)
-- Fail **say-aloud test** — see step 5
+### 4. Mechanical taste pre-rank
 
-### 4. Pre-rank taste (before curls)
+```bash
+python3 "$SKILL/scripts/score-taste.py" --header \
+  --idea "{idea}" --vibe "{vibe}" sld1 sld2 ... | sort -t$'\t' -k2 -nr
+```
 
-Score each survivor 0–100 using **fixed bands** (start at 50, add/subtract):
+Keep top **20** SLDs. Script starts at 50 and applies fixed bands (length, consonants, vowel ratio, idea/vibe stem hits).
 
-| Signal | Points |
-| --- | ---: |
-| Length 5–10 | +15 |
-| Length 4 or 11–12 | +5 |
-| Length >12 | −10 |
-| 4+ consecutive consonants | −12 |
-| Triple letter repeat | −8 |
-| Hyphen or digit | −8 |
-| Pronounceable on first read | +10 |
-| Vibe + idea fit (your judgment, 0–3 cues) | +0 to +15 |
-| Naming style matches requested vibe | +5 |
+### 5. Say-aloud test
 
-Do **not** add availability points yet. Sort descending; keep top **20 SLDs**.
-
-### 5. Say-aloud test (top 20)
-
-For each shortlisted SLD, write one line:
+For each top-20 SLD:
 
 > *"I'd introduce this at a dinner party as ______."_
 
-Drop any that sound wrong, confusing, or like a different product (e.g. `herbograph` → herb photography). Replace from the brainstorm pool and re-rank.
+Drop names that mislead (e.g. `herbograph` → photography), confuse, or sound cheap. Backfill from brainstorm pool; re-run taste if needed.
 
-### 6. Two-pass availability check
+### 6. Two-pass availability
 
-**Pass A — primary TLD only** (usually `.com`):
-
-```bash
-bash .agents/skills/name-domains/scripts/check-domains.sh \
-  sld1 sld2 ... sld20 --tlds com
-```
-
-Keep SLDs where status is `likely_available` or `unknown`. Drop `likely_taken` unless user wants stretch options.
-
-**Pass B — secondary TLDs** (only for Pass A survivors, max 15 SLDs):
+**Pass A** — primary TLD (`.com`):
 
 ```bash
-bash .agents/skills/name-domains/scripts/check-domains.sh \
-  sld1 sld2 ... --tlds io,co
+bash "$SKILL/scripts/check-domains.sh" --header sld1 ... sld20 --tlds com
 ```
 
-**TLD strategy** (built into the script):
+Keep `likely_available` and `unknown`. Drop `likely_taken` (list under Taken/skipped).
 
-| TLDs | Primary probe | Fallback |
-| --- | --- | --- |
-| `com`, `net`, `org` | RDAP | DNS |
-| `io`, `co`, `dev`, `app` | DNS (RDAP unreliable) | RDAP |
+**Pass B** — secondary TLDs for Pass A survivors only (max 15):
 
-**Interpreting notes** (TSV column 4):
+```bash
+bash "$SKILL/scripts/check-domains.sh" --header sld1 ... --tlds io,co
+```
+
+**TLD probes** (in script): `.com/.net/.org` → RDAP then DNS; `.io/.co/.dev/.app` → DNS (+ NS for parked) then RDAP.
 
 | note | Meaning |
 | --- | --- |
-| `may_be_parked_or_reserved` | DNS has records — domain may be parked, in use, or **yours**. Verify at registrar. |
-| `nxdomain_only_verify_at_registrar` | No DNS answer — promising but not proof of registration availability. |
-| `check_manually` | Probe failed — use live-check links. |
+| `may_be_parked_or_reserved` | DNS/NS exists — parked, live, or **yours** |
+| `nxdomain_only_verify_at_registrar` | No DNS — promising, not proof |
+| `check_manually` | Probe failed — use live-check links |
 
-**After checks**, adjust taste score: `likely_available` +12, `likely_taken` −20, `unknown` −2.
+**Final taste adjust:** `likely_available` +12, `likely_taken` −20, `unknown` −2.
 
-Cap final output at **25 domains** (50 if asked). Never curl more than ~35 SLD×TLD pairs total.
+Prefer listing `.com` in Top picks; show `.io`/`.co` when stronger or `.com` taken.
 
-### 7. Collision scan (not legal trademark)
+### 7. Collision on finalists
 
-Compare SLD to user competitors + obvious market names in the category:
+```bash
+python3 "$SKILL/scripts/score-collision.py" --header \
+  --competitors "{user list}" \
+  --seeds-file "$SKILL/references/competitor-seeds-health.txt" \
+  sld1 sld2
+```
 
-- **high** — exact match, substring overlap, or >82% string similarity
-- **medium** — 60–82% similarity
-- **low** — otherwise
+Drop **high** unless taste ≥70 and user wants stretch options. Always disclaimer: *not trademark clearance.*
 
-Drop **high** collision unless taste ≥ 70 and user wants stretch options.
-
-Disclaimer: *heuristic only, not trademark clearance.*
-
-### 8. Live-check links (no purchase flow)
+### 8. Live-check links
 
 | Registrar | URL |
 | --- | --- |
@@ -173,40 +183,44 @@ Disclaimer: *heuristic only, not trademark clearance.*
 
 > Collision scan is heuristic only — not legal trademark clearance.
 
-## Existing name (if any)
-**{existing.domain}** — {status} ({note}). Recommendation: **keep** / **switch** / **backup only** — because …
+## Existing name
+**{domain}** — {status} ({note}). **Keep** / **switch** / **backup** — because …
 
-**{n}** of **{limit}** look likely available (RDAP/DNS; verify before buying).
+**{n}** of **{limit}** likely available (verify before buying).
 
 ## {Style}
 | Domain | Taste | Avail | Collision | Say aloud | Why | Risk | Check |
 | --- | ---: | --- | --- | --- | --- | --- | --- |
-| example.com | 82 | likely_available | low | "…" | … | … | [CF](…) · [NC](…) · [PB](…) |
 
 ## Top picks
-1. **name.com** — rationale + dinner-party line
-2. …
+1. **name.com** — rationale; dinner-party: "…"
 
 ## Taken / skipped
 - `name.com` — likely_taken
-- …
 
 ## Not included
-- Registrar checkout (use Check links)
-- Trademark / social / app-store clearance
+Registrar checkout · trademark · social handles
 ```
 
-Offer CSV on request (columns: domain, taste, availability, collision, style, note).
+## Quality bar (Top picks)
+
+A top pick must:
+
+1. Score ≥75 after availability adjust (or ≥82 if `unknown`)
+2. Collision ≤ medium
+3. Pass say-aloud without explanation creep
+4. `likely_available` on at least one preferred TLD
+5. Fit vibe — for premium/classy products, prefer abstract/compound over literal SEO
 
 ## Failure modes
 
 | Situation | Action |
 | --- | --- |
 | Missing `idea` | Ask user |
-| All `.com` taken | Widen brainstorm; emphasize Pass B `.io`/`.co` survivors |
-| RDAP/DNS disagree | Report both; prefer RDAP for `.com`, DNS signal for `.io`; tell user to live-check |
-| User owns existing domain | Recommend keep unless new names clearly better |
+| All `.com` taken | Pass B emphasis; widen abstract coinages |
+| RDAP/DNS disagree | Report both; live-check |
+| Existing domain is strong | Recommend keep; position others as backups |
 
-## Out of scope (v1)
+## Out of scope
 
-Purchase flow, registrar APIs, trademark APIs, social handle checks, saved lists, alerts, backend Worker.
+Purchase flow, registrar/trademark/social APIs, saved lists, alerts, backend Worker.

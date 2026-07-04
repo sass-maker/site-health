@@ -10,6 +10,7 @@ TLDS="com"
 SLDS=()
 MAX_PARALLEL=10
 TMPDIR_RESULTS=""
+PRINT_HEADER=0
 
 usage() {
   cat <<'EOF'
@@ -37,6 +38,10 @@ while [[ $# -gt 0 ]]; do
     --tlds)
       TLDS="${2//,/ }"
       shift 2
+      ;;
+    --header)
+      PRINT_HEADER=1
+      shift
       ;;
     -h|--help)
       usage
@@ -98,20 +103,44 @@ check_rdap() {
   esac
 }
 
+dns_query() {
+  local domain="$1"
+  local rtype="$2"
+  curl -sS -H "Accept: application/dns-json" --max-time 6 \
+    "https://cloudflare-dns.com/dns-query?name=${domain}&type=${rtype}" 2>/dev/null || echo '{}'
+}
+
 check_dns() {
   local domain="$1"
   local payload dns_status has_answer
-  payload="$(curl -sS -H "Accept: application/dns-json" --max-time 6 \
-    "https://cloudflare-dns.com/dns-query?name=${domain}&type=A" 2>/dev/null || echo '{}')"
+  payload="$(dns_query "$domain" "A")"
   dns_status="$(printf '%s' "$payload" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('Status',''))" 2>/dev/null || echo "")"
   has_answer="$(printf '%s' "$payload" | python3 -c "import sys,json; d=json.load(sys.stdin); print('yes' if d.get('Answer') else 'no')" 2>/dev/null || echo "no")"
   case "$dns_status" in
-    3) echo "likely_available" ;;
+    3)
+      # NXDOMAIN on A — also check NS (some TLDs park without A)
+      local ns_payload ns_status ns_answer
+      ns_payload="$(dns_query "$domain" "NS")"
+      ns_status="$(printf '%s' "$ns_payload" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('Status',''))" 2>/dev/null || echo "")"
+      ns_answer="$(printf '%s' "$ns_payload" | python3 -c "import sys,json; d=json.load(sys.stdin); print('yes' if d.get('Answer') else 'no')" 2>/dev/null || echo "no")"
+      if [[ "$ns_status" == "0" && "$ns_answer" == "yes" ]]; then
+        echo "likely_taken"
+      else
+        echo "likely_available"
+      fi
+      ;;
     0)
       if [[ "$has_answer" == "yes" ]]; then
         echo "likely_taken"
       else
-        echo "unknown"
+        local ns_payload ns_answer
+        ns_payload="$(dns_query "$domain" "NS")"
+        ns_answer="$(printf '%s' "$ns_payload" | python3 -c "import sys,json; d=json.load(sys.stdin); print('yes' if d.get('Answer') else 'no')" 2>/dev/null || echo "no")"
+        if [[ "$ns_answer" == "yes" ]]; then
+          echo "likely_taken"
+        else
+          echo "unknown"
+        fi
       fi
       ;;
     *) echo "unknown" ;;
@@ -181,6 +210,9 @@ for raw in "${SLDS[@]}"; do
 done
 wait
 
+if [[ "$PRINT_HEADER" == "1" ]]; then
+  printf '%s\n' "domain	status	source	note"
+fi
 for f in "$TMPDIR_RESULTS"/*.tsv; do
   [[ -e "$f" ]] || continue
   cat "$f"
