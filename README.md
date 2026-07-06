@@ -28,6 +28,7 @@ worked on together as one effort).
 **Support + SaaS** — support infra that is also a public product
 
 - [codevetter](https://github.com/sarthak-fleet/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com))
+- [elves-hq](https://github.com/sarthak-fleet/elves-hq) — local task-room cockpit for running Codex elves across the fleet
 - [knowledge-base](https://github.com/sarthak-fleet/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
 - [high-signal](https://github.com/sarthak-fleet/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
 - [taste](https://github.com/sarthak-fleet/taste) — ShipRank: pre-A/B / screenshot ranking for teams
