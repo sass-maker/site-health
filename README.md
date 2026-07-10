@@ -48,6 +48,7 @@ worked on together as one effort).
 - [swe-interview-prep](https://github.com/sarthak-fleet/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [email-manager](https://github.com/sarthak-fleet/email-manager) — Gmail workspace with local semantic search
 - [looptv](https://github.com/sarthak-fleet/looptv) — TV-style random video player
+- [games](https://github.com/sarthak-fleet/games) — HTML5 games hub: gamekit framework + idle games, web-embeddable and YouTube Playables-ready
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
