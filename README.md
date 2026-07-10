@@ -47,7 +47,6 @@ worked on together as one effort).
 - [swe-interview-prep](https://github.com/sarthak-fleet/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [email-manager](https://github.com/sarthak-fleet/email-manager) — Gmail workspace with local semantic search
 - [looptv](https://github.com/sarthak-fleet/looptv) — TV-style random video player
-- [games](https://github.com/sarthak-fleet/games) — HTML5 games hub: gamekit framework + idle games, web-embeddable and YouTube Playables-ready
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
@@ -61,7 +60,7 @@ worked on together as one effort).
 - [materia](https://github.com/sarthak-fleet/materia) — evidence-graded herbs/supplements/drugs by body part
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
 
-> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
+> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked), games (personal: sarthakagrawal927/games). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
 
 ## Work Tracking
 
