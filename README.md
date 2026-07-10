@@ -31,7 +31,6 @@ worked on together as one effort).
   - [starboard](https://github.com/sarthak-fleet/starboard) — GitHub stars organizer + semantic search (sub-product of codevetter, separate repo)
 - [knowledge-base](https://github.com/sarthak-fleet/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
 - [high-signal](https://github.com/sarthak-fleet/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
-- [taste](https://github.com/sarthak-fleet/taste) — ShipRank: pre-A/B / screenshot ranking for teams
 
 **Research** — experimental, the bet is a research question
 
@@ -62,7 +61,7 @@ worked on together as one effort).
 - [materia](https://github.com/sarthak-fleet/materia) — evidence-graded herbs/supplements/drugs by body part
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
 
-> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
+> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), taste/ShipRank (retired into CodeVetter), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
 
 ## Work Tracking
 
