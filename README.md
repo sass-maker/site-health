@@ -11,7 +11,7 @@ This directory is the local workspace for the personal project fleet.
 This root is its own lightweight repository for Fleet-wide policy and docs. Each
 child project remains its own separate repository.
 
-## Products (25 active)
+## Products
 
 Projects are classified by purpose (a project can appear in more than one):
 **support** · **personal** · **learning** · **saas** · **data** · **research**.
@@ -27,8 +27,8 @@ worked on together as one effort).
 
 **Support + SaaS** — support infra that is also a public product
 
-- [codevetter](https://github.com/sarthak-fleet/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com))
-- [elves-hq](https://github.com/sarthak-fleet/elves-hq) — local task-room cockpit for running Codex elves across the fleet
+- [codevetter](https://github.com/sarthak-fleet/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com)) — **umbrella for code quality and repo intelligence**
+  - [starboard](https://github.com/sarthak-fleet/starboard) — GitHub stars organizer + semantic search (sub-product of codevetter, separate repo)
 - [knowledge-base](https://github.com/sarthak-fleet/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
 - [high-signal](https://github.com/sarthak-fleet/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
 - [taste](https://github.com/sarthak-fleet/taste) — ShipRank: pre-A/B / screenshot ranking for teams
@@ -61,9 +61,8 @@ worked on together as one effort).
 - [everythingrated](https://github.com/sarthak-fleet/everythingrated) — multi-axis ratings platform (AI dev-tool adoption)
 - [materia](https://github.com/sarthak-fleet/materia) — evidence-graded herbs/supplements/drugs by body part
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
-- [starboard](https://github.com/sarthak-fleet/starboard) — GitHub stars organizer + semantic search
 
-> Personal (out-of-fleet) repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927): pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
+> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
 
 ## Work Tracking
 
