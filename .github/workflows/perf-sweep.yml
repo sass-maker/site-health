@@ -15,24 +15,31 @@ on:
         required: false
         default: '2'
 
+permissions:
+  contents: write
+
 jobs:
   sweep:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check out fleet health contracts
+        uses: actions/checkout@v4
+        with:
+          repository: sarthak-fleet/saas-maker
+          path: saas-maker
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
-      - name: Install psi-swarm CLI
+      - name: Build bundled psi-swarm CLI
+        working-directory: fleet-ops/psi-swarm
         run: |
-          git clone https://github.com/sarthakagrawal927/psi-swarm.git /tmp/psi-swarm
-          cd /tmp/psi-swarm
-          npm install
-          npm run build --if-present
-          mkdir -p ~/.psi-swarm-local/cli
-          cp -r dist ~/.psi-swarm-local/cli/dist
+          corepack enable
+          pnpm install --frozen-lockfile
+          pnpm --filter psi-swarm run build
 
       - name: Run fleet perf sweep
         run: |
