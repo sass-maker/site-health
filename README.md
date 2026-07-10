@@ -34,8 +34,7 @@ worked on together as one effort).
 
 **Research** — experimental, the bet is a research question
 
-- [ai-game](https://github.com/sarthak-fleet/ai-game) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)) — **umbrella for the AI-game research line**
-  - [open-historia](https://github.com/sarthak-fleet/open-historia) — AI grand-strategy history game (sub-product of ai-game, separate repo)
+- [alive-ville](https://github.com/sarthak-fleet/alive-ville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)); local checkout remains `ai-game`
 - [pace](https://github.com/sarthak-fleet/pace) — on-device Mac voice agent that reads your screen
 - [tinygpt](https://github.com/sarthak-fleet/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 
@@ -50,14 +49,11 @@ worked on together as one effort).
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
-- [rolepatch](https://github.com/sarthak-fleet/rolepatch) — AI resume tailoring + job-application assistant (cover letters, company research, role-fit scoring, STAR prep) ([rolepatch.com](https://rolepatch.com)) — **umbrella for the hiring line**
-  - [truehire](https://github.com/sarthak-fleet/truehire) — verified-candidate GitHub scoring (sub-product of rolepatch, separate repo)
+- [rolepatch](https://github.com/sarthak-fleet/rolepatch) — AI resume tailoring + job-application assistant (cover letters, company research, role-fit scoring, STAR prep) ([rolepatch.com](https://rolepatch.com))
 - [karte](https://github.com/sarthak-fleet/karte) — AI link-in-bio: chat, encyclopedia, roast modes ([karte.cc](https://karte.cc))
 
 **Data** — the data is the asset, public surface is the product
 
-- [everythingrated](https://github.com/sarthak-fleet/everythingrated) — multi-axis ratings platform (AI dev-tool adoption)
-- [materia](https://github.com/sarthak-fleet/materia) — evidence-graded herbs/supplements/drugs by body part
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
 
 > Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked), games (personal: sarthakagrawal927/games). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
