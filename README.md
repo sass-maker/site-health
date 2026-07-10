@@ -61,7 +61,7 @@ worked on together as one effort).
 - [materia](https://github.com/sarthak-fleet/materia) — evidence-graded herbs/supplements/drugs by body part
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
 
-> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), taste/ShipRank (retired into CodeVetter), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
+> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
 
 ## Work Tracking
 
