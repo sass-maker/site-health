@@ -75,7 +75,7 @@ Current fleet skills exposed to agents:
 | Skill | Type | Notes |
 |---|---|---|
 | `fleet-ops` | parent | routes to audit/init/deploy/workspace subskills |
-| `call-teammate` | parent | routes to Claude/Codex/Cursor/Devin/Grok |
+| `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |
 | `spec-driven` | standalone | OpenSpec workflow |
 | `psi-swarm` | standalone | Lighthouse performance audits |
