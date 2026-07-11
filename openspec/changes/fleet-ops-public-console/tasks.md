@@ -14,5 +14,5 @@
 ## 3. Internet Availability
 
 - [x] 3.1 Create Sites project metadata.
-- [ ] 3.2 Save and deploy the validated version.
-- [ ] 3.3 Record the public URL in the final handoff.
+- [x] 3.2 Save and deploy the validated version.
+- [x] 3.3 Record the public URL in the final handoff.
