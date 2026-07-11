@@ -34,7 +34,7 @@ worked on together as one effort).
 
 **Research** — experimental, the bet is a research question
 
-- [ai-game](https://github.com/sarthak-fleet/alive-ville) — AliveVille 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)); GitHub name is `alive-ville`
+- [aliveville](https://github.com/sarthak-fleet/alive-ville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)); GitHub repo name is `alive-ville`
 - [pace](https://github.com/sarthak-fleet/pace) — on-device Mac voice agent that reads your screen
 - [tinygpt](https://github.com/sarthak-fleet/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 
