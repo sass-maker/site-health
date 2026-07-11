@@ -13,6 +13,15 @@
 
 ## 3. Internet Availability
 
-- [x] 3.1 Create Sites project metadata.
-- [x] 3.2 Save and deploy the validated version.
-- [x] 3.3 Record the public URL in the final handoff.
+- [x] 3.1 Create the Astro build artifact.
+- [x] 3.2 Serve the validated artifact from this Mac.
+- [x] 3.3 Route the public hostname through the existing Cloudflare Tunnel.
+- [x] 3.4 Wire console start/stop into the Fleet Ops agent stack.
+
+## 4. Project State Expansion
+
+- [x] 4.1 Add a project listing page with state, lane, task, smoke, and dirty counts.
+- [x] 4.2 Add per-project detail pages showing current work and operational status.
+- [x] 4.3 Add a connection map linking Fleet Ops, SaasMaker, Wi-Fi Watch, and products.
+- [x] 4.4 Include cataloged projects even when they are not checked out locally.
+- [x] 4.5 Publish and refresh the multi-page static app through the Mac Cloudflare Tunnel.

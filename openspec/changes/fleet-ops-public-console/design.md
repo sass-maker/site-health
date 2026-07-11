@@ -13,7 +13,9 @@ must be usable on mobile because the user wants phone-visible fleet operations.
 - Make the first viewport useful on desktop and mobile.
 - Keep the public site safe by redacting local network details and omitting raw
   logs.
-- Deploy as an Astro app through Sites.
+- Serve as an Astro app from this Mac through Cloudflare Tunnel.
+- Show every Fleet registry project with state, work queue, smoke, workflow,
+  local change count, and project relationships.
 
 **Non-Goals:**
 
@@ -41,6 +43,17 @@ must be usable on mobile because the user wants phone-visible fleet operations.
   until a secure authenticated delivery path exists.
 - The public console can show operational intent, so prompts are summarized
   rather than published in full.
-- Sites deployment requires packaging a worker entry even though the Astro app
-  itself is static.
+- The public app is a build-time snapshot. A launchd refresh job rebuilds it
+  every 5 minutes while the Mac is awake; live mutation and raw local data stay
+  out of scope.
+- Project task titles are visible because they are operational status. Raw task
+  descriptions, prompts, local paths, IPs, SSIDs, and logs are not published.
 
+## Updated Decisions
+
+- Keep `saas-maker` as the fleet registry/task engine for now. The console is
+  the read-only visibility layer, not a replacement for Foundry/Symphony.
+- Prefer a Cloudflare Tunnel-hosted local service over Sites because the user
+  wants the machine-run version and start/pause portability across machines.
+- Serve the whole Astro `dist/` tree locally so `/projects`,
+  `/projects/<slug>`, and `/connections` are directly addressable.

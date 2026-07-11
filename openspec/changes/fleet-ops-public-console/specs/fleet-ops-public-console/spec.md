@@ -36,11 +36,64 @@ The console SHALL remain readable and operable on phone-sized screens.
 
 ### Requirement: Console deploys to the internet
 
-The console SHALL be buildable and deployable through Sites.
+The console SHALL be buildable and served publicly through the machine-hosted
+Cloudflare Tunnel.
 
 #### Scenario: Release build runs
 
 - **WHEN** `npm run build` runs in the app
 - **THEN** Astro builds successfully
-- **AND** `dist/server/index.js` exists for Sites packaging
+- **AND** static route HTML exists for overview, projects, project details, and
+  connections
 
+#### Scenario: User opens a public route
+
+- **WHEN** the user opens `/`, `/projects`, `/projects/saas-maker`, or
+  `/connections` through the public tunnel hostname
+- **THEN** the local service returns the corresponding static page
+- **AND** the page is read-only
+
+### Requirement: Public console shows fleet project state
+
+The public console SHALL show the state of each Fleet registry project using
+public-safe data from catalog, tasks, audit, smoke, and local git summaries.
+
+#### Scenario: User views all projects
+
+- **WHEN** the projects page loads
+- **THEN** it lists registered projects with state, lane, open task count, high
+  priority task count, blocked task count, smoke status, and dirty file count
+- **AND** cataloged projects that are not checked out locally are still visible
+
+#### Scenario: User views a project detail page
+
+- **WHEN** a project detail page loads
+- **THEN** it shows repository/homepage links when available, current work,
+  branch, workflow status, smoke status, task counts, and related connections
+- **AND** it does not expose raw task descriptions, local absolute paths, raw
+  logs, SSIDs, IPs, gateways, or credentials
+
+### Requirement: Public console shows project connections
+
+The public console SHALL show how Fleet Ops, SaasMaker, Wi-Fi Watch, and fleet
+products connect operationally.
+
+#### Scenario: User views the connections page
+
+- **WHEN** the connections page loads
+- **THEN** it shows typed edges for registry, control, telemetry, marketing,
+  AI gateway, and active work relationships
+- **AND** each edge links to the related project pages when those projects are
+  represented in the console
+
+### Requirement: Public snapshot refreshes automatically
+
+The public console SHALL refresh its static snapshot on a fixed local schedule
+while the machine is awake.
+
+#### Scenario: Console service is started
+
+- **WHEN** `scripts/agent-bin/ops-console start` runs
+- **THEN** the local HTTP service starts
+- **AND** a launchd refresh job rebuilds and republishes the static snapshot
+  every 5 minutes

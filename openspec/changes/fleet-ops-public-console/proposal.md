@@ -15,16 +15,18 @@ logs, local IPs, SSIDs, gateway details, or credentials.
 - Render the full converted Codex schedule set from
   `fleet-ops/automation/codex-cron/jobs.tsv`.
 - Render a Wi-Fi Watch product summary from `fleet/wifi-watch/data`.
-- Add a Cloudflare/Sites-compatible worker wrapper for static Astro output.
-- Publish the app through Sites.
+- Render fleet project state, current work queues, smoke status, and
+  project-to-project connections from the SaasMaker/Foundry registry.
+- Publish the app from this Mac through the existing Cloudflare Tunnel.
+- Refresh the published static snapshot every 5 minutes while the Mac is awake.
 - Keep local control commands and raw runtime data out of the public surface.
 
 ## Capabilities
 
 ### New Capabilities
 
-- `fleet-ops-public-console`: Internet-visible Fleet Ops console for cron and
-  Wi-Fi Watch visibility.
+- `fleet-ops-public-console`: Internet-visible Fleet Ops console for cron,
+  Wi-Fi Watch, project state, and fleet connection visibility.
 
 ### Modified Capabilities
 
@@ -35,5 +37,7 @@ logs, local IPs, SSIDs, gateway details, or credentials.
 - Adds a new Astro app under `fleet-ops/apps/ops-console`.
 - Adds OpenSpec project/change metadata under `openspec/`.
 - Uses existing cron registry and Wi-Fi Watch data as build-time sources.
-- Requires `npm run build` in the app before Sites packaging/deployment.
-
+- Uses SaasMaker/Foundry registry, tasks, smoke, audit, and local git state as
+  build-time sources.
+- Uses `scripts/agent-bin/ops-console` to publish and serve the static app
+  locally for the Cloudflare Tunnel.
