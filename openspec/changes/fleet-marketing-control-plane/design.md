@@ -4,6 +4,10 @@ Fleet marketing state is split across `fleet-ops/docs/domain-marketing-plan.md`,
 
 ## Decisions
 
+### Initial channel scope: Instagram and YouTube
+
+Instagram Reels and YouTube Shorts are the launch channels. TikTok/Postiz is deferred and must not count against current readiness or block the initial automated distribution loop. The provider-neutral contracts retain TikTok as a future extension point.
+
 ### Store program intent in a versioned registry
 
 `fleet-ops/config/marketing-program.json` will be the machine-readable source for canonical slug, display name, aliases, domain, mode (`focus | evergreen | infrastructure | private`), trusted content-base adapters, CTA, brand channel/account identifiers, cadence, and whether public marketing is allowed. Human-facing domain plans derive from or validate against this registry.
