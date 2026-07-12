@@ -7,17 +7,17 @@
 
 ## 2. Sanitized pipeline snapshot
 
-- [ ] 2.1 Add an authenticated local snapshot command that reads SaaS Maker and emits aggregate-only state
+- [x] 2.1 Add an authenticated local snapshot command that reads SaaS Maker and emits aggregate-only state
 - [ ] 2.2 Canonicalize historical project aliases without mutating production rows
 - [ ] 2.3 Add freshness, oldest-review-age, failure, stage, and next-action calculations
-- [ ] 2.4 Add fixture tests proving unpublished content and identifiers cannot leak
+- [x] 2.4 Add fixture tests proving unpublished content and identifiers cannot leak
 
 ## 3. Backpressure and mobile review
 
-- [ ] 3.1 Gate idea generation on queue availability and configurable review-debt ceilings
-- [ ] 3.2 Generate only for eligible focus projects lacking a recent experiment
-- [ ] 3.3 Send concise review/failure/staleness briefs through the existing notification service
-- [ ] 3.4 Add dry-run coverage proving high review debt produces no queue writes
+- [x] 3.1 Gate idea generation on queue availability and configurable review-debt ceilings
+- [x] 3.2 Generate only for eligible focus projects lacking a recent experiment
+- [x] 3.3 Send concise review/failure/staleness briefs through the existing notification service
+- [x] 3.4 Add dry-run coverage proving high review debt produces no queue writes
 - [ ] 3.5 Add one OpenClaw dry-run job with durable task status and Telegram completion/failure evidence
 
 ## 4. Media and distribution boundaries
@@ -31,7 +31,7 @@
 ## 5. Marketing control plane UI
 
 - [x] 5.1 Add a read-only `/marketing` Fleet Ops page with funnel totals and per-project state
-- [ ] 5.2 Link the five-lane Marketing entry to `/marketing` and provide authenticated SaaS Maker review actions
+- [x] 5.2 Link the five-lane Marketing entry to `/marketing` and provide authenticated SaaS Maker review actions
 - [ ] 5.3 Distinguish focus, evergreen, infrastructure, private, and source-backed channel programs visibly
 - [ ] 5.4 Show OpenClaw orchestration, Reel Pipeline target-host readiness, publisher readiness, and last receipt without overstating status
 - [ ] 5.5 Verify responsive layout, accessibility, empty/stale/error states, and public-data safety
@@ -40,6 +40,6 @@
 
 - [x] 6.1 Run focused tests, Fleet Ops build, Reel Pipeline tests, and desktop/mobile browser QA
 - [ ] 6.2 Run the queue builder and OpenClaw orchestration in dry-run mode against the current backlog
-- [ ] 6.3 Update Fleet Ops and Reel Pipeline status/runbooks and document the operator loop
+- [x] 6.3 Update Fleet Ops and Reel Pipeline status/runbooks and document the operator loop
 - [x] 6.4 Commit and push verified changes without mutating queue rows, posting, deploying, installing Postiz, or changing DNS
 - [ ] 6.5 Request explicit approval before enabling any schedule, publisher installation, social connection, or production queue cleanup
