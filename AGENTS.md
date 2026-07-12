@@ -82,6 +82,8 @@ Current fleet skills exposed to agents:
 | `agent-ready` | standalone | AI crawler readiness |
 | `seo-audit` | standalone | on-page SEO audit |
 | `token-budget` | standalone | Codex context/token audit |
+| `mobile-task-control` | standalone | durable chat-requested task control |
+| `daily-learning` | standalone | private adaptive learning sessions |
 
 Use repo-local scripts before manual fleet inspection:
 
