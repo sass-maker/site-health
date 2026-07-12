@@ -34,7 +34,7 @@
 - [x] 5.2 Link the five-lane Marketing entry to `/marketing` and provide authenticated SaaS Maker review actions
 - [ ] 5.3 Distinguish focus, evergreen, infrastructure, private, and source-backed channel programs visibly
 - [ ] 5.4 Show OpenClaw orchestration, Reel Pipeline target-host readiness, publisher readiness, and last receipt without overstating status
-- [ ] 5.5 Verify responsive layout, accessibility, empty/stale/error states, and public-data safety
+- [x] 5.5 Verify responsive layout, accessibility, empty/stale/error states, and public-data safety
 
 ## 6. Verification and rollout
 
@@ -42,4 +42,4 @@
 - [ ] 6.2 Run the queue builder and OpenClaw orchestration in dry-run mode against the current backlog
 - [x] 6.3 Update Fleet Ops and Reel Pipeline status/runbooks and document the operator loop
 - [x] 6.4 Commit and push verified changes without mutating queue rows, posting, deploying, installing Postiz, or changing DNS
-- [ ] 6.5 Request explicit approval before enabling any schedule, publisher installation, social connection, or production queue cleanup
+- [x] 6.5 Request explicit approval before enabling any schedule, publisher installation, social connection, or production queue cleanup
