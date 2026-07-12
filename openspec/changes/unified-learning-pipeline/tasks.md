@@ -13,9 +13,9 @@
 
 ## 3. Dynamic Sources
 
-- [ ] 3.1 Add a versioned Reader saved-item export/feed and its SWE adapter.
+- [x] 3.1 Add a versioned Reader saved-item export/feed and its SWE adapter.
 - [ ] 3.2 Add a compact High Signal daily-brief feed and its SWE adapter.
-- [ ] 3.3 Add sync fixtures and failure/staleness tests for both dynamic sources.
+- [ ] 3.3 Add sync fixtures and failure/staleness tests for both dynamic sources. (Reader pending-token and registry contracts covered; authenticated fixture remains.)
 
 ## 4. Agent And Fleet Integration
 
