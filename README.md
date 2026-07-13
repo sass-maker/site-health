@@ -46,6 +46,7 @@ worked on together as one effort).
 - [swe-interview-prep](https://github.com/sarthak-fleet/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [email-manager](https://github.com/sarthak-fleet/email-manager) — Gmail workspace with local semantic search
 - [looptv](https://github.com/sarthak-fleet/looptv) — TV-style random video player
+- [mobile-dev-cockpit](https://github.com/sarthak-fleet/mobile-dev-cockpit) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
