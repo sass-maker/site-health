@@ -8,20 +8,20 @@
 
 - [x] 2.1 Add a unified catalog view with source, project, track, freshness, and status filters.
 - [x] 2.2 Add a daily queue that orders High Signal, due reviews, continued items, and one new durable item.
-- [ ] 2.3 Connect external items to the existing learning session, notes, Playground, progress, and review controls without changing native concepts.
+- [x] 2.3 Connect external items to the existing learning session, notes, Playground, progress, and review controls without changing native concepts.
 - [x] 2.4 Add fingerprint-bound MCQ loading, validation, completion feedback, and assessment tests.
 
 ## 3. Dynamic Sources
 
 - [x] 3.1 Add a versioned Reader saved-item export/feed and its SWE adapter.
-- [ ] 3.2 Add a compact High Signal daily-brief feed and its SWE adapter.
+- [x] 3.2 Add a compact High Signal daily-brief feed and its SWE adapter.
 - [ ] 3.3 Add sync fixtures and failure/staleness tests for both dynamic sources. (Reader pending-token and registry contracts covered; authenticated fixture remains.)
 
 ## 4. Agent And Fleet Integration
 
-- [ ] 4.1 Add a Fleet Ops learning-control skill with `sync`, `today`, `start`, `status`, and `complete` commands. (Nightly deterministic `sync` shipped; conversational commands remain.)
-- [ ] 4.2 Register the skill with OpenClaw/Hermes and document the Telegram workflow.
-- [ ] 4.3 Add a sanitized learning link and aggregate sync status to the Fleet dashboard.
+- [x] 4.1 Add a Fleet Ops learning-control skill with `sync`, `today`, `start`, `status`, and `complete` commands.
+- [x] 4.2 Register the skill with OpenClaw/Hermes and document the Telegram workflow.
+- [x] 4.3 Add a sanitized learning link and aggregate sync status to the Fleet dashboard.
 
 ## 5. Verification And Release
 
