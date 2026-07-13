@@ -812,6 +812,19 @@ export function getMarketingPipeline(): MarketingPipeline {
   const connectedAccounts = Number(socialReadiness.summary?.connectedAccounts ?? 0);
   const publisherState = totalAccounts === 0 ? "not-configured" as const : connectedAccounts === totalAccounts ? "ready" as const : "blocked" as const;
   const targetHostState = typeof targetReport.targetHostReady !== "boolean" ? "not-configured" as const : targetReport.targetHostReady ? "ready" as const : "blocked" as const;
+  const taskPayload = safeExec("openclaw", ["tasks", "list", "--json"], 5000);
+  let orchestrationTask: { status?: string; lastEventAt?: number } | null = null;
+  try {
+    const parsed = JSON.parse(taskPayload) as { tasks?: Array<Record<string, unknown>> };
+    orchestrationTask = (parsed.tasks ?? [])
+      .filter((task) => JSON.stringify(task).includes("marketing-control-dry-run"))
+      .sort((left, right) => Number(right.lastEventAt ?? 0) - Number(left.lastEventAt ?? 0))[0] as typeof orchestrationTask;
+  } catch {}
+  const orchestrationState = orchestrationTask?.status === "succeeded"
+    ? "ready" as const
+    : orchestrationTask
+      ? "blocked" as const
+      : "not-configured" as const;
 
   return {
     updatedAt: rawProof.generatedAt ?? null,
@@ -830,9 +843,13 @@ export function getMarketingPipeline(): MarketingPipeline {
     ],
     programs,
     orchestration: {
-      state: "not-configured",
-      detail: "No registered OpenClaw marketing job has durable dry-run and Telegram evidence yet.",
-      lastAt: null
+      state: orchestrationState,
+      detail: orchestrationState === "ready"
+        ? "Latest durable OpenClaw marketing dry-run succeeded with zero queue writes; Telegram completion evidence was delivered."
+        : orchestrationState === "blocked"
+          ? `Latest durable OpenClaw marketing dry-run ended ${orchestrationTask?.status ?? "without success"}.`
+          : "No durable OpenClaw marketing dry-run evidence is available.",
+      lastAt: orchestrationTask?.lastEventAt ? new Date(orchestrationTask.lastEventAt).toISOString() : null
     },
     targetHost: {
       state: targetHostState,

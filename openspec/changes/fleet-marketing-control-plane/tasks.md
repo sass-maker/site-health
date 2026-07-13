@@ -18,7 +18,7 @@
 - [x] 3.2 Generate only for eligible focus projects lacking a recent experiment
 - [x] 3.3 Send concise review/failure/staleness briefs through the existing notification service
 - [x] 3.4 Add dry-run coverage proving high review debt produces no queue writes
-- [ ] 3.5 Add one OpenClaw dry-run job with durable task status and Telegram completion/failure evidence
+- [x] 3.5 Add one OpenClaw dry-run job with durable task status and Telegram completion/failure evidence
 
 ## 4. Media and distribution boundaries
 
@@ -39,7 +39,7 @@
 ## 6. Verification and rollout
 
 - [x] 6.1 Run focused tests, Fleet Ops build, Reel Pipeline tests, and desktop/mobile browser QA
-- [ ] 6.2 Run the queue builder and OpenClaw orchestration in dry-run mode against the current backlog
+- [x] 6.2 Run the queue builder and OpenClaw orchestration in dry-run mode against the current backlog
 - [x] 6.3 Update Fleet Ops and Reel Pipeline status/runbooks and document the operator loop
 - [x] 6.4 Commit and push verified changes without mutating queue rows, posting, deploying, installing Postiz, or changing DNS
 - [x] 6.5 Request explicit approval before enabling any schedule, publisher installation, social connection, or production queue cleanup
