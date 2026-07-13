@@ -12,6 +12,19 @@ Domain-backed non-focus projects remain evergreen or infrastructure programs as
 declared in the registry; a historical plan being finished does not make an
 unregistered project eligible for queue generation.
 
+Before any queue-generation run, inspect the current authenticated backlog with
+the aggregate-only command below. It emits no post content or identifiers and
+guarantees `queueWrites: 0`:
+
+```bash
+fleet-ops/scripts/agent-bin/marketing-dry-run
+```
+
+If global or focus review debt exceeds the registry ceiling, or a focus project
+already has open work/recent activity, stop at the reported review/recovery
+action. The durable OpenClaw version uses the same command and records terminal
+task plus Telegram completion/failure evidence.
+
 ## Domain-backed Projects
 
 | Project | Domain | Registry mode | Marketing state | Primary CTA |
