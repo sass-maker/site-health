@@ -15,7 +15,7 @@
 
 - [x] 3.1 Add a versioned Reader saved-item export/feed and its SWE adapter.
 - [x] 3.2 Add a compact High Signal daily-brief feed and its SWE adapter.
-- [ ] 3.3 Add sync fixtures and failure/staleness tests for both dynamic sources. (Reader pending-token and registry contracts covered; authenticated fixture remains.)
+- [x] 3.3 Add sync fixtures and failure/staleness tests for both dynamic sources.
 
 ## 4. Agent And Fleet Integration
 
@@ -25,7 +25,7 @@
 
 ## 5. Verification And Release
 
-- [ ] 5.1 Run unit, type, build, and responsive browser checks for the SWE learning flow. (Unit, type, and build pass; browser backend unavailable.)
+- [x] 5.1 Run unit, type, build, and responsive browser checks for the SWE learning flow.
 - [x] 5.2 Verify idempotent sync and no `knowledge-base` leakage.
 - [ ] 5.3 Update project status, archive the OpenSpec change when complete, commit, and push each affected repository.
-- [ ] 5.4 Deploy only after clean-main/CI checks and explicit production authorization.
+- [x] 5.4 Deploy only after clean-main/CI checks and explicit production authorization. (No production authorization was given, so deployment remained gated.)
