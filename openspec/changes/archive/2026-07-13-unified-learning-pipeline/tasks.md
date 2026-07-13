@@ -27,5 +27,5 @@
 
 - [x] 5.1 Run unit, type, build, and responsive browser checks for the SWE learning flow.
 - [x] 5.2 Verify idempotent sync and no `knowledge-base` leakage.
-- [ ] 5.3 Update project status, archive the OpenSpec change when complete, commit, and push each affected repository.
+- [x] 5.3 Update project status, archive the OpenSpec change when complete, commit, and push each affected repository.
 - [x] 5.4 Deploy only after clean-main/CI checks and explicit production authorization. (No production authorization was given, so deployment remained gated.)

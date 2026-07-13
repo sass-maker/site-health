@@ -33,4 +33,4 @@
 - [x] 5.1 Run focused tests after each repository change, then full unit/type/build checks in both repositories
 - [x] 5.2 Run SEO, structured-data, Markdown negotiation, accessibility, responsive, and redirect checks on affected Significant Hobbies routes
 - [x] 5.3 Update both `PROJECT_STATUS.md` files and relevant recommendation/context documentation
-- [ ] 5.4 Archive the shared OpenSpec change and commit the store plus both verified repository changes without deploying, posting, or scheduling
+- [x] 5.4 Archive the shared OpenSpec change and commit the store plus both verified repository changes without deploying, posting, or scheduling
