@@ -56,6 +56,7 @@ worked on together as one effort).
 **Data** — the data is the asset, public surface is the product
 
 - [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
+- [protein-index](https://github.com/sarthak-fleet/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
 
 > Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked), games (personal: sarthakagrawal927/games). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
 
