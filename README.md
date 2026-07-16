@@ -36,7 +36,7 @@ worked on together as one effort).
 
 - [aliveville](https://github.com/sarthakagrawal927/aliveville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com))
 - [pace](https://github.com/HeyPace/pace) — on-device Mac voice agent that reads your screen
-- [tinygpt](https://github.com/PostTrainLLM/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
+- [posttrainllm](https://github.com/PostTrainLLM/posttrainllm) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 
 **Personal + free-tool** — built for personal use, free public tool
 

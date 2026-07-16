@@ -1,6 +1,6 @@
 ## Context
 
-Fleet marketing state is split across `fleet-ops/docs/domain-marketing-plan.md`, hard-coded SaaS Maker audit buckets, the authenticated `/v1/marketing/posts` queue, Reel Pipeline receipts, and Codex cron configuration. The current generator targets Reader, SWE Interview Prep, Starboard, and Karte, while the declared focus set is Pace, CodeVetter, and TinyGPT. Queue state is 85 generated, one rejected, and zero accepted/sent, so the binding constraint is review and execution rather than ideation.
+Fleet marketing state is split across `fleet-ops/docs/domain-marketing-plan.md`, hard-coded SaaS Maker audit buckets, the authenticated `/v1/marketing/posts` queue, Reel Pipeline receipts, and Codex cron configuration. The current generator targets Reader, SWE Interview Prep, Starboard, and Karte, while the declared focus set is Pace, CodeVetter, and PostTrainLLM. Queue state is 85 generated, one rejected, and zero accepted/sent, so the binding constraint is review and execution rather than ideation.
 
 ## Decisions
 
@@ -26,7 +26,7 @@ A local snapshot command queries the authenticated SaaS Maker API and writes a s
 
 ### Treat aliases at the boundary
 
-Historical `linkchat` records aggregate under `karte`, `interview-coder` under `swe-interview-prep`, `resume-tailor` under `rolepatch`, and legacy TinyGPT/PostTrainLLM identities under the canonical configured slug. The first release does not mutate historical production rows.
+Historical `linkchat` records aggregate under `karte`, `interview-coder` under `swe-interview-prep`, `resume-tailor` under `rolepatch`, and the legacy `tinygpt` identity under the canonical `posttrainllm` slug. The first release does not mutate historical production rows.
 
 ### Add backpressure before generation
 
