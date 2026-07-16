@@ -34,7 +34,7 @@ worked on together as one effort).
 
 **Research** — experimental, the bet is a research question
 
-- [aliveville](https://github.com/sarthakagrawal927/alive-ville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)); GitHub repo name is `alive-ville`
+- [aliveville](https://github.com/sarthakagrawal927/aliveville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com))
 - [pace](https://github.com/HeyPace/pace) — on-device Mac voice agent that reads your screen
 - [tinygpt](https://github.com/PostTrainLLM/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 
