@@ -27,7 +27,7 @@ jobs:
       - name: Check out fleet health contracts
         uses: actions/checkout@v6
         with:
-          repository: sarthak-fleet/saas-maker
+          repository: sass-maker/saas-maker
           path: saas-maker
 
       - uses: actions/setup-node@v6

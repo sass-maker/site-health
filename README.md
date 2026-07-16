@@ -20,45 +20,45 @@ worked on together as one effort).
 
 **Support** — infrastructure serving other fleet projects
 
-- [saas-maker](https://github.com/sarthak-fleet/saas-maker) — the Foundry: system-of-record, SDKs, widgets, CF API + cockpit ([sassmaker.com](https://sassmaker.com))
-- [free-ai](https://github.com/sarthak-fleet/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
-- [reel-pipeline](https://github.com/sarthak-fleet/reel-pipeline) — AI short-form video generation pipeline (feeds SaaS Maker marketing queue)
-- [drank](https://github.com/sarthak-fleet/drank) — Ahrefs Domain Rating tracker (feeds High Signal /domains)
+- [saas-maker](https://github.com/sass-maker/saas-maker) — the Foundry: system-of-record, SDKs, widgets, CF API + cockpit ([sassmaker.com](https://sassmaker.com))
+- [free-ai](https://github.com/sass-maker/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
+- [reel-pipeline](https://github.com/sass-maker/reel-pipeline) — AI short-form video generation pipeline (feeds SaaS Maker marketing queue)
+- [drank](https://github.com/High-Signal-App/drank) — Ahrefs Domain Rating tracker (feeds High Signal /domains)
 
 **Support + SaaS** — support infra that is also a public product
 
-- [codevetter](https://github.com/sarthak-fleet/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com)) — **umbrella for code quality and repo intelligence**
-  - [starboard](https://github.com/sarthak-fleet/starboard) — GitHub stars organizer + semantic search (sub-product of codevetter, separate repo)
-- [knowledge-base](https://github.com/sarthak-fleet/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
-- [high-signal](https://github.com/sarthak-fleet/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
+- [codevetter](https://github.com/Codevetter/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com)) — **umbrella for code quality and repo intelligence**
+  - [starboard](https://github.com/Codevetter/starboard) — GitHub stars organizer + semantic search (sub-product of codevetter, separate repo)
+- [knowledge-base](https://github.com/sass-maker/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
+- [high-signal](https://github.com/High-Signal-App/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
 
 **Research** — experimental, the bet is a research question
 
-- [aliveville](https://github.com/sarthak-fleet/alive-ville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)); GitHub repo name is `alive-ville`
-- [pace](https://github.com/sarthak-fleet/pace) — on-device Mac voice agent that reads your screen
-- [tinygpt](https://github.com/sarthak-fleet/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
+- [aliveville](https://github.com/sarthakagrawal927/alive-ville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com)); GitHub repo name is `alive-ville`
+- [pace](https://github.com/HeyPace/pace) — on-device Mac voice agent that reads your screen
+- [tinygpt](https://github.com/PostTrainLLM/tinygpt) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
 
 **Personal + free-tool** — built for personal use, free public tool
 
-- [significanthobbies](https://github.com/sarthak-fleet/significanthobbies) — life planner: private daily rituals + public living (hobbies, bucket lists, side quests) ([significanthobbies.com](https://significanthobbies.com))
-- [reader](https://github.com/sarthak-fleet/reader) — research library: capture, annotate, AI-chat
-- [anime-list](https://github.com/sarthak-fleet/anime-list) — anime/manga discovery with multi-axis filtering + watchlists
-- [swe-interview-prep](https://github.com/sarthak-fleet/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
-- [email-manager](https://github.com/sarthak-fleet/email-manager) — Gmail workspace with local semantic search
-- [looptv](https://github.com/sarthak-fleet/looptv) — TV-style random video player
-- [mobile-dev-cockpit](https://github.com/sarthak-fleet/mobile-dev-cockpit) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
+- [significanthobbies](https://github.com/Significant-Hobbies/significanthobbies) — life planner: private daily rituals + public living (hobbies, bucket lists, side quests) ([significanthobbies.com](https://significanthobbies.com))
+- [reader](https://github.com/Significant-Hobbies/reader) — research library: capture, annotate, AI-chat
+- [anime-list](https://github.com/Significant-Hobbies/anime-list) — anime/manga discovery with multi-axis filtering + watchlists
+- [swe-interview-prep](https://github.com/Significant-Hobbies/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
+- [email-manager](https://github.com/sarthakagrawal927/email-manager) — Gmail workspace with local semantic search
+- [looptv](https://github.com/Significant-Hobbies/looptv) — TV-style random video player
+- [mobile-dev-cockpit](https://github.com/sass-maker/mobile-dev-cockpit) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
-- [rolepatch](https://github.com/sarthak-fleet/rolepatch) — AI resume tailoring + job-application assistant (cover letters, company research, role-fit scoring, STAR prep) ([rolepatch.com](https://rolepatch.com))
-- [karte](https://github.com/sarthak-fleet/karte) — AI link-in-bio: chat, encyclopedia, roast modes ([karte.cc](https://karte.cc))
+- [rolepatch](https://github.com/sarthakagrawal927/rolepatch) — AI resume tailoring + job-application assistant (cover letters, company research, role-fit scoring, STAR prep) ([rolepatch.com](https://rolepatch.com))
+- [karte](https://github.com/sarthakagrawal927/karte) — AI link-in-bio: chat, encyclopedia, roast modes ([karte.cc](https://karte.cc))
 
 **Data** — the data is the asset, public surface is the product
 
-- [research-papers](https://github.com/sarthak-fleet/research-papers) — academic paper platform (488k papers, semantic search)
-- [protein-index](https://github.com/sarthak-fleet/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
+- [research-papers](https://github.com/High-Signal-App/research-papers) — academic paper platform (488k papers, semantic search)
+- [protein-index](https://github.com/sarthakagrawal927/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
 
-> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), companion-robot (delayed), forecast-lab (delayed), elves-hq (parked), games (personal: sarthakagrawal927/games). psi-swarm code lives under `fleet-ops/psi-swarm/` as a fleet-ops skill + tool; the standalone `sarthak-fleet/psi-swarm` repo remains for history.
+> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), forecast-lab (delayed), and games. Companion Robot now lives under `HeyPace`; Elves HQ and the standalone psi-swarm repository live under `sass-maker`.
 
 ## Work Tracking
 
