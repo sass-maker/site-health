@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="sarthak-fleet" width="150"/>
+  <img src="assets/logo.svg" alt="Fleet" width="150"/>
 </p>
 
 <h1 align="center">Fleet</h1>
 
-<p align="center"><em>One hub, many products — the sarthak-fleet workspace.</em></p>
+<p align="center"><em>One workspace, several focused product organizations.</em></p>
 
 This directory is the local workspace for the personal project fleet.
 
