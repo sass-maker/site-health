@@ -1,10 +1,10 @@
 # Tasks: fleet-jsonld-emission
 
-- [ ] 1. Extract shared registry helpers to `fleet-ops/scripts/lib/registry.mjs`
+- [x] 1. Extract shared registry helpers to `fleet-ops/scripts/lib/registry.mjs`
       (loadRegistry, productOrigin preference chain); consume from
       indexnow-submit.mjs and agent-index-audit.mjs. Verify: both scripts'
       `--dry-run`/`--all` output unchanged.
-- [ ] 2. Add `buildJsonLd(product, registry)` + unit-style check script
+- [x] 2. Add `buildJsonLd(product, registry)` + unit-style check script
       (`node fleet-ops/scripts/apply-agent-surfaces.mjs --jsonld --dry-run`)
       printing per-product JSON. Verify: JSON.parse on all 24 outputs.
 - [ ] 3. Add `headFile` (+ optional `schemaType`, `sameAs`) to registry for the
