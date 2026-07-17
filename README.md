@@ -108,3 +108,13 @@ tooling. Its `.gitignore` ignores every child project (`/*`) and allowlists:
 
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.
+
+## Fresh machine
+
+Clone this repository as the workspace root, then follow
+[`fleet-ops/docs/fleet-runbook.md`](fleet-ops/docs/fleet-runbook.md#fresh-machine-setup).
+The runbook contains the canonical project clone list, agent-skill linking,
+authentication checks, and the two read-only fleet health commands. Cloudflare
+Pages projects normally show no Git provider because production deploys are
+guarded GitHub Actions or Wrangler uploads; the GitHub repository and commit in
+the deployment workflow are the source link.
