@@ -79,7 +79,7 @@ Current fleet skills exposed to agents:
 | `name-domains` | standalone | domain naming pipeline |
 | `spec-driven` | standalone | OpenSpec workflow |
 | `psi-swarm` | standalone | Lighthouse performance audits |
-| `agent-ready` | standalone | AI crawler readiness |
+| `agent-ready` | standalone | AI / LLM indexing (GEO): llms.txt, markdown, /api/ai |
 | `seo-audit` | standalone | on-page SEO audit |
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
@@ -102,6 +102,8 @@ Use repo-local scripts before manual fleet inspection:
   cleanup, not a reason to tighten limits.
 - Operational/admin UI should be dense, scannable, accessible, and fast.
 - Marketing surfaces should follow `LANDING_STANDARD.md`.
+- Public agent/LLM indexing (llms.txt, page markdown, `/api/ai`) follows
+  `fleet-ops/docs/agent-indexing-standard.md`.
 - New web projects default to Astro for content/marketing/docs and Vite + React
   for app shells. Keep existing Next.js on Cloudflare only when it needs SSR,
   server actions, or per-route caching.

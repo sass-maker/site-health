@@ -46,6 +46,35 @@ indie). Rules that depend on monetization style live at the bottom under
 - **Let people play before they pay.** Interactive preview, sample input,
   or a free try-it widget on the landing page itself. [#25]
 
+## Decision and discovery content
+
+Every product with a marketing surface should cover the questions people ask
+while deciding, comparing, adopting, and using it:
+
+- **Who we're best for.** State the ideal customer, use case, and the cases
+  where the product is not the best fit. Make self-qualification easy.
+- **Competitor comparison pages.** Build dedicated, substantive pages for the
+  competitors prospects actually evaluate. Cover many relevant competitors,
+  not just one generic comparison table, and keep every claim defensible.
+- **Alternative pages.** Publish useful "alternatives to X" and "best tools
+  for Y" pages that help readers choose, even when another option may suit
+  them better.
+- **Detailed pricing.** The pricing page should explain far more than the
+  headline price: tiers, limits, included features, usage rules, add-ons,
+  billing terms, overages, refunds, and concrete examples where applicable.
+- **Migration and product documentation.** Provide migration guides, user
+  docs, and agent-facing docs when the product supports those workflows.
+  Cover the real path from the incumbent or old workflow to the product.
+- **Agent indexing (GEO).** Ship `llms.txt`, public markdown (or
+  `Accept: text/markdown`), and `/api/ai` so ChatGPT/Claude/Gemini can read
+  the product without JS. Spec:
+  [`fleet-ops/docs/agent-indexing-standard.md`](./fleet-ops/docs/agent-indexing-standard.md).
+- **Industry-specific pages.** Create pages for the industries and roles with
+  meaningfully different problems, language, workflows, or proof points.
+- **Real customer FAQs.** Answer questions customers actually ask in sales,
+  support, onboarding, and cancellation conversations. Avoid invented SEO
+  questions and vague answers.
+
 ## CTA
 
 - **One primary CTA.** Multiple buttons in the hero create hesitation. Pick
@@ -103,6 +132,12 @@ Use this as a quick scorecard for any fleet product with a landing page:
 - [ ] No generic copy that could be lifted to a competitor's site
 - [ ] Footer ends on something worth sharing/screenshotting
 - [ ] Product name is real words, not invented or wordplay
+- [ ] "Who we're best for" names the ideal customer and poor-fit cases
+- [ ] Dedicated comparison and alternatives pages cover relevant competitors
+- [ ] Pricing page explains tiers, limits, terms, and realistic examples
+- [ ] Migration guides and user/agent docs exist where applicable
+- [ ] Industry-specific pages exist for meaningfully different audiences
+- [ ] FAQ reflects real customer questions from sales, support, and onboarding
 
 ## Opinionated defaults (apply when business model fits)
 
