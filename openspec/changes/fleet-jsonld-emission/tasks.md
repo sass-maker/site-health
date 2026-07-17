@@ -17,7 +17,7 @@
       re-run `--dry-run` to confirm idempotence (zero diff on second run).
 - [x] 7. opennext products: emit `fleet-ops/out/jsonld/<id>.html` snippets;
       insert into each Next layout by hand; commit per repo.
-- [ ] 8. Add reported `jsonld` check to agent-index-audit.mjs; run `--all`.
+- [x] 8. Add reported `jsonld` check to agent-index-audit.mjs; run `--all`.
 - [ ] 9. Docs: one section in `fleet-ops/docs/agent-indexing-standard.md`
       (canonical home); pointer from geo-dr-outcomes.md. Update
       PROJECT_STATUS.md entries on ship; archive this change.
