@@ -10,7 +10,10 @@
       (probe → classify → record → commit).
 - [x] 4. Seed baseline from the 2026-07-17 audit discoverability results.
 - [x] 5. Register skill in fleet AGENTS.md skill table.
-- [x] 6. Create weekly scheduled routine (cloud agent) running the protocol.
+- [ ] 6. Create weekly scheduled routine (cloud agent) running the protocol.
+      BLOCKED on user: connect GitHub to claude.ai + install the Claude
+      GitHub App on sass-maker/fleet-workspace (browser queue B7). Routine
+      body ready at `fleet-ops/skills/geo-observatory/routine.json`.
 - [ ] 7. After 2 real runs: review noise level, tighten queries if volatile,
       then archive this change.
 - [ ] Phase 2 (separate change): edge AI-crawler telemetry via agent-edge +
