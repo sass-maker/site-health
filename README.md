@@ -43,6 +43,8 @@ worked on together as one effort).
 - [significanthobbies](https://github.com/Significant-Hobbies/significanthobbies) — life planner: private daily rituals + public living (hobbies, bucket lists, side quests) ([significanthobbies.com](https://significanthobbies.com))
 - [reader](https://github.com/Significant-Hobbies/reader) — research library: capture, annotate, AI-chat
 - [anime-list](https://github.com/Significant-Hobbies/anime-list) — anime/manga discovery with multi-axis filtering + watchlists
+- [chess](https://github.com/Significant-Hobbies/chess) — AI-coached chess game
+- [materia](https://github.com/Significant-Hobbies/materia) — evidence-graded body, supplement, herb, and drug reference
 - [swe-interview-prep](https://github.com/Significant-Hobbies/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [email-manager](https://github.com/sarthakagrawal927/email-manager) — Gmail workspace with local semantic search
 - [looptv](https://github.com/Significant-Hobbies/looptv) — TV-style random video player
@@ -56,7 +58,8 @@ worked on together as one effort).
 **Data** — the data is the asset, public surface is the product
 
 - [research-papers](https://github.com/High-Signal-App/research-papers) — academic paper platform (488k papers, semantic search)
-- [protein-index](https://github.com/sarthakagrawal927/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
+- [everythingrated](https://github.com/High-Signal-App/everythingrated) — multi-axis rating tool for structured directories and catalogs
+- [protein-index](https://github.com/Significant-Hobbies/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
 
 > Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), verified-bases (archived), forecast-lab (delayed), and [web-playables](https://github.com/sarthakagrawal927/web-playables). Companion Robot now lives under `HeyPace`; Elves HQ and the standalone psi-swarm repository live under `sass-maker`.
 

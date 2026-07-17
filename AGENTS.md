@@ -120,7 +120,6 @@ secret values into tracked files.
 
 Exclude these from fleet-wide sweeps unless explicitly asked:
 
-- `everythingrated`
 - `open-historia`
 - `today-little-log`
 - `truehire`
