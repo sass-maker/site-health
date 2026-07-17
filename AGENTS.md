@@ -81,6 +81,7 @@ Current fleet skills exposed to agents:
 | `psi-swarm` | standalone | Lighthouse performance audits |
 | `agent-ready` | standalone | AI / LLM indexing (GEO): llms.txt, markdown, /api/ai |
 | `seo-audit` | standalone | on-page SEO audit |
+| `geo-observatory` | standalone | recurring GEO outcome measurement (SERP class ledger + trend report) |
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |
