@@ -13,7 +13,7 @@
       (parse-back, head balance, restore-on-fail).
 - [x] 5. Pilot: codevetter — remove duplicate hand-written blocks, inject,
       build the site locally, validate with Google Rich Results test HTML.
-- [ ] 6. Roll out to remaining head-file products, one commit per repo;
+- [x] 6. Roll out to remaining head-file products, one commit per repo;
       re-run `--dry-run` to confirm idempotence (zero diff on second run).
 - [ ] 7. opennext products: emit `fleet-ops/out/jsonld/<id>.html` snippets;
       insert into each Next layout by hand; commit per repo.
