@@ -15,7 +15,7 @@
       build the site locally, validate with Google Rich Results test HTML.
 - [x] 6. Roll out to remaining head-file products, one commit per repo;
       re-run `--dry-run` to confirm idempotence (zero diff on second run).
-- [ ] 7. opennext products: emit `fleet-ops/out/jsonld/<id>.html` snippets;
+- [x] 7. opennext products: emit `fleet-ops/out/jsonld/<id>.html` snippets;
       insert into each Next layout by hand; commit per repo.
 - [ ] 8. Add reported `jsonld` check to agent-index-audit.mjs; run `--all`.
 - [ ] 9. Docs: one section in `fleet-ops/docs/agent-indexing-standard.md`
