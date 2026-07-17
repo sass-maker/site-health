@@ -11,7 +11,7 @@
       12 non-opennext products; verify each path exists on disk.
 - [x] 4. Implement marked-block injection + post-write safety checks
       (parse-back, head balance, restore-on-fail).
-- [ ] 5. Pilot: codevetter — remove duplicate hand-written blocks, inject,
+- [x] 5. Pilot: codevetter — remove duplicate hand-written blocks, inject,
       build the site locally, validate with Google Rich Results test HTML.
 - [ ] 6. Roll out to remaining head-file products, one commit per repo;
       re-run `--dry-run` to confirm idempotence (zero diff on second run).
