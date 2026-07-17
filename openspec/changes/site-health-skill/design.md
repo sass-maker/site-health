@@ -6,7 +6,7 @@
 |---|---|---|
 | "can AI crawlers read it", llms.txt, GEO surfaces | agent-ready | `fleet-ops/skills/agent-ready/` |
 | "check meta/canonical/schema", on-page SEO | seo-audit | `fleet-ops/skills/seo-audit/` |
-| "is it fast", CWV, Lighthouse | psi-swarm | `~/.claude/skills/psi-swarm` → symlink into fleet (fix stray copy) |
+| "is it fast", CWV, Lighthouse | psi-swarm | `fleet-ops/skills/psi-swarm/` → canonical `fleet-ops/psi-swarm/SKILL.md` |
 | "did results move", SERP trend, weekly run | geo-observatory | `fleet-ops/skills/geo-observatory/` |
 | "full health check", "audit everything for X" | combined mode (below) | parent |
 
@@ -33,11 +33,11 @@ v1 aggregates existing outputs; it does not re-implement any check.
 
 - AGENTS.md skill table: remove 4 rows, add
   `site-health | parent | routes to agent-ready / seo-audit / psi-swarm / geo-observatory; combined scorecard`.
-- `~/.claude/skills`: add `site-health` symlink; remove `agent-ready`,
-  `seo-audit` symlinks and the `psi-swarm` real copy (replace with symlink
-  to its fleet home). Children remain reachable via the parent's routing
-  and by path; direct `/agent-ready` style invocation still works wherever
-  a symlink or fleet checkout exposes them.
+- Per user directive (2026-07-17): `fleet-ops/skills/` is the ONLY home —
+  nothing is added or changed in `~/.claude/skills`, ever. Fleet-checkout
+  project discovery exposes the skills (verified in-session). psi-swarm's
+  skill joins `fleet-ops/skills/psi-swarm/` as a relative symlink to its
+  canonical `fleet-ops/psi-swarm/SKILL.md`.
 
 ## Child edits (minimal)
 
