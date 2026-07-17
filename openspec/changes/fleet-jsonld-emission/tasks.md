@@ -7,7 +7,7 @@
 - [x] 2. Add `buildJsonLd(product, registry)` + unit-style check script
       (`node fleet-ops/scripts/apply-agent-surfaces.mjs --jsonld --dry-run`)
       printing per-product JSON. Verify: JSON.parse on all 24 outputs.
-- [ ] 3. Add `headFile` (+ optional `schemaType`, `sameAs`) to registry for the
+- [x] 3. Add `headFile` (+ optional `schemaType`, `sameAs`) to registry for the
       12 non-opennext products; verify each path exists on disk.
 - [ ] 4. Implement marked-block injection + post-write safety checks
       (parse-back, head balance, restore-on-fail).
