@@ -9,7 +9,7 @@
       printing per-product JSON. Verify: JSON.parse on all 24 outputs.
 - [x] 3. Add `headFile` (+ optional `schemaType`, `sameAs`) to registry for the
       12 non-opennext products; verify each path exists on disk.
-- [ ] 4. Implement marked-block injection + post-write safety checks
+- [x] 4. Implement marked-block injection + post-write safety checks
       (parse-back, head balance, restore-on-fail).
 - [ ] 5. Pilot: codevetter — remove duplicate hand-written blocks, inject,
       build the site locally, validate with Google Rich Results test HTML.
