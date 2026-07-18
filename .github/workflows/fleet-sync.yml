@@ -1,0 +1,60 @@
+name: Fleet Sync Guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'fleet-ops/config/spotlight-products.json'
+      - 'fleet-ops/config/spotlight-sync.json'
+      - 'fleet-ops/scripts/sync-spotlight-products.mjs'
+      - 'fleet-ops/scripts/validate-spotlight-products.mjs'
+      - '.github/workflows/fleet-sync.yml'
+  pull_request:
+    paths:
+      - 'fleet-ops/config/spotlight-products.json'
+      - 'fleet-ops/config/spotlight-sync.json'
+      - 'fleet-ops/scripts/sync-spotlight-products.mjs'
+      - 'fleet-ops/scripts/validate-spotlight-products.mjs'
+      - '.github/workflows/fleet-sync.yml'
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out fleet workspace
+        uses: actions/checkout@v4
+
+      - name: Check out portfolio
+        uses: actions/checkout@v4
+        with:
+          repository: sarthakagrawal927/portfolio
+          path: portfolio
+
+      - name: Check out SaaS Maker
+        uses: actions/checkout@v4
+        with:
+          repository: sass-maker/saas-maker
+          path: saas-maker
+
+      - name: Check out synchronized profile repositories
+        run: |
+          git clone --depth 1 https://github.com/sarthakagrawal927/sarthakagrawal927 sync-targets/personal-profile
+          git clone --depth 1 https://github.com/Codevetter/.github sync-targets/codevetter-profile
+          git clone --depth 1 https://github.com/PostTrainLLM/.github sync-targets/posttrainllm-profile
+          git clone --depth 1 https://github.com/HeyPace/.github sync-targets/heypace-profile
+          git clone --depth 1 https://github.com/High-Signal-App/.github sync-targets/hisignal-profile
+          git clone --depth 1 https://github.com/sass-maker/.github sync-targets/saas-maker-profile
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate fleet synchronization
+        run: node fleet-ops/scripts/sync-spotlight-products.mjs --check --strict --workspace .
