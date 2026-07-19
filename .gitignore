@@ -24,3 +24,9 @@
 
 # Infisical project link (workspaceId pointer — keep local)
 .infisical.json
+
+# Devin fleet-run outputs (logs, prompts, markers)
+fleet-ops/.devin-runs/
+
+# Grok fan-out worktrees
+fleet-ops/.grok-wt/
