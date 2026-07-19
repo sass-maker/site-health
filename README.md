@@ -11,6 +11,10 @@ This directory is the local workspace for the personal project fleet.
 This root is its own lightweight repository for Fleet-wide policy and docs. Each
 child project remains its own separate repository.
 
+The canonical live project/domain inventory is [`fleet-ops/config/projects.json`](fleet-ops/config/projects.json);
+this README is the human taxonomy, while [SaaS Maker](https://sassmaker.com) is
+the public directory.
+
 ## Products
 
 Projects are classified by purpose (a project can appear in more than one):
@@ -30,6 +34,7 @@ worked on together as one effort).
 - [codevetter](https://github.com/Codevetter/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com)) — **umbrella for code quality and repo intelligence**
   - [starboard](https://github.com/Codevetter/starboard) — GitHub stars organizer + semantic search (sub-product of codevetter, separate repo)
 - [knowledge-base](https://github.com/sass-maker/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
+- [saas-ideas](https://github.com/sass-maker/saas-ideas) — scored catalog of SaaS ideas ([ideas.sassmaker.com](https://ideas.sassmaker.com))
 - [high-signal](https://github.com/High-Signal-App/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
 
 **Research** — experimental, the bet is a research question
