@@ -123,7 +123,6 @@ Exclude these from fleet-wide sweeps unless explicitly asked:
 - `open-historia`
 - `today-little-log`
 - `truehire`
-- `verified-bases`
 - `companion-robot`
 - `device-net-test`
 - `forecast-lab`
