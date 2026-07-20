@@ -4,16 +4,31 @@
 
 <h1 align="center">Fleet</h1>
 
-<p align="center"><em>One workspace, several focused product organizations.</em></p>
+<p align="center"><em>One shared-infrastructure project, several independent products.</em></p>
 
-This directory is the local workspace for the personal project fleet.
+This repository is the canonical Fleet shared-infrastructure project and also
+serves as the local workspace root for independent product repositories.
 
-This root is its own lightweight repository for Fleet-wide policy and docs. Each
-child project remains its own separate repository.
+Shared operations live under `fleet-ops/`: registries, skills, automation,
+marketing production, domain intelligence, performance tooling, and the private
+mobile control client. Product repositories remain independently versioned and
+deployed unless explicitly imported as Fleet infrastructure.
 
 The canonical live project/domain inventory is [`fleet-ops/config/projects.json`](fleet-ops/config/projects.json);
 this README is the human taxonomy, while [SaaS Maker](https://sassmaker.com) is
-the public directory.
+the public directory, package catalogue, and feedback product.
+
+## Canonical Fleet components
+
+- `fleet-ops/services/reel-pipeline/` — approved media production and Postiz handoff
+- `fleet-ops/services/drank/` — domain intelligence
+- `fleet-ops/psi-swarm/` — performance and site-health tooling
+- `fleet-ops/apps/mobile-cockpit/` — private mobile Fleet client
+- `fleet-ops/apps/ops-console/` — local operations view
+- `fleet-ops/skills/`, `scripts/`, `automation/`, `config/` — common infrastructure
+
+CodeVetter and App Health remain fully independent products. SaaS Maker is not
+the Fleet control plane.
 
 ## Products
 
@@ -24,10 +39,10 @@ worked on together as one effort).
 
 **Support** — infrastructure serving other fleet projects
 
-- [saas-maker](https://github.com/sass-maker/saas-maker) — the Foundry: system-of-record, SDKs, widgets, CF API + cockpit ([sassmaker.com](https://sassmaker.com))
+- [saas-maker](https://github.com/sass-maker/saas-maker) — public product directory, maintained package catalogue, and shared feedback ([sassmaker.com](https://sassmaker.com))
 - [free-ai](https://github.com/sass-maker/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
-- [reel-pipeline](https://github.com/sass-maker/reel-pipeline) — AI short-form video generation pipeline (feeds SaaS Maker marketing queue)
-- [drank](https://github.com/High-Signal-App/drank) — Ahrefs Domain Rating tracker (feeds High Signal /domains)
+- Reel Pipeline — AI short-form media production and Postiz handoff, canonical under Fleet Workspace; the standalone repository is a migration rollback source
+- Drank — domain-rating intelligence, canonical under Fleet Workspace; the standalone repository is a migration rollback source
 
 **Support + SaaS** — support infra that is also a public product
 
@@ -71,9 +86,9 @@ worked on together as one effort).
 
 ## Work Tracking
 
-Use Symphony tasks as the default place to capture work. A task can be an
-investigation, a bug fix, a deploy check, cleanup, a code change, or a deferred
-follow-up. It does not need to imply that code must change.
+Use repository-native GitHub issues or OpenSpec changes to capture durable work.
+A work item can be an investigation, bug fix, deploy check, cleanup, code
+change, or deferred follow-up. SaaS Maker is not the task system of record.
 
 Create a task for:
 
@@ -93,24 +108,25 @@ strategies, runbooks, and research/reference notes.
 - Project `docs/`: durable reference, architecture, runbooks, research, and
   product docs.
 - Project `docs/plans/`: rare design artifacts, not the task queue.
-- Symphony tasks: operational source of truth for active and deferred work.
-- Symphony memory: standing instructions for how agents should behave.
+- GitHub issues: repository-native operational follow-up.
+- OpenSpec changes: non-trivial product or cross-repository feature lifecycle.
+- `PROJECT_STATUS.md`: durable current product state.
 
-When a plan creates execution work, split that work into Symphony tasks. When
-work is done, mark the task done and record evidence on the task instead of
-creating another plan doc.
+When a plan creates execution work, keep it in the owning repository or
+cross-repository OpenSpec store. Do not mirror it into SaaS Maker.
 
 Agent-facing instructions live in the fleet-level `AGENTS.md`, which applies to
 projects below this directory unless a project has a more specific `AGENTS.md`.
 
 ## Repository Boundary
 
-The Fleet root repo tracks only workspace-level control files and shared
-tooling. Its `.gitignore` ignores every child project (`/*`) and allowlists:
+The Fleet root repo tracks workspace-level control files and all shared
+infrastructure under `fleet-ops/`. Its `.gitignore` ignores independent child
+product checkouts (`/*`) and allowlists:
 
-- `README.md`, `AGENTS.md`, `CLAUDE.md`, `LANDING_STANDARD.md`, `.gitignore`
-- `assets/` — workspace logo + shared art
-- `fleet-ops/` — all fleet tooling: scripts, skills, teammates, docs, templates, psi-swarm, retired-project archives
+- `README.md`, `PROJECT_STATUS.md`, `package.json`, agent/policy files, and `.gitignore`
+- `assets/` — workspace logo and shared art
+- `fleet-ops/` — all shared infrastructure, including imported services and apps
 
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.

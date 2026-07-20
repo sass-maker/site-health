@@ -1,0 +1,13 @@
+{
+  "name": "fleet-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Canonical shared infrastructure workspace for the fleet",
+  "scripts": {
+    "check:registry": "node fleet-ops/scripts/validate-automation-registry.mjs && node fleet-ops/scripts/validate-marketing-program.mjs",
+    "test:fleet": "node --test fleet-ops/test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
