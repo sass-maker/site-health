@@ -131,6 +131,11 @@ product checkouts (`/*`) and allowlists:
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.
 
+Run `npm run test:fleet` for shared infrastructure checks and
+`npm run check:components:native` for each imported component's own validation.
+The latter preserves each component's package manager and toolchain rather than
+imposing a shared deploy cadence.
+
 ## Fresh machine
 
 Clone this repository as the workspace root, then follow

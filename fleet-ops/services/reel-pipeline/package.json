@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Control-plane-friendly reel generation pipeline for SaaS Maker marketing queue items.",
+  "description": "Fleet's generation pipeline for approved marketing content.",
   "scripts": {
     "dev": "node src/server/index.js",
     "test": "node --experimental-strip-types --test && cargo test --quiet --manifest-path reel/Cargo.toml",
@@ -22,7 +22,6 @@
     "check:social": "node scripts/social-readiness.js",
     "render:reel-maker": "node scripts/render-reel-maker.js",
     "render:pro:rs": "cargo run --quiet --manifest-path reel/Cargo.toml -- render --execute --repo-root .",
-    "sync:saasmaker": "node scripts/sync-from-saasmaker.js",
     "draft:signal": "node scripts/draft-from-signal.js",
     "content": "node --experimental-strip-types scripts/content-packages.js",
     "lesson:render": "node scripts/render-lesson.js",

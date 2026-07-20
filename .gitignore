@@ -3,6 +3,7 @@
 
 # Track only Fleet workspace control files.
 !/.gitignore
+!/.gitmodules
 !/README.md
 !/AGENTS.md
 !/CLAUDE.md

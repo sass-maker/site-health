@@ -1,4 +1,4 @@
-# Content Factory
+# Fleet Content Factory
 
 Content Factory is the generation-only boundary retained from Reel Pipeline. It
 accepts approved `ContentFactoryBrief` v1 inputs and emits validated
