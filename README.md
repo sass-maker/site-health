@@ -36,6 +36,7 @@ worked on together as one effort).
 - [knowledge-base](https://github.com/sass-maker/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
 - [saas-ideas](https://github.com/sass-maker/saas-ideas) — scored catalog of SaaS ideas ([ideas.sassmaker.com](https://ideas.sassmaker.com))
 - [high-signal](https://github.com/High-Signal-App/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
+- [app-health](https://github.com/sarthakagrawal927/app-health) — Owner-first application health and fix handoff for live apps
 
 **Research** — experimental, the bet is a research question
 
