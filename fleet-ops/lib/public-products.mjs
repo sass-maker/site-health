@@ -41,7 +41,9 @@ export function buildPublicProducts({ projects, marketingProgram, annotations })
     }
 
     const priority = priorityFor(projects._meta.priorities, annotation.projectId);
-    const roadmapPath = annotation.roadmapPath ?? 'PROJECT_STATUS.md';
+    const roadmapPath = Object.hasOwn(annotation, 'roadmapPath')
+      ? annotation.roadmapPath
+      : 'PROJECT_STATUS.md';
     const output = {
       id: annotation.id,
       name: annotation.name,
@@ -52,9 +54,15 @@ export function buildPublicProducts({ projects, marketingProgram, annotations })
       priority,
       spotlight: annotation.spotlight,
       maturity: annotation.maturity,
-      repositoryUrl: annotation.repositoryUrl,
-      changelogUrl: `${annotation.repositoryUrl}/commits/main`,
-      roadmapUrl: `${annotation.repositoryUrl}/blob/main/${roadmapPath}`,
+      ...(annotation.repositoryUrl
+        ? {
+            repositoryUrl: annotation.repositoryUrl,
+            changelogUrl: `${annotation.repositoryUrl}/commits/main`,
+            ...(roadmapPath
+              ? { roadmapUrl: `${annotation.repositoryUrl}/blob/main/${roadmapPath}` }
+              : {}),
+          }
+        : {}),
       pillarId: annotation.pillarId,
     };
     assertPublicShape(output);
@@ -98,7 +106,7 @@ function assertPublicShape(product) {
   for (const key of Object.keys(product)) {
     if (!PUBLIC_FIELDS.has(key)) throw new Error(`${product.id}: unsupported public field ${key}`);
   }
-  for (const key of ['id', 'name', 'description', 'url', 'repositoryUrl', 'changelogUrl', 'roadmapUrl']) {
+  for (const key of ['id', 'name', 'description', 'url']) {
     if (!product[key]) throw new Error(`${product.id}: missing ${key}`);
   }
 }

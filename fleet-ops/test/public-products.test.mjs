@@ -20,6 +20,18 @@ test('public projection contains only explicitly allowlisted public products', (
   assert.equal(projection.products.some((product) => product.id === 'fleet-workspace'), false);
   assert.equal(projection.products.some((product) => product.id === 'mobile-dev-cockpit'), false);
   assert.equal(projection.products.some((product) => product.id === 'app-health'), false);
+  assert.equal(
+    Object.hasOwn(projection.products.find((product) => product.id === 'drank'), 'repositoryUrl'),
+    false,
+  );
+  assert.equal(
+    Object.hasOwn(projection.products.find((product) => product.id === 'chess'), 'roadmapUrl'),
+    false,
+  );
+  assert.equal(
+    projection.products.find((product) => product.id === 'reader').roadmapUrl,
+    'https://github.com/Significant-Hobbies/reader/blob/main/PROJECT_STATUS.md',
+  );
   assert.doesNotThrow(() => assertNoPrivateData(projection));
 });
 
