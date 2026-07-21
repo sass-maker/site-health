@@ -191,8 +191,8 @@ function scanRepository(project, findings, evidence) {
   }
 }
 
-async function probeDomain(domain) {
-  const url = `https://${domain}`;
+async function probeDomain(domain, path = '/') {
+  const url = new URL(path, `https://${domain}`).toString();
   const started = Date.now();
   try {
     const response = await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(20_000) });
@@ -242,11 +242,13 @@ async function main() {
   const findings = [];
   const evidence = { repositories: [], background_jobs: [] };
   const domainOwners = new Map();
+  const domainProbePaths = new Map();
   for (const project of projects) {
     for (const domain of project.domains ?? []) {
       const owners = domainOwners.get(domain) ?? [];
       owners.push(project.id);
       domainOwners.set(domain, owners);
+      domainProbePaths.set(domain, project.domainProbePaths?.[domain] ?? '/');
     }
     if (project.status === 'live' && project.repo && !repoPathFor(project)) {
       findings.push(finding('high', 'manifest', project.id, 'Live project has no repository mapping.', 'Add the owning repository to projects.json or explicitly mark the surface non-product.'));
@@ -260,7 +262,7 @@ async function main() {
   const live = { domain_probes: [], cloudflare: {} };
   if (liveChecks) {
     const domains = [...domainOwners.keys()].sort();
-    live.domain_probes = await Promise.all(domains.map(probeDomain));
+    live.domain_probes = await Promise.all(domains.map((domain) => probeDomain(domain, domainProbePaths.get(domain))));
     for (const probe of live.domain_probes) {
       if (!probe.ok) findings.push(finding('high', 'live-surface', probe.domain, `Canonical domain probe failed with ${probe.status ?? probe.error}`, 'Restore DNS/deployment or update the manifest only if the surface is intentionally retired.'));
     }

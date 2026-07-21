@@ -6,13 +6,13 @@
       "checkoutPath": "portfolio",
       "file": "src/data/spotlight-products.ts"
     },
-    "saasMakerFoundry": {
-      "checkoutPath": "saas-maker",
-      "file": "foundry.projects.json"
+    "publicProjection": {
+      "checkoutPath": ".",
+      "file": "fleet-ops/public/products.json"
     },
-    "saasMakerShowcase": {
+    "saasMakerCatalog": {
       "checkoutPath": "saas-maker",
-      "file": "apps/showcase/src/data/product-sites.json"
+      "file": "catalog/generated/public.json"
     },
     "profiles": [
       {
@@ -27,7 +27,6 @@
         "repository": "Codevetter/.github",
         "checkoutPath": "sync-targets/codevetter-profile",
         "file": "profile/README.md",
-        "localMirror": "saas-maker/docs/org-profiles/Codevetter/README.md",
         "requiredProductIds": ["codevetter"]
       },
       {
@@ -35,7 +34,6 @@
         "repository": "PostTrainLLM/.github",
         "checkoutPath": "sync-targets/posttrainllm-profile",
         "file": "profile/README.md",
-        "localMirror": "saas-maker/docs/org-profiles/PostTrainLLM/README.md",
         "requiredProductIds": ["posttrainllm"]
       },
       {
@@ -43,7 +41,6 @@
         "repository": "HeyPace/.github",
         "checkoutPath": "sync-targets/heypace-profile",
         "file": "profile/README.md",
-        "localMirror": "saas-maker/docs/org-profiles/HeyPace/README.md",
         "requiredProductIds": ["heypace"]
       },
       {
@@ -51,7 +48,6 @@
         "repository": "High-Signal-App/.github",
         "checkoutPath": "sync-targets/hisignal-profile",
         "file": "profile/README.md",
-        "localMirror": "saas-maker/docs/org-profiles/High-Signal-App/README.md",
         "requiredProductIds": ["hisignal"]
       },
       {
@@ -59,7 +55,6 @@
         "repository": "sass-maker/.github",
         "checkoutPath": "sync-targets/saas-maker-profile",
         "file": "profile/README.md",
-        "localMirror": "saas-maker/docs/org-profiles/sass-maker/README.md",
         "requiredProductIds": ["saas-maker"]
       }
     ]

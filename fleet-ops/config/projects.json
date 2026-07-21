@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-07-19",
+    "updated": "2026-07-21",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -11,6 +11,7 @@
       "deployKind": "pages | worker | worker+pages | none | unknown",
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
+      "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
       "status": "live | undeployed | orphan | deleted | unverified",
       "notes": "reconciliation flags / decisions"
@@ -84,7 +85,19 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Public product directory, package catalogue, and shared feedback surface. Not the Fleet control plane."
+      "notes": "Public product directory and shared feedback entry point. Not the Fleet control plane."
+    },
+    {
+      "id": "saas-maker-packages",
+      "family": "saas-maker",
+      "tier": "active",
+      "repo": "saas-maker",
+      "deployKind": "pages",
+      "cfProject": "saas-maker-packages",
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Canonical Blume package docs are live on the Pages origin. packages.sassmaker.com remains pending an authenticated custom-domain attachment."
     },
     {
       "id": "saas-maker-feedback",
@@ -93,7 +106,13 @@
       "repo": "saas-maker",
       "deployKind": "worker",
       "cfProject": "saasmaker-dashboard, saasmaker-api",
-      "domains": [],
+      "domains": [
+        "app.sassmaker.com",
+        "api.sassmaker.com"
+      ],
+      "domainProbePaths": {
+        "api.sassmaker.com": "/health"
+      },
       "inRegistry": false,
       "status": "live",
       "notes": "Narrow feedback API and review inbox. saasmaker-droid is retired in source and remains a production cutover item until explicitly deployed/removed."

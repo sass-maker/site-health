@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-20
+Last updated: 2026-07-21
 
 ## Why / What
 
@@ -48,6 +48,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-21 — SaaS Maker production boundary cut over:** Deployed the public
+  directory, narrow feedback API, and private feedback Cockpit from synchronized
+  `main`; all shared smoke checks passed. Created and deployed the canonical
+  Blume package-docs Pages origin. Its `packages.sassmaker.com` custom domain is
+  pending authenticated dashboard/API attachment.
 - **2026-07-20 — SaaS Maker/Fleet boundary corrected:** Replaced the abandoned
   direction that embedded Fleet inside SaaS Maker. Fleet Workspace became the
   canonical shared-infrastructure destination; SaaS Maker narrowed to public
@@ -86,17 +91,19 @@ explicit source/deploy cutover and later archival decision.
 - Agent and notification policy, machine-host foundations, and inert schedule
   definitions.
 - OpenSpec store for cross-repository fleet changes.
+- Public SaaS Maker projection with Fleet-owned spotlight synchronization and
+  a checked-in privacy-safe consumer snapshot.
 
 ## Todo / Planned / Deferred / Blocked
 
 ### Planned
 
-1. Complete source reconciliation for Reel Pipeline, Drank, Mobile Dev Cockpit,
-   and newer Fleet Ops changes under their canonical Fleet paths.
-2. Generate the privacy-allowlisted public SaaS Maker product projection from
-   Fleet's canonical registry.
-3. Add affected-component validation and verify clean-clone behavior.
-4. Prepare, but do not execute, later deploy and legacy-repository cutovers.
+1. Attach `packages.sassmaker.com` to the deployed `saas-maker-packages` Pages
+   project after Cloudflare dashboard/API authentication is available.
+2. Verify the designated operations host from a fresh clone before activating
+   any schedules.
+3. Prepare later legacy-repository retirement decisions without deleting
+   rollback sources automatically.
 
 ### Deferred
 
@@ -109,5 +116,6 @@ explicit source/deploy cutover and later archival decision.
 
 ### Blocked
 
-- Production cutover, DNS changes, scheduler activation, npm publication, and
-  repository archival require separate explicit approval.
+- `packages.sassmaker.com` requires a signed-in Cloudflare dashboard session or
+  authenticated Pages Domains API connector; the current browser/API connector
+  is not authenticated.

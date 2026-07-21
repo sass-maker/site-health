@@ -33,14 +33,28 @@ function resolveCheckout(workspace, checkoutPath) {
   return inWorkspace;
 }
 
-function expectedFoundryKeys(contract) {
-  return Object.fromEntries(contract.products.map((product) => [product.id, {
-    codevetter: 'CodeVetter',
-    posttrainllm: 'posttrainllm',
-    heypace: 'pace',
-    hisignal: 'high-signal',
-    'saas-maker': 'saas-maker',
-  }[product.id]]));
+function expectedSpotlightSites(contract) {
+  return contract.products.map((product) => `${product.showcaseId}:${product.url}`).sort();
+}
+
+async function checkPublicProjection(path, label, expectedSites, errors) {
+  if (!existsSync(path)) {
+    errors.push(`${label} is missing at ${path}`);
+    return null;
+  }
+  const projection = await readJson(path);
+  if (projection.schemaVersion !== 1 || !Array.isArray(projection.products)) {
+    errors.push(`${label} has an unsupported public projection schema`);
+    return null;
+  }
+  const actualSites = projection.products
+    .filter((product) => product.spotlight === true)
+    .map((product) => `${product.id}:${product.url}`)
+    .sort();
+  if (JSON.stringify(actualSites) !== JSON.stringify(expectedSites)) {
+    errors.push(`${label} spotlight drift: expected ${expectedSites.join(', ')}, found ${actualSites.join(', ')}`);
+  }
+  return projection;
 }
 
 function portfolioSource(contract) {
@@ -104,22 +118,21 @@ async function validate(contract, config, options) {
     }
   }
 
-  const foundryPath = resolve(resolveCheckout(options.workspace, config.targets.saasMakerFoundry.checkoutPath), config.targets.saasMakerFoundry.file);
-  const productSitesPath = resolve(resolveCheckout(options.workspace, config.targets.saasMakerShowcase.checkoutPath), config.targets.saasMakerShowcase.file);
-  if (!existsSync(foundryPath)) errors.push(`SaaS Maker foundry target is missing at ${foundryPath}`);
-  else {
-    const foundry = await readJson(foundryPath);
-    const mapping = expectedFoundryKeys(contract);
-    const actual = Object.entries(foundry).filter(([, project]) => project.spotlight === true).map(([id]) => id).sort();
-    const expectedKeys = expected.map((product) => mapping[product.id]).sort();
-    if (JSON.stringify(actual) !== JSON.stringify(expectedKeys)) errors.push(`foundry spotlight drift: expected ${expectedKeys.join(', ')}, found ${actual.join(', ')}`);
-  }
-  if (!existsSync(productSitesPath)) errors.push(`SaaS Maker showcase target is missing at ${productSitesPath}`);
-  else {
-    const productSites = await readJson(productSitesPath);
-    const actual = productSites.products.filter((product) => product.spotlight === true).map((product) => `${product.id}:${product.url}`).sort();
-    const expectedSites = expected.map((product) => `${product.showcaseId}:${product.url}`).sort();
-    if (JSON.stringify(actual) !== JSON.stringify(expectedSites)) errors.push(`showcase spotlight drift: expected ${expectedSites.join(', ')}, found ${actual.join(', ')}`);
+  const publicProjectionPath = resolve(
+    resolveCheckout(options.workspace, config.targets.publicProjection.checkoutPath),
+    config.targets.publicProjection.file,
+  );
+  const saasMakerCatalogPath = resolve(
+    resolveCheckout(options.workspace, config.targets.saasMakerCatalog.checkoutPath),
+    config.targets.saasMakerCatalog.file,
+  );
+  const expectedSites = expectedSpotlightSites(contract);
+  const [publicProjection, saasMakerCatalog] = await Promise.all([
+    checkPublicProjection(publicProjectionPath, 'Fleet public projection', expectedSites, errors),
+    checkPublicProjection(saasMakerCatalogPath, 'SaaS Maker public catalog', expectedSites, errors),
+  ]);
+  if (publicProjection && saasMakerCatalog && JSON.stringify(publicProjection) !== JSON.stringify(saasMakerCatalog)) {
+    errors.push('SaaS Maker public catalog does not match the Fleet public projection');
   }
 
   await profileChecks(contract, config, options.workspace, options.strict, errors, warnings);
@@ -128,26 +141,7 @@ async function validate(contract, config, options) {
 
 async function writeConsumers(contract, config, workspace) {
   const portfolioPath = resolve(resolveCheckout(workspace, config.targets.portfolio.checkoutPath), config.targets.portfolio.file);
-  const foundryPath = resolve(resolveCheckout(workspace, config.targets.saasMakerFoundry.checkoutPath), config.targets.saasMakerFoundry.file);
-  const productSitesPath = resolve(resolveCheckout(workspace, config.targets.saasMakerShowcase.checkoutPath), config.targets.saasMakerShowcase.file);
-  const mapping = expectedFoundryKeys(contract);
-  const spotlightFoundryKeys = new Set(contract.products.map((product) => mapping[product.id]));
-
   await writeFile(portfolioPath, portfolioSource(contract));
-  const foundry = await readJson(foundryPath);
-  for (const [id, project] of Object.entries(foundry)) {
-    project.spotlight = spotlightFoundryKeys.has(id);
-    if (!project.spotlight) delete project.spotlight;
-  }
-  await writeFile(foundryPath, `${JSON.stringify(foundry, null, 2)}\n`);
-
-  const productSites = await readJson(productSitesPath);
-  const showcaseIds = new Set(contract.products.map((product) => product.showcaseId));
-  for (const product of productSites.products) {
-    if (showcaseIds.has(product.id)) product.spotlight = true;
-    else delete product.spotlight;
-  }
-  await writeFile(productSitesPath, `${JSON.stringify(productSites, null, 2)}\n`);
 }
 
 export async function main(argv = process.argv.slice(2)) {
