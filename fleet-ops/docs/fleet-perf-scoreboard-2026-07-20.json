@@ -1,0 +1,277 @@
+{
+  "generatedAt": "2026-07-20T11:41:56.686Z",
+  "runs": 3,
+  "results": [
+    {
+      "slug": "saas-maker",
+      "name": "SaaS Maker",
+      "url": "https://app.sassmaker.com/login",
+      "ok": true,
+      "p50": "1.47s",
+      "p75": "1.74s",
+      "p90": "1.91s",
+      "score": "92",
+      "p90ms": 1910
+    },
+    {
+      "slug": "swe-interview-prep",
+      "name": "SWE Interview Prep",
+      "url": "https://learn.significanthobbies.com",
+      "ok": true,
+      "p50": "1.34s",
+      "p75": "1.36s",
+      "p90": "1.37s",
+      "score": "96",
+      "p90ms": 1370
+    },
+    {
+      "slug": "significanthobbies",
+      "name": "Significant Hobbies",
+      "url": "https://significanthobbies.com",
+      "ok": true,
+      "p50": "1.25s",
+      "p75": "1.30s",
+      "p90": "1.34s",
+      "score": "97",
+      "p90ms": 1340
+    },
+    {
+      "slug": "pace",
+      "name": "Pace",
+      "url": "https://pace-6xg.pages.dev",
+      "ok": true,
+      "p50": "1.26s",
+      "p75": "1.26s",
+      "p90": "1.26s",
+      "score": "93",
+      "p90ms": 1260
+    },
+    {
+      "slug": "looptv",
+      "name": "LoopTV",
+      "url": "https://tv.significanthobbies.com",
+      "ok": true,
+      "p50": "831ms",
+      "p75": "872ms",
+      "p90": "896ms",
+      "score": "99",
+      "p90ms": 896
+    },
+    {
+      "slug": "drank",
+      "name": "DRank",
+      "url": "https://domains.sassmaker.com",
+      "ok": true,
+      "p50": "821ms",
+      "p75": "866ms",
+      "p90": "894ms",
+      "score": "99",
+      "p90ms": 894
+    },
+    {
+      "slug": "knowledge-base",
+      "name": "Knowledge Base",
+      "url": "https://search.sassmaker.com",
+      "ok": true,
+      "p50": "785ms",
+      "p75": "850ms",
+      "p90": "889ms",
+      "score": "100",
+      "p90ms": 889
+    },
+    {
+      "slug": "chess",
+      "name": "Chess Coach",
+      "url": "https://chess.significanthobbies.com",
+      "ok": true,
+      "p50": "717ms",
+      "p75": "767ms",
+      "p90": "797ms",
+      "score": "99",
+      "p90ms": 797
+    },
+    {
+      "slug": "everythingrated",
+      "name": "EverythingRated",
+      "url": "https://ratings.highsignal.app",
+      "ok": true,
+      "p50": "689ms",
+      "p75": "750ms",
+      "p90": "787ms",
+      "score": "99",
+      "p90ms": 787
+    },
+    {
+      "slug": "email-manager",
+      "name": "Email Manager",
+      "url": "https://mail.sassmaker.com",
+      "ok": true,
+      "p50": "785ms",
+      "p75": "786ms",
+      "p90": "786ms",
+      "score": "99",
+      "p90ms": 786
+    },
+    {
+      "slug": "posttrainllm",
+      "name": "PostTrainLLM",
+      "url": "https://posttrainllm.com",
+      "ok": true,
+      "p50": "634ms",
+      "p75": "705ms",
+      "p90": "748ms",
+      "score": "100",
+      "p90ms": 748
+    },
+    {
+      "slug": "research-papers",
+      "name": "Research Papers",
+      "url": "https://papers.highsignal.app",
+      "ok": true,
+      "p50": "664ms",
+      "p75": "715ms",
+      "p90": "745ms",
+      "score": "100",
+      "p90ms": 745
+    },
+    {
+      "slug": "rolepatch",
+      "name": "RolePatch",
+      "url": "https://rolepatch.com",
+      "ok": true,
+      "p50": "651ms",
+      "p75": "702ms",
+      "p90": "733ms",
+      "score": "100",
+      "p90ms": 733
+    },
+    {
+      "slug": "personal-website",
+      "name": "Personal website",
+      "url": "https://sarthakagrawal.dev",
+      "ok": true,
+      "p50": "688ms",
+      "p75": "689ms",
+      "p90": "689ms",
+      "score": "100",
+      "p90ms": 689
+    },
+    {
+      "slug": "aliveville",
+      "name": "AliveVille",
+      "url": "https://aliveville.com",
+      "ok": true,
+      "p50": "615ms",
+      "p75": "649ms",
+      "p90": "670ms",
+      "score": "99",
+      "p90ms": 670
+    },
+    {
+      "slug": "truehire",
+      "name": "TrueHire",
+      "url": "https://truehire.rolepatch.com",
+      "ok": true,
+      "p50": "580ms",
+      "p75": "629ms",
+      "p90": "659ms",
+      "score": "100",
+      "p90ms": 659
+    },
+    {
+      "slug": "karte",
+      "name": "Karte",
+      "url": "https://karte.cc",
+      "ok": true,
+      "p50": "628ms",
+      "p75": "637ms",
+      "p90": "643ms",
+      "score": "100",
+      "p90ms": 643
+    },
+    {
+      "slug": "protein-index",
+      "name": "Protein Index",
+      "url": "https://protein.significanthobbies.com",
+      "ok": true,
+      "p50": "611ms",
+      "p75": "618ms",
+      "p90": "623ms",
+      "score": "99",
+      "p90ms": 623
+    },
+    {
+      "slug": "CodeVetter",
+      "name": "CodeVetter",
+      "url": "https://codevetter.com",
+      "ok": true,
+      "p50": "586ms",
+      "p75": "601ms",
+      "p90": "610ms",
+      "score": "100",
+      "p90ms": 610
+    },
+    {
+      "slug": "reader",
+      "name": "Reader",
+      "url": "https://read.significanthobbies.com",
+      "ok": true,
+      "p50": "525ms",
+      "p75": "566ms",
+      "p90": "590ms",
+      "score": "100",
+      "p90ms": 590
+    },
+    {
+      "slug": "anime-list",
+      "name": "MAL Explorer",
+      "url": "https://anime.significanthobbies.com",
+      "ok": true,
+      "p50": "484ms",
+      "p75": "535ms",
+      "p90": "566ms",
+      "score": "100",
+      "p90ms": 566
+    },
+    {
+      "slug": "psi-swarm",
+      "name": "psi-swarm",
+      "url": "https://performance.sassmaker.com",
+      "ok": true,
+      "p50": "564ms",
+      "p75": "564ms",
+      "p90": "565ms",
+      "score": "100",
+      "p90ms": 565
+    },
+    {
+      "slug": "starboard",
+      "name": "Starboard",
+      "url": "https://starboard.codevetter.com",
+      "ok": true,
+      "p50": "241ms",
+      "p75": "389ms",
+      "p90": "477ms",
+      "score": "100",
+      "p90ms": 477
+    },
+    {
+      "slug": "high-signal",
+      "name": "High Signal",
+      "url": "https://highsignal.app",
+      "ok": true,
+      "p50": "261ms",
+      "p75": "386ms",
+      "p90": "460ms",
+      "score": "100",
+      "p90ms": 460
+    },
+    {
+      "slug": "materia",
+      "name": "Materia",
+      "url": "https://materia.significanthobbies.com",
+      "ok": false,
+      "error": "exit 1 for https://materia.significanthobbies.com\nutionContext._evaluateInContext (file:///home/runner/work/fleet-workspace/fleet-workspace/fleet-ops/psi-swarm/node_modules/.pnpm/lighthouse@12.8.2/node_modules/lighthouse/core/gather/driver/execution-context.js:123:22)\n    at async ExecutionContext.evaluateAsync (file:///home/runner/work/fleet-workspace/fleet-workspace/fleet-ops/psi-swarm/node_modules/.pnpm/lighthouse@12.8.2/node_modules/lighthouse/core/gather/driver/execution-context.js:175:14)\n    at async checkForQuiet (file:///home/runner/work/fleet-workspace/fleet-workspace/fleet-ops/psi-swarm/node_modules/.pnpm/lighthouse@12.8.2/node_modules/lighthouse/core/gather/driver/wait-for-condition.js:239:7) {\n  protocolMethod: 'Runtime.evaluate',\n  protocolError: 'Protocol error (Runtime.evaluate): Promise was collected'\n}\n\nNode.js v22.23.1\n"
+    }
+  ]
+}
