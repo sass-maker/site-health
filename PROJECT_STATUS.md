@@ -119,3 +119,6 @@ explicit source/deploy cutover and later archival decision.
 - `packages.sassmaker.com` requires a signed-in Cloudflare dashboard session or
   authenticated Pages Domains API connector; the current browser/API connector
   is not authenticated.
+- `sassmaker.com` still has a zone-level cache override that supersedes the
+  directory's tracked revalidation headers. An authenticated cache purge and
+  rule adjustment are required so new directory releases appear immediately.
