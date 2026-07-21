@@ -66,11 +66,12 @@ existing behavior, and config/CI tweaks.
 
 ## Fleet Tooling
 
-All shared fleet tooling lives under `fleet-ops/`: skills, scripts, docs,
-templates, teammates, and psi-swarm. Edit skills in `fleet-ops/`, not in agent
-profile dirs.
+All Fleet-owned shared tooling lives under `fleet-ops/`: skills, scripts, docs,
+templates, teammates, and psi-swarm. Edit Fleet skills in `fleet-ops/`, not in
+agent profile dirs. Approved third-party skills may be installed as ignored,
+machine-local payloads when their installer is pinned in Fleet scripts.
 
-Current fleet skills exposed to agents:
+Current Fleet-owned and approved external skills exposed to agents:
 
 | Skill | Type | Notes |
 |---|---|---|
@@ -82,6 +83,7 @@ Current fleet skills exposed to agents:
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |
+| `impeccable` | external standalone | default workflow for new UI, landing pages, and substantial visual redesigns |
 
 Use repo-local scripts before manual fleet inspection:
 
@@ -100,6 +102,9 @@ Use repo-local scripts before manual fleet inspection:
   cleanup, not a reason to tighten limits.
 - Operational/admin UI should be dense, scannable, accessible, and fast.
 - Marketing surfaces should follow `LANDING_STANDARD.md`.
+- New visual endeavors and substantial redesigns should use the Fleet-local
+  `$impeccable` skill: initialize design context, then review
+  `critique -> polish -> audit` before shipping.
 - Public agent/LLM indexing (llms.txt, page markdown, `/api/ai`) follows
   `fleet-ops/docs/agent-indexing-standard.md`.
 - New web projects default to Astro for content/marketing/docs and Vite + React

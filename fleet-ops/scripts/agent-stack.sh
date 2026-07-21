@@ -27,9 +27,33 @@ Commands:
 EOF
 }
 
+install_impeccable() {
+  local skill_file="$FLEET_ROOT/.agents/skills/impeccable/SKILL.md"
+
+  if [[ -f "$skill_file" ]]; then
+    return 0
+  fi
+
+  if ! command -v npx >/dev/null 2>&1; then
+    printf 'npx is required to install the Impeccable design skill.\n' >&2
+    return 1
+  fi
+
+  (
+    cd "$FLEET_ROOT"
+    npx --yes impeccable@3.2.1 install \
+      --providers=codex,claude \
+      --scope=project
+  )
+}
+
 install_skills() {
   local dir
   local skill
+
+  # Impeccable is a machine-installed third-party skill. Its generated files
+  # stay untracked; child projects receive local links below.
+  install_impeccable
 
   # Keep Codex skills local to Fleet instead of loading them in every repo.
   dir="$FLEET_ROOT/.agents/skills"

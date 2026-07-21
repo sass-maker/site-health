@@ -94,6 +94,8 @@ dist/
 .env*
 .wrangler/
 .astro/
+.agents/
+.claude/
 .DS_Store
 *.log
 *.db
@@ -111,6 +113,15 @@ Also read and follow the shared fleet-level agent standard at \`../AGENTS.md\`. 
 - **Stack**: ${STACK:-TBD}
 - **Local dev**: TBD
 - **Deploy**: TBD
+
+## Visual work
+
+For any visual surface, use the Fleet-local Impeccable skill and the shared
+`../LANDING_STANDARD.md` where applicable. Before broad visual implementation,
+run `\$impeccable init`; keep `PROJECT_STATUS.md` authoritative for product
+scope, `PRODUCT.md` limited to design context, and `DESIGN.md` authoritative
+for visual tokens and components. Review `critique -> polish -> audit` before
+shipping meaningful UI work.
 AGENTSEOF
 
 # 4. PROJECT_STATUS.md
@@ -188,6 +199,10 @@ Generated with [Devin](https://devin.ai)
 Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>"
 git push origin main 2>/dev/null || true
 
+# Keep Fleet and approved external skills available locally without committing
+# machine-specific symlinks into the new repository.
+"$ROOT/fleet-ops/scripts/link-project-agent-assets.sh" --skills-only "$NAME"
+
 echo ""
 echo "2. Scaffold files committed and pushed."
 echo ""
@@ -253,5 +268,6 @@ echo "Post-creation checklist:"
 echo "  [ ] AGENTS.md, PROJECT_STATUS.md, .gitignore committed"
 echo "  [ ] CI workflow committed (may need adjusting for your stack)"
 echo "  [ ] Fleet README updated"
+echo "  [ ] If visual: run \$impeccable init and review critique -> polish -> audit"
 echo "  [ ] If Cloudflare: create wrangler config"
 echo "  [ ] If DB: create schema + first migration"

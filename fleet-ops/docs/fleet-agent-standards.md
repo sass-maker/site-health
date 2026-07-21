@@ -37,6 +37,9 @@ Fleet landing/marketing standard:
 
 Fleet UI standard:
 - All fleet projects with a visual interface should move toward a free, beautiful, shadcn-compatible local UI standard when UI work is in scope.
+- Use [Impeccable](https://impeccable.style/) as the default design workflow for new visual endeavors and for substantial redesigns. It is an agent skill and review vocabulary, not a runtime UI dependency or a mandate to make every product look alike.
+- Before broad visual implementation, run `$impeccable init` and explicitly choose the `brand` or `product` register. Keep `PROJECT_STATUS.md` authoritative for product scope and delivery; keep Impeccable's root `PRODUCT.md` limited to design context (audience situation, register, voice, references, and anti-references), and use root `DESIGN.md` for visual tokens, typography, components, and interaction rules.
+- Shape new surfaces before building them. Before shipping a meaningful visual change, run the Impeccable sequence `critique` -> `polish` -> `audit`, review the resulting diffs rather than accepting them blindly, and use its deterministic detector as a signal rather than an inflexible style gate.
 - Prefer Tailwind tokens, local reusable components, lucide-react icons, and accessible Radix UI or React Aria primitives where they fit the repo's existing stack.
 - Use free/open component sources only. Aceternity UI free components are preferred for polished sections, cards, backgrounds, empty states, timelines, Bento grids, and high-visibility surfaces when they fit the product. shadcn/ui remains the base reference for durable app controls, with Magic UI and Origin UI as complementary free sources.
 - Do not preserve ugly UI by default. Migrate touched surfaces screen-by-screen with small diffs instead of forcing one global package or whole-stack rewrite.
@@ -252,6 +255,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |
+| `impeccable` | external standalone | design context, critique, polish, and audit workflow |
 
 Agent skill dirs wired (symlinks point to `fleet-ops/` paths):
 - `fleet/.agents/skills/` and each child repo's `.agents/skills/` (Codex)

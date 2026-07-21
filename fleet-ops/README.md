@@ -37,7 +37,8 @@ fleet-ops/
 
 ## Skill discovery model
 
-Only 10 fleet skills are exposed to each agent — 2 parents + 8 standalones.
+Only 11 skills are exposed to each agent — 2 Fleet parents, 8 Fleet
+standalones, and the approved external Impeccable design skill.
 Agents load the parent, read the routing table, then load the relevant subskill
 on demand (progressive disclosure).
 
@@ -53,9 +54,12 @@ on demand (progressive disclosure).
 | `token-budget` | standalone | — |
 | `mobile-task-control` | standalone | — |
 | `daily-learning` | standalone | fresh private 30-minute learning sessions |
+| `impeccable` | external standalone | design context, critique, polish, and audit workflow |
 
-Wired into: `~/.codex/skills/`, `~/.openclaw/skills/`, and optional Hermes agent
-configuration when that runtime is enabled.
+Fleet-owned skills are wired from `fleet-ops/`. Impeccable is installed
+project-locally by `fleet-ops/scripts/agent-stack.sh install-skills`, remains
+machine-local, and is then linked into child Fleet projects with the other
+skills.
 
 ## Adding a new skill
 

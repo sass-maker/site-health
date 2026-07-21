@@ -48,6 +48,10 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-21 — Impeccable design workflow adopted:** Installed Impeccable as
+  a Fleet-local, machine-scoped agent skill; added deterministic UI edit hooks,
+  new-project guidance, and a critique/polish/audit shipping sequence while
+  preserving `PROJECT_STATUS.md` as product-scope truth.
 - **2026-07-21 — SaaS Maker production boundary cut over:** Deployed the public
   directory, narrow feedback API, and private feedback Cockpit from synchronized
   `main`; all shared smoke checks passed. Created and deployed the canonical
@@ -91,6 +95,8 @@ explicit source/deploy cutover and later archival decision.
 - Agent and notification policy, machine-host foundations, and inert schedule
   definitions.
 - OpenSpec store for cross-repository fleet changes.
+- Fleet-local Impeccable design workflow with brand/product registers,
+  persistent design context, and pre-ship critique/polish/audit guidance.
 - Public SaaS Maker projection with Fleet-owned spotlight synchronization and
   a checked-in privacy-safe consumer snapshot.
 
