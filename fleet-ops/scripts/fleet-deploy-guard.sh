@@ -55,6 +55,22 @@ check() {
   fi
 }
 
+read_wrangler_name() {
+  local file="$1"
+  local name=""
+  if [[ "$file" == *.json* ]] && command -v jq >/dev/null 2>&1; then
+    name=$(jq -r '.name // empty' "$file" 2>/dev/null || true)
+  elif [[ "$file" == *.toml ]]; then
+    name=$(grep -E '^\s*name\s*=' "$file" 2>/dev/null | head -1 | sed -E 's/.*=\s*"([^"]+)".*/\1/' || true)
+  fi
+  # jq intentionally rejects JSONC comments and trailing commas. Wrangler
+  # accepts both, so fall back to the top-level name line for JSON configs.
+  if [[ -z "$name" && "$file" == *.json* ]]; then
+    name=$(sed -nE 's/^[[:space:]]*"name"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' "$file" | head -1)
+  fi
+  printf '%s' "$name"
+}
+
 # 1. On main branch?
 branch=$(git branch --show-current 2>/dev/null || echo "DETACHED")
 if [[ "$branch" == "main" ]]; then
@@ -126,11 +142,7 @@ fi
 cf_target=""
 for f in wrangler.toml wrangler.jsonc wrangler.json; do
   if [[ -f "$f" ]]; then
-    if [[ "$f" == *.json* ]] && command -v jq >/dev/null 2>&1; then
-      cf_target=$(jq -r '.name // empty' "$f" 2>/dev/null || true)
-    elif [[ "$f" == *.toml ]]; then
-      cf_target=$(grep -E '^\s*name\s*=' "$f" 2>/dev/null | head -1 | sed -E 's/.*=\s*"([^"]+)".*/\1/' || true)
-    fi
+    cf_target=$(read_wrangler_name "$f")
     [[ -n "$cf_target" ]] && break
   fi
 done
@@ -138,11 +150,7 @@ done
 # If not at root, check one level deep (monorepo: workers/, apps/, etc.)
 if [[ -z "$cf_target" ]]; then
   while IFS= read -r -d '' f; do
-    if [[ "$f" == *.json* ]] && command -v jq >/dev/null 2>&1; then
-      cf_target=$(jq -r '.name // empty' "$f" 2>/dev/null || true)
-    elif [[ "$f" == *.toml ]]; then
-      cf_target=$(grep -E '^\s*name\s*=' "$f" 2>/dev/null | head -1 | sed -E 's/.*=\s*"([^"]+)".*/\1/' || true)
-    fi
+    cf_target=$(read_wrangler_name "$f")
     [[ -n "$cf_target" ]] && break
   done < <(find . -maxdepth 3 -name "wrangler.*" -not -path '*/node_modules/*' -print0 2>/dev/null)
   [[ -n "$cf_target" ]] && cf_target="$cf_target (subdir)"
