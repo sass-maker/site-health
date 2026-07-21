@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT="$(pwd)"
-TARGETS_FILE="saas-maker/cloudflare.targets.json"
+TARGETS_FILE="fleet-ops/config/projects.json"
 CHECK_GITHUB=true
 CHECK_CLOUDFLARE=true
 CHECK_STANDARDS=true
@@ -13,7 +13,7 @@ usage() {
   echo "Usage:"
   echo "  deploy-health.sh                         # check GitHub Actions + Cloudflare targets"
   echo "  deploy-health.sh --root ~/Desktop/fleet  # run from a specific fleet root"
-  echo "  deploy-health.sh --targets path.json     # use a specific Cloudflare target map"
+  echo "  deploy-health.sh --targets path.json     # use a specific Fleet project manifest"
   echo "  deploy-health.sh --no-github             # skip GitHub Actions checks"
   echo "  deploy-health.sh --no-cloudflare         # skip Cloudflare deployment checks"
   echo "  deploy-health.sh --no-standards          # skip deploy-standard checks"
@@ -440,16 +440,14 @@ check_cloudflare_targets() {
     return
   fi
 
-  while IFS=$'\t' read -r project target_id kind target_name target_dir config_path; do
-    local repo_dir
+  while IFS=$'\t' read -r project target_id kind target_name repo_dir; do
     local repo_path
     local head_sha
 
-    repo_dir="$(repo_dir_for_project "$project")"
     repo_path="$ROOT/$repo_dir"
     head_sha=""
 
-    if [[ -d "$repo_path/.git" ]]; then
+    if git -C "$repo_path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
       head_sha="$(origin_main_sha "$repo_path" || true)"
     else
       record "WARN" "$project/$target_id maps to missing repo directory $repo_dir"
@@ -467,9 +465,20 @@ check_cloudflare_targets() {
         ;;
     esac
   done < <(
-    jq -r 'to_entries[] as $project | $project.value.targets[] | [$project.key, .id, .kind, .name, (.dir // ""), (.config // "")] | @tsv' \
+    jq -r '.projects[]
+      | select(.repo != null and .status == "live" and (.deployKind == "pages" or .deployKind == "worker"))
+      | . as $project
+      | ($project.cfProject | split(",")[] | gsub("^\\s+|\\s+$"; "")) as $target
+      | [$project.id, $project.id, $project.deployKind, $target, $project.repo]
+      | @tsv' \
       "$TARGETS_FILE"
   )
+
+  local mixed_count
+  mixed_count="$(jq '[.projects[] | select(.status == "live" and .deployKind == "worker+pages")] | length' "$TARGETS_FILE")"
+  if [[ "$mixed_count" -gt 0 ]]; then
+    record "WARN" "$mixed_count mixed Worker+Pages manifest entries need structured per-target metadata before deploy parity can be checked"
+  fi
 
   echo
 }

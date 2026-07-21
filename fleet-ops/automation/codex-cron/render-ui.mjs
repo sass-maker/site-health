@@ -36,8 +36,6 @@ const nextHint = {
   "daily-fleet-health-sentinel": "Tue-Sun, 8:00",
   "weekly-fleet-ops-audit": "Mon, 8:00",
   "biweekly-fleet-audit": "Mon, 10:00",
-  "fleet-backlog-router": "Tue-Fri, 11:00",
-  "marketing-queue-builder": "Tue/Thu, 15:00",
 };
 
 mkdirSync(uiDir, { recursive: true });
@@ -248,4 +246,3 @@ writeFileSync(
 );
 
 console.log(outPath);
-

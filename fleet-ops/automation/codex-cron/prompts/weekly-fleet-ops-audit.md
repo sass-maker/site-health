@@ -1,4 +1,4 @@
-Run the weekly deep Foundry fleet operations audit from /Users/assistant/Desktop/fleet/saas-maker.
+Run the weekly deep Fleet operations audit from the Fleet workspace root.
 
 Style:
 - Be very concise. Lead with real regressions only.
@@ -10,20 +10,17 @@ Rules:
 - Preserve dirty user work.
 
 Checks:
-1. Run `pnpm symphony --json --no-cache` first to avoid duplicate tasks.
-2. Run `pnpm fleet:audit -- --performance --lighthouse`; read `.symphony/fleet-audit/latest.md` and `latest.json`. Flag if not full-fleet.
-3. Run `pnpm fleet:prod-smoke -- --timeout-ms 45000 --screenshot-all`; read latest artifacts. Flag if project-scoped/stale.
-4. Run `pnpm fleet:monitoring-audit -- --fail-on-missing`.
-5. Check latest main/default-branch GitHub failures with `gh`.
-6. Check PostHog/Cloudflare only if already authenticated; never print secrets.
+1. Run `npm run check:registry`.
+2. Run `./fleet-ops/scripts/git-health.sh --all --no-fetch`.
+3. Run `./fleet-ops/scripts/deploy-health.sh` and clearly separate GitHub, Cloudflare, and manifest limitations.
+4. Run `node fleet-ops/scripts/cloudflare-resilience-audit.mjs`; read `.symphony/cloudflare-resilience/latest.md` and `latest.json`.
+5. Check PostHog/Cloudflare only if already authenticated; never print secrets.
 
 Task/remediation:
-- Update/comment existing tasks before creating new ones.
-- Create tasks only for real regressions: latest workflow failure, failed deploy pipeline, failed smoke, broken auth, missing required monitoring, or shipped-behavior blocker.
-- Mark approval/config/access/deploy tasks blocked_on_user=true.
+- Use the owning project's `PROJECT_STATUS.md` or existing repository-native tracker; do not create a parallel task database.
+- Record only real regressions: latest workflow failure, failed deploy pipeline, failed smoke, broken auth, missing required monitoring, or shipped-behavior blocker.
 - Dispatch safe independent remediation to agents where acceptance is clear and no protected action is needed.
 
 Output:
-- Very concise: regressions, watch items, tasks changed, agents used, checks, what needs Sarthak.
+- Very concise: regressions, watch items, durable follow-up changed, agents used, checks, what needs Sarthak.
 - No raw logs.
-

@@ -17,7 +17,7 @@ the aggregate-only command below. It emits no post content or identifiers and
 guarantees `queueWrites: 0`:
 
 ```bash
-fleet-ops/scripts/agent-bin/marketing-dry-run
+Open the Fleet marketing view and verify the Postiz draft handoff before scheduling.
 ```
 
 If global or focus review debt exceeds the registry ceiling, or a focus project

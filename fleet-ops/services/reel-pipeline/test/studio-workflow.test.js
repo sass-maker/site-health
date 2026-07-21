@@ -91,7 +91,8 @@ test('workflow does not auto-post and surfaces the handoff command only on reque
   const without = await runFacelessWorkflow(base);
   assert.equal(without.postHandoff, null);
   const withHandoff = await runFacelessWorkflow({ ...base, postHandoff: true });
-  assert.match(withHandoff.postHandoff.command, /post:ready/);
+  assert.match(withHandoff.postHandoff.command, /distribution/);
+  assert.match(withHandoff.postHandoff.command, /postiz/);
 });
 
 test('batch isolates per-topic failures and reports the split', async () => {

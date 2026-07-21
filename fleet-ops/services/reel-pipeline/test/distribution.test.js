@@ -31,11 +31,11 @@ test('manual distribution prepares a receipt without posting', async () => {
   assert.equal(receipt.externalId, null);
 });
 
-test('native posting uses the pre-routed brand account and fails without a publisher', async () => {
-  const request = buildDistributionRequest(contentPackage, mediaReceipt, { provider: 'native' });
-  assert.equal(request.accountSlug, 'high-signal-youtube');
-  request.approval = { status: 'approved', approvedAt: '2026-07-12T12:15:00Z', approvedBy: 'owner' };
-  await assert.rejects(executeDistribution(contentPackage, mediaReceipt, request), /native publisher is not configured/);
+test('native publishing is not a supported distribution provider', () => {
+  assert.throws(
+    () => buildDistributionRequest(contentPackage, mediaReceipt, { provider: 'native' }),
+    /unsupported distribution provider/,
+  );
 });
 
 test('package, media, and distribution revisions cannot be mixed', () => {

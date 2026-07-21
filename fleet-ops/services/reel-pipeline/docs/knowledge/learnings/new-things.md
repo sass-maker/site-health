@@ -64,7 +64,7 @@ Novel AI + video tech stacked in one pipeline: Workers orchestrating Python engi
 - Source: https://github.com/JonasLoos/openshorts
 
 ## R2 for Asset Hosting
-- What: Cloudflare R2 is S3-compatible object storage with zero egress fees; MP4s, thumbnails, and captions land here before being attached to the marketing queue item.
+- What: Cloudflare R2 is S3-compatible object storage; MP4s, thumbnails, captions, and manifests land here before a receipt or Postiz draft handoff is created.
 - Why here: TBD
 - Source: https://developers.cloudflare.com/r2/
 

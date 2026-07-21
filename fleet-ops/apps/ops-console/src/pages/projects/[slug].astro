@@ -12,7 +12,6 @@ const formatDate = (value: string | null) =>
   value
     ? new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(value))
     : "No data";
-const updated = project.updatedAt ? formatDate(project.updatedAt) : "No recent task";
 ---
 
 <!doctype html>
@@ -45,10 +44,9 @@ const updated = project.updatedAt ? formatDate(project.updatedAt) : "No recent t
             <div><dt>Checkout</dt><dd>{project.localPath}</dd></div>
             <div><dt>Branch</dt><dd>{project.branch ?? "n/a"}</dd></div>
             <div><dt>Dirty files</dt><dd>{project.dirtyCount}</dd></div>
-            <div><dt>Smoke</dt><dd>{project.smokeStatus} · {project.smokeFailures} failures</dd></div>
+            <div><dt>Deploy registry</dt><dd>{project.deploymentStatus}</dd></div>
             <div><dt>Workflow</dt><dd>{project.workflowStatus}</dd></div>
-            <div><dt>Tasks</dt><dd>{project.taskSummary}</dd></div>
-            <div><dt>Last task update</dt><dd>{updated}</dd></div>
+            <div><dt>Latest commit</dt><dd>{formatDate(project.updatedAt)}</dd></div>
           </dl>
         </article>
       </section>
@@ -56,7 +54,7 @@ const updated = project.updatedAt ? formatDate(project.updatedAt) : "No recent t
       <section class="panel freshness">
         <strong>Last updated {formatDate(snapshot.generatedAt)}</strong>
         <span>{snapshot.refreshCadence}</span>
-        <span>Tasks {formatDate(snapshot.tasksSyncedAt)} · Smoke {formatDate(snapshot.smokeGeneratedAt)} · Audit {formatDate(snapshot.auditGeneratedAt)}</span>
+        <span>Registry updated {formatDate(snapshot.registryUpdatedAt)}</span>
       </section>
 
       <section class="grid">
@@ -70,30 +68,14 @@ const updated = project.updatedAt ? formatDate(project.updatedAt) : "No recent t
           </dl>
         </article>
         <article class="panel">
-          <div class="panel-head"><h2>Work mix</h2><span>{project.taskSummary}</span></div>
+          <div class="panel-head"><h2>Product position</h2><span>{project.stateLabel}</span></div>
           <dl>
-            <div><dt>Open</dt><dd>{project.openTasks.length}</dd></div>
-            <div><dt>High priority</dt><dd>{project.highPriorityTasks}</dd></div>
-            <div><dt>Blocked</dt><dd>{project.blockedTasks}</dd></div>
-            <div><dt>Done</dt><dd>{project.doneTasks}</dd></div>
+            <div><dt>Operating lane</dt><dd>{project.lane}</dd></div>
+            <div><dt>Priority tier</dt><dd>{project.tier}</dd></div>
+            <div><dt>Deploy state</dt><dd>{project.deploymentStatus}</dd></div>
+            <div><dt>Latest source change</dt><dd>{formatDate(project.updatedAt)}</dd></div>
           </dl>
         </article>
-      </section>
-
-      <section class="panel">
-        <div class="panel-head"><h2>Current work</h2><span>{project.openTasks.length} open · {project.blockedTasks} blocked · {project.doneTasks} done</span></div>
-        <div class="tasks">
-          {project.openTasks.length === 0 && <p class="muted">No open Symphony tasks are attached to this project.</p>}
-          {
-            project.openTasks.slice(0, 12).map((task) => (
-              <article class="task">
-                <span class:list={["priority", task.priority]}>{task.priority}</span>
-                <h3>{task.title}</h3>
-                <p>{task.status}{task.size ? ` · ${task.size}` : ""}{task.blocked ? " · blocked on user" : ""}</p>
-              </article>
-            ))
-          }
-        </div>
       </section>
     </main>
   </body>

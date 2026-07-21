@@ -1,48 +1,41 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
 import brandConfig from '../config/brand-channels.json' with { type: 'json' };
 
-const PLATFORM_FOR_CHANNEL = { youtube_shorts: 'youtube', instagram_reels: 'instagram' };
-const REQUIRED_FIELDS = {
-  youtube: ['clientIdEnv', 'clientSecretEnv', 'refreshTokenEnv'],
-  instagram: ['appIdEnv', 'appSecretEnv', 'userIdEnv', 'longLivedTokenEnv'],
-};
+const PROVIDER_FOR_CHANNEL = { youtube_shorts: 'youtube', instagram_reels: 'instagram' };
 
 export function checkSocialReadiness(options = {}) {
-  const configPath = path.resolve(options.configPath ?? process.env.SOCIAL_ACCOUNTS_CONFIG ?? 'config/social-accounts.json');
-  const templatePath = path.resolve(options.templatePath ?? 'config/social-accounts.example.json');
+  const configPath = path.resolve(options.configPath ?? process.env.POSTIZ_INTEGRATIONS_CONFIG ?? 'config/postiz-integrations.json');
+  const templatePath = path.resolve(options.templatePath ?? 'config/postiz-integrations.example.json');
   const env = options.env ?? process.env;
   const installed = existsSync(configPath);
   const raw = JSON.parse(readFileSync(installed ? configPath : templatePath, 'utf8'));
+  const integrations = raw?.integrations ?? {};
   const accounts = [];
+
   for (const [brandSlug, brand] of Object.entries(brandConfig.brands)) {
     for (const channel of brand.channels) {
-      const platform = PLATFORM_FOR_CHANNEL[channel];
       const accountSlug = brand.accountMappings?.[channel] ?? null;
-      const account = accountSlug ? raw?.[platform]?.[accountSlug] : null;
-      const requiredFields = REQUIRED_FIELDS[platform] ?? [];
-      const missingDeclarations = requiredFields.filter((field) => !account?.[field]);
-      const missingEnv = requiredFields
-        .map((field) => account?.[field])
-        .filter(Boolean)
-        .filter((name) => !env[name]);
+      const mapping = accountSlug ? integrations[accountSlug] : null;
+      const expectedProvider = PROVIDER_FOR_CHANNEL[channel];
+      const providerMatches = Boolean(mapping?.provider === expectedProvider);
       accounts.push({
         brand: brandSlug,
         channel,
-        platform,
+        platform: expectedProvider,
         accountSlug,
         routeConfigured: Boolean(accountSlug),
-        accountDeclared: Boolean(account),
-        missingDeclarations,
-        missingEnv,
-        ready: Boolean(accountSlug && account && missingDeclarations.length === 0 && missingEnv.length === 0),
+        accountDeclared: Boolean(mapping?.integrationId),
+        integrationIdConfigured: Boolean(mapping?.integrationId),
+        providerMatches,
+        ready: Boolean(accountSlug && mapping?.integrationId && providerMatches && env.POSTIZ_API_KEY),
       });
     }
   }
+
   const infrastructure = {
-    saasMakerAccess: Boolean(env.SAASMAKER_SESSION_TOKEN) || fndAuthenticated(options.fndBin),
+    postizAccess: Boolean(env.POSTIZ_API_KEY),
     artifactBucket: true,
     artifactBaseUrl: true,
     kokoro: options.kokoroReady ?? existsSync(path.resolve('tools/kokoro')),
@@ -50,14 +43,15 @@ export function checkSocialReadiness(options = {}) {
   };
   const summary = {
     totalAccounts: accounts.length,
-    routedAccounts: accounts.filter((entry) => entry.routeConfigured && entry.accountDeclared).length,
+    routedAccounts: accounts.filter((entry) => entry.routeConfigured && entry.accountDeclared && entry.providerMatches).length,
     connectedAccounts: accounts.filter((entry) => entry.ready).length,
-    missingCredentialVariables: [...new Set(accounts.flatMap((entry) => entry.missingEnv))].sort(),
+    missingCredentialVariables: env.POSTIZ_API_KEY ? [] : ['POSTIZ_API_KEY'],
     infrastructureReady: Object.values(infrastructure).every(Boolean),
   };
   return {
-    schema: 'reel-pipeline.social-readiness.v1',
+    schema: 'reel-pipeline.social-readiness.v2',
     generatedAt: new Date().toISOString(),
+    provider: 'postiz',
     configPath,
     configInstalled: installed,
     activeChannels: ['instagram_reels', 'youtube_shorts'],
@@ -69,14 +63,4 @@ export function checkSocialReadiness(options = {}) {
 
 function commandExists(command, pathEnv = '') {
   return String(pathEnv).split(path.delimiter).some((dir) => existsSync(path.join(dir, command)));
-}
-
-function fndAuthenticated(input) {
-  if (input) {
-    if (!existsSync(input)) return false;
-    return spawnSync(input, ['whoami'], { stdio: 'ignore', timeout: 10_000 }).status === 0;
-  }
-  const cli = process.env.FND_CLI_JS ?? path.resolve('../saas-maker/packages/cli/dist/index.js');
-  if (!existsSync(cli)) return false;
-  return spawnSync(process.execPath, [cli, 'whoami'], { stdio: 'ignore', timeout: 10_000 }).status === 0;
 }

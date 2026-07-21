@@ -90,22 +90,25 @@ that explicitly. This is read-only; it doesn't modify any files.
 
 **Trigger:** "Audit the fleet", "run the fleet audit", "prepare a fleet report", "triage fleet regressions"
 
-Runs the SaaS Maker/Foundry fleet audit from the `saas-maker` repo:
+Runs the Fleet-owned audit stack from the Fleet root:
 
 ```bash
-cd ~/Desktop/fleet/saas-maker && pnpm fleet:audit
+cd ~/Desktop/fleet
+./fleet-ops/scripts/git-health.sh --all --no-fetch
+./fleet-ops/scripts/deploy-health.sh
+node fleet-ops/scripts/cloudflare-resilience-audit.mjs
 ```
 
 Writes to:
-- `.symphony/fleet-audit/latest.md`
-- `.symphony/fleet-audit/latest.json`
+- `.symphony/cloudflare-resilience/latest.md`
+- `.symphony/cloudflare-resilience/latest.json`
 
 Variations:
 
 ```bash
-pnpm fleet:audit -- --skip-local              # faster, skip local builds
-pnpm fleet:audit -- --performance --lighthouse # full + perf checks
-pnpm fleet:audit -- --project <slug>           # one project
+node fleet-ops/scripts/cloudflare-resilience-audit.mjs --no-live
+node fleet-ops/scripts/site-health-scorecard.mjs --all
+bash fleet-ops/scripts/fleet-perf-weekly.sh --runs 3 --concurrency 2
 ```
 
 ### How to interpret
@@ -122,15 +125,16 @@ Expected non-issues:
 
 ### Workflow
 
-1. Run `pnpm fleet:audit` unless the user asks for a quick pass.
-2. Read `.symphony/fleet-audit/latest.md`.
+1. Run the Fleet-owned audit stack unless the user asks for a quick pass.
+2. Read `.symphony/cloudflare-resilience/latest.md`.
 3. Summarize: open PRs, failed workflows, failed smoke checks, local failures, perf issues, dirty repos.
-4. Propose or create Symphony tasks only for real regressions.
+4. Record real regressions in the owning project's `PROJECT_STATUS.md` or an
+   existing repository-native tracker.
 5. Do not auto-merge, deploy, delete Cloudflare projects, rotate secrets, or clean worktrees unless explicitly asked.
 
-### Task creation rules
+### Follow-up rules
 
-Create tasks for:
+Record follow-up for:
 - latest main workflow failures
 - failed production smoke checks
 - local build/test/typecheck failures

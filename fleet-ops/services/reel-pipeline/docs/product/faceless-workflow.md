@@ -104,12 +104,12 @@ The workflow never posts automatically. Rendered videos enter the normal
 posting path — review, then:
 
 ```bash
-npm run post:ready
+npm run distribution -- --file <content-package.json> --receipt <media-receipt.json> --provider postiz
 ```
 
 Pass `--post-handoff` to have the run summary include that command explicitly.
-Posting capability rules, preflight, and recovery are unchanged (see
-[auto-posting.md](../operations/auto-posting.md)).
+See [`postiz-handoff.md`](../operations/postiz-handoff.md) for the draft-only
+contract and target-host proof.
 
 ## Verification
 

@@ -18,7 +18,6 @@
       "scripts/rescore.js",
       "scripts/seed-real-render.js",
       "scripts/significant-content.js",
-      "scripts/smoke-full-pipeline.js",
       "scripts/smoke-generation-cases.js",
       "scripts/smoke-lesson-local.js",
       "scripts/smoke-live-artifact.js",
@@ -90,37 +89,24 @@
       "src/video-brief.js"
     ],
     "distribution": [
-      "scripts/instagram-oauth-bootstrap.js",
-      "scripts/legacy-distribution-disabled.js",
-      "scripts/refresh-instagram-tokens.js",
+      "scripts/distribute-content-package.js",
       "scripts/social-readiness.js",
-      "scripts/youtube-oauth-bootstrap.js",
-      "src/config/social-accounts.js",
       "src/distribution.js",
-      "src/legacy-distribution-guard.js",
-      "src/posting.js",
+      "src/postiz-client.js",
+      "src/postiz-fixture-adapter.js",
       "src/publication-ledger.js",
-      "src/publishers/instagram.js",
-      "src/publishers/youtube.js",
       "src/social-readiness.js"
     ],
     "mixed": [
       "scripts/bootstrap-cloudflare.js",
       "scripts/check-cloudflare-readiness.js",
-      "scripts/distribute-content-package.js",
       "scripts/manual-deploy.mjs",
-      "scripts/marketing-control.js",
-      "scripts/marketing-daemon.js",
-      "scripts/sync-from-saasmaker.js",
-      "src/autopilot.js",
       "src/distribution-envelope.js",
-      "src/marketing-orchestrator.js",
       "src/pipeline.js",
       "src/reel-worker-auth.js",
-      "src/saas-maker-client.js",
       "src/server/index.js",
       "src/worker/index.js"
     ],
-    "obsolete": ["src/postiz-fixture-adapter.js"]
+    "obsolete": []
   }
 }

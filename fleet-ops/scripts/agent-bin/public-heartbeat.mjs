@@ -2,12 +2,12 @@
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
-
-import { loadMarketingProgram } from "../../lib/marketing-program.mjs";
-import { buildMarketingSnapshot } from "../../lib/marketing-snapshot.mjs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const defaultOutput = `${process.env.HOME}/Library/Application Support/Fleet Ops/ops-console/runtime.json`;
+const scriptDir = dirname(fileURLToPath(import.meta.url));
+const fleetOpsRoot = resolve(scriptDir, "../..");
 const outputIndex = process.argv.indexOf("--output");
 const outputPath = outputIndex >= 0 ? process.argv[outputIndex + 1] : defaultOutput;
 
@@ -70,77 +70,8 @@ function notificationSummary() {
   };
 }
 
-function taskSummary() {
-  const raw = run("openclaw", ["tasks", "list", "--json"], 5000);
-  if (!raw) return { queued: 0, running: 0, blocked: 0, recentStatus: "unavailable", recentAt: null };
-  try {
-    const payload = JSON.parse(raw);
-    const tasks = Array.isArray(payload) ? payload : payload.tasks || [];
-    const recent = [...tasks].sort((left, right) => (right.lastEventAt || 0) - (left.lastEventAt || 0))[0];
-    return {
-      queued: tasks.filter((task) => task.status === "queued").length,
-      running: tasks.filter((task) => task.status === "running").length,
-      blocked: tasks.filter((task) => ["timed_out", "lost"].includes(task.status)).length,
-      recentStatus: recent?.status || "none",
-      recentAt: recent?.lastEventAt ? new Date(recent.lastEventAt).toISOString() : null
-    };
-  } catch {
-    return { queued: 0, running: 0, blocked: 0, recentStatus: "unavailable", recentAt: null };
-  }
-}
-
-function marketingSummary() {
-  const readinessPath = `${process.env.HOME}/Library/Application Support/Fleet Ops/marketing/readiness.json`;
-  let readiness = {};
-  try { readiness = JSON.parse(readFileSync(readinessPath, "utf8")); } catch {}
-  const registry = loadMarketingProgram("/Users/assistant/Desktop/fleet/fleet-ops/config/marketing-program.json");
-  const cli = "/Users/assistant/Desktop/fleet/saas-maker/packages/cli/dist/index.js";
-  const raw = existsSync(cli)
-    ? run(process.execPath, [cli, "api", "GET", "/v1/marketing/posts", "--auth", "session", "--query", "limit=500", "--raw", "--quiet"], 15000)
-    : "";
-  let posts = [];
-  try {
-    const start = raw.indexOf("{");
-    posts = JSON.parse(start >= 0 ? raw.slice(start) : raw).data || [];
-  } catch {}
-  const snapshot = buildMarketingSnapshot(posts, registry);
-  const brands = registry.projects.filter((project) => project.channels.length > 0).map((program) => {
-    const slug = program.slug;
-    const accounts = (readiness.accounts || []).filter((account) => account.brand === slug);
-    const project = snapshot.projects.find((entry) => entry.slug === slug);
-    return {
-      slug,
-      channels: program.channels.map((entry) => entry.channel),
-      connectedChannels: accounts.filter((account) => account.ready).map((account) => account.channel).filter(Boolean).sort(),
-      totalPosts: project?.stages.published ?? 0,
-      lastPostedAt: snapshot.lastReceipt?.brand === slug ? snapshot.lastReceipt.recordedAt : project?.latestActivityAt ?? null
-    };
-  });
-  return {
-    ...snapshot.totals,
-    schemaVersion: snapshot.schemaVersion,
-    registryVersion: snapshot.registryVersion,
-    generatedAt: snapshot.generatedAt,
-    routedAccounts: Number(readiness.summary?.routedAccounts || 0),
-    connectedAccounts: Number(readiness.summary?.connectedAccounts || 0),
-    totalAccounts: Number(readiness.summary?.totalAccounts || registry.projects.reduce((sum, project) => sum + project.channels.length, 0)),
-    infrastructureReady: Boolean(readiness.summary?.infrastructureReady),
-    drafts: snapshot.totals.queued,
-    rendering: Math.max(0, snapshot.totals.approved - snapshot.totals.produced),
-    review: Math.max(0, snapshot.totals.produced - snapshot.totals.published),
-    scheduled: posts.filter((post) => decodeDistributionEnvelope(post.notes)?.distributionRequest?.approval?.status === "approved" && !decodeDistributionEnvelope(post.notes)?.publicationReceipt).length,
-    retrying: posts.filter((post) => decodeDistributionEnvelope(post.notes)?.attempts?.state === "retry_wait").length,
-    failed: snapshot.totals.failures,
-    released: snapshot.totals.published,
-    measured: snapshot.totals.measured,
-    projects: snapshot.projects,
-    lastReceipt: snapshot.lastReceipt,
-    brands
-  };
-}
-
 function domainSummary() {
-  const drankPath = "/Users/assistant/Desktop/fleet/drank/data/fleet-dr.json";
+  const drankPath = resolve(fleetOpsRoot, "services/drank/data/fleet-dr.json");
   let drank = {};
   try { drank = JSON.parse(readFileSync(drankPath, "utf8")); } catch {}
   const dbPath = `${process.env.HOME}/.psi-swarm/history.db`;
@@ -172,13 +103,6 @@ function domainSummary() {
   }).sort((left, right) => left.domain.localeCompare(right.domain));
 }
 
-function decodeDistributionEnvelope(notes) {
-  const line = String(notes || "").split(/\r?\n/).find((entry) => entry.startsWith("fleet_distribution_v1:"));
-  if (!line) return null;
-  try { return JSON.parse(Buffer.from(line.slice("fleet_distribution_v1:".length), "base64url").toString("utf8")); }
-  catch { return null; }
-}
-
 const services = [
   { id: "console", label: "Fleet dashboard", status: localHealthy() ? "running" : "stopped" },
   { id: "openclaw", label: "OpenClaw", status: launchdRunning("ai.openclaw.gateway") ? "running" : "stopped" },
@@ -191,8 +115,6 @@ const heartbeat = {
   generatedAt: new Date().toISOString(),
   cadenceSeconds: 60,
   notifications: notificationSummary(),
-  tasks: taskSummary(),
-  marketing: marketingSummary(),
   domains: domainSummary(),
   node: {
     id: process.env.FLEET_NODE_ID || "primary-mac",

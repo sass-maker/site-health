@@ -1,8 +1,8 @@
 # VideoBrief Contract & Render Modes
 
-The `VideoBrief` is the normalization boundary between intake (SaaS Maker
-Marketing Queue, High Signal briefs, Significant Hobbies envelopes, anonymous
-brand URLs) and render engines. Every render adapter accepts a `VideoBrief`.
+The `VideoBrief` is the normalization boundary between source-backed content
+packages, High Signal briefs, Significant Content envelopes, anonymous brand
+URLs, and render engines. Every render adapter accepts a `VideoBrief`.
 
 - Contract code: `src/video-brief.js` (Node) and `reel/src/brief.rs` (Rust).
   Both accept camelCase and snake_case keys.
@@ -10,7 +10,7 @@ brand URLs) and render engines. Every render adapter accepts a `VideoBrief`.
   proof types, render modes, duration bounds, reel-body shape, and
   `toMoneyPrinterRequest` conversion.
 - `POST /reels` and `POST /reels/signal` are the intake endpoints; the latter
-  consumes High Signal reel briefs and SaaS Maker improvement signals.
+  consumes High Signal reel briefs.
 
 ## Render mode matrix
 
@@ -20,12 +20,12 @@ This table mirrors it; update the config first, then this table.
 
 | Mode | Aliases | Category | Surface | Smoke |
 | --- | --- | --- | --- | --- |
-| `mock` | — | local | render-accepted | fixture accepted post renders to provider `mock` |
-| `html-composition` | `html`, `web-composition` | local | render-accepted | fixture accepted post exports preview artifacts |
-| `ascii` | `ascii-animation`, `ascii-fable`, `askai` | local | render-accepted | fixture accepted post renders an ASCII animation MP4 |
-| `grok-video` | `grok`, `grok-videos` | local-asset | render-accepted | script creates a temp MP4 and runs local asset mode |
-| `reel-maker` | `remotion` | local-remotion | render-accepted | adapter/orchestrator path with `REEL_MAKER_SKIP_REMOTION=1` |
-| `moneyprinterturbo` | `stock` | service | render-accepted | `skip` unless `MONEYPRINTER_API_URL` is reachable; canary via `npm run canary:moneyprinter` |
+| `mock` | — | local | video-brief | fixture renders to provider `mock` |
+| `html-composition` | `html`, `web-composition` | local | video-brief | fixture exports preview artifacts |
+| `ascii` | `ascii-animation`, `ascii-fable`, `askai` | local | video-brief | fixture renders an ASCII animation MP4 |
+| `grok-video` | `grok`, `grok-videos` | local-asset | video-brief | script creates a temp MP4 and runs local asset mode |
+| `reel-maker` | `remotion` | local-remotion | video-brief | adapter/orchestrator path with `REEL_MAKER_SKIP_REMOTION=1` |
+| `moneyprinterturbo` | `stock` | service | video-brief | `skip` unless `MONEYPRINTER_API_URL` is reachable; canary via `npm run canary:moneyprinter` |
 | `render-pro` | `renderpro` | production | worker-reel-id | syntax check only; live proof mutates a real Worker reel + R2 object |
 | `kokoro` | `kokoro-compose` | local | faceless-workflow | `npm run setup:kokoro` then readiness check |
 | `brand-video` | — | local | content-package | `npm run render:package` against an approved content-package fixture |

@@ -96,7 +96,7 @@ Once all tasks are complete and verification passes:
    - Add the shipped feature to **Features (shipped)**
    - Move the corresponding entry from **Todo/Planned** to done
    - Update **Timeline** with the ship date
-3. Close the corresponding SaaS Maker task if one exists.
+3. Close the corresponding GitHub or project-status work item if one exists.
 4. Commit and push the archive + status update together.
 
 ## Boundary with existing fleet conventions
@@ -108,7 +108,7 @@ OpenSpec does **not** replace these — it sits alongside them:
 | `openspec/changes/<feature>/` | Per-feature spec/design/tasks | Before + during feature work |
 | `PROJECT_STATUS.md` | Durable product status | Read before broad work; update on ship |
 | `docs/plans/` | Rare design artifacts that outlive the feature | Only if the design has lasting reference value |
-| Symphony tasks | Operational work queue | Bug fixes, cleanup, follow-ups, deferred work |
+| `PROJECT_STATUS.md` / repo tracker | Operational follow-up | Bug fixes, cleanup, follow-ups, deferred work |
 | `AGENTS.md` | Per-project agent instructions | Stack, commands, conventions |
 
 Rule of thumb: **OpenSpec owns the feature lifecycle** (propose → apply →

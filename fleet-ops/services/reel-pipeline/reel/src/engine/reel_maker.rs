@@ -2,7 +2,7 @@
 //!
 //! The Remotion adapter lives in `src/adapters/reel-maker.js`. Rust writes the
 //! normalized brief, shells out to the Node helper, then maps the JSON result
-//! into the common render result so `render-accepted` and autopilot can use the
+//! into the common render result so package and direct-brief flows can use the
 //! same `reel-maker` mode that the Node control layer supports.
 
 use std::path::{Path, PathBuf};

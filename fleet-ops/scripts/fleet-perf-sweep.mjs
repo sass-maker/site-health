@@ -19,15 +19,15 @@ const concurrency = Number(arg('--concurrency') ?? 1);
 const onlySlugs = arg('--only')?.split(',').map((s) => s.trim()).filter(Boolean) ?? null;
 const mergePath = arg('--merge') ?? null;
 
-const { FLEET_HEALTH_CONTRACTS } = await import(
-  join(__dirname, '../../saas-maker/scripts/lib/fleet-health-contracts.mjs')
-);
-
 const SKIP = new Set(['free-ai', 'reel-pipeline']);
-
-let entries = Object.entries(FLEET_HEALTH_CONTRACTS)
-  .filter(([slug, c]) => c.prodUrl && !SKIP.has(slug))
-  .map(([slug, c]) => ({ slug, name: c.displayName, url: c.prodUrl }));
+const manifest = JSON.parse(readFileSync(join(__dirname, '../config/projects.json'), 'utf8'));
+let entries = manifest.projects
+  .filter((project) => project.status === 'live' && project.domains?.length && !SKIP.has(project.id))
+  .map((project) => ({
+    slug: project.id,
+    name: project.id.split('-').map((part) => part[0]?.toUpperCase() + part.slice(1)).join(' '),
+    url: `https://${project.domains[0]}`,
+  }));
 
 if (onlySlugs?.length) {
   const wanted = new Set(onlySlugs);

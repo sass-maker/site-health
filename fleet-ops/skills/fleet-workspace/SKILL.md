@@ -20,7 +20,8 @@ Use this skill for Fleet-wide workspace decisions and cross-project maintenance.
 - Keep shared workspace policy in the Fleet root.
 - Keep project-specific build, deploy, and architecture rules in the child
   project.
-- Prefer Symphony tasks over new plan docs for operational follow-up.
+- Prefer the owning project's root `PROJECT_STATUS.md` or existing
+  repository-native tracker over a new plan document for operational follow-up.
 - Do not install Fleet behavior globally unless the user explicitly asks for
   Fleet behavior to appear outside `/Users/sarthak/Desktop/fleet`.
 

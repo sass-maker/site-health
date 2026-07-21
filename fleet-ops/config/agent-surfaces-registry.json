@@ -535,12 +535,12 @@
       "name": "DRank",
       "url": "https://domains.sassmaker.com",
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
-      "publicDir": "drank/public",
+      "publicDir": "fleet-ops/services/drank/public",
       "stack": "next-static",
-      "headFile": "drank/app/layout.tsx",
+      "headFile": "fleet-ops/services/drank/app/layout.tsx",
       "schemaType": "SoftwareApplication",
       "sameAs": [
-        "https://github.com/High-Signal-App/drank"
+        "https://github.com/sass-maker/fleet-workspace"
       ],
       "productLinks": [
         {

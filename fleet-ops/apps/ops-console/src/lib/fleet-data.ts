@@ -5,10 +5,27 @@ import { execFileSync } from "node:child_process";
 const appRoot = process.cwd();
 const fleetOpsRoot = resolve(appRoot, "../..");
 const fleetRoot = resolve(fleetOpsRoot, "..");
-const saasMakerRoot = resolve(fleetRoot, "saas-maker");
+
+type RegistryProject = {
+  id: string;
+  family?: string;
+  repo?: string | null;
+  tier?: string;
+  status?: string;
+  notes?: string;
+  domains?: string[];
+};
+
+const registryPayload = readJsonObject(resolve(fleetOpsRoot, "config/projects.json")) as {
+  projects?: RegistryProject[];
+};
+const registryProjects = registryPayload.projects ?? [];
 
 const localDirBySlug: Record<string, string> = {
-  "alive-ville": "aliveville"
+  "alive-ville": "aliveville",
+  drank: "fleet-ops/services/drank",
+  "fleet-ops": "fleet-ops",
+  "reel-pipeline": "fleet-ops/services/reel-pipeline"
 };
 
 const canonicalSlugByAlias: Record<string, string> = {
@@ -50,13 +67,13 @@ function canonicalProjectSlug(slug: string) {
   return canonicalSlugByAlias[slug] ?? slug;
 }
 
-function canonicalProductText(value: string) {
-  return value
-    .replace(/\btinygpt\b/gi, "posttrainllm")
-    .replace(/\blinkchat\b/gi, "Karte")
-    .replace(/\bresume-tailor\b/gi, "RolePatch")
-    .replace(/\bai-game\b/gi, "AliveVille")
-    .replace(/\binterview-coder\b/gi, "SWE Interview Prep");
+function registrySlug(project: RegistryProject) {
+  if (project.family === "saas-maker") return "saas-maker";
+  return project.id === "fleet-workspace" ? "fleet-ops" : canonicalProjectSlug(project.id);
+}
+
+function registryProject(slug: string) {
+  return registryProjects.find((project) => registrySlug(project) === canonicalProjectSlug(slug));
 }
 
 export type CronJob = {
@@ -85,20 +102,6 @@ export type WifiSummary = {
   captivePortalSeen: boolean;
   productPath: string;
   sparkline: number[];
-};
-
-export type FleetTask = {
-  id: string;
-  projectSlug: string;
-  title: string;
-  status: string;
-  priority: string;
-  size: string | null;
-  type: string | null;
-  blocked: boolean;
-  claimedBy: string | null;
-  updatedAt: string | null;
-  lane: "build" | "marketing";
 };
 
 export type FleetCommit = {
@@ -141,14 +144,8 @@ export type FleetProject = {
   hostingKind: "machine" | "cloudflare" | "external" | "local" | "unknown";
   hostingLabel: string;
   hostingDetail: string;
-  smokeStatus: string;
-  smokeFailures: number;
+  deploymentStatus: string;
   workflowStatus: string;
-  openTasks: FleetTask[];
-  blockedTasks: number;
-  highPriorityTasks: number;
-  doneTasks: number;
-  taskSummary: string;
   state: "needs-attention" | "active" | "blocked" | "local-changes" | "steady";
   stateLabel: string;
   updatedAt: string | null;
@@ -218,9 +215,7 @@ export type LearningSummary = {
 const nextHints: Record<string, string> = {
   "daily-fleet-health-sentinel": "Tue-Sun, 08:00 local",
   "weekly-fleet-ops-audit": "Mon, 08:00 local",
-  "biweekly-fleet-audit": "Mon, 10:00 local",
-  "fleet-backlog-router": "Tue-Fri, 11:00 local",
-  "marketing-queue-builder": "Tue/Thu, 15:00 local"
+  "biweekly-fleet-audit": "Mon, 10:00 local"
 };
 
 function readJsonArray(path: string) {
@@ -295,11 +290,11 @@ function titleize(slug: string) {
 }
 
 function projectRoot(slug: string) {
-  return resolve(fleetRoot, localDirBySlug[slug] ?? slug);
+  return resolve(fleetRoot, registryProject(slug)?.repo ?? localDirBySlug[slug] ?? slug);
 }
 
 function projectLocalPath(slug: string) {
-  const localDir = localDirBySlug[slug] ?? slug;
+  const localDir = registryProject(slug)?.repo ?? localDirBySlug[slug] ?? slug;
   return existsSync(resolve(fleetRoot, localDir)) ? `fleet/${localDir}` : "not checked out";
 }
 
@@ -455,41 +450,15 @@ export function getWifiSummary(): WifiSummary {
 }
 
 export function getSnapshotInfo() {
-  const tasks = readJsonObject(resolve(saasMakerRoot, ".symphony/tasks.json")) as { syncedAt?: string };
-  const smoke = readJsonObject(resolve(saasMakerRoot, ".symphony/fleet-production-smoke/latest.json")) as {
-    generatedAt?: string;
-  };
-  const audit = readJsonObject(resolve(saasMakerRoot, ".symphony/fleet-audit/latest.json")) as {
-    generatedAt?: string;
+  const registry = readJsonObject(resolve(fleetOpsRoot, "config/projects.json")) as {
+    _meta?: { updated?: string };
   };
 
   return {
     generatedAt: new Date().toISOString(),
-    refreshCadence: "Machine heartbeat updates every minute; project pages rebuild only when published.",
-    tasksSyncedAt: tasks.syncedAt ?? null,
-    smokeGeneratedAt: smoke.generatedAt ?? null,
-    auditGeneratedAt: audit.generatedAt ?? null
+    refreshCadence: "Machine heartbeat updates every minute; project inventory is generated from the Fleet registry.",
+    registryUpdatedAt: registry._meta?.updated ?? null
   };
-}
-
-export function getFleetTasks(): FleetTask[] {
-  const raw = readJsonObject(resolve(saasMakerRoot, ".symphony/tasks.json")) as { tasks?: Array<Record<string, unknown>> };
-  return (raw.tasks ?? []).map((task) => {
-    const rawTitle = String(task.title ?? "Untitled task");
-    return {
-      id: String(task.id ?? ""),
-      projectSlug: canonicalProjectSlug(String(task.project_slug ?? "unassigned")),
-      title: canonicalProductText(rawTitle),
-      status: String(task.status ?? "unknown"),
-      priority: String(task.priority ?? "unknown"),
-      size: task.size ? String(task.size) : null,
-      type: task.task_type ? String(task.task_type) : null,
-      blocked: Boolean(task.blocked_on_user),
-      claimedBy: task.claimed_by ? String(task.claimed_by) : null,
-      updatedAt: task.updated_at ? String(task.updated_at) : null,
-      lane: /\bmarketing\b/i.test(rawTitle) ? "marketing" : "build"
-    };
-  });
 }
 
 export function getFleetDevlog(limit = 3): FleetDevlog[] {
@@ -514,7 +483,7 @@ export function getFleetDevlog(limit = 3): FleetDevlog[] {
 }
 
 export function getDomainIntelligence(): DomainIntelligence[] {
-  const drank = readJsonObject(resolve(fleetRoot, "drank/data/fleet-dr.json")) as {
+  const drank = readJsonObject(resolve(fleetOpsRoot, "services/drank/data/fleet-dr.json")) as {
     lastUpdated?: string | null;
     domains?: Record<string, { history?: Array<{ ts?: number; dr?: number }> }>;
   };
@@ -549,25 +518,28 @@ export function getDomainIntelligence(): DomainIntelligence[] {
 }
 
 export function getFleetProjects(): FleetProject[] {
-  const rawCatalog = readJsonObject(resolve(saasMakerRoot, "foundry.projects.json")) as Record<
-    string,
-    { desc?: string; url?: string; tier?: string }
-  >;
-  const catalog = Object.fromEntries(
-    Object.entries(rawCatalog).map(([slug, meta]) => [canonicalProjectSlug(slug), meta])
-  ) as Record<string, { desc?: string; url?: string; tier?: string }>;
-  const audit = readJsonObject(resolve(saasMakerRoot, ".symphony/fleet-audit/latest.json")) as {
-    projects?: Array<Record<string, any>>;
-  };
-  const smoke = readJsonObject(resolve(saasMakerRoot, ".symphony/fleet-production-smoke/latest.json")) as {
-    summary?: Array<Record<string, unknown>>;
-  };
-  const tasks = getFleetTasks();
+  const catalog = registryProjects.reduce<Record<string, {
+    desc?: string;
+    homepage?: string | null;
+    repo?: string | null;
+    status?: string;
+    tier?: string;
+  }>>((entries, project) => {
+    if (["out-of-fleet", "non-product"].includes(project.tier ?? "") || project.status === "deleted") return entries;
+    const slug = registrySlug(project);
+    const current = entries[slug];
+    entries[slug] = {
+      desc: current?.desc || project.notes,
+      homepage: current?.homepage || (project.domains?.[0] ? `https://${project.domains[0]}` : null),
+      repo: current?.repo || project.repo,
+      status: current?.status === "live" && project.status === "live" ? "live" : (current?.status ?? project.status),
+      tier: current?.tier ?? project.tier
+    };
+    return entries;
+  }, {});
   const siteRegistry = readJsonObject(resolve(fleetOpsRoot, "config/project-sites.json")) as {
     projects?: Record<string, { url?: string; platform?: string }>;
   };
-  const auditBySlug = new Map((audit.projects ?? []).map((project) => [canonicalProjectSlug(String(project.slug)), project]));
-  const smokeBySlug = new Map((smoke.summary ?? []).map((item) => [canonicalProjectSlug(String(item.project)), item]));
   const slugs = [...new Set([...Object.keys(catalog), "fleet-ops", "wifi-watch"])]
     .filter((slug) => Boolean(catalog[slug]) || existsSync(projectRoot(slug)))
     .sort((a, b) => a.localeCompare(b));
@@ -576,43 +548,27 @@ export function getFleetProjects(): FleetProject[] {
     const root = projectRoot(slug);
     const pkg = readJsonObject(resolve(root, "package.json")) as { homepage?: string; name?: string; description?: string };
     const meta = catalog[slug] ?? {};
-    const localDir = localDirBySlug[slug] ?? slug;
+    const localDir = meta.repo ?? localDirBySlug[slug] ?? slug;
     const checkedOut = existsSync(root);
+    const hasGit = safeGit(["rev-parse", "--is-inside-work-tree"], root) === "true";
     const registeredSite = siteRegistry.projects?.[slug];
     const verifiedSite = registeredSite?.url
       ? { url: registeredSite.url, platform: registeredSite.platform ?? "Cloudflare" }
       : null;
-    const homepage = verifiedSite?.url ?? pkg.homepage ?? null;
+    const homepage = verifiedSite?.url ?? meta.homepage ?? pkg.homepage ?? null;
     const hosting = getHosting({ slug, root, checkedOut, pkg, homepage, verifiedSite });
-    const auditProject = auditBySlug.get(slug);
-    const smokeProject = smokeBySlug.get(slug);
-    const projectTasks = tasks.filter((task) => task.projectSlug === slug && task.lane === "build");
-    const openTasks = projectTasks
-      .filter((task) => !["done", "closed", "cancelled"].includes(task.status))
-      .sort((a, b) => {
-        const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
-        return (priorityOrder[a.priority] ?? 5) - (priorityOrder[b.priority] ?? 5);
-      });
-    const branch = existsSync(resolve(root, ".git")) ? safeGit(["branch", "--show-current"], root) || null : null;
-    const dirtyCount = existsSync(resolve(root, ".git"))
+    const branch = hasGit ? safeGit(["branch", "--show-current"], root) || null : null;
+    const dirtyCount = hasGit
       ? safeGit(["status", "--short"], root).split("\n").filter(Boolean).length
       : 0;
-    const smokeStatus = String(smokeProject?.status ?? "unknown");
-    const smokeFailures = Number(smokeProject?.failures ?? 0);
-    const latestWorkflow = auditProject?.github?.workflows?.[0];
-    const workflowStatus = latestWorkflow
-      ? `${latestWorkflow.workflowName}: ${latestWorkflow.conclusion ?? latestWorkflow.status}`
-      : "unknown";
-    const blockedTasks = openTasks.filter((task) => task.blocked).length;
-    const highPriorityTasks = openTasks.filter((task) => task.priority === "high").length;
-    const doneTasks = projectTasks.filter((task) => task.status === "done").length;
-    const taskSummary = `${openTasks.length} open / ${highPriorityTasks} high / ${blockedTasks} blocked / ${doneTasks} done`;
-    const updatedAt = openTasks[0]?.updatedAt ?? projectTasks[0]?.updatedAt ?? null;
+    const deploymentStatus = String(meta.status ?? "unknown");
+    const workflowStatus = "Use GitHub Actions for current CI status";
+    const updatedAt = hasGit ? safeGit(["log", "-1", "--format=%aI"], root) || null : null;
     let state: FleetProject["state"] = "steady";
-    if (smokeStatus === "fail" || openTasks.some((task) => /^\[fleet-(failure|smoke|ci)\]/i.test(task.title))) state = "needs-attention";
-    else if (blockedTasks > 0) state = "blocked";
-    else if (openTasks.length > 0) state = "active";
+    if (["orphan", "unverified"].includes(deploymentStatus)) state = "needs-attention";
+    else if (deploymentStatus === "undeployed") state = "blocked";
     else if (dirtyCount > 0) state = "local-changes";
+    else if (["focus", "active"].includes(meta.tier ?? "")) state = "active";
     const stateLabel = {
       "needs-attention": "Needs attention",
       active: "Active",
@@ -626,8 +582,8 @@ export function getFleetProjects(): FleetProject[] {
       title: productTitleBySlug[slug] ?? (pkg.name ? titleize(String(pkg.name).replace(/^@[^/]+\//, "")) : titleize(slug)),
       desc: meta.desc ?? pkg.description ?? "No description recorded yet.",
       tier: meta.tier ?? (slug === "fleet-ops" || slug === "wifi-watch" ? "ops" : "unknown"),
-      lane: auditProject?.businessLane ?? (meta.tier === "core" ? "Core" : meta.tier === "active-ai" ? "Active AI" : "Ops"),
-      repoUrl: publicRepoUrl(meta.url) ?? publicRepoUrl(safeGit(["remote", "get-url", "origin"], root)) ?? null,
+      lane: meta.tier === "focus" ? "My Work" : meta.tier === "active" ? "Active" : meta.tier === "secondary" ? "Toolbox" : "Parked",
+      repoUrl: publicRepoUrl(safeGit(["remote", "get-url", "origin"], root)) ?? null,
       homepage,
       localPath: projectLocalPath(slug),
       localDir,
@@ -635,14 +591,8 @@ export function getFleetProjects(): FleetProject[] {
       branch,
       dirtyCount,
       ...hosting,
-      smokeStatus,
-      smokeFailures,
+      deploymentStatus,
       workflowStatus,
-      openTasks,
-      blockedTasks,
-      highPriorityTasks,
-      doneTasks,
-      taskSummary,
       state,
       stateLabel,
       updatedAt
@@ -750,7 +700,7 @@ export function getFleetNodes(): FleetNode[] {
 }
 
 export function getMarketingPipeline(): MarketingPipeline {
-  const pipelineRoot = resolve(fleetRoot, "reel-pipeline");
+  const pipelineRoot = resolve(fleetOpsRoot, "services/reel-pipeline");
   const registry = readJsonObject(resolve(fleetOpsRoot, "config/marketing-program.json")) as {
     version?: number;
     projects?: Array<{
@@ -773,9 +723,6 @@ export function getMarketingPipeline(): MarketingPipeline {
   };
   const targetReport = readJsonObject(resolve(pipelineRoot, "tmp/generation-readiness/report.json")) as {
     generatedAt?: string; targetHostReady?: boolean; targetHostNextActions?: unknown[];
-  };
-  const runtime = readJsonObject(resolve(process.env.HOME ?? "", "Library/Application Support/Fleet Ops/ops-console/runtime.json")) as {
-    marketing?: { lastReceipt?: MarketingPipeline["lastReceipt"] };
   };
   const programs = (registry.projects ?? []).map((program) => ({
     slug: program.slug, name: program.name, mode: program.mode, domain: program.domain,
@@ -811,22 +758,13 @@ export function getMarketingPipeline(): MarketingPipeline {
   const connectedAccounts = Number(socialReadiness.summary?.connectedAccounts ?? 0);
   const publisherState = totalAccounts === 0 ? "not-configured" as const : connectedAccounts === totalAccounts ? "ready" as const : "blocked" as const;
   const targetHostState = typeof targetReport.targetHostReady !== "boolean" ? "not-configured" as const : targetReport.targetHostReady ? "ready" as const : "blocked" as const;
-  const taskPayload = safeExec("openclaw", ["tasks", "list", "--json"], 5000);
-  let orchestrationTask: { status?: string; lastEventAt?: number } | null = null;
-  try {
-    const parsed = JSON.parse(taskPayload) as { tasks?: Array<Record<string, unknown>> };
-    orchestrationTask = (parsed.tasks ?? [])
-      .filter((task) => JSON.stringify(task).includes("marketing-control-dry-run"))
-      .sort((left, right) => Number(right.lastEventAt ?? 0) - Number(left.lastEventAt ?? 0))[0] as typeof orchestrationTask;
-  } catch {}
-  const orchestrationState = orchestrationTask?.status === "succeeded"
+  const postizAdapterReady = existsSync(resolve(pipelineRoot, "src/postiz-client.js"));
+  const orchestrationState = contentReady && distributionReady && postizAdapterReady
     ? "ready" as const
-    : orchestrationTask
-      ? "blocked" as const
-      : "not-configured" as const;
+    : "blocked" as const;
 
   return {
-    updatedAt: rawProof.generatedAt ?? null,
+    updatedAt: targetReport.generatedAt ?? rawProof.generatedAt ?? null,
     proof: rawProof.quality?.overall ? {
       brand: rawProof.brand ?? "unknown",
       score: Number(rawProof.quality.overall),
@@ -835,20 +773,18 @@ export function getMarketingPipeline(): MarketingPipeline {
       sourceUrl: rawProof.sourceUrl ?? ""
     } : null,
     stages: [
-      { name: "Source extraction", state: contentReady && brands.every((brand) => brand.sourceReady) ? "ready" : "blocked", detail: "Read-only adapters emit proposed, evidence-backed packages." },
-      { name: "Approval", state: distributionReady ? "ready" : "blocked", detail: "Media and distribution require separate explicit approvals." },
-      { name: "Video factory", state: videoReady && Boolean(rawProof.quality?.overall) ? "ready" : "blocked", detail: "Local Kokoro, Playwright Chromium, and FFmpeg vertical render." },
-      { name: "Native publishing", state: connectedAccounts === totalAccounts && totalAccounts > 0 ? "ready" : "blocked", detail: `All ${totalAccounts} account routes are configured; ${connectedAccounts}/${totalAccounts} OAuth connections are ready.` }
+      { name: "Product stories", state: contentReady && brands.every((brand) => brand.sourceReady) ? "ready" : "blocked", detail: "Each story stays grounded in its product source." },
+      { name: "Creative production", state: videoReady && Boolean(rawProof.quality?.overall) ? "ready" : "blocked", detail: "Fleet turns approved stories into reviewable media." },
+      { name: "Postiz review", state: connectedAccounts === totalAccounts && totalAccounts > 0 ? "ready" : "blocked", detail: `${connectedAccounts}/${totalAccounts} Postiz destinations have local configuration evidence.` },
+      { name: "Learn", state: "not-configured", detail: "Performance appears here after Postiz has real published results." }
     ],
     programs,
     orchestration: {
       state: orchestrationState,
       detail: orchestrationState === "ready"
-        ? "Latest durable OpenClaw marketing dry-run succeeded with zero queue writes; Telegram completion evidence was delivered."
-        : orchestrationState === "blocked"
-          ? `Latest durable OpenClaw marketing dry-run ended ${orchestrationTask?.status ?? "without success"}.`
-          : "No durable OpenClaw marketing dry-run evidence is available.",
-      lastAt: orchestrationTask?.lastEventAt ? new Date(orchestrationTask.lastEventAt).toISOString() : null
+        ? "Source packages, render receipts, and the draft-only Postiz adapter are present."
+        : "One or more Fleet generation or Postiz handoff components are missing.",
+      lastAt: null
     },
     targetHost: {
       state: targetHostState,
@@ -858,11 +794,11 @@ export function getMarketingPipeline(): MarketingPipeline {
     },
     publisher: {
       state: publisherState,
-      detail: `${connectedAccounts}/${totalAccounts} configured channel accounts are ready; no missing account is inferred ready.`,
+      detail: `${connectedAccounts}/${totalAccounts} Postiz destinations have local key and mapping evidence; live verification remains a target-host proof.`,
       connected: connectedAccounts,
       total: totalAccounts
     },
-    lastReceipt: runtime.marketing?.lastReceipt ?? null,
+    lastReceipt: null,
     brands
   };
 }

@@ -13,7 +13,7 @@ every smoke and draft cycle depend on live infrastructure.
 ## Decision
 
 Ship a set of local, no-credential render modes that share the same
-accepted-marketing-post / `VideoBrief` contract as the real renderers:
+`VideoBrief` contract as the real renderers:
 
 - `mock` — placeholder renderer for tests and dry runs.
 - `html-composition` — deterministic HTML/CSS preview + `timeline.json` +
@@ -31,8 +31,8 @@ accepted-marketing-post / `VideoBrief` contract as the real renderers:
 
 ## Consequences
 
-- `npm run smoke:render-modes` proves the unified `render:accepted` path for
-  every local mode without external credentials.
+- `npm run smoke:render-modes` proves direct VideoBrief rendering for every
+  local mode without external credentials.
 - Live-only modes (`moneyprinterturbo`, `render-pro`) are reported separately
   in the readiness matrix because they require running services or mutate real
   state.

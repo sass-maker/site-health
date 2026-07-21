@@ -13,7 +13,7 @@ Add review queue automation on top of the existing accepted/rejected state:
 
 - queue ordering by proof strength, project priority, and stale age
 - batch accept or reject for related variants
-- auto-link to SaaS Maker task or changelog records
+- auto-link to source changelog records and the corresponding Postiz draft
 - notes on why a reel was deprioritized
 - a clear separation between idea review and video review
 
@@ -36,4 +36,3 @@ Add review queue automation on top of the existing accepted/rejected state:
 - Operators can sort by priority instead of newest-first.
 - Batch decisions reduce repetitive clicking on obvious variants.
 - SaaS Maker stays the source of truth for task linkage.
-

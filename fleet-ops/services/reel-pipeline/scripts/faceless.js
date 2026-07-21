@@ -17,10 +17,10 @@ Flags:
   --voice-rotation         Opt in to per-scene voice rotation (off by default)
   --voice-profile <file>   JSON brand-voice profile from "npm run studio -- voice"
   --out <dir>              Output dir (default ./tmp/studio/faceless)
-  --post-handoff           Print the posting handoff command after render
+  --post-handoff           Print the Postiz draft handoff command after render
 
-The workflow never posts automatically; posting stays in the existing
-"npm run post:ready" / reel CLI path.`;
+The workflow never posts automatically. Approved content packages and media
+receipts are handed to Postiz with "npm run distribution -- --provider postiz".`;
 
 function parseFlags(argv) {
   const flags = {};

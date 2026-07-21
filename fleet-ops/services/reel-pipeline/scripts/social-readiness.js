@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-import { copyFile, mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { checkSocialReadiness } from '../src/social-readiness.js';
 
 const flags = parseFlags(process.argv.slice(2));
-const configPath = path.resolve(flags.config ?? process.env.SOCIAL_ACCOUNTS_CONFIG ?? 'config/social-accounts.json');
+const configPath = path.resolve(flags.config ?? process.env.POSTIZ_INTEGRATIONS_CONFIG ?? 'config/postiz-integrations.json');
 if (flags.install) {
   await mkdir(path.dirname(configPath), { recursive: true });
-  await copyFile(path.resolve('config/social-accounts.example.json'), configPath);
+  throw new Error('create config/postiz-integrations.json from the example after connecting accounts in Postiz');
 }
 const report = checkSocialReadiness({ configPath });
 const out = path.resolve(flags.out ?? 'tmp/social-readiness/report.json');

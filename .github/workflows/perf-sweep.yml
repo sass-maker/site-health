@@ -24,12 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Check out fleet health contracts
-        uses: actions/checkout@v6
-        with:
-          repository: sass-maker/saas-maker
-          path: saas-maker
-
       - uses: actions/setup-node@v6
         with:
           node-version: '22'

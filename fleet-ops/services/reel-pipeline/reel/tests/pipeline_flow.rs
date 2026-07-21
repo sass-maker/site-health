@@ -1,4 +1,4 @@
-//! Integration test: the marketing/autopilot render flow end-to-end with fakes.
+//! Integration test: the provider-neutral render flow end-to-end with fakes.
 //!
 //! Mirrors what `pipeline.js renderReelVariants` does — plan variants, render
 //! each via the engine, publish artifacts, score — but using the in-memory mock

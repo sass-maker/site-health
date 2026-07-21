@@ -3,8 +3,10 @@ set -euo pipefail
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
 
-APP_DIR="/Users/assistant/Desktop/fleet/fleet-ops/apps/ops-console"
-SCRIPT_PATH="/Users/assistant/Desktop/fleet/fleet-ops/scripts/agent-bin/ops-console"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FLEET_OPS_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+APP_DIR="$FLEET_OPS_DIR/apps/ops-console"
+NODE_BIN="$(command -v node)"
 LABEL="com.assistant.fleet-ops-console"
 HEARTBEAT_LABEL="com.assistant.fleet-ops-console-heartbeat"
 LEGACY_REFRESH_LABEL="com.assistant.fleet-ops-console-refresh"
@@ -38,7 +40,7 @@ write_plist() {
   <string>$LABEL</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/node</string>
+    <string>$NODE_BIN</string>
     <string>$RUNTIME_DIR/server.mjs</string>
   </array>
   <key>EnvironmentVariables</key>
@@ -67,7 +69,7 @@ write_heartbeat_plist() {
 #!/bin/zsh
 set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:\${PATH:-}"
-/opt/homebrew/bin/node "$HEARTBEAT_SCRIPT" >/dev/null
+"$NODE_BIN" "$HEARTBEAT_SCRIPT" >/dev/null
 EOF
   chmod 755 "$HEARTBEAT_RUNNER"
   cat > "$HEARTBEAT_PLIST" <<EOF
@@ -104,7 +106,7 @@ publish_runtime() {
   mkdir -p "$RUNTIME_DIR"
   rm -rf "$RUNTIME_DIR/dist"
   cp -R "$APP_DIR/dist" "$RUNTIME_DIR/dist"
-  /opt/homebrew/bin/node "$HEARTBEAT_SCRIPT" >/dev/null
+  "$NODE_BIN" "$HEARTBEAT_SCRIPT" >/dev/null
   cat > "$RUNTIME_DIR/server.mjs" <<'EOF'
 import { createServer } from "node:http";
 import { existsSync, readFileSync } from "node:fs";
@@ -209,7 +211,7 @@ case "${1:-}" in
   publish) publish_runtime ;;
   serve)
     publish_runtime
-    exec /opt/homebrew/bin/node "$RUNTIME_DIR/server.mjs"
+    exec "$NODE_BIN" "$RUNTIME_DIR/server.mjs"
     ;;
   -h|--help|help|"") usage ;;
   *)

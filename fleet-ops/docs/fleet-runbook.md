@@ -10,17 +10,18 @@ and verification commands.
 
 Use this order when working on the Fleet:
 
-1. Check Symphony for the task.
+1. Check the project root `PROJECT_STATUS.md`, its active OpenSpec change, and GitHub.
 2. Enter the project directory.
 3. Read the Fleet `AGENTS.md` and the project `AGENTS.md` or `agents.md`.
 4. Run the smallest relevant local verification before editing.
 5. Make the change.
 6. Run the project verification commands.
 7. Commit and push the child project repository.
-8. Mark the Symphony task done with evidence.
+8. Close the corresponding OpenSpec/GitHub work item with verification evidence.
 
-Symphony is the task source of truth. GitHub is the code source of truth.
-Cloudflare, Vercel, and other hosts are deployment targets, not task stores.
+`PROJECT_STATUS.md` is product-status truth, OpenSpec is feature-lifecycle
+truth, and GitHub is code/review truth. Cloudflare, Vercel, Postiz, and other
+hosts are runtime targets, not task stores.
 
 ## Portfolio Attention Model (2026-07-19)
 
@@ -83,7 +84,7 @@ Nine root domains map to active Fleet products. `sarthakagrawal.dev` is the
 portfolio domain and is included in the ownership count, but not the product
 count.
 
-Subdomains such as `api.sassmaker.com`, `docs.sassmaker.com`, and
+Subdomains such as `api.sassmaker.com`, `health.sassmaker.com`, and
 `www.*` variants belong to the same parent project and are not separate fleet
 products.
 
@@ -95,7 +96,7 @@ then clone the Fleet root and its active child repositories:
 ```bash
 gh auth status
 wrangler whoami
-gh repo clone sarthakagrawal927/fleet fleet
+gh repo clone sass-maker/fleet-workspace fleet
 cd fleet
 
 while read -r repo directory; do
@@ -105,7 +106,6 @@ sarthakagrawal927/aliveville aliveville
 Significant-Hobbies/anime-list anime-list
 Significant-Hobbies/chess chess
 Codevetter/codevetter codevetter
-High-Signal-App/drank drank
 sarthakagrawal927/email-manager email-manager
 High-Signal-App/everythingrated everythingrated
 sass-maker/free-ai free-ai
@@ -114,12 +114,10 @@ sarthakagrawal927/karte karte
 sass-maker/knowledge-base knowledge-base
 Significant-Hobbies/looptv looptv
 Significant-Hobbies/materia materia
-sass-maker/mobile-dev-cockpit mobile-dev-cockpit
 HeyPace/pace pace
 PostTrainLLM/posttrainllm posttrainllm
 Significant-Hobbies/protein-index protein-index
 Significant-Hobbies/reader reader
-sass-maker/reel-pipeline reel-pipeline
 High-Signal-App/research-papers research-papers
 sarthakagrawal927/rolepatch rolepatch
 sarthakagrawal927/web-playables web-playables
@@ -131,14 +129,9 @@ REPOS
 
 ./fleet-ops/scripts/agent-stack.sh install-skills
 git status --short --branch
-cd saas-maker
-pnpm install
-fnd login
-pnpm symphony
+cd /path/to/fleet
+npm run check:registry
 ```
-
-`fnd login` stores the Foundry session locally. Symphony uses that session and
-does not require API keys for normal local task sync.
 
 Cloudflare-backed projects require a working Wrangler login. GitHub Actions
 deploys additionally require the repository's Cloudflare secrets; local
@@ -169,13 +162,6 @@ turning `main` into an automatic production deploy.
 
 ## Daily Fleet Checks
 
-Check task state:
-
-```bash
-cd saas-maker
-pnpm symphony
-```
-
 Check child repository cleanliness:
 
 ```bash
@@ -191,7 +177,7 @@ bash fleet-ops/scripts/deploy-health.sh
 
 The deploy health script is read-only. It checks GitHub Actions for immediate
 child repositories and checks Cloudflare deployments listed in
-`saas-maker/cloudflare.targets.json`. Pages deployments can usually be compared
+`fleet-ops/config/projects.json`. Pages deployments can usually be compared
 to `origin/main` by commit prefix; Workers deployments confirm active
 deployment state but do not always expose a Git commit.
 
@@ -206,28 +192,9 @@ Branch/deploy posture:
 - Deploy commands should fail closed if the repo is not on clean/synced `main`
   or if the latest `main` CI signal is not green.
 
-## Running Symphony
-
-From `saas-maker`:
-
-```bash
-pnpm symphony
-pnpm symphony pick --agent gemini
-pnpm symphony pick --agent claude
-pnpm symphony dispatch <task-id-prefix> --agent codex
-pnpm symphony claim <task-id-prefix>
-pnpm symphony done <task-id-prefix>
-```
-
-Dashboard-created tasks sync to local on the next `pnpm symphony` run. Local
-claim/done/create/delete commands write back to production.
-
-Prefer cheaper agents first for routine tasks. Use stronger paid sessions only
-for work that needs deeper reasoning or higher correctness guarantees.
-
 ## Active Projects
 
-The active production fleet is listed in `saas-maker/foundry.projects.json`.
+The active production fleet is listed in `fleet-ops/config/projects.json`.
 
 | Project | Purpose | Local run | Verify before push | Deploy |
 | --- | --- | --- | --- | --- |
@@ -248,7 +215,7 @@ The active production fleet is listed in `saas-maker/foundry.projects.json`.
 | `reel-pipeline` | AI short-form video generation pipeline | see project README | see project README / CI | see project README / CI |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `saas-maker` | Foundry cockpit, API, CLI, widgets, docs, Symphony | package-specific dev commands | `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm smoke` after deploy | package/workflow deploys |
+| `saas-maker` | Public product directory, feedback API/inbox, one published feedback package, Blume docs | package-specific dev commands | `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm smoke` after deploy | package/workflow deploys |
 | `significanthobbies` | Hobby journeys and discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `starboard` | GitHub stars organization and stack discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy:cf` |
 | `swe-interview-prep` | Interview Coder prep app | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm build` | `pnpm deploy` |
@@ -312,4 +279,4 @@ Use:
 - Fleet `docs/project-map.md`: how the systems connect.
 - Project `README.md`: project-specific setup and usage.
 - Project `AGENTS.md` or `agents.md`: project-specific agent instructions.
-- Symphony tasks: active/deferred work.
+- Project `PROJECT_STATUS.md`: active, deferred, and blocked work.

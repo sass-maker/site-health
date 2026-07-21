@@ -4,11 +4,11 @@
     {
       "id": "mock",
       "provider": "mock",
-      "surface": "render-accepted",
+      "surface": "video-brief",
       "category": "local",
       "description": "No-dependency placeholder renderer for tests and dry runs.",
       "smoke": {
-        "type": "renderAccepted"
+        "type": "renderFixture"
       }
     },
     {
@@ -18,11 +18,11 @@
         "web-composition"
       ],
       "provider": "html-composition",
-      "surface": "render-accepted",
+      "surface": "video-brief",
       "category": "local",
       "description": "Exports HTML/CSS preview artifacts, timeline JSON, and word-level captions.",
       "smoke": {
-        "type": "renderAccepted"
+        "type": "renderFixture"
       }
     },
     {
@@ -33,11 +33,11 @@
         "askai"
       ],
       "provider": "ascii-animation",
-      "surface": "render-accepted",
+      "surface": "video-brief",
       "category": "local",
       "description": "Generates stylized ASCII/pixel interlude MP4s with local tools.",
       "smoke": {
-        "type": "renderAccepted"
+        "type": "renderFixture"
       }
     },
     {
@@ -47,7 +47,7 @@
         "grok-videos"
       ],
       "provider": "grok-video",
-      "surface": "render-accepted",
+      "surface": "video-brief",
       "category": "local-asset",
       "description": "Copies approved local Grok/Imagine MP4 exports into the standard artifact flow.",
       "smoke": {
@@ -60,11 +60,11 @@
         "remotion"
       ],
       "provider": "reel-maker",
-      "surface": "render-accepted",
+      "surface": "video-brief",
       "category": "local-remotion",
       "description": "Remotion/product-proof adapter behind the VideoBrief contract.",
       "smoke": {
-        "type": "renderAccepted",
+        "type": "renderFixture",
         "env": {
           "REEL_MAKER_SKIP_REMOTION": "1"
         },
@@ -77,7 +77,7 @@
         "stock"
       ],
       "provider": "moneyprinterturbo",
-      "surface": "render-accepted",
+      "surface": "video-brief",
       "category": "service",
       "description": "Default stock-footage MP4 renderer through a running MoneyPrinterTurbo API.",
       "smoke": {

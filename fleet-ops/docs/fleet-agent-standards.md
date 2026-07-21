@@ -27,7 +27,9 @@ Fleet quality bar:
   6. **Todo / Planned / Deferred / Blocked** — numbered planned next; deferred with why; blocked with owner/dependency
 - When a PR or PR-sized branch is completed, merged, superseded, or abandoned, close the loop in the project tracker: mark the corresponding work item complete if the change landed, or deleted/parked if the work is no longer relevant. Then update the project root `PROJECT_STATUS.md` as the durable status record. Do not create extra completion notes, handoff docs, or status ledgers for ordinary PR closure.
 - Each fleet product may also maintain `docs/PROJECT_RECOMMENDATION_CONTEXT.md` as the Starboard-facing companion to `PROJECT_STATUS.md`. Read it before recommendation, stack, dependency, or product-context work, and update it when product scope, major runtime surfaces, entrypoints, dependencies, testing signals, or recommendation guidance changes. Do not churn it for tiny edits that do not affect how Starboard should understand or recommend repositories for the project.
-- Do not normalize tech debt. Any intentional shortcut must be named, justified, scoped, and mirrored into a durable SaaS Maker task with the smallest next action.
+- Do not normalize tech debt. Any intentional shortcut must be named,
+  justified, scoped, and recorded in the owning project's `PROJECT_STATUS.md`
+  with the smallest next action.
 - Treat repeated issues as fleet standards work. If the same drift appears across multiple projects, add or update a reusable check, template, or standard instead of fixing only one repo.
 - Be conservative with rate limiters. Do not add, re-enable, or make rate limits stricter without explicit approval and endpoint-specific evidence; stale or unused rate-limit config should usually be removed as cleanup.
 - Prioritize cleanup that reduces surface area: unused packages, dead code, generated artifacts, stale feature paths, and docs that no longer match current code.
@@ -68,8 +70,8 @@ Fleet spec-driven development standard (OpenSpec):
 - Boundary with existing fleet docs: OpenSpec owns the **feature lifecycle**
   (propose → apply → archive). `PROJECT_STATUS.md` owns the **product
   lifecycle** (shipped / planned / blocked). They meet at archive time — the
-  shipped feature moves from OpenSpec into PROJECT_STATUS.md. Symphony tasks
-  remain the operational work queue for bug fixes, cleanup, and follow-ups.
+  shipped feature moves from OpenSpec into PROJECT_STATUS.md. GitHub issues or
+  the project status file hold bug-fix, cleanup, and follow-up work.
 - Pre-flight: `openspec --version` (install `npm install -g
   @fission-ai/openspec@latest` if missing), `openspec init` if the project
   has no `openspec/` dir, `openspec list --specs` to read existing specs.
@@ -98,7 +100,9 @@ Default posture:
 - If the next step is obvious and low risk, do it.
 - If the work is complete and safe, commit and push it without waiting for a
   separate push request.
-- If the work affects product behavior, deployment, user feedback, or fleet maintenance, mirror durable next steps into SaaS Maker tasks.
+- If the work affects product behavior, deployment, user feedback, or fleet
+  maintenance, mirror durable next steps into the owning project's
+  `PROJECT_STATUS.md` or an existing repository-native tracker.
 - Leave the repo easier to understand, run, and maintain than you found it.
 
 ## Fleet web stack standard (VoidZero ecosystem)

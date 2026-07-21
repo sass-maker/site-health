@@ -6,7 +6,7 @@
   "scripts": {
     "check:components": "node fleet-ops/scripts/check-component-roots.mjs",
     "check:components:native": "node fleet-ops/scripts/run-component-checks.mjs",
-    "check:registry": "node fleet-ops/scripts/validate-automation-registry.mjs && node fleet-ops/scripts/validate-marketing-program.mjs && node fleet-ops/scripts/generate-public-products.mjs --check",
+    "check:registry": "node fleet-ops/scripts/validate-automation-registry.mjs && node fleet-ops/scripts/validate-marketing-program.mjs && node fleet-ops/scripts/check-retired-marketing-boundaries.mjs && node fleet-ops/scripts/generate-public-products.mjs --check",
     "generate:public": "node fleet-ops/scripts/generate-public-products.mjs",
     "test:fleet": "npm run check:components && node --test fleet-ops/test/*.test.mjs"
   },

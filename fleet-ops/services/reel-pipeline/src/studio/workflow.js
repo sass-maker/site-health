@@ -134,7 +134,10 @@ export async function runFacelessWorkflow({
     ideaId: idea.id,
     voicePlan,
     postHandoff: postHandoff
-      ? { note: 'render complete; post with the existing queue', command: 'npm run post:ready' }
+      ? {
+        note: 'render complete; submit an approved content package and media receipt to Postiz',
+        command: 'npm run distribution -- --file <content-package.json> --receipt <media-receipt.json> --provider postiz',
+      }
       : null,
   };
   logger.info?.(`faceless workflow complete: ${summary.video ?? summary.renderStatus} (${dir})`);

@@ -12,11 +12,10 @@ The deterministic `nightly-learning-sync` job runs at 02:15 local time. It
 refreshes the SWE Interview Prep source registry from a clean machine-local
 checkout and commits only semantic changes; no model is invoked.
 
-The deterministic `marketing-control-loop` runs every minute. It renders only
-content explicitly accepted in SaaS Maker and releases only separately approved,
-due Instagram/YouTube distribution requests. Missing credentials leave it in a
-quiet waiting state. Idempotency claims and retry state persist under
-`~/Library/Application Support/Fleet Ops/marketing-publications/`.
+Recurring marketing generation is intentionally disabled until the Postiz
+target-host canary is accepted. Fleet keeps source packages and render receipts;
+Postiz will own review, scheduling, publishing, and provider results. No legacy
+SaaS Maker queue loop is installed or started.
 
 The supervised `weekly-domain-intelligence` job runs Mondays at 09:30 local.
 It refreshes drank Domain Rating history for the nine owned domains, runs three

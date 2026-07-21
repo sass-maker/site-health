@@ -55,8 +55,14 @@ CodeVetter or App Health source.
 - **2026-07-21 — SaaS Maker production boundary cut over:** Deployed the public
   directory, narrow feedback API, and private feedback Cockpit from synchronized
   `main`; all shared smoke checks passed. Created and deployed the canonical
-  Blume package-docs Pages origin. Its `packages.sassmaker.com` custom domain is
-  pending authenticated dashboard/API attachment.
+  Blume package-docs Pages origin; one package does not justify a separate
+  vanity hostname.
+- **2026-07-21 — Marketing and App Health boundaries finalized:** Reel Pipeline
+  now creates Postiz drafts instead of owning a SaaS Maker queue or native
+  social publishers. The pinned self-hosted Postiz contract is inert pending
+  target-machine cutover. App Health now has a Cloudflare Analytics Engine/D1
+  implementation pending production resources and Access setup in its own
+  repository.
 - **2026-07-20 — SaaS Maker/Fleet boundary corrected:** Replaced the abandoned
   direction that embedded Fleet inside SaaS Maker. Fleet Workspace became the
   canonical shared-infrastructure destination; SaaS Maker narrowed to public
@@ -91,6 +97,11 @@ explicit source/deploy cutover and later archival decision.
 - Shared fleet and teammate skills with local agent discovery.
 - Bounded marketing registry, dry-run, attribution, and quiet-experiment
   contracts.
+- Draft-only Postiz adapter, sanitized marketing lifecycle snapshots, retired
+  queue-boundary regression guard, and an inert pinned Postiz host contract.
+- Bounded machine-local Postiz draft/evidence runners; ambiguous creates are
+  quarantined for reconciliation and schedules remain disabled until canary
+  acceptance.
 - PSI Swarm performance tooling.
 - Agent and notification policy, machine-host foundations, and inert schedule
   definitions.
@@ -104,11 +115,13 @@ explicit source/deploy cutover and later archival decision.
 
 ### Planned
 
-1. Attach `packages.sassmaker.com` to the deployed `saas-maker-packages` Pages
-   project after Cloudflare dashboard/API authentication is available.
-2. Verify the designated operations host from a fresh clone before activating
+1. Verify the designated operations host from a fresh clone before activating
    any schedules.
-3. Prepare later legacy-repository retirement decisions without deleting
+2. Complete the Postiz target-host activation and one draft-only canary using
+   `fleet-ops/docs/postiz-operations.md`.
+3. Complete the independent App Health Cloudflare resource/Access cutover and
+   one SDK-ingest canary.
+4. Prepare later legacy-repository retirement decisions without deleting
    rollback sources automatically.
 
 ### Deferred
@@ -122,9 +135,6 @@ explicit source/deploy cutover and later archival decision.
 
 ### Blocked
 
-- `packages.sassmaker.com` requires a signed-in Cloudflare dashboard session or
-  authenticated Pages Domains API connector; the current browser/API connector
-  is not authenticated.
 - `sassmaker.com` still has a zone-level cache override that supersedes the
   directory's tracked revalidation headers. An authenticated cache purge and
   rule adjustment are required so new directory releases appear immediately.

@@ -34,11 +34,11 @@ test('render mode matrix entries have smoke metadata', () => {
   }
 });
 
-test('render-accepted matrix modes and aliases are accepted by Node pipeline', () => {
-  const renderAcceptedModes = matrix.modes.filter((mode) => mode.surface === 'render-accepted');
-  assert.ok(renderAcceptedModes.length >= 1);
+test('video-brief matrix modes and aliases are accepted by Node pipeline', () => {
+  const videoBriefModes = matrix.modes.filter((mode) => mode.surface === 'video-brief');
+  assert.ok(videoBriefModes.length >= 1);
 
-  for (const mode of renderAcceptedModes) {
+  for (const mode of videoBriefModes) {
     for (const value of [mode.id, ...(mode.aliases ?? [])]) {
       const brief = normalizeVideoBrief({ ...baseBrief, renderMode: value });
       assert.equal(brief.renderMode, value);
@@ -81,7 +81,7 @@ test('render mode smoke fails closed for unsupported smoke types', () => {
   assert.deepEqual(runModeSmoke({
     id: 'unknown-mode',
     provider: 'unknown',
-    surface: 'render-accepted',
+    surface: 'video-brief',
     smoke: { type: 'mystery' },
   }), {
     name: 'unknown-mode',

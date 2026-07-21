@@ -1,7 +1,7 @@
-Run the daily Foundry fleet health sentinel from /Users/assistant/Desktop/fleet/saas-maker.
+Run the daily Fleet health sentinel from the Fleet workspace root.
 
 Style:
-- Be very concise. Report only real regressions, task changes, skipped checks, blockers.
+- Be very concise. Report only real regressions, skipped checks, and blockers.
 - Use agents only for tiny independent remediation with clear acceptance; otherwise this is read-mostly.
 
 Rules:
@@ -10,14 +10,12 @@ Rules:
 - Preserve dirty user work.
 
 Flow:
-1. Run `pnpm symphony --json --no-cache` to avoid duplicates.
-2. Run `pnpm fleet:prod-smoke -- --timeout-ms 45000`; read latest artifacts.
-3. Run `pnpm fleet:monitoring-audit -- --json`; summarize failures only.
-4. Check latest default-branch GitHub Actions failures with `gh` where available.
-5. Label stale/project-scoped/network-blocked results clearly; do not treat them as product regressions.
-6. Create/update tasks only for new real regressions. Mark access/config/deploy tasks blocked_on_user=true.
+1. Run `npm run check:registry`.
+2. Run `node fleet-ops/scripts/cloudflare-resilience-audit.mjs`; read the latest artifacts.
+3. Check latest default-branch GitHub Actions failures with `gh` where available.
+4. Label stale, project-scoped, and network-blocked results clearly; do not treat them as product regressions.
+5. Do not create a second task database. Record a durable regression only in the owning project's `PROJECT_STATUS.md` or existing repository-native tracker.
 
 Output:
-- Very concise: regressions, tasks changed, skipped checks, what needs Sarthak.
+- Very concise: regressions, skipped checks, durable follow-up changed, what needs Sarthak.
 - Include commands/artifact paths, not raw logs.
-

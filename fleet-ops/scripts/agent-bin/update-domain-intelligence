@@ -2,8 +2,9 @@
 set -euo pipefail
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
-FLEET_ROOT="/Users/assistant/Desktop/fleet"
-DRANK_ROOT="$FLEET_ROOT/drank"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+FLEET_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+DRANK_ROOT="$FLEET_ROOT/fleet-ops/services/drank"
 PSI_ROOT="$FLEET_ROOT/fleet-ops/psi-swarm"
 LOCK="$HOME/Library/Application Support/Fleet Ops/domain-intelligence/update.lock"
 

@@ -51,3 +51,6 @@ docker compose -f fleet-ops/host/postiz/compose.yaml config --no-interpolate
 
 Do not pass `--profile postiz-manual` to an execution command until a separate
 owner-approved host cutover.
+
+The complete activation sequence is tracked in
+[`../../docs/postiz-operations.md`](../../docs/postiz-operations.md).

@@ -1,10 +1,8 @@
-import { access } from 'node:fs/promises';
-
 import { getBrandProfile, normalizeContentPackage } from './content-package.js';
 
 export const DISTRIBUTION_REQUEST_SCHEMA = 'fleet.distribution-request.v1';
 export const DISTRIBUTION_RECEIPT_SCHEMA = 'fleet.distribution-receipt.v1';
-const PROVIDERS = new Set(['manual', 'native', 'postiz']);
+const PROVIDERS = new Set(['manual', 'postiz']);
 
 export function buildDistributionRequest(contentInput, mediaReceipt, options = {}) {
   const contentPackage = normalizeContentPackage(contentInput);
@@ -95,13 +93,6 @@ export async function executeDistribution(contentInput, mediaReceipt, requestInp
     const result = await options.postizProvider.post(toMarketingPost(contentPackage, mediaReceipt, request));
     return distributionReceipt(request, result, options.now);
   }
-  if (!options.nativeProvider) throw new Error('native publisher is not configured');
-  if (request.channel === 'instagram_reels' && !request.media.publicUrl) {
-    throw new Error('Instagram publishing requires a public media URL');
-  }
-  if (request.channel === 'youtube_shorts') await access(request.media.artifact);
-  const result = await options.nativeProvider.post(toMarketingPost(contentPackage, mediaReceipt, request));
-  return distributionReceipt(request, result, options.now);
 }
 
 export function toMarketingPost(contentPackage, mediaReceipt, request) {

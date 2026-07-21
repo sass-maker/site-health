@@ -1,7 +1,6 @@
 import http from 'node:http';
 import { FileReelStore } from '../file-reel-store.js';
-import { createDraftVideo, createRenderResponse, getDraftVideoStatus, renderAcceptedMarketingPosts, renderReelDraft } from '../pipeline.js';
-import { postReadyMarketingVideos } from '../posting.js';
+import { createDraftVideo, createRenderResponse, getDraftVideoStatus, renderReelDraft } from '../pipeline.js';
 import { createReelDraft, decideRenderedReel, decideReelDraft, listReelDrafts } from '../reel-intake.js';
 import { reelDraftInputFromSignal } from '../signal-intake.js';
 import { reviewPageHtml } from '../review-ui.js';
@@ -121,16 +120,6 @@ export function createServer(options = {}) {
         const body = await readJson(req);
         const data = await createDraftVideo(body, options);
         return json(res, 201, { data: createRenderResponse(data) });
-      }
-      if (req.method === 'POST' && req.url === '/marketing/render-accepted') {
-        const body = await readJson(req);
-        const data = await renderAcceptedMarketingPosts({ ...options, ...body });
-        return json(res, 200, { data });
-      }
-      if (req.method === 'POST' && req.url === '/marketing/post-ready') {
-        const body = await readJson(req);
-        const data = await postReadyMarketingVideos({ ...options, ...body });
-        return json(res, 200, { data });
       }
       if (req.method === 'POST' && req.url === '/lessons') {
         const body = await readJson(req);

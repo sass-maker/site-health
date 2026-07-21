@@ -156,8 +156,8 @@ Common patterns:
 ## Fleet usage
 
 To audit a fleet product, read the production URL from the project's
-`PROJECT_STATUS.md` (Products section) or from
-`saas-maker/scripts/lib/fleet-health-contracts.mjs`.
+`PROJECT_STATUS.md` (Products section) or from the canonical
+`fleet-ops/config/projects.json` manifest.
 
 To audit all fleet products' main pages:
 

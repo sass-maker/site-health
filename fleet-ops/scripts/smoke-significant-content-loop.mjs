@@ -8,7 +8,7 @@ import { resolve } from 'node:path';
 
 const fleetRoot = resolve(import.meta.dirname, '../..');
 const hobbiesRoot = resolve(fleetRoot, 'significanthobbies');
-const reelRoot = resolve(fleetRoot, 'reel-pipeline');
+const reelRoot = resolve(fleetRoot, 'fleet-ops/services/reel-pipeline');
 const scratch = mkdtempSync(resolve(tmpdir(), 'significant-content-loop-'));
 const fixture = JSON.parse(readFileSync(resolve(reelRoot, 'test/fixtures/significant-content-reels-v1.json'), 'utf8'));
 const documentPath = resolve(scratch, 'content-packages.json');

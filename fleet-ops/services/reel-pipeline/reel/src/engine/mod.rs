@@ -93,7 +93,7 @@ pub struct RenderOptions {
 pub trait RenderEngine {
     fn name(&self) -> &str;
 
-    /// Render from a normalized brief (the autopilot / marketing flow).
+    /// Render from a normalized brief.
     fn create_video(&self, brief: &VideoBrief, options: &RenderOptions) -> Result<RenderResult>;
 
     /// Render a worker-stored reel by id (the production render-pro flow). The

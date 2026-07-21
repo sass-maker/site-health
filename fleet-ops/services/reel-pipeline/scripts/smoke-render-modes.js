@@ -4,7 +4,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
-const FIXTURE = 'test/fixtures/accepted-marketing-posts.json';
+const FIXTURE = 'test/fixtures/render-mode-brief.json';
 const MODE_MATRIX = 'config/render-modes.json';
 const REPORT_PATH = process.env.RENDER_MODE_SMOKE_REPORT ?? 'tmp/render-mode-smoke/report.json';
 const GROK_ASSET_DIR = 'tmp/render-mode-smoke/grok-assets';
@@ -65,8 +65,8 @@ function isMain() {
 
 export function runModeSmoke(mode) {
   const smoke = mode.smoke ?? {};
-  if (smoke.type === 'renderAccepted') {
-    return runRenderAccepted(mode.id, {
+  if (smoke.type === 'renderFixture') {
+    return runRenderFixture(mode.id, {
       env: smoke.env,
       note: smoke.note,
       expectedProvider: mode.provider,
@@ -100,12 +100,12 @@ export function runModeSmoke(mode) {
   };
 }
 
-function runRenderAccepted(mode, options = {}) {
+function runRenderFixture(mode, options = {}) {
   const timeoutMs = commandTimeoutMs(options);
   const env = { ...process.env, ...(options.env ?? {}) };
   const result = spawnSync('npm', [
     'run',
-    'render:accepted',
+    'render:fixture',
     '--',
     '--fixture',
     FIXTURE,
@@ -176,7 +176,7 @@ function runGrokVideoSmoke(mode) {
       hint: 'ffmpeg is required to create the temporary local MP4 fixture.',
     };
   }
-  return runRenderAccepted(mode.id, {
+  return runRenderFixture(mode.id, {
     env: { GROK_VIDEO_ASSET_DIR: GROK_ASSET_DIR },
     expectedProvider: mode.provider,
   });

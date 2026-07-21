@@ -3,9 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { buildDistributionRequest, executeDistribution } from '../src/distribution.js';
-import { loadSocialAccountsConfig } from '../src/config/social-accounts.js';
-import { createPostingProvider } from '../src/posting.js';
-import { assertLegacyDistributionDisabled } from '../src/legacy-distribution-guard.js';
+import { PostizClient } from '../src/postiz-client.js';
 
 const flags = parseFlags(process.argv.slice(2));
 if (!flags.file || !flags.receipt) throw new Error('--file and --receipt are required');
@@ -13,16 +11,13 @@ const contentPackage = JSON.parse(await readFile(path.resolve(flags.file), 'utf8
 const mediaReceipt = JSON.parse(await readFile(path.resolve(flags.receipt), 'utf8'));
 
 if (flags.execute) {
-  assertLegacyDistributionDisabled('direct content-package distribution');
   if (!flags.request) throw new Error('--execute requires an approved --request file');
   const request = JSON.parse(await readFile(path.resolve(flags.request), 'utf8'));
   const options = {};
-  if (request.provider === 'native') {
-    if (request.channel === 'tiktok') throw new Error('native TikTok publishing is not implemented; configure Postiz');
-    const accounts = await loadSocialAccountsConfig({ path: flags.accounts });
-    options.nativeProvider = request.channel === 'youtube_shorts'
-      ? createPostingProvider('youtube', { youtube: { accounts: accounts.youtube } })
-      : createPostingProvider('instagram', { instagram: { accounts: accounts.instagram } });
+  if (request.provider === 'postiz') {
+    const configPath = path.resolve(flags.integrations ?? process.env.POSTIZ_INTEGRATIONS_CONFIG ?? 'config/postiz-integrations.json');
+    const config = JSON.parse(await readFile(configPath, 'utf8'));
+    options.postizProvider = new PostizClient({ integrations: config.integrations });
   }
   const receipt = await executeDistribution(contentPackage, mediaReceipt, request, options);
   console.log(JSON.stringify(receipt, null, 2));

@@ -63,11 +63,6 @@ const REPOS = {
     topics: ['ratings', 'catalogs', 'research'],
     productUrl: 'https://ratings.highsignal.app',
   },
-  drank: {
-    repo: 'High-Signal-App/drank',
-    topics: ['seo', 'domain-rating', 'ahrefs'],
-    productUrl: 'https://domains.sassmaker.com',
-  },
   'research-papers': {
     repo: 'High-Signal-App/research-papers',
     topics: ['papers', 'openalex', 'research', 'rag'],

@@ -93,8 +93,8 @@ export class ReelMakerAdapter {
       } catch (error) {
         // Do NOT write a placeholder and report success here: callers publish
         // `completed` renders to R2 as video/mp4 and sync the URL back to the
-        // marketing queue, which would turn a failed render into a "valid"
-        // artifact that blocks future render attempts.
+        // downstream draft handoff, which would turn a failed render into a
+        // "valid" artifact that blocks future render attempts.
         throw new Error(`remotion render failed for ${slug}: ${formatError(error)}`);
       }
     } else {
