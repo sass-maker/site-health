@@ -21,8 +21,8 @@
       "open-historia confirmed a live product (historia.aliveville.com), not an orphan."
     ],
     "priorities": {
-      "P1": ["codevetter", "pace", "posttrainllm", "saas-maker-showcase", "saas-maker-platform", "high-signal", "sarthakagrawal-personal"],
-      "P2": ["drank", "free-ai", "psi-swarm", "everythingrated", "research-papers", "knowledge-base", "starboard", "reel-pipeline", "motion"],
+      "P1": ["codevetter", "pace", "posttrainllm", "saas-maker-showcase", "high-signal", "sarthakagrawal-personal"],
+      "P2": ["fleet-workspace", "app-health", "drank", "free-ai", "psi-swarm", "everythingrated", "research-papers", "knowledge-base", "starboard", "reel-pipeline", "motion"],
       "P3": ["email-manager", "materia", "significanthobbies", "anime-list", "chess", "looptv", "reader", "swe-interview-prep", "rolepatch", "karte", "ai-game", "protein-index", "mobile-dev-cockpit", "saas-ideas", "truehire", "today-little-log", "open-historia"]
     }
   },
@@ -84,25 +84,39 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "the hub"
+      "notes": "Public product directory, package catalogue, and shared feedback surface. Not the Fleet control plane."
     },
     {
-      "id": "saas-maker-platform",
+      "id": "saas-maker-feedback",
       "family": "saas-maker",
       "tier": "active",
       "repo": "saas-maker",
       "deployKind": "worker",
-      "cfProject": "saasmaker-dashboard, saasmaker-api, saasmaker-droid",
+      "cfProject": "saasmaker-dashboard, saasmaker-api",
       "domains": [],
       "inRegistry": false,
       "status": "live",
-      "notes": "dashboard/API workers behind the platform"
+      "notes": "Narrow feedback API and review inbox. saasmaker-droid is retired in source and remains a production cutover item until explicitly deployed/removed."
+    },
+    {
+      "id": "fleet-workspace",
+      "family": "fleet-workspace",
+      "tier": "active",
+      "repo": "fleet-ops",
+      "deployKind": "worker",
+      "cfProject": "saasmaker-dashboard",
+      "domains": [
+        "fleet.sassmaker.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Canonical shared-infrastructure source. Current production worker cutover from the old SaaS Maker cockpit remains an explicit deploy task."
     },
     {
       "id": "drank",
-      "family": "saas-maker",
+      "family": "fleet-workspace",
       "tier": "active",
-      "repo": "drank",
+      "repo": "fleet-ops/services/drank",
       "deployKind": "pages",
       "cfProject": "drank",
       "domains": [
@@ -114,7 +128,7 @@
     },
     {
       "id": "email-manager",
-      "family": "saas-maker",
+      "family": "email-manager",
       "tier": "active",
       "repo": "email-manager",
       "deployKind": "worker",
@@ -128,7 +142,7 @@
     },
     {
       "id": "free-ai",
-      "family": "saas-maker",
+      "family": "free-ai",
       "tier": "active",
       "repo": "free-ai",
       "deployKind": "worker",
@@ -142,7 +156,7 @@
     },
     {
       "id": "psi-swarm",
-      "family": "saas-maker",
+      "family": "fleet-workspace",
       "tier": "active",
       "repo": "fleet-ops/psi-swarm",
       "deployKind": "pages",
@@ -368,9 +382,9 @@
     },
     {
       "id": "reel-pipeline",
-      "family": "reel-pipeline",
+      "family": "fleet-workspace",
       "tier": "parked",
-      "repo": "reel-pipeline",
+      "repo": "fleet-ops/services/reel-pipeline",
       "deployKind": "worker",
       "cfProject": "reel-pipeline-artifacts",
       "domains": [],
@@ -394,19 +408,31 @@
     },
     {
       "id": "mobile-dev-cockpit",
-      "family": "mobile-dev-cockpit",
+      "family": "fleet-workspace",
       "tier": "parked",
-      "repo": "mobile-dev-cockpit",
+      "repo": "fleet-ops/apps/mobile-cockpit",
       "deployKind": "none",
       "cfProject": null,
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "tooling/experimental"
+      "notes": "Private Fleet client; canonical source is inside fleet-workspace."
+    },
+    {
+      "id": "app-health",
+      "family": "app-health",
+      "tier": "active",
+      "repo": "app-health",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Independent aggregate-only endpoint health product. Local V0 complete; production auth and deployment are intentionally deferred."
     },
     {
       "id": "saas-ideas",
-      "family": "saas-maker",
+      "family": "saas-ideas",
       "tier": "secondary",
       "repo": "saas-ideas",
       "deployKind": "pages",
