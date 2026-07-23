@@ -41,10 +41,11 @@
 
 ## 5. Finish repository and external cleanup
 
-- [ ] 5.1 Secure the Fleet package changes in its canonical remote.
-- [ ] 5.2 Remove the standalone SaaS Maker local checkout after Fleet contains
+- [x] 5.1 Secure the Fleet package changes in its canonical remote.
+- [x] 5.2 Remove the standalone SaaS Maker local checkout after Fleet contains
   the package and rollback history is recorded.
-- [ ] 5.3 Delete or archive `sass-maker/saas-maker` as explicitly authorized.
+- [ ] 5.3 Delete `sass-maker/saas-maker` as authorized. Blocked because the
+  current GitHub CLI token lacks repository admin and `delete_repo` scope.
 - [ ] 5.4 Delete `saas-maker-home`, `saas-maker-packages`, `saasmaker-api`, and
   `saasmaker-dashboard` only with exact Cloudflare authorization.
 - [ ] 5.5 Decide D1/R2 data retention before deleting stored feedback or images.

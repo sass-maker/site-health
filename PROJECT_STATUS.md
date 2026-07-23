@@ -141,3 +141,5 @@ explicit source/deploy cutover and later archival decision.
 
 - No source-level blockers. npm, Cloudflare, DNS, stored-data, and remote
   repository actions remain explicit external mutations.
+- Deleting `sass-maker/saas-maker` is authorized but the current GitHub CLI
+  token lacks repository admin and `delete_repo` scope.
