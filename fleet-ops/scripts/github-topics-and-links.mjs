@@ -113,11 +113,6 @@ const REPOS = {
     topics: ['voice-agent', 'macos', 'on-device-ai', 'accessibility'],
     productUrl: 'https://heypace.app',
   },
-  'saas-maker': {
-    repo: 'sass-maker/saas-maker',
-    topics: ['foundry', 'saas', 'platform', 'fleet'],
-    productUrl: 'https://sassmaker.com',
-  },
   'free-ai': {
     repo: 'sass-maker/free-ai',
     topics: ['llm-gateway', 'openai-compatible', 'ai'],
@@ -126,7 +121,7 @@ const REPOS = {
   'fleet-workspace': {
     repo: 'sass-maker/fleet-workspace',
     topics: ['fleet', 'ops', 'seo', 'geo'],
-    productUrl: 'https://sassmaker.com',
+    productUrl: 'https://fleet.sassmaker.com',
   },
 };
 
@@ -208,7 +203,6 @@ const localDirs = {
   'swe-interview-prep': 'swe-interview-prep',
   posttrainllm: 'posttrainllm',
   pace: 'pace',
-  'saas-maker': 'saas-maker',
   'free-ai': 'free-ai',
   'fleet-workspace': '.',
 };

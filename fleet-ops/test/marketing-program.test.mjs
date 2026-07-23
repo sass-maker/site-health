@@ -17,8 +17,8 @@ test('registry covers or explicitly excludes every catalog project and has the e
     catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],
   });
   assert.deepEqual(result.focusSet, ['pace', 'codevetter', 'posttrainllm', 'high-signal']);
-  assert.equal(result.projects.length, 27);
-  assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'saas-maker', 'significanthobbies', 'swe-interview-prep']);
+  assert.equal(result.projects.length, 26);
+  assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
 });
 
 test('canonical identities and historical aliases resolve uniquely', () => {

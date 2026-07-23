@@ -96,26 +96,6 @@ const ICONS = {
       <path fill="#faf8f3" d="M8 23V9.5h3.1L16 17l4.9-7.5H24V23h-3.2v-8.3L16.6 21h-1.2L11.2 14.7V23H8Z"/>
     `,
   },
-  "saas-maker-showcase": {
-    bg: "#0c0a06",
-    fg: "#f5c542",
-    note: "Foundry gold layers (option B)",
-    mark: `
-      <path fill="#f5c542" d="M16 5.5 L26.25 10.5 L16 15.5 L5.75 10.5 Z"/>
-      <path fill="#f0d878" d="M16 11.75 L26.25 16.75 L16 21.75 L5.75 16.75 Z"/>
-      <path fill="#d4a017" d="M16 18 L26.25 23 L16 28 L5.75 23 Z"/>
-    `,
-  },
-  "saas-maker-docs": {
-    bg: "#0c0a06",
-    fg: "#f5c542",
-    note: "Foundry gold layers (option B)",
-    mark: `
-      <path fill="#f5c542" d="M16 5.5 L26.25 10.5 L16 15.5 L5.75 10.5 Z"/>
-      <path fill="#f0d878" d="M16 11.75 L26.25 16.75 L16 21.75 L5.75 16.75 Z"/>
-      <path fill="#d4a017" d="M16 18 L26.25 23 L16 28 L5.75 23 Z"/>
-    `,
-  },
   starboard: {
     bg: "#0c1222",
     fg: "#38bdf8",
@@ -309,12 +289,6 @@ const TARGETS = {
   },
   materia: {
     public: ["materia/public"],
-  },
-  "saas-maker-showcase": {
-    public: ["saas-maker/apps/showcase/public"],
-  },
-  "saas-maker-docs": {
-    public: ["saas-maker/apps/docs/public"],
   },
   starboard: {
     public: ["starboard/public"],

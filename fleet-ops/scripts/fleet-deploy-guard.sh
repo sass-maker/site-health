@@ -5,8 +5,6 @@
 #
 # Usage:
 #   bash fleet-ops/scripts/fleet-deploy-guard.sh <project>
-#   bash fleet-ops/scripts/fleet-deploy-guard.sh saas-maker
-#   bash fleet-ops/scripts/fleet-deploy-guard.sh saas-maker --force  # skip CI check
 
 set -euo pipefail
 

@@ -1,0 +1,44 @@
+{
+  "name": "@saas-maker/feedback",
+  "version": "0.4.0",
+  "description": "Backend-free React feedback widget with screenshots and page-element context.",
+  "license": "MIT",
+  "homepage": "https://www.npmjs.com/package/@saas-maker/feedback",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.css": "./dist/index.css"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --external react-dom",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "check": "pnpm typecheck && pnpm lint && pnpm build && pnpm pack --dry-run"
+  },
+  "peerDependencies": {
+    "react": ">=18 <20",
+    "react-dom": ">=18 <20"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.5",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "tsup": "8.0.0",
+    "typescript": "6.0.3"
+  },
+  "packageManager": "pnpm@10.33.2"
+}

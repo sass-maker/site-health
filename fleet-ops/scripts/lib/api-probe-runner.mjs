@@ -266,8 +266,8 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
     const demo = await runSurfaceProbe(
       {
         id: 'demo-api',
-        projectId: 'saas-maker',
-        url: 'https://api.sassmaker.com/health',
+        projectId: 'demo',
+        url: 'https://example.com/health',
         method: 'GET',
         expectedStatuses: [200],
         timeoutMs: 5000,

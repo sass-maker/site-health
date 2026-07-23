@@ -22,7 +22,7 @@
       "open-historia confirmed a live product (historia.aliveville.com), not an orphan."
     ],
     "priorities": {
-      "P1": ["codevetter", "pace", "posttrainllm", "saas-maker-showcase", "high-signal", "sarthakagrawal-personal"],
+      "P1": ["codevetter", "pace", "posttrainllm", "high-signal", "sarthakagrawal-personal"],
       "P2": ["fleet-workspace", "app-health", "drank", "free-ai", "psi-swarm", "everythingrated", "research-papers", "knowledge-base", "starboard", "reel-pipeline", "motion"],
       "P3": ["email-manager", "materia", "significanthobbies", "anime-list", "chess", "looptv", "reader", "swe-interview-prep", "rolepatch", "karte", "ai-game", "protein-index", "mobile-dev-cockpit", "saas-ideas", "truehire", "today-little-log", "open-historia"]
     }
@@ -74,62 +74,18 @@
       "notes": "REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic)."
     },
     {
-      "id": "saas-maker-showcase",
-      "family": "saas-maker",
-      "tier": "active",
-      "repo": "saas-maker",
-      "deployKind": "pages",
-      "cfProject": "saas-maker-home",
-      "domains": [
-        "sassmaker.com"
-      ],
-      "inRegistry": true,
-      "status": "live",
-      "notes": "Public product directory and shared feedback entry point. Not the Fleet control plane."
-    },
-    {
-      "id": "saas-maker-packages",
-      "family": "saas-maker",
-      "tier": "active",
-      "repo": "saas-maker",
-      "deployKind": "pages",
-      "cfProject": "saas-maker-packages",
-      "domains": [],
-      "inRegistry": false,
-      "status": "live",
-      "notes": "Canonical Blume package docs are live on the Pages origin. A separate vanity hostname is intentionally not used for the single package."
-    },
-    {
-      "id": "saas-maker-feedback",
-      "family": "saas-maker",
-      "tier": "active",
-      "repo": "saas-maker",
-      "deployKind": "worker",
-      "cfProject": "saasmaker-dashboard, saasmaker-api",
-      "domains": [
-        "app.sassmaker.com",
-        "api.sassmaker.com"
-      ],
-      "domainProbePaths": {
-        "api.sassmaker.com": "/health"
-      },
-      "inRegistry": false,
-      "status": "live",
-      "notes": "Narrow feedback API and review inbox. saasmaker-droid is retired in source and remains a production cutover item until explicitly deployed/removed."
-    },
-    {
       "id": "fleet-workspace",
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "fleet-ops",
-      "deployKind": "worker",
-      "cfProject": "saasmaker-dashboard",
+      "deployKind": "none",
+      "cfProject": null,
       "domains": [
         "fleet.sassmaker.com"
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Canonical shared-infrastructure source. Current production worker cutover from the old SaaS Maker cockpit remains an explicit deploy task."
+      "notes": "Canonical shared-infrastructure source. The public read-only Ops Console is exposed through the designated host and Cloudflare Tunnel, not a SaaS Maker Worker."
     },
     {
       "id": "drank",

@@ -24,6 +24,12 @@ const components = [
     nativeCheck: 'pnpm check',
   },
   {
+    id: 'feedback',
+    root: 'fleet-ops/packages/feedback',
+    required: ['package.json', 'README.md', 'pnpm-lock.yaml'],
+    nativeCheck: 'pnpm check',
+  },
+  {
     id: 'mobile-cockpit',
     root: 'fleet-ops/apps/mobile-cockpit',
     required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],

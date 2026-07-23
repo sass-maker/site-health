@@ -7,10 +7,9 @@ Geometric path marks per product. Source of truth for favicons is each product `
 
 | Product | Mark |
 |---|---|
-| **Foundry / sass-maker** | Gold layers (B) |
 | **RolePatch** | L-mono parallel lines |
 
-## Registry products (23)
+## Registry products
 
 | ID | Name | URL | Archive |
 |---|---|---|---|
@@ -20,8 +19,6 @@ Geometric path marks per product. Source of truth for favicons is each product `
 | `karte` | Karte | https://karte.cc | `karte-mark.svg` / `karte-1024.png` |
 | `significanthobbies` | Significant Hobbies | https://significanthobbies.com | `significanthobbies-mark.svg` / `significanthobbies-1024.png` |
 | `materia` | Materia | https://materia.significanthobbies.com | `materia-mark.svg` / `materia-1024.png` |
-| `saas-maker-showcase` | Foundry (SaaS Maker) | https://sassmaker.com | `saas-maker-showcase-mark.svg` / `saas-maker-showcase-1024.png` |
-| `saas-maker-docs` | SaaS Maker Docs | https://docs.sassmaker.com | `saas-maker-docs-mark.svg` / `saas-maker-docs-1024.png` |
 | `starboard` | Starboard | https://starboard.codevetter.com | `starboard-mark.svg` / `starboard-1024.png` |
 | `everythingrated` | EverythingRated | https://ratings.highsignal.app | `everythingrated-mark.svg` / `everythingrated-1024.png` |
 | `truehire` | TrueHire | https://truehire.rolepatch.com | `truehire-mark.svg` / `truehire-1024.png` |

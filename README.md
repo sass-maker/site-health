@@ -15,20 +15,20 @@ mobile control client. Product repositories remain independently versioned and
 deployed unless explicitly imported as Fleet infrastructure.
 
 The canonical live project/domain inventory is [`fleet-ops/config/projects.json`](fleet-ops/config/projects.json);
-this README is the human taxonomy, while [SaaS Maker](https://sassmaker.com) is
-the public directory, package catalogue, and feedback product.
+this README is the human taxonomy.
 
 ## Canonical Fleet components
 
 - `fleet-ops/services/reel-pipeline/` — approved media production and Postiz handoff
 - `fleet-ops/services/drank/` — domain intelligence
+- `fleet-ops/packages/feedback/` — backend-free `@saas-maker/feedback` React package
 - `fleet-ops/psi-swarm/` — performance and site-health tooling
 - `fleet-ops/apps/mobile-cockpit/` — private mobile Fleet client
 - `fleet-ops/apps/ops-console/` — local operations view
 - `fleet-ops/skills/`, `scripts/`, `automation/`, `config/` — common infrastructure
 
-CodeVetter and App Health remain fully independent products. SaaS Maker is not
-the Fleet control plane.
+CodeVetter and App Health remain fully independent products. Feedback is a
+Fleet-owned package, not a deployed Fleet service or standalone product.
 
 ## Products
 
@@ -39,7 +39,6 @@ worked on together as one effort).
 
 **Support** — infrastructure serving other fleet projects
 
-- [saas-maker](https://github.com/sass-maker/saas-maker) — public product directory, maintained package catalogue, and shared feedback ([sassmaker.com](https://sassmaker.com))
 - [free-ai](https://github.com/sass-maker/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
 - Reel Pipeline — AI short-form media production and Postiz handoff, canonical under Fleet Workspace; the standalone repository is a migration rollback source
 - Drank — domain-rating intelligence, canonical under Fleet Workspace; the standalone repository is a migration rollback source
@@ -89,7 +88,7 @@ worked on together as one effort).
 
 Use repository-native GitHub issues or OpenSpec changes to capture durable work.
 A work item can be an investigation, bug fix, deploy check, cleanup, code
-change, or deferred follow-up. SaaS Maker is not the task system of record.
+change, or deferred follow-up. Fleet is the operational source of truth.
 
 Create a task for:
 
@@ -114,7 +113,7 @@ strategies, runbooks, and research/reference notes.
 - `PROJECT_STATUS.md`: durable current product state.
 
 When a plan creates execution work, keep it in the owning repository or
-cross-repository OpenSpec store. Do not mirror it into SaaS Maker.
+cross-repository OpenSpec store.
 
 Agent-facing instructions live in the fleet-level `AGENTS.md`, which applies to
 projects below this directory unless a project has a more specific `AGENTS.md`.

@@ -30,8 +30,7 @@ const EDGE_TEMPLATE = join(
 const MARKER = 'handleAgentEdge';
 const IMPORT_MARKER = "from './agent-edge.mjs'";
 
-// Product publisher identity. SaaS Maker is a directory, not the owner of
-// every independent product in the fleet.
+// Independent products use the owner's public identity as publisher.
 const PUBLISHER_ID = 'https://sarthakagrawal.dev/#person';
 const PUBLISHER_NAME = 'Sarthak Agrawal';
 const PUBLISHER_URL = 'https://sarthakagrawal.dev';
@@ -59,7 +58,7 @@ if (jsonldEmitMode) {
   for (const product of registry.products) {
     if (onlyId && product.id !== onlyId) continue;
 
-    // Only emit for products with headFile (skip saas-maker-docs, psi-swarm)
+    // Only emit for products with a headFile.
     if (!product.headFile) continue;
 
     const json = buildJsonLd(product, registry);
@@ -367,10 +366,6 @@ function buildSurface(product) {
     `- [Homepage markdown](${origin}/index.md): Product brief without JS`,
     `- [This index](${origin}/llms.txt)`,
     '',
-    '## Optional',
-    '',
-    '- [Foundry](https://sassmaker.com): Parent fleet showcase',
-    '',
   ];
 
   const catalog = {
@@ -392,7 +387,6 @@ function buildSurface(product) {
       },
       ...productLinks
         .filter((l) => !l.url.endsWith('/') || l.title !== 'Home')
-        // Fleet hub (sassmaker) may list 20+ product roots; keep them all in /api/ai.
         .map((l) => ({
           id: slugId(l.title),
           url: l.url,
@@ -429,9 +423,9 @@ function buildSurface(product) {
     `- ${origin}/sitemap.xml`,
     `- ${origin}/robots.txt`,
     '',
-    '## Contact / fleet',
+    '## Contact',
     '',
-    '- Fleet: https://sassmaker.com',
+    '- Owner: https://sarthakagrawal.dev',
     '- Agent email for directory verification: sarthakagrawal@agentmail.to',
     '',
   ].join('\n');

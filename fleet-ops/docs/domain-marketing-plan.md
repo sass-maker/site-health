@@ -32,7 +32,6 @@ task plus Telegram completion/failure evidence.
 | `pace` | `heypace.app` | Focus | Active | Download the Mac app / join release list |
 | `codevetter` | `codevetter.com` | Focus | Active | Download desktop reviewer |
 | `posttrainllm` | `posttrainllm.com` | Focus | Active | Train or run a small local model |
-| `saas-maker` | `sassmaker.com` | Infrastructure | Finished | Explore the fleet / use `fnd` |
 | `aliveville` | `aliveville.com` | Evergreen | Finished | Play the Rival slice |
 | `rolepatch` | `rolepatch.com` | Evergreen | Finished | Tailor a resume or browse jobs |
 | `high-signal` | `highsignal.app` | Evergreen, source-backed | Active channel program | Read the daily brief |
@@ -40,22 +39,6 @@ task plus Telegram completion/failure evidence.
 | `significanthobbies` | `significanthobbies.com` | Evergreen, source-backed | Active channel program | Pick a meaningful hobby path |
 
 ## Finished Non-focus Plans
-
-### SaaS Maker
-
-- **Positioning:** Cloudflare-first foundry for one-person SaaS fleets: task
-  system, cockpit, widgets, docs, and fleet operations in one hub.
-- **Audience:** solo builders running multiple products, agents maintaining a
-  portfolio, and internal operators who need one source of truth.
-- **Channels:** fleet case studies, Cloudflare/devtool posts, short demos of
-  `fnd`, and internal links from every fleet product footer.
-- **SEO:** `sassmaker.com`, `docs.sassmaker.com`, and `app.sassmaker.com`.
-  Target "Cloudflare SaaS starter", "AI product cockpit", "feedback widget for
-  SaaS", and "one person SaaS operations".
-- **Content backlog:** fleet performance case study, task workflow walkthrough,
-  feedback widget integration guide, marketing queue walkthrough.
-- **Measurement:** docs click-through to app, widget installs, CLI auths,
-  marketing queue ideas accepted.
 
 ### AliveVille
 

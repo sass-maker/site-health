@@ -69,7 +69,6 @@ The ten owned root domains are:
 
 | Domain | Project |
 | --- | --- |
-| `sassmaker.com` | SaaS Maker |
 | `posttrainllm.com` | PostTrainLLM |
 | `heypace.app` | Pace |
 | `codevetter.com` | codevetter |
@@ -80,13 +79,12 @@ The ten owned root domains are:
 | `significanthobbies.com` | Significant Hobbies |
 | `sarthakagrawal.dev` | Portfolio |
 
-Nine root domains map to active Fleet products. `sarthakagrawal.dev` is the
+Eight root domains map to active Fleet products. `sarthakagrawal.dev` is the
 portfolio domain and is included in the ownership count, but not the product
 count.
 
-Subdomains such as `api.sassmaker.com`, `health.sassmaker.com`, and
-`www.*` variants belong to the same parent project and are not separate fleet
-products.
+Subdomains and `www.*` variants belong to their parent projects and are not
+separate Fleet products.
 
 ## Fresh Machine Setup
 

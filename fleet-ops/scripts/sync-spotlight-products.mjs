@@ -33,43 +33,16 @@ function resolveCheckout(workspace, checkoutPath) {
   return inWorkspace;
 }
 
-function expectedSpotlightSites(contract) {
-  return contract.products.map((product) => `${product.showcaseId}:${product.url}`).sort();
-}
-
-async function checkPublicProjection(path, label, expectedSites, errors) {
-  if (!existsSync(path)) {
-    errors.push(`${label} is missing at ${path}`);
-    return null;
-  }
-  const projection = await readJson(path);
-  if (projection.schemaVersion !== 1 || !Array.isArray(projection.products)) {
-    errors.push(`${label} has an unsupported public projection schema`);
-    return null;
-  }
-  const actualSites = projection.products
-    .filter((product) => product.spotlight === true)
-    .map((product) => `${product.id}:${product.url}`)
-    .sort();
-  if (JSON.stringify(actualSites) !== JSON.stringify(expectedSites)) {
-    errors.push(`${label} spotlight drift: expected ${expectedSites.join(', ')}, found ${actualSites.join(', ')}`);
-  }
-  return projection;
-}
-
 function portfolioSource(contract) {
   return `export type SpotlightProduct = {\n  id: string;\n  label: string;\n  name: string;\n  url: string;\n  organizationUrl: string;\n  repositoryUrl: string;\n  description: string;\n};\n\n/** Synchronized with fleet-ops/config/spotlight-products.json. */\nexport const spotlightProducts: readonly SpotlightProduct[] = [\n${contract.products.map((product) => `  {\n    id: '${product.id}',\n    label: '${product.label}',\n    name: '${product.name}',\n    url: '${product.url}',\n    organizationUrl: '${product.organizationUrl}',\n    repositoryUrl: '${product.repositoryUrl}',\n    description: '${product.description}',\n  },`).join('\n')}\n] as const;\n`;
 }
 
-async function checkProfileFile(profile, readmePath, contract, directoryUrl, errors, warnings, label = profile.id) {
+async function checkProfileFile(profile, readmePath, contract, errors, warnings, label = profile.id) {
   if (!existsSync(readmePath)) {
     warnings.push(`${label} profile mirror is unavailable at ${readmePath}`);
     return;
   }
   const source = await readFile(readmePath, 'utf8');
-  if (!source.includes(directoryUrl)) {
-    errors.push(`${label} profile is missing the directory URL ${directoryUrl}`);
-  }
   for (const productId of profile.requiredProductIds) {
     const product = contract.products.find((entry) => entry.id === productId);
     if (!source.includes(product.url)) errors.push(`${label} profile is missing ${productId} URL ${product.url}`);
@@ -82,12 +55,12 @@ async function profileChecks(contract, config, workspace, strict, errors, warnin
     if (!existsSync(readmePath)) {
       if (strict) errors.push(`${profile.id} profile is unavailable at ${readmePath}`);
     } else {
-      await checkProfileFile(profile, readmePath, contract, config.directoryUrl, errors, warnings, profile.id);
+      await checkProfileFile(profile, readmePath, contract, errors, warnings, profile.id);
     }
     if (profile.localMirror) {
       const mirrorPath = resolve(FLEET_ROOT, profile.localMirror);
       if (existsSync(mirrorPath)) {
-        await checkProfileFile(profile, mirrorPath, contract, config.directoryUrl, errors, warnings, `${profile.id} local mirror`);
+        await checkProfileFile(profile, mirrorPath, contract, errors, warnings, `${profile.id} local mirror`);
       } else {
         warnings.push(`${profile.id} local mirror is unavailable at ${mirrorPath}`);
       }
@@ -100,7 +73,7 @@ async function validate(contract, config, options) {
   const warnings = [];
   const expected = contract.products;
   if (contract.version !== 1) errors.push(`unsupported contract version ${contract.version}`);
-  if (expected.length !== 5) errors.push(`contract must contain 5 products, found ${expected.length}`);
+  if (expected.length !== 4) errors.push(`contract must contain 4 products, found ${expected.length}`);
   if (new Set(expected.map((product) => product.id)).size !== expected.length) errors.push('contract contains duplicate IDs');
   for (const product of expected) {
     for (const field of ['id', 'showcaseId', 'label', 'name', 'url', 'organizationUrl', 'repositoryUrl', 'description']) {
@@ -116,23 +89,6 @@ async function validate(contract, config, options) {
       if (!source.includes(`id: '${product.id}'`)) errors.push(`portfolio is missing ${product.id}`);
       if (!source.includes(product.url)) errors.push(`portfolio has the wrong URL for ${product.id}`);
     }
-  }
-
-  const publicProjectionPath = resolve(
-    resolveCheckout(options.workspace, config.targets.publicProjection.checkoutPath),
-    config.targets.publicProjection.file,
-  );
-  const saasMakerCatalogPath = resolve(
-    resolveCheckout(options.workspace, config.targets.saasMakerCatalog.checkoutPath),
-    config.targets.saasMakerCatalog.file,
-  );
-  const expectedSites = expectedSpotlightSites(contract);
-  const [publicProjection, saasMakerCatalog] = await Promise.all([
-    checkPublicProjection(publicProjectionPath, 'Fleet public projection', expectedSites, errors),
-    checkPublicProjection(saasMakerCatalogPath, 'SaaS Maker public catalog', expectedSites, errors),
-  ]);
-  if (publicProjection && saasMakerCatalog && JSON.stringify(publicProjection) !== JSON.stringify(saasMakerCatalog)) {
-    errors.push('SaaS Maker public catalog does not match the Fleet public projection');
   }
 
   await profileChecks(contract, config, options.workspace, options.strict, errors, warnings);

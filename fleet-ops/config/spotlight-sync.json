@@ -1,18 +1,9 @@
 {
   "version": 1,
-  "directoryUrl": "https://sassmaker.com",
   "targets": {
     "portfolio": {
       "checkoutPath": "portfolio",
       "file": "src/data/spotlight-products.ts"
-    },
-    "publicProjection": {
-      "checkoutPath": ".",
-      "file": "fleet-ops/public/products.json"
-    },
-    "saasMakerCatalog": {
-      "checkoutPath": "saas-maker",
-      "file": "catalog/generated/public.json"
     },
     "profiles": [
       {
@@ -20,7 +11,7 @@
         "repository": "sarthakagrawal927/sarthakagrawal927",
         "checkoutPath": "sync-targets/personal-profile",
         "file": "README.md",
-        "requiredProductIds": ["codevetter", "posttrainllm", "heypace", "hisignal", "saas-maker"]
+        "requiredProductIds": ["codevetter", "posttrainllm", "heypace", "hisignal"]
       },
       {
         "id": "codevetter",
@@ -49,13 +40,6 @@
         "checkoutPath": "sync-targets/hisignal-profile",
         "file": "profile/README.md",
         "requiredProductIds": ["hisignal"]
-      },
-      {
-        "id": "saas-maker",
-        "repository": "sass-maker/.github",
-        "checkoutPath": "sync-targets/saas-maker-profile",
-        "file": "profile/README.md",
-        "requiredProductIds": ["saas-maker"]
       }
     ]
   }

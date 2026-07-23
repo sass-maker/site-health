@@ -118,9 +118,7 @@ bash fleet-ops/scripts/fleet-perf-weekly.sh --runs 3 --concurrency 2
 - `fail`: real regression candidate; read details before creating tasks.
 
 Expected non-issues:
-- `api.sassmaker.com/` root may be `404`.
 - `mal-api...workers.dev/` root may be `404`.
-- `saas-maker` can be dirty during active local work; report but don't revert.
 - First-run perf budget warnings are baselines, not regressions.
 
 ### Workflow

@@ -9,7 +9,6 @@ without custom Worker GEO plumbing.
 | Package | Path | Intended domain | Pages |
 |---|---|---|---|
 | posttrainllm docs | `posttrainllm/docs-site` | `docs.posttrainllm.com` | ~286 |
-| Foundry Manual | `saas-maker/apps/docs-blume` | `docs.sassmaker.com` (cut over) | ~20 |
 | AI Gateway docs | `free-ai/docs-blume` | `docs.ai-gateway.sassmaker.com` | ~18 |
 
 Each build emits: `llms.txt`, `llms-full.txt`, per-page `.md` / `.mdx`,

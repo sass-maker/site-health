@@ -1,5 +1,5 @@
 {
-  "$comment": "GEO Observatory query config. Queries are STABLE identifiers — never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product surfaced only via hub (sassmaker.com) or aggregator/directory; C = absent from first page.",
+  "$comment": "GEO Observatory query config. Queries are STABLE identifiers — never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product surfaced only via an aggregator or directory; C = absent from first page.",
   "cadence": "weekly",
   "classes": ["A", "B", "C"],
   "products": [
@@ -19,14 +19,7 @@
         { "qid": "rolepatch-category", "kind": "category", "q": "free ATS resume checker" }
       ]
     },
-    {
-      "id": "saas-maker-showcase",
-      "origin": "https://sassmaker.com",
-      "queries": [
-        { "qid": "sassmaker-brand", "kind": "brand", "q": "sassmaker" },
-        { "qid": "sassmaker-category", "kind": "category", "q": "solo founder fleet of products built with agents" }
-      ]
-    },
+
     {
       "id": "high-signal",
       "origin": "https://highsignal.app",

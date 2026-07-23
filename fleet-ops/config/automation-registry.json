@@ -3,7 +3,7 @@
   "updatedAt": "2026-07-20",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 17,
+    "toolbox": 16,
     "foundry": 5,
     "ignored": 9,
     "removed": 3
@@ -360,22 +360,7 @@
       "exceptions": []
     },
 
-    {
-      "id": "sass-maker",
-      "name": "SaaS Maker",
-      "attention": "toolbox",
-      "family": "sass-maker",
-      "owner": "sarthak",
-      "repository": "saas-maker",
-      "runtimes": ["public-web", "api", "worker", "data-store"],
-      "surfaces": ["https://sassmaker.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers and Pages", "feedback storage", "checked-in Fleet public projection"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "privacy-safe-errors", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "errors", "api-health", "data-durability"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "page feedback data, security, privacy, or prolonged production failure; digest routine findings",
-      "exceptions": []
-    },
+
     {
       "id": "fleet-workspace",
       "name": "Fleet Workspace",

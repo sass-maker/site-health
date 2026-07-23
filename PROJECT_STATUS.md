@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-21
+Last updated: 2026-07-23
 
 ## Why / What
 
@@ -15,7 +15,7 @@ finished products usable and discoverable.
 **In scope:** Fleet registries and policy; shared scripts and skills; bounded
 automation; Postiz/Reel Pipeline marketing production; Drank domain
 intelligence; PSI Swarm site performance; Mobile Dev Cockpit; machine-host
-setup; public product projection generation; links to independent evidence
+setup; shared package ownership; links to independent evidence
 owners.
 
 **Out of scope:** Product feature direction; a general public SaaS; duplicating
@@ -43,8 +43,8 @@ CodeVetter or App Health source.
 - Mobile Dev Cockpit is the private mobile Fleet client.
 - CodeVetter and App Health remain independent linked products and evidence
   owners; neither is a Fleet Workspace package.
-- SaaS Maker consumes only an allowlisted public product projection and remains
-  independently deployable.
+- Fleet owns the backend-free `@saas-maker/feedback` React package. Integrating
+  products own submission and storage through its `onSubmit` callback.
 
 ## Timeline
 
@@ -52,11 +52,13 @@ CodeVetter or App Health source.
   a Fleet-local, machine-scoped agent skill; added deterministic UI edit hooks,
   new-project guidance, and a critique/polish/audit shipping sequence while
   preserving `PROJECT_STATUS.md` as product-scope truth.
-- **2026-07-21 — SaaS Maker production boundary cut over:** Deployed the public
-  directory, narrow feedback API, and private feedback Cockpit from synchronized
-  `main`; all shared smoke checks passed. Created and deployed the canonical
-  Blume package-docs Pages origin; one package does not justify a separate
-  vanity hostname.
+- **2026-07-23 — Feedback reduced to a package:** Consumer audit found no Fleet
+  imports or hosted API calls. Reduced the retained boundary to a callback-only
+  React package at `fleet-ops/packages/feedback/`; removed API, inbox, auth,
+  storage, project-key, and Worker source from Fleet.
+- **2026-07-22 — SaaS Maker retirement started:** Removed the public directory,
+  separate docs, and standalone product identity; npm is the package
+  documentation surface.
 - **2026-07-21 — Marketing and App Health boundaries finalized:** Reel Pipeline
   now creates Postiz drafts instead of owning a SaaS Maker queue or native
   social publishers. The pinned self-hosted Postiz contract is inert pending
@@ -83,8 +85,8 @@ CodeVetter or App Health source.
 | Drank | `fleet-ops/services/drank/` | Independent domain-intelligence app/API |
 | PSI Swarm | `fleet-ops/psi-swarm/` | Local CLI plus independently deployable static surface |
 | Mobile Dev Cockpit | `fleet-ops/apps/mobile-cockpit/` | Private local/mobile Fleet client |
-| Ops Console | `fleet-ops/apps/ops-console/` | Local operational view; not a SaaS Maker surface |
-| Public projection | generated from Fleet registry | Sanitized static input for `sassmaker.com` |
+| Ops Console | `fleet-ops/apps/ops-console/` | Local operational view |
+| Feedback package | `fleet-ops/packages/feedback/` | Backend-free npm package; no Fleet runtime |
 
 Legacy standalone helper repositories remain rollback sources until an
 explicit source/deploy cutover and later archival decision.
@@ -108,8 +110,9 @@ explicit source/deploy cutover and later archival decision.
 - OpenSpec store for cross-repository fleet changes.
 - Fleet-local Impeccable design workflow with brand/product registers,
   persistent design context, and pre-ship critique/polish/audit guidance.
-- Public SaaS Maker projection with Fleet-owned spotlight synchronization and
-  a checked-in privacy-safe consumer snapshot.
+- Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.
+- Backend-free feedback package with consumer-owned submission, Pinpoint
+  context, and local screenshot attachment.
 
 ## Todo / Planned / Deferred / Blocked
 
@@ -121,8 +124,9 @@ explicit source/deploy cutover and later archival decision.
    `fleet-ops/docs/postiz-operations.md`.
 3. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
-4. Prepare later legacy-repository retirement decisions without deleting
-   rollback sources automatically.
+4. Complete the separately approved external cleanup: publish the callback-only
+   package, remove the four obsolete SaaS Maker Cloudflare surfaces, decide
+   D1/R2 retention, and retire the standalone repository.
 
 ### Deferred
 
@@ -135,6 +139,5 @@ explicit source/deploy cutover and later archival decision.
 
 ### Blocked
 
-- `sassmaker.com` still has a zone-level cache override that supersedes the
-  directory's tracked revalidation headers. An authenticated cache purge and
-  rule adjustment are required so new directory releases appear immediately.
+- No source-level blockers. npm, Cloudflare, DNS, stored-data, and remote
+  repository actions remain explicit external mutations.

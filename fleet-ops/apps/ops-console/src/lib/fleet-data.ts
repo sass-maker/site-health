@@ -55,7 +55,6 @@ const productTitleBySlug: Record<string, string> = {
   "reel-pipeline": "Reel Pipeline",
   "research-papers": "Research Papers",
   rolepatch: "RolePatch",
-  "saas-maker": "SaaS Maker",
   starboard: "Starboard",
   "significanthobbies": "Significant Hobbies",
   "swe-interview-prep": "SWE Interview Prep",
@@ -68,7 +67,6 @@ function canonicalProjectSlug(slug: string) {
 }
 
 function registrySlug(project: RegistryProject) {
-  if (project.family === "saas-maker") return "saas-maker";
   return project.id === "fleet-workspace" ? "fleet-ops" : canonicalProjectSlug(project.id);
 }
 
