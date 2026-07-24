@@ -3,7 +3,7 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { isAbsolute, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { PostizClient } from '../services/reel-pipeline/src/postiz-client.js';
+import { PostizClient } from '../../services/reel-pipeline/src/postiz-client.js';
 
 const checkoutRoot = resolve(import.meta.dirname, '../..');
 

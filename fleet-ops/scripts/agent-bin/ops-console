@@ -5,7 +5,8 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PA
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FLEET_OPS_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-APP_DIR="$FLEET_OPS_DIR/apps/ops-console"
+FLEET_ROOT="$(cd "$FLEET_OPS_DIR/.." && pwd)"
+APP_DIR="$FLEET_ROOT/apps/ops-console"
 NODE_BIN="$(command -v node)"
 LABEL="com.assistant.fleet-ops-console"
 HEARTBEAT_LABEL="com.assistant.fleet-ops-console-heartbeat"
@@ -16,7 +17,7 @@ LEGACY_REFRESH_PLIST="$HOME/Library/LaunchAgents/$LEGACY_REFRESH_LABEL.plist"
 LOG_DIR="$HOME/Library/Logs"
 RUNTIME_DIR="$HOME/Library/Application Support/Fleet Ops/ops-console"
 HEARTBEAT_RUNNER="$RUNTIME_DIR/heartbeat.zsh"
-HEARTBEAT_SCRIPT="$APP_DIR/../../scripts/agent-bin/public-heartbeat.mjs"
+HEARTBEAT_SCRIPT="$FLEET_OPS_DIR/scripts/agent-bin/public-heartbeat.mjs"
 PORT="${FLEET_OPS_CONSOLE_PORT:-4329}"
 PUBLIC_URL="${FLEET_OPS_CONSOLE_URL:-https://fleet.sassmaker.com}"
 

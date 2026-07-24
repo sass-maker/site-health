@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "fleet-ops/psi-swarm/**"
+      - "tools/psi-swarm/**"
       - "fleet-ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/psi-swarm-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "fleet-ops/psi-swarm/**"
+      - "tools/psi-swarm/**"
       - "fleet-ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/psi-swarm-ci.yml"
 
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: fleet-ops/psi-swarm
+        working-directory: tools/psi-swarm
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: fleet-ops/psi-swarm/pnpm-lock.yaml
+          cache-dependency-path: tools/psi-swarm/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm run build:cli
       - run: pnpm run build:web

@@ -29,7 +29,7 @@ therefore preserve infrastructure without a demonstrated consumer.
 
 ### Package-only Fleet boundary
 
-The package lives at `fleet-ops/packages/feedback/` as an independently
+The package lives at `packages/feedback/` as an independently
 checkable pnpm package. Fleet does not treat it as a deployed product.
 
 ### Consumer-owned submission
@@ -87,7 +87,7 @@ the private console unavailable, but cannot take down the public directory.
 ## Migration Plan
 
 1. Revise this OpenSpec from service-preserving to package-only.
-2. Move the widget into `fleet-ops/packages/feedback/`.
+2. Move the widget into `packages/feedback/`.
 3. Replace API submission/upload code with callback-driven submission.
 4. Remove the inbox, API, migrations, auth, smoke scripts, and service workspace.
 5. Remove deployed Feedback from Fleet registries, probes, and status docs.

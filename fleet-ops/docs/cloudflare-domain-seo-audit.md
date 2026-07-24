@@ -39,7 +39,7 @@ Current implementation state:
   `fceb4f22-db20-4e77-88cf-07c1f290fd42.cfargotunnel.com`
 - The operational hostname is live and returns HTTP 200 through the Tunnel.
 - `saas-maker-home` remains the Cloudflare Pages target for the apex, but its
-  source is now `fleet-ops/apps/public-directory/` rather than a standalone
+  source is now `apps/public-directory/` rather than a standalone
   SaaS Maker repository.
 - `saas-maker-packages`, `saasmaker-api`, and `saasmaker-dashboard` were
   deleted on 2026-07-23. Do not create `packages.sassmaker.com`.

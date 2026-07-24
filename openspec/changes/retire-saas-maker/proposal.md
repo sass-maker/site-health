@@ -7,7 +7,7 @@ Fleet product currently consumes that service.
 
 ## What Changes
 
-- Keep only `@saas-maker/feedback` under `fleet-ops/packages/feedback/`.
+- Keep only `@saas-maker/feedback` under `packages/feedback/`.
 - **BREAKING** Replace the package's required project key and hosted API with a
   required `onSubmit` callback. The integrating product decides where feedback
   goes.
@@ -40,8 +40,8 @@ Fleet product currently consumes that service.
 
 ## Impact
 
-- Fleet source: `fleet-ops/services/feedback/` is replaced by
-  `fleet-ops/packages/feedback/`.
+- Fleet source: `services/feedback/` is replaced by
+  `packages/feedback/`.
 - Package: `@saas-maker/feedback` moves from project-key/API configuration to an
   `onSubmit` callback.
 - Cloudflare: `saas-maker-packages`, `saasmaker-api`, and

@@ -204,7 +204,7 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 | `aliveville` | AliveVille 3D AI world simulator | `pnpm dev` | `pnpm typecheck`, `pnpm test`, `pnpm build` | project workflows |
 | `anime-list` | MAL Explorer for anime/manga discovery and watchlists | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm pages:build` | `pnpm deploy` |
 | `codevetter` | Desktop-first AI code review platform | see project README | see project README / CI | see project README / CI |
-| `drank` | Domain rating tracker | `cd fleet-ops/services/drank && pnpm dev` | root `Drank CI` | `cd fleet-ops/services/drank && pnpm deploy` |
+| `drank` | Domain rating tracker | `cd services/drank && pnpm dev` | root `Drank CI` | `cd services/drank && pnpm deploy` |
 | `email-manager` | Gmail/email triage and automation | `pnpm dev` | `pnpm lint`, `pnpm cf:build` | `pnpm deploy` |
 | `everythingrated` | Multi-axis ratings for High Signal directories | `pnpm dev` | see project README / CI | project workflows |
 | `free-ai` | OpenAI-compatible gateway for free LLM providers | `pnpm dev` | `pnpm check`, `pnpm test:e2e` when relevant | `pnpm deploy` |
@@ -215,7 +215,7 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 | `pace` | Local macOS voice agent | see project README | see project README / CI | see project README / CI |
 | `posttrainllm` | Local LLM factory/runtime | see project README | see project README / CI | see project README / CI |
 | `reader` | Article/PDF reader, annotation, and research workspace | `pnpm dev` | `pnpm lint`, `pnpm type-check`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `reel-pipeline` | AI short-form video generation pipeline | `cd fleet-ops/services/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd fleet-ops/services/reel-pipeline && npm run deploy` |
+| `reel-pipeline` | AI short-form video generation pipeline | `cd services/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd services/reel-pipeline && npm run deploy` |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `saas-maker` | Public product directory, feedback API/inbox, one published feedback package, Blume docs | package-specific dev commands | `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm smoke` after deploy | package/workflow deploys |

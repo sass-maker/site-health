@@ -8,7 +8,7 @@
 
 ## 2. Build the package-only Fleet component
 
-- [x] 2.1 Move the widget to `fleet-ops/packages/feedback/` with its own package
+- [x] 2.1 Move the widget to `packages/feedback/` with its own package
   manifest, lockfile, README, license, source, and checks.
 - [x] 2.2 Replace `projectId` and `apiBaseUrl` with a required `onSubmit`
   callback and a documented structured payload.

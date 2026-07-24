@@ -5,20 +5,20 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const checks = [
-  ['reel-pipeline', 'fleet-ops/services/reel-pipeline', 'npm', ['test']],
+  ['reel-pipeline', 'services/reel-pipeline', 'npm', ['test']],
   [
     'content-factory',
-    'fleet-ops/services/content-factory',
+    'services/content-factory',
     'node',
     ['--check', 'scripts/render-content-package.js'],
   ],
-  ['drank', 'fleet-ops/services/drank', 'pnpm', ['check']],
-  ['feedback', 'fleet-ops/packages/feedback', 'pnpm', ['check']],
-  ['public-directory', 'fleet-ops/apps/public-directory', 'npm', ['run', 'check']],
-  ['mobile-cockpit', 'fleet-ops/apps/mobile-cockpit', 'pnpm', ['check']],
-  ['psi-swarm-cli', 'fleet-ops/psi-swarm', 'pnpm', ['build:cli']],
-  ['psi-swarm-web', 'fleet-ops/psi-swarm', 'pnpm', ['build:web']],
-  ['ops-console', 'fleet-ops/apps/ops-console', 'npm', ['run', 'build']],
+  ['drank', 'services/drank', 'pnpm', ['check']],
+  ['feedback', 'packages/feedback', 'pnpm', ['check']],
+  ['public-directory', 'apps/public-directory', 'npm', ['run', 'check']],
+  ['mobile-cockpit', 'apps/mobile-cockpit', 'pnpm', ['check']],
+  ['psi-swarm-cli', 'tools/psi-swarm', 'pnpm', ['build:cli']],
+  ['psi-swarm-web', 'tools/psi-swarm', 'pnpm', ['build:web']],
+  ['ops-console', 'apps/ops-console', 'npm', ['run', 'build']],
 ];
 
 for (const [id, relativeRoot, command, args] of checks) {

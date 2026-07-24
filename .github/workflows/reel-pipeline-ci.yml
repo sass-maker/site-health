@@ -4,15 +4,15 @@ on:
   push:
     branches: [main]
     paths:
-      - "fleet-ops/services/reel-pipeline/**"
-      - "fleet-ops/services/content-factory/**"
+      - "services/reel-pipeline/**"
+      - "services/content-factory/**"
       - "fleet-ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/reel-pipeline-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "fleet-ops/services/reel-pipeline/**"
-      - "fleet-ops/services/content-factory/**"
+      - "services/reel-pipeline/**"
+      - "services/content-factory/**"
       - "fleet-ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/reel-pipeline-ci.yml"
 
@@ -24,14 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: fleet-ops/services/reel-pipeline
+        working-directory: services/reel-pipeline
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: fleet-ops/services/reel-pipeline/package-lock.json
+          cache-dependency-path: services/reel-pipeline/package-lock.json
       - run: npm ci
       - run: node --test
       - run: node scripts/validate-docs.mjs
@@ -43,6 +43,6 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
-          workspaces: fleet-ops/services/reel-pipeline/reel
-      - working-directory: fleet-ops/services/reel-pipeline/reel
+          workspaces: services/reel-pipeline/reel
+      - working-directory: services/reel-pipeline/reel
         run: cargo test --quiet

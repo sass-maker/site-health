@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - "fleet-ops/apps/mobile-cockpit/**"
+      - "apps/mobile-cockpit/**"
       - ".github/workflows/mobile-cockpit-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "fleet-ops/apps/mobile-cockpit/**"
+      - "apps/mobile-cockpit/**"
       - ".github/workflows/mobile-cockpit-ci.yml"
 
 permissions:
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: fleet-ops/apps/mobile-cockpit
+        working-directory: apps/mobile-cockpit
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: fleet-ops/apps/mobile-cockpit/pnpm-lock.yaml
+          cache-dependency-path: apps/mobile-cockpit/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm build:bridge
@@ -47,7 +47,7 @@ jobs:
       EXPO_NO_TELEMETRY: 1
     defaults:
       run:
-        working-directory: fleet-ops/apps/mobile-cockpit
+        working-directory: apps/mobile-cockpit
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -57,12 +57,12 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: fleet-ops/apps/mobile-cockpit/pnpm-lock.yaml
+          cache-dependency-path: apps/mobile-cockpit/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - name: Generate the native iOS project
         run: pnpm --filter @mobile-dev-cockpit/mobile exec expo prebuild --platform ios --no-install
       - name: Install iOS pods
-        working-directory: fleet-ops/apps/mobile-cockpit/apps/mobile/ios
+        working-directory: apps/mobile-cockpit/apps/mobile/ios
         run: pod install
       - name: Compile for iOS Simulator
         run: |

@@ -7,7 +7,7 @@ package and SHALL NOT require a Fleet-hosted runtime.
 
 #### Scenario: Maintainer works on feedback
 
-- **WHEN** a maintainer opens `fleet-ops/packages/feedback/`
+- **WHEN** a maintainer opens `packages/feedback/`
 - **THEN** the complete package source, README, lockfile, and native checks are
   available without a service workspace or SaaS Maker repository
 

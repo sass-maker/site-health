@@ -1,23 +1,17 @@
 # Fleet Ops
 
-Fleet Ops is the shared-infrastructure project inside the Fleet workspace. It
-contains only three kinds of things:
+`fleet-ops/` is the operational layer of the Fleet monorepo. It owns policy,
+registries, automation intent, host setup, scripts, skills, agent workspaces,
+shared operational libraries, evidence, and operational documentation.
 
-1. **Product surfaces** that Fleet owns directly.
-2. **Operations** used to maintain and market the wider product fleet.
-3. **Evidence and generated projections** produced by those operations.
-
-Independent products such as CodeVetter and App Health do not live here.
+Deployable interfaces live in root `apps/`, helper runtimes in `services/`,
+reusable code in `packages/`, and operator tools in `tools/`. Independent
+products such as CodeVetter and App Health do not live in this repository.
 
 ## Structure
 
 ```
 fleet-ops/
-├── apps/                # Public directory, private ops console, mobile client
-├── services/            # Marketing pipeline, content factory, domain intelligence
-├── packages/            # Independently consumable packages
-├── psi-swarm/           # Performance tool; pending move into services after active work lands
-│
 ├── config/              # Canonical registries and checked-in policy
 ├── automation/          # Inert schedule intent; machine activation stays local
 ├── host/                # Designated-host setup and readiness checks
@@ -35,10 +29,6 @@ fleet-ops/
 ├── assets/              # Shared product and organization assets
 └── docs/                # Living references; dated history belongs in docs/archive
 ```
-
-The top-level `psi-swarm/` path is the remaining structural exception. It is
-kept in place while its web surface has active local work; once that work lands,
-it should move to `services/psi-swarm/` in one mechanical path-only change.
 
 Retired repositories do not belong in this tree as tarballs. Their transferred
 GitHub repositories and Fleet Git history are the recovery boundary.

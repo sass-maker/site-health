@@ -66,10 +66,13 @@ existing behavior, and config/CI tweaks.
 
 ## Fleet Tooling
 
-All Fleet-owned shared tooling lives under `fleet-ops/`: skills, scripts, docs,
-templates, teammates, and psi-swarm. Edit Fleet skills in `fleet-ops/`, not in
-agent profile dirs. Approved third-party skills may be installed as ignored,
-machine-local payloads when their installer is pinned in Fleet scripts.
+Fleet-owned operational tooling lives under `fleet-ops/`: skills, scripts,
+registries, automation, host setup, docs, templates, and teammates. Deployable
+interfaces live in `apps/`, helper runtimes in `services/`, reusable code in
+`packages/`, and operator tools in `tools/`. Edit Fleet skills in `fleet-ops/`,
+not in agent profile dirs. Approved third-party skills may be installed as
+ignored, machine-local payloads when their installer is pinned in Fleet
+scripts.
 
 Current Fleet-owned and approved external skills exposed to agents:
 

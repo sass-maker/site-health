@@ -16,7 +16,7 @@ repository or Cloudflare page manually.
 
 Own only:
 
-- `fleet-ops/apps/ops-console`
+- `apps/ops-console`
 - its local data adapter, styles, tests, and route documentation
 
 The target route is:
@@ -78,7 +78,7 @@ agents report back.
 
 ## Validation and handoff
 
-From `fleet-ops/apps/ops-console` run the existing build and preview checks.
+From `apps/ops-console` run the existing build and preview checks.
 Inspect the generated route and run any available accessibility/type checks.
 Return screenshots or route evidence, fixture schema, test output, known stale
 data behavior, and the recommended consolidation path. Do not deploy.

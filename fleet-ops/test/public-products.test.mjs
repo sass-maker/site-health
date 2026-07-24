@@ -51,8 +51,8 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
 
 test('SaaS Maker exposes its public repository instead of the private Fleet source', async () => {
   const [links, agentCatalog, agentRegistry] = await Promise.all([
-    readFile(new URL('../apps/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../apps/public-directory/src/pages/api/ai.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../apps/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../apps/public-directory/src/pages/api/ai.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
   ]);
   const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');

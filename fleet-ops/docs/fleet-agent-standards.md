@@ -205,43 +205,35 @@ Rules:
 
 ## Fleet tooling architecture (fleet-ops/)
 
-All fleet tooling — skills, scripts, docs, templates, teammates, and the
-psi-swarm tool — lives under `fleet-ops/` in this repo. It is the single
-version-controlled home. Agents discover skills via symlinks from their
-profile skill dirs into `fleet-ops/`; edit skills in the repo, never in
-the symlink targets.
+Fleet operational tooling — skills, scripts, registries, automation, host
+setup, docs, templates, and teammates — lives under `fleet-ops/`. Deployable
+interfaces, helper runtimes, reusable packages, and operator tools are
+root-level monorepo siblings. Agents discover skills via symlinks from their
+profile skill dirs into `fleet-ops/`; edit skills in the repo, never in the
+symlink targets.
 
 ### Structure
 
 ```
 fleet-ops/
-├── skills/              ← fleet operational skills
-│   ├── fleet-ops/       ← parent: routes to fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace
-│   ├── fleet-audit/     ← subskill: fleet health / status / full audit (3 modes)
-│   ├── fleet-init/      ← subskill: scaffold new fleet projects
-│   ├── fleet-deploy-guard/ ← subskill: deploy readiness gate
-│   ├── fleet-workspace/ ← subskill: cross-project workspace decisions
-│   ├── name-domains/    ← standalone: domain name generation
-│   ├── spec-driven/     ← standalone: OpenSpec spec-driven dev workflow for new features
-│   ├── site-health/    ← parent: routes to agent-ready, seo-audit, psi-swarm, geo-observatory + combined scorecard
-│   ├── agent-ready/     ← subskill: AI crawler readiness scan
-│   ├── seo-audit/       ← subskill: on-page SEO audit
-│   ├── psi-swarm/       ← subskill: Lighthouse perf audits (CLI tool lives in fleet-ops/psi-swarm/)
-│   ├── geo-observatory/ ← subskill: recurring GEO outcome measurement (ledger + trend report)
-│   └── token-budget/    ← standalone: Codex context/token audit
-├── teammates/skills/    ← delegation skills
-│   ├── call-teammate/   ← parent: routes to 5 call-* subskills
-│   ├── call-claude-code/ ← subskill
-│   ├── call-codex/      ← subskill
-│   ├── call-cursor/     ← subskill
-│   ├── call-devin/      ← subskill
-│   └── call-grok/       ← subskill
-├── psi-swarm/           ← CLI tool for the psi-swarm subskill
-├── scripts/             ← fleet scripts (health checks, perf sweeps, bench-launch, link/unlink)
-├── docs/                ← living docs (runbook, agent-layering, perf-monitoring, audits)
-│   └── archive/         ← dated snapshots (not living reference)
-├── templates/           ← shared code templates (api-timing.ts)
-└── teammates/           ← ROSTER.md, SCORECARD.md (delegation routing + outcomes)
+├── config/              ← canonical project and automation registries
+├── automation/          ← inert schedule intent
+├── host/                ← designated-host setup and readiness checks
+├── scripts/             ← health, generation, deploy-guard, and operator commands
+├── skills/              ← Fleet operational skills and parent routers
+├── agents/              ← isolated OpenClaw workspaces
+├── teammates/           ← delegation skills, roster, and scorecard
+├── lib/                 ← shared operational implementation
+├── templates/           ← reusable source templates
+├── public/              ← privacy-checked public projection
+├── data/ and out/       ← durable evidence and generated adoption snippets
+├── test/                ← operational tests and shared fixtures
+└── docs/                ← living references and dated history
+
+apps/                    ← SaaS Maker directory, Fleet Console, Mobile Cockpit
+services/                ← Content Factory, Reel Pipeline, Drank
+packages/                ← @saas-maker/feedback
+tools/psi-swarm/         ← performance CLI and web surface
 ```
 
 ### Skill discovery (progressive disclosure)

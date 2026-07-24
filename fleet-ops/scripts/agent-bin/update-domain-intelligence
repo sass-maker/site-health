@@ -4,8 +4,8 @@ set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 FLEET_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-DRANK_ROOT="$FLEET_ROOT/fleet-ops/services/drank"
-PSI_ROOT="$FLEET_ROOT/fleet-ops/psi-swarm"
+DRANK_ROOT="$FLEET_ROOT/services/drank"
+PSI_ROOT="$FLEET_ROOT/tools/psi-swarm"
 LOCK="$HOME/Library/Application Support/Fleet Ops/domain-intelligence/update.lock"
 
 mkdir -p "${LOCK:h}"

@@ -2,8 +2,9 @@
 
 Read and follow the Fleet-wide policy at `../AGENTS.md` first. This directory
 is the version-controlled home for shared fleet tooling: skills, scripts,
-teammates, automation, docs, templates, the ops console, and OpenClaw harness
-setup.
+teammates, automation, docs, templates, registries, evidence, and OpenClaw
+harness setup. Deployable apps, services, packages, and tools are root-level
+siblings of this directory.
 
 ## Local Rules
 
@@ -14,4 +15,3 @@ setup.
   here unless the user explicitly asks for that action.
 - Before changing support-project workflows, verify against `docs/research-harness.md`
   and `docs/fleet-agent-standards.md`.
-

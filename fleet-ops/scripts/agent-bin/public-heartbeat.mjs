@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const defaultOutput = `${process.env.HOME}/Library/Application Support/Fleet Ops/ops-console/runtime.json`;
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const fleetOpsRoot = resolve(scriptDir, "../..");
+const fleetRoot = resolve(fleetOpsRoot, "..");
 const outputIndex = process.argv.indexOf("--output");
 const outputPath = outputIndex >= 0 ? process.argv[outputIndex + 1] : defaultOutput;
 
@@ -71,7 +72,7 @@ function notificationSummary() {
 }
 
 function domainSummary() {
-  const drankPath = resolve(fleetOpsRoot, "services/drank/data/fleet-dr.json");
+  const drankPath = resolve(fleetRoot, "services/drank/data/fleet-dr.json");
   let drank = {};
   try { drank = JSON.parse(readFileSync(drankPath, "utf8")); } catch {}
   const dbPath = `${process.env.HOME}/.psi-swarm/history.db`;

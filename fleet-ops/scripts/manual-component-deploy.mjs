@@ -9,10 +9,10 @@ const componentId = process.argv[2];
 
 const components = {
   drank: {
-    root: 'fleet-ops/services/drank',
+    root: 'services/drank',
     workflow: 'drank-ci.yml',
     paths: [
-      'fleet-ops/services/drank',
+      'services/drank',
       'fleet-ops/scripts/manual-component-deploy.mjs',
       '.github/workflows/drank-ci.yml',
     ],
@@ -32,10 +32,10 @@ const components = {
     ],
   },
   'psi-swarm': {
-    root: 'fleet-ops/psi-swarm',
+    root: 'tools/psi-swarm',
     workflow: 'psi-swarm-ci.yml',
     paths: [
-      'fleet-ops/psi-swarm',
+      'tools/psi-swarm',
       'fleet-ops/scripts/manual-component-deploy.mjs',
       '.github/workflows/psi-swarm-ci.yml',
     ],
@@ -58,11 +58,11 @@ const components = {
     ],
   },
   'reel-pipeline': {
-    root: 'fleet-ops/services/reel-pipeline',
+    root: 'services/reel-pipeline',
     workflow: 'reel-pipeline-ci.yml',
     paths: [
-      'fleet-ops/services/reel-pipeline',
-      'fleet-ops/services/content-factory',
+      'services/reel-pipeline',
+      'services/content-factory',
       'fleet-ops/scripts/manual-component-deploy.mjs',
       '.github/workflows/reel-pipeline-ci.yml',
     ],

@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "fleet-ops/services/drank/**"
+      - "services/drank/**"
       - "fleet-ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "fleet-ops/services/drank/**"
+      - "services/drank/**"
       - "fleet-ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
 
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: fleet-ops/services/drank
+        working-directory: services/drank
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: fleet-ops/services/drank/pnpm-lock.yaml
+          cache-dependency-path: services/drank/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run build
@@ -53,11 +53,11 @@ jobs:
           node-version: "22"
           cache: pnpm
           cache-dependency-path: |
-            fleet-ops/services/drank/pnpm-lock.yaml
-            fleet-ops/services/drank/docs-site/pnpm-lock.yaml
-      - working-directory: fleet-ops/services/drank
+            services/drank/pnpm-lock.yaml
+            services/drank/docs-site/pnpm-lock.yaml
+      - working-directory: services/drank
         run: python3 scripts/check_docs_links.py
-      - working-directory: fleet-ops/services/drank/docs-site
+      - working-directory: services/drank/docs-site
         run: pnpm install --frozen-lockfile
-      - working-directory: fleet-ops/services/drank/docs-site
+      - working-directory: services/drank/docs-site
         run: pnpm run build

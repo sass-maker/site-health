@@ -9,23 +9,25 @@
 This repository is the canonical Fleet shared-infrastructure project and also
 serves as the local workspace root for independent product repositories.
 
-Shared operations live under `fleet-ops/`: registries, skills, automation,
-marketing production, domain intelligence, performance tooling, and the private
-mobile control client. Product repositories remain independently versioned and
-deployed unless explicitly imported as Fleet infrastructure.
+The repository is a small monorepo: deployable Fleet interfaces live in
+`apps/`, helper runtimes in `services/`, reusable code in `packages/`, operator
+tools in `tools/`, and shared operations under `fleet-ops/`. Independent
+products remain separately versioned and deployed unless explicitly imported
+as Fleet infrastructure.
 
 The canonical live project/domain inventory is [`fleet-ops/config/projects.json`](fleet-ops/config/projects.json);
 this README is the human taxonomy.
 
 ## Canonical Fleet components
 
-- `fleet-ops/services/reel-pipeline/` — approved media production and Postiz handoff
-- `fleet-ops/services/drank/` — domain intelligence
-- `fleet-ops/packages/feedback/` — backend-free `@saas-maker/feedback` React package
-- `fleet-ops/psi-swarm/` — performance and site-health tooling
-- `fleet-ops/apps/mobile-cockpit/` — private mobile Fleet client
-- `fleet-ops/apps/ops-console/` — local operations view
-- `fleet-ops/skills/`, `scripts/`, `automation/`, `config/` — common infrastructure
+- `services/reel-pipeline/` — approved media production and Postiz handoff
+- `services/drank/` — domain intelligence
+- `packages/feedback/` — backend-free `@saas-maker/feedback` React package
+- `tools/psi-swarm/` — performance and site-health tooling
+- `apps/mobile-cockpit/` — private mobile Fleet client
+- `apps/ops-console/` — local operations view
+- `fleet-ops/skills/`, `fleet-ops/scripts/`, `fleet-ops/automation/`,
+  `fleet-ops/config/` — common operations
 
 CodeVetter and App Health remain fully independent products. Feedback is a
 Fleet-owned package, not a deployed Fleet service or standalone product.
@@ -38,11 +40,11 @@ setup dependencies and must not be cloned as Fleet projects:
 
 | Historical repository | Maintained source |
 | --- | --- |
-| [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `fleet-ops/apps/public-directory/` and `fleet-ops/packages/feedback/` |
-| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `fleet-ops/services/reel-pipeline/` |
-| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `fleet-ops/services/drank/` |
-| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `fleet-ops/apps/mobile-cockpit/` |
-| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `fleet-ops/psi-swarm/` |
+| [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `apps/public-directory/` and `packages/feedback/` |
+| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `services/reel-pipeline/` |
+| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `services/drank/` |
+| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `apps/mobile-cockpit/` |
+| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `tools/psi-swarm/` |
 
 Clone `sass-maker/fleet-workspace` once and use the canonical paths above.
 
@@ -56,8 +58,8 @@ worked on together as one effort).
 **Support** — infrastructure serving other fleet projects
 
 - [free-ai](https://github.com/sass-maker/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
-- [Reel Pipeline](fleet-ops/services/reel-pipeline/) — AI short-form media production and Postiz handoff
-- [Drank](fleet-ops/services/drank/) — domain-rating intelligence
+- [Reel Pipeline](services/reel-pipeline/) — AI short-form media production and Postiz handoff
+- [Drank](services/drank/) — domain-rating intelligence
 
 **Support + SaaS** — support infra that is also a public product
 
@@ -84,7 +86,7 @@ worked on together as one effort).
 - [swe-interview-prep](https://github.com/Significant-Hobbies/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [email-manager](https://github.com/sarthakagrawal927/email-manager) — Gmail workspace with local semantic search
 - [looptv](https://github.com/Significant-Hobbies/looptv) — TV-style random video player
-- [Mobile Dev Cockpit](fleet-ops/apps/mobile-cockpit/) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
+- [Mobile Dev Cockpit](apps/mobile-cockpit/) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
@@ -142,7 +144,8 @@ product checkouts (`/*`) and allowlists:
 
 - `README.md`, `PROJECT_STATUS.md`, `package.json`, agent/policy files, and `.gitignore`
 - `assets/` — workspace logo and shared art
-- `fleet-ops/` — all shared infrastructure, including imported services and apps
+- `fleet-ops/` — operational policy, registries, automation, scripts, and skills
+- `apps/`, `services/`, `packages/`, `tools/` — Fleet-owned monorepo components
 
 Child project directories are intentionally ignored here because they are
 independent repositories with their own histories, branches, and deploy flows.
