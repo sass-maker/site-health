@@ -14,7 +14,7 @@ export function GET() {
         sitemap: 'https://sassmaker.com/sitemap.xml',
         markdown: { suffix: '.md', negotiation: false },
         canonical: 'https://sassmaker.com',
-        sourceOfTruth: 'sass-maker/fleet-workspace: fleet-ops/public/products.json',
+        sourceOfTruth: 'SaaS Maker privacy-checked public product catalog',
         surfaces: [
           {
             id: 'directory',

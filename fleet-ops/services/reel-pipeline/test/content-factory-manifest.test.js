@@ -51,7 +51,7 @@ test('canonical render and package entrypoints moved to Content Factory', async 
 });
 
 test('strict Content Factory input rejects unapproved briefs before rendering', async () => {
-  const fixtures = JSON.parse(await readFile('../../tests/fixtures/postiz/content-factory-v1.json', 'utf8'));
+  const fixtures = JSON.parse(await readFile('../../test/fixtures/postiz/content-factory-v1.json', 'utf8'));
   let called = false;
   const renderer = contentFactoryRenderer({
     async createVideo() {
@@ -67,7 +67,7 @@ test('strict Content Factory input rejects unapproved briefs before rendering', 
 });
 
 test('every configured render engine has fixture-backed manifest normalization', async () => {
-  const fixtures = JSON.parse(await readFile('../../tests/fixtures/content-factory/render-engine-manifests-v1.json', 'utf8'));
+  const fixtures = JSON.parse(await readFile('../../test/fixtures/content-factory/render-engine-manifests-v1.json', 'utf8'));
   const matrix = JSON.parse(await readFile('config/render-modes.json', 'utf8'));
   assert.deepEqual(
     fixtures.engines.map((entry) => entry.mode).sort(),

@@ -1,51 +1,58 @@
-# fleet-ops — fleet tooling
+# Fleet Ops
 
-Single version-controlled home for all fleet tooling: skills, scripts, docs,
-templates, teammates, and the psi-swarm tool.
+Fleet Ops is the shared-infrastructure project inside the Fleet workspace. It
+contains only three kinds of things:
+
+1. **Product surfaces** that Fleet owns directly.
+2. **Operations** used to maintain and market the wider product fleet.
+3. **Evidence and generated projections** produced by those operations.
+
+Independent products such as CodeVetter and App Health do not live here.
 
 ## Structure
 
 ```
 fleet-ops/
-├── skills/              ← fleet operational skills
-│   ├── fleet-ops/       ← parent: routes to fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace
-│   ├── fleet-audit/     ← subskill: fleet health / status / full audit (3 modes)
-│   ├── fleet-init/      ← subskill: scaffold new fleet projects
-│   ├── fleet-deploy-guard/ ← subskill: deploy readiness gate
-│   ├── fleet-workspace/ ← subskill: cross-project workspace decisions
-│   ├── name-domains/    ← standalone: domain name generation
-│   ├── spec-driven/     ← standalone: OpenSpec spec-driven dev workflow for new features
-│   ├── agent-ready/     ← standalone: AI crawler readiness scan (isitagentready.com)
-│   ├── seo-audit/       ← standalone: on-page SEO audit (meta, OG, JSON-LD, headings, alt, SSR leaks)
-│   └── token-budget/    ← standalone: Codex context/token audit
-├── teammates/           ← delegation skills + roster + scorecard
-│   └── skills/
-│       ├── call-teammate/ ← parent: routes to 5 call-* subskills
-│       ├── call-codex/ call-grok/ call-hermes/
-│       ├── ROSTER.md     ← who is strong at what
-│       └── SCORECARD.md  ← append-only delegation outcome log
-├── psi-swarm/           ← Lighthouse perf audits (skill + CLI tool)
-├── scripts/             ← fleet scripts (health, perf sweeps, bench-launch, link/unlink)
-│   └── agent-bin/        ← local agent health, research, and provider-dispatch wrappers
-├── agents/              ← versioned policy and skills for isolated OpenClaw agents
-├── automation/          ← versioned automation intent; runtime schedules stay local
-├── docs/                ← living docs (runbook, agent-layering, perf-monitoring)
-│   └── archive/         ← dated snapshots (not living reference)
-├── templates/           ← shared code templates (api-timing.ts)
-└── lib/toolbox-automation/ ← Significant Hobbies family registry, evidence, and quiet experiments
+├── apps/                # Public directory, private ops console, mobile client
+├── services/            # Marketing pipeline, content factory, domain intelligence
+├── packages/            # Independently consumable packages
+├── psi-swarm/           # Performance tool; pending move into services after active work lands
+│
+├── config/              # Canonical registries and checked-in policy
+├── automation/          # Inert schedule intent; machine activation stays local
+├── host/                # Designated-host setup and readiness checks
+├── scripts/             # Operator commands and generators
+├── skills/              # Fleet-owned agent workflows
+├── agents/              # Isolated OpenClaw agent workspaces
+├── teammates/           # Delegation routing and outcome records
+├── lib/                 # Shared implementation used by scripts and apps
+├── templates/           # Reusable source templates
+│
+├── public/              # Checked-in privacy-filtered public projection
+├── data/                # Durable evidence ledgers
+├── out/                 # Generated snippets for manual downstream adoption
+├── test/                # Fleet tests and shared fixtures
+├── assets/              # Shared product and organization assets
+└── docs/                # Living references; dated history belongs in docs/archive
 ```
+
+The top-level `psi-swarm/` path is the remaining structural exception. It is
+kept in place while its web surface has active local work; once that work lands,
+it should move to `services/psi-swarm/` in one mechanical path-only change.
+
+Retired repositories do not belong in this tree as tarballs. Their transferred
+GitHub repositories and Fleet Git history are the recovery boundary.
 
 ## Skill discovery model
 
-Only 11 skills are exposed to each agent — 2 Fleet parents, 8 Fleet
-standalones, and the approved external Impeccable design skill.
-Agents load the parent, read the routing table, then load the relevant subskill
-on demand (progressive disclosure).
+Agents load a small set of parent and standalone skills, then discover
+subskills on demand. The repository paths below, rather than a hard-coded skill
+count, are the source of truth.
 
 | Symlink | Type | Routes to |
 |---|---|---|
 | `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace |
-| `call-teammate` | parent | call-codex, call-grok, call-hermes |
+| `call-teammate` | parent | Codex, Grok, Hermes, and optional approved teammates |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | — |
 | `psi-swarm` | standalone | — |

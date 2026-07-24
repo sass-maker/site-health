@@ -54,8 +54,9 @@ configs / workflows. After this pass: **19 Pages + 23 Workers, zero unaccounted.
 
 - **13 orphan preview/PR Workers** deleted (`*-preview`, `open-historia-pr-*`, `truehire-pr-*`).
 - **rag-service, rag-service-bench** deleted — orphans from the retired
-  rag-service project (archived `fleet-ops/rag-service-retired-2026-06-21.tgz`),
-  no consumer, no domain. (Superseded by the `knowledgebase` workers.)
+  rag-service project, with no consumer or domain. The source remains
+  recoverable from Fleet Git history. (Superseded by the `knowledgebase`
+  workers.)
 
 ## Repos with no Cloudflare surface (expected)
 

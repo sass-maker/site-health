@@ -48,6 +48,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Repository boundary cleanup:** Corrected SaaS Maker's public
+  GitHub link so it no longer points visitors at the private Fleet repository,
+  registered the directory in the canonical agent-surface registry, removed
+  redundant embedded repository archives, consolidated shared fixtures under
+  `fleet-ops/test/`, and documented the three Fleet Ops ownership zones.
 - **2026-07-25 — Public product journey smoke skill:** Added a read-only
   `public-product-smoke` subskill under Fleet site health. It resolves canonical
   live products from the Fleet registry and policy, limits each product to six
@@ -155,6 +160,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 3. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
 4. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
+5. Move PSI Swarm to `fleet-ops/services/psi-swarm/` after its current local
+   web changes are committed, then update path consumers mechanically.
 
 ### Deferred
 

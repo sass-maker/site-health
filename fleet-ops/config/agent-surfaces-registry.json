@@ -2,6 +2,34 @@
   "version": 1,
   "products": [
     {
+      "id": "saas-maker",
+      "name": "SaaS Maker",
+      "url": "https://sassmaker.com",
+      "summary": "A public directory of maintained products, changelogs, roadmaps, and source.",
+      "publicDir": "fleet-ops/apps/public-directory/public",
+      "stack": "astro-static",
+      "headFile": "fleet-ops/apps/public-directory/src/layouts/Layout.astro",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/sarthakagrawal927/saas-maker"
+      ],
+      "hasDynamicLlms": true,
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Products",
+          "url": "https://sassmaker.com/#products",
+          "description": "Maintained product directory"
+        },
+        {
+          "title": "Package",
+          "url": "https://www.npmjs.com/package/@saas-maker/feedback",
+          "description": "Backend-free feedback package"
+        }
+      ],
+      "indexMd": "# SaaS Maker\n\nPublic directory for Sarthak Agrawal's maintained products.\n\n## What it contains\n\n- Canonical product links\n- Public changelogs and roadmaps\n- One maintained package: @saas-maker/feedback\n\n## Agent entrypoints\n\n- https://sassmaker.com/llms.txt\n- https://sassmaker.com/api/ai\n- https://sassmaker.com/index.md\n"
+    },
+    {
       "id": "codevetter",
       "spotlight": true,
       "name": "CodeVetter",

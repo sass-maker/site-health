@@ -49,6 +49,21 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
   assert.throws(() => assertNoPrivateData({ description: 'api_key=should-not-leak' }), /credential-shaped/);
 });
 
+test('SaaS Maker exposes its public repository instead of the private Fleet source', async () => {
+  const [links, agentCatalog, agentRegistry] = await Promise.all([
+    readFile(new URL('../apps/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../apps/public-directory/src/pages/api/ai.ts', import.meta.url), 'utf8'),
+    readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
+  ]);
+  const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');
+
+  assert.match(links, /https:\/\/github\.com\/sarthakagrawal927['"]/);
+  assert.match(links, /https:\/\/github\.com\/sarthakagrawal927\/saas-maker/);
+  assert.doesNotMatch(links, /https:\/\/github\.com\/sass-maker\/fleet-workspace/);
+  assert.doesNotMatch(agentCatalog, /sass-maker\/fleet-workspace/);
+  assert.deepEqual(saasMaker.sameAs, ['https://github.com/sarthakagrawal927/saas-maker']);
+});
+
 async function readJson(url) {
   return JSON.parse(await readFile(url, 'utf8'));
 }
