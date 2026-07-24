@@ -44,10 +44,10 @@
 - [x] 5.1 Secure the Fleet package changes in its canonical remote.
 - [x] 5.2 Remove the standalone SaaS Maker local checkout after Fleet contains
   the package and rollback history is recorded.
-- [ ] 5.3 Archive `sass-maker/saas-maker` after the Fleet-owned public
+- [x] 5.3 Archive `sass-maker/saas-maker` after the Fleet-owned public
   directory is deployed and verified. Preserve GitHub redirect and rollback
   history instead of requiring irreversible repository deletion.
-- [ ] 5.4 Generate the public directory, changelog, and public roadmap from
+- [x] 5.4 Generate the public directory, changelog, and public roadmap from
   canonical Fleet metadata; deploy the static output to `saas-maker-home` at
   `sassmaker.com` and `www.sassmaker.com`. Keep the operational console at
   `fleet.sassmaker.com` on the existing Tunnel and remove the stale
@@ -57,10 +57,12 @@
   return Cloudflare not-found code `10007`.
 - [x] 5.6 Do not create `packages.sassmaker.com`; npm remains the package
   documentation and distribution surface.
-- [ ] 5.7 Decide retention for D1 `saasmaker-db` and R2
+- [x] 5.7 Retain D1 `saasmaker-db` as a historical snapshot because it contains
+  material data. Delete the empty R2
   `saasmaker-feedback-images`; also remove the obsolete
   `saasmaker-dashboard-opennext-cache` bucket during the data cleanup.
-- [ ] 5.8 Publish the callback-only package and update npm metadata only with
-  explicit release approval.
+- [ ] 5.8 Publish the callback-only package and update npm metadata after npm
+  authentication is restored. Explicit release approval was received; local
+  `npm whoami` currently returns `E401 Unauthorized`.
 - [ ] 5.9 Archive this OpenSpec change and update Fleet status after all chosen
   external actions are verified.

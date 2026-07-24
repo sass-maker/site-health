@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-23
+Last updated: 2026-07-24
 
 ## Why / What
 
@@ -52,7 +52,10 @@ CodeVetter or App Health source.
   `saas-maker-packages`, `saasmaker-api`, and `saasmaker-dashboard` from
   Cloudflare. Fleet now owns the privacy-checked public projection and static
   directory source for `saas-maker-home` at `sassmaker.com`; the operational
-  console remains machine-hosted at `fleet.sassmaker.com`.
+  console remains machine-hosted at `fleet.sassmaker.com`. Removed the stale
+  `app.sassmaker.com` DNS record, retained the populated `saasmaker-db` as a
+  historical snapshot, deleted both obsolete R2 buckets, and archived the
+  superseded `sass-maker/saas-maker` repository.
 - **2026-07-24 — Helper repositories absorbed:** Moved Reel Pipeline, Drank,
   PSI Swarm, and Mobile Dev Cockpit CI and guarded deploy ownership into Fleet
   Workspace. The superseded standalone repositories were frozen as read-only
@@ -137,14 +140,7 @@ by maintaining duplicate source repositories.
    `fleet-ops/docs/postiz-operations.md`.
 3. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
-4. Deploy and verify the Fleet-owned static public directory on
-   `saas-maker-home` at `sassmaker.com`; keep the operational console at
-   `fleet.sassmaker.com`.
-5. Decide retention for `saasmaker-db`, `saasmaker-feedback-images`, and the
-   obsolete dashboard cache; publish the callback-only package only with
-   explicit release approval.
-6. Archive the standalone GitHub repository after the Fleet-owned public
-   directory is live and verified.
+4. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
 
 ### Deferred
 
@@ -155,5 +151,6 @@ by maintaining duplicate source repositories.
 
 ### Blocked
 
-- The stale `app.sassmaker.com` AAAA record still needs removal.
-  `api.sassmaker.com` has no remaining DNS record.
+- Publishing `@saas-maker/feedback@0.4.0`: local npm authentication currently
+  returns `E401 Unauthorized`. The verified package source remains secured in
+  Fleet until registry authentication is restored.
