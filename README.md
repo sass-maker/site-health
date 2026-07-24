@@ -40,8 +40,8 @@ worked on together as one effort).
 **Support** — infrastructure serving other fleet projects
 
 - [free-ai](https://github.com/sass-maker/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
-- Reel Pipeline — AI short-form media production and Postiz handoff, canonical under Fleet Workspace; the standalone repository is a migration rollback source
-- Drank — domain-rating intelligence, canonical under Fleet Workspace; the standalone repository is a migration rollback source
+- [Reel Pipeline](fleet-ops/services/reel-pipeline/) — AI short-form media production and Postiz handoff
+- [Drank](fleet-ops/services/drank/) — domain-rating intelligence
 
 **Support + SaaS** — support infra that is also a public product
 
@@ -68,7 +68,7 @@ worked on together as one effort).
 - [swe-interview-prep](https://github.com/Significant-Hobbies/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
 - [email-manager](https://github.com/sarthakagrawal927/email-manager) — Gmail workspace with local semantic search
 - [looptv](https://github.com/Significant-Hobbies/looptv) — TV-style random video player
-- [mobile-dev-cockpit](https://github.com/sass-maker/mobile-dev-cockpit) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
+- [Mobile Dev Cockpit](fleet-ops/apps/mobile-cockpit/) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
 
 **Personal + SaaS** — personal-use thesis, public SaaS surface
 
@@ -82,7 +82,7 @@ worked on together as one effort).
 - [protein-index](https://github.com/Significant-Hobbies/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
 - [success-by-26](https://github.com/sarthakagrawal927/success-by-26) — Visualization site for the Success by 26 early-advantage dataset
 
-> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), forecast-lab (delayed), and [web-playables](https://github.com/sarthakagrawal927/web-playables). Companion Robot now lives under `HeyPace`; Elves HQ and the standalone psi-swarm repository live under `sass-maker`.
+> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), forecast-lab (delayed), and [web-playables](https://github.com/sarthakagrawal927/web-playables). Companion Robot now lives under `HeyPace`; Elves HQ remains parked.
 
 ## Work Tracking
 

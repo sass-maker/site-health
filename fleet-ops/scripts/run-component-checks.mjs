@@ -17,6 +17,7 @@ const checks = [
   ['mobile-cockpit', 'fleet-ops/apps/mobile-cockpit', 'pnpm', ['check']],
   ['psi-swarm-cli', 'fleet-ops/psi-swarm', 'pnpm', ['build:cli']],
   ['psi-swarm-web', 'fleet-ops/psi-swarm', 'pnpm', ['build:web']],
+  ['ops-console', 'fleet-ops/apps/ops-console', 'npm', ['run', 'build']],
 ];
 
 for (const [id, relativeRoot, command, args] of checks) {

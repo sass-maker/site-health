@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.description    = package["description"]
   s.license        = { :type => "MIT" }
   s.author         = "Mobile Dev Cockpit"
-  s.homepage       = "https://github.com/sass-maker/mobile-dev-cockpit"
+  s.homepage       = "https://github.com/sass-maker/fleet-workspace/tree/main/fleet-ops/apps/mobile-cockpit"
   s.platforms      = { :ios => "16.4" }
   s.swift_version  = "5.9"
   s.source         = { :git => "" }

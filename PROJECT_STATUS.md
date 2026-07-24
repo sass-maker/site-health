@@ -48,6 +48,10 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-24 — Helper repositories absorbed:** Moved Reel Pipeline, Drank,
+  PSI Swarm, and Mobile Dev Cockpit CI and guarded deploy ownership into Fleet
+  Workspace. The superseded standalone repositories were frozen as read-only
+  historical snapshots; Fleet paths are the only maintained source.
 - **2026-07-21 — Impeccable design workflow adopted:** Installed Impeccable as
   a Fleet-local, machine-scoped agent skill; added deterministic UI edit hooks,
   new-project guidance, and a critique/polish/audit shipping sequence while
@@ -88,8 +92,9 @@ CodeVetter or App Health source.
 | Ops Console | `fleet-ops/apps/ops-console/` | Local operational view |
 | Feedback package | `fleet-ops/packages/feedback/` | Backend-free npm package; no Fleet runtime |
 
-Legacy standalone helper repositories remain rollback sources until an
-explicit source/deploy cutover and later archival decision.
+Historical standalone helper repositories are read-only snapshots. Rollback is
+provided by Fleet Workspace Git history and Cloudflare deployment history, not
+by maintaining duplicate source repositories.
 
 ## Features (shipped)
 
@@ -113,6 +118,8 @@ explicit source/deploy cutover and later archival decision.
 - Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.
 - Backend-free feedback package with consumer-owned submission, Pinpoint
   context, and local screenshot attachment.
+- Fleet-root CI for every absorbed component plus guarded, source-aware local
+  deploy commands for the three Cloudflare surfaces.
 
 ## Todo / Planned / Deferred / Blocked
 
@@ -130,8 +137,6 @@ explicit source/deploy cutover and later archival decision.
 
 ### Deferred
 
-- Archiving standalone helper repositories until source, CI, deployment, and
-  rollback parity are proven and explicitly approved.
 - Activating the designated operations host until shared lease and
   machine-authority checks pass.
 - Building another broad browser control plane; provider-native tools and
