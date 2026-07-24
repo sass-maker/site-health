@@ -1,0 +1,275 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { PAGED_PRODUCTS, type RegistryProduct } from '../../data/registry';
+
+export function getStaticPaths() {
+  return PAGED_PRODUCTS.map((product) => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: RegistryProduct;
+}
+
+const { product } = Astro.props as Props;
+const links = product.productLinks ?? [];
+const progressLinks = links.filter((link) => ['Changelog', 'Roadmap', 'Source'].includes(link.title));
+const host = product.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': product.schemaType ?? 'SoftwareApplication',
+  name: product.name,
+  url: product.url,
+  description: product.summary,
+  ...(product.sameAs ? { sameAs: product.sameAs } : {}),
+  ...(product.applicationCategory ? { applicationCategory: product.applicationCategory } : {}),
+};
+---
+
+<Layout title={`${product.name} — SaaS Maker directory`} description={product.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+  <Nav />
+
+  <main class="project" id="main-content">
+    <div class="project-back">
+      <a href="/#products">← All products</a>
+      <span>{product.stack ?? 'product'} · maintained</span>
+    </div>
+
+    <header class="project-hero">
+      <div>
+        <p class="project-folio">SaaS Maker directory</p>
+        <h1>{product.name}</h1>
+        <p class="project-summary">{product.summary}</p>
+      </div>
+      <a class="project-primary" href={product.url} target="_blank" rel="noopener noreferrer">
+        <span>Open product</span>
+        <strong>{host} ↗</strong>
+      </a>
+    </header>
+
+    <section class="project-progress" aria-labelledby="progress-title">
+      <div class="project-section-head">
+        <h2 id="progress-title">Follow the work</h2>
+        <p>Public evidence, directly from the product’s canonical repository.</p>
+      </div>
+
+      {progressLinks.length > 0 ? (
+        <ul>
+          {progressLinks.map((link) => (
+            <li>
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                <span>{link.title}</span>
+                <p>{link.description}</p>
+                <strong>Open ↗</strong>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="project-empty">
+          This product has a public home, but no separate repository links are published here.
+        </p>
+      )}
+    </section>
+
+    <section class="project-boundary">
+      <p>
+        This directory page points to {product.name}’s canonical home. Public
+        changelog, roadmap, and source links come from the product’s maintained
+        metadata when they are available.
+      </p>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  .project {
+    width: min(72rem, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 5rem) 0 2rem;
+  }
+
+  .project-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-muted);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+  }
+
+  .project-back a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--copper-hi);
+  }
+
+  .project-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+    gap: clamp(2rem, 7vw, 6rem);
+    align-items: end;
+    padding: clamp(4rem, 10vw, 8rem) 0 clamp(3rem, 8vw, 6rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-folio {
+    margin-bottom: 1rem;
+    color: var(--copper-hi);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 12ch;
+    font-family: var(--sans);
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .project-summary {
+    max-width: 62ch;
+    margin-top: 1.5rem;
+    color: var(--ink-soft);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .project-primary {
+    min-height: 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: var(--copper);
+    color: var(--bg);
+  }
+
+  .project-primary span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .project-primary strong {
+    overflow-wrap: anywhere;
+    font-size: 1rem;
+  }
+
+  .project-primary:hover strong,
+  .project-primary:focus-visible strong {
+    text-decoration: underline;
+  }
+
+  .project-progress {
+    padding: clamp(3rem, 8vw, 6rem) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(16rem, 1.2fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .project-section-head h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .project-section-head p,
+  .project-empty {
+    max-width: 55ch;
+    color: var(--ink-muted);
+  }
+
+  .project-progress ul {
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .project-progress li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-progress li a {
+    min-height: 6rem;
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.5fr) minmax(0, 1.2fr) auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.25rem 0;
+  }
+
+  .project-progress li a > span {
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .project-progress li p {
+    color: var(--ink-muted);
+  }
+
+  .project-progress li strong {
+    color: var(--copper-hi);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+  }
+
+  .project-progress li a:hover > span,
+  .project-progress li a:focus-visible > span {
+    color: var(--copper-hi);
+  }
+
+  .project-boundary {
+    padding: 2rem 0 clamp(4rem, 10vw, 8rem);
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+  }
+
+  .project-boundary p {
+    max-width: 68ch;
+  }
+
+  @media (max-width: 720px) {
+    .project-hero,
+    .project-section-head {
+      grid-template-columns: 1fr;
+    }
+
+    .project-primary {
+      min-height: 7rem;
+    }
+
+    .project-progress li a {
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 1rem;
+    }
+
+    .project-progress li p {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+</style>

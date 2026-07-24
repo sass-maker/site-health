@@ -30,6 +30,12 @@ const components = [
     nativeCheck: 'pnpm check',
   },
   {
+    id: 'public-directory',
+    root: 'fleet-ops/apps/public-directory',
+    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'package-lock.json'],
+    nativeCheck: 'npm run check',
+  },
+  {
     id: 'mobile-cockpit',
     root: 'fleet-ops/apps/mobile-cockpit',
     required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],

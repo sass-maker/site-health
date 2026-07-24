@@ -44,12 +44,23 @@
 - [x] 5.1 Secure the Fleet package changes in its canonical remote.
 - [x] 5.2 Remove the standalone SaaS Maker local checkout after Fleet contains
   the package and rollback history is recorded.
-- [ ] 5.3 Delete `sass-maker/saas-maker` as authorized. Blocked because the
-  current GitHub CLI token lacks repository admin and `delete_repo` scope.
-- [ ] 5.4 Delete `saas-maker-home`, `saas-maker-packages`, `saasmaker-api`, and
-  `saasmaker-dashboard` only with exact Cloudflare authorization.
-- [ ] 5.5 Decide D1/R2 data retention before deleting stored feedback or images.
-- [ ] 5.6 Publish the callback-only package and update npm metadata only with
+- [ ] 5.3 Archive `sass-maker/saas-maker` after the Fleet-owned public
+  directory is deployed and verified. Preserve GitHub redirect and rollback
+  history instead of requiring irreversible repository deletion.
+- [ ] 5.4 Generate the public directory, changelog, and public roadmap from
+  canonical Fleet metadata; deploy the static output to `saas-maker-home` at
+  `sassmaker.com` and `www.sassmaker.com`. Keep the operational console at
+  `fleet.sassmaker.com` on the existing Tunnel and remove the stale
+  `app.sassmaker.com` AAAA record.
+- [x] 5.5 Delete `saas-maker-packages`, `saasmaker-api`, and
+  `saasmaker-dashboard`; verify the Pages project is absent and both Workers
+  return Cloudflare not-found code `10007`.
+- [x] 5.6 Do not create `packages.sassmaker.com`; npm remains the package
+  documentation and distribution surface.
+- [ ] 5.7 Decide retention for D1 `saasmaker-db` and R2
+  `saasmaker-feedback-images`; also remove the obsolete
+  `saasmaker-dashboard-opennext-cache` bucket during the data cleanup.
+- [ ] 5.8 Publish the callback-only package and update npm metadata only with
   explicit release approval.
-- [ ] 5.7 Archive this OpenSpec change and update Fleet status after all chosen
+- [ ] 5.9 Archive this OpenSpec change and update Fleet status after all chosen
   external actions are verified.

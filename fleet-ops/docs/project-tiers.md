@@ -63,8 +63,8 @@ quiet.
 
 ## Foundry + Helpers — 6
 
-- SaaS Maker / Foundry
-- Fleet Dashboard (`fleet.sassmaker.com`)
+- SaaS Maker public directory (`sassmaker.com`; generated from Fleet)
+- Fleet Console (`fleet.sassmaker.com`; private machine-hosted operations)
 - PSI Swarm
 - Mobile Dev Cockpit
 - Drank

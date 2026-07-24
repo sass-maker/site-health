@@ -1,0 +1,79 @@
+---
+import { CORE, ACTIVE_GROUPS, PROJECT_COUNT } from '../data/projects';
+---
+<section class="section" id="fleet">
+  <div class="section-head">
+    <div class="section-marker">
+      <span class="section-num">§ 01</span>
+      <span class="section-rule"></span>
+      <span class="section-kw">The Product</span>
+    </div>
+    <h2 class="section-title">
+      {PROJECT_COUNT} <em class="italic">maintained</em> products,
+      <br />
+      one precise <em class="italic">public directory</em>.
+    </h2>
+    <p class="section-lede">
+      The four spotlight products are the public front door. The full catalog
+      preserves the canonical product, source, changelog, and roadmap links
+      without pretending the projects share one runtime or release boundary.
+    </p>
+  </div>
+
+  <div class="bento" id="products">
+    {CORE.map((p, i) => (
+      <a
+        href={p.href}
+        class={`card card-${p.size}`}
+        style={`--accent: ${p.color}; --delay: ${i * 70}ms`}
+      >
+        <div class="card-cover">
+          <span class="card-cover-glow"></span>
+          <span class="card-cover-grid"></span>
+          <span class="card-monogram">{p.initials}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-num">№ {p.n}</span>
+            <span class="card-tag">{p.tag}</span>
+          </div>
+          <h3 class="card-title">{p.name}</h3>
+          <p class="card-desc">{p.desc}</p>
+          <span class="card-cta">
+            <span>View product page</span>
+            <span class="card-arrow">→</span>
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <div class="active">
+    <div class="active-head">
+      <span class="section-num">§ 01.01</span>
+      <span class="section-rule short"></span>
+      <span class="section-kw small">The complete public catalog</span>
+      <span class="active-count">{PROJECT_COUNT - CORE.length} more products</span>
+    </div>
+    <div class="active-groups">
+      {ACTIVE_GROUPS.map((group) => (
+        <section class="active-group" aria-labelledby={`group-${group.id}`}>
+          <h3 id={`group-${group.id}`}>{group.label}</h3>
+          <ul class="active-grid">
+            {group.products.map((p) => (
+              <li>
+                <a href={p.href} class="mini" style={`--accent: ${p.color}`}>
+                  <span class="mini-dot"></span>
+                  <span class="mini-name">{p.name}</span>
+                  <span class="mini-desc">{p.desc}</span>
+                  <span class="mini-arrow">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </div>
+
+</section>

@@ -48,6 +48,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-24 — SaaS Maker consolidated into Fleet:** Deleted
+  `saas-maker-packages`, `saasmaker-api`, and `saasmaker-dashboard` from
+  Cloudflare. Fleet now owns the privacy-checked public projection and static
+  directory source for `saas-maker-home` at `sassmaker.com`; the operational
+  console remains machine-hosted at `fleet.sassmaker.com`.
 - **2026-07-21 — Impeccable design workflow adopted:** Installed Impeccable as
   a Fleet-local, machine-scoped agent skill; added deterministic UI edit hooks,
   new-project guidance, and a critique/polish/audit shipping sequence while
@@ -85,7 +90,8 @@ CodeVetter or App Health source.
 | Drank | `fleet-ops/services/drank/` | Independent domain-intelligence app/API |
 | PSI Swarm | `fleet-ops/psi-swarm/` | Local CLI plus independently deployable static surface |
 | Mobile Dev Cockpit | `fleet-ops/apps/mobile-cockpit/` | Private local/mobile Fleet client |
-| Ops Console | `fleet-ops/apps/ops-console/` | Local operational view |
+| Public directory | `fleet-ops/apps/public-directory/` | Static public product projection on Cloudflare Pages |
+| Fleet Console | `fleet-ops/apps/ops-console/` | Private operational view served from the designated host |
 | Feedback package | `fleet-ops/packages/feedback/` | Backend-free npm package; no Fleet runtime |
 
 Legacy standalone helper repositories remain rollback sources until an
@@ -124,9 +130,14 @@ explicit source/deploy cutover and later archival decision.
    `fleet-ops/docs/postiz-operations.md`.
 3. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
-4. Complete the separately approved external cleanup: publish the callback-only
-   package, remove the four obsolete SaaS Maker Cloudflare surfaces, decide
-   D1/R2 retention, and retire the standalone repository.
+4. Deploy and verify the Fleet-owned static public directory on
+   `saas-maker-home` at `sassmaker.com`; keep the operational console at
+   `fleet.sassmaker.com`.
+5. Decide retention for `saasmaker-db`, `saasmaker-feedback-images`, and the
+   obsolete dashboard cache; publish the callback-only package only with
+   explicit release approval.
+6. Delete the standalone GitHub repository once repository-admin credentials
+   are available.
 
 ### Deferred
 
@@ -139,7 +150,7 @@ explicit source/deploy cutover and later archival decision.
 
 ### Blocked
 
-- No source-level blockers. npm, Cloudflare, DNS, stored-data, and remote
-  repository actions remain explicit external mutations.
+- The stale `app.sassmaker.com` AAAA record still needs removal.
+  `api.sassmaker.com` has no remaining DNS record.
 - Deleting `sass-maker/saas-maker` is authorized but the current GitHub CLI
   token lacks repository admin and `delete_repo` scope.

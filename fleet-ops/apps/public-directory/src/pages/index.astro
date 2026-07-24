@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackgroundFX from '../components/BackgroundFX.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Ticker from '../components/Ticker.astro';
+import Fleet from '../components/Fleet.astro';
+import Spec from '../components/Spec.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+
+// Public product directory plus the one published SaaS Maker package.
+---
+
+<Layout>
+  <BackgroundFX />
+  <Nav />
+  <main id="main-content">
+    <Hero />
+    <Ticker />
+    <Fleet />
+    <Spec />
+    <FAQ />
+  </main>
+  <Footer />
+</Layout>

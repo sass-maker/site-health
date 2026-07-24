@@ -109,10 +109,11 @@ For a second machine:
 
 ## Public And Private Surfaces
 
-Public `fleet.sassmaker.com` may show project state, hosting location, deploy
+Private `fleet.sassmaker.com` may show project state, hosting location, deploy
 health, schedule summaries, and coarse machine/service health. It must not show
-machine hostnames, IPs, usernames, terminal links, tokens, pairing codes,
-private repository URLs, raw logs, or operational controls.
+machine hostnames, IPs, usernames, terminal links, tokens, pairing codes, or
+raw credentials. Public `sassmaker.com` receives only the allowlisted static
+product projection.
 
 Private access uses Tailscale SSH today. A future detailed web control surface
 must be protected by Cloudflare Access before it is exposed through a public

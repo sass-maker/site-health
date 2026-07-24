@@ -13,7 +13,7 @@ receipts, and sanitized high-level outcomes.
 - Postiz listens on loopback and receives a separate private
   Cloudflare-Access-protected hostname during cutover.
 - `fleet.sassmaker.com` remains the Cloudflare Tunnel route for Fleet's
-  high-level console.
+  operational console. Public `sassmaker.com` is a separate static projection.
 
 ## Activation gate
 

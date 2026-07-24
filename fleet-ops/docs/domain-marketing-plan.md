@@ -151,7 +151,7 @@ task plus Telegram completion/failure evidence.
 
 | Project | Canonical hostname | Necessary subdomains | Notes |
 | --- | --- | --- | --- |
-| `fleet-ops` | `fleet.sassmaker.com` | none | Live public read-only control and visibility dashboard. |
+| `fleet-ops` | `sassmaker.com` | `fleet.sassmaker.com` | Static public directory at the apex; private machine-hosted console on the subdomain. |
 | `reader` | `read.significanthobbies.com` | none | Authenticated saved reading; private content remains noindex. |
 | `swe-interview-prep` | `learn.significanthobbies.com` | none | Owner-authenticated Learning OS and daily sessions. |
 | `research-papers` | `papers.highsignal.app` | none | Public research paths and Research Answer surface. |

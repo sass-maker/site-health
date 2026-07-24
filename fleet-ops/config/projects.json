@@ -78,14 +78,15 @@
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "fleet-ops",
-      "deployKind": "none",
-      "cfProject": null,
+      "deployKind": "pages",
+      "cfProject": "saas-maker-home",
       "domains": [
+        "sassmaker.com",
         "fleet.sassmaker.com"
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Canonical shared-infrastructure source. The public read-only Ops Console is exposed through the designated host and Cloudflare Tunnel, not a SaaS Maker Worker."
+      "notes": "Canonical shared-infrastructure source. sassmaker.com is a static public directory generated from Fleet's privacy-checked projection on Cloudflare Pages. The operational Fleet Console remains machine-hosted at fleet.sassmaker.com through Cloudflare Tunnel."
     },
     {
       "id": "drank",
@@ -370,7 +371,7 @@
     {
       "id": "protein-index",
       "family": "significanthobbies",
-      "tier": "secondary",
+      "tier": "parked",
       "repo": "protein-index",
       "deployKind": "worker",
       "cfProject": "protein-index",
@@ -379,7 +380,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "live at protein.significanthobbies.com"
+      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development."
     },
     {
       "id": "mobile-dev-cockpit",
@@ -417,7 +418,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Scored catalog of SaaS ideas. 2026-07-18: repo moved sarthakagrawal927 -> sass-maker org + cloned into fleet; Pages project is GitHub-connected and ideas.sassmaker.com is active/200."
+      "notes": "Static scored catalog of SaaS ideas. The Pages project is GitHub-connected; there is no runtime service or manual deploy workflow."
     },
     {
       "id": "motion",

@@ -121,7 +121,7 @@ const REPOS = {
   'fleet-workspace': {
     repo: 'sass-maker/fleet-workspace',
     topics: ['fleet', 'ops', 'seo', 'geo'],
-    productUrl: 'https://fleet.sassmaker.com',
+    productUrl: 'https://sassmaker.com',
   },
 };
 

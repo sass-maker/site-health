@@ -1,0 +1,20 @@
+# Revalidate HTML so a successful Pages deployment becomes visible promptly.
+# Hash-stable Astro bundles remain immutable below.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/p/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Astro emits hash-stable bundles under /_astro/.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

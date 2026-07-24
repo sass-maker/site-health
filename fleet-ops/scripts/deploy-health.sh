@@ -220,10 +220,13 @@ check_github_actions() {
     local slug
     local head_sha
     local runs_json
+    local active_workflows_json
     local current_runs_json
     local run_count
     local bad_count
     local bad_summary
+    local stale_bad_count
+    local stale_bad_summary
     local skipped_count
     local skipped_summary
     local latest_head_sha
@@ -261,6 +264,20 @@ check_github_actions() {
       continue
     fi
 
+    # `gh run list` includes the last run of workflows that have since been
+    # deleted from the default branch. Only current workflow definitions should
+    # contribute to deploy readiness.
+    if active_workflows_json="$(
+      gh api "repos/$slug/actions/workflows?per_page=100" \
+        --jq '[.workflows[]? | select(.state != "deleted") | .name]' 2>/dev/null
+    )"; then
+      runs_json="$(
+        jq --argjson workflows "$active_workflows_json" \
+          '[.[] | select(.workflowName as $name | $workflows | index($name))]' \
+          <<<"$runs_json"
+      )"
+    fi
+
     run_count="$(jq 'length' <<<"$runs_json")"
 
     if [[ "$run_count" -eq 0 ]]; then
@@ -273,11 +290,23 @@ check_github_actions() {
         <<<"$runs_json"
     )"
     bad_count="$(
-      jq '[.[] | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion)))] | length' \
+      jq --arg sha "$head_sha" \
+        '[.[] | select(.headSha == $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion)))] | length' \
         <<<"$current_runs_json"
     )"
     bad_summary="$(
-      jq -r '[.[] | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion))) | "\(.workflowName)=\(.status)/\(.conclusion // "none")@\(.headSha[0:7]) \(.url)"] | join("; ")' \
+      jq -r --arg sha "$head_sha" \
+        '[.[] | select(.headSha == $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion))) | "\(.workflowName)=\(.status)/\(.conclusion // "none")@\(.headSha[0:7]) \(.url)"] | join("; ")' \
+        <<<"$current_runs_json"
+    )"
+    stale_bad_count="$(
+      jq --arg sha "$head_sha" \
+        '[.[] | select(.headSha != $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion)))] | length' \
+        <<<"$current_runs_json"
+    )"
+    stale_bad_summary="$(
+      jq -r --arg sha "$head_sha" \
+        '[.[] | select(.headSha != $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion))) | "\(.workflowName)=\(.status)/\(.conclusion // "none")@\(.headSha[0:7]) \(.url)"] | join("; ")' \
         <<<"$current_runs_json"
     )"
     skipped_count="$(jq '[.[] | select(.conclusion == "skipped")] | length' <<<"$current_runs_json")"
@@ -294,6 +323,8 @@ check_github_actions() {
 
     if [[ "$bad_count" -gt 0 ]]; then
       record "FAIL" "$repo has failing/running latest workflow Actions ($bad_count): $bad_summary; latest $latest_summary"
+    elif [[ "$stale_bad_count" -gt 0 ]]; then
+      record "WARN" "$repo has failed latest workflow runs only on prior heads ($stale_bad_count): $stale_bad_summary; origin/main is ${head_sha:0:7}"
     elif [[ "$latest_head_sha" != "$head_sha" && "$at_head_count" -eq 0 ]]; then
       record "WARN" "$repo has no recent Actions run at origin/main ${head_sha:0:7}; latest $latest_summary"
     elif [[ "$skipped_count" -gt 0 ]]; then

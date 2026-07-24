@@ -31,6 +31,30 @@ other subdomains in the `sassmaker.com` DNS zone.
 - **WHEN** SaaS Maker and feedback-service entries are removed
 - **THEN** unrelated Fleet product subdomains remain unchanged
 
+### Requirement: Fleet owns the public directory projection
+
+Fleet MUST generate the public `sassmaker.com` directory from canonical Fleet
+project metadata, and that output MUST remain static and non-operational.
+
+#### Scenario: Public directory is deployed
+
+- **WHEN** `sassmaker.com` is built and published
+- **THEN** it exposes public project links, changelog entries, and public
+  roadmap information without tasks, controls, observability, authentication,
+  or private project state
+
+### Requirement: Operational Fleet remains machine-hosted
+
+The operational Fleet Console MUST remain at `fleet.sassmaker.com` through the
+existing Cloudflare Tunnel and MUST NOT be required for the public directory to
+serve.
+
+#### Scenario: Designated host is unavailable
+
+- **WHEN** the local Fleet host or Tunnel replica is offline
+- **THEN** `fleet.sassmaker.com` may be unavailable but `sassmaker.com`
+  continues serving its last successfully deployed static projection
+
 ### Requirement: External deletion is explicit and exact
 
 GitHub repository deletion, Cloudflare resource/data deletion, DNS mutation,
@@ -42,4 +66,3 @@ and MUST NOT be inferred from source deletion alone.
 - **WHEN** Fleet validation passes
 - **THEN** the handoff identifies which external resources were deleted and
   which still exist
-

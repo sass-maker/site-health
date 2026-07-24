@@ -1,6 +1,6 @@
 # Cloudflare Domain And SEO Audit
 
-Updated: 2026-07-13
+Updated: 2026-07-23
 
 ## Executive Summary
 
@@ -10,9 +10,9 @@ separate public API hostname was not requested.
 
 Important domain state:
 
-- `sassmaker.com` is on Cloudflare nameservers and is currently the production
-  SaaS Maker domain recorded in Fleet docs.
-- `sassmaker.com` is the canonical Fleet domain family for this rollout.
+- `sassmaker.com` is on Cloudflare nameservers and is the canonical static
+  public product directory generated from Fleet.
+- `fleet.sassmaker.com` remains the machine-hosted operational Fleet Console.
 - `saasmaker.com` is a separate AWS Route 53 domain and should not be used for
   this SEO program unless it is later redirected to `sassmaker.com`.
 - Wrangler OAuth is authenticated for Cloudflare Pages/Workers operations.
@@ -25,9 +25,11 @@ Use `*.sassmaker.com` for the long-term product grid. Do not mix
 `saasmaker.com` and `sassmaker.com` for SEO unless one is explicitly redirected
 to the other.
 
-## Fleet Ops Console
+## Public Directory And Fleet Console
 
-Canonical target: `https://fleet.sassmaker.com`
+Public canonical: `https://sassmaker.com`
+
+Operational console: `https://fleet.sassmaker.com`
 
 Current implementation state:
 
@@ -35,7 +37,12 @@ Current implementation state:
   at `http://127.0.0.1:4329`.
 - DNS points to the tunnel target:
   `fceb4f22-db20-4e77-88cf-07c1f290fd42.cfargotunnel.com`
-- The public console is live and returns HTTP 200.
+- The operational hostname is live and returns HTTP 200 through the Tunnel.
+- `saas-maker-home` remains the Cloudflare Pages target for the apex, but its
+  source is now `fleet-ops/apps/public-directory/` rather than a standalone
+  SaaS Maker repository.
+- `saas-maker-packages`, `saasmaker-api`, and `saasmaker-dashboard` were
+  deleted on 2026-07-23. Do not create `packages.sassmaker.com`.
 
 ## Already Has Own Domain
 
@@ -44,7 +51,7 @@ Current implementation state:
 | `rolepatch` | yes | `rolepatch.com`, `www.rolepatch.com` | Own product brand; keep. |
 | `significanthobbies` | yes | `significanthobbies.com`, `www.significanthobbies.com` | Own product brand; keep. |
 | `karte` | yes | `karte.cc`, `*.karte.cc`, `origin.karte.cc` | Own product brand; keep. |
-| `saas-maker` | not in local wrangler audit | `sassmaker.com` | Recorded in Fleet README as SaaS Maker production domain. |
+| `fleet-workspace` | Pages + Tunnel | `sassmaker.com`, `fleet.sassmaker.com` | Static public directory plus private machine-hosted console. |
 | `high-signal` | not in local wrangler audit | `highsignal.app` | Recorded in Fleet README. |
 | `aliveville` | not in local wrangler audit | `aliveville.com` | Recorded in Fleet README. |
 | `codevetter` | not in local wrangler audit | `codevetter.com` | Recorded in Fleet README. |
@@ -58,7 +65,7 @@ brand. Every hostname below was live when this audit was updated.
 
 | Priority | Project | Current CF target/config | Proposed canonical | SEO posture |
 |---:|---|---|---|---|
-| 0 | `fleet-ops` | Cloudflare Tunnel | `fleet.sassmaker.com` | Public read-only Fleet console. |
+| 0 | `fleet-ops` | Pages + Tunnel | `sassmaker.com` | Static public directory; operational console stays at `fleet.sassmaker.com`. |
 | 1 | `reader` | Worker custom domain | `read.significanthobbies.com` | Authenticated private reading workspace. |
 | 1 | `swe-interview-prep` | Pages custom domain | `learn.significanthobbies.com` | Owner-authenticated Learning OS. |
 | 1 | `research-papers` | Pages custom domain | `papers.highsignal.app` | Public research paths and cited answers. |
@@ -69,7 +76,7 @@ brand. Every hostname below was live when this audit was updated.
 | 2 | `drank` | Pages custom domain | `domains.sassmaker.com` | Domain-rating support surface. |
 | 3 | `email-manager` | Worker custom domain | `mail.sassmaker.com` | Authenticated mail workspace. |
 | 3 | `free-ai` | Worker custom domain | `ai-gateway.sassmaker.com` | AI Gateway API, dashboard, and docs. |
-| 4 | `reel-pipeline` | Fleet dashboard path | `fleet.sassmaker.com/marketing` | Public aggregate state only; controls remain private. |
+| 4 | `reel-pipeline` | Fleet Console path | `fleet.sassmaker.com/marketing` | Private marketing operations. |
 
 Excluded:
 
@@ -93,7 +100,7 @@ Every assigned domain should ship:
 - Google Search Console and Bing Webmaster verification.
 - Basic schema where useful: `SoftwareApplication`, `WebSite`,
   `BreadcrumbList`, `Article`, `FAQPage`.
-- Internal links from `fleet.sassmaker.com` and the SaaS Maker product index.
+- Internal links from `sassmaker.com`.
 
 ## Remaining SEO Work
 
