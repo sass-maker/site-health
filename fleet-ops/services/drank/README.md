@@ -1,5 +1,9 @@
 # drank
 
+> Canonical source: `fleet-ops/services/drank/` in
+> [`sass-maker/fleet-workspace`](https://github.com/sass-maker/fleet-workspace).
+> The former standalone repository is historical only.
+
 **Product:** [domains.sassmaker.com](https://domains.sassmaker.com)
 
 

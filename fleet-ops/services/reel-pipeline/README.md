@@ -1,5 +1,9 @@
 # Reel Pipeline
 
+> Canonical source: `fleet-ops/services/reel-pipeline/` in
+> [`sass-maker/fleet-workspace`](https://github.com/sass-maker/fleet-workspace).
+> The former standalone repository is historical only.
+
 Fleet's media-generation service. It turns approved, source-backed briefs into
 reviewable vertical-video artifacts and content-package receipts.
 
@@ -18,7 +22,8 @@ reviews and schedules them there.
 ## Quick start
 
 ```bash
-git clone --recurse-submodules <repo-url>
+gh repo clone sass-maker/fleet-workspace fleet
+cd fleet/fleet-ops/services/reel-pipeline
 npm ci
 npm test
 npm run dev

@@ -1,5 +1,10 @@
 # psi-swarm
 
+> **Canonical source:** this project was merged into
+> [`sass-maker/fleet-workspace`](https://github.com/sass-maker/fleet-workspace)
+> at `fleet-ops/psi-swarm/`. The former standalone repository is historical
+> only and must not be cloned for Fleet setup or development.
+
 > Lighthouse, run many times across realistic device/network presets. See the **p50 / p75 / p90 / p99** of your Web Vitals, not one noisy point.
 
 A single PageSpeed Insights run tells you almost nothing — two runs on the same URL can disagree by 30%+ on LCP because of network jitter, CPU contention, third-party scripts, and server-side variance. `psi-swarm` runs the same audit many times across a matrix of realistic conditions and reports the **shape** of the distribution, not just one point.
@@ -40,8 +45,8 @@ psi-swarm/
 ## Quick start (3 commands)
 
 ```bash
-git clone https://github.com/sass-maker/psi-swarm.git
-cd psi-swarm
+gh repo clone sass-maker/fleet-workspace fleet
+cd fleet/fleet-ops/psi-swarm
 pnpm run setup                                                # installs + builds CLI
 pnpm run cli -- run https://example.com --runs 5 --parallel auto
 ```

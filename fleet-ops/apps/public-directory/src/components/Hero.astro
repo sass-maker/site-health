@@ -1,64 +1,14 @@
 ---
 import { PROJECT_COUNT } from '../data/projects';
-
-// Build-time year. The original Next.js page used `new Date().getFullYear()`
-// on every render; for a static site we freeze it at build. The whole
-// landing redeploys frequently enough that this won't drift meaningfully.
-const YEAR = new Date().getFullYear();
 ---
 <header class="hero">
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-meta hero-anim" style="--delay: 0ms">
-    <span class="status-dot"></span>
-    <span>product directory</span>
-    <span class="hero-meta-sep">/</span>
-    <span class="hero-meta-issue">Vol. 01</span>
-    <span class="hero-meta-sep">/</span>
-    <span>{YEAR}</span>
+  <p class="eyebrow">Independent products by Sarthak Agrawal</p>
+  <h1>A clear map of the work.</h1>
+  <div class="hero-bottom">
+    <p>
+      SaaS Maker is the public index for {PROJECT_COUNT} maintained products:
+      what they do, where they live, what changed, and what comes next.
+    </p>
+    <a href="#products" class="text-link">Browse the directory <span aria-hidden="true">↓</span></a>
   </div>
-
-  <h1 class="hero-title">
-    <span class="hero-line hero-anim" style="--delay: 80ms">
-      A clear,
-    </span>
-    <span class="hero-line hero-anim" style="--delay: 160ms">
-      <em class="italic">living</em> directory of
-    </span>
-    <span class="hero-line hero-anim" style="--delay: 240ms">
-      {PROJECT_COUNT} <em class="italic">curious</em> projects,
-    </span>
-    <span class="hero-line hero-anim" style="--delay: 320ms">
-      forged by <span class="copper">one builder</span>.
-    </span>
-  </h1>
-
-  <p class="hero-sub hero-anim" style="--delay: 440ms">
-    A public map of the products I maintain: what each one does, where it
-    lives, what changed, and what comes next.
-  </p>
-
-  <div class="hero-actions hero-anim" style="--delay: 520ms">
-    <a href="#fleet" class="btn btn-primary btn-lg">Open the catalog</a>
-  </div>
-
-  <dl class="hero-numerals hero-anim" style="--delay: 640ms">
-    <div>
-      <dt>Projects</dt>
-      <dd><span class="numeral">{PROJECT_COUNT}</span></dd>
-    </div>
-    <div>
-      <dt>Spotlight</dt>
-      <dd>
-        <span class="numeral">4</span>
-      </dd>
-    </div>
-    <div>
-      <dt>Origin</dt>
-      <dd><span class="numeral">MMXXIV</span></dd>
-    </div>
-    <div>
-      <dt>Directory</dt>
-      <dd><span class="numeral">PUBLIC</span></dd>
-    </div>
-  </dl>
 </header>

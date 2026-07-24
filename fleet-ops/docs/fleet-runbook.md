@@ -92,6 +92,11 @@ separate Fleet products.
 Prerequisites: Git, GitHub CLI, Node 22, pnpm, and Wrangler. Authenticate once,
 then clone the Fleet root and its active child repositories:
 
+The historical repositories `saas-maker`, `reel-pipeline`, `drank`,
+`mobile-dev-cockpit`, and `psi-swarm` have been merged into Fleet and moved to
+Sarthak's personal GitHub account. Do not clone them during setup. Their
+maintained source is already present under `fleet-ops/`.
+
 ```bash
 gh auth status
 wrangler whoami
@@ -120,7 +125,6 @@ Significant-Hobbies/reader reader
 High-Signal-App/research-papers research-papers
 sarthakagrawal927/rolepatch rolepatch
 sarthakagrawal927/web-playables web-playables
-sass-maker/fleet-workspace fleet
 Significant-Hobbies/significanthobbies significanthobbies
 Codevetter/starboard starboard
 Significant-Hobbies/swe-interview-prep swe-interview-prep

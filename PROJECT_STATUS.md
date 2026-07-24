@@ -54,12 +54,13 @@ CodeVetter or App Health source.
   directory source for `saas-maker-home` at `sassmaker.com`; the operational
   console remains machine-hosted at `fleet.sassmaker.com`. Removed the stale
   `app.sassmaker.com` DNS record, retained the populated `saasmaker-db` as a
-  historical snapshot, deleted both obsolete R2 buckets, and archived the
-  superseded `sass-maker/saas-maker` repository.
+  historical snapshot, deleted both obsolete R2 buckets, and moved the
+  superseded `saas-maker` repository to Sarthak's personal GitHub account.
 - **2026-07-24 — Helper repositories absorbed:** Moved Reel Pipeline, Drank,
   PSI Swarm, and Mobile Dev Cockpit CI and guarded deploy ownership into Fleet
-  Workspace. The superseded standalone repositories were frozen as read-only
-  historical snapshots; Fleet paths are the only maintained source.
+  Workspace. The superseded standalone repositories were moved to Sarthak's
+  personal GitHub account for history and attribution only; Fleet paths are the
+  only maintained source and the fresh-machine setup does not clone them.
 - **2026-07-21 — Impeccable design workflow adopted:** Installed Impeccable as
   a Fleet-local, machine-scoped agent skill; added deterministic UI edit hooks,
   new-project guidance, and a critique/polish/audit shipping sequence while
@@ -101,9 +102,10 @@ CodeVetter or App Health source.
 | Fleet Console | `fleet-ops/apps/ops-console/` | Private operational view served from the designated host |
 | Feedback package | `fleet-ops/packages/feedback/` | Backend-free npm package; no Fleet runtime |
 
-Historical standalone helper repositories are read-only snapshots. Rollback is
-provided by Fleet Workspace Git history and Cloudflare deployment history, not
-by maintaining duplicate source repositories.
+Historical standalone helper repositories live under `sarthakagrawal927` for
+attribution and history only. They are not Fleet dependencies, CI inputs, or
+setup targets. Rollback is provided by Fleet Workspace Git history and
+Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 

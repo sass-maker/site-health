@@ -1,59 +1,35 @@
 ---
 import { CORE, ACTIVE_GROUPS, PROJECT_COUNT } from '../data/projects';
 ---
-<section class="section" id="fleet">
+<section class="section" id="products">
   <div class="section-head">
-    <div class="section-marker">
-      <span class="section-num">§ 01</span>
-      <span class="section-rule"></span>
-      <span class="section-kw">The Product</span>
-    </div>
-    <h2 class="section-title">
-      {PROJECT_COUNT} <em class="italic">maintained</em> products,
-      <br />
-      one precise <em class="italic">public directory</em>.
-    </h2>
+    <h2 class="section-title">Four projects in focus.</h2>
     <p class="section-lede">
-      The four spotlight products are the public front door. The full catalog
-      preserves the canonical product, source, changelog, and roadmap links
-      without pretending the projects share one runtime or release boundary.
+      Each product keeps its own home, roadmap, changelog, and release boundary.
     </p>
   </div>
 
-  <div class="bento" id="products">
-    {CORE.map((p, i) => (
-      <a
-        href={p.href}
-        class={`card card-${p.size}`}
-        style={`--accent: ${p.color}; --delay: ${i * 70}ms`}
-      >
-        <div class="card-cover">
-          <span class="card-cover-glow"></span>
-          <span class="card-cover-grid"></span>
-          <span class="card-monogram">{p.initials}</span>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-num">№ {p.n}</span>
-            <span class="card-tag">{p.tag}</span>
-          </div>
-          <h3 class="card-title">{p.name}</h3>
-          <p class="card-desc">{p.desc}</p>
-          <span class="card-cta">
-            <span>View product page</span>
-            <span class="card-arrow">→</span>
+  <ol class="spotlight-list">
+    {CORE.map((p) => (
+      <li>
+        <a href={p.href} class="spotlight-item">
+          <span class="spotlight-copy">
+            <strong>{p.name}</strong>
+            <span>{p.desc}</span>
           </span>
-        </div>
-      </a>
+          <span class="spotlight-host">{p.tag}</span>
+          <span class="spotlight-arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
     ))}
-  </div>
+  </ol>
 
-  <div class="active">
+  <div class="catalog">
     <div class="active-head">
-      <span class="section-num">§ 01.01</span>
-      <span class="section-rule short"></span>
-      <span class="section-kw small">The complete public catalog</span>
-      <span class="active-count">{PROJECT_COUNT - CORE.length} more products</span>
+      <div>
+        <h2>The rest of the catalog</h2>
+      </div>
+      <p>{PROJECT_COUNT - CORE.length} quietly useful tools, research projects, and personal utilities.</p>
     </div>
     <div class="active-groups">
       {ACTIVE_GROUPS.map((group) => (
@@ -62,11 +38,12 @@ import { CORE, ACTIVE_GROUPS, PROJECT_COUNT } from '../data/projects';
           <ul class="active-grid">
             {group.products.map((p) => (
               <li>
-                <a href={p.href} class="mini" style={`--accent: ${p.color}`}>
-                  <span class="mini-dot"></span>
-                  <span class="mini-name">{p.name}</span>
-                  <span class="mini-desc">{p.desc}</span>
-                  <span class="mini-arrow">→</span>
+                <a href={p.href} class="mini">
+                  <span>
+                    <strong class="mini-name">{p.name}</strong>
+                    <span class="mini-desc">{p.desc}</span>
+                  </span>
+                  <span class="mini-arrow" aria-hidden="true">→</span>
                 </a>
               </li>
             ))}
@@ -75,5 +52,4 @@ import { CORE, ACTIVE_GROUPS, PROJECT_COUNT } from '../data/projects';
       ))}
     </div>
   </div>
-
 </section>

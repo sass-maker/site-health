@@ -57,23 +57,19 @@ const OG_IMAGE = `${SITE_URL}/og-image.svg`;
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
 
-    {/* Non-blocking Google Fonts: media=print → onload='all' keeps the
-        font stylesheet off the LCP critical path. The hero h1 paints in
-        the system fallback (Manrope falls back to ui-sans-serif), then
-        swaps when the woff2 arrives. psi-swarm desktop p75 LCP was
-        dominated by a 1.2s render-delay before this change. */}
+    {/* One type family keeps the directory calm and reduces font payload. */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap"
       />
     </noscript>
 

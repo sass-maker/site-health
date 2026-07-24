@@ -1,5 +1,9 @@
 # Mobile Dev Cockpit
 
+> Canonical source: `fleet-ops/apps/mobile-cockpit/` in
+> [`sass-maker/fleet-workspace`](https://github.com/sass-maker/fleet-workspace).
+> The former standalone repository is historical only.
+
 A native iPhone and iPad cockpit for a developer-controlled machine: pair once, enroll a discovered repository, run its dev server and agent, preview the site, dictate editable instructions, review changes, run tests, and explicitly approve deployment.
 
 ## Trust model

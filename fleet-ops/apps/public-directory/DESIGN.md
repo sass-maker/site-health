@@ -19,17 +19,17 @@ surface, not the operational Fleet interface.
 
 ## Typography
 
-Use Manrope for structural text, Instrument Serif for the established folio
-voice, and JetBrains Mono only for compact metadata. Keep body copy at or above
-1rem, cap prose near 70 characters, and keep display tracking no tighter than
-`-0.04em`.
+Use Schibsted Grotesk throughout. Weight, size, spacing, and color provide the
+hierarchy; the interface should not switch typefaces to manufacture character.
+Keep body copy at or above 1rem, cap prose near 70 characters, and keep display
+tracking no tighter than `-0.04em`.
 
 ## Layout
 
-Use a 4-point spacing scale with tight metadata groups and generous separations
-between narrative sections. Spotlight projects may carry stronger composition;
-supporting projects use a compact directory list. Product pages inherit the
-same folio system instead of switching to a technical dashboard theme.
+Use a 4-point spacing scale and generous separations between sections. Spotlight
+projects use a strong, scannable list; supporting projects use a compact
+directory. Avoid decorative grids, bento treatments, fake folio numbering, and
+dashboard chrome. Product pages inherit the same quiet catalog system.
 
 ## Motion
 

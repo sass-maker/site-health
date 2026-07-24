@@ -44,9 +44,10 @@
 - [x] 5.1 Secure the Fleet package changes in its canonical remote.
 - [x] 5.2 Remove the standalone SaaS Maker local checkout after Fleet contains
   the package and rollback history is recorded.
-- [x] 5.3 Archive `sass-maker/saas-maker` after the Fleet-owned public
-  directory is deployed and verified. Preserve GitHub redirect and rollback
-  history instead of requiring irreversible repository deletion.
+- [x] 5.3 Move the superseded `saas-maker` repository to Sarthak's personal
+  GitHub account after the Fleet-owned public directory is deployed and
+  verified. Preserve GitHub redirects and history while making Fleet the only
+  maintained source.
 - [x] 5.4 Generate the public directory, changelog, and public roadmap from
   canonical Fleet metadata; deploy the static output to `saas-maker-home` at
   `sassmaker.com` and `www.sassmaker.com`. Keep the operational console at
@@ -66,3 +67,7 @@
   `npm whoami` currently returns `E401 Unauthorized`.
 - [ ] 5.9 Archive this OpenSpec change and update Fleet status after all chosen
   external actions are verified.
+- [x] 5.10 Remove historical helper repositories from CI and fresh-machine
+  bootstrap instructions; record their canonical Fleet paths.
+- [x] 5.11 Simplify the public directory to a quiet, single-family catalog and
+  verify its desktop and mobile presentation before deployment.

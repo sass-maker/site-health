@@ -30,6 +30,22 @@ this README is the human taxonomy.
 CodeVetter and App Health remain fully independent products. Feedback is a
 Fleet-owned package, not a deployed Fleet service or standalone product.
 
+## Merged historical repositories
+
+The following standalone repositories were merged into Fleet and moved to
+Sarthak's personal GitHub account for attribution and history only. They are not
+setup dependencies and must not be cloned as Fleet projects:
+
+| Historical repository | Maintained source |
+| --- | --- |
+| [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `fleet-ops/apps/public-directory/` and `fleet-ops/packages/feedback/` |
+| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `fleet-ops/services/reel-pipeline/` |
+| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `fleet-ops/services/drank/` |
+| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `fleet-ops/apps/mobile-cockpit/` |
+| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `fleet-ops/psi-swarm/` |
+
+Clone `sass-maker/fleet-workspace` once and use the canonical paths above.
+
 ## Products
 
 Projects are classified by purpose (a project can appear in more than one):
