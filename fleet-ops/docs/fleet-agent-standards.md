@@ -253,7 +253,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 |---|---|---|
 | `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace |
 | `call-teammate` | parent | call-claude-code, call-codex, call-cursor, call-devin, call-grok |
-| `site-health` | parent | agent-ready, seo-audit, psi-swarm, geo-observatory; combined scorecard |
+| `site-health` | parent | agent-ready, seo-audit, psi-swarm, geo-observatory, public-product-smoke; combined scorecard |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | OpenSpec workflow for new features |
 | `token-budget` | standalone | Codex context/token audit |

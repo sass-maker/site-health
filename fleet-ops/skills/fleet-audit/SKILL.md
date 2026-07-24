@@ -121,6 +121,28 @@ Expected non-issues:
 - `mal-api...workers.dev/` root may be `404`.
 - First-run perf budget warnings are baselines, not regressions.
 
+### GitHub Actions evidence rules
+
+Treat workflow state as versioned project configuration, not an append-only
+history of equally relevant runs:
+
+1. Only workflows that still exist on the remote default branch contribute to
+   current CI health. Ignore the final run of a deleted workflow.
+2. A failed latest run at the current `origin/main` SHA is a `fail`.
+3. A failed latest run only on an older SHA is a `watch`; inspect whether the
+   workflow or failing code changed before creating a task.
+4. Distinguish product CI, deploy, scheduled data pipelines, and maintenance
+   automation. A failed bot PR or optional data refresh is not automatically a
+   broken user-facing product.
+5. Explicitly retired or local-only projects do not need Actions or a deploy
+   script. Static Git-connected Pages sites may have only a lightweight content
+   check; do not infer that a deleted manual deploy workflow is missing.
+6. Unpublished local workflow edits do not change remote health. Report the
+   remote failure until the change is committed and pushed.
+
+When aggregate output is red, open the failing job and identify the exact
+failed step before assigning severity.
+
 ### Workflow
 
 1. Run the Fleet-owned audit stack unless the user asks for a quick pass.

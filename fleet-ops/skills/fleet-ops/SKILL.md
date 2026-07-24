@@ -1,6 +1,6 @@
 ---
 name: fleet-ops
-description: Fleet operations — audit the fleet, scaffold a new project, guard a deploy, or make cross-project workspace decisions. Use when the user asks about fleet health, fleet status, creating a new project, deploy readiness, workspace structure, or any cross-fleet operational task. Routes to the right subskill based on intent.
+description: Fleet operations — audit the fleet, test public product journeys, scaffold a new project, guard a deploy, or make cross-project workspace decisions. Use when the user asks about fleet health, fleet status, whether public products work for guests, clicking around every website, creating a new project, deploy readiness, workspace structure, or any cross-fleet operational task. Routes to the right subskill based on intent.
 ---
 
 # fleet-ops — parent skill
@@ -16,6 +16,7 @@ Subskills live as sibling directories under `fleet-ops/skills/`.
 | "Create a new project" / "scaffold X" / "add a new fleet product" / "init a new repo" | `fleet-init` | `../fleet-init/SKILL.md` |
 | "Deploy X" / "can I deploy?" / "is X safe to deploy?" / "check deploy readiness" | `fleet-deploy-guard` | `../fleet-deploy-guard/SKILL.md` |
 | "Does this work belong in a child project or fleet-ops?" / cross-project workspace decisions | `fleet-workspace` | `../fleet-workspace/SKILL.md` |
+| "Do the public products work?" / "open every website and click around" / "test guest journeys" / "check each product's unique pages" | `public-product-smoke` | `../public-product-smoke/SKILL.md` |
 
 ## How to use
 
@@ -30,6 +31,7 @@ If the request spans multiple subskills (e.g. "audit the fleet, then scaffold a 
 - Delegating to other agent CLIs → use the `call-teammate` skill
 - Domain name generation → use `name-domains` skill
 - Lighthouse/perf audits → use `psi-swarm` skill
+- Public browser journeys → use the `public-product-smoke` subskill
 - AI crawler readiness → use `agent-ready` skill
 - On-page SEO audits → use `seo-audit` skill
 - Codex context/token audits → use `token-budget` skill

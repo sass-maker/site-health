@@ -79,7 +79,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |
 | `spec-driven` | standalone | OpenSpec workflow |
-| `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), psi-swarm (perf), geo-observatory (trends); combined scorecard via site-health-scorecard.mjs |
+| `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |

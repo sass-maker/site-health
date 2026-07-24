@@ -14,6 +14,7 @@
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
       "status": "live | undeployed | orphan | deleted | unverified",
+      "authModel": "required-user | required-service | public-personalized | public-persistent",
       "notes": "reconciliation flags / decisions"
     },
     "workers": "25 live Workers (enumerated 2026-07-18 via API): aliveville, codevetter-landing-proxy, email-manager, everythingrated, free-ai-gateway, high-signal-web/-api/-annotation, karte-email, knowledgebase, knowledgebase-app, linkchat, mal-api, open-historia, protein-index, reader, reel-pipeline-artifacts, resume-tailor, saasmaker-dashboard/-api/-droid, significanthobbies, starboard, truehire.",
@@ -30,6 +31,7 @@
   "projects": [
     {
       "id": "codevetter",
+      "authModel": "public-persistent",
       "family": "codevetter",
       "tier": "focus",
       "repo": "codevetter",
@@ -45,6 +47,7 @@
     },
     {
       "id": "pace",
+      "authModel": "public-persistent",
       "family": "pace",
       "tier": "focus",
       "repo": "pace",
@@ -60,6 +63,7 @@
     },
     {
       "id": "posttrainllm",
+      "authModel": "public-persistent",
       "family": "posttrainllm",
       "tier": "focus",
       "repo": "posttrainllm",
@@ -75,6 +79,7 @@
     },
     {
       "id": "fleet-workspace",
+      "authModel": "public-personalized",
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "fleet-ops",
@@ -90,6 +95,7 @@
     },
     {
       "id": "drank",
+      "authModel": "public-persistent",
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "fleet-ops/services/drank",
@@ -104,6 +110,7 @@
     },
     {
       "id": "email-manager",
+      "authModel": "required-user",
       "family": "email-manager",
       "tier": "active",
       "repo": "email-manager",
@@ -118,6 +125,7 @@
     },
     {
       "id": "free-ai",
+      "authModel": "required-service",
       "family": "free-ai",
       "tier": "active",
       "repo": "free-ai",
@@ -132,6 +140,7 @@
     },
     {
       "id": "psi-swarm",
+      "authModel": "public-persistent",
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "fleet-ops/psi-swarm",
@@ -146,6 +155,7 @@
     },
     {
       "id": "high-signal",
+      "authModel": "public-persistent",
       "family": "high-signal",
       "tier": "active",
       "repo": "high-signal",
@@ -160,6 +170,7 @@
     },
     {
       "id": "everythingrated",
+      "authModel": "public-persistent",
       "family": "high-signal",
       "tier": "secondary",
       "repo": "everythingrated",
@@ -174,6 +185,7 @@
     },
     {
       "id": "research-papers",
+      "authModel": "public-persistent",
       "family": "high-signal",
       "tier": "secondary",
       "repo": "research-papers",
@@ -188,6 +200,7 @@
     },
     {
       "id": "materia",
+      "authModel": "public-persistent",
       "family": "materia",
       "tier": "active",
       "repo": "materia",
@@ -202,6 +215,7 @@
     },
     {
       "id": "knowledge-base",
+      "authModel": "required-service",
       "family": "knowledge-base",
       "tier": "active",
       "repo": "knowledge-base",
@@ -217,6 +231,7 @@
     },
     {
       "id": "significanthobbies",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "significanthobbies",
@@ -231,6 +246,7 @@
     },
     {
       "id": "anime-list",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "anime-list",
@@ -245,6 +261,7 @@
     },
     {
       "id": "chess",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "chess",
@@ -259,6 +276,7 @@
     },
     {
       "id": "looptv",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "looptv",
@@ -273,6 +291,7 @@
     },
     {
       "id": "reader",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "reader",
@@ -287,6 +306,7 @@
     },
     {
       "id": "swe-interview-prep",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "swe-interview-prep",
@@ -301,6 +321,7 @@
     },
     {
       "id": "rolepatch",
+      "authModel": "public-persistent",
       "family": "rolepatch",
       "tier": "secondary",
       "repo": "rolepatch",
@@ -315,6 +336,7 @@
     },
     {
       "id": "karte",
+      "authModel": "public-persistent",
       "family": "karte",
       "tier": "secondary",
       "repo": "karte",
@@ -329,6 +351,7 @@
     },
     {
       "id": "starboard",
+      "authModel": "public-personalized",
       "family": "codevetter",
       "tier": "secondary",
       "repo": "starboard",
@@ -343,6 +366,7 @@
     },
     {
       "id": "ai-game",
+      "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
       "repo": "ai-game",
@@ -358,6 +382,7 @@
     },
     {
       "id": "reel-pipeline",
+      "authModel": "required-service",
       "family": "fleet-workspace",
       "tier": "parked",
       "repo": "fleet-ops/services/reel-pipeline",
@@ -370,6 +395,7 @@
     },
     {
       "id": "protein-index",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "parked",
       "repo": "protein-index",
@@ -384,6 +410,7 @@
     },
     {
       "id": "mobile-dev-cockpit",
+      "authModel": "required-user",
       "family": "fleet-workspace",
       "tier": "parked",
       "repo": "fleet-ops/apps/mobile-cockpit",
@@ -396,6 +423,7 @@
     },
     {
       "id": "app-health",
+      "authModel": "required-service",
       "family": "app-health",
       "tier": "active",
       "repo": "app-health",
@@ -408,6 +436,7 @@
     },
     {
       "id": "saas-ideas",
+      "authModel": "public-persistent",
       "family": "saas-ideas",
       "tier": "secondary",
       "repo": "saas-ideas",
@@ -422,6 +451,7 @@
     },
     {
       "id": "motion",
+      "authModel": "public-persistent",
       "family": "motion",
       "tier": "active",
       "repo": "motion",
@@ -435,6 +465,7 @@
     },
     {
       "id": "truehire",
+      "authModel": "public-persistent",
       "family": "rolepatch",
       "tier": "out-of-fleet",
       "repo": "truehire",
@@ -449,6 +480,7 @@
     },
     {
       "id": "today-little-log",
+      "authModel": "public-persistent",
       "family": "today-little-log",
       "tier": "out-of-fleet",
       "repo": null,
@@ -461,6 +493,7 @@
     },
     {
       "id": "open-historia",
+      "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
       "repo": null,
@@ -475,6 +508,7 @@
     },
     {
       "id": "sarthakagrawal-personal",
+      "authModel": "public-persistent",
       "family": "personal",
       "tier": "non-product",
       "repo": null,

@@ -6,8 +6,10 @@ description: >
   crawlers read it (GPTBot, ClaudeBot, llms.txt, GEO, agent readiness); is
   the SEO right (meta tags, canonical, OG, structured data, sitemap); is it
   fast (Core Web Vitals, LCP/CLS/INP, Lighthouse, PageSpeed); or did our
-  search/AI visibility results move (SERP trend, weekly observatory). Routes
-  to the right subskill, or runs the combined per-product scorecard.
+  search/AI visibility results move (SERP trend, weekly observatory); or do
+  public pages, guest journeys, navigation, search, detail views, downloads,
+  and primary actions actually work. Routes to the right subskill, or runs
+  the combined per-product scorecard.
 ---
 
 # site-health — fleet website measurement (routing parent)
@@ -21,6 +23,7 @@ one you need, not all four.
 | On-page SEO: title/meta/canonical/OG/JSON-LD/hreflang/sitemap coverage | `fleet-ops/skills/seo-audit/SKILL.md` |
 | Performance: Core Web Vitals, Lighthouse distributions, "why is X slow" | `fleet-ops/skills/psi-swarm/SKILL.md` |
 | Outcome trends: SERP classes over time, "did results move", weekly run | `fleet-ops/skills/geo-observatory/SKILL.md` |
+| Public usability: click around, guest journeys, blank/broken pages, navigation, search/detail, downloads, primary product actions | `fleet-ops/skills/public-product-smoke/SKILL.md` |
 
 ## Combined mode — "full health check"
 

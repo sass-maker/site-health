@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-24
+Last updated: 2026-07-25
 
 ## Why / What
 
@@ -48,6 +48,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Public product journey smoke skill:** Added a read-only
+  `public-product-smoke` subskill under Fleet site health. It resolves canonical
+  live products from the Fleet registry and policy, limits each product to six
+  meaningful browser surfaces, requires safe functional interactions, records
+  guest-state limitations, and emits an evidence-backed repair queue. Every
+  project now declares whether auth is required, service-only, personalized, or
+  persistence-only. The audit records naturally encountered rate-limit evidence
+  without threshold testing and only recommends evidence-backed protection for
+  exact costly endpoints. The manifest helper, auth contract, and exclusion
+  handling have dependency-free Node tests.
 - **2026-07-24 — SaaS Maker consolidated into Fleet:** Deleted
   `saas-maker-packages`, `saasmaker-api`, and `saasmaker-dashboard` from
   Cloudflare. Fleet now owns the privacy-checked public projection and static
@@ -112,6 +122,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Canonical project/domain/deploy inventory and attention model.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and
   automation health scripts.
+- Bounded public-product browser smoke workflow with canonical manifest,
+  production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.
 - Bounded marketing registry, dry-run, attribution, and quiet-experiment
   contracts.
