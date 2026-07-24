@@ -95,7 +95,8 @@ then clone the Fleet root and its active child repositories:
 The historical repositories `saas-maker`, `reel-pipeline`, `drank`,
 `mobile-dev-cockpit`, and `psi-swarm` have been merged into Fleet and moved to
 Sarthak's personal GitHub account. Do not clone them during setup. Their
-maintained source is already present under `fleet-ops/`.
+maintained source is already present under `apps/`, `services/`, `packages/`,
+and `tools/`; `fleet-ops/` contains shared operations only.
 
 ```bash
 gh auth status
@@ -106,25 +107,22 @@ cd fleet
 while read -r repo directory; do
   test -d "$directory/.git" || gh repo clone "$repo" "$directory"
 done <<'REPOS'
-sarthakagrawal927/aliveville aliveville
 Significant-Hobbies/anime-list anime-list
 Significant-Hobbies/chess chess
 Codevetter/codevetter codevetter
+sarthakagrawal927/app-health app-health
 sarthakagrawal927/email-manager email-manager
-High-Signal-App/everythingrated everythingrated
 sass-maker/free-ai free-ai
 High-Signal-App/high-signal high-signal
 sarthakagrawal927/karte karte
 sass-maker/knowledge-base knowledge-base
 Significant-Hobbies/looptv looptv
-Significant-Hobbies/materia materia
+sarthakagrawal927/motion motion
 HeyPace/pace pace
 PostTrainLLM/posttrainllm posttrainllm
-Significant-Hobbies/protein-index protein-index
 Significant-Hobbies/reader reader
 High-Signal-App/research-papers research-papers
 sarthakagrawal927/rolepatch rolepatch
-sarthakagrawal927/web-playables web-playables
 Significant-Hobbies/significanthobbies significanthobbies
 Codevetter/starboard starboard
 Significant-Hobbies/swe-interview-prep swe-interview-prep
@@ -201,8 +199,8 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 
 | Project | Purpose | Local run | Verify before push | Deploy |
 | --- | --- | --- | --- | --- |
-| `aliveville` | AliveVille 3D AI world simulator | `pnpm dev` | `pnpm typecheck`, `pnpm test`, `pnpm build` | project workflows |
 | `anime-list` | MAL Explorer for anime/manga discovery and watchlists | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm pages:build` | `pnpm deploy` |
+| `app-health` | Independent application-health ingestion and evidence product | see project README | see project README / CI | see project README / CI |
 | `codevetter` | Desktop-first AI code review platform | see project README | see project README / CI | see project README / CI |
 | `drank` | Domain rating tracker | `cd services/drank && pnpm dev` | root `Drank CI` | `cd services/drank && pnpm deploy` |
 | `email-manager` | Gmail/email triage and automation | `pnpm dev` | `pnpm lint`, `pnpm cf:build` | `pnpm deploy` |
@@ -212,13 +210,14 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 | `karte` | AI-enhanced public profiles and chat/contact analytics | `pnpm dev` | `pnpm lint`, `pnpm build`, `pnpm cf:build` | `pnpm deploy:cf` |
 | `knowledge-base` | Private Agent Search over project corpora | see project README | see project README / CI | see project README / CI |
 | `looptv` | Lean-back YouTube station player | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm build` | `pnpm deploy` |
+| `motion` | Native motion/productivity client | see project README | see project README / CI | see project README / CI |
 | `pace` | Local macOS voice agent | see project README | see project README / CI | see project README / CI |
 | `posttrainllm` | Local LLM factory/runtime | see project README | see project README / CI | see project README / CI |
 | `reader` | Article/PDF reader, annotation, and research workspace | `pnpm dev` | `pnpm lint`, `pnpm type-check`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `reel-pipeline` | AI short-form video generation pipeline | `cd services/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd services/reel-pipeline && npm run deploy` |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `saas-maker` | Public product directory, feedback API/inbox, one published feedback package, Blume docs | package-specific dev commands | `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm smoke` after deploy | package/workflow deploys |
+| `Fleet public directory` | Static SaaS Maker product directory maintained at `apps/public-directory/` | `npm --prefix apps/public-directory run dev` | `npm run check:public` | guarded Fleet workflow |
 | `significanthobbies` | Hobby journeys and discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `starboard` | GitHub stars organization and stack discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy:cf` |
 | `swe-interview-prep` | Interview Coder prep app | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm build` | `pnpm deploy` |
@@ -226,13 +225,23 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 ## Local-Only Or Non-Fleet Repositories
 
 These are not part of the active production fleet and should be excluded from
-fleet-wide sweeps unless explicitly re-added:
+fresh-machine clones and fleet-wide sweeps unless explicitly reactivated:
 
+- `aliveville` / `ai-game`
+- `companion-robot`
+- `elves-hq`
+- `everythingrated`
+- `forecast-lab`
+- `materia`
 - `open-historia`
+- `protein-index`
+- `saas-ideas`
+- `success-by-26`
 - `personalsite`: removed from the active fleet. Do not create new Fleet tasks
   for it unless it is explicitly re-added.
 - `today-little-log`
 - `truehire`
+- `web-playables`
 
 ## Verification Rules
 
