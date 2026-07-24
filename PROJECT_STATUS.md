@@ -53,6 +53,10 @@ CodeVetter or App Health source.
   Cloudflare. Fleet now owns the privacy-checked public projection and static
   directory source for `saas-maker-home` at `sassmaker.com`; the operational
   console remains machine-hosted at `fleet.sassmaker.com`.
+- **2026-07-24 — Helper repositories absorbed:** Moved Reel Pipeline, Drank,
+  PSI Swarm, and Mobile Dev Cockpit CI and guarded deploy ownership into Fleet
+  Workspace. The superseded standalone repositories were frozen as read-only
+  historical snapshots; Fleet paths are the only maintained source.
 - **2026-07-21 — Impeccable design workflow adopted:** Installed Impeccable as
   a Fleet-local, machine-scoped agent skill; added deterministic UI edit hooks,
   new-project guidance, and a critique/polish/audit shipping sequence while
@@ -61,9 +65,9 @@ CodeVetter or App Health source.
   imports or hosted API calls. Reduced the retained boundary to a callback-only
   React package at `fleet-ops/packages/feedback/`; removed API, inbox, auth,
   storage, project-key, and Worker source from Fleet.
-- **2026-07-22 — SaaS Maker retirement started:** Removed the public directory,
-  separate docs, and standalone product identity; npm is the package
-  documentation surface.
+- **2026-07-22 — SaaS Maker retirement started:** Removed the separate runtime,
+  docs platform, and operational product identity; the public directory moved
+  to Fleet and npm remains the package documentation surface.
 - **2026-07-21 — Marketing and App Health boundaries finalized:** Reel Pipeline
   now creates Postiz drafts instead of owning a SaaS Maker queue or native
   social publishers. The pinned self-hosted Postiz contract is inert pending
@@ -94,8 +98,9 @@ CodeVetter or App Health source.
 | Fleet Console | `fleet-ops/apps/ops-console/` | Private operational view served from the designated host |
 | Feedback package | `fleet-ops/packages/feedback/` | Backend-free npm package; no Fleet runtime |
 
-Legacy standalone helper repositories remain rollback sources until an
-explicit source/deploy cutover and later archival decision.
+Historical standalone helper repositories are read-only snapshots. Rollback is
+provided by Fleet Workspace Git history and Cloudflare deployment history, not
+by maintaining duplicate source repositories.
 
 ## Features (shipped)
 
@@ -119,6 +124,8 @@ explicit source/deploy cutover and later archival decision.
 - Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.
 - Backend-free feedback package with consumer-owned submission, Pinpoint
   context, and local screenshot attachment.
+- Fleet-root CI for every absorbed component plus guarded, source-aware local
+  deploy commands for the three Cloudflare surfaces.
 
 ## Todo / Planned / Deferred / Blocked
 
@@ -136,13 +143,11 @@ explicit source/deploy cutover and later archival decision.
 5. Decide retention for `saasmaker-db`, `saasmaker-feedback-images`, and the
    obsolete dashboard cache; publish the callback-only package only with
    explicit release approval.
-6. Delete the standalone GitHub repository once repository-admin credentials
-   are available.
+6. Archive the standalone GitHub repository after the Fleet-owned public
+   directory is live and verified.
 
 ### Deferred
 
-- Archiving standalone helper repositories until source, CI, deployment, and
-  rollback parity are proven and explicitly approved.
 - Activating the designated operations host until shared lease and
   machine-authority checks pass.
 - Building another broad browser control plane; provider-native tools and
@@ -152,5 +157,3 @@ explicit source/deploy cutover and later archival decision.
 
 - The stale `app.sassmaker.com` AAAA record still needs removal.
   `api.sassmaker.com` has no remaining DNS record.
-- Deleting `sass-maker/saas-maker` is authorized but the current GitHub CLI
-  token lacks repository admin and `delete_repo` scope.

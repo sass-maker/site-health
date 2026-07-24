@@ -13,7 +13,7 @@
     "format:check": "biome format .",
     "check": "biome check .",
     "cf:build": "pnpm run build",
-    "deploy": "pnpm run build && wrangler pages deploy out --project-name=drank",
+    "deploy": "node ../../scripts/manual-component-deploy.mjs drank",
     "size": "size-limit",
     "test:coverage": "vitest run --coverage",
     "docs:check": "bash scripts/validate_docs.sh",

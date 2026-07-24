@@ -2,21 +2,22 @@
 
 This is the operating guide for the projects in the Fleet workspace.
 
-The Fleet root is a lightweight documentation and policy repository. Each child
-directory is its own project repository with its own Git history, deploy flow,
-and verification commands.
+The Fleet root owns shared infrastructure under `fleet-ops/`. Immediate child
+directories with their own `.git/` remain independent product repositories.
+Reel Pipeline, Drank, PSI Swarm, Mobile Dev Cockpit, Content Factory, and the
+Ops Console are Fleet components and are maintained directly in this repository.
 
 ## Operating Model
 
 Use this order when working on the Fleet:
 
 1. Check the project root `PROJECT_STATUS.md`, its active OpenSpec change, and GitHub.
-2. Enter the project directory.
+2. Enter the independent project checkout or canonical `fleet-ops/` component.
 3. Read the Fleet `AGENTS.md` and the project `AGENTS.md` or `agents.md`.
 4. Run the smallest relevant local verification before editing.
 5. Make the change.
 6. Run the project verification commands.
-7. Commit and push the child project repository.
+7. Commit and push the owning repository.
 8. Close the corresponding OpenSpec/GitHub work item with verification evidence.
 
 `PROJECT_STATUS.md` is product-status truth, OpenSpec is feature-lifecycle
@@ -199,7 +200,7 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 | `aliveville` | AliveVille 3D AI world simulator | `pnpm dev` | `pnpm typecheck`, `pnpm test`, `pnpm build` | project workflows |
 | `anime-list` | MAL Explorer for anime/manga discovery and watchlists | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm pages:build` | `pnpm deploy` |
 | `codevetter` | Desktop-first AI code review platform | see project README | see project README / CI | see project README / CI |
-| `drank` | Domain rating tracker | see project README | see project README / CI | see project README / CI |
+| `drank` | Domain rating tracker | `cd fleet-ops/services/drank && pnpm dev` | root `Drank CI` | `cd fleet-ops/services/drank && pnpm deploy` |
 | `email-manager` | Gmail/email triage and automation | `pnpm dev` | `pnpm lint`, `pnpm cf:build` | `pnpm deploy` |
 | `everythingrated` | Multi-axis ratings for High Signal directories | `pnpm dev` | see project README / CI | project workflows |
 | `free-ai` | OpenAI-compatible gateway for free LLM providers | `pnpm dev` | `pnpm check`, `pnpm test:e2e` when relevant | `pnpm deploy` |
@@ -210,7 +211,7 @@ The active production fleet is listed in `fleet-ops/config/projects.json`.
 | `pace` | Local macOS voice agent | see project README | see project README / CI | see project README / CI |
 | `posttrainllm` | Local LLM factory/runtime | see project README | see project README / CI | see project README / CI |
 | `reader` | Article/PDF reader, annotation, and research workspace | `pnpm dev` | `pnpm lint`, `pnpm type-check`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `reel-pipeline` | AI short-form video generation pipeline | see project README | see project README / CI | see project README / CI |
+| `reel-pipeline` | AI short-form video generation pipeline | `cd fleet-ops/services/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd fleet-ops/services/reel-pipeline && npm run deploy` |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `saas-maker` | Public product directory, feedback API/inbox, one published feedback package, Blume docs | package-specific dev commands | `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm smoke` after deploy | package/workflow deploys |

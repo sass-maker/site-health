@@ -18,7 +18,7 @@
     "build:web": "pnpm --filter psi-swarm-web run build",
     "dev:cli": "pnpm --filter psi-swarm run dev",
     "install:skill": "node scripts/install-skill.mjs",
-    "deploy": "node scripts/manual-deploy.mjs deploy.yml deploy.yml",
+    "deploy": "node ../scripts/manual-component-deploy.mjs psi-swarm",
     "docs:check": "node scripts/validate-docs.mjs",
     "docs:dev": "blume dev",
     "docs:build": "blume build"
@@ -29,7 +29,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sarthakagrawal927/psi-swarm.git"
+    "url": "https://github.com/sass-maker/fleet-workspace.git",
+    "directory": "fleet-ops/psi-swarm"
   },
   "author": "Sarthak Agrawal",
   "license": "MIT",
