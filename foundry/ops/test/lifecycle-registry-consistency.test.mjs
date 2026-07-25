@@ -50,7 +50,7 @@ test("attention counts and ignored membership match the canonical registry", asy
   }
 
   assert.match(readme, /^### My Work — 4$/m);
-  assert.match(readme, /^### Toolbox — 16$/m);
+  assert.match(readme, /^### Toolbox — 17$/m);
   assert.match(readme, /^### Foundry — 5$/m);
   assert.match(readme, /^### Ignored \/ inactive — 12$/m);
 

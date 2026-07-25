@@ -25,7 +25,7 @@
     ],
     "priorities": {
       "P1": ["codevetter", "pace", "posttrainllm", "high-signal", "sarthakagrawal-personal"],
-      "P2": ["fleet-workspace", "app-health", "drank", "free-ai", "psi-swarm", "everythingrated", "research-papers", "knowledge-base", "starboard", "reel-pipeline", "motion"],
+      "P2": ["fleet-workspace", "app-health", "mashup", "drank", "free-ai", "psi-swarm", "everythingrated", "research-papers", "knowledge-base", "starboard", "reel-pipeline", "motion"],
       "P3": ["email-manager", "materia", "significanthobbies", "anime-list", "chess", "looptv", "reader", "swe-interview-prep", "rolepatch", "karte", "ai-game", "protein-index", "mobile-dev-cockpit", "saas-ideas", "truehire", "today-little-log", "open-historia"]
     }
   },
@@ -438,6 +438,19 @@
       "inRegistry": false,
       "status": "undeployed",
       "notes": "Independent aggregate-only endpoint health product. Local V0 complete; production auth and deployment are intentionally deferred."
+    },
+    {
+      "id": "mashup",
+      "authModel": "required-service",
+      "family": "mashup",
+      "tier": "active",
+      "repo": "mashup",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Local-only creator-archive sequencing experiment. Python CLI and loopback editor are verified; no Cloudflare deployment. Real archive validation requires an owner-approved bulk download and the Fleet free-ai gateway key."
     },
     {
       "id": "saas-ideas",

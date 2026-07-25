@@ -66,11 +66,11 @@ active maintenance obligation.
 - [PostTrainLLM](https://github.com/PostTrainLLM/posttrainllm)
 - [High Signal](https://github.com/High-Signal-App/high-signal)
 
-### Toolbox — 16
+### Toolbox — 17
 
 Personal website, RolePatch, Karte, Significant Hobbies, Reader, Anime List,
 SWE Interview Prep, Email Manager, LoopTV, Chess, Motion, Research Papers,
-Starboard, Free AI, Knowledge Base, and App Health remain usable and
+Starboard, Free AI, Knowledge Base, App Health, and Mashup remain usable and
 discoverable without becoming standing product commitments.
 
 ### Foundry — 5

@@ -51,6 +51,23 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Mashup registered as a local Toolbox experiment:** Added the
+  new clean `sarthakagrawal927/mashup` checkout to the canonical project,
+  attention, marketing, and OpenSpec inventories. Its Python CLI, loopback
+  editor, 175 tests, Ruff checks, Astro build, and validation commands are
+  verified and pushed. It has no deployed surface; real-archive validation
+  remains explicitly blocked on an owner-approved roughly 1.5 GiB download and
+  the existing Fleet free-ai gateway key.
+- **2026-07-25 — Cloudflare + Turso Spend Guard shipped:** Added a Fleet-owned,
+  read-only skill that separates fixed subscriptions, usage charges, runtime
+  consumption, quota exhaustion, and configuration exposure before judging
+  spend likelihood or availability risk. It maps Cloudflare and Turso cost
+  surfaces to project purpose, preserves missing billing permissions as
+  unknown, tracks exposure risk separately, and returns
+  keep/optimize/pause-candidate decisions. Credential-free config, FOCUS-usage,
+  and Turso dependency helpers passed focused tests, capability discovery, the
+  skill and specification validators, and read-only forward tests; no provider
+  or production mutation occurred.
 - **2026-07-25 — Founder control local acceptance passed:** Added idempotent,
   safe current-evidence backfill, mission-linked marketing receipts, and
   deduplicated owner notifications routed to Foundry Needs me. Verified the
@@ -177,6 +194,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Canonical project/domain/deploy inventory and attention model.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and
   automation health scripts.
+- Read-only Cloudflare and Turso spend governance with current-provider
+  retrieval, fixed-versus-usage cost separation, quota-block risk,
+  project/database necessity decisions, configuration exposure scanning, and
+  billable-usage normalization.
 - Bounded public-product browser smoke workflow with canonical manifest,
   production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.

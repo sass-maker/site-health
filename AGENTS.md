@@ -84,7 +84,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 
 | Skill | Type | Notes |
 |---|---|---|
-| `fleet-ops` | parent | routes to audit/init/deploy/workspace subskills |
+| `fleet-ops` | parent | routes to audit/init/deploy/workspace/Cloudflare and Turso spend subskills |
 | `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |
 | `spec-driven` | standalone | OpenSpec workflow |
@@ -92,6 +92,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |
+| `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
 | `impeccable` | external standalone | default workflow for new UI, landing pages, and substantial visual redesigns |
 
 Use repo-local scripts before manual fleet inspection:

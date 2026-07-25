@@ -42,7 +42,7 @@ count, are the source of truth.
 
 | Symlink | Type | Routes to |
 |---|---|---|
-| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace |
+| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace, cloudflare-spend-guard |
 | `call-teammate` | parent | Codex, Grok, Hermes, and optional approved teammates |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | — |
@@ -52,6 +52,7 @@ count, are the source of truth.
 | `token-budget` | standalone | — |
 | `mobile-task-control` | standalone | — |
 | `daily-learning` | standalone | fresh private 30-minute learning sessions |
+| `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization audits |
 | `impeccable` | external standalone | design context, critique, polish, and audit workflow |
 
 Fleet-owned skills are wired from `foundry/ops/`. Impeccable is installed

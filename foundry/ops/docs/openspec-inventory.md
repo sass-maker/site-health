@@ -6,10 +6,10 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 
 ## Summary
 
-- Registry entries: 37
-- Project/component checkouts with OpenSpec: 17
-- Project/component spec roots: 17
-- Project/component base specs: 122
+- Registry entries: 38
+- Project/component checkouts with OpenSpec: 18
+- Project/component spec roots: 18
+- Project/component base specs: 128
 - Project/component active changes: 6
 - Registered external stores (excluding Fleet itself): 0
 
@@ -29,6 +29,7 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 | toolbox | Karte | `karte` | available |
 | toolbox | Knowledge Base | `knowledge-base` | available |
 | toolbox | LoopTV | `looptv` | available |
+| toolbox | Mashup | `mashup` | available |
 | toolbox | Motion | `motion` | none |
 | toolbox | Personal website | `../portfolio` | none |
 | toolbox | Reader | `reader` | available |
@@ -101,7 +102,7 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `portfolio-identity-toolbox-automation`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `founder-mission-control`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
@@ -109,7 +110,7 @@ Base specs: `ai-infrastructure-toolbox-automation`, `canonical-content-packages`
 | `geo-observatory` | 7/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 24
+Archived changes: 25
 
 ### HeyPace
 
@@ -161,6 +162,18 @@ Active changes: none
 
 Archived changes: 5
 
+### Mashup
+
+Root: `mashup`
+
+Base specs: none
+
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `build-mashup-mvp` | 36/46 | in progress |
+
+Archived changes: 0
+
 ### Mobile Dev Cockpit
 
 Root: `foundry/apps/mobile-cockpit`
@@ -177,14 +190,13 @@ Archived changes: 2
 
 Root: `posttrainllm`
 
-Base specs: `fine-tune-report-card`
+Base specs: `factory-run-lifecycle`, `fine-tune-report-card`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `add-durable-factory-run-lifecycle` | 0/29 | in progress |
-| `build-mac-local-autocorrect-specialist` | 0/36 | in progress |
+| `build-mac-local-autocorrect-specialist` | 15/36 | in progress |
 
-Archived changes: 1
+Archived changes: 2
 
 ### Reader
 

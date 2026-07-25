@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-20",
+  "updatedAt": "2026-07-25",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 16,
+    "toolbox": 17,
     "foundry": 5,
     "ignored": 12
   },
@@ -356,6 +356,22 @@
       "contracts": ["build", "errors", "api-health"],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest local validation findings; production alerting starts only after an explicit deploy",
+      "exceptions": []
+    },
+    {
+      "id": "mashup",
+      "name": "Mashup",
+      "attention": "toolbox",
+      "family": "mashup",
+      "owner": "sarthak",
+      "repository": "mashup",
+      "runtimes": ["local-tool", "data-pipeline"],
+      "surfaces": [],
+      "dependencies": ["GitHub Actions", "FFmpeg", "Fleet free-ai gateway", "creator-owned archive"],
+      "evidenceSources": ["github-actions", "local-checks"],
+      "contracts": ["build", "errors"],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest local validation findings; real archive and gateway runs require explicit owner setup",
       "exceptions": []
     },
 

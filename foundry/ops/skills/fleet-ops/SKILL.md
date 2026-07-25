@@ -1,6 +1,6 @@
 ---
 name: fleet-ops
-description: Fleet operations — audit the fleet, test public product journeys, scaffold a new project, guard a deploy, or make cross-project workspace decisions. Use when the user asks about fleet health, fleet status, whether public products work for guests, clicking around every website, creating a new project, deploy readiness, workspace structure, or any cross-fleet operational task. Routes to the right subskill based on intent.
+description: Fleet operations — audit the fleet, test public product journeys, audit Cloudflare or Turso spend and quotas, scaffold a new project, guard a deploy, or make cross-project workspace decisions. Use when the user asks about fleet health, fleet status, whether public products work for guests, clicking around every website, Cloudflare or Turso costs, quota risk, or optimization, creating a new project, deploy readiness, workspace structure, or any cross-fleet operational task. Routes to the right subskill based on intent.
 ---
 
 # fleet-ops — parent skill
@@ -17,6 +17,7 @@ Subskills live as sibling directories under `foundry/ops/skills/`.
 | "Deploy X" / "can I deploy?" / "is X safe to deploy?" / "check deploy readiness" | `fleet-deploy-guard` | `../fleet-deploy-guard/SKILL.md` |
 | "Does this work belong in a child project or fleet-ops?" / cross-project workspace decisions | `fleet-workspace` | `../fleet-workspace/SKILL.md` |
 | "Do the public products work?" / "open every website and click around" / "test guest journeys" / "check each product's unique pages" | `public-product-smoke` | `../public-product-smoke/SKILL.md` |
+| "Am I paying Cloudflare or Turso?" / "will this project cost money?" / "will Turso block queries?" / "is this usage needed?" / "optimize cloud spend" | `cloudflare-spend-guard` | `../cloudflare-spend-guard/SKILL.md` |
 
 ## How to use
 

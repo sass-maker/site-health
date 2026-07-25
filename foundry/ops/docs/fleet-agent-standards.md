@@ -245,7 +245,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 
 | Skill | Type | Routes to |
 |---|---|---|
-| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace |
+| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace, cloudflare-spend-guard |
 | `call-teammate` | parent | call-claude-code, call-codex, call-cursor, call-devin, call-grok |
 | `site-health` | parent | agent-ready, seo-audit, psi-swarm, geo-observatory, public-product-smoke; combined scorecard |
 | `name-domains` | standalone | — |
@@ -253,6 +253,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |
+| `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
 | `impeccable` | external standalone | design context, critique, polish, and audit workflow |
 
 Agent skill dirs wired (symlinks point to `foundry/ops/` paths):

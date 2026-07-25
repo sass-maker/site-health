@@ -33,7 +33,7 @@ The daily operating view is intentionally small:
 Agents may test, monitor, document, research, and report on these products, but
 Sarthak owns their direction and decides when product work happens.
 
-## Toolbox — 16
+## Toolbox — 17
 
 - Personal website
 - RolePatch
@@ -50,6 +50,8 @@ Sarthak owns their direction and decides when product work happens.
 - Starboard
 - Free AI
 - Knowledge Base
+- App Health
+- Mashup
 
 Toolbox projects should remain usable and discoverable without becoming active
 commitments. Default automation is limited to lightweight build/availability
@@ -127,7 +129,7 @@ active Fleet clone set and is not recreated by fresh-machine setup.
 | Foundry + Helpers | Run the verified post-ship measure, market, and feedback loop |
 | Ignored / inactive | No routine work; reactivate explicitly |
 
-The catalog contains 37 named entries: 4 My Work, 16 Toolbox, 5 Foundry +
+The catalog contains 38 named entries: 4 My Work, 17 Toolbox, 5 Foundry +
 Helpers, and 12 Ignored/inactive. Repository and deploy counts differ because
 some entries are surfaces within a family and some historical entries have no
 active deployment.

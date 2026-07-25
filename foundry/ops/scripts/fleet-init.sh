@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 NAME=""
 CATEGORY=""
 DESC=""
@@ -117,10 +117,10 @@ Also read and follow the shared fleet-level agent standard at \`../AGENTS.md\`. 
 ## Visual work
 
 For any visual surface, use the Fleet-local Impeccable skill and the shared
-`../LANDING_STANDARD.md` where applicable. Before broad visual implementation,
-run `\$impeccable init`; keep `PROJECT_STATUS.md` authoritative for product
-scope, `PRODUCT.md` limited to design context, and `DESIGN.md` authoritative
-for visual tokens and components. Review `critique -> polish -> audit` before
+\`../LANDING_STANDARD.md\` where applicable. Before broad visual implementation,
+run \`\$impeccable init\`; keep \`PROJECT_STATUS.md\` authoritative for product
+scope, \`PRODUCT.md\` limited to design context, and \`DESIGN.md\` authoritative
+for visual tokens and components. Review \`critique -> polish -> audit\` before
 shipping meaningful UI work.
 AGENTSEOF
 
