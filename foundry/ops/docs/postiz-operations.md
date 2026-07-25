@@ -52,6 +52,10 @@ healthy; the HTML registration surface loaded; the unauthenticated Public API
 compatibility route returned 401; and the full stack recovered after restart.
 Only Postiz on `127.0.0.1:4007` and Temporal RPC on `127.0.0.1:7233` had host
 bindings. PostgreSQL, Redis, and Elasticsearch remained container-private.
+The settled local snapshot used about 3.26 GiB across the six containers:
+Postiz 2.28 GiB, Elasticsearch 631 MiB, Temporal 232 MiB, and the remaining
+datastores about 122 MiB combined. Loopback root and API probes completed in
+about 4 ms on this host.
 
 The repository's eight focused host/runner tests, source-only Compose
 validation, and disposable six-directory backup/candidate-restore/rollback
