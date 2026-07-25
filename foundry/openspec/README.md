@@ -8,6 +8,8 @@ Ownership rules:
   repository's `openspec/` directory.
 - A change affecting Fleet itself, a Foundry component, or more than one
   repository belongs here.
+- Ignored/inactive projects do not retain OpenSpec trees. Preserve shipped
+  outcomes in their root `PROJECT_STATUS.md`; discard cancelled planning work.
 - Do not create standalone stores under `~/Desktop/openspec-stores`.
 - `foundry/ops/docs/openspec-inventory.md` is the generated catalog across this
   store and every canonical project checkout; it is not a second source of

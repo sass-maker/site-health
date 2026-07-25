@@ -110,6 +110,10 @@ These are frozen or retired. Do not include them in routine sweeps, maintenance
 queues, marketing programs, or planning. Work on one only after an explicit
 reactivation decision.
 
+Inactive repositories do not retain OpenSpec planning trees. Shipped outcomes
+stay in `PROJECT_STATUS.md` and Git history; cancelled plans are discarded. A
+reactivated project starts with a fresh plan based on current product truth.
+
 On Sarthak's current machine, optional history checkouts are kept together at
 `/Users/sarthak/Desktop/fleet-inactive-projects/`. This local archive is not an
 active Fleet clone set and is not recreated by fresh-machine setup.
