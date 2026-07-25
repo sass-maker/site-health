@@ -150,7 +150,7 @@ test('every Postiz readiness lane fails closed through an injectable fixture pro
   const value = fixture(t);
   const cases = [
     ['postiz-cpu', { resources: () => ({ cpuCount: 1, memoryBytes: 4 * 1024 ** 3 }) }],
-    ['postiz-memory', { resources: () => ({ cpuCount: 4, memoryBytes: 1024 ** 3 }) }],
+    ['postiz-memory', { resources: () => ({ cpuCount: 4, memoryBytes: 2 * 1024 ** 3 }) }],
     ['postiz-disk', { freeDiskBytes: () => 10 * 1024 ** 3 }],
     ['postiz-persistent-paths', { pathReady: () => false }],
     ['postiz-backup-readiness', { backupReady: () => false }],

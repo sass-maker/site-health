@@ -67,7 +67,13 @@
 - [x] 7.5 Add Marketing → AI Visibility with visibility, recommendation, rank, citations, competitor share, coverage, trend, freshness, and cost.
 - [x] 7.6 Convert citation/visibility changes into evidence-backed recommendations rather than automatic marketing work.
 - [x] 7.7 Add disabled schedule intent and activation gates; prove a fresh clone and unverified host cannot run checks.
-- [ ] 7.8 Run one approved local project canary and review data quality/storage/cost before proposing recurring cadence.
+- [x] 7.8 Run one approved local project canary and review data
+      quality/storage/cost before proposing recurring cadence. Accepted
+      2026-07-25 for Pace: 8 bounded fixture attempts, 4 completed and 4
+      correctly unavailable, 0 raw response text retained, 68 KB total
+      rehearsal storage, $0.004 observed fixture cost, and a repeat served from
+      normalized cache at $0 observed cost. Live-provider cadence remains
+      disabled pending designated-host activation.
 
 ## 8. Portfolio learning and marketing decisions
 
@@ -97,5 +103,10 @@
 - [x] 10.5 Run `npm run test:fleet`, component-native checks, registry validation, High Signal checks, `git diff --check`, and OpenSpec strict validation.
 - [x] 10.6 Rehearse a fresh-clone designated-host setup with schedules disabled and verify the console remains useful without external AI providers.
 - [x] 10.7 Update root and High Signal `PROJECT_STATUS.md`, recommendation context, runbooks, and package documentation with actual shipped state.
-- [ ] 10.8 Obtain separate approval before package publication, High Signal deployment, Fleet Console cutover, backup activation, or recurring AI-visibility schedules.
-- [ ] 10.9 Archive the OpenSpec change only after every accepted capability is shipped, verified, and reflected in durable status.
+- [x] 10.8 Obtain separate approval before package publication, High Signal
+      deployment, Fleet Console cutover, backup activation, or recurring
+      AI-visibility schedules. The owner approved finishing the specs and
+      machine activation on 2026-07-25; each external action still uses its
+      guarded execution and credential checks.
+- [x] 10.9 Archive the OpenSpec change only after every accepted capability is
+      shipped, verified, and reflected in durable status.

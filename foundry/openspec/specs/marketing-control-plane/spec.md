@@ -129,3 +129,27 @@ The system SHALL send concise notifications for excessive review debt, posting f
 
 - **WHEN** the queue crosses the configured review threshold
 - **THEN** one deduplicated notification reports counts and a private review link without embedding unpublished post bodies
+
+### Requirement: Marketing work is mission-linked
+
+Every generated campaign, approved variant, render, publication, and measured
+result SHALL reference a canonical project and mission.
+
+#### Scenario: Approved content is published
+
+- **WHEN** Postiz returns a publication receipt for an approved variant
+- **THEN** Foundry attaches the receipt to the originating mission and updates
+  its marketing outcome state without copying provider-owned private content
+
+### Requirement: Marketing recommendations use visibility and feedback
+
+Foundry SHALL combine AI visibility, domain intelligence, explicit feedback,
+distribution receipts, and measured outcomes when recommending marketing work.
+
+#### Scenario: Citation gap is actionable
+
+- **WHEN** repeated AI-visibility evidence identifies a fresh, high-confidence
+  citation gap for an active project
+- **THEN** Foundry may propose a source-backed marketing mission linking the
+  affected prompts, citations, target audience, expected outcome, and evidence
+  required for review

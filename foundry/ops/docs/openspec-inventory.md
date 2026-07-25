@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 37
 - Project/component checkouts with OpenSpec: 17
 - Project/component spec roots: 17
-- Project/component base specs: 119
-- Project/component active changes: 8
+- Project/component base specs: 122
+- Project/component active changes: 6
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -106,7 +106,6 @@ Base specs: `ai-infrastructure-toolbox-automation`, `canonical-content-packages`
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
-| `foundry-founder-control-loop` | 48/72 | in progress |
 | `geo-observatory` | 7/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
@@ -146,11 +145,11 @@ Archived changes: 1
 
 Root: `knowledge-base`
 
-Base specs: `static-dashboard-delivery`
+Base specs: `internal-operator-access`, `operator-observability`, `static-dashboard-delivery`
 
 Active changes: none
 
-Archived changes: 1
+Archived changes: 3
 
 ### LoopTV
 
@@ -178,15 +177,14 @@ Archived changes: 2
 
 Root: `posttrainllm`
 
-Base specs: none
+Base specs: `fine-tune-report-card`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `add-durable-factory-run-lifecycle` | 0/29 | in progress |
-| `add-fine-tune-report-card` | 18/18 | complete |
 | `build-mac-local-autocorrect-specialist` | 0/36 | in progress |
 
-Archived changes: 0
+Archived changes: 1
 
 ### Reader
 

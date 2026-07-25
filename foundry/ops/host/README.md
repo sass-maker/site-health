@@ -63,7 +63,7 @@ A machine-local readiness file contains paths and private probe URLs only:
 }
 ```
 
-The doctor requires two logical CPUs, 2 GiB RAM, 20 GiB free at the data root,
+The doctor requires two logical CPUs, 4 GiB RAM, 20 GiB free at the data root,
 all six persistent directories, a verified `v2.21.10` restore-rehearsal
 receipt, a successful health response, a present/auth-gated public API route,
 and private reachability. URLs with public hosts or embedded credentials are

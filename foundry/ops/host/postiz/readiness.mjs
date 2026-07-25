@@ -164,7 +164,7 @@ export function inspectPostizReadiness(configFile, { checkoutRoot, probes = {} }
   const persistentReady = PERSISTENT_DIRECTORIES.every((name) => activeProbes.pathReady(resolve(config.dataRoot, name)));
   const checks = [
     check('postiz-cpu', resources.cpuCount >= manifest.minimumHost.cpuCount, 'minimum-2-logical-cpus'),
-    check('postiz-memory', resources.memoryBytes >= manifest.minimumHost.memoryBytes, 'minimum-2-gib'),
+    check('postiz-memory', resources.memoryBytes >= manifest.minimumHost.memoryBytes, 'minimum-4-gib'),
     check('postiz-disk', activeProbes.freeDiskBytes(config.dataRoot) >= manifest.minimumHost.freeDiskBytes, 'minimum-20-gib-free'),
     check('postiz-persistent-paths', persistentReady, 'six-machine-local-directories-ready'),
     check('postiz-backup-readiness', activeProbes.backupReady(config), 'verified-restore-rehearsal-required'),

@@ -55,9 +55,12 @@ CodeVetter or App Health source.
   safe current-evidence backfill, mission-linked marketing receipts, and
   deduplicated owner notifications routed to Foundry Needs me. Verified the
   owner over-parity journeys, High Signal's seeded connected-brand contracts
-  and Mentions build, all Fleet/component checks, and a clean-checkout console
-  and fixture-only canary with schedules inert. No live provider, deployment,
-  package publication, backup activation, or schedule activation occurred.
+  and Mentions build, all Fleet/component checks, and a clean-checkout console.
+  The approved Pace AI-visibility canary then verified bounded mixed-provider
+  coverage, normalized private retention, 68 KB rehearsal storage, $0.004
+  observed fixture cost, and a $0 repeat from cache. No live provider,
+  deployment, package publication, backup activation, or schedule activation
+  occurred.
 - **2026-07-25 — Foundry AI Visibility local slice shipped:** Added canonical
   project visibility configuration, ignored-project reactivation gates, a
   fixture-only bounded canary, normalized ledger history/comparison and cost
@@ -222,16 +225,14 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ### Planned
 
-1. Run the separately approved task 7.8 live-provider project canary and review
-   data quality, retained storage, and observed cost before proposing cadence.
-2. Clone synchronized `main` on the designated operations host, repeat its
+1. Clone synchronized `main` on the designated operations host, repeat its
    machine-specific doctor checks, and keep every schedule disabled until an
    explicit cutover approval.
-3. Complete the Postiz target-host activation and one draft-only canary using
+2. Complete the Postiz target-host activation and one draft-only canary using
    `foundry/ops/docs/postiz-operations.md`.
-4. Complete the independent App Health Cloudflare resource/Access cutover and
+3. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
-5. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
+4. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
 
 ### Deferred
 
