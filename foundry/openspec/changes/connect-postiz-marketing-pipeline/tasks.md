@@ -28,3 +28,23 @@
 - [ ] 4.4 Protect the Postiz hostname with Cloudflare Access, connect exact brand accounts, and keep credentials in the machine secret store
 - [ ] 4.5 Run a draft-only production canary for one brand and verify no post was scheduled or published
 - [ ] 4.6 After explicit canary acceptance, enable the recurring draft generator and record the final topology in PROJECT_STATUS.md
+
+## Local verification checkpoint (2026-07-25)
+
+- Pulled the exact pinned Postiz v2.22.1 multi-architecture digest and all five
+  pinned dependency images on the current Apple-Silicon Mac.
+- Started the complete six-container Compose topology with generated
+  disposable credentials and bind-mounted state outside the checkout.
+- Verified every container healthy, the HTML registration surface available
+  after the root redirect, the unauthenticated Public API route returning 401,
+  and only Postiz/Temporal bound to loopback. PostgreSQL, Redis, and
+  Elasticsearch had no host port.
+- Restarted the complete stack and verified the root 307 and API 401 responses
+  recovered on the second five-second probe.
+- Passed the eight Postiz host/runner tests, source-only Compose validation, and
+  the disposable six-directory backup/candidate-restore/rollback rehearsal.
+
+Task 4.3 remains open because this proves local compatibility, not durable
+installation on the designated operations machine. Tasks 4.4-4.6 still require
+that machine, owner-controlled Cloudflare Access/account consent and secrets,
+one real draft-only canary, and explicit canary acceptance.

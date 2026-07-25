@@ -43,6 +43,26 @@ Rollback means stopping the Fleet draft submitter and Postiz profile. Source
 packages and render receipts remain usable, and existing Postiz drafts remain
 reviewable.
 
+## Local compatibility proof
+
+On 2026-07-25 the complete pinned topology was run on the current Apple-Silicon
+Mac through OrbStack before target-host migration. The exact v2.22.1 digest
+and pinned dependencies pulled successfully; all six containers became
+healthy; the HTML registration surface loaded; the unauthenticated Public API
+compatibility route returned 401; and the full stack recovered after restart.
+Only Postiz on `127.0.0.1:4007` and Temporal RPC on `127.0.0.1:7233` had host
+bindings. PostgreSQL, Redis, and Elasticsearch remained container-private.
+
+The repository's eight focused host/runner tests, source-only Compose
+validation, and disposable six-directory backup/candidate-restore/rollback
+rehearsal also passed. The test used generated disposable credentials and
+external bind mounts; no tracked file, provider credential, Cloudflare route,
+social account, schedule, or publication was changed.
+
+This is a compatibility and migration-risk proof only. It does not satisfy the
+designated-host installation, durable backup, Cloudflare Access, account
+connection, or draft-only production canary gates below.
+
 ## Host prerequisites
 
 - A Linux host with Docker Engine and the Compose v2 plugin.
