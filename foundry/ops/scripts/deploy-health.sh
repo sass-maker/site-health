@@ -158,8 +158,9 @@ package_has_deploy_script() {
     jq -e '(.scripts // {}) | keys[]? | select(. == "deploy" or startswith("deploy:"))' "$package_json" >/dev/null
 }
 
-project_has_deploy_script() {
+project_has_deploy_entrypoint() {
   local repo="$1"
+  local workflow
 
   if package_has_deploy_script "$repo/package.json"; then
     return 0
@@ -177,6 +178,18 @@ project_has_deploy_script() {
       -not -path '*/out/*' \
       -not -path '*/build/*' \
       -print0
+  )
+
+  while IFS= read -r -d '' workflow; do
+    if grep -Eqs \
+      'cloudflare/(wrangler-action|pages-action)|(^|[[:space:]])wrangler[[:space:]]+(pages[[:space:]]+)?deploy([[:space:]]|$)' \
+      "$workflow"; then
+      return 0
+    fi
+  done < <(
+    find "$repo/.github/workflows" -maxdepth 1 -type f \
+      \( -name '*.yml' -o -name '*.yaml' \) \
+      -print0 2>/dev/null
   )
 
   return 1
@@ -373,10 +386,10 @@ check_project_standards() {
       record "OK" "$repo has GitHub Actions workflow files ($workflow_count)"
     fi
 
-    if project_has_deploy_script "$repo"; then
-      record "OK" "$repo has a package deploy script"
+    if project_has_deploy_entrypoint "$repo"; then
+      record "OK" "$repo has a deploy entrypoint"
     else
-      record "FAIL" "$repo has no package deploy script"
+      record "FAIL" "$repo has no deploy entrypoint"
     fi
   done < <(find "$ROOT" -maxdepth 2 -type d -name ".git" -prune -print0)
 

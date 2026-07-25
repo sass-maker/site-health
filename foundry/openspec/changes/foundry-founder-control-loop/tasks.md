@@ -51,12 +51,12 @@
 
 ## 6. Migrate High Signal without product regression
 
-- [ ] 6.1 Add the package to High Signal through a local packed-artifact integration and preserve its existing D1, API, auth, schedule, UI, and Daily Brief ownership.
-- [ ] 6.2 Replace High Signal's execution/analysis imports incrementally while keeping the previous implementation available for comparison.
-- [ ] 6.3 Run frozen fixture parity, Mention suites, API product-contract tests, shared/API/web typechecks, docs checks, and the smallest relevant build.
+- [x] 6.1 Add the package to High Signal through a local packed-artifact integration and preserve its existing D1, API, auth, schedule, UI, and Daily Brief ownership.
+- [x] 6.2 Replace High Signal's execution/analysis imports incrementally while keeping the previous implementation available for comparison.
+- [x] 6.3 Run frozen fixture parity, Mention suites, API product-contract tests, shared/API/web typechecks, docs checks, and the smallest relevant build.
 - [ ] 6.4 Verify the connected-brand Daily Brief sections and Mentions route locally with seeded data.
-- [ ] 6.5 Remove duplicated High Signal engine code only after parity passes and update its architecture, direction, status, and migration-source rules.
-- [ ] 6.6 Prepare the package release and High Signal consumer changes as independently reviewable commits; do not publish or deploy without their guarded approvals.
+- [x] 6.5 Remove duplicated High Signal engine code only after parity passes and update its architecture, direction, status, and migration-source rules.
+- [x] 6.6 Prepare the package release and High Signal consumer changes as independently reviewable commits; do not publish or deploy without their guarded approvals.
 
 ## 7. Foundry AI visibility and Marketing
 

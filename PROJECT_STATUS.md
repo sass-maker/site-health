@@ -193,6 +193,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Framework-independent `@saas-maker/ai-visibility` package with deterministic
   citation, mention, recommendation, rank, sentiment, competitor, provider,
   budget, cache, and provenance contracts.
+- High Signal now consumes the reviewed packed AI-visibility package while
+  retaining ownership of its D1 data, auth, providers, schedules, APIs, Daily
+  Brief, reports, and UI. The migration merged with package, adapter, Mention,
+  docs, typecheck, and web-build verification; no deployment was performed.
 - Sanitized automation evidence adapters and machine-readable coverage reports;
   technical coverage remains outside the primary owner-facing navigation.
 
@@ -200,9 +204,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ### Planned
 
-1. Complete the remaining `foundry-founder-control-loop` work: migrate High
-   Signal to the shared package, add Foundry's marketing visibility projection,
-   finish evidence backfill/notification wiring, and run rollout acceptance.
+1. Complete the remaining `foundry-founder-control-loop` work: verify High
+   Signal's seeded connected-brand surfaces, add Foundry's marketing visibility
+   projection, finish evidence backfill/notification wiring, and run rollout
+   acceptance.
 2. Verify the designated operations host from a fresh clone before activating
    any schedules.
 3. Complete the Postiz target-host activation and one draft-only canary using
