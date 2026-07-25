@@ -113,6 +113,7 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
         score: Number(event.payload.score ?? 0),
         confidence: Number(event.payload.confidence),
         effort: Number(event.payload.effort),
+        risk: event.payload.risk ?? null,
         state: 'open',
         createdAt: event.occurredAt,
         updatedAt: event.occurredAt,
@@ -250,6 +251,7 @@ export function buildDailyBrief(projections) {
         : home.workingNow.length > 0
           ? `${home.workingNow.length} mission${home.workingNow.length === 1 ? '' : 's'} currently moving`
           : 'No owner action is required',
+    ownerActionPath: home.needsMe.length > 0 ? '/decisions' : null,
     decisions: home.needsMe.slice(0, 5),
     currentWork: home.workingNow.slice(0, 5),
     verifiedOutcomes: home.whatShipped.slice(0, 5),

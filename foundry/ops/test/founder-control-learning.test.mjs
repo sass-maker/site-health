@@ -4,6 +4,7 @@ import test from 'node:test';
 import { attributionReady, recommendationEvent, scoreRecommendation } from '../lib/founder-control/recommendations.mjs';
 import { draftMission } from '../lib/founder-control/intake.mjs';
 import { buildOwnerNotifications, evaluateOutcomeWindow } from '../lib/founder-control/learning.mjs';
+import { deliverOwnerNotifications, toFleetNotification } from '../lib/founder-control/notification-delivery.mjs';
 
 const now = '2026-07-25T08:00:00.000Z';
 
@@ -122,11 +123,71 @@ test('deduplicates notifications and only escalates owner-relevant states', () =
         lastRunAt: now,
       },
     ],
+    recommendations: [
+      {
+        id: 'recommendation/risk',
+        title: 'Stop unexpected provider spend',
+        state: 'open',
+        updatedAt: now,
+        projectId: 'codevetter',
+        risk: 'cost',
+      },
+      {
+        id: 'recommendation/routine',
+        title: 'Routine polish',
+        state: 'open',
+        updatedAt: now,
+        projectId: 'codevetter',
+        risk: null,
+      },
+    ],
   };
   const notifications = buildOwnerNotifications(projections, { now });
   assert.deepEqual(
     notifications.map((item) => item.kind).sort(),
-    ['critical-work-failed', 'owner-decision', 'prolonged-blocker'],
+    ['critical-work-failed', 'material-risk', 'owner-decision', 'prolonged-blocker'],
   );
   assert.equal(new Set(notifications.map((item) => item.key)).size, notifications.length);
+});
+
+test('maps owner actions to the durable Fleet outbox without hiding duplicates', async () => {
+  const projections = {
+    decisions: [
+      {
+        id: 'decision/1',
+        state: 'open',
+        updatedAt: now,
+        question: 'Approve release?',
+        projectId: 'codevetter',
+        missionId: 'mission/1',
+      },
+    ],
+    missions: [],
+    schedules: [],
+    recommendations: [],
+  };
+  const emitted = [];
+  const summary = await deliverOwnerNotifications(projections, {
+    now,
+    emit: async (notification) => {
+      emitted.push(notification);
+      return emitted.length === 1 ? { queued: true } : { duplicate: true };
+    },
+  });
+  assert.equal(summary.considered, 1);
+  assert.equal(summary.queued, 1);
+  assert.equal(summary.duplicates, 0);
+  assert.equal(emitted[0].dedupeKey, `decision/decision/1/${now}`);
+  assert.equal(emitted[0].severity, 'warning');
+  assert.equal(emitted[0].url, 'https://fleet.sassmaker.com/decisions');
+
+  const completion = toFleetNotification({
+    key: 'complete/1',
+    kind: 'requested-completion',
+    severity: 'info',
+    title: 'Requested work completed',
+    missionId: 'mission/1',
+  });
+  assert.equal(completion.forceOwnerChannel, true);
+  assert.equal(completion.severity, 'success');
 });

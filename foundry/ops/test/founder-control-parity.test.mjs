@@ -96,6 +96,7 @@ test('covers intake, current work, owner request, timeline, schedules, and daily
   assert.ok(projections.missions[0].timeline.length >= 3);
   assert.equal(projections.schedules[0].enabled, false);
   assert.match(brief.headline, /owner decision/);
+  assert.equal(brief.ownerActionPath, '/decisions');
 
   const evidence = [
     { provider: 'github', kind: 'pull-request', state: 'verified' },

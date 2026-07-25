@@ -50,12 +50,16 @@ The public Fleet dashboard SHALL expose only sanitized aggregate marketing state
 
 ### Requirement: Operator approval remains authoritative
 
-The control plane SHALL preserve SaaS Maker as the acceptance/rejection system of record and SHALL NOT auto-accept or auto-post content.
+The control plane SHALL use Foundry's private owner-decision inbox as the
+acceptance/rejection system of record for Foundry-owned marketing work and
+SHALL NOT auto-accept or auto-post content.
 
 #### Scenario: Review is required
 
 - **WHEN** generated work awaits a decision
-- **THEN** the dashboard and mobile brief link to the authenticated SaaS Maker Marketing Queue
+- **THEN** the dashboard, owner notification, and mobile brief link to one
+  authenticated Foundry Needs me item containing the draft identity, evidence,
+  destination, and allowed responses
 
 #### Scenario: A pending item ages
 

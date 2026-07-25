@@ -82,5 +82,22 @@ export function buildOwnerNotifications(projections, { now = new Date().toISOStr
       scheduleId: schedule.id,
     });
   }
+  for (const recommendation of projections.recommendations ?? []) {
+    if (
+      recommendation.state !== 'open'
+      || !['security', 'cost', 'data-loss'].includes(recommendation.risk)
+    ) {
+      continue;
+    }
+    items.push({
+      key: `risk/${recommendation.id}/${recommendation.updatedAt}`,
+      kind: 'material-risk',
+      severity: 'critical',
+      title: recommendation.title,
+      missionId: recommendation.missionId,
+      projectId: recommendation.projectId,
+      risk: recommendation.risk,
+    });
+  }
   return [...new Map(items.map((item) => [item.key, item])).values()];
 }
