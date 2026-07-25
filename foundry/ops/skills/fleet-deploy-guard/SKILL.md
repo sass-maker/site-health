@@ -29,8 +29,8 @@ to run. Enforces the fleet deployment standard from AGENTS.md.
 
 ```bash
 bash ~/Desktop/fleet/foundry/ops/scripts/fleet-deploy-guard.sh <project>
-bash ~/Desktop/fleet/foundry/ops/scripts/fleet-deploy-guard.sh saas-maker
-bash ~/Desktop/fleet/foundry/ops/scripts/fleet-deploy-guard.sh saas-maker --force  # skip CI check
+bash ~/Desktop/fleet/foundry/ops/scripts/fleet-deploy-guard.sh codevetter
+bash ~/Desktop/fleet/foundry/ops/scripts/fleet-deploy-guard.sh codevetter --force  # skip CI check
 ```
 
 The script checks all 6 gates and exits non-zero if any fail. Use `--force` to
