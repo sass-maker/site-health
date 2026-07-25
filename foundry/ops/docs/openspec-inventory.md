@@ -9,7 +9,7 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 38
 - Project/component checkouts with OpenSpec: 18
 - Project/component spec roots: 18
-- Project/component base specs: 128
+- Project/component base specs: 130
 - Project/component active changes: 6
 - Registered external stores (excluding Fleet itself): 0
 
@@ -102,7 +102,7 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `founder-mission-control`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `founder-mission-control`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
@@ -110,7 +110,7 @@ Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-
 | `geo-observatory` | 7/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 25
+Archived changes: 27
 
 ### HeyPace
 
@@ -170,7 +170,7 @@ Base specs: none
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `build-mashup-mvp` | 36/46 | in progress |
+| `build-mashup-mvp` | 36/38 | in progress |
 
 Archived changes: 0
 
