@@ -22,7 +22,7 @@ jobs:
           node-version: '22'
 
       - name: Run manifest and live-surface audit
-        run: node fleet-ops/scripts/cloudflare-resilience-audit.mjs --manifest-only --json > cloudflare-resilience.json
+        run: node foundry/ops/scripts/cloudflare-resilience-audit.mjs --manifest-only --json > cloudflare-resilience.json
 
       - name: Upload redacted audit report
         if: always()

@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: apps/public-directory/package-lock.json
-      - working-directory: apps/public-directory
+          cache-dependency-path: foundry/apps/public-directory/package-lock.json
+      - working-directory: foundry/apps/public-directory
         run: npm ci
       - run: npm run test:fleet
       - run: npm run check:registry
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: packages/feedback
+        working-directory: foundry/packages/feedback
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: packages/feedback/pnpm-lock.yaml
+          cache-dependency-path: foundry/packages/feedback/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
 
@@ -51,8 +51,8 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: apps/ops-console/package-lock.json
-      - working-directory: apps/ops-console
+          cache-dependency-path: foundry/apps/ops-console/package-lock.json
+      - working-directory: foundry/apps/ops-console
         run: npm ci
-      - working-directory: apps/ops-console
+      - working-directory: foundry/apps/ops-console
         run: npm run build

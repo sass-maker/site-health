@@ -4,17 +4,17 @@ on:
   push:
     branches: [main]
     paths:
-      - 'fleet-ops/config/spotlight-products.json'
-      - 'fleet-ops/config/spotlight-sync.json'
-      - 'fleet-ops/scripts/sync-spotlight-products.mjs'
-      - 'fleet-ops/scripts/validate-spotlight-products.mjs'
+      - 'foundry/ops/config/spotlight-products.json'
+      - 'foundry/ops/config/spotlight-sync.json'
+      - 'foundry/ops/scripts/sync-spotlight-products.mjs'
+      - 'foundry/ops/scripts/validate-spotlight-products.mjs'
       - '.github/workflows/fleet-sync.yml'
   pull_request:
     paths:
-      - 'fleet-ops/config/spotlight-products.json'
-      - 'fleet-ops/config/spotlight-sync.json'
-      - 'fleet-ops/scripts/sync-spotlight-products.mjs'
-      - 'fleet-ops/scripts/validate-spotlight-products.mjs'
+      - 'foundry/ops/config/spotlight-products.json'
+      - 'foundry/ops/config/spotlight-sync.json'
+      - 'foundry/ops/scripts/sync-spotlight-products.mjs'
+      - 'foundry/ops/scripts/validate-spotlight-products.mjs'
       - '.github/workflows/fleet-sync.yml'
   schedule:
     - cron: '17 5 * * *'
@@ -50,4 +50,4 @@ jobs:
           node-version: 22
 
       - name: Validate fleet synchronization
-        run: node fleet-ops/scripts/sync-spotlight-products.mjs --check --strict --workspace .
+        run: node foundry/ops/scripts/sync-spotlight-products.mjs --check --strict --workspace .

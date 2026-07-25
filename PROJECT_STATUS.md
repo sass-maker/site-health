@@ -36,7 +36,7 @@ CodeVetter or App Health source.
 
 ### Internal
 
-- `fleet-ops/config/projects.json` is the canonical internal product inventory.
+- `foundry/ops/config/projects.json` is the canonical internal product inventory.
 - Reel Pipeline produces approved media and publication handoff receipts.
 - Drank supplies domain intelligence.
 - PSI Swarm supplies bounded performance/site-health evidence.
@@ -48,16 +48,17 @@ CodeVetter or App Health source.
 
 ## Timeline
 
-- **2026-07-25 — Monorepo ownership boundaries normalized:** Moved deployable
-  interfaces to `apps/`, helper runtimes to `services/`, reusable code to
-  `packages/`, and PSI Swarm to `tools/`. `fleet-ops/` now contains operations
-  only: policy, registries, automation, host setup, scripts, skills, agents,
+- **2026-07-25 — Monorepo ownership boundaries normalized:** Moved all
+  Fleet-owned source under `foundry/`: deployable interfaces in
+  `foundry/apps/`, helper runtimes in `foundry/services/`, reusable code in
+  `foundry/packages/`, and PSI Swarm in `foundry/tools/`. `foundry/ops/`
+  contains policy, registries, automation, host setup, scripts, skills, agents,
   evidence, and operational docs.
 - **2026-07-25 — Repository boundary cleanup:** Corrected SaaS Maker's public
   GitHub link so it no longer points visitors at the private Fleet repository,
   registered the directory in the canonical agent-surface registry, removed
   redundant embedded repository archives, consolidated shared fixtures under
-  `fleet-ops/test/`, and documented the three Fleet Ops ownership zones.
+  `foundry/ops/test/`, and documented the three Fleet Ops ownership zones.
 - **2026-07-25 — Public product journey smoke skill:** Added a read-only
   `public-product-smoke` subskill under Fleet site health. It resolves canonical
   live products from the Fleet registry and policy, limits each product to six
@@ -87,7 +88,7 @@ CodeVetter or App Health source.
   preserving `PROJECT_STATUS.md` as product-scope truth.
 - **2026-07-23 — Feedback reduced to a package:** Consumer audit found no Fleet
   imports or hosted API calls. Reduced the retained boundary to a callback-only
-  React package at `packages/feedback/`; removed API, inbox, auth,
+  React package at `foundry/packages/feedback/`; removed API, inbox, auth,
   storage, project-key, and Worker source from Fleet.
 - **2026-07-22 — SaaS Maker retirement started:** Removed the separate runtime,
   docs platform, and operational product identity; the public directory moved
@@ -113,14 +114,14 @@ CodeVetter or App Health source.
 
 | Component | Canonical path | Runtime boundary |
 |---|---|---|
-| Fleet Ops | `fleet-ops/` | Local/hosted scripts, skills, registries, policy |
-| Reel Pipeline | `services/reel-pipeline/` | Independent Node/Rust/Python media pipeline |
-| Drank | `services/drank/` | Independent domain-intelligence app/API |
-| PSI Swarm | `tools/psi-swarm/` | Local CLI plus independently deployable static surface |
-| Mobile Dev Cockpit | `apps/mobile-cockpit/` | Private local/mobile Fleet client |
-| Public directory | `apps/public-directory/` | Static public product projection on Cloudflare Pages |
-| Fleet Console | `apps/ops-console/` | Private operational view served from the designated host |
-| Feedback package | `packages/feedback/` | Backend-free npm package; no Fleet runtime |
+| Fleet Ops | `foundry/ops/` | Local/hosted scripts, skills, registries, policy |
+| Reel Pipeline | `foundry/services/reel-pipeline/` | Independent Node/Rust/Python media pipeline |
+| Drank | `foundry/services/drank/` | Independent domain-intelligence app/API |
+| PSI Swarm | `foundry/tools/psi-swarm/` | Local CLI plus independently deployable static surface |
+| Mobile Dev Cockpit | `foundry/apps/mobile-cockpit/` | Private local/mobile Fleet client |
+| Public directory | `foundry/apps/public-directory/` | Static public product projection on Cloudflare Pages |
+| Fleet Console | `foundry/apps/ops-console/` | Private operational view served from the designated host |
+| Feedback package | `foundry/packages/feedback/` | Backend-free npm package; no Fleet runtime |
 
 Historical standalone helper repositories live under `sarthakagrawal927` for
 attribution and history only. They are not Fleet dependencies, CI inputs, or
@@ -161,7 +162,7 @@ Cloudflare deployment history, not by maintaining duplicate source.
 1. Verify the designated operations host from a fresh clone before activating
    any schedules.
 2. Complete the Postiz target-host activation and one draft-only canary using
-   `fleet-ops/docs/postiz-operations.md`.
+   `foundry/ops/docs/postiz-operations.md`.
 3. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
 4. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.

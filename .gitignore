@@ -7,17 +7,11 @@
 !/README.md
 !/AGENTS.md
 !/CLAUDE.md
-!/LANDING_STANDARD.md
 !/PROJECT_STATUS.md
 !/package.json
-!/fleet-ops/
-!/apps/
-!/services/
-!/packages/
-!/tools/
-!/assets/
+!/foundry/
+!/openspec
 !/.github/
-!/openspec/
 !/.openspec-store/
 !/.codex/
 
@@ -37,7 +31,7 @@
 .infisical.json
 
 # Devin fleet-run outputs (logs, prompts, markers)
-fleet-ops/.devin-runs/
+foundry/ops/.devin-runs/
 
 # Grok fan-out worktrees
-fleet-ops/.grok-wt/
+foundry/ops/.grok-wt/

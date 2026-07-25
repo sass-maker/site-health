@@ -4,14 +4,14 @@ on:
   push:
     branches: [main]
     paths:
-      - "services/drank/**"
-      - "fleet-ops/scripts/manual-component-deploy.mjs"
+      - "foundry/services/drank/**"
+      - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "services/drank/**"
-      - "fleet-ops/scripts/manual-component-deploy.mjs"
+      - "foundry/services/drank/**"
+      - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: services/drank
+        working-directory: foundry/services/drank
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: services/drank/pnpm-lock.yaml
+          cache-dependency-path: foundry/services/drank/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run build
@@ -53,11 +53,11 @@ jobs:
           node-version: "22"
           cache: pnpm
           cache-dependency-path: |
-            services/drank/pnpm-lock.yaml
-            services/drank/docs-site/pnpm-lock.yaml
-      - working-directory: services/drank
+            foundry/services/drank/pnpm-lock.yaml
+            foundry/services/drank/docs-site/pnpm-lock.yaml
+      - working-directory: foundry/services/drank
         run: python3 scripts/check_docs_links.py
-      - working-directory: services/drank/docs-site
+      - working-directory: foundry/services/drank/docs-site
         run: pnpm install --frozen-lockfile
-      - working-directory: services/drank/docs-site
+      - working-directory: foundry/services/drank/docs-site
         run: pnpm run build

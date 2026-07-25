@@ -2,7 +2,7 @@
 
 This file is the always-loaded fleet entrypoint. Keep it compact.
 
-Full standards live in `fleet-ops/docs/fleet-agent-standards.md`; read that file
+Full standards live in `foundry/ops/docs/fleet-agent-standards.md`; read that file
 only when the task touches fleet policy, deploys, tooling architecture, new
 projects, learning tracks, or cross-project standards.
 
@@ -66,13 +66,19 @@ existing behavior, and config/CI tweaks.
 
 ## Fleet Tooling
 
-Fleet-owned operational tooling lives under `fleet-ops/`: skills, scripts,
-registries, automation, host setup, docs, templates, and teammates. Deployable
-interfaces live in `apps/`, helper runtimes in `services/`, reusable code in
-`packages/`, and operator tools in `tools/`. Edit Fleet skills in `fleet-ops/`,
-not in agent profile dirs. Approved third-party skills may be installed as
-ignored, machine-local payloads when their installer is pinned in Fleet
-scripts.
+All Fleet-owned source lives under `foundry/`. Operational tooling is under
+`foundry/ops/`: skills, scripts, registries, automation, host setup, docs,
+templates, and teammates. Deployable interfaces live in `foundry/apps/`,
+helper runtimes in `foundry/services/`, reusable code in `foundry/packages/`,
+and operator tools in `foundry/tools/`. Edit Fleet skills in
+`foundry/ops/`, not in agent profile dirs. Approved third-party skills may be
+installed as ignored, machine-local payloads when their installer is pinned in
+Fleet scripts.
+
+The workspace root remains the agent entrypoint. Run
+`./foundry/ops/scripts/agent-stack.sh install-skills` after cloning to link
+root `.agents/skills/*` entries to their canonical implementations inside
+`foundry/ops/`.
 
 Current Fleet-owned and approved external skills exposed to agents:
 
@@ -91,8 +97,8 @@ Current Fleet-owned and approved external skills exposed to agents:
 Use repo-local scripts before manual fleet inspection:
 
 ```bash
-./fleet-ops/scripts/git-health.sh --all --no-fetch
-./fleet-ops/scripts/deploy-health.sh
+./foundry/ops/scripts/git-health.sh --all --no-fetch
+./foundry/ops/scripts/deploy-health.sh
 ```
 
 ## Fleet Standards Snapshot
@@ -104,12 +110,12 @@ Use repo-local scripts before manual fleet inspection:
 - Be conservative with rate limiters; stale or unused limiter config is usually
   cleanup, not a reason to tighten limits.
 - Operational/admin UI should be dense, scannable, accessible, and fast.
-- Marketing surfaces should follow `LANDING_STANDARD.md`.
+- Marketing surfaces should follow `foundry/LANDING_STANDARD.md`.
 - New visual endeavors and substantial redesigns should use the Fleet-local
   `$impeccable` skill: initialize design context, then review
   `critique -> polish -> audit` before shipping.
 - Public agent/LLM indexing (llms.txt, page markdown, `/api/ai`) follows
-  `fleet-ops/docs/agent-indexing-standard.md`.
+  `foundry/ops/docs/agent-indexing-standard.md`.
 - New web projects default to Astro for content/marketing/docs and Vite + React
   for app shells. Keep existing Next.js on Cloudflare only when it needs SSR,
   server actions, or per-route caching.
