@@ -78,6 +78,16 @@ export function normalizeCitations(text: string): string[] {
   return Array.from(new Set(text.match(/https?:\/\/[^\s)>\]"',]+/g) ?? []));
 }
 
+function citationBelongsToBrand(citation: string, brandUrl: string): boolean {
+  try {
+    const citationHost = new URL(citation).hostname.toLowerCase().replace(/^www\./, "");
+    const brandHost = new URL(brandUrl).hostname.toLowerCase().replace(/^www\./, "");
+    return citationHost === brandHost || citationHost.endsWith(`.${brandHost}`);
+  } catch {
+    return false;
+  }
+}
+
 export function analyzeMentionResponse(
   input: BrandSubject & { text: string },
 ): MentionAnalysis {
@@ -91,10 +101,6 @@ export function analyzeMentionResponse(
     }),
   );
   const citations = normalizeCitations(input.text);
-  const normalizedBrandUrl = input.brandUrl
-    ?.toLowerCase()
-    .replace(/^https?:\/\//, "")
-    .replace(/\/$/, "");
 
   return {
     brandMentioned,
@@ -103,8 +109,8 @@ export function analyzeMentionResponse(
     brandPosition: findListPosition(input.text, brandTerms),
     competitorsMentioned,
     citations,
-    brandCited: normalizedBrandUrl
-      ? citations.some((url) => url.toLowerCase().includes(normalizedBrandUrl))
+    brandCited: input.brandUrl
+      ? citations.some((url) => citationBelongsToBrand(url, input.brandUrl!))
       : false,
     reasoning: "",
     provenance: "deterministic-fallback",
@@ -157,10 +163,6 @@ export function analyzeMentionVisibility(
   const positiveCount = positiveWords.filter((word) => context.includes(word)).length;
   const negativeCount = negativeWords.filter((word) => context.includes(word)).length;
   const citations = normalizeCitations(input.text);
-  const normalizedBrandUrl = input.brandUrl
-    ?.toLowerCase()
-    .replace(/^https?:\/\//, "")
-    .replace(/\/$/, "");
   return {
     brandMentioned,
     brandSentiment: brandMentioned
@@ -177,8 +179,8 @@ export function analyzeMentionVisibility(
       position: findListPosition(input.text, [competitor.name]),
     })),
     citations,
-    brandCited: normalizedBrandUrl
-      ? citations.some((url) => url.toLowerCase().includes(normalizedBrandUrl))
+    brandCited: input.brandUrl
+      ? citations.some((url) => citationBelongsToBrand(url, input.brandUrl!))
       : false,
   };
 }

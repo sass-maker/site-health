@@ -43,6 +43,27 @@ test("frozen High Signal deterministic fixtures retain parity", () => {
   }
 });
 
+test("owned citations require the brand host or one of its subdomains", () => {
+  const base = {
+    brandName: "Acme",
+    brandUrl: "https://acme.com",
+  };
+  assert.equal(
+    analyzeMentionResponse({
+      ...base,
+      text: "Acme appears at https://notacme.com/review.",
+    }).brandCited,
+    false,
+  );
+  assert.equal(
+    analyzeMentionResponse({
+      ...base,
+      text: "Acme documents this at https://docs.acme.com/guide.",
+    }).brandCited,
+    true,
+  );
+});
+
 test("judge contract handles negation and backfills competitors", () => {
   const subject = {
     brandName: "Acme",
