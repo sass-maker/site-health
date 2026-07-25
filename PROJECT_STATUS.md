@@ -188,15 +188,21 @@ Cloudflare deployment history, not by maintaining duplicate source.
   context, and local screenshot attachment.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
   deploy commands for the three Cloudflare surfaces.
+- Local-first founder control with an append-only mission/evidence ledger,
+  owner decisions, outcome learning, daily briefs, and an owner-first console.
+- Framework-independent `@saas-maker/ai-visibility` package with deterministic
+  citation, mention, recommendation, rank, sentiment, competitor, provider,
+  budget, cache, and provenance contracts.
+- Sanitized automation evidence adapters and machine-readable coverage reports;
+  technical coverage remains outside the primary owner-facing navigation.
 
 ## Todo / Planned / Deferred / Blocked
 
 ### Planned
 
-1. Implement the approved `foundry-founder-control-loop` OpenSpec change:
-   extract a reusable AI-visibility package from High Signal, add a durable
-   mission/evidence/decision model, and reshape the private console around
-   owner attention and post-ship outcomes.
+1. Complete the remaining `foundry-founder-control-loop` work: migrate High
+   Signal to the shared package, add Foundry's marketing visibility projection,
+   finish evidence backfill/notification wiring, and run rollout acceptance.
 2. Verify the designated operations host from a fresh clone before activating
    any schedules.
 3. Complete the Postiz target-host activation and one draft-only canary using
@@ -217,3 +223,6 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Publishing `@saas-maker/feedback@0.4.0`: local npm authentication currently
   returns `E401 Unauthorized`. The verified package source remains secured in
   Fleet until registry authentication is restored.
+- GEO Observatory weekly schedule activation: requires connecting GitHub to claude.ai and
+  installing the Claude GitHub App on `sass-maker/fleet-workspace`. Routine
+  body ready at `foundry/ops/skills/geo-observatory/routine.json`.

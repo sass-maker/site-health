@@ -1,9 +1,9 @@
 ## Context
 
 The fleet attention model names 37 entries. Twenty-five are operationally in
-scope: four My Work products, fifteen Toolbox projects, and six Foundry
-components. Nine Ignored and three Removed entries intentionally receive no
-routine automation.
+scope: four My Work products, sixteen Toolbox projects, and five Foundry
+components. Twelve Ignored entries (including the formerly Removed class, now
+consolidated into Ignored) intentionally receive no routine automation.
 
 Today, useful pieces already exist: repository CI, production smoke checks,
 Cloudflare resilience auditing, site-health, GEO observations, a marketing
