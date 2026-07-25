@@ -59,6 +59,33 @@ project-locally by `foundry/ops/scripts/agent-stack.sh install-skills`, remains
 machine-local, and is then linked into child Fleet projects with the other
 skills.
 
+## Capability discovery
+
+The read-only capability catalog gives humans and agents one searchable view of
+Fleet-owned skills, operator scripts, reusable templates, and living
+documentation. It derives entries from the canonical files under
+`foundry/ops/`; there is no second registry to update.
+
+```bash
+# Find the right Fleet capability from intent.
+node foundry/ops/scripts/fleet-capabilities.mjs search "deploy readiness"
+
+# Retrieve the canonical path and summary for one result.
+node foundry/ops/scripts/fleet-capabilities.mjs get skill:fleet-deploy-guard
+
+# Emit context from the same catalog in a token-efficient form.
+node foundry/ops/scripts/fleet-capabilities.mjs context "site health" --dense
+
+# Validate catalog roots, identifiers, metadata, and referenced files.
+node foundry/ops/scripts/fleet-capabilities.mjs doctor --json
+```
+
+Commands are `list`, `search`, `get`, `context`, and `doctor`. Use `--type`
+with `skill`, `script`, `template`, or `doc`; use `--json` for the versioned
+machine envelope and `--dense` for compact output. `doctor` validates catalog
+integrity only—it does not run discovered tools or replace provider, host, git,
+or deploy health checks.
+
 ## Adding a new skill
 
 1. Create `skills/<name>/SKILL.md` (or `teammates/skills/<name>/SKILL.md` for delegation).

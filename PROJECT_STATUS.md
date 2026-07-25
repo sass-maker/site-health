@@ -51,6 +51,10 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Fleet capability catalog shipped:** Added one read-only,
+  dependency-free discovery surface across canonical Fleet skills, operator
+  scripts, templates, and living docs, with ranked search, exact retrieval,
+  generated agent context, stable JSON/dense output, and catalog diagnostics.
 - **2026-07-25 — Cross-project OpenSpecs consolidated:** Imported the useful
   specs, active changes, and archived history from the three standalone Desktop
   stores into the tracked `foundry/openspec/` Fleet store. Preserved the older
@@ -154,6 +158,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Bounded public-product browser smoke workflow with canonical manifest,
   production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.
+- Read-only Fleet capability catalog with ranked human/agent discovery,
+  generated context, stable JSON/dense output, and catalog integrity checks.
 - Bounded marketing registry, dry-run, attribution, and quiet-experiment
   contracts.
 - Draft-only Postiz adapter, sanitized marketing lifecycle snapshots, retired
