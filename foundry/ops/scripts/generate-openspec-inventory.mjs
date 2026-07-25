@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync } from 'node:fs';
+import { existsSync, realpathSync } from 'node:fs';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, relative, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -9,6 +9,8 @@ const fleetRoot = resolve(import.meta.dirname, '../../..');
 const desktopRoot = dirname(fleetRoot);
 const inactiveRoot = join(desktopRoot, 'fleet-inactive-projects');
 const outputPath = join(fleetRoot, 'foundry/ops/docs/openspec-inventory.md');
+const fleetSpecRoot = realpathSync(join(fleetRoot, 'openspec'));
+const trackedFleetOpenSpecFiles = trackedFiles(join(fleetRoot, 'foundry/openspec'));
 const registry = JSON.parse(
   await readFile(join(fleetRoot, 'foundry/ops/config/automation-registry.json'), 'utf8'),
 );
@@ -86,10 +88,18 @@ function resolveCheckout(entry) {
 }
 
 async function scanOpenSpec(specRoot) {
+  specRoot = realpathSync(specRoot);
+  const trackedOnly = specRoot === fleetSpecRoot;
   const specs = [];
   const specsRoot = join(specRoot, 'specs');
   for (const name of await directories(specsRoot)) {
-    if (existsSync(join(specsRoot, name, 'spec.md'))) specs.push(name);
+    const specPath = join(specsRoot, name, 'spec.md');
+    if (
+      existsSync(specPath) &&
+      (!trackedOnly || trackedFleetOpenSpecFiles.has(specPath))
+    ) {
+      specs.push(name);
+    }
   }
 
   const changes = [];
@@ -97,6 +107,7 @@ async function scanOpenSpec(specRoot) {
   for (const name of await directories(changesRoot)) {
     if (name === 'archive') continue;
     const changeRoot = join(changesRoot, name);
+    if (trackedOnly && !hasTrackedFile(changeRoot)) continue;
     if (!existsSync(join(changeRoot, 'proposal.md')) && !existsSync(join(changeRoot, '.openspec.yaml'))) {
       continue;
     }
@@ -111,7 +122,10 @@ async function scanOpenSpec(specRoot) {
     });
   }
 
-  const archived = await directories(join(changesRoot, 'archive'));
+  const archivedRoot = join(changesRoot, 'archive');
+  const archived = (await directories(archivedRoot)).filter(
+    (name) => !trackedOnly || hasTrackedFile(join(archivedRoot, name)),
+  );
   return {
     specs: specs.sort(),
     changes: changes.sort((left, right) => left.name.localeCompare(right.name)),
@@ -137,6 +151,27 @@ async function registeredStores() {
   } catch {
     return [];
   }
+}
+
+function trackedFiles(root) {
+  const result = spawnSync('git', ['ls-files', '--cached', '--', relative(fleetRoot, root)], {
+    cwd: fleetRoot,
+    encoding: 'utf8',
+  });
+  if (result.status !== 0) return new Set();
+  return new Set(
+    result.stdout
+      .split('\n')
+      .filter(Boolean)
+      .map((file) => resolve(fleetRoot, file)),
+  );
+}
+
+function hasTrackedFile(root) {
+  const prefix = `${root}/`;
+  return [...trackedFleetOpenSpecFiles].some(
+    (file) => file === root || file.startsWith(prefix),
+  );
 }
 
 function displayPath(target) {

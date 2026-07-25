@@ -43,3 +43,10 @@ section (any class change since the previous run).
 
 The protocol SHALL run on a weekly schedule as a cloud-agent routine; a
 missed or failed run leaves the ledger unchanged (no partial writes).
+
+#### Scenario: scheduled run fails before completion
+
+- GIVEN the weekly observatory routine starts
+- WHEN any configured query fails before the run can be recorded atomically
+- THEN the routine reports the failure and leaves the observation ledger
+  unchanged

@@ -128,6 +128,11 @@ The generated cross-project OpenSpec catalog is
 [`foundry/ops/docs/openspec-inventory.md`](foundry/ops/docs/openspec-inventory.md).
 Refresh it with `npm run generate:openspec-inventory`.
 
+Single-project changes remain authoritative in the owning repository's
+`openspec/`. Fleet and cross-project changes live only in the tracked
+[`foundry/openspec/`](foundry/openspec/) store; do not create separate Desktop
+OpenSpec stores.
+
 Agent-facing instructions live in the fleet-level `AGENTS.md`, which applies to
 projects below this directory unless a project has a more specific `AGENTS.md`.
 

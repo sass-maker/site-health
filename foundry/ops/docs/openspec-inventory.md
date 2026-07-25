@@ -10,9 +10,9 @@ reactivate ignored projects.
 - Registry entries: 37
 - Project/component checkouts with OpenSpec: 19
 - Project/component spec roots: 19
-- Project/component base specs: 104
-- Project/component active changes: 35
-- Registered external stores (excluding Fleet itself): 4
+- Project/component base specs: 110
+- Project/component active changes: 44
+- Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
 
@@ -128,17 +128,26 @@ Archived changes: 51
 
 Root: `.`
 
-Base specs: `canonical-content-packages`, `catchy-variant-generation`, `content-performance-flywheel`, `daily-learning-loop`, `derived-assessments`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `private-journal-reader`, `public-product-smoke`, `reel-content-handoff`, `site-health`, `unified-learning-catalog`
+Base specs: `canonical-content-packages`, `catchy-variant-generation`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `derived-assessments`, `fleet-workspace-boundary`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `site-health`, `spotlight-products`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
+| `automate-ai-infrastructure-toolbox` | 16/16 | complete |
+| `automate-data-research-toolbox` | 13/13 | complete |
+| `automate-heypace` | 0/12 | in progress |
+| `automate-high-signal` | 0/17 | in progress |
+| `automate-portfolio-identity-toolbox` | 12/12 | complete |
+| `automate-posttrainllm` | 12/13 | in progress |
+| `automate-significant-hobbies-toolbox` | 14/15 | in progress |
 | `cloudflare-resilience-control-plane` | 12/15 | in progress |
+| `complete-fleet-automation` | 0/49 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
+| `consolidate-foundry-monorepo` | 27/67 | in progress |
 | `foundry-founder-control-loop` | 0/72 | in progress |
 | `geo-observatory` | 5/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 8
+Archived changes: 13
 
 ### HeyPace
 
@@ -148,7 +157,7 @@ Base specs: `ambient-perception`, `codex-direct-brain`, `companion-memory-policy
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `durable-working-runtime` | 0/0 | planned |
+| `durable-working-runtime` | 0/37 | in progress |
 
 Archived changes: 3
 
@@ -294,53 +303,7 @@ Archived changes: 2
 
 ## Registered cross-project stores
 
-### codevetter-taste-consolidation
-
-Root: `../openspec-stores/codevetter-taste-consolidation`
-
-Status: registered checkout missing
-
-### fleet-automation-closure
-
-Root: `../openspec-stores/fleet-automation-closure`
-
-Base specs: `codevetter-automation-readiness`, `fleet-workspace-boundary`, `private-local-toolbox-automation`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`
-
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `automate-ai-infrastructure-toolbox` | 16/16 | complete |
-| `automate-data-research-toolbox` | 13/13 | complete |
-| `automate-heypace` | 0/12 | in progress |
-| `automate-high-signal` | 0/17 | in progress |
-| `automate-portfolio-identity-toolbox` | 12/12 | complete |
-| `automate-posttrainllm` | 12/13 | in progress |
-| `automate-significant-hobbies-toolbox` | 14/15 | in progress |
-| `complete-fleet-automation` | 0/49 | in progress |
-| `consolidate-foundry-monorepo` | 27/67 | in progress |
-
-Archived changes: 3
-
-### portfolio-spotlight-unification
-
-Root: `../openspec-stores/portfolio-spotlight-unification`
-
-Base specs: `spotlight-products`
-
-Active changes: none
-
-Archived changes: 1
-
-### saas-maker-retirement
-
-Root: `../openspec-stores/saas-maker-retirement`
-
-Base specs: none
-
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `retire-saas-maker` | 0/27 | in progress |
-
-Archived changes: 0
+No external stores are registered.
 
 ## Interpretation
 

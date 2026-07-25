@@ -51,6 +51,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Cross-project OpenSpecs consolidated:** Imported the useful
+  specs, active changes, and archived history from the three standalone Desktop
+  stores into the tracked `foundry/openspec/` Fleet store. Preserved the older
+  SaaS Maker retirement plan as a clearly named archived snapshot while keeping
+  the newer Fleet change authoritative.
 - **2026-07-25 — Inactive projects and OpenSpecs consolidated:** Collapsed the
   redundant ignored/removed split into one 12-project ignored/inactive class,
   gathered clean local checkouts under `../fleet-inactive-projects/`, and added
@@ -159,7 +164,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - PSI Swarm performance tooling.
 - Agent and notification policy, machine-host foundations, and inert schedule
   definitions.
-- OpenSpec store for cross-repository fleet changes.
+- One tracked `foundry/openspec/` store for Fleet and cross-repository changes;
+  project-local changes remain in their owning repositories.
 - Deterministic Fleet-wide OpenSpec inventory generated from canonical project
   classifications, current checkouts, inactive history, and registered stores.
 - Fleet-local Impeccable design workflow with brand/product registers,
