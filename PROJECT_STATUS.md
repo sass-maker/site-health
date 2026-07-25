@@ -37,6 +37,9 @@ CodeVetter or App Health source.
 ### Internal
 
 - `foundry/ops/config/projects.json` is the canonical internal product inventory.
+- `foundry/ops/config/automation-registry.json` is the canonical operational
+  attention, action-policy, and retirement registry; `project-tiers.md` is its
+  human-readable mirror.
 - Reel Pipeline produces approved media and publication handoff receipts.
 - Drank supplies domain intelligence.
 - PSI Swarm supplies bounded performance/site-health evidence.
@@ -48,6 +51,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Portfolio lifecycle entrypoint corrected:** Replaced the
+  stale purpose-based product list in the root README with the canonical
+  attention model. Ignored and removed projects are now explicit at the
+  workspace entrypoint, while the deploy registry continues to record live
+  surfaces independently from maintenance obligations.
 - **2026-07-25 — Monorepo ownership boundaries normalized:** Moved all
   Fleet-owned source under `foundry/`: deployable interfaces in
   `foundry/apps/`, helper runtimes in `foundry/services/`, reusable code in
@@ -159,13 +167,17 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ### Planned
 
-1. Verify the designated operations host from a fresh clone before activating
+1. Implement the approved `foundry-founder-control-loop` OpenSpec change:
+   extract a reusable AI-visibility package from High Signal, add a durable
+   mission/evidence/decision model, and reshape the private console around
+   owner attention and post-ship outcomes.
+2. Verify the designated operations host from a fresh clone before activating
    any schedules.
-2. Complete the Postiz target-host activation and one draft-only canary using
+3. Complete the Postiz target-host activation and one draft-only canary using
    `foundry/ops/docs/postiz-operations.md`.
-3. Complete the independent App Health Cloudflare resource/Access cutover and
+4. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
-4. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
+5. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
 
 ### Deferred
 

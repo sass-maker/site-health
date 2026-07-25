@@ -16,8 +16,12 @@ in `foundry/ops/`. This workspace root remains the agent and independent-project
 entrypoint; independent products remain separately versioned and deployed
 unless explicitly imported as Fleet infrastructure.
 
-The canonical live project/domain inventory is [`foundry/ops/config/projects.json`](foundry/ops/config/projects.json);
-this README is the human taxonomy.
+The canonical live project/domain inventory is
+[`foundry/ops/config/projects.json`](foundry/ops/config/projects.json). The
+canonical operational attention and retirement state is
+[`foundry/ops/config/automation-registry.json`](foundry/ops/config/automation-registry.json),
+with a human-readable mirror in
+[`foundry/ops/docs/project-tiers.md`](foundry/ops/docs/project-tiers.md).
 
 ## Canonical Fleet components
 
@@ -49,59 +53,45 @@ setup dependencies and must not be cloned as Fleet projects:
 
 Clone `sass-maker/fleet-workspace` once and use the canonical paths above.
 
-## Products
+## Portfolio attention
 
-Projects are classified by purpose (a project can appear in more than one):
-**support** · **personal** · **learning** · **saas** · **data** · **research**.
-Some products have an **umbrella** relationship with a sub-product (separate repo,
-worked on together as one effort).
+The portfolio is organized by obligation, not by repository count or whether a
+URL still resolves. A retired project may remain deployed without becoming an
+active maintenance obligation.
 
-**Support** — infrastructure serving other fleet projects
+### My Work
 
-- [free-ai](https://github.com/sass-maker/free-ai) — OpenAI-compatible LLM gateway fronting 30+ free-tier models across 8 providers
-- [Reel Pipeline](foundry/services/reel-pipeline/) — AI short-form media production and Postiz handoff
-- [Drank](foundry/services/drank/) — domain-rating intelligence
+- [CodeVetter](https://github.com/Codevetter/codevetter)
+- [HeyPace](https://github.com/HeyPace/pace)
+- [PostTrainLLM](https://github.com/PostTrainLLM/posttrainllm)
+- [High Signal](https://github.com/High-Signal-App/high-signal)
 
-**Support + SaaS** — support infra that is also a public product
+### Toolbox
 
-- [codevetter](https://github.com/Codevetter/codevetter) — desktop AI code review ([codevetter.com](https://codevetter.com)) — **umbrella for code quality and repo intelligence**
-  - [starboard](https://github.com/Codevetter/starboard) — GitHub stars organizer + semantic search (sub-product of codevetter, separate repo)
-- [knowledge-base](https://github.com/sass-maker/knowledge-base) — Private Agent Search: cited search over project-scoped private corpora
-- [saas-ideas](https://github.com/sass-maker/saas-ideas) — scored catalog of SaaS ideas ([ideas.sassmaker.com](https://ideas.sassmaker.com))
-- [high-signal](https://github.com/High-Signal-App/high-signal) — daily synthesized intelligence brief ([highsignal.app](https://highsignal.app))
-- [app-health](https://github.com/sarthakagrawal927/app-health) — Owner-first application health and fix handoff for live apps
+Personal website, RolePatch, Karte, Significant Hobbies, Reader, Anime List,
+SWE Interview Prep, Email Manager, LoopTV, Chess, Motion, Research Papers,
+Starboard, Free AI, Knowledge Base, and App Health remain usable and
+discoverable without becoming standing product commitments.
 
-**Research** — experimental, the bet is a research question
+### Foundry
 
-- [aliveville](https://github.com/sarthakagrawal927/aliveville) — 3D AI world simulator with NPC agents ([aliveville.com](https://aliveville.com))
-- [pace](https://github.com/HeyPace/pace) — on-device Mac voice agent that reads your screen
-- [posttrainllm](https://github.com/PostTrainLLM/posttrainllm) — local LLM factory + runtime (Mac/MLX) + WebGPU playground
+Fleet Workspace is the post-ship system that measures products, markets them,
+and turns feedback into evidence-backed recommendations. Its maintained helper
+components are PSI Swarm, Mobile Dev Cockpit, Drank, and Reel Pipeline. The
+public SaaS Maker directory and private Fleet Console are Fleet Workspace
+surfaces, not additional product bets.
 
-**Personal + free-tool** — built for personal use, free public tool
+### Ignored
 
-- [significanthobbies](https://github.com/Significant-Hobbies/significanthobbies) — life planner: private daily rituals + public living (hobbies, bucket lists, side quests) ([significanthobbies.com](https://significanthobbies.com))
-- [reader](https://github.com/Significant-Hobbies/reader) — research library: capture, annotate, AI-chat
-- [anime-list](https://github.com/Significant-Hobbies/anime-list) — anime/manga discovery with multi-axis filtering + watchlists
-- [chess](https://github.com/Significant-Hobbies/chess) — AI-coached chess game
-- [materia](https://github.com/Significant-Hobbies/materia) — evidence-graded body, supplement, herb, and drug reference
-- [swe-interview-prep](https://github.com/Significant-Hobbies/swe-interview-prep) — SWE learning OS with FSRS spaced repetition
-- [email-manager](https://github.com/sarthakagrawal927/email-manager) — Gmail workspace with local semantic search
-- [looptv](https://github.com/Significant-Hobbies/looptv) — TV-style random video player
-- [Mobile Dev Cockpit](foundry/apps/mobile-cockpit/) — native iPhone cockpit for supervising coding agents, mobile previews, Git review, and guarded deploys over Tailscale
+AliveVille, Open Historia, TrueHire, Companion Robot, Materia,
+EverythingRated, Protein Index, Web Playables, and SaaS Ideas are frozen or
+retired. They require an explicit reactivation decision before any routine
+maintenance, marketing, or roadmap work.
 
-**Personal + SaaS** — personal-use thesis, public SaaS surface
+### Removed
 
-- [rolepatch](https://github.com/sarthakagrawal927/rolepatch) — AI resume tailoring + job-application assistant (cover letters, company research, role-fit scoring, STAR prep) ([rolepatch.com](https://rolepatch.com))
-- [karte](https://github.com/sarthakagrawal927/karte) — AI link-in-bio: chat, encyclopedia, roast modes ([karte.cc](https://karte.cc))
-
-**Data** — the data is the asset, public surface is the product
-
-- [research-papers](https://github.com/High-Signal-App/research-papers) — academic paper platform (488k papers, semantic search)
-- [everythingrated](https://github.com/High-Signal-App/everythingrated) — multi-axis rating tool for structured directories and catalogs
-- [protein-index](https://github.com/Significant-Hobbies/protein-index) — normalized Indian protein-product intelligence with source-aware nutrition, offers, and ratings
-- [success-by-26](https://github.com/sarthakagrawal927/success-by-26) — Visualization site for the Success by 26 early-advantage dataset
-
-> Personal/parked out-of-fleet repos live on [github.com/sarthakagrawal927](https://github.com/sarthakagrawal927) or locally: pinpoint, portfolio, local-ai, today-little-log (archived), forecast-lab (delayed), and [web-playables](https://github.com/sarthakagrawal927/web-playables). Companion Robot now lives under `HeyPace`; Elves HQ remains parked.
+Elves HQ, Today Little Log, and Forecast Lab are attribution-only records and
+are excluded from operations.
 
 ## Work Tracking
 

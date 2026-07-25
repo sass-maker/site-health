@@ -33,7 +33,7 @@ The daily operating view is intentionally small:
 Agents may test, monitor, document, research, and report on these products, but
 Sarthak owns their direction and decides when product work happens.
 
-## Toolbox — 15
+## Toolbox — 16
 
 - Personal website
 - RolePatch
@@ -61,10 +61,10 @@ If a Toolbox project earns attention through real use, traction, or an explicit
 decision, it can move into My Work. Until then, fix it when needed and keep it
 quiet.
 
-## Foundry + Helpers — 6
+## Foundry + Helpers — 5
 
-- SaaS Maker public directory (`sassmaker.com`; generated from Fleet)
-- Fleet Console (`fleet.sassmaker.com`; private machine-hosted operations)
+- Fleet Workspace (including the SaaS Maker public directory at
+  `sassmaker.com` and the private Fleet Console at `fleet.sassmaker.com`)
 - PSI Swarm
 - Mobile Dev Cockpit
 - Drank
@@ -127,7 +127,7 @@ or maintenance work and should not appear in active fleet counts.
 | Ignored | No routine work; reactivate explicitly |
 | Removed | Attribution only; exclude everywhere operational |
 
-The catalog contains 37 named entries: 4 My Work, 15 Toolbox, 6 Foundry +
+The catalog contains 37 named entries: 4 My Work, 16 Toolbox, 5 Foundry +
 Helpers, 9 Ignored, and 3 Removed. Repository and deploy counts differ because
 some entries are surfaces within a family and some historical entries have no
 active deployment.
