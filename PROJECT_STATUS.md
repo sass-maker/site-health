@@ -54,7 +54,7 @@ CodeVetter or App Health source.
 - **2026-07-25 — Mashup registered as a local Toolbox experiment:** Added the
   new clean `sarthakagrawal927/mashup` checkout to the canonical project,
   attention, marketing, and OpenSpec inventories. Its Python CLI, loopback
-  editor, 175 tests, Ruff checks, Astro build, and validation commands are
+  editor, 178 tests, Ruff checks, Astro build, and validation commands are
   verified and pushed. It has no deployed surface; real-archive validation
   remains explicitly blocked on an owner-approved roughly 1.5 GiB download and
   the existing Fleet free-ai gateway key.
