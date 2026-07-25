@@ -10,7 +10,7 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Project/component checkouts with OpenSpec: 17
 - Project/component spec roots: 17
 - Project/component base specs: 119
-- Project/component active changes: 9
+- Project/component active changes: 8
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -105,13 +105,12 @@ Base specs: `ai-infrastructure-toolbox-automation`, `canonical-content-packages`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `complete-fleet-automation` | 0/49 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
-| `foundry-founder-control-loop` | 0/72 | in progress |
-| `geo-observatory` | 5/8 | in progress |
+| `foundry-founder-control-loop` | 48/72 | in progress |
+| `geo-observatory` | 7/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 23
+Archived changes: 24
 
 ### HeyPace
 
@@ -184,7 +183,7 @@ Base specs: none
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `add-durable-factory-run-lifecycle` | 0/29 | in progress |
-| `add-fine-tune-report-card` | 0/18 | in progress |
+| `add-fine-tune-report-card` | 18/18 | complete |
 | `build-mac-local-autocorrect-specialist` | 0/36 | in progress |
 
 Archived changes: 0

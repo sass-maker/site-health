@@ -40,14 +40,14 @@
 
 ## 5. Extract `@saas-maker/ai-visibility`
 
-- [ ] 5.1 Freeze representative High Signal Mention fixtures covering mentions, negation, recommendation, rank, sentiment, citations, competitors, personas, provider failures, and judge fallback.
-- [ ] 5.2 Create `foundry/packages/ai-visibility` with package metadata, strict TypeScript configuration, exports, and no runtime framework/database dependency.
-- [ ] 5.3 Move prompt/persona/provider contracts and matrix expansion behind stable package interfaces.
-- [ ] 5.4 Move deterministic analysis, citation normalization, competitor analysis, and report aggregation with fixture parity tests.
-- [ ] 5.5 Move optional judge integration behind a caller-supplied adapter and label deterministic fallback provenance.
-- [ ] 5.6 Implement bounded concurrency, timeout/retry classification, maximum-call enforcement, cache fingerprints, and cost receipt hooks.
-- [ ] 5.7 Add package README examples for High Signal and Foundry adapters, privacy/storage responsibilities, and free-first execution.
-- [ ] 5.8 Pack the package locally and prove it can be consumed from a clean temporary TypeScript project without workspace-only imports.
+- [x] 5.1 Freeze representative High Signal Mention fixtures covering mentions, negation, recommendation, rank, sentiment, citations, competitors, personas, provider failures, and judge fallback.
+- [x] 5.2 Create `foundry/packages/ai-visibility` with package metadata, strict TypeScript configuration, exports, and no runtime framework/database dependency.
+- [x] 5.3 Move prompt/persona/provider contracts and matrix expansion behind stable package interfaces.
+- [x] 5.4 Move deterministic analysis, citation normalization, competitor analysis, and report aggregation with fixture parity tests.
+- [x] 5.5 Move optional judge integration behind a caller-supplied adapter and label deterministic fallback provenance.
+- [x] 5.6 Implement bounded concurrency, timeout/retry classification, maximum-call enforcement, cache fingerprints, and cost receipt hooks.
+- [x] 5.7 Add package README examples for High Signal and Foundry adapters, privacy/storage responsibilities, and free-first execution.
+- [x] 5.8 Pack the package locally and prove it can be consumed from a clean temporary TypeScript project without workspace-only imports.
 
 ## 6. Migrate High Signal without product regression
 

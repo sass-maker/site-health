@@ -86,15 +86,12 @@ posttrainllm, highsignal) with their `https://<host>/llms.txt` URLs to:
   categories in the email field — if listings are absent, that's why; one
   manual resubmit of the 3 focus products is worth it, mass resubmit is not.
 
-## B7 — Enable the weekly GEO Observatory routine · 5 min · UNBLOCKS MEASUREMENT
+## B7 — Enable the weekly GEO Observatory routine · resolved in Fleet
 
-- 1: connect GitHub to claude.ai (Settings → Connectors / account settings).
-- 2: install the Claude GitHub App on **sass-maker/fleet-workspace**:
-  https://claude.ai/code/onboarding?magic=github-app-setup
-- 3: tell any Claude Code session "create the geo-observatory routine from
-  foundry/ops/skills/geo-observatory/routine.json" (runs Mondays 08:00 IST;
-  baseline is already seeded, so run 1 shows deltas).
-- Verify: routine listed at https://claude.ai/code/routines
+- GEO Observatory now uses the versioned designated-host Codex cron job
+  `weekly-geo-observatory`; it requires no Claude GitHub App.
+- Verify before host activation:
+  `foundry/ops/scripts/agent-bin/install-codex-cron --check`.
 
 ## B8 — Hugging Face org for PostTrainLLM · 10 min browser + CLI handoff
 

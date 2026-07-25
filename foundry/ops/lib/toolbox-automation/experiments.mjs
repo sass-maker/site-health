@@ -12,6 +12,8 @@
  * marketing control plane) use to decide whether to allow or stop an
  * experiment.
  */
+import { mkdirSync, renameSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { REQUIRED_EXPERIMENT_FIELDS } from './registry.mjs';
 
 export const EXPERIMENT_OUTCOME = Object.freeze({
@@ -214,4 +216,49 @@ function meetsThreshold(experiment, context) {
 function hasAttributionSignal(experiment, context) {
   if (typeof context.attributionPresent === 'boolean') return context.attributionPresent;
   return typeof experiment.attributionKey === 'string' && experiment.attributionKey.trim().length > 0;
+}
+
+/**
+ * Persist an experiment verdict as a durable receipt file.
+ *
+ * The receipt links the verdict to the exact project, asset, channel,
+ * attribution key, and time window so outcome measurement can be audited
+ * without re-running the experiment. Receipts are append-only — each
+ * verdict gets its own file named by timestamp and experiment ID.
+ *
+ * @param {object} verdict from validateExperiment or validateExperiments
+ * @param {object} [options]
+ * @param {string} [options.receiptDir] directory to write receipts into
+ * @returns {string|null} receipt path or null if not written
+ */
+export function persistExperimentReceipt(verdict, options = {}) {
+  if (!verdict || !verdict.experiment) return null;
+  const dir = options.receiptDir;
+  if (!dir) return null;
+  const exp = verdict.experiment;
+  const ts = new Date().toISOString().replace(/[:.]/g, '-');
+  const id = exp.id || exp.attributionKey || 'unknown';
+  const receipt = {
+    schemaVersion: 1,
+    recordedAt: new Date().toISOString(),
+    experimentId: id,
+    project: exp.project || null,
+    attributionKey: exp.attributionKey || null,
+    channel: exp.channel || null,
+    asset: exp.approvedAsset || null,
+    start: exp.start || null,
+    expiry: exp.expiry || null,
+    outcome: verdict.outcome,
+    stops: verdict.stops || [],
+    reasons: verdict.reasons || [],
+    recommendation: verdict.recommendation || null,
+    noAutomaticPromotion: verdict.noAutomaticPromotion ?? null,
+    successMetric: exp.successMetric || null,
+  };
+  mkdirSync(dir, { recursive: true });
+  const path = resolve(dir, `${ts}-${id}.json`);
+  const temp = `${path}.${process.pid}.tmp`;
+  writeFileSync(temp, `${JSON.stringify(receipt, null, 2)}\n`, { mode: 0o600 });
+  renameSync(temp, path);
+  return path;
 }

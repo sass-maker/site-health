@@ -15,8 +15,9 @@ to Sarthak.
 ## What Changes
 
 - Establish one machine-readable automation coverage registry for the 25
-  in-scope entries: 4 My Work products, 15 Toolbox projects, and 6 Foundry
-  components. Ignored and Removed entries are excluded from routine automation.
+  in-scope entries: 4 My Work products, 16 Toolbox projects, and 5 Foundry
+  components. Ignored entries (including the formerly Removed class, now
+  consolidated into Ignored) are excluded from routine automation.
 - Define minimum telemetry contracts by runtime type instead of forcing one
   analytics stack everywhere: public surface, API/Worker, background job, and
   desktop/mobile app.
@@ -71,8 +72,8 @@ or explicitly accepted rather than duplicated here.
 
 - Primary planning and shared implementation: `fleet-workspace/fleet-ops`,
   SaaS Maker/Foundry, and `fleet.sassmaker.com`.
-- In-scope consumers: CodeVetter, HeyPace, PostTrainLLM, High Signal, the 15
-  Toolbox entries, and the six Foundry components recorded in the fleet
+- In-scope consumers: CodeVetter, HeyPace, PostTrainLLM, High Signal, the 16
+  Toolbox entries, and the five Foundry components recorded in the fleet
   attention model.
 - Existing systems reused: `fleet-ops/config/projects.json`, project attention
   notes, fleet health/deploy/resilience scripts, production smoke checks,

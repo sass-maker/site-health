@@ -1,6 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { mkdtempSync, rmSync, readFileSync, readdirSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
@@ -19,6 +22,7 @@ import {
 import {
   validateExperiment,
   validateExperiments,
+  persistExperimentReceipt,
   EXPERIMENT_OUTCOME,
 } from '../lib/toolbox-automation/experiments.mjs';
 
@@ -381,5 +385,48 @@ describe('CLI: toolbox-family-evidence script', () => {
     const loaded = loadToolboxRegistry();
     assert.equal(loaded.products.length, 6);
     assert.equal(loaded.family.id, 'significanthobbies');
+  });
+});
+
+describe('persistExperimentReceipt', () => {
+  it('writes a durable receipt file with project/asset/channel/attribution linkage', () => {
+    const dir = mkdtempSync(resolve(tmpdir(), 'exp-receipt-'));
+    try {
+      const verdict = {
+        outcome: EXPERIMENT_OUTCOME.INCONCLUSIVE,
+        experiment: {
+          id: 'test-exp',
+          project: 'anime-list',
+          attributionKey: 'anime-ig-q3',
+          channel: 'instagram_reels',
+          approvedAsset: 'reel-001.mp4',
+          start: '2026-07-01',
+          expiry: '2026-07-15',
+          successMetric: { metric: 'saves', threshold: 100, observed: 40 },
+        },
+        stops: ['auto-expiry-reached', 'threshold-unmet-at-expiry'],
+        reasons: [],
+      };
+      const path = persistExperimentReceipt(verdict, { receiptDir: dir });
+      assert.ok(path, 'receipt path should be returned');
+      const files = readdirSync(dir);
+      assert.equal(files.length, 1);
+      const receipt = JSON.parse(readFileSync(path, 'utf8'));
+      assert.equal(receipt.schemaVersion, 1);
+      assert.equal(receipt.experimentId, 'test-exp');
+      assert.equal(receipt.project, 'anime-list');
+      assert.equal(receipt.attributionKey, 'anime-ig-q3');
+      assert.equal(receipt.channel, 'instagram_reels');
+      assert.equal(receipt.outcome, 'inconclusive');
+      assert.deepEqual(receipt.stops, ['auto-expiry-reached', 'threshold-unmet-at-expiry']);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('returns null when no receiptDir is provided', () => {
+    const verdict = { outcome: 'running', experiment: { id: 'x' } };
+    assert.equal(persistExperimentReceipt(verdict), null);
+    assert.equal(persistExperimentReceipt(verdict, {}), null);
   });
 });
