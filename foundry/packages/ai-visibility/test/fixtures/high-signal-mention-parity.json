@@ -1,0 +1,78 @@
+[
+  {
+    "name": "ranked recommendation with owned citation and competitor",
+    "input": {
+      "text": "1. **Acme** is the best choice. https://acme.com/docs\n2. Globex is reliable.",
+      "brandName": "Acme",
+      "brandAliases": [],
+      "brandUrl": "https://acme.com",
+      "competitors": [{ "name": "Globex" }]
+    },
+    "expected": {
+      "brandMentioned": true,
+      "brandRecommended": true,
+      "brandSentiment": "positive",
+      "brandPosition": 1,
+      "competitorsMentioned": [{ "name": "Globex", "mentioned": true, "position": 2 }],
+      "citations": ["https://acme.com/docs"],
+      "brandCited": true
+    }
+  },
+  {
+    "name": "alias mention with neutral sentiment and third-party citation",
+    "input": {
+      "text": "AcmeAI supports the workflow. See https://example.com/acme.",
+      "brandName": "Acme",
+      "brandAliases": ["AcmeAI"],
+      "brandUrl": "https://acme.com",
+      "competitors": [{ "name": "Globex" }]
+    },
+    "expected": {
+      "brandMentioned": true,
+      "brandRecommended": false,
+      "brandSentiment": "neutral",
+      "brandPosition": null,
+      "competitorsMentioned": [{ "name": "Globex", "mentioned": false, "position": null }],
+      "citations": ["https://example.com/acme."],
+      "brandCited": false
+    }
+  },
+  {
+    "name": "negative mention remains distinct from recommendation",
+    "input": {
+      "text": "Acme is expensive and slow. Globex is a better fit.",
+      "brandName": "Acme",
+      "brandAliases": [],
+      "brandUrl": null,
+      "competitors": [{ "name": "Globex" }]
+    },
+    "expected": {
+      "brandMentioned": true,
+      "brandRecommended": false,
+      "brandSentiment": "negative",
+      "brandPosition": null,
+      "competitorsMentioned": [{ "name": "Globex", "mentioned": true, "position": null }],
+      "citations": [],
+      "brandCited": false
+    }
+  },
+  {
+    "name": "brand absent",
+    "input": {
+      "text": "Globex is the leading choice.",
+      "brandName": "Acme",
+      "brandAliases": [],
+      "brandUrl": "https://acme.com",
+      "competitors": [{ "name": "Globex" }]
+    },
+    "expected": {
+      "brandMentioned": false,
+      "brandRecommended": false,
+      "brandSentiment": null,
+      "brandPosition": null,
+      "competitorsMentioned": [{ "name": "Globex", "mentioned": true, "position": null }],
+      "citations": [],
+      "brandCited": false
+    }
+  }
+]

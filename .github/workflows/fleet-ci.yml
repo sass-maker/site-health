@@ -43,6 +43,24 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
 
+  ai-visibility-package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: foundry/packages/ai-visibility
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: foundry/packages/ai-visibility/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+
   ops-console:
     runs-on: ubuntu-latest
     steps:

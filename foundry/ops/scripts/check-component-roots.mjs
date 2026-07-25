@@ -30,6 +30,12 @@ const components = [
     nativeCheck: 'pnpm check',
   },
   {
+    id: 'ai-visibility',
+    root: 'foundry/packages/ai-visibility',
+    required: ['package.json', 'README.md', 'pnpm-lock.yaml'],
+    nativeCheck: 'pnpm check',
+  },
+  {
     id: 'public-directory',
     root: 'foundry/apps/public-directory',
     required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'package-lock.json'],
