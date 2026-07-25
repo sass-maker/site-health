@@ -103,6 +103,25 @@ function generateReport(ledger, cfg) {
   }
   lines.push('');
 
+  // Retired: has ledger history but no config entry. Without this the trend
+  // table (which iterates cfg.products) drops the query silently, and the
+  // report reads as though the surface was never tracked.
+  const tracked = new Set(cfg.products.flatMap((p) => p.queries.map((q) => `${p.id}|${q.qid}`)));
+  const retired = [...byKey.keys()].filter((k) => !tracked.has(k));
+  if (retired.length) {
+    lines.push('## Retired (in ledger, no longer in config)');
+    lines.push('');
+    for (const k of retired.sort()) {
+      const seen = [...byKey.get(k).keys()].sort();
+      const lastClass = byKey.get(k).get(seen[seen.length - 1])?.class ?? '?';
+      lines.push(
+        `- **${k.replace('|', ' / ')}** — last observed ${seen[seen.length - 1]} at ${lastClass} ` +
+          `(${seen.length} observation(s)). History kept; not probed on new runs.`
+      );
+    }
+    lines.push('');
+  }
+
   // Latest notes with evidence
   const last = dates[dates.length - 1];
   if (last) {

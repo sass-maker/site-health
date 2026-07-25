@@ -25,7 +25,8 @@
       "origin": "https://highsignal.app",
       "queries": [
         { "qid": "highsignal-brand", "kind": "brand", "q": "highsignal.app" },
-        { "qid": "highsignal-category", "kind": "category", "q": "daily brief with prediction hit rates" }
+        { "qid": "highsignal-category", "kind": "category", "q": "daily brief with prediction hit rates" },
+        { "qid": "highsignal-category-2", "kind": "category", "q": "daily tech finance brief with public accuracy track record", "$note": "added 2026-07-25: highsignal-category reads as sports-betting intent and returns tipster sites. Kept for history; this one targets the intended audience." }
       ]
     },
     {
@@ -33,7 +34,9 @@
       "origin": "https://heypace.app",
       "queries": [
         { "qid": "pace-brand", "kind": "brand", "q": "heypace" },
-        { "qid": "pace-category", "kind": "category", "q": "Mac voice agent reads your screen" }
+        { "qid": "pace-brand-exact", "kind": "brand", "q": "heypace.app", "$note": "added 2026-07-25: 'heypace' is owned by HEYPACE Ceramics. The exact-domain form separates name collision from non-indexation." },
+        { "qid": "pace-category", "kind": "category", "q": "Mac voice agent reads your screen" },
+        { "qid": "pace-category-2", "kind": "category", "q": "macOS AI agent that sees your screen and runs tasks", "$note": "added 2026-07-25: pace-category collides with macOS VoiceOver accessibility docs, which Apple owns outright. Kept for history." }
       ]
     },
     {
@@ -42,14 +45,6 @@
       "queries": [
         { "qid": "posttrainllm-brand", "kind": "brand", "q": "posttrainllm" },
         { "qid": "posttrainllm-category", "kind": "category", "q": "fine-tune LLM specialists on Mac Apple Silicon" }
-      ]
-    },
-    {
-      "id": "materia",
-      "origin": "https://materia.significanthobbies.com",
-      "queries": [
-        { "qid": "materia-brand", "kind": "brand", "q": "materia evidence graded remedies" },
-        { "qid": "materia-category", "kind": "category", "q": "herb drug interaction checker evidence" }
       ]
     },
     {

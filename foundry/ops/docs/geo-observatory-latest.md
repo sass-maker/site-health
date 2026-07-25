@@ -1,6 +1,6 @@
 # GEO Observatory — latest report
 
-Generated from `foundry/ops/data/geo-observatory/ledger.jsonl` (23 observations, 2 run(s): 2026-07-17, 2026-07-25).
+Generated from `foundry/ops/data/geo-observatory/ledger.jsonl` (26 observations, 2 run(s): 2026-07-17, 2026-07-25).
 Rubric: A = own domain top-3 · B = via hub/aggregator only · C = absent.
 Do not edit — regenerate via `geo-observatory-record.mjs`.
 
@@ -18,16 +18,23 @@ _No class changes._
 | rolepatch | free ATS resume checker (category) | · | C |
 | high-signal | highsignal.app (brand) | C | C |
 | high-signal | daily brief with prediction hit rates (category) | · | C |
+| high-signal | daily tech finance brief with public accuracy tr (category) | · | C |
 | pace | heypace (brand) | C | C |
+| pace | heypace.app (brand) | · | C |
 | pace | Mac voice agent reads your screen (category) | · | C |
+| pace | macOS AI agent that sees your screen and runs ta (category) | · | C |
 | posttrainllm | posttrainllm (brand) | C | C |
 | posttrainllm | fine-tune LLM specialists on Mac Apple Silicon (category) | · | C |
-| materia | materia evidence graded remedies (brand) | · | C |
-| materia | herb drug interaction checker evidence (category) | · | C |
 | significanthobbies | Significant Hobbies planner (brand) | C | C |
 | anime-list | Fullmetal Alchemist Brotherhood filter by episod (category) | · | C |
 | anime-list | anime discovery multi-field filter watchlist (category) | · | C |
 | drank | free domain rating dataset weekly (category) | · | C |
+
+## Retired (in ledger, no longer in config)
+
+- **materia / materia-brand** — last observed 2026-07-25 at C (1 observation(s)). History kept; not probed on new runs.
+- **materia / materia-category** — last observed 2026-07-25 at C (1 observation(s)). History kept; not probed on new runs.
+- **saas-maker-showcase / sassmaker-brand** — last observed 2026-07-17 at A (1 observation(s)). History kept; not probed on new runs.
 
 ## Latest run notes (2026-07-25)
 
@@ -47,4 +54,7 @@ _No class changes._
 - **anime-list / anime-longtail-1** → C. Top: https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes, https://www.animefillerlist.com/shows/fullmetal-alchemist-brotherhood — first observation; a site: query returned ZERO pages from anime.significanthobbies.com — that is non-indexation evidence, not a ranking result; strongest actionable signal this run
 - **anime-list / anime-category** → C. Top: https://docs.simkl.org/how-to-use-simkl/core-features/search-and-discovery/discovering-and-exploring-with-filters/anime-filters, https://myanimepulse.com/ — first observation; Simkl docs + MyAnimePulse + MAL lists own it; consistent with the domain being unindexed rather than outranked
 - **drank / drank-category** → C. Top: https://serp.tools/tools/bulk-domain-rating-checker/, https://snowseo.com/free-tools/domain-rating — first observation; 'domain rating' reads as Ahrefs-DR-checker intent (serp.tools, SnowSEO) with Cloudflare Radar as the dataset answer; domains.sassmaker.com absent
+- **high-signal / highsignal-category-2** → C. Top: https://www.frontresearch.com/t/Daily-Tech-Brief, https://thefintechtimes.com/ — first observation of the retargeted query; now returns actual tech/finance brief publishers instead of sports tipsters, so the class is meaningful — highsignal.app absent. No incumbent visibly publishes an accuracy ledger, which is the differentiator to lead with
+- **pace / pace-brand-exact** → C. Top: https://www.instagram.com/heypace/, https://www.facebook.com/heypaceceramics/ — first observation; even the exact-domain form returns HEYPACE Ceramics — the collision is at the name level, not just the bare-word level, so indexation alone will not fix brand search
+- **pace / pace-category-2** → C. Top: https://fazm.ai/macos-ai-agent, https://www.enconvo.com/ — first observation of the retargeted query; unlike pace-category this surfaces real competitors (Fazm, EnConvo, Simular, MacAgent Pro, Peekaboo) rather than Apple VoiceOver docs — a live contested category pace is absent from, and the useful one to track
 
