@@ -83,6 +83,30 @@ link_skill_dir() {
   done
 }
 
+ensure_local_agent_excludes() {
+  local project="$1"
+  local git_dir
+  local exclude_file
+
+  git_dir="$(git -C "$project" rev-parse --absolute-git-dir)"
+  exclude_file="$git_dir/info/exclude"
+
+  if [[ "$DRY_RUN" == "1" ]]; then
+    log "[dry-run] ensure local agent assets are ignored in $exclude_file"
+    return 0
+  fi
+
+  mkdir -p "$(dirname "$exclude_file")"
+  touch "$exclude_file"
+
+  local pattern
+  for pattern in ".agents/" ".claude/"; do
+    if ! grep -Fqx "$pattern" "$exclude_file"; then
+      printf '%s\n' "$pattern" >> "$exclude_file"
+    fi
+  done
+}
+
 prepend_block_if_missing() {
   local file="$1"
   local block="$2"
@@ -174,6 +198,7 @@ for project in "${targets[@]}"; do
   log ""
   log "Project: $project"
 
+  ensure_local_agent_excludes "$project"
   link_skill_dir "$FLEET_ROOT/.agents/skills" "$project/.agents/skills"
   link_skill_dir "$FLEET_ROOT/.claude/skills" "$project/.claude/skills"
 
