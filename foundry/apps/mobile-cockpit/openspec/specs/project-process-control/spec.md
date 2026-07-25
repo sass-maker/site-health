@@ -1,8 +1,11 @@
 # project-process-control Specification
 
 ## Purpose
+
 TBD - created by archiving change build-mobile-dev-cockpit-mvp. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: Explicit project allowlist
 
 The bridge MUST expose and operate only on projects declared in its configuration, with repository paths resolved to absolute canonical directories.

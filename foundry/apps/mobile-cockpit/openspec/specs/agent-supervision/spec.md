@@ -1,8 +1,11 @@
 # agent-supervision Specification
 
 ## Purpose
+
 TBD - created by archiving change build-mobile-dev-cockpit-mvp. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: Configured agent sessions
 
 The bridge SHALL start only a project-configured agent command in a pseudoterminal and SHALL associate at most one active agent process with that project.

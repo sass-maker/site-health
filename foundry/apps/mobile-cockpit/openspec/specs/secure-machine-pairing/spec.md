@@ -1,8 +1,11 @@
 # secure-machine-pairing Specification
 
 ## Purpose
+
 TBD - created by archiving change build-mobile-dev-cockpit-mvp. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: One-time machine pairing
 
 The bridge SHALL issue a high-entropy, short-lived, single-use pairing token and SHALL exchange a valid token for a distinct session credential.

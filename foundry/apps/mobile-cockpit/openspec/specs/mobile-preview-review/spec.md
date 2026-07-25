@@ -1,8 +1,11 @@
 # mobile-preview-review Specification
 
 ## Purpose
+
 TBD - created by archiving change build-mobile-dev-cockpit-mvp. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: Isolated mobile preview
 
 The app SHALL render a selected project's HTTP(S) preview URL in a WebView that has no access to machine-control credentials or bridge messaging APIs.

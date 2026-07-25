@@ -1,8 +1,11 @@
 # guarded-deployment Specification
 
 ## Purpose
+
 TBD - created by archiving change build-mobile-dev-cockpit-mvp. Update Purpose after archive.
+
 ## Requirements
+
 ### Requirement: Fresh approval for deployment
 
 The bridge MUST require a fresh explicit approval for every configured deploy or rollback operation before starting its process.
