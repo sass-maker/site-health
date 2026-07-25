@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 37
 - Project/component checkouts with OpenSpec: 17
 - Project/component spec roots: 17
-- Project/component base specs: 97
-- Project/component active changes: 25
+- Project/component base specs: 103
+- Project/component active changes: 19
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -61,37 +61,31 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 
 Root: `anime-list`
 
-Base specs: none
+Base specs: `mcp-page`, `mcp-server`, `personal-access-tokens`
 
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `expose-mcp-server` | 0/44 | in progress |
+Active changes: none
 
-Archived changes: 1
+Archived changes: 0
 
 ### App Health
 
 Root: `app-health`
 
-Base specs: `cloudflare-production-runtime`, `data-transparency`, `echo-v5`, `endpoint-dashboard`, `endpoint-ingestion`, `go-endpoint-sdk`, `node-endpoint-sdk`, `otel-endpoint-ingestion`, `project-key-setup`, `sdk-distribution`
+Base specs: `cloudflare-production-runtime`, `data-transparency`, `echo-v5`, `endpoint-dashboard`, `endpoint-ingestion`, `go-endpoint-sdk`, `node-endpoint-sdk`, `otel-endpoint-ingestion`, `project-key-setup`, `sdk-distribution`, `worker-framework-sdk`
 
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `support-worker-frameworks-and-release-sdk` | 13/14 | in progress |
+Active changes: none
 
-Archived changes: 8
+Archived changes: 0
 
 ### CodeVetter
 
 Root: `codevetter`
 
-Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `audience-validation`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-work-board`, `model-assisted-scenario-compilation`, `native-agent-island`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`
+Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `audience-validation`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-work-board`, `model-assisted-scenario-compilation`, `native-agent-island`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`
 
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `add-agent-pr-xray` | 16/20 | in progress |
+Active changes: none
 
-Archived changes: 25
+Archived changes: 0
 
 ### Drank
 
@@ -134,11 +128,9 @@ Root: `pace`
 
 Base specs: `ambient-perception`, `codex-direct-brain`, `companion-memory-policy`, `companion-mode-controls`, `meeting-note-profiles`, `proactive-companion-policy`, `temporal-world-model`, `transcript-grounded-actions`
 
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `durable-working-runtime` | 0/37 | in progress |
+Active changes: none
 
-Archived changes: 3
+Archived changes: 0
 
 ### High Signal
 
@@ -146,11 +138,9 @@ Root: `high-signal`
 
 Base specs: `accelerator-company-universe`, `brief-delivery-completion`, `company-lookup-create`, `intent-aware-daily-brief`, `openlens-visibility-followups`, `opportunity-briefs`, `structured-claim-consumption`, `watching-brief-section`
 
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `add-public-ai-evidence-report` | 0/21 | in progress |
+Active changes: none
 
-Archived changes: 9
+Archived changes: 0
 
 ### Karte
 
@@ -253,13 +243,11 @@ Archived changes: 2
 
 Root: `swe-interview-prep`
 
-Base specs: none
+Base specs: `expanded-learning-domains`
 
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `expand-learning-domains` | 0/16 | in progress |
+Active changes: none
 
-Archived changes: 0
+Archived changes: 1
 
 ## Registered cross-project stores
 
