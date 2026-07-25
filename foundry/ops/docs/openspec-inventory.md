@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 37
 - Project/component checkouts with OpenSpec: 17
 - Project/component spec roots: 17
-- Project/component base specs: 103
-- Project/component active changes: 19
+- Project/component base specs: 111
+- Project/component active changes: 12
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -101,18 +101,12 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `canonical-content-packages`, `catchy-variant-generation`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `derived-assessments`, `fleet-workspace-boundary`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `site-health`, `spotlight-products`, `unified-learning-catalog`
+Base specs: `canonical-content-packages`, `catchy-variant-generation`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `derived-assessments`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `site-health`, `spotlight-products`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `automate-ai-infrastructure-toolbox` | 16/16 | complete |
-| `automate-data-research-toolbox` | 13/13 | complete |
 | `automate-heypace` | 0/12 | in progress |
 | `automate-high-signal` | 0/17 | in progress |
-| `automate-portfolio-identity-toolbox` | 12/12 | complete |
-| `automate-posttrainllm` | 12/13 | in progress |
-| `automate-significant-hobbies-toolbox` | 14/15 | in progress |
-| `cloudflare-resilience-control-plane` | 12/15 | in progress |
 | `complete-fleet-automation` | 0/49 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
 | `consolidate-foundry-monorepo` | 27/67 | in progress |
@@ -120,7 +114,7 @@ Base specs: `canonical-content-packages`, `catchy-variant-generation`, `codevett
 | `geo-observatory` | 5/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 13
+Archived changes: 14
 
 ### HeyPace
 
@@ -176,14 +170,13 @@ Archived changes: 5
 
 Root: `foundry/apps/mobile-cockpit`
 
-Base specs: `dynamic-project-enrollment`
+Base specs: `agent-supervision`, `dynamic-project-enrollment`, `guarded-deployment`, `mobile-preview-review`, `project-process-control`, `secure-machine-pairing`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `add-native-ipad-and-voice` | 31/33 | in progress |
-| `build-mobile-dev-cockpit-mvp` | 32/33 | in progress |
 
-Archived changes: 1
+Archived changes: 2
 
 ### PostTrainLLM
 
@@ -243,11 +236,11 @@ Archived changes: 2
 
 Root: `swe-interview-prep`
 
-Base specs: `expanded-learning-domains`
+Base specs: `expanded-learning-domains`, `public-curriculum-discovery`, `unified-site-navigation`
 
 Active changes: none
 
-Archived changes: 1
+Archived changes: 3
 
 ## Registered cross-project stores
 

@@ -51,6 +51,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Mature automation changes closed:** Archived the completed AI
+  infrastructure, data/research, portfolio/identity, PostTrainLLM, Significant
+  Hobbies, Cloudflare resilience, and Mobile Cockpit MVP OpenSpec changes after
+  strict validation and merged-source verification. The live Cloudflare audit
+  now reports 29/29 canonical domains healthy with no high or medium findings;
+  ignored repositories and the historical `success-by-26` Pages surface are
+  explicit non-blocking exceptions.
 - **2026-07-25 — Fleet capability catalog shipped:** Added one read-only,
   dependency-free discovery surface across canonical Fleet skills, operator
   scripts, templates, and living docs, with ranked search, exact retrieval,

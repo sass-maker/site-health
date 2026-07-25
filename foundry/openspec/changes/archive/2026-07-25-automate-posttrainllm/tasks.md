@@ -26,5 +26,10 @@
 - [x] 3.2 Run public site/playground build, live and indexing checks.
 - [x] 3.3 Add tests proving private datasets/prompts/checkpoints/outputs cannot
   enter fleet reports.
-- [ ] 3.4 Open a scoped PR with evidence matrix and leave model/release/public
+- [x] 3.4 Open a scoped PR with evidence matrix and leave model/release/public
   claim and production deployment pending approval.
+
+Implementation evidence: PostTrainLLM PR
+[#67](https://github.com/PostTrainLLM/posttrainllm/pull/67) merged the sanitized
+Foundry evidence receipts, provenance checks, private-payload exclusion tests,
+and explicit manual-publication boundary.

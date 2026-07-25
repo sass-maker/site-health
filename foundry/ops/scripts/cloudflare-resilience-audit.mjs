@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const FLEET_ROOT = resolve(SCRIPT_DIR, '../../..');
 const MANIFEST_PATH = join(FLEET_ROOT, 'foundry/ops/config/projects.json');
+const AUTOMATION_REGISTRY_PATH = join(FLEET_ROOT, 'foundry/ops/config/automation-registry.json');
 
 const args = new Set(process.argv.slice(2));
 const jsonOutput = args.has('--json');
@@ -99,6 +100,7 @@ function expectedPageNames(projects) {
   return new Set(projects
     .filter((project) => project.deployKind?.includes('pages'))
     .flatMap((project) => {
+      if (Array.isArray(project.cfPages)) return project.cfPages;
       const value = String(project.cfProject ?? '');
       const names = project.deployKind === 'pages' ? value.split(/\s*,\s*/) : [value.split(/\s*\+\s*/)[0]];
       return names.map((name) => name.trim());
@@ -111,9 +113,26 @@ function repoPathFor(project) {
   return resolve(FLEET_ROOT, project.repo);
 }
 
-function scanRepository(project, findings, evidence) {
+function scanRepository(project, findings, evidence, ignoredRepositories) {
   const repoPath = repoPathFor(project);
   if (!repoPath) return;
+  const ignored = ignoredRepositories.get(project.repo);
+  if (ignored) {
+    evidence.repositories.push({
+      id: project.id,
+      repo: project.repo,
+      excluded: true,
+      reason: ignored.reason,
+    });
+    findings.push(finding(
+      'info',
+      'manifest-exception',
+      project.id,
+      `Repository scan intentionally excluded: ${ignored.reason}`,
+      'Reactivate the project explicitly before restoring routine repository checks.',
+    ));
+    return;
+  }
   if (!existsSync(repoPath)) {
     findings.push(finding('high', 'manifest', project.id, `Repository not found: ${project.repo}`, 'Restore the checkout or mark the surface undeployed.'));
     return;
@@ -237,6 +256,17 @@ function markdown(report) {
 
 async function main() {
   const manifest = readJson(MANIFEST_PATH);
+  const automationRegistry = readJson(AUTOMATION_REGISTRY_PATH);
+  const ignoredRepositories = new Map((automationRegistry.entries ?? [])
+    .filter((entry) => entry.attention === 'ignored' && entry.repository)
+    .map((entry) => [
+      entry.repository,
+      {
+        id: entry.id,
+        reason: entry.exceptions?.find((exception) => exception.contract === 'all')?.reason
+          ?? 'Ignored by the canonical automation registry.',
+      },
+    ]));
   const projects = (manifest.projects ?? []).filter((project) => IN_SCOPE_TIERS.has(project.tier));
   const inventoryProjects = (manifest.projects ?? []).filter((project) => project.status === 'live');
   const findings = [];
@@ -253,7 +283,7 @@ async function main() {
     if (project.status === 'live' && project.repo && !repoPathFor(project)) {
       findings.push(finding('high', 'manifest', project.id, 'Live project has no repository mapping.', 'Add the owning repository to projects.json or explicitly mark the surface non-product.'));
     }
-    if (!manifestOnly) scanRepository(project, findings, evidence);
+    if (!manifestOnly) scanRepository(project, findings, evidence, ignoredRepositories);
   }
   for (const [domain, owners] of domainOwners) {
     if (owners.length > 1) findings.push(finding('high', 'manifest', domain, `Canonical domain is claimed by multiple projects: ${owners.join(', ')}`, 'Choose one owner and remove the redundant mapping.'));
@@ -272,14 +302,17 @@ async function main() {
     if (pages.ok && Array.isArray(pages.value)) {
       const livePageNames = new Set(pages.value.map((project) => project['Project Name']).filter(Boolean));
       const expectedPages = expectedPageNames(inventoryProjects);
+      const knownPages = expectedPageNames(manifest.projects ?? []);
       for (const expected of expectedPages) {
         if (!livePageNames.has(expected)) {
           findings.push(finding('high', 'cloudflare-inventory', expected, 'Manifest Pages project is not present in the live Pages inventory.', 'Restore or explicitly retire the Pages project and update the manifest.'));
         }
       }
       for (const actual of livePageNames) {
-        if (!expectedPages.has(actual)) {
+        if (!knownPages.has(actual)) {
           findings.push(finding('medium', 'cloudflare-inventory', actual, 'Live Pages project is not represented by the canonical manifest.', 'Claim it in projects.json or remove it after an explicit owner decision.'));
+        } else if (!expectedPages.has(actual)) {
+          findings.push(finding('info', 'cloudflare-inventory', actual, 'Live Pages project is a known inactive or non-product surface.', 'Keep it out of active automation unless it is explicitly reactivated.'));
         }
       }
     }

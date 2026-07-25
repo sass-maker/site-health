@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-07-21",
+    "updated": "2026-07-25",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -10,6 +10,7 @@
       "repo": "child repo dir under fleet root (null if none)",
       "deployKind": "pages | worker | worker+pages | none | unknown",
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
+      "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
@@ -221,6 +222,10 @@
       "repo": "knowledge-base",
       "deployKind": "worker+pages",
       "cfProject": "knowledgebase-landing + knowledgebase-app + RAG_SERVICE workers",
+      "cfPages": [
+        "knowledgebase-landing",
+        "knowledgebase-app"
+      ],
       "domains": [
         "search.sassmaker.com",
         "knowledgebase.sassmaker.com"
@@ -505,6 +510,19 @@
       "inRegistry": true,
       "status": "live",
       "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep."
+    },
+    {
+      "id": "success-by-26",
+      "authModel": "public-persistent",
+      "family": "personal",
+      "tier": "non-product",
+      "repo": null,
+      "deployKind": "pages",
+      "cfProject": "success-by-26",
+      "domains": [],
+      "inRegistry": false,
+      "status": "orphan",
+      "notes": "Known local-only/non-Fleet historical Pages project. Excluded from active automation and fresh-machine setup; retain or delete only after an explicit owner decision."
     },
     {
       "id": "sarthakagrawal-personal",

@@ -26,7 +26,7 @@
   runbook/rollback evidence requirements.
 - [x] Document the forward-looking failure register, early signals, and
   product-specific response policy.
-- [ ] Update the canonical project/deploy docs only where the live audit proves
+- [x] Update the canonical project/deploy docs only where the live audit proves
   drift.
 
 ## Remediation and verification
@@ -34,6 +34,9 @@
 - [x] Fix concrete deploy/control defects found by the
   audit, preserving unrelated dirty work.
 - [x] Run targeted tests plus the fleet audit and live probes.
-- [ ] Re-run the audit after any approved deploy and record the residual risks.
-- [ ] Archive the change and update `PROJECT_STATUS.md` after the control plane
+- [x] Re-run the audit after any approved deploy and record the residual risks.
+  No deploy was needed for closure; the 2026-07-25 live rerun recorded 29/29
+  canonical domains healthy, zero high/medium findings, six bounded low risks,
+  and six intentional inactive/non-product exceptions.
+- [x] Archive the change and update `PROJECT_STATUS.md` after the control plane
   is shipped.

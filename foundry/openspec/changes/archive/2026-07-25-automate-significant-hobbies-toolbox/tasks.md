@@ -34,7 +34,7 @@
   saved games and credentials from fleet evidence.
 - [x] 3.3 Run smallest relevant checks in every touched repo and schedule/job
   fixtures where applicable.
-- [ ] 3.4 Open separate PRs per touched repository and return one family evidence
+- [x] 3.4 Open separate PRs per touched repository and return one family evidence
   table with PRs, checks, exceptions and blockers.
 
 ## Implementation notes
@@ -69,8 +69,9 @@ Artifacts:
   six spec requirements and every spec scenario.
 - `fleet-ops/docs/toolbox-family-evidence-latest.md` — generated report.
 
-Task 3.4 (separate PRs per touched repository) remains open: no child
-repository needed changes for the baseline contract. A follow-up PR will
-wire live-probe adapters (GitHub Actions, Cloudflare deploy, live HTTP,
-job receipts) into the CLI so evidence statuses move from `unknown` to
-`pass`/`fail` without changing the contract or touching production.
+No child repository needed changes for the baseline contract, so no artificial
+child PRs were opened. Fleet Workspace PR
+[#6](https://github.com/sass-maker/fleet-workspace/pull/6) merged the family
+registry, sanitized evidence envelope, bounded experiment validation, generated
+evidence table, and 21 scenario tests. Live-provider adapters remain separate
+operational follow-up rather than part of this completed contract.

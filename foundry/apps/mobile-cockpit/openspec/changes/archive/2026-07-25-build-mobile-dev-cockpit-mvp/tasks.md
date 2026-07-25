@@ -41,7 +41,7 @@
 - [x] 5.1 Run workspace formatting, lint, typecheck, unit tests, and Expo export checks
 - [x] 5.2 Run an end-to-end bridge smoke test through pair, list, start, logs, review, approval, and stop against a fixture repository
 - [x] 5.3 Verify the mobile UI in its supported local runtime and record any host-tooling limitation
-- [ ] 5.4 Update PROJECT_STATUS.md with shipped evidence and archive the completed OpenSpec change only when every scenario is implemented and verified
+- [x] 5.4 Update PROJECT_STATUS.md with shipped evidence and archive the completed OpenSpec change only when every scenario is implemented and verified
 - [x] 5.5 Verify the Tailscale CLI contract with fixtures and visually smoke-test secure and local onboarding at iPhone dimensions
 - [x] 5.6 Add a clean macOS CI gate that generates the iOS project, installs CocoaPods, and compiles the complete app for iOS Simulator with the SDK 57-required Xcode toolchain
 - [x] 5.7 Build a standalone Release app, install and launch it without Metro in an iPhone simulator, and visually inspect the native screenshot artifact
