@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 
-const FLEET_ROOT = resolve(import.meta.dirname, '..', '..');
+const FLEET_ROOT = resolve(import.meta.dirname, '..', '..', '..');
 const CONTRACT_PATH = resolve(FLEET_ROOT, 'foundry/ops/config/spotlight-products.json');
 const SYNC_CONFIG_PATH = resolve(FLEET_ROOT, 'foundry/ops/config/spotlight-sync.json');
 
