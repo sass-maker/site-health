@@ -9,7 +9,7 @@ x-postiz-manual: &postiz-manual
 services:
   postiz:
     <<: *postiz-manual
-    image: ghcr.io/gitroomhq/postiz-app:v2.21.10@sha256:1d5a5dc6b896747d1483c01dc2562165bd313ad601b32f6cabb7f7dd08a911a9
+    image: ghcr.io/gitroomhq/postiz-app:v2.22.1@sha256:edcc9a8e3bfaafac72ccae30b630e5eed873b9538f726fcb97c5a7529e6ed10a
     env_file:
       - ${POSTIZ_ENV_FILE:?set POSTIZ_ENV_FILE to a machine-local file}
     ports:
@@ -109,6 +109,11 @@ services:
     image: temporalio/auto-setup:1.28.1
     env_file:
       - ${POSTIZ_TEMPORAL_ENV_FILE:?set POSTIZ_TEMPORAL_ENV_FILE to a machine-local file}
+    volumes:
+      - type: bind
+        source: ./dynamicconfig
+        target: /etc/temporal/config/dynamicconfig
+        read_only: true
     ports:
       - 127.0.0.1:7233:7233
     networks: [temporal]

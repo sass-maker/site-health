@@ -46,7 +46,7 @@ function fixture(t) {
     schemaVersion: 1,
     kind: 'postiz-restore-rehearsal',
     result: 'verified',
-    sourceRelease: 'v2.21.10',
+    sourceRelease: 'v2.22.1',
     verifiedAt: '2026-07-20T10:00:00.000Z',
   })}\n`);
 
@@ -93,10 +93,10 @@ test('official Postiz manifest, compose contract, and schedules stay pinned and 
   const compose = readFileSync(resolve(import.meta.dirname, '../host/postiz/compose.yaml'), 'utf8');
   const schedules = JSON.parse(readFileSync(resolve(import.meta.dirname, '../config/postiz-schedules.json'), 'utf8'));
 
-  assert.equal(manifest.postizRelease, 'v2.21.10');
+  assert.equal(manifest.postizRelease, 'v2.22.1');
   assert.equal(
     manifest.images.postiz,
-    'ghcr.io/gitroomhq/postiz-app:v2.21.10@sha256:1d5a5dc6b896747d1483c01dc2562165bd313ad601b32f6cabb7f7dd08a911a9',
+    'ghcr.io/gitroomhq/postiz-app:v2.22.1@sha256:edcc9a8e3bfaafac72ccae30b630e5eed873b9538f726fcb97c5a7529e6ed10a',
   );
   assert.deepEqual(Object.values(manifest.images).slice(1), [
     'postgres:17-alpine',
@@ -118,6 +118,8 @@ test('official Postiz manifest, compose contract, and schedules stay pinned and 
     '127.0.0.1:7233',
   ]);
   for (const name of STATE_DIRECTORIES) assert.match(compose, new RegExp(`source: \\$\\{POSTIZ_DATA_ROOT[^\\n]+/${name}`));
+  assert.match(compose, /source: \.\/dynamicconfig[\s\S]+target: \/etc\/temporal\/config\/dynamicconfig[\s\S]+read_only: true/u);
+  assert.match(readFileSync(resolve(import.meta.dirname, '../host/postiz/dynamicconfig/development-sql.yaml'), 'utf8'), /limit\.maxIDLength/u);
 
   assert.equal(schedules.status, 'inert');
   assert.equal(schedules.schedulesActive, false);
@@ -186,7 +188,7 @@ test('backup, candidate restore, and rollback are verified against disposable st
   t.after(() => rmSync(root, { recursive: true, force: true }));
   const receipt = runDisposableRehearsal(root, { now: '2026-07-20T12:00:00.000Z' });
   assert.equal(receipt.result, 'verified');
-  assert.equal(receipt.sourceRelease, 'v2.21.10');
+  assert.equal(receipt.sourceRelease, 'v2.22.1');
   assert.equal(receipt.stateDirectories, 6);
   assert.equal(receipt.filesVerified, 6);
   assert.equal(JSON.parse(readFileSync(resolve(root, 'restore-rehearsal-receipt.json'), 'utf8')).result, 'verified');

@@ -1,6 +1,6 @@
 # Inert Postiz host contract
 
-This directory records the official Postiz `v2.21.10` deployment topology
+This directory records the official Postiz `v2.22.1` deployment topology
 without installing or activating it. `images.json` is the pin manifest;
 `compose.yaml` is an explicit-manual-profile Compose contract. The Postiz image
 uses its multi-architecture digest. PostgreSQL, Redis, Temporal auto-setup, the
@@ -31,7 +31,7 @@ Required variable names, without values:
 - Postiz PostgreSQL: `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB`.
 - Temporal PostgreSQL and auto-setup: `POSTGRES_USER`, `POSTGRES_PASSWORD`,
   `POSTGRES_PWD`, `DB`, `DB_PORT`, `POSTGRES_SEEDS`, `ENABLE_ES`, `ES_SEEDS`,
-  `ES_VERSION`, and `TEMPORAL_NAMESPACE`.
+  `ES_VERSION`, `TEMPORAL_NAMESPACE`, and `DYNAMIC_CONFIG_FILE_PATH`.
 - Elasticsearch: `discovery.type`, `xpack.security.enabled`, `ES_JAVA_OPTS`,
   and the four `cluster.routing.allocation.disk.*` settings used by the
   official topology.

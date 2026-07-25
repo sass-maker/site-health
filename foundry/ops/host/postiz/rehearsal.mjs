@@ -44,8 +44,8 @@ function copyState(source, destination) {
 }
 
 export function runDisposableRehearsal(root, {
-  currentRelease = 'v2.21.10',
-  candidateRelease = 'v2.21.10-fixture-candidate',
+  currentRelease = 'v2.22.1',
+  candidateRelease = 'v2.22.1-fixture-candidate',
   now = new Date(),
 } = {}) {
   if (!isAbsolute(root) || resolve(root) === '/' || readdirSync(root).length !== 0) {

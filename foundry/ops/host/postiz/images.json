@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "postizRelease": "v2.21.10",
+  "postizRelease": "v2.22.1",
   "images": {
-    "postiz": "ghcr.io/gitroomhq/postiz-app:v2.21.10@sha256:1d5a5dc6b896747d1483c01dc2562165bd313ad601b32f6cabb7f7dd08a911a9",
+    "postiz": "ghcr.io/gitroomhq/postiz-app:v2.22.1@sha256:edcc9a8e3bfaafac72ccae30b630e5eed873b9538f726fcb97c5a7529e6ed10a",
     "postgres": "postgres:17-alpine",
     "redis": "redis:7.2",
     "temporal": "temporalio/auto-setup:1.28.1",

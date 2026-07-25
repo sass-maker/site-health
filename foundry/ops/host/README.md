@@ -41,7 +41,7 @@ private-reachability checks below to pass.
 
 ## Inert Postiz deployment contract
 
-[`postiz/images.json`](postiz/images.json) pins official Postiz `v2.21.10` by
+[`postiz/images.json`](postiz/images.json) pins official Postiz `v2.22.1` by
 multi-architecture digest and pins every dependency tag. The
 [`postiz/compose.yaml`](postiz/compose.yaml) stack is source-only intent: every
 service is behind the explicit `postiz-manual` profile, published ports bind to
@@ -64,7 +64,7 @@ A machine-local readiness file contains paths and private probe URLs only:
 ```
 
 The doctor requires two logical CPUs, 4 GiB RAM, 20 GiB free at the data root,
-all six persistent directories, a verified `v2.21.10` restore-rehearsal
+all six persistent directories, a verified `v2.22.1` restore-rehearsal
 receipt, a successful health response, a present/auth-gated public API route,
 and private reachability. URLs with public hosts or embedded credentials are
 rejected before probing. Tests inject resource, filesystem, HTTP, and
