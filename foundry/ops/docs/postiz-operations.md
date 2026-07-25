@@ -59,9 +59,49 @@ about 4 ms on this host.
 
 The repository's eight focused host/runner tests, source-only Compose
 validation, and disposable six-directory backup/candidate-restore/rollback
-rehearsal also passed. The test used generated disposable credentials and
-external bind mounts; no tracked file, provider credential, Cloudflare route,
-social account, schedule, or publication was changed.
+rehearsal also passed. The test used generated credentials and external bind
+mounts. No provider credential, social account, schedule, or publication was
+changed.
+
+## Local owner-auth and tunnel checkpoint
+
+The same 2026-07-25 proof was extended far enough to remove account and tunnel
+uncertainty before moving installation to the designated Fleet machine:
+
+- The single owner account was created for
+  `sarthakagrawal927@gmail.com`, verified as `SUPERADMIN`, and its generated
+  password was stored in the current Mac's Keychain under
+  `fleet-postiz-owner`.
+- Postiz registration was disabled and `GET /api/auth/can-register` returned
+  `{"register":false}` after restart.
+- The organization's Public API key was verified against
+  `GET /api/public/v1/is-connected` and stored in Keychain under
+  `fleet-postiz-api-key`. Postiz v2.22.1 expects the key as the raw
+  `Authorization` header value, not as a Bearer token.
+- A remotely managed Cloudflare Tunnel named `fleet-postiz`
+  (`e6b05b62-2ab2-4404-9770-772c9f00370e`) was created and configured to send
+  `postiz.sassmaker.com` to `http://127.0.0.1:4007`. Four connector sessions
+  became healthy in the local proof.
+- The connector token is recoverable from the Cloudflare Tunnel's **Add a
+  replica** flow. The current Mac also stores it under
+  `fleet-postiz-tunnel-token`; no tunnel credential is tracked in Git.
+- Live account inspection showed the Cloudflare Zero Trust subscription at
+  price `0` and the pre-existing Workers subscription at `$5/month`. Recheck
+  billing before target-host activation; this checkpoint added no paid plan.
+
+The local runtime remained a proof, not the durable installation. Its external
+state was kept below
+`~/Library/Caches/fleet-postiz-verification-20260725/` for possible inspection,
+then the local containers and connector were stopped without deleting state.
+Do not copy these disposable database/JWT credentials to the target host.
+
+The following deliberately remain undone:
+
+- There is no `postiz.sassmaker.com` DNS record.
+- There is no Cloudflare Access application for the hostname.
+- No Instagram, YouTube, or other provider integration is connected.
+- `GET /api/public/v1/integrations` returned zero integrations.
+- No draft canary was created, and no content was scheduled or published.
 
 This is a compatibility and migration-risk proof only. It does not satisfy the
 designated-host installation, durable backup, Cloudflare Access, account
@@ -74,13 +114,13 @@ connection, or draft-only production canary gates below.
   Temporal, and Elasticsearch topology; allocate more before adding volume.
 - A dedicated external data root and backup root with enough space for all six
   bind mounts. Never place either root inside the Git checkout.
-- A private Cloudflare Tunnel hostname reserved for Postiz. Do not reuse
+- The reserved private hostname `postiz.sassmaker.com`. Do not reuse
   `fleet.sassmaker.com`.
 - Cloudflare Access default-deny protection with an allow rule for the owner.
 
-The repository deliberately does not prescribe the final private hostname. Set
-it once on the host in the machine-local Postiz env file and in the Tunnel and
-Access configuration.
+Use the existing remotely managed `fleet-postiz` tunnel on the designated
+machine. Retrieve its connector token through Cloudflare's **Add a replica**
+flow and place it only in that machine's secret store.
 
 ## First installation
 
@@ -142,6 +182,23 @@ Access configuration.
    and no database, Redis, Elasticsearch, or Temporal port is publicly bound.
 10. Attach the loopback service to the dedicated Cloudflare Tunnel hostname,
     add the Access application, and prove unauthorized requests are denied.
+
+### Target-machine Cloudflare cutover
+
+1. Start the `fleet-postiz` tunnel connector on the designated machine using a
+   freshly retrieved replica token.
+2. Add a proxied CNAME for `postiz.sassmaker.com` targeting
+   `e6b05b62-2ab2-4404-9770-772c9f00370e.cfargotunnel.com`.
+3. Create a self-hosted Access application named `Postiz Private` for
+   `postiz.sassmaker.com`.
+4. Add one allow policy named `Allow Sarthak only` for
+   `sarthakagrawal927@gmail.com`; leave unmatched requests denied.
+5. Set `MAIN_URL` and `FRONTEND_URL` to
+   `https://postiz.sassmaker.com`, and set `NEXT_PUBLIC_BACKEND_URL` to
+   `https://postiz.sassmaker.com/api`.
+6. Keep `DISABLE_REGISTRATION=true` and `RUN_CRON=false`, restart Postiz, and
+   prove an unauthenticated request is stopped by Access before connecting any
+   provider account.
 
 ## Fleet integration
 

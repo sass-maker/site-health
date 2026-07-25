@@ -43,6 +43,17 @@
   recovered on the second five-second probe.
 - Passed the eight Postiz host/runner tests, source-only Compose validation, and
   the disposable six-directory backup/candidate-restore/rollback rehearsal.
+- Created and authenticated one local owner, closed registration, verified the
+  Public API key, and stored both credentials only in the current Mac's
+  Keychain.
+- Created the reusable remotely managed `fleet-postiz` Cloudflare Tunnel and
+  proved four healthy local connector sessions. Reserved
+  `postiz.sassmaker.com`, but did not create its DNS record or Access
+  application.
+- Confirmed the live account's Zero Trust subscription was price `0`; the
+  existing Workers subscription remained `$5/month`.
+- Confirmed zero connected Postiz integrations and created no draft, schedule,
+  or publication.
 
 Task 4.3 remains open because this proves local compatibility, not durable
 installation on the designated operations machine. Tasks 4.4-4.6 still require
