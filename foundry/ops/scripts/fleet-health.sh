@@ -29,15 +29,15 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Parse active project list from README (lines starting with "- [" under product sections)
+# Discover the independent Git checkouts present at the Fleet workspace root.
+# Canonical product/domain inventory still lives in projects.json; this health
+# command audits the repositories that can actually be synchronized locally.
 get_projects() {
-  local readme="$ROOT/README.md"
-  [[ -f "$readme" ]] || { echo "README.md not found at $readme" >&2; exit 1; }
-
-  # Extract project slugs from markdown links: - [name](url) — ...
-  # Skip sub-product lines (indented with 2 spaces)
-  grep -E '^- \[' "$readme" \
-    | sed -E 's/^- \[([^]]+)\].*/\1/' \
+  find "$ROOT" -mindepth 1 -maxdepth 1 -type d \
+    -exec test -d '{}/.git' ';' -print \
+    | while IFS= read -r project_dir; do
+        basename "$project_dir"
+      done \
     | sort -u
 }
 
@@ -47,10 +47,8 @@ else
   PROJECTS=$(get_projects)
 fi
 
-# Also include sub-products (indented lines)
-SUBPRODUCTS=$(grep -E '^  - \[' "$ROOT/README.md" | sed -E 's/^  - \[([^]]+)\].*/\1/' | sort -u)
 if [[ -z "$ONLY" ]]; then
-  PROJECTS=$(printf '%s\n%s\nfleet\n' "$PROJECTS" "$SUBPRODUCTS" | sort -u)
+  PROJECTS=$(printf '%s\nfleet\n' "$PROJECTS" | sort -u)
 fi
 
 repo_dir_for_project() {
