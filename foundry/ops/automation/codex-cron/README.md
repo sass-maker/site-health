@@ -6,6 +6,10 @@ Versioned replacement for the Codex app automation schedules.
 deterministic jobs that do not need a model, including the nightly learning
 source sync.
 
+The weekly GEO Observatory is a bounded conversational job because comparable
+SERP classification requires live web search and coarse judgment. It writes
+only its validated ledger/report pair and uses no paid search API.
+
 ## Commands
 
 ```sh

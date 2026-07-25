@@ -223,6 +223,6 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Publishing `@saas-maker/feedback@0.4.0`: local npm authentication currently
   returns `E401 Unauthorized`. The verified package source remains secured in
   Fleet until registry authentication is restored.
-- GEO Observatory weekly schedule activation: requires connecting GitHub to claude.ai and
-  installing the Claude GitHub App on `sass-maker/fleet-workspace`. Routine
-  body ready at `foundry/ops/skills/geo-observatory/routine.json`.
+- GEO Observatory needs one more real weekly observation before its trend
+  change can be archived. Its versioned schedule is ready and remains inert
+  until the designated host explicitly installs Fleet cron.

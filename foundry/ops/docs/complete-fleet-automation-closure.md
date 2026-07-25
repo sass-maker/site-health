@@ -90,10 +90,9 @@ The earlier HeyPace and High Signal checkout blockers are resolved: their
 repository work is merged, verified, and the matching Fleet readiness changes
 are archived.
 
-1. **GEO Observatory weekly schedule (§8.2)** — activation requires connecting
-   GitHub to claude.ai and install the Claude GitHub App on
-   `sass-maker/fleet-workspace`. Routine body ready at
-   `foundry/ops/skills/geo-observatory/routine.json`.
+1. **GEO Observatory trend acceptance** — the versioned weekly job is ready
+   without a Claude/GitHub-App dependency, but one more real weekly observation
+   is required before the trend change can be archived.
 2. **retire-saas-maker 5.8** — npm publish blocked on npm auth (`E401`).
    Separate change; not blocking this closure.
 

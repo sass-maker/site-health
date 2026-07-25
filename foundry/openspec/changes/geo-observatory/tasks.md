@@ -10,10 +10,10 @@
       (probe → classify → record → commit).
 - [x] 4. Seed baseline from the 2026-07-17 audit discoverability results.
 - [x] 5. Register skill in fleet AGENTS.md skill table.
-- [ ] 6. Create weekly scheduled routine (cloud agent) running the protocol.
-      BLOCKED on user: connect GitHub to claude.ai + install the Claude
-      GitHub App on sass-maker/fleet-workspace (browser queue B7). Routine
-      body ready at `foundry/ops/skills/geo-observatory/routine.json`.
+- [x] 6. Create the weekly scheduled routine in Fleet's versioned Codex cron.
+      The job runs Mondays at 08:30 host-local time, uses live web search
+      without a paid search API, writes only a complete validated ledger/report
+      pair, and remains inert until explicit designated-host installation.
 - [ ] 7. After 2 real runs: review noise level, tighten queries if volatile,
       then archive this change.
       Run 1 (live) done 2026-07-25 — 16 observations, no class changes vs the
@@ -26,6 +26,6 @@
       `~/Desktop/fleet-inactive-projects/`); the report now has a Retired
       section so dropped queries stay visible instead of vanishing from the
       trend table. Needs one more live run before archiving.
-- [ ] Phase 2 (separate change): edge AI-crawler telemetry via agent-edge +
+- [x] Phase 2 is explicitly deferred to a separate change: edge AI-crawler telemetry via agent-edge +
       Workers Analytics Engine — start only after fleet-jsonld-emission
       lands in apply-agent-surfaces.mjs.

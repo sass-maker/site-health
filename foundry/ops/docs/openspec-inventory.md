@@ -106,8 +106,8 @@ Base specs: `ai-infrastructure-toolbox-automation`, `canonical-content-packages`
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
-| `foundry-founder-control-loop` | 40/72 | in progress |
-| `geo-observatory` | 5/8 | in progress |
+| `foundry-founder-control-loop` | 48/72 | in progress |
+| `geo-observatory` | 7/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
 Archived changes: 24

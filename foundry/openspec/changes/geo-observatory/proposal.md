@@ -17,7 +17,7 @@ A recurring, agent-executed measurement system:
    product, the exact brand/category/citation queries to probe, stable
    across runs so results are comparable.
 2. **Observation protocol** (`foundry/ops/skills/geo-observatory/SKILL.md`):
-   how an agent (scheduled Claude session) runs the probes with live web
+   how an agent (the designated host's versioned Codex cron) runs the probes with live web
    search, classifies each query A/B/C, and records evidence. Judgment +
    web access is why this is an agent protocol, not a cron script.
 3. **Ledger + report** (`foundry/ops/scripts/geo-observatory-record.mjs`):
@@ -25,7 +25,9 @@ A recurring, agent-executed measurement system:
    `foundry/ops/data/geo-observatory/ledger.jsonl` and regenerates
    `foundry/ops/docs/geo-observatory-latest.md` — per-product trend table
    (last runs side by side), movers, and regressions.
-4. **Weekly schedule**: a cloud-agent routine runs the protocol weekly.
+4. **Weekly schedule**: the designated operations host runs the protocol
+   through Fleet's versioned Codex cron. A fresh clone remains inert until the
+   operator explicitly installs the checked-in schedule.
 5. Baseline: the 2026-07-17 audit discoverability results are seeded as
    observation #1 so week 2 already shows deltas.
 

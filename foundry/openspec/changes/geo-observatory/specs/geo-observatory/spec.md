@@ -41,8 +41,10 @@ section (any class change since the previous run).
 
 ### Requirement: Scheduled execution
 
-The protocol SHALL run on a weekly schedule as a cloud-agent routine; a
-missed or failed run leaves the ledger unchanged (no partial writes).
+The protocol SHALL run on a weekly schedule through the designated operations
+host's versioned agent runner; a fresh clone remains inert until explicit host
+activation, and a missed or failed run leaves the ledger unchanged (no partial
+writes).
 
 #### Scenario: scheduled run fails before completion
 
