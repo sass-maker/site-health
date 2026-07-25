@@ -14,6 +14,160 @@
     "focusReviewDebtCeiling": 4,
     "freshnessHours": 168
   },
+  "aiVisibility": {
+    "version": 1,
+    "scheduleIntent": {
+      "enabled": false,
+      "cadence": "weekly",
+      "activation": {
+        "requiresDesignatedHost": true,
+        "requiresHostVerification": true,
+        "requiresApprovedCanary": true
+      }
+    },
+    "projects": [
+      {
+        "slug": "pace",
+        "aliases": ["HeyPace"],
+        "competitors": [
+          { "name": "Raycast", "url": "https://raycast.com" },
+          { "name": "Wispr Flow", "url": "https://wisprflow.ai" }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              { "id": "category", "text": "What are the best private Mac voice assistants that can understand the screen and take actions?" },
+              { "id": "comparison", "text": "Compare local-first voice automation tools for macOS, including privacy, price, and action-taking." }
+            ]
+          }
+        ],
+        "personas": [
+          { "id": "indie-founder", "label": "an indie founder" },
+          { "id": "privacy-conscious-mac-user", "label": "a privacy-conscious Mac user" }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 8,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
+        "slug": "codevetter",
+        "aliases": ["Code Vetter"],
+        "competitors": [
+          { "name": "CodeRabbit", "url": "https://coderabbit.ai" },
+          { "name": "Greptile", "url": "https://greptile.com" }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              { "id": "category", "text": "What are the best private AI code review tools for reviewing a repository locally?" },
+              { "id": "comparison", "text": "Compare desktop and pull-request AI code reviewers on privacy, evidence quality, and workflow." }
+            ]
+          }
+        ],
+        "personas": [
+          { "id": "staff-engineer", "label": "a staff engineer" },
+          { "id": "security-conscious-team", "label": "a security-conscious software team" }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 8,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
+        "slug": "posttrainllm",
+        "aliases": ["TinyGPT", "Post-train LLM"],
+        "competitors": [
+          { "name": "Unsloth", "url": "https://unsloth.ai" },
+          { "name": "Axolotl", "url": "https://github.com/axolotl-ai-cloud/axolotl" }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              { "id": "category", "text": "What are the best ways to fine-tune a small language model locally or in a browser?" },
+              { "id": "comparison", "text": "Compare beginner-friendly small-model fine-tuning tools by hardware needs, privacy, and reproducibility." }
+            ]
+          }
+        ],
+        "personas": [
+          { "id": "ml-beginner", "label": "a developer new to model training" },
+          { "id": "mac-ml-builder", "label": "a Mac-based machine-learning builder" }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 8,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
+        "slug": "high-signal",
+        "aliases": ["HighSignal"],
+        "competitors": [
+          { "name": "Profound", "url": "https://www.tryprofound.com" },
+          { "name": "Scrunch AI", "url": "https://scrunchai.com" }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              { "id": "category", "text": "What are the best tools for a daily brief across product mentions, research, and market signals?" },
+              { "id": "comparison", "text": "Compare AI visibility and signal-intelligence tools for a small SaaS team that needs cited evidence." }
+            ]
+          }
+        ],
+        "personas": [
+          { "id": "saas-founder", "label": "a SaaS founder" },
+          { "id": "product-marketer", "label": "a product marketer" }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 8,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      }
+    ]
+  },
   "projects": [
     { "slug": "pace", "name": "Pace", "aliases": [], "mode": "focus", "domain": "https://heypace.app", "domainPosture": "root", "publicMarketing": true, "cta": "Download the Mac app or join the release list", "cadence": "weekly", "contentBase": null, "channels": [] },
     { "slug": "codevetter", "name": "CodeVetter", "aliases": ["CodeVetter"], "mode": "focus", "domain": "https://codevetter.com", "domainPosture": "root", "publicMarketing": true, "cta": "Download the desktop reviewer", "cadence": "weekly", "contentBase": null, "channels": [] },

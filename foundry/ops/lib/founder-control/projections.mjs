@@ -41,6 +41,7 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
   const recommendations = new Map();
   const actors = new Map();
   const schedules = new Map();
+  const visibilityRuns = new Map();
   const correctedEvents = new Set(
     events.filter((event) => event.type === 'event.corrected').map((event) => event.payload.eventId),
   );
@@ -69,6 +70,25 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
         lastState: event.payload.lastState ?? 'not-run',
         receipt: event.evidence[0] ?? null,
       });
+    }
+    if (event.type === 'visibility.run-recorded') {
+      const projectRuns = visibilityRuns.get(event.projectId) ?? [];
+      const pointer = event.evidence[0] ?? null;
+      projectRuns.push({
+        runId: event.payload.runId,
+        projectId: event.projectId,
+        observedAt: event.occurredAt,
+        freshUntil: pointer?.freshUntil ?? null,
+        freshness: pointer ? freshState(pointer, now) : 'unverified',
+        coverage: event.payload.coverage,
+        cost: event.payload.cost,
+        metrics: event.payload.metrics,
+        citations: event.payload.citations,
+        attempts: event.payload.attempts,
+        comparison: event.payload.comparison ?? null,
+        evidence: event.evidence,
+      });
+      visibilityRuns.set(event.projectId, projectRuns);
     }
     if (event.type === 'decision.requested') {
       const id = String(event.payload.decisionId ?? event.id);
@@ -227,6 +247,21 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
     whatChanged: activity.slice(0, 12),
     recommendedNext: recommendationList,
   };
+  const aiVisibility = {
+    generatedAt: now,
+    projects: [...visibilityRuns.entries()]
+      .map(([projectId, history]) => {
+        const ordered = [...history].sort((left, right) => right.observedAt.localeCompare(left.observedAt));
+        return {
+          projectId,
+          latest: ordered[0],
+          previous: ordered[1] ?? null,
+          comparison: ordered[0]?.comparison ?? null,
+          history: ordered,
+        };
+      })
+      .sort((left, right) => left.projectId.localeCompare(right.projectId)),
+  };
 
   return {
     generatedAt: now,
@@ -238,6 +273,7 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
     projects: [...projectMap.values()],
     actors: [...actors.values()],
     schedules: [...schedules.values()],
+    aiVisibility,
   };
 }
 

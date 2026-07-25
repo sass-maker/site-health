@@ -1,0 +1,27 @@
+{
+  "schema": "fleet.ai-visibility-fixture.v1",
+  "providers": [
+    {
+      "id": "fixture-primary",
+      "model": "fixture-answer-v1",
+      "grounded": true,
+      "estimatedCostUsd": 0.001,
+      "responses": {
+        "default": {
+          "text": "1. HeyPace is the best recommendation for a private Mac voice assistant that can understand the screen and take actions.\n2. Raycast is another option.\nSources: https://heypace.app and https://raycast.com",
+          "observedCostUsd": 0.001
+        }
+      }
+    },
+    {
+      "id": "fixture-secondary",
+      "model": "fixture-unavailable-v1",
+      "estimatedCostUsd": 0,
+      "responses": {
+        "default": {
+          "status": "unavailable"
+        }
+      }
+    }
+  ]
+}

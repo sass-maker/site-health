@@ -31,6 +31,7 @@ export const EVENT_TYPES = new Set([
   'outcome.recorded',
   'actor.status-recorded',
   'schedule.recorded',
+  'visibility.run-recorded',
   'event.corrected',
 ]);
 
@@ -65,6 +66,7 @@ const requiredPayloadFields = {
   'outcome.recorded': ['verdict', 'summary'],
   'actor.status-recorded': ['state', 'freshUntil'],
   'schedule.recorded': ['name', 'enabled', 'nextRunAt'],
+  'visibility.run-recorded': ['runId', 'promptSetId', 'coverage', 'cost', 'metrics', 'citations', 'attempts'],
   'event.corrected': ['eventId', 'reason'],
 };
 

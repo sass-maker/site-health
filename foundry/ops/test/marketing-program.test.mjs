@@ -19,6 +19,20 @@ test('registry covers or explicitly excludes every catalog project and has the e
   assert.deepEqual(result.focusSet, ['pace', 'codevetter', 'posttrainllm', 'high-signal']);
   assert.equal(result.projects.length, 26);
   assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
+  assert.equal(result.aiVisibility.scheduleIntent.enabled, false);
+  assert.deepEqual(
+    result.aiVisibility.projects.map((project) => project.slug).sort(),
+    ['codevetter', 'high-signal', 'pace', 'posttrainllm'],
+  );
+  for (const project of result.aiVisibility.projects) {
+    assert.ok(project.aliases.length > 0);
+    assert.ok(project.competitors.length > 0);
+    assert.ok(project.promptSets.length > 0);
+    assert.ok(project.personas.length > 0);
+    assert.ok(project.providerPolicy.allowedProviderIds.length > 0);
+    assert.ok(project.cacheWindowHours > 0);
+    assert.ok(project.runBudget.maxCalls > 0);
+  }
 });
 
 test('canonical identities and historical aliases resolve uniquely', () => {
@@ -43,4 +57,14 @@ test('channel programs require unique mappings and typed content bases', () => {
   const invalid = structuredClone(registry);
   invalid.projects.find((project) => project.slug === 'pace').channels = [{ channel: 'youtube_shorts', accountSlug: 'pace-youtube' }];
   assert.throws(() => validateMarketingProgram(invalid), /content base/);
+});
+
+test('AI visibility budgets and activation gates fail closed', () => {
+  const oversized = structuredClone(registry);
+  oversized.aiVisibility.projects[0].runBudget.maxCalls = 1;
+  assert.throws(() => validateMarketingProgram(oversized), /matrix exceeds/);
+
+  const ungated = structuredClone(registry);
+  ungated.aiVisibility.scheduleIntent.activation.requiresHostVerification = false;
+  assert.throws(() => validateMarketingProgram(ungated), /activation gates/);
 });

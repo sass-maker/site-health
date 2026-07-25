@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 const MODES = new Set(['focus', 'evergreen', 'infrastructure', 'private']);
 const CHANNELS = new Set(['instagram_reels', 'youtube_shorts', 'tiktok']);
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const PROMPT_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function loadMarketingProgram(path) {
   return validateMarketingProgram(JSON.parse(readFileSync(path, 'utf8')));
@@ -48,6 +49,7 @@ export function validateMarketingProgram(input, options = {}) {
   for (const field of ['globalReviewDebtCeiling', 'focusReviewDebtCeiling', 'freshnessHours']) {
     if (!Number.isSafeInteger(defaults[field]) || defaults[field] < 1) throw new MarketingProgramError(`defaults.${field} must be a positive integer`);
   }
+  validateAiVisibility(input.aiVisibility, new Set(input.projects.map((project) => project.slug)));
   return structuredClone(input);
 }
 
@@ -79,6 +81,96 @@ function validateProject(project) {
       throw new MarketingProgramError(`${project.slug} has an invalid or duplicate channel mapping`);
     }
     channelNames.add(mapping.channel);
+  }
+}
+
+function validateAiVisibility(config, marketingSlugs) {
+  if (!config || config.version !== 1 || !Array.isArray(config.projects)) {
+    throw new MarketingProgramError('aiVisibility version 1 and projects are required');
+  }
+  const schedule = config.scheduleIntent;
+  if (
+    !schedule ||
+    typeof schedule.enabled !== 'boolean' ||
+    !schedule.cadence ||
+    schedule.activation?.requiresDesignatedHost !== true ||
+    schedule.activation?.requiresHostVerification !== true ||
+    schedule.activation?.requiresApprovedCanary !== true
+  ) {
+    throw new MarketingProgramError('aiVisibility schedule intent requires all activation gates');
+  }
+
+  const configured = new Set();
+  for (const project of config.projects) {
+    if (!SLUG.test(project?.slug ?? '') || configured.has(project.slug) || !marketingSlugs.has(project.slug)) {
+      throw new MarketingProgramError(`invalid or duplicate aiVisibility project: ${project?.slug ?? 'unknown'}`);
+    }
+    configured.add(project.slug);
+    for (const field of ['aliases', 'competitors', 'promptSets', 'personas']) {
+      if (!Array.isArray(project[field]) || project[field].length === 0) {
+        throw new MarketingProgramError(`${project.slug}.aiVisibility.${field} must be a non-empty array`);
+      }
+    }
+    if (project.aliases.some((alias) => typeof alias !== 'string' || !alias.trim())) {
+      throw new MarketingProgramError(`${project.slug}.aiVisibility.aliases are invalid`);
+    }
+    if (project.competitors.some((competitor) => !competitor?.name?.trim() || !absoluteHttpUrl(competitor.url))) {
+      throw new MarketingProgramError(`${project.slug}.aiVisibility.competitors are invalid`);
+    }
+    const promptIds = new Set();
+    for (const set of project.promptSets) {
+      if (!PROMPT_ID.test(set?.id ?? '') || !Array.isArray(set.prompts) || set.prompts.length === 0) {
+        throw new MarketingProgramError(`${project.slug}.aiVisibility.promptSets are invalid`);
+      }
+      for (const prompt of set.prompts) {
+        if (!PROMPT_ID.test(prompt?.id ?? '') || !prompt.text?.trim() || promptIds.has(`${set.id}/${prompt.id}`)) {
+          throw new MarketingProgramError(`${project.slug}.aiVisibility prompt is invalid or duplicated`);
+        }
+        promptIds.add(`${set.id}/${prompt.id}`);
+      }
+    }
+    const personaIds = new Set();
+    for (const persona of project.personas) {
+      if (!PROMPT_ID.test(persona?.id ?? '') || !persona.label?.trim() || personaIds.has(persona.id)) {
+        throw new MarketingProgramError(`${project.slug}.aiVisibility persona is invalid or duplicated`);
+      }
+      personaIds.add(persona.id);
+    }
+    const policy = project.providerPolicy;
+    if (
+      !policy ||
+      !Array.isArray(policy.allowedProviderIds) ||
+      policy.allowedProviderIds.length === 0 ||
+      policy.allowedProviderIds.some((provider) => !PROMPT_ID.test(provider)) ||
+      policy.freeFirst !== true ||
+      policy.liveProvidersAllowed !== false
+    ) {
+      throw new MarketingProgramError(`${project.slug}.aiVisibility.providerPolicy must be fixture-only and free-first`);
+    }
+    if (!Number.isSafeInteger(project.cacheWindowHours) || project.cacheWindowHours < 1) {
+      throw new MarketingProgramError(`${project.slug}.aiVisibility.cacheWindowHours must be a positive integer`);
+    }
+    const budget = project.runBudget ?? {};
+    for (const field of ['maxCalls', 'maxConcurrency', 'timeoutMs', 'retryAttempts', 'maxResponseCharacters']) {
+      if (!Number.isSafeInteger(budget[field]) || budget[field] < 1) {
+        throw new MarketingProgramError(`${project.slug}.aiVisibility.runBudget.${field} must be a positive integer`);
+      }
+    }
+    if (!Number.isFinite(budget.maxEstimatedCostUsd) || budget.maxEstimatedCostUsd < 0) {
+      throw new MarketingProgramError(`${project.slug}.aiVisibility.runBudget.maxEstimatedCostUsd must be non-negative`);
+    }
+    const largestSet = Math.max(...project.promptSets.map((set) => set.prompts.length));
+    if (largestSet * project.personas.length * policy.allowedProviderIds.length > budget.maxCalls) {
+      throw new MarketingProgramError(`${project.slug}.aiVisibility matrix exceeds its run budget`);
+    }
+  }
+}
+
+function absoluteHttpUrl(value) {
+  try {
+    return ['http:', 'https:'].includes(new URL(value).protocol);
+  } catch {
+    return false;
   }
 }
 

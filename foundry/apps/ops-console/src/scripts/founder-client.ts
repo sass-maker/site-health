@@ -280,6 +280,125 @@ async function renderActivity() {
   replace("activity", activity.length ? element("div", { class: "timeline" }, activity.map(activityItem)) : empty("No mission activity", "Provider noise is intentionally excluded."));
 }
 
+function percentage(value?: number | null) {
+  return Number.isFinite(value) ? `${Math.round(Number(value) * 100)}%` : "—";
+}
+
+function money(value?: number | null) {
+  return Number.isFinite(value) ? `$${Number(value).toFixed(4)}` : "—";
+}
+
+function visibilityMetric(label: string, value: string, detail?: string) {
+  return element("div", { class: "visibility-metric" }, [
+    element("span", {}, [label]),
+    element("strong", {}, [value]),
+    detail ? element("small", {}, [detail]) : null,
+  ]);
+}
+
+function visibilityProject(project: JsonRecord) {
+  if (!project.latest) {
+    return element("article", { class: "visibility-project" }, [
+      element("header", {}, [
+        element("div", {}, [element("span", { class: "record-kicker" }, [project.attention]), element("h3", {}, [project.name])]),
+        state("unverified"),
+      ]),
+      empty("No local run yet", "Run an approved fixture canary to create a normalized baseline. Recurring checks remain off."),
+    ]);
+  }
+  const latest = project.latest;
+  const metrics = latest.metrics ?? {};
+  const competitor = Object.entries(metrics.competitorShare ?? {}).sort(
+    (left: [string, any], right: [string, any]) => Number(right[1]) - Number(left[1]),
+  )[0];
+  const scoreDelta = project.comparison?.deltas?.visibilityScore;
+  const trend = Number.isFinite(scoreDelta)
+    ? `${Number(scoreDelta) > 0 ? "+" : ""}${scoreDelta} points`
+    : "No baseline";
+  const history = element("details", { class: "visibility-history" }, [
+    element("summary", {}, [`${project.history.length} local run${project.history.length === 1 ? "" : "s"}`]),
+    element("div", { class: "record-list" }, project.history.slice(0, 6).map((run: JsonRecord) =>
+      element("div", { class: "record" }, [
+        element("div", { class: "record-main" }, [
+          element("h3", {}, [`${run.metrics.visibilityScore}/100 visibility`]),
+          element("p", {}, [`${percentage(run.metrics.coverageRate)} coverage · ${run.coverage.cached} cached · ${run.coverage.failed + run.coverage.timedOut + run.coverage.unavailable} unavailable or failed`]),
+        ]),
+        element("div", { class: "record-side" }, [
+          element("strong", {}, [money(run.cost.observedUsd)]),
+          element("small", {}, [formatted(run.observedAt)]),
+        ]),
+      ]))),
+  ]);
+  return element("article", { class: "visibility-project" }, [
+    element("header", {}, [
+      element("div", {}, [element("span", { class: "record-kicker" }, [project.attention]), element("h3", {}, [project.name])]),
+      state(latest.freshness),
+    ]),
+    element("div", { class: "visibility-metrics" }, [
+      visibilityMetric("Visibility", `${metrics.visibilityScore}/100`, trend),
+      visibilityMetric("Recommended", percentage(metrics.recommendationRate)),
+      visibilityMetric("Average rank", metrics.averagePosition ? `#${metrics.averagePosition}` : "Not ranked"),
+      visibilityMetric("Citations", String(latest.citations.total), `${latest.citations.hosts.length} source hosts`),
+      visibilityMetric("Top competitor", competitor ? percentage(Number(competitor[1])) : "None", competitor?.[0]),
+      visibilityMetric("Coverage", percentage(metrics.coverageRate), `${latest.coverage.completed + latest.coverage.cached}/${latest.coverage.configured} answers`),
+      visibilityMetric("Freshness", formatted(latest.observedAt), latest.freshness),
+      visibilityMetric("Observed cost", money(latest.cost.observedUsd), `${latest.cost.cacheHits} cache hits`),
+    ]),
+    history,
+  ]);
+}
+
+async function renderMarketing() {
+  const marketing = await api("/v1/marketing");
+  const visibility = marketing.aiVisibility;
+  const measured = visibility.projects.filter((project: JsonRecord) => project.latest);
+  const latestCost = measured.reduce(
+    (sum: number, project: JsonRecord) => sum + Number(project.latest.cost?.observedUsd ?? 0),
+    0,
+  );
+  const schedule = visibility.scheduleIntent;
+  replace("visibility-summary", element("div", { class: "visibility-overview" }, [
+    visibilityMetric("Configured products", String(visibility.projects.length), `${measured.length} with local evidence`),
+    visibilityMetric("Latest observed cost", money(latestCost), "Across each product's latest run"),
+    visibilityMetric("Recurring checks", schedule.enabled ? "Intent on" : "Off", schedule.cadence),
+    element("div", { class: "visibility-schedule" }, [
+      state(schedule.activation.allowed ? "verified" : "disabled"),
+      element("strong", {}, [schedule.activation.allowed ? "Activation gates passed" : "Manual only"]),
+      element("small", {}, [
+        schedule.activation.blockers.length
+          ? "Fresh clones and unverified hosts cannot run this schedule."
+          : "The designated host has verified approval evidence.",
+      ]),
+    ]),
+  ]));
+  replace(
+    "ai-visibility-projects",
+    visibility.projects.length
+      ? element("div", { class: "visibility-projects" }, visibility.projects.map(visibilityProject))
+      : empty("No products configured", "The canonical marketing registry has no AI visibility projects."),
+  );
+  const recommendations = marketing.recommendations.filter((item: JsonRecord) =>
+    item.evidence?.some((pointer: JsonRecord) => pointer.provider === "ai-visibility"),
+  );
+  replace(
+    "visibility-recommendations",
+    recommendations.length
+      ? element("div", { class: "record-list" }, recommendations.map((item: JsonRecord) =>
+          element("article", { class: "record" }, [
+            element("div", { class: "record-main" }, [
+              element("div", { class: "record-kicker" }, [item.projectId ?? "Portfolio", " · evidence linked"]),
+              element("h3", {}, [item.title]),
+              element("p", {}, [item.rationale]),
+            ]),
+            element("div", { class: "record-side" }, [
+              element("strong", {}, [`${item.score}/100`]),
+              element("small", {}, ["Recommendation only"]),
+            ]),
+          ])))
+      : empty("No evidence-backed recommendation", "A local run can record evidence without inventing marketing work."),
+  );
+}
+
 async function renderMission() {
   const missionId = new URLSearchParams(location.search).get("id");
   const host = document.querySelector<HTMLElement>("[data-mission]");
@@ -360,6 +479,7 @@ async function start() {
     if (view === "projects") await renderProjects();
     if (view === "project") await renderProjectDetail();
     if (view === "activity") await renderActivity();
+    if (view === "marketing") await renderMarketing();
     if (view === "mission") await renderMission();
     connection?.classList.add("online");
     if (connectionLabel) connectionLabel.textContent = "Live evidence";

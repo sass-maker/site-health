@@ -60,13 +60,13 @@
 
 ## 7. Foundry AI visibility and Marketing
 
-- [ ] 7.1 Extend the canonical Foundry marketing registry with per-project aliases, competitors, prompt sets, personas, provider policy, cache window, and run budget.
-- [ ] 7.2 Exclude ignored projects by construction and test explicit reactivation behavior.
-- [ ] 7.3 Implement a manual local AI-visibility canary that records call coverage, normalized aggregates, evidence, failures, cache use, and observed cost in the ledger.
-- [ ] 7.4 Add local normalized history and comparison projections without persisting credentials or unnecessary raw provider responses.
-- [ ] 7.5 Add Marketing → AI Visibility with visibility, recommendation, rank, citations, competitor share, coverage, trend, freshness, and cost.
-- [ ] 7.6 Convert citation/visibility changes into evidence-backed recommendations rather than automatic marketing work.
-- [ ] 7.7 Add disabled schedule intent and activation gates; prove a fresh clone and unverified host cannot run checks.
+- [x] 7.1 Extend the canonical Foundry marketing registry with per-project aliases, competitors, prompt sets, personas, provider policy, cache window, and run budget.
+- [x] 7.2 Exclude ignored projects by construction and test explicit reactivation behavior.
+- [x] 7.3 Implement a manual local AI-visibility canary that records call coverage, normalized aggregates, evidence, failures, cache use, and observed cost in the ledger.
+- [x] 7.4 Add local normalized history and comparison projections without persisting credentials or unnecessary raw provider responses.
+- [x] 7.5 Add Marketing → AI Visibility with visibility, recommendation, rank, citations, competitor share, coverage, trend, freshness, and cost.
+- [x] 7.6 Convert citation/visibility changes into evidence-backed recommendations rather than automatic marketing work.
+- [x] 7.7 Add disabled schedule intent and activation gates; prove a fresh clone and unverified host cannot run checks.
 - [ ] 7.8 Run one approved local project canary and review data quality/storage/cost before proposing recurring cadence.
 
 ## 8. Portfolio learning and marketing decisions

@@ -51,6 +51,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Foundry AI Visibility local slice shipped:** Added canonical
+  project visibility configuration, ignored-project reactivation gates, a
+  fixture-only bounded canary, normalized ledger history/comparison and cost
+  receipts, recommendation-only synthesis, and an owner-facing Marketing view.
+  Recurring intent remains disabled and no live provider canary ran.
 - **2026-07-25 — Mature automation changes closed:** Archived the completed AI
   infrastructure, data/research, portfolio/identity, PostTrainLLM, Significant
   Hobbies, Cloudflare resilience, and Mobile Cockpit MVP OpenSpec changes after
@@ -193,6 +198,12 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Framework-independent `@saas-maker/ai-visibility` package with deterministic
   citation, mention, recommendation, rank, sentiment, competitor, provider,
   budget, cache, and provenance contracts.
+- Foundry AI Visibility consumer with fixture-only manual execution, normalized
+  private history/comparison, cost and cache receipts, recommendation-only
+  handoff, ignored-project suppression, and disabled schedule activation gates.
+- Owner-facing Marketing → AI Visibility view covering visibility,
+  recommendation, rank, citations, competitor share, coverage, trend,
+  freshness, and observed cost without exposing provider-owned raw responses.
 - High Signal now consumes the reviewed packed AI-visibility package while
   retaining ownership of its D1 data, auth, providers, schedules, APIs, Daily
   Brief, reports, and UI. The migration merged with package, adapter, Mention,
@@ -205,9 +216,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 ### Planned
 
 1. Complete the remaining `foundry-founder-control-loop` work: verify High
-   Signal's seeded connected-brand surfaces, add Foundry's marketing visibility
-   projection, finish evidence backfill/notification wiring, and run rollout
-   acceptance.
+   Signal's seeded connected-brand surfaces, run the separately approved task
+   7.8 project canary and review its data/storage/cost, finish evidence
+   backfill/notification wiring, and run rollout acceptance.
 2. Verify the designated operations host from a fresh clone before activating
    any schedules.
 3. Complete the Postiz target-host activation and one draft-only canary using

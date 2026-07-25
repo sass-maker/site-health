@@ -80,7 +80,8 @@ h1 { max-width: 780px; margin-bottom: 10px; font-size: clamp(34px, 4.2vw, 46px);
 .state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .state.active, .state.accepted { color: var(--accent); }
 .state.completed, .state.resolved, .state.verified { color: var(--success); }
-.state.blocked, .state.stale, .state.awaiting-verification, .state.snoozed { color: var(--warning); }
+.state.fresh { color: var(--success); }
+.state.blocked, .state.stale, .state.awaiting-verification, .state.snoozed, .state.disabled { color: var(--warning); }
 .state.rejected, .state.cancelled, .state.unavailable, .state.reversed { color: var(--critical); }
 .state.draft, .state.open { color: var(--info); }
 
@@ -136,6 +137,26 @@ dd { margin: 0; color: var(--muted); }
 .action-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 9px 11px; border: 1px solid var(--line-strong); color: var(--text); text-decoration: none; font-size: 12px; font-weight: 730; }
 .action-link:hover { border-color: var(--accent); }
 
+.surface-tabs { display: flex; gap: 8px; padding: 18px 0 0; }
+.surface-tabs a { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 12px; border: 1px solid var(--line); color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 760; }
+.surface-tabs a:hover, .surface-tabs a[aria-current="page"] { border-color: var(--accent); color: var(--text); }
+.visibility-overview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.visibility-metric, .visibility-schedule { min-height: 118px; display: grid; align-content: center; gap: 3px; padding: 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+.visibility-metric span, .visibility-metric small, .visibility-schedule small { color: var(--quiet); font-size: 10px; }
+.visibility-metric span { font-weight: 760; letter-spacing: .04em; text-transform: uppercase; }
+.visibility-metric strong { overflow-wrap: anywhere; font-size: 21px; line-height: 1.12; }
+.visibility-schedule { align-content: center; }
+.visibility-schedule strong { margin-top: 7px; }
+.visibility-projects { display: grid; gap: 14px; }
+.visibility-project { padding: 20px; border: 1px solid var(--line); background: var(--surface); }
+.visibility-project > header { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+.visibility-project h3 { margin: 2px 0 0; font-size: 21px; }
+.visibility-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.visibility-history { margin-top: 14px; border: 1px solid var(--line); }
+.visibility-history summary { min-height: 44px; display: flex; align-items: center; padding: 8px 12px; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 760; }
+.visibility-history .record-list { border-top: 1px solid var(--line); }
+.visibility-history .record { padding-inline: 12px; }
+
 @keyframes loading { to { background-position: -140% 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -148,6 +169,7 @@ dd { margin: 0; color: var(--muted); }
   .connection { grid-column: 2; grid-row: 1; }
   .page-head { min-height: 176px; padding-top: 38px; }
   .decision-grid, .project-list { grid-template-columns: 1fr; }
+  .visibility-overview, .visibility-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mission-hero { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
@@ -165,4 +187,7 @@ dd { margin: 0; color: var(--muted); }
   .decision footer, .decision-footer-actions { align-items: stretch; display: grid; }
   .record-side { text-align: left; }
   .project dl div { grid-template-columns: 100px 1fr; }
+  .surface-tabs { overflow-x: auto; }
+  .visibility-project { padding: 14px; }
+  .visibility-metrics { grid-template-columns: 1fr 1fr; }
 }

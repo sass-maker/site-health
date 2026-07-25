@@ -4,6 +4,10 @@ import { createServer } from 'node:http';
 import { buildDailyBrief } from './projections.mjs';
 import { draftMission } from './intake.mjs';
 import { buildOwnerNotifications } from './learning.mjs';
+import {
+  evaluateAiVisibilityScheduleActivation,
+  loadAiVisibilityPortfolio,
+} from './ai-visibility-registry.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
 
@@ -70,12 +74,43 @@ function transitionPayload(action, body) {
   return body.summary ? { summary: String(body.summary) } : {};
 }
 
+export function buildMarketingProjection(projections, portfolio, scheduleActivation = {}) {
+  const projectedProjects = new Map(
+    projections.aiVisibility.projects.map((project) => [project.projectId, project]),
+  );
+  return {
+    generatedAt: projections.generatedAt,
+    recommendations: projections.recommendations.filter((item) => item.projectId),
+    providerEvidence: 'linked-only',
+    aiVisibility: {
+      projects: portfolio.eligible.map((project) => ({
+        projectId: project.slug,
+        name: project.name,
+        attention: project.attention,
+        latest: projectedProjects.get(project.slug)?.latest ?? null,
+        previous: projectedProjects.get(project.slug)?.previous ?? null,
+        comparison: projectedProjects.get(project.slug)?.comparison ?? null,
+        history: projectedProjects.get(project.slug)?.history ?? [],
+      })),
+      scheduleIntent: {
+        ...portfolio.scheduleIntent,
+        activation: evaluateAiVisibilityScheduleActivation({
+          scheduleIntent: portfolio.scheduleIntent,
+          ...scheduleActivation,
+        }),
+      },
+    },
+  };
+}
+
 export function createFounderControlHandler({
   store,
   ownerToken,
   trustAccessHeaders = false,
   ownerEmail,
   now = () => new Date().toISOString(),
+  visibilityPortfolio = loadAiVisibilityPortfolio(),
+  visibilityScheduleActivation = {},
 }) {
   return async function founderControlHandler(request, response) {
     try {
@@ -104,11 +139,11 @@ export function createFounderControlHandler({
         return json(response, 200, buildOwnerNotifications(projections, { now: now() }));
       }
       if (method === 'GET' && url.pathname === '/v1/marketing') {
-        return json(response, 200, {
-          generatedAt: projections.generatedAt,
-          recommendations: projections.recommendations.filter((item) => item.projectId),
-          providerEvidence: 'linked-only',
-        });
+        return json(
+          response,
+          200,
+          buildMarketingProjection(projections, visibilityPortfolio, visibilityScheduleActivation),
+        );
       }
 
       if (method !== 'GET' && !mutationAuthorized(request, { ownerToken, trustAccessHeaders, ownerEmail })) {
@@ -260,9 +295,18 @@ export function startFounderControlService({
   ownerToken,
   trustAccessHeaders = false,
   ownerEmail,
+  visibilityPortfolio,
+  visibilityScheduleActivation,
 } = {}) {
   const server = createServer(
-    createFounderControlHandler({ store, ownerToken, trustAccessHeaders, ownerEmail }),
+    createFounderControlHandler({
+      store,
+      ownerToken,
+      trustAccessHeaders,
+      ownerEmail,
+      ...(visibilityPortfolio ? { visibilityPortfolio } : {}),
+      ...(visibilityScheduleActivation ? { visibilityScheduleActivation } : {}),
+    }),
   );
   return new Promise((resolve, reject) => {
     server.once('error', reject);
