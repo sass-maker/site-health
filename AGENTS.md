@@ -114,6 +114,13 @@ Use repo-local scripts before manual fleet inspection:
 - New visual endeavors and substantial redesigns should use the Fleet-local
   `$impeccable` skill: initialize design context, then review
   `critique -> polish -> audit` before shipping.
+- Before a redesign, classify it as preserve or overhaul. Unless explicitly
+  approved, keep routes and anchors, primary navigation labels, form field
+  names and order, analytics identifiers, the wordmark, and legal/consent copy.
+- Treat generated comps as north stars, not screenshots to trace. If a comp
+  hides text, spacing, or component detail, generate a fresh section-specific
+  reference instead of cropping an old board or generating every section by
+  default.
 - Public agent/LLM indexing (llms.txt, page markdown, `/api/ai`) follows
   `foundry/ops/docs/agent-indexing-standard.md`.
 - New web projects default to Astro for content/marketing/docs and Vite + React
