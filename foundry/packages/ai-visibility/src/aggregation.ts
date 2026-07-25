@@ -2,6 +2,7 @@ export type Ownership = "owned" | "competitor" | "third_party" | "unknown";
 
 export interface BrandIdentity {
   brandUrl: string | null;
+  brandAliases?: string[];
   competitorUrls?: Array<{ id: string; url: string }>;
 }
 
