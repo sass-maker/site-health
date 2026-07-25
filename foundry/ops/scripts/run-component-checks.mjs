@@ -14,6 +14,7 @@ const checks = [
   ],
   ['drank', 'foundry/services/drank', 'pnpm', ['check']],
   ['feedback', 'foundry/packages/feedback', 'pnpm', ['check']],
+  ['ai-visibility', 'foundry/packages/ai-visibility', 'pnpm', ['check']],
   ['public-directory', 'foundry/apps/public-directory', 'npm', ['run', 'check']],
   ['mobile-cockpit', 'foundry/apps/mobile-cockpit', 'pnpm', ['check']],
   ['psi-swarm-cli', 'foundry/tools/psi-swarm', 'pnpm', ['build:cli']],
