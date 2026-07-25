@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 37
 - Project/component checkouts with OpenSpec: 17
 - Project/component spec roots: 17
-- Project/component base specs: 111
-- Project/component active changes: 12
+- Project/component base specs: 119
+- Project/component active changes: 9
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -101,20 +101,17 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `canonical-content-packages`, `catchy-variant-generation`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `derived-assessments`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `site-health`, `spotlight-products`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `portfolio-identity-toolbox-automation`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `automate-heypace` | 0/12 | in progress |
-| `automate-high-signal` | 0/17 | in progress |
 | `complete-fleet-automation` | 0/49 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
-| `consolidate-foundry-monorepo` | 27/67 | in progress |
 | `foundry-founder-control-loop` | 0/72 | in progress |
 | `geo-observatory` | 5/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 14
+Archived changes: 23
 
 ### HeyPace
 
