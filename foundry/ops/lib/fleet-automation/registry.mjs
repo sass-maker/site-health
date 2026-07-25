@@ -6,7 +6,7 @@ const moduleDir = dirname(fileURLToPath(import.meta.url));
 export const fleetRoot = resolve(moduleDir, "../../../..");
 export const registryPath = resolve(fleetRoot, "foundry/ops/config/automation-registry.json");
 
-const attentionClasses = new Set(["my-work", "toolbox", "foundry", "ignored", "removed"]);
+const attentionClasses = new Set(["my-work", "toolbox", "foundry", "ignored"]);
 const runtimeTypes = new Set([
   "public-web", "api", "worker", "background-job", "data-pipeline",
   "data-store", "desktop", "mobile", "local-tool"

@@ -1,7 +1,7 @@
 # Fleet automation control plane
 
 The Fleet automation layer exists to make the 25 maintained entries observable
-and safely operable without turning the 12 Ignored or Removed entries back into
+and safely operable without turning the 12 ignored/inactive entries back into
 obligations. It does not auto-deploy or broaden an agent's authority.
 
 ## Mission and handoff

@@ -81,17 +81,17 @@ components are PSI Swarm, Mobile Dev Cockpit, Drank, and Reel Pipeline. The
 public SaaS Maker directory and private Fleet Console are Fleet Workspace
 surfaces, not additional product bets.
 
-### Ignored
+### Ignored / inactive
 
 AliveVille, Open Historia, TrueHire, Companion Robot, Materia,
-EverythingRated, Protein Index, Web Playables, and SaaS Ideas are frozen or
-retired. They require an explicit reactivation decision before any routine
-maintenance, marketing, or roadmap work.
+EverythingRated, Protein Index, Web Playables, SaaS Ideas, Elves HQ, Today
+Little Log, and Forecast Lab are frozen or retired. They require an explicit
+reactivation decision before any routine maintenance, marketing, or roadmap
+work.
 
-### Removed
-
-Elves HQ, Today Little Log, and Forecast Lab are attribution-only records and
-are excluded from operations.
+Their optional local history checkouts are kept together at
+`../fleet-inactive-projects/` on this machine. They are not part of fresh
+machine setup or routine Fleet sweeps.
 
 ## Work Tracking
 
@@ -123,6 +123,10 @@ strategies, runbooks, and research/reference notes.
 
 When a plan creates execution work, keep it in the owning repository or
 cross-repository OpenSpec store.
+
+The generated cross-project OpenSpec catalog is
+[`foundry/ops/docs/openspec-inventory.md`](foundry/ops/docs/openspec-inventory.md).
+Refresh it with `npm run generate:openspec-inventory`.
 
 Agent-facing instructions live in the fleet-level `AGENTS.md`, which applies to
 projects below this directory unless a project has a more specific `AGENTS.md`.

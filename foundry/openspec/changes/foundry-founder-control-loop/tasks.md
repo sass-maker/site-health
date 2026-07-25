@@ -4,7 +4,7 @@
 - [ ] 1.2 Inventory every current console data source and classify it as canonical provider evidence, derived projection, local private state, or removable UI-only state.
 - [ ] 1.3 Add a machine-checked ownership map proving GitHub, Cloudflare, Postiz, CodeVetter, App Health, Drank, PSI Swarm, High Signal, and Foundry do not duplicate authoritative data.
 - [ ] 1.4 Remove or rewrite remaining docs and tests that name the retired SaaS Maker queue as Foundry's task or approval system.
-- [ ] 1.5 Add lifecycle-registry consistency checks so README/project-tier counts and ignored/removed membership cannot drift from `automation-registry.json`.
+- [ ] 1.5 Add lifecycle-registry consistency checks so README/project-tier counts and ignored membership cannot drift from `automation-registry.json`.
 
 ## 2. Mission and event foundation
 
@@ -61,7 +61,7 @@
 ## 7. Foundry AI visibility and Marketing
 
 - [ ] 7.1 Extend the canonical Foundry marketing registry with per-project aliases, competitors, prompt sets, personas, provider policy, cache window, and run budget.
-- [ ] 7.2 Exclude ignored and removed projects by construction and test explicit reactivation behavior.
+- [ ] 7.2 Exclude ignored projects by construction and test explicit reactivation behavior.
 - [ ] 7.3 Implement a manual local AI-visibility canary that records call coverage, normalized aggregates, evidence, failures, cache use, and observed cost in the ledger.
 - [ ] 7.4 Add local normalized history and comparison projections without persisting credentials or unnecessary raw provider responses.
 - [ ] 7.5 Add Marketing → AI Visibility with visibility, recommendation, rank, citations, competitor share, coverage, trend, freshness, and cost.
@@ -77,7 +77,7 @@
 - [ ] 8.4 Add post-ship attribution gates requiring merge, green CI, deployment, and production-smoke evidence before outcome learning.
 - [ ] 8.5 Add recommendation accept/reject/snooze/refine actions that create mission drafts rather than implementation tasks.
 - [ ] 8.6 Implement outcome-window evaluation with supported, unsupported, mixed, and not-yet-measurable verdicts.
-- [ ] 8.7 Verify ignored/removed work is suppressed except for security, cost, data-loss, or explicit reactivation risk.
+- [ ] 8.7 Verify ignored work is suppressed except for security, cost, data-loss, or explicit reactivation risk.
 
 ## 9. Mission intake, daily control, and notifications
 

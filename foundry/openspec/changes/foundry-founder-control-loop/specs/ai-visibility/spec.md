@@ -88,7 +88,7 @@ competitor share over time.
   observed cost, and recommended actions in Marketing without activating a
   recurring schedule
 
-#### Scenario: Project is ignored or removed
+#### Scenario: Project is ignored
 
-- **WHEN** an ignored or removed registry entry is considered for a Fleet run
+- **WHEN** an ignored registry entry is considered for a Fleet run
 - **THEN** no check is scheduled or executed without explicit reactivation

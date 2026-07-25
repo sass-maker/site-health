@@ -38,7 +38,7 @@ effort, reversibility, project attention class, and freshness.
 
 #### Scenario: Ignored project has a routine recommendation
 
-- **WHEN** evidence suggests routine work for an ignored or removed project
+- **WHEN** evidence suggests routine work for an ignored project
 - **THEN** Foundry suppresses it from Recommended next unless the evidence
   represents security, cost, data-loss, or explicit reactivation risk
 
@@ -75,5 +75,5 @@ Foundry-owned capabilities, and excluded projects.
 
 - **WHEN** current recommendations and missions span multiple attention classes
 - **THEN** My Work decisions remain prominent, Toolbox work is summarized,
-  Foundry work is grouped as one system, and ignored/removed work is excluded
+  Foundry work is grouped as one system, and ignored work is excluded
   by default

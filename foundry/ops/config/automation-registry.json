@@ -5,8 +5,7 @@
     "my-work": 4,
     "toolbox": 16,
     "foundry": 5,
-    "ignored": 9,
-    "removed": 3
+    "ignored": 12
   },
   "defaults": {
     "freshnessHours": {
@@ -452,8 +451,8 @@
     { "id": "web-playables", "name": "Web Playables", "attention": "ignored", "family": "web-playables", "owner": "none", "repository": "web-playables", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
     { "id": "saas-ideas", "name": "SaaS Ideas", "attention": "ignored", "family": "sass-maker", "owner": "none", "repository": "saas-ideas", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
 
-    { "id": "elves-hq", "name": "Elves HQ", "attention": "removed", "family": "elves-hq", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Attribution-only removed record" }] },
-    { "id": "today-little-log", "name": "Today Little Log", "attention": "removed", "family": "today-little-log", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Attribution-only removed record" }] },
-    { "id": "forecast-lab", "name": "Forecast Lab", "attention": "removed", "family": "forecast-lab", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Attribution-only removed record" }] }
+    { "id": "elves-hq", "name": "Elves HQ", "attention": "ignored", "family": "elves-hq", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
+    { "id": "today-little-log", "name": "Today Little Log", "attention": "ignored", "family": "today-little-log", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
+    { "id": "forecast-lab", "name": "Forecast Lab", "attention": "ignored", "family": "forecast-lab", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] }
   ]
 }

@@ -7,6 +7,7 @@
     "check:components": "node foundry/ops/scripts/check-component-roots.mjs",
     "check:components:native": "node foundry/ops/scripts/run-component-checks.mjs",
     "generate:public": "node foundry/ops/scripts/generate-public-products.mjs",
+    "generate:openspec-inventory": "node foundry/ops/scripts/generate-openspec-inventory.mjs",
     "check:public": "node foundry/ops/scripts/generate-public-products.mjs --check && npm --prefix foundry/apps/public-directory run check",
     "check:registry": "node foundry/ops/scripts/validate-automation-registry.mjs && node foundry/ops/scripts/validate-marketing-program.mjs && node foundry/ops/scripts/check-retired-marketing-boundaries.mjs && node foundry/ops/scripts/generate-public-products.mjs --check",
     "test:fleet": "npm run check:components && node --test foundry/ops/test/*.test.mjs"

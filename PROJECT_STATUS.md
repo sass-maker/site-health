@@ -51,9 +51,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Inactive projects and OpenSpecs consolidated:** Collapsed the
+  redundant ignored/removed split into one 12-project ignored/inactive class,
+  gathered clean local checkouts under `../fleet-inactive-projects/`, and added
+  a deterministic Fleet-wide OpenSpec inventory covering active, Foundry,
+  inactive, and registered cross-project stores.
 - **2026-07-25 — Portfolio lifecycle entrypoint corrected:** Replaced the
   stale purpose-based product list in the root README with the canonical
-  attention model. Ignored and removed projects are now explicit at the
+  attention model. All ignored/inactive projects are now explicit at the
   workspace entrypoint, while the deploy registry continues to record live
   surfaces independently from maintenance obligations.
 - **2026-07-25 — Monorepo ownership boundaries normalized:** Moved all
@@ -155,6 +160,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Agent and notification policy, machine-host foundations, and inert schedule
   definitions.
 - OpenSpec store for cross-repository fleet changes.
+- Deterministic Fleet-wide OpenSpec inventory generated from canonical project
+  classifications, current checkouts, inactive history, and registered stores.
 - Fleet-local Impeccable design workflow with brand/product registers,
   persistent design context, and pre-ship critique/polish/audit guidance.
 - Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.

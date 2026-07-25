@@ -36,8 +36,8 @@ The canonical human allocation model lives in
 - **Foundry + Helpers:** the shared post-ship system that measures verified
   products, markets them, and turns feedback into evidence-backed
   recommendations.
-- **Ignored:** frozen or retired projects with no routine obligation.
-- **Removed:** attribution-only records excluded from operations.
+- **Ignored / inactive:** frozen or retired projects with no routine
+  obligation.
 
 Do not infer attention from repository count, custom-domain ownership, or the
 legacy `focus` / `active` / `secondary` deployment tiers. Use

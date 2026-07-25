@@ -10,7 +10,7 @@ const automation = JSON.parse(
 );
 const registry = loadMarketingProgram(programPath);
 const catalogSlugs = automation.entries
-  .filter((project) => !['ignored', 'removed'].includes(project.attention))
+  .filter((project) => project.attention !== 'ignored')
   .map((project) => project.id);
 validateMarketingProgram(registry, {
   catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],

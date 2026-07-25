@@ -15,7 +15,7 @@ try {
     valid: result.errors.length === 0,
     total: registry.entries.length,
     inScope: registry.entries.filter((entry) => ["my-work", "toolbox", "foundry"].includes(entry.attention)).length,
-    excluded: registry.entries.filter((entry) => ["ignored", "removed"].includes(entry.attention)).length,
+    excluded: registry.entries.filter((entry) => entry.attention === "ignored").length,
     counts: Object.fromEntries(Object.keys(registry.attentionCounts).map((attention) => [attention, registry.entries.filter((entry) => entry.attention === attention).length])),
     errors: result.errors,
     warnings: result.warnings

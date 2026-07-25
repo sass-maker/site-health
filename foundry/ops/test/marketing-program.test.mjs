@@ -11,7 +11,7 @@ test('registry covers or explicitly excludes every catalog project and has the e
     await readFile(new URL('../config/automation-registry.json', import.meta.url), 'utf8'),
   );
   const catalogSlugs = automation.entries
-    .filter((project) => !['ignored', 'removed'].includes(project.attention))
+    .filter((project) => project.attention !== 'ignored')
     .map((project) => project.id);
   const result = validateMarketingProgram(registry, {
     catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],

@@ -19,9 +19,9 @@ The daily operating view is intentionally small:
    marketing them, and understanding feedback after work is done and verified.
    Helper surfaces may remain separately deployable while converging on one
    Foundry workstream.
-4. **Ignored** — frozen or retired work. Preserve it where convenient, but do
-   not create routine maintenance, marketing, or roadmap obligations.
-5. **Removed** — attribution-only records. Exclude them from all operations.
+4. **Ignored / inactive** — frozen or retired work. Preserve it where
+   convenient, but do not create routine maintenance, marketing, or roadmap
+   obligations.
 
 ## My Work — 4
 
@@ -91,7 +91,7 @@ Consolidate ownership, registry data, dashboards, documentation, and workflows
 before physically merging repositories. A helper may remain an independently
 deployed package, Worker, or app when its runtime boundary is useful.
 
-## Ignored — 9
+## Ignored / inactive — 12
 
 - AliveVille
 - Open Historia
@@ -102,20 +102,17 @@ deployed package, Worker, or app when its runtime boundary is useful.
 - Protein Index
 - Web Playables
 - SaaS Ideas
+- Elves HQ
+- Today Little Log
+- Forecast Lab
 
 These are frozen or retired. Do not include them in routine sweeps, maintenance
 queues, marketing programs, or planning. Work on one only after an explicit
 reactivation decision.
 
-## Removed — 3
-
-- Elves HQ
-- Today Little Log
-- Forecast Lab
-
-Keep only enough history to preserve attribution and explain what happened.
-Removed entries receive no deploy, domain, monitoring, documentation, marketing,
-or maintenance work and should not appear in active fleet counts.
+On Sarthak's current machine, optional history checkouts are kept together at
+`/Users/sarthak/Desktop/fleet-inactive-projects/`. This local archive is not an
+active Fleet clone set and is not recreated by fresh-machine setup.
 
 ## Automation view
 
@@ -124,10 +121,9 @@ or maintenance work and should not appear in active fleet counts.
 | My Work | Human-led product direction; automation provides evidence and guardrails |
 | Toolbox | Maintain usability and ambient discoverability; run bounded experiments |
 | Foundry + Helpers | Run the verified post-ship measure, market, and feedback loop |
-| Ignored | No routine work; reactivate explicitly |
-| Removed | Attribution only; exclude everywhere operational |
+| Ignored / inactive | No routine work; reactivate explicitly |
 
 The catalog contains 37 named entries: 4 My Work, 16 Toolbox, 5 Foundry +
-Helpers, 9 Ignored, and 3 Removed. Repository and deploy counts differ because
+Helpers, and 12 Ignored/inactive. Repository and deploy counts differ because
 some entries are surfaces within a family and some historical entries have no
 active deployment.

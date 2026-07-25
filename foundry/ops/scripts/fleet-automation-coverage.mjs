@@ -109,7 +109,7 @@ try {
       actionable: statuses.fail + statuses.stale + statuses.blocked
     },
     entries,
-    excluded: registry.entries.filter((entry) => ["ignored", "removed"].includes(entry.attention)).map((entry) => ({ id: entry.id, name: entry.name, attention: entry.attention, reason: entry.exceptions[0]?.reason || "excluded" }))
+    excluded: registry.entries.filter((entry) => entry.attention === "ignored").map((entry) => ({ id: entry.id, name: entry.name, attention: entry.attention, reason: entry.exceptions[0]?.reason || "excluded" }))
   };
   if (!noState) saveLastKnownGood(lkgPath, direct);
   if (!jsonOnly) {
