@@ -48,6 +48,8 @@ write_plist() {
   <dict>
     <key>PORT</key>
     <string>$PORT</string>
+    <key>FOUNDER_CONTROL_TRUST_ACCESS</key>
+    <string>1</string>
   </dict>
   <key>RunAtLoad</key>
   <true/>
@@ -107,65 +109,12 @@ publish_runtime() {
   mkdir -p "$RUNTIME_DIR"
   rm -rf "$RUNTIME_DIR/dist"
   cp -R "$APP_DIR/dist" "$RUNTIME_DIR/dist"
+  mkdir -p "$RUNTIME_DIR/founder-control"
+  cp -R "$FLEET_OPS_DIR/lib/founder-control/." "$RUNTIME_DIR/founder-control/"
+  mkdir -p "$RUNTIME_DIR/config"
+  cp "$FLEET_OPS_DIR/config/projects.json" "$RUNTIME_DIR/config/projects.json"
+  cp "$FLEET_OPS_DIR/scripts/agent-bin/ops-console-server.mjs" "$RUNTIME_DIR/server.mjs"
   "$NODE_BIN" "$HEARTBEAT_SCRIPT" >/dev/null
-  cat > "$RUNTIME_DIR/server.mjs" <<'EOF'
-import { createServer } from "node:http";
-import { existsSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join, normalize } from "node:path";
-
-const root = dirname(fileURLToPath(import.meta.url));
-const dist = join(root, "dist");
-const port = Number(process.env.PORT || 4329);
-
-function htmlFor(pathname) {
-  const cleanPath = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, "");
-  const candidates = [
-    join(dist, cleanPath, "index.html"),
-    join(dist, `${cleanPath}.html`),
-    join(dist, "index.html")
-  ];
-  return candidates.find((candidate) => candidate.startsWith(dist) && existsSync(candidate)) ?? join(dist, "index.html");
-}
-
-createServer((request, response) => {
-  const url = new URL(request.url || "/", "http://127.0.0.1");
-  if (url.pathname === "/healthz") {
-    response.writeHead(200, { "content-type": "text/plain; charset=utf-8" });
-    response.end("ok");
-    return;
-  }
-
-  if (url.pathname === "/api/runtime") {
-    try {
-      const heartbeat = readFileSync(join(root, "runtime.json"), "utf8");
-      response.writeHead(200, {
-        "content-type": "application/json; charset=utf-8",
-        "cache-control": "no-store"
-      });
-      response.end(heartbeat);
-    } catch {
-      response.writeHead(503, { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
-      response.end(JSON.stringify({ error: "heartbeat unavailable" }));
-    }
-    return;
-  }
-
-  try {
-    const html = readFileSync(htmlFor(url.pathname), "utf8");
-    response.writeHead(200, {
-      "content-type": "text/html; charset=utf-8",
-      "cache-control": "no-cache"
-    });
-    response.end(html);
-  } catch (error) {
-    response.writeHead(503, { "content-type": "text/plain; charset=utf-8", "cache-control": "no-cache" });
-    response.end("snapshot unavailable");
-  }
-}).listen(port, "127.0.0.1", () => {
-  console.log(`Fleet Ops Console listening on http://127.0.0.1:${port}`);
-});
-EOF
 }
 
 start_service() {

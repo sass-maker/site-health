@@ -59,21 +59,21 @@ The portfolio is organized by obligation, not by repository count or whether a
 URL still resolves. A retired project may remain deployed without becoming an
 active maintenance obligation.
 
-### My Work
+### My Work — 4
 
 - [CodeVetter](https://github.com/Codevetter/codevetter)
 - [HeyPace](https://github.com/HeyPace/pace)
 - [PostTrainLLM](https://github.com/PostTrainLLM/posttrainllm)
 - [High Signal](https://github.com/High-Signal-App/high-signal)
 
-### Toolbox
+### Toolbox — 16
 
 Personal website, RolePatch, Karte, Significant Hobbies, Reader, Anime List,
 SWE Interview Prep, Email Manager, LoopTV, Chess, Motion, Research Papers,
 Starboard, Free AI, Knowledge Base, and App Health remain usable and
 discoverable without becoming standing product commitments.
 
-### Foundry
+### Foundry — 5
 
 Fleet Workspace is the post-ship system that measures products, markets them,
 and turns feedback into evidence-backed recommendations. Its maintained helper
@@ -81,13 +81,23 @@ components are PSI Swarm, Mobile Dev Cockpit, Drank, and Reel Pipeline. The
 public SaaS Maker directory and private Fleet Console are Fleet Workspace
 surfaces, not additional product bets.
 
-### Ignored / inactive
+### Ignored / inactive — 12
 
-AliveVille, Open Historia, TrueHire, Companion Robot, Materia,
-EverythingRated, Protein Index, Web Playables, SaaS Ideas, Elves HQ, Today
-Little Log, and Forecast Lab are frozen or retired. They require an explicit
-reactivation decision before any routine maintenance, marketing, or roadmap
-work.
+- AliveVille
+- Open Historia
+- TrueHire
+- Companion Robot
+- Materia
+- EverythingRated
+- Protein Index
+- Web Playables
+- SaaS Ideas
+- Elves HQ
+- Today Little Log
+- Forecast Lab
+
+These projects are frozen or retired. They require an explicit reactivation
+decision before any routine maintenance, marketing, or roadmap work.
 
 Their optional local history checkouts are kept together at
 `../fleet-inactive-projects/` on this machine. They are not part of fresh

@@ -1,0 +1,49 @@
+---
+import FleetNav from "./FleetNav.astro";
+import "../styles/founder.css";
+
+interface Props {
+  title: string;
+  description: string;
+  active: "home" | "projects" | "market" | "decisions" | "activity";
+  eyebrow?: string;
+  view?: "home" | "projects" | "project" | "decisions" | "activity" | "mission";
+  projectId?: string;
+}
+
+const { title, description, active, eyebrow = "Founder control", view, projectId } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="founder-api-base" content="/api/founder" />
+    <title>{title} · Foundry</title>
+    <meta name="description" content={description} />
+  </head>
+  <body data-founder-view={view} data-project-id={projectId}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="shell">
+      <FleetNav active={active} />
+      <main id="main">
+        <header class="page-head">
+          <div>
+            <p class="eyebrow">{eyebrow}</p>
+            <h1>{title}</h1>
+            <p class="lede">{description}</p>
+          </div>
+          <slot name="meta" />
+        </header>
+        <div class="global-status" data-founder-global-status aria-live="assertive"></div>
+        <slot />
+      </main>
+    </div>
+    <script>
+      import "../scripts/founder-client";
+    </script>
+  </body>
+</html>
