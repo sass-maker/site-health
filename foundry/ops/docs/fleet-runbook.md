@@ -59,6 +59,24 @@ may recommend the next action or create a reviewable task, but it does not own
 product direction or autonomously implement product features. The product owner
 decides whether evidence becomes new product work.
 
+The private owner loop is local-first and remains useful without external AI:
+
+```sh
+node foundry/ops/scripts/founder-control.mjs status
+node foundry/ops/scripts/founder-control.mjs brief
+node foundry/ops/scripts/founder-control.mjs notifications
+node foundry/ops/scripts/ai-visibility-canary.mjs \
+  --project pace \
+  --fixture foundry/ops/test/fixtures/ai-visibility/providers-v1.json
+```
+
+Current provider proof and marketing-stage receipts may be attached only to an
+existing canonical mission through the bounded commands documented in
+`foundry/ops/docs/founder-control.md`. Raw logs, traces, prompts, credentials,
+and provider payloads remain outside the ledger. Recurring AI visibility and
+notification schedules remain inert until the designated host and explicit
+activation gates pass.
+
 Local checkout aliases:
 
 | Canonical project | Local checkout |

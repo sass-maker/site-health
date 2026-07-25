@@ -4,9 +4,15 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
+import {
+  appendCurrentEvidenceBatch,
+  appendMarketingReceipt,
+} from '../lib/founder-control/evidence-ingestion.mjs';
 import { attributionReady } from '../lib/founder-control/recommendations.mjs';
 import { draftMission } from '../lib/founder-control/intake.mjs';
 import { buildDailyBrief } from '../lib/founder-control/projections.mjs';
+import { loadFounderProjects } from '../lib/founder-control/registry.mjs';
+import { recommendationEvent } from '../lib/founder-control/recommendations.mjs';
 import { FounderControlStore } from '../lib/founder-control/store.mjs';
 
 const now = '2026-07-25T08:00:00.000Z';
@@ -105,5 +111,121 @@ test('covers intake, current work, owner request, timeline, schedules, and daily
     { provider: 'cloudflare', kind: 'production-smoke', state: 'verified' },
   ];
   assert.equal(attributionReady(evidence).ready, true);
+  store.close();
+});
+
+test('passes the canonical proof, learning, approval, ranking, and local-first owner journeys', () => {
+  const projects = loadFounderProjects();
+  const project = projects.find((entry) => entry.id === 'codevetter');
+  assert.equal(project.repo, 'codevetter');
+  assert.ok(project.domains.includes('codevetter.com'));
+
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-over-parity-')), 'owner.sqlite'),
+    projects,
+  });
+  const missionId = 'mission/codevetter-post-ship';
+  store.append(
+    {
+      type: 'mission.drafted',
+      actor: owner,
+      missionId,
+      projectId: project.id,
+      idempotencyKey: 'over-parity/mission',
+      occurredAt: now,
+      payload: {
+        title: 'Learn from the CodeVetter release',
+        outcome: 'Marketing and feedback evidence inform the next choice.',
+        completionCriteria: ['Deployment, approval, publication, and measurement evidence exist'],
+        authority: { mode: 'owner-acceptance-required' },
+      },
+    },
+    { now },
+  );
+
+  const currentReceipts = [
+    ['github', 'pull-request', 'pr-42', 'https://github.com/sass-maker/codevetter/pull/42'],
+    ['github', 'workflow-run', 'ci-42', 'https://github.com/sass-maker/codevetter/actions/runs/42'],
+    ['cloudflare', 'deployment', 'deploy-42', 'https://dash.cloudflare.com/example'],
+    ['cloudflare', 'production-smoke', 'smoke-42', 'https://codevetter.com'],
+    ['ai-visibility', 'run', 'visibility-42', 'https://fleet.sassmaker.com/marketing'],
+    ['high-signal', 'feedback-summary', 'feedback-42', 'https://highsignal.app/mentions'],
+  ].map(([provider, kind, id, url]) => ({
+    missionId,
+    projectId: project.id,
+    provider,
+    kind,
+    id,
+    state: 'verified',
+    observedAt: now,
+    freshUntil: '2026-07-26T08:00:00.000Z',
+    url,
+    summary: { status: 'verified' },
+    confidence: 1,
+  }));
+  assert.deepEqual(appendCurrentEvidenceBatch(store, {
+    version: 1,
+    receipts: currentReceipts,
+  }), {
+    received: 6,
+    appended: 6,
+    duplicates: 0,
+  });
+
+  for (const stage of ['approval', 'publication', 'measurement']) {
+    appendMarketingReceipt(store, {
+      missionId,
+      projectId: project.id,
+      stage,
+      provider: stage === 'approval' ? 'foundry' : 'postiz',
+      kind: stage,
+      id: `${stage}-42`,
+      state: 'verified',
+      observedAt: now,
+      url: `https://fleet.sassmaker.com/missions/${encodeURIComponent(missionId)}`,
+      summary: { status: 'verified' },
+      confidence: 1,
+    });
+  }
+
+  store.append(recommendationEvent({
+    title: 'Improve cited comparison coverage',
+    rationale: 'Visibility and feedback evidence agree on the gap.',
+    impact: 0.9,
+    confidence: 0.8,
+    effort: 0.3,
+    reversibility: 1,
+    attention: 'my-work',
+    projectId: project.id,
+    missionId,
+    idempotencyKey: 'over-parity/recommendation',
+    observedAt: now,
+    actor: automation,
+    evidence: currentReceipts.slice(3).map((receipt) => ({
+      provider: receipt.provider,
+      kind: receipt.kind,
+      id: receipt.id,
+      state: receipt.state,
+      observedAt: receipt.observedAt,
+      freshUntil: receipt.freshUntil,
+      url: receipt.url,
+      summary: receipt.summary,
+      confidence: receipt.confidence,
+    })),
+  }, { now }));
+
+  const projections = store.rebuildProjections({ now });
+  assert.equal(projections.projects.find((entry) => entry.id === project.id).repo, project.repo);
+  assert.equal(projections.missions[0].evidence.length, 9);
+  assert.equal(projections.home.recommendedNext[0].title, 'Improve cited comparison coverage');
+  assert.equal(
+    attributionReady(currentReceipts.map((receipt) => ({
+      provider: receipt.provider,
+      kind: receipt.kind,
+      state: receipt.state,
+    }))).ready,
+    true,
+  );
+  assert.equal(store.databasePath.endsWith('owner.sqlite'), true);
   store.close();
 });

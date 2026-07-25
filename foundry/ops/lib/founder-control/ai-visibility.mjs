@@ -37,10 +37,17 @@ function temporaryPackageRuntime(sourceDirectory) {
   const outputDirectory = mkdtempSync(join(tmpdir(), 'foundry-ai-visibility-runtime-'));
   for (const file of readdirSync(sourceDirectory).filter((name) => name.endsWith('.ts'))) {
     const source = readFileSync(join(sourceDirectory, file), 'utf8');
-    const transformed = stripTypeScriptTypes(source, {
-      mode: 'transform',
-      sourceMap: false,
-    }).replaceAll(/from "(\.\/[^"]+)\.js"/g, 'from "$1.mjs"');
+    let transformed;
+    try {
+      transformed = stripTypeScriptTypes(source, {
+        mode: 'transform',
+        sourceMap: false,
+      });
+    } catch (error) {
+      if (error?.code !== 'ERR_INVALID_ARG_VALUE') throw error;
+      transformed = stripTypeScriptTypes(source, { mode: 'strip' });
+    }
+    transformed = transformed.replaceAll(/from "(\.\/[^"]+)\.js"/g, 'from "$1.mjs"');
     writeFileSync(join(outputDirectory, file.replace(/\.ts$/, '.mjs')), transformed, { mode: 0o600 });
   }
   return join(outputDirectory, 'index.mjs');

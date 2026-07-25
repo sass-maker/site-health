@@ -51,6 +51,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Founder control local acceptance passed:** Added idempotent,
+  safe current-evidence backfill, mission-linked marketing receipts, and
+  deduplicated owner notifications routed to Foundry Needs me. Verified the
+  owner over-parity journeys, High Signal's seeded connected-brand contracts
+  and Mentions build, all Fleet/component checks, and a clean-checkout console
+  and fixture-only canary with schedules inert. No live provider, deployment,
+  package publication, backup activation, or schedule activation occurred.
 - **2026-07-25 — Foundry AI Visibility local slice shipped:** Added canonical
   project visibility configuration, ignored-project reactivation gates, a
   fixture-only bounded canary, normalized ledger history/comparison and cost
@@ -215,12 +222,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ### Planned
 
-1. Complete the remaining `foundry-founder-control-loop` work: verify High
-   Signal's seeded connected-brand surfaces, run the separately approved task
-   7.8 project canary and review its data/storage/cost, finish evidence
-   backfill/notification wiring, and run rollout acceptance.
-2. Verify the designated operations host from a fresh clone before activating
-   any schedules.
+1. Run the separately approved task 7.8 live-provider project canary and review
+   data quality, retained storage, and observed cost before proposing cadence.
+2. Clone synchronized `main` on the designated operations host, repeat its
+   machine-specific doctor checks, and keep every schedule disabled until an
+   explicit cutover approval.
 3. Complete the Postiz target-host activation and one draft-only canary using
    `foundry/ops/docs/postiz-operations.md`.
 4. Complete the independent App Health Cloudflare resource/Access cutover and

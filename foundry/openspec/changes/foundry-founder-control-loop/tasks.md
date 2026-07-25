@@ -24,7 +24,7 @@
 - [x] 3.4 Add a Cloudflare adapter for deployment and domain evidence pointers without copying provider configuration or secrets.
 - [x] 3.5 Add Postiz, Drank, PSI Swarm, CodeVetter, and App Health adapter contracts that normalize only safe summaries and links.
 - [x] 3.6 Add adapter idempotency, freshness, unavailable-provider, and retry tests.
-- [ ] 3.7 Backfill only current safe evidence needed for the first owner view; do not import historical raw logs or traces.
+- [x] 3.7 Backfill only current safe evidence needed for the first owner view; do not import historical raw logs or traces.
 
 ## 4. Owner-first Console
 
@@ -54,7 +54,7 @@
 - [x] 6.1 Add the package to High Signal through a local packed-artifact integration and preserve its existing D1, API, auth, schedule, UI, and Daily Brief ownership.
 - [x] 6.2 Replace High Signal's execution/analysis imports incrementally while keeping the previous implementation available for comparison.
 - [x] 6.3 Run frozen fixture parity, Mention suites, API product-contract tests, shared/API/web typechecks, docs checks, and the smallest relevant build.
-- [ ] 6.4 Verify the connected-brand Daily Brief sections and Mentions route locally with seeded data.
+- [x] 6.4 Verify the connected-brand Daily Brief sections and Mentions route locally with seeded data.
 - [x] 6.5 Remove duplicated High Signal engine code only after parity passes and update its architecture, direction, status, and migration-source rules.
 - [x] 6.6 Prepare the package release and High Signal consumer changes as independently reviewable commits; do not publish or deploy without their guarded approvals.
 
@@ -71,8 +71,8 @@
 
 ## 8. Portfolio learning and marketing decisions
 
-- [ ] 8.1 Replace the retired SaaS Maker approval link with Foundry Needs me items across marketing snapshots, notifications, mobile summaries, and docs.
-- [ ] 8.2 Attach source package, approval, render, Postiz, publication, and measurement receipts to canonical missions.
+- [x] 8.1 Replace the retired SaaS Maker approval link with Foundry Needs me items across marketing snapshots, notifications, mobile summaries, and docs.
+- [x] 8.2 Attach source package, approval, render, Postiz, publication, and measurement receipts to canonical missions.
 - [x] 8.3 Implement recommendation scoring across impact, confidence, effort, reversibility, attention class, and freshness.
 - [x] 8.4 Add post-ship attribution gates requiring merge, green CI, deployment, and production-smoke evidence before outcome learning.
 - [x] 8.5 Add recommendation accept/reject/snooze/refine actions that create mission drafts rather than implementation tasks.
@@ -85,17 +85,17 @@
 - [x] 9.2 Require owner acceptance before executable work starts except for explicitly read-only missions.
 - [x] 9.3 Add factual actor/current-work projections for Codex, OpenClaw, registered cron jobs, and external providers.
 - [x] 9.4 Generate a concise daily brief covering decisions, current work, verified outcomes, material changes, stale/failed schedules, and recommended next actions.
-- [ ] 9.5 Send deduplicated owner notifications only for actionable decisions, prolonged blockers, failed critical work, security/cost/data risk, or requested completion.
+- [x] 9.5 Send deduplicated owner notifications only for actionable decisions, prolonged blockers, failed critical work, security/cost/data risk, or requested completion.
 - [x] 9.6 Add schedule view and receipts without presenting inert intent as enabled work.
 
 ## 10. Over-parity acceptance and rollout
 
 - [x] 10.1 Pass the six MissionControl parity journeys: intake, current work, owner request, mission timeline, scheduled work, and daily summary.
-- [ ] 10.2 Pass the six Foundry over-parity journeys: canonical portfolio resolution, repository/deploy proof, post-ship marketing/visibility/feedback loop, approval receipts, ranked recommendations, and local-first operation.
+- [x] 10.2 Pass the six Foundry over-parity journeys: canonical portfolio resolution, repository/deploy proof, post-ship marketing/visibility/feedback loop, approval receipts, ranked recommendations, and local-first operation.
 - [x] 10.3 Run Impeccable critique, polish, and audit; perform browser verification at desktop and mobile widths with no fake operational data.
 - [x] 10.4 Run privacy/redaction, idempotency, projection rebuild, backup/restore, cost-boundary, stale-evidence, and unavailable-provider tests.
-- [ ] 10.5 Run `npm run test:fleet`, component-native checks, registry validation, High Signal checks, `git diff --check`, and OpenSpec strict validation.
-- [ ] 10.6 Rehearse a fresh-clone designated-host setup with schedules disabled and verify the console remains useful without external AI providers.
-- [ ] 10.7 Update root and High Signal `PROJECT_STATUS.md`, recommendation context, runbooks, and package documentation with actual shipped state.
+- [x] 10.5 Run `npm run test:fleet`, component-native checks, registry validation, High Signal checks, `git diff --check`, and OpenSpec strict validation.
+- [x] 10.6 Rehearse a fresh-clone designated-host setup with schedules disabled and verify the console remains useful without external AI providers.
+- [x] 10.7 Update root and High Signal `PROJECT_STATUS.md`, recommendation context, runbooks, and package documentation with actual shipped state.
 - [ ] 10.8 Obtain separate approval before package publication, High Signal deployment, Fleet Console cutover, backup activation, or recurring AI-visibility schedules.
 - [ ] 10.9 Archive the OpenSpec change only after every accepted capability is shipped, verified, and reflected in durable status.
