@@ -33,7 +33,10 @@ test('deploy health honors registry local-only state and structured mixed target
   const sha = await initRepo(knowledge);
   await mkdir(join(knowledge, '.github/workflows'), { recursive: true });
   await writeFile(join(knowledge, '.github/workflows/ci.yml'), 'name: CI\n');
-  await writeFile(join(knowledge, 'package.json'), '{"scripts":{"deploy":"wrangler deploy"}}\n');
+  await writeFile(
+    join(knowledge, 'package.json'),
+    '{"scripts":{"deploy":"wrangler deploy --tag \\"$(git rev-parse HEAD)\\""}}\n'
+  );
   await mkdir(join(mashup, '.git'), { recursive: true });
   await writeFile(join(mashup, 'README.md'), 'local tool\n');
   await mkdir(join(root, 'fake-bin'));
@@ -45,7 +48,11 @@ if [[ "$1 $2 $3" == "pages deployment list" ]]; then
   exit 0
 fi
 if [[ "$1 $2" == "deployments list" ]]; then
-  printf '[{"id":"worker-1","created_on":"2026-07-26T00:00:00Z","versions":[{"percentage":100}]}]\\n'
+  printf '[{"id":"deployment-1","created_on":"2026-07-26T00:00:00Z","versions":[{"version_id":"worker-1","percentage":100}]}]\\n'
+  exit 0
+fi
+if [[ "$1 $2" == "versions list" ]]; then
+  printf '[{"id":"worker-1","annotations":{"workers/tag":"${sha}"}}]\\n'
   exit 0
 fi
 exit 1
@@ -105,8 +112,82 @@ exit 1
   assert.match(cloudflare.stdout, /materia Cloudflare parity skipped: ignored\/inactive/);
   assert.doesNotMatch(cloudflare.stdout, /Pages materia/);
   assert.match(cloudflare.stdout, /Pages knowledgebase-app deployed/);
-  assert.match(cloudflare.stdout, /Worker knowledgebase has active deployment/);
+  assert.match(cloudflare.stdout, new RegExp(`Worker knowledgebase deployed ${sha.slice(0, 7)} from main at 100%`));
   assert.doesNotMatch(cloudflare.stdout, /mixed Worker\+Pages/);
+
+  await writeFile(join(knowledge, 'package.json'), '{"scripts":{"deploy":"wrangler deploy"}}\n');
+  const untaggedStandards = run('bash', [
+    deployHealth,
+    '--root',
+    root,
+    '--no-github',
+    '--no-cloudflare',
+  ]);
+  assert.equal(untaggedStandards.status, 1, untaggedStandards.stdout + untaggedStandards.stderr);
+  assert.match(untaggedStandards.stdout, /Worker deploys do not record the Git SHA with --tag/);
+});
+
+test('deploy health fails a behind Worker and warns for an untagged legacy Worker', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'fleet-worker-parity-'));
+  const behind = join(root, 'behind-worker');
+  const legacy = join(root, 'legacy-worker');
+  const behindHead = await initRepo(behind);
+  await initRepo(legacy);
+  const deployedSha = '0'.repeat(40);
+
+  await mkdir(join(root, 'fake-bin'));
+  const wrangler = join(root, 'fake-bin/wrangler');
+  await writeFile(wrangler, `#!/usr/bin/env bash
+if [[ "$1" == "whoami" ]]; then exit 0; fi
+if [[ "$1 $2" == "deployments list" ]]; then
+  printf '[{"id":"deployment-1","created_on":"2026-07-26T00:00:00Z","versions":[{"version_id":"%s-version","percentage":100}]}]\\n' "$4"
+  exit 0
+fi
+if [[ "$1 $2" == "versions list" ]]; then
+  if [[ "$4" == "behind-worker" ]]; then
+    printf '[{"id":"behind-worker-version","annotations":{"workers/tag":"${deployedSha}"}}]\\n'
+  else
+    printf '[{"id":"legacy-worker-version","annotations":{"workers/triggered_by":"version_upload"}}]\\n'
+  fi
+  exit 0
+fi
+exit 1
+`);
+  await chmod(wrangler, 0o755);
+  await mkdir(join(root, 'foundry/ops/config'), { recursive: true });
+  await writeFile(join(root, 'foundry/ops/config/projects.json'), JSON.stringify({
+    projects: [
+      {
+        id: 'behind-worker',
+        tier: 'active',
+        repo: 'behind-worker',
+        deployKind: 'worker',
+        cfProject: 'behind-worker',
+        status: 'live',
+      },
+      {
+        id: 'legacy-worker',
+        tier: 'active',
+        repo: 'legacy-worker',
+        deployKind: 'worker',
+        cfProject: 'legacy-worker',
+        status: 'live',
+      },
+    ],
+  }));
+
+  const result = run('bash', [deployHealth, '--root', root, '--no-github', '--no-standards'], {
+    env: { ...process.env, PATH: `${join(root, 'fake-bin')}:${process.env.PATH}` },
+  });
+
+  assert.equal(result.status, 1, result.stdout + result.stderr);
+  assert.match(
+    result.stdout,
+    new RegExp(`behind-worker is not at origin/main ${behindHead.slice(0, 7)}; active version deploys 0000000`)
+  );
+  assert.match(result.stdout, /legacy-worker is active at 100% but version legacy-worker-version has no full Git SHA tag/);
+  assert.match(result.stdout, /Failures: 1/);
+  assert.match(result.stdout, /Warnings: 1/);
 });
 
 test('deploy guard ignores evidence claims but blocks an actual production cutover', async () => {

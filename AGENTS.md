@@ -130,6 +130,12 @@ Use repo-local scripts before manual fleet inspection:
   server actions, or per-route caching.
 - Production deploys are manual. `main` should stay releasable and green, but it
   is not an automatic production trigger.
+- Every Cloudflare Worker production deploy must tag the uploaded version with
+  the exact 40-character Git SHA. Package scripts should use
+  `wrangler deploy --tag "$(git rev-parse HEAD)"`; GitHub Actions should use
+  `--tag ${{ github.sha }}`. OpenNext deploy commands pass this flag through to
+  Wrangler. Untagged Worker deployments are unverifiable and must never be
+  reported as current.
 - Cloudflare account hygiene: one Worker or Pages project per product surface;
   avoid persistent preview/PR Workers.
 

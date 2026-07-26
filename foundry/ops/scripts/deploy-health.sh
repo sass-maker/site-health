@@ -206,6 +206,48 @@ project_has_deploy_entrypoint() {
   return 1
 }
 
+project_requires_worker_sha_tag() {
+  local repo="$1"
+  local relative_repo
+
+  [[ -f "$TARGETS_FILE" ]] || return 1
+  relative_repo="${repo#"$ROOT"/}"
+
+  jq -e --arg repo "$relative_repo" '
+    any(.projects[]?;
+      .repo == $repo
+      and .status == "live"
+      and (.deployKind == "worker" or .deployKind == "worker+pages")
+    )
+  ' "$TARGETS_FILE" >/dev/null 2>&1
+}
+
+project_has_worker_sha_tag() {
+  local repo="$1"
+  local file
+
+  while IFS= read -r -d '' file; do
+    if grep -Fq -- '--tag' "$file" &&
+      grep -Eiq 'github\.sha|GITHUB_SHA|git rev-parse HEAD' "$file"; then
+      return 0
+    fi
+  done < <(
+    {
+      find "$repo/.github/workflows" -maxdepth 1 -type f \
+        \( -name '*.yml' -o -name '*.yaml' \) -print0 2>/dev/null
+      find "$repo" -maxdepth 4 -type f -name package.json \
+        -not -path '*/node_modules/*' \
+        -not -path '*/.next/*' \
+        -not -path '*/dist/*' \
+        -not -path '*/out/*' \
+        -not -path '*/build/*' \
+        -print0
+    }
+  )
+
+  return 1
+}
+
 repo_dir_for_project() {
   local project="$1"
   local normalized
@@ -404,6 +446,14 @@ check_project_standards() {
     else
       record "FAIL" "$repo has no deploy entrypoint"
     fi
+
+    if project_requires_worker_sha_tag "$repo"; then
+      if project_has_worker_sha_tag "$repo"; then
+        record "OK" "$repo Worker deploys record the Git SHA with --tag"
+      else
+        record "FAIL" "$repo Worker deploys do not record the Git SHA with --tag"
+      fi
+    fi
   done < <(find "$ROOT" -maxdepth 2 -type d -name ".git" -prune -print0)
 
   echo
@@ -449,10 +499,14 @@ check_pages_target() {
 check_worker_target() {
   local repo="$1"
   local target_name="$2"
+  local head_sha="$3"
   local deployments_json
+  local versions_json
   local deployment_id
   local created_on
   local max_percentage
+  local active_version_id
+  local deployed_sha
 
   if ! deployments_json="$(run_wrangler deployments list --name "$target_name" --json 2>/dev/null)"; then
     record "FAIL" "$repo Worker $target_name deployment list failed"
@@ -467,11 +521,40 @@ check_worker_target() {
   deployment_id="$(jq -r 'sort_by(.created_on) | last | .id // ""' <<<"$deployments_json")"
   created_on="$(jq -r 'sort_by(.created_on) | last | .created_on // ""' <<<"$deployments_json")"
   max_percentage="$(jq -r 'sort_by(.created_on) | last | [.versions[]?.percentage] | max // 0' <<<"$deployments_json")"
+  active_version_id="$(
+    jq -r 'sort_by(.created_on) | last | [.versions[]? | select(.percentage == 100)][0].version_id // ""' \
+      <<<"$deployments_json"
+  )"
 
   if [[ "$max_percentage" != "100" ]]; then
     record "WARN" "$repo Worker $target_name latest deployment is not 100% traffic ($max_percentage%) id=$deployment_id"
+    return
+  fi
+
+  if [[ -z "$active_version_id" ]]; then
+    record "FAIL" "$repo Worker $target_name has 100% traffic but no active version id in deployment $deployment_id"
+    return
+  fi
+
+  if ! versions_json="$(run_wrangler versions list --name "$target_name" --json 2>/dev/null)"; then
+    record "FAIL" "$repo Worker $target_name version list failed"
+    return
+  fi
+
+  deployed_sha="$(
+    jq -r --arg version_id "$active_version_id" \
+      '[.[] | select(.id == $version_id)][0].annotations["workers/tag"] // ""' \
+      <<<"$versions_json"
+  )"
+
+  if [[ ! "$deployed_sha" =~ ^[0-9a-fA-F]{40}$ ]]; then
+    record "WARN" "$repo Worker $target_name is active at 100% but version $active_version_id has no full Git SHA tag; deployed commit unknown"
+  elif [[ -z "$head_sha" ]]; then
+    record "WARN" "$repo Worker $target_name deployed ${deployed_sha:0:7} but origin/main is unavailable"
+  elif [[ "$deployed_sha" == "$head_sha" ]]; then
+    record "OK" "$repo Worker $target_name deployed ${deployed_sha:0:7} from main at 100% ($created_on)"
   else
-    record "OK" "$repo Worker $target_name has active deployment id=$deployment_id created=$created_on; commit sync unknown"
+    record "FAIL" "$repo Worker $target_name is not at origin/main ${head_sha:0:7}; active version deploys ${deployed_sha:0:7} at 100% ($created_on)"
   fi
 }
 
@@ -530,14 +613,12 @@ check_cloudflare_targets() {
 
     head_sha=""
 
-    if [[ "$kind" == "pages" ]]; then
-      repo_path="$ROOT/$source_path"
-      if [[ -n "$source_path" ]] &&
-        git -C "$repo_path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        head_sha="$(origin_main_sha "$repo_path" || true)"
-      else
-        record "WARN" "$project/$target_id Pages target has no available source checkout at ${source_path:-<unset>}"
-      fi
+    repo_path="$ROOT/$source_path"
+    if [[ -n "$source_path" ]] &&
+      git -C "$repo_path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+      head_sha="$(origin_main_sha "$repo_path" || true)"
+    else
+      record "WARN" "$project/$target_id $kind target has no available source checkout at ${source_path:-<unset>}"
     fi
 
     case "$kind" in
@@ -545,7 +626,7 @@ check_cloudflare_targets() {
         check_pages_target "$project" "$target_name" "$head_sha"
         ;;
       worker)
-        check_worker_target "$project" "$target_name"
+        check_worker_target "$project" "$target_name" "$head_sha"
         ;;
       *)
         record "WARN" "$project target $target_id has unknown Cloudflare kind: $kind"

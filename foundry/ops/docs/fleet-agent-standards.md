@@ -159,6 +159,12 @@ Deployment standard:
 - Every fleet project should have CI/CD on GitHub Actions and a repo-local
   deploy command, usually a single package script such as `pnpm deploy`,
   `npm run deploy`, or `bun run deploy`.
+- Every Worker deploy must record the immutable source revision with
+  `wrangler deploy --tag "$(git rev-parse HEAD)"` locally or
+  `--tag ${{ github.sha }}` in GitHub Actions. OpenNext deploy commands pass
+  unknown arguments through to Wrangler, so the same `--tag` contract applies.
+  Tags must be the full 40-character SHA; branch names, timestamps, abbreviated
+  SHAs, and release labels do not provide deploy parity.
 - Deploy scripts must fail closed when the repo is not on clean/synced `main`
   or when the latest `main` CI signal is not green. Prefer explicit guards over
   hidden deploy assumptions.
