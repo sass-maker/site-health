@@ -4,6 +4,7 @@ import { createServer } from 'node:http';
 import { buildDailyBrief } from './projections.mjs';
 import { draftMission } from './intake.mjs';
 import { buildOwnerNotifications } from './learning.mjs';
+import { cloudflareAccessAuthorized } from './access.mjs';
 import {
   evaluateAiVisibilityScheduleActivation,
   loadAiVisibilityPortfolio,
@@ -33,10 +34,7 @@ function mutationAuthorized(request, { ownerToken, trustAccessHeaders = false, o
     return authorization.startsWith('Bearer ') && safeEqual(authorization.slice(7), ownerToken);
   }
   if (trustAccessHeaders) {
-    const authenticatedEmail = request.headers['cf-access-authenticated-user-email'];
-    const accessAssertion = request.headers['cf-access-jwt-assertion'];
-    if (typeof authenticatedEmail !== 'string' || typeof accessAssertion !== 'string' || accessAssertion.length < 20) return false;
-    return ownerEmail ? safeEqual(authenticatedEmail.toLowerCase(), ownerEmail.toLowerCase()) : true;
+    return cloudflareAccessAuthorized(request, { ownerEmail });
   }
   return false;
 }

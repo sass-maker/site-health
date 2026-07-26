@@ -3,13 +3,16 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { loadFounderProjects } from './founder-control/registry.mjs';
-import { createFounderControlHandler } from './founder-control/service.mjs';
-import { FounderControlStore, defaultDatabasePath } from './founder-control/store.mjs';
+import { loadFounderProjects } from './lib/founder-control/registry.mjs';
+import { createFounderControlHandler } from './lib/founder-control/service.mjs';
+import { FounderControlStore, defaultDatabasePath } from './lib/founder-control/store.mjs';
+import { consoleRequestAuthorized } from './lib/founder-control/access.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');
 const port = Number(process.env.PORT || 4329);
+const trustAccessHeaders = process.env.FOUNDER_CONTROL_TRUST_ACCESS === '1';
+const ownerEmail = process.env.FOUNDER_CONTROL_OWNER_EMAIL;
 const founderStore = new FounderControlStore({
   databasePath: process.env.FOUNDER_CONTROL_DB || defaultDatabasePath(),
   projects: loadFounderProjects(join(root, 'config', 'projects.json')),
@@ -17,8 +20,8 @@ const founderStore = new FounderControlStore({
 const founderHandler = createFounderControlHandler({
   store: founderStore,
   ownerToken: process.env.FOUNDER_CONTROL_OWNER_TOKEN,
-  trustAccessHeaders: process.env.FOUNDER_CONTROL_TRUST_ACCESS === '1',
-  ownerEmail: process.env.FOUNDER_CONTROL_OWNER_EMAIL,
+  trustAccessHeaders,
+  ownerEmail,
 });
 
 const contentTypes = {
@@ -52,6 +55,14 @@ const server = createServer(async (request, response) => {
   if (url.pathname === '/healthz') {
     response.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
     response.end('ok');
+    return;
+  }
+  if (!consoleRequestAuthorized(request, { trustAccessHeaders, ownerEmail })) {
+    response.writeHead(401, {
+      'content-type': 'text/plain; charset=utf-8',
+      'cache-control': 'no-store',
+    });
+    response.end('Cloudflare Access authentication required');
     return;
   }
   if (url.pathname.startsWith('/api/founder')) {

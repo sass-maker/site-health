@@ -7,13 +7,13 @@ DRY_RUN=0
 
 SUPPORT_PROJECTS=(
   fleet-ops
+  research
   free-ai
   reel-pipeline
   drank
   high-signal
   knowledge-base
   research-papers
-  aliveville
   codevetter
   starboard
 )
@@ -22,8 +22,9 @@ usage() {
   cat <<'EOF'
 usage: setup-openclaw-support-agents [--dry-run] [project ...]
 
-Registers Fleet support projects as isolated OpenClaw agents. With no project
-arguments, registers the support and support+saas projects plus fleet-ops.
+Registers active Fleet support projects as isolated OpenClaw agents. With no
+project arguments, registers the active support projects, absorbed helper
+components, the research workspace, and fleet-ops.
 
 Environment:
   FLEET_ROOT              Fleet workspace path.
@@ -83,6 +84,39 @@ if (hit?.workspace) console.log(hit.workspace);
 ' "$agent"
 }
 
+agent_index() {
+  local agent="$1"
+  openclaw agents list --json 2>/dev/null | node -e '
+const fs = require("node:fs");
+const agents = JSON.parse(fs.readFileSync(0, "utf8"));
+const id = process.argv[1];
+const index = agents.findIndex((agent) => agent.id === id);
+if (index >= 0) console.log(index);
+' "$agent"
+}
+
+project_workspace() {
+  local project="$1"
+
+  case "$project" in
+    fleet-ops)
+      printf '%s\n' "$FLEET_ROOT/foundry/ops"
+      ;;
+    research)
+      printf '%s\n' "$FLEET_ROOT/foundry/ops/agents/research"
+      ;;
+    reel-pipeline)
+      printf '%s\n' "$FLEET_ROOT/foundry/services/reel-pipeline"
+      ;;
+    drank)
+      printf '%s\n' "$FLEET_ROOT/foundry/services/drank"
+      ;;
+    *)
+      printf '%s\n' "$FLEET_ROOT/$project"
+      ;;
+  esac
+}
+
 projects=()
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
@@ -111,7 +145,7 @@ if ! command -v openclaw >/dev/null 2>&1; then
 fi
 
 for project in "${projects[@]}"; do
-  workspace="$FLEET_ROOT/$project"
+  workspace="$(project_workspace "$project")"
   if [[ ! -d "$workspace" ]]; then
     log "skip: missing workspace $workspace"
     continue
@@ -124,7 +158,14 @@ for project in "${projects[@]}"; do
     if [[ "$existing" == "$workspace" ]]; then
       log "ok: OpenClaw agent $project -> $workspace"
     else
-      log "warn: OpenClaw agent $project already points to $existing"
+      index="$(agent_index "$project")"
+      if [[ -z "$index" ]]; then
+        log "error: OpenClaw agent $project has no configurable list index"
+        exit 1
+      fi
+      workspace_json="$(node -e 'console.log(JSON.stringify(process.argv[1]))' "$workspace")"
+      log "update: OpenClaw agent $project $existing -> $workspace"
+      run openclaw config set "agents.list[$index].workspace" "$workspace_json" --strict-json
     fi
     continue
   fi

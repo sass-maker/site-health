@@ -109,10 +109,13 @@ publish_runtime() {
   mkdir -p "$RUNTIME_DIR"
   rm -rf "$RUNTIME_DIR/dist"
   cp -R "$APP_DIR/dist" "$RUNTIME_DIR/dist"
-  mkdir -p "$RUNTIME_DIR/founder-control"
-  cp -R "$FLEET_OPS_DIR/lib/founder-control/." "$RUNTIME_DIR/founder-control/"
+  mkdir -p "$RUNTIME_DIR/lib/founder-control"
+  cp -R "$FLEET_OPS_DIR/lib/founder-control/." "$RUNTIME_DIR/lib/founder-control/"
+  cp "$FLEET_OPS_DIR/lib/marketing-program.mjs" "$RUNTIME_DIR/lib/marketing-program.mjs"
   mkdir -p "$RUNTIME_DIR/config"
   cp "$FLEET_OPS_DIR/config/projects.json" "$RUNTIME_DIR/config/projects.json"
+  cp "$FLEET_OPS_DIR/config/automation-registry.json" "$RUNTIME_DIR/config/automation-registry.json"
+  cp "$FLEET_OPS_DIR/config/marketing-program.json" "$RUNTIME_DIR/config/marketing-program.json"
   cp "$FLEET_OPS_DIR/scripts/agent-bin/ops-console-server.mjs" "$RUNTIME_DIR/server.mjs"
   "$NODE_BIN" "$HEARTBEAT_SCRIPT" >/dev/null
 }
@@ -148,11 +151,21 @@ case "${1:-}" in
     ;;
   status)
     launchctl list | grep "$LABEL" || true
-    curl -fsS --max-time 5 "http://127.0.0.1:$PORT" >/dev/null && echo "local: ok" || echo "local: down"
-    curl -fsS --max-time 5 "http://127.0.0.1:$PORT/projects" >/dev/null && echo "local projects: ok" || echo "local projects: down"
-    curl -fsS --max-time 5 "http://127.0.0.1:$PORT/api/runtime" >/dev/null && echo "local heartbeat: ok (60s)" || echo "local heartbeat: down"
+    local_health="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 "http://127.0.0.1:$PORT/healthz" 2>/dev/null || true)"
+    local_root="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 "http://127.0.0.1:$PORT/" 2>/dev/null || true)"
+    local_projects="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 "http://127.0.0.1:$PORT/projects" 2>/dev/null || true)"
+    local_runtime="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 "http://127.0.0.1:$PORT/api/runtime" 2>/dev/null || true)"
+    [ "$local_health" = "200" ] && echo "local health: ok" || echo "local health: down ($local_health)"
+    [ "$local_root" = "401" ] && echo "local console: protected" || echo "local console: unexpected ($local_root)"
+    [ "$local_projects" = "401" ] && echo "local projects: protected" || echo "local projects: unexpected ($local_projects)"
+    [ "$local_runtime" = "401" ] && echo "local heartbeat: protected" || echo "local heartbeat: unexpected ($local_runtime)"
     if [ "$(curl -fsSL --max-time 10 "$PUBLIC_URL/healthz" 2>/dev/null || true)" = "ok" ]; then
-      echo "public: ok $PUBLIC_URL"
+      public_status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 10 "$PUBLIC_URL/" 2>/dev/null || true)"
+      case "$public_status" in
+        302|401|403) echo "public: protected ($public_status) $PUBLIC_URL" ;;
+        200) echo "public: reachable but not protected (200) $PUBLIC_URL" ;;
+        *) echo "public: health ok; console unexpected ($public_status) $PUBLIC_URL" ;;
+      esac
     else
       echo "public: down $PUBLIC_URL"
     fi

@@ -63,6 +63,19 @@ CodeVetter or App Health source.
   repositories while hiding private repositories. The personal site remains a
   concise link surface rather than another portfolio mirror. No deployment was
   performed.
+- **2026-07-26 — Foundry Fleet Ops runtime repaired and privately restarted:**
+  Pulled the active Fleet and moved OpenClaw support agents off historical
+  standalone paths onto canonical `foundry/ops/`, `foundry/services/`, and
+  research workspaces. Reinstalled Fleet-owned skills, removed stale legacy
+  links, and verified the capability catalog with no broken Fleet skill links.
+  A clean runtime publish exposed and fixed an incomplete Ops Console package;
+  the console now runs under launchd, its public health endpoint passes, and
+  every console/API route fails closed with HTTP 401 unless Cloudflare Access
+  identity headers are present. OpenClaw and Telegram are current and healthy,
+  notifications drain successfully, and a real `fleet-ops` agent turn passed
+  from the canonical workspace. The remaining private-host cutover is explicit:
+  configure/verify the Cloudflare Access application, then promote exactly one
+  designated host before activating schedules.
 - **2026-07-26 — Mashup went fully offline, and its validation experiment was
   found to be measuring noise:** Enrichment moved to a local mlx model, so no
   subcommand needs the free-ai gateway. A feasibility audit then invalidated
@@ -293,14 +306,17 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ### Planned
 
-1. Clone synchronized `main` on the designated operations host, repeat its
+1. Configure and verify the Cloudflare Access application for
+   `fleet.sassmaker.com`; the origin now intentionally returns HTTP 401 to
+   anonymous requests instead of exposing the console.
+2. Clone synchronized `main` on the designated operations host, repeat its
    machine-specific doctor checks, and keep every schedule disabled until an
    explicit cutover approval.
-2. Complete the Postiz target-host activation and one draft-only canary using
+3. Complete the Postiz target-host activation and one draft-only canary using
    `foundry/ops/docs/postiz-operations.md`.
-3. Complete the independent App Health Cloudflare resource/Access cutover and
+4. Complete the independent App Health Cloudflare resource/Access cutover and
    one SDK-ingest canary.
-4. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
+5. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
 
 ### Deferred
 
@@ -308,6 +324,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
   machine-authority checks pass.
 - Activating the weekly Spend Guard and configuring notification delivery until
   the operator explicitly approves the cron cutover.
+- Updating the Ops Console's Astro toolchain across its audit-recommended major
+  version boundary. The static build and custom local runtime pass, but the
+  current lock reports five high and one low production audit findings; upgrade
+  and compatibility work require explicit dependency approval.
 - Building another broad browser control plane; provider-native tools and
   independent products remain authoritative.
 
@@ -319,3 +339,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - GEO Observatory needs one more real weekly observation before its trend
   change can be archived. Its versioned schedule is ready and remains inert
   until the designated host explicitly installs Fleet cron.
+- The current macOS `crontab` writer hangs on schedule updates even when given
+  the unchanged installed schedule. Fleet now times that operation out instead
+  of hanging the whole stack, but the historical installed block still points
+  at pre-Foundry paths. Scheduled work remains non-authoritative and gated off
+  until the designated-host cutover resolves the machine scheduler.

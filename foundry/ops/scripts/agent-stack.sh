@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FLEET_OPS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 FOUNDRY_ROOT="$(cd "$FLEET_OPS_DIR/.." && pwd)"
 FLEET_ROOT="$(cd "$FOUNDRY_ROOT/.." && pwd)"
+LEGACY_FLEET_OPS_DIR="$FLEET_ROOT/fleet-ops"
 EXPOSED_FLEET_SKILLS=(
   daily-learning
   fleet-deploy-parity
@@ -79,7 +80,7 @@ link_fleet_skills() {
   for managed in "$destination"/*; do
     [[ -L "$managed" ]] || continue
     case "$(readlink "$managed")" in
-      "$FLEET_OPS_DIR"/skills/*)
+      "$FLEET_OPS_DIR"/skills/*|"$LEGACY_FLEET_OPS_DIR"/skills/*|"$LEGACY_FLEET_OPS_DIR"/psi-swarm)
         name="$(basename "$managed")"
         if ! is_exposed_fleet_skill "$name"; then
           rm "$managed"
@@ -106,7 +107,7 @@ link_teammate_parent() {
   for managed in "$destination"/call-*; do
     [[ -L "$managed" ]] || continue
     case "$(readlink "$managed")" in
-      "$FLEET_OPS_DIR"/teammates/skills/*)
+      "$FLEET_OPS_DIR"/teammates/skills/*|"$LEGACY_FLEET_OPS_DIR"/teammates/skills/*)
         [[ "$(basename "$managed")" == "call-teammate" ]] || rm "$managed"
         ;;
     esac

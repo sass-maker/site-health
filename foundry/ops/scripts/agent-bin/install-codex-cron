@@ -21,6 +21,26 @@ Installs, removes, or prints the managed Fleet Ops Codex cron block.
 EOF
 }
 
+run_crontab() {
+  local timeout_seconds="${FLEET_CRONTAB_TIMEOUT_SECONDS:-20}"
+  local elapsed=0
+  local crontab_pid
+
+  crontab "$@" &
+  crontab_pid=$!
+  while kill -0 "$crontab_pid" 2>/dev/null; do
+    if [ "$elapsed" -ge "$timeout_seconds" ]; then
+      kill "$crontab_pid" 2>/dev/null || true
+      wait "$crontab_pid" 2>/dev/null || true
+      echo "crontab update timed out after ${timeout_seconds}s; schedule was not changed" >&2
+      return 1
+    fi
+    sleep 1
+    elapsed=$((elapsed + 1))
+  done
+  wait "$crontab_pid"
+}
+
 if [ ! -x "$RUNNER" ]; then
   echo "runner is not executable: $RUNNER" >&2
   exit 1
@@ -123,9 +143,9 @@ awk -v begin="$BEGIN" -v end="$END" '
 
 if [ "${1:-}" = "--remove" ]; then
   if [ -s "$next" ]; then
-    crontab "$next"
+    run_crontab "$next"
   else
-    crontab -r 2>/dev/null || true
+    run_crontab -r 2>/dev/null || true
   fi
   echo "removed fleet Codex cron jobs"
   exit 0
@@ -136,7 +156,7 @@ if [ -s "$next" ] && [ "$(tail -c 1 "$next" | wc -l | tr -d ' ')" = "0" ]; then
 fi
 
 printf '%s\n' "$managed_block" >> "$next"
-crontab "$next"
+run_crontab "$next"
 echo "installed fleet Codex cron jobs:"
 awk -F '\t' 'NR > 1 && $2 == "yes" { printf "- %s: %s\n", $1, $3 }' "$JOBS_FILE"
 awk -F '\t' 'NR > 1 && $2 == "yes" { printf "- %s: %s (deterministic)\n", $1, $3 }' "$SYSTEM_JOBS_FILE"

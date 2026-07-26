@@ -24,10 +24,11 @@ on the machine through Codex, Claude, or an explicitly selected teammate.
 | Evidence research | OpenClaw `research` agent | Current source-backed decisions | Isolated workspace and evidence artifacts |
 | Optional external teammate | Devin | Proprietary autonomous attempts when the upside justifies spend | Explicit approval required; verify diffs locally |
 
-The research agent workspace is `~/Desktop/fleet/research-agent`. Its reports
-are written to `research-agent/reports/` and must follow its evidence-research
-skill. It is intentionally not exposed as a general Fleet skill because it has
-its own narrow tool policy and artifact boundary.
+The research agent workspace is
+`~/Desktop/fleet/foundry/ops/agents/research`. Its reports are written to that
+workspace's `reports/` directory and must follow its evidence-research skill.
+It is intentionally not exposed as a general Fleet skill because it has its
+own narrow tool policy and artifact boundary.
 
 ## Commands
 
@@ -45,9 +46,11 @@ its own narrow tool policy and artifact boundary.
 
 `install-skills` links Fleet skills into Codex, Hermes, and OpenClaw.
 `install-agents` registers Fleet support workspaces as isolated OpenClaw agents:
-`fleet-ops`, `saas-maker`, `free-ai`, `reel-pipeline`, `drank`, `high-signal`,
-`knowledge-base`, `research-papers`, `aliveville`, `codevetter`, and
-`starboard`.
+`fleet-ops`, `research`, `free-ai`, `reel-pipeline`, `drank`, `high-signal`,
+`knowledge-base`, `research-papers`, `codevetter`, and `starboard`. Fleet Ops,
+Reel Pipeline, and Drank resolve to their canonical monorepo paths under
+`foundry/`; retired SaaS Maker and ignored AliveVille are not registered by
+default.
 
 Hermes is not required for the primary mobile path. If a machine enables Hermes
 as an optional lane, it must use a separate Telegram bot token from OpenClaw.

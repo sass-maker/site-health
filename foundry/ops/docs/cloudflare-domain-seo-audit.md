@@ -37,7 +37,12 @@ Current implementation state:
   at `http://127.0.0.1:4329`.
 - DNS points to the tunnel target:
   `fceb4f22-db20-4e77-88cf-07c1f290fd42.cfargotunnel.com`
-- The operational hostname is live and returns HTTP 200 through the Tunnel.
+- The operational hostname's public health endpoint returns HTTP 200 through
+  the Tunnel. Console and API routes fail closed at the origin with HTTP 401
+  unless Cloudflare Access injects both authenticated-user and JWT headers.
+- The Cloudflare Access application/policy still needs owner-side
+  configuration or verification. Until then, the console is private but
+  intentionally unavailable through the public hostname.
 - `saas-maker-home` remains the Cloudflare Pages target for the apex, but its
   source is now `foundry/apps/public-directory/` rather than a standalone
   SaaS Maker repository.
