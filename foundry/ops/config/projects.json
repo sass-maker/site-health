@@ -8,9 +8,11 @@
       "tier": "focus | active | secondary | parked | out-of-fleet | non-product",
       "priority": "P1 | P2 | P3 current attention level; P1 is core, P2 is support/active, P3 is maintain or park",
       "repo": "child repo dir under fleet root (null if none)",
+      "sourcePath": "optional source checkout path relative to fleet root when the repo is stored outside the active workspace",
       "deployKind": "pages | worker | worker+pages | none | unknown",
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
       "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
+      "deployTargets": "optional exact per-surface objects with id, kind, name, and sourcePath; required for mixed or multi-source deploys",
       "tursoDatabases": "optional exact Turso database names owned by this project",
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
@@ -176,6 +178,7 @@
       "family": "high-signal",
       "tier": "secondary",
       "repo": "everythingrated",
+      "sourcePath": "../fleet-inactive-projects/everythingrated",
       "deployKind": "worker",
       "cfProject": "everythingrated",
       "domains": [
@@ -206,6 +209,7 @@
       "family": "materia",
       "tier": "active",
       "repo": "materia",
+      "sourcePath": "../fleet-inactive-projects/materia",
       "deployKind": "pages",
       "cfProject": "materia",
       "domains": [
@@ -226,6 +230,23 @@
       "cfPages": [
         "knowledgebase-landing",
         "knowledgebase-app"
+      ],
+      "deployTargets": [
+        {
+          "id": "landing",
+          "kind": "pages",
+          "name": "knowledgebase-landing"
+        },
+        {
+          "id": "app",
+          "kind": "pages",
+          "name": "knowledgebase-app"
+        },
+        {
+          "id": "rag-service",
+          "kind": "worker",
+          "name": "knowledgebase"
+        }
       ],
       "domains": [
         "search.sassmaker.com",
@@ -396,6 +417,20 @@
       "repo": "ai-game",
       "deployKind": "pages",
       "cfProject": "aliveville, web-playables",
+      "deployTargets": [
+        {
+          "id": "aliveville",
+          "kind": "pages",
+          "name": "aliveville",
+          "sourcePath": "../fleet-inactive-projects/aliveville"
+        },
+        {
+          "id": "web-playables",
+          "kind": "pages",
+          "name": "web-playables",
+          "sourcePath": "../fleet-inactive-projects/web-playables"
+        }
+      ],
       "domains": [
         "aliveville.com",
         "idle.aliveville.com"
@@ -423,6 +458,7 @@
       "family": "significanthobbies",
       "tier": "parked",
       "repo": "protein-index",
+      "sourcePath": "../fleet-inactive-projects/protein-index",
       "deployKind": "worker",
       "cfProject": "protein-index",
       "domains": [
@@ -477,6 +513,7 @@
       "family": "saas-ideas",
       "tier": "secondary",
       "repo": "saas-ideas",
+      "sourcePath": "../fleet-inactive-projects/saas-ideas",
       "deployKind": "pages",
       "cfProject": "saas-ideas",
       "domains": [
@@ -534,6 +571,7 @@
       "family": "ai-game",
       "tier": "parked",
       "repo": null,
+      "sourcePath": "../fleet-inactive-projects/open-historia",
       "deployKind": "worker",
       "cfProject": "open-historia",
       "domains": [

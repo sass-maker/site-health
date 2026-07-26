@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+ROOT="${FLEET_ROOT_OVERRIDE:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 FORCE=false
 
 if [[ $# -lt 1 ]]; then
@@ -186,6 +186,22 @@ if [[ -z "$cf_target" && "$(command -v node || true)" ]]; then
   done < <(find . -maxdepth 2 -name package.json -not -path './package.json' -not -path '*/node_modules/*' -print0 2>/dev/null)
 fi
 
+if [[ -z "$cf_target" && -f "$ROOT/foundry/ops/config/projects.json" ]] &&
+  command -v jq >/dev/null 2>&1; then
+  cf_target="$(
+    jq -r --arg project "$PROJECT" '
+      .projects[]
+      | select(.id == $project and .status == "live")
+      | if ((.deployTargets // []) | length) > 0 then
+          [.deployTargets[].name] | join(", ")
+        else
+          .cfProject // ""
+        end
+    ' "$ROOT/foundry/ops/config/projects.json" 2>/dev/null || true
+  )"
+  [[ -n "$cf_target" ]] && cf_target="$cf_target (registry)"
+fi
+
 if [[ -n "$cf_target" ]]; then
   check "CF target" "ok" "$cf_target"
 else
@@ -205,7 +221,7 @@ if [[ -f "PROJECT_STATUS.md" ]]; then
         sub(/^[[:space:]]*[-0-9.)]+[[:space:]]*/, "", line)
         if (line ~ /^\(?none([[:space:]]|\)|$)/) { item=""; return }
         lower=tolower(line)
-        if (lower !~ /(^|[^a-z])(deploy|deployment|release|production)([^a-z]|$)/) { item=""; return }
+        if (lower !~ /(^|[^a-z])(deploy|deployment|release)([^a-z]|$)/ && lower !~ /(^|[^a-z])production([^a-z]|$).*(cutover|ship|launch|rollout|publish)/) { item=""; return }
         if (lower ~ /^production:[[:space:]]/) { item=""; return }
         if (lower ~ /^deploy:[[:space:]]/) { item=""; return }
         if (lower ~ /^worker name:[[:space:]]/) { item=""; return }

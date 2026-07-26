@@ -1,15 +1,6 @@
 ---
 name: site-health
-description: >
-  Front door for all website measurement across the fleet. Use when the user
-  asks: is my site healthy / audit my site / full health check; can AI
-  crawlers read it (GPTBot, ClaudeBot, llms.txt, GEO, agent readiness); is
-  the SEO right (meta tags, canonical, OG, structured data, sitemap); is it
-  fast (Core Web Vitals, LCP/CLS/INP, Lighthouse, PageSpeed); or did our
-  search/AI visibility results move (SERP trend, weekly observatory); or do
-  public pages, guest journeys, navigation, search, detail views, downloads,
-  and primary actions actually work. Routes to the right subskill, or runs
-  the combined per-product scorecard.
+description: Route site health, AI indexing, SEO, performance, visibility trends, and public guest-journey audits to the relevant Fleet subskill.
 ---
 
 # site-health — fleet website measurement (routing parent)

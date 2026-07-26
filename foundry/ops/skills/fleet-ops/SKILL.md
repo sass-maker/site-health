@@ -1,6 +1,6 @@
 ---
 name: fleet-ops
-description: Fleet operations — audit the fleet, test public product journeys, audit Cloudflare or Turso spend and quotas, scaffold a new project, guard a deploy, or make cross-project workspace decisions. Use when the user asks about fleet health, fleet status, whether public products work for guests, clicking around every website, Cloudflare or Turso costs, quota risk, or optimization, creating a new project, deploy readiness, workspace structure, or any cross-fleet operational task. Routes to the right subskill based on intent.
+description: Route Fleet-wide audits, deploy checks, public-product smoke tests, spend reviews, project setup, and workspace decisions to the relevant subskill.
 ---
 
 # fleet-ops — parent skill

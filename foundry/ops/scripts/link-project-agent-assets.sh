@@ -57,17 +57,32 @@ link_skill_dir() {
   [[ -d "$source_root" ]] || return 0
   run mkdir -p "$dest_root"
 
+  local dest
+  local expected
+  local current
+  local name
   local skill
+
+  for dest in "$dest_root"/*; do
+    [[ -L "$dest" ]] || continue
+    name="$(basename "$dest")"
+    [[ -e "$source_root/$name" ]] && continue
+    expected="$(relpath "$source_root/$name" "$dest_root")"
+    current="$(readlink "$dest")"
+    if [[ "$current" == "$expected" ]]; then
+      run rm "$dest"
+      log "remove stale: $dest"
+    fi
+  done
+
   for skill in "$source_root"/*; do
     [[ -d "$skill" ]] || continue
-    local name
     name="$(basename "$skill")"
-    local dest="$dest_root/$name"
+    dest="$dest_root/$name"
     local link_target
     link_target="$(relpath "$skill" "$dest_root")"
 
     if [[ -L "$dest" ]]; then
-      local current
       current="$(readlink "$dest")"
       if [[ "$current" == "$link_target" ]]; then
         log "ok: $dest -> $current"

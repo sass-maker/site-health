@@ -5,6 +5,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FLEET_OPS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 FOUNDRY_ROOT="$(cd "$FLEET_OPS_DIR/.." && pwd)"
 FLEET_ROOT="$(cd "$FOUNDRY_ROOT/.." && pwd)"
+EXPOSED_FLEET_SKILLS=(
+  daily-learning
+  fleet-deploy-parity
+  fleet-ops
+  mobile-task-control
+  name-domains
+  site-health
+  spec-driven
+  token-budget
+)
 
 usage() {
   cat <<'EOF'
@@ -48,17 +58,60 @@ install_impeccable() {
   )
 }
 
+is_exposed_fleet_skill() {
+  local candidate="$1"
+  local exposed
+
+  for exposed in "${EXPOSED_FLEET_SKILLS[@]}"; do
+    [[ "$candidate" == "$exposed" ]] && return 0
+  done
+  return 1
+}
+
 link_fleet_skills() {
   local destination="$1"
+  local managed
   local source
   local name
 
   mkdir -p "$destination"
-  for source in "$FLEET_OPS_DIR/skills"/*; do
-    [[ -d "$source" ]] || continue
-    name="$(basename "$source")"
+
+  for managed in "$destination"/*; do
+    [[ -L "$managed" ]] || continue
+    case "$(readlink "$managed")" in
+      "$FLEET_OPS_DIR"/skills/*)
+        name="$(basename "$managed")"
+        if ! is_exposed_fleet_skill "$name"; then
+          rm "$managed"
+        fi
+        ;;
+    esac
+  done
+
+  for name in "${EXPOSED_FLEET_SKILLS[@]}"; do
+    source="$FLEET_OPS_DIR/skills/$name"
+    [[ -d "$source" ]] || {
+      printf 'Missing exposed Fleet skill: %s\n' "$source" >&2
+      return 1
+    }
     ln -sfn "$source" "$destination/$name"
   done
+}
+
+link_teammate_parent() {
+  local destination="$1"
+  local managed
+
+  mkdir -p "$destination"
+  for managed in "$destination"/call-*; do
+    [[ -L "$managed" ]] || continue
+    case "$(readlink "$managed")" in
+      "$FLEET_OPS_DIR"/teammates/skills/*)
+        [[ "$(basename "$managed")" == "call-teammate" ]] || rm "$managed"
+        ;;
+    esac
+  done
+  ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-teammate" "$destination/call-teammate"
 }
 
 install_skills() {
@@ -71,26 +124,18 @@ install_skills() {
   # Keep Codex skills local to Fleet instead of loading them in every repo.
   dir="$FLEET_ROOT/.agents/skills"
   link_fleet_skills "$dir"
-  ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-teammate" "$dir/call-teammate"
+  link_teammate_parent "$dir"
   "$FLEET_OPS_DIR/scripts/link-project-agent-assets.sh" --skills-only
 
   # Gateway runtimes are not repository-scoped, so keep user-level links.
   for dir in "$HOME/.openclaw/skills"; do
     link_fleet_skills "$dir"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-teammate" "$dir/call-teammate"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-codex" "$dir/call-codex"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-grok" "$dir/call-grok"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-hermes" "$dir/call-hermes"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-devin" "$dir/call-devin"
+    link_teammate_parent "$dir"
   done
   if [ -d "$HOME/.hermes/skills" ]; then
     dir="$HOME/.hermes/skills"
     link_fleet_skills "$dir"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-teammate" "$dir/call-teammate"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-codex" "$dir/call-codex"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-grok" "$dir/call-grok"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-hermes" "$dir/call-hermes"
-    ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-devin" "$dir/call-devin"
+    link_teammate_parent "$dir"
   fi
 }
 

@@ -139,7 +139,18 @@ is_out_of_fleet_repo() {
 
 is_local_only_project() {
   local repo="$1"
+  local relative_repo
   local file
+
+  relative_repo="${repo#"$ROOT"/}"
+  if [[ -f "$TARGETS_FILE" ]] &&
+    jq -e --arg repo "$relative_repo" '
+      any(.projects[]?;
+        .repo == $repo and .deployKind == "none" and .status != "live"
+      )
+    ' "$TARGETS_FILE" >/dev/null 2>&1; then
+    return 0
+  fi
 
   for file in "$repo/AGENTS.md" "$repo/agents.md" "$repo/README.md" "$repo/PROJECT_STATUS.md"; do
     [[ -f "$file" ]] || continue
@@ -238,13 +249,12 @@ check_github_actions() {
     local run_count
     local bad_count
     local bad_summary
-    local stale_bad_count
-    local stale_bad_summary
     local skipped_count
     local skipped_summary
-    local latest_head_sha
     local latest_summary
     local at_head_count
+    local evidence_sha
+    local inherited_bot_commits
 
     repo="${gitdir%/.git}"
 
@@ -271,7 +281,7 @@ check_github_actions() {
       continue
     fi
 
-    if ! runs_json="$(gh run list -R "$slug" --branch main --limit "$GH_LIMIT" \
+    if ! runs_json="$(gh run list -R "$slug" --branch main --event push --limit "$GH_LIMIT" \
       --json databaseId,status,conclusion,workflowName,headBranch,headSha,createdAt,updatedAt,url 2>/dev/null)"; then
       record "WARN" "$repo GitHub Actions unavailable for $slug"
       continue
@@ -302,46 +312,49 @@ check_github_actions() {
       jq 'sort_by(.createdAt) | reverse | reduce .[] as $run ({}; if has($run.workflowName) then . else .[$run.workflowName] = $run end) | [.[]]' \
         <<<"$runs_json"
     )"
+    evidence_sha="$head_sha"
+    inherited_bot_commits=0
+    at_head_count="$(jq --arg sha "$head_sha" '[.[] | select(.headSha == $sha)] | length' <<<"$current_runs_json")"
+
+    # Scheduled data-refresh workflows commonly commit generated artifacts with
+    # github-actions[bot] while intentionally suppressing another push run.
+    # In that case, inherit the nearest human ancestor's exact push-CI evidence.
+    while [[ "$at_head_count" -eq 0 && "$inherited_bot_commits" -lt 10 ]] &&
+      [[ "$(git -C "$repo" show -s --format=%ae "$evidence_sha" 2>/dev/null || true)" == *"[bot]@users.noreply.github.com" ]]; do
+      evidence_sha="$(git -C "$repo" rev-parse "$evidence_sha^" 2>/dev/null || true)"
+      [[ -n "$evidence_sha" ]] || break
+      inherited_bot_commits=$((inherited_bot_commits + 1))
+      at_head_count="$(jq --arg sha "$evidence_sha" '[.[] | select(.headSha == $sha)] | length' <<<"$current_runs_json")"
+    done
+
     bad_count="$(
-      jq --arg sha "$head_sha" \
+      jq --arg sha "$evidence_sha" \
         '[.[] | select(.headSha == $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion)))] | length' \
         <<<"$current_runs_json"
     )"
     bad_summary="$(
-      jq -r --arg sha "$head_sha" \
+      jq -r --arg sha "$evidence_sha" \
         '[.[] | select(.headSha == $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion))) | "\(.workflowName)=\(.status)/\(.conclusion // "none")@\(.headSha[0:7]) \(.url)"] | join("; ")' \
         <<<"$current_runs_json"
     )"
-    stale_bad_count="$(
-      jq --arg sha "$head_sha" \
-        '[.[] | select(.headSha != $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion)))] | length' \
-        <<<"$current_runs_json"
-    )"
-    stale_bad_summary="$(
-      jq -r --arg sha "$head_sha" \
-        '[.[] | select(.headSha != $sha) | select(.status != "completed" or (.conclusion as $conclusion | ["failure","cancelled","timed_out","action_required","startup_failure"] | index($conclusion))) | "\(.workflowName)=\(.status)/\(.conclusion // "none")@\(.headSha[0:7]) \(.url)"] | join("; ")' \
-        <<<"$current_runs_json"
-    )"
-    skipped_count="$(jq '[.[] | select(.conclusion == "skipped")] | length' <<<"$current_runs_json")"
+    skipped_count="$(jq --arg sha "$evidence_sha" '[.[] | select(.headSha == $sha and .conclusion == "skipped")] | length' <<<"$current_runs_json")"
     skipped_summary="$(
-      jq -r '[.[] | select(.conclusion == "skipped") | "\(.workflowName)@\(.headSha[0:7])"] | join("; ")' \
+      jq -r --arg sha "$evidence_sha" '[.[] | select(.headSha == $sha and .conclusion == "skipped") | "\(.workflowName)@\(.headSha[0:7])"] | join("; ")' \
         <<<"$current_runs_json"
     )"
-    latest_head_sha="$(jq -r '.[0].headSha // ""' <<<"$runs_json")"
     latest_summary="$(
       jq -r '.[0] | "\(.workflowName): \(.status)/\(.conclusion // "none") \(.headSha[0:7]) \(.url)"' \
         <<<"$runs_json"
     )"
-    at_head_count="$(jq --arg sha "$head_sha" '[.[] | select(.headSha == $sha)] | length' <<<"$current_runs_json")"
 
     if [[ "$bad_count" -gt 0 ]]; then
       record "FAIL" "$repo has failing/running latest workflow Actions ($bad_count): $bad_summary; latest $latest_summary"
-    elif [[ "$stale_bad_count" -gt 0 ]]; then
-      record "WARN" "$repo has failed latest workflow runs only on prior heads ($stale_bad_count): $stale_bad_summary; origin/main is ${head_sha:0:7}"
-    elif [[ "$latest_head_sha" != "$head_sha" && "$at_head_count" -eq 0 ]]; then
+    elif [[ "$at_head_count" -eq 0 ]]; then
       record "WARN" "$repo has no recent Actions run at origin/main ${head_sha:0:7}; latest $latest_summary"
     elif [[ "$skipped_count" -gt 0 ]]; then
       record "WARN" "$repo has skipped latest workflow Actions ($skipped_count): $skipped_summary; latest $latest_summary"
+    elif [[ "$inherited_bot_commits" -gt 0 ]]; then
+      record "OK" "$repo Actions clean at ${evidence_sha:0:7}; origin/main ${head_sha:0:7} adds $inherited_bot_commits bot-generated commit(s)"
     else
       record "OK" "$repo Actions clean; latest $latest_summary"
     fi
@@ -484,45 +497,66 @@ check_cloudflare_targets() {
     return
   fi
 
-  while IFS=$'\t' read -r project target_id kind target_name repo_dir; do
+  while IFS=$'\t' read -r project target_id kind target_name source_path; do
     local repo_path
     local head_sha
 
-    repo_path="$ROOT/$repo_dir"
     head_sha=""
 
-    if git -C "$repo_path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-      head_sha="$(origin_main_sha "$repo_path" || true)"
-    else
-      record "WARN" "$project/$target_id maps to missing repo directory $repo_dir"
+    if [[ "$kind" == "pages" ]]; then
+      repo_path="$ROOT/$source_path"
+      if [[ -n "$source_path" ]] &&
+        git -C "$repo_path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        head_sha="$(origin_main_sha "$repo_path" || true)"
+      else
+        record "WARN" "$project/$target_id Pages target has no available source checkout at ${source_path:-<unset>}"
+      fi
     fi
 
     case "$kind" in
       pages)
-        check_pages_target "$repo_dir" "$target_name" "$head_sha"
+        check_pages_target "$project" "$target_name" "$head_sha"
         ;;
       worker)
-        check_worker_target "$repo_dir" "$target_name"
+        check_worker_target "$project" "$target_name"
         ;;
       *)
-        record "WARN" "$repo_dir target $target_id has unknown Cloudflare kind: $kind"
+        record "WARN" "$project target $target_id has unknown Cloudflare kind: $kind"
         ;;
     esac
   done < <(
     jq -r '.projects[]
-      | select(.repo != null and .status == "live" and (.deployKind == "pages" or .deployKind == "worker"))
+      | select(
+          .status == "live"
+          and .tier != "out-of-fleet"
+          and .tier != "non-product"
+          and (.deployKind == "pages" or .deployKind == "worker" or .deployKind == "worker+pages")
+        )
       | . as $project
-      | ($project.cfProject | split(",")[] | gsub("^\\s+|\\s+$"; "")) as $target
-      | [$project.id, $project.id, $project.deployKind, $target, $project.repo]
+      | if (($project.deployTargets // []) | length) > 0 then
+          $project.deployTargets[]
+          | [
+              $project.id,
+              (.id // .name),
+              .kind,
+              .name,
+              (.sourcePath // $project.sourcePath // $project.repo // "")
+            ]
+        elif ($project.deployKind == "pages" or $project.deployKind == "worker") then
+          ($project.cfProject | split(",")[] | gsub("^\\s+|\\s+$"; "")) as $target
+          | [
+              $project.id,
+              $project.id,
+              $project.deployKind,
+              $target,
+              ($project.sourcePath // $project.repo // "")
+            ]
+        else
+          empty
+        end
       | @tsv' \
       "$TARGETS_FILE"
   )
-
-  local mixed_count
-  mixed_count="$(jq '[.projects[] | select(.status == "live" and .deployKind == "worker+pages")] | length' "$TARGETS_FILE")"
-  if [[ "$mixed_count" -gt 0 ]]; then
-    record "WARN" "$mixed_count mixed Worker+Pages manifest entries need structured per-target metadata before deploy parity can be checked"
-  fi
 
   echo
 }

@@ -1,6 +1,6 @@
 ---
 name: fleet-deploy-parity
-description: Check whether every live Fleet product is deployed to its latest origin/main — Cloudflare Pages deployments match the current main SHA, Workers are at 100% traffic, and GitHub Actions for the current main are green. Use when the user asks "is everything deployed to the latest?", "are all sites live?", "is production in sync with main?", "what's not deployed yet?", or wants a fleet-wide deploy parity snapshot before a release or audit pass.
+description: Check whether live Fleet products match origin/main, Workers have 100% traffic, and current-main Actions are green.
 ---
 
 # fleet-deploy-parity — is production in sync with main?
@@ -33,9 +33,10 @@ For each live project in `foundry/ops/config/projects.json` with
    the active version is at 100%, `WARN` otherwise. Worker commit parity is
    not exposed by `wrangler deployments list`, so traffic percentage is the
    proxy.
-3. **GitHub Actions** — the latest workflow run at the current `origin/main`
-   SHA is green. Reports `FAIL` on a failing/running latest run, `WARN` on
-   skipped or stale-only failures, `OK` otherwise.
+3. **GitHub Actions** — current push workflows at `origin/main` are green.
+   Manual deploys and schedules do not override push-CI evidence. Bot-generated
+   commits that intentionally suppress another push run inherit the nearest
+   ancestor's exact green push evidence.
 
 Local-only and out-of-fleet projects are skipped.
 
@@ -80,7 +81,8 @@ Warnings: 0
 
 - `OK` — deployed to latest (Pages) or at 100% traffic (Worker); no action.
 - `WARN` — deployed but commit source unavailable, Worker not at 100%, or
-  Actions skipped/stale-only failure. Investigate; not automatically broken.
+  current push Actions were skipped or are missing. Investigate; not
+  automatically broken.
 - `FAIL` — production is behind `main`, deployment list failed, or Actions is
   red at the current `origin/main` SHA. This is the "not deployed to latest"
   signal the user is asking about.
