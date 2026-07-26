@@ -11,6 +11,7 @@
       "deployKind": "pages | worker | worker+pages | none | unknown",
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
       "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
+      "tursoDatabases": "optional exact Turso database names owned by this project",
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
@@ -18,7 +19,7 @@
       "authModel": "required-user | required-service | public-personalized | public-persistent",
       "notes": "reconciliation flags / decisions"
     },
-    "workers": "25 live Workers (enumerated 2026-07-18 via API): aliveville, codevetter-landing-proxy, email-manager, everythingrated, free-ai-gateway, high-signal-web/-api/-annotation, karte-email, knowledgebase, knowledgebase-app, linkchat, mal-api, open-historia, protein-index, reader, reel-pipeline-artifacts, resume-tailor, saasmaker-dashboard/-api/-droid, significanthobbies, starboard, truehire.",
+    "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
     "openGaps": [
       "CF project 'tinygpt' name unchanged — cosmetic only and not user-visible. posttrainllm.com is the canonical live domain; the platform-generated tinygpt.pages.dev hostname is not a custom fallback.",
       "open-historia confirmed a live product (historia.aliveville.com), not an orphan."
@@ -161,7 +162,7 @@
       "tier": "active",
       "repo": "high-signal",
       "deployKind": "worker",
-      "cfProject": "high-signal-web, high-signal-api, high-signal-annotation",
+      "cfProject": "high-signal-web, high-signal-api",
       "domains": [
         "highsignal.app"
       ],
@@ -242,6 +243,9 @@
       "repo": "significanthobbies",
       "deployKind": "worker",
       "cfProject": "significanthobbies",
+      "tursoDatabases": [
+        "significanthobbies"
+      ],
       "domains": [
         "significanthobbies.com"
       ],
@@ -257,6 +261,9 @@
       "repo": "anime-list",
       "deployKind": "pages",
       "cfProject": "anime-list",
+      "tursoDatabases": [
+        "mal-watchlist"
+      ],
       "domains": [
         "anime.significanthobbies.com"
       ],
@@ -302,6 +309,9 @@
       "repo": "reader",
       "deployKind": "worker",
       "cfProject": "reader",
+      "tursoDatabases": [
+        "reader"
+      ],
       "domains": [
         "read.significanthobbies.com"
       ],
@@ -317,6 +327,9 @@
       "repo": "swe-interview-prep",
       "deployKind": "pages",
       "cfProject": "swe-interview-prep",
+      "tursoDatabases": [
+        "swe-interview-prep"
+      ],
       "domains": [
         "learn.significanthobbies.com"
       ],
@@ -347,6 +360,9 @@
       "repo": "karte",
       "deployKind": "worker",
       "cfProject": "linkchat",
+      "tursoDatabases": [
+        "linkchat"
+      ],
       "domains": [
         "karte.cc"
       ],
@@ -362,6 +378,9 @@
       "repo": "starboard",
       "deployKind": "worker",
       "cfProject": "starboard",
+      "tursoDatabases": [
+        "starboard"
+      ],
       "domains": [
         "starboard.codevetter.com"
       ],

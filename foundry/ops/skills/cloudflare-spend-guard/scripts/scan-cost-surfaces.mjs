@@ -369,6 +369,7 @@ export function scanFleetCostSurfaces({ fleetRoot = DEFAULT_FLEET_ROOT, projectI
       declared: {
         cloudflareProject: project.cfProject ?? null,
         pagesProjects: [...(project.cfPages ?? [])].sort(),
+        tursoDatabases: [...(project.tursoDatabases ?? [])].sort(),
         domains: [...(project.domains ?? [])].sort(),
       },
       costSurfaces: mergeSurfaces(

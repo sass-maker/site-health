@@ -10,6 +10,12 @@ The weekly GEO Observatory is a bounded conversational job because comparable
 SERP classification requires live web search and coarse judgment. It writes
 only its validated ledger/report pair and uses no paid search API.
 
+The weekly Spend Guard is checked in as `enabled=no`. It remains inert even
+when the managed cron block is installed. Its read-only prompt and deterministic
+recorder can be tested manually; activation is a separate operator decision.
+Snapshots stay private under the ignored `state/spend-guard/` directory, and
+only warning or critical results are eligible for owner delivery.
+
 ## Commands
 
 ```sh

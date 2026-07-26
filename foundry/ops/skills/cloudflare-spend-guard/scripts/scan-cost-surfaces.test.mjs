@@ -21,6 +21,7 @@ test('maps tracked Wrangler bindings as configuration-only exposure', () => {
         repo: 'app',
         deployKind: 'worker+pages',
         cfProject: 'example-worker',
+        tursoDatabases: ['example-db'],
         domains: ['example.com'],
       }],
     }));
@@ -74,6 +75,7 @@ test('maps tracked Wrangler bindings as configuration-only exposure', () => {
     ]);
     assert.equal(project.configs[0].signals.scheduled, true);
     assert.equal(project.configs[0].signals.cpuLimitConfigured, true);
+    assert.deepEqual(project.declared.tursoDatabases, ['example-db']);
     assert.deepEqual(
       project.costSurfaces.find((surface) => surface.product === 'd1').identifiers,
       ['DB', 'example-db'],

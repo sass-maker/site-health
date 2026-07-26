@@ -51,6 +51,20 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-25 — Minimal recurring Spend Guard completed:** Added a sanitized,
+  idempotent machine-local spend ledger with deterministic latest JSON and
+  Markdown reports, material 85%/95% quota and evidence-loss alerts, and one
+  disabled weekly Cloudflare + Turso cron definition. The first manual baseline
+  correctly reported Turso rows-read pressure as critical and Cloudflare
+  billing visibility as unknown. Follow-up verification traced the Turso burn
+  to Starboard's already-fixed index, query-shape, and FTS-rebuild paths,
+  confirmed the required index in the live database, confirmed successful
+  post-fix scheduled runs, and observed no counter movement across two checks.
+  Added exact Turso database ownership aliases, removed the retired High Signal
+  annotation Worker from current inventory, and fixed the archived Turso
+  governance purpose. Cron activation,
+  notification-adapter configuration, and all provider mutations remain
+  deferred.
 - **2026-07-25 — Mashup registered as a local Toolbox experiment:** Added the
   new clean `sarthakagrawal927/mashup` checkout to the canonical project,
   attention, marketing, and OpenSpec inventories. Its Python CLI, loopback
@@ -197,7 +211,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Read-only Cloudflare and Turso spend governance with current-provider
   retrieval, fixed-versus-usage cost separation, quota-block risk,
   project/database necessity decisions, configuration exposure scanning, and
-  billable-usage normalization.
+  billable-usage normalization. An inert weekly job can append sanitized
+  private snapshots and alert only on material quota, positive-cost, or
+  evidence-loss changes.
 - Bounded public-product browser smoke workflow with canonical manifest,
   production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.
@@ -259,6 +275,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 - Activating the designated operations host until shared lease and
   machine-authority checks pass.
+- Activating the weekly Spend Guard and configuring notification delivery until
+  the operator explicitly approves the cron cutover.
 - Building another broad browser control plane; provider-native tools and
   independent products remain authoritative.
 

@@ -1,7 +1,9 @@
 # turso-spend-governance Specification
 
 ## Purpose
-TBD - created by archiving change add-turso-spend-audit. Update Purpose after archive.
+Define the read-only Fleet contract for detecting Turso plan costs and quota
+pressure, attributing database usage, judging necessity, and recommending safe
+optimizations without exposing application data or mutating provider state.
 ## Requirements
 ### Requirement: Current Turso plan and billing authority
 The skill MUST retrieve current Turso pricing, quota, usage-and-billing

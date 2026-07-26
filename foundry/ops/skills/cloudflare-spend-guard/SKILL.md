@@ -26,6 +26,11 @@ Read the provider reference needed for the scope:
 
 Read both before a full Fleet audit.
 
+For the optional recurring Fleet run, also read
+[references/recurring-run.md](references/recurring-run.md). The checked-in
+weekly job is disabled by default and must not be activated or installed unless
+the operator explicitly asks.
+
 ## Safety boundary
 
 Keep the audit read-only.
@@ -239,3 +244,18 @@ Keep confirmed charges distinct from estimates and configuration exposure.
 When Turso is in scope, also confirm that no plan, overage, database, SQL,
 schema, index, group, location, token, migration, or production mutation
 occurred.
+
+## Recurring mode
+
+Use recurring mode only for the registered weekly Fleet job or an explicit
+manual dry run.
+
+- Record sanitized aggregates through
+  `scripts/record-spend-snapshot.mjs`; never edit its ledger or projections.
+- Keep Cloudflare and Turso periods separate and leave missing monetary evidence
+  `unknown`.
+- Page only when the recorder returns `warning` or `critical`. Routine
+  successful `ok` runs remain notification history only.
+- Do not expand the cadence beyond weekly without evidence that a faster-moving
+  risk is being missed.
+- Do not activate the disabled cron entry as part of a skill audit or test.
