@@ -2,20 +2,22 @@
 
 ## Purpose
 
-Limit cross-project SaaS Maker runtime coupling to feedback and assign every
-other concern to its canonical owner.
+Eliminate cross-project SaaS Maker runtime coupling while preserving the
+backend-free feedback component as an optional Fleet-owned package.
 
 ## Requirements
 
-### Requirement: Product runtimes use SaaS Maker only for feedback
-A fleet product MAY use `@saas-maker/feedback` and the feedback API. Product
-runtimes MUST NOT depend on SaaS Maker for analytics, tasks, jobs, workflows,
-marketing queues, testimonials, waitlists, changelog widgets, AI, observability,
-App Health, or generic SDK/CLI behavior.
+### Requirement: Product runtimes do not depend on SaaS Maker
+A fleet product MAY use the Fleet-owned `@saas-maker/feedback` package only
+with a consumer-owned `onSubmit` callback. Product runtimes MUST NOT depend on
+a SaaS Maker API, project key, authentication service, media store, analytics,
+tasks, jobs, workflows, marketing queue, testimonials, waitlists, changelog
+widgets, AI, observability, App Health, or generic SDK/CLI behavior.
 
 #### Scenario: Product has SaaS Maker integration
 - **WHEN** tracked runtime source references SaaS Maker after migration
-- **THEN** every reference is required for feedback submission or feedback presentation
+- **THEN** every runtime reference is a package import whose submission
+  destination is owned by the consuming product
 
 ### Requirement: Canonical owners replace SaaS Maker wrappers
 Analytics SHALL report directly to the selected analytics provider; marketing
@@ -31,14 +33,15 @@ SHALL remain in App Health and provider-native systems.
 - **WHEN** an approved marketing asset is scheduled or published
 - **THEN** Fleet's marketing pipeline and Postiz/Reel Pipeline own the action without a SaaS Maker marketing queue
 
-### Requirement: Retired integrations fail closed during migration
-Removing a non-feedback SaaS Maker integration MUST NOT break the product's
-primary user flow. Optional retired widgets SHALL disappear cleanly, and
-operational callers SHALL be migrated before the corresponding API is removed.
+### Requirement: Retired integrations fail closed
+Removing a SaaS Maker integration MUST NOT break the product's primary user
+flow. Optional retired widgets SHALL disappear cleanly, and any retained
+feedback widget SHALL delegate submission to its consumer.
 
 #### Scenario: SaaS Maker is unavailable
 - **WHEN** the SaaS Maker API is unavailable
-- **THEN** a product's primary flow remains usable and only optional feedback is unavailable
+- **THEN** a product's primary flow remains usable because no maintained
+  runtime calls that API
 
 ### Requirement: Registration metadata does not imply runtime coupling
 Fleet SHALL keep canonical project identity centrally. Product repositories

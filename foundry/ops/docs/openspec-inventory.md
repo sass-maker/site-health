@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 38
 - Project/component checkouts with OpenSpec: 18
 - Project/component spec roots: 18
-- Project/component base specs: 130
-- Project/component active changes: 6
+- Project/component base specs: 138
+- Project/component active changes: 5
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -82,11 +82,11 @@ Archived changes: 0
 
 Root: `codevetter`
 
-Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `audience-validation`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-work-board`, `model-assisted-scenario-compilation`, `native-agent-island`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`
+Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `audience-validation`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `intent-closure-evidence`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-performance-governance`, `local-session-retention`, `local-work-board`, `managed-work-harness`, `model-assisted-scenario-compilation`, `native-agent-island`, `outcome-risk-calibration`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`, `work-agent-team-recommendation`
 
 Active changes: none
 
-Archived changes: 0
+Archived changes: 2
 
 ### Drank
 
@@ -102,15 +102,14 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `founder-mission-control`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `founder-mission-control`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
-| `geo-observatory` | 7/8 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 27
+Archived changes: 29
 
 ### HeyPace
 
@@ -194,7 +193,7 @@ Base specs: `factory-run-lifecycle`, `fine-tune-report-card`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `build-mac-local-autocorrect-specialist` | 15/36 | in progress |
+| `build-mac-local-autocorrect-specialist` | 24/36 | in progress |
 
 Archived changes: 2
 
