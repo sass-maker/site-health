@@ -1,6 +1,6 @@
 # Cloudflare Domain And SEO Audit
 
-Updated: 2026-07-23
+Updated: 2026-07-26
 
 ## Executive Summary
 
@@ -50,10 +50,10 @@ Current implementation state:
 |---|---:|---|---|
 | `rolepatch` | yes | `rolepatch.com`, `www.rolepatch.com` | Own product brand; keep. |
 | `significanthobbies` | yes | `significanthobbies.com`, `www.significanthobbies.com` | Own product brand; keep. |
-| `karte` | yes | `karte.cc`, `*.karte.cc`, `origin.karte.cc` | Own product brand; keep. |
+| `karte` | yes | `karte.cc`, `*.karte.cc` | Apex is a Worker custom domain; wildcard subdomains use the Worker route. |
 | `fleet-workspace` | Pages + Tunnel | `sassmaker.com`, `fleet.sassmaker.com` | Static public directory plus private machine-hosted console. |
 | `high-signal` | not in local wrangler audit | `highsignal.app` | Recorded in Fleet README. |
-| `aliveville` | not in local wrangler audit | `aliveville.com` | Recorded in Fleet README. |
+| `aliveville` | Pages app | `aliveville.com`, `www.aliveville.com` | Apex is canonical; `www` redirects permanently with the path and query preserved. |
 | `codevetter` | not in local wrangler audit | `codevetter.com` | Recorded in Fleet README. |
 | `pace` | Pages app | `heypace.app` | Focus-zone product. |
 | `posttrainllm` | Pages app | `posttrainllm.com` | Canonical product domain. |
