@@ -38,18 +38,17 @@ Fleet landing/marketing standard:
 - Landing pages, hero copy, OG images, and positioning follow [`LANDING_STANDARD.md`](../../LANDING_STANDARD.md). Walk its audit checklist before shipping a marketing surface; cross-product drift on its rules is fleet-standards work, not one-repo work.
 
 Fleet UI standard:
-- All fleet projects with a visual interface should move toward a free, beautiful, shadcn-compatible local UI standard when UI work is in scope.
-- Use [Impeccable](https://impeccable.style/) as the default design workflow for new visual endeavors and for substantial redesigns. It is an agent skill and review vocabulary, not a runtime UI dependency or a mandate to make every product look alike.
-- Before broad visual implementation, run `$impeccable init` and explicitly choose the `brand` or `product` register. Keep `PROJECT_STATUS.md` authoritative for product scope and delivery; keep Impeccable's root `PRODUCT.md` limited to design context (audience situation, register, voice, references, and anti-references), and use root `DESIGN.md` for visual tokens, typography, components, and interaction rules.
-- Before redesign implementation, explicitly classify the work as `preserve` or `overhaul`. In preserve mode, modernize within the existing identity. In overhaul mode, a new visual language is allowed, but content and information architecture remain stable unless the user approves broader change. In either mode, never silently change routes or anchor IDs, primary navigation labels, form field names or order, analytics identifiers, the brand wordmark, or legal/consent copy.
-- Shape new surfaces before building them. Before shipping a meaningful visual change, run the Impeccable sequence `critique` -> `polish` -> `audit`, review the resulting diffs rather than accepting them blindly, and use its deterministic detector as a signal rather than an inflexible style gate.
+- Meaningful visual work uses the Fleet-owned `$design-workflow`; Impeccable remains the underlying craft and review engine. Meaningful includes changes to visual language, layout, navigation, interaction patterns, responsive behavior, multi-state components, landing pages, dashboards, and app shells. Copy-only edits, invisible refactors, and trivial CSS corrections are exempt.
+- Before implementation, classify `preserve` or `overhaul`. Preserve mode follows tracked project identity and captures a before state. Overhaul and net-new work require 2-3 named references, 2-3 materially different probes, and owner-approved or explicitly delegated direction.
+- Keep `PROJECT_STATUS.md` authoritative for product scope, root `PRODUCT.md` limited to design context, and root `DESIGN.md` authoritative for visual tokens, components, interaction rules, and intentional exceptions. Existing project direction outranks generic palettes, component galleries, and detector aesthetics.
+- Before completion, run Impeccable `critique` -> `polish` -> `audit`, capture browser evidence at 390, 768, and 1440 pixels, run the project check, and validate `.fleet/design-review.json`. The gate requires at least 32/40 critique, 16/20 audit, zero unresolved P0/P1, and owner `keep` or explicit `delegated` feedback.
+- Treat deterministic aesthetic-detector findings as advisory evidence. Objective accessibility, responsive, functional, and unresolved-severity failures remain blocking.
+- In either lane, never silently change routes or anchor IDs, primary navigation labels, form field names or order, analytics identifiers, the brand wordmark, or legal/consent copy.
 - Treat generated comps as north stars for hierarchy, composition, density, and visual language, not screenshots to trace. If a full-page comp makes typography, spacing, controls, or section structure too small to inspect, generate a fresh section-specific reference in the same visual system. Do not crop or zoom an old board as the implementation source, and do not generate one image per section unless the detail genuinely requires it.
-- Prefer Tailwind tokens, local reusable components, lucide-react icons, and accessible Radix UI or React Aria primitives where they fit the repo's existing stack.
-- Use free/open component sources only. Aceternity UI free components are preferred for polished sections, cards, backgrounds, empty states, timelines, Bento grids, and high-visibility surfaces when they fit the product. shadcn/ui remains the base reference for durable app controls, with Magic UI and Origin UI as complementary free sources.
+- Prefer existing tokens and components. When a project needs a new primitive, use an accessible free/open implementation that fits its current stack; do not import a gallery's visual language by default.
 - Do not preserve ugly UI by default. Migrate touched surfaces screen-by-screen with small diffs instead of forcing one global package or whole-stack rewrite.
 - Operational/admin surfaces should stay dense, scannable, accessible, and fast. Marketing, demo, onboarding, and showcase surfaces can be more expressive, but motion and decorative effects must remain purposeful.
 - Do not add paid assets or broad UI dependencies without explicit approval. Explain any new UI dependency with why this, why now, and why existing code is insufficient.
-- Verify meaningful visual changes with a browser check or screenshot across relevant desktop/mobile states.
 
 Fleet spec-driven development standard (OpenSpec):
 - Any non-trivial new feature in any fleet project starts with the OpenSpec
@@ -259,8 +258,9 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |
+| `design-workflow` | standalone | preserve/overhaul direction, evidence, quality, and owner-acceptance gates |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
-| `impeccable` | external standalone | design context, critique, polish, and audit workflow |
+| `impeccable` | external standalone | underlying design craft, critique, polish, and audit engine |
 
 Agent skill dirs wired (symlinks point to `foundry/ops/` paths):
 - `fleet/.agents/skills/` and each child repo's `.agents/skills/` (Codex)

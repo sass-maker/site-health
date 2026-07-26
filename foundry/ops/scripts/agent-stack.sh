@@ -8,6 +8,7 @@ FLEET_ROOT="$(cd "$FOUNDRY_ROOT/.." && pwd)"
 LEGACY_FLEET_OPS_DIR="$FLEET_ROOT/fleet-ops"
 EXPOSED_FLEET_SKILLS=(
   daily-learning
+  design-workflow
   fleet-deploy-parity
   fleet-ops
   mobile-task-control
@@ -41,8 +42,26 @@ EOF
 
 install_impeccable() {
   local skill_file="$FLEET_ROOT/.agents/skills/impeccable/SKILL.md"
+  local policy_file="$FLEET_OPS_DIR/config/design-workflow.json"
+  local expected_version
+  local installed_version
 
-  if [[ -f "$skill_file" ]]; then
+  expected_version="$(
+    node -e '
+      const policy = require(process.argv[1]);
+      if (!/^\d+\.\d+\.\d+$/.test(policy.impeccableVersion ?? "")) process.exit(1);
+      process.stdout.write(policy.impeccableVersion);
+    ' "$policy_file"
+  )" || {
+    printf 'Invalid Impeccable version policy: %s\n' "$policy_file" >&2
+    return 1
+  }
+  installed_version="$(
+    sed -nE 's/^version:[[:space:]]*["'\'']?([^"'\'']+[[:alnum:]])["'\'']?[[:space:]]*$/\1/p' \
+      "$skill_file" 2>/dev/null | head -n 1
+  )"
+
+  if [[ "$installed_version" == "$expected_version" ]]; then
     return 0
   fi
 
@@ -53,10 +72,20 @@ install_impeccable() {
 
   (
     cd "$FLEET_ROOT"
-    npx --yes impeccable@3.2.1 install \
+    npx --yes "impeccable@$expected_version" install \
       --providers=codex,claude \
       --scope=project
   )
+
+  installed_version="$(
+    sed -nE 's/^version:[[:space:]]*["'\'']?([^"'\'']+[[:alnum:]])["'\'']?[[:space:]]*$/\1/p' \
+      "$skill_file" 2>/dev/null | head -n 1
+  )"
+  if [[ "$installed_version" != "$expected_version" ]]; then
+    printf 'Impeccable install drift: expected %s, found %s\n' \
+      "$expected_version" "${installed_version:-missing}" >&2
+    return 1
+  fi
 }
 
 is_exposed_fleet_skill() {

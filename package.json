@@ -6,6 +6,8 @@
   "scripts": {
     "check:components": "node foundry/ops/scripts/check-component-roots.mjs",
     "check:components:native": "node foundry/ops/scripts/run-component-checks.mjs",
+    "check:design-workflow": "node foundry/ops/scripts/design-workflow.mjs self-check",
+    "design:review": "node foundry/ops/scripts/design-workflow.mjs check",
     "generate:public": "node foundry/ops/scripts/generate-public-products.mjs",
     "generate:projects": "node foundry/ops/scripts/generate-project-surfaces.mjs",
     "check:projects": "node foundry/ops/scripts/generate-project-surfaces.mjs --check",

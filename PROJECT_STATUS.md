@@ -52,6 +52,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-26 — Fleet design workflow hardened from 7/20 to 19/20:** Added a
+  Fleet-owned workflow over the pinned Impeccable 3.9.1 engine with explicit
+  preserve and overhaul lanes, project-specific design authority, reference
+  and probe gates for new directions, and a machine-checkable review receipt.
+  Meaningful UI work now fails closed on missing desktop/tablet/mobile
+  evidence, critique or audit score floors, unresolved P0/P1 findings, failed
+  project checks, or missing owner acceptance. Owner feedback is retained for
+  the next iteration; aesthetic detector findings remain advisory. The skill
+  is linked across active projects. No product redesign or deployment was
+  performed.
 - **2026-07-26 — Project coverage became catalog-generated:** Expanded the
   internal catalog to 40 identities, added Calorie, reconciled every immediate
   active checkout and all 12 inactive Git repositories, and made Mashup's
@@ -277,8 +287,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
   project-local changes remain in their owning repositories.
 - Deterministic Fleet-wide OpenSpec inventory generated from canonical project
   classifications, current checkouts, inactive history, and registered stores.
-- Fleet-local Impeccable design workflow with brand/product registers,
-  persistent design context, and pre-ship critique/polish/audit guidance.
+- Fleet-owned design workflow over pinned Impeccable with project-specific
+  context, preserve/overhaul lanes, reference and direction gates,
+  machine-checkable multi-viewport review receipts, score/severity/project
+  checks, and durable owner feedback.
 - Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.
 - Backend-free feedback package with consumer-owned submission, Pinpoint
   context, and local screenshot attachment.

@@ -93,8 +93,9 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |
+| `design-workflow` | standalone | Fleet preserve/overhaul design gates, review receipts, and owner feedback |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
-| `impeccable` | external standalone | default workflow for new UI, landing pages, and substantial visual redesigns |
+| `impeccable` | external standalone | underlying design craft, critique, polish, and audit engine |
 
 Use repo-local scripts before manual fleet inspection:
 
@@ -113,12 +114,16 @@ Use repo-local scripts before manual fleet inspection:
   cleanup, not a reason to tighten limits.
 - Operational/admin UI should be dense, scannable, accessible, and fast.
 - Marketing surfaces should follow `foundry/LANDING_STANDARD.md`.
-- New visual endeavors and substantial redesigns should use the Fleet-local
-  `$impeccable` skill: initialize design context, then review
-  `critique -> polish -> audit` before shipping.
-- Before a redesign, classify it as preserve or overhaul. Unless explicitly
-  approved, keep routes and anchors, primary navigation labels, form field
-  names and order, analytics identifiers, the wordmark, and legal/consent copy.
+- Meaningful visual work uses `$design-workflow`, with Impeccable underneath.
+  Classify `preserve` or `overhaul` before code. Overhaul requires owner-approved
+  or explicitly delegated direction evidence.
+- Do not claim meaningful visual work complete until its design-review receipt
+  passes: tracked context, browser evidence at required widths, critique and
+  audit floors, zero unresolved P0/P1, a passing project check, and owner
+  `keep` or `delegated` feedback.
+- Unless explicitly approved, keep routes and anchors, primary navigation
+  labels, form field names and order, analytics identifiers, the wordmark, and
+  legal/consent copy.
 - Treat generated comps as north stars, not screenshots to trace. If a comp
   hides text, spacing, or component detail, generate a fresh section-specific
   reference instead of cropping an old board or generating every section by

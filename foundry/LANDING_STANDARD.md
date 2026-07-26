@@ -100,32 +100,32 @@ while deciding, comparing, adopting, and using it:
 
 ## Visual
 
-- **Restrained palette.** Default: neutral background, neutral text, one
-  accent reserved for the primary CTA. Every extra color costs attention. [#2]
+- **Intentional palette.** Existing `DESIGN.md` wins. For a new identity, choose
+  a color strategy from named references and the approved direction; do not
+  default every product to neutral background plus one accent. Reserve visual
+  emphasis for the primary CTA regardless of strategy. [#2]
 - **OG image is the thumbnail.** Treat it like a YouTube thumbnail — it is
   often seen more than the site itself. Bold, readable at small sizes,
   visually distinct from generic gradient + logo defaults. [#5]
 - **Memorable footer.** 97% of visitors won't buy but might share. End the
   page on something — a punchline, a stat, a CTA worth screenshotting. [#4]
 
-### Impeccable design workflow
+### Fleet design workflow
 
-Use [Impeccable](https://impeccable.style/) for new Fleet marketing surfaces
-and substantial redesigns. It is the shared design vocabulary and review
-workflow, not a component library or a house style.
+Use `$design-workflow` for meaningful Fleet marketing work. It wraps
+[Impeccable](https://impeccable.style/) without turning it into a component
+library or house style.
 
-1. Run `$impeccable init` before broad design work and select the `brand`
-   register. Capture the audience situation, voice, named references, and
-   anti-references in `PRODUCT.md`; keep roadmap and product scope in the
-   canonical `PROJECT_STATUS.md`.
-2. Capture the visual system in `DESIGN.md`. Preserve existing tokens and
-   conventions when they are intentional; do not replace identity with the
-   tool's defaults.
-3. Shape the page before implementing it. Use real product context, real copy,
-   and real assets rather than generic SaaS scaffolding.
-4. Before shipping, run `critique`, then `polish`, then `audit`. Review each
-   diff, verify desktop and mobile in a browser, and treat detector findings as
-   evidence—not an automatic reason to rewrite purposeful design.
+1. Classify `preserve` or `overhaul`. Preserve follows the tracked identity;
+   overhaul requires named references, distinct direction probes, and owner
+   approval or explicit delegation before code.
+2. Keep audience and voice in `PRODUCT.md`, visual rules in `DESIGN.md`, and
+   roadmap/scope in `PROJECT_STATUS.md`.
+3. Shape with real context, copy, assets, references, and anti-references.
+4. Before completion, run `critique`, `polish`, and `audit`; capture the three
+   required viewport screenshots and pass the Fleet design-review receipt.
+5. Close with owner `keep`, `close`, `wrong-lane`, or `delegated` feedback.
+   Aesthetic detector warnings remain advisory.
 
 Apply this workflow to existing products only when their visual surface is
 already being changed. Do not create fleet-wide redesign churn solely for
@@ -149,9 +149,9 @@ Use this as a quick scorecard for any fleet product with a landing page:
 - [ ] Pricing link in header (if product is paid)
 - [ ] At least 3 testimonials or social proof items
 - [ ] Founder face or signed copy somewhere on the page
-- [ ] Restrained color palette, accent reserved for CTA
+- [ ] Palette follows tracked or owner-approved direction; primary CTA is clear
 - [ ] Impeccable design context captured in `PRODUCT.md` and `DESIGN.md`
-- [ ] Impeccable `critique` -> `polish` -> `audit` pass reviewed before ship
+- [ ] Fleet design-review receipt passes with owner acceptance
 - [ ] OG image custom, readable at thumbnail size
 - [ ] No weak words ("powerful", "seamless", "robust", "amazing")
 - [ ] No generic copy that could be lifted to a competitor's site
