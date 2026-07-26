@@ -56,14 +56,33 @@ Summary: N clean, N dirty, N CI-red, N unknown.
 
 **Trigger:** "What's the fleet status?", "what's everyone working on?", "what shipped recently?", "what's blocked?"
 
-Reads each project's `PROJECT_STATUS.md` (first 40 lines is enough for thesis +
-timeline + scope). For each project extract:
+Reads each project's status file (first 40 lines is enough for thesis +
+timeline + scope). The canonical filename is `PROJECT_STATUS.md`, but several
+fleet projects use a living `STATUS.md` instead (often with a pointer from
+`PROJECT_STATUS.md` or with the durable record moved to `docs/`). Check both:
+
+```bash
+# Per project, prefer PROJECT_STATUS.md, fall back to STATUS.md
+[ -f PROJECT_STATUS.md ] && head -40 PROJECT_STATUS.md || head -40 STATUS.md
+```
+
+Canonical product domains live in `foundry/ops/config/projects.json` under each
+project's `domains` array — do NOT infer domains from status file prose. Load
+them once and join by project id when reporting live URLs:
+
+```bash
+python3 -c "import json; d=json.load(open('foundry/ops/config/projects.json')); \
+print({p['id']: p.get('domains', []) for p in d['projects']})"
+```
+
+For each project extract:
 
 - **Last updated** date
 - **Thesis** (one line)
 - **Latest timeline entry** (most recent ship)
 - **Active scope** (what's IN scope)
 - **Blockers** (if any)
+- **Live domain(s)** from `projects.json` (not from prose)
 
 Output:
 
@@ -79,12 +98,13 @@ Output:
 ### Blocked / deferred
 - project-name: what's blocked and why
 
-### Stale (PROJECT_STATUS.md not updated in 30+ days)
+### Stale (status file not updated in 30+ days)
 - project-name: last updated YYYY-MM-DD
 ```
 
-Don't fabricate status — if a PROJECT_STATUS.md is missing or unreadable, report
-that explicitly. This is read-only; it doesn't modify any files.
+Don't fabricate status — if neither `PROJECT_STATUS.md` nor `STATUS.md` exists
+or is readable, report that explicitly. This is read-only; it doesn't modify
+any files.
 
 ## Mode: full
 
