@@ -5,8 +5,9 @@
 ### Requirement: Stable, comparable observations
 
 Every observatory run SHALL execute the same configured queries per product
-and classify each result A (own domain top-3), B (surfaced only via hub or
-aggregator), or C (absent from first page), with evidence URLs.
+and classify each result A (own domain top-3), B (partial page-one visibility:
+own domain below top 3 or surfaced only via a hub/aggregator), or C (absent
+from first page), with evidence URLs.
 
 #### Scenario: brand query observation
 

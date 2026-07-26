@@ -1,5 +1,5 @@
 {
-  "$comment": "GEO Observatory query config. Queries are STABLE identifiers — never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product surfaced only via an aggregator or directory; C = absent from first page.",
+  "$comment": "GEO Observatory query config. Queries are STABLE identifiers — never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product has partial page-one visibility (own domain below top 3 or via an aggregator/directory); C = absent from first page.",
   "cadence": "weekly",
   "classes": ["A", "B", "C"],
   "products": [

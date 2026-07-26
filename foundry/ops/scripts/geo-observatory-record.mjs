@@ -68,7 +68,7 @@ function generateReport(ledger, cfg) {
   lines.push('');
   lines.push(`Generated from \`foundry/ops/data/geo-observatory/ledger.jsonl\` ` +
     `(${ledger.length} observations, ${dates.length} run(s): ${dates.join(', ')}).`);
-  lines.push('Rubric: A = own domain top-3 · B = via hub/aggregator only · C = absent.');
+  lines.push('Rubric: A = own domain top-3 · B = partial page-one visibility · C = absent.');
   lines.push('Do not edit — regenerate via `geo-observatory-record.mjs`.');
   lines.push('');
 

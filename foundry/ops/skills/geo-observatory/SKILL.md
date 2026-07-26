@@ -24,8 +24,9 @@ classify coarsely, record honestly.
    tool). Look at the top ~10 organic results.
 3. **Classify** each query:
    - **A** — the product's own origin appears in the top 3 organic results.
-   - **B** — the product is reachable on page 1 only via sassmaker.com,
-     GitHub, or a directory/aggregator (own domain absent from top 3).
+   - **B** — the product has partial page-1 visibility: its own origin is
+     below the top 3, or it is reachable only via sassmaker.com, GitHub, or a
+     directory/aggregator.
    - **C** — the product is absent from the first page entirely.
    Record the top 2-3 result URLs as evidence and a one-line note (who owns
    the SERP, collisions, anything surprising).
