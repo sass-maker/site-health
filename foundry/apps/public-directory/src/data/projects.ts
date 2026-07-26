@@ -19,6 +19,12 @@ export interface ActiveProjectGroup {
   products: ActiveProject[];
 }
 
+export interface PastProject {
+  name: string;
+  desc: string;
+  repositoryUrl: string;
+}
+
 interface PublicProduct {
   id: string;
   name: string;
@@ -73,3 +79,8 @@ export const ACTIVE_GROUPS: ActiveProjectGroup[] = ['product', 'helper', 'person
   }))
   .filter((group) => group.products.length > 0);
 export const PROJECT_COUNT = products.length;
+export const PAST_PROJECTS: PastProject[] = publicCatalog.pastProjects.map((project) => ({
+  name: project.name,
+  desc: project.description,
+  repositoryUrl: project.repositoryUrl,
+}));

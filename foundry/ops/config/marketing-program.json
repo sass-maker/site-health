@@ -1,13 +1,33 @@
 {
   "$schema": "fleet.marketing-program.v1",
   "version": 1,
-  "focusSet": ["pace", "codevetter", "posttrainllm", "high-signal"],
+  "focusSet": [
+    "pace",
+    "codevetter",
+    "posttrainllm",
+    "high-signal"
+  ],
   "catalogExclusions": [
-    { "slug": "aliveville", "reason": "Ignored attention tier" },
-    { "slug": "everythingrated", "reason": "Ignored attention tier" },
-    { "slug": "materia", "reason": "Ignored attention tier" },
-    { "slug": "protein-index", "reason": "Ignored attention tier" },
-    { "slug": "truehire", "reason": "Ignored attention tier" }
+    {
+      "slug": "aliveville",
+      "reason": "Ignored attention tier"
+    },
+    {
+      "slug": "everythingrated",
+      "reason": "Ignored attention tier"
+    },
+    {
+      "slug": "materia",
+      "reason": "Ignored attention tier"
+    },
+    {
+      "slug": "protein-index",
+      "reason": "Ignored attention tier"
+    },
+    {
+      "slug": "truehire",
+      "reason": "Ignored attention tier"
+    }
   ],
   "defaults": {
     "globalReviewDebtCeiling": 12,
@@ -28,26 +48,49 @@
     "projects": [
       {
         "slug": "pace",
-        "aliases": ["HeyPace"],
+        "aliases": [
+          "HeyPace"
+        ],
         "competitors": [
-          { "name": "Raycast", "url": "https://raycast.com" },
-          { "name": "Wispr Flow", "url": "https://wisprflow.ai" }
+          {
+            "name": "Raycast",
+            "url": "https://raycast.com"
+          },
+          {
+            "name": "Wispr Flow",
+            "url": "https://wisprflow.ai"
+          }
         ],
         "promptSets": [
           {
             "id": "buyer-discovery",
             "prompts": [
-              { "id": "category", "text": "What are the best private Mac voice assistants that can understand the screen and take actions?" },
-              { "id": "comparison", "text": "Compare local-first voice automation tools for macOS, including privacy, price, and action-taking." }
+              {
+                "id": "category",
+                "text": "What are the best private Mac voice assistants that can understand the screen and take actions?"
+              },
+              {
+                "id": "comparison",
+                "text": "Compare local-first voice automation tools for macOS, including privacy, price, and action-taking."
+              }
             ]
           }
         ],
         "personas": [
-          { "id": "indie-founder", "label": "an indie founder" },
-          { "id": "privacy-conscious-mac-user", "label": "a privacy-conscious Mac user" }
+          {
+            "id": "indie-founder",
+            "label": "an indie founder"
+          },
+          {
+            "id": "privacy-conscious-mac-user",
+            "label": "a privacy-conscious Mac user"
+          }
         ],
         "providerPolicy": {
-          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
           "freeFirst": true,
           "liveProvidersAllowed": false
         },
@@ -63,26 +106,49 @@
       },
       {
         "slug": "codevetter",
-        "aliases": ["Code Vetter"],
+        "aliases": [
+          "Code Vetter"
+        ],
         "competitors": [
-          { "name": "CodeRabbit", "url": "https://coderabbit.ai" },
-          { "name": "Greptile", "url": "https://greptile.com" }
+          {
+            "name": "CodeRabbit",
+            "url": "https://coderabbit.ai"
+          },
+          {
+            "name": "Greptile",
+            "url": "https://greptile.com"
+          }
         ],
         "promptSets": [
           {
             "id": "buyer-discovery",
             "prompts": [
-              { "id": "category", "text": "What are the best private AI code review tools for reviewing a repository locally?" },
-              { "id": "comparison", "text": "Compare desktop and pull-request AI code reviewers on privacy, evidence quality, and workflow." }
+              {
+                "id": "category",
+                "text": "What are the best private AI code review tools for reviewing a repository locally?"
+              },
+              {
+                "id": "comparison",
+                "text": "Compare desktop and pull-request AI code reviewers on privacy, evidence quality, and workflow."
+              }
             ]
           }
         ],
         "personas": [
-          { "id": "staff-engineer", "label": "a staff engineer" },
-          { "id": "security-conscious-team", "label": "a security-conscious software team" }
+          {
+            "id": "staff-engineer",
+            "label": "a staff engineer"
+          },
+          {
+            "id": "security-conscious-team",
+            "label": "a security-conscious software team"
+          }
         ],
         "providerPolicy": {
-          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
           "freeFirst": true,
           "liveProvidersAllowed": false
         },
@@ -98,26 +164,50 @@
       },
       {
         "slug": "posttrainllm",
-        "aliases": ["TinyGPT", "Post-train LLM"],
+        "aliases": [
+          "TinyGPT",
+          "Post-train LLM"
+        ],
         "competitors": [
-          { "name": "Unsloth", "url": "https://unsloth.ai" },
-          { "name": "Axolotl", "url": "https://github.com/axolotl-ai-cloud/axolotl" }
+          {
+            "name": "Unsloth",
+            "url": "https://unsloth.ai"
+          },
+          {
+            "name": "Axolotl",
+            "url": "https://github.com/axolotl-ai-cloud/axolotl"
+          }
         ],
         "promptSets": [
           {
             "id": "buyer-discovery",
             "prompts": [
-              { "id": "category", "text": "What are the best ways to fine-tune a small language model locally or in a browser?" },
-              { "id": "comparison", "text": "Compare beginner-friendly small-model fine-tuning tools by hardware needs, privacy, and reproducibility." }
+              {
+                "id": "category",
+                "text": "What are the best ways to fine-tune a small language model locally or in a browser?"
+              },
+              {
+                "id": "comparison",
+                "text": "Compare beginner-friendly small-model fine-tuning tools by hardware needs, privacy, and reproducibility."
+              }
             ]
           }
         ],
         "personas": [
-          { "id": "ml-beginner", "label": "a developer new to model training" },
-          { "id": "mac-ml-builder", "label": "a Mac-based machine-learning builder" }
+          {
+            "id": "ml-beginner",
+            "label": "a developer new to model training"
+          },
+          {
+            "id": "mac-ml-builder",
+            "label": "a Mac-based machine-learning builder"
+          }
         ],
         "providerPolicy": {
-          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
           "freeFirst": true,
           "liveProvidersAllowed": false
         },
@@ -133,26 +223,49 @@
       },
       {
         "slug": "high-signal",
-        "aliases": ["HighSignal"],
+        "aliases": [
+          "HighSignal"
+        ],
         "competitors": [
-          { "name": "Profound", "url": "https://www.tryprofound.com" },
-          { "name": "Scrunch AI", "url": "https://scrunchai.com" }
+          {
+            "name": "Profound",
+            "url": "https://www.tryprofound.com"
+          },
+          {
+            "name": "Scrunch AI",
+            "url": "https://scrunchai.com"
+          }
         ],
         "promptSets": [
           {
             "id": "buyer-discovery",
             "prompts": [
-              { "id": "category", "text": "What are the best tools for a daily brief across product mentions, research, and market signals?" },
-              { "id": "comparison", "text": "Compare AI visibility and signal-intelligence tools for a small SaaS team that needs cited evidence." }
+              {
+                "id": "category",
+                "text": "What are the best tools for a daily brief across product mentions, research, and market signals?"
+              },
+              {
+                "id": "comparison",
+                "text": "Compare AI visibility and signal-intelligence tools for a small SaaS team that needs cited evidence."
+              }
             ]
           }
         ],
         "personas": [
-          { "id": "saas-founder", "label": "a SaaS founder" },
-          { "id": "product-marketer", "label": "a product marketer" }
+          {
+            "id": "saas-founder",
+            "label": "a SaaS founder"
+          },
+          {
+            "id": "product-marketer",
+            "label": "a product marketer"
+          }
         ],
         "providerPolicy": {
-          "allowedProviderIds": ["fixture-primary", "fixture-secondary"],
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
           "freeFirst": true,
           "liveProvidersAllowed": false
         },
@@ -169,35 +282,437 @@
     ]
   },
   "projects": [
-    { "slug": "pace", "name": "Pace", "aliases": [], "mode": "focus", "domain": "https://heypace.app", "domainPosture": "root", "publicMarketing": true, "cta": "Download the Mac app or join the release list", "cadence": "weekly", "contentBase": null, "channels": [] },
-    { "slug": "codevetter", "name": "CodeVetter", "aliases": ["CodeVetter"], "mode": "focus", "domain": "https://codevetter.com", "domainPosture": "root", "publicMarketing": true, "cta": "Download the desktop reviewer", "cadence": "weekly", "contentBase": null, "channels": [] },
-    { "slug": "posttrainllm", "name": "PostTrainLLM", "aliases": ["tinygpt"], "mode": "focus", "domain": "https://posttrainllm.com", "domainPosture": "root", "publicMarketing": true, "cta": "Train or run a small local model", "cadence": "weekly", "contentBase": null, "channels": [] },
-
-    { "slug": "anime-list", "name": "MAL Explorer", "aliases": ["anime_list"], "mode": "evergreen", "domain": "https://anime.significanthobbies.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Explore anime and manga", "cadence": "monthly", "contentBase": null, "channels": [] },
-    { "slug": "chess", "name": "Chess Coach", "aliases": [], "mode": "evergreen", "domain": "https://chess.significanthobbies.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Play a game or request coaching", "cadence": "quarterly", "contentBase": null, "channels": [] },
-    { "slug": "drank", "name": "drank", "aliases": [], "mode": "evergreen", "domain": "https://domains.sassmaker.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Check a domain rating", "cadence": "monthly", "contentBase": null, "channels": [] },
-    { "slug": "high-signal", "name": "High Signal", "aliases": [], "mode": "focus", "domain": "https://highsignal.app", "domainPosture": "root", "publicMarketing": true, "cta": "Read the daily brief", "cadence": "daily", "contentBase": { "adapter": "high-signal-reel-briefs", "path": "high-signal/data/personal-reel-briefs.jsonl" }, "channels": [{ "channel": "instagram_reels", "accountSlug": "high-signal-instagram" }, { "channel": "youtube_shorts", "accountSlug": "high-signal-youtube" }] },
-    { "slug": "karte", "name": "Karte", "aliases": ["linkchat"], "mode": "evergreen", "domain": "https://karte.cc", "domainPosture": "root", "publicMarketing": true, "cta": "Create an AI profile", "cadence": "monthly", "contentBase": { "adapter": "project-campaigns", "path": "foundry/services/reel-pipeline/config/project-campaigns.json" }, "channels": [{ "channel": "instagram_reels", "accountSlug": "karte-instagram" }, { "channel": "youtube_shorts", "accountSlug": "karte-youtube" }] },
-    { "slug": "looptv", "name": "LoopTV", "aliases": [], "mode": "evergreen", "domain": "https://tv.significanthobbies.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Browse a curated channel", "cadence": "monthly", "contentBase": null, "channels": [] },
-    { "slug": "reader", "name": "Reader", "aliases": [], "mode": "evergreen", "domain": "https://read.significanthobbies.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Save and revisit an article", "cadence": "monthly", "contentBase": null, "channels": [] },
-    { "slug": "research-papers", "name": "Research Papers", "aliases": [], "mode": "evergreen", "domain": "https://papers.highsignal.app", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Explore a research answer", "cadence": "monthly", "contentBase": null, "channels": [] },
-    { "slug": "rolepatch", "name": "RolePatch", "aliases": ["resume-tailor"], "mode": "evergreen", "domain": "https://rolepatch.com", "domainPosture": "root", "publicMarketing": true, "cta": "Tailor a resume or browse jobs", "cadence": "monthly", "contentBase": { "adapter": "project-campaigns", "path": "foundry/services/reel-pipeline/config/project-campaigns.json" }, "channels": [{ "channel": "instagram_reels", "accountSlug": "rolepatch-instagram" }, { "channel": "youtube_shorts", "accountSlug": "rolepatch-youtube" }] },
-    { "slug": "significanthobbies", "name": "Significant Hobbies", "aliases": ["significant-hobbies"], "mode": "evergreen", "domain": "https://significanthobbies.com", "domainPosture": "root", "publicMarketing": true, "cta": "Pick a meaningful hobby path", "cadence": "weekly", "contentBase": { "adapter": "significant-hobbies-editorial", "path": "significanthobbies/src/lib/blog-posts.ts" }, "channels": [{ "channel": "instagram_reels", "accountSlug": "significanthobbies-instagram" }, { "channel": "youtube_shorts", "accountSlug": "significanthobbies-youtube" }] },
-    { "slug": "starboard", "name": "Starboard", "aliases": [], "mode": "evergreen", "domain": "https://starboard.codevetter.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Inspect a GitHub tool collection", "cadence": "monthly", "contentBase": null, "channels": [] },
-    { "slug": "swe-interview-prep", "name": "SWE Interview Prep", "aliases": ["interview-coder"], "mode": "evergreen", "domain": "https://learn.significanthobbies.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Start a learning track", "cadence": "weekly", "contentBase": { "adapter": "swe-learning-sources", "path": "swe-interview-prep/docs" }, "channels": [{ "channel": "instagram_reels", "accountSlug": "swe-interview-prep-instagram" }, { "channel": "youtube_shorts", "accountSlug": "swe-interview-prep-youtube" }] },
-
-    { "slug": "fleet-workspace", "name": "Fleet Workspace", "aliases": ["fleet-ops", "fleet-dashboard"], "mode": "infrastructure", "domain": "https://sassmaker.com", "domainPosture": "root", "publicMarketing": false, "cta": "Inspect the public fleet map", "cadence": "quarterly", "contentBase": null, "channels": [] },
-    { "slug": "free-ai", "name": "AI Gateway", "aliases": ["Free AI"], "mode": "infrastructure", "domain": "https://ai-gateway.sassmaker.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Read the API documentation", "cadence": "quarterly", "contentBase": null, "channels": [] },
-    { "slug": "psi-swarm", "name": "PSI Swarm", "aliases": [], "mode": "infrastructure", "domain": "https://performance.sassmaker.com", "domainPosture": "product-subdomain", "publicMarketing": true, "cta": "Inspect repeated performance audits", "cadence": "quarterly", "contentBase": null, "channels": [] },
-    { "slug": "reel-pipeline", "name": "Reel Pipeline", "aliases": [], "mode": "infrastructure", "domain": "https://fleet.sassmaker.com/marketing", "domainPosture": "private-subdomain", "publicMarketing": false, "cta": "Review the media pipeline", "cadence": "quarterly", "contentBase": null, "channels": [] },
-    { "slug": "mobile-dev-cockpit", "name": "Mobile Dev Cockpit", "aliases": [], "mode": "private", "domain": null, "domainPosture": "local-only", "publicMarketing": false, "cta": "Use the private mobile controller", "cadence": "none", "contentBase": null, "channels": [] },
-    { "slug": "app-health", "name": "App Health", "aliases": [], "mode": "private", "domain": null, "domainPosture": "local-only", "publicMarketing": false, "cta": "Inspect aggregate endpoint health locally", "cadence": "none", "contentBase": null, "channels": [] },
-    { "slug": "mashup", "name": "Mashup", "aliases": [], "mode": "private", "domain": null, "domainPosture": "local-only", "publicMarketing": false, "cta": "Run the video sequencing experiment locally — offline, no credentials", "cadence": "none", "contentBase": null, "channels": [] },
-
-    { "slug": "email-manager", "name": "Email Manager", "aliases": [], "mode": "private", "domain": "https://mail.sassmaker.com", "domainPosture": "private-subdomain", "publicMarketing": false, "cta": "Use the private mail workspace", "cadence": "none", "contentBase": null, "channels": [] },
-    { "slug": "knowledge-base", "name": "Knowledge Base", "aliases": ["knowledgebase"], "mode": "private", "domain": "https://search.sassmaker.com", "domainPosture": "private-subdomain", "publicMarketing": false, "cta": "Use private Agent Search", "cadence": "none", "contentBase": null, "channels": [] },
-    { "slug": "personal-website", "name": "Personal Website", "aliases": ["portfolio"], "mode": "evergreen", "domain": "https://sarthakagrawal.dev", "domainPosture": "root", "publicMarketing": true, "cta": "Explore Sarthak's selected work", "cadence": "quarterly", "contentBase": null, "channels": [] },
-    { "slug": "motion", "name": "Motion", "aliases": [], "mode": "private", "domain": null, "domainPosture": "local-only", "publicMarketing": false, "cta": "Use the personal iOS utility", "cadence": "none", "contentBase": null, "channels": [] },
-    { "slug": "wifi-watch", "name": "Wi-Fi Watch", "aliases": [], "mode": "private", "domain": null, "domainPosture": "local-only", "publicMarketing": false, "cta": "Inspect local network health", "cadence": "none", "contentBase": null, "channels": [] }
+    {
+      "slug": "codevetter",
+      "name": "CodeVetter",
+      "aliases": [
+        "CodeVetter"
+      ],
+      "mode": "focus",
+      "domain": "https://codevetter.com",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Download the desktop reviewer",
+      "cadence": "weekly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "pace",
+      "name": "HeyPace",
+      "aliases": [],
+      "mode": "focus",
+      "domain": "https://heypace.app",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Download the Mac app or join the release list",
+      "cadence": "weekly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "posttrainllm",
+      "name": "PostTrainLLM",
+      "aliases": [
+        "tinygpt"
+      ],
+      "mode": "focus",
+      "domain": "https://posttrainllm.com",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Train or run a small local model",
+      "cadence": "weekly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "fleet-workspace",
+      "name": "Fleet Workspace",
+      "aliases": [
+        "fleet-ops",
+        "fleet-dashboard"
+      ],
+      "mode": "infrastructure",
+      "domain": "https://sassmaker.com",
+      "domainPosture": "root",
+      "publicMarketing": false,
+      "cta": "Inspect the public fleet map",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "drank",
+      "name": "Drank",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://domains.sassmaker.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Check a domain rating",
+      "cadence": "monthly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "email-manager",
+      "name": "Email Manager",
+      "aliases": [],
+      "mode": "private",
+      "domain": "https://mail.sassmaker.com",
+      "domainPosture": "private-subdomain",
+      "publicMarketing": false,
+      "cta": "Use the private mail workspace",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "free-ai",
+      "name": "Free AI",
+      "aliases": [
+        "Free AI"
+      ],
+      "mode": "infrastructure",
+      "domain": "https://ai-gateway.sassmaker.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Read the API documentation",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "psi-swarm",
+      "name": "PSI Swarm",
+      "aliases": [],
+      "mode": "infrastructure",
+      "domain": "https://performance.sassmaker.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Inspect repeated performance audits",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "high-signal",
+      "name": "High Signal",
+      "aliases": [],
+      "mode": "focus",
+      "domain": "https://highsignal.app",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Read the daily brief",
+      "cadence": "daily",
+      "contentBase": {
+        "adapter": "high-signal-reel-briefs",
+        "path": "high-signal/data/personal-reel-briefs.jsonl"
+      },
+      "channels": [
+        {
+          "channel": "instagram_reels",
+          "accountSlug": "high-signal-instagram"
+        },
+        {
+          "channel": "youtube_shorts",
+          "accountSlug": "high-signal-youtube"
+        }
+      ]
+    },
+    {
+      "slug": "research-papers",
+      "name": "Research Papers",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://papers.highsignal.app",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Explore a research answer",
+      "cadence": "monthly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "knowledge-base",
+      "name": "Knowledge Base",
+      "aliases": [
+        "knowledgebase"
+      ],
+      "mode": "private",
+      "domain": "https://search.sassmaker.com",
+      "domainPosture": "private-subdomain",
+      "publicMarketing": false,
+      "cta": "Use private Agent Search",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "significanthobbies",
+      "name": "Significant Hobbies",
+      "aliases": [
+        "significant-hobbies"
+      ],
+      "mode": "evergreen",
+      "domain": "https://significanthobbies.com",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Pick a meaningful hobby path",
+      "cadence": "weekly",
+      "contentBase": {
+        "adapter": "significant-hobbies-editorial",
+        "path": "significanthobbies/src/lib/blog-posts.ts"
+      },
+      "channels": [
+        {
+          "channel": "instagram_reels",
+          "accountSlug": "significanthobbies-instagram"
+        },
+        {
+          "channel": "youtube_shorts",
+          "accountSlug": "significanthobbies-youtube"
+        }
+      ]
+    },
+    {
+      "slug": "anime-list",
+      "name": "Anime List",
+      "aliases": [
+        "anime_list"
+      ],
+      "mode": "evergreen",
+      "domain": "https://anime.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Explore anime and manga",
+      "cadence": "monthly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "chess",
+      "name": "Chess Coach",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://chess.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Play a game or request coaching",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "looptv",
+      "name": "LoopTV",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://tv.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Browse a curated channel",
+      "cadence": "monthly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "reader",
+      "name": "Reader",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://read.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Save and revisit an article",
+      "cadence": "monthly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "swe-interview-prep",
+      "name": "SWE Interview Prep",
+      "aliases": [
+        "interview-coder"
+      ],
+      "mode": "evergreen",
+      "domain": "https://learn.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Start a learning track",
+      "cadence": "weekly",
+      "contentBase": {
+        "adapter": "swe-learning-sources",
+        "path": "swe-interview-prep/docs"
+      },
+      "channels": [
+        {
+          "channel": "instagram_reels",
+          "accountSlug": "swe-interview-prep-instagram"
+        },
+        {
+          "channel": "youtube_shorts",
+          "accountSlug": "swe-interview-prep-youtube"
+        }
+      ]
+    },
+    {
+      "slug": "calorie",
+      "name": "Calorie",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://calorie.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Open the product",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "rolepatch",
+      "name": "RolePatch",
+      "aliases": [
+        "resume-tailor"
+      ],
+      "mode": "evergreen",
+      "domain": "https://rolepatch.com",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Tailor a resume or browse jobs",
+      "cadence": "monthly",
+      "contentBase": {
+        "adapter": "project-campaigns",
+        "path": "foundry/services/reel-pipeline/config/project-campaigns.json"
+      },
+      "channels": [
+        {
+          "channel": "instagram_reels",
+          "accountSlug": "rolepatch-instagram"
+        },
+        {
+          "channel": "youtube_shorts",
+          "accountSlug": "rolepatch-youtube"
+        }
+      ]
+    },
+    {
+      "slug": "karte",
+      "name": "Karte",
+      "aliases": [
+        "linkchat"
+      ],
+      "mode": "evergreen",
+      "domain": "https://karte.cc",
+      "domainPosture": "root",
+      "publicMarketing": true,
+      "cta": "Create an AI profile",
+      "cadence": "monthly",
+      "contentBase": {
+        "adapter": "project-campaigns",
+        "path": "foundry/services/reel-pipeline/config/project-campaigns.json"
+      },
+      "channels": [
+        {
+          "channel": "instagram_reels",
+          "accountSlug": "karte-instagram"
+        },
+        {
+          "channel": "youtube_shorts",
+          "accountSlug": "karte-youtube"
+        }
+      ]
+    },
+    {
+      "slug": "starboard",
+      "name": "Starboard",
+      "aliases": [],
+      "mode": "evergreen",
+      "domain": "https://starboard.codevetter.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Inspect a GitHub tool collection",
+      "cadence": "monthly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "reel-pipeline",
+      "name": "Reel Pipeline",
+      "aliases": [],
+      "mode": "infrastructure",
+      "domain": "https://fleet.sassmaker.com/marketing",
+      "domainPosture": "private-subdomain",
+      "publicMarketing": false,
+      "cta": "Review the media pipeline",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "mobile-dev-cockpit",
+      "name": "Mobile Dev Cockpit",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the private mobile controller",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "app-health",
+      "name": "App Health",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Inspect aggregate endpoint health locally",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "mashup",
+      "name": "Mashup",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Run the video sequencing experiment locally — offline, no credentials",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "motion",
+      "name": "Motion",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the personal iOS utility",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "wifi-watch",
+      "name": "Wi-Fi Watch",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Inspect local network health",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    }
   ]
 }

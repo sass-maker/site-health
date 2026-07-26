@@ -24,10 +24,13 @@ Use this order when working on the Fleet:
 truth, and GitHub is code/review truth. Cloudflare, Vercel, Postiz, and other
 hosts are runtime targets, not task stores.
 
-## Portfolio Attention Model (2026-07-19)
+## Portfolio Attention Model
 
-The canonical human allocation model lives in
-[`project-tiers.md`](project-tiers.md). It has five attention classes:
+Project membership, attention, lifecycle, repository paths, deploy posture, and
+public-listing posture live only in
+[`../config/projects.json`](../config/projects.json). The generated human
+inventory is [`project-catalog.md`](project-catalog.md); `project-tiers.md`
+defines treatment without duplicating membership.
 
 - **My Work:** CodeVetter, HeyPace, PostTrainLLM, and High Signal. Sarthak leads
   their product direction.
@@ -40,9 +43,9 @@ The canonical human allocation model lives in
   obligation.
 
 Do not infer attention from repository count, custom-domain ownership, or the
-legacy `focus` / `active` / `secondary` deployment tiers. Use
-`project-tiers.md` for attention and `foundry/ops/config/projects.json` for deploy
-and domain reality.
+legacy `focus` / `active` / `secondary` deployment tiers. Edit
+`projects.json`, then run `npm run generate:projects`; check mode fails when an
+active or inactive Git checkout is missing from the catalog.
 
 ### Foundry handoff boundary
 

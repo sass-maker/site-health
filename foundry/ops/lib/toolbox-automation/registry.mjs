@@ -1,7 +1,7 @@
 /**
  * Significant Hobbies Toolbox family registry validation.
  *
- * Single source of truth for the six-product family contract defined in
+ * Validated policy overlay for the seven-product family contract defined in
  * foundry/ops/config/significant-hobbies-toolbox.json. Consumed by the
  * toolbox-family-evidence CLI and by tests.
  *

@@ -5,6 +5,9 @@ export function GET() {
   const products = publicCatalog.products.map(
     (product) => `- [${product.name}](${product.url}): ${product.description}`
   );
+  const pastProjects = publicCatalog.pastProjects.map(
+    (project) => `- [${project.name}](${project.repositoryUrl}): ${project.description}`
+  );
   const body = [
     '# SaaS Maker',
     '',
@@ -18,6 +21,10 @@ export function GET() {
     '## Maintained products',
     '',
     ...products,
+    '',
+    '## Past public repositories',
+    '',
+    ...pastProjects,
     '',
     '## Machine surfaces',
     '',

@@ -193,6 +193,34 @@
       "indexMd": "# Significant Hobbies\n\nLife planner: private daily rituals + public living (hobbies, bucket lists, side quests).\n\n## What it is\n\n- Hobby timelines and public exploration\n- Private rituals and progress tracking\n- Editorial content for agents at `/llms-full.txt`\n\n## Agent entrypoints\n\n- https://significanthobbies.com/llms.txt\n- https://significanthobbies.com/llms-full.txt\n- https://significanthobbies.com/api/ai\n- https://significanthobbies.com/index.md\n\nAuth-walled personal data is not agent-indexed.\n"
     },
     {
+      "id": "calorie",
+      "name": "Calorie",
+      "url": "https://calorie.significanthobbies.com",
+      "summary": "Private, local-first food, water, and weight journal with transparent deterministic guidance.",
+      "publicDir": "calorie/public",
+      "stack": "vite-worker",
+      "headFile": "calorie/index.html",
+      "schemaType": "SoftwareApplication",
+      "sameAs": [
+        "https://github.com/sarthakagrawal927/calorie"
+      ],
+      "worker": "calorie/src/worker.ts",
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://calorie.significanthobbies.com/",
+          "description": "Local-first journal and optional sign-in"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://calorie.significanthobbies.com/privacy",
+          "description": "Local and cloud data handling"
+        }
+      ],
+      "indexMd": "# Calorie\n\nPrivate, local-first food, water, and weight journal.\n\n## Public boundary\n\n- Product explanation and optional Google sign-in\n- Deterministic methodology with visible assumptions\n- No public food, water, weight, profile, or journal data\n\n## Agent entrypoint\n\n- https://calorie.significanthobbies.com/llms.txt\n"
+    },
+    {
       "id": "materia",
       "name": "Materia",
       "url": "https://materia.significanthobbies.com",

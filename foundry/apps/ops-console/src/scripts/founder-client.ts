@@ -186,7 +186,7 @@ async function renderDecisions() {
 
 async function renderProjects() {
   const [projects, missions, decisions] = await Promise.all([api("/v1/projects"), api("/v1/missions"), api("/v1/decisions")]);
-  const activeProjects = projects.filter((project: JsonRecord) => !["out-of-fleet", "non-product"].includes(project.attention));
+  const activeProjects = projects.filter((project: JsonRecord) => project.lifecycle !== "non-product");
   const groups = new Map<string, JsonRecord[]>();
   for (const project of activeProjects) {
     const group = groups.get(project.attention) ?? [];
@@ -195,7 +195,13 @@ async function renderProjects() {
   }
   const groupedList = element("div", { class: "project-groups" });
   const routeAliases: Record<string, string> = { "fleet-workspace": "fleet-ops" };
-  for (const attention of ["focus", "active", "secondary", "parked"]) {
+  const labels: Record<string, string> = {
+    "my-work": "My Work",
+    toolbox: "Toolbox",
+    foundry: "Foundry + Helpers",
+    ignored: "Past projects",
+  };
+  for (const attention of ["my-work", "toolbox", "foundry", "ignored"]) {
     const group = groups.get(attention) ?? [];
     if (group.length === 0) continue;
     const list = element("div", { class: "project-list" });
@@ -205,7 +211,10 @@ async function renderProjects() {
     const completed = projectMissions.find((mission: JsonRecord) => mission.state === "completed");
     const ownerDecision = decisions.find((decision: JsonRecord) => decision.projectId === project.id && ["open", "stale"].includes(decision.state));
       list.append(element("a", { class: "project", href: `/projects/${routeAliases[project.id] ?? project.id}` }, [
-      element("header", {}, [element("h3", {}, [project.name]), state(project.attention)]),
+      element("header", {}, [
+        element("h3", {}, [project.name]),
+        state(project.lifecycle === "past" ? "past" : project.lifecycle === "local-only" ? "local-only" : project.attention),
+      ]),
       element("dl", {}, [
         element("div", {}, [element("dt", {}, ["Current objective"]), element("dd", {}, [current?.outcome ?? "No accepted mission"])]),
         element("div", {}, [element("dt", {}, ["Verified outcome"]), element("dd", {}, [completed?.latestSummary ?? "None recorded"])]),
@@ -216,12 +225,12 @@ async function renderProjects() {
     }
     const details = element("details", { class: "project-group" }, [
       element("summary", {}, [
-        element("span", {}, [attention.replaceAll("-", " ")]),
+        element("span", {}, [labels[attention] ?? attention.replaceAll("-", " ")]),
         element("span", { class: "count" }, [String(group.length)]),
       ]),
       list,
     ]);
-    if (["focus", "active"].includes(attention)) details.setAttribute("open", "");
+    if (["my-work", "toolbox"].includes(attention)) details.setAttribute("open", "");
     groupedList.append(details);
   }
   replace("projects", activeProjects.length ? groupedList : empty("No active projects", "The canonical registry did not return an active portfolio."));

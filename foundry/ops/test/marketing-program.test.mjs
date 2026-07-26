@@ -7,11 +7,11 @@ import { createProjectResolver, validateMarketingProgram } from '../lib/marketin
 const registry = JSON.parse(await readFile(new URL('../config/marketing-program.json', import.meta.url), 'utf8'));
 
 test('registry covers or explicitly excludes every catalog project and has the exact focus set', async () => {
-  const automation = JSON.parse(
-    await readFile(new URL('../config/automation-registry.json', import.meta.url), 'utf8'),
+  const catalog = JSON.parse(
+    await readFile(new URL('../config/projects.json', import.meta.url), 'utf8'),
   );
-  const catalogSlugs = automation.entries
-    .filter((project) => project.attention !== 'ignored')
+  const catalogSlugs = catalog.projects
+    .filter((project) => project.attention !== 'ignored' && project.tier !== 'non-product')
     .map((project) => project.id);
   const result = validateMarketingProgram(registry, {
     catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],

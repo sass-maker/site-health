@@ -4,7 +4,7 @@
   "family": {
     "id": "significanthobbies",
     "name": "Significant Hobbies Toolbox",
-    "identity": "Significant Hobbies family — six personal utilities sharing one family identity, kept usable and quietly discoverable with minimal maintenance.",
+    "identity": "Significant Hobbies family — seven personal utilities sharing one family identity, kept usable and quietly discoverable with minimal maintenance.",
     "foundrySlug": "significanthobbies-modh3b6q",
     "outOfScope": [
       "materia",
@@ -286,6 +286,43 @@
       },
       "experimentMode": "evergreen",
       "notes": "No-account browser tool. No package deploy/test/lint scripts — CI runs `pnpm build` only. Background jobs not applicable."
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "runtime": "spa-hono-worker",
+      "repo": "calorie",
+      "domain": "https://calorie.significanthobbies.com",
+      "cfProject": "calorie",
+      "deployKind": "worker",
+      "owner": "calorie",
+      "activation": {
+        "type": "private-journal-action",
+        "definition": "A visitor completes onboarding or records a food, water, or weight entry. Only aggregate status/count evidence is eligible; values, timestamps, goals, profiles, and journal contents are private.",
+        "notApplicable": false
+      },
+      "backgroundJobs": [],
+      "privacy": {
+        "excludedCategories": [
+          "food-entries",
+          "water-entries",
+          "weight-entries",
+          "macro-values",
+          "goals-and-profile",
+          "journal-timestamps",
+          "user-identifying-state",
+          "credentials"
+        ]
+      },
+      "evidenceSources": {
+        "build": "github-actions:calorie/ci.yml",
+        "live": "https://calorie.significanthobbies.com/ (anonymous account-free shell probe)",
+        "indexing": "agent-surfaces-registry:calorie",
+        "errors": "Cloudflare Workers logs (sanitized)",
+        "revision": "git:calorie@origin/main"
+      },
+      "experimentMode": "evergreen",
+      "notes": "Local-first journal with optional authenticated D1 sync. Personal journal contents never enter Fleet evidence."
     }
   ],
   "experiments": {

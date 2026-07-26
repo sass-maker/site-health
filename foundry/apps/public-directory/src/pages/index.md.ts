@@ -19,12 +19,24 @@ export function GET() {
       '',
     ];
   });
+  const pastProjects = publicCatalog.pastProjects.flatMap((project) => [
+    `## ${project.name}`,
+    '',
+    project.description,
+    '',
+    `- Source: ${project.repositoryUrl}`,
+    '- Lifecycle: past project',
+    '',
+  ]);
   const body = [
     '# SaaS Maker',
     '',
-    'Public directory for maintained products, generated from Fleet’s privacy-checked projection. Ignored, frozen, retired, and removed products are excluded.',
+    'Public directory for maintained products and explicitly public past repositories, generated from Fleet’s privacy-checked projection.',
     '',
     ...products,
+    '# Past projects',
+    '',
+    ...pastProjects,
   ].join('\n');
   return new Response(body, { headers: { 'Content-Type': 'text/markdown; charset=utf-8' } });
 }

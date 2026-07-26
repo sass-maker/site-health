@@ -16,12 +16,12 @@ in `foundry/ops/`. This workspace root remains the agent and independent-project
 entrypoint; independent products remain separately versioned and deployed
 unless explicitly imported as Fleet infrastructure.
 
-The canonical live project/domain inventory is
-[`foundry/ops/config/projects.json`](foundry/ops/config/projects.json). The
-canonical operational attention and retirement state is
-[`foundry/ops/config/automation-registry.json`](foundry/ops/config/automation-registry.json),
-with a human-readable mirror in
-[`foundry/ops/docs/project-tiers.md`](foundry/ops/docs/project-tiers.md).
+The single internal project catalog is
+[`foundry/ops/config/projects.json`](foundry/ops/config/projects.json). It owns
+project identity, attention, lifecycle, repository location, deployment, and
+public-listing posture. Automation and marketing registries are policy overlays;
+generated internal and public views come from the catalog with
+`npm run generate:projects`.
 
 ## Canonical Fleet components
 
@@ -53,55 +53,33 @@ setup dependencies and must not be cloned as Fleet projects:
 
 Clone `sass-maker/fleet-workspace` once and use the canonical paths above.
 
+<!-- project-catalog:start -->
 ## Portfolio attention
 
-The portfolio is organized by obligation, not by repository count or whether a
-URL still resolves. A retired project may remain deployed without becoming an
-active maintenance obligation.
+This is a generated summary of the private Fleet project catalog. The complete
+machine-readable source is `foundry/ops/config/projects.json`; the generated
+human view is [`foundry/ops/docs/project-catalog.md`](foundry/ops/docs/project-catalog.md).
 
 ### My Work — 4
 
-- [CodeVetter](https://github.com/Codevetter/codevetter)
-- [HeyPace](https://github.com/HeyPace/pace)
-- [PostTrainLLM](https://github.com/PostTrainLLM/posttrainllm)
-- [High Signal](https://github.com/High-Signal-App/high-signal)
+CodeVetter, HeyPace, PostTrainLLM, High Signal
 
-### Toolbox — 17
+### Toolbox — 18
 
-Personal website, RolePatch, Karte, Significant Hobbies, Reader, Anime List,
-SWE Interview Prep, Email Manager, LoopTV, Chess, Motion, Research Papers,
-Starboard, Free AI, Knowledge Base, App Health, and Mashup remain usable and
-discoverable without becoming standing product commitments.
+Email Manager, Free AI, Research Papers, Knowledge Base, Significant Hobbies, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, RolePatch, Karte, Starboard, App Health, Mashup, Motion, Personal website
 
 ### Foundry — 5
 
-Fleet Workspace is the post-ship system that measures products, markets them,
-and turns feedback into evidence-backed recommendations. Its maintained helper
-components are PSI Swarm, Mobile Dev Cockpit, Drank, and Reel Pipeline. The
-public SaaS Maker directory and private Fleet Console are Fleet Workspace
-surfaces, not additional product bets.
+Fleet Workspace, Drank, PSI Swarm, Reel Pipeline, Mobile Dev Cockpit
 
-### Ignored / inactive — 12
+### Past / inactive — 12
 
-- AliveVille
-- Open Historia
-- TrueHire
-- Companion Robot
-- Materia
-- EverythingRated
-- Protein Index
-- Web Playables
-- SaaS Ideas
-- Elves HQ
-- Today Little Log
-- Forecast Lab
+EverythingRated, Materia, AliveVille, Protein Index, SaaS Ideas, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables
 
-These projects are frozen or retired. They require an explicit reactivation
-decision before any routine maintenance, marketing, or roadmap work.
-
-Their optional local history checkouts are kept together at
-`../fleet-inactive-projects/` on this machine. They are not part of fresh
-machine setup or routine Fleet sweeps.
+Past projects are preserved without becoming maintenance obligations. Public
+repositories may appear in the separate Past projects section on SaaS Maker;
+private repositories never enter external output.
+<!-- project-catalog:end -->
 
 ## Work Tracking
 

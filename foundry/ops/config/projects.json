@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -19,7 +19,12 @@
       "inRegistry": "present in agent-surfaces-registry.json",
       "status": "live | undeployed | orphan | deleted | unverified",
       "authModel": "required-user | required-service | public-personalized | public-persistent",
-      "notes": "reconciliation flags / decisions"
+      "notes": "reconciliation flags / decisions",
+      "name": "human display name",
+      "attention": "my-work | toolbox | foundry | ignored",
+      "lifecycle": "maintained | local-only | past | non-product",
+      "repositoryVisibility": "public | private | unknown",
+      "public": "sanitized public listing metadata; listing is maintained | past | hidden"
     },
     "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
     "openGaps": [
@@ -27,9 +32,47 @@
       "open-historia confirmed a live product (historia.aliveville.com), not an orphan."
     ],
     "priorities": {
-      "P1": ["codevetter", "pace", "posttrainllm", "high-signal", "sarthakagrawal-personal"],
-      "P2": ["fleet-workspace", "app-health", "mashup", "drank", "free-ai", "psi-swarm", "everythingrated", "research-papers", "knowledge-base", "starboard", "reel-pipeline", "motion"],
-      "P3": ["email-manager", "materia", "significanthobbies", "anime-list", "chess", "looptv", "reader", "swe-interview-prep", "rolepatch", "karte", "ai-game", "protein-index", "mobile-dev-cockpit", "saas-ideas", "truehire", "today-little-log", "open-historia"]
+      "P1": [
+        "codevetter",
+        "pace",
+        "posttrainllm",
+        "high-signal",
+        "sarthakagrawal-personal"
+      ],
+      "P2": [
+        "fleet-workspace",
+        "app-health",
+        "mashup",
+        "drank",
+        "free-ai",
+        "psi-swarm",
+        "everythingrated",
+        "research-papers",
+        "knowledge-base",
+        "starboard",
+        "reel-pipeline",
+        "motion"
+      ],
+      "P3": [
+        "email-manager",
+        "materia",
+        "significanthobbies",
+        "anime-list",
+        "chess",
+        "looptv",
+        "reader",
+        "swe-interview-prep",
+        "rolepatch",
+        "karte",
+        "ai-game",
+        "protein-index",
+        "mobile-dev-cockpit",
+        "saas-ideas",
+        "truehire",
+        "today-little-log",
+        "open-historia",
+        "calorie"
+      ]
     }
   },
   "projects": [
@@ -47,7 +90,22 @@
       "app": "tauri",
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "CodeVetter",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "codevetter",
+        "name": "CodeVetter",
+        "description": "AI code review platform — desktop-first, works offline.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/Codevetter/codevetter"
+      }
     },
     {
       "id": "pace",
@@ -63,7 +121,22 @@
       "app": "swift",
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "HeyPace",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "pace",
+        "name": "HeyPace",
+        "description": "Local-only macOS voice agent that can understand what is on your screen.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/HeyPace/pace"
+      }
     },
     {
       "id": "posttrainllm",
@@ -79,7 +152,22 @@
       "app": "web",
       "inRegistry": true,
       "status": "live",
-      "notes": "REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic)."
+      "notes": "REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic).",
+      "name": "PostTrainLLM",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "posttrainllm",
+        "name": "PostTrainLLM",
+        "description": "A local factory for training, evaluating, and running specialist language models.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/PostTrainLLM/posttrainllm"
+      }
     },
     {
       "id": "fleet-workspace",
@@ -95,7 +183,14 @@
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Canonical shared-infrastructure source. sassmaker.com is a static public directory generated from Fleet's privacy-checked projection on Cloudflare Pages. The operational Fleet Console remains machine-hosted at fleet.sassmaker.com through Cloudflare Tunnel."
+      "notes": "Canonical shared-infrastructure source. sassmaker.com is a static public directory generated from Fleet's privacy-checked projection on Cloudflare Pages. The operational Fleet Console remains machine-hosted at fleet.sassmaker.com through Cloudflare Tunnel.",
+      "name": "Fleet Workspace",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "drank",
@@ -110,7 +205,21 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Drank",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "maintained",
+        "id": "drank",
+        "name": "Drank",
+        "description": "Domain Rating intelligence for product, SEO, and market research.",
+        "category": "helper",
+        "pillarId": "market",
+        "spotlight": false,
+        "maturity": "maintained"
+      }
     },
     {
       "id": "email-manager",
@@ -125,7 +234,14 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Email Manager",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "free-ai",
@@ -140,7 +256,23 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Free AI",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "free-ai",
+        "name": "Free AI",
+        "description": "OpenAI-compatible gateway across free-tier model providers.",
+        "category": "helper",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/free-ai",
+        "roadmapPath": null
+      }
     },
     {
       "id": "psi-swarm",
@@ -155,7 +287,21 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "PSI Swarm",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "maintained",
+        "id": "psi-swarm",
+        "name": "PSI Swarm",
+        "description": "Repeated Lighthouse distributions for honest website performance tracking.",
+        "category": "helper",
+        "pillarId": "visibility",
+        "spotlight": false,
+        "maturity": "maintained"
+      }
     },
     {
       "id": "high-signal",
@@ -170,7 +316,22 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Next/OpenNext on Workers"
+      "notes": "Next/OpenNext on Workers",
+      "name": "High Signal",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "high-signal",
+        "name": "High Signal",
+        "description": "Evidence-backed daily intelligence across technology, startups, finance, and public markets.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/High-Signal-App/high-signal"
+      }
     },
     {
       "id": "everythingrated",
@@ -186,7 +347,18 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "canonical = ratings.highsignal.app; everythingrated.com is NOT ours (external) — do not associate"
+      "notes": "canonical = ratings.highsignal.app; everythingrated.com is NOT ours (external) — do not associate",
+      "name": "EverythingRated",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "everythingrated",
+        "name": "EverythingRated",
+        "description": "A general-purpose rating and comparison experiment.",
+        "repositoryUrl": "https://github.com/High-Signal-App/everythingrated"
+      }
     },
     {
       "id": "research-papers",
@@ -201,7 +373,22 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Research Papers",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "research-papers",
+        "name": "Research Papers",
+        "description": "Academic paper discovery and a structured research data asset.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/High-Signal-App/research-papers"
+      }
     },
     {
       "id": "materia",
@@ -217,7 +404,18 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "own bet; hosted on SH domain"
+      "notes": "own bet; hosted on SH domain",
+      "name": "Materia",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "materia",
+        "name": "Materia",
+        "description": "Evidence-graded remedy reference organized by body system.",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/materia"
+      }
     },
     {
       "id": "knowledge-base",
@@ -254,10 +452,20 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base."
+      "notes": "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base.",
+      "name": "Knowledge Base",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "significanthobbies",
+      "aliases": [
+        "significant-hobbies"
+      ],
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
@@ -272,7 +480,23 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "apex/hub"
+      "notes": "apex/hub",
+      "name": "Significant Hobbies",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "significanthobbies",
+        "name": "Significant Hobbies",
+        "description": "Plan meaningful hobbies, side quests, rituals, and life journeys.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/significanthobbies",
+        "roadmapPath": null
+      }
     },
     {
       "id": "anime-list",
@@ -290,7 +514,22 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Anime List",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "anime-list",
+        "name": "Anime List",
+        "description": "Anime and manga discovery with multi-axis filtering and personal watchlists.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/anime-list"
+      }
     },
     {
       "id": "chess",
@@ -305,7 +544,23 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "project auto-named chess-9a0"
+      "notes": "project auto-named chess-9a0",
+      "name": "Chess",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "chess",
+        "name": "Chess Coach",
+        "description": "Browser chess against Stockfish with optional AI move coaching.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/chess",
+        "roadmapPath": null
+      }
     },
     {
       "id": "looptv",
@@ -320,7 +575,23 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "LoopTV",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "looptv",
+        "name": "LoopTV",
+        "description": "A lean-back, TV-style random video player for curated channels.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/looptv",
+        "roadmapPath": null
+      }
     },
     {
       "id": "reader",
@@ -338,7 +609,22 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Reader",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "reader",
+        "name": "Reader",
+        "description": "Capture, annotate, revisit, and discuss saved reading.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/reader"
+      }
     },
     {
       "id": "swe-interview-prep",
@@ -356,7 +642,53 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "SWE Interview Prep",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "swe-interview-prep",
+        "name": "SWE Interview Prep",
+        "description": "A learning OS for software-engineering interview practice.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/swe-interview-prep"
+      }
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "calorie",
+      "repositoryVisibility": "public",
+      "deployKind": "worker",
+      "cfProject": "calorie",
+      "domains": [
+        "calorie.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "app": "web",
+      "public": {
+        "listing": "maintained",
+        "id": "calorie",
+        "name": "Calorie",
+        "description": "A private, local-first food, water, and weight journal with transparent timing guidance.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/calorie"
+      },
+      "notes": "Finished local-first journal with optional Google sign-in and private D1 sync."
     },
     {
       "id": "rolepatch",
@@ -371,7 +703,22 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "RolePatch",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "rolepatch",
+        "name": "RolePatch",
+        "description": "AI-assisted resume tailoring, role research, and interview preparation.",
+        "category": "personal",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/rolepatch"
+      }
     },
     {
       "id": "karte",
@@ -389,7 +736,23 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "name collision risk (PLAID KARTE)"
+      "notes": "name collision risk (PLAID KARTE)",
+      "name": "Karte",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "karte",
+        "name": "Karte",
+        "description": "An AI link-in-bio that turns a profile into a conversation.",
+        "category": "personal",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/karte",
+        "roadmapPath": null
+      }
     },
     {
       "id": "starboard",
@@ -407,10 +770,28 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": ""
+      "notes": "",
+      "name": "Starboard",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "starboard",
+        "name": "Starboard",
+        "description": "Organize and semantically search your GitHub stars.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Codevetter/starboard"
+      }
     },
     {
       "id": "ai-game",
+      "aliases": [
+        "aliveville"
+      ],
       "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
@@ -437,7 +818,19 @@
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Aliveville world-sim; parked but live (user: leave)"
+      "notes": "Aliveville world-sim; parked but live (user: leave)",
+      "name": "AliveVille",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "sourcePath": "../fleet-inactive-projects/aliveville",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "aliveville",
+        "name": "AliveVille",
+        "description": "Persistent AI world and multi-agent simulation experiments.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/aliveville"
+      }
     },
     {
       "id": "reel-pipeline",
@@ -450,7 +843,14 @@
       "domains": [],
       "inRegistry": false,
       "status": "unverified",
-      "notes": "reel→Rust rewrite"
+      "notes": "reel→Rust rewrite",
+      "name": "Reel Pipeline",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "protein-index",
@@ -466,7 +866,18 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development."
+      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development.",
+      "name": "Protein Index",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "protein-index",
+        "name": "Protein Index",
+        "description": "Searchable protein and nutrition reference.",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index"
+      }
     },
     {
       "id": "mobile-dev-cockpit",
@@ -479,7 +890,14 @@
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Private Fleet client; canonical source is inside fleet-workspace."
+      "notes": "Private Fleet client; canonical source is inside fleet-workspace.",
+      "name": "Mobile Dev Cockpit",
+      "attention": "foundry",
+      "lifecycle": "local-only",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "app-health",
@@ -492,7 +910,14 @@
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Independent aggregate-only endpoint health product. Local V0 complete; production auth and deployment are intentionally deferred."
+      "notes": "Independent aggregate-only endpoint health product. Local V0 complete; production auth and deployment are intentionally deferred.",
+      "name": "App Health",
+      "attention": "toolbox",
+      "lifecycle": "local-only",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "mashup",
@@ -505,7 +930,14 @@
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Local-only video sequencing experiment: source videos in, one coherent cut out. Runs fully offline on Apple silicon since 2026-07-26 — chat is a local mlx model, embeddings a local HuggingFace encoder, and no subcommand needs the free-ai gateway, so authModel 'required-service' above is stale but left alone because the field is unreachable while status is undeployed. Dev archive (20 public-domain episodes, 9.1h, 727 segments) is downloaded, enriched and embedded. Scope decided 2026-07-26: one operator publishing cuts to their own YouTube channel; the software is not released, so there is no second operator and no third-party rights burden. No Cloudflare deployment."
+      "notes": "Local-only video sequencing experiment: source videos in, one coherent cut out. Runs fully offline on Apple silicon since 2026-07-26 — chat is a local mlx model, embeddings a local HuggingFace encoder, and no subcommand needs the free-ai gateway, so authModel 'required-service' above is stale but left alone because the field is unreachable while status is undeployed. Dev archive (20 public-domain episodes, 9.1h, 727 segments) is downloaded, enriched and embedded. Scope decided 2026-07-26: one operator publishing cuts to their own YouTube channel; the software is not released, so there is no second operator and no third-party rights burden. No Cloudflare deployment.",
+      "name": "Mashup",
+      "attention": "toolbox",
+      "lifecycle": "local-only",
+      "repositoryVisibility": "private",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "saas-ideas",
@@ -521,7 +953,14 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Static scored catalog of SaaS ideas. The Pages project is GitHub-connected; there is no runtime service or manual deploy workflow."
+      "notes": "Static scored catalog of SaaS ideas. The Pages project is GitHub-connected; there is no runtime service or manual deploy workflow.",
+      "name": "SaaS Ideas",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "private",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "motion",
@@ -535,7 +974,14 @@
       "app": "web+ios",
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "NEW 2026-07-18 (was 'bodyplay' — renamed to Motion). Body-motion game controller. v1 = SERVERLESS single-device POC: iPhone runs camera+Vision pose → renders the game full-screen in a WKWebView (reuses web/ game via in-process JS pose bridge) → screen-mirror to a TV (AirPlay/Chromecast/QuickTime); recording via ReplayKit (game+camera inset in one video). Monorepo: protocol/ + web/ (Vite game SDK + Game iface, keyboard-debug playable, bridge+socket transports) + ios/ (SwiftUI+Vision+WKWebView+ReplayKit, XcodeGen) + server/ (PartyKit relay, PARKED for v2). v2 = browser display + Chromecast receiver + PartyKit multiplayer. Web+server typecheck+build green; iOS COMPILES + LAUNCHES + renders on iOS-27 Simulator (Xcode 27, verified via screenshot) — device-runtime (real camera/ReplayKit/joint-mapping) still needs a physical iPhone. Repo = PERSONAL GitHub github.com/sarthakagrawal927/motion (private), NOT fleet org."
+      "notes": "NEW 2026-07-18 (was 'bodyplay' — renamed to Motion). Body-motion game controller. v1 = SERVERLESS single-device POC: iPhone runs camera+Vision pose → renders the game full-screen in a WKWebView (reuses web/ game via in-process JS pose bridge) → screen-mirror to a TV (AirPlay/Chromecast/QuickTime); recording via ReplayKit (game+camera inset in one video). Monorepo: protocol/ + web/ (Vite game SDK + Game iface, keyboard-debug playable, bridge+socket transports) + ios/ (SwiftUI+Vision+WKWebView+ReplayKit, XcodeGen) + server/ (PartyKit relay, PARKED for v2). v2 = browser display + Chromecast receiver + PartyKit multiplayer. Web+server typecheck+build green; iOS COMPILES + LAUNCHES + renders on iOS-27 Simulator (Xcode 27, verified via screenshot) — device-runtime (real camera/ReplayKit/joint-mapping) still needs a physical iPhone. Repo = PERSONAL GitHub github.com/sarthakagrawal927/motion (private), NOT fleet org.",
+      "name": "Motion",
+      "attention": "toolbox",
+      "lifecycle": "local-only",
+      "repositoryVisibility": "private",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "truehire",
@@ -550,7 +996,19 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "out-of-fleet per AGENTS.md but live + registered"
+      "notes": "out-of-fleet per AGENTS.md but live + registered",
+      "name": "TrueHire",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "sourcePath": "../fleet-inactive-projects/truehire",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "truehire",
+        "name": "TrueHire",
+        "description": "Earlier resume and hiring workflow superseded by RolePatch.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/truehire"
+      }
     },
     {
       "id": "today-little-log",
@@ -563,7 +1021,19 @@
       "domains": [],
       "inRegistry": false,
       "status": "deleted",
-      "notes": "Pages project deleted 2026-07-18 (purged 126 deployments then project)"
+      "notes": "Pages project deleted 2026-07-18 (purged 126 deployments then project)",
+      "name": "Today Little Log",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "sourcePath": "../fleet-inactive-projects/today-little-log",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "today-little-log",
+        "name": "Today Little Log",
+        "description": "A small daily logging experiment later folded into other work.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/today-little-log"
+      }
     },
     {
       "id": "open-historia",
@@ -579,7 +1049,114 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep."
+      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.",
+      "name": "Open Historia",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "open-historia",
+        "name": "Open Historia",
+        "description": "Interactive historical storytelling and world simulation.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/open-historia"
+      }
+    },
+    {
+      "id": "companion-robot",
+      "name": "Companion Robot",
+      "authModel": "public-persistent",
+      "family": "companion-robot",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "companion-robot",
+      "sourcePath": "../fleet-inactive-projects/companion-robot",
+      "repositoryVisibility": "public",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "past",
+        "id": "companion-robot",
+        "name": "Companion Robot",
+        "description": "Earlier companion robotics and embodied-agent exploration.",
+        "repositoryUrl": "https://github.com/HeyPace/companion-robot"
+      },
+      "notes": "Inactive historical repository; explicit reactivation required."
+    },
+    {
+      "id": "elves-hq",
+      "name": "Elves HQ",
+      "authModel": "public-persistent",
+      "family": "elves-hq",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "elves-hq",
+      "sourcePath": "../fleet-inactive-projects/elves-hq",
+      "repositoryVisibility": "private",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "hidden"
+      },
+      "notes": "Inactive historical repository; explicit reactivation required."
+    },
+    {
+      "id": "forecast-lab",
+      "name": "Forecast Lab",
+      "authModel": "public-persistent",
+      "family": "forecast-lab",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "forecast-lab",
+      "sourcePath": "../fleet-inactive-projects/forecast-lab",
+      "repositoryVisibility": "public",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "past",
+        "id": "forecast-lab",
+        "name": "Forecast Lab",
+        "description": "Forecasting experiments and evaluation tooling.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/forecast-lab"
+      },
+      "notes": "Inactive historical repository; explicit reactivation required."
+    },
+    {
+      "id": "web-playables",
+      "name": "Web Playables",
+      "authModel": "public-persistent",
+      "family": "web-playables",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "web-playables",
+      "sourcePath": "../fleet-inactive-projects/web-playables",
+      "repositoryVisibility": "public",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "past",
+        "id": "web-playables",
+        "name": "Web Playables",
+        "description": "Small browser-playable game experiments.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/web-playables"
+      },
+      "notes": "Inactive historical repository; explicit reactivation required."
     },
     {
       "id": "success-by-26",
@@ -592,10 +1169,20 @@
       "domains": [],
       "inRegistry": false,
       "status": "orphan",
-      "notes": "Known local-only/non-Fleet historical Pages project. Excluded from active automation and fresh-machine setup; retain or delete only after an explicit owner decision."
+      "notes": "Known local-only/non-Fleet historical Pages project. Excluded from active automation and fresh-machine setup; retain or delete only after an explicit owner decision.",
+      "name": "Success by 26",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "sarthakagrawal-personal",
+      "aliases": [
+        "personal-website"
+      ],
       "authModel": "public-persistent",
       "family": "personal",
       "tier": "non-product",
@@ -607,7 +1194,22 @@
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "personal site, not a fleet product"
+      "notes": "personal site, not a fleet product",
+      "name": "Personal website",
+      "attention": "toolbox",
+      "lifecycle": "non-product",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "personal-website",
+        "name": "Sarthak Agrawal",
+        "description": "Personal portfolio and the concise front door to active work.",
+        "category": "personal",
+        "pillarId": "market",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio"
+      }
     }
   ]
 }

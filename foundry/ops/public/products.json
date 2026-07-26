@@ -1,9 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedFrom": [
-    "foundry/ops/config/projects.json",
-    "foundry/ops/config/marketing-program.json",
-    "foundry/ops/config/public-products.json"
+    "foundry/ops/config/projects.json"
   ],
   "products": [
     {
@@ -79,6 +77,21 @@
       "repositoryUrl": "https://github.com/Significant-Hobbies/anime-list",
       "changelogUrl": "https://github.com/Significant-Hobbies/anime-list/commits/main",
       "roadmapUrl": "https://github.com/Significant-Hobbies/anime-list/blob/main/PROJECT_STATUS.md",
+      "pillarId": "learn"
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "description": "A private, local-first food, water, and weight journal with transparent timing guidance.",
+      "url": "https://calorie.significanthobbies.com",
+      "tier": "secondary",
+      "category": "personal",
+      "priority": "P3",
+      "spotlight": false,
+      "maturity": "maintained",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/calorie",
+      "changelogUrl": "https://github.com/sarthakagrawal927/calorie/commits/main",
+      "roadmapUrl": "https://github.com/sarthakagrawal927/calorie/blob/main/PROJECT_STATUS.md",
       "pillarId": "learn"
     },
     {
@@ -264,6 +277,78 @@
       "changelogUrl": "https://github.com/Significant-Hobbies/swe-interview-prep/commits/main",
       "roadmapUrl": "https://github.com/Significant-Hobbies/swe-interview-prep/blob/main/PROJECT_STATUS.md",
       "pillarId": "learn"
+    }
+  ],
+  "pastProjects": [
+    {
+      "id": "aliveville",
+      "name": "AliveVille",
+      "description": "Persistent AI world and multi-agent simulation experiments.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/aliveville"
+    },
+    {
+      "id": "companion-robot",
+      "name": "Companion Robot",
+      "description": "Earlier companion robotics and embodied-agent exploration.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/HeyPace/companion-robot"
+    },
+    {
+      "id": "everythingrated",
+      "name": "EverythingRated",
+      "description": "A general-purpose rating and comparison experiment.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/High-Signal-App/everythingrated"
+    },
+    {
+      "id": "forecast-lab",
+      "name": "Forecast Lab",
+      "description": "Forecasting experiments and evaluation tooling.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/forecast-lab"
+    },
+    {
+      "id": "materia",
+      "name": "Materia",
+      "description": "Evidence-graded remedy reference organized by body system.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/materia"
+    },
+    {
+      "id": "open-historia",
+      "name": "Open Historia",
+      "description": "Interactive historical storytelling and world simulation.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/open-historia"
+    },
+    {
+      "id": "protein-index",
+      "name": "Protein Index",
+      "description": "Searchable protein and nutrition reference.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index"
+    },
+    {
+      "id": "today-little-log",
+      "name": "Today Little Log",
+      "description": "A small daily logging experiment later folded into other work.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/today-little-log"
+    },
+    {
+      "id": "truehire",
+      "name": "TrueHire",
+      "description": "Earlier resume and hiring workflow superseded by RolePatch.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/truehire"
+    },
+    {
+      "id": "web-playables",
+      "name": "Web Playables",
+      "description": "Small browser-playable game experiments.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/web-playables"
     }
   ]
 }

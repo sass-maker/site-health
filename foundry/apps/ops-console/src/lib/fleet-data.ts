@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { relative, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 
 const appRoot = process.cwd();
@@ -9,8 +9,12 @@ const fleetOpsRoot = resolve(foundryRoot, "ops");
 
 type RegistryProject = {
   id: string;
+  name?: string;
+  attention?: string;
   family?: string;
   repo?: string | null;
+  sourcePath?: string | null;
+  lifecycle?: string;
   tier?: string;
   status?: string;
   notes?: string;
@@ -145,7 +149,7 @@ export type FleetProject = {
   hostingDetail: string;
   deploymentStatus: string;
   workflowStatus: string;
-  state: "needs-attention" | "active" | "blocked" | "local-changes" | "steady";
+  state: "needs-attention" | "active" | "blocked" | "local-only" | "past" | "local-changes" | "steady";
   stateLabel: string;
   updatedAt: string | null;
 };
@@ -289,12 +293,19 @@ function titleize(slug: string) {
 }
 
 function projectRoot(slug: string) {
-  return resolve(fleetRoot, registryProject(slug)?.repo ?? localDirBySlug[slug] ?? slug);
+  const project = registryProject(slug);
+  const localDir =
+    project?.lifecycle === "past"
+      ? project.sourcePath ?? project.repo
+      : project?.repo ?? project?.sourcePath;
+  return resolve(fleetRoot, localDir ?? localDirBySlug[slug] ?? slug);
 }
 
 function projectLocalPath(slug: string) {
-  const localDir = registryProject(slug)?.repo ?? localDirBySlug[slug] ?? slug;
-  return existsSync(resolve(fleetRoot, localDir)) ? `fleet/${localDir}` : "not checked out";
+  const root = projectRoot(slug);
+  return existsSync(root)
+    ? relative(resolve(fleetRoot, ".."), root).replaceAll("\\", "/")
+    : "not checked out";
 }
 
 function getHosting(project: {
@@ -518,19 +529,27 @@ export function getDomainIntelligence(): DomainIntelligence[] {
 
 export function getFleetProjects(): FleetProject[] {
   const catalog = registryProjects.reduce<Record<string, {
+    name?: string;
     desc?: string;
     homepage?: string | null;
     repo?: string | null;
+    sourcePath?: string | null;
+    lifecycle?: string;
+    attention?: string;
     status?: string;
     tier?: string;
   }>>((entries, project) => {
-    if (["out-of-fleet", "non-product"].includes(project.tier ?? "") || project.status === "deleted") return entries;
+    if (project.tier === "non-product") return entries;
     const slug = registrySlug(project);
     const current = entries[slug];
     entries[slug] = {
+      name: current?.name || project.name,
       desc: current?.desc || project.notes,
       homepage: current?.homepage || (project.domains?.[0] ? `https://${project.domains[0]}` : null),
       repo: current?.repo || project.repo,
+      sourcePath: current?.sourcePath || project.sourcePath,
+      lifecycle: current?.lifecycle ?? project.lifecycle,
+      attention: current?.attention ?? project.attention,
       status: current?.status === "live" && project.status === "live" ? "live" : (current?.status ?? project.status),
       tier: current?.tier ?? project.tier
     };
@@ -547,7 +566,10 @@ export function getFleetProjects(): FleetProject[] {
     const root = projectRoot(slug);
     const pkg = readJsonObject(resolve(root, "package.json")) as { homepage?: string; name?: string; description?: string };
     const meta = catalog[slug] ?? {};
-    const localDir = meta.repo ?? localDirBySlug[slug] ?? slug;
+    const localDir =
+      meta.lifecycle === "past"
+        ? meta.sourcePath ?? meta.repo ?? localDirBySlug[slug] ?? slug
+        : meta.repo ?? meta.sourcePath ?? localDirBySlug[slug] ?? slug;
     const checkedOut = existsSync(root);
     const hasGit = safeGit(["rev-parse", "--is-inside-work-tree"], root) === "true";
     const registeredSite = siteRegistry.projects?.[slug];
@@ -565,23 +587,35 @@ export function getFleetProjects(): FleetProject[] {
     const updatedAt = hasGit ? safeGit(["log", "-1", "--format=%aI"], root) || null : null;
     let state: FleetProject["state"] = "steady";
     if (["orphan", "unverified"].includes(deploymentStatus)) state = "needs-attention";
+    else if (meta.lifecycle === "past") state = "past";
+    else if (meta.lifecycle === "local-only") state = "local-only";
     else if (deploymentStatus === "undeployed") state = "blocked";
     else if (dirtyCount > 0) state = "local-changes";
-    else if (["focus", "active"].includes(meta.tier ?? "")) state = "active";
+    else if (["my-work", "foundry"].includes(meta.attention ?? "")) state = "active";
     const stateLabel = {
       "needs-attention": "Needs attention",
       active: "Active",
       blocked: "Blocked",
+      "local-only": "Local-only",
+      past: "Past project",
       "local-changes": "Local changes",
       steady: "Steady"
     }[state];
 
     return {
       slug,
-      title: productTitleBySlug[slug] ?? (pkg.name ? titleize(String(pkg.name).replace(/^@[^/]+\//, "")) : titleize(slug)),
+      title: meta.name ?? productTitleBySlug[slug] ?? (pkg.name ? titleize(String(pkg.name).replace(/^@[^/]+\//, "")) : titleize(slug)),
       desc: meta.desc ?? pkg.description ?? "No description recorded yet.",
       tier: meta.tier ?? (slug === "fleet-ops" || slug === "wifi-watch" ? "ops" : "unknown"),
-      lane: meta.tier === "focus" ? "My Work" : meta.tier === "active" ? "Active" : meta.tier === "secondary" ? "Toolbox" : "Parked",
+      lane: meta.lifecycle === "past"
+        ? "Past projects"
+        : meta.attention === "my-work"
+          ? "My Work"
+          : meta.attention === "foundry"
+            ? "Foundry"
+            : meta.lifecycle === "local-only"
+              ? "Local-only"
+              : "Toolbox",
       repoUrl: publicRepoUrl(safeGit(["remote", "get-url", "origin"], root)) ?? null,
       homepage,
       localPath: projectLocalPath(slug),

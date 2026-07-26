@@ -1,5 +1,5 @@
 ---
-import { CORE, ACTIVE_GROUPS, PROJECT_COUNT } from '../data/projects';
+import { CORE, ACTIVE_GROUPS, PAST_PROJECTS, PROJECT_COUNT } from '../data/projects';
 ---
 <section class="section" id="products">
   <div class="section-head">
@@ -50,6 +50,34 @@ import { CORE, ACTIVE_GROUPS, PROJECT_COUNT } from '../data/projects';
           </ul>
         </section>
       ))}
+    </div>
+  </div>
+
+  <div class="catalog" id="past-projects">
+    <div class="active-head">
+      <div>
+        <p class="eyebrow">Public repository history</p>
+        <h2>Past projects</h2>
+      </div>
+      <p>Preserved source and attribution without turning retired work into an active maintenance promise.</p>
+    </div>
+    <div class="active-groups">
+      <section class="active-group" aria-labelledby="past-project-list">
+        <h3 id="past-project-list">{PAST_PROJECTS.length} public repositories</h3>
+        <ul class="active-grid">
+          {PAST_PROJECTS.map((project) => (
+            <li>
+              <a href={project.repositoryUrl} class="mini" target="_blank" rel="noopener noreferrer">
+                <span>
+                  <strong class="mini-name">{project.name}</strong>
+                  <span class="mini-desc">{project.desc}</span>
+                </span>
+                <span class="mini-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   </div>
 </section>

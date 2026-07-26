@@ -4,9 +4,7 @@
 
 Define Fleet Workspace as the canonical shared-infrastructure repository while
 preserving independent product and component boundaries.
-
 ## Requirements
-
 ### Requirement: Fleet Workspace is the canonical shared infrastructure repository
 The `sass-maker/fleet-workspace` repository SHALL be the sole version-controlled
 home for shared fleet operations, skills, schedules, registries, host tooling,
@@ -56,3 +54,17 @@ ownership claim over their runtime, data, deployment, or product roadmap.
 #### Scenario: Fleet records product health or code evidence
 - **WHEN** Fleet links to App Health or CodeVetter evidence
 - **THEN** the source and authority remain in the independent product repository
+
+### Requirement: Internal catalog generates project views
+Fleet Workspace MUST use its internal project catalog as the sole project
+identity source and SHALL generate human-readable inventory and sanitized
+external project data from that catalog.
+
+#### Scenario: Internal project metadata changes
+- **WHEN** an operator changes a project's shared identity, lifecycle, repository, deployment, or public-listing posture
+- **THEN** one generation command updates the applicable Fleet README, private console, compatibility views, and public catalog
+
+#### Scenario: Personal portfolio links to SaaS Maker
+- **WHEN** the comprehensive SaaS Maker catalog changes
+- **THEN** the personal website and its README remain curated and require no mirrored project-list update
+

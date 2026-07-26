@@ -18,12 +18,22 @@ export function GET() {
       '',
     ];
   });
+  const pastProjects = publicCatalog.pastProjects.flatMap((project) => [
+    `## ${project.name}`,
+    project.description,
+    'Lifecycle: past project',
+    `Source: ${project.repositoryUrl}`,
+    '',
+  ]);
   const body = [
     '# SaaS Maker — full product index',
     '',
     'Generated from the checked-in Fleet public projection. Configuration and links do not imply fresh production verification.',
     '',
     ...products,
+    '# Past public repositories',
+    '',
+    ...pastProjects,
   ].join('\n');
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

@@ -28,12 +28,13 @@ function displayName(project) {
 export function loadFounderProjects(registryPath = defaultRegistryPath) {
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
   return registry.projects
-    .filter((project) => !['deleted', 'orphan'].includes(project.status))
+    .filter((project) => project.status !== 'orphan')
     .map((project) => ({
       id: project.id,
       name: displayName(project),
       family: project.family,
-      attention: project.tier,
+      attention: project.attention ?? project.tier,
+      lifecycle: project.lifecycle ?? 'maintained',
       priority:
         project.priority ??
         (registry._meta?.priorities
@@ -41,6 +42,8 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
           : null),
       status: project.status,
       repo: project.repo,
+      sourcePath: project.sourcePath ?? null,
+      repositoryVisibility: project.repositoryVisibility ?? 'unknown',
       domains: project.domains ?? [],
       deployKind: project.deployKind,
     }));

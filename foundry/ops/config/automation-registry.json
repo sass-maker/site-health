@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-25",
+  "updatedAt": "2026-07-26",
   "attentionCounts": {
     "my-work": 4,
     "toolbox": 17,
@@ -43,11 +43,34 @@
       "family": "codevetter",
       "owner": "sarthak",
       "repository": "codevetter",
-      "runtimes": ["public-web", "desktop"],
-      "surfaces": ["https://codevetter.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "desktop release pipeline"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "product-analytics", "release"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "release"],
+      "runtimes": [
+        "public-web",
+        "desktop"
+      ],
+      "surfaces": [
+        "https://codevetter.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "desktop release pipeline"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "product-analytics",
+        "release"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "release"
+      ],
       "actionPolicy": "human-direction",
       "alertPolicy": "page prolonged build, release, security, data, or production failure; digest routine findings",
       "exceptions": []
@@ -59,11 +82,34 @@
       "family": "pace",
       "owner": "sarthak",
       "repository": "pace",
-      "runtimes": ["public-web", "desktop"],
-      "surfaces": ["https://heypace.app"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "Apple distribution"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "product-analytics", "release"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "release"],
+      "runtimes": [
+        "public-web",
+        "desktop"
+      ],
+      "surfaces": [
+        "https://heypace.app"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "Apple distribution"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "product-analytics",
+        "release"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "release"
+      ],
       "actionPolicy": "human-direction",
       "alertPolicy": "page prolonged build, release, privacy, or production failure; digest routine findings",
       "exceptions": []
@@ -75,13 +121,246 @@
       "family": "posttrainllm",
       "owner": "sarthak",
       "repository": "posttrainllm",
-      "runtimes": ["public-web", "desktop", "local-tool"],
-      "surfaces": ["https://posttrainllm.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "local model runtime"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "product-analytics", "release"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "release"],
+      "runtimes": [
+        "public-web",
+        "desktop",
+        "local-tool"
+      ],
+      "surfaces": [
+        "https://posttrainllm.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "local model runtime"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "product-analytics",
+        "release"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "release"
+      ],
       "actionPolicy": "human-direction",
       "alertPolicy": "page prolonged build, release, privacy, or production failure; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "fleet-workspace",
+      "name": "Fleet Workspace",
+      "attention": "foundry",
+      "family": "fleet-workspace",
+      "owner": "foundry",
+      "repository": "foundry/ops",
+      "runtimes": [
+        "public-web",
+        "background-job",
+        "local-tool"
+      ],
+      "surfaces": [
+        "https://sassmaker.com",
+        "https://fleet.sassmaker.com"
+      ],
+      "dependencies": [
+        "fleet registry",
+        "designated automation host",
+        "Postiz",
+        "Cloudflare Pages",
+        "Cloudflare Tunnel"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "cron-receipts",
+        "job-receipts",
+        "marketing-receipts"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors",
+        "jobs",
+        "marketing"
+      ],
+      "actionPolicy": "factory-safe",
+      "alertPolicy": "page host, scheduler, publication-integrity, or prolonged production failure; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "drank",
+      "name": "Drank",
+      "attention": "foundry",
+      "family": "fleet-workspace",
+      "owner": "foundry",
+      "repository": "foundry/services/drank",
+      "runtimes": [
+        "public-web",
+        "data-pipeline",
+        "background-job",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://domains.sassmaker.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "domain intelligence providers",
+        "PSI Swarm"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cron-receipts",
+        "job-receipts",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors",
+        "jobs",
+        "data-durability"
+      ],
+      "actionPolicy": "factory-safe",
+      "alertPolicy": "page scheduler, data, security, or cost risk; digest routine domain findings",
+      "exceptions": []
+    },
+    {
+      "id": "email-manager",
+      "name": "Email Manager",
+      "attention": "toolbox",
+      "family": "email-manager",
+      "owner": "sarthak",
+      "repository": "email-manager",
+      "runtimes": [
+        "public-web",
+        "worker",
+        "background-job",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://mail.sassmaker.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "Gmail authorization",
+        "private email storage"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "auth-safe-smoke",
+        "cloudflare-resilience",
+        "job-receipts",
+        "privacy-safe-errors",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "activation",
+        "errors",
+        "jobs",
+        "data-durability"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "page privacy, security, data, or prolonged sync risk; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "free-ai",
+      "name": "Free AI",
+      "attention": "toolbox",
+      "family": "free-ai",
+      "owner": "sarthak",
+      "repository": "free-ai",
+      "runtimes": [
+        "api",
+        "worker"
+      ],
+      "surfaces": [
+        "https://ai-gateway.sassmaker.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "model providers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "auth-safe-smoke",
+        "cloudflare-resilience",
+        "privacy-safe-errors",
+        "cost"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "errors",
+        "api-health"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "page security, cost, or prolonged provider failure; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "psi-swarm",
+      "name": "PSI Swarm",
+      "attention": "foundry",
+      "family": "fleet-workspace",
+      "owner": "foundry",
+      "repository": "foundry/tools/psi-swarm",
+      "runtimes": [
+        "public-web",
+        "local-tool",
+        "background-job"
+      ],
+      "surfaces": [
+        "https://performance.sassmaker.com"
+      ],
+      "dependencies": [
+        "Lighthouse",
+        "Chrome",
+        "Cloudflare Pages",
+        "fleet URL registry"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cron-receipts",
+        "performance"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors",
+        "jobs",
+        "performance"
+      ],
+      "actionPolicy": "factory-safe",
+      "alertPolicy": "page scheduler/control-plane failure; digest sampled site findings",
       "exceptions": []
     },
     {
@@ -91,62 +370,177 @@
       "family": "high-signal",
       "owner": "sarthak",
       "repository": "high-signal",
-      "runtimes": ["public-web", "api", "worker", "background-job", "data-store"],
-      "surfaces": ["https://highsignal.app"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "scheduled ingestion", "operational storage"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "job-receipts", "product-analytics", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "api-health", "jobs", "data-durability"],
+      "runtimes": [
+        "public-web",
+        "api",
+        "worker",
+        "background-job",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://highsignal.app"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "scheduled ingestion",
+        "operational storage"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "job-receipts",
+        "product-analytics",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "api-health",
+        "jobs",
+        "data-durability"
+      ],
       "actionPolicy": "human-direction",
       "alertPolicy": "page production, ingestion freshness, data, security, or cost risk; digest routine findings",
       "exceptions": []
     },
-
     {
-      "id": "personal-website",
-      "name": "Personal website",
+      "id": "everythingrated",
+      "name": "EverythingRated",
+      "attention": "ignored",
+      "family": "high-signal",
+      "owner": "none",
+      "repository": "everythingrated",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "research-papers",
+      "name": "Research Papers",
       "attention": "toolbox",
-      "family": "personal",
+      "family": "high-signal",
       "owner": "sarthak",
-      "repository": "portfolio",
-      "runtimes": ["public-web"],
-      "surfaces": ["https://sarthakagrawal.dev"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "marketing-receipts"],
-      "contracts": ["build", "live", "indexing", "activation", "marketing"],
+      "repository": "research-papers",
+      "runtimes": [
+        "public-web",
+        "data-pipeline",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://papers.highsignal.app"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "OpenAlex corpus",
+        "search index"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "job-receipts",
+        "product-analytics",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "jobs",
+        "data-durability"
+      ],
       "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, security, or cost risk",
+      "alertPolicy": "digest by default; page only prolonged outage, data, security, or cost risk",
       "exceptions": []
     },
     {
-      "id": "rolepatch",
-      "name": "RolePatch",
-      "attention": "toolbox",
-      "family": "rolepatch",
-      "owner": "sarthak",
-      "repository": "rolepatch",
-      "runtimes": ["public-web", "worker"],
-      "surfaces": ["https://rolepatch.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "product-analytics"],
-      "contracts": ["build", "live", "indexing", "activation", "errors"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, security, data, or cost risk",
-      "exceptions": []
+      "id": "materia",
+      "name": "Materia",
+      "attention": "ignored",
+      "family": "materia",
+      "owner": "none",
+      "repository": "materia",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
     },
     {
-      "id": "karte",
-      "name": "Karte",
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
       "attention": "toolbox",
-      "family": "karte",
+      "family": "knowledge-base",
       "owner": "sarthak",
-      "repository": "karte",
-      "runtimes": ["public-web", "api", "worker"],
-      "surfaces": ["https://karte.cc"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "product-analytics"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "api-health"],
+      "repository": "knowledge-base",
+      "runtimes": [
+        "public-web",
+        "api",
+        "worker",
+        "background-job",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://search.sassmaker.com",
+        "https://knowledgebase.sassmaker.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "private corpora",
+        "search index"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "auth-safe-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "job-receipts",
+        "privacy-safe-errors",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "api-health",
+        "jobs",
+        "data-durability"
+      ],
       "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, security, data, or cost risk",
+      "alertPolicy": "page privacy, security, data, cost, or prolonged indexing risk; digest routine findings",
       "exceptions": []
     },
     {
@@ -156,29 +550,38 @@
       "family": "significanthobbies",
       "owner": "sarthak",
       "repository": "significanthobbies",
-      "runtimes": ["public-web", "worker", "data-store"],
-      "surfaces": ["https://significanthobbies.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "application storage"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "product-analytics", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "data-durability"],
+      "runtimes": [
+        "public-web",
+        "worker",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "application storage"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "product-analytics",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "data-durability"
+      ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest by default; page only prolonged outage, security, data, or cost risk",
-      "exceptions": []
-    },
-    {
-      "id": "reader",
-      "name": "Reader",
-      "attention": "toolbox",
-      "family": "significanthobbies",
-      "owner": "sarthak",
-      "repository": "reader",
-      "runtimes": ["public-web", "worker", "data-store"],
-      "surfaces": ["https://read.significanthobbies.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "private reading storage"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "product-analytics", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "data-durability"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, privacy, security, data, or cost risk",
       "exceptions": []
     },
     {
@@ -188,59 +591,31 @@
       "family": "significanthobbies",
       "owner": "sarthak",
       "repository": "anime-list",
-      "runtimes": ["public-web"],
-      "surfaces": ["https://anime.significanthobbies.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "public catalog upstream"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "product-analytics"],
-      "contracts": ["build", "live", "indexing", "activation", "errors"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, security, or cost risk",
-      "exceptions": []
-    },
-    {
-      "id": "swe-interview-prep",
-      "name": "SWE Interview Prep",
-      "attention": "toolbox",
-      "family": "significanthobbies",
-      "owner": "sarthak",
-      "repository": "swe-interview-prep",
-      "runtimes": ["public-web", "background-job"],
-      "surfaces": ["https://learn.significanthobbies.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "nightly source sync"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "job-receipts", "product-analytics"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "jobs"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, privacy, security, or cost risk",
-      "exceptions": []
-    },
-    {
-      "id": "email-manager",
-      "name": "Email Manager",
-      "attention": "toolbox",
-      "family": "sass-maker",
-      "owner": "sarthak",
-      "repository": "email-manager",
-      "runtimes": ["public-web", "worker", "background-job", "data-store"],
-      "surfaces": ["https://mail.sassmaker.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "Gmail authorization", "private email storage"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "auth-safe-smoke", "cloudflare-resilience", "job-receipts", "privacy-safe-errors", "data-recovery"],
-      "contracts": ["build", "live", "activation", "errors", "jobs", "data-durability"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "page privacy, security, data, or prolonged sync risk; digest routine findings",
-      "exceptions": []
-    },
-    {
-      "id": "looptv",
-      "name": "LoopTV",
-      "attention": "toolbox",
-      "family": "significanthobbies",
-      "owner": "sarthak",
-      "repository": "looptv",
-      "runtimes": ["public-web"],
-      "surfaces": ["https://tv.significanthobbies.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "public video providers"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "product-analytics"],
-      "contracts": ["build", "live", "indexing", "activation", "errors"],
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://anime.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "public catalog upstream"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "product-analytics"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors"
+      ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest by default; page only prolonged outage, security, or cost risk",
       "exceptions": []
@@ -252,45 +627,258 @@
       "family": "significanthobbies",
       "owner": "sarthak",
       "repository": "chess",
-      "runtimes": ["public-web"],
-      "surfaces": ["https://chess.significanthobbies.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "product-analytics"],
-      "contracts": ["build", "live", "indexing", "activation", "errors"],
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://chess.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "product-analytics"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors"
+      ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest by default; page only prolonged outage, security, or cost risk",
       "exceptions": []
     },
     {
-      "id": "motion",
-      "name": "Motion",
+      "id": "looptv",
+      "name": "LoopTV",
       "attention": "toolbox",
-      "family": "motion",
+      "family": "significanthobbies",
       "owner": "sarthak",
-      "repository": "motion",
-      "runtimes": ["mobile"],
-      "surfaces": [],
-      "dependencies": ["iOS toolchain", "Apple distribution"],
-      "evidenceSources": ["github-actions", "release", "privacy-safe-errors"],
-      "contracts": ["build", "release", "errors"],
+      "repository": "looptv",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://tv.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "public video providers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "product-analytics"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors"
+      ],
       "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest build/release findings; page only privacy, security, or data risk",
+      "alertPolicy": "digest by default; page only prolonged outage, security, or cost risk",
       "exceptions": []
     },
     {
-      "id": "research-papers",
-      "name": "Research Papers",
+      "id": "reader",
+      "name": "Reader",
       "attention": "toolbox",
-      "family": "high-signal",
+      "family": "significanthobbies",
       "owner": "sarthak",
-      "repository": "research-papers",
-      "runtimes": ["public-web", "data-pipeline", "data-store"],
-      "surfaces": ["https://papers.highsignal.app"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "OpenAlex corpus", "search index"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "job-receipts", "product-analytics", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "jobs", "data-durability"],
+      "repository": "reader",
+      "runtimes": [
+        "public-web",
+        "worker",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://read.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "private reading storage"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "product-analytics",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "data-durability"
+      ],
       "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, data, security, or cost risk",
+      "alertPolicy": "digest by default; page only prolonged outage, privacy, security, data, or cost risk",
+      "exceptions": []
+    },
+    {
+      "id": "swe-interview-prep",
+      "name": "SWE Interview Prep",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "swe-interview-prep",
+      "runtimes": [
+        "public-web",
+        "background-job"
+      ],
+      "surfaces": [
+        "https://learn.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "nightly source sync"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "job-receipts",
+        "product-analytics"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "jobs"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest by default; page only prolonged outage, privacy, security, or cost risk",
+      "exceptions": []
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "calorie",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://calorie.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "rolepatch",
+      "name": "RolePatch",
+      "attention": "toolbox",
+      "family": "rolepatch",
+      "owner": "sarthak",
+      "repository": "rolepatch",
+      "runtimes": [
+        "public-web",
+        "worker"
+      ],
+      "surfaces": [
+        "https://rolepatch.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "product-analytics"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest by default; page only prolonged outage, security, data, or cost risk",
+      "exceptions": []
+    },
+    {
+      "id": "karte",
+      "name": "Karte",
+      "attention": "toolbox",
+      "family": "karte",
+      "owner": "sarthak",
+      "repository": "karte",
+      "runtimes": [
+        "public-web",
+        "api",
+        "worker"
+      ],
+      "surfaces": [
+        "https://karte.cc"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "product-analytics"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "api-health"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest by default; page only prolonged outage, security, data, or cost risk",
       "exceptions": []
     },
     {
@@ -300,48 +888,157 @@
       "family": "codevetter",
       "owner": "sarthak",
       "repository": "starboard",
-      "runtimes": ["public-web", "worker", "background-job", "data-store"],
-      "surfaces": ["https://starboard.codevetter.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "GitHub API", "search index"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "job-receipts", "product-analytics", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "jobs", "data-durability"],
+      "runtimes": [
+        "public-web",
+        "worker",
+        "background-job",
+        "data-store"
+      ],
+      "surfaces": [
+        "https://starboard.codevetter.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "GitHub API",
+        "search index"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "site-health",
+        "cloudflare-resilience",
+        "job-receipts",
+        "product-analytics",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "activation",
+        "errors",
+        "jobs",
+        "data-durability"
+      ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest by default; page only prolonged outage, data, security, or cost risk",
       "exceptions": []
     },
     {
-      "id": "free-ai",
-      "name": "Free AI",
-      "attention": "toolbox",
-      "family": "sass-maker",
-      "owner": "sarthak",
-      "repository": "free-ai",
-      "runtimes": ["api", "worker"],
-      "surfaces": ["https://ai-gateway.sassmaker.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "model providers"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "auth-safe-smoke", "cloudflare-resilience", "privacy-safe-errors", "cost"],
-      "contracts": ["build", "live", "errors", "api-health"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "page security, cost, or prolonged provider failure; digest routine findings",
+      "id": "aliveville",
+      "name": "AliveVille",
+      "attention": "ignored",
+      "family": "ai-game",
+      "owner": "none",
+      "repository": "ai-game",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Frozen; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "reel-pipeline",
+      "name": "Reel Pipeline",
+      "attention": "foundry",
+      "family": "fleet-workspace",
+      "owner": "foundry",
+      "repository": "foundry/services/reel-pipeline",
+      "runtimes": [
+        "worker",
+        "local-tool",
+        "background-job",
+        "data-store"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "local render engines",
+        "Fleet review queue",
+        "Postiz handoff"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "cloudflare-resilience",
+        "job-receipts",
+        "marketing-receipts",
+        "data-recovery"
+      ],
+      "contracts": [
+        "build",
+        "errors",
+        "jobs",
+        "data-durability",
+        "marketing"
+      ],
+      "actionPolicy": "factory-safe",
+      "alertPolicy": "page publication-integrity, scheduler, data, security, or cost risk; digest render failures",
       "exceptions": []
     },
     {
-      "id": "knowledge-base",
-      "name": "Knowledge Base",
-      "attention": "toolbox",
-      "family": "knowledge-base",
-      "owner": "sarthak",
-      "repository": "knowledge-base",
-      "runtimes": ["public-web", "api", "worker", "background-job", "data-store"],
-      "surfaces": ["https://search.sassmaker.com", "https://knowledgebase.sassmaker.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "private corpora", "search index"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "auth-safe-smoke", "site-health", "cloudflare-resilience", "job-receipts", "privacy-safe-errors", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "activation", "errors", "api-health", "jobs", "data-durability"],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "page privacy, security, data, cost, or prolonged indexing risk; digest routine findings",
+      "id": "protein-index",
+      "name": "Protein Index",
+      "attention": "ignored",
+      "family": "significanthobbies",
+      "owner": "none",
+      "repository": "protein-index",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "name": "Mobile Dev Cockpit",
+      "attention": "foundry",
+      "family": "fleet-workspace",
+      "owner": "foundry",
+      "repository": "foundry/apps/mobile-cockpit",
+      "runtimes": [
+        "mobile",
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "iOS toolchain",
+        "private Fleet bridge"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "release",
+        "privacy-safe-errors",
+        "coverage-snapshot"
+      ],
+      "contracts": [
+        "build",
+        "release",
+        "errors"
+      ],
+      "actionPolicy": "factory-safe",
+      "alertPolicy": "digest build/control-client findings; page privacy or control-plane risk",
       "exceptions": []
     },
-
     {
       "id": "app-health",
       "name": "App Health",
@@ -349,11 +1046,29 @@
       "family": "app-health",
       "owner": "sarthak",
       "repository": "app-health",
-      "runtimes": ["public-web", "api", "worker", "local-tool"],
+      "runtimes": [
+        "public-web",
+        "api",
+        "worker",
+        "local-tool"
+      ],
       "surfaces": [],
-      "dependencies": ["GitHub Actions", "Node SDK", "Go SDK", "aggregate endpoint contracts"],
-      "evidenceSources": ["github-actions", "local-checks", "privacy-safe-errors"],
-      "contracts": ["build", "errors", "api-health"],
+      "dependencies": [
+        "GitHub Actions",
+        "Node SDK",
+        "Go SDK",
+        "aggregate endpoint contracts"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks",
+        "privacy-safe-errors"
+      ],
+      "contracts": [
+        "build",
+        "errors",
+        "api-health"
+      ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest local validation findings; production alerting starts only after an explicit deploy",
       "exceptions": []
@@ -365,110 +1080,225 @@
       "family": "mashup",
       "owner": "sarthak",
       "repository": "mashup",
-      "runtimes": ["local-tool", "data-pipeline"],
+      "runtimes": [
+        "local-tool",
+        "data-pipeline"
+      ],
       "surfaces": [],
-      "dependencies": ["GitHub Actions", "FFmpeg", "local mlx + HuggingFace models", "source video archive"],
-      "evidenceSources": ["github-actions", "local-checks"],
-      "contracts": ["build", "errors"],
+      "dependencies": [
+        "GitHub Actions",
+        "FFmpeg",
+        "local mlx + HuggingFace models",
+        "source video archive"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest local validation findings; runs entirely offline, so no credential or gateway setup is required. FFmpeg must be built with libfreetype/libass or subtitle burn-in fails at render time",
       "exceptions": []
     },
-
-
     {
-      "id": "fleet-workspace",
-      "name": "Fleet Workspace",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/ops",
-      "runtimes": ["public-web", "background-job", "local-tool"],
-      "surfaces": ["https://sassmaker.com", "https://fleet.sassmaker.com"],
-      "dependencies": ["fleet registry", "designated automation host", "Postiz", "Cloudflare Pages", "Cloudflare Tunnel"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cloudflare-resilience", "cron-receipts", "job-receipts", "marketing-receipts"],
-      "contracts": ["build", "live", "indexing", "errors", "jobs", "marketing"],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "page host, scheduler, publication-integrity, or prolonged production failure; digest routine findings",
-      "exceptions": []
-    },
-    {
-      "id": "psi-swarm",
-      "name": "PSI Swarm",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/tools/psi-swarm",
-      "runtimes": ["public-web", "local-tool", "background-job"],
-      "surfaces": ["https://performance.sassmaker.com"],
-      "dependencies": ["Lighthouse", "Chrome", "Cloudflare Pages", "fleet URL registry"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cron-receipts", "performance"],
-      "contracts": ["build", "live", "indexing", "errors", "jobs", "performance"],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "page scheduler/control-plane failure; digest sampled site findings",
-      "exceptions": []
-    },
-    {
-      "id": "mobile-dev-cockpit",
-      "name": "Mobile Dev Cockpit",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/apps/mobile-cockpit",
-      "runtimes": ["mobile", "local-tool"],
+      "id": "saas-ideas",
+      "name": "SaaS Ideas",
+      "attention": "ignored",
+      "family": "saas-ideas",
+      "owner": "none",
+      "repository": "saas-ideas",
+      "runtimes": [],
       "surfaces": [],
-      "dependencies": ["iOS toolchain", "private Fleet bridge"],
-      "evidenceSources": ["github-actions", "release", "privacy-safe-errors", "coverage-snapshot"],
-      "contracts": ["build", "release", "errors"],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "digest build/control-client findings; page privacy or control-plane risk",
-      "exceptions": []
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
     },
     {
-      "id": "drank",
-      "name": "Drank",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/services/drank",
-      "runtimes": ["public-web", "data-pipeline", "background-job", "data-store"],
-      "surfaces": ["https://domains.sassmaker.com"],
-      "dependencies": ["GitHub Actions", "Cloudflare Pages", "domain intelligence providers", "PSI Swarm"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "live-smoke", "site-health", "cron-receipts", "job-receipts", "data-recovery"],
-      "contracts": ["build", "live", "indexing", "errors", "jobs", "data-durability"],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "page scheduler, data, security, or cost risk; digest routine domain findings",
-      "exceptions": []
-    },
-    {
-      "id": "reel-pipeline",
-      "name": "Reel Pipeline",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/services/reel-pipeline",
-      "runtimes": ["worker", "local-tool", "background-job", "data-store"],
+      "id": "motion",
+      "name": "Motion",
+      "attention": "toolbox",
+      "family": "motion",
+      "owner": "sarthak",
+      "repository": "motion",
+      "runtimes": [
+        "mobile"
+      ],
       "surfaces": [],
-      "dependencies": ["GitHub Actions", "Cloudflare Workers", "local render engines", "Fleet review queue", "Postiz handoff"],
-      "evidenceSources": ["github-actions", "fleet-deploy", "cloudflare-resilience", "job-receipts", "marketing-receipts", "data-recovery"],
-      "contracts": ["build", "errors", "jobs", "data-durability", "marketing"],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "page publication-integrity, scheduler, data, security, or cost risk; digest render failures",
+      "dependencies": [
+        "iOS toolchain",
+        "Apple distribution"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "release",
+        "privacy-safe-errors"
+      ],
+      "contracts": [
+        "build",
+        "release",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest build/release findings; page only privacy, security, or data risk",
       "exceptions": []
     },
-
-    { "id": "aliveville", "name": "AliveVille", "attention": "ignored", "family": "ai-game", "owner": "none", "repository": "ai-game", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Frozen; explicit reactivation required" }] },
-    { "id": "open-historia", "name": "Open Historia", "attention": "ignored", "family": "ai-game", "owner": "none", "repository": "open-historia", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Frozen; explicit reactivation required" }] },
-    { "id": "truehire", "name": "TrueHire", "attention": "ignored", "family": "rolepatch", "owner": "none", "repository": "truehire", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Frozen; explicit reactivation required" }] },
-    { "id": "companion-robot", "name": "Companion Robot", "attention": "ignored", "family": "companion-robot", "owner": "none", "repository": "companion-robot", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Frozen; explicit reactivation required" }] },
-    { "id": "materia", "name": "Materia", "attention": "ignored", "family": "materia", "owner": "none", "repository": "materia", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-    { "id": "everythingrated", "name": "EverythingRated", "attention": "ignored", "family": "high-signal", "owner": "none", "repository": "everythingrated", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-    { "id": "protein-index", "name": "Protein Index", "attention": "ignored", "family": "significanthobbies", "owner": "none", "repository": "protein-index", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-    { "id": "web-playables", "name": "Web Playables", "attention": "ignored", "family": "web-playables", "owner": "none", "repository": "web-playables", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-    { "id": "saas-ideas", "name": "SaaS Ideas", "attention": "ignored", "family": "sass-maker", "owner": "none", "repository": "saas-ideas", "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-
-    { "id": "elves-hq", "name": "Elves HQ", "attention": "ignored", "family": "elves-hq", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-    { "id": "today-little-log", "name": "Today Little Log", "attention": "ignored", "family": "today-little-log", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] },
-    { "id": "forecast-lab", "name": "Forecast Lab", "attention": "ignored", "family": "forecast-lab", "owner": "none", "repository": null, "runtimes": [], "surfaces": [], "dependencies": [], "evidenceSources": [], "contracts": [], "actionPolicy": "excluded", "alertPolicy": "none", "exceptions": [{ "contract": "all", "reason": "Retired; explicit reactivation required" }] }
+    {
+      "id": "truehire",
+      "name": "TrueHire",
+      "attention": "ignored",
+      "family": "rolepatch",
+      "owner": "none",
+      "repository": "truehire",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Frozen; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "today-little-log",
+      "name": "Today Little Log",
+      "attention": "ignored",
+      "family": "today-little-log",
+      "owner": "none",
+      "repository": "today-little-log",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "open-historia",
+      "name": "Open Historia",
+      "attention": "ignored",
+      "family": "ai-game",
+      "owner": "none",
+      "repository": "open-historia",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Frozen; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "companion-robot",
+      "name": "Companion Robot",
+      "attention": "ignored",
+      "family": "companion-robot",
+      "owner": "none",
+      "repository": "companion-robot",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Frozen; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "elves-hq",
+      "name": "Elves HQ",
+      "attention": "ignored",
+      "family": "elves-hq",
+      "owner": "none",
+      "repository": "elves-hq",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "forecast-lab",
+      "name": "Forecast Lab",
+      "attention": "ignored",
+      "family": "forecast-lab",
+      "owner": "none",
+      "repository": "forecast-lab",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
+    },
+    {
+      "id": "web-playables",
+      "name": "Web Playables",
+      "attention": "ignored",
+      "family": "web-playables",
+      "owner": "none",
+      "repository": "web-playables",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Retired; explicit reactivation required"
+        }
+      ]
+    }
   ]
 }

@@ -32,11 +32,11 @@ const registry = JSON.parse(
 const valid = validateToolboxRegistry(registry);
 
 const NOW = '2026-07-19T12:00:00Z';
-const PRODUCT_IDS = ['significanthobbies', 'reader', 'anime-list', 'swe-interview-prep', 'looptv', 'chess'];
+const PRODUCT_IDS = ['significanthobbies', 'reader', 'anime-list', 'swe-interview-prep', 'calorie', 'looptv', 'chess'];
 
 describe('registry: complete family mapping', () => {
-  it('maps each of the six products to a unique canonical domain, owner, and repo', () => {
-    assert.equal(valid.products.length, 6);
+  it('maps each of the seven products to a unique canonical domain, owner, and repo', () => {
+    assert.equal(valid.products.length, 7);
     const domains = new Set();
     const owners = new Set();
     const repos = new Set();
@@ -45,12 +45,12 @@ describe('registry: complete family mapping', () => {
       owners.add(p.owner);
       repos.add(p.repo);
     }
-    assert.equal(domains.size, 6);
-    assert.equal(owners.size, 6);
-    assert.equal(repos.size, 6);
+    assert.equal(domains.size, 7);
+    assert.equal(owners.size, 7);
+    assert.equal(repos.size, 7);
   });
 
-  it('includes exactly the six in-scope products and excludes materia and protein-index', () => {
+  it('includes exactly the seven in-scope products and excludes materia and protein-index', () => {
     const ids = valid.products.map((p) => p.id).sort();
     assert.deepEqual(ids, [...PRODUCT_IDS].sort());
     assert.deepEqual(valid.family.outOfScope, ['materia', 'protein-index']);
@@ -381,9 +381,9 @@ describe('experiments: quiet experiment boundaries', () => {
 });
 
 describe('CLI: toolbox-family-evidence script', () => {
-  it('the registry loads via loadToolboxRegistry and is the canonical six-product family', () => {
+  it('the registry loads via loadToolboxRegistry and is the canonical seven-product family', () => {
     const loaded = loadToolboxRegistry();
-    assert.equal(loaded.products.length, 6);
+    assert.equal(loaded.products.length, 7);
     assert.equal(loaded.family.id, 'significanthobbies');
   });
 });

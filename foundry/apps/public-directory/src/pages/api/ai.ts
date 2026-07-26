@@ -32,6 +32,7 @@ export function GET() {
         ],
         auth: { public: true, notes: 'Private Fleet controls are intentionally excluded.' },
         products: publicCatalog.products,
+        pastProjects: publicCatalog.pastProjects,
       },
       null,
       2

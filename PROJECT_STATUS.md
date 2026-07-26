@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 ## Why / What
 
@@ -36,10 +36,11 @@ CodeVetter or App Health source.
 
 ### Internal
 
-- `foundry/ops/config/projects.json` is the canonical internal product inventory.
-- `foundry/ops/config/automation-registry.json` is the canonical operational
-  attention, action-policy, and retirement registry; `project-tiers.md` is its
-  human-readable mirror.
+- `foundry/ops/config/projects.json` is the sole project identity, attention,
+  lifecycle, repository, deployment, and public-listing catalog.
+- Automation, marketing, site, and family registries are validated policy
+  overlays keyed to catalog identities; generated internal and public views
+  never create project identities independently.
 - Reel Pipeline produces approved media and publication handoff receipts.
 - Drank supplies domain intelligence.
 - PSI Swarm supplies bounded performance/site-health evidence.
@@ -51,6 +52,17 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-26 — Project coverage became catalog-generated:** Expanded the
+  internal catalog to 40 identities, added Calorie, reconciled every immediate
+  active checkout and all 12 inactive Git repositories, and made Mashup's
+  local-only posture explicit. One deterministic generator now updates the
+  internal catalog views, automation and marketing identity projections, and
+  SaaS Maker's privacy-filtered data. The private console resolves inactive
+  source paths and separates Past and Local-only work; the public directory
+  lists 19 maintained products plus the 10 explicitly public historical
+  repositories while hiding private repositories. The personal site remains a
+  concise link surface rather than another portfolio mirror. No deployment was
+  performed.
 - **2026-07-26 — Mashup went fully offline, and its validation experiment was
   found to be measuring noise:** Enrichment moved to a local mlx model, so no
   subcommand needs the free-ai gateway. A feasibility audit then invalidated
@@ -222,7 +234,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
-- Canonical project/domain/deploy inventory and attention model.
+- Canonical 40-identity project/domain/deploy/lifecycle catalog with active and
+  inactive checkout reconciliation, generated internal inventory views, and a
+  privacy-gated SaaS Maker projection for maintained and past public work.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and
   automation health scripts.
 - Read-only Cloudflare and Turso spend governance with current-provider

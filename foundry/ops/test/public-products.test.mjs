@@ -4,19 +4,26 @@ import test from 'node:test';
 
 import { assertNoPrivateData, buildPublicProducts } from '../lib/public-products.mjs';
 
-const [projects, marketingProgram, annotations] = await Promise.all([
-  readJson(new URL('../config/projects.json', import.meta.url)),
-  readJson(new URL('../config/marketing-program.json', import.meta.url)),
-  readJson(new URL('../config/public-products.json', import.meta.url)),
-]);
+const projects = await readJson(new URL('../config/projects.json', import.meta.url));
 
 test('public projection contains only explicitly allowlisted public products', () => {
-  const projection = buildPublicProducts({ projects, marketingProgram, annotations });
-  assert.equal(projection.products.length, annotations.products.length);
+  const projection = buildPublicProducts(projects);
+  assert.equal(projection.schemaVersion, 2);
+  assert.equal(projection.products.length, 19);
+  assert.equal(projection.pastProjects.length, 10);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
     ['codevetter', 'high-signal', 'pace', 'posttrainllm'],
   );
+  assert.equal(
+    projection.products.find((product) => product.id === 'calorie').url,
+    'https://calorie.significanthobbies.com',
+  );
+  assert.equal(projection.pastProjects.some((project) => project.id === 'aliveville'), true);
+  assert.equal(projection.pastProjects.some((project) => project.id === 'forecast-lab'), true);
+  assert.equal(projection.pastProjects.some((project) => project.id === 'elves-hq'), false);
+  assert.equal(projection.pastProjects.some((project) => project.id === 'saas-ideas'), false);
+  assert.equal(projection.products.some((product) => product.id === 'mashup'), false);
   assert.equal(projection.products.some((product) => product.id === 'fleet-workspace'), false);
   assert.equal(projection.products.some((product) => product.id === 'mobile-dev-cockpit'), false);
   assert.equal(projection.products.some((product) => product.id === 'app-health'), false);
@@ -35,12 +42,19 @@ test('public projection contains only explicitly allowlisted public products', (
   assert.doesNotThrow(() => assertNoPrivateData(projection));
 });
 
-test('public projection rejects a private or noncanonical surface', () => {
-  const changedMarketing = structuredClone(marketingProgram);
-  changedMarketing.projects.find((project) => project.slug === 'codevetter').domain = 'https://internal.example.test';
+test('public projection rejects private repositories and missing canonical surfaces', () => {
+  const privateCatalog = structuredClone(projects);
+  privateCatalog.projects.find((project) => project.id === 'calorie').repositoryVisibility = 'private';
   assert.throws(
-    () => buildPublicProducts({ projects, marketingProgram: changedMarketing, annotations }),
-    /not a canonical domain/
+    () => buildPublicProducts(privateCatalog),
+    /repositoryVisibility public/,
+  );
+
+  const missingDomain = structuredClone(projects);
+  missingDomain.projects.find((project) => project.id === 'calorie').domains = [];
+  assert.throws(
+    () => buildPublicProducts(missingDomain),
+    /canonical domain/,
   );
 });
 

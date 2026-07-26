@@ -1,4 +1,4 @@
-const PUBLIC_FIELDS = new Set([
+const PRODUCT_FIELDS = new Set([
   'id',
   'name',
   'description',
@@ -14,72 +14,96 @@ const PUBLIC_FIELDS = new Set([
   'pillarId',
 ]);
 
-const FORBIDDEN_KEYS = /(?:secret|token|password|credential|private|owner|cfProject|notes|dependencies|evidenceSources|contracts)/i;
+const PAST_PROJECT_FIELDS = new Set([
+  'id',
+  'name',
+  'description',
+  'lifecycle',
+  'repositoryUrl',
+]);
+
+const FORBIDDEN_KEYS = /(?:secret|token|password|credential|private|owner|cfProject|notes|dependencies|evidenceSources|contracts|sourcePath|attention)/i;
 const CREDENTIAL_VALUE = /(?:bearer\s+[a-z0-9._-]+|(?:api|access|secret)[_-]?key\s*[:=]|-----BEGIN [A-Z ]+PRIVATE KEY-----)/i;
 
-export function buildPublicProducts({ projects, marketingProgram, annotations }) {
-  const projectById = new Map(projects.projects.map((project) => [project.id, project]));
-  const marketingByIdentity = new Map();
-  for (const project of marketingProgram.projects) {
-    for (const identity of [project.slug, ...project.aliases]) {
-      marketingByIdentity.set(normalize(identity), project);
+export function buildPublicProducts(catalog) {
+  const products = [];
+  const pastProjects = [];
+
+  for (const project of catalog.projects) {
+    const metadata = project.public ?? { listing: 'hidden' };
+    if (metadata.listing === 'hidden') continue;
+
+    if (metadata.listing === 'maintained') {
+      const url = canonicalPublicUrl(project);
+      const roadmapPath = Object.hasOwn(metadata, 'roadmapPath')
+        ? metadata.roadmapPath
+        : 'PROJECT_STATUS.md';
+      const output = {
+        id: metadata.id ?? project.id,
+        name: metadata.name ?? project.name,
+        description: metadata.description,
+        url,
+        tier: project.tier === 'focus' ? 'core' : project.tier,
+        category: metadata.category,
+        priority: priorityFor(catalog._meta.priorities, project.id),
+        spotlight: metadata.spotlight ?? false,
+        maturity: metadata.maturity,
+        ...(metadata.repositoryUrl
+          ? {
+              repositoryUrl: metadata.repositoryUrl,
+              changelogUrl: `${metadata.repositoryUrl}/commits/main`,
+              ...(roadmapPath
+                ? { roadmapUrl: `${metadata.repositoryUrl}/blob/main/${roadmapPath}` }
+                : {}),
+            }
+          : {}),
+        pillarId: metadata.pillarId,
+      };
+      if (metadata.repositoryUrl && project.repositoryVisibility !== 'public') {
+        throw new Error(`${project.id}: maintained public repository must have repositoryVisibility public`);
+      }
+      assertShape(output, PRODUCT_FIELDS, ['id', 'name', 'description', 'url']);
+      products.push(output);
+      continue;
     }
+
+    if (metadata.listing === 'past') {
+      if (project.lifecycle !== 'past') {
+        throw new Error(`${project.id}: past public listing requires lifecycle past`);
+      }
+      if (project.repositoryVisibility !== 'public') {
+        throw new Error(`${project.id}: past public listing requires a public repository`);
+      }
+      const output = {
+        id: metadata.id ?? project.id,
+        name: metadata.name ?? project.name,
+        description: metadata.description,
+        lifecycle: 'past',
+        repositoryUrl: metadata.repositoryUrl,
+      };
+      assertShape(output, PAST_PROJECT_FIELDS, ['id', 'name', 'description', 'repositoryUrl']);
+      pastProjects.push(output);
+      continue;
+    }
+
+    throw new Error(`${project.id}: unsupported public listing ${metadata.listing}`);
   }
 
-  const products = annotations.products.map((annotation) => {
-    const project = projectById.get(annotation.projectId);
-    if (!project) throw new Error(`${annotation.id}: unknown Fleet project ${annotation.projectId}`);
+  assertUnique(products, 'maintained product');
+  assertUnique(pastProjects, 'past project');
+  const allIds = [...products, ...pastProjects].map((project) => project.id);
+  if (new Set(allIds).size !== allIds.length) {
+    throw new Error('public ids must be unique across maintained and past projects');
+  }
 
-    const marketing = marketingByIdentity.get(normalize(annotation.id));
-    if (!marketing?.publicMarketing || !marketing.domain) {
-      throw new Error(`${annotation.id}: public projection requires an allowlisted public marketing surface`);
-    }
-
-    const productHost = new URL(marketing.domain).hostname;
-    if (!project.domains.includes(productHost)) {
-      throw new Error(`${annotation.id}: ${productHost} is not a canonical domain for ${annotation.projectId}`);
-    }
-
-    const priority = priorityFor(projects._meta.priorities, annotation.projectId);
-    const roadmapPath = Object.hasOwn(annotation, 'roadmapPath')
-      ? annotation.roadmapPath
-      : 'PROJECT_STATUS.md';
-    const output = {
-      id: annotation.id,
-      name: annotation.name,
-      description: annotation.description,
-      url: marketing.domain,
-      tier: project.tier === 'focus' ? 'core' : project.tier,
-      category: annotation.category,
-      priority,
-      spotlight: annotation.spotlight,
-      maturity: annotation.maturity,
-      ...(annotation.repositoryUrl
-        ? {
-            repositoryUrl: annotation.repositoryUrl,
-            changelogUrl: `${annotation.repositoryUrl}/commits/main`,
-            ...(roadmapPath
-              ? { roadmapUrl: `${annotation.repositoryUrl}/blob/main/${roadmapPath}` }
-              : {}),
-          }
-        : {}),
-      pillarId: annotation.pillarId,
-    };
-    assertPublicShape(output);
-    return output;
-  });
-
-  const ids = products.map((product) => product.id);
-  if (new Set(ids).size !== ids.length) throw new Error('public product ids must be unique');
   products.sort((left, right) => Number(right.spotlight) - Number(left.spotlight) || left.name.localeCompare(right.name));
+  pastProjects.sort((left, right) => left.name.localeCompare(right.name));
+
   const projection = {
-    schemaVersion: 1,
-    generatedFrom: [
-      'foundry/ops/config/projects.json',
-      'foundry/ops/config/marketing-program.json',
-      'foundry/ops/config/public-products.json',
-    ],
+    schemaVersion: 2,
+    generatedFrom: ['foundry/ops/config/projects.json'],
     products,
+    pastProjects,
   };
   assertNoPrivateData(projection);
   return projection;
@@ -102,13 +126,24 @@ export function assertNoPrivateData(value, trail = 'projection') {
   }
 }
 
-function assertPublicShape(product) {
-  for (const key of Object.keys(product)) {
-    if (!PUBLIC_FIELDS.has(key)) throw new Error(`${product.id}: unsupported public field ${key}`);
+function canonicalPublicUrl(project) {
+  const domain = project.domains?.[0];
+  if (!domain) throw new Error(`${project.id}: maintained public listing requires a canonical domain`);
+  return `https://${domain}`;
+}
+
+function assertShape(value, allowed, required) {
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) throw new Error(`${value.id}: unsupported public field ${key}`);
   }
-  for (const key of ['id', 'name', 'description', 'url']) {
-    if (!product[key]) throw new Error(`${product.id}: missing ${key}`);
+  for (const key of required) {
+    if (!value[key]) throw new Error(`${value.id}: missing ${key}`);
   }
+}
+
+function assertUnique(values, label) {
+  const ids = values.map((value) => value.id);
+  if (new Set(ids).size !== ids.length) throw new Error(`${label} ids must be unique`);
 }
 
 function priorityFor(priorities, projectId) {
@@ -116,8 +151,4 @@ function priorityFor(priorities, projectId) {
     if (priorities?.[priority]?.includes(projectId)) return priority;
   }
   return 'P3';
-}
-
-function normalize(value) {
-  return String(value).toLowerCase().replaceAll('_', '-');
 }
