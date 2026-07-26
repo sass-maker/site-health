@@ -84,3 +84,35 @@ outputs SHALL not satisfy these gates.
 #### Scenario: Contract tests pass without model weights
 - **WHEN** all mocked command-runner tests pass but no real proof receipts exist
 - **THEN** readiness reports the implementation contract as passing and Phase 0 as blocked
+
+### Requirement: Mixed-media demo outputs are editor-ready
+
+The system SHALL provide a reproducible local demo preset that combines a
+locally generated narration track, burned phrase-timed subtitles, approved
+visual assets, deterministic graphic scenes, and restrained transition effects.
+It SHALL write the MP4, source WAV, SRT, timeline, and render manifest together.
+
+#### Scenario: Operator renders the demo preset
+- **WHEN** the operator runs `forge:demo` with the approved presenter and three generated variants
+- **THEN** the output folder contains an assembled MP4, narration WAV, SRT captions, timeline JSON, and manifest with input hashes and render settings
+
+### Requirement: The visual arsenal is composable
+
+Voice choice, caption treatment, ASCII field, proof slide, variant filmstrip,
+metadata overlay, progress indicator, and transition treatment SHALL remain
+independently configurable timeline primitives rather than requiring a separate
+generation model for each treatment.
+
+#### Scenario: A later demo changes one treatment
+- **WHEN** an operator changes the caption style or disables the ASCII scene
+- **THEN** the renderer can rebuild the composition without regenerating the approved video variants
+
+### Requirement: Unsynchronized faces are not presented as speech
+
+The composition SHALL NOT show unrelated mouth motion as if it were synchronized
+to audible narration. Without a proven lip-sync source, narration SHALL use
+cutaways, graphics, or clearly static portrait treatment while speech is heard.
+
+#### Scenario: Source portrait has no matching phoneme timing
+- **WHEN** the narration track plays and the available presenter clip has no lip-sync metadata
+- **THEN** the composition uses non-speaking visual treatment and records `lipSync: false` in its manifest

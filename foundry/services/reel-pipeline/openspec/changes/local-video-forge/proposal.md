@@ -18,8 +18,14 @@ inbound traffic.
   renders three seed variants sequentially, and records reproducibility
   metadata without overwriting completed output.
 - Add an editor-ready local output layout and a machine-readable review
-  manifest. A browser review gallery, final rendering, assembly, and cloud
-  adapters remain later phases.
+  manifest.
+- Add a bounded mixed-media composition preset for locally narrated demos:
+  Kokoro voiceover, timed subtitles, approved still/video evidence, ASCII,
+  Canvas/SVG graphics, proof slides, and restrained transition effects. The
+  preset avoids showing an apparently speaking face when no lip-synchronized
+  source exists.
+- A browser review gallery, general-purpose final assembly, and cloud adapters
+  remain later phases.
 - Pin the external Apple Silicon runtimes to tested Git revisions:
   `ltx-2-mlx` int4 for the default generation lane and MLX-Video for the PRD
   benchmark lane. Neither enters the Node production dependency graph.
@@ -44,5 +50,8 @@ inbound traffic.
   weights on Apple Silicon, installed separately from the Node service.
 - Deployment: code changes affect the existing Worker but this change does not
   deploy it. Production rollout remains manual.
+- Local composition: the demo preset uses the existing Playwright and FFmpeg
+  toolchain plus the optional ignored Kokoro environment. It adds no production
+  dependency and never requires a browser GPU.
 - Security: existing internal bearer authentication protects queue, asset, and
   worker routes. No new credential store is introduced.

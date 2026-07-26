@@ -26,3 +26,11 @@
 - [x] 4.2 Update render-mode/readiness docs and `PROJECT_STATUS.md`
 - [x] 4.3 Run focused tests, full project tests, docs validation, and `git diff --check`
 - [ ] 4.4 Archive the OpenSpec only after real Phase 0 and the first three MP4s pass
+
+## 5. Mixed-media speaking demo
+
+- [x] 5.1 Pin Kokoro setup to a supported local Python 3.12 environment
+- [x] 5.2 Add a reusable `forge:demo` renderer with voice, caption, ASCII, proof-slide, filmstrip, metadata, and transition primitives
+- [x] 5.3 Write SRT, timeline, input hashes, render settings, and explicit `lipSync: false` metadata
+- [x] 5.4 Render and visually inspect the real mixed-media demo at representative frames
+- [x] 5.5 Complete the design review receipt and run focused/full project validation

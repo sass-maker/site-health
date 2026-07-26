@@ -52,6 +52,7 @@
     "forge:enqueue": "node scripts/local-video-forge.js enqueue",
     "forge:tasks": "node scripts/local-video-forge.js tasks",
     "forge:work": "node scripts/local-video-forge.js work",
+    "forge:demo": "node scripts/render-local-video-forge-demo.js",
     "worker:dry-run": "npx wrangler deploy --dry-run",
     "deploy": "node ../../ops/scripts/manual-component-deploy.mjs reel-pipeline",
     "docs:validate": "node scripts/validate-docs.mjs",

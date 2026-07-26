@@ -58,6 +58,7 @@ publishing is intentionally rejected.
 | `npm run forge:enqueue -- --project <json> --shot <id> --coordinator <url>` | Create a shared forge task from either machine |
 | `npm run forge:tasks -- --coordinator <url>` | Inspect the shared forge queue |
 | `npm run forge:work -- --coordinator <url>` | Poll, claim, render, and upload forge tasks from the Mac |
+| `npm run forge:demo` | Build the local Kokoro-narrated mixed-media proof from the approved presenter and three variants |
 
 ## Worker and watcher
 

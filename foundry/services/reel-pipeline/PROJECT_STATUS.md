@@ -34,6 +34,10 @@ or provider analytics. Postiz owns that downstream lifecycle.
   Apple Silicon LTX-2.3 generation, an approved-keyframe three-variant command,
   reproducibility metadata/review gallery, and an authenticated Worker/R2 queue
   that accepts tasks from either machine and is pulled by the generation Mac.
+- **2026-07-26:** added a reproducible Local Video Forge mixed-media proof
+  preset with local Kokoro narration, audio-derived subtitle timing, burned and
+  external captions, ASCII/Canvas graphics, real variant proof frames, and a
+  no-false-lip-sync composition rule.
 - **2026-07-21:** removed the SaaS Maker queue, direct YouTube/Instagram
   publishers, OAuth helpers, posting/metrics loops, and duplicate marketing
   control services. Added the Postiz draft adapter and direct render-fixture
@@ -64,6 +68,8 @@ or provider analytics. Postiz owns that downstream lifecycle.
 - Local Video Forge JSON manifests, approval/memory gates, resumable
   three-seed generation, local review gallery, and cross-machine Worker/R2 task
   contract.
+- Local Video Forge `forge:demo` mixed-media preset with timestamped MP4/WAV/SRT
+  output, timeline and hash manifest, proof slides, and design evidence.
 
 ## Todo / Planned / Deferred / Blocked
 

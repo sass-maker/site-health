@@ -120,6 +120,43 @@ time, reports progress, uploads MP4s, and completes the job. A failed job is
 released to the queue once; the second failure becomes terminal. Expired
 leases can be reclaimed after a crashed worker.
 
+## Mixed-media demo preset
+
+After the three direct-mode variants exist, build the editor-ready narrated
+proof:
+
+```bash
+npm run setup:kokoro
+npm run forge:demo
+```
+
+The command uses the local `af_heart` Kokoro voice by default. Override it with
+`--voice <kokoro-voice>` or change pacing with `--speed <number>`. It creates a
+new timestamped folder under:
+
+```text
+.reel-pipeline/first-deliverable/s01/mixed-media/
+└── demo-<timestamp>/
+    ├── local-video-forge-mixed-media.mp4
+    ├── narration.wav
+    ├── captions.srt
+    ├── timeline.json
+    ├── manifest.json
+    ├── contact-sheet.jpg
+    ├── review.html
+    └── design-evidence/
+```
+
+Narration is synthesized one subtitle phrase at a time, so cue boundaries come
+from the real audio durations. The composition combines burned subtitles,
+ASCII and Canvas graphics, proof slides, actual variant frames, metadata, and
+restrained effects. Each run records hashes and writes to a new directory.
+
+The presenter is deliberately static and only leads the silent intro/outro.
+During narration the video uses graphics and static proof cutaways. The
+manifest records `lipSync: false`; the preset never presents unrelated mouth
+motion as synchronized speech.
+
 ## Recovery and safety
 
 - Only one local generation process can hold the global render lock.
@@ -132,6 +169,6 @@ leases can be reclaimed after a crashed worker.
 - Queue records and generated assets stay internal; `/forge/*` fails closed
   without Worker authentication.
 
-This workflow stops at reviewable media. Editing, captions, final typography,
-music, publishing, and provider analytics remain outside this first vertical
-slice.
+This workflow stops at reviewable media and one bounded proof composition.
+General-purpose editing, music selection, publishing, and provider analytics
+remain outside this vertical slice.

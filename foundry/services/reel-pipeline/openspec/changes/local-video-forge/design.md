@@ -22,11 +22,15 @@ filesystem, or SSH access from the hosted machine.
   reviewable MP4 variants.
 - Fail closed when the pinned MLX runtime, the keyframe, disk space, or memory headroom is
   unavailable.
+- Provide one reusable mixed-media demo preset that can combine local voice,
+  subtitles, approved visual evidence, and deterministic graphics without
+  implying lip synchronization that the source clip does not contain.
 
 **Non-Goals**
 
-- A nonlinear editor, public product, automatic posting, final-shot rerenders,
-  cloud-provider adapters, LoRA training, or automatic shot planning.
+- A nonlinear editor, public product, automatic posting, general-purpose final
+  assembly, final-shot rerenders, cloud-provider adapters, LoRA training, or
+  automatic shot planning.
 - Concurrent workers for the same task or parallel model execution.
 - Installing model weights on the permanently hosted machine unless it is also
   an eligible Apple Silicon generation host.
@@ -76,6 +80,42 @@ The local `variants` command and the queued `work` command call the same runner:
 Queued work downloads the keyframe to the run directory and streams completed
 MP4s back to the coordinator before marking the task complete.
 
+### Mixed-media composition uses small deterministic primitives
+
+The `forge:demo` preset is an editor-ready proof composition, not a new editing
+application. It owns a small arsenal of independently reusable primitives:
+
+- local Kokoro narration in its ignored Python 3.12 environment;
+- phrase-timed SRT plus burned kinetic captions;
+- actual approved keyframes and generated variant frames;
+- ASCII fields, Canvas 2D diagrams, SVG-like proof marks, metadata slides,
+  filmstrips, progress meters, and restrained grain/scan-line treatments;
+- deterministic timeline and input/output metadata.
+
+Playwright captures deterministic Canvas frames and FFmpeg encodes and muxes
+them. This reuses the existing development dependency and the host's media
+tooling. It does not add WebGL or Three.js to the production dependency graph:
+local headless WebGL has been unreliable, while Canvas/SVG covers the precision
+graphics this preset needs. A future SVGRenderer adapter can extend the arsenal
+without changing the timeline contract.
+
+The visual direction is a restrained terminal documentary: near-black field,
+warm approved imagery, cyan/green signal accents, monospace proof details, and
+one orchestrated transition per scene. ASCII is a texture or subsection device,
+not the primary visual engine.
+
+### Narration does not manufacture false facial synchronization
+
+The renderer treats a non-lip-synchronized portrait as a still or silent visual
+anchor. Audible narration is paired with cutaways, proof frames, graphics, or
+clearly static imagery; it never presents unrelated mouth motion as speech.
+The presenter can appear during a silent intro/outro, or as a deliberately
+static image, until a proven lip-sync runtime is available.
+
+Caption timing, scene timing, narration text, voice, speed, source hashes, and
+render settings are written beside the MP4 so the composition can be reproduced
+or rebuilt in an external editor.
+
 ### Phase 0 is a release gate
 
 Automation is not called proven until this Mac completes one LTX text-to-video,
@@ -94,6 +134,10 @@ rather than generation proof.
 - Upload failure: retain local output and keep the task leased/retryable.
 - Existing output: never overwrite; resume completed seeds and render only
   missing variants.
+- Missing local voice runtime: fail with the setup command rather than silently
+  falling back to a lower-quality system voice.
+- Missing lip-sync source: use the cutaway composition and never label the
+  result as lip-synchronized.
 
 ## Verification
 
@@ -103,3 +147,7 @@ rather than generation proof.
   capability filtering, lease ownership, and conditional claim races.
 - CLI dry-run test for one keyframe and three seeds.
 - Real Phase 0 proof on this Mac recorded outside git under `.reel-pipeline/`.
+- Focused composition tests for scene coverage, caption timing, SRT output, and
+  the no-false-lip-sync invariant.
+- A real mixed-media demo rendered outside git and visually inspected at key
+  frames before it is handed off.
