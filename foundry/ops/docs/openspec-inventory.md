@@ -169,7 +169,7 @@ Base specs: none
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `build-mashup-mvp` | 36/38 | in progress |
+| `build-mashup-mvp` | 37/38 | in progress |
 
 Archived changes: 0
 
