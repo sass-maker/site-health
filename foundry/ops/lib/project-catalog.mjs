@@ -83,6 +83,13 @@ export function validateProjectCatalog(catalog, {
         .filter((value) => value && !value.includes('/'))
         .map(normalizePath),
     );
+    for (const [checkout, identity] of Object.entries(catalog._meta?.absorbedCheckouts ?? {})) {
+      if (!identities.has(normalize(identity))) {
+        errors.push(`absorbed checkout ${checkout}: unknown catalog identity ${identity}`);
+        continue;
+      }
+      activePaths.add(normalizePath(checkout));
+    }
     const inactivePaths = new Set(
       catalog.projects
         .map((project) => project.sourcePath)

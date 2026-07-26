@@ -76,6 +76,32 @@ test('checkout reconciliation fails closed until active and inactive repos are c
   }
 });
 
+test('checkout reconciliation accepts explicit absorbed checkout identities', () => {
+  const fleetRoot = mkdtempSync(path.join(tmpdir(), 'fleet-catalog-absorbed-'));
+  try {
+    mkdirSync(path.join(fleetRoot, 'legacy-helper', '.git'), { recursive: true });
+    const fixture = {
+      _meta: { absorbedCheckouts: { 'legacy-helper': 'helper' } },
+      projects: [
+        projectFixture({
+          id: 'helper',
+          repo: 'foundry/services/helper',
+          lifecycle: 'maintained',
+        }),
+      ],
+    };
+    assert.doesNotThrow(() => validateProjectCatalog(fixture, { fleetRoot }));
+
+    fixture._meta.absorbedCheckouts['unknown-helper'] = 'missing-project';
+    assert.throws(
+      () => validateProjectCatalog(fixture, { fleetRoot }),
+      /absorbed checkout unknown-helper: unknown catalog identity missing-project/,
+    );
+  } finally {
+    rmSync(fleetRoot, { recursive: true, force: true });
+  }
+});
+
 test('privacy and overlay identity drift fail validation', () => {
   const privatePublic = structuredClone(catalog);
   privatePublic.projects.find((project) => project.id === 'elves-hq').public = {

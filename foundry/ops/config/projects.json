@@ -9,6 +9,7 @@
       "priority": "P1 | P2 | P3 current attention level; P1 is core, P2 is support/active, P3 is maintain or park",
       "repo": "child repo dir under fleet root (null if none)",
       "sourcePath": "optional source checkout path relative to fleet root when the repo is stored outside the active workspace",
+      "_meta.absorbedCheckouts": "top-level historical checkout names preserved locally and their canonical catalog identities",
       "deployKind": "pages | worker | worker+pages | none | unknown",
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
       "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
@@ -25,6 +26,13 @@
       "lifecycle": "maintained | local-only | past | non-product",
       "repositoryVisibility": "public | private | unknown",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden"
+    },
+    "absorbedCheckouts": {
+      "aliveville": "ai-game",
+      "drank": "drank",
+      "reel-pipeline": "reel-pipeline",
+      "saas-maker": "fleet-workspace",
+      "tinygpt": "posttrainllm"
     },
     "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
     "openGaps": [
