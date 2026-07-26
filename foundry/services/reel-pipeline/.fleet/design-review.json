@@ -2,36 +2,19 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Local Video Forge speaking demo video",
-  "mode": "overhaul",
+  "target": "Local Video Forge synchronized talking-presenter video",
+  "mode": "preserve",
   "register": "brand",
   "context": {
     "product": "PROJECT_STATUS.md",
     "design": "openspec/changes/local-video-forge/design.md"
   },
   "direction": {
-    "references": [
-      "Apple WWDC explainer pacing",
-      "Teenage Engineering signal-color restraint",
-      "GitHub CLI proof density"
-    ],
-    "probes": [
-      {
-        "id": "ascii-signal-field",
-        "path": "artifacts/design/probes/ascii-signal-field.jpg"
-      },
-      {
-        "id": "approved-proof-slide",
-        "path": "artifacts/design/probes/approved-proof-slide.jpg"
-      },
-      {
-        "id": "variant-filmstrip",
-        "path": "artifacts/design/probes/variant-filmstrip.jpg"
-      }
-    ],
-    "selected": "ascii-signal-field",
-    "approval": "delegated",
-    "before": ""
+    "references": [],
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
+    "before": "artifacts/design/before.png"
   },
   "evidence": {
     "screenshots": [
@@ -49,15 +32,15 @@
       }
     ],
     "projectCheck": {
-      "command": "node --test test/local-video-forge-composition.test.js",
+      "command": "ffprobe -v error -show_entries stream=codec_name,codec_type,width,height -show_entries format=duration,size -of json .reel-pipeline/first-deliverable/s01/talking-presenter/final/composed/talking-woman-final.mp4",
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 34,
       "maximum": 40
     },
     "audit": {
-      "score": 18,
+      "score": 17,
       "maximum": 20
     },
     "unresolved": {
@@ -71,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner delegated the mixed-media direction with 'anything' and asked for a broad reusable arsenal."
+    "note": "Owner requested the final talking-woman result with animations and delegated the visual execution."
   }
 }
