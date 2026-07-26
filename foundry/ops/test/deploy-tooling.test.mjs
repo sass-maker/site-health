@@ -28,6 +28,7 @@ async function initRepo(path) {
 test('deploy health honors registry local-only state and structured mixed targets', async () => {
   const root = await mkdtemp(join(tmpdir(), 'fleet-deploy-health-'));
   const mashup = join(root, 'mashup');
+  const materia = join(root, 'materia');
   const knowledge = join(root, 'knowledge-base');
   const sha = await initRepo(knowledge);
   await mkdir(join(knowledge, '.github/workflows'), { recursive: true });
@@ -55,6 +56,14 @@ exit 1
     projects: [
       { id: 'mashup', repo: 'mashup', deployKind: 'none', status: 'undeployed' },
       {
+        id: 'materia',
+        tier: 'parked',
+        repo: 'materia',
+        deployKind: 'pages',
+        cfProject: 'materia',
+        status: 'live',
+      },
+      {
         id: 'knowledge-base',
         tier: 'active',
         repo: 'knowledge-base',
@@ -67,16 +76,34 @@ exit 1
       },
     ],
   }));
+  await writeFile(join(root, 'foundry/ops/config/automation-registry.json'), JSON.stringify({
+    entries: [
+      {
+        id: 'materia',
+        repository: 'materia',
+        attention: 'ignored',
+        actionPolicy: 'excluded',
+      },
+    ],
+  }));
 
   const standards = run('bash', [deployHealth, '--root', root, '--no-github', '--no-cloudflare']);
   assert.equal(standards.status, 0, standards.stdout + standards.stderr);
   assert.match(standards.stdout, /mashup is local-only; deploy standard not required/);
   assert.doesNotMatch(standards.stdout, /mashup has no deploy entrypoint/);
 
+  await initRepo(materia);
+  await writeFile(join(materia, 'README.md'), 'retired fixture\n');
+  run('git', ['add', '.'], { cwd: materia });
+  run('git', ['commit', '-m', 'retired fixture'], { cwd: materia });
+  run('git', ['update-ref', 'refs/remotes/origin/main', 'HEAD'], { cwd: materia });
+
   const cloudflare = run('bash', [deployHealth, '--root', root, '--no-github', '--no-standards'], {
     env: { ...process.env, PATH: `${join(root, 'fake-bin')}:${process.env.PATH}` },
   });
   assert.equal(cloudflare.status, 0, cloudflare.stdout + cloudflare.stderr);
+  assert.match(cloudflare.stdout, /materia Cloudflare parity skipped: ignored\/inactive/);
+  assert.doesNotMatch(cloudflare.stdout, /Pages materia/);
   assert.match(cloudflare.stdout, /Pages knowledgebase-app deployed/);
   assert.match(cloudflare.stdout, /Worker knowledgebase has active deployment/);
   assert.doesNotMatch(cloudflare.stdout, /mixed Worker\+Pages/);

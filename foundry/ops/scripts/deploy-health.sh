@@ -478,6 +478,9 @@ check_worker_target() {
 check_cloudflare_targets() {
   echo "== Cloudflare Deployments =="
 
+  local automation_registry="$ROOT/foundry/ops/config/automation-registry.json"
+  local ignored_projects_json="[]"
+
   if ! require_command jq; then
     return
   fi
@@ -495,6 +498,30 @@ check_cloudflare_targets() {
   if ! run_wrangler whoami >/dev/null 2>&1; then
     record "FAIL" "wrangler is not authenticated"
     return
+  fi
+
+  if [[ -f "$automation_registry" ]]; then
+    ignored_projects_json="$(
+      jq '[.entries[]? | select(.attention == "ignored") | {id, repository}]' \
+        "$automation_registry"
+    )"
+
+    while IFS= read -r project; do
+      record "OK" "$project Cloudflare parity skipped: ignored/inactive; explicit reactivation required"
+    done < <(
+      jq -r --argjson ignored "$ignored_projects_json" '
+        [.projects[]
+          | . as $project
+          | select(
+              any($ignored[];
+                .id == $project.id
+                or (.repository != null and .repository == $project.repo)
+              )
+            )
+          | $project.id
+        ] | unique[]
+      ' "$TARGETS_FILE"
+    )
   fi
 
   while IFS=$'\t' read -r project target_id kind target_name source_path; do
@@ -525,11 +552,18 @@ check_cloudflare_targets() {
         ;;
     esac
   done < <(
-    jq -r '.projects[]
+    jq -r --argjson ignored "$ignored_projects_json" '.projects[]
+      | . as $project
       | select(
           .status == "live"
           and .tier != "out-of-fleet"
           and .tier != "non-product"
+          and (
+            any($ignored[];
+              .id == $project.id
+              or (.repository != null and .repository == $project.repo)
+            ) | not
+          )
           and (.deployKind == "pages" or .deployKind == "worker" or .deployKind == "worker+pages")
         )
       | . as $project
