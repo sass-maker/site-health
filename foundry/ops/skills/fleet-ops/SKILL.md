@@ -17,6 +17,7 @@ Subskills live as sibling directories under `foundry/ops/skills/`.
 | "Deploy X" / "can I deploy?" / "is X safe to deploy?" / "check deploy readiness" | `fleet-deploy-guard` | `../fleet-deploy-guard/SKILL.md` |
 | "Does this work belong in a child project or fleet-ops?" / cross-project workspace decisions | `fleet-workspace` | `../fleet-workspace/SKILL.md` |
 | "Do the public products work?" / "open every website and click around" / "test guest journeys" / "check each product's unique pages" | `public-product-smoke` | `../public-product-smoke/SKILL.md` |
+| "Is everything deployed to the latest?" / "is production in sync with main?" / "what's not deployed yet?" / "are all sites live?" | `fleet-deploy-parity` | `../fleet-deploy-parity/SKILL.md` |
 | "Am I paying Cloudflare or Turso?" / "will this project cost money?" / "will Turso block queries?" / "is this usage needed?" / "optimize cloud spend" | `cloudflare-spend-guard` | `../cloudflare-spend-guard/SKILL.md` |
 
 ## How to use
@@ -36,3 +37,4 @@ If the request spans multiple subskills (e.g. "audit the fleet, then scaffold a 
 - AI crawler readiness → use `agent-ready` skill
 - On-page SEO audits → use `seo-audit` skill
 - Codex context/token audits → use `token-budget` skill
+- Fleet-wide "is production in sync with main?" → use `fleet-deploy-parity` skill
