@@ -469,7 +469,7 @@
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Local-only creator-archive sequencing experiment. Python CLI and loopback editor are verified; no Cloudflare deployment. Real archive validation requires an owner-approved bulk download and the Fleet free-ai gateway key."
+      "notes": "Local-only video sequencing experiment: source videos in, one coherent cut out. Runs fully offline on Apple silicon since 2026-07-26 — chat is a local mlx model, embeddings a local HuggingFace encoder, and no subcommand needs the free-ai gateway, so authModel 'required-service' above is stale but left alone because the field is unreachable while status is undeployed. Dev archive (20 public-domain episodes, 9.1h, 727 segments) is downloaded, enriched and embedded. Scope decided 2026-07-26: one operator publishing cuts to their own YouTube channel; the software is not released, so there is no second operator and no third-party rights burden. No Cloudflare deployment."
     },
     {
       "id": "saas-ideas",

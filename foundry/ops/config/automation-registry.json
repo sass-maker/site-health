@@ -367,11 +367,11 @@
       "repository": "mashup",
       "runtimes": ["local-tool", "data-pipeline"],
       "surfaces": [],
-      "dependencies": ["GitHub Actions", "FFmpeg", "Fleet free-ai gateway", "creator-owned archive"],
+      "dependencies": ["GitHub Actions", "FFmpeg", "local mlx + HuggingFace models", "source video archive"],
       "evidenceSources": ["github-actions", "local-checks"],
       "contracts": ["build", "errors"],
       "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest local validation findings; real archive and gateway runs require explicit owner setup",
+      "alertPolicy": "digest local validation findings; runs entirely offline, so no credential or gateway setup is required. FFmpeg must be built with libfreetype/libass or subtitle burn-in fails at render time",
       "exceptions": []
     },
 

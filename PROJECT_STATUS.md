@@ -51,6 +51,23 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-26 — Mashup went fully offline, and its validation experiment was
+  found to be measuring noise:** Enrichment moved to a local mlx model, so no
+  subcommand needs the free-ai gateway. A feasibility audit then invalidated
+  the blind study that was ready to run. The study prompt had no material
+  behind it — nonsense text scores 0.434 against that archive and the prompt
+  scored 0.459 — which is now gated by a measured `mashup coverage` check
+  rather than a hard-coded cosine. Its five conditions shared 0–5% of their
+  clips, so no preference could ever have been attributed to sequencing; a
+  matched-pair design (`experiment --matched`) fixes that, and `mashup
+  order-test` is the cheap mechanical pre-check. A latent bug was found where
+  `plan` charged an ending penalty and `rescore` did not, silently inflating
+  every human-edited timeline. Scope settled: one operator publishing to their
+  own channel, software not released. 337 tests, private repo, no deployed
+  surface. Fleet-wide lesson recorded — embedding cosine has a floor far above
+  zero, so any relevance threshold must be measured against a nonsense
+  baseline rather than hard-coded; this applies to knowledge-base, materia and
+  recsys-lab too.
 - **2026-07-25 — Minimal recurring Spend Guard completed:** Added a sanitized,
   idempotent machine-local spend ledger with deterministic latest JSON and
   Markdown reports, material 85%/95% quota and evidence-loss alerts, and one
