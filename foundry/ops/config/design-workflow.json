@@ -1,7 +1,8 @@
 {
   "$schema": "fleet.design-workflow.v1",
   "version": 1,
-  "impeccableVersion": "3.9.1",
+  "impeccablePackageVersion": "3.3.1",
+  "impeccableVersion": "4.0.2",
   "lanes": {
     "preserve": {
       "requireBeforeEvidence": true

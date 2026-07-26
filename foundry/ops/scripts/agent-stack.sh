@@ -44,13 +44,15 @@ install_impeccable() {
   local skill_file="$FLEET_ROOT/.agents/skills/impeccable/SKILL.md"
   local policy_file="$FLEET_OPS_DIR/config/design-workflow.json"
   local expected_version
+  local package_version
   local installed_version
 
-  expected_version="$(
+  read -r package_version expected_version <<<"$(
     node -e '
       const policy = require(process.argv[1]);
-      if (!/^\d+\.\d+\.\d+$/.test(policy.impeccableVersion ?? "")) process.exit(1);
-      process.stdout.write(policy.impeccableVersion);
+      const valid = (value) => /^\d+\.\d+\.\d+$/.test(value ?? "");
+      if (!valid(policy.impeccablePackageVersion) || !valid(policy.impeccableVersion)) process.exit(1);
+      process.stdout.write(`${policy.impeccablePackageVersion} ${policy.impeccableVersion}`);
     ' "$policy_file"
   )" || {
     printf 'Invalid Impeccable version policy: %s\n' "$policy_file" >&2
@@ -72,7 +74,7 @@ install_impeccable() {
 
   (
     cd "$FLEET_ROOT"
-    npx --yes "impeccable@$expected_version" install \
+    npx --yes "impeccable@$package_version" install \
       --providers=codex,claude \
       --scope=project
   )

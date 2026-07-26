@@ -70,16 +70,17 @@ them alone to block design completion.
 - **THEN** receipt validation succeeds while preserving the warning as advisory evidence
 
 ### Requirement: Impeccable installation is reproducible
-Fleet MUST pin one Impeccable version in canonical policy and MUST detect or
-repair an installed version that differs from the pin.
+Fleet MUST pin both the Impeccable npm package version and installed skill
+payload version in canonical policy, and MUST detect or repair an installed
+payload version that differs from the payload pin.
 
 #### Scenario: Installed version matches policy
-- **WHEN** agent-stack skill installation runs with the pinned version already present
+- **WHEN** agent-stack skill installation runs with the pinned payload version already present
 - **THEN** it leaves the installation unchanged
 
 #### Scenario: Installed version drifts
-- **WHEN** the installed skill reports a different version
-- **THEN** self-check fails and skill installation reinstalls the exact pinned version
+- **WHEN** the installed skill reports a different payload version
+- **THEN** self-check fails and skill installation uses the pinned npm package to reinstall the exact pinned payload version
 
 ### Requirement: Fleet design standards prefer project identity over a house style
 Fleet design guidance MUST treat an existing `DESIGN.md` and approved direction

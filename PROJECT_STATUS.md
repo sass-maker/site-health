@@ -53,7 +53,8 @@ CodeVetter or App Health source.
 ## Timeline
 
 - **2026-07-26 — Fleet design workflow hardened from 7/20 to 19/20:** Added a
-  Fleet-owned workflow over the pinned Impeccable 3.9.1 engine with explicit
+  Fleet-owned workflow over the pinned Impeccable 4.0.2 skill payload
+  (installed through npm package 3.3.1), with explicit
   preserve and overhaul lanes, project-specific design authority, reference
   and probe gates for new directions, and a machine-checkable review receipt.
   Meaningful UI work now fails closed on missing desktop/tablet/mobile

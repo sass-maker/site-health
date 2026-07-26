@@ -20,7 +20,8 @@ const policy = JSON.parse(
 
 test('canonical policy validates and pins objective quality floors', () => {
   const validated = validateDesignWorkflowPolicy(policy);
-  assert.equal(validated.impeccableVersion, '3.9.1');
+  assert.equal(validated.impeccablePackageVersion, '3.3.1');
+  assert.equal(validated.impeccableVersion, '4.0.2');
   assert.equal(validated.qualityGate.minimumCritiqueScore, 32);
   assert.equal(validated.qualityGate.minimumAuditScore, 16);
   assert.deepEqual(validated.qualityGate.requiredViewportWidths, [390, 768, 1440]);
@@ -95,12 +96,12 @@ test('installed Impeccable version must exactly match Fleet policy', () => {
   const dir = mkdtempSync(path.join(tmpdir(), 'fleet-impeccable-version-'));
   try {
     const skillFile = path.join(dir, 'SKILL.md');
-    writeFileSync(skillFile, '---\nname: impeccable\nversion: 3.9.1\n---\n');
+    writeFileSync(skillFile, '---\nname: impeccable\nversion: 4.0.2\n---\n');
     assert.equal(validateInstalledImpeccable(policy, skillFile).ok, true);
     writeFileSync(skillFile, '---\nname: impeccable\nversion: 3.9.0\n---\n');
     assert.throws(
       () => validateInstalledImpeccable(policy, skillFile),
-      /expected 3.9.1, found 3.9.0/,
+      /expected 4.0.2, found 3.9.0/,
     );
   } finally {
     rmSync(dir, { recursive: true, force: true });
@@ -118,7 +119,7 @@ test('Fleet skill exposure and standards use the wrapper rather than a generic h
 
   assert.match(agentStack, /EXPOSED_FLEET_SKILLS=\([\s\S]*design-workflow/);
   assert.match(agentStack, /config\/design-workflow\.json/);
-  assert.match(agentStack, /impeccable@\$expected_version/);
+  assert.match(agentStack, /impeccable@\$package_version/);
   assert.doesNotMatch(agentStack, /impeccable@3\.2\.1/);
   assert.match(rootAgents, /\$design-workflow/);
   assert.match(standards, /owner `keep` or explicit `delegated` feedback/);
@@ -152,11 +153,25 @@ test('CLI creates an incomplete receipt and self-checks the installed version', 
       'overhaul',
     );
 
-    const selfCheck = spawnSync(process.execPath, [script, 'self-check', '--json'], {
-      cwd: fleetRoot,
-      encoding: 'utf8',
-    });
+    const impeccableSkill = path.join(dir, 'impeccable', 'SKILL.md');
+    mkdirSync(path.dirname(impeccableSkill), { recursive: true });
+    writeFileSync(
+      impeccableSkill,
+      `---\nname: impeccable\nversion: ${policy.impeccableVersion}\n---\n`,
+    );
+    const selfCheck = spawnSync(
+      process.execPath,
+      [script, 'self-check', '--skill-file', impeccableSkill, '--json'],
+      {
+        cwd: fleetRoot,
+        encoding: 'utf8',
+      },
+    );
     assert.equal(selfCheck.status, 0, selfCheck.stderr);
+    assert.equal(
+      JSON.parse(selfCheck.stdout).impeccablePackageVersion,
+      policy.impeccablePackageVersion,
+    );
     assert.equal(JSON.parse(selfCheck.stdout).impeccableVersion, policy.impeccableVersion);
   } finally {
     rmSync(dir, { recursive: true, force: true });

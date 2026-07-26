@@ -14,6 +14,9 @@ export function validateDesignWorkflowPolicy(policy) {
   if (!/^\d+\.\d+\.\d+$/.test(policy?.impeccableVersion ?? '')) {
     errors.push('policy impeccableVersion must be an exact semantic version');
   }
+  if (!/^\d+\.\d+\.\d+$/.test(policy?.impeccablePackageVersion ?? '')) {
+    errors.push('policy impeccablePackageVersion must be an exact semantic version');
+  }
 
   const preserve = policy?.lanes?.preserve;
   const overhaul = policy?.lanes?.overhaul;

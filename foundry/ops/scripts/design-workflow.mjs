@@ -53,11 +53,14 @@ try {
     const receipt = JSON.parse(await readFile(receiptPath, 'utf8'));
     output(validateDesignReview(receipt, policy, { projectRoot }), args.json);
   } else if (command === 'self-check') {
-    const skillFile = path.join(fleetRoot, '.agents/skills/impeccable/SKILL.md');
+    const skillFile = args['skill-file']
+      ? path.resolve(args['skill-file'])
+      : path.join(fleetRoot, '.agents/skills/impeccable/SKILL.md');
     const version = validateInstalledImpeccable(policy, skillFile);
     output({
       ok: true,
       policy: path.relative(fleetRoot, policyPath),
+      impeccablePackageVersion: policy.impeccablePackageVersion,
       impeccableVersion: version.installed,
       detectorPosture: policy.qualityGate.detectorPosture,
       minimumCritiqueScore: policy.qualityGate.minimumCritiqueScore,
