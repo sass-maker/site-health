@@ -1,6 +1,7 @@
 import { assertRenderableReel, attachReelRender, createReelDraft, decideRenderedReel, decideReelDraft, listReelDrafts, R2ReelStore } from '../reel-intake.js';
 import { reelDraftInputFromSignal } from '../signal-intake.js';
 import { reviewPageHtml } from '../review-ui.js';
+import { handleForgeWorkerRequest } from '../local-video-forge-coordinator.js';
 import { timingSafeEqual } from 'node:crypto';
 
 const JSON_HEADERS = {
@@ -23,6 +24,11 @@ export default {
 
     if (request.method === 'GET' && (url.pathname === '/' || url.pathname === '/review')) {
       return html(reviewPageHtml());
+    }
+
+    if (url.pathname.startsWith('/forge/')) {
+      const response = await handleForgeWorkerRequest(request, env);
+      if (response) return response;
     }
 
     if (request.method === 'POST' && url.pathname === '/reels/signal') {
@@ -88,6 +94,7 @@ export default {
 };
 
 function isInternalRoute(method, pathname) {
+  if (pathname.startsWith('/forge/')) return true;
   if (method === 'GET' && ['/', '/review', '/reels'].includes(pathname)) return true;
   if (method === 'POST' && ['/reels', '/reels/signal'].includes(pathname)) return true;
   return (

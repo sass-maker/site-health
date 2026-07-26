@@ -39,6 +39,7 @@ Markdown but does not replace it as the source of truth.
 - [`operations/deployment.md`](./operations/deployment.md)
 - [`operations/postiz-handoff.md`](./operations/postiz-handoff.md)
 - [`operations/runbooks/generation-readiness.md`](./operations/runbooks/generation-readiness.md)
+- [`operations/runbooks/local-video-forge.md`](./operations/runbooks/local-video-forge.md)
 - [`operations/runbooks/target-host-readiness.md`](./operations/runbooks/target-host-readiness.md)
 - [`operations/runbooks/content-package-pipeline.md`](./operations/runbooks/content-package-pipeline.md)
 - [`operations/runbooks/significant-content-openclaw.md`](./operations/runbooks/significant-content-openclaw.md)

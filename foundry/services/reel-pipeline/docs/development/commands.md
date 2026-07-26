@@ -52,6 +52,12 @@ publishing is intentionally rejected.
 | `npm run factory -- <command>` | Local backlog-to-artifact conveyor |
 | `npm run lesson:render -- ...` | Tutoring lesson renderer |
 | `npm run setup:kokoro` | Install the optional local Kokoro model |
+| `npm run forge:setup` | Install the pinned Local Video Forge runtime and selected LTX-2.3 model files |
+| `npm run forge:readiness` | Check Apple Silicon, memory, disk, runtime, and model prerequisites |
+| `npm run forge:variants -- --project <json> --shot <id>` | Turn one approved keyframe into three resumable local variants |
+| `npm run forge:enqueue -- --project <json> --shot <id> --coordinator <url>` | Create a shared forge task from either machine |
+| `npm run forge:tasks -- --coordinator <url>` | Inspect the shared forge queue |
+| `npm run forge:work -- --coordinator <url>` | Poll, claim, render, and upload forge tasks from the Mac |
 
 ## Worker and watcher
 
@@ -63,6 +69,10 @@ publishing is intentionally rejected.
 | `npm run bootstrap:cloudflare` | Prepare Worker/R2 resources; explicit operator action |
 | `npm run check:cloudflare` | Check Cloudflare prerequisites |
 | `npm run worker:dry-run` | Wrangler deployment dry run |
+
+Local Video Forge coordinator commands require the existing Worker internal
+token outside git. See
+[`operations/runbooks/local-video-forge.md`](../operations/runbooks/local-video-forge.md).
 
 ## Rust CLI
 

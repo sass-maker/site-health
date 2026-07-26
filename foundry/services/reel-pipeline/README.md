@@ -54,6 +54,11 @@ The production Worker/R2 render flow remains:
 Cloudflare Worker + R2 → Rust watcher → render-pro.js → R2 → Worker receipt
 ```
 
+For approved-keyframe LTX-2.3 shots, Local Video Forge adds a shared
+Worker/R2 task queue: a task can be created on either machine, while the Apple
+Silicon Mac pulls and renders it. See the
+[`Local Video Forge runbook`](docs/operations/runbooks/local-video-forge.md).
+
 The local control API also exposes the anonymous brand-reel, review, and studio
 surfaces. These are generation tools, not social publishing surfaces.
 

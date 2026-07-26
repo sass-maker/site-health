@@ -52,3 +52,13 @@ fully accepted. See
 [`operations/runbooks/generation-readiness.md`](../operations/runbooks/generation-readiness.md)
 and
 [`operations/runbooks/target-host-readiness.md`](../operations/runbooks/target-host-readiness.md).
+
+## Approved-keyframe video forge
+
+Local Video Forge is deliberately not another `VideoBrief` render mode. It
+starts from a shot manifest and an explicitly approved keyframe, produces three
+short LTX-2.3 motion variants on Apple Silicon, and records reproducibility
+metadata. Its optional Worker/R2 queue accepts tasks from either the generation
+Mac or another machine while the Mac remains the only current render worker.
+See the
+[`Local Video Forge runbook`](../operations/runbooks/local-video-forge.md).

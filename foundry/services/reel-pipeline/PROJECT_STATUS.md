@@ -1,6 +1,6 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-07-21
+Last updated: 2026-07-26
 
 ## Why / What
 
@@ -30,6 +30,10 @@ or provider analytics. Postiz owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-07-26:** added the Local Video Forge first vertical slice: pinned
+  Apple Silicon LTX-2.3 generation, an approved-keyframe three-variant command,
+  reproducibility metadata/review gallery, and an authenticated Worker/R2 queue
+  that accepts tasks from either machine and is pulled by the generation Mac.
 - **2026-07-21:** removed the SaaS Maker queue, direct YouTube/Instagram
   publishers, OAuth helpers, posting/metrics loops, and duplicate marketing
   control services. Added the Postiz draft adapter and direct render-fixture
@@ -57,11 +61,17 @@ or provider analytics. Postiz owns that downstream lifecycle.
 - Postiz integration mapping, media upload, and draft creation adapter.
 - Fail-closed rejection of native social-provider distribution.
 - Node and Rust regression suites plus focused Postiz and render-mode smokes.
+- Local Video Forge JSON manifests, approval/memory gates, resumable
+  three-seed generation, local review gallery, and cross-machine Worker/R2 task
+  contract.
 
 ## Todo / Planned / Deferred / Blocked
 
 ### Todo — production cutover
 
+- Complete one manual LTX Desktop first-run generation.
+- Deploy the tested `/forge/*` Worker routes through the normal manual process,
+  then submit one task from each machine and complete a Mac-worker canary.
 - Install Postiz on the designated Fleet machine.
 - Connect social accounts in Postiz.
 - Provide `POSTIZ_API_KEY` outside git and create the real integration mapping.
