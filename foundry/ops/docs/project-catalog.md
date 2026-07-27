@@ -18,7 +18,7 @@ Generated from 42 internal project identities.
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
 | Email Manager | maintained | `email-manager` | hidden | https://mail.sassmaker.com |
-| Memory Map | maintained | `chatgpt-memory-insights` | hidden | — |
+| Memory Map | maintained | `chatgpt-memory-insights` | hidden | https://chatgpt.significanthobbies.com |
 | Free AI | maintained | `free-ai` | maintained | https://ai-gateway.sassmaker.com |
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
 | Knowledge Base | maintained | `knowledge-base` | hidden | https://search.sassmaker.com |

@@ -261,7 +261,9 @@
       "repo": "chatgpt-memory-insights",
       "deployKind": "pages",
       "cfProject": "chatgpt-memory-insights",
-      "domains": [],
+      "domains": [
+        "chatgpt.significanthobbies.com"
+      ],
       "inRegistry": false,
       "status": "live",
       "notes": "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.",
