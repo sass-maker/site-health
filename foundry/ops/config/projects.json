@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-07-26",
+    "updated": "2026-07-28",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -63,6 +63,7 @@
       ],
       "P3": [
         "email-manager",
+        "chatgpt-memory-insights",
         "materia",
         "significanthobbies",
         "anime-list",
@@ -245,6 +246,26 @@
       "status": "live",
       "notes": "",
       "name": "Email Manager",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "authModel": "public-persistent",
+      "family": "chatgpt-memory-insights",
+      "tier": "secondary",
+      "repo": "chatgpt-memory-insights",
+      "deployKind": "pages",
+      "cfProject": "chatgpt-memory-insights",
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.",
+      "name": "Memory Map",
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",

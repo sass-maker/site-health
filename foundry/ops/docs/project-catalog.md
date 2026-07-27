@@ -2,7 +2,7 @@
 
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 
-Generated from 41 internal project identities.
+Generated from 42 internal project identities.
 
 ## My Work — 4
 
@@ -13,11 +13,12 @@ Generated from 41 internal project identities.
 | PostTrainLLM | maintained | `posttrainllm` | maintained | https://posttrainllm.com |
 | High Signal | maintained | `high-signal` | maintained | https://highsignal.app |
 
-## Toolbox — 19
+## Toolbox — 20
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
 | Email Manager | maintained | `email-manager` | hidden | https://mail.sassmaker.com |
+| Memory Map | maintained | `chatgpt-memory-insights` | hidden | — |
 | Free AI | maintained | `free-ai` | maintained | https://ai-gateway.sassmaker.com |
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
 | Knowledge Base | maintained | `knowledge-base` | hidden | https://search.sassmaker.com |

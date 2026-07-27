@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-26",
+  "updatedAt": "2026-07-28",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 18,
+    "toolbox": 19,
     "foundry": 5,
     "ignored": 12
   },
@@ -283,6 +283,38 @@
       ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "page privacy, security, data, or prolonged sync risk; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "attention": "toolbox",
+      "family": "chatgpt-memory-insights",
+      "owner": "sarthak",
+      "repository": "chatgpt-memory-insights",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
       "exceptions": []
     },
     {
