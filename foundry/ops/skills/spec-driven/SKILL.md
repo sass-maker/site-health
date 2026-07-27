@@ -71,6 +71,14 @@ Review each artifact with the user before moving on. The proposal must answer:
 - **How** — technical approach, affected surfaces, deploy impact
 - **Tasks** — ordered, checkable, with verification steps
 
+Use an inline Mermaid diagram in `design.md` when it materially clarifies three
+or more components or actors, a multi-step interaction, state transitions, a
+data/dependency flow, or a cross-repo boundary. Choose the smallest useful
+diagram type (`flowchart`, `sequenceDiagram`, `stateDiagram-v2`, or
+`erDiagram`) and keep its source reviewable beside the prose. Do not add a
+diagram when a short paragraph is clearer, commit generated diagram images, or
+use a diagram as a substitute for requirements and scenarios.
+
 For **cross-repo features** (umbrella + sub-product, support infra + consumer),
 use OpenSpec **Stores** instead of per-repo `openspec/changes/`. See
 `openspec store --help` and the Stores User Guide. One store, one plan, code

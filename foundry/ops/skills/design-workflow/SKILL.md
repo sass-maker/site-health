@@ -42,6 +42,15 @@ relative Fleet root.
 - Preserve: use the tracked system and before evidence as the contract.
 - Overhaul: record reference names, probe ids/paths, selected probe, and
   `approved` or `delegated` in `.fleet/design-review.json` before code.
+- For an unfamiliar or multi-state component, use
+  [The Component Gallery](https://component.gallery/) as a pattern mine.
+  Compare 2-3 mature implementations and borrow component anatomy, interaction
+  behavior, state coverage, responsive handling, keyboard/focus semantics, and
+  useful density decisions. Adapt those lessons to the owning product.
+- Do not copy another system's brand styling, tokens, assets, proprietary code,
+  or whole visual language. Record material references and anti-patterns when
+  they influence a direction; project `PRODUCT.md`, `DESIGN.md`, and existing
+  components remain authoritative.
 - Use real product content and assets. Do not substitute a component-gallery
   aesthetic for project identity.
 - Invoke the relevant Impeccable commands for the task. For a new surface,
