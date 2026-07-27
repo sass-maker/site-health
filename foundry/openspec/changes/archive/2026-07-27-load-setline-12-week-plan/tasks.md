@@ -27,4 +27,4 @@
 - [x] 5.1 Add tests for exact Upper/Lower order, seven-day schedule, week boundaries, RDL sets, hard-cardio rounds, and v2 migration.
 - [x] 5.2 Run the smallest targeted checks, full Setline check, strict OpenSpec validation, and Worker dry run.
 - [x] 5.3 Browser-test scheduled selection, ordered completion/rest/reload, and responsive overflow at all required widths.
-- [ ] 5.4 Update durable project status and archive the change only after implementation and release are complete.
+- [x] 5.4 Update durable project status and archive the change only after implementation and release are complete.

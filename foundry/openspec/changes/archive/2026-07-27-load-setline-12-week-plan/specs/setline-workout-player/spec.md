@@ -57,7 +57,7 @@ current block week, today's scheduled workout, expected duration, ordered
 activity summary, and a direct start action. It SHALL also allow the user to
 explicitly open another scheduled day from the programme view.
 
-#### Scenario: User opens Setline during the block
+#### Scenario: User opens Setline before training
 - **WHEN** the user opens the application without an active session between 27
   July and 18 October 2026
 - **THEN** the system shows the matching week and local-calendar day's workout
@@ -79,13 +79,13 @@ stable during execution and in the saved record.
 - **THEN** the system shows the first incomplete step with its name, type,
   target dose, rest duration, and applicable form cues
 
-#### Scenario: User completes a step
+#### Scenario: User completes a set
 - **WHEN** the user records the fields applicable to the current step and
   selects Complete
 - **THEN** the system saves the values and completion timestamp with one primary
   action
 
-#### Scenario: User skips a step
+#### Scenario: User skips a set
 - **WHEN** the user selects Skip
 - **THEN** the system records the step as skipped and advances without adding
   completed volume or duration
@@ -101,7 +101,7 @@ completed-session history on the device before any network request. In
 authenticated mode it SHALL reconcile the same versioned ordered state with
 the current user's private cloud record.
 
-#### Scenario: User reloads during a current-plan workout
+#### Scenario: User reloads during a workout
 - **WHEN** the user reloads Setline after completing at least one activity
 - **THEN** the system restores the workout identity, resolved week, completed
   results, next authored position, and any in-progress rest deadline
