@@ -223,6 +223,45 @@ test('deploy guard ignores evidence claims but blocks an actual production cutov
   assert.match(blocker.stdout, /Blockers\s+✗ see PROJECT_STATUS.md/);
 });
 
+test('deploy guard supports a registered project inside the Fleet monorepo', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'fleet-monorepo-deploy-guard-'));
+  await initRepo(root);
+  run('git', ['remote', 'add', 'origin', root], { cwd: root });
+  run('git', ['branch', '--set-upstream-to=origin/main', 'main'], { cwd: root });
+
+  const project = join(root, 'foundry/apps/setline');
+  await mkdir(project, { recursive: true });
+  await writeFile(join(project, 'wrangler.jsonc'), '{"name":"setline"}\n');
+  await writeFile(join(project, 'PROJECT_STATUS.md'), '## Blocked\n- None.\n');
+  await mkdir(join(root, 'foundry/ops/config'), { recursive: true });
+  await writeFile(
+    join(root, 'foundry/ops/config/projects.json'),
+    JSON.stringify({
+      projects: [
+        {
+          id: 'setline',
+          repo: 'foundry/apps/setline',
+          deployKind: 'worker',
+          cfProject: 'setline',
+          status: 'live',
+        },
+      ],
+    }),
+  );
+  run('git', ['add', '.'], { cwd: root });
+  run('git', ['commit', '-m', 'add monorepo project'], { cwd: root });
+  run('git', ['update-ref', 'refs/remotes/origin/main', 'HEAD'], { cwd: root });
+
+  const result = run('bash', [deployGuard, 'setline', '--force'], {
+    env: { ...process.env, FLEET_ROOT_OVERRIDE: root },
+  });
+
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.match(result.stdout, /Git\s+✓ clean/);
+  assert.match(result.stdout, /CF target\s+✓ setline/);
+  assert.match(result.stdout, /READY TO DEPLOY/);
+});
+
 test('Chess deploy target is available through the canonical registry', async () => {
   const projects = JSON.parse(await readFile(join(fleetRoot, 'foundry/ops/config/projects.json'), 'utf8'));
   const chess = projects.projects.find((project) => project.id === 'chess');

@@ -14,12 +14,12 @@ const fleetOpsRoot = resolve(import.meta.dirname, "..");
 const coverageCli = resolve(fleetOpsRoot, "scripts/fleet-automation-coverage.mjs");
 const installer = resolve(fleetOpsRoot, "scripts/agent-bin/install-codex-cron");
 
-test("canonical registry has the current 38/26 attention scope", () => {
+test("canonical registry has the current 39/27 attention scope", () => {
   const registry = loadAutomationRegistry();
   const validation = validateAutomationRegistry(registry);
   assert.deepEqual(validation.errors, []);
-  assert.equal(registry.entries.length, 38);
-  assert.equal(registry.entries.filter((entry) => ["my-work", "toolbox", "foundry"].includes(entry.attention)).length, 26);
+  assert.equal(registry.entries.length, 39);
+  assert.equal(registry.entries.filter((entry) => ["my-work", "toolbox", "foundry"].includes(entry.attention)).length, 27);
 });
 
 test("registry validation rejects duplicate identities and domain ownership", () => {

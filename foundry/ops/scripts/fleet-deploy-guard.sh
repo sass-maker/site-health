@@ -27,11 +27,30 @@ while [[ $# -gt 0 ]]; do
 done
 
 DIR="$ROOT/$PROJECT"
+PROJECT_DIR="$DIR"
 
 if [[ ! -d "$DIR/.git" ]]; then
-  echo "PROJECT: $PROJECT"
-  echo "  ✗ no .git directory at $DIR"
-  exit 1
+  registry="$ROOT/foundry/ops/config/projects.json"
+  repo_path=""
+  if [[ -d "$ROOT/.git" && -f "$registry" ]] && command -v jq >/dev/null 2>&1; then
+    repo_path="$(
+      jq -r --arg project "$PROJECT" '
+        .projects[]
+        | select(.id == $project)
+        | .repo // ""
+      ' "$registry" 2>/dev/null || true
+    )"
+  fi
+
+  if [[ -n "$repo_path" && "$repo_path" != /* && "$repo_path" != *".."* &&
+    -d "$ROOT/$repo_path" ]]; then
+    DIR="$ROOT"
+    PROJECT_DIR="$ROOT/$repo_path"
+  else
+    echo "PROJECT: $PROJECT"
+    echo "  ✗ no standalone repo or registered monorepo path for $PROJECT"
+    exit 1
+  fi
 fi
 
 cd "$DIR"
@@ -138,7 +157,7 @@ fi
 # 5. Cloudflare target known?
 # Check root first, then subdirectories (monorepo support)
 cf_target=""
-for f in wrangler.toml wrangler.jsonc wrangler.json; do
+for f in "$PROJECT_DIR/wrangler.toml" "$PROJECT_DIR/wrangler.jsonc" "$PROJECT_DIR/wrangler.json"; do
   if [[ -f "$f" ]]; then
     cf_target=$(read_wrangler_name "$f")
     [[ -n "$cf_target" ]] && break
@@ -150,12 +169,12 @@ if [[ -z "$cf_target" ]]; then
   while IFS= read -r -d '' f; do
     cf_target=$(read_wrangler_name "$f")
     [[ -n "$cf_target" ]] && break
-  done < <(find . -maxdepth 3 -name "wrangler.*" -not -path '*/node_modules/*' -print0 2>/dev/null)
+  done < <(find "$PROJECT_DIR" -maxdepth 3 -name "wrangler.*" -not -path '*/node_modules/*' -print0 2>/dev/null)
   [[ -n "$cf_target" ]] && cf_target="$cf_target (subdir)"
 fi
 
-if [[ -z "$cf_target" && -f "package.json" && "$(command -v node || true)" ]]; then
-  deploy_script=$(node -e "const p=require('./package.json'); process.stdout.write(p.scripts?.deploy || '')" 2>/dev/null || true)
+if [[ -z "$cf_target" && -f "$PROJECT_DIR/package.json" && "$(command -v node || true)" ]]; then
+  deploy_script=$(node -e "const p=require(process.argv[1]); process.stdout.write(p.scripts?.deploy || '')" "$PROJECT_DIR/package.json" 2>/dev/null || true)
   if [[ "$deploy_script" == *"wrangler pages deploy"* ]]; then
     cf_target=$(printf '%s\n' "$deploy_script" | sed -nE 's/.*--project-name[= ]([^ ]+).*/\1/p' | head -1)
     [[ -z "$cf_target" ]] && cf_target="package deploy script"
@@ -183,7 +202,7 @@ if [[ -z "$cf_target" && "$(command -v node || true)" ]]; then
       cf_target="package manual deploy script (subdir)"
       break
     fi
-  done < <(find . -maxdepth 2 -name package.json -not -path './package.json' -not -path '*/node_modules/*' -print0 2>/dev/null)
+  done < <(find "$PROJECT_DIR" -maxdepth 2 -name package.json -not -path "$PROJECT_DIR/package.json" -not -path '*/node_modules/*' -print0 2>/dev/null)
 fi
 
 if [[ -z "$cf_target" && -f "$ROOT/foundry/ops/config/projects.json" ]] &&
@@ -212,7 +231,7 @@ fi
 # Look for actual blocked items (lines starting with - or numbered under a Blocked section),
 # not just the section header "Todo / Planned / Deferred / Blocked"
 blockers=""
-if [[ -f "PROJECT_STATUS.md" ]]; then
+if [[ -f "$PROJECT_DIR/PROJECT_STATUS.md" ]]; then
   blockers=$(
     awk '
       function inspect_item( line, lower) {
@@ -240,7 +259,7 @@ if [[ -f "PROJECT_STATUS.md" ]]; then
       }
       found && item != "" && /^[[:space:]]+/ { item=item " " $0 }
       END { inspect_item() }
-    ' PROJECT_STATUS.md 2>/dev/null || true
+    ' "$PROJECT_DIR/PROJECT_STATUS.md" 2>/dev/null || true
   )
 fi
 
