@@ -35,4 +35,4 @@
 ## 6. Release Closure
 
 - [x] 6.1 Update `PRODUCT.md`, `DESIGN.md`, and `PROJECT_STATUS.md` with the planned-versus-actual execution contract and deferred analytics boundary.
-- [ ] 6.2 Archive this OpenSpec change only after implementation is accepted and released.
+- [x] 6.2 Archive this OpenSpec change after owner acceptance for the production release.
