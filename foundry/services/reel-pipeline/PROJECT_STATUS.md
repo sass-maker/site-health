@@ -1,6 +1,6 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-07-26
+Last updated: 2026-07-27
 
 ## Why / What
 
@@ -30,6 +30,17 @@ or provider analytics. Postiz owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-07-27:** added the coherent scene compositor, the immutable
+  `evidence-beam@1` film skill, and a reproducible CodeVetter reference film
+  with real product evidence, local LTX atmosphere, Kokoro narration,
+  phrase-timed captions, review metadata, and a reduced-motion encode. Added
+  the authenticated `/forge` operator console for prompt intake, exact skill
+  choice, asset rights, queue status, variant decisions, and fail-closed final
+  approval.
+- **2026-07-27:** added `guided-app-demo@1` and the `/forge` app-recording
+  workflow: real window/tab/screen capture, optional same-session camera and
+  microphone presenter at bottom right, local preview-before-upload, immutable
+  source-hash provenance, and Mac FFmpeg preview/final encoding.
 - **2026-07-26:** added the Local Video Forge first vertical slice: pinned
   Apple Silicon LTX-2.3 generation, an approved-keyframe three-variant command,
   reproducibility metadata/review gallery, and an authenticated Worker/R2 queue
@@ -70,6 +81,19 @@ or provider analytics. Postiz owns that downstream lifecycle.
   contract.
 - Local Video Forge `forge:demo` mixed-media preset with timestamped MP4/WAV/SRT
   output, timeline and hash manifest, proof slides, and design evidence.
+- Approved coherent-film manifests with deterministic scene primitives,
+  caption/audio bindings, collision-free render packages, input/output hashes,
+  engine revisions, review frames, BT.709 delivery, and reduced-motion output.
+- Versioned film-skill contracts that pin narrative order, allowed primitives,
+  asset requirements, render defaults, and quality gates; `evidence-beam@1` is
+  the first registered skill.
+- Authenticated hosted `/forge` console backed by the shared R2 queue, so human
+  or AI-created tasks from either machine use the same skill, asset, review,
+  and final-render state.
+- Guided app-demo capture with a button-driven permission/record/preview/
+  approve workflow, genuine same-session presenter synchronization, a
+  versioned Film style, and deterministic 720×1280 preview / 1080×1920 final
+  encoding on the Mac.
 
 ## Todo / Planned / Deferred / Blocked
 
