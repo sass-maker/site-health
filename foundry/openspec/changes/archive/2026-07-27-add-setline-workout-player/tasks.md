@@ -16,4 +16,4 @@
 - [x] 3.1 Add installable PWA metadata, manifest, icons, and an offline application shell.
 - [x] 3.2 Add focused tests for rendered product content and offline assets.
 - [x] 3.3 Run OpenSpec validation, project checks, responsive design review, and production build.
-- [ ] 3.4 Save and publish an owner-only Sites version.
+- [x] 3.4 Save and publish an owner-only Sites version.
