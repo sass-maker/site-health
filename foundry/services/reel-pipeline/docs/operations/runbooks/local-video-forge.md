@@ -1,20 +1,22 @@
 # Local Video Forge
 
-Local Video Forge turns one explicitly approved keyframe into three
-seed-controlled LTX-2.3 video variants. Generation runs on an Apple Silicon
-Mac; the existing authenticated Cloudflare Worker and R2 bucket can coordinate
-tasks created from either the Mac or the permanently hosted machine.
+Local Video Forge turns an explicitly approved source into a reviewable video:
+either three seed-controlled LTX-2.3 variants from a keyframe or one
+deterministic MP4 from a real app capture. Generation and final encoding run on
+an Apple Silicon Mac; the existing authenticated Cloudflare Worker and R2
+bucket coordinate tasks created from either the Mac or the permanently hosted
+machine.
 
 ## Topology
 
 ```text
 Mac CLI ───────────────┐
                       ├─ POST task + keyframe ─> Worker/R2 queue
-Hosted-machine CLI ───┘                              │
+Hosted console / CLI ─┘                              │
                                                     │ pull + lease
 Apple Silicon Mac worker <──────────────────────────┘
         │
-        └─ generate three variants sequentially ─> upload MP4s + metadata
+        └─ generate variants or encode capture ─> upload MP4s + metadata
 ```
 
 The Mac makes outbound requests only. It does not need a public IP, open port,
@@ -115,10 +117,67 @@ caffeinate -dimsu npm run forge:work -- \
 ```
 
 The R2 job record is the durable queue state. A compatible Mac claims a
-conditional lease, downloads the approved keyframe, renders one variant at a
-time, reports progress, uploads MP4s, and completes the job. A failed job is
+conditional lease, downloads the approved keyframe or capture, renders one
+variant at a time, reports progress, uploads MP4s, and completes the job. A failed job is
 released to the queue once; the second failure becomes terminal. Expired
 leases can be reclaimed after a crashed worker.
+
+## Hosted operator console
+
+Open `https://<worker-host>/forge` and authenticate with the same internal
+Worker credential used by the coordinator CLI. The exact `/forge` route and
+every nested `/forge/*` API fail closed when `REEL_INTERNAL_TOKEN` is missing
+or invalid.
+
+The console is the shared production control surface for both machines. The UI
+calls each repeatable recipe a **Film style**; the durable job record stores
+the exact version under `filmSkill`.
+
+1. Paste the film prompt and product context.
+2. Choose an exact Film style such as `evidence-beam@1`.
+3. Upload an explicitly approved keyframe and record its source revision,
+   license, and publication-rights approval.
+4. Choose exactly three distinct preview seeds and queue the task.
+5. Monitor the durable R2 job state while the Apple Silicon Mac renders.
+6. Play completed variants side by side and record `accepted`, `retry`,
+   `change-motion`, `change-keyframe`, or `cloud-candidate`.
+7. Queue final-render approval only after one completed variant is explicitly
+   accepted.
+
+For a real app walkthrough, choose `guided-app-demo@1` instead:
+
+1. Click **Record app** and use Chrome's chooser to select an application
+   window, browser tab, or screen.
+2. Leave the presenter option enabled to capture camera and microphone in the
+   same session. The browser composites that presenter at bottom right before
+   recording, so the mouth and voice do not come from unrelated tracks.
+3. Stop within 90 seconds, preview the WebM locally, then click **Use this
+   take**. Discarding the take uploads nothing.
+4. Record the source revision, license, and production-rights approval, then
+   queue the captured preview. The browser streams the approved Blob directly
+   to R2 rather than embedding it in JSON.
+5. The Mac worker downloads that exact source and encodes a 720×1280 review MP4
+   at CRF 23. After acceptance, it encodes the 1080×1920 final at CRF 17.
+   Both use BT.709, H.264/AAC, fast-start metadata, and a -16 LUFS audio target.
+
+The approved source SHA-256 is fixed in the capture, preview selection, and
+final-render record. A changed hash, unrelated presenter track, missing source
+revision, or unapproved rights stops the workflow.
+
+The final-render gate also requires an approved source, a pinned film-skill
+version, and `production-safe` rights. Queueing the final locks review
+decisions so the approved seed and recipe cannot drift. The Mac worker claims
+that final phase separately, verifies the stored skill contract against the
+exact registered version, applies the `final` preset to the accepted seed, and
+uploads one final variant. Contract drift, missing source revision, failed
+rights gates, or a changed seed stop execution before generation. The console
+does not provide a freeform timeline, arbitrary layer controls, social
+publishing, or frame-by-frame editing; use the editor-ready export for those
+changes.
+
+Variant playback uses authenticated job-and-variant routes rather than
+accepting arbitrary R2 keys. Responses support byte ranges and use
+`private, no-store` caching.
 
 ## Mixed-media demo preset
 

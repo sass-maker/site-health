@@ -59,6 +59,10 @@ publishing is intentionally rejected.
 | `npm run forge:tasks -- --coordinator <url>` | Inspect the shared forge queue |
 | `npm run forge:work -- --coordinator <url>` | Poll, claim, render, and upload forge tasks from the Mac |
 | `npm run forge:demo` | Build the local Kokoro-narrated mixed-media proof from the approved presenter and three variants |
+| `npm run forge:coherent -- --manifest <json> --output <dir>` | Render an approved skill-bound coherent film with reproducibility and review metadata |
+
+Add `--reduced-motion` to `forge:coherent` to render the same manifest with
+fixed source frames and direct scene changes.
 
 ## Worker and watcher
 

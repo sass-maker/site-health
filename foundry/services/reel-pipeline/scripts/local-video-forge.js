@@ -11,6 +11,8 @@ import {
   loadForgeProject,
   selectForgeShot,
 } from '../src/local-video-forge.js';
+import { prepareFilmSkillForgeExecution } from '../src/film-skills.js';
+import { renderGuidedAppDemoCapture } from '../src/guided-app-demo.js';
 
 const { command, options } = parseArguments(process.argv.slice(2));
 
@@ -83,7 +85,7 @@ async function workOnce(cliOptions) {
     method: 'POST',
     body: {
       workerId,
-      capabilities: ['apple-silicon', 'mlx-ltx-2.3'],
+      capabilities: ['apple-silicon', 'mlx-ltx-2.3', 'ffmpeg', 'guided-app-demo'],
       leaseSeconds: 6 * 60 * 60,
     },
     allowNoContent: true,
@@ -91,21 +93,44 @@ async function workOnce(cliOptions) {
   if (!claim) return { status: 'idle', workerId };
 
   const job = claim.data;
+  const renderKind = job.activeRenderKind === 'final' ? 'final' : 'preview';
   const jobDir = path.resolve(cliOptions.output ?? '.reel-pipeline/forge-jobs', job.id);
   const inputDir = path.join(jobDir, 'input');
   await mkdir(inputDir, { recursive: true });
-  const extension = path.extname(job.keyframe.fileName) || extensionFor(job.keyframe.mediaType);
-  const keyframePath = path.join(inputDir, `keyframe${extension}`);
 
   try {
+    if (job.sourceKind === 'guided-app-capture') {
+      return await workGuidedAppDemoJob(job, {
+        cliOptions,
+        inputDir,
+        jobDir,
+        renderKind,
+        workerId,
+      });
+    }
+
+    const extension = path.extname(job.keyframe.fileName) || extensionFor(job.keyframe.mediaType);
+    const keyframePath = path.join(inputDir, `keyframe${extension}`);
     const keyframeResponse = await coordinatorFetchRaw(`/forge/jobs/${encodeURIComponent(job.id)}/keyframe`, {}, cliOptions);
     await writeFile(keyframePath, Buffer.from(await keyframeResponse.arrayBuffer()));
-    const shot = {
-      ...job.shot,
-      keyframePath,
-      keyframe: keyframePath,
-      keyframeApproved: true,
-    };
+    await assertFileSha256(keyframePath, job.keyframe.sha256, 'approved keyframe');
+    const prepared = job.filmSkill
+      ? prepareFilmSkillForgeExecution(job, { renderKind, keyframePath })
+      : {
+          execution: {
+            renderKind: 'preview',
+            preset: job.shot.preview.preset,
+            seeds: job.shot.preview.seeds,
+            qualityGateIds: [],
+          },
+          shot: {
+            ...job.shot,
+            keyframePath,
+            keyframe: keyframePath,
+            keyframeApproved: true,
+          },
+        };
+    const { execution: skillExecution, shot } = prepared;
     const project = {
       schema: 'reel-pipeline.local-video-forge.v0.1',
       manifestPath: null,
@@ -113,7 +138,7 @@ async function workOnce(cliOptions) {
       shots: [shot],
     };
     const run = await generateForgeVariants(project, shot, {
-      outputRoot: path.join(jobDir, 'previews'),
+      outputRoot: path.join(jobDir, renderKind === 'final' ? 'finals' : 'previews'),
       workerId,
       taskId: job.id,
       onProgress: async (progress) => {
@@ -125,7 +150,10 @@ async function workOnce(cliOptions) {
               stage: progress.type,
               variantId: progress.variant?.variantId ?? null,
               completed: progress.run.variants.filter((variant) => variant.status === 'completed').length,
-              total: shot.preview.seeds.length,
+              total: skillExecution.seeds.length,
+              renderKind,
+              filmSkill: job.filmSkill?.ref ?? null,
+              qualityGates: skillExecution.qualityGateIds,
             },
           },
         }, cliOptions);
@@ -148,6 +176,9 @@ async function workOnce(cliOptions) {
       variants.push({
         ...portableVariant,
         artifactKey: uploaded.data.key,
+        renderKind,
+        filmSkill: job.filmSkill?.ref ?? null,
+        qualityGates: skillExecution.qualityGateIds,
       });
     }
     const completed = await coordinatorFetch(`/forge/jobs/${encodeURIComponent(job.id)}/complete`, {
@@ -162,6 +193,87 @@ async function workOnce(cliOptions) {
     }, cliOptions).catch(() => {});
     throw error;
   }
+}
+
+async function workGuidedAppDemoJob(job, context) {
+  const {
+    cliOptions,
+    inputDir,
+    jobDir,
+    renderKind,
+    workerId,
+  } = context;
+  const sourceExtension = extensionForCapture(job.sourceCapture?.mediaType);
+  const sourcePath = path.join(inputDir, `approved-capture${sourceExtension}`);
+  const sourceResponse = await coordinatorFetchRaw(
+    `/forge/jobs/${encodeURIComponent(job.id)}/source`,
+    {},
+    cliOptions,
+  );
+  await writeFile(sourcePath, Buffer.from(await sourceResponse.arrayBuffer()));
+  await assertFileSha256(sourcePath, job.sourceCapture.sha256, 'approved capture');
+
+  await coordinatorFetch(`/forge/jobs/${encodeURIComponent(job.id)}/progress`, {
+    method: 'POST',
+    body: {
+      workerId,
+      progress: {
+        stage: 'encoding-approved-capture',
+        completed: 0,
+        total: 1,
+        renderKind,
+        filmSkill: job.filmSkill.ref,
+        sourceSha256: job.sourceCapture.sha256,
+      },
+    },
+  }, cliOptions);
+
+  const outputPath = path.join(
+    jobDir,
+    renderKind === 'final' ? 'finals' : 'previews',
+    `${renderKind}.mp4`,
+  );
+  const rendered = await renderGuidedAppDemoCapture({
+    inputPath: sourcePath,
+    outputPath,
+    renderKind,
+  });
+  const variantId = renderKind === 'final' ? 'guided-final' : 'guided-preview';
+  const upload = await coordinatorFetchRaw(
+    `/forge/jobs/${encodeURIComponent(job.id)}/artifacts/${variantId}`,
+    {
+      method: 'PUT',
+      headers: { 'content-type': 'video/mp4', 'x-forge-worker-id': workerId },
+      body: await readFile(rendered.outputPath),
+    },
+    cliOptions,
+  );
+  const uploaded = await upload.json();
+  const qualityGates = job.filmSkill.contract.qualityGates.map((gate) => gate.id);
+  const completed = await coordinatorFetch(`/forge/jobs/${encodeURIComponent(job.id)}/complete`, {
+    method: 'POST',
+    body: {
+      workerId,
+      variants: [{
+        variantId,
+        artifactKey: uploaded.data.key,
+        renderKind,
+        filmSkill: job.filmSkill.ref,
+        qualityGates,
+        sourceSha256: job.sourceCapture.sha256,
+        renderDurationMs: rendered.renderDurationMs,
+        encoder: {
+          name: 'ffmpeg',
+          profile: rendered.profile.label,
+          width: rendered.profile.width,
+          height: rendered.profile.height,
+          crf: rendered.profile.crf,
+          audioNormalizedLufs: -16,
+        },
+      }],
+    },
+  }, cliOptions);
+  return completed.data;
 }
 
 async function workLoop(cliOptions) {
@@ -223,6 +335,12 @@ function extensionFor(mediaType) {
   return '.jpg';
 }
 
+function extensionForCapture(mediaType) {
+  if (mediaType === 'video/mp4') return '.mp4';
+  if (mediaType === 'video/webm') return '.webm';
+  throw new Error(`unsupported forge capture media type: ${mediaType}`);
+}
+
 function ensureTrailingSlash(value) {
   return value.endsWith('/') ? value : `${value}/`;
 }
@@ -231,6 +349,13 @@ function positiveNumber(value, name) {
   const result = Number(value);
   if (!Number.isFinite(result) || result <= 0) throw new Error(`${name} must be a positive number`);
   return result;
+}
+
+async function assertFileSha256(filePath, expected, label) {
+  const actual = createHash('sha256').update(await readFile(filePath)).digest('hex');
+  if (actual !== expected) {
+    throw new Error(`${label} sha256 does not match the queued source`);
+  }
 }
 
 function parseArguments(args) {
