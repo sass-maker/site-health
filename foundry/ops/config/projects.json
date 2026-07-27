@@ -79,7 +79,8 @@
         "truehire",
         "today-little-log",
         "open-historia",
-        "calorie"
+        "calorie",
+        "setline"
       ]
     }
   },
@@ -697,6 +698,29 @@
         "repositoryUrl": "https://github.com/sarthakagrawal927/calorie"
       },
       "notes": "Finished local-first journal with optional Google sign-in and private D1 sync."
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "foundry/apps/setline",
+      "repositoryVisibility": "private",
+      "deployKind": "worker",
+      "cfProject": "setline",
+      "domains": [
+        "setline.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "app": "web",
+      "public": {
+        "listing": "hidden"
+      },
+      "notes": "Local-first workout execution tracker with optional Google sign-in and private D1 sync."
     },
     {
       "id": "rolepatch",

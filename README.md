@@ -64,9 +64,9 @@ human view is [`foundry/ops/docs/project-catalog.md`](foundry/ops/docs/project-c
 
 CodeVetter, HeyPace, PostTrainLLM, High Signal
 
-### Toolbox — 18
+### Toolbox — 19
 
-Email Manager, Free AI, Research Papers, Knowledge Base, Significant Hobbies, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, RolePatch, Karte, Starboard, App Health, Mashup, Motion, Personal website
+Email Manager, Free AI, Research Papers, Knowledge Base, Significant Hobbies, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Mashup, Motion, Personal website
 
 ### Foundry — 5
 

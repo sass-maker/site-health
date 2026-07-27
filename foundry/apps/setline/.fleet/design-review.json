@@ -1,0 +1,76 @@
+{
+  "$schema": "fleet.design-review.v1",
+  "version": 1,
+  "project": "setline",
+  "target": "optional account choice and private sync for the workout execution app",
+  "mode": "preserve",
+  "register": "product",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
+  },
+  "direction": {
+    "references": [
+      "competition attempt scoreboards",
+      "interval training timers",
+      "handwritten strength-training journals"
+    ],
+    "probes": [
+      {
+        "id": "scoreboard-split",
+        "path": "artifacts/design/direction-probes.png"
+      },
+      {
+        "id": "timer-tunnel",
+        "path": "artifacts/design/direction-probes.png"
+      },
+      {
+        "id": "training-strip",
+        "path": "artifacts/design/direction-probes.png"
+      }
+    ],
+    "selected": "scoreboard-split",
+    "approval": "delegated",
+    "before": "artifacts/design/after-390.png"
+  },
+  "evidence": {
+    "screenshots": [
+      {
+        "width": 390,
+        "path": "artifacts/design/auth-after-390.png"
+      },
+      {
+        "width": 768,
+        "path": "artifacts/design/auth-after-768.png"
+      },
+      {
+        "width": 1440,
+        "path": "artifacts/design/auth-after-1440.png"
+      }
+    ],
+    "projectCheck": {
+      "command": "npm run check",
+      "status": "pass"
+    },
+    "critique": {
+      "score": 36,
+      "maximum": 40
+    },
+    "audit": {
+      "score": 19,
+      "maximum": 20
+    },
+    "unresolved": {
+      "p0": 0,
+      "p1": 0
+    },
+    "detector": {
+      "posture": "advisory",
+      "findings": []
+    }
+  },
+  "ownerFeedback": {
+    "decision": "delegated",
+    "note": "Owner approved the defaults and delegated final design judgment on 2026-07-27."
+  }
+}

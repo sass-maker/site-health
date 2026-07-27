@@ -2,7 +2,7 @@
 
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 
-Generated from 40 internal project identities.
+Generated from 41 internal project identities.
 
 ## My Work — 4
 
@@ -13,7 +13,7 @@ Generated from 40 internal project identities.
 | PostTrainLLM | maintained | `posttrainllm` | maintained | https://posttrainllm.com |
 | High Signal | maintained | `high-signal` | maintained | https://highsignal.app |
 
-## Toolbox — 18
+## Toolbox — 19
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
@@ -28,6 +28,7 @@ Generated from 40 internal project identities.
 | Reader | maintained | `reader` | maintained | https://read.significanthobbies.com |
 | SWE Interview Prep | maintained | `swe-interview-prep` | maintained | https://learn.significanthobbies.com |
 | Calorie | maintained | `calorie` | maintained | https://calorie.significanthobbies.com |
+| Setline | maintained | `foundry/apps/setline` | hidden | https://setline.significanthobbies.com |
 | RolePatch | maintained | `rolepatch` | maintained | https://rolepatch.com |
 | Karte | maintained | `karte` | maintained | https://karte.cc |
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |
