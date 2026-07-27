@@ -806,6 +806,15 @@ export function forgeOperatorPageHtml() {
       }
       detail.append(variantsBlock);
 
+      if (job.finalRender?.variant) {
+        const finalBlock = node('section', 'block');
+        finalBlock.append(node('h3', '', 'Completed final render'));
+        const finalVariants = node('div', 'variants');
+        finalVariants.append(renderVariant(job, job.finalRender.variant, false));
+        finalBlock.append(finalVariants);
+        detail.append(finalBlock);
+      }
+
       const gate = node('section', 'final-gate');
       const gateCopy = node('div');
       const selected = job.review?.selection;
@@ -826,7 +835,7 @@ export function forgeOperatorPageHtml() {
       detail.append(gate);
     }
 
-    function renderVariant(job, variant) {
+    function renderVariant(job, variant, reviewable = true) {
       const accepted = job.review?.selection?.variantId === variant.variantId;
       const article = node('article', 'variant' + (accepted ? ' accepted' : ''));
       const video = node('video');
@@ -843,15 +852,17 @@ export function forgeOperatorPageHtml() {
         node('span', '', variant.seed == null ? 'approved source' : 'seed ' + variant.seed),
       );
       body.append(line);
-      const actions = node('div', 'decisions');
-      for (const decision of ['accepted', 'retry', 'change-motion', 'change-keyframe', 'cloud-candidate']) {
-        const button = node('button', 'decision' + (decision === 'accepted' ? ' accept' : ''), decision);
-        button.type = 'button';
-        button.disabled = job.finalRender?.status === 'queued';
-        button.addEventListener('click', () => decide(job.id, variant.variantId, decision));
-        actions.append(button);
+      if (reviewable) {
+        const actions = node('div', 'decisions');
+        for (const decision of ['accepted', 'retry', 'change-motion', 'change-keyframe', 'cloud-candidate']) {
+          const button = node('button', 'decision' + (decision === 'accepted' ? ' accept' : ''), decision);
+          button.type = 'button';
+          button.disabled = ['queued', 'running', 'completed'].includes(job.finalRender?.status);
+          button.addEventListener('click', () => decide(job.id, variant.variantId, decision));
+          actions.append(button);
+        }
+        body.append(actions);
       }
-      body.append(actions);
       article.append(body);
       return article;
     }

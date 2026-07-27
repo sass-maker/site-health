@@ -9,7 +9,7 @@ import {
   updateForgeJob,
 } from '../src/local-video-forge-coordinator.js';
 
-function createR2Bucket() {
+function createR2Bucket(options = {}) {
   const objects = new Map();
   let revision = 0;
   return {
@@ -36,11 +36,22 @@ function createR2Bucket() {
         writeHttpMetadata: (headers) => headers.set('content-type', object.contentType ?? 'application/octet-stream'),
       };
     },
-    async list({ prefix }) {
+    async head(key) {
+      const object = objects.get(key);
+      return object ? { size: object.bytes.byteLength, etag: object.etag } : null;
+    },
+    async list({ prefix, cursor }) {
+      const matching = Array.from(objects.keys())
+        .filter((key) => key.startsWith(prefix))
+        .sort();
+      const offset = Number(cursor ?? 0);
+      const limit = options.pageSize ?? matching.length;
+      const page = matching.slice(offset, offset + limit);
+      const truncated = offset + page.length < matching.length;
       return {
-        objects: Array.from(objects.keys())
-          .filter((key) => key.startsWith(prefix))
-          .map((key) => ({ key })),
+        objects: page.map((key) => ({ key })),
+        truncated,
+        ...(truncated ? { cursor: String(offset + page.length) } : {}),
       };
     },
   };
@@ -100,6 +111,30 @@ test('shared forge queue rejects a mismatched keyframe hash', async () => {
   await assert.rejects(createForgeJob(input, { bucket: createR2Bucket() }), /sha256 does not match/);
 });
 
+test('shared forge queue never overwrites an existing explicit job id', async () => {
+  const bucket = createR2Bucket();
+  await createForgeJob(submittedJob(), { bucket });
+
+  await assert.rejects(
+    createForgeJob(submittedJob(), { bucket }),
+    /forge job already exists/,
+  );
+});
+
+test('shared forge queue reads every paginated job page', async () => {
+  const bucket = createR2Bucket({ pageSize: 1 });
+  for (const id of ['forge-job-1', 'forge-job-2', 'forge-job-3']) {
+    const input = submittedJob();
+    input.id = id;
+    await createForgeJob(input, { bucket });
+  }
+
+  assert.deepEqual(
+    (await listForgeJobs({}, { bucket })).map((job) => job.id),
+    ['forge-job-1', 'forge-job-2', 'forge-job-3'],
+  );
+});
+
 test('forge worker progress, retry and completion preserve the shared task', async () => {
   const bucket = createR2Bucket();
   await createForgeJob(submittedJob(), { bucket });
@@ -133,13 +168,32 @@ test('forge worker progress, retry and completion preserve the shared task', asy
     workerId: 'local-mac',
     variants: [{ variantId: 'seed-41', artifactKey: 'seed-41.mp4' }],
   }, { bucket }), /exactly three variants/);
+  const foreignVariants = [41, 42, 43].map((seed) => ({
+    variantId: `seed-${seed}`,
+    seed,
+    artifactKey: `video-forge/outputs/another-job/attempt-2/seed-${seed}.mp4`,
+  }));
+  await assert.rejects(updateForgeJob('forge-job-1', 'complete', {
+    workerId: 'local-mac',
+    variants: foreignVariants,
+  }, { bucket }), /does not match the active job attempt/);
+  const variants = [41, 42, 43].map((seed) => ({
+    variantId: `seed-${seed}`,
+    seed,
+    artifactKey: `video-forge/outputs/forge-job-1/attempt-2/seed-${seed}.mp4`,
+  }));
+  await assert.rejects(updateForgeJob('forge-job-1', 'complete', {
+    workerId: 'local-mac',
+    variants,
+  }, { bucket }), /was not uploaded/);
+  for (const variant of variants) {
+    await bucket.put(variant.artifactKey, `video-${variant.seed}`, {
+      httpMetadata: { contentType: 'video/mp4' },
+    });
+  }
   const completed = await updateForgeJob('forge-job-1', 'complete', {
     workerId: 'local-mac',
-    variants: [
-      { variantId: 'seed-41', artifactKey: 'seed-41.mp4' },
-      { variantId: 'seed-42', artifactKey: 'seed-42.mp4' },
-      { variantId: 'seed-43', artifactKey: 'seed-43.mp4' },
-    ],
+    variants,
   }, { bucket });
   assert.equal(completed.status, 'completed');
   assert.equal(completed.variants.length, 3);

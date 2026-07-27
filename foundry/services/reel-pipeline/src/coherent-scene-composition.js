@@ -251,9 +251,15 @@ export function normalizeCoherentFilm(input) {
   const scenes = (Array.isArray(input.scenes) ? input.scenes : [])
     .map((scene, index) => normalizeScene(scene, index, assetIds));
   if (scenes.length === 0) throw new Error('scenes must not be empty');
+  if (scenes[0].start !== 0) {
+    throw new Error('the first scene must start at 0');
+  }
   for (let index = 1; index < scenes.length; index += 1) {
     if (scenes[index].start < scenes[index - 1].end) {
       throw new Error(`scenes overlap: ${scenes[index - 1].id} and ${scenes[index].id}`);
+    }
+    if (scenes[index].start > scenes[index - 1].end) {
+      throw new Error(`scenes have a gap: ${scenes[index - 1].id} and ${scenes[index].id}`);
     }
   }
 

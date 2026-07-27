@@ -113,6 +113,7 @@ async function workOnce(cliOptions) {
     const keyframePath = path.join(inputDir, `keyframe${extension}`);
     const keyframeResponse = await coordinatorFetchRaw(`/forge/jobs/${encodeURIComponent(job.id)}/keyframe`, {}, cliOptions);
     await writeFile(keyframePath, Buffer.from(await keyframeResponse.arrayBuffer()));
+    await assertFileSha256(keyframePath, job.keyframe.sha256, 'approved keyframe');
     const prepared = job.filmSkill
       ? prepareFilmSkillForgeExecution(job, { renderKind, keyframePath })
       : {
@@ -210,6 +211,7 @@ async function workGuidedAppDemoJob(job, context) {
     cliOptions,
   );
   await writeFile(sourcePath, Buffer.from(await sourceResponse.arrayBuffer()));
+  await assertFileSha256(sourcePath, job.sourceCapture.sha256, 'approved capture');
 
   await coordinatorFetch(`/forge/jobs/${encodeURIComponent(job.id)}/progress`, {
     method: 'POST',
@@ -347,6 +349,13 @@ function positiveNumber(value, name) {
   const result = Number(value);
   if (!Number.isFinite(result) || result <= 0) throw new Error(`${name} must be a positive number`);
   return result;
+}
+
+async function assertFileSha256(filePath, expected, label) {
+  const actual = createHash('sha256').update(await readFile(filePath)).digest('hex');
+  if (actual !== expected) {
+    throw new Error(`${label} sha256 does not match the queued source`);
+  }
 }
 
 function parseArguments(args) {

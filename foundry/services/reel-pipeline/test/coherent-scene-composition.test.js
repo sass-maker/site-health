@@ -80,6 +80,22 @@ test('normalizes a coherent story-first film and emits phrase captions', () => {
   assert.match(coherentFilmToSrt(film), /Ship with evidence\./);
 });
 
+test('requires a contiguous scene timeline beginning at zero', () => {
+  const delayed = validFilm();
+  delayed.scenes[0].start = 0.5;
+  assert.throws(
+    () => normalizeCoherentFilm(delayed),
+    /first scene must start at 0/,
+  );
+
+  const gap = validFilm();
+  gap.scenes[1].start = 3.5;
+  assert.throws(
+    () => normalizeCoherentFilm(gap),
+    /scenes have a gap/,
+  );
+});
+
 test('preserves external captions that are intentionally not burned into picture', () => {
   const film = normalizeCoherentFilm(validFilm({
     captions: [{

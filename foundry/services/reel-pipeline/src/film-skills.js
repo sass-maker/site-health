@@ -120,8 +120,8 @@ const EVIDENCE_BEAM_V1 = {
     manifest: 'examples/coherent-films/codevetter-evidence-beam.json',
     frames: [
       {
-        path: 'artifacts/design/probes/codevetter-film/evidence-beam.png',
-        purpose: 'delegated visual direction',
+        path: 'assets/coherent-films/codevetter-evidence-close.svg',
+        purpose: 'tracked evidence-path closing frame',
       },
     ],
   },
@@ -469,6 +469,13 @@ export function assertForgeJobFilmSkill(job, options = {}) {
       || Number(selectedSeed) !== Number(job.review.selection.seed)
     ) {
       throw new Error(`forge job ${job.filmSkill.ref} final render must use the accepted preview seed`);
+    }
+    if (
+      !requiredText(job.keyframe?.sha256)
+      || job.review.selection.sourceSha256 !== job.keyframe.sha256
+      || job.finalRender?.sourceSha256 !== job.keyframe.sha256
+    ) {
+      throw new Error(`forge job ${job.filmSkill.ref} final render must preserve the approved keyframe hash`);
     }
   } else if (renderKind !== 'preview') {
     throw new Error(`unsupported forge render kind: ${renderKind}`);

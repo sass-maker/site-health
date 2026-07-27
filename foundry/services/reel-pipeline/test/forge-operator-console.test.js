@@ -194,6 +194,7 @@ test('authenticated forge console exposes the bounded production loop, not an ed
   assert.match(page, /Record app/);
   assert.match(page, /same-session|synchronized bottom-right presenter/);
   assert.match(page, /Queue three previews/);
+  assert.match(page, /Completed final render/);
   assert.match(page, /change-motion/);
   assert.match(page, /cloud-candidate/);
   assert.match(page, /Custom timeline edits belong in the exported editor-ready package/);
@@ -210,6 +211,9 @@ test('console APIs pin a skill, preserve provenance, play variants, and fail clo
   );
 
   await completePreviewJob(env);
+
+  const duplicate = await jsonRequest('/forge/jobs', 'POST', forgeJobInput(), env);
+  assert.equal(duplicate.status, 409);
 
   const blocked = await jsonRequest('/forge/jobs/operator-film-1/final-render', 'POST', {}, env);
   assert.equal(blocked.status, 409);
@@ -233,6 +237,17 @@ test('console APIs pin a skill, preserve provenance, play variants, and fail clo
   assert.equal(accepted.data.filmSkill.ref, 'evidence-beam@1');
   assert.equal(accepted.data.keyframe.provenance.rights.tier, 'production-safe');
   assert.equal(accepted.data.finalRender.status, 'ready');
+  const expectedKeyframeSha = createHash('sha256').update('approved-keyframe').digest('hex');
+  assert.equal(accepted.data.review.selection.sourceSha256, expectedKeyframeSha);
+
+  const formFinal = await worker.fetch(authorized('/forge/jobs/operator-film-1/final-render', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    body: 'approve=true',
+  }), env);
+  assert.equal(formFinal.status, 415);
 
   const queued = await jsonRequest('/forge/jobs/operator-film-1/final-render', 'POST', {}, env);
   assert.equal(queued.status, 202);
@@ -241,6 +256,7 @@ test('console APIs pin a skill, preserve provenance, play variants, and fail clo
   assert.equal(final.data.finalRender.approvedVariantId, 'seed-42');
   assert.equal(final.data.finalRender.seed, 42);
   assert.equal(final.data.finalRender.filmSkill, 'evidence-beam@1');
+  assert.equal(final.data.finalRender.sourceSha256, expectedKeyframeSha);
 
   const finalQueue = await worker.fetch(authorized('/forge/jobs?status=queued'), env);
   assert.equal(finalQueue.status, 200);
@@ -284,6 +300,13 @@ test('console APIs pin a skill, preserve provenance, play variants, and fail clo
   assert.equal(renderedFinal.data.finalRender.status, 'completed');
   assert.equal(renderedFinal.data.finalRender.variant.seed, 42);
   assert.equal(renderedFinal.data.variants.length, 3);
+
+  const finalPlayback = await worker.fetch(
+    authorized('/forge/jobs/operator-film-1/artifacts/final-seed-42'),
+    env,
+  );
+  assert.equal(finalPlayback.status, 200);
+  assert.equal(await finalPlayback.text(), 'final-video-42');
 
   const locked = await jsonRequest('/forge/jobs/operator-film-1/decision', 'PATCH', {
     variantId: 'seed-41',

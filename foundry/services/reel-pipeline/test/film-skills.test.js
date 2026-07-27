@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 import {
@@ -27,6 +27,7 @@ async function referenceManifest() {
 }
 
 function skillBoundForgeJob() {
+  const sha256 = 'b'.repeat(64);
   return {
     filmSkill: {
       ref: 'evidence-beam@1',
@@ -42,6 +43,7 @@ function skillBoundForgeJob() {
       preview: { preset: 'preview', seeds: [41, 42, 43] },
     },
     keyframe: {
+      sha256,
       provenance: {
         sourceType: 'real-capture',
         sourceRevision: 'c59097fa',
@@ -49,11 +51,12 @@ function skillBoundForgeJob() {
       },
     },
     review: {
-      selection: { variantId: 'seed-42', seed: 42 },
+      selection: { variantId: 'seed-42', seed: 42, sourceSha256: sha256 },
     },
     finalRender: {
       approvedVariantId: 'seed-42',
       seed: 42,
+      sourceSha256: sha256,
     },
   };
 }
@@ -96,7 +99,7 @@ function guidedAppDemoJob() {
   };
 }
 
-test('registers a complete immutable evidence-beam@1 recipe', () => {
+test('registers a complete immutable evidence-beam@1 recipe', async () => {
   const skill = resolveFilmSkill('evidence-beam@1');
 
   assert.equal(skill.schema, FILM_SKILL_SCHEMA);
@@ -110,6 +113,9 @@ test('registers a complete immutable evidence-beam@1 recipe', () => {
   assert.ok(skill.qualityGates.length >= 4);
   assert.ok(skill.reference.manifest.endsWith('codevetter-evidence-beam.json'));
   assert.ok(skill.reference.frames.length > 0);
+  await Promise.all(skill.reference.frames.map((frame) => (
+    access(new URL(`../${frame.path}`, import.meta.url))
+  )));
   assert.ok(skill.knownFailureModes.length > 0);
   assert.ok(skill.notWhen.length > 0);
 
@@ -302,5 +308,12 @@ test('skill-bound forge execution rejects contract drift and unrevisioned eviden
   assert.throws(
     () => assertForgeJobFilmSkill(unrevisioned),
     /real-evidence and publication-rights quality gates/,
+  );
+
+  const changedKeyframe = skillBoundForgeJob();
+  changedKeyframe.finalRender.sourceSha256 = 'c'.repeat(64);
+  assert.throws(
+    () => assertForgeJobFilmSkill(changedKeyframe, { renderKind: 'final' }),
+    /preserve the approved keyframe hash/,
   );
 });

@@ -51,7 +51,7 @@ export async function handleForgeWorkerRequest(request, env) {
       const data = await createForgeJob(await request.json(), { bucket });
       return responseJson({ data }, 201);
     } catch (error) {
-      return responseJson({ error: formatError(error) }, 400);
+      return responseJson({ error: formatError(error) }, statusForError(error));
     }
   }
 
@@ -150,9 +150,12 @@ export async function handleForgeWorkerRequest(request, env) {
     && url.pathname.match(/^\/forge\/jobs\/([^/]+)\/final-render$/);
   if (finalRenderMatch) {
     try {
+      if (!isJsonRequest(request)) {
+        throw forgeError('final render requests must use application/json', 415);
+      }
       const data = await requestForgeFinalRender(
         decodeURIComponent(finalRenderMatch[1]),
-        await request.json().catch(() => ({})),
+        await request.json(),
         { bucket },
       );
       return responseJson({ data }, 202);
@@ -200,6 +203,7 @@ export async function createForgeJob(input, options) {
     throw new Error('keyframe sha256 does not match uploaded bytes');
   }
   const id = safeId(input.id ?? `forge_${new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14)}_${crypto.randomUUID().slice(0, 8)}`);
+  await assertJobIdAvailable(bucket, id);
   const assetKey = `${ASSET_PREFIX}${id}.${extensionFor(keyframe.mediaType)}`;
   await bucket.put(assetKey, keyframe.bytes, { httpMetadata: { contentType: keyframe.mediaType } });
   const now = new Date().toISOString();
@@ -370,6 +374,7 @@ async function createGuidedCaptureJob(input, options) {
     input.id
     ?? `forge_${new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14)}_${crypto.randomUUID().slice(0, 8)}`,
   );
+  await assertJobIdAvailable(bucket, id);
   const now = options.now?.() ?? new Date();
   const record = {
     schema: 'reel-pipeline.local-video-forge-job.v0.2',
@@ -409,20 +414,30 @@ async function createGuidedCaptureJob(input, options) {
 
 export async function listForgeJobs(filters = {}, options) {
   const bucket = requiredBucket(options.bucket);
-  const listed = await bucket.list({ prefix: JOB_PREFIX });
   const records = [];
-  for (const item of listed.objects ?? []) {
-    const object = await bucket.get(item.key);
-    if (!object) continue;
-    const record = await object.json();
-    if (
-      filters.status
-      && record.status !== filters.status
-      && record.finalRender?.status !== filters.status
-    ) continue;
-    if (filters.project && record.project.name !== filters.project) continue;
-    records.push(record);
-  }
+  let cursor;
+  do {
+    const listed = await bucket.list({
+      prefix: JOB_PREFIX,
+      ...(cursor ? { cursor } : {}),
+    });
+    for (const item of listed.objects ?? []) {
+      const object = await bucket.get(item.key);
+      if (!object) continue;
+      const record = await object.json();
+      if (
+        filters.status
+        && record.status !== filters.status
+        && record.finalRender?.status !== filters.status
+      ) continue;
+      if (filters.project && record.project.name !== filters.project) continue;
+      records.push(record);
+    }
+    cursor = listed.truncated ? listed.cursor : undefined;
+    if (listed.truncated && !cursor) {
+      throw new Error('forge job listing was truncated without a cursor');
+    }
+  } while (cursor);
   return records.sort((left, right) => String(left.createdAt).localeCompare(String(right.createdAt)));
 }
 
@@ -508,6 +523,7 @@ export async function updateForgeJob(id, action, input, options) {
       };
     } else if (action === 'complete') {
       const variant = normalizeFinalVariant(input.variants, current);
+      await assertStoredVariants(bucket, [variant], current, 'final');
       next = {
         ...current,
         activeRenderKind: null,
@@ -555,6 +571,7 @@ export async function updateForgeJob(id, action, input, options) {
     };
   } else if (action === 'complete') {
     const variants = normalizeCompletedVariants(input.variants, current);
+    await assertStoredVariants(bucket, variants, current, 'preview');
     next = {
       ...current,
       activeRenderKind: null,
@@ -618,7 +635,10 @@ export async function recordForgeDecision(id, input, options) {
     ? {
         variantId,
         seed: entry.seed,
-        sourceSha256: variant.sourceSha256 ?? current.sourceCapture?.sha256 ?? null,
+        sourceSha256: variant.sourceSha256
+          ?? current.sourceCapture?.sha256
+          ?? current.keyframe?.sha256
+          ?? null,
         acceptedAt: entry.decidedAt,
       }
     : current.review?.selection?.variantId === variantId
@@ -684,7 +704,7 @@ export async function requestForgeFinalRender(id, input, options) {
       requestedAt: now.toISOString(),
       approvedVariantId: variant.variantId,
       seed: Number.isInteger(Number(variant.seed)) ? Number(variant.seed) : null,
-      sourceSha256: current.sourceCapture?.sha256 ?? null,
+      sourceSha256: approvedSource.sha256,
       filmSkill: current.filmSkill.ref,
       note: optionalString(input.note) ?? null,
     },
@@ -821,7 +841,10 @@ async function serveForgeVariant(jobId, variantIdInput, request, options) {
   const job = await getForgeJob(jobId, { bucket });
   if (!job) return responseJson({ error: 'forge job not found' }, 404);
   const variantId = safeId(variantIdInput);
-  const variant = job.variants.find((candidate) => candidate.variantId === variantId);
+  const variant = [
+    ...(job.variants ?? []),
+    job.finalRender?.variant,
+  ].filter(Boolean).find((candidate) => candidate.variantId === variantId);
   if (!variant) return responseJson({ error: 'forge variant not found' }, 404);
   const allowedPrefix = `${OUTPUT_PREFIX}${safeId(job.id)}/`;
   if (
@@ -886,6 +909,8 @@ function normalizeCompletedVariants(variants, job) {
       : 'completed forge job requires exactly three variants');
   }
   const ids = new Set();
+  const seeds = new Set();
+  const expectedSeeds = new Set((job.shot?.preview?.seeds ?? []).map(Number));
   for (const variant of variants) {
     const variantId = requiredString(variant?.variantId, 'variant.variantId');
     requiredString(variant?.artifactKey, 'variant.artifactKey');
@@ -895,9 +920,19 @@ function normalizeCompletedVariants(variants, job) {
     ) {
       throw new Error('guided app-demo preview must preserve the approved source hash');
     }
+    if (job?.sourceKind !== 'guided-app-capture') {
+      const seed = Number(variant?.seed);
+      if (!Number.isInteger(seed) || !expectedSeeds.has(seed)) {
+        throw new Error('completed forge variants must preserve the requested preview seeds');
+      }
+      seeds.add(seed);
+    }
     ids.add(variantId);
   }
   if (ids.size !== expectedCount) throw new Error('completed forge variants must have unique ids');
+  if (job?.sourceKind !== 'guided-app-capture' && seeds.size !== expectedSeeds.size) {
+    throw new Error('completed forge variants must preserve the requested preview seeds');
+  }
   return variants;
 }
 
@@ -914,7 +949,38 @@ function normalizeFinalVariant(variants, job) {
   ) {
     throw new Error('guided app-demo final must preserve the approved source hash');
   }
+  if (
+    job?.sourceKind !== 'guided-app-capture'
+    && Number(variant?.seed) !== Number(job.finalRender?.seed)
+  ) {
+    throw new Error('completed final forge render must preserve the accepted seed');
+  }
   return variant;
+}
+
+async function assertStoredVariants(bucket, variants, job, renderKind) {
+  const attempt = renderKind === 'final'
+    ? Number(job.finalRender?.attempts)
+    : Number(job.attempts);
+  if (!Number.isInteger(attempt) || attempt < 1) {
+    throw new Error(`forge ${renderKind} attempt is invalid`);
+  }
+  const prefix = renderKind === 'final'
+    ? `${OUTPUT_PREFIX}${safeId(job.id)}/final/attempt-${attempt}/`
+    : `${OUTPUT_PREFIX}${safeId(job.id)}/attempt-${attempt}/`;
+  for (const variant of variants) {
+    const variantId = requiredString(variant.variantId, 'variant.variantId');
+    if (safeId(variantId) !== variantId) {
+      throw new Error(`forge variant id is unsafe: ${variantId}`);
+    }
+    const expectedKey = `${prefix}${variantId}.mp4`;
+    if (variant.artifactKey !== expectedKey) {
+      throw forgeError('forge variant artifact does not match the active job attempt', 409);
+    }
+    if (!(await bucketObjectExists(bucket, expectedKey))) {
+      throw forgeError('forge variant artifact was not uploaded', 409);
+    }
+  }
 }
 
 function assertLeaseOwner(job, workerId) {
@@ -932,6 +998,17 @@ async function putJob(bucket, record, options = {}) {
     ...(options.etag ? { onlyIf: { etagMatches: options.etag } } : {}),
     httpMetadata: { contentType: 'application/json; charset=utf-8' },
   });
+}
+
+async function assertJobIdAvailable(bucket, id) {
+  if (await bucketObjectExists(bucket, jobKey(id))) {
+    throw forgeError(`forge job already exists: ${id}`, 409);
+  }
+}
+
+async function bucketObjectExists(bucket, key) {
+  if (typeof bucket.head === 'function') return Boolean(await bucket.head(key));
+  return Boolean(await bucket.get(key));
 }
 
 function requiredBucket(bucket) {
@@ -979,6 +1056,11 @@ function boundedInteger(value, name, minimum, maximum) {
 
 function responseJson(body, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
+}
+
+function isJsonRequest(request) {
+  return request.headers.get('content-type')?.split(';')[0].trim().toLowerCase()
+    === 'application/json';
 }
 
 function forgeError(message, status) {
