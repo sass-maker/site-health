@@ -3,7 +3,7 @@
   "updatedAt": "2026-07-26",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 17,
+    "toolbox": 18,
     "foundry": 5,
     "ignored": 12
   },
@@ -783,6 +783,40 @@
       ],
       "surfaces": [
         "https://calorie.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "foundry/apps/setline",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://setline.significanthobbies.com"
       ],
       "dependencies": [
         "GitHub Actions",
