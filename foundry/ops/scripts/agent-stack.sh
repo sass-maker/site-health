@@ -11,6 +11,7 @@ EXPOSED_FLEET_SKILLS=(
   design-workflow
   fleet-deploy-parity
   fleet-ops
+  code-cleanup
   mobile-task-control
   name-domains
   site-health

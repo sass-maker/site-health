@@ -33,6 +33,14 @@ Fleet quality bar:
 - Treat repeated issues as fleet standards work. If the same drift appears across multiple projects, add or update a reusable check, template, or standard instead of fixing only one repo.
 - Be conservative with rate limiters. Do not add, re-enable, or make rate limits stricter without explicit approval and endpoint-specific evidence; stale or unused rate-limit config should usually be removed as cleanup.
 - Prioritize cleanup that reduces surface area: unused packages, dead code, generated artifacts, stale feature paths, and docs that no longer match current code.
+- Use the Fleet-owned `$code-cleanup` skill before dependency manifest or
+  lockfile changes and for cleanup and dependency-health checks. Require
+  explicit approval for production additions, use Bundlephobia only as
+  advisory browser-package evidence, and keep Knip as the JS/TS unused-code
+  and unused-dependency authority. Inspection mode must not install tools, run
+  write-mode formatters, or automatically delete findings. Upgrade mode must
+  preview by default, require explicit `--apply`, refuse dirty dependency
+  files, keep bulk updates non-major, and rerun cleanup after mutation.
 
 Fleet landing/marketing standard:
 - Landing pages, hero copy, OG images, and positioning follow [`LANDING_STANDARD.md`](../../LANDING_STANDARD.md). Walk its audit checklist before shipping a marketing surface; cross-product drift on its rules is fleet-standards work, not one-repo work.
@@ -255,6 +263,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 | `site-health` | parent | agent-ready, seo-audit, psi-swarm, geo-observatory, public-product-smoke; combined scorecard |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | OpenSpec workflow for new features |
+| `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |

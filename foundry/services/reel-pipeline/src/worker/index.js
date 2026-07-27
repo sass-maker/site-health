@@ -2,6 +2,7 @@ import { assertRenderableReel, attachReelRender, createReelDraft, decideRendered
 import { reelDraftInputFromSignal } from '../signal-intake.js';
 import { reviewPageHtml } from '../review-ui.js';
 import { handleForgeWorkerRequest } from '../local-video-forge-coordinator.js';
+import { forgeOperatorPageHtml } from '../forge-operator-ui.js';
 import { timingSafeEqual } from 'node:crypto';
 
 const JSON_HEADERS = {
@@ -24,6 +25,10 @@ export default {
 
     if (request.method === 'GET' && (url.pathname === '/' || url.pathname === '/review')) {
       return html(reviewPageHtml());
+    }
+
+    if (request.method === 'GET' && url.pathname === '/forge') {
+      return html(forgeOperatorPageHtml(), 200, { 'cache-control': 'private, no-store' });
     }
 
     if (url.pathname.startsWith('/forge/')) {
@@ -94,7 +99,7 @@ export default {
 };
 
 function isInternalRoute(method, pathname) {
-  if (pathname.startsWith('/forge/')) return true;
+  if (pathname === '/forge' || pathname.startsWith('/forge/')) return true;
   if (method === 'GET' && ['/', '/review', '/reels'].includes(pathname)) return true;
   if (method === 'POST' && ['/reels', '/reels/signal'].includes(pathname)) return true;
   return (
@@ -273,9 +278,9 @@ function json(body, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
 }
 
-function html(body, status = 200) {
+function html(body, status = 200, extraHeaders = {}) {
   return new Response(body, {
     status,
-    headers: { 'content-type': 'text/html; charset=utf-8' },
+    headers: { 'content-type': 'text/html; charset=utf-8', ...extraHeaders },
   });
 }

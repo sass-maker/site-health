@@ -1,0 +1,6 @@
+.next/
+node_modules/
+data/*.duckdb
+data/*.duckdb.wal
+data/sources/
+*.tsbuildinfo

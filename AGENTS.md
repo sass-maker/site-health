@@ -15,6 +15,9 @@ projects, learning tracks, or cross-project standards.
   public changes unless explicitly asked.
 - Do not add production dependencies, broad rewrites, data migrations, or
   behavior-changing rate limits without explicit approval.
+- Use `$code-cleanup` before dependency manifest or lockfile changes and for
+  unused-code, unused-package, native quality, outdated-package, vulnerability,
+  and guarded package-upgrade work.
 - Prefer small diffs, existing repo scripts, and the smallest relevant check.
 - Preserve unrelated dirty work.
 
@@ -89,6 +92,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |
 | `spec-driven` | standalone | OpenSpec workflow |
+| `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |

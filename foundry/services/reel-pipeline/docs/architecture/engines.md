@@ -110,6 +110,17 @@ commit + artifact URL in the change description.
   when installed (`LESSON_TTS_PROVIDER=kokoro`).
 - Current status: shipped; live proof 40.6s 1080×1920 h264 render end-to-end.
 
+## MLX-Video / LTX local generation
+
+- Upstream: `https://github.com/Blaizzy/mlx-video`.
+- Role: Apple Silicon image-to-video generation for short controlled motion
+  clips. Generated clips remain assets inside approved, deterministic film
+  manifests rather than replacing the compositor.
+- Current status: the CodeVetter reference film records an LTX-2.3 Q4
+  two-stage generation with model revision, prompt, seed, dimensions, frame
+  count, runtime, and hash. Publication rights remain an explicit asset-level
+  gate.
+
 ## reel-maker
 
 - Upstream: `https://github.com/sarthakagrawal927/reel-maker`.
@@ -170,3 +181,8 @@ not copied:
   or adopting its NestJS/Prisma/Temporal runtime. See
   [`decisions/0004-postiz-editframe-patterns-not-code.md`](./decisions/0004-postiz-editframe-patterns-not-code.md).
 - **Editframe** — see HTML composition above; pattern source only.
+- **OpenVid** (`https://github.com/CristianOlivera1/openvid`) — clean-room
+  inspiration for focus/zoom framing, layered screen stages, and
+  time-addressable composition. Its PolyForm Noncommercial license and
+  editor-sized Next/Canvas runtime make it unsuitable as a Fleet production
+  dependency, so no source or package was copied.

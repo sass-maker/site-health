@@ -2,18 +2,35 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Local Video Forge synchronized talking-presenter video",
-  "mode": "preserve",
+  "target": "CodeVetter evidence-beam film, reusable Film styles, and guided Forge operator console",
+  "mode": "overhaul",
   "register": "brand",
   "context": {
-    "product": "PROJECT_STATUS.md",
-    "design": "openspec/changes/local-video-forge/design.md"
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
   },
   "direction": {
-    "references": [],
-    "probes": [],
-    "selected": "existing-design",
-    "approval": "not-required",
+    "references": [
+      "Apple product films: physical clarity and negative space",
+      "Linear product motion: continuous spatial storytelling",
+      "Buck studio transitions: disciplined one-idea motion"
+    ],
+    "probes": [
+      {
+        "id": "evidence-beam",
+        "path": "artifacts/design/probes/codevetter-film/evidence-beam.png"
+      },
+      {
+        "id": "graphic-verdict",
+        "path": "artifacts/design/probes/codevetter-film/graphic-verdict.png"
+      },
+      {
+        "id": "human-evidence-path",
+        "path": "artifacts/design/probes/codevetter-film/human-evidence-path.png"
+      }
+    ],
+    "selected": "evidence-beam",
+    "approval": "delegated",
     "before": "artifacts/design/before.png"
   },
   "evidence": {
@@ -32,11 +49,11 @@
       }
     ],
     "projectCheck": {
-      "command": "ffprobe -v error -show_entries stream=codec_name,codec_type,width,height -show_entries format=duration,size -of json .reel-pipeline/first-deliverable/s01/talking-presenter/final/composed/talking-woman-final.mp4",
+      "command": "node --test test/coherent-scene-composition.test.js test/coherent-film-renderer.test.js test/film-skills.test.js test/forge-operator-console.test.js test/guided-app-demo.test.js test/local-video-forge.test.js test/worker.test.js && ffprobe -v error -show_entries stream=codec_name,codec_type,width,height,color_range,color_space,color_transfer,color_primaries -show_entries format=duration,size -of json .reel-pipeline/coherent-scenes/codevetter-evidence-beam/renders/codevetter-evidence-beam-2026-07-27T03-18-39-549Z/film.mp4",
       "status": "pass"
     },
     "critique": {
-      "score": 34,
+      "score": 36,
       "maximum": 40
     },
     "audit": {
@@ -54,6 +71,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner requested the final talking-woman result with animations and delegated the visual execution."
+    "note": "Owner explicitly delegated the visual direction. Evidence Beam was selected to turn the arsenal into one coherent story rather than a feature montage."
   }
 }

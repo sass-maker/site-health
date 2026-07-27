@@ -49,6 +49,7 @@ count, are the source of truth.
 | `psi-swarm` | standalone | — |
 | `agent-ready` | standalone | — |
 | `seo-audit` | standalone | — |
+| `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `token-budget` | standalone | — |
 | `mobile-task-control` | standalone | — |
 | `daily-learning` | standalone | fresh private 30-minute learning sessions |

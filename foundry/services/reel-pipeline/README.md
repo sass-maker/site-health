@@ -58,6 +58,12 @@ For approved-keyframe LTX-2.3 shots, Local Video Forge adds a shared
 Worker/R2 task queue: a task can be created on either machine, while the Apple
 Silicon Mac pulls and renders it. See the
 [`Local Video Forge runbook`](docs/operations/runbooks/local-video-forge.md).
+The hosted Worker exposes an authenticated `/forge` operator console for
+prompting a task, choosing a repeatable **Film style**, approving asset rights,
+reviewing variants, and queueing the selected final. The
+`guided-app-demo@1` style can record a real app/window/tab and an optional
+same-session camera-and-microphone presenter; the Apple Silicon Mac encodes the
+approved take into preview and final MP4s.
 
 The local control API also exposes the anonymous brand-reel, review, and studio
 surfaces. These are generation tools, not social publishing surfaces.

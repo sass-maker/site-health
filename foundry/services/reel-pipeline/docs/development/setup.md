@@ -32,5 +32,7 @@ npm run dev
 curl -sS http://127.0.0.1:4317/health
 ```
 
-Use `/`, `/review`, and `/studio` for the local browser surfaces. See
+Use `/`, `/review`, and `/studio` for the local browser surfaces. The hosted
+Worker also exposes the authenticated Local Video Forge operator console at
+`/forge`. See
 [`commands.md`](./commands.md) and [`testing.md`](./testing.md).
