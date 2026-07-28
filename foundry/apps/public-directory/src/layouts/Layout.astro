@@ -4,6 +4,8 @@ import '../styles/globals.css';
 interface Props {
   title?: string;
   description?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
 }
 
 const SITE_URL = 'https://sassmaker.com';
@@ -11,7 +13,12 @@ const DEFAULT_TITLE = 'SaaS Maker — a living product directory';
 const DEFAULT_DESCRIPTION =
   'A public directory for Sarthak Agrawal’s maintained products, their canonical sites, changelogs, roadmaps, and source.';
 
-const { title = DEFAULT_TITLE, description = DEFAULT_DESCRIPTION } = Astro.props;
+const {
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  type = 'website',
+  publishedTime,
+} = Astro.props;
 
 // Cloudflare Pages serves clean URLs without `.html`; canonicals should match.
 const pathname =
@@ -36,13 +43,14 @@ const OG_IMAGE = `${SITE_URL}/og-image.svg`;
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="SaaS Maker" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={OG_IMAGE} />
     <meta property="og:locale" content="en_US" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

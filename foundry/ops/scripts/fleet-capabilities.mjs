@@ -5,6 +5,7 @@ import {
   ERROR_CODES,
   buildCatalog,
   diagnoseCatalog,
+  evaluateExecutionProfile,
   errorEnvelope,
   generateContext,
   getCapability,
@@ -13,7 +14,14 @@ import {
   successEnvelope,
 } from '../lib/capability-catalog.mjs';
 
-const COMMANDS = Object.freeze(['list', 'search', 'get', 'context', 'doctor']);
+const COMMANDS = Object.freeze([
+  'list',
+  'search',
+  'get',
+  'execution',
+  'context',
+  'doctor',
+]);
 
 const HELP = `Fleet capability catalog
 
@@ -21,6 +29,7 @@ Usage:
   fleet-capabilities.mjs list [--type <type>] [--json] [--dense]
   fleet-capabilities.mjs search <query> [--type <type>] [--json] [--dense]
   fleet-capabilities.mjs get <capability-id> [--json] [--dense]
+  fleet-capabilities.mjs execution <skill-id> --runtime <intelligence:reasoning> [--json] [--dense]
   fleet-capabilities.mjs context [query] [--type <type>] [--json] [--dense]
   fleet-capabilities.mjs doctor [--json] [--dense]
 
@@ -40,6 +49,7 @@ Examples:
   node foundry/ops/scripts/fleet-capabilities.mjs search "deploy readiness"
   node foundry/ops/scripts/fleet-capabilities.mjs search browser --type skill --json
   node foundry/ops/scripts/fleet-capabilities.mjs get skill:fleet-deploy-guard --dense
+  node foundry/ops/scripts/fleet-capabilities.mjs execution skill:launch-campaign --runtime balanced:high
   node foundry/ops/scripts/fleet-capabilities.mjs context "site health" --dense
   node foundry/ops/scripts/fleet-capabilities.mjs doctor --json`;
 
@@ -48,6 +58,7 @@ function parseArguments(argv) {
     json: false,
     dense: false,
     type: undefined,
+    runtime: undefined,
   };
   const positionals = [];
 
@@ -66,6 +77,15 @@ function parseArguments(argv) {
       index += 1;
     } else if (argument.startsWith('--type=')) {
       options.type = argument.slice('--type='.length);
+    } else if (argument === '--runtime') {
+      const value = argv[index + 1];
+      if (!value || value.startsWith('--')) {
+        throw usageError('Expected intelligence:reasoning after --runtime.');
+      }
+      options.runtime = value;
+      index += 1;
+    } else if (argument.startsWith('--runtime=')) {
+      options.runtime = argument.slice('--runtime='.length);
     } else if (argument === '--help' || argument === '-h') {
       options.help = true;
     } else if (argument.startsWith('-')) {
@@ -118,16 +138,30 @@ function commandSuggestions(command) {
 function denseRows(items) {
   return {
     format: 'dense',
-    columns: ['id', 'name', 'summary'],
-    rows: items.map((item) => [item.id, item.name, item.summary]),
+    columns: ['id', 'name', 'summary', 'execution'],
+    rows: items.map((item) => {
+      const profile = item.executionProfile;
+      const execution = profile
+        ? `recommended=${profile.recommended.intelligence}:${profile.recommended.reasoning};`
+          + `minimum=${profile.minimum.intelligence}:${profile.minimum.reasoning};`
+          + `degradation=${profile.degradation}`
+        : '';
+      return [item.id, item.name, item.summary, execution];
+    }),
   };
 }
 
 function printItems(items, { dense }) {
   if (dense) {
-    console.log(items.map((item) => (
-      `${item.id}\t${item.name}\t${item.summary}`
-    )).join('\n'));
+    console.log(items.map((item) => {
+      const profile = item.executionProfile;
+      const execution = profile
+        ? `recommended=${profile.recommended.intelligence}:${profile.recommended.reasoning};`
+          + `minimum=${profile.minimum.intelligence}:${profile.minimum.reasoning};`
+          + `degradation=${profile.degradation}`
+        : '';
+      return `${item.id}\t${item.name}\t${item.summary}\t${execution}`;
+    }).join('\n'));
     return;
   }
 
@@ -140,6 +174,14 @@ function printItems(items, { dense }) {
     console.log(`${item.id}  ${item.name}`);
     console.log(`  ${item.summary}`);
     console.log(`  ${item.path}`);
+    if (item.executionProfile) {
+      const profile = item.executionProfile;
+      console.log(
+        `  execution: recommended=${profile.recommended.intelligence}:${profile.recommended.reasoning} `
+        + `minimum=${profile.minimum.intelligence}:${profile.minimum.reasoning} `
+        + `degradation=${profile.degradation}`,
+      );
+    }
   }
 }
 
@@ -177,6 +219,9 @@ function validatePositionals(command, positionals) {
   }
   if (command === 'get' && positionals.length !== 1) {
     throw usageError('get requires exactly one namespaced capability identifier.');
+  }
+  if (command === 'execution' && positionals.length !== 1) {
+    throw usageError('execution requires exactly one skill identifier.');
   }
   if (command === 'doctor' && positionals.length > 0) {
     throw usageError('doctor does not accept positional arguments.');
@@ -221,6 +266,62 @@ function runCommand(command, positionals, options) {
     }
     const data = options.dense ? denseRows([item]) : { item };
     emitSuccess(command, data, {}, options, () => printItems([item], options));
+    return;
+  }
+
+  if (command === 'execution') {
+    const id = positionals[0];
+    if (!id.startsWith('skill:')) {
+      throw usageError('execution accepts only a skill identifier.');
+    }
+    const item = getCapability(catalog, id);
+    if (!item) {
+      const error = new Error(`Capability not found: ${id}`);
+      error.code = ERROR_CODES.notFound;
+      error.suggestions = searchCapabilities(catalog, id.replace(/^skill:/, ''), {
+        type: 'skill',
+        limit: 3,
+      }).map((candidate) => candidate.id);
+      throw error;
+    }
+    if (!options.runtime) {
+      throw usageError('execution requires --runtime <intelligence:reasoning>.');
+    }
+    const [intelligence, reasoning, ...extra] = options.runtime.split(':');
+    if (extra.length > 0 || !intelligence || !reasoning) {
+      throw usageError('runtime must use intelligence:reasoning format.');
+    }
+    const decision = evaluateExecutionProfile(item.executionProfile, {
+      intelligence,
+      reasoning,
+    });
+    emitSuccess(command, {
+      item,
+      decision,
+    }, {}, options, () => {
+      if (options.dense) {
+        console.log([
+          item.id,
+          decision.status,
+          decision.action,
+          `runtime=${intelligence}:${reasoning}`,
+          `recommended=${item.executionProfile.recommended.intelligence}:${item.executionProfile.recommended.reasoning}`,
+          `minimum=${item.executionProfile.minimum.intelligence}:${item.executionProfile.minimum.reasoning}`,
+        ].join('\t'));
+      } else {
+        console.log(`${item.id}: ${decision.status}`);
+        console.log(`  action: ${decision.action}`);
+        console.log(`  runtime: ${intelligence}:${reasoning}`);
+        console.log(
+          `  recommended: ${item.executionProfile.recommended.intelligence}:`
+          + item.executionProfile.recommended.reasoning,
+        );
+        console.log(
+          `  minimum: ${item.executionProfile.minimum.intelligence}:`
+          + item.executionProfile.minimum.reasoning,
+        );
+      }
+    });
     return;
   }
 

@@ -1,4 +1,5 @@
 import publicCatalog from '../../../../ops/public/products.json';
+import { LEARNINGS } from '../data/learnings';
 export const prerender = true;
 export function GET() {
   const products = publicCatalog.products.flatMap((product) => {
@@ -33,6 +34,18 @@ export function GET() {
     '',
     'Public directory for maintained products and explicitly public past repositories, generated from Fleet’s privacy-checked projection.',
     '',
+    '# Learnings',
+    '',
+    ...LEARNINGS.flatMap((learning) => [
+      `## ${learning.title}`,
+      '',
+      learning.description,
+      '',
+      `- Article: https://sassmaker.com${learning.href}`,
+      `- Published: ${learning.publishedAt}`,
+      `- Author: ${learning.author}`,
+      '',
+    ]),
     ...products,
     '# Past projects',
     '',

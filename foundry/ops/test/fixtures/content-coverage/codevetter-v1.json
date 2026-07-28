@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T09:00:00.000Z",
+  "product": {
+    "id": "codevetter",
+    "name": "CodeVetter",
+    "url": "https://codevetter.example",
+    "summary": "Local-first review workbench for agent-generated code.",
+    "sourceRevision": "fixture-revision"
+  },
+  "pages": [
+    {
+      "url": "https://codevetter.example/",
+      "title": "CodeVetter",
+      "archetype": "product",
+      "source": "fixture-sitemap",
+      "internalLinks": ["/download", "/privacy"]
+    },
+    {
+      "url": "https://codevetter.example/how-to-review-agent-generated-code",
+      "title": "How to review agent-generated code",
+      "archetype": "how-to",
+      "source": "fixture-sitemap",
+      "internalLinks": ["/"]
+    }
+  ],
+  "expectedArchetypes": [
+    {
+      "archetype": "product",
+      "intent": "understand the product",
+      "required": true
+    },
+    {
+      "archetype": "how-to",
+      "intent": "learn the workflow",
+      "required": true
+    },
+    {
+      "archetype": "alternatives",
+      "intent": "evaluate local-first alternatives",
+      "required": true
+    },
+    {
+      "archetype": "comparison",
+      "intent": "compare CodeVetter with a named hosted reviewer",
+      "required": true,
+      "blockedReason": "The competitor data-handling claim has no current primary source."
+    }
+  ],
+  "competitorEvidence": [
+    {
+      "competitor": "ReviewBench",
+      "url": "https://reviewbench.example/alternatives/local-code-review",
+      "query": "local ai code review alternatives",
+      "archetype": "alternatives",
+      "verifiedAt": "2026-07-28T08:30:00.000Z"
+    }
+  ],
+  "drafts": [
+    {
+      "slug": "local-ai-code-review-alternatives",
+      "title": "Local AI code review alternatives",
+      "metaDescription": "A source-backed guide to reviewing agent-generated code locally.",
+      "intent": "evaluate local-first alternatives",
+      "body": "Agent-generated changes still need evidence-backed review. This fixture article explains the evaluation criteria, local-data boundary, workflow trade-offs, and questions buyers should verify. It does not claim unsupported competitor behavior.",
+      "internalLinks": ["/", "/download", "/privacy"],
+      "sources": ["fixture:product-truth", "https://reviewbench.example/alternatives/local-code-review"]
+    }
+  ],
+  "claimLedger": [
+    {
+      "claim": "CodeVetter stores fixture review state locally.",
+      "source": "fixture:product-truth",
+      "checkedAt": "2026-07-28T08:00:00.000Z",
+      "status": "verified"
+    },
+    {
+      "claim": "ReviewBench uploads every repository.",
+      "source": null,
+      "checkedAt": "2026-07-28T08:00:00.000Z",
+      "status": "blocked"
+    }
+  ],
+  "unavailableEvidence": [
+    {
+      "source": "search-console",
+      "reason": "Not connected for fixture validation."
+    }
+  ]
+}

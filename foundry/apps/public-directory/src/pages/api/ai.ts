@@ -1,5 +1,6 @@
 import publicCatalog from '../../../../../ops/public/products.json';
 import { PACKAGE_URL } from '../../data/links';
+import { LEARNINGS } from '../../data/learnings';
 export const prerender = true;
 export function GET() {
   return new Response(
@@ -29,10 +30,20 @@ export function GET() {
             kind: 'documentation',
             description: 'Published callback-only feedback package and README',
           },
+          {
+            id: 'learnings',
+            url: 'https://sassmaker.com/learnings',
+            kind: 'collection',
+            description: 'First-party builder notes and agent-tooling learnings',
+          },
         ],
         auth: { public: true, notes: 'Private Fleet controls are intentionally excluded.' },
         products: publicCatalog.products,
         pastProjects: publicCatalog.pastProjects,
+        learnings: LEARNINGS.map((learning) => ({
+          ...learning,
+          url: `https://sassmaker.com${learning.href}`,
+        })),
       },
       null,
       2

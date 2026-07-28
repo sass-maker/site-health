@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 
+import { evaluateCampaignItem } from './campaign-manifest.mjs';
+
 const MODES = new Set(['focus', 'evergreen', 'infrastructure', 'private']);
 const CHANNELS = new Set(['instagram_reels', 'youtube_shorts', 'tiktok']);
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -59,6 +61,31 @@ export function createProjectResolver(registry) {
     for (const identity of [project.slug, ...project.aliases]) aliases.set(normalizeIdentity(identity), project.slug);
   }
   return (value) => aliases.get(normalizeIdentity(value)) ?? normalizeIdentity(value);
+}
+
+export function evaluateMarketingCampaignAction({
+  registry,
+  manifest,
+  approval,
+  itemKey,
+  receipts = [],
+}) {
+  const validatedRegistry = validateMarketingProgram(registry);
+  const resolveProject = createProjectResolver(validatedRegistry);
+  const projectId = resolveProject(manifest?.campaign?.projectId);
+  const project = validatedRegistry.projects.find((entry) => entry.slug === projectId);
+  if (!project || project.publicMarketing !== true || project.mode === 'private') {
+    return {
+      authorized: false,
+      status: 'blocked',
+      reasons: ['project is not eligible for public marketing execution'],
+      manifestHash: null,
+      itemIdentity: null,
+      item: null,
+      receipt: null,
+    };
+  }
+  return evaluateCampaignItem(manifest, approval, itemKey, receipts);
 }
 
 function validateProject(project) {
