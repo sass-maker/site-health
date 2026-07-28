@@ -29,6 +29,8 @@ repositories, changelogs, and roadmaps.
 
 - Primary CTA: open a product's canonical site.
 - Secondary CTA: inspect its changelog, roadmap, or source.
+- Tertiary CTA: propose a serious, paid external product build by email. This
+  remains selective and subordinate to the maintained-product portfolio.
 - The line a visitor remembers after 10 seconds: a clear, living directory of
   curious products forged by one builder.
 - Belief ladder: the products are real; their ownership and status are clear;
