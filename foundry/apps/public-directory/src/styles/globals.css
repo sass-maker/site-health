@@ -68,6 +68,7 @@ a {
 .hero,
 .section,
 .package-section,
+.commission-banner,
 .footer {
   width: min(var(--max), calc(100% - 3rem));
   margin-inline: auto;
@@ -466,6 +467,83 @@ a {
   align-items: center;
   color: var(--copper-hi);
   font-weight: 600;
+}
+
+.commission-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: end;
+  margin-bottom: clamp(3rem, 7vw, 5rem);
+  padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3rem);
+  border-block: 1px solid var(--line-strong);
+  background: var(--surface);
+}
+
+.commission-copy h2 {
+  max-width: 15ch;
+  margin-top: 1rem;
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.commission-copy > p:last-child {
+  max-width: 62ch;
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+}
+
+.commission-email {
+  position: relative;
+  min-height: 7rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.35rem 1rem;
+  align-content: center;
+  padding: 1.25rem 0;
+  border-block: 1px solid var(--line);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.commission-email > span:first-child {
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.commission-email strong {
+  grid-column: 1;
+  overflow-wrap: anywhere;
+  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.commission-arrow {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  color: var(--copper-hi);
+  font-size: 1.5rem;
+  transition: translate 160ms ease;
+}
+
+.commission-email:hover,
+.commission-email:focus-visible {
+  border-color: var(--copper);
+  color: var(--copper-hi);
+}
+
+.commission-email:hover .commission-arrow,
+.commission-email:focus-visible .commission-arrow {
+  translate: 0.25rem -0.25rem;
 }
 
 .footer {
@@ -874,6 +952,7 @@ a {
   .hero,
   .section,
   .package-section,
+  .commission-banner,
   .footer,
   .learnings-index,
   .learning-article,
@@ -908,8 +987,15 @@ a {
   }
 
   .hero-bottom,
-  .package-section {
+  .package-section,
+  .commission-banner {
     grid-template-columns: 1fr;
+  }
+
+  .commission-banner {
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+    padding: 2.5rem 1.25rem;
   }
 
   .section-title {

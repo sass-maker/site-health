@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "public-directory",
-  "target": "SaaS Maker Learnings article and homepage discovery rail",
+  "target": "Selective external project commission banner",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -11,34 +11,32 @@
   },
   "direction": {
     "references": [],
-    "probes": [
-      "three generated composition previews"
-    ],
-    "selected": "question-led-split-c",
-    "approval": "owner-selected",
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
     "before": ".fleet/evidence/before-home-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/article-390.png"
+        "path": ".fleet/evidence/commission-banner-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/article-768.png"
+        "path": ".fleet/evidence/commission-banner-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/article-1440.png"
+        "path": ".fleet/evidence/commission-banner-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm --prefix foundry/apps/public-directory run check",
+      "command": "npm run check",
       "status": "pass"
     },
     "critique": {
-      "score": 34,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
@@ -54,7 +52,7 @@
       "findings": []
     },
     "browserReview": {
-      "tool": "regular Chrome through Chrome DevTools",
+      "tool": "regular Chrome through Playwright and Chrome DevTools",
       "viewports": [
         390,
         768,
@@ -62,11 +60,11 @@
       ],
       "horizontalOverflow": false,
       "consoleErrors": 0,
-      "note": "The homepage learning rail was inspected at all required widths. Inline screenshots were captured, but the connector denied local file persistence outside its configured screenshot root."
+      "note": "The banner remains subordinate to the portfolio, the direct email action is visible at every required width, and the page preserves its existing catalog rhythm."
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner delegated campaign execution; this preserve-mode rail is the narrow repair required by the approved live readiness gate."
+    "note": "Owner explicitly requested a bottom banner with a direct team@sassmaker.com email action and delegated the preserve-mode implementation."
   }
 }
