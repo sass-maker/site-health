@@ -11,24 +11,45 @@ The preview is the operator interface. It must contain:
   copy, and flagship social posts;
 - destination-specific secondary titles, descriptions, categories, tags,
   URLs, assets, and form fields;
+- canonical/source attribution for every full-article syndication item;
+- backlink evidence fields: expected page type, live result URL, unique
+  referring domain, follow state, indexability, permanence, and topical fit;
 - explicit exclusions and blockers;
+- one consolidated resumable enablement queue grouped by sign-in, account
+  setup, CAPTCHA/anti-bot, unexpected payment, and moderation;
 - every repository path, command, commit/push action, and deploy action;
 - attribution, launch-day metrics, and 7-day/30-day checkpoints.
 
 ## Lanes
 
-`flagship` is small and high effort: canonical first-party article, launch page,
-email, mapped flagship social accounts, and a genuinely suitable launch
-community or press asset.
+`protected` contains Hacker News, LinkedIn, and X. Each eligible item gets an
+original native post, exact account, timing, policy constraints, and individual
+approval-visible execution plan.
 
-`secondary` is broad but relevant: eligible directories, profiles, catalogs,
-content syndication, and low-risk social variants. Reuse factual source
-material, but adapt required fields and copy to each destination.
+`canonical` owns the first-party article, launch page, email, changelog, and
+other source assets. These establish the claims and URL used by other lanes.
+
+`article_syndication` inventories:
+
+- full-canonical publication on Medium, DEV Community, and Hashnode;
+- editorial submission to HackerNoon;
+- discovery adaptations for daily.dev and other relevant communities; and
+- configured owned publications such as Substack, Ghost, WordPress, Blogger,
+  Tumblr, or Beehiiv.
+
+Only include a platform when current eligibility and account state are known.
+Full duplicates carry the complete approved body and first-party canonical URL.
+
+`broad_backlink` covers relevant product profiles, directories, catalogs,
+comparison pages, package registries, marketplaces, launch boards, and
+community adaptations. Reuse factual source material, but adapt every required
+field and retain a visible result URL as the success receipt.
 
 `manual_or_blocked` includes press outreach, moderation-sensitive communities,
 paid placement, missing authentication, unsupported accounts, CAPTCHA,
 anti-bot challenges, ambiguous policies, fake-review requests, and irrelevant
-destinations.
+destinations. A blocked item does not stop independent authorized items. Group
+the owner actions into one enablement queue and resume only the affected items.
 
 One approval applies to the complete canonical JSON hash. Any material field
 change invalidates it.

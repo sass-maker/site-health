@@ -121,16 +121,24 @@ deploy occurs only when each exact action is present in the approved manifest.
 
 The launch skill separates:
 
-- `flagship`: a small number of high-effort canonical, social, email, launch,
-  or press assets written in full;
-- `secondary`: broad eligible directories and content platforms with
-  destination-specific fields and lighter adaptation; and
+- `protected`: Hacker News, LinkedIn, and X, with high-effort native content
+  and exact execution plans shown in full;
+- `canonical`: first-party articles, launch pages, email, changelog, and other
+  source assets;
+- `article_syndication`: full canonical copies, editorial submissions, and
+  discovery posts for every approved article;
+- `broad_backlink`: relevant directories, profiles, catalogs, comparison
+  pages, package registries, marketplaces, launch boards, and community
+  adaptations with destination-specific fields and lighter effort; and
 - `manual_or_blocked`: moderation-sensitive communities, press, paid,
   authentication-blocked, CAPTCHA, anti-bot, or policy-incompatible actions.
 
 The existing directory registry is a seed inventory, not authority. Each
 destination is rechecked for audience fit, current submission flow, cost,
-policy, and automation mode before appearing as executable.
+policy, and automation mode before appearing as executable. A deterministic
+inventory helper combines the protected and article surfaces with the curated
+directory registry and the long-tail probe without preloading the full
+inventory into skill context.
 
 ### Prefer semantic integrations, then normal browser interaction
 
@@ -142,7 +150,9 @@ interactions, never the legacy force-submit or automation-evasion scripts.
 
 CAPTCHA, anti-bot challenges, missing authentication, unexpected payment, or
 materially changed forms produce a blocked or indeterminate receipt. They do
-not trigger a bypass or blind retry.
+not trigger a bypass or blind retry. A blocked destination does not stop
+independent approved items; it is grouped into one enablement queue so a later
+run can resume after normal owner sign-in or platform completion.
 
 ### Treat confirmed receipts as the only success signal
 
@@ -170,6 +180,12 @@ confirmed matching receipts.
 - **Low-effort distribution can degrade the brand** -> require relevance,
   destination-specific copy, claim accuracy, and exclusion of deceptive,
   duplicate, or moderation-sensitive spam.
+- **A single signed-out platform can truncate broad distribution** -> isolate
+  blockers per item, continue independent items, and return one resumable
+  enablement queue.
+- **Raw backlink count can reward worthless attempts** -> count visible live
+  links and unique referring domains, while retaining follow state,
+  indexability, permanence, and topical fit as evidence.
 - **Postiz is not fully cut over on the designated host** -> keep social items
   blocked or draft-only until the existing Postiz readiness gates pass.
 

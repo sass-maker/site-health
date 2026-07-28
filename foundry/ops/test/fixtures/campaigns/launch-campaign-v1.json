@@ -21,14 +21,29 @@
   ],
   "steps": [
     {
-      "id": "flagship",
-      "label": "Flagship publishing",
-      "itemKeys": ["canonical-article", "linkedin-post"]
+      "id": "canonical",
+      "label": "Canonical publishing",
+      "itemKeys": ["canonical-article"]
     },
     {
-      "id": "secondary",
-      "label": "Secondary distribution",
-      "itemKeys": ["fixture-directory", "captcha-directory"]
+      "id": "protected",
+      "label": "Protected-channel publishing",
+      "itemKeys": ["linkedin-post"]
+    },
+    {
+      "id": "article-syndication",
+      "label": "Article syndication",
+      "itemKeys": ["medium-canonical", "dev-canonical"]
+    },
+    {
+      "id": "broad-backlink",
+      "label": "Broad backlink distribution",
+      "itemKeys": ["fixture-directory"]
+    },
+    {
+      "id": "manual-or-blocked",
+      "label": "Resumable enablement queue",
+      "itemKeys": ["captcha-directory"]
     }
   ],
   "items": [
@@ -87,6 +102,66 @@
       },
       "timing": {
         "publishAt": "2026-08-01T09:00:00.000Z"
+      }
+    },
+    {
+      "key": "medium-canonical",
+      "kind": "content_syndication",
+      "tier": "secondary",
+      "title": "Queue the full article until the fixture Medium account is signed in",
+      "content": {
+        "body": "# Fixture Product\n\nA complete fictional article with no real-world claim.",
+        "fields": {
+          "canonicalUrl": "https://example.invalid/blog/fixture-product-launch",
+          "distributionMode": "full-canonical"
+        },
+        "assets": []
+      },
+      "destination": {
+        "id": "fixture-medium",
+        "url": "https://medium.example.invalid/new-story",
+        "accountSlug": "fixture-product",
+        "cost": "free"
+      },
+      "execution": {
+        "mode": "blocked",
+        "action": "Resume only this item after normal owner sign-in.",
+        "requiresAuth": true,
+        "policyVerifiedAt": "2026-07-28T10:00:00.000Z",
+        "blockedReason": "The fictional Medium account is signed out."
+      },
+      "timing": {
+        "publishAt": null
+      }
+    },
+    {
+      "key": "dev-canonical",
+      "kind": "content_syndication",
+      "tier": "secondary",
+      "title": "Publish the full article to the fictional DEV destination",
+      "content": {
+        "body": "# Fixture Product\n\nA complete fictional article with no real-world claim.",
+        "fields": {
+          "canonicalUrl": "https://example.invalid/blog/fixture-product-launch",
+          "distributionMode": "full-canonical"
+        },
+        "assets": []
+      },
+      "destination": {
+        "id": "fixture-dev",
+        "url": "https://dev.example.invalid/new",
+        "accountSlug": "fixture-product",
+        "cost": "free"
+      },
+      "execution": {
+        "mode": "browser",
+        "action": "Publish the complete approved article with its canonical URL through the fictional visible form.",
+        "requiresAuth": true,
+        "policyVerifiedAt": "2026-07-28T10:00:00.000Z",
+        "blockedReason": null
+      },
+      "timing": {
+        "publishAt": null
       }
     },
     {

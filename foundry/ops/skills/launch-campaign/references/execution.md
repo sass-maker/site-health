@@ -23,3 +23,15 @@ Browser work uses the user's connected session and ordinary visible
 interaction. Stop on unexpected payment, changed fields/content, CAPTCHA,
 anti-bot controls, missing authentication, or unclear success. Never use hidden
 standalone browser automation, force-submit, automation-evasion, or blind retry.
+
+Treat blockers per item, not per campaign. After recording a blocked or manual
+receipt, continue every other independently authorized item. Return one
+enablement queue containing the destination, blocker type, exact owner action,
+and safe resume key. Prefer the user's regular connected Chrome profile when it
+is the explicitly selected account-bearing browser; never copy cookies or
+credentials into campaign state.
+
+For a published link, capture the final visible URL and referring hostname.
+Record follow state and indexability only when verified; use `unknown` when
+they cannot be observed. A submitted form, draft, or queued moderation review
+is not a live backlink.
