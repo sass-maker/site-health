@@ -1,5 +1,8 @@
 ---
 import { CORE, ACTIVE_GROUPS, PAST_PROJECTS, PROJECT_COUNT } from '../data/projects';
+import { LEARNINGS } from '../data/learnings';
+
+const latestLearning = LEARNINGS[0];
 ---
 <section class="section" id="products">
   <div class="section-head">
@@ -23,6 +26,17 @@ import { CORE, ACTIVE_GROUPS, PAST_PROJECTS, PROJECT_COUNT } from '../data/proje
       </li>
     ))}
   </ol>
+
+  <aside class="learning-rail" aria-label="Latest learning">
+    <a href={latestLearning.href}>
+      <span class="eyebrow">Latest learning</span>
+      <strong>{latestLearning.title}</strong>
+      <span class="learning-rail-meta">
+        <span>{latestLearning.readingTime}</span>
+        <span aria-hidden="true">→</span>
+      </span>
+    </a>
+  </aside>
 
   <div class="catalog">
     <div class="active-head">
