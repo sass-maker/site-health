@@ -2,7 +2,12 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { createProjectResolver, validateMarketingProgram } from '../lib/marketing-program.mjs';
+import {
+  createProjectResolver,
+  evaluateMarketingCampaignAction,
+  validateMarketingProgram,
+} from '../lib/marketing-program.mjs';
+import { createCampaignApproval } from '../lib/campaign-manifest.mjs';
 
 const registry = JSON.parse(await readFile(new URL('../config/marketing-program.json', import.meta.url), 'utf8'));
 
@@ -17,7 +22,7 @@ test('registry covers or explicitly excludes every catalog project and has the e
     catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],
   });
   assert.deepEqual(result.focusSet, ['pace', 'codevetter', 'posttrainllm', 'high-signal']);
-  assert.equal(result.projects.length, 28);
+  assert.equal(result.projects.length, 29);
   assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
   assert.equal(result.aiVisibility.scheduleIntent.enabled, false);
   assert.deepEqual(
@@ -67,4 +72,44 @@ test('AI visibility budgets and activation gates fail closed', () => {
   const ungated = structuredClone(registry);
   ungated.aiVisibility.scheduleIntent.activation.requiresHostVerification = false;
   assert.throws(() => validateMarketingProgram(ungated), /activation gates/);
+});
+
+test('marketing execution requires an unchanged approved campaign manifest', async () => {
+  const fixture = JSON.parse(await readFile(
+    new URL('./fixtures/campaigns/launch-campaign-v1.json', import.meta.url),
+    'utf8',
+  ));
+  fixture.campaign.projectId = 'codevetter';
+  const approval = createCampaignApproval(fixture, {
+    decidedBy: 'fixture-owner',
+    decisionReference: 'marketing-control-plane-fixture',
+  });
+  assert.equal(evaluateMarketingCampaignAction({
+    registry,
+    manifest: fixture,
+    approval,
+    itemKey: 'linkedin-post',
+  }).authorized, true);
+
+  const changed = structuredClone(fixture);
+  changed.items[1].content.body += ' Changed after approval.';
+  assert.equal(evaluateMarketingCampaignAction({
+    registry,
+    manifest: changed,
+    approval,
+    itemKey: 'linkedin-post',
+  }).status, 'blocked');
+
+  const privateManifest = structuredClone(fixture);
+  privateManifest.campaign.projectId = 'email-manager';
+  const privateApproval = createCampaignApproval(privateManifest, {
+    decidedBy: 'fixture-owner',
+    decisionReference: 'private-marketing-fixture',
+  });
+  assert.equal(evaluateMarketingCampaignAction({
+    registry,
+    manifest: privateManifest,
+    approval: privateApproval,
+    itemKey: 'linkedin-post',
+  }).status, 'blocked');
 });

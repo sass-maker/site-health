@@ -1,6 +1,7 @@
 ---
 import { GITHUB_PROFILE_URL } from '../data/links';
 
+const isLearnings = Astro.url.pathname.startsWith('/learnings');
 ---
 <nav class="nav" aria-label="Primary navigation">
   <a href="/" class="brand">
@@ -9,6 +10,7 @@ import { GITHUB_PROFILE_URL } from '../data/links';
   </a>
   <div class="nav-links">
     <a href="/#products">Products</a>
+    <a href="/learnings" aria-current={isLearnings ? 'page' : undefined}>Learnings</a>
     <a href="/#package">Package</a>
     <a class="nav-source" href={GITHUB_PROFILE_URL} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
   </div>

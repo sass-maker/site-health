@@ -1,0 +1,167 @@
+{
+  "$schema": "fleet.approved-campaign-manifest.v1",
+  "version": 1,
+  "campaign": {
+    "id": "fixture-product-launch",
+    "kind": "launch_campaign",
+    "projectId": "fixture-product",
+    "missionId": "fixture-launch",
+    "title": "Fixture Product launch",
+    "objective": "Show the complete fixture launch without contacting a real destination.",
+    "createdAt": "2026-07-28T10:00:00.000Z",
+    "sourceRevision": "fixture-revision-1"
+  },
+  "sources": [
+    {
+      "id": "fixture-product-status",
+      "type": "repository",
+      "reference": "fixtures/fixture-product/PROJECT_STATUS.md",
+      "verifiedAt": "2026-07-28T10:00:00.000Z"
+    }
+  ],
+  "steps": [
+    {
+      "id": "flagship",
+      "label": "Flagship publishing",
+      "itemKeys": ["canonical-article", "linkedin-post"]
+    },
+    {
+      "id": "secondary",
+      "label": "Secondary distribution",
+      "itemKeys": ["fixture-directory", "captcha-directory"]
+    }
+  ],
+  "items": [
+    {
+      "key": "canonical-article",
+      "kind": "first_party_page",
+      "tier": "flagship",
+      "title": "Publish the canonical launch article",
+      "content": {
+        "body": "# Fixture Product\n\nA complete fictional article with no real-world claim.",
+        "fields": {
+          "slug": "fixture-product-launch",
+          "metaDescription": "A fictional launch article used only for tests."
+        },
+        "assets": []
+      },
+      "destination": {
+        "id": "fixture-product-site",
+        "url": "https://example.invalid/blog/fixture-product-launch",
+        "accountSlug": null,
+        "cost": "free"
+      },
+      "execution": {
+        "mode": "repository",
+        "action": "Write the approved fixture page and run the listed fixture check.",
+        "requiresAuth": false,
+        "policyVerifiedAt": "2026-07-28T10:00:00.000Z",
+        "blockedReason": null
+      },
+      "timing": {
+        "publishAt": null
+      }
+    },
+    {
+      "key": "linkedin-post",
+      "kind": "social_post",
+      "tier": "flagship",
+      "title": "Create a LinkedIn draft",
+      "content": {
+        "body": "Fixture Product now demonstrates an approval-safe launch workflow.",
+        "fields": {},
+        "assets": []
+      },
+      "destination": {
+        "id": "linkedin",
+        "url": "https://www.linkedin.com/",
+        "accountSlug": "fixture-product",
+        "cost": "free"
+      },
+      "execution": {
+        "mode": "postiz",
+        "action": "Create one Postiz fixture draft for the mapped account.",
+        "requiresAuth": true,
+        "policyVerifiedAt": "2026-07-28T10:00:00.000Z",
+        "blockedReason": null
+      },
+      "timing": {
+        "publishAt": "2026-08-01T09:00:00.000Z"
+      }
+    },
+    {
+      "key": "fixture-directory",
+      "kind": "directory_submission",
+      "tier": "secondary",
+      "title": "Submit to the fictional directory",
+      "content": {
+        "body": "Fixture Product is a fictional product used to validate campaign receipts.",
+        "fields": {
+          "name": "Fixture Product",
+          "tagline": "Approval-safe fixture campaigns",
+          "url": "https://example.invalid/"
+        },
+        "assets": []
+      },
+      "destination": {
+        "id": "fixture-directory",
+        "url": "https://directory.example.invalid/submit",
+        "accountSlug": null,
+        "cost": "free"
+      },
+      "execution": {
+        "mode": "browser",
+        "action": "Fill the fictional visible form and stop before any real network submission.",
+        "requiresAuth": false,
+        "policyVerifiedAt": "2026-07-28T10:00:00.000Z",
+        "blockedReason": null
+      },
+      "timing": {
+        "publishAt": null
+      }
+    },
+    {
+      "key": "captcha-directory",
+      "kind": "directory_submission",
+      "tier": "manual",
+      "title": "Do not bypass the fictional CAPTCHA",
+      "content": {
+        "body": "Fixture copy that must not be submitted while the destination is blocked.",
+        "fields": {},
+        "assets": []
+      },
+      "destination": {
+        "id": "captcha-directory",
+        "url": "https://captcha.example.invalid/submit",
+        "accountSlug": null,
+        "cost": "free"
+      },
+      "execution": {
+        "mode": "blocked",
+        "action": "Stop and request normal owner completion if this destination is retained.",
+        "requiresAuth": false,
+        "policyVerifiedAt": "2026-07-28T10:00:00.000Z",
+        "blockedReason": "CAPTCHA blocks normal browser automation."
+      },
+      "timing": {
+        "publishAt": null
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "destinationId": "fake-review-marketplace",
+      "reason": "Fake reviews are deceptive and prohibited."
+    }
+  ],
+  "measurement": {
+    "attribution": "utm_campaign=fixture-product-launch",
+    "metrics": ["referrals", "signups", "activations"],
+    "checkpoints": ["7d", "30d"]
+  },
+  "permissions": {
+    "repositoryWrites": ["fixtures/fixture-product/src/content/fixture-product-launch.md"],
+    "commands": ["node --test fixture-product.test.mjs"],
+    "publishCommands": []
+  }
+}

@@ -8,9 +8,9 @@
  *
  * Live-probes GEO surfaces via agent-index-audit (--json), reads latest
  * geo-observatory trend classes from the ledger, and folds in optional
- * seo/perf artifacts when present (foundry/ops/data/seo-audit/latest.json,
- * foundry/ops/data/psi-swarm/latest.json). Does NOT re-run the heavier
- * seo-audit/psi-swarm passes — use those subskills for fresh data.
+ * seo/content/perf artifacts when present
+ * (foundry/ops/data/{seo-audit,content-coverage,psi-swarm}/latest.json).
+ * Does NOT re-run the heavier child passes — use those subskills for fresh data.
  *
  * Output: foundry/ops/docs/site-health-latest.md
  */
@@ -26,6 +26,7 @@ const FLEET_ROOT = resolve(__dirname, '../../..');
 const AUDIT = join(FLEET_ROOT, 'foundry/ops/skills/agent-ready/scripts/agent-index-audit.mjs');
 const LEDGER = join(FLEET_ROOT, 'foundry/ops/data/geo-observatory/ledger.jsonl');
 const SEO_ARTIFACT = join(FLEET_ROOT, 'foundry/ops/data/seo-audit/latest.json');
+const CONTENT_ARTIFACT = join(FLEET_ROOT, 'foundry/ops/data/content-coverage/latest.json');
 const PERF_ARTIFACT = join(FLEET_ROOT, 'foundry/ops/data/psi-swarm/latest.json');
 const OUT = join(FLEET_ROOT, 'foundry/ops/docs/site-health-latest.md');
 
@@ -102,6 +103,7 @@ function main() {
   const auditByName = new Map(audit.map((r) => [r.name, r]));
   const trend = latestTrendClasses();
   const seo = loadArtifact(SEO_ARTIFACT); // { <productId>: {fail, warn, date} }
+  const content = loadArtifact(CONTENT_ARTIFACT); // { <productId>: {verdict, create, update, blocked, date} }
   const perf = loadArtifact(PERF_ARTIFACT); // { <productId>: {lcp_p75, cls_p75, inp_p75, date} }
 
   const rows = [];
@@ -110,30 +112,36 @@ function main() {
     if (!idsInScope.has(p.id)) continue;
     const a = auditByName.get(p.name || p.id) || { tier: '?', score: 0, checks: {} };
     const s = seo?.[p.id];
+    const c = content?.[p.id];
     const pf = perf?.[p.id];
     const t = trend.get(p.id);
     rows.push(
       `| ${p.id} | ${a.tier} ${a.score ?? 0}% | ` +
         `${s ? `${s.fail}F/${s.warn}W (${s.date})` : '–'} | ` +
+        `${c ? `${c.verdict} ${c.create ?? 0}C/${c.update ?? 0}U/${c.blocked ?? 0}B (${c.date})` : '–'} | ` +
         `${pf ? `LCP ${pf.lcp_p75}ms (${pf.date})` : '–'} | ` +
         `${t || '–'} |`
     );
     const w = worstProblem(a);
     if (w) problems.push(`- **${p.id}** — ${w}`);
+    if (c?.blocked > 0) problems.push(`- **${p.id} content** — ${c.blocked} blocked coverage action(s) need evidence or owner input`);
+    else if ((c?.create ?? 0) + (c?.update ?? 0) > 0) {
+      problems.push(`- **${p.id} content** — ${c.create ?? 0} create and ${c.update ?? 0} update action(s) remain`);
+    }
   }
 
   const sTier = audit.filter((r) => r.tier === 'S').length;
   const doc = `# Site health — fleet scorecard
 
 Generated ${new Date().toISOString().slice(0, 10)} by \`site-health-scorecard.mjs\`. GEO is live-probed;
-seo/perf columns read the latest saved artifacts ("–" = no artifact yet — run
-the seo-audit / psi-swarm subskills to populate); trend reads the
+seo/content/perf columns read the latest saved artifacts ("–" = no artifact yet — run
+the seo-audit / content-coverage / psi-swarm subskills to populate); trend reads the
 geo-observatory ledger. Do not edit by hand.
 
 **GEO: ${sTier}/${audit.length} S-tier.**
 
-| product | GEO | seo | perf p75 | trend |
-|---|---|---|---|---|
+| product | GEO | seo | content | perf p75 | trend |
+|---|---|---|---|---|---|
 ${rows.join('\n')}
 
 ## Problems (worst first per product)

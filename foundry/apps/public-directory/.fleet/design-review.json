@@ -1,0 +1,61 @@
+{
+  "$schema": "fleet.design-review.v1",
+  "version": 1,
+  "project": "public-directory",
+  "target": "SaaS Maker Learnings index and model-aware skills article",
+  "mode": "preserve",
+  "register": "brand",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
+  },
+  "direction": {
+    "references": [],
+    "probes": [
+      "three generated composition previews"
+    ],
+    "selected": "question-led-split-c",
+    "approval": "owner-selected",
+    "before": ".fleet/evidence/before-home-1440.png"
+  },
+  "evidence": {
+    "screenshots": [
+      {
+        "width": 390,
+        "path": ".fleet/evidence/article-390.png"
+      },
+      {
+        "width": 768,
+        "path": ".fleet/evidence/article-768.png"
+      },
+      {
+        "width": 1440,
+        "path": ".fleet/evidence/article-1440.png"
+      }
+    ],
+    "projectCheck": {
+      "command": "npm run check",
+      "status": "passed"
+    },
+    "critique": {
+      "score": 34,
+      "maximum": 40
+    },
+    "audit": {
+      "score": 20,
+      "maximum": 20
+    },
+    "unresolved": {
+      "p0": 0,
+      "p1": 0
+    },
+    "detector": {
+      "posture": "advisory",
+      "findings": []
+    }
+  },
+  "ownerFeedback": {
+    "decision": "keep",
+    "note": "Owner approved proceeding to the launch-campaign preview on 2026-07-28."
+  }
+}

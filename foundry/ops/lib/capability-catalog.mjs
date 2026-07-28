@@ -4,14 +4,39 @@ import {
   readdirSync,
   statSync,
 } from 'node:fs';
-import { basename, extname, join, relative, resolve, sep } from 'node:path';
+import {
+  basename,
+  dirname,
+  extname,
+  join,
+  relative,
+  resolve,
+  sep,
+} from 'node:path';
 
-export const CATALOG_SCHEMA_VERSION = 1;
+export const CATALOG_SCHEMA_VERSION = 2;
+export const EXECUTION_PROFILE_SCHEMA = 'fleet.skill-execution-profile.v1';
 export const CAPABILITY_TYPES = Object.freeze([
   'skill',
   'script',
   'template',
   'doc',
+]);
+export const INTELLIGENCE_LEVELS = Object.freeze([
+  'economy',
+  'balanced',
+  'frontier',
+]);
+export const REASONING_LEVELS = Object.freeze([
+  'low',
+  'medium',
+  'high',
+  'very_high',
+]);
+export const DEGRADATION_POLICIES = Object.freeze([
+  'allow',
+  'ask',
+  'deny',
 ]);
 
 export const ERROR_CODES = Object.freeze({
@@ -205,6 +230,139 @@ function walkFiles(rootPath, excludeDirectories = new Set()) {
   return files;
 }
 
+function profileIssue(code, message, path) {
+  return {
+    level: 'error',
+    code,
+    message,
+    path,
+  };
+}
+
+export function validateExecutionProfile(profile, path = 'execution-profile.json') {
+  const issues = [];
+  if (!profile || typeof profile !== 'object' || Array.isArray(profile)) {
+    return [profileIssue(
+      'INVALID_EXECUTION_PROFILE',
+      'Execution profile must be a JSON object.',
+      path,
+    )];
+  }
+
+  if (profile.schema !== EXECUTION_PROFILE_SCHEMA) {
+    issues.push(profileIssue(
+      'INVALID_EXECUTION_PROFILE_SCHEMA',
+      `Execution profile schema must be ${EXECUTION_PROFILE_SCHEMA}.`,
+      path,
+    ));
+  }
+
+  for (const level of ['recommended', 'minimum']) {
+    const value = profile[level];
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      issues.push(profileIssue(
+        'INVALID_EXECUTION_PROFILE',
+        `Execution profile ${level} must be an object.`,
+        path,
+      ));
+      continue;
+    }
+    if (!INTELLIGENCE_LEVELS.includes(value.intelligence)) {
+      issues.push(profileIssue(
+        'INVALID_EXECUTION_PROFILE_INTELLIGENCE',
+        `${level}.intelligence must be one of: ${INTELLIGENCE_LEVELS.join(', ')}.`,
+        path,
+      ));
+    }
+    if (!REASONING_LEVELS.includes(value.reasoning)) {
+      issues.push(profileIssue(
+        'INVALID_EXECUTION_PROFILE_REASONING',
+        `${level}.reasoning must be one of: ${REASONING_LEVELS.join(', ')}.`,
+        path,
+      ));
+    }
+  }
+
+  if (!DEGRADATION_POLICIES.includes(profile.degradation)) {
+    issues.push(profileIssue(
+      'INVALID_EXECUTION_PROFILE_DEGRADATION',
+      `degradation must be one of: ${DEGRADATION_POLICIES.join(', ')}.`,
+      path,
+    ));
+  }
+  if (typeof profile.rationale !== 'string' || profile.rationale.trim() === '') {
+    issues.push(profileIssue(
+      'INVALID_EXECUTION_PROFILE_RATIONALE',
+      'Execution profile rationale must be a non-empty string.',
+      path,
+    ));
+  }
+
+  const recommended = profile.recommended;
+  const minimum = profile.minimum;
+  if (
+    recommended
+    && minimum
+    && INTELLIGENCE_LEVELS.includes(recommended.intelligence)
+    && INTELLIGENCE_LEVELS.includes(minimum.intelligence)
+    && INTELLIGENCE_LEVELS.indexOf(minimum.intelligence)
+      > INTELLIGENCE_LEVELS.indexOf(recommended.intelligence)
+  ) {
+    issues.push(profileIssue(
+      'INCONSISTENT_EXECUTION_PROFILE',
+      'minimum.intelligence cannot exceed recommended.intelligence.',
+      path,
+    ));
+  }
+  if (
+    recommended
+    && minimum
+    && REASONING_LEVELS.includes(recommended.reasoning)
+    && REASONING_LEVELS.includes(minimum.reasoning)
+    && REASONING_LEVELS.indexOf(minimum.reasoning)
+      > REASONING_LEVELS.indexOf(recommended.reasoning)
+  ) {
+    issues.push(profileIssue(
+      'INCONSISTENT_EXECUTION_PROFILE',
+      'minimum.reasoning cannot exceed recommended.reasoning.',
+      path,
+    ));
+  }
+
+  return issues;
+}
+
+function readExecutionProfile(skillFile, opsRoot) {
+  const profilePath = join(dirname(skillFile), 'execution-profile.json');
+  const publicPath = toPosix(relative(resolve(opsRoot, '../..'), profilePath));
+  if (!existsSync(profilePath)) {
+    return {
+      profile: null,
+      issues: [profileIssue(
+        'MISSING_EXECUTION_PROFILE',
+        `Fleet-owned skill is missing ${basename(profilePath)}.`,
+        publicPath,
+      )],
+    };
+  }
+  try {
+    const profile = JSON.parse(readFileSync(profilePath, 'utf8'));
+    return {
+      profile,
+      issues: validateExecutionProfile(profile, publicPath),
+    };
+  } catch (error) {
+    return {
+      profile: null,
+      issues: [profileIssue(
+        'INVALID_EXECUTION_PROFILE_JSON',
+        `Could not parse execution profile: ${error.message}`,
+        publicPath,
+      )],
+    };
+  }
+}
+
 function createItem({ type, filePath, sourceRoot, opsRoot, content }) {
   const metadata = type === 'skill' ? parseFrontmatter(content) : {};
   const path = toPosix(relative(resolve(opsRoot, '../..'), filePath));
@@ -228,9 +386,17 @@ function createItem({ type, filePath, sourceRoot, opsRoot, content }) {
     summary,
     path,
   };
+  const execution = type === 'skill'
+    ? readExecutionProfile(filePath, opsRoot)
+    : { profile: null, issues: [] };
+  if (type === 'skill') item.executionProfile = execution.profile;
 
   Object.defineProperty(item, '_searchText', {
     value: normalizeText(`${item.id} ${type} ${name} ${summary} ${path} ${content.slice(0, 12_000)}`),
+    enumerable: false,
+  });
+  Object.defineProperty(item, '_profileIssues', {
+    value: execution.issues,
     enumerable: false,
   });
   return item;
@@ -295,13 +461,15 @@ export function buildCatalog(opsRoot = resolve(import.meta.dirname, '..')) {
 }
 
 export function publicItem(item) {
-  return {
+  const value = {
     id: item.id,
     type: item.type,
     name: item.name,
     summary: item.summary,
     path: item.path,
   };
+  if (item.type === 'skill') value.executionProfile = item.executionProfile;
+  return value;
 }
 
 export function listCapabilities(catalog, { type } = {}) {
@@ -371,6 +539,75 @@ export function getCapability(catalog, id) {
   return item ? publicItem(item) : null;
 }
 
+function capabilityMeets(actual, required, levels) {
+  return levels.indexOf(actual) >= levels.indexOf(required);
+}
+
+export function evaluateExecutionProfile(profile, runtime) {
+  const profileIssues = validateExecutionProfile(profile);
+  if (profileIssues.length > 0) {
+    const error = new Error(profileIssues.map((issue) => issue.message).join(' '));
+    error.code = ERROR_CODES.catalogInvalid;
+    throw error;
+  }
+  if (
+    !runtime
+    || !INTELLIGENCE_LEVELS.includes(runtime.intelligence)
+    || !REASONING_LEVELS.includes(runtime.reasoning)
+  ) {
+    const error = new Error(
+      'Runtime must declare valid intelligence and reasoning capabilities.',
+    );
+    error.code = ERROR_CODES.usage;
+    throw error;
+  }
+
+  const gaps = [];
+  for (const field of ['intelligence', 'reasoning']) {
+    const levels = field === 'intelligence'
+      ? INTELLIGENCE_LEVELS
+      : REASONING_LEVELS;
+    if (!capabilityMeets(runtime[field], profile.recommended[field], levels)) {
+      gaps.push({
+        capability: field,
+        actual: runtime[field],
+        recommended: profile.recommended[field],
+        minimum: profile.minimum[field],
+        belowMinimum: !capabilityMeets(runtime[field], profile.minimum[field], levels),
+      });
+    }
+  }
+
+  if (gaps.length === 0) {
+    return {
+      status: 'recommended',
+      action: 'continue',
+      runtime,
+      gaps,
+    };
+  }
+  if (!gaps.some((gap) => gap.belowMinimum)) {
+    return {
+      status: 'compatible',
+      action: 'continue',
+      runtime,
+      gaps,
+    };
+  }
+
+  const outcome = {
+    allow: ['degraded', 'continue'],
+    ask: ['approval_required', 'ask'],
+    deny: ['redispatch_required', 'redispatch'],
+  }[profile.degradation];
+  return {
+    status: outcome[0],
+    action: outcome[1],
+    runtime,
+    gaps,
+  };
+}
+
 export function generateContext(catalog, { query, type, dense = false } = {}) {
   const items = query
     ? searchCapabilities(catalog, query, { type, limit: Number.POSITIVE_INFINITY })
@@ -378,7 +615,15 @@ export function generateContext(catalog, { query, type, dense = false } = {}) {
 
   if (dense) {
     return items
-      .map((item) => `${item.id}\t${item.name}\t${item.summary}`)
+      .map((item) => {
+        const profile = item.executionProfile;
+        const execution = profile
+          ? `recommended=${profile.recommended.intelligence}:${profile.recommended.reasoning};`
+            + `minimum=${profile.minimum.intelligence}:${profile.minimum.reasoning};`
+            + `degradation=${profile.degradation}`
+          : '';
+        return `${item.id}\t${item.name}\t${item.summary}\t${execution}`;
+      })
       .join('\n');
   }
 
@@ -400,7 +645,14 @@ export function generateContext(catalog, { query, type, dense = false } = {}) {
     if (matching.length === 0) continue;
     lines.push('', `## ${capabilityType[0].toUpperCase()}${capabilityType.slice(1)}s`, '');
     for (const item of matching) {
-      lines.push(`- \`${item.id}\` — ${item.summary} (\`${item.path}\`)`);
+      const profile = item.executionProfile;
+      const execution = profile
+        ? ` Recommended runtime: ${profile.recommended.intelligence}/`
+          + `${profile.recommended.reasoning}; minimum: `
+          + `${profile.minimum.intelligence}/${profile.minimum.reasoning}; `
+          + `degradation: ${profile.degradation}.`
+        : '';
+      lines.push(`- \`${item.id}\` — ${item.summary}${execution} (\`${item.path}\`)`);
     }
   }
   return lines.join('\n');
@@ -412,6 +664,7 @@ export function diagnoseCatalog(catalog) {
   const idPattern = /^(skill|script|template|doc):[a-z0-9][a-z0-9._/-]*$/;
 
   for (const item of catalog.items) {
+    issues.push(...(item._profileIssues || []));
     if (seen.has(item.id)) {
       issues.push({
         level: 'error',
