@@ -239,6 +239,49 @@ a {
   border-bottom: 1px solid var(--line);
 }
 
+.learning-rail {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-block: 1px solid var(--line);
+}
+
+.learning-rail a {
+  min-height: 7rem;
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr) auto;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+  padding: 1.25rem 0;
+  transition: background 160ms ease;
+}
+
+.learning-rail a:hover,
+.learning-rail a:focus-visible {
+  background: var(--surface);
+}
+
+.learning-rail strong {
+  max-width: 28ch;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.learning-rail-meta {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.learning-rail-meta > span:last-child {
+  color: var(--copper-hi);
+  font-size: 1.2rem;
+}
+
 .spotlight-item {
   min-height: 8.5rem;
   display: grid;
@@ -886,6 +929,18 @@ a {
 
   .spotlight-host {
     display: none;
+  }
+
+  .learning-rail a {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 1.5rem 0;
+  }
+
+  .learning-rail-meta {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .active-head {

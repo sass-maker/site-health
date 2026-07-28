@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "public-directory",
-  "target": "SaaS Maker Learnings index and model-aware skills article",
+  "target": "SaaS Maker Learnings article and homepage discovery rail",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -34,8 +34,8 @@
       }
     ],
     "projectCheck": {
-      "command": "npm run check",
-      "status": "passed"
+      "command": "npm --prefix foundry/apps/public-directory run check",
+      "status": "pass"
     },
     "critique": {
       "score": 34,
@@ -52,10 +52,21 @@
     "detector": {
       "posture": "advisory",
       "findings": []
+    },
+    "browserReview": {
+      "tool": "regular Chrome through Chrome DevTools",
+      "viewports": [
+        390,
+        768,
+        1440
+      ],
+      "horizontalOverflow": false,
+      "consoleErrors": 0,
+      "note": "The homepage learning rail was inspected at all required widths. Inline screenshots were captured, but the connector denied local file persistence outside its configured screenshot root."
     }
   },
   "ownerFeedback": {
-    "decision": "keep",
-    "note": "Owner approved proceeding to the launch-campaign preview on 2026-07-28."
+    "decision": "delegated",
+    "note": "Owner delegated campaign execution; this preserve-mode rail is the narrow repair required by the approved live readiness gate."
   }
 }
