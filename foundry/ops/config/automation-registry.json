@@ -3,7 +3,7 @@
   "updatedAt": "2026-07-28",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 20,
+    "toolbox": 21,
     "foundry": 5,
     "ignored": 12
   },
@@ -617,6 +617,40 @@
       "exceptions": []
     },
     {
+      "id": "india-standards",
+      "name": "India Standards",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "india-standards",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://india-numbers.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
       "id": "anime-list",
       "name": "Anime List",
       "attention": "toolbox",
@@ -1109,7 +1143,7 @@
       "id": "app-health",
       "name": "App Health",
       "attention": "toolbox",
-      "family": "app-health",
+      "family": "fleet-workspace",
       "owner": "sarthak",
       "repository": "app-health",
       "runtimes": [
@@ -1194,7 +1228,7 @@
       "id": "motion",
       "name": "Motion",
       "attention": "toolbox",
-      "family": "motion",
+      "family": "significanthobbies",
       "owner": "sarthak",
       "repository": "motion",
       "runtimes": [

@@ -45,13 +45,21 @@ CodeVetter or App Health source.
 - Drank supplies domain intelligence.
 - PSI Swarm supplies bounded performance/site-health evidence.
 - Mobile Dev Cockpit is the private mobile Fleet client.
-- CodeVetter and App Health remain independent linked products and evidence
-  owners; neither is a Fleet Workspace package.
+- CodeVetter remains an independent linked product. App Health is an
+  independent SaaS Maker-owned product and evidence owner. Neither is a Fleet
+  Workspace package.
 - Fleet owns the backend-free `@saas-maker/feedback` React package. Integrating
   products own submission and storage through its `onSubmit` callback.
 
 ## Timeline
 
+- **2026-07-29 — Motion, App Health, and India Standards moved under portfolio
+  ownership:** Transferred Motion and India Standards to
+  `Significant-Hobbies`, transferred App Health to `sass-maker`, and reconciled
+  the Fleet catalog with App Health's live SaaS Maker domains and India
+  Standards' currently live compatibility hostname. The Motion and India
+  Standards canonical domains remain release-gated; no deployment was
+  performed.
 - **2026-07-29 — Maintained repositories moved to organization ownership:**
   Transferred Email Manager and RolePatch to `sass-maker`, and Memory Map,
   Calorie, and Karte to `Significant-Hobbies`. Updated canonical Fleet,
@@ -279,7 +287,7 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
-- Canonical 42-identity project/domain/deploy/lifecycle catalog with active and
+- Canonical 43-identity project/domain/deploy/lifecycle catalog with active and
   inactive checkout reconciliation, generated internal inventory views, and a
   privacy-gated SaaS Maker projection for maintained and past public work.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and

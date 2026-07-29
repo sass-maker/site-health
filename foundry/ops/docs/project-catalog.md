@@ -2,7 +2,7 @@
 
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 
-Generated from 42 internal project identities.
+Generated from 43 internal project identities.
 
 ## My Work — 4
 
@@ -13,7 +13,7 @@ Generated from 42 internal project identities.
 | PostTrainLLM | maintained | `posttrainllm` | maintained | https://posttrainllm.com |
 | High Signal | maintained | `high-signal` | maintained | https://highsignal.app |
 
-## Toolbox — 21
+## Toolbox — 22
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
@@ -23,6 +23,7 @@ Generated from 42 internal project identities.
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
 | Knowledge Base | maintained | `knowledge-base` | maintained | https://knowledgebase.sassmaker.com |
 | Significant Hobbies | maintained | `significanthobbies` | maintained | https://significanthobbies.com |
+| India Standards | maintained | `india-standards` | hidden | https://india-numbers.significanthobbies.com |
 | Anime List | maintained | `anime-list` | maintained | https://anime.significanthobbies.com |
 | Chess | maintained | `chess` | maintained | https://chess.significanthobbies.com |
 | LoopTV | maintained | `looptv` | maintained | https://tv.significanthobbies.com |
@@ -33,9 +34,9 @@ Generated from 42 internal project identities.
 | RolePatch | maintained | `rolepatch` | maintained | https://rolepatch.com |
 | Karte | maintained | `karte` | maintained | https://karte.cc |
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |
-| App Health | local-only | `app-health` | hidden | — |
+| App Health | maintained | `app-health` | maintained | https://health.sassmaker.com |
 | Mashup | local-only | `mashup` | hidden | — |
-| Motion | local-only | `motion` | hidden | — |
+| Motion | maintained | `motion` | hidden | — |
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Personal website | non-product | `—` | maintained | https://sarthakagrawal.dev |
 

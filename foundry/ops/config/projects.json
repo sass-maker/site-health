@@ -66,6 +66,7 @@
         "chatgpt-memory-insights",
         "materia",
         "significanthobbies",
+        "india-standards",
         "what-it-takes-to-win",
         "anime-list",
         "chess",
@@ -563,6 +564,28 @@
       }
     },
     {
+      "id": "india-standards",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "india-standards",
+      "deployKind": "worker",
+      "cfProject": "india-numbers",
+      "domains": [
+        "india-numbers.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Private Significant Hobbies repository. The existing india-numbers Worker and hostname remain live; india-standards.significanthobbies.com is prepared as the canonical domain but is not live until a separately approved release.",
+      "name": "India Standards",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
       "id": "anime-list",
       "authModel": "public-persistent",
       "family": "significanthobbies",
@@ -996,21 +1019,33 @@
     {
       "id": "app-health",
       "authModel": "required-service",
-      "family": "app-health",
+      "family": "fleet-workspace",
       "tier": "active",
       "repo": "app-health",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
+      "deployKind": "worker",
+      "cfProject": "app-health-worker",
+      "domains": [
+        "health.sassmaker.com",
+        "ingest.sassmaker.com"
+      ],
       "inRegistry": false,
-      "status": "undeployed",
-      "notes": "Independent aggregate-only endpoint health product. Local V0 complete; production auth and deployment are intentionally deferred.",
+      "status": "live",
+      "notes": "Independent SaaS Maker-owned aggregate-only endpoint health product. The public repository is sass-maker/app-health; health.sassmaker.com and ingest.sassmaker.com are live.",
       "name": "App Health",
       "attention": "toolbox",
-      "lifecycle": "local-only",
+      "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "app-health",
+        "name": "App Health",
+        "description": "Privacy-first endpoint health for Node, Go, and OpenTelemetry services.",
+        "category": "product",
+        "pillarId": "visibility",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sass-maker/app-health",
+        "roadmapPath": null
       }
     },
     {
@@ -1059,7 +1094,7 @@
     {
       "id": "motion",
       "authModel": "public-persistent",
-      "family": "motion",
+      "family": "significanthobbies",
       "tier": "active",
       "repo": "motion",
       "deployKind": "none",
@@ -1068,10 +1103,10 @@
       "app": "web+ios",
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "NEW 2026-07-18 (was 'bodyplay' — renamed to Motion). Body-motion game controller. v1 = SERVERLESS single-device POC: iPhone runs camera+Vision pose → renders the game full-screen in a WKWebView (reuses web/ game via in-process JS pose bridge) → screen-mirror to a TV (AirPlay/Chromecast/QuickTime); recording via ReplayKit (game+camera inset in one video). Monorepo: protocol/ + web/ (Vite game SDK + Game iface, keyboard-debug playable, bridge+socket transports) + ios/ (SwiftUI+Vision+WKWebView+ReplayKit, XcodeGen) + server/ (PartyKit relay, PARKED for v2). v2 = browser display + Chromecast receiver + PartyKit multiplayer. Web+server typecheck+build green; iOS COMPILES + LAUNCHES + renders on iOS-27 Simulator (Xcode 27, verified via screenshot) — device-runtime (real camera/ReplayKit/joint-mapping) still needs a physical iPhone. Repo = PERSONAL GitHub github.com/sarthakagrawal927/motion (private), NOT fleet org.",
+      "notes": "Private Significant Hobbies repository at Significant-Hobbies/motion. Body-motion game controller: iPhone Vision drives the bundled WKWebView game and screen-mirrors to a TV; the browser relay remains parked for v2. motion.significanthobbies.com is planned but not live.",
       "name": "Motion",
       "attention": "toolbox",
-      "lifecycle": "local-only",
+      "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "public": {
         "listing": "hidden"
