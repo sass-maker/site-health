@@ -16,6 +16,8 @@ commands.
 | `npm run ready:target` | Target-host acceptance; requires prepared live services |
 | `npm run docs:validate` | Documentation structure and link validation |
 | `npm run docs:build` | Build the Blume documentation site |
+| `npm run editorial:test` | Nested podcast editorial Python suite |
+| `npm run editorial:check` | Nested podcast editorial Ruff checks |
 
 ## Render
 
@@ -26,9 +28,19 @@ commands.
 | `npm run render:fixture -- --mode <mode>` | Direct local VideoBrief fixture render |
 | `npm run render:html -- --brief <file>` | Export HTML composition artifacts |
 | `npm run render:package -- --file <package>` | Render an approved content package |
+| `npm run render:podcast-edit -- --file <podcast-edit>` | Render an approved `fleet.podcast-edit.v1` document |
 | `npm run render:reel-maker` | Run the reel-maker adapter |
 | `npm run canary:moneyprinter` | Real MoneyPrinterTurbo MP4 canary |
 | `npm run probe:engines` | Inspect renderer prerequisites without rendering |
+
+## Podcast editorial
+
+| Command | Purpose |
+| --- | --- |
+| `npm run editorial -- --help` | Run the incorporated Mashup compatibility CLI |
+| `npm run editorial -- export-podcast-edit <edl> --output <file> --provenance <file>` | Wrap an EDL in the canonical podcast-edit contract |
+| `npm run editorial:test` | Run Python editorial tests |
+| `npm run editorial:check` | Run editorial lint and format checks |
 
 ## Source packages and Postiz
 

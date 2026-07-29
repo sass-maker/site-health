@@ -1,12 +1,13 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-07-27
+Last updated: 2026-07-29
 
 ## Why / What
 
-Reel Pipeline is Fleet's media-generation service. It accepts approved,
-source-backed briefs, renders reviewable media, records artifact provenance,
-and creates draft handoffs for Postiz.
+Reel Pipeline is Fleet's media-generation and source-editorial service. It
+accepts approved, source-backed briefs or podcast edit decisions, renders
+reviewable media, records artifact provenance, and creates draft handoffs for
+Postiz.
 
 It deliberately does not own social credentials, schedules, publishing state,
 or provider analytics. Postiz owns that downstream lifecycle.
@@ -20,6 +21,8 @@ or provider analytics. Postiz owns that downstream lifecycle.
 - FFmpeg/Chromium and optional local render engines on generation hosts.
 - Optional MoneyPrinterTurbo, Kokoro, Grok/Imagine local assets, and Remotion
   adapters.
+- Python 3.11+, uv, FFmpeg, and optional local transcription engines for the
+  nested podcast editorial runtime.
 
 ### Fleet
 
@@ -30,6 +33,13 @@ or provider analytics. Postiz owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-07-29:** consolidated Mashup's Python planner, SQLite-backed stage
+  state, provenance-gated archive tooling, tests, and operator editor under
+  `editorial/`. Added the strict `fleet.podcast-edit.v1` handoff, an
+  approval-gated render adapter, source-hash verification, and a render
+  receipt. Proved the boundary with a real 46-second ZEROPOD short while
+  preserving the original EDL, source audio, source heading, source timing,
+  watermark, and sidecar captions.
 - **2026-07-27:** added the coherent scene compositor, the immutable
   `evidence-beam@1` film skill, and a reproducible CodeVetter reference film
   with real product evidence, local LTX atmosphere, Kokoro narration,
@@ -64,6 +74,7 @@ or provider analytics. Postiz owns that downstream lifecycle.
 - Internal content studio and faceless/lesson workflows.
 - Worker/R2 production reel renderer.
 - Content-package renderer and Postiz draft handoff.
+- Source-backed podcast planning, approval, and multi-clip rendering.
 
 ## Features (shipped)
 
@@ -94,6 +105,16 @@ or provider analytics. Postiz owns that downstream lifecycle.
   approve workflow, genuine same-session presenter synchronization, a
   versioned Film style, and deterministic 720×1280 preview / 1080×1920 final
   encoding on the Mac.
+- Nested podcast editorial runtime with resumable transcription, enrichment,
+  and embedding state, independently surfaced scoring terms, and an
+  operational editor.
+- Strict `fleet.podcast-edit.v1` normalization, source-rights and source-hash
+  checks, approval gating, exact EDL preservation, multi-source rendering, and
+  deterministic render receipts.
+- Hard rejection of repeated editorial member IDs and overlapping source-audio
+  intervals, with snapped boundary handles de-overlapped before export.
+- Separate duration modes: a bounded 30–60 second short selector and the
+  standard multi-clip planner/render contract for targets above 60 seconds.
 
 ## Work queue
 

@@ -6,9 +6,9 @@ reviewable media artifacts and receipts.
 ## System boundary
 
 ```text
-source project / approved content package
+source archive / source project / approved content package
                   ↓
-        VideoBrief or package contract
+ podcast edit / VideoBrief / package contract
                   ↓
     render adapter → artifact manifest → quality/review
                   ↓
@@ -21,6 +21,22 @@ source project / approved content package
 
 Reel Pipeline owns the middle generation stages. Source projects own claims and
 approval. Postiz owns social accounts and the publication lifecycle.
+
+## Podcast editorial flow
+
+```text
+owned/licensed archive
+  → editorial/ Python runtime
+  → fleet.podcast-edit.v1
+  → src/podcast-edit.js
+  → src/adapters/podcast-edit.js
+  → editorial multi-clip renderer
+  → hashed MP4/captions receipt
+```
+
+This path preserves the complete source EDL rather than flattening it into a
+VideoBrief body. The Python runtime is an implementation module of Reel
+Pipeline, not a separate product.
 
 ## Worker production flow
 
@@ -56,6 +72,9 @@ Native provider publishing is rejected by `src/distribution.js`.
 | Module | Role |
 | --- | --- |
 | `src/video-brief.js` / `reel/src/brief.rs` | Validate normalized render input |
+| `editorial/src/mashup/*` | Source-aware transcription, planning, EDL editing, and multi-clip rendering |
+| `src/podcast-edit.js` | Validate the canonical source-backed podcast edit |
+| `src/adapters/podcast-edit.js` | Verify source bytes and render approved podcast edits |
 | `src/pipeline.js` | Node render orchestration for local/browser/package surfaces |
 | `reel/src/watcher.rs` | Poll approved Worker reels and invoke render-pro |
 | `src/adapters/*` | Render-engine adapters |

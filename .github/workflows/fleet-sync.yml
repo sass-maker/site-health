@@ -43,6 +43,8 @@ jobs:
           git clone --depth 1 https://github.com/PostTrainLLM/.github sync-targets/posttrainllm-profile
           git clone --depth 1 https://github.com/HeyPace/.github sync-targets/heypace-profile
           git clone --depth 1 https://github.com/High-Signal-App/.github sync-targets/hisignal-profile
+          git clone --depth 1 https://github.com/sass-maker/.github sync-targets/sassmaker-profile
+          git clone --depth 1 https://github.com/Significant-Hobbies/.github sync-targets/significant-hobbies-profile
 
       - name: Set up Node
         uses: actions/setup-node@v4

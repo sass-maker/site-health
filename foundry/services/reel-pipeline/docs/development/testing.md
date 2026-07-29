@@ -4,12 +4,15 @@
 
 ```bash
 npm test
+npm run editorial:test
+npm run editorial:check
 npm run smoke:render-modes
 npm run smoke:postiz
 npm run docs:validate
 ```
 
-`npm test` runs the Node and Rust suites. The render-mode smoke calls the
+`npm test` runs the Node and Rust suites. The editorial checks run the nested
+Python planner and contract suite without requiring an archive. The render-mode smoke calls the
 VideoBrief renderer directly; it no longer depends on a marketing queue.
 Postiz tests use fixtures and fake HTTP responses and never publish.
 

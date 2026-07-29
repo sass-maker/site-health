@@ -7,21 +7,23 @@ description: "The current generation and Postiz handoff path."
 
 ## 1. Approved input
 
-A source project or operator supplies an approved content package or
-VideoBrief. The input carries the project, claim source, channel intent, and
-approval evidence.
+A source project or operator supplies an approved content package, VideoBrief,
+or source-backed podcast edit. Podcast source archives can first pass through
+the incorporated editorial planner. The input carries claim or source
+evidence, channel intent, and approval evidence.
 
 ## 2. Normalize
 
-`src/video-brief.js` and `reel/src/brief.rs` reject malformed or generic reel
-input before a renderer starts. Content packages have a separate versioned
-contract in Content Factory.
+`src/video-brief.js`, `reel/src/brief.rs`, and `src/podcast-edit.js` reject
+malformed or generic input before a renderer starts. Content packages have a
+separate versioned contract in Content Factory.
 
 ## 3. Render
 
-The selected adapter produces a local or remote artifact. Heavy media work
-stays in Node/external tools such as Chromium and FFmpeg; Rust is used for the
-production Worker watcher and render process control.
+The selected adapter produces a local or remote artifact. Podcast edits use
+the preserved Python multi-clip renderer behind a Node adapter. Other heavy
+media work stays in Node/external tools such as Chromium and FFmpeg; Rust is
+used for the production Worker watcher and render process control.
 
 ## 4. Prove the artifact
 

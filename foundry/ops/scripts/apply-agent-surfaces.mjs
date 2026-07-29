@@ -142,7 +142,7 @@ if (jsonldMode) {
     }
 
     const original = readFileSync(headPath, 'utf8');
-    const result = injectJsonLdBlock(original, jsonStr);
+    const result = injectJsonLdBlock(original, jsonStr, product.headFile.endsWith('.astro'));
 
     if (!result.changed) {
       ok++;
@@ -632,10 +632,12 @@ function buildJsonLd(product, registry) {
  *
  * @param {string} original - file content before injection
  * @param {string} jsonStr - JSON.stringify'd JSON-LD
+ * @param {boolean} isAstro - whether the target requires Astro's explicit inline directive
  * @returns {{ changed: boolean, content: string, action: string }}
  */
-function injectJsonLdBlock(original, jsonStr) {
-  const block = `${JSONLD_START}\n<script type="application/ld+json">${jsonStr}</script>\n${JSONLD_END}`;
+function injectJsonLdBlock(original, jsonStr, isAstro = false) {
+  const inlineDirective = isAstro ? ' is:inline' : '';
+  const block = `${JSONLD_START}\n<script${inlineDirective} type="application/ld+json">${jsonStr}</script>\n${JSONLD_END}`;
 
   // Check for existing marked block
   const startIdx = original.indexOf(JSONLD_START);
@@ -685,7 +687,7 @@ function checkJsonLdSafety(original, written) {
   }
   const blockContent = written.slice(startIdx, endIdx);
   const scriptMatch = blockContent.match(
-    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/
+    /<script(?: is:inline)? type="application\/ld\+json">([\s\S]*?)<\/script>/
   );
   if (!scriptMatch) {
     return { ok: false, reason: 'script tag not found inside marked block' };

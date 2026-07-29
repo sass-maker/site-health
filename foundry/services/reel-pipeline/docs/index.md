@@ -11,6 +11,7 @@ Markdown but does not replace it as the source of truth.
 
 - [`product/overview.md`](./product/overview.md)
 - [`product/anonymous-brand-reel.md`](./product/anonymous-brand-reel.md)
+- [`product/podcast-editorial.md`](./product/podcast-editorial.md)
 - [`product/content-studio.md`](./product/content-studio.md)
 - [`product/faceless-workflow.md`](./product/faceless-workflow.md)
 - [`product/lesson-video-pipeline.md`](./product/lesson-video-pipeline.md)

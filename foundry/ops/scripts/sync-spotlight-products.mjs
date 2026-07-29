@@ -47,6 +47,12 @@ async function checkProfileFile(profile, readmePath, contract, errors, warnings,
     const product = contract.products.find((entry) => entry.id === productId);
     if (!source.includes(product.url)) errors.push(`${label} profile is missing ${productId} URL ${product.url}`);
   }
+  for (const url of profile.requiredUrls ?? []) {
+    if (!source.includes(url)) errors.push(`${label} profile is missing required URL ${url}`);
+  }
+  for (const marker of profile.requiredText ?? []) {
+    if (!source.includes(marker)) errors.push(`${label} profile is missing required text ${marker}`);
+  }
 }
 
 async function profileChecks(contract, config, workspace, strict, errors, warnings) {
