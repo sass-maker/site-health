@@ -48,12 +48,21 @@ Required sections, in order:
 3. **Timeline**
 4. **Products**
 5. **Features (shipped)**
-6. **Todo / Planned / Deferred / Blocked**
+6. **Work queue** — a link to the repository's GitHub Issues; no task list
 
-When PR-sized work is completed, merged, superseded, or abandoned, close/delete/
-park the matching tracker item and update only the project root
-`PROJECT_STATUS.md`. Do not create extra completion notes or status ledgers for
-ordinary PR closure.
+GitHub is the only operational tracker:
+
+- An open issue is a to-do.
+- An open issue with a linked pull request is in progress.
+- A merged pull request plus a closed issue is done.
+
+Create an issue before starting independently shippable work and use
+`Closes #<issue>` in the pull request body. Planned, deferred, blocked, bug,
+cleanup, and follow-up work belongs in issues, not `PROJECT_STATUS.md`,
+`STATUS.md`, plan documents, or another task database. When work ships, close
+the issue and update `PROJECT_STATUS.md` only with the completed product truth:
+the timeline, products, dependencies, and shipped features affected by the
+change. Do not copy closed issue histories into the status file.
 
 ## Feature Work
 

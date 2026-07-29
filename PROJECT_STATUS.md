@@ -324,45 +324,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Sanitized automation evidence adapters and machine-readable coverage reports;
   technical coverage remains outside the primary owner-facing navigation.
 
-## Todo / Planned / Deferred / Blocked
+## Work queue
 
-### Planned
-
-1. Configure and verify the Cloudflare Access application for
-   `fleet.sassmaker.com`; the origin now intentionally returns HTTP 401 to
-   anonymous requests instead of exposing the console.
-2. Clone synchronized `main` on the designated operations host, repeat its
-   machine-specific doctor checks, and keep every schedule disabled until an
-   explicit cutover approval.
-3. Complete the Postiz target-host activation and one draft-only canary using
-   `foundry/ops/docs/postiz-operations.md`.
-4. Complete the independent App Health Cloudflare resource/Access cutover and
-   one SDK-ingest canary.
-5. Publish `@saas-maker/feedback@0.4.0` after npm authentication is restored.
-
-### Deferred
-
-- Activating the designated operations host until shared lease and
-  machine-authority checks pass.
-- Activating the weekly Spend Guard and configuring notification delivery until
-  the operator explicitly approves the cron cutover.
-- Updating the Ops Console's Astro toolchain across its audit-recommended major
-  version boundary. The static build and custom local runtime pass, but the
-  current lock reports five high and one low production audit findings; upgrade
-  and compatibility work require explicit dependency approval.
-- Building another broad browser control plane; provider-native tools and
-  independent products remain authoritative.
-
-### Blocked
-
-- Publishing `@saas-maker/feedback@0.4.0`: local npm authentication currently
-  returns `E401 Unauthorized`. The verified package source remains secured in
-  Fleet until registry authentication is restored.
-- GEO Observatory needs one more real weekly observation before its trend
-  change can be archived. Its versioned schedule is ready and remains inert
-  until the designated host explicitly installs Fleet cron.
-- The current macOS `crontab` writer hangs on schedule updates even when given
-  the unchanged installed schedule. Fleet now times that operation out instead
-  of hanging the whole stack, but the historical installed block still points
-  at pre-Foundry paths. Scheduled work remains non-authoritative and gated off
-  until the designated-host cutover resolves the machine scheduler.
+Open work is tracked only in [GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues).
+An open issue is a to-do, a linked pull request is in progress, and merge plus
+issue closure makes the work done.

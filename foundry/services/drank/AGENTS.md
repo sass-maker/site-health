@@ -90,9 +90,8 @@ presentation + search layer.
    Edit the Markdown in `docs/` and rebuild.
 7. **Preserve history.** Prefer `docs/archive/<name>.md` over deletion.
    Use `git mv` when moving docs so rename history is kept.
-8. **Status**: `STATUS.md` is the short view; `PROJECT_STATUS.md` is the
-   durable fleet-mandated record. Update `PROJECT_STATUS.md` when PR-sized
-   work completes; keep `STATUS.md` in sync as the short view.
+8. **Status**: `PROJECT_STATUS.md` is the durable fleet-mandated record for
+   current/shipped truth. GitHub Issues owns all open work.
 
 ## Out of scope for this repo
 

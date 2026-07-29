@@ -75,8 +75,8 @@ Mobile Dev Cockpit is a native universal iPhone and iPad interface for supervisi
 - Idempotent local Expo scene-lifecycle plugin with a single-window manifest, scene-owned React Native startup, Expo lifecycle forwarding, deep-link forwarding, template-drift tests, and standalone Xcode 27 launch evidence on iOS 26.4 and iOS 27.
 - Generated iOS 16.4 app and CocoaPods deployment targets, including guarded handling for legacy privacy resource bundles that Xcode 27 otherwise rejects.
 
-## Todo / Planned / Deferred / Blocked
+## Work queue
 
-1. Blocked: in Xcode > Settings > Apple Accounts, sign in with the Apple Account for the Personal Team so automatic signing can create the missing provisioning profile. Connect and unlock the paired iPhone 16 Pro and iPad Air 11-inch (M3), enable Developer Mode on each, then install the personal-team-signed Release build and validate Apple Speech permissions/on-device transcription/interruption teardown, WKWebView, Keychain persistence, screenshot sharing, rotation/resize, background reconnect, and the complete edit-to-deploy loop. Full Xcode, CocoaPods, and a valid personal signing identity are present; the devices are paired but currently unavailable.
-2. Deferred: hosted relay and account system, pending evidence that private Tailscale connectivity is insufficient.
-3. Deferred: App Store/TestFlight distribution decision, pending physical-device validation and policy review.
+Open work is tracked only in [GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Amobile-dev-cockpit%22).
+An open issue is a to-do, a linked pull request is in progress, and merge plus
+issue closure makes the work done.

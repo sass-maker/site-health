@@ -56,14 +56,17 @@ Summary: N clean, N dirty, N CI-red, N unknown.
 
 **Trigger:** "What's the fleet status?", "what's everyone working on?", "what shipped recently?", "what's blocked?"
 
-Reads each project's status file (first 40 lines is enough for thesis +
-timeline + scope). The canonical filename is `PROJECT_STATUS.md`, but several
-fleet projects use a living `STATUS.md` instead (often with a pointer from
-`PROJECT_STATUS.md` or with the durable record moved to `docs/`). Check both:
+Reads each project's `PROJECT_STATUS.md` for durable current/shipped truth and
+GitHub Issues/pull requests for operational state. `STATUS.md` is legacy and
+must not be treated as a second queue.
 
 ```bash
-# Per project, prefer PROJECT_STATUS.md, fall back to STATUS.md
-[ -f PROJECT_STATUS.md ] && head -40 PROJECT_STATUS.md || head -40 STATUS.md
+# Product truth
+head -40 PROJECT_STATUS.md
+
+# Operational truth
+gh issue list --state open
+gh pr list --state open
 ```
 
 Canonical product domains live in `foundry/ops/config/projects.json` under each
@@ -81,7 +84,9 @@ For each project extract:
 - **Thesis** (one line)
 - **Latest timeline entry** (most recent ship)
 - **Active scope** (what's IN scope)
-- **Blockers** (if any)
+- **Open issues** (to-do)
+- **Open issues with linked PRs** (in progress)
+- **Issues labelled `blocked`** (blocked)
 - **Live domain(s)** from `projects.json` (not from prose)
 
 Output:
@@ -102,9 +107,9 @@ Output:
 - project-name: last updated YYYY-MM-DD
 ```
 
-Don't fabricate status — if neither `PROJECT_STATUS.md` nor `STATUS.md` exists
-or is readable, report that explicitly. This is read-only; it doesn't modify
-any files.
+Don't fabricate status — if `PROJECT_STATUS.md` is absent or GitHub state is
+unavailable, report that explicitly. This is read-only; it doesn't modify any
+files.
 
 ## Mode: full
 
@@ -168,8 +173,7 @@ failed step before assigning severity.
 1. Run the Fleet-owned audit stack unless the user asks for a quick pass.
 2. Read `.symphony/cloudflare-resilience/latest.md`.
 3. Summarize: open PRs, failed workflows, failed smoke checks, local failures, perf issues, dirty repos.
-4. Record real regressions in the owning project's `PROJECT_STATUS.md` or an
-   existing repository-native tracker.
+4. Record real regressions in the owning repository's GitHub Issues.
 5. Do not auto-merge, deploy, delete Cloudflare projects, rotate secrets, or clean worktrees unless explicitly asked.
 
 ### Follow-up rules

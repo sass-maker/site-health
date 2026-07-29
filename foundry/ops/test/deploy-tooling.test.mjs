@@ -190,7 +190,7 @@ exit 1
   assert.match(result.stdout, /Warnings: 1/);
 });
 
-test('deploy guard ignores evidence claims but blocks an actual production cutover', async () => {
+test('deploy guard does not reconstruct blockers from PROJECT_STATUS.md', async () => {
   const root = await mkdtemp(join(tmpdir(), 'fleet-deploy-guard-'));
   const project = join(root, 'codevetter');
   await initRepo(project);
@@ -208,7 +208,7 @@ test('deploy guard ignores evidence claims but blocks an actual production cutov
     env: { ...process.env, FLEET_ROOT_OVERRIDE: root },
   });
   assert.equal(claim.status, 0, claim.stdout + claim.stderr);
-  assert.match(claim.stdout, /Blockers\s+✓ none flagged/);
+  assert.match(claim.stdout, /Work queue\s+✓ GitHub Issues are authoritative/);
 
   await writeFile(join(project, 'PROJECT_STATUS.md'), `## Blocked
 - Production cutover cannot launch pending owner approval.
@@ -219,8 +219,8 @@ test('deploy guard ignores evidence claims but blocks an actual production cutov
   const blocker = run('bash', [deployGuard, 'codevetter', '--force'], {
     env: { ...process.env, FLEET_ROOT_OVERRIDE: root },
   });
-  assert.equal(blocker.status, 1, blocker.stdout + blocker.stderr);
-  assert.match(blocker.stdout, /Blockers\s+✗ see PROJECT_STATUS.md/);
+  assert.equal(blocker.status, 0, blocker.stdout + blocker.stderr);
+  assert.match(blocker.stdout, /Work queue\s+✓ GitHub Issues are authoritative/);
 });
 
 test('deploy guard supports a registered project inside the Fleet monorepo', async () => {

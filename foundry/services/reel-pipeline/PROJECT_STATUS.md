@@ -95,31 +95,8 @@ or provider analytics. Postiz owns that downstream lifecycle.
   versioned Film style, and deterministic 720×1280 preview / 1080×1920 final
   encoding on the Mac.
 
-## Todo / Planned / Deferred / Blocked
+## Work queue
 
-### Todo — production cutover
-
-- Complete one manual LTX Desktop first-run generation.
-- Deploy the tested `/forge/*` Worker routes through the normal manual process,
-  then submit one task from each machine and complete a Mac-worker canary.
-- Install Postiz on the designated Fleet machine.
-- Connect social accounts in Postiz.
-- Provide `POSTIZ_API_KEY` outside git and create the real integration mapping.
-- Run one draft-only canary and verify the draft before any schedule is set.
-- Complete existing Worker/R2 target-host canaries.
-
-### Planned
-
-- Read provider performance back through Postiz after the first real posts.
-- Improve creative quality based on reviewed output and measured performance.
-
-### Deferred
-
-- Optional render engines that do not improve the current marketing loop.
-- Additional creator automation before manual output quality is proven.
-
-### Blocked
-
-- Production Postiz verification is blocked on target-machine installation,
-  account connections, and external credentials. The local adapter and
-  contract tests are complete.
+Open work is tracked only in [GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Areel-pipeline%22).
+An open issue is a to-do, a linked pull request is in progress, and merge plus
+issue closure makes the work done.

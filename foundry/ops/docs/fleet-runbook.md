@@ -315,4 +315,5 @@ Use:
 - Fleet `docs/project-map.md`: how the systems connect.
 - Project `README.md`: project-specific setup and usage.
 - Project `AGENTS.md` or `agents.md`: project-specific agent instructions.
-- Project `PROJECT_STATUS.md`: active, deferred, and blocked work.
+- Project `PROJECT_STATUS.md`: durable current/shipped product truth.
+- Project GitHub Issues: all open, deferred, and blocked work.

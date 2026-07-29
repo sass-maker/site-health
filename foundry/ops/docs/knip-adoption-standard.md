@@ -241,8 +241,8 @@ is the React-specific lint rules.
 - [ ] Add `.github/workflows/knip.yml` (Phase 1, non-blocking).
 - [ ] Open PR with title `chore: adopt knip for dead-code analysis`.
 - [ ] After two clean main runs, flip to `knip:strict` (Phase 2).
-- [ ] Update project `PROJECT_STATUS.md` Todo section: "knip adopted,
-      CI non-blocking" or "knip adopted, CI blocking".
+- [ ] Close the GitHub issue and add "knip adopted, CI non-blocking" or
+      "knip adopted, CI blocking" to the shipped feature record.
 
 ## Fleet-wide rollout tracking
 

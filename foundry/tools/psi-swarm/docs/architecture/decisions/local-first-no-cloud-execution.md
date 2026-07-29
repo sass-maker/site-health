@@ -40,8 +40,9 @@ Concretely:
 
 ## Consequences
 
-- No hosted runner, no multi-region execution, no scheduled alerts. These
-  are explicitly [out of scope](../../../PROJECT_STATUS.md#todo--planned--deferred--blocked).
+- No hosted runner, no multi-region execution, no scheduled alerts. These are
+  tracked as deferred work in the
+  [PSI Swarm GitHub issue queue](https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Apsi-swarm%22).
 - The deployed site is cheap and simple to operate: a static build behind
   Cloudflare's CDN, no secrets needed at runtime (deploy secrets are only
   the CF API token in GitHub Actions).

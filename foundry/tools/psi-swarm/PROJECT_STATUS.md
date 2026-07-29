@@ -143,44 +143,8 @@ Fleet & tooling:
 - Installable skill + AGENTS guidance for Claude/Codex usage.
 - Standalone OSS: decoupled from saas-maker, MIT-licensed.
 
-## Todo / Planned / Deferred / Blocked
+## Work queue
 
-Planned next:
-1. Keep Node 22 LTS as the supported path until the Lighthouse 12 / Node 24
-   trace-mark issue is resolved.
-2. ~~Improve the local web controller so users can run, compare, and inspect
-   swarms without dropping to the CLI.~~ **Done** — `psi-swarm web` command + compare API + browser UI.
-3. Validate an external trace-insight adapter against a small set of known
-   regressions (Chrome DevTools MCP path).
-
-Fleet Perf Push 2026-06 — open follow-ups (from the 2026-06-04/05 fleet
-desktop-LCP push, goal <500 ms p75 across all 23 sites; the push closed 5
-sites under 500 ms via the Worker + Astro overlay pattern, self-hosted fonts,
-opacity-anim LCP fixes, CF Cache Rules, and `caches.default` data wrapping;
-the remaining gap is being closed at the app level — Argo (cost) and Vercel
-(external dep) are off the table):
-4. **Knowledgebase landing site** — build Astro frontend for the
-   FastAPI+Qdrant RAG at `fleet/knowledgebase/`. Not perf-critical; tracked
-   here because it completes the fleet inventory.
-5. **psi-swarm × saas-maker integration** — wire this CLI into the saas-maker
-   fleet workflow so desktop LCP samples flow into Cockpit dashboards. Spec
-   notes move up to "Planned next" once started.
-6. **Beasties critical-CSS pass** — high-signal Beasties-only pass on
-   saas-maker cockpit + sarthakagrawal.dev. Both have dynamic `/` so the Astro
-   overlay does not apply; only the Beasties half is safe. Expected
-   ~150–300 ms LCP win.
-
-Deferred / parked:
-- Hosted RUM or real-user p99 collection — psi-swarm is lab data, not a RUM
-  replacement.
-- Cloud execution — compute is intentionally local for now.
-- Paid monitoring, team accounts, and alerting — deferred behind a stronger
-  local workflow.
-- **Custom-domain Worker TTFB floor** (intentional, do not re-open without a
-  budget decision) — CF Workers/Pages on custom domains floor at 400–1000 ms
-  TTFB in Lighthouse cold-sim without Argo Smart Routing. User ruled out both
-  Argo ($5/mo) and Vercel (external dep). Workers.dev URLs hit <500 ms;
-  custom domains do not.
-
-Blocked:
-- (none — repo transferred to `sarthak-fleet` org; org secrets now available)
+Open work is tracked only in [GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Apsi-swarm%22).
+An open issue is a to-do, a linked pull request is in progress, and merge plus
+issue closure makes the work done.

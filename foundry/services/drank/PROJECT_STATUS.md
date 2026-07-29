@@ -108,23 +108,8 @@ Last updated: 2026-07-18
 - `lib/useTrackedDomains.ts` — state + refresh logic.
 - `data/global-sites.json`, `data/global-dr.json` — shared history.
 
-## Todo / Planned / Deferred / Blocked
+## Work queue
 
-### Planned
-
-1. Move GitHub Action workflow to monorepo root `.github/workflows/` (currently under `drank/.github/workflows/update-global-dr.yml`).
-2. Optional opt-in server-side weekly cron (D1 + watch id) for always-fresh personal domains.
-3. Bulk edit or CSV import for personal domain lists (`lib/useTrackedDomains.ts`).
-4. Deploy to Cloudflare Pages (`pnpm deploy` or via CI).
-
-### Deferred
-
-- Production deploy to Cloudflare Pages — config and CI are ready; manual `wrangler pages deploy` (or CI push to `main`) when ready.
-- Any backend that stores user domain lists without explicit opt-in design.
-- True always-on server cron for personal lists (requires opt-in server storage).
-
-### Blocked
-
-- Real background server crons cannot touch per-user localStorage — weekly refresh only when tab is open.
-- GitHub Action lives under project-local `.github/` rather than fleet monorepo root.
-- Limited test coverage (vitest configured, `lib/utils.test.ts` exists); manual smoke on add/refresh/export flows.
+Open work is tracked only in [GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Adrank%22).
+An open issue is a to-do, a linked pull request is in progress, and merge plus
+issue closure makes the work done.

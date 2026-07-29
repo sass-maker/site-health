@@ -227,47 +227,10 @@ else
   check "CF target" "fail" "no wrangler config found"
 fi
 
-# 6. Blockers in PROJECT_STATUS.md?
-# Look for actual blocked items (lines starting with - or numbered under a Blocked section),
-# not just the section header "Todo / Planned / Deferred / Blocked"
-blockers=""
-if [[ -f "$PROJECT_DIR/PROJECT_STATUS.md" ]]; then
-  blockers=$(
-    awk '
-      function inspect_item( line, lower) {
-        if (item == "" || matched) return
-        line=item
-        sub(/^[[:space:]]*[-0-9.)]+[[:space:]]*/, "", line)
-        if (line ~ /^\(?none([[:space:]]|\)|$)/) { item=""; return }
-        lower=tolower(line)
-        if (lower !~ /(^|[^a-z])(deploy|deployment|release)([^a-z]|$)/ && lower !~ /(^|[^a-z])production([^a-z]|$).*(cutover|ship|launch|rollout|publish)/) { item=""; return }
-        if (lower ~ /^production:[[:space:]]/) { item=""; return }
-        if (lower ~ /^deploy:[[:space:]]/) { item=""; return }
-        if (lower ~ /^worker name:[[:space:]]/) { item=""; return }
-        if (lower !~ /(block|blocked|defer|deferred|not ready|cannot|refus|missing|required|pending|approval)/) { item=""; return }
-        print item
-        matched=1
-        item=""
-      }
-      /^#+.*Blocked/ { inspect_item(); found=1; next }
-      /^#+/ { inspect_item(); found=0; next }
-      found && /^[[:space:]]*([-*]|[0-9]+[.)])[[:space:]]+/ {
-        inspect_item()
-        if (matched) exit
-        item=$0
-        next
-      }
-      found && item != "" && /^[[:space:]]+/ { item=item " " $0 }
-      END { inspect_item() }
-    ' "$PROJECT_DIR/PROJECT_STATUS.md" 2>/dev/null || true
-  )
-fi
-
-if [[ -z "$blockers" ]]; then
-  check "Blockers" "ok" "none flagged"
-else
-  check "Blockers" "fail" "see PROJECT_STATUS.md"
-fi
+# 6. Operational work lives in GitHub Issues. The guard intentionally does not
+# reconstruct a second task database from PROJECT_STATUS.md. A future GitHub
+# integration can make labelled release blockers a machine gate.
+check "Work queue" "ok" "GitHub Issues are authoritative; review linked blockers"
 
 # Output
 echo "PROJECT: $PROJECT"

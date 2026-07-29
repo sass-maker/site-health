@@ -59,7 +59,7 @@ See [Surfaces](./surfaces.md) for the full command/route/API inventory.
   local workflow.
 
 The full deferred / blocked list lives in
-[`PROJECT_STATUS.md`](../../PROJECT_STATUS.md#todo--planned--deferred--blocked).
+[GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Apsi-swarm%22).
 
 ## Honest about what it is
 
@@ -73,5 +73,5 @@ The full deferred / blocked list lives in
   budget decision): Cloudflare Workers/Pages on custom domains floor at
   400–1000 ms TTFB in Lighthouse cold-sim without Argo Smart Routing. Argo
   (cost) and Vercel (external dep) were both ruled out. `*.workers.dev` URLs
-  hit <500 ms; custom domains do not. Recorded in
-  [`PROJECT_STATUS.md`](../../PROJECT_STATUS.md#todo--planned--deferred--blocked).
+  hit <500 ms; custom domains do not. Recorded in the PSI Swarm GitHub issue
+  queue linked above.

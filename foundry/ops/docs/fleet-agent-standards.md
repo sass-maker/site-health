@@ -17,19 +17,21 @@ Fleet quality bar:
 - Keep projects green and functioning. Do not leave broken builds, failing checks, broken primary flows, or known production regressions without a tracked blocker.
 - Keep docs, code, tests, and plans in sync. If behavior, architecture, commands, deploy targets, auth, or storage changes, update the matching README/docs/tests/plans in the same pass.
 - Treat current docs as agent navigation, not marketing. README/AGENTS/AUDIT/REVIEW files must not mislead future agents about stack, auth, deploy, data, tests, or active scope.
-- Each project should maintain a single `PROJECT_STATUS.md` at the project root — the **only** status doc agents need. Read it before broad work; update it when scope, ships, or backlog change. Shipped PRD/plan outcomes belong here (not in `docs/archive/` pointers). Archives are optional history and may be deleted.
+- Each project should maintain a single `PROJECT_STATUS.md` at the project root — the **only** status doc agents need. Read it before broad work; update it when durable product truth changes or work ships. Shipped PRD/plan outcomes belong here (not in `docs/archive/` pointers). Archives are optional history and may be deleted.
 - **Required `PROJECT_STATUS.md` sections (in order):**
   1. **Why / What** — problem, thesis, users, in-scope vs out-of-scope
   2. **Dependencies** — external (APIs, vendors, OAuth, paid services) and internal (fleet repos, bindings, shared workers)
   3. **Timeline** — reverse-chron or chronological build milestones (dates + what shipped)
   4. **Products** — deploy surfaces, URLs, packages, sub-products (what exists in prod/dev)
   5. **Features (shipped)** — exhaustive done inventory by subsystem
-  6. **Todo / Planned / Deferred / Blocked** — numbered planned next; deferred with why; blocked with owner/dependency
-- When a PR or PR-sized branch is completed, merged, superseded, or abandoned, close the loop in the project tracker: mark the corresponding work item complete if the change landed, or deleted/parked if the work is no longer relevant. Then update the project root `PROJECT_STATUS.md` as the durable status record. Do not create extra completion notes, handoff docs, or status ledgers for ordinary PR closure.
+  6. **Work queue** — a link to the repository's GitHub Issues; no duplicated task list
+- GitHub Issues is the sole operational work queue. An open issue is a to-do; an open issue with a linked pull request is in progress; a merged pull request plus a closed issue is done. Create an issue before independently shippable work, and use `Closes #<issue>` in the pull request body so GitHub records the relationship.
+- Planned, deferred, blocked, bug, cleanup, and follow-up work belongs in GitHub Issues. Use `deferred` and `blocked` labels when those distinctions matter; use a product label for multiple products sharing one repository. Do not duplicate open work in `PROJECT_STATUS.md`, `STATUS.md`, OpenSpec task lists after archive, plan documents, or another task database.
+- When work lands, close the issue and update the project root `PROJECT_STATUS.md` only with changed durable product truth: shipped features, timeline, products, or dependencies. Do not copy issue history into the status file or create extra completion notes, handoff docs, or status ledgers for ordinary PR closure.
 - Each fleet product may also maintain `docs/PROJECT_RECOMMENDATION_CONTEXT.md` as the Starboard-facing companion to `PROJECT_STATUS.md`. Read it before recommendation, stack, dependency, or product-context work, and update it when product scope, major runtime surfaces, entrypoints, dependencies, testing signals, or recommendation guidance changes. Do not churn it for tiny edits that do not affect how Starboard should understand or recommend repositories for the project.
 - Do not normalize tech debt. Any intentional shortcut must be named,
-  justified, scoped, and recorded in the owning project's `PROJECT_STATUS.md`
-  with the smallest next action.
+  justified, scoped, and recorded as a GitHub issue with the smallest next
+  action.
 - Treat repeated issues as fleet standards work. If the same drift appears across multiple projects, add or update a reusable check, template, or standard instead of fixing only one repo.
 - Be conservative with rate limiters. Do not add, re-enable, or make rate limits stricter without explicit approval and endpoint-specific evidence; stale or unused rate-limit config should usually be removed as cleanup.
 - Prioritize cleanup that reduces surface area: unused packages, dead code, generated artifacts, stale feature paths, and docs that no longer match current code.
@@ -76,11 +78,11 @@ Fleet spec-driven development standard (OpenSpec):
 - Cross-repo features (umbrella + sub-product, support infra + consumer) use
   OpenSpec **Stores** — one plan in a store, code lands in multiple repos.
   Do not duplicate the same change into per-repo `openspec/changes/`.
-- Boundary with existing fleet docs: OpenSpec owns the **feature lifecycle**
-  (propose → apply → archive). `PROJECT_STATUS.md` owns the **product
-  lifecycle** (shipped / planned / blocked). They meet at archive time — the
-  shipped feature moves from OpenSpec into PROJECT_STATUS.md. GitHub issues or
-  the project status file hold bug-fix, cleanup, and follow-up work.
+- Boundary with existing fleet docs: OpenSpec owns feature design while a
+  non-trivial change is active. GitHub Issues owns operational state and links
+  the proposal to its implementing pull request. `PROJECT_STATUS.md` owns
+  durable shipped/current product truth. At archive time, close the issue and
+  record only the shipped outcome in `PROJECT_STATUS.md`.
 - Pre-flight: `openspec --version` (install `npm install -g
   @fission-ai/openspec@latest` if missing), `openspec init` if the project
   has no `openspec/` dir, `openspec list --specs` to read existing specs.
@@ -110,8 +112,7 @@ Default posture:
 - If the work is complete and safe, commit and push it without waiting for a
   separate push request.
 - If the work affects product behavior, deployment, user feedback, or fleet
-  maintenance, mirror durable next steps into the owning project's
-  `PROJECT_STATUS.md` or an existing repository-native tracker.
+  maintenance, record remaining work in the owning repository's GitHub Issues.
 - Leave the repo easier to understand, run, and maintain than you found it.
 
 ## Fleet web stack standard (VoidZero ecosystem)

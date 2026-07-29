@@ -94,9 +94,9 @@ Once all tasks are complete and verification passes:
    `openspec/changes/archive/<date>-<feature-name>/` and updates main specs.
 2. Update the project's `PROJECT_STATUS.md`:
    - Add the shipped feature to **Features (shipped)**
-   - Move the corresponding entry from **Todo/Planned** to done
    - Update **Timeline** with the ship date
-3. Close the corresponding GitHub or project-status work item if one exists.
+3. Ensure the pull request uses `Closes #<issue>`, then close the GitHub issue
+   if GitHub did not close it automatically.
 4. Commit and push the archive + status update together.
 
 ## Boundary with existing fleet conventions
@@ -108,13 +108,14 @@ OpenSpec does **not** replace these — it sits alongside them:
 | `openspec/changes/<feature>/` | Per-feature spec/design/tasks | Before + during feature work |
 | `PROJECT_STATUS.md` | Durable product status | Read before broad work; update on ship |
 | `docs/plans/` | Rare design artifacts that outlive the feature | Only if the design has lasting reference value |
-| `PROJECT_STATUS.md` / repo tracker | Operational follow-up | Bug fixes, cleanup, follow-ups, deferred work |
+| GitHub Issues | Operational state | To-do, in progress through a linked PR, blocked, deferred, follow-up |
 | `AGENTS.md` | Per-project agent instructions | Stack, commands, conventions |
 
-Rule of thumb: **OpenSpec owns the feature lifecycle** (propose → apply →
-archive). **PROJECT_STATUS.md owns the product lifecycle** (what's shipped,
-what's planned, what's blocked). They meet at archive time — the shipped
-feature moves from OpenSpec into PROJECT_STATUS.md.
+Rule of thumb: **OpenSpec owns feature design while the change is active**.
+**GitHub Issues owns operational state**. **PROJECT_STATUS.md owns durable
+shipped/current product truth**. They meet at archive time: merge the linked
+PR, close the issue, archive the OpenSpec change, and record only the shipped
+outcome in `PROJECT_STATUS.md`.
 
 ## Anti-patterns
 
