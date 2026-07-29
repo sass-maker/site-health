@@ -2,37 +2,58 @@
 
 ## Direction
 
-Preserve the established dark folio identity of the existing public directory:
-near-black neutral surfaces, warm copper as the committed brand color, generous
-editorial-scale spacing, and a precise catalog rhythm. This is a public brand
-surface, not the operational Fleet interface.
+The public directory is a sunlit product workshop expressed as a black
+steel-framed glass wall. Clear panes carry the studio story, seeded glass holds
+supporting material, and three saturated panes—cobalt, amber, and oxblood—mark
+work that deserves attention. The system should feel architectural and
+handmade, not translucent app chrome.
 
-## Color
+## Color and material
 
-- Background: `oklch(0.09 0 0)`
-- Surface: `oklch(0.13 0.006 40)`
-- Ink: `oklch(0.95 0.01 80)`
-- Muted: `oklch(0.7 0.01 70)`
-- Primary copper: `oklch(0.67 0.17 42)`
-- Accent glow: `oklch(0.74 0.14 55)`
-- Rules: `oklch(0.28 0.01 60)`
+- Limestone ground: `#eee8dc`
+- Clear pane: `rgba(250, 247, 239, 0.88)`
+- Seeded pane: `#ddd6c7`
+- Steel: `#11120f`
+- Ink: `#141511`
+- Muted ink: `#5f5d55`
+- Cobalt: `#1746a2`
+- Amber: `#c9820d`
+- Oxblood: `#7b211c`
+- Pale line: `rgba(20, 21, 17, 0.2)`
+
+Pane color is structural, not decorative. A saturated pane owns a whole
+product or interaction state; do not scatter accent-colored text across the
+page.
 
 ## Typography
 
-Use Schibsted Grotesk throughout. Weight, size, spacing, and color provide the
-hierarchy; the interface should not switch typefaces to manufacture character.
-Keep body copy at or above 1rem, cap prose near 70 characters, and keep display
-tracking no tighter than `-0.04em`.
+Use Schibsted Grotesk throughout. Character comes from large, calm grotesque
+type inside hard architectural proportions, not from switching to a display
+serif. Keep display tracking above `-0.04em`, body copy at or above `1rem`, and
+long prose near 70 characters.
 
 ## Layout
 
-Use a 4-point spacing scale and generous separations between sections. Spotlight
-projects use a strong, scannable list; supporting projects use a compact
-directory. Avoid decorative grids, bento treatments, fake folio numbering, and
-dashboard chrome. Product pages inherit the same quiet catalog system.
+Compose the homepage as a wall elevation. Matte-black mullions separate
+unevenly proportioned panes; each pane carries one statement or destination.
+The first viewport pairs one large studio pane with four featured product
+panes. Supporting products become disciplined specimen rows rather than cards.
+On narrow screens, bays restack into one column while preserving bar thickness
+and reading order.
+
+Product, learning, and legal pages may keep the quieter dark folio until their
+own redesign. The homepage wrapper owns this light workshop world so a landing
+page improvement does not silently rewrite reading surfaces.
+
+## Imagery
+
+One editorial photograph of a real-feeling glazier's atelier supplies physical
+light and depth. It remains atmosphere behind semantic HTML, never a rasterized
+interface. Avoid generic abstract gradients, fake product screenshots, doodles,
+and decorative glass blur.
 
 ## Motion
 
-Use one restrained first-load sequence and small hover/focus responses. Never
-hide content behind animation. Disable nonessential motion under
-`prefers-reduced-motion`.
+The wall arrives once: clear panes brighten, then the saturated panes settle
+into full color. Hover and focus backlight one pane without translating the
+layout. Disable nonessential motion under `prefers-reduced-motion`.
