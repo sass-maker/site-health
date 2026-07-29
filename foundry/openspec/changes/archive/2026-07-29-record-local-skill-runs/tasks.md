@@ -51,5 +51,5 @@
   receipt format, retention behavior, and privacy boundary in Fleet Ops docs
 - [x] 6.2 Run focused recorder, CLI, hook, backfill, redaction, and query tests
 - [x] 6.3 Run capability/OpenSpec validation and `git diff --check`
-- [ ] 6.4 Open a pull request linked with `Closes #63`; archive the OpenSpec
+- [x] 6.4 Open a pull request linked with `Closes #63`; archive the OpenSpec
   change and update durable Fleet status only after implementation is accepted
