@@ -17,11 +17,11 @@ Generated from 42 internal project identities.
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
-| Email Manager | maintained | `email-manager` | hidden | https://mail.sassmaker.com |
-| Memory Map | maintained | `chatgpt-memory-insights` | hidden | https://chatgpt.significanthobbies.com |
+| Email Manager | maintained | `email-manager` | maintained | https://mail.sassmaker.com |
+| Memory Map | maintained | `chatgpt-memory-insights` | maintained | https://chatgpt.significanthobbies.com |
 | Free AI | maintained | `free-ai` | maintained | https://ai-gateway.sassmaker.com |
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
-| Knowledge Base | maintained | `knowledge-base` | hidden | https://search.sassmaker.com |
+| Knowledge Base | maintained | `knowledge-base` | maintained | https://knowledgebase.sassmaker.com |
 | Significant Hobbies | maintained | `significanthobbies` | maintained | https://significanthobbies.com |
 | Anime List | maintained | `anime-list` | maintained | https://anime.significanthobbies.com |
 | Chess | maintained | `chess` | maintained | https://chess.significanthobbies.com |
@@ -29,7 +29,7 @@ Generated from 42 internal project identities.
 | Reader | maintained | `reader` | maintained | https://read.significanthobbies.com |
 | SWE Interview Prep | maintained | `swe-interview-prep` | maintained | https://learn.significanthobbies.com |
 | Calorie | maintained | `calorie` | maintained | https://calorie.significanthobbies.com |
-| Setline | maintained | `foundry/apps/setline` | hidden | https://setline.significanthobbies.com |
+| Setline | maintained | `foundry/apps/setline` | maintained | https://setline.significanthobbies.com |
 | RolePatch | maintained | `rolepatch` | maintained | https://rolepatch.com |
 | Karte | maintained | `karte` | maintained | https://karte.cc |
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |

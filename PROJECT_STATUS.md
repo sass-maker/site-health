@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-26
+Last updated: 2026-07-29
 
 ## Why / What
 
@@ -52,6 +52,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-29 — SaaS Maker directory refreshed and released:** Reworked the
+  public homepage as a responsive workshop-style product wall, corrected the
+  PostTrainLLM featured pane's full-bleed image and long-name fit, and expanded
+  the privacy-filtered projection from 19 to 23 maintained listings. Email
+  Manager, Knowledge Base, Memory Map, and Setline now have canonical public
+  detail routes, bringing the visible product directory to 22 products after
+  intentionally excluding the personal website. Fleet Workspace remains hidden
+  from the public product catalog.
 - **2026-07-26 — Fleet design workflow hardened from 7/20 to 19/20:** Added a
   Fleet-owned workflow over the pinned Impeccable 4.0.2 skill payload
   (installed through npm package 3.3.1), with explicit
@@ -258,7 +266,7 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
-- Canonical 40-identity project/domain/deploy/lifecycle catalog with active and
+- Canonical 42-identity project/domain/deploy/lifecycle catalog with active and
   inactive checkout reconciliation, generated internal inventory views, and a
   privacy-gated SaaS Maker projection for maintained and past public work.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and

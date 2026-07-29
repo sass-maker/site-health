@@ -50,8 +50,11 @@ export function validateProjectCatalog(catalog, {
     if (project.public?.listing === 'past' && project.lifecycle !== 'past') {
       errors.push(`${project.id}: past public listing requires lifecycle past`);
     }
-    if (project.public?.listing !== 'hidden' && project.repositoryVisibility === 'private') {
-      errors.push(`${project.id}: private repository cannot have a public listing`);
+    if (project.public?.listing === 'past' && project.repositoryVisibility !== 'public') {
+      errors.push(`${project.id}: past public listing requires a public repository`);
+    }
+    if (project.public?.repositoryUrl && project.repositoryVisibility !== 'public') {
+      errors.push(`${project.id}: public repositoryUrl requires repositoryVisibility public`);
     }
     if (project.public?.listing === 'past' && !project.public.repositoryUrl) {
       errors.push(`${project.id}: public past project requires repositoryUrl`);
