@@ -84,6 +84,10 @@ and operator tools in `foundry/tools/`. Edit Fleet skills in
 installed as ignored, machine-local payloads when their installer is pinned in
 Fleet scripts.
 
+Maintained Fleet repositories live under a product or portfolio organization,
+not Sarthak's personal GitHub namespace. The personal namespace is reserved for
+profile/personal work and historical or absorbed repositories.
+
 The workspace root remains the agent entrypoint. Run
 `./foundry/ops/scripts/agent-stack.sh install-skills` after cloning to link
 root `.agents/skills/*` entries to their canonical implementations inside

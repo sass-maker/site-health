@@ -56,6 +56,12 @@ export function validateProjectCatalog(catalog, {
     if (project.public?.repositoryUrl && project.repositoryVisibility !== 'public') {
       errors.push(`${project.id}: public repositoryUrl requires repositoryVisibility public`);
     }
+    if (
+      project.lifecycle === 'maintained'
+      && project.public?.repositoryUrl?.startsWith('https://github.com/sarthakagrawal927/')
+    ) {
+      errors.push(`${project.id}: maintained repository must use an organization owner`);
+    }
     if (project.public?.listing === 'past' && !project.public.repositoryUrl) {
       errors.push(`${project.id}: public past project requires repositoryUrl`);
     }

@@ -121,6 +121,14 @@ test('privacy and overlay identity drift fail validation', () => {
     /public repositoryUrl requires repositoryVisibility public/,
   );
 
+  const personalMaintained = structuredClone(catalog);
+  personalMaintained.projects.find((project) => project.id === 'calorie').public.repositoryUrl =
+    'https://github.com/sarthakagrawal927/calorie';
+  assert.throws(
+    () => validateProjectCatalog(personalMaintained, { reconcile: false }),
+    /maintained repository must use an organization owner/,
+  );
+
   assert.throws(
     () => validateProjectCatalog(catalog, {
       automationRegistry: { entries: [{ id: 'not-a-project' }] },

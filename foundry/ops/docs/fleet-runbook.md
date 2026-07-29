@@ -135,10 +135,10 @@ Significant-Hobbies/anime-list anime-list
 Significant-Hobbies/chess chess
 Codevetter/codevetter codevetter
 sarthakagrawal927/app-health app-health
-sarthakagrawal927/email-manager email-manager
+sass-maker/email-manager email-manager
 sass-maker/free-ai free-ai
 High-Signal-App/high-signal high-signal
-sarthakagrawal927/karte karte
+Significant-Hobbies/karte karte
 sass-maker/knowledge-base knowledge-base
 Significant-Hobbies/looptv looptv
 sarthakagrawal927/motion motion
@@ -146,7 +146,7 @@ HeyPace/pace pace
 PostTrainLLM/posttrainllm posttrainllm
 Significant-Hobbies/reader reader
 High-Signal-App/research-papers research-papers
-sarthakagrawal927/rolepatch rolepatch
+sass-maker/rolepatch rolepatch
 Significant-Hobbies/significanthobbies significanthobbies
 Codevetter/starboard starboard
 Significant-Hobbies/swe-interview-prep swe-interview-prep

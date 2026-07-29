@@ -52,6 +52,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-29 — Maintained repositories moved to organization ownership:**
+  Transferred Email Manager and RolePatch to `sass-maker`, and Memory Map,
+  Calorie, and Karte to `Significant-Hobbies`. Updated canonical Fleet,
+  indexing, fresh-clone, and marketing references, while preserving GitHub's
+  redirects from the old personal URLs. The personal namespace is now reserved
+  for profile/personal work and historical or absorbed repositories. No
+  deployment was performed.
 - **2026-07-29 — What It Takes to Win restored to the active Fleet:** Replaced
   the stale `success-by-26` historical exception with the product's canonical
   name and repository, classified the live Significant Hobbies site as a
