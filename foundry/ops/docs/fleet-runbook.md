@@ -260,7 +260,6 @@ fresh-machine clones and fleet-wide sweeps unless explicitly reactivated:
 - `open-historia`
 - `protein-index`
 - `saas-ideas`
-- `success-by-26`
 - `personalsite`: removed from the active fleet. Do not create new Fleet tasks
   for it unless it is explicitly re-added.
 - `today-little-log`

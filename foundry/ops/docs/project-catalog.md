@@ -13,7 +13,7 @@ Generated from 42 internal project identities.
 | PostTrainLLM | maintained | `posttrainllm` | maintained | https://posttrainllm.com |
 | High Signal | maintained | `high-signal` | maintained | https://highsignal.app |
 
-## Toolbox — 20
+## Toolbox — 21
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
@@ -36,6 +36,7 @@ Generated from 42 internal project identities.
 | App Health | local-only | `app-health` | hidden | — |
 | Mashup | local-only | `mashup` | hidden | — |
 | Motion | local-only | `motion` | hidden | — |
+| What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Personal website | non-product | `—` | maintained | https://sarthakagrawal.dev |
 
 ## Foundry + Helpers — 5

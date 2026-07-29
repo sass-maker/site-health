@@ -52,6 +52,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-29 — What It Takes to Win restored to the active Fleet:** Replaced
+  the stale `success-by-26` historical exception with the product's canonical
+  name and repository, classified the live Significant Hobbies site as a
+  maintained secondary product, and added its public directory metadata. The
+  existing Cloudflare Pages project name remains an internal infrastructure
+  identifier; no deployment was performed.
 - **2026-07-29 — SaaS Maker directory refreshed and released:** Reworked the
   public homepage as a responsive workshop-style product wall, corrected the
   PostTrainLLM featured pane's full-bleed image and long-name fit, and expanded
@@ -164,8 +170,7 @@ CodeVetter or App Health source.
   Hobbies, Cloudflare resilience, and Mobile Cockpit MVP OpenSpec changes after
   strict validation and merged-source verification. The live Cloudflare audit
   now reports 29/29 canonical domains healthy with no high or medium findings;
-  ignored repositories and the historical `success-by-26` Pages surface are
-  explicit non-blocking exceptions.
+  ignored repositories are explicit non-blocking exceptions.
 - **2026-07-25 — Fleet capability catalog shipped:** Added one read-only,
   dependency-free discovery surface across canonical Fleet skills, operator
   scripts, templates, and living docs, with ranked search, exact retrieval,
