@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-29
+Last updated: 2026-07-30
 
 ## Why / What
 
@@ -97,9 +97,10 @@ CodeVetter or App Health source.
   ownership:** Transferred Motion and India Standards to
   `Significant-Hobbies`, transferred App Health to `sass-maker`, and reconciled
   the Fleet catalog with App Health's live SaaS Maker domains and India
-  Standards' currently live compatibility hostname. The Motion and India
-  Standards canonical domains remain release-gated; no deployment was
-  performed.
+  Standards' currently live compatibility hostname. Motion's public landing is
+  now live at `motion.significanthobbies.com` on the `motion` Cloudflare Pages
+  project; its private iOS game remains unreleased. India Standards' canonical
+  domain remains release-gated.
 - **2026-07-29 — Maintained repositories moved to organization ownership:**
   Transferred Email Manager and RolePatch to `sass-maker`, and Memory Map,
   Calorie, and Karte to `Significant-Hobbies`. Updated canonical Fleet,

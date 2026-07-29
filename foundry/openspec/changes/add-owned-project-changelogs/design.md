@@ -1,7 +1,8 @@
 ## Context
 
-The SaaS Maker public directory currently projects 25 maintained product detail
-pages (excluding the personal website). Most Changelog links point to raw
+The refreshed inventory contains 26 maintained product websites after Motion's
+live landing was discovered during closure (excluding the personal website).
+Most Changelog links point to raw
 GitHub commit history, and most Roadmap links point to `PROJECT_STATUS.md`.
 Products use several independent stacks and repositories, including Astro,
 Vite/React, Next.js, static HTML, and Cloudflare Workers. Fleet owns the
@@ -93,7 +94,8 @@ flowchart LR
 
 ## Migration Plan
 
-1. Inventory all maintained public product websites and classify exclusions.
+1. Inventory all maintained public product websites and classify exclusions;
+   refresh the inventory when a previously hidden site is confirmed live.
 2. Add and validate `/changelog` one repository batch at a time.
 3. Add or update internal discoverability links without changing primary labels.
 4. Update Fleet catalog generation and SaaS Maker projection.

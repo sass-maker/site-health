@@ -36,7 +36,7 @@ Generated from 43 internal project identities.
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |
 | App Health | maintained | `app-health` | maintained | https://health.sassmaker.com |
 | Mashup | local-only | `mashup` | hidden | — |
-| Motion | maintained | `motion` | hidden | — |
+| Motion | maintained | `motion` | maintained | https://motion.significanthobbies.com |
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Personal website | non-product | `—` | maintained | https://sarthakagrawal.dev |
 

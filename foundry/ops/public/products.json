@@ -228,6 +228,19 @@
       "pillarId": "learn"
     },
     {
+      "id": "motion",
+      "name": "Motion",
+      "description": "Use your body as the controller for an iPhone-hosted game that can mirror to a larger screen.",
+      "url": "https://motion.significanthobbies.com",
+      "tier": "active",
+      "category": "personal",
+      "priority": "P2",
+      "spotlight": false,
+      "maturity": "maintained",
+      "changelogUrl": "https://motion.significanthobbies.com/changelog",
+      "pillarId": "build"
+    },
+    {
       "id": "psi-swarm",
       "name": "PSI Swarm",
       "description": "Repeated Lighthouse distributions for honest website performance tracking.",
@@ -296,6 +309,8 @@
       "spotlight": false,
       "maturity": "public-ready",
       "changelogUrl": "https://sassmaker.com/changelog",
+      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
+      "roadmapUrl": "https://github.com/sass-maker/fleet-workspace/issues",
       "pillarId": "build"
     },
     {

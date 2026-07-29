@@ -2,6 +2,7 @@
 import Footer from '../components/Footer.astro';
 import Nav from '../components/Nav.astro';
 import { CHANGELOG } from '../data/changelog';
+import { PUBLIC_REPOSITORY_URL, ROADMAP_URL } from '../data/links';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -17,10 +18,16 @@ import Layout from '../layouts/Layout.astro';
           <p class="changelog-kicker">Maintained product history</p>
           <h1>Changes worth remembering.</h1>
         </div>
-        <p>
-          A concise record of meaningful changes to SaaS Maker. Future work
-          belongs in GitHub Issues; this page records what actually shipped.
-        </p>
+        <aside class="changelog-intro">
+          <p>
+            A concise record of meaningful changes to SaaS Maker. Future work
+            belongs in GitHub Issues; this page records what actually shipped.
+          </p>
+          <nav aria-label="Project resources">
+            <a href={ROADMAP_URL} target="_blank" rel="noopener noreferrer">Roadmap <span aria-hidden="true">↗</span></a>
+            <a href={PUBLIC_REPOSITORY_URL} target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+          </nav>
+        </aside>
       </header>
 
       <ol class="changelog-list">
@@ -70,7 +77,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .changelog-hero > div,
-  .changelog-hero > p {
+  .changelog-hero > aside {
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -82,12 +89,32 @@ import Layout from '../layouts/Layout.astro';
     border-right: 0.375rem solid var(--workshop-steel);
   }
 
-  .changelog-hero > p {
+  .changelog-hero > aside {
     margin: 0;
     background: var(--workshop-cobalt);
     color: #fff;
     font-size: clamp(1.1rem, 1.7vw, 1.35rem);
     line-height: 1.6;
+  }
+
+  .changelog-intro p {
+    margin: 0;
+  }
+
+  .changelog-intro nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .changelog-intro a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+    font-weight: 700;
   }
 
   .changelog-kicker {
@@ -231,7 +258,7 @@ import Layout from '../layouts/Layout.astro';
       border-right: 0;
     }
 
-    .changelog-hero > p {
+    .changelog-hero > aside {
       min-height: 16rem;
       border-top: 0.375rem solid var(--workshop-steel);
     }

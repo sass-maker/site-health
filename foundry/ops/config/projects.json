@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-07-28",
+    "updated": "2026-07-30",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -199,7 +199,7 @@
       "name": "Fleet Workspace",
       "attention": "foundry",
       "lifecycle": "maintained",
-      "repositoryVisibility": "unknown",
+      "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
         "id": "saas-maker",
@@ -208,7 +208,8 @@
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "public-ready"
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sass-maker/fleet-workspace"
       }
     },
     {
@@ -1097,19 +1098,28 @@
       "family": "significanthobbies",
       "tier": "active",
       "repo": "motion",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
+      "deployKind": "pages",
+      "cfProject": "motion",
+      "domains": [
+        "motion.significanthobbies.com"
+      ],
       "app": "web+ios",
       "inRegistry": false,
-      "status": "undeployed",
-      "notes": "Private Significant Hobbies repository at Significant-Hobbies/motion. Body-motion game controller: iPhone Vision drives the bundled WKWebView game and screen-mirrors to a TV; the browser relay remains parked for v2. motion.significanthobbies.com is planned but not live.",
+      "status": "live",
+      "notes": "Private canonical repository at Significant-Hobbies/motion. The public landing and owned changelog are live-ready on Cloudflare Pages project motion at motion.significanthobbies.com; the iOS game remains intentionally unreleased while physical-device validation is pending.",
       "name": "Motion",
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "motion",
+        "name": "Motion",
+        "description": "Use your body as the controller for an iPhone-hosted game that can mirror to a larger screen.",
+        "category": "personal",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained"
       }
     },
     {

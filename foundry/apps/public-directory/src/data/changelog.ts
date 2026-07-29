@@ -51,7 +51,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'The maintained feedback capability was narrowed to a small React package that products control.',
     changes: [
       'Removed SaaS Maker-owned submission, inbox, authentication, and storage services.',
-      'Kept submission and storage inside each integrating product through a callback that product controls.',
+      'Let each integrating product decide how feedback is submitted and stored.',
     ],
   },
 ];

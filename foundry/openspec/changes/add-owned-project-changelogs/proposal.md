@@ -8,7 +8,8 @@ source code.
 
 ## What Changes
 
-- Add an owned changelog page to every maintained public product website.
+- Add an owned changelog page to every maintained public product website,
+  including Motion after its live landing was discovered during closure.
 - Seed each changelog from verified shipped milestones already present in the
   repository, written as concise user-visible entries rather than a raw commit
   feed.

@@ -13,7 +13,7 @@ const projects = await readJson(new URL('../config/projects.json', import.meta.u
 test('public projection contains only explicitly allowlisted public products', () => {
   const projection = buildPublicProducts(projects);
   assert.equal(projection.schemaVersion, 2);
-  assert.equal(projection.products.length, 26);
+  assert.equal(projection.products.length, 27);
   assert.equal(projection.pastProjects.length, 10);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
@@ -26,6 +26,10 @@ test('public projection contains only explicitly allowlisted public products', (
   assert.equal(
     projection.products.find((product) => product.id === 'what-it-takes-to-win').url,
     'https://paths.significanthobbies.com',
+  );
+  assert.equal(
+    projection.products.find((product) => product.id === 'motion').url,
+    'https://motion.significanthobbies.com',
   );
   assert.deepEqual(
     ['chatgpt-memory-insights', 'email-manager', 'knowledge-base', 'saas-maker', 'setline'].map((id) => ({
@@ -65,6 +69,10 @@ test('public projection contains only explicitly allowlisted public products', (
   );
   assert.equal(
     Object.hasOwn(projection.products.find((product) => product.id === 'setline'), 'repositoryUrl'),
+    false,
+  );
+  assert.equal(
+    Object.hasOwn(projection.products.find((product) => product.id === 'motion'), 'repositoryUrl'),
     false,
   );
   assert.equal(
@@ -125,19 +133,20 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
   assert.throws(() => assertNoPrivateData({ description: 'api_key=should-not-leak' }), /credential-shaped/);
 });
 
-test('SaaS Maker exposes its public repository instead of the private Fleet source', async () => {
-  const [links, agentCatalog, agentRegistry] = await Promise.all([
+test('SaaS Maker exposes its canonical public Fleet repository', async () => {
+  const [links, agentRegistry] = await Promise.all([
     readFile(new URL('../../apps/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../apps/public-directory/src/pages/api/ai.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
   ]);
   const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');
+  const publicSaasMaker = buildPublicProducts(projects).products.find(
+    (product) => product.id === 'saas-maker',
+  );
 
   assert.match(links, /https:\/\/github\.com\/sarthakagrawal927['"]/);
-  assert.match(links, /https:\/\/github\.com\/sarthakagrawal927\/saas-maker/);
-  assert.doesNotMatch(links, /https:\/\/github\.com\/sass-maker\/fleet-workspace/);
-  assert.doesNotMatch(agentCatalog, /sass-maker\/fleet-workspace/);
-  assert.deepEqual(saasMaker.sameAs, ['https://github.com/sarthakagrawal927/saas-maker']);
+  assert.match(links, /https:\/\/github\.com\/sass-maker\/fleet-workspace/);
+  assert.equal(publicSaasMaker.repositoryUrl, 'https://github.com/sass-maker/fleet-workspace');
+  assert.deepEqual(saasMaker.sameAs, ['https://github.com/sass-maker/fleet-workspace']);
 });
 
 async function readJson(url) {

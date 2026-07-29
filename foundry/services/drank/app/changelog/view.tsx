@@ -3,8 +3,7 @@
 import { useEffect } from 'react';
 import { BarChart3, ExternalLink } from 'lucide-react';
 
-const SOURCE_URL =
-  'https://github.com/sass-maker/fleet-workspace/tree/main/foundry/services/drank';
+const SOURCE_URL = 'https://github.com/sass-maker/fleet-workspace/tree/main/foundry/services/drank';
 const ROADMAP_URL =
   'https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Adrank%22';
 
@@ -50,11 +49,21 @@ export function ChangelogView() {
               <span className="block font-mono text-[10px] text-zinc-500">DOMAIN RATING WATCH</span>
             </span>
           </a>
-          <nav className="flex flex-wrap items-center justify-end gap-2" aria-label="Project navigation">
-            <a href="/" className="inline-flex min-h-11 items-center rounded-xl px-3 text-sm text-zinc-400 hover:text-white">
+          <nav
+            className="flex flex-wrap items-center justify-end gap-2"
+            aria-label="Project navigation"
+          >
+            <a
+              href="/"
+              className="inline-flex min-h-11 items-center rounded-xl px-3 text-sm text-zinc-400 hover:text-white"
+            >
               Dashboard
             </a>
-            <a href="/changelog" aria-current="page" className="inline-flex min-h-11 items-center rounded-xl bg-white/10 px-3 text-sm text-white">
+            <a
+              href="/changelog"
+              aria-current="page"
+              className="inline-flex min-h-11 items-center rounded-xl bg-white/10 px-3 text-sm text-white"
+            >
               Changelog
             </a>
           </nav>
@@ -74,10 +83,16 @@ export function ChangelogView() {
             work remains in GitHub Issues.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href={ROADMAP_URL} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-4 text-sm font-medium text-zinc-950">
+            <a
+              href={ROADMAP_URL}
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-4 text-sm font-medium text-zinc-950"
+            >
               Roadmap <ExternalLink className="h-3.5 w-3.5" />
             </a>
-            <a href={SOURCE_URL} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 px-4 text-sm font-medium text-zinc-300 hover:border-white/25">
+            <a
+              href={SOURCE_URL}
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 px-4 text-sm font-medium text-zinc-300 hover:border-white/25"
+            >
               Source <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -85,16 +100,24 @@ export function ChangelogView() {
 
         <section className="mt-16" aria-label="drank releases">
           {entries.map((entry) => (
-            <article key={entry.date} className="grid gap-4 border-t border-white/10 py-8 sm:grid-cols-[140px_minmax(0,1fr)] sm:gap-8">
+            <article
+              key={entry.date}
+              className="grid gap-4 border-t border-white/10 py-8 sm:grid-cols-[140px_minmax(0,1fr)] sm:gap-8"
+            >
               <time dateTime={entry.date} className="text-sm font-medium text-zinc-500">
                 {entry.label}
               </time>
               <div>
-                <h2 className="text-2xl font-semibold tracking-[-0.5px] text-white">{entry.title}</h2>
+                <h2 className="text-2xl font-semibold tracking-[-0.5px] text-white">
+                  {entry.title}
+                </h2>
                 <p className="mt-3 max-w-[70ch] leading-7 text-zinc-400">{entry.body}</p>
                 <ul className="mt-5 flex flex-wrap gap-2" aria-label="Update categories">
                   {entry.tags.map((tag) => (
-                    <li key={tag} className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
+                    <li
+                      key={tag}
+                      className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300"
+                    >
                       {tag}
                     </li>
                   ))}
@@ -109,12 +132,15 @@ export function ChangelogView() {
         <div className="mx-auto flex max-w-5xl flex-col justify-between gap-4 px-6 py-8 text-sm text-zinc-500 sm:flex-row">
           <span>No account. No personal-domain database.</span>
           <div className="flex flex-wrap gap-5">
-            <a href={ROADMAP_URL} className="hover:text-white">Roadmap</a>
-            <a href={SOURCE_URL} className="hover:text-white">Source</a>
+            <a href={ROADMAP_URL} className="hover:text-white">
+              Roadmap
+            </a>
+            <a href={SOURCE_URL} className="hover:text-white">
+              Source
+            </a>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-

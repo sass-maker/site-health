@@ -1,6 +1,6 @@
 ## 1. Inventory and rollout contract
 
-- [x] 1.1 Inventory the 25 maintained SaaS Maker product websites and exclude the personal website, past projects, local-only tools, private consoles, and headless packages.
+- [x] 1.1 Inventory the 26 maintained SaaS Maker product websites, including Motion after its live landing was verified, and exclude the personal website, past projects, local-only tools, private consoles, and headless packages.
 - [x] 1.2 Define the owned `/changelog`, GitHub Issues Roadmap, canonical repository Source, privacy, content, and responsive verification contract.
 - [x] 1.3 Create Fleet issue #60 and assign independent repository batches to agents after the shared contract is complete.
 
@@ -37,6 +37,7 @@
 - [x] 4.5 Add and verify the Drank changelog.
 - [x] 4.6 Add and verify the PSI Swarm changelog.
 - [x] 4.7 Add and verify the SaaS Maker changelog.
+- [x] 4.8 Add and verify the Motion changelog, then expose the live product in the public catalog.
 
 ## 5. Fleet metadata and enforcement
 

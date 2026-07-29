@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-28",
+  "updatedAt": "2026-07-30",
   "attentionCounts": {
     "my-work": 4,
     "toolbox": 21,
@@ -1232,20 +1232,27 @@
       "owner": "sarthak",
       "repository": "motion",
       "runtimes": [
-        "mobile"
+        "mobile",
+        "public-web"
       ],
-      "surfaces": [],
+      "surfaces": [
+        "https://motion.significanthobbies.com"
+      ],
       "dependencies": [
         "iOS toolchain",
-        "Apple distribution"
+        "Apple distribution",
+        "Cloudflare Pages"
       ],
       "evidenceSources": [
         "github-actions",
+        "fleet-deploy",
+        "live-smoke",
         "release",
         "privacy-safe-errors"
       ],
       "contracts": [
         "build",
+        "live",
         "release",
         "errors"
       ],
