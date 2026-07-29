@@ -9,7 +9,7 @@ const projects = await readJson(new URL('../config/projects.json', import.meta.u
 test('public projection contains only explicitly allowlisted public products', () => {
   const projection = buildPublicProducts(projects);
   assert.equal(projection.schemaVersion, 2);
-  assert.equal(projection.products.length, 23);
+  assert.equal(projection.products.length, 24);
   assert.equal(projection.pastProjects.length, 10);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
@@ -20,7 +20,7 @@ test('public projection contains only explicitly allowlisted public products', (
     'https://calorie.significanthobbies.com',
   );
   assert.deepEqual(
-    ['chatgpt-memory-insights', 'email-manager', 'knowledge-base', 'setline'].map((id) => ({
+    ['chatgpt-memory-insights', 'email-manager', 'knowledge-base', 'saas-maker', 'setline'].map((id) => ({
       id,
       url: projection.products.find((product) => product.id === id)?.url,
     })),
@@ -28,6 +28,7 @@ test('public projection contains only explicitly allowlisted public products', (
       { id: 'chatgpt-memory-insights', url: 'https://chatgpt.significanthobbies.com' },
       { id: 'email-manager', url: 'https://mail.sassmaker.com' },
       { id: 'knowledge-base', url: 'https://knowledgebase.sassmaker.com' },
+      { id: 'saas-maker', url: 'https://sassmaker.com' },
       { id: 'setline', url: 'https://setline.significanthobbies.com' },
     ],
   );
