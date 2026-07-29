@@ -58,6 +58,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-29 — Private Fleet skill-run history shipped:** Added an
+  owner-only, machine-local run store for Fleet skills with sanitized retained
+  output, explicit capture coverage, idempotent receipts, repairable indexes,
+  and structured numeric observations for future project score histories.
+  Fleet-mediated Devin runs and Codex skill reads now feed the shared recorder
+  without changing the underlying task result. Backfilled the authoritative
+  teammate scorecard as 27 Codex and 7 Devin `summary-only` runs, with no
+  numeric values inferred from prose or categorical verdicts.
 - **2026-07-29 — Product-owned changelog standard and Fleet surfaces shipped:**
   Replaced raw-commit and status-document evidence links in the SaaS Maker
   projection with same-origin product changelogs and repository-native GitHub
@@ -339,6 +347,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Bounded public-product browser smoke workflow with canonical manifest,
   production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.
+- Private local Fleet skill-run history with sanitized retained output,
+  explicit capture completeness, structured project metric observations,
+  Codex/Devin capture paths, idempotent historical backfill, and
+  doctor/rebuild tooling.
 - Read-only Fleet capability catalog with ranked human/agent discovery,
   generated context, stable JSON/dense output, and catalog integrity checks.
 - Bounded marketing registry, dry-run, attribution, and quiet-experiment

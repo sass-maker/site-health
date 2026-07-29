@@ -13,6 +13,8 @@ MODEL="${5:?model}"
 PERMISSION_MODE="${6:?permission mode}"
 
 LOG="$RUNDIR/$PROJECT.log"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SKILL_RUNNER="$SCRIPT_DIR/agent-bin/fleet-skill-run.mjs"
 
 printf '=== devin :: %s ===\n' "$PROJECT"
 printf 'dir:        %s\n' "$DIR"
@@ -24,10 +26,14 @@ cd "$DIR" || { echo "cannot cd into $DIR"; echo 1 > "$RUNDIR/$PROJECT.done"; exe
 
 # DEVIN_BIN lets you pin a specific devin binary (or a stand-in for testing);
 # defaults to whatever `devin` resolves to on PATH.
-"${DEVIN_BIN:-devin}" --print \
-  --model "$MODEL" \
-  --permission-mode "$PERMISSION_MODE" \
-  --prompt-file "$PROMPT_FILE" \
+node "$SKILL_RUNNER" exec \
+  --skill call-devin \
+  --project "$PROJECT" \
+  --source devin-wrapper \
+  -- "${DEVIN_BIN:-devin}" --print \
+    --model "$MODEL" \
+    --permission-mode "$PERMISSION_MODE" \
+    --prompt-file "$PROMPT_FILE" \
   < /dev/null 2>&1 | tee "$LOG"
 code=${PIPESTATUS[0]}
 

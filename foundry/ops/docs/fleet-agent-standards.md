@@ -286,6 +286,20 @@ Agents load the parent skill, read the routing table, then load the relevant
 subskill's SKILL.md on demand. Subskills are not symlinked individually —
 they're discovered via the parent.
 
+### Skill run observability
+
+Completed Fleet-owned skill executions must be recorded through the installed
+`fleet-skill-run` command or supported host hook. The machine-local record keeps
+skill/project identity, timing, status, capture provenance, and retained
+sanitized output outside git. Skills that produce graphable values must submit
+explicit numeric observations with metric name, value, unit, direction, entity,
+and observation time; agents must never infer a metric from prose.
+
+Capture completeness is part of the evidence: command wrappers retain
+stdout/stderr, Codex hooks retain the final response, and historical backfills
+remain summary-only. See `docs/skill-run-observability.md` for the store, query,
+privacy, retention, and backfill contract.
+
 ### Adding a new skill
 
 1. Create `foundry/ops/skills/<name>/SKILL.md` (or under `teammates/skills/` for delegation).

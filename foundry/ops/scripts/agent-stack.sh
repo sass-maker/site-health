@@ -148,12 +148,26 @@ link_teammate_parent() {
   ln -sfn "$FLEET_OPS_DIR/teammates/skills/call-teammate" "$destination/call-teammate"
 }
 
+install_skill_run_command() {
+  local destination="$HOME/.local/bin"
+  local source="$FLEET_OPS_DIR/scripts/agent-bin/fleet-skill-run.mjs"
+
+  [[ -f "$source" ]] || {
+    printf 'Missing Fleet skill-run command: %s\n' "$source" >&2
+    return 1
+  }
+  mkdir -p "$destination"
+  ln -sfn "$source" "$destination/fleet-skill-run"
+}
+
 install_skills() {
   local dir
 
   # Impeccable is a machine-installed third-party skill. Its generated files
   # stay untracked; child projects receive local links below.
   install_impeccable
+  install_skill_run_command
+  node "$FLEET_OPS_DIR/scripts/install-skill-run-hook.mjs"
 
   # Keep Codex skills local to Fleet instead of loading them in every repo.
   dir="$FLEET_ROOT/.agents/skills"
