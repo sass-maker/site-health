@@ -192,7 +192,7 @@ export function sanitizeOutput(input, { limitBytes = DEFAULT_OUTPUT_LIMIT_BYTES 
       redactionCount += 1;
       return typeof replace === 'function' ? replace(...args) : replace.replace(
         /\$(\d+)/g,
-        (_, index) => args[Number(index) - 1] ?? '',
+        (_, index) => args[Number(index)] ?? '',
       );
     });
   }

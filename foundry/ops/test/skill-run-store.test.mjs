@@ -271,6 +271,12 @@ test('doctor detects index and output corruption and rebuild repairs indexes fro
 });
 
 test('sanitization reports hashes, redactions, byte counts, and truncation without leaking matches', () => {
+  const genericSecret = 'synthetic-verification-token-value';
+  const generic = sanitizeOutput(`API_KEY=${genericSecret}`);
+  assert.equal(generic.content, 'API_KEY=[REDACTED]');
+  assert.equal(generic.content.includes(genericSecret), false);
+  assert.equal(generic.metadata.redactionCount, 1);
+
   const secret = 'sk-123456789012345678901234567890';
   const sanitized = sanitizeOutput(`token=${secret}\n${'tail'.repeat(20)}`, {
     limitBytes: 48,
