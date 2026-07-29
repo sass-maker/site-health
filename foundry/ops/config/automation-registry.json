@@ -3,7 +3,7 @@
   "updatedAt": "2026-07-28",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 19,
+    "toolbox": 20,
     "foundry": 5,
     "ignored": 12
   },
@@ -1365,6 +1365,40 @@
           "reason": "Retired; explicit reactivation required"
         }
       ]
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "name": "What It Takes to Win",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "what-it-takes-to-win",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://paths.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
     }
   ]
 }

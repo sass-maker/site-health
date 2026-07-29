@@ -9,7 +9,7 @@ const projects = await readJson(new URL('../config/projects.json', import.meta.u
 test('public projection contains only explicitly allowlisted public products', () => {
   const projection = buildPublicProducts(projects);
   assert.equal(projection.schemaVersion, 2);
-  assert.equal(projection.products.length, 24);
+  assert.equal(projection.products.length, 25);
   assert.equal(projection.pastProjects.length, 10);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
@@ -18,6 +18,10 @@ test('public projection contains only explicitly allowlisted public products', (
   assert.equal(
     projection.products.find((product) => product.id === 'calorie').url,
     'https://calorie.significanthobbies.com',
+  );
+  assert.equal(
+    projection.products.find((product) => product.id === 'what-it-takes-to-win').url,
+    'https://paths.significanthobbies.com',
   );
   assert.deepEqual(
     ['chatgpt-memory-insights', 'email-manager', 'knowledge-base', 'saas-maker', 'setline'].map((id) => ({

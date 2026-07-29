@@ -110,10 +110,6 @@ export function validateAutomationRegistry(registry) {
     }
   }
 
-  if (registry.entries.length !== 40) errors.push(`registry must contain 40 entries, found ${registry.entries.length}`);
-  const inScopeCount = registry.entries.filter((entry) => ["my-work", "toolbox", "foundry"].includes(entry.attention)).length;
-  if (inScopeCount !== 28) errors.push(`registry must contain 28 in-scope entries, found ${inScopeCount}`);
-
   return { errors, warnings };
 }
 

@@ -66,6 +66,7 @@
         "chatgpt-memory-insights",
         "materia",
         "significanthobbies",
+        "what-it-takes-to-win",
         "anime-list",
         "chess",
         "looptv",
@@ -1252,23 +1253,33 @@
       "notes": "Inactive historical repository; explicit reactivation required."
     },
     {
-      "id": "success-by-26",
+      "id": "what-it-takes-to-win",
       "authModel": "public-persistent",
-      "family": "personal",
-      "tier": "non-product",
-      "repo": null,
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "what-it-takes-to-win",
       "deployKind": "pages",
       "cfProject": "success-by-26",
-      "domains": [],
-      "inRegistry": false,
-      "status": "orphan",
-      "notes": "Known local-only/non-Fleet historical Pages project. Excluded from active automation and fresh-machine setup; retain or delete only after an explicit owner decision.",
-      "name": "Success by 26",
-      "attention": "ignored",
-      "lifecycle": "past",
-      "repositoryVisibility": "unknown",
+      "domains": [
+        "paths.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "The canonical product and repository are What It Takes to Win; the Cloudflare Pages project retains its historical internal name success-by-26.",
+      "name": "What It Takes to Win",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "what-it-takes-to-win",
+        "name": "What It Takes to Win",
+        "description": "Explore 2,585 documented early-breakthrough paths without pretending success follows a formula.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/what-it-takes-to-win"
       }
     },
     {
