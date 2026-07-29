@@ -33,6 +33,9 @@ projects, learning tracks, or cross-project standards.
 5. Make the smallest coherent change.
 6. Run the smallest relevant test/check first.
 7. Surface failed checks, skipped validation, blockers, and residual risk.
+8. Record completed Fleet-owned skill runs through the installed
+   `fleet-skill-run` boundary so private output and explicit numeric
+   observations remain available for audit and future project graphs.
 
 Safe completed repo changes may be committed and pushed once scope is understood,
 secrets/local scratch files are excluded, and the relevant checks pass. This
@@ -113,6 +116,10 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `design-workflow` | standalone | Fleet preserve/overhaul design gates, review receipts, and owner feedback |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
 | `impeccable` | external standalone | underlying design craft, critique, polish, and audit engine |
+
+Local Fleet skill history lives outside git under
+`~/Library/Application Support/Fleet Ops/skill-runs/`. Retain output through
+the wrapper or host receipt; never infer numeric metrics from prose.
 
 Use repo-local scripts before manual fleet inspection:
 

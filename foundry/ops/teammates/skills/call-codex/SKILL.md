@@ -40,6 +40,8 @@ Validated against `codex-cli 0.142.5` on this machine (2026-07-03).
 3. **Safety-critical on this machine:** `~/.codex/config.toml` defaults to
    `sandbox_mode = "danger-full-access"` and `approval_policy = "never"`.
    **Always pass an explicit `-s` flag.** Never rely on the config default.
+4. `~/.local/bin/fleet-skill-run` exists. Refresh Fleet's local command and
+   hook with `./foundry/ops/scripts/agent-stack.sh install-skills` when missing.
 
 ## Command contract
 
@@ -56,7 +58,11 @@ codex exec -s read-only -C <repo> --ephemeral \
 Implementation (write access — prefer an isolated worktree, see loop below):
 
 ```bash
-codex exec -s workspace-write -C <worktree> \
+node "$HOME/.local/bin/fleet-skill-run" exec \
+  --skill call-codex \
+  --project <repo-or-scope> \
+  --output-file <scratchpad>/codex_result.json \
+  -- codex exec -s workspace-write -C <worktree> \
   --output-schema ~/.claude/skills/call-codex/schemas/implementation_result.json \
   -o <scratchpad>/codex_result.json \
   "<brief>" < /dev/null
@@ -127,6 +133,11 @@ the test command, and what to return. Template and worked example:
    specific findings), or **reject** (discard the worktree). Two failed
    revise rounds → reject and do it yourself; don't loop.
 5. Append one line to the scorecard (below).
+
+The Fleet wrapper is required for new delegations. It preserves Codex's exit
+status, retains sanitized stdout/stderr plus the schema-constrained result file,
+and records the run as private local evidence. The checked-in scorecard remains
+the concise routing summary.
 
 ## Delegated implementation loop (the standard workflow)
 

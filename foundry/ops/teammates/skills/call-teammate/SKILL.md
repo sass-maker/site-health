@@ -31,6 +31,8 @@ Regardless of which teammate you call:
 - **Delegate from a clean checkout into a worktree** — don't delegate from a dirty tree.
 - **`< /dev/null` on every invocation** — prevent stdin hang.
 - **Verify diffs and tests yourself** — the teammate's output is a draft, not a finished product.
+- **Record the run and sanitized output** through `fleet-skill-run`; the
+  scorecard remains the concise routing verdict rather than the raw log store.
 - **Devin is optional/proprietary** — use only when the user explicitly asks for it or confirms the spend/lock-in tradeoff.
 - **Fail over down the chain** if a teammate hits usage/rate limits — see `foundry/ops/teammates/ROSTER.md` for the chain order. Log the switch in `foundry/ops/teammates/SCORECARD.md`.
 - **Don't retry an exhausted teammate** or silently drop the task.
