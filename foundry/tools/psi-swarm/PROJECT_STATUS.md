@@ -44,6 +44,9 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-07-29** — Added the owned `/changelog` surface with verified editorial
+  milestones, plus internal links from every public web route. Roadmap and
+  Source resolve to the Fleet issues view and canonical monorepo directory.
 - **2026-07-03** — Finished the local web controller: `psi-swarm web` command starts the agent + opens the browser UI in one step. Compare API (`/api/compare`, `/api/tags`) for tagged swarm diffs. Agent connection refactored to quiet opt-in probing (`connectToAgent`). WatchlistView fixed to use the new connection API. Non-CLI users can now run, compare, and inspect swarms entirely in the browser.
 - **2026-06-03/04** — core build-out: `/projects` fleet dashboard backed by
   local SQLite history, Astro/React HTML reports (self-contained files),
@@ -86,6 +89,8 @@ Internal (fleet):
   remains `psi-swarm-web.pages.dev`. Build:
   `pnpm --filter psi-swarm-web run build` → `web/dist`. Includes a static
   `/gallery` demo that works without the local agent.
+- **Public changelog** — `/changelog` records verified releases on the product
+  domain; planned work remains in Fleet Workspace GitHub Issues.
 - **CI/CD** — `.github/workflows/deploy.yml` builds the web workspace with
   pnpm and deploys `web/dist` via `cloudflare/wrangler-action@v3`. Trigger is
   **manual dispatch only** (not push) — `main` stays releasable but is not an

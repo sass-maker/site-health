@@ -36,8 +36,8 @@ repositories, changelogs, and roadmaps.
 - Belief ladder: the products are real; their ownership and status are clear;
   their progress is inspectable; the directory stays current because Fleet
   generates it.
-- Proof on hand: canonical domains, public repositories, `main` branch
-  changelogs, and root `PROJECT_STATUS.md` roadmaps.
+- Proof on hand: canonical domains, product-owned public changelogs, public
+  repositories, and repository-native GitHub Issues roadmaps.
 
 ## Brand Personality
 

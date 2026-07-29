@@ -1,6 +1,7 @@
 ---
 import { PACKAGE_URL, PUBLIC_REPOSITORY_URL } from '../data/links';
 const OWNER_URL = 'https://sarthakagrawal.dev';
+const isChangelog = Astro.url.pathname.startsWith('/changelog');
 ---
 <footer class="footer">
   <div class="footer-brand">
@@ -8,6 +9,7 @@ const OWNER_URL = 'https://sarthakagrawal.dev';
     <span>Built and maintained by <a href={OWNER_URL} target="_blank" rel="noopener noreferrer">Sarthak Agrawal</a></span>
   </div>
   <div class="footer-links">
+    <a href="/changelog" aria-current={isChangelog ? 'page' : undefined}>Changelog</a>
     <a href="/learnings">Learnings</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>

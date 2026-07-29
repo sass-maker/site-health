@@ -8,6 +8,7 @@ export function GET() {
     'https://sassmaker.com/',
     'https://sassmaker.com/privacy',
     'https://sassmaker.com/terms',
+    'https://sassmaker.com/changelog',
     'https://sassmaker.com/learnings',
     ...LEARNINGS.map((learning) => `https://sassmaker.com${learning.href}`),
     ...publicCatalog.products

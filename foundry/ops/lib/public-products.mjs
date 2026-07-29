@@ -35,9 +35,6 @@ export function buildPublicProducts(catalog) {
 
     if (metadata.listing === 'maintained') {
       const url = canonicalPublicUrl(project);
-      const roadmapPath = Object.hasOwn(metadata, 'roadmapPath')
-        ? metadata.roadmapPath
-        : 'PROJECT_STATUS.md';
       const output = {
         id: metadata.id ?? project.id,
         name: metadata.name ?? project.name,
@@ -48,13 +45,11 @@ export function buildPublicProducts(catalog) {
         priority: priorityFor(catalog._meta.priorities, project.id),
         spotlight: metadata.spotlight ?? false,
         maturity: metadata.maturity,
+        changelogUrl: `${url}/changelog`,
         ...(metadata.repositoryUrl
           ? {
               repositoryUrl: metadata.repositoryUrl,
-              changelogUrl: `${metadata.repositoryUrl}/commits/main`,
-              ...(roadmapPath
-                ? { roadmapUrl: `${metadata.repositoryUrl}/blob/main/${roadmapPath}` }
-                : {}),
+              roadmapUrl: `${metadata.repositoryUrl}/issues`,
             }
           : {}),
         pillarId: metadata.pillarId,
@@ -63,6 +58,7 @@ export function buildPublicProducts(catalog) {
         throw new Error(`${project.id}: maintained public repository must have repositoryVisibility public`);
       }
       assertShape(output, PRODUCT_FIELDS, ['id', 'name', 'description', 'url']);
+      assertEvidenceLinks(output);
       products.push(output);
       continue;
     }
@@ -107,6 +103,28 @@ export function buildPublicProducts(catalog) {
   };
   assertNoPrivateData(projection);
   return projection;
+}
+
+export function assertEvidenceLinks(product) {
+  const productUrl = new URL(product.url);
+  const changelogUrl = new URL(product.changelogUrl);
+  if (changelogUrl.origin !== productUrl.origin || changelogUrl.pathname !== '/changelog') {
+    throw new Error(`${product.id}: changelogUrl must be the canonical product origin /changelog`);
+  }
+
+  if (!product.repositoryUrl) {
+    if (product.roadmapUrl) {
+      throw new Error(`${product.id}: roadmapUrl requires a public repositoryUrl`);
+    }
+    return;
+  }
+
+  if (!/^https:\/\/github\.com\/[^/]+\/[^/]+$/.test(product.repositoryUrl)) {
+    throw new Error(`${product.id}: repositoryUrl must be a canonical GitHub repository root`);
+  }
+  if (product.roadmapUrl !== `${product.repositoryUrl}/issues`) {
+    throw new Error(`${product.id}: roadmapUrl must be the canonical GitHub Issues page`);
+  }
 }
 
 export function assertNoPrivateData(value, trail = 'projection') {

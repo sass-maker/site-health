@@ -1,10 +1,10 @@
 {
   "$schema": "fleet.design-review.v1",
   "version": 1,
-  "project": "public-directory",
-  "target": "SaaS Maker changelog",
+  "project": "drank",
+  "target": "DRank changelog",
   "mode": "preserve",
-  "register": "brand",
+  "register": "product",
   "context": {
     "product": "PRODUCT.md",
     "design": "DESIGN.md"
@@ -14,29 +14,29 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/before-changelog-reference-1440.png"
+    "before": ".fleet/evidence/changelog/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/overhaul/after-changelog-390.png"
+        "path": ".fleet/evidence/changelog/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/overhaul/after-changelog-768.png"
+        "path": ".fleet/evidence/changelog/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/overhaul/after-changelog-1440.png"
+        "path": ".fleet/evidence/changelog/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm run check",
+      "command": "pnpm build",
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 36,
       "maximum": 40
     },
     "audit": {
@@ -53,14 +53,10 @@
     },
     "browserReview": {
       "tool": "Playwright",
-      "viewports": [
-        390,
-        768,
-        1440
-      ],
+      "viewports": [390, 768, 1440],
       "horizontalOverflow": false,
       "consoleErrors": 0,
-      "note": "The changelog was inspected at all required widths after the 768px hero reflow fix. It has one H1, four semantic dated entries, no horizontal overflow, no duplicate IDs, touch-safe links, no console errors, and no failed page or asset requests."
+      "note": "The static-exported changelog was inspected at all required widths. The home-page LCP shell is removed on this route after hydration, and the timeline has no clipping or overflow."
     }
   },
   "ownerFeedback": {

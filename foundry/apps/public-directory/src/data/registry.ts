@@ -37,10 +37,10 @@ function adapt(product: CatalogProduct): RegistryProduct {
   const links: ProductLink[] = [
     { title: 'Product', url: product.url, description: 'Canonical product surface' },
     ...(product.changelogUrl
-      ? [{ title: 'Changelog', url: product.changelogUrl, description: 'Changes shipped on main' }]
+      ? [{ title: 'Changelog', url: product.changelogUrl, description: 'Product-owned release history' }]
       : []),
     ...(product.roadmapUrl
-      ? [{ title: 'Roadmap', url: product.roadmapUrl, description: 'Planned and deferred work' }]
+      ? [{ title: 'Roadmap', url: product.roadmapUrl, description: 'Open work in GitHub Issues' }]
       : []),
     ...(product.repositoryUrl
       ? [

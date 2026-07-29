@@ -44,6 +44,9 @@ Last updated: 2026-07-18
 
 ## Timeline
 
+- **2026-07-29** — Added the owned `/changelog` surface with verified editorial
+  release history. The dashboard links to it alongside the GitHub Issues
+  roadmap and canonical Fleet source directory.
 - **2026-07-13** — Shipped DR Advisor on the current Cloudflare Pages architecture: explicit, structured explanations grounded only in observed DR/trend, browser-local caching, and fail-closed server-side gateway credentials.
 - **2026-07-02** — Added Next.js error boundaries (`app/error.tsx`, `app/global-error.tsx`); removed dead `web-vitals` dependency and unused vitals files.
 - **Weekly (Mondays ~04:00 UTC)** — GitHub Action `update-global-dr.yml` runs `scripts/update-global-dr.mjs`, commits `data/global-dr.json`.
@@ -52,6 +55,8 @@ Last updated: 2026-07-18
 ## Products
 
 - **Standalone dashboard:** single-page app (`app/page.tsx`); deploys to Cloudflare Pages (static export). Also runs locally at http://localhost:3000.
+- **Changelog:** `/changelog` keeps verified product history on the product
+  domain; planned work remains in Fleet Workspace GitHub Issues.
 - **Shared data pipeline:** `data/global-dr.json` + `data/global-sites.json` — ~45 global example sites; fetchable from raw GitHub JSON at runtime.
 - **High Signal lens:** https://highsignal.app/domains — consumes global DR history + community nominations; full interactive experience (personal predictions, local tracking, detailed history) remains in drank standalone.
 

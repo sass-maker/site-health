@@ -2,7 +2,11 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { assertNoPrivateData, buildPublicProducts } from '../lib/public-products.mjs';
+import {
+  assertEvidenceLinks,
+  assertNoPrivateData,
+  buildPublicProducts,
+} from '../lib/public-products.mjs';
 
 const projects = await readJson(new URL('../config/projects.json', import.meta.url));
 
@@ -47,13 +51,17 @@ test('public projection contains only explicitly allowlisted public products', (
     projection.products.find((product) => product.id === 'app-health').url,
     'https://health.sassmaker.com',
   );
+  for (const product of projection.products) {
+    assert.equal(product.changelogUrl, `${product.url}/changelog`);
+    assert.doesNotThrow(() => assertEvidenceLinks(product));
+  }
   assert.equal(
     Object.hasOwn(projection.products.find((product) => product.id === 'drank'), 'repositoryUrl'),
     false,
   );
   assert.equal(
-    Object.hasOwn(projection.products.find((product) => product.id === 'chess'), 'roadmapUrl'),
-    false,
+    projection.products.find((product) => product.id === 'chess').roadmapUrl,
+    'https://github.com/Significant-Hobbies/chess/issues',
   );
   assert.equal(
     Object.hasOwn(projection.products.find((product) => product.id === 'setline'), 'repositoryUrl'),
@@ -61,9 +69,39 @@ test('public projection contains only explicitly allowlisted public products', (
   );
   assert.equal(
     projection.products.find((product) => product.id === 'reader').roadmapUrl,
-    'https://github.com/Significant-Hobbies/reader/blob/main/PROJECT_STATUS.md',
+    'https://github.com/Significant-Hobbies/reader/issues',
   );
   assert.doesNotThrow(() => assertNoPrivateData(projection));
+});
+
+test('public evidence validation rejects off-site changelogs and noncanonical repository links', () => {
+  assert.throws(
+    () => assertEvidenceLinks({
+      id: 'example',
+      url: 'https://example.com',
+      changelogUrl: 'https://github.com/example/product/commits/main',
+    }),
+    /canonical product origin/,
+  );
+  assert.throws(
+    () => assertEvidenceLinks({
+      id: 'example',
+      url: 'https://example.com',
+      changelogUrl: 'https://example.com/changelog',
+      repositoryUrl: 'https://github.com/example/product/tree/main',
+      roadmapUrl: 'https://github.com/example/product/issues',
+    }),
+    /canonical GitHub repository root/,
+  );
+  assert.throws(
+    () => assertEvidenceLinks({
+      id: 'example',
+      url: 'https://example.com',
+      changelogUrl: 'https://example.com/changelog',
+      roadmapUrl: 'https://github.com/example/product/issues',
+    }),
+    /requires a public repositoryUrl/,
+  );
 });
 
 test('public projection rejects private repositories and missing canonical surfaces', () => {

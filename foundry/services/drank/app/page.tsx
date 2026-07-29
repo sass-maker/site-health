@@ -376,7 +376,7 @@ export default function Drank() {
         <div className="mb-10">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h1 className="text-6xl font-semibold tracking-[-3.2px] text-white">
+              <h1 className="text-[clamp(1.75rem,8.2vw,3.75rem)] leading-[1.05] font-semibold tracking-[-0.04em] text-white sm:leading-none sm:tracking-[-3.2px]">
                 Track Domain Ratings.
                 <br />
                 100% in your browser.
@@ -1030,6 +1030,24 @@ export default function Drank() {
                 className="underline text-white/30 hover:text-white/50"
               >
                 also in highsignal.app
+              </a>
+              <span className="text-white/20"> · </span>
+              <a href="/changelog" className="underline text-white/30 hover:text-white/50">
+                changelog
+              </a>
+              <span className="text-white/20"> · </span>
+              <a
+                href="https://github.com/sass-maker/fleet-workspace/issues?q=is%3Aissue+is%3Aopen+label%3A%22product%3Adrank%22"
+                className="underline text-white/30 hover:text-white/50"
+              >
+                roadmap
+              </a>
+              <span className="text-white/20"> · </span>
+              <a
+                href="https://github.com/sass-maker/fleet-workspace/tree/main/foundry/services/drank"
+                className="underline text-white/30 hover:text-white/50"
+              >
+                source
               </a>
             </div>
           </>

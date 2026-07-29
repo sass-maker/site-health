@@ -26,8 +26,8 @@ import RunDashboard from '../components/RunDashboard.tsx';
   </head>
   <body class="min-h-screen">
     <main class="max-w-5xl mx-auto px-6 py-10">
-      <header class="mb-10 flex items-baseline justify-between">
-        <div>
+      <header class="mb-10 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div class="min-w-0">
           <h1 class="text-3xl font-bold tracking-tight">
             <span class="text-[var(--color-cyan)]">psi</span>-swarm
           </h1>
@@ -35,18 +35,23 @@ import RunDashboard from '../components/RunDashboard.tsx';
             Lighthouse, run many times across realistic presets. The shape of your perf, not one noisy point.
           </p>
         </div>
-        <a href="./projects/" class="text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
-          projects
-        </a>
-        <a href="./compare/" class="text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
-          compare
-        </a>
-        <a href="./watchlist/" class="text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
-          watchlist
-        </a>
-        <a href="./gallery/" class="text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
-          gallery
-        </a>
+        <nav class="flex w-full flex-wrap items-center gap-x-5 gap-y-1 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end" aria-label="Primary">
+          <a href="./projects/" class="inline-flex min-h-11 items-center text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
+            projects
+          </a>
+          <a href="./compare/" class="inline-flex min-h-11 items-center text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
+            compare
+          </a>
+          <a href="./watchlist/" class="inline-flex min-h-11 items-center text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
+            watchlist
+          </a>
+          <a href="./gallery/" class="inline-flex min-h-11 items-center text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
+            gallery
+          </a>
+          <a href="/changelog" class="inline-flex min-h-11 items-center text-sm text-[var(--color-dim)] hover:text-[var(--color-text)] transition">
+            changelog
+          </a>
+        </nav>
       </header>
       <RunDashboard client:load />
     </main>

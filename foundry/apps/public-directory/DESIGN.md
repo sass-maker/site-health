@@ -46,6 +46,11 @@ evidence becomes a run of specimen panes. On narrow screens, bays restack into
 one column while preserving bar thickness and reading order. Learning and legal
 pages remain quieter reading surfaces until their own redesign.
 
+The changelog is the workshop ledger: a clear editorial pane shares the first
+frame with one cobalt explanation pane, then dated milestones alternate seeded
+date bays with quiet reading bays. Oversized ledger numbers expose chronology
+without replacing semantic dates.
+
 ## Imagery
 
 One editorial photograph of a real-feeling glazier's atelier supplies physical
