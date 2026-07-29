@@ -53,6 +53,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-29 — Public GitHub repository hygiene completed:** Audited 137
+  public repositories across Sarthak's account and six owner-controlled
+  organizations, added accurate language/domain topics where missing, repaired
+  descriptions and homepage metadata, and added or clarified README
+  attribution. The profile sync guard now verifies the personal profile plus
+  all six organization profiles, including explicit Sarthak attribution and
+  the SaaS Maker/Significant Hobbies profiles. Historical helper repositories
+  clearly identify their private Foundry maintenance boundary without linking
+  public visitors to an inaccessible private repository. No deployment or
+  release was performed.
 - **2026-07-29 — Motion, App Health, and India Standards moved under portfolio
   ownership:** Transferred Motion and India Standards to
   `Significant-Hobbies`, transferred App Health to `sass-maker`, and reconciled
@@ -321,7 +331,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   context, preserve/overhaul lanes, reference and direction gates,
   machine-checkable multi-viewport review receipts, score/severity/project
   checks, and durable owner feedback.
-- Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.
+- Fleet-owned four-product spotlight contract with direct portfolio and
+  personal/six-organization profile synchronization, canonical repository
+  ownership checks, and explicit creator-attribution markers.
 - Backend-free feedback package with consumer-owned submission, Pinpoint
   context, and local screenshot attachment.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
