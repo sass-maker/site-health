@@ -50,4 +50,4 @@
 - [x] 6.1 Run each changed repository's smallest relevant check and record any blocked or skipped project.
 - [x] 6.2 Run Fleet OpenSpec strict validation, public projection checks, SaaS Maker build, and design receipt validation.
 - [x] 6.3 Commit and push safe repository changes independently without deploying.
-- [ ] 6.4 Archive the OpenSpec change, update durable project status, and close issue #60 when every included product is complete or explicitly tracked as a blocker.
+- [x] 6.4 Archive the OpenSpec change, update durable project status, and close issue #60 when every included product is complete or explicitly tracked as a blocker.

@@ -69,10 +69,10 @@ CodeVetter or App Health source.
 - **2026-07-29 — Product-owned changelog standard and Fleet surfaces shipped:**
   Replaced raw-commit and status-document evidence links in the SaaS Maker
   projection with same-origin product changelogs and repository-native GitHub
-  Issues roadmaps. Added verified, responsive `/changelog` surfaces for SaaS
-  Maker, Drank, and PSI Swarm, plus deterministic link-shape and privacy
-  validation. The wider independent-repository rollout remains tracked in
-  Fleet issue #60; no production deployment was performed.
+  Issues roadmaps. Added verified, responsive `/changelog` surfaces across all
+  26 maintained product websites, including SaaS Maker, Drank, PSI Swarm, and
+  Motion, plus deterministic link-shape and privacy validation. Production
+  verification confirmed every canonical changelog route returns HTTP 200.
 - **2026-07-29 — Setline and India Standards separated from Fleet source:**
   Extracted Setline's product-only history into the new private
   `Significant-Hobbies/setline` repository, moved its status, OpenSpec history,
@@ -335,8 +335,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
   on the product domain, public roadmaps resolve to GitHub Issues, public source
   links resolve to canonical repositories, and private repository links remain
   omitted.
-- Product-owned responsive changelog surfaces for SaaS Maker, Drank, and PSI
-  Swarm, seeded only from verified shipped milestones.
+- Product-owned responsive changelog surfaces for all 26 maintained product
+  websites, seeded only from verified shipped milestones.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and
   automation health scripts.
 - Read-only Cloudflare and Turso spend governance with current-provider

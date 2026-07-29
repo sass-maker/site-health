@@ -13,6 +13,10 @@ data, or repository content at runtime.
 - **WHEN** Fleet generates a valid public snapshot for a maintained product
 - **THEN** SaaS Maker renders the product-owned changelog, repository-native roadmap, and public source links without runtime access to private Fleet systems
 
+#### Scenario: Fleet publishes a public product snapshot
+- **WHEN** Fleet generates a valid public snapshot containing changelog or roadmap entries
+- **THEN** SaaS Maker renders those entries without runtime access to private Fleet systems
+
 #### Scenario: Product repository is intentionally private
 - **WHEN** public Fleet policy omits a private repository or issues URL
 - **THEN** SaaS Maker still links the same-origin public changelog and omits inaccessible repository links
