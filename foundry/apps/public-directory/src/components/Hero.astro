@@ -1,14 +1,42 @@
 ---
-import { PROJECT_COUNT } from '../data/projects';
+import { CORE, PROJECT_COUNT } from '../data/projects';
+
+const PANE_TONES = ['cobalt', 'seeded', 'amber', 'oxblood'];
 ---
-<header class="hero">
-  <p class="eyebrow">Independent products by Sarthak Agrawal</p>
-  <h1>A clear map of the work.</h1>
-  <div class="hero-bottom">
-    <p>
-      SaaS Maker is the public index for {PROJECT_COUNT} maintained products:
-      what they do, where they live, what changed, and what comes next.
+
+<header class="studio-hero" aria-labelledby="studio-title">
+  <div class="studio-hero-scene" aria-hidden="true"></div>
+
+  <div class="studio-hero-copy glass-pane">
+    <p class="studio-kicker">Independent products by Sarthak Agrawal</p>
+    <h1 id="studio-title">A living index of things I build.</h1>
+    <p class="studio-intro">
+      {PROJECT_COUNT} maintained products, with their real domains, roadmaps,
+      release history, and someone accountable for every one.
     </p>
-    <a href="#products" class="text-link">Browse the directory <span aria-hidden="true">↓</span></a>
+    <a href="#products" class="studio-action">
+      Explore the work
+      <span aria-hidden="true">↓</span>
+    </a>
+    <p class="studio-status">
+      <span aria-hidden="true"></span>
+      Built in public. Kept current.
+    </p>
   </div>
+
+  <ol class="featured-panes" aria-label="Products in focus">
+    {CORE.map((project, index) => (
+      <li class={`featured-pane featured-pane--${PANE_TONES[index]}`}>
+        <a href={project.href}>
+          <span class="featured-count">{String(index + 1).padStart(2, '0')}</span>
+          <strong>{project.name}</strong>
+          <span class="featured-description">{project.desc}</span>
+          <span class="featured-foot">
+            <span>{project.tag}</span>
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ol>
 </header>

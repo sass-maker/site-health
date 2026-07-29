@@ -2,33 +2,50 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "public-directory",
-  "target": "Selective external project commission banner",
-  "mode": "preserve",
+  "target": "SaaS Maker public directory homepage",
+  "mode": "overhaul",
   "register": "brand",
   "context": {
     "product": "PRODUCT.md",
     "design": "DESIGN.md"
   },
   "direction": {
-    "references": [],
-    "probes": [],
-    "selected": "existing-design",
-    "approval": "not-required",
+    "references": [
+      "architectural glazier workshop partitions",
+      "modernist color-field glazing",
+      "material specimen racks"
+    ],
+    "probes": [
+      {
+        "id": "monumental-wall",
+        "path": ".fleet/evidence/overhaul/probe-a-monumental-wall.png"
+      },
+      {
+        "id": "studio-corridor",
+        "path": ".fleet/evidence/overhaul/probe-b-studio-corridor.png"
+      },
+      {
+        "id": "museum-elevation",
+        "path": ".fleet/evidence/overhaul/probe-c-museum-elevation.png"
+      }
+    ],
+    "selected": "monumental-wall",
+    "approval": "delegated",
     "before": ".fleet/evidence/before-home-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/commission-banner-390.png"
+        "path": ".fleet/evidence/overhaul/after-home-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/commission-banner-768.png"
+        "path": ".fleet/evidence/overhaul/after-home-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/commission-banner-1440.png"
+        "path": ".fleet/evidence/overhaul/after-home-1440.png"
       }
     ],
     "projectCheck": {
@@ -40,7 +57,7 @@
       "maximum": 40
     },
     "audit": {
-      "score": 20,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -60,11 +77,11 @@
       ],
       "horizontalOverflow": false,
       "consoleErrors": 0,
-      "note": "The banner remains subordinate to the portfolio, the direct email action is visible at every required width, and the page preserves its existing catalog rhythm."
+      "note": "All real catalog content remains legible, the hero image loads, visible links meet the 44px touch floor at 390px, and the exact commission mailto is preserved."
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly requested a bottom banner with a direct team@sassmaker.com email action and delegated the preserve-mode implementation."
+    "note": "Owner explicitly requested a substantially more beautiful landing page and delegated the direction and final design judgment."
   }
 }

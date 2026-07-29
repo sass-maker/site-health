@@ -3,16 +3,17 @@ import { PACKAGE_HOST } from '../data/links';
 
 const INSTALL = 'pnpm add @saas-maker/feedback';
 ---
-<section class="package-section" id="package">
-  <div>
-    <p class="eyebrow">Open-source package</p>
-    <h2>@saas-maker/feedback</h2>
+<section class="studio-package" id="package" aria-labelledby="package-title">
+  <div class="package-copy">
+    <p class="studio-kicker">Open-source package</p>
+    <h2 id="package-title">@saas-maker/feedback</h2>
     <p>
       A small React widget for bugs, feature requests, screenshots, and
       page-specific feedback. Your application owns submission and storage.
     </p>
   </div>
   <div class="package-action">
+    <p>Install it in one line</p>
     <code>{INSTALL}</code>
     <a href={`https://${PACKAGE_HOST}`} target="_blank" rel="noopener noreferrer">
       Read the package docs ↗

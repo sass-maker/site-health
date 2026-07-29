@@ -1,63 +1,31 @@
 ---
-import { CORE, ACTIVE_GROUPS, PAST_PROJECTS, PROJECT_COUNT } from '../data/projects';
+import { ACTIVE_GROUPS, PAST_PROJECTS, PROJECT_COUNT } from '../data/projects';
 import { LEARNINGS } from '../data/learnings';
 
 const latestLearning = LEARNINGS[0];
 ---
-<section class="section" id="products">
-  <div class="section-head">
-    <h2 class="section-title">Four projects in focus.</h2>
-    <p class="section-lede">
-      Each product keeps its own home, roadmap, changelog, and release boundary.
+<section class="studio-index" id="products" aria-labelledby="catalog-title">
+  <header class="studio-index-head">
+    <p class="studio-kicker">The maintained catalog</p>
+    <h2 id="catalog-title">{PROJECT_COUNT} products.<br />One accountable maker.</h2>
+    <p>
+      Each product keeps its own domain, roadmap, changelog, and release
+      boundary. Nothing here is a concept render.
     </p>
-  </div>
+  </header>
 
-  <ol class="spotlight-list">
-    {CORE.map((p) => (
-      <li>
-        <a href={p.href} class="spotlight-item">
-          <span class="spotlight-copy">
-            <strong>{p.name}</strong>
-            <span>{p.desc}</span>
-          </span>
-          <span class="spotlight-host">{p.tag}</span>
-          <span class="spotlight-arrow" aria-hidden="true">↗</span>
-        </a>
-      </li>
-    ))}
-  </ol>
-
-  <aside class="learning-rail" aria-label="Latest learning">
-    <a href={latestLearning.href}>
-      <span class="eyebrow">Latest learning</span>
-      <strong>{latestLearning.title}</strong>
-      <span class="learning-rail-meta">
-        <span>{latestLearning.readingTime}</span>
-        <span aria-hidden="true">→</span>
-      </span>
-    </a>
-  </aside>
-
-  <div class="catalog">
-    <div class="active-head">
-      <div>
-        <h2>The rest of the catalog</h2>
-      </div>
-      <p>{PROJECT_COUNT - CORE.length} quietly useful tools, research projects, and personal utilities.</p>
-    </div>
-    <div class="active-groups">
+  <div class="catalog-wall">
+    <div class="catalog-groups">
       {ACTIVE_GROUPS.map((group) => (
-        <section class="active-group" aria-labelledby={`group-${group.id}`}>
+        <section class="catalog-group" aria-labelledby={`group-${group.id}`}>
           <h3 id={`group-${group.id}`}>{group.label}</h3>
-          <ul class="active-grid">
-            {group.products.map((p) => (
+          <ul>
+            {group.products.map((project) => (
               <li>
-                <a href={p.href} class="mini">
-                  <span>
-                    <strong class="mini-name">{p.name}</strong>
-                    <span class="mini-desc">{p.desc}</span>
-                  </span>
-                  <span class="mini-arrow" aria-hidden="true">→</span>
+                <a href={project.href} class="catalog-row">
+                  <strong>{project.name}</strong>
+                  <span>{project.desc}</span>
+                  <span aria-hidden="true">→</span>
                 </a>
               </li>
             ))}
@@ -65,33 +33,37 @@ const latestLearning = LEARNINGS[0];
         </section>
       ))}
     </div>
+
+    <aside class="learning-pane" aria-labelledby="learning-title">
+      <p class="studio-kicker">Latest learning</p>
+      <h3 id="learning-title">{latestLearning.title}</h3>
+      <p>{latestLearning.description}</p>
+      <a href={latestLearning.href}>
+        Read the note · {latestLearning.readingTime}
+        <span aria-hidden="true">→</span>
+      </a>
+    </aside>
   </div>
 
-  <div class="catalog" id="past-projects">
-    <div class="active-head">
-      <div>
-        <p class="eyebrow">Public repository history</p>
-        <h2>Past projects</h2>
-      </div>
-      <p>Preserved source and attribution without turning retired work into an active maintenance promise.</p>
-    </div>
-    <div class="active-groups">
-      <section class="active-group" aria-labelledby="past-project-list">
-        <h3 id="past-project-list">{PAST_PROJECTS.length} public repositories</h3>
-        <ul class="active-grid">
-          {PAST_PROJECTS.map((project) => (
-            <li>
-              <a href={project.repositoryUrl} class="mini" target="_blank" rel="noopener noreferrer">
-                <span>
-                  <strong class="mini-name">{project.name}</strong>
-                  <span class="mini-desc">{project.desc}</span>
-                </span>
-                <span class="mini-arrow" aria-hidden="true">↗</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
-  </div>
+  <section class="archive-wall" id="past-projects" aria-labelledby="archive-title">
+    <header>
+      <p class="studio-kicker">Public repository history</p>
+      <h2 id="archive-title">Past work, kept legible.</h2>
+      <p>
+        {PAST_PROJECTS.length} public repositories preserved for source and
+        attribution, without pretending they are still maintained.
+      </p>
+    </header>
+    <ul>
+      {PAST_PROJECTS.map((project) => (
+        <li>
+          <a href={project.repositoryUrl} target="_blank" rel="noopener noreferrer">
+            <strong>{project.name}</strong>
+            <span>{project.desc}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </section>
