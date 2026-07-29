@@ -9,7 +9,7 @@ const projects = await readJson(new URL('../config/projects.json', import.meta.u
 test('public projection contains only explicitly allowlisted public products', () => {
   const projection = buildPublicProducts(projects);
   assert.equal(projection.schemaVersion, 2);
-  assert.equal(projection.products.length, 19);
+  assert.equal(projection.products.length, 23);
   assert.equal(projection.pastProjects.length, 10);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
@@ -18,6 +18,18 @@ test('public projection contains only explicitly allowlisted public products', (
   assert.equal(
     projection.products.find((product) => product.id === 'calorie').url,
     'https://calorie.significanthobbies.com',
+  );
+  assert.deepEqual(
+    ['chatgpt-memory-insights', 'email-manager', 'knowledge-base', 'setline'].map((id) => ({
+      id,
+      url: projection.products.find((product) => product.id === id)?.url,
+    })),
+    [
+      { id: 'chatgpt-memory-insights', url: 'https://chatgpt.significanthobbies.com' },
+      { id: 'email-manager', url: 'https://mail.sassmaker.com' },
+      { id: 'knowledge-base', url: 'https://knowledgebase.sassmaker.com' },
+      { id: 'setline', url: 'https://setline.significanthobbies.com' },
+    ],
   );
   assert.equal(projection.pastProjects.some((project) => project.id === 'aliveville'), true);
   assert.equal(projection.pastProjects.some((project) => project.id === 'forecast-lab'), true);
@@ -33,6 +45,10 @@ test('public projection contains only explicitly allowlisted public products', (
   );
   assert.equal(
     Object.hasOwn(projection.products.find((product) => product.id === 'chess'), 'roadmapUrl'),
+    false,
+  );
+  assert.equal(
+    Object.hasOwn(projection.products.find((product) => product.id === 'setline'), 'repositoryUrl'),
     false,
   );
   assert.equal(

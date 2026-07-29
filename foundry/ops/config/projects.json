@@ -250,7 +250,15 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "email-manager",
+        "name": "Email Manager",
+        "description": "A private Gmail workspace for local semantic search, sender insights, and explicit unsubscribe workflows.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/email-manager"
       }
     },
     {
@@ -272,7 +280,15 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "chatgpt-memory-insights",
+        "name": "Memory Map",
+        "description": "Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/chatgpt-memory-insights"
       }
     },
     {
@@ -479,8 +495,8 @@
         }
       ],
       "domains": [
-        "search.sassmaker.com",
-        "knowledgebase.sassmaker.com"
+        "knowledgebase.sassmaker.com",
+        "search.sassmaker.com"
       ],
       "inRegistry": true,
       "status": "live",
@@ -490,7 +506,15 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "knowledge-base",
+        "name": "Knowledge Base",
+        "description": "Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.",
+        "category": "helper",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/knowledge-base"
       }
     },
     {
@@ -741,7 +765,14 @@
       "status": "live",
       "app": "web",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "setline",
+        "name": "Setline",
+        "description": "A mobile-first workout execution tracker for following user-authored plans, recording sets, and timing rest offline.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained"
       },
       "notes": "Local-first workout execution tracker with optional Google sign-in and private D1 sync."
     },

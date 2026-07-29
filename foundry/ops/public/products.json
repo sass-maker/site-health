@@ -121,6 +121,21 @@
       "pillarId": "market"
     },
     {
+      "id": "email-manager",
+      "name": "Email Manager",
+      "description": "A private Gmail workspace for local semantic search, sender insights, and explicit unsubscribe workflows.",
+      "url": "https://mail.sassmaker.com",
+      "tier": "active",
+      "category": "personal",
+      "priority": "P3",
+      "spotlight": false,
+      "maturity": "maintained",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/email-manager",
+      "changelogUrl": "https://github.com/sarthakagrawal927/email-manager/commits/main",
+      "roadmapUrl": "https://github.com/sarthakagrawal927/email-manager/blob/main/PROJECT_STATUS.md",
+      "pillarId": "learn"
+    },
+    {
       "id": "free-ai",
       "name": "Free AI",
       "description": "OpenAI-compatible gateway across free-tier model providers.",
@@ -149,6 +164,21 @@
       "pillarId": "build"
     },
     {
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
+      "description": "Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.",
+      "url": "https://knowledgebase.sassmaker.com",
+      "tier": "active",
+      "category": "helper",
+      "priority": "P2",
+      "spotlight": false,
+      "maturity": "maintained",
+      "repositoryUrl": "https://github.com/sass-maker/knowledge-base",
+      "changelogUrl": "https://github.com/sass-maker/knowledge-base/commits/main",
+      "roadmapUrl": "https://github.com/sass-maker/knowledge-base/blob/main/PROJECT_STATUS.md",
+      "pillarId": "build"
+    },
+    {
       "id": "looptv",
       "name": "LoopTV",
       "description": "A lean-back, TV-style random video player for curated channels.",
@@ -160,6 +190,21 @@
       "maturity": "maintained",
       "repositoryUrl": "https://github.com/Significant-Hobbies/looptv",
       "changelogUrl": "https://github.com/Significant-Hobbies/looptv/commits/main",
+      "pillarId": "learn"
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "description": "Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.",
+      "url": "https://chatgpt.significanthobbies.com",
+      "tier": "secondary",
+      "category": "personal",
+      "priority": "P3",
+      "spotlight": false,
+      "maturity": "maintained",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/chatgpt-memory-insights",
+      "changelogUrl": "https://github.com/sarthakagrawal927/chatgpt-memory-insights/commits/main",
+      "roadmapUrl": "https://github.com/sarthakagrawal927/chatgpt-memory-insights/blob/main/PROJECT_STATUS.md",
       "pillarId": "learn"
     },
     {
@@ -233,6 +278,18 @@
       "changelogUrl": "https://github.com/sarthakagrawal927/portfolio/commits/main",
       "roadmapUrl": "https://github.com/sarthakagrawal927/portfolio/blob/main/PROJECT_STATUS.md",
       "pillarId": "market"
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "description": "A mobile-first workout execution tracker for following user-authored plans, recording sets, and timing rest offline.",
+      "url": "https://setline.significanthobbies.com",
+      "tier": "secondary",
+      "category": "personal",
+      "priority": "P3",
+      "spotlight": false,
+      "maturity": "maintained",
+      "pillarId": "learn"
     },
     {
       "id": "significanthobbies",

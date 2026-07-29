@@ -110,7 +110,15 @@ test('privacy and overlay identity drift fail validation', () => {
   };
   assert.throws(
     () => validateProjectCatalog(privatePublic, { reconcile: false }),
-    /private repository cannot have a public listing/,
+    /past public listing requires a public repository/,
+  );
+
+  const privateMaintained = structuredClone(catalog);
+  privateMaintained.projects.find((project) => project.id === 'setline').public.repositoryUrl =
+    'https://github.com/example/private';
+  assert.throws(
+    () => validateProjectCatalog(privateMaintained, { reconcile: false }),
+    /public repositoryUrl requires repositoryVisibility public/,
   );
 
   assert.throws(
