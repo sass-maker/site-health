@@ -32,213 +32,304 @@ const productJsonLd = {
 
 <Layout title={`${product.name} — SaaS Maker directory`} description={product.summary}>
   <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
-  <Nav />
+  <!--
+  THESIS: A product detail should feel like stepping closer to the workshop wall, not leaving it for a generic dark profile.
+  OWN-WORLD: Limestone daylight, black steel mullions, clear and seeded panes, with one cobalt action pane and one amber evidence pane.
+  STORY: Identify the product, open its canonical home, inspect maintained public evidence, then return to the full catalog.
+  FIRST VIEWPORT: A slim directory rail sits above one large identity pane and one saturated canonical-product action.
+  FORM: Product specimen elevation, owner-delegated extension of the established monumental-wall direction.
+  -->
+  <div class="workshop-world">
+    <Nav />
 
-  <main class="project" id="main-content">
-    <div class="project-back">
-      <a href="/#products">← All products</a>
-      <span>{product.stack ?? 'product'} · maintained</span>
-    </div>
+    <main class="project" id="main-content">
+      <div class="project-wall">
+        <div class="project-back">
+          <a href="/#products">← All products</a>
+          <span>{product.stack ?? 'product'} · maintained</span>
+        </div>
 
-    <header class="project-hero">
-      <div>
-        <p class="project-folio">SaaS Maker directory</p>
-        <h1>{product.name}</h1>
-        <p class="project-summary">{product.summary}</p>
+        <header class="project-hero">
+          <div class="project-identity">
+            <p class="project-folio">SaaS Maker directory</p>
+            <h1>{product.name}</h1>
+            <p class="project-summary">{product.summary}</p>
+          </div>
+          <a class="project-primary" href={product.url} target="_blank" rel="noopener noreferrer">
+            <span>Open product</span>
+            <strong>{host}</strong>
+            <span class="project-primary-arrow" aria-hidden="true">↗</span>
+          </a>
+        </header>
+
+        <section class="project-progress" aria-labelledby="progress-title">
+          <div class="project-section-head">
+            <p class="project-folio">Maintained evidence</p>
+            <h2 id="progress-title">Follow the work.</h2>
+            <p>Public evidence, directly from the product’s canonical repository.</p>
+          </div>
+
+          <div class="project-evidence">
+            {progressLinks.length > 0 ? (
+              <ul>
+                {progressLinks.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      <span>{link.title}</span>
+                      <p>{link.description}</p>
+                      <strong>Open ↗</strong>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="project-empty">
+                This product has a public home, but no separate repository links are published here.
+              </p>
+            )}
+          </div>
+        </section>
+
+        <section class="project-boundary">
+          <p>
+            This directory page points to {product.name}’s canonical home. Public
+            changelog, roadmap, and source links come from the product’s maintained
+            metadata when they are available.
+          </p>
+        </section>
       </div>
-      <a class="project-primary" href={product.url} target="_blank" rel="noopener noreferrer">
-        <span>Open product</span>
-        <strong>{host} ↗</strong>
-      </a>
-    </header>
 
-    <section class="project-progress" aria-labelledby="progress-title">
-      <div class="project-section-head">
-        <h2 id="progress-title">Follow the work</h2>
-        <p>Public evidence, directly from the product’s canonical repository.</p>
-      </div>
-
-      {progressLinks.length > 0 ? (
-        <ul>
-          {progressLinks.map((link) => (
-            <li>
-              <a href={link.url} target="_blank" rel="noopener noreferrer">
-                <span>{link.title}</span>
-                <p>{link.description}</p>
-                <strong>Open ↗</strong>
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="project-empty">
-          This product has a public home, but no separate repository links are published here.
-        </p>
-      )}
-    </section>
-
-    <section class="project-boundary">
-      <p>
-        This directory page points to {product.name}’s canonical home. Public
-        changelog, roadmap, and source links come from the product’s maintained
-        metadata when they are available.
-      </p>
-    </section>
-
-    <Footer />
-  </main>
+      <Footer />
+    </main>
+  </div>
 </Layout>
 
 <style>
   .project {
-    width: min(72rem, calc(100% - 2rem));
+    width: min(92rem, calc(100% - 2rem));
     margin: 0 auto;
-    padding: clamp(2rem, 6vw, 5rem) 0 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .project-wall {
+    overflow: hidden;
+    border: 0.375rem solid var(--workshop-steel);
+    border-top: 0;
+    background: var(--workshop-steel);
   }
 
   .project-back {
+    min-height: 3.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink-muted);
-    font-size: 0.72rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 0.375rem solid var(--workshop-steel);
+    background: var(--workshop-seeded);
+    color: var(--workshop-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
   }
 
   .project-back a {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
-    color: var(--copper-hi);
+    color: var(--workshop-oxblood);
   }
 
   .project-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
-    gap: clamp(2rem, 7vw, 6rem);
-    align-items: end;
-    padding: clamp(4rem, 10vw, 8rem) 0 clamp(3rem, 8vw, 6rem);
-    border-bottom: 1px solid var(--line);
+    grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.65fr);
+    gap: 0.375rem;
+    min-height: min(40rem, calc(100svh - 8.5rem));
+    border-bottom: 0.375rem solid var(--workshop-steel);
+    background: var(--workshop-steel);
+  }
+
+  .project-identity {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(3rem, 7vw, 7rem);
+    background:
+      linear-gradient(rgba(250, 247, 239, 0.92), rgba(250, 247, 239, 0.92)),
+      url('/images/glazier-atelier-hero.webp') center / cover no-repeat;
+    color: var(--workshop-ink);
   }
 
   .project-folio {
-    margin-bottom: 1rem;
-    color: var(--copper-hi);
     font-size: 0.72rem;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   h1 {
-    max-width: 12ch;
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.96;
-    letter-spacing: -0.04em;
+    max-width: 10ch;
+    margin-top: clamp(2rem, 5vh, 4rem);
+    overflow-wrap: anywhere;
+    font-size: clamp(3.5rem, 7.2vw, 6rem);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
   .project-summary {
-    max-width: 62ch;
-    margin-top: 1.5rem;
-    color: var(--ink-soft);
+    max-width: 58ch;
+    margin-top: clamp(1.75rem, 4vh, 3rem);
+    color: var(--workshop-muted);
     font-size: clamp(1rem, 2vw, 1.25rem);
-    line-height: 1.65;
+    line-height: 1.6;
     text-wrap: pretty;
   }
 
   .project-primary {
-    min-height: 9rem;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1.5rem;
-    background: var(--copper);
-    color: var(--bg);
+    padding: clamp(2rem, 4vw, 4rem);
+    background: var(--workshop-cobalt);
+    color: #fff;
+    transition:
+      filter 180ms ease,
+      box-shadow 180ms ease;
   }
 
   .project-primary span {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .project-primary strong {
+    max-width: 18ch;
+    margin-top: auto;
     overflow-wrap: anywhere;
-    font-size: 1rem;
+    font-size: clamp(1.5rem, 3vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
   }
 
-  .project-primary:hover strong,
-  .project-primary:focus-visible strong {
-    text-decoration: underline;
+  .project-primary-arrow {
+    align-self: flex-end;
+    margin-top: 2rem;
+    font-size: 1.5rem !important;
+  }
+
+  .project-primary:hover,
+  .project-primary:focus-visible {
+    filter: brightness(1.1) saturate(1.04);
+    box-shadow: inset 0 0 0 0.25rem rgba(255, 255, 255, 0.48);
   }
 
   .project-progress {
-    padding: clamp(3rem, 8vw, 6rem) 0;
-    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: minmax(20rem, 0.65fr) minmax(0, 1.35fr);
+    gap: 0.375rem;
+    background: var(--workshop-steel);
   }
 
   .project-section-head {
-    display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(16rem, 1.2fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
+    min-height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(2rem, 5vw, 4.5rem);
+    background: var(--workshop-amber);
+    color: var(--workshop-ink);
   }
 
   .project-section-head h2 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    max-width: 9ch;
+    margin-top: 1.25rem;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.04em;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
   }
 
-  .project-section-head p,
-  .project-empty {
-    max-width: 55ch;
-    color: var(--ink-muted);
+  .project-section-head > p:last-child {
+    max-width: 36ch;
+    margin-top: 1.5rem;
+    color: #463513;
+  }
+
+  .project-evidence {
+    min-width: 0;
+    background: #f8f4ea;
   }
 
   .project-progress ul {
     list-style: none;
-    border-top: 1px solid var(--line);
   }
 
-  .project-progress li {
-    border-bottom: 1px solid var(--line);
+  .project-progress li + li {
+    border-top: 1px solid rgba(20, 21, 17, 0.2);
   }
 
   .project-progress li a {
-    min-height: 6rem;
+    min-height: 8.25rem;
     display: grid;
-    grid-template-columns: minmax(8rem, 0.5fr) minmax(0, 1.2fr) auto;
+    grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr) auto;
     gap: 1.5rem;
     align-items: center;
-    padding: 1.25rem 0;
+    padding: 1.5rem 2rem;
+    color: var(--workshop-ink);
+    transition:
+      background 180ms ease,
+      color 180ms ease;
   }
 
   .project-progress li a > span {
-    color: var(--ink);
     font-size: 1.05rem;
     font-weight: 700;
   }
 
   .project-progress li p {
-    color: var(--ink-muted);
+    color: var(--workshop-muted);
   }
 
   .project-progress li strong {
-    color: var(--copper-hi);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
   }
 
-  .project-progress li a:hover > span,
-  .project-progress li a:focus-visible > span {
-    color: var(--copper-hi);
+  .project-progress li a:hover,
+  .project-progress li a:focus-visible {
+    background: var(--workshop-oxblood);
+    color: #fff;
+  }
+
+  .project-progress li a:hover p,
+  .project-progress li a:focus-visible p {
+    color: #f1d9d4;
+  }
+
+  .project-empty {
+    min-height: 25rem;
+    display: grid;
+    place-items: center;
+    padding: 3rem;
+    color: var(--workshop-muted);
   }
 
   .project-boundary {
-    padding: 2rem 0 clamp(4rem, 10vw, 8rem);
-    color: var(--ink-muted);
+    min-height: 11rem;
+    display: flex;
+    align-items: center;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    border-top: 0.375rem solid var(--workshop-steel);
+    background:
+      linear-gradient(rgba(217, 210, 196, 0.88), rgba(217, 210, 196, 0.88)),
+      url('/images/glazier-atelier-hero.webp') 70% 55% / cover no-repeat;
+    color: var(--workshop-muted);
     font-size: 1rem;
   }
 
@@ -246,24 +337,62 @@ const productJsonLd = {
     max-width: 68ch;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
     .project-hero,
-    .project-section-head {
+    .project-progress {
       grid-template-columns: 1fr;
     }
 
     .project-primary {
-      min-height: 7rem;
+      min-height: 18rem;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .project {
+      width: min(100% - 1rem, 92rem);
+    }
+
+    .project-back {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .project-identity {
+      min-height: min(36rem, calc(100svh - 8rem));
+      padding: 2.5rem 1.5rem;
+    }
+
+    h1 {
+      max-width: none;
+      margin-top: 2rem;
+      font-size: clamp(2.8rem, 13vw, 5rem);
+    }
+
+    .project-primary {
+      min-height: 15rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .project-section-head {
+      min-height: 23rem;
+      padding: 2.5rem 1.5rem;
     }
 
     .project-progress li a {
       grid-template-columns: 1fr auto;
       gap: 0.5rem 1rem;
+      padding: 1.5rem;
     }
 
     .project-progress li p {
       grid-column: 1 / -1;
       grid-row: 2;
+    }
+
+    .project-boundary {
+      padding: 2.5rem 1.5rem;
     }
   }
 </style>

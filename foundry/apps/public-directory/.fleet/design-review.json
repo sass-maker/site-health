@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "public-directory",
-  "target": "SaaS Maker public directory homepage",
+  "target": "SaaS Maker product detail pages",
   "mode": "overhaul",
   "register": "brand",
   "context": {
@@ -11,9 +11,8 @@
   },
   "direction": {
     "references": [
-      "architectural glazier workshop partitions",
-      "modernist color-field glazing",
-      "material specimen racks"
+      "SaaS Maker homepage monumental-wall direction",
+      "architectural glazier workshop partitions"
     ],
     "probes": [
       {
@@ -23,29 +22,25 @@
       {
         "id": "studio-corridor",
         "path": ".fleet/evidence/overhaul/probe-b-studio-corridor.png"
-      },
-      {
-        "id": "museum-elevation",
-        "path": ".fleet/evidence/overhaul/probe-c-museum-elevation.png"
       }
     ],
     "selected": "monumental-wall",
     "approval": "delegated",
-    "before": ".fleet/evidence/before-home-1440.png"
+    "before": ".fleet/evidence/before-product-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/overhaul/after-home-390.png"
+        "path": ".fleet/evidence/overhaul/after-product-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/overhaul/after-home-768.png"
+        "path": ".fleet/evidence/overhaul/after-product-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/overhaul/after-home-1440.png"
+        "path": ".fleet/evidence/overhaul/after-product-1440.png"
       }
     ],
     "projectCheck": {
@@ -69,7 +64,7 @@
       "findings": []
     },
     "browserReview": {
-      "tool": "regular Chrome through Playwright and Chrome DevTools",
+      "tool": "Playwright",
       "viewports": [
         390,
         768,
@@ -77,11 +72,11 @@
       ],
       "horizontalOverflow": false,
       "consoleErrors": 0,
-      "note": "All real catalog content remains legible, the hero image loads, visible links meet the 44px touch floor at 390px, and the exact commission mailto is preserved."
+      "note": "The representative PostTrainLLM page was inspected at all required widths. All 25 generated product-detail routes were also checked at 390px with no horizontal overflow or headings exceeding three lines."
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly requested a substantially more beautiful landing page and delegated the direction and final design judgment."
+    "note": "Owner explicitly asked a sub-agent to sync the internal product page to the public landing page theme."
   }
 }

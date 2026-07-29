@@ -1141,7 +1141,7 @@ a {
 
 /* Homepage: the glazier's workshop */
 
-.home-world {
+.workshop-world {
   --workshop-ground: #eee8dc;
   --workshop-pane: rgba(250, 247, 239, 0.9);
   --workshop-seeded: #d9d2c4;
@@ -1157,17 +1157,17 @@ a {
   color: var(--workshop-ink);
 }
 
-.home-world .nav,
+.workshop-world .nav,
 .studio-hero,
 .studio-index,
 .studio-package,
 .studio-commission,
-.home-world .footer {
+.workshop-world .footer {
   width: min(92rem, calc(100% - 2rem));
   margin-inline: auto;
 }
 
-.home-world .nav {
+.workshop-world .nav {
   position: relative;
   z-index: 20;
   min-height: 4.75rem;
@@ -1177,24 +1177,24 @@ a {
   color: #f8f4ea;
 }
 
-.home-world .brand {
+.workshop-world .brand {
   font-size: 0.95rem;
   letter-spacing: -0.01em;
 }
 
-.home-world .brand-mark {
+.workshop-world .brand-mark {
   border-color: rgba(255, 255, 255, 0.58);
   border-radius: 0;
   background: var(--workshop-cobalt);
   color: #fff;
 }
 
-.home-world .nav-links {
+.workshop-world .nav-links {
   color: #bdb8ad;
 }
 
-.home-world .nav-links a:hover,
-.home-world .nav-links a:focus-visible {
+.workshop-world .nav-links a:hover,
+.workshop-world .nav-links a:focus-visible {
   color: #fff;
 }
 
@@ -1648,7 +1648,7 @@ a {
   margin-top: 1.5rem;
 }
 
-.home-world .package-action {
+.workshop-world .package-action {
   align-content: center;
   gap: 1.25rem;
   padding: clamp(2.25rem, 5vw, 4.5rem);
@@ -1656,18 +1656,18 @@ a {
   background: #f8f4ea;
 }
 
-.home-world .package-action > p {
+.workshop-world .package-action > p {
   color: var(--workshop-muted);
   font-size: 0.82rem;
 }
 
-.home-world .package-action code {
+.workshop-world .package-action code {
   border-color: var(--workshop-steel);
   background: var(--workshop-steel);
   color: #fff;
 }
 
-.home-world .package-action a {
+.workshop-world .package-action a {
   color: var(--workshop-oxblood);
 }
 
@@ -1738,18 +1738,18 @@ a {
   border-color: #f2b345;
 }
 
-.home-world .footer {
+.workshop-world .footer {
   margin-top: clamp(2rem, 5vw, 4rem);
   border-color: rgba(20, 21, 17, 0.35);
   color: var(--workshop-muted);
 }
 
-.home-world .footer a:hover,
-.home-world .footer a:focus-visible {
+.workshop-world .footer a:hover,
+.workshop-world .footer a:focus-visible {
   color: var(--workshop-oxblood);
 }
 
-.home-world .footer .brand-mark {
+.workshop-world .footer .brand-mark {
   border-color: var(--workshop-steel);
 }
 
@@ -1817,33 +1817,33 @@ a {
     min-height: 30rem;
   }
 
-  .home-world .package-action {
+  .workshop-world .package-action {
     border-top: 0.375rem solid var(--workshop-steel);
     border-left: 0;
   }
 }
 
 @media (max-width: 760px) {
-  .home-world .nav,
+  .workshop-world .nav,
   .studio-hero,
   .studio-index,
   .studio-package,
   .studio-commission,
-  .home-world .footer {
+  .workshop-world .footer {
     width: min(100% - 1rem, 92rem);
   }
 
-  .home-world .nav {
+  .workshop-world .nav {
     min-height: 4.25rem;
     padding-inline: 0.9rem;
   }
 
-  .home-world .brand-name {
+  .workshop-world .brand-name {
     display: inline;
   }
 
-  .home-world .nav-links a:nth-child(3),
-  .home-world .nav-source {
+  .workshop-world .nav-links a:nth-child(3),
+  .workshop-world .nav-source {
     display: none;
   }
 
@@ -1925,7 +1925,7 @@ a {
   }
 
   .package-copy,
-  .home-world .package-action {
+  .workshop-world .package-action {
     padding: 2.5rem 1.5rem;
   }
 
@@ -1938,7 +1938,7 @@ a {
     font-size: clamp(3rem, 14vw, 4.25rem);
   }
 
-  .home-world .footer {
+  .workshop-world .footer {
     padding-inline: 0.5rem;
   }
 }

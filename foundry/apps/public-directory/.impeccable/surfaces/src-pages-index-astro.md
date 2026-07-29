@@ -29,5 +29,5 @@ viewport memorable; specimen rows carry the dense catalog below.
 Memorable moment: the visitor sees the studio story and four real products as
 one architectural composition before scrolling.
 
-Unresolved decisions: product and learning detail pages retain their existing
-dark reading world until they receive their own scoped design pass.
+Unresolved decisions: learning and legal pages retain their existing dark
+reading world until they receive their own scoped design pass.

@@ -34,16 +34,17 @@ long prose near 70 characters.
 
 ## Layout
 
-Compose the homepage as a wall elevation. Matte-black mullions separate
-unevenly proportioned panes; each pane carries one statement or destination.
-The first viewport pairs one large studio pane with four featured product
-panes. Supporting products become disciplined specimen rows rather than cards.
-On narrow screens, bays restack into one column while preserving bar thickness
-and reading order.
+Compose public product discovery as a wall elevation. Matte-black mullions
+separate unevenly proportioned panes; each pane carries one statement or
+destination. The homepage first viewport pairs one large studio pane with four
+featured product panes. Supporting products become disciplined specimen rows
+rather than cards.
 
-Product, learning, and legal pages may keep the quieter dark folio until their
-own redesign. The homepage wrapper owns this light workshop world so a landing
-page improvement does not silently rewrite reading surfaces.
+Product detail pages inherit the same workshop world: one clear identity pane
+shares a steel frame with a saturated canonical-product action, while public
+evidence becomes a run of specimen panes. On narrow screens, bays restack into
+one column while preserving bar thickness and reading order. Learning and legal
+pages remain quieter reading surfaces until their own redesign.
 
 ## Imagery
 
