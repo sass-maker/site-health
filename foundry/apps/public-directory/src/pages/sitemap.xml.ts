@@ -1,4 +1,5 @@
 import publicCatalog from '../../../../ops/public/products.json';
+import { LEARNINGS } from '../data/learnings';
 
 export const prerender = true;
 
@@ -7,6 +8,8 @@ export function GET() {
     'https://sassmaker.com/',
     'https://sassmaker.com/privacy',
     'https://sassmaker.com/terms',
+    'https://sassmaker.com/learnings',
+    ...LEARNINGS.map((learning) => `https://sassmaker.com${learning.href}`),
     ...publicCatalog.products
       .filter((product) => product.id !== 'personal-website')
       .map((product) => `https://sassmaker.com/p/${product.id}`),

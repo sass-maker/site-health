@@ -4,8 +4,9 @@
 > [`sass-maker/fleet-workspace`](https://github.com/sass-maker/fleet-workspace).
 > The former standalone repository is historical only.
 
-Fleet's media-generation service. It turns approved, source-backed briefs into
-reviewable vertical-video artifacts and content-package receipts.
+Fleet's editorial and media-generation service. It turns owned or licensed
+source archives, approved podcast edits, and source-backed briefs into
+reviewable vertical-video artifacts and receipts.
 
 Reel Pipeline does **not** own social accounts, scheduling, publishing, or
 provider analytics. Approved packages are handed to Postiz as drafts; a human
@@ -41,12 +42,17 @@ npm run docs:validate
 ## Boundary
 
 ```text
-approved source package
+owned/licensed source archive or approved source package
         ↓
-Reel Pipeline: validate → render → review artifact → media receipt
+Reel Pipeline: plan/edit → validate → render → review artifact → media receipt
         ↓
 Postiz: draft → human review → schedule → publish → provider metrics
 ```
+
+The incorporated Python editorial runtime lives under [`editorial/`](editorial/)
+and retains the `mashup` compatibility CLI while consolidation parity is
+proven. New editorial behavior belongs there, not in the former standalone
+checkout.
 
 The production Worker/R2 render flow remains:
 

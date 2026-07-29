@@ -87,13 +87,13 @@ Current Fleet-owned and approved external skills exposed to agents:
 
 | Skill | Type | Notes |
 |---|---|---|
-| `fleet-ops` | parent | routes to audit/init/deploy/parity/workspace/Cloudflare and Turso spend subskills |
+| `fleet-ops` | parent | routes to audit/init/deploy/parity/workspace/Cloudflare and Turso spend/fleet-tasks subskills |
 | `fleet-deploy-parity` | standalone | fleet-wide "is everything deployed to the latest?" — Cloudflare Pages deployments match current main SHA, Workers at 100% traffic, Actions green at HEAD |
 | `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |
 | `spec-driven` | standalone | OpenSpec workflow |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
-| `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
+| `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), content-coverage (search-intent pages), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
 | `token-budget` | standalone | Codex context/token audit |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |

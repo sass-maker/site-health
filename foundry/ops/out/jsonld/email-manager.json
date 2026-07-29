@@ -3,13 +3,13 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://sassmaker.com/#org",
-      "name": "SaaS Maker (Foundry)",
-      "url": "https://sassmaker.com",
+      "@type": "Person",
+      "@id": "https://sarthakagrawal.dev/#person",
+      "name": "Sarthak Agrawal",
+      "url": "https://sarthakagrawal.dev",
       "sameAs": [
-        "https://sassmaker.com",
-        "https://github.com/sarthakagrawal927/email-manager"
+        "https://sarthakagrawal.dev",
+        "https://github.com/sarthakagrawal927"
       ]
     },
     {
@@ -19,8 +19,11 @@
       "url": "https://mail.sassmaker.com",
       "description": "Gmail workspace with local semantic search — private email tooling.",
       "publisher": {
-        "@id": "https://sassmaker.com/#org"
-      }
+        "@id": "https://sarthakagrawal.dev/#person"
+      },
+      "sameAs": [
+        "https://github.com/sass-maker/email-manager"
+      ]
     }
   ]
 }

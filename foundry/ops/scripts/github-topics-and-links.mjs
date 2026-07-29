@@ -34,7 +34,7 @@ const REPOS = {
     productUrl: 'https://starboard.codevetter.com',
   },
   rolepatch: {
-    repo: 'sarthakagrawal927/rolepatch',
+    repo: 'sass-maker/rolepatch',
     topics: ['resume', 'ats', 'career', 'ai', 'nextjs'],
     productUrl: 'https://rolepatch.com',
   },
@@ -44,12 +44,12 @@ const REPOS = {
     productUrl: 'https://truehire.rolepatch.com',
   },
   karte: {
-    repo: 'sarthakagrawal927/karte',
+    repo: 'Significant-Hobbies/karte',
     topics: ['link-in-bio', 'agents', 'personal-site'],
     productUrl: 'https://karte.cc',
   },
   'email-manager': {
-    repo: 'sarthakagrawal927/email-manager',
+    repo: 'sass-maker/email-manager',
     topics: ['email', 'gmail', 'productivity'],
     productUrl: 'https://mail.sassmaker.com',
   },

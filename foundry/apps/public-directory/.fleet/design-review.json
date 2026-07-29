@@ -1,0 +1,70 @@
+{
+  "$schema": "fleet.design-review.v1",
+  "version": 1,
+  "project": "public-directory",
+  "target": "Selective external project commission banner",
+  "mode": "preserve",
+  "register": "brand",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
+  },
+  "direction": {
+    "references": [],
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
+    "before": ".fleet/evidence/before-home-1440.png"
+  },
+  "evidence": {
+    "screenshots": [
+      {
+        "width": 390,
+        "path": ".fleet/evidence/commission-banner-390.png"
+      },
+      {
+        "width": 768,
+        "path": ".fleet/evidence/commission-banner-768.png"
+      },
+      {
+        "width": 1440,
+        "path": ".fleet/evidence/commission-banner-1440.png"
+      }
+    ],
+    "projectCheck": {
+      "command": "npm run check",
+      "status": "pass"
+    },
+    "critique": {
+      "score": 35,
+      "maximum": 40
+    },
+    "audit": {
+      "score": 20,
+      "maximum": 20
+    },
+    "unresolved": {
+      "p0": 0,
+      "p1": 0
+    },
+    "detector": {
+      "posture": "advisory",
+      "findings": []
+    },
+    "browserReview": {
+      "tool": "regular Chrome through Playwright and Chrome DevTools",
+      "viewports": [
+        390,
+        768,
+        1440
+      ],
+      "horizontalOverflow": false,
+      "consoleErrors": 0,
+      "note": "The banner remains subordinate to the portfolio, the direct email action is visible at every required width, and the page preserves its existing catalog rhythm."
+    }
+  },
+  "ownerFeedback": {
+    "decision": "delegated",
+    "note": "Owner explicitly requested a bottom banner with a direct team@sassmaker.com email action and delegated the preserve-mode implementation."
+  }
+}

@@ -258,9 +258,9 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 
 | Skill | Type | Routes to |
 |---|---|---|
-| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace, cloudflare-spend-guard |
+| `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace, cloudflare-spend-guard, fleet-tasks |
 | `call-teammate` | parent | call-claude-code, call-codex, call-cursor, call-devin, call-grok |
-| `site-health` | parent | agent-ready, seo-audit, psi-swarm, geo-observatory, public-product-smoke; combined scorecard |
+| `site-health` | parent | agent-ready, seo-audit, content-coverage, psi-swarm, geo-observatory, public-product-smoke; combined scorecard |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | OpenSpec workflow for new features |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |

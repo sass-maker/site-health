@@ -44,6 +44,7 @@ count, are the source of truth.
 |---|---|---|
 | `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace, cloudflare-spend-guard |
 | `call-teammate` | parent | Codex, Grok, Hermes, and optional approved teammates |
+| `site-health` | parent | agent-ready, seo-audit, content-coverage, psi-swarm, geo-observatory, public-product-smoke |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | — |
 | `psi-swarm` | standalone | — |
@@ -68,6 +69,10 @@ Fleet-owned skills, operator scripts, reusable templates, and living
 documentation. It derives entries from the canonical files under
 `foundry/ops/`; there is no second registry to update.
 
+`content-coverage` and `launch-campaign` are canonical catalog capabilities but
+do not add new preload links in this change. Content sufficiency routes through
+the existing `site-health` parent.
+
 ```bash
 # Find the right Fleet capability from intent.
 node foundry/ops/scripts/fleet-capabilities.mjs search "deploy readiness"
@@ -82,23 +87,47 @@ node foundry/ops/scripts/fleet-capabilities.mjs context "site health" --dense
 node foundry/ops/scripts/fleet-capabilities.mjs doctor --json
 ```
 
-Commands are `list`, `search`, `get`, `context`, and `doctor`. Use `--type`
-with `skill`, `script`, `template`, or `doc`; use `--json` for the versioned
-machine envelope and `--dense` for compact output. `doctor` validates catalog
-integrity only—it does not run discovered tools or replace provider, host, git,
-or deploy health checks.
+Commands are `list`, `search`, `get`, `execution`, `context`, and `doctor`. Use
+`--type` with `skill`, `script`, `template`, or `doc`; use `--json` for the
+versioned machine envelope and `--dense` for compact output. `doctor` validates
+catalog integrity only—it does not run discovered tools or replace provider,
+host, git, or deploy health checks.
+
+### Provider-neutral skill execution profiles
+
+Every Fleet-owned skill carries `execution-profile.json` beside `SKILL.md`.
+The profile declares:
+
+- recommended and minimum `intelligence` (`economy`, `balanced`, `frontier`);
+- recommended and minimum `reasoning` (`low`, `medium`, `high`, `very_high`);
+- the response below minimum (`allow`, `ask`, or `deny`); and
+- a short rationale.
+
+These are capabilities, not provider names or model IDs. Each host maps them to
+its available runtimes while preserving owner, administrator, availability,
+and cost policy. Inspect a compatibility decision without invoking a model:
+
+```bash
+node foundry/ops/scripts/fleet-capabilities.mjs execution \
+  skill:launch-campaign --runtime balanced:high
+```
+
+The result is `recommended`, `compatible`, `degraded`, `approval_required`, or
+`redispatch_required`. It is metadata guidance, not a natural-language
+resolver or an automatic model switch.
 
 ## Adding a new skill
 
 1. Create `skills/<name>/SKILL.md` (or `teammates/skills/<name>/SKILL.md` for delegation).
-2. If it belongs under an existing parent, add a row to the parent's routing table — no new symlink needed.
-3. If standalone, symlink it into each agent skill dir:
+2. Add a valid provider-neutral `execution-profile.json`.
+3. If it belongs under an existing parent, add a row to the parent's routing table — no new symlink needed.
+4. If standalone, symlink it into each agent skill dir:
    ```bash
    for dir in ~/.codex/skills ~/.openclaw/skills; do
      ln -s ~/Desktop/fleet/foundry/ops/skills/<name> "$dir/<name>"
    done
    ```
-4. Commit and push.
+5. Commit and push.
 
 ## Adding a new script
 
