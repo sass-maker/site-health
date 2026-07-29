@@ -76,7 +76,7 @@ export default function RootLayout({
           aria-hidden="true"
         >
           <div className="mx-auto max-w-7xl px-6 pt-10 pb-6">
-            <div className="text-6xl font-semibold tracking-[-3.2px] text-white">
+            <div className="text-[clamp(1.75rem,8.2vw,3.75rem)] leading-[1.05] font-semibold tracking-[-0.04em] text-white sm:leading-none sm:tracking-[-3.2px]">
               Track Domain Ratings.
               <br />
               100% in your browser.
