@@ -16,17 +16,17 @@
 
 ## 3. Significant Hobbies websites
 
-- [ ] 3.1 Add and verify the Anime List changelog.
-- [ ] 3.2 Add and verify the Calorie changelog.
-- [ ] 3.3 Add and verify the Chess changelog.
-- [ ] 3.4 Add and verify the Karte changelog.
-- [ ] 3.5 Add and verify the LoopTV changelog.
-- [ ] 3.6 Add and verify the ChatGPT Memory Insights changelog.
-- [ ] 3.7 Add and verify the Reader changelog.
-- [ ] 3.8 Add and verify the Setline changelog.
-- [ ] 3.9 Add and verify the Significant Hobbies changelog.
-- [ ] 3.10 Add and verify the SWE Interview Prep changelog.
-- [ ] 3.11 Add and verify the What It Takes to Win changelog.
+- [x] 3.1 Add and verify the Anime List changelog.
+- [x] 3.2 Add and verify the Calorie changelog.
+- [x] 3.3 Add and verify the Chess changelog.
+- [x] 3.4 Add and verify the Karte changelog.
+- [x] 3.5 Add and verify the LoopTV changelog.
+- [x] 3.6 Add and verify the ChatGPT Memory Insights changelog.
+- [x] 3.7 Add and verify the Reader changelog.
+- [x] 3.8 Add and verify the Setline changelog.
+- [x] 3.9 Add and verify the Significant Hobbies changelog.
+- [x] 3.10 Add and verify the SWE Interview Prep changelog.
+- [x] 3.11 Add and verify the What It Takes to Win changelog.
 
 ## 4. SaaS Maker and Fleet-owned public websites
 
@@ -46,7 +46,7 @@
 
 ## 6. Verification and closure
 
-- [ ] 6.1 Run each changed repository's smallest relevant check and record any blocked or skipped project.
+- [x] 6.1 Run each changed repository's smallest relevant check and record any blocked or skipped project.
 - [x] 6.2 Run Fleet OpenSpec strict validation, public projection checks, SaaS Maker build, and design receipt validation.
-- [ ] 6.3 Commit and push safe repository changes independently without deploying.
+- [x] 6.3 Commit and push safe repository changes independently without deploying.
 - [ ] 6.4 Archive the OpenSpec change, update durable project status, and close issue #60 when every included product is complete or explicitly tracked as a blocker.
