@@ -33,6 +33,11 @@ Fleet quality bar:
   justified, scoped, and recorded as a GitHub issue with the smallest next
   action.
 - Treat repeated issues as fleet standards work. If the same drift appears across multiple projects, add or update a reusable check, template, or standard instead of fixing only one repo.
+- Keep maintained repositories out of Sarthak's personal GitHub namespace.
+  Focus products use dedicated product organizations; shared commercial and
+  operational tools use `sass-maker`; maintained personal utilities use
+  `Significant-Hobbies`. The personal namespace is reserved for the profile,
+  personal site, archives, and historical or absorbed repositories.
 - Be conservative with rate limiters. Do not add, re-enable, or make rate limits stricter without explicit approval and endpoint-specific evidence; stale or unused rate-limit config should usually be removed as cleanup.
 - Prioritize cleanup that reduces surface area: unused packages, dead code, generated artifacts, stale feature paths, and docs that no longer match current code.
 - Use the Fleet-owned `$code-cleanup` skill before dependency manifest or
