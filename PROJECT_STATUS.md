@@ -58,6 +58,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-30 — GitHub Actions runs bounded by explicit policy:** Split Fleet
+  contracts, feedback, AI Visibility, and Ops Console checks into independent
+  path-scoped workflows; made heavy macOS proof manual-only; reduced recurring
+  hosted audits from daily to weekly; and added concurrency, timeouts, manual
+  dispatch, and a repository check that rejects workflow-policy drift.
 - **2026-07-29 — Private Fleet skill-run history shipped:** Added an
   owner-only, machine-local run store for Fleet skills with sanitized retained
   output, explicit capture coverage, idempotent receipts, repairable indexes,
@@ -328,6 +333,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
+- Enforced GitHub Actions run policy with path-scoped automatic checks,
+  independent package workflows, manual heavy-native proof, weekly audit
+  ceilings, concurrency cancellation, job timeouts, and manual-only production
+  deployment rules.
 - Canonical 43-identity project/domain/deploy/lifecycle catalog with active and
   inactive checkout reconciliation, generated internal inventory views, and a
   privacy-gated SaaS Maker projection for maintained and past public work.

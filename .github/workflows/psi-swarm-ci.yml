@@ -13,6 +13,11 @@ on:
       - "foundry/tools/psi-swarm/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/psi-swarm-ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -20,6 +25,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: foundry/tools/psi-swarm

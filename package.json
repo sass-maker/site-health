@@ -6,6 +6,7 @@
   "scripts": {
     "check:components": "node foundry/ops/scripts/check-component-roots.mjs",
     "check:components:native": "node foundry/ops/scripts/run-component-checks.mjs",
+    "check:actions": "node foundry/ops/scripts/check-github-actions-policy.mjs",
     "check:design-workflow": "node foundry/ops/scripts/design-workflow.mjs self-check",
     "design:review": "node foundry/ops/scripts/design-workflow.mjs check",
     "generate:public": "node foundry/ops/scripts/generate-public-products.mjs",
@@ -14,7 +15,7 @@
     "generate:openspec-inventory": "node foundry/ops/scripts/generate-openspec-inventory.mjs",
     "check:public": "node foundry/ops/scripts/generate-public-products.mjs --check && npm --prefix foundry/apps/public-directory run check",
     "check:registry": "node foundry/ops/scripts/generate-project-surfaces.mjs --check && node foundry/ops/scripts/validate-automation-registry.mjs && node foundry/ops/scripts/validate-marketing-program.mjs && node foundry/ops/scripts/check-retired-marketing-boundaries.mjs",
-    "test:fleet": "npm run check:components && node --test foundry/ops/test/*.test.mjs"
+    "test:fleet": "npm run check:components && npm run check:actions && node --test foundry/ops/test/*.test.mjs"
   },
   "engines": {
     "node": ">=22"

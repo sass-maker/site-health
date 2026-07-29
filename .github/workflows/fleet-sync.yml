@@ -17,8 +17,12 @@ on:
       - 'foundry/ops/scripts/validate-spotlight-products.mjs'
       - '.github/workflows/fleet-sync.yml'
   schedule:
-    - cron: '17 5 * * *'
+    - cron: '17 5 * * 1'
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,6 +30,7 @@ permissions:
 jobs:
   drift:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out fleet workspace
         uses: actions/checkout@v4

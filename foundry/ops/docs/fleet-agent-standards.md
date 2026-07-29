@@ -172,6 +172,11 @@ Deployment standard:
 - Every fleet project should have CI/CD on GitHub Actions and a repo-local
   deploy command, usually a single package script such as `pnpm deploy`,
   `npm run deploy`, or `bun run deploy`.
+- Fleet Workspace Actions follow
+  [`github-actions-run-policy.md`](github-actions-run-policy.md): automatic
+  checks are path-scoped, independent surfaces use independent workflows,
+  superseded CI is cancelled, scheduled audits run weekly or less often, and
+  heavy macOS/native proof is manual-only.
 - Every Worker deploy must record the immutable source revision with
   `wrangler deploy --tag "$(git rev-parse HEAD)"` locally or
   `--tag ${{ github.sha }}` in GitHub Actions. OpenNext deploy commands pass

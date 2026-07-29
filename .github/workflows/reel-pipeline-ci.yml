@@ -15,6 +15,11 @@ on:
       - "foundry/services/content-factory/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/reel-pipeline-ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -22,6 +27,7 @@ permissions:
 jobs:
   node:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: foundry/services/reel-pipeline
@@ -38,6 +44,7 @@ jobs:
 
   rust:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable

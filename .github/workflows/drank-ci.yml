@@ -13,6 +13,11 @@ on:
       - "foundry/services/drank/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -20,6 +25,7 @@ permissions:
 jobs:
   application:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: foundry/services/drank
@@ -40,6 +46,7 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
