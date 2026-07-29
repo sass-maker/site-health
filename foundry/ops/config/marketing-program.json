@@ -327,7 +327,7 @@
     },
     {
       "slug": "fleet-workspace",
-      "name": "Fleet Workspace",
+      "name": "SaaS Maker",
       "aliases": [
         "fleet-ops",
         "fleet-dashboard"
@@ -335,7 +335,7 @@
       "mode": "infrastructure",
       "domain": "https://sassmaker.com",
       "domainPosture": "root",
-      "publicMarketing": false,
+      "publicMarketing": true,
       "cta": "Inspect the public fleet map",
       "cadence": "quarterly",
       "contentBase": null,

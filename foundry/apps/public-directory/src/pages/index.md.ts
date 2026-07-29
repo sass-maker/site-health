@@ -32,7 +32,7 @@ export function GET() {
   const body = [
     '# SaaS Maker',
     '',
-    'Public directory for maintained products and explicitly public past repositories, generated from Fleet’s privacy-checked projection.',
+    'Software as a specialized service: a living studio of focused products, generated from Fleet’s privacy-checked public projection.',
     '',
     '# Learnings',
     '',

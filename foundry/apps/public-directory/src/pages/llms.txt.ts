@@ -12,7 +12,7 @@ export function GET() {
   const body = [
     '# SaaS Maker',
     '',
-    "> Public directory for Sarthak Agrawal's maintained products and home of the @saas-maker/feedback package.",
+    "> Software as a specialized service: Sarthak Agrawal's living studio of focused, maintained products.",
     '',
     '## Core surfaces',
     '',

@@ -199,7 +199,14 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "unknown",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "saas-maker",
+        "name": "SaaS Maker",
+        "description": "Software as a specialized service: a living studio of focused products built for particular problems and maintained in public.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "public-ready"
       }
     },
     {

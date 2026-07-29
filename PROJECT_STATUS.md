@@ -55,11 +55,12 @@ CodeVetter or App Health source.
 - **2026-07-29 — SaaS Maker directory refreshed and released:** Reworked the
   public homepage as a responsive workshop-style product wall, corrected the
   PostTrainLLM featured pane's full-bleed image and long-name fit, and expanded
-  the privacy-filtered projection from 19 to 23 maintained listings. Email
-  Manager, Knowledge Base, Memory Map, and Setline now have canonical public
-  detail routes, bringing the visible product directory to 22 products after
-  intentionally excluding the personal website. Fleet Workspace remains hidden
-  from the public product catalog.
+  the privacy-filtered projection from 19 to 24 maintained listings. Email
+  Manager, Knowledge Base, Memory Map, Setline, and SaaS Maker itself now have
+  canonical public detail routes, bringing the visible product directory to 23
+  products after intentionally excluding the personal website. SaaS Maker is
+  positioned as “software as a specialized service”; private Fleet controls
+  remain excluded.
 - **2026-07-26 — Fleet design workflow hardened from 7/20 to 19/20:** Added a
   Fleet-owned workflow over the pinned Impeccable 4.0.2 skill payload
   (installed through npm package 3.3.1), with explicit

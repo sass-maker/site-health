@@ -5,7 +5,7 @@
       "id": "saas-maker",
       "name": "SaaS Maker",
       "url": "https://sassmaker.com",
-      "summary": "A public directory of maintained products, changelogs, roadmaps, and source.",
+      "summary": "Software as a specialized service: a living studio of focused products built for particular problems.",
       "publicDir": "foundry/apps/public-directory/public",
       "stack": "astro-static",
       "headFile": "foundry/apps/public-directory/src/layouts/Layout.astro",
@@ -27,7 +27,7 @@
           "description": "Backend-free feedback package"
         }
       ],
-      "indexMd": "# SaaS Maker\n\nPublic directory for Sarthak Agrawal's maintained products.\n\n## What it contains\n\n- Canonical product links\n- Public changelogs and roadmaps\n- One maintained package: @saas-maker/feedback\n\n## Agent entrypoints\n\n- https://sassmaker.com/llms.txt\n- https://sassmaker.com/api/ai\n- https://sassmaker.com/index.md\n"
+      "indexMd": "# SaaS Maker\n\nSoftware as a specialized service: Sarthak Agrawal's living studio of focused, maintained products.\n\n## What it contains\n\n- Canonical product links\n- Public changelogs and roadmaps\n- One maintained package: @saas-maker/feedback\n\n## Agent entrypoints\n\n- https://sassmaker.com/llms.txt\n- https://sassmaker.com/api/ai\n- https://sassmaker.com/index.md\n"
     },
     {
       "id": "codevetter",

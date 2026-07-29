@@ -22,7 +22,7 @@ export function GET() {
             url: 'https://sassmaker.com/',
             md: 'https://sassmaker.com/index.md',
             kind: 'collection',
-            description: 'Public product directory',
+            description: 'Software as a specialized service: a living studio of focused products',
           },
           {
             id: 'feedback-package',
