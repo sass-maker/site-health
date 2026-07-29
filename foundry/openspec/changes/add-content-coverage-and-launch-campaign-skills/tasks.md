@@ -45,6 +45,14 @@
 - [x] 3.5 Add a fictional campaign fixture that previews all content/actions,
   approves one unchanged hash, executes fixture connectors, blocks CAPTCHA and
   payment changes, records receipts, and resumes without duplicates
+- [x] 3.6 Add protected, article-syndication, broad-backlink, and enablement
+  queue contracts to the launch skill without expanding the manifest approval
+  boundary
+- [x] 3.7 Add a deterministic channel-inventory helper that exposes protected
+  and article destinations plus the curated and long-tail directory seeds
+  without preloading the full registry
+- [x] 3.8 Extend the fictional fixture and focused tests to prove a blocked
+  article platform does not stop another syndication or backlink item
 
 ## 4. Fleet integration
 
@@ -74,3 +82,5 @@
 - [x] 5.5 Update durable Fleet documentation, leave main-spec synchronization
   to the separate archive step, and report the exact live actions that remain
   separately approval-gated
+- [x] 5.6 Validate the strengthened launch skill, channel inventory, fixture
+  execution, strict OpenSpec change, and touched-file whitespace

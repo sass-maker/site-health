@@ -51,6 +51,58 @@ destination-specific submissions.
   policy
 - **THEN** it is excluded rather than executed
 
+### Requirement: Protected reputation channels
+
+The skill SHALL treat Hacker News, LinkedIn, and X as protected channels whose
+exact destination-native content and execution plan are shown in full before
+approval, without allowing broad-distribution copy to substitute for them.
+
+#### Scenario: Plan a protected-channel post
+
+- **WHEN** Hacker News, LinkedIn, or X is eligible for the campaign
+- **THEN** the manifest contains its exact native content, account, timing,
+  policy constraints, and action rather than a generic cross-post
+
+### Requirement: Complete article syndication
+
+The skill SHALL inventory full-canonical, editorial, and discovery-post
+destinations for every approved canonical article and SHALL continue executing
+other eligible items when one destination lacks authentication or encounters a
+platform control.
+
+#### Scenario: One article platform is signed out
+
+- **WHEN** Medium is blocked on sign-in but DEV, Hashnode, HackerNoon,
+  daily.dev, or another approved destination remains executable
+- **THEN** Medium enters the enablement queue while every other unchanged
+  eligible item continues
+
+#### Scenario: Publish a full duplicate
+
+- **WHEN** a destination supports canonical or original-source attribution
+- **THEN** the manifest includes the complete approved article and the
+  first-party canonical URL before execution
+
+### Requirement: Broad backlink coverage
+
+The skill SHALL inventory permanent relevant product, profile, catalog,
+comparison, package, marketplace, and directory pages and SHALL measure
+verified unique referring domains rather than treating attempted forms or raw
+link count as success.
+
+#### Scenario: Submit broad product listings
+
+- **WHEN** an approved product or major feature fits multiple listing surfaces
+- **THEN** every relevant executable surface may proceed under the unchanged
+  manifest and records a visible live URL or a truthful non-success outcome
+
+#### Scenario: A destination is blocked
+
+- **WHEN** a retained destination requires sign-in, CAPTCHA, anti-bot
+  completion, unexpected payment, or one-time account setup
+- **THEN** the campaign records one consolidated resumable enablement item and
+  continues unrelated eligible destinations
+
 ### Requirement: Readiness and destination verification
 
 The skill SHALL verify product activation, destination eligibility,
@@ -87,7 +139,8 @@ connected browser for remaining normal UI actions.
 - **WHEN** execution encounters CAPTCHA, anti-bot challenge, missing sign-in,
   moderation-sensitive outreach, or unexpected payment
 - **THEN** the skill stops that item and records a manual, blocked, or
-  separately gated outcome without bypassing the control
+  separately gated outcome without bypassing the control, then continues other
+  independently eligible items
 
 ### Requirement: Launch measurement
 

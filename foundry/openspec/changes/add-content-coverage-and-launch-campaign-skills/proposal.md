@@ -21,6 +21,10 @@ end without requiring daily manual marketing work.
   launches. Its first phase shows the complete execution sequence, every
   flagship post in full, every eligible secondary destination and submission,
   timing, account mapping, costs, blockers, exclusions, and measurement plan.
+- Treat article syndication and permanent backlink coverage as first-class
+  launch lanes: protect Hacker News, LinkedIn, and X; continue broad eligible
+  distribution when one destination is authentication-blocked; and return one
+  resumable enablement queue for sign-in, CAPTCHA, payment, or account setup.
 - Allow one explicit campaign approval to authorize the exact immutable
   manifest shown in preview. Changed content, destinations, accounts, timing,
   repository writes, or deploy commands require a new approval.
