@@ -52,6 +52,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-29 — Public GitHub repository hygiene completed:** Audited 137
+  public repositories across Sarthak's account and six owner-controlled
+  organizations, added accurate language/domain topics where missing, repaired
+  canonical repository ownership in Fleet metadata and generated public
+  surfaces, and added or clarified README attribution. The profile sync guard
+  now verifies the personal profile plus all six organization profiles,
+  including explicit Sarthak attribution and the SaaS Maker/Significant
+  Hobbies profiles. Historical helper repositories clearly identify their
+  private Foundry maintenance boundary without linking public visitors to an
+  inaccessible private repository. No deployment or release was performed.
 - **2026-07-26 — Fleet design workflow hardened from 7/20 to 19/20:** Added a
   Fleet-owned workflow over the pinned Impeccable 4.0.2 skill payload
   (installed through npm package 3.3.1), with explicit
@@ -292,7 +302,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   context, preserve/overhaul lanes, reference and direction gates,
   machine-checkable multi-viewport review receipts, score/severity/project
   checks, and durable owner feedback.
-- Fleet-owned four-product spotlight contract with direct portfolio/profile synchronization.
+- Fleet-owned four-product spotlight contract with direct portfolio and
+  personal/six-organization profile synchronization, canonical repository
+  ownership checks, and explicit creator-attribution markers.
 - Backend-free feedback package with consumer-owned submission, Pinpoint
   context, and local screenshot attachment.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
