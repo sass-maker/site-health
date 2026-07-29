@@ -1340,7 +1340,7 @@ a {
 
 .featured-pane--seeded {
   background:
-    url('/images/glazier-atelier-hero.webp') 77% 25% / 185% auto no-repeat,
+    url('/images/glazier-atelier-hero.webp') 77% center / cover no-repeat,
     var(--workshop-seeded);
   color: var(--workshop-ink);
 }
@@ -1371,6 +1371,10 @@ a {
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1;
+}
+
+.featured-pane--seeded strong {
+  font-size: clamp(1.5rem, 2.1vw, 2.2rem);
 }
 
 .featured-description {
