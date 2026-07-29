@@ -26,8 +26,11 @@ least-privilege service-user token and organization ID in `DEVIN_API_KEY` and
 unless the invoking process also sets `DEVIN_ALLOW_SPEND=yes`.
 
 ```sh
-devin -p "GOAL: ... SCOPE: ... CONSTRAINTS: ... VERIFY: ... RETURN: ..." \
-  --model glm-5.2 --permission-mode auto
+node "$HOME/.local/bin/fleet-skill-run" exec \
+  --skill call-devin \
+  --project <repo-or-scope> \
+  -- devin -p "GOAL: ... SCOPE: ... CONSTRAINTS: ... VERIFY: ... RETURN: ..." \
+    --model glm-5.2 --permission-mode auto
 
 ./foundry/ops/scripts/agent-bin/devin-session.mjs status
 DEVIN_ALLOW_SPEND=yes ./foundry/ops/scripts/agent-bin/devin-session.mjs create \
@@ -41,6 +44,8 @@ DEVIN_ALLOW_SPEND=yes ./foundry/ops/scripts/agent-bin/devin-session.mjs create \
 - Do not send secrets, env files, private keys, or production credentials.
 - Use an isolated branch/workspace and a narrow brief.
 - Treat Devin output as a draft: inspect the diff and rerun checks locally.
+- Route every new CLI delegation through `fleet-skill-run` so sanitized output,
+  timing, status, and project scope are retained in the private local history.
 - Log outcomes in `foundry/ops/teammates/SCORECARD.md`.
 
 ## Brief

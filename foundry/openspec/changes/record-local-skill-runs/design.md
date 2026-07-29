@@ -75,7 +75,8 @@ inspect, back up, repair, and test, and the expected local volume is small.
 A versioned `fleet.skill-run.v1` envelope records:
 
 - run id, skill id/version, project id/root, actor and host;
-- source (`wrapped`, `codex-hook`, `devin-wrapper`, or `backfill`);
+- source (`wrapped`, `codex-hook`, `devin-wrapper`, `host-receipt`,
+  `explicit-receipt`, or `backfill`);
 - capture completeness (`exact-streams`, `final-response`, or `summary-only`);
 - started/finished/observed times, duration, status, and exit code;
 - output paths, byte counts, hashes, redaction count, and truncation state;

@@ -116,6 +116,25 @@ The result is `recommended`, `compatible`, `degraded`, `approval_required`, or
 `redispatch_required`. It is metadata guidance, not a natural-language
 resolver or an automatic model switch.
 
+### Local skill run history
+
+Fleet-owned skill executions can be recorded in a private machine-local store
+with retained sanitized output and explicit numeric observations. This gives
+future project dashboards a stable time series for values such as domain rank
+or agent score without parsing prose or publishing private logs.
+
+Install the command and Codex hook with:
+
+```bash
+./foundry/ops/scripts/agent-stack.sh install-skills
+```
+
+Then inspect history with
+`node "$HOME/.local/bin/fleet-skill-run" list` or query project metrics with
+`node "$HOME/.local/bin/fleet-skill-run" metrics --project <id> --json`.
+The complete storage, privacy, capture, backfill, and query contract is in
+[`docs/skill-run-observability.md`](docs/skill-run-observability.md).
+
 ## Adding a new skill
 
 1. Create `skills/<name>/SKILL.md` (or `teammates/skills/<name>/SKILL.md` for delegation).
