@@ -136,6 +136,14 @@ test('privacy and overlay identity drift fail validation', () => {
     }),
     /automation-registry: unknown project not-a-project/,
   );
+
+  const embeddedIndependentProduct = structuredClone(catalog);
+  embeddedIndependentProduct.projects.find((project) => project.id === 'setline').repo =
+    'foundry/apps/setline';
+  assert.throws(
+    () => validateProjectCatalog(embeddedIndependentProduct, { reconcile: false }),
+    /setline: independent product repository must be setline/,
+  );
 });
 
 function projectFixture({ id, repo, sourcePath, lifecycle }) {

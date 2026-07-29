@@ -6,6 +6,10 @@ const LIFECYCLE = new Set(['maintained', 'local-only', 'past', 'non-product']);
 const VISIBILITY = new Set(['public', 'private', 'unknown']);
 const PUBLIC_LISTING = new Set(['maintained', 'past', 'hidden']);
 const RESERVED_OVERLAY_IDS = new Set(['wifi-watch']);
+const STANDALONE_PRODUCT_REPOS = new Map([
+  ['india-standards', 'india-standards'],
+  ['setline', 'setline'],
+]);
 
 export function validateProjectCatalog(catalog, {
   fleetRoot,
@@ -44,6 +48,10 @@ export function validateProjectCatalog(catalog, {
       if (!allowed.has(project[field])) errors.push(`${project.id}: invalid ${field} ${project[field]}`);
     }
     if (!project.name) errors.push(`${project.id}: missing name`);
+    const standaloneRepo = STANDALONE_PRODUCT_REPOS.get(project.id);
+    if (standaloneRepo && normalizePath(project.repo) !== standaloneRepo) {
+      errors.push(`${project.id}: independent product repository must be ${standaloneRepo}`);
+    }
     if (!PUBLIC_LISTING.has(project.public?.listing)) {
       errors.push(`${project.id}: invalid public listing ${project.public?.listing}`);
     }

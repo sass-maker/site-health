@@ -223,13 +223,13 @@ test('deploy guard does not reconstruct blockers from PROJECT_STATUS.md', async 
   assert.match(blocker.stdout, /Work queue\s+✓ GitHub Issues are authoritative/);
 });
 
-test('deploy guard supports a registered project inside the Fleet monorepo', async () => {
+test('deploy guard supports Setline at its standalone Fleet checkout path', async () => {
   const root = await mkdtemp(join(tmpdir(), 'fleet-monorepo-deploy-guard-'));
   await initRepo(root);
   run('git', ['remote', 'add', 'origin', root], { cwd: root });
   run('git', ['branch', '--set-upstream-to=origin/main', 'main'], { cwd: root });
 
-  const project = join(root, 'foundry/apps/setline');
+  const project = join(root, 'setline');
   await mkdir(project, { recursive: true });
   await writeFile(join(project, 'wrangler.jsonc'), '{"name":"setline"}\n');
   await writeFile(join(project, 'PROJECT_STATUS.md'), '## Blocked\n- None.\n');
@@ -240,7 +240,7 @@ test('deploy guard supports a registered project inside the Fleet monorepo', asy
       projects: [
         {
           id: 'setline',
-          repo: 'foundry/apps/setline',
+          repo: 'setline',
           deployKind: 'worker',
           cfProject: 'setline',
           status: 'live',
@@ -262,13 +262,13 @@ test('deploy guard supports a registered project inside the Fleet monorepo', asy
   assert.match(result.stdout, /READY TO DEPLOY/);
 });
 
-test('deploy guard supports a registered project inside the Fleet monorepo', async () => {
+test('deploy guard supports a second standalone Setline fixture', async () => {
   const root = await mkdtemp(join(tmpdir(), 'fleet-monorepo-deploy-guard-'));
   await initRepo(root);
   run('git', ['remote', 'add', 'origin', root], { cwd: root });
   run('git', ['branch', '--set-upstream-to=origin/main', 'main'], { cwd: root });
 
-  const project = join(root, 'foundry/apps/setline');
+  const project = join(root, 'setline');
   await mkdir(project, { recursive: true });
   await writeFile(join(project, 'wrangler.jsonc'), '{"name":"setline"}\n');
   await writeFile(join(project, 'PROJECT_STATUS.md'), '## Blocked\n- None.\n');
@@ -279,7 +279,7 @@ test('deploy guard supports a registered project inside the Fleet monorepo', asy
       projects: [
         {
           id: 'setline',
-          repo: 'foundry/apps/setline',
+          repo: 'setline',
           deployKind: 'worker',
           cfProject: 'setline',
           status: 'live',

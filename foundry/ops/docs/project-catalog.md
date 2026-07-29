@@ -30,7 +30,7 @@ Generated from 43 internal project identities.
 | Reader | maintained | `reader` | maintained | https://read.significanthobbies.com |
 | SWE Interview Prep | maintained | `swe-interview-prep` | maintained | https://learn.significanthobbies.com |
 | Calorie | maintained | `calorie` | maintained | https://calorie.significanthobbies.com |
-| Setline | maintained | `foundry/apps/setline` | maintained | https://setline.significanthobbies.com |
+| Setline | maintained | `setline` | maintained | https://setline.significanthobbies.com |
 | RolePatch | maintained | `rolepatch` | maintained | https://rolepatch.com |
 | Karte | maintained | `karte` | maintained | https://karte.cc |
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |

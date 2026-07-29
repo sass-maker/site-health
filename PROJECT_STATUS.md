@@ -48,11 +48,26 @@ CodeVetter or App Health source.
 - CodeVetter remains an independent linked product. App Health is an
   independent SaaS Maker-owned product and evidence owner. Neither is a Fleet
   Workspace package.
+- Setline and India Standards are independent Significant Hobbies products.
+  Their source, product planning, data, release configuration, and GitHub issue
+  queues live in `Significant-Hobbies/setline` and
+  `Significant-Hobbies/india-standards`; Fleet retains catalog, monitoring,
+  automation, and sanitized public-projection links only.
 - Fleet owns the backend-free `@saas-maker/feedback` React package. Integrating
   products own submission and storage through its `onSubmit` callback.
 
 ## Timeline
 
+- **2026-07-29 — Setline and India Standards separated from Fleet source:**
+  Extracted Setline's product-only history into the new private
+  `Significant-Hobbies/setline` repository, moved its status, OpenSpec history,
+  and GitHub issue queue with the product, and preserved
+  `setline.significanthobbies.com`. Confirmed the existing private
+  `Significant-Hobbies/india-standards` repository is the newer authority and
+  removed its stale embedded duplicate. Fleet now keeps only standalone
+  repository, domain, automation, monitoring, and public-projection links for
+  both products. No deployment, DNS, database, OAuth, or production-data
+  change was performed.
 - **2026-07-29 — Public GitHub repository hygiene completed:** Audited 144
   public repositories across Sarthak's account and six owner-controlled
   organizations, added accurate language/domain topics where missing, repaired

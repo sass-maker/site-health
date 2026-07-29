@@ -6,11 +6,11 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 
 ## Summary
 
-- Registry entries: 38
-- Project/component checkouts with OpenSpec: 18
-- Project/component spec roots: 18
-- Project/component base specs: 138
-- Project/component active changes: 5
+- Registry entries: 42
+- Project/component checkouts with OpenSpec: 23
+- Project/component spec roots: 23
+- Project/component base specs: 170
+- Project/component active changes: 26
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -23,21 +23,25 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 | my-work | PostTrainLLM | `posttrainllm` | available |
 | toolbox | Anime List | `anime-list` | available |
 | toolbox | App Health | `app-health` | available |
+| toolbox | Calorie | `calorie` | available |
 | toolbox | Chess | `chess` | none |
 | toolbox | Email Manager | `email-manager` | none |
 | toolbox | Free AI | `free-ai` | none |
+| toolbox | India Standards | `india-standards` | available |
 | toolbox | Karte | `karte` | available |
 | toolbox | Knowledge Base | `knowledge-base` | available |
 | toolbox | LoopTV | `looptv` | available |
 | toolbox | Mashup | `mashup` | available |
-| toolbox | Motion | `motion` | none |
-| toolbox | Personal website | `../portfolio` | none |
+| toolbox | Memory Map | `chatgpt-memory-insights` | available |
+| toolbox | Motion | `motion` | available |
 | toolbox | Reader | `reader` | available |
 | toolbox | Research Papers | `research-papers` | available |
 | toolbox | RolePatch | `rolepatch` | none |
+| toolbox | Setline | `setline` | available |
 | toolbox | Significant Hobbies | `significanthobbies` | none |
 | toolbox | Starboard | `starboard` | available |
 | toolbox | SWE Interview Prep | `swe-interview-prep` | available |
+| toolbox | What It Takes to Win | `what-it-takes-to-win` | checkout missing |
 | foundry | Drank | `foundry/services/drank` | available |
 | foundry | Fleet Workspace | `.` | available |
 | foundry | Mobile Dev Cockpit | `foundry/apps/mobile-cockpit` | available |
@@ -74,19 +78,35 @@ Root: `app-health`
 
 Base specs: `cloudflare-production-runtime`, `data-transparency`, `echo-v5`, `endpoint-dashboard`, `endpoint-ingestion`, `go-endpoint-sdk`, `node-endpoint-sdk`, `otel-endpoint-ingestion`, `project-key-setup`, `sdk-distribution`, `worker-framework-sdk`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `product-scoped-dashboard-unlock` | 8/8 | complete |
+| `shared-dashboard-period` | 8/9 | in progress |
 
 Archived changes: 0
+
+### Calorie
+
+Root: `calorie`
+
+Base specs: `adaptive-app-shell`, `daily-intake-log`, `installable-offline-app`, `meal-timing-insights`, `medication-tracking`, `private-account-setup`, `progress-history`, `transparent-guidance`
+
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `opt-in-theme-and-faster-startup` | 11/11 | complete |
+| `personalize-daily-care` | 18/18 | complete |
+
+Archived changes: 7
 
 ### CodeVetter
 
 Root: `codevetter`
 
-Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `audience-validation`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `intent-closure-evidence`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-performance-governance`, `local-session-retention`, `local-work-board`, `managed-work-harness`, `model-assisted-scenario-compilation`, `native-agent-island`, `outcome-risk-calibration`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`, `work-agent-team-recommendation`
+Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `audience-validation`, `automatic-change-verification`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `intent-closure-evidence`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-performance-governance`, `local-session-retention`, `local-work-board`, `managed-work-harness`, `model-assisted-scenario-compilation`, `native-agent-island`, `outcome-risk-calibration`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-context-agent-evaluation`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`, `work-agent-team-recommendation`
 
 Active changes: none
 
-Archived changes: 2
+Archived changes: 6
 
 ### Drank
 
@@ -102,14 +122,21 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-workspace-boundary`, `founder-mission-control`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-workspace-boundary`, `founder-mission-control`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
+| `add-content-coverage-and-launch-campaign-skills` | 27/27 | complete |
+| `add-day-zero-ugc-experiment` | 3/28 | in progress |
+| `add-provider-neutral-skill-execution-profiles` | 14/16 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
+| `consolidate-mashup-into-reel-pipeline` | 26/26 | complete |
+| `expand-code-cleanup` | 9/9 | complete |
+| `fan-out-polaris-otel-traces` | 18/18 | complete |
+| `product-scoped-ingest-keys` | 19/19 | complete |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 29
+Archived changes: 32
 
 ### HeyPace
 
@@ -128,6 +155,20 @@ Root: `high-signal`
 Base specs: `accelerator-company-universe`, `brief-delivery-completion`, `company-lookup-create`, `intent-aware-daily-brief`, `openlens-visibility-followups`, `opportunity-briefs`, `structured-claim-consumption`, `watching-brief-section`
 
 Active changes: none
+
+Archived changes: 0
+
+### India Standards
+
+Root: `india-standards`
+
+Base specs: none
+
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `build-local-india-standards-calculator` | 15/15 | complete |
+| `deploy-motherduck-cloudflare` | 17/17 | complete |
+| `import-official-survey-data` | 19/21 | in progress |
 
 Archived changes: 0
 
@@ -165,13 +206,24 @@ Archived changes: 5
 
 Root: `mashup`
 
-Base specs: none
+Base specs: `archival-visuals`, `editorial-integrity`, `short-form-editorial`, `video-provenance`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `build-mashup-mvp` | 37/38 | in progress |
+| `procedural-visual-style-probes` | 2/12 | in progress |
 
-Archived changes: 0
+Archived changes: 5
+
+### Memory Map
+
+Root: `chatgpt-memory-insights`
+
+Base specs: `analysis-controls`, `analysis-performance`, `chatgpt-export-import`, `graph-memory-chat`, `insight-report`, `longitudinal-insights`, `private-persistence`, `product-explanation`, `progressive-conversation-graph`, `semantic-memory`, `thread-segmentation`, `visual-insight-atlas`
+
+Active changes: none
+
+Archived changes: 8
 
 ### Mobile Dev Cockpit
 
@@ -184,6 +236,18 @@ Base specs: `agent-supervision`, `dynamic-project-enrollment`, `guarded-deployme
 | `add-native-ipad-and-voice` | 31/33 | in progress |
 
 Archived changes: 2
+
+### Motion
+
+Root: `motion`
+
+Base specs: none
+
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `add-public-landing-page` | 14/14 | complete |
+
+Archived changes: 0
 
 ### PostTrainLLM
 
@@ -213,7 +277,11 @@ Root: `foundry/services/reel-pipeline`
 
 Base specs: `anonymous-brand-reel`, `content-studio`, `faceless-workflow`, `kokoro-voice`, `studio-factory`, `studio-web-ui`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `add-cartoon-hand-demo-pointer` | 0/21 | in progress |
+| `coherent-video-scene-arsenal` | 26/26 | complete |
+| `local-video-forge` | 20/22 | in progress |
 
 Archived changes: 6
 
@@ -224,6 +292,18 @@ Root: `research-papers`
 Base specs: `curated-reading-paths`
 
 Active changes: none
+
+Archived changes: 3
+
+### Setline
+
+Root: `setline`
+
+Base specs: `setline-workout-player`, `workout-execution-records`
+
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `add-setline-google-auth` | 15/20 | in progress |
 
 Archived changes: 3
 
@@ -243,7 +323,9 @@ Root: `swe-interview-prep`
 
 Base specs: `expanded-learning-domains`, `public-curriculum-discovery`, `unified-site-navigation`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `2026-07-26-sweep-breadth-triage` | 25/28 | in progress |
 
 Archived changes: 3
 
