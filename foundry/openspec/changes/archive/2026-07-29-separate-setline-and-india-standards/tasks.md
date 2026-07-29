@@ -32,5 +32,5 @@
   repository without reading or changing local data or secrets.
 - [x] 4.3 Run strict OpenSpec validation and Fleet project/catalog/component
   checks.
-- [ ] 4.4 Commit and push the standalone repositories and Fleet `main` without
+- [x] 4.4 Commit and push the standalone repositories and Fleet `main` without
   deploying or changing DNS.
