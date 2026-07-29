@@ -1,14 +1,539 @@
 {
-  "generatedAt": "2026-07-25T13:14:00Z",
-  "exclusions": [],
+  "generatedAt": "2026-07-29T17:54:05Z",
+  "exclusions": [
+    "truehire",
+    "open-historia",
+    "sarthakagrawal-personal"
+  ],
+  "notes": [
+    "Protein Index was included by explicit owner request despite retired/reactivation-only registry notes.",
+    "No sign-in, sign-out, purchase, submission, save, upload, credential entry, production mutation, or load testing was performed."
+  ],
+  "summary": {
+    "fail": 4,
+    "degraded": 5,
+    "pass": 14,
+    "not_verified": 8,
+    "total": 31
+  },
   "products": [
+    {
+      "project": "codevetter",
+      "repo": "codevetter",
+      "status": "fail",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "customer-blocking",
+      "rateLimitEvidence": [
+        "Cloudflare Error 1015 during ordinary landing -> FAQ -> docs -> benchmark navigation",
+        "Ray ID a22decef2a64b15f at 2026-07-29 17:43:22 UTC",
+        "No visible Retry-After or recovery path"
+      ],
+      "findings": [
+        {
+          "surface": "/benchmark",
+          "action": "Open the visible benchmark link after ordinary public navigation",
+          "expected": "Public benchmark content",
+          "observed": "Cloudflare Error 1015 and temporary-ban message",
+          "reproduced": 1,
+          "evidence": [
+            "Ray ID a22decef2a64b15f",
+            "No visible recovery guidance"
+          ],
+          "nextAction": "Identify the exact hostname rule, scope, and identity key blocking ordinary navigation",
+          "trackingUrl": "https://github.com/Codevetter/codevetter/issues/63"
+        }
+      ]
+    },
+    {
+      "project": "pace",
+      "repo": "pace",
+      "status": "fail",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/download",
+          "action": "Check the primary Pace 0.3.19 ZIP target without retaining the binary",
+          "expected": "Published macOS installer",
+          "observed": "GitHub release asset returned 404",
+          "reproduced": 2,
+          "evidence": [
+            "HEAD returned 404",
+            "Single one-byte Range GET retry returned 404"
+          ],
+          "nextAction": "Reconcile the deployed download version with assets published under HeyPace/pace",
+          "trackingUrl": "https://github.com/HeyPace/pace/issues/116"
+        }
+      ]
+    },
+    {
+      "project": "starboard",
+      "repo": "starboard",
+      "status": "fail",
+      "authModel": "public-personalized",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/discover",
+          "action": "Open public discovery and use its built-in Retry once",
+          "expected": "Useful public repository discovery and filters",
+          "observed": "0 repos, no languages, and Couldn't load discover results",
+          "reproduced": 2,
+          "evidence": [
+            "Auth.js parsed an HTML response as JSON",
+            "Unexpected token '<'"
+          ],
+          "nextAction": "Inspect the deployed auth-session response and guest discover endpoint content type",
+          "trackingUrl": "https://github.com/Codevetter/starboard/issues/42"
+        }
+      ]
+    },
+    {
+      "project": "anime-list",
+      "repo": "anime-list",
+      "status": "fail",
+      "authModel": "public-persistent",
+      "guestState": "authenticated",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/search",
+          "action": "Allow the catalog to load, then use the built-in Retry once",
+          "expected": "Search results and usable filters",
+          "observed": "Couldn't reach the search service; no results rendered",
+          "reproduced": 2,
+          "evidence": [
+            "Failure remained after a second 12-second wait"
+          ],
+          "nextAction": "Capture the failed production request and inspect the owning API or Worker logs and bindings",
+          "trackingUrl": "https://github.com/Significant-Hobbies/anime-list/issues/26"
+        }
+      ],
+      "limitations": [
+        "Existing authenticated session prevented clean guest verification"
+      ]
+    },
+    {
+      "project": "high-signal",
+      "repo": "high-signal",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 6,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/history",
+          "action": "Open the public History route",
+          "expected": "Usable historical signal workflow",
+          "observed": "History is being worked on with partial headings but no complete workflow",
+          "reproduced": 1,
+          "evidence": [
+            "Public unfinished-state copy"
+          ],
+          "nextAction": "Confirm the intended public History contract",
+          "trackingUrl": "https://github.com/High-Signal-App/high-signal/issues/54"
+        },
+        {
+          "surface": "/sign-in",
+          "action": "Follow the protected settings handoff without signing in",
+          "expected": "Production sign-in boundary",
+          "observed": "Working sign-in UI visibly labeled Development mode",
+          "reproduced": 1,
+          "evidence": [
+            "Console warned that development keys have strict limits"
+          ],
+          "nextAction": "Verify the production Clerk instance and key configuration",
+          "trackingUrl": "https://github.com/High-Signal-App/high-signal/issues/53"
+        }
+      ]
+    },
+    {
+      "project": "drank",
+      "repo": "foundry/services/drank",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 3,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/changelog",
+          "action": "Open the deployed changelog",
+          "expected": "Product changelog",
+          "observed": "Next.js 404",
+          "reproduced": 2,
+          "evidence": [
+            "h1=404",
+            "This page could not be found"
+          ],
+          "nextAction": "Compare the production route manifest and build artifact with the expected route",
+          "trackingUrl": "https://github.com/sass-maker/fleet-workspace/issues/60"
+        }
+      ]
+    },
+    {
+      "project": "materia",
+      "repo": "materia",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/",
+          "action": "Wait for the primary 3D body explorer, reload once, and wait again",
+          "expected": "Interactive body explorer or actionable failure state",
+          "observed": "Loading 3D body persisted without an error fallback",
+          "reproduced": 2,
+          "evidence": [
+            "12-second wait before and after reload"
+          ],
+          "nextAction": "Inspect deployed model loading and GLTF/WebGL initialization; add an explicit failure fallback",
+          "trackingUrl": "https://github.com/Significant-Hobbies/materia/issues/4"
+        }
+      ]
+    },
+    {
+      "project": "india-standards",
+      "repo": "india-standards",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 1,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/",
+          "action": "Change the calculator cohort from Men to Women",
+          "expected": "Loading state or atomic replacement of the prior estimate",
+          "observed": "The previous 17,200 estimate briefly appeared under the Women label before correcting to 4,620",
+          "reproduced": 1,
+          "evidence": [
+            "Stale value visible at approximately 600ms",
+            "Correct result visible by 12 seconds"
+          ],
+          "nextAction": "Clear or cover the prior estimate when a cohort change starts",
+          "trackingUrl": "https://github.com/Significant-Hobbies/india-standards/issues/6"
+        }
+      ]
+    },
+    {
+      "project": "looptv",
+      "repo": "looptv",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 3,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/science",
+          "action": "Tune to Science and press Play",
+          "expected": "Current playable station catalog",
+          "observed": "Playback worked but catalog data was reported 14 to 17 days stale",
+          "reproduced": 2,
+          "evidence": [
+            "Stale-state notices on station and playback views"
+          ],
+          "nextAction": "Inspect the catalog build job and deployed catalog timestamp",
+          "trackingUrl": "https://github.com/Significant-Hobbies/looptv/issues/19"
+        }
+      ]
+    },
+    {
+      "project": "email-manager",
+      "repo": "email-manager",
+      "status": "not_verified",
+      "authModel": "required-user",
+      "guestState": "guest",
+      "surfacesTested": 4,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "/privacy",
+          "action": "Compare public storage claims with the landing page",
+          "expected": "Consistent architecture and privacy disclosure",
+          "observed": "Landing says 0 bytes on our servers while Privacy describes stored encrypted OAuth tokens, aggregate fingerprints, and suggestion state",
+          "reproduced": 2,
+          "evidence": [
+            "Conflicting customer-facing copy on two public pages"
+          ],
+          "nextAction": "Reconcile the copy with the deployed data flow before authenticated testing"
+        }
+      ],
+      "limitations": [
+        "OAuth was not invoked; mailbox functionality remains unverified"
+      ]
+    },
+    {
+      "project": "chatgpt-memory-insights",
+      "repo": "chatgpt-memory-insights",
+      "status": "not_verified",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "limitations": [
+        "Import, parsing, atlas, map, Story, Chat, and recovery need a safe synthetic archive"
+      ]
+    },
+    {
+      "project": "free-ai",
+      "repo": "free-ai",
+      "status": "not_verified",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "healthy-targeted",
+      "rateLimitEvidence": [
+        "Published guidance states approximately 10 burst and 20 requests per minute; threshold was not approached"
+      ],
+      "findings": [],
+      "limitations": [
+        "No service key was entered and no inference request was made"
+      ]
+    },
+    {
+      "project": "psi-swarm",
+      "repo": "foundry/tools/psi-swarm",
+      "status": "not_verified",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "limitations": [
+        "Core measurement requires a disposable local companion agent"
+      ]
+    },
+    {
+      "project": "knowledge-base",
+      "repo": "knowledge-base",
+      "status": "not_verified",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "expected-auth-rejection",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "limitations": [
+        "Operator dashboard requires an approved Cloudflare Access session or service identity"
+      ]
+    },
     {
       "project": "calorie",
       "repo": "calorie",
+      "status": "not_verified",
+      "authModel": "public-persistent",
+      "guestState": "authenticated",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "limitations": [
+        "Authenticated Today and Progress worked, but clean guest behavior could not be proven without altering browser state"
+      ]
+    },
+    {
+      "project": "ai-game",
+      "repo": "ai-game",
+      "status": "not_verified",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "limitations": [
+        "A pre-existing local save was detected; no world was entered to avoid mutation",
+        "Kokoro voice used fallback and local AI requires WebGPU"
+      ]
+    },
+    {
+      "project": "app-health",
+      "repo": "app-health",
+      "status": "not_verified",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 1,
+      "abuseProtectionPosture": "expected-auth-rejection",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "limitations": [
+        "Private dashboard requires an approved owner-key session"
+      ]
+    },
+    {
+      "project": "posttrainllm",
+      "repo": "posttrainllm",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "fleet-workspace",
+      "repo": "foundry/ops",
+      "status": "pass",
+      "authModel": "public-personalized",
+      "guestState": "guest",
+      "surfacesTested": 4,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "rolepatch",
+      "repo": "rolepatch",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 6,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "karte",
+      "repo": "karte",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 6,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "significanthobbies",
+      "repo": "significanthobbies",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 4,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "chess",
+      "repo": "chess",
       "status": "pass",
       "authModel": "public-persistent",
       "guestState": "guest",
       "surfacesTested": 3,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "reader",
+      "repo": "reader",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 4,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "swe-interview-prep",
+      "repo": "swe-interview-prep",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 3,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "setline",
+      "repo": "setline",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 4,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "protein-index",
+      "repo": "protein-index",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 3,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "what-it-takes-to-win",
+      "repo": "what-it-takes-to-win",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "everythingrated",
+      "repo": "everythingrated",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 5,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "research-papers",
+      "repo": "research-papers",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 4,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "saas-ideas",
+      "repo": "saas-ideas",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 1,
       "abuseProtectionPosture": "unknown",
       "rateLimitEvidence": [],
       "findings": []
