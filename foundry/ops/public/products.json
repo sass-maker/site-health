@@ -80,6 +80,20 @@
       "pillarId": "learn"
     },
     {
+      "id": "app-health",
+      "name": "App Health",
+      "description": "Privacy-first endpoint health for Node, Go, and OpenTelemetry services.",
+      "url": "https://health.sassmaker.com",
+      "tier": "active",
+      "category": "product",
+      "priority": "P2",
+      "spotlight": false,
+      "maturity": "public-ready",
+      "repositoryUrl": "https://github.com/sass-maker/app-health",
+      "changelogUrl": "https://github.com/sass-maker/app-health/commits/main",
+      "pillarId": "visibility"
+    },
+    {
       "id": "calorie",
       "name": "Calorie",
       "description": "A private, local-first food, water, and weight journal with transparent timing guidance.",

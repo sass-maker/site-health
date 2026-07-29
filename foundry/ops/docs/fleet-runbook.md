@@ -134,14 +134,15 @@ done <<'REPOS'
 Significant-Hobbies/anime-list anime-list
 Significant-Hobbies/chess chess
 Codevetter/codevetter codevetter
-sarthakagrawal927/app-health app-health
+sass-maker/app-health app-health
 sass-maker/email-manager email-manager
 sass-maker/free-ai free-ai
 High-Signal-App/high-signal high-signal
 Significant-Hobbies/karte karte
+Significant-Hobbies/india-standards india-standards
 sass-maker/knowledge-base knowledge-base
 Significant-Hobbies/looptv looptv
-sarthakagrawal927/motion motion
+Significant-Hobbies/motion motion
 HeyPace/pace pace
 PostTrainLLM/posttrainllm posttrainllm
 Significant-Hobbies/reader reader

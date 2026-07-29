@@ -489,6 +489,19 @@
       ]
     },
     {
+      "slug": "india-standards",
+      "name": "India Standards",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
       "slug": "anime-list",
       "name": "Anime List",
       "aliases": [
@@ -692,12 +705,12 @@
       "slug": "app-health",
       "name": "App Health",
       "aliases": [],
-      "mode": "private",
-      "domain": null,
-      "domainPosture": "local-only",
-      "publicMarketing": false,
-      "cta": "Inspect aggregate endpoint health locally",
-      "cadence": "none",
+      "mode": "evergreen",
+      "domain": "https://health.sassmaker.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Inspect privacy-first endpoint health",
+      "cadence": "quarterly",
       "contentBase": null,
       "channels": []
     },
