@@ -83,10 +83,11 @@ existing behavior, and config/CI tweaks.
 
 All Fleet-owned source lives under `foundry/`. Operational tooling is under
 `foundry/ops/`: skills, scripts, registries, automation, host setup, docs,
-templates, and teammates. Deployable interfaces live in `foundry/apps/`,
-helper runtimes in `foundry/services/`, reusable code in `foundry/packages/`,
-and operator tools in `foundry/tools/`. Edit Fleet skills in
-`foundry/ops/`, not in agent profile dirs. Approved third-party skills may be
+templates, and teammates. Public, internal, and dashboard interfaces live under
+`foundry/apps/`; Marketing lives under `foundry/marketing/`; reusable code
+lives in `foundry/packages/`; and Fleet-owned skills remain canonical under
+`foundry/ops/skills/`. Edit Fleet skills in `foundry/ops/`, not in agent
+profile dirs. Approved third-party skills may be
 installed as ignored, machine-local payloads when their installer is pinned in
 Fleet scripts.
 

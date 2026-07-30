@@ -5,8 +5,8 @@ import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
 import { isAbsolute, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { executeDistribution } from '../../services/reel-pipeline/src/distribution.js';
-import { PostizClient } from '../../services/reel-pipeline/src/postiz-client.js';
+import { executeDistribution } from '../../marketing/reel-pipeline/src/distribution.js';
+import { PostizClient } from '../../marketing/reel-pipeline/src/postiz-client.js';
 
 const checkoutRoot = resolve(import.meta.dirname, '../../..');
 

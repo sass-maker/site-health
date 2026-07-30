@@ -4,10 +4,11 @@
 registries, automation intent, host setup, scripts, skills, agent workspaces,
 shared operational libraries, evidence, and operational documentation.
 
-Deployable interfaces live in `foundry/apps/`, helper runtimes in
-`foundry/services/`, reusable code in `foundry/packages/`, and operator tools
-in `foundry/tools/`. Independent products such as CodeVetter and App Health do
-not live in this repository.
+Public, internal, and dashboard interfaces live under `foundry/apps/`.
+Marketing lives under `foundry/marketing/`, shared packages under
+`foundry/packages/`, and Fleet-owned skills under `foundry/ops/skills/`.
+Independent products such as CodeVetter and App Health do not live in this
+repository.
 
 ## Structure
 

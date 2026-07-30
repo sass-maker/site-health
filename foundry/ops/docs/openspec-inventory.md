@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 42
 - Project/component checkouts with OpenSpec: 23
 - Project/component spec roots: 23
-- Project/component base specs: 170
-- Project/component active changes: 26
+- Project/component base specs: 180
+- Project/component active changes: 25
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -31,7 +31,6 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 | toolbox | Karte | `karte` | available |
 | toolbox | Knowledge Base | `knowledge-base` | available |
 | toolbox | LoopTV | `looptv` | available |
-| toolbox | Mashup | `mashup` | available |
 | toolbox | Memory Map | `chatgpt-memory-insights` | available |
 | toolbox | Motion | `motion` | available |
 | toolbox | Reader | `reader` | available |
@@ -41,17 +40,18 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 | toolbox | Significant Hobbies | `significanthobbies` | none |
 | toolbox | Starboard | `starboard` | available |
 | toolbox | SWE Interview Prep | `swe-interview-prep` | available |
-| toolbox | What It Takes to Win | `what-it-takes-to-win` | checkout missing |
-| foundry | Drank | `foundry/services/drank` | available |
+| toolbox | What It Takes to Win | `what-it-takes-to-win` | available |
+| foundry | Drank | `foundry/apps/internal/drank` | available |
 | foundry | Fleet Workspace | `.` | available |
-| foundry | Mobile Dev Cockpit | `foundry/apps/mobile-cockpit` | available |
-| foundry | PSI Swarm | `foundry/tools/psi-swarm` | none |
-| foundry | Reel Pipeline | `foundry/services/reel-pipeline` | available |
+| foundry | Mobile Dev Cockpit | `foundry/apps/public/mobile-cockpit` | available |
+| foundry | PSI Swarm | `foundry/apps/internal/psi-swarm` | none |
+| foundry | Reel Pipeline | `foundry/marketing/reel-pipeline` | available |
 | ignored | AliveVille | `../fleet-inactive-projects/aliveville` | not applicable |
 | ignored | Companion Robot | `../fleet-inactive-projects/companion-robot` | not applicable |
 | ignored | Elves HQ | `../fleet-inactive-projects/elves-hq` | not applicable |
 | ignored | EverythingRated | `../fleet-inactive-projects/everythingrated` | not applicable |
 | ignored | Forecast Lab | `../fleet-inactive-projects/forecast-lab` | not applicable |
+| ignored | Mashup | `../fleet-inactive-projects/mashup` | not applicable |
 | ignored | Materia | `../fleet-inactive-projects/materia` | not applicable |
 | ignored | Open Historia | `../fleet-inactive-projects/open-historia` | not applicable |
 | ignored | Protein Index | `../fleet-inactive-projects/protein-index` | not applicable |
@@ -110,7 +110,7 @@ Archived changes: 6
 
 ### Drank
 
-Root: `foundry/services/drank`
+Root: `foundry/apps/internal/drank`
 
 Base specs: `dr-advisor`
 
@@ -122,7 +122,7 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-workspace-boundary`, `founder-mission-control`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owner-decision-inbox`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-workspace-boundary`, `founder-mission-control`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owned-product-changelogs`, `owner-decision-inbox`, `podcast-editorial-pipeline`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `skill-run-observability`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
@@ -130,13 +130,13 @@ Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-
 | `add-day-zero-ugc-experiment` | 3/28 | in progress |
 | `add-provider-neutral-skill-execution-profiles` | 14/16 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
-| `consolidate-mashup-into-reel-pipeline` | 26/26 | complete |
 | `expand-code-cleanup` | 9/9 | complete |
+| `extract-public-workflows-module` | 18/20 | in progress |
 | `fan-out-polaris-otel-traces` | 18/18 | complete |
 | `product-scoped-ingest-keys` | 19/19 | complete |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 32
+Archived changes: 37
 
 ### HeyPace
 
@@ -154,7 +154,9 @@ Root: `high-signal`
 
 Base specs: `accelerator-company-universe`, `brief-delivery-completion`, `company-lookup-create`, `intent-aware-daily-brief`, `openlens-visibility-followups`, `opportunity-briefs`, `structured-claim-consumption`, `watching-brief-section`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `reduce-worker-cpu-exposure` | 8/8 | complete |
 
 Archived changes: 0
 
@@ -202,19 +204,6 @@ Active changes: none
 
 Archived changes: 5
 
-### Mashup
-
-Root: `mashup`
-
-Base specs: `archival-visuals`, `editorial-integrity`, `short-form-editorial`, `video-provenance`
-
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `build-mashup-mvp` | 37/38 | in progress |
-| `procedural-visual-style-probes` | 2/12 | in progress |
-
-Archived changes: 5
-
 ### Memory Map
 
 Root: `chatgpt-memory-insights`
@@ -227,7 +216,7 @@ Archived changes: 8
 
 ### Mobile Dev Cockpit
 
-Root: `foundry/apps/mobile-cockpit`
+Root: `foundry/apps/public/mobile-cockpit`
 
 Base specs: `agent-supervision`, `dynamic-project-enrollment`, `guarded-deployment`, `mobile-preview-review`, `project-process-control`, `secure-machine-pairing`
 
@@ -273,7 +262,7 @@ Archived changes: 1
 
 ### Reel Pipeline
 
-Root: `foundry/services/reel-pipeline`
+Root: `foundry/marketing/reel-pipeline`
 
 Base specs: `anonymous-brand-reel`, `content-studio`, `faceless-workflow`, `kokoro-voice`, `studio-factory`, `studio-web-ui`
 
@@ -328,6 +317,16 @@ Base specs: `expanded-learning-domains`, `public-curriculum-discovery`, `unified
 | `2026-07-26-sweep-breadth-triage` | 25/28 | in progress |
 
 Archived changes: 3
+
+### What It Takes to Win
+
+Root: `what-it-takes-to-win`
+
+Base specs: `clarity-release-gate`, `evidence-coverage-surface`, `leverage-provenance`, `luck-and-variance`, `outcome-distribution-context`, `outcome-model`, `person-path-explanation`, `person-specific-comparison`, `public-discovery-readiness`, `survivor-path-narrative`, `tier-relative-comparison`
+
+Active changes: none
+
+Archived changes: 7
 
 ## Registered cross-project stores
 

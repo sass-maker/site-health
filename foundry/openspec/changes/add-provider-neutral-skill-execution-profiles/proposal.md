@@ -37,6 +37,6 @@ None.
 - Updates `foundry/ops/lib/capability-catalog.mjs`, its CLI, tests,
   documentation, and all Fleet-owned skill packages.
 - Adds a static Learnings index and article to
-  `foundry/apps/public-directory/`.
+  `foundry/apps/public/public-directory/`.
 - Adds no production dependency, provider binding, credential access, model
   invocation, deployment, or external publication.

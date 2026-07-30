@@ -7,19 +7,19 @@ const root = path.resolve(import.meta.dirname, '../../..');
 const components = [
   {
     id: 'reel-pipeline',
-    root: 'foundry/services/reel-pipeline',
+    root: 'foundry/marketing/reel-pipeline',
     required: ['package.json', 'PROJECT_STATUS.md', 'reel/Cargo.toml'],
     nativeCheck: 'npm test',
   },
   {
     id: 'content-factory',
-    root: 'foundry/services/content-factory',
+    root: 'foundry/marketing/content-factory',
     required: ['package.json', 'README.md', 'scripts/render-pro.js'],
     nativeCheck: 'npm run render:package -- --file <brief.json>',
   },
   {
     id: 'drank',
-    root: 'foundry/services/drank',
+    root: 'foundry/apps/internal/drank',
     required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm check',
   },
@@ -37,21 +37,27 @@ const components = [
   },
   {
     id: 'public-directory',
-    root: 'foundry/apps/public-directory',
+    root: 'foundry/apps/public/public-directory',
     required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'package-lock.json'],
     nativeCheck: 'npm run check',
   },
   {
     id: 'mobile-cockpit',
-    root: 'foundry/apps/mobile-cockpit',
+    root: 'foundry/apps/public/mobile-cockpit',
     required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm check',
   },
   {
     id: 'psi-swarm',
-    root: 'foundry/tools/psi-swarm',
+    root: 'foundry/apps/internal/psi-swarm',
     required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm build:cli && pnpm build:web',
+  },
+  {
+    id: 'fleet-console',
+    root: 'foundry/apps/dashboard/fleet-console',
+    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'package-lock.json'],
+    nativeCheck: 'npm run build',
   },
 ];
 

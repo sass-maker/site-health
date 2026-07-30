@@ -228,7 +228,7 @@ The active production fleet is listed in `foundry/ops/config/projects.json`.
 | `anime-list` | MAL Explorer for anime/manga discovery and watchlists | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm pages:build` | `pnpm deploy` |
 | `app-health` | Independent application-health ingestion and evidence product | see project README | see project README / CI | see project README / CI |
 | `codevetter` | Desktop-first AI code review platform | see project README | see project README / CI | see project README / CI |
-| `drank` | Domain rating tracker | `cd foundry/services/drank && pnpm dev` | root `Drank CI` | `cd foundry/services/drank && pnpm deploy` |
+| `drank` | Domain rating tracker | `cd foundry/apps/internal/drank && pnpm dev` | root `Drank CI` | `cd foundry/apps/internal/drank && pnpm deploy` |
 | `email-manager` | Gmail/email triage and automation | `pnpm dev` | `pnpm lint`, `pnpm cf:build` | `pnpm deploy` |
 | `everythingrated` | Multi-axis ratings for High Signal directories | `pnpm dev` | see project README / CI | project workflows |
 | `free-ai` | OpenAI-compatible gateway for free LLM providers | `pnpm dev` | `pnpm check`, `pnpm test:e2e` when relevant | `pnpm deploy` |
@@ -240,10 +240,10 @@ The active production fleet is listed in `foundry/ops/config/projects.json`.
 | `pace` | Local macOS voice agent | see project README | see project README / CI | see project README / CI |
 | `posttrainllm` | Local LLM factory/runtime | see project README | see project README / CI | see project README / CI |
 | `reader` | Article/PDF reader, annotation, and research workspace | `pnpm dev` | `pnpm lint`, `pnpm type-check`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `reel-pipeline` | AI short-form video generation pipeline | `cd foundry/services/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd foundry/services/reel-pipeline && npm run deploy` |
+| `reel-pipeline` | AI short-form video generation pipeline | `cd foundry/marketing/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd foundry/marketing/reel-pipeline && npm run deploy` |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `Fleet public directory` | Static SaaS Maker product directory maintained at `foundry/apps/public-directory/` | `npm --prefix foundry/apps/public-directory run dev` | `npm run check:public` | guarded Fleet workflow |
+| `Fleet public directory` | Static SaaS Maker product directory maintained at `foundry/apps/public/public-directory/` | `npm --prefix foundry/apps/public/public-directory run dev` | `npm run check:public` | guarded Fleet workflow |
 | `significanthobbies` | Hobby journeys and discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `starboard` | GitHub stars organization and stack discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy:cf` |
 | `swe-interview-prep` | Interview Coder prep app | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm build` | `pnpm deploy` |

@@ -13,7 +13,7 @@ artifact provenance, review evidence, and Postiz draft handoff.
 
 ## What Changes
 
-- Make `foundry/services/reel-pipeline` the canonical home of the Mashup
+- Make `foundry/marketing/reel-pipeline` the canonical home of the Mashup
   editorial planner, Python runtime, local state contract, tests, and operator
   editor.
 - Introduce one versioned podcast-edit interchange contract that preserves
@@ -53,7 +53,7 @@ artifact provenance, review evidence, and Postiz draft handoff.
 
 ## Impact
 
-- Canonical product: `foundry/services/reel-pipeline`.
+- Canonical product: `foundry/marketing/reel-pipeline`.
 - Imported runtime: the existing Python 3.11+ Mashup package and uv-managed
   dependencies, nested under Reel Pipeline rather than rewritten.
 - Existing runtimes retained: Node, Chromium/Canvas, FFmpeg, and Rust watcher.

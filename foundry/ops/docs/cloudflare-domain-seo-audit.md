@@ -44,7 +44,7 @@ Current implementation state:
   configuration or verification. Until then, the console is private but
   intentionally unavailable through the public hostname.
 - `saas-maker-home` remains the Cloudflare Pages target for the apex, but its
-  source is now `foundry/apps/public-directory/` rather than a standalone
+  source is now `foundry/apps/public/public-directory/` rather than a standalone
   SaaS Maker repository.
 - `saas-maker-packages`, `saasmaker-api`, and `saasmaker-dashboard` were
   deleted on 2026-07-23. Do not create `packages.sassmaker.com`.

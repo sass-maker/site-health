@@ -161,7 +161,7 @@
     },
     {
       "project": "drank",
-      "repo": "foundry/services/drank",
+      "repo": "foundry/apps/internal/drank",
       "status": "degraded",
       "authModel": "public-persistent",
       "guestState": "guest",
@@ -315,7 +315,7 @@
     },
     {
       "project": "psi-swarm",
-      "repo": "foundry/tools/psi-swarm",
+      "repo": "foundry/apps/internal/psi-swarm",
       "status": "not_verified",
       "authModel": "required-service",
       "guestState": "guest",

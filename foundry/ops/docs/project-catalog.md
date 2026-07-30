@@ -44,10 +44,10 @@ Generated from 43 internal project identities.
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
 | Fleet Workspace | maintained | `foundry/ops` | maintained | https://sassmaker.com |
-| Drank | maintained | `foundry/services/drank` | maintained | https://domains.sassmaker.com |
-| PSI Swarm | maintained | `foundry/tools/psi-swarm` | maintained | https://performance.sassmaker.com |
-| Reel Pipeline | maintained | `foundry/services/reel-pipeline` | hidden | — |
-| Mobile Dev Cockpit | local-only | `foundry/apps/mobile-cockpit` | hidden | — |
+| Drank | maintained | `foundry/apps/internal/drank` | maintained | https://domains.sassmaker.com |
+| PSI Swarm | maintained | `foundry/apps/internal/psi-swarm` | maintained | https://performance.sassmaker.com |
+| Reel Pipeline | maintained | `foundry/marketing/reel-pipeline` | hidden | — |
+| Mobile Dev Cockpit | local-only | `foundry/apps/public/mobile-cockpit` | hidden | — |
 
 ## Past / inactive — 13
 

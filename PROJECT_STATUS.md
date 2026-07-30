@@ -53,18 +53,28 @@ CodeVetter or App Health source.
   queues live in `Significant-Hobbies/setline` and
   `Significant-Hobbies/india-standards`; Fleet retains catalog, monitoring,
   automation, and sanitized public-projection links only.
-- Fleet owns the backend-free `@saas-maker/feedback` React package. Integrating
-  products own submission and storage through its `onSubmit` callback.
+- Fleet owns `@saas-maker/feedback` as the client package for a shared Feedback
+  product. The shipped package currently delegates submission through
+  `onSubmit`; Fleet-owned ingestion, storage, attachments, product integration,
+  and the Fleet Console inbox are not yet implemented.
 
 ## Timeline
 
+- **2026-07-30 — Foundry organized around six product buckets:** Replaced the
+  implementation-type top-level model with packages, skills, public apps,
+  internal apps, Marketing, and the final dashboard. Moved Mobile Cockpit and
+  the public directory under public apps; Drank and PSI Swarm under internal
+  apps; Fleet Console under the dashboard; and Reel Pipeline plus Content
+  Factory under Marketing. Preserved native runtimes and deployment identities,
+  repaired path contracts, and documented implemented, partial, and missing
+  cross-bucket connections. No deployment or data migration was performed.
 - **2026-07-30 — Historical Foundry repositories retired:** Added exact
   maintained-source redirects and archived the public Reel Pipeline, Drank,
   Mobile Dev Cockpit, PSI Swarm, and Mashup repositories in Sarthak's personal
   namespace. Mashup's complete changed implementation and design evidence were
   preserved first, its nine historical issues were consolidated into Fleet
   issue #73, and the canonical editorial runtime remains under
-  `foundry/services/reel-pipeline/editorial/`.
+  `foundry/marketing/reel-pipeline/editorial/`.
 - **2026-07-30 — Independent-product boundary made one-way:** Removed tracked
   release and agent-instruction dependencies from standalone products to the
   private Fleet checkout while preserving product-owned validation and manual
@@ -335,17 +345,23 @@ CodeVetter or App Health source.
 
 ## Products
 
-| Component | Canonical path | Runtime boundary |
-|---|---|---|
-| Fleet Ops | `foundry/ops/` | Local/hosted scripts, skills, registries, policy |
-| Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |
-| Reel Pipeline | `foundry/services/reel-pipeline/` | Independent Node/Rust/Python media pipeline |
-| Drank | `foundry/services/drank/` | Independent domain-intelligence app/API |
-| PSI Swarm | `foundry/tools/psi-swarm/` | Local CLI plus independently deployable static surface |
-| Mobile Dev Cockpit | `foundry/apps/mobile-cockpit/` | Private local/mobile Fleet client |
-| Public directory | `foundry/apps/public-directory/` | Static public product projection on Cloudflare Pages |
-| Fleet Console | `foundry/apps/ops-console/` | Private operational view served from the designated host |
-| Feedback package | `foundry/packages/feedback/` | Backend-free npm package; no Fleet runtime |
+| Bucket | Component | Canonical path | Runtime boundary |
+|---|---|---|---|
+| Packages | AI Visibility | `foundry/packages/ai-visibility/` | Framework-independent package plus Fleet evidence consumer |
+| Packages | Feedback | `foundry/packages/feedback/` | Client package shipped; shared ingestion and dashboard missing |
+| Skills | Fleet skills | `foundry/ops/skills/` | Agent workflows installed as repo-local symlinks |
+| Public apps | Mobile Dev Cockpit | `foundry/apps/public/mobile-cockpit/` | Local/mobile Fleet client |
+| Public apps | Public directory | `foundry/apps/public/public-directory/` | Static public product projection on Cloudflare Pages |
+| Internal apps | Drank | `foundry/apps/internal/drank/` | Domain-intelligence app/API |
+| Internal apps | PSI Swarm | `foundry/apps/internal/psi-swarm/` | Local CLI plus independently deployable static surface |
+| Marketing | Reel Pipeline | `foundry/marketing/reel-pipeline/` | Node/Rust/Python orchestration, Editorial, rendering, and distribution contracts |
+| Marketing | Content Factory | `foundry/marketing/content-factory/` | Reel Pipeline-owned content rendering/package scripts |
+| Final dashboard | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
+| Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
+| Substrate | Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |
+
+The implemented, partial, and missing cross-bucket contracts are documented in
+[`foundry/README.md`](foundry/README.md#connection-map).
 
 Historical standalone helper repositories live under `sarthakagrawal927` for
 attribution and history only. They are not Fleet dependencies, CI inputs, or
@@ -381,6 +397,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Bounded public-product browser smoke workflow with canonical manifest,
   production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.
+- Six explicit Foundry product buckets with category-owned canonical paths,
+  native component boundaries, and an evidence-backed connection map.
 - Private local Fleet skill-run history with sanitized retained output,
   explicit capture completeness, structured project metric observations,
   Codex/Devin capture paths, idempotent historical backfill, and
@@ -408,8 +426,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Fleet-owned four-product spotlight contract with direct portfolio and
   personal/six-organization profile synchronization, canonical repository
   ownership checks, and explicit creator-attribution markers.
-- Backend-free feedback package with consumer-owned submission, Pinpoint
-  context, and local screenshot attachment.
+- Feedback client package with Pinpoint context, local screenshot attachment,
+  and consumer-supplied submission; the shared Fleet ingestion and dashboard
+  halves remain unshipped.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
   deploy commands for the three Cloudflare surfaces.
 - Local-first founder control with an append-only mission/evidence ledger,

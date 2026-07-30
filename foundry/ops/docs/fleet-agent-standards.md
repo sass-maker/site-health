@@ -232,11 +232,12 @@ Rules:
 ## Fleet tooling architecture (foundry/ops/)
 
 Fleet operational tooling — skills, scripts, registries, automation, host
-setup, docs, templates, and teammates — lives under `foundry/ops/`. Deployable
-interfaces, helper runtimes, reusable packages, and operator tools are
-root-level monorepo siblings. Agents discover skills via symlinks from their
-profile skill dirs into `foundry/ops/`; edit skills in the repo, never in the
-symlink targets.
+setup, docs, templates, and teammates — lives under `foundry/ops/`. Public,
+internal, and dashboard interfaces live under `foundry/apps/`; Marketing lives
+under `foundry/marketing/`; and reusable packages live under
+`foundry/packages/`. Agents discover skills via symlinks from their profile
+skill dirs into `foundry/ops/`; edit skills in the repo, never in the symlink
+targets.
 
 ### Structure
 
@@ -256,10 +257,11 @@ foundry/ops/
 ├── test/                ← operational tests and shared fixtures
 └── docs/                ← living references and dated history
 
-foundry/apps/            ← SaaS Maker directory, Fleet Console, Mobile Cockpit
-foundry/services/        ← Content Factory, Reel Pipeline, Drank
-foundry/packages/        ← @saas-maker/feedback
-foundry/tools/psi-swarm/ ← performance CLI and web surface
+foundry/apps/public/     ← SaaS Maker directory and Mobile Cockpit
+foundry/apps/internal/   ← Drank and PSI Swarm
+foundry/apps/dashboard/  ← Fleet Console
+foundry/marketing/       ← Reel Pipeline and Content Factory
+foundry/packages/        ← AI Visibility and Feedback
 ```
 
 ### Skill discovery (progressive disclosure)

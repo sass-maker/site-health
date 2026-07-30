@@ -6,9 +6,9 @@
       "name": "SaaS Maker",
       "url": "https://sassmaker.com",
       "summary": "Software as a specialized service: a living studio of focused products built for particular problems.",
-      "publicDir": "foundry/apps/public-directory/public",
+      "publicDir": "foundry/apps/public/public-directory/public",
       "stack": "astro-static",
-      "headFile": "foundry/apps/public-directory/src/layouts/Layout.astro",
+      "headFile": "foundry/apps/public/public-directory/src/layouts/Layout.astro",
       "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/sass-maker/fleet-workspace"
@@ -429,9 +429,9 @@
       "name": "DRank",
       "url": "https://domains.sassmaker.com",
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
-      "publicDir": "foundry/services/drank/public",
+      "publicDir": "foundry/apps/internal/drank/public",
       "stack": "next-static",
-      "headFile": "foundry/services/drank/app/layout.tsx",
+      "headFile": "foundry/apps/internal/drank/app/layout.tsx",
       "schemaType": "SoftwareApplication",
       "sameAs": [
         "https://github.com/sass-maker/fleet-workspace"
@@ -619,10 +619,10 @@
       "name": "psi-swarm",
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
-      "publicDir": "foundry/tools/psi-swarm/site/public",
+      "publicDir": "foundry/apps/internal/psi-swarm/site/public",
       "stack": "astro-static",
       "altPublicDirs": [
-        "foundry/tools/psi-swarm/public"
+        "foundry/apps/internal/psi-swarm/public"
       ],
       "productLinks": [
         {

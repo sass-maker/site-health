@@ -31,7 +31,7 @@ jobs:
           node-version: '22'
 
       - name: Build bundled psi-swarm CLI
-        working-directory: foundry/tools/psi-swarm
+        working-directory: foundry/apps/internal/psi-swarm
         run: |
           corepack enable
           pnpm install --frozen-lockfile

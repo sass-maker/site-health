@@ -8,7 +8,7 @@
 # Usage:
 #   bash scripts/fleet-perf-weekly.sh [--runs 3] [--concurrency 2]
 #
-# Requires: psi-swarm CLI built at foundry/tools/psi-swarm/cli/dist/cli.js
+# Requires: psi-swarm CLI built at foundry/apps/internal/psi-swarm/cli/dist/cli.js
 
 set -euo pipefail
 

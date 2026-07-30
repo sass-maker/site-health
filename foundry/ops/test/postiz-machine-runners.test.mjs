@@ -4,11 +4,11 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import test from 'node:test';
 
-import { buildDistributionRequest } from '../../services/reel-pipeline/src/distribution.js';
+import { buildDistributionRequest } from '../../marketing/reel-pipeline/src/distribution.js';
 import { processPostizQueue } from '../scripts/postiz-queued-distribution.mjs';
 import { syncPostizEvidence } from '../scripts/postiz-evidence-sync.mjs';
 
-const contentPackage = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../services/reel-pipeline/test/fixtures/approved-content-package.json'), 'utf8'));
+const contentPackage = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../marketing/reel-pipeline/test/fixtures/approved-content-package.json'), 'utf8'));
 const mediaReceipt = {
   schema: 'fleet.media-receipt.v1', packageId: contentPackage.id, packageRevision: contentPackage.revision,
   variantId: contentPackage.variants[0].id, brand: contentPackage.brand.slug,

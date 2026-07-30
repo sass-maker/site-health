@@ -4,15 +4,15 @@ on:
   push:
     branches: [main]
     paths:
-      - "foundry/services/reel-pipeline/**"
-      - "foundry/services/content-factory/**"
+      - "foundry/marketing/reel-pipeline/**"
+      - "foundry/marketing/content-factory/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/reel-pipeline-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "foundry/services/reel-pipeline/**"
-      - "foundry/services/content-factory/**"
+      - "foundry/marketing/reel-pipeline/**"
+      - "foundry/marketing/content-factory/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/reel-pipeline-ci.yml"
   workflow_dispatch:
@@ -30,14 +30,14 @@ jobs:
     timeout-minutes: 15
     defaults:
       run:
-        working-directory: foundry/services/reel-pipeline
+        working-directory: foundry/marketing/reel-pipeline
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: foundry/services/reel-pipeline/package-lock.json
+          cache-dependency-path: foundry/marketing/reel-pipeline/package-lock.json
       - run: npm ci
       - run: node --test
       - run: node scripts/validate-docs.mjs
@@ -50,6 +50,6 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
-          workspaces: foundry/services/reel-pipeline/reel
-      - working-directory: foundry/services/reel-pipeline/reel
+          workspaces: foundry/marketing/reel-pipeline/reel
+      - working-directory: foundry/marketing/reel-pipeline/reel
         run: cargo test --quiet

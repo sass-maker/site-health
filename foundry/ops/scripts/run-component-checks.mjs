@@ -5,21 +5,21 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '../../..');
 const checks = [
-  ['reel-pipeline', 'foundry/services/reel-pipeline', 'npm', ['test']],
+  ['reel-pipeline', 'foundry/marketing/reel-pipeline', 'npm', ['test']],
   [
     'content-factory',
-    'foundry/services/content-factory',
+    'foundry/marketing/content-factory',
     'node',
     ['--check', 'scripts/render-content-package.js'],
   ],
-  ['drank', 'foundry/services/drank', 'pnpm', ['check']],
+  ['drank', 'foundry/apps/internal/drank', 'pnpm', ['check']],
   ['feedback', 'foundry/packages/feedback', 'pnpm', ['check']],
   ['ai-visibility', 'foundry/packages/ai-visibility', 'pnpm', ['check']],
-  ['public-directory', 'foundry/apps/public-directory', 'npm', ['run', 'check']],
-  ['mobile-cockpit', 'foundry/apps/mobile-cockpit', 'pnpm', ['check']],
-  ['psi-swarm-cli', 'foundry/tools/psi-swarm', 'pnpm', ['build:cli']],
-  ['psi-swarm-web', 'foundry/tools/psi-swarm', 'pnpm', ['build:web']],
-  ['ops-console', 'foundry/apps/ops-console', 'npm', ['run', 'build']],
+  ['public-directory', 'foundry/apps/public/public-directory', 'npm', ['run', 'check']],
+  ['mobile-cockpit', 'foundry/apps/public/mobile-cockpit', 'pnpm', ['check']],
+  ['psi-swarm-cli', 'foundry/apps/internal/psi-swarm', 'pnpm', ['build:cli']],
+  ['psi-swarm-web', 'foundry/apps/internal/psi-swarm', 'pnpm', ['build:web']],
+  ['fleet-console', 'foundry/apps/dashboard/fleet-console', 'npm', ['run', 'build']],
 ];
 
 for (const [id, relativeRoot, command, args] of checks) {

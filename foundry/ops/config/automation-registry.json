@@ -205,7 +205,7 @@
       "attention": "foundry",
       "family": "fleet-workspace",
       "owner": "foundry",
-      "repository": "foundry/services/drank",
+      "repository": "foundry/apps/internal/drank",
       "runtimes": [
         "public-web",
         "data-pipeline",
@@ -360,7 +360,7 @@
       "attention": "foundry",
       "family": "fleet-workspace",
       "owner": "foundry",
-      "repository": "foundry/tools/psi-swarm",
+      "repository": "foundry/apps/internal/psi-swarm",
       "runtimes": [
         "public-web",
         "local-tool",
@@ -1053,7 +1053,7 @@
       "attention": "foundry",
       "family": "fleet-workspace",
       "owner": "foundry",
-      "repository": "foundry/services/reel-pipeline",
+      "repository": "foundry/marketing/reel-pipeline",
       "runtimes": [
         "worker",
         "local-tool",
@@ -1114,7 +1114,7 @@
       "attention": "foundry",
       "family": "fleet-workspace",
       "owner": "foundry",
-      "repository": "foundry/apps/mobile-cockpit",
+      "repository": "foundry/apps/public/mobile-cockpit",
       "runtimes": [
         "mobile",
         "local-tool"

@@ -9,12 +9,12 @@
 This repository is the canonical Fleet shared-infrastructure project and also
 serves as the local workspace root for independent product repositories.
 
-All Fleet-owned source is nested under `foundry/`: deployable interfaces in
-`foundry/apps/`, helper runtimes in `foundry/services/`, reusable code in
-`foundry/packages/`, operator tools in `foundry/tools/`, and shared operations
-in `foundry/ops/`. This workspace root remains the agent and independent-project
-entrypoint; independent products remain separately versioned and deployed
-unless explicitly imported as Fleet infrastructure.
+All Fleet-owned source is nested under `foundry/` and organized by the
+operator-facing product model: packages, skills, public apps, internal apps,
+Marketing, and the final dashboard. `foundry/ops/` is the shared operational
+substrate beneath those buckets. This workspace root remains the agent and
+independent-project entrypoint; independent products remain separately
+versioned and deployed unless explicitly imported as Fleet infrastructure.
 
 The single internal project catalog is
 [`foundry/ops/config/projects.json`](foundry/ops/config/projects.json). It owns
@@ -25,18 +25,23 @@ generated internal and public views come from the catalog with
 
 ## Canonical Fleet components
 
-- `foundry/services/reel-pipeline/` — approved media production and Postiz handoff
-- `foundry/services/drank/` — domain intelligence
-- `foundry/packages/feedback/` — backend-free `@saas-maker/feedback` React package
-- `foundry/tools/psi-swarm/` — performance and site-health tooling
-- `foundry/apps/mobile-cockpit/` — private mobile Fleet client
-- `foundry/apps/ops-console/` — local operations view
-- `foundry/ops/workflows/` — pinned public, credential-free automation module
-- `foundry/ops/skills/`, `foundry/ops/scripts/`, `foundry/ops/automation/`,
-  `foundry/ops/config/` — common operations
+- **Packages:** `foundry/packages/ai-visibility/` and
+  `foundry/packages/feedback/`.
+- **Skills:** `foundry/ops/skills/` and `foundry/ops/teammates/skills/`.
+- **Public apps:** `foundry/apps/public/mobile-cockpit/` and
+  `foundry/apps/public/public-directory/`.
+- **Internal apps:** `foundry/apps/internal/drank/` and
+  `foundry/apps/internal/psi-swarm/`.
+- **Marketing:** `foundry/marketing/reel-pipeline/` and
+  `foundry/marketing/content-factory/`.
+- **Final dashboard:** `foundry/apps/dashboard/fleet-console/`.
+- **Operational substrate:** `foundry/ops/`, including its pinned public,
+  credential-free `workflows/` module.
 
-CodeVetter and App Health remain fully independent products. Feedback is a
-Fleet-owned package, not a deployed Fleet service or standalone product.
+The detailed ownership and connection map is in
+[`foundry/README.md`](foundry/README.md). Feedback is a Fleet-owned product,
+but only its client package is shipped today; shared ingestion and the final
+dashboard inbox remain missing.
 
 The orchestration boundary is one-way: Fleet may catalog, inspect, monitor, and
 invoke a standalone product's repo-local commands, but standalone products must
@@ -53,12 +58,12 @@ setup dependencies and must not be cloned as Fleet projects:
 
 | Historical repository | Maintained source |
 | --- | --- |
-| [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `foundry/apps/public-directory/` and `foundry/packages/feedback/` |
-| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `foundry/services/reel-pipeline/` |
-| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/services/drank/` |
-| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/mobile-cockpit/` |
-| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/tools/psi-swarm/` |
-| [`sarthakagrawal927/mashup`](https://github.com/sarthakagrawal927/mashup) | `foundry/services/reel-pipeline/editorial/` |
+| [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `foundry/apps/public/public-directory/` and `foundry/packages/feedback/` |
+| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `foundry/marketing/reel-pipeline/` |
+| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/apps/internal/drank/` |
+| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/public/mobile-cockpit/` |
+| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/apps/internal/psi-swarm/` |
+| [`sarthakagrawal927/mashup`](https://github.com/sarthakagrawal927/mashup) | `foundry/marketing/reel-pipeline/editorial/` |
 
 Clone `sass-maker/fleet-workspace` once and initialize its public automation
 module:

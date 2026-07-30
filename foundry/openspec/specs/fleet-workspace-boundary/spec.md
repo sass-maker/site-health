@@ -7,12 +7,19 @@ preserving independent product and component boundaries.
 ## Requirements
 ### Requirement: Fleet Workspace is the canonical shared infrastructure repository
 The `sass-maker/fleet-workspace` repository SHALL be the sole version-controlled
-home for shared fleet operations, skills, schedules, registries, host tooling,
-the marketing pipeline, Reel Pipeline, Drank, PSI Swarm, and Mobile Dev Cockpit.
+home for shared Fleet packages, skills, public apps, internal apps, Marketing,
+the final dashboard, and their operational substrate. Canonical paths SHALL
+place public apps under `foundry/apps/public/`, internal apps under
+`foundry/apps/internal/`, Fleet Console under `foundry/apps/dashboard/`,
+Marketing under `foundry/marketing/`, shared packages under
+`foundry/packages/`, and Fleet-owned skills under `foundry/ops/skills/`.
 
-#### Scenario: Agent changes shared infrastructure
-- **WHEN** an agent changes a shared fleet script, skill, schedule, registry, marketing pipeline, Drank, PSI Swarm, Reel Pipeline, or Mobile Dev Cockpit source
-- **THEN** the canonical edit occurs in Fleet Workspace rather than SaaS Maker
+#### Scenario: Agent changes a directly owned Fleet component
+
+- **WHEN** an agent changes AI Visibility, Feedback, a Fleet skill, Mobile
+  Cockpit, the public directory, Drank, PSI Swarm, Marketing, or Fleet Console
+  source
+- **THEN** the canonical edit occurs in the component's category-owned Fleet Workspace path
 
 ### Requirement: Helper source is reconciled before ownership changes
 Fleet Workspace MUST preserve useful committed changes and attribution from the
@@ -124,4 +131,3 @@ treated as product failures.
 #### Scenario: Registered checkout is missing
 - **WHEN** the audit cannot find a registered independent product checkout
 - **THEN** it records the checkout as skipped and continues scanning
-

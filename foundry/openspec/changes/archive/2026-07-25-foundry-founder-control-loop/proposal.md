@@ -61,7 +61,7 @@ AI visibility, and feedback.
 
 ## Impact
 
-- **Fleet Workspace:** `foundry/apps/ops-console`,
+- **Fleet Workspace:** `foundry/apps/dashboard/fleet-console`,
   `foundry/packages/ai-visibility`, Fleet registries, local persistence,
   machine runners, notifications, marketing orchestration, and public/private
   projection boundaries.

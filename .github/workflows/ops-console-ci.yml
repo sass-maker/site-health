@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - "foundry/apps/ops-console/**"
+      - "foundry/apps/dashboard/fleet-console/**"
       - ".github/workflows/ops-console-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "foundry/apps/ops-console/**"
+      - "foundry/apps/dashboard/fleet-console/**"
       - ".github/workflows/ops-console-ci.yml"
   workflow_dispatch:
 
@@ -30,8 +30,8 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: foundry/apps/ops-console/package-lock.json
-      - working-directory: foundry/apps/ops-console
+          cache-dependency-path: foundry/apps/dashboard/fleet-console/package-lock.json
+      - working-directory: foundry/apps/dashboard/fleet-console
         run: npm ci
-      - working-directory: foundry/apps/ops-console
+      - working-directory: foundry/apps/dashboard/fleet-console
         run: npm run build

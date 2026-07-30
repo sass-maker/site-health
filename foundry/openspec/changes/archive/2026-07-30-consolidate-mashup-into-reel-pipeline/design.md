@@ -44,7 +44,7 @@ monorepo checkout.
 ### 1. One product, multiple runtimes
 
 The Python package moves intact under
-`foundry/services/reel-pipeline/editorial/`; Node remains the contract and
+`foundry/marketing/reel-pipeline/editorial/`; Node remains the contract and
 render integration layer, and Rust remains process orchestration.
 
 Alternative considered: rewrite Mashup into Node. Rejected because it would

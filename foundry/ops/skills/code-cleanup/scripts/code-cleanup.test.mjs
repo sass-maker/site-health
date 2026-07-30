@@ -216,7 +216,7 @@ test('Fleet scan uses active registry tiers and deduplicates git roots', (t) => 
         {
           id: 'drank',
           tier: 'active',
-          repo: 'foundry/services/drank',
+          repo: 'foundry/apps/internal/drank',
         },
         {
           id: 'missing-active',
@@ -232,7 +232,7 @@ test('Fleet scan uses active registry tiers and deduplicates git roots', (t) => 
     }),
   );
   write(path.join(foundry, 'package.json'), '{"name":"foundry"}\n');
-  mkdirSync(path.join(foundry, 'services/drank'), { recursive: true });
+  mkdirSync(path.join(foundry, 'apps/internal/drank'), { recursive: true });
   runGit(foundry, ['init', '-q']);
   runGit(foundry, ['config', 'user.email', 'guard@example.test']);
   runGit(foundry, ['config', 'user.name', 'Dependency Guard']);

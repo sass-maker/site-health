@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "foundry/services/drank/**"
+      - "foundry/apps/internal/drank/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "foundry/services/drank/**"
+      - "foundry/apps/internal/drank/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/drank-ci.yml"
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 20
     defaults:
       run:
-        working-directory: foundry/services/drank
+        working-directory: foundry/apps/internal/drank
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: foundry/services/drank/pnpm-lock.yaml
+          cache-dependency-path: foundry/apps/internal/drank/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run build
@@ -60,11 +60,11 @@ jobs:
           node-version: "22"
           cache: pnpm
           cache-dependency-path: |
-            foundry/services/drank/pnpm-lock.yaml
-            foundry/services/drank/docs-site/pnpm-lock.yaml
-      - working-directory: foundry/services/drank
+            foundry/apps/internal/drank/pnpm-lock.yaml
+            foundry/apps/internal/drank/docs-site/pnpm-lock.yaml
+      - working-directory: foundry/apps/internal/drank
         run: python3 scripts/check_docs_links.py
-      - working-directory: foundry/services/drank/docs-site
+      - working-directory: foundry/apps/internal/drank/docs-site
         run: pnpm install --frozen-lockfile
-      - working-directory: foundry/services/drank/docs-site
+      - working-directory: foundry/apps/internal/drank/docs-site
         run: pnpm run build

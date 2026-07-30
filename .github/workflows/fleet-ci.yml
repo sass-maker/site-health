@@ -13,7 +13,7 @@ on:
       - "foundry/ops/templates/**"
       - "foundry/ops/test/**"
       - "foundry/ops/workflows"
-      - "foundry/apps/public-directory/**"
+      - "foundry/apps/public/public-directory/**"
       - ".gitmodules"
       - ".github/workflows/fleet-ci.yml"
   pull_request:
@@ -28,7 +28,7 @@ on:
       - "foundry/ops/templates/**"
       - "foundry/ops/test/**"
       - "foundry/ops/workflows"
-      - "foundry/apps/public-directory/**"
+      - "foundry/apps/public/public-directory/**"
       - ".gitmodules"
       - ".github/workflows/fleet-ci.yml"
   workflow_dispatch:
@@ -52,8 +52,8 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: foundry/apps/public-directory/package-lock.json
-      - working-directory: foundry/apps/public-directory
+          cache-dependency-path: foundry/apps/public/public-directory/package-lock.json
+      - working-directory: foundry/apps/public/public-directory
         run: npm ci
       - run: npm run test:fleet
       - run: npm run check:registry
