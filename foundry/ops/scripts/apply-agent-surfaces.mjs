@@ -246,12 +246,20 @@ function applyProduct(product) {
   const indexPath = join(targetPublic, 'index.md');
   const apiAiJsonPath = join(targetPublic, product.apiAiFile || 'api-ai.json');
   const robotsPath = join(targetPublic, 'robots.txt');
+  const relativePublicPath = (path) =>
+    pathRelative(targetPublic, path).replaceAll('\\', '/');
+  const buildOwnsFile = (path) =>
+    (product.buildOwnedFiles || []).includes(relativePublicPath(path));
   const preserveFile = (path) => {
     if (forcePreserved || !existsSync(path)) return false;
-    const relativePath = pathRelative(targetPublic, path).replaceAll('\\', '/');
-    return (product.preserveFiles || []).includes(relativePath);
+    return (product.preserveFiles || []).includes(relativePublicPath(path));
   };
   const writeGeneratedFile = (path, body, label) => {
+    if (buildOwnsFile(path)) {
+      skippedLocal++;
+      messages.push(`${label} build-owned`);
+      return;
+    }
     if (preserveFile(path)) {
       skippedLocal++;
       messages.push(`${label} preserved`);

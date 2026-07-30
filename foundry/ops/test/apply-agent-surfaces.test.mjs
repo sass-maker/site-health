@@ -51,3 +51,9 @@ test('preserves curated helper discovery copy', () => {
   assert.match(psi, /llms-full\.txt preserved/);
   assert.match(psi, /robots preserved/);
 });
+
+test('does not create a static catalog when the product build owns that route', () => {
+  const output = dryRun('pace');
+
+  assert.match(output, /api-ai\.json build-owned/);
+});
