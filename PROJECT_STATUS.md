@@ -62,6 +62,15 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Visibility remediation replaced false zeros with honest
+  evidence:** PSI projection now ignores failed/null measurements and design
+  projection accepts only validated review receipts. The shared agent-surface
+  generator gained truthful Markdown, sitemap, alternate catalog-path, and
+  no-config support; templated collection audits now verify a real sitemap
+  member. Local first passes added or corrected public agent discovery and
+  on-page search prerequisites across the weakest projects, while fresh PSI
+  runs recorded current good desktop LCP for Significant Hobbies, Calorie, and
+  SaaS Maker. No deployment or off-site score was fabricated.
 - **2026-07-31 — Latest visibility evidence filled across the 27-project
   matrix:** Recorded current AI Agent Readiness, AI Crawlability, and local
   content-inventory observations for every metric-eligible project. Added

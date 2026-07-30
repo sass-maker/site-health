@@ -717,13 +717,19 @@ async function gradeCatalogIntegrity(
     if (typeof surface?.url !== 'string' || typeof surface?.md !== 'string') {
       return { id, valid: false, reason: 'missing url or md' };
     }
-    const route = sameOriginUrl(origin, surface.url);
-    const markdown = sameOriginUrl(origin, surface.md);
-    if (!route || !markdown) {
+    const targets = resolveCatalogSurfaceTargets(origin, surface, sitemap.urls);
+    if (!targets) {
       return { id, valid: false, reason: 'url or md is not same-origin' };
     }
+    const { route, markdown, templated } = targets;
     if (!publicRoutes.has(canonicalUrl(route))) {
-      return { id, valid: false, reason: 'url absent from public sitemap' };
+      return {
+        id,
+        valid: false,
+        reason: templated
+          ? 'url template has no matching public sitemap route'
+          : 'url absent from public sitemap',
+      };
     }
     const response = await cachedProbe(markdown, {
       accept: 'text/markdown, text/plain, */*',
@@ -753,6 +759,87 @@ async function gradeCatalogIntegrity(
       (truncated ? `; capped at ${MAX_CATALOG_SURFACES}` : ''),
     data: { valid, configured, integrityPercent, failures },
   };
+}
+
+function resolveCatalogSurfaceTargets(origin, surface, sitemapUrls) {
+  const routeTemplate = parseSameOriginTemplate(origin, surface.url);
+  const markdownTemplate = parseSameOriginTemplate(origin, surface.md);
+  if (!routeTemplate || !markdownTemplate) return null;
+  if (routeTemplate.names.length === 0 && markdownTemplate.names.length === 0) {
+    return {
+      route: routeTemplate.url.toString(),
+      markdown: markdownTemplate.url.toString(),
+      templated: false,
+    };
+  }
+  if (
+    routeTemplate.names.length === 0
+    || routeTemplate.names.join('\0') !== markdownTemplate.names.join('\0')
+  ) {
+    return null;
+  }
+  for (const candidate of sitemapUrls) {
+    const candidateUrl = new URL(candidate);
+    const match = candidateUrl.pathname.match(routeTemplate.pattern);
+    if (!match) continue;
+    const values = new Map(
+      routeTemplate.names.map((name, index) => [name, match[index + 1]]),
+    );
+    return {
+      route: candidateUrl.toString(),
+      markdown: materializeUrlTemplate(markdownTemplate, values),
+      templated: true,
+    };
+  }
+  return {
+    route: routeTemplate.url.toString(),
+    markdown: markdownTemplate.url.toString(),
+    templated: true,
+  };
+}
+
+function parseSameOriginTemplate(origin, value) {
+  const names = [];
+  const sentinels = [];
+  const replaced = value.replace(/\{([A-Za-z][A-Za-z0-9_-]*)\}/g, (_match, name) => {
+    const sentinel = `fleet-template-${names.length}`;
+    names.push(name);
+    sentinels.push(sentinel);
+    return sentinel;
+  });
+  let url;
+  try {
+    url = new URL(replaced, origin);
+  } catch {
+    return null;
+  }
+  if (url.origin !== origin) return null;
+  let patternSource = escapeRegularExpression(url.pathname);
+  for (const sentinel of sentinels) {
+    patternSource = patternSource.replace(
+      escapeRegularExpression(sentinel),
+      '([^/]+)',
+    );
+  }
+  return {
+    url,
+    names,
+    sentinels,
+    pattern: new RegExp(`^${patternSource}$`),
+  };
+}
+
+function materializeUrlTemplate(template, values) {
+  const url = new URL(template.url);
+  for (let index = 0; index < template.names.length; index += 1) {
+    const value = values.get(template.names[index]);
+    url.pathname = url.pathname.replace(template.sentinels[index], value);
+  }
+  return url.toString();
+}
+
+function escapeRegularExpression(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {

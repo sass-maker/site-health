@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 import {
   validateDesignReview,
+  validateDesignReviewEvidence,
   validateDesignWorkflowPolicy,
   validateInstalledImpeccable,
 } from '../lib/design-workflow.mjs';
@@ -65,6 +66,23 @@ test('missing viewport, low scores, and unresolved P1 findings fail closed', () 
       () => validateDesignReview(receipt, policy, { projectRoot }),
       /missing required viewport 768[\s\S]*critique score[\s\S]*audit score[\s\S]*unresolved P1/,
     );
+  });
+});
+
+test('complete below-floor reviews remain valid metric evidence but fail the shipping gate', () => {
+  withProject((projectRoot) => {
+    const receipt = validReceipt('preserve');
+    receipt.evidence.critique.score = 28;
+    receipt.evidence.audit.score = 15;
+
+    assert.throws(
+      () => validateDesignReview(receipt, policy, { projectRoot }),
+      /critique score[\s\S]*audit score/,
+    );
+    const result = validateDesignReviewEvidence(receipt, policy, { projectRoot });
+    assert.equal(result.ok, true);
+    assert.equal(result.critiqueScore, 28);
+    assert.equal(result.auditScore, 15);
   });
 });
 

@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 import { SkillRunStore, defaultSkillRunsRoot } from '../skill-run-store.mjs';
+import { validateDesignReviewEvidence } from '../design-workflow.mjs';
 import {
   defaultVisibilityMetricPath,
   readVisibilityMetrics,
@@ -71,6 +72,12 @@ function readJsonLines(path) {
         return [];
       }
     });
+}
+
+function finiteDatabaseNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
 }
 
 function canonicalVisibilityProjectId(value) {
@@ -262,16 +269,21 @@ function safeSqliteProjectHistory(databasePath) {
       }
       const existing = byDomain.get(domain) ?? { domain, runs: 0, observations: [] };
       if (Number(row.position) === 1) existing.runs += Number(row.run_count ?? 0);
-      existing.observations.push({
+      const observation = {
         observedAt: Number.isFinite(Number(row.started_at))
           ? new Date(Number(row.started_at)).toISOString()
           : null,
-        performanceScore: Number.isFinite(Number(row.performance_score))
-          ? Number(row.performance_score)
-          : null,
-        lcp: Number.isFinite(Number(row.lcp)) ? Number(row.lcp) : null,
-        cls: Number.isFinite(Number(row.cls)) ? Number(row.cls) : null,
-      });
+        performanceScore: finiteDatabaseNumber(row.performance_score),
+        lcp: finiteDatabaseNumber(row.lcp),
+        cls: finiteDatabaseNumber(row.cls),
+      };
+      if (
+        observation.performanceScore !== null
+        || observation.lcp !== null
+        || observation.cls !== null
+      ) {
+        existing.observations.push(observation);
+      }
       byDomain.set(domain, existing);
     }
     return [...byDomain.values()].map((entry) => {
@@ -895,33 +907,29 @@ function metricSignals(metrics = []) {
 }
 
 function designReviewEvidence(fleetRoot, projects) {
+  const policy = readJson(resolve(fleetRoot, 'foundry/ops/config/design-workflow.json'));
   return projects.flatMap((project) => {
     if (!project.repo) return [];
-    const receiptPath = project.id === 'fleet-workspace'
-      ? resolve(fleetRoot, 'foundry/apps/dashboard/fleet-console/.fleet/design-review.json')
-      : resolve(fleetRoot, project.repo, '.fleet/design-review.json');
+    const projectRoot = project.id === 'fleet-workspace'
+      ? resolve(fleetRoot, 'foundry/apps/dashboard/fleet-console')
+      : resolve(fleetRoot, project.repo);
+    const receiptPath = resolve(projectRoot, '.fleet/design-review.json');
     const receipt = readJson(receiptPath);
-    const critique = Number(receipt?.evidence?.critique?.score);
-    const critiqueMaximum = Number(receipt?.evidence?.critique?.maximum);
-    const audit = Number(receipt?.evidence?.audit?.score);
-    const auditMaximum = Number(receipt?.evidence?.audit?.maximum);
-    if (
-      receipt?.$schema !== 'fleet.design-review.v1' ||
-      !Number.isFinite(critique) ||
-      !Number.isFinite(critiqueMaximum) ||
-      !Number.isFinite(audit) ||
-      !Number.isFinite(auditMaximum)
-    ) return [];
+    try {
+      validateDesignReviewEvidence(receipt, policy, { projectRoot });
+    } catch {
+      return [];
+    }
     let observedAt = null;
     try {
       observedAt = statSync(receiptPath).mtime.toISOString();
     } catch {}
     return [{
       projectId: project.id,
-      critique,
-      critiqueMaximum,
-      audit,
-      auditMaximum,
+      critique: receipt.evidence.critique.score,
+      critiqueMaximum: receipt.evidence.critique.maximum,
+      audit: receipt.evidence.audit.score,
+      auditMaximum: receipt.evidence.audit.maximum,
       ownerDecision: receipt.ownerFeedback?.decision ?? 'pending',
       observedAt,
     }];

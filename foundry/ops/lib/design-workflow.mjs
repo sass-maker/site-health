@@ -94,6 +94,7 @@ export function validateDesignWorkflowPolicy(policy) {
 export function validateDesignReview(receipt, policyInput, {
   projectRoot,
   pathExists = existsSync,
+  enforceMinimumScores = true,
 } = {}) {
   const policy = validateDesignWorkflowPolicy(policyInput);
   const root = path.resolve(projectRoot ?? process.cwd());
@@ -162,14 +163,14 @@ export function validateDesignReview(receipt, policyInput, {
   }
   validateScore(
     evidence.critique,
-    policy.qualityGate.minimumCritiqueScore,
+    enforceMinimumScores ? policy.qualityGate.minimumCritiqueScore : 1,
     policy.qualityGate.critiqueMaximum,
     'critique',
     errors,
   );
   validateScore(
     evidence.audit,
-    policy.qualityGate.minimumAuditScore,
+    enforceMinimumScores ? policy.qualityGate.minimumAuditScore : 1,
     policy.qualityGate.auditMaximum,
     'audit',
     errors,
@@ -204,6 +205,13 @@ export function validateDesignReview(receipt, policyInput, {
     ownerDecision: receipt.ownerFeedback.decision,
     advisoryFindings: receipt.evidence.detector.findings?.length ?? 0,
   };
+}
+
+export function validateDesignReviewEvidence(receipt, policyInput, options = {}) {
+  return validateDesignReview(receipt, policyInput, {
+    ...options,
+    enforceMinimumScores: false,
+  });
 }
 
 export function installedImpeccableVersion(skillFile) {

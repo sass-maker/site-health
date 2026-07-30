@@ -7,6 +7,7 @@
  *   node foundry/ops/scripts/apply-agent-surfaces.mjs --id rolepatch
  *   node foundry/ops/scripts/apply-agent-surfaces.mjs --dry-run
  *   node foundry/ops/scripts/apply-agent-surfaces.mjs --jsonld --dry-run
+ *   node foundry/ops/scripts/apply-agent-surfaces.mjs --id motion --force-preserved
  */
 
 import {
@@ -16,7 +17,7 @@ import {
   writeFileSync,
   copyFileSync,
 } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative as pathRelative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadRegistry, productOrigin } from './lib/registry.mjs';
 
@@ -39,6 +40,8 @@ const JSONLD_END = '<!-- fleet-jsonld:end -->';
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
+const patchConfig = !args.includes('--no-config');
+const forcePreserved = args.includes('--force-preserved');
 const jsonldMode = args.includes('--jsonld');
 const jsonldEmitMode = args.includes('--jsonld-emit');
 const onlyId = args.includes('--id') ? args[args.indexOf('--id') + 1] : null;
@@ -228,8 +231,23 @@ function applyProduct(product) {
   const surface = buildSurface(product);
   const llmsPath = join(targetPublic, 'llms.txt');
   const indexPath = join(targetPublic, 'index.md');
-  const apiAiJsonPath = join(targetPublic, 'api-ai.json');
+  const apiAiJsonPath = join(targetPublic, product.apiAiFile || 'api-ai.json');
   const robotsPath = join(targetPublic, 'robots.txt');
+  const preserveFile = (path) => {
+    if (forcePreserved || !existsSync(path)) return false;
+    const relativePath = pathRelative(targetPublic, path).replaceAll('\\', '/');
+    return (product.preserveFiles || []).includes(relativePath);
+  };
+  const writeGeneratedFile = (path, body, label) => {
+    if (preserveFile(path)) {
+      skippedLocal++;
+      messages.push(`${label} preserved`);
+      return;
+    }
+    write(path, body);
+    writtenLocal++;
+    messages.push(label);
+  };
 
   if (!existsSync(targetPublic)) {
     if (!dryRun) mkdirSync(targetPublic, { recursive: true });
@@ -237,33 +255,54 @@ function applyProduct(product) {
   }
 
   if (!product.skipLlmsOverwrite && !product.hasDynamicLlms) {
-    write(llmsPath, surface.llmsTxt);
-    writtenLocal++;
-    messages.push('llms.txt');
+    writeGeneratedFile(llmsPath, surface.llmsTxt, 'llms.txt');
   } else {
     skippedLocal++;
     messages.push(product.hasDynamicLlms ? 'llms dynamic (skip file)' : 'llms skip overwrite');
   }
 
-  write(indexPath, surface.indexMd);
-  writtenLocal++;
-  messages.push('index.md');
+  writeGeneratedFile(indexPath, surface.indexMd, 'index.md');
 
   // llms-full.txt — expanded dump for agents that prefer one-shot context
   const llmsFullPath = join(targetPublic, 'llms-full.txt');
   if (!product.skipLlmsOverwrite) {
-    write(llmsFullPath, surface.llmsFullTxt);
-    writtenLocal++;
-    messages.push('llms-full.txt');
+    writeGeneratedFile(llmsFullPath, surface.llmsFullTxt, 'llms-full.txt');
   }
 
-  write(apiAiJsonPath, `${JSON.stringify(surface.catalog, null, 2)}\n`);
-  writtenLocal++;
-  messages.push('api-ai.json');
+  writeGeneratedFile(
+    apiAiJsonPath,
+    `${JSON.stringify(surface.catalog, null, 2)}\n`,
+    product.apiAiFile || 'api-ai.json',
+  );
+
+  for (const link of product.productLinks || []) {
+    if (!link.markdown) continue;
+    const markdownPath = markdownPublicPath(product.url, link, targetPublic);
+    if (!markdownPath) {
+      messages.push(`markdown skipped: ${link.title}`);
+      ok = false;
+      continue;
+    }
+    writeGeneratedFile(
+      markdownPath,
+      link.markdown.endsWith('\n') ? link.markdown : `${link.markdown}\n`,
+      rel(markdownPath),
+    );
+  }
 
   // robots: ensure Sitemap + allow agent paths
-  ensureRobots(robotsPath, product.url);
-  messages.push('robots');
+  if (preserveFile(robotsPath)) {
+    skippedLocal++;
+    messages.push('robots preserved');
+  } else {
+    ensureRobots(robotsPath, product.url);
+    messages.push('robots');
+  }
+
+  if (product.generateSitemap) {
+    const sitemapPath = join(targetPublic, 'sitemap.xml');
+    writeGeneratedFile(sitemapPath, buildSitemap(product), 'sitemap.xml');
+  }
 
   // agent-edge.mjs next to worker when stack needs runtime
   if (product.worker) {
@@ -277,9 +316,39 @@ function applyProduct(product) {
         '__AGENT_SURFACE_JSON__',
         JSON.stringify(surface, null, 2)
       );
-      write(edgePath, edgeBody);
-      writtenLocal++;
-      messages.push('agent-edge.mjs');
+      if (product.preserveAgentEdge && !forcePreserved && existsSync(edgePath)) {
+        skippedLocal++;
+        messages.push('agent-edge.mjs preserved');
+      } else {
+        write(edgePath, edgeBody);
+        writtenLocal++;
+        messages.push('agent-edge.mjs');
+      }
+      if (workerPath.endsWith('.ts')) {
+        const declarationPath = join(dirname(workerPath), 'agent-edge.d.mts');
+        if (product.preserveAgentEdge && !forcePreserved && existsSync(declarationPath)) {
+          skippedLocal++;
+          messages.push('agent-edge.d.mts preserved');
+        } else {
+          write(
+            declarationPath,
+            [
+              'export declare const AGENT_SURFACE: {',
+              '  name: string;',
+              '  url: string;',
+              '  llmsTxt: string;',
+              '  llmsFullTxt?: string;',
+              '  indexMd: string;',
+              '  catalog: Record<string, unknown>;',
+              '};',
+              'export declare function handleAgentEdge(request: Request): Response | null;',
+              '',
+            ].join('\n')
+          );
+          writtenLocal++;
+          messages.push('agent-edge.d.mts');
+        }
+      }
 
       const patch = patchWorker(workerPath);
       if (patch === 'patched') {
@@ -294,7 +363,7 @@ function applyProduct(product) {
   }
 
   // wrangler run_worker_first for SPA Hono
-  if (product.wrangler || product.stack === 'spa-hono') {
+  if (patchConfig && (product.wrangler || product.stack === 'spa-hono')) {
     const wranglers = [
       product.wrangler,
       product.id === 'anime-list' ? 'anime-list/wrangler.toml' : null,
@@ -313,6 +382,7 @@ function applyProduct(product) {
 
   // Astro/static: _redirects for /api/ai → api-ai.json when no worker
   if (
+    patchConfig &&
     (product.stack === 'astro-static' || product.stack === 'next-static' || product.stack === 'spa-static') &&
     !product.worker
   ) {
@@ -348,6 +418,14 @@ function applyProduct(product) {
 function buildSurface(product) {
   const origin = product.url.replace(/\/$/, '');
   const productLinks = product.productLinks || [];
+  const catalogLinks = productLinks.filter((link) => {
+    if (!link.markdown) return false;
+    try {
+      return new URL(link.url).origin === origin;
+    } catch {
+      return false;
+    }
+  });
   const llmsLines = [
     `# ${product.name}`,
     '',
@@ -385,12 +463,12 @@ function buildSurface(product) {
         kind: product.stack?.startsWith('spa') ? 'spa' : 'static',
         description: 'Product home',
       },
-      ...productLinks
-        .filter((l) => !l.url.endsWith('/') || l.title !== 'Home')
+      ...catalogLinks
+        .filter((l) => new URL(l.url).pathname !== '/')
         .map((l) => ({
           id: slugId(l.title),
           url: l.url,
-          md: null,
+          md: markdownUrl(product.url, l),
           kind: 'static',
           description: l.description || l.title,
         })),
@@ -440,10 +518,68 @@ function buildSurface(product) {
   };
 }
 
+function markdownUrl(siteUrl, link) {
+  if (link.md) return new URL(link.md, siteUrl).toString();
+  const url = new URL(link.url);
+  const path = url.pathname.replace(/\/+$/, '');
+  return new URL(path ? `${path}.md` : '/index.md', siteUrl).toString();
+}
+
+function markdownPublicPath(siteUrl, link, publicDir) {
+  try {
+    const url = new URL(markdownUrl(siteUrl, link));
+    if (url.origin !== new URL(siteUrl).origin || !url.pathname.endsWith('.md')) return null;
+    const relative = url.pathname.replace(/^\/+/, '');
+    if (!relative || relative.split('/').includes('..')) return null;
+    return join(publicDir, relative);
+  } catch {
+    return null;
+  }
+}
+
+function buildSitemap(product) {
+  const origin = product.url.replace(/\/$/, '');
+  const urls = new Set([`${origin}/`]);
+  for (const link of product.productLinks || []) {
+    if (!link.markdown) continue;
+    try {
+      const url = new URL(link.url);
+      if (url.origin === origin) {
+        url.hash = '';
+        url.search = '';
+        urls.add(url.toString());
+      }
+    } catch {
+      // Invalid product links are ignored here and remain visible in dry-run output.
+    }
+  }
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...[...urls].map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`),
+    '</urlset>',
+    '',
+  ].join('\n');
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+}
+
 function ensureRobots(robotsPath, siteUrl) {
   const origin = siteUrl.replace(/\/$/, '');
   let body = existsSync(robotsPath) ? readFileSync(robotsPath, 'utf8') : 'User-agent: *\nAllow: /\n';
-  if (!/sitemap:/i.test(body)) {
+  if (/^\s*sitemap:\s*\S+/im.test(body)) {
+    body = body.replace(
+      /^\s*sitemap:\s*\S+/gim,
+      `Sitemap: ${origin}/sitemap.xml`
+    );
+  } else {
     body = body.trimEnd() + `\n\nSitemap: ${origin}/sitemap.xml\n`;
   }
   if (!body.includes('/llms.txt')) {

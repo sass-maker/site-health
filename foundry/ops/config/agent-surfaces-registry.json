@@ -36,6 +36,7 @@
       "url": "https://codevetter.com",
       "summary": "Desktop-first AI code review workbench for agent-generated code. Local SQLite, Tauri shell, evidence-backed review — your repo never hits a central server.",
       "publicDir": "codevetter/apps/landing-page-astro/public",
+      "preserveFiles": ["api-ai.json"],
       "stack": "astro-static",
       "headFile": "codevetter/apps/landing-page-astro/src/layouts/Layout.astro",
       "schemaType": "SoftwareApplication",
@@ -73,6 +74,8 @@
       "url": "https://rolepatch.com",
       "summary": "AI-powered resume tailoring. Score fit against a job description, rewrite bullets for the role, and prep interviews.",
       "publicDir": "rolepatch/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "rolepatch/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -106,6 +109,8 @@
       "url": "https://highsignal.app",
       "summary": "Daily synthesized brief on technology, startups, and finance — five sections with inline hit-rates, no signup required.",
       "publicDir": "high-signal/apps/web/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "high-signal/apps/web/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -138,6 +143,8 @@
       "url": "https://karte.cc",
       "summary": "Link-in-bio registry for humans and AI agents. Publish trust cards with public manifests at /{slug}/agent.json.",
       "publicDir": "karte/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "karte/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -171,6 +178,8 @@
       "url": "https://significanthobbies.com",
       "summary": "Life planner for private daily rituals and public living — hobbies, bucket lists, and side quests over time.",
       "publicDir": "significanthobbies/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "significanthobbies/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -215,9 +224,17 @@
         {
           "title": "Privacy",
           "url": "https://calorie.significanthobbies.com/privacy",
-          "description": "Local and cloud data handling"
+          "description": "Local and cloud data handling",
+          "markdown": "# Calorie privacy\n\nCalorie works without an account and keeps device-only journal data in the browser. Optional sign-in adds a private, user-scoped cloud copy. Food, water, weight, medication, and journal data are never public agent surfaces.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://calorie.significanthobbies.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# Calorie changelog\n\nCalorie's owned changelog records verified, user-visible releases. Current shipped capabilities include local-first food, water, medication, and weight journaling; deterministic guidance; optional private sync; and food analytics.\n"
         }
       ],
+      "generateSitemap": true,
       "indexMd": "# Calorie\n\nPrivate, local-first food, water, and weight journal.\n\n## Public boundary\n\n- Product explanation and optional Google sign-in\n- Deterministic methodology with visible assumptions\n- No public food, water, weight, profile, or journal data\n\n## Agent entrypoint\n\n- https://calorie.significanthobbies.com/llms.txt\n"
     },
     {
@@ -263,6 +280,8 @@
       "url": "https://starboard.codevetter.com",
       "summary": "GitHub stars organizer with semantic search — sub-product of CodeVetter for repo intelligence.",
       "publicDir": "starboard/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "starboard/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -361,6 +380,7 @@
       "url": "https://posttrainllm.com",
       "summary": "Mac-local LLM specialist factory — post-training and runtime that fits on one Mac, plus WebGPU playground.",
       "publicDir": "posttrainllm/browser/public",
+      "preserveFiles": ["api-ai.json"],
       "stack": "astro-static",
       "headFile": "posttrainllm/browser/src/layouts/Default.astro",
       "schemaType": "SoftwareApplication",
@@ -397,6 +417,7 @@
       "url": "https://heypace.app",
       "summary": "On-device Mac voice agent that reads your screen and acts with local context.",
       "publicDir": "pace/website/public",
+      "preserveFiles": ["api-ai.json"],
       "stack": "astro-static",
       "headFile": "pace/website/src/layouts/BaseLayout.astro",
       "schemaType": "SoftwareApplication",
@@ -522,6 +543,8 @@
       "url": "https://read.significanthobbies.com",
       "summary": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
       "publicDir": "reader/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "reader/app.html",
       "schemaType": "SoftwareApplication",
@@ -549,6 +572,8 @@
       "url": "https://mail.significanthobbies.com",
       "summary": "Gmail workspace with local semantic search — private email tooling.",
       "publicDir": "email-manager/public",
+      "preserveFiles": ["llms.txt", "llms-full.txt", "robots.txt", "sitemap.xml"],
+      "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "email-manager/index.html",
       "schemaType": "SoftwareApplication",
@@ -563,6 +588,7 @@
           "description": "App shell"
         }
       ],
+      "generateSitemap": true,
       "indexMd": "# Email Manager\n\nGmail workspace with local semantic search.\n\n## Privacy\n\nMailbox content is private. Agents should only use public product description surfaces.\n\n## Agent entrypoints\n\n- https://mail.significanthobbies.com/llms.txt\n- https://mail.significanthobbies.com/api/ai\n- https://mail.significanthobbies.com/index.md\n"
     },
     {
@@ -571,6 +597,8 @@
       "url": "https://ai-gateway.sassmaker.com",
       "summary": "OpenAI-compatible LLM gateway fronting free-tier models across multiple providers.",
       "publicDir": "free-ai/site/public",
+      "preserveFiles": ["api-ai.json"],
+      "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "free-ai/site/src/pages/index.astro",
       "schemaType": "SoftwareApplication",
@@ -599,6 +627,7 @@
       "url": "https://learn.significanthobbies.com",
       "summary": "SWE learning OS with FSRS spaced repetition, drills, and feedback.",
       "publicDir": "swe-interview-prep/public",
+      "preserveFiles": ["api-ai.json"],
       "stack": "spa-static",
       "headFile": "swe-interview-prep/index.html",
       "schemaType": "SoftwareApplication",
@@ -620,6 +649,7 @@
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
       "publicDir": "foundry/helpers/psi-swarm/site/public",
+      "preserveFiles": ["api-ai.json"],
       "stack": "astro-static",
       "altPublicDirs": [
         "foundry/helpers/psi-swarm/public"
@@ -666,16 +696,189 @@
     {
       "id": "knowledgebase-app",
       "name": "Private Agent Search",
-      "url": "https://search.sassmaker.com",
+      "url": "https://knowledgebase.sassmaker.com",
       "summary": "Cited search + grounded answers over private, specialized document collections (RAG).",
       "publicDir": "knowledge-base/app/public",
+      "preserveFiles": ["llms.txt", "llms-full.txt", "api-ai.json", "sitemap.xml"],
       "stack": "next-opennext",
       "schemaType": "SoftwareApplication",
       "applicationCategory": "DeveloperApplication",
       "sameAs": [
         "https://github.com/sass-maker/knowledge-base"
       ],
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://knowledgebase.sassmaker.com/",
+          "description": "Private cited search workspace"
+        }
+      ],
+      "generateSitemap": true,
       "indexMd": "# Private Agent Search\n\nCited RAG search over private collections.\n"
+    },
+    {
+      "id": "app-health",
+      "name": "App Health",
+      "url": "https://health.sassmaker.com",
+      "summary": "Privacy-first endpoint health for Node, Go, Cloudflare, and OpenTelemetry services.",
+      "publicDir": "app-health/apps/web/public",
+      "stack": "vite-worker",
+      "headFile": "app-health/apps/web/index.html",
+      "schemaType": "SoftwareApplication",
+      "applicationCategory": "DeveloperApplication",
+      "sameAs": [
+        "https://github.com/sarthakagrawal927/app-health"
+      ],
+      "worker": "app-health/apps/worker/src/index.ts",
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://health.sassmaker.com/",
+          "description": "Endpoint health dashboard"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://health.sassmaker.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# App Health changelog\n\nApp Health's owned changelog records verified releases across endpoint telemetry, privacy-bounded SDKs, OpenTelemetry ingestion, environment-scoped keys, and the operator dashboard.\n"
+        }
+      ],
+      "generateSitemap": true,
+      "indexMd": "# App Health\n\nPrivacy-first endpoint health for Node, Go, Cloudflare, and OpenTelemetry services.\n\n## Public boundary\n\n- Aggregate endpoint latency, status, and availability summaries\n- No request bodies, headers, cookies, query values, identities, logs, or stack traces\n- Owner APIs remain authenticated and are not agent-indexed\n\n## Agent entrypoints\n\n- https://health.sassmaker.com/llms.txt\n- https://health.sassmaker.com/api/ai\n- https://health.sassmaker.com/index.md\n"
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "url": "https://chatgpt.significanthobbies.com",
+      "summary": "Private, browser-local analysis of a ChatGPT export into evidence-linked memory and longitudinal insights.",
+      "publicDir": "chatgpt-memory-insights/public",
+      "stack": "astro-static",
+      "headFile": "chatgpt-memory-insights/src/pages/index.astro",
+      "schemaType": "SoftwareApplication",
+      "sameAs": [
+        "https://github.com/sarthakagrawal927/chatgpt-memory-insights"
+      ],
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://chatgpt.significanthobbies.com/",
+          "description": "Local ChatGPT export analysis"
+        },
+        {
+          "title": "What it finds",
+          "url": "https://chatgpt.significanthobbies.com/about",
+          "description": "Capabilities and privacy architecture",
+          "markdown": "# What Memory Map finds\n\nMemory Map turns a ChatGPT export into evidence-linked activity, topic, repeat, change, language, and conversation-shape views. Parsing, models, saved state, and Memory Chat run in the browser; conversations do not need an application server.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://chatgpt.significanthobbies.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# Memory Map changelog\n\nThe owned changelog records verified releases for export ingestion, semantic analysis, visual evidence, longitudinal memory states, Story mode, and browser-local Memory Chat.\n"
+        }
+      ],
+      "generateSitemap": true,
+      "indexMd": "# Memory Map\n\nPrivate, browser-local analysis of a ChatGPT export.\n\n## What it does\n\n- Parses the official export ZIP in the browser\n- Builds evidence-linked activity, topic, repeat, and change views\n- Keeps conversations away from an application server\n- Offers optional browser-local semantic models and Memory Chat\n\n## Agent entrypoints\n\n- https://chatgpt.significanthobbies.com/llms.txt\n- https://chatgpt.significanthobbies.com/api/ai\n- https://chatgpt.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "url": "https://setline.significanthobbies.com",
+      "summary": "Mobile-first execution layer for following a structured workout programme precisely.",
+      "publicDir": "setline/public",
+      "stack": "vinext-worker",
+      "headFile": "setline/app/layout.tsx",
+      "schemaType": "SoftwareApplication",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/setline"
+      ],
+      "worker": "setline/worker/index.ts",
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://setline.significanthobbies.com/",
+          "description": "Workout execution app"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://setline.significanthobbies.com/privacy",
+          "description": "Device and private cloud data handling",
+          "markdown": "# Setline privacy\n\nActive workouts work device-first. Optional Google sign-in stores one private, user-scoped state copy. Workout progress and history are not public agent surfaces.\n"
+        },
+        {
+          "title": "Terms",
+          "url": "https://setline.significanthobbies.com/terms",
+          "description": "Product terms",
+          "markdown": "# Setline terms\n\nSetline is a workout execution tool, not medical advice, coaching, or a substitute for professional guidance. Users control their programme and recorded results.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://setline.significanthobbies.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# Setline changelog\n\nSetline's owned changelog records verified releases for authored programme order, device-first execution, rest timing, explicit workout deviations, history, optional private sync, and responsive PWA support.\n"
+        }
+      ],
+      "generateSitemap": true,
+      "indexMd": "# Setline\n\nBuild the plan once. Follow it precisely every day.\n\n## What it is\n\n- Mobile-first workout execution for a structured programme\n- Exact authored exercise and set order\n- Explicit recorded, calculated, adjusted, and unavailable values\n- Device-first active workouts with optional private sync\n\n## Agent entrypoints\n\n- https://setline.significanthobbies.com/llms.txt\n- https://setline.significanthobbies.com/api/ai\n- https://setline.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "india-standards",
+      "name": "India Standards",
+      "url": "https://india-numbers.significanthobbies.com",
+      "summary": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
+      "publicDir": "india-standards/public",
+      "stack": "opennext",
+      "headFile": "india-standards/app/layout.tsx",
+      "schemaType": "WebApplication",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/india-standards"
+      ],
+      "worker": "india-standards/worker.mjs",
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://india-numbers.significanthobbies.com/",
+          "description": "Demographic standards calculator"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://india-numbers.significanthobbies.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# India Standards changelog\n\nThe owned changelog records verified releases for the aggregate-only PLFS preview, explicit uncertainty, sparse-cell widening, hosted estimates, and responsive calculator workbench.\n"
+        }
+      ],
+      "generateSitemap": true,
+      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-numbers.significanthobbies.com/llms.txt\n- https://india-numbers.significanthobbies.com/api/ai\n- https://india-numbers.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "motion",
+      "name": "Motion",
+      "url": "https://motion.significanthobbies.com",
+      "summary": "Use on-device iPhone body-pose tracking to control a screen-mirrored game without transmitting camera frames.",
+      "publicDir": "motion/landing",
+      "preserveFiles": ["llms.txt", "index.md", "api/ai.json", "robots.txt", "sitemap.xml"],
+      "apiAiFile": "api/ai.json",
+      "stack": "static",
+      "headFile": "motion/landing/index.html",
+      "schemaType": "SoftwareApplication",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/motion"
+      ],
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://motion.significanthobbies.com/",
+          "description": "Public product introduction"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://motion.significanthobbies.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# Motion changelog\n\nMotion's owned changelog records verified releases for the public product landing and the private, on-device body-controlled game proof of concept. Camera frames are never transmitted or stored.\n"
+        }
+      ],
+      "generateSitemap": true,
+      "indexMd": "# Motion\n\nUse your body as a game controller.\n\n## Product boundary\n\n- An iPhone performs body-pose detection on device\n- The game runs on the phone and can be screen-mirrored to a TV\n- Only normalized joints can enter the parked relay preview; camera frames are never transmitted or stored\n- The internal game, camera, and room routes are not public website surfaces\n\n## Agent entrypoints\n\n- https://motion.significanthobbies.com/llms.txt\n- https://motion.significanthobbies.com/api/ai\n- https://motion.significanthobbies.com/index.md\n"
     },
     {
       "id": "saas-ideas",

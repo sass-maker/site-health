@@ -28,6 +28,7 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
         surfaces: [
           { id: 'home', url: '/', md: '/index.md' },
           { id: 'guide', url: '/guide/', md: '/guide.md' },
+          { id: 'people', url: '/person/{id}/', md: '/person/{id}.md' },
         ],
       }));
     }
@@ -45,16 +46,21 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
         `<?xml version="1.0"?><urlset>` +
           `<url><loc>${origin}/</loc></url>` +
           `<url><loc>${origin}/guide/</loc></url>` +
+          `<url><loc>${origin}/person/ada/</loc></url>` +
           `</urlset>`,
       );
     }
-    if (url.pathname === '/index.md' || url.pathname === '/guide.md') {
+    if (
+      url.pathname === '/index.md'
+      || url.pathname === '/guide.md'
+      || url.pathname === '/person/ada.md'
+    ) {
       return send(response, 'text/markdown', `# ${url.pathname}\n`);
     }
     if (url.pathname === '/' && accept.includes('text/markdown')) {
       return send(response, 'text/markdown', '# Fixture home\n');
     }
-    if (url.pathname === '/' || url.pathname === '/guide/') {
+    if (url.pathname === '/' || url.pathname === '/guide/' || url.pathname === '/person/ada/') {
       return send(response, 'text/html', '<!doctype html><title>Fixture</title>');
     }
     response.writeHead(404, { 'content-type': 'text/plain' });
@@ -75,16 +81,16 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
 
   assert.equal(result.tier, 'S');
   assert.deepEqual(result.checks.route_markdown.data, {
-    readable: 2,
-    checked: 2,
-    total: 2,
+    readable: 3,
+    checked: 3,
+    total: 3,
     coveragePercent: 100,
     sampled: false,
     failures: [],
   });
   assert.deepEqual(result.checks.catalog_integrity.data, {
-    valid: 2,
-    configured: 2,
+    valid: 3,
+    configured: 3,
     integrityPercent: 100,
     failures: [],
   });
