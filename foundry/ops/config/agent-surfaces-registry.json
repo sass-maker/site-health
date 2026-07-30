@@ -540,9 +540,23 @@
           "title": "Home",
           "url": "https://chess.significanthobbies.com/",
           "description": "Play (SPA)"
+        },
+        {
+          "title": "FAQ",
+          "url": "https://chess.significanthobbies.com/faq",
+          "md": "https://chess.significanthobbies.com/faq.md",
+          "description": "Engine, coaching, privacy, and pricing questions",
+          "markdown": "# Chess Coach FAQ\n\nChess Coach combines a browser-local Stockfish 18 engine with optional, on-demand AI explanations. No account is required. Stockfish runs as WebAssembly inside a Web Worker; the static production deployment does not expose the development-only AI proxy.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://chess.significanthobbies.com/changelog",
+          "md": "https://chess.significanthobbies.com/changelog.md",
+          "description": "Verified reliability, discovery, and learning updates",
+          "markdown": "# Chess Coach changelog\n\nVerified updates to browser-based chess practice, reliability, and learning. The current public history covers reliable Stockfish startup, better search and sharing context, and the focused chess-practice board.\n"
         }
       ],
-      "indexMd": "# Chess Coach\n\nAI-coached chess practice in the browser.\n\n## Note for agents\n\nThe app is a client SPA with little server-rendered copy. Use this brief and `/api/ai` (when deployed with a worker) rather than HTML shell scraping.\n\n## Agent entrypoints\n\n- https://chess.significanthobbies.com/llms.txt\n- https://chess.significanthobbies.com/index.md\n"
+      "indexMd": "# Chess Coach\n\nBrowser-based chess practice against Stockfish 18 with optional, on-demand AI explanations.\n\n## What is included\n\n- Six engine levels, configurable clocks, hints, undo, and board flip\n- Real-time evaluation and move-quality badges\n- Local game persistence with no account\n- Optional explanations from a configured cloud provider or a local development bridge\n\nStockfish runs locally in a Web Worker. The static production deployment does not expose the development-only AI proxy.\n\n## Agent entrypoints\n\n- https://chess.significanthobbies.com/llms.txt\n- https://chess.significanthobbies.com/index.md\n- https://chess.significanthobbies.com/api/ai\n"
     },
     {
       "id": "reader",
