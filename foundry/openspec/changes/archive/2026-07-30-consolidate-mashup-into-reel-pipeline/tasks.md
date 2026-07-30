@@ -31,7 +31,7 @@
 - [x] 5.2 Run the Reel Pipeline documentation validator and diff checks
 - [x] 5.3 Export a real ZEROPOD short through the nested runtime and compare it with the standalone contract
 - [x] 5.4 Render or package one approved source-backed short through the consolidated adapter
-- [x] 5.5 Record standalone retirement as deferred until operator parity acceptance; do not delete the source checkout
+- [x] 5.5 Confirm final working-tree parity, preserve the historical snapshot, move remaining work to Fleet issue #73, link the canonical source, and archive the standalone repository without deleting local archives or caches
 
 ## 6. Harden uniqueness and retain long-form
 

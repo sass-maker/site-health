@@ -1,17 +1,17 @@
 ## Context
 
-Mashup is a Python 3.11+ local editorial system with SQLite-backed stage
+Mashup was a standalone Python 3.11+ local editorial system with SQLite-backed stage
 outputs, optional local transcription and models, structure-aware planning,
 eight surfaced score terms, an EDL, an Astro/React timeline editor, and an
 FFmpeg renderer. Reel Pipeline is a Node/Rust/Chromium/FFmpeg media service
 with versioned input contracts, deterministic coherent-film composition,
 review artifacts, hashes, approval gates, and Postiz draft handoff.
 
-Both systems now transform source-backed media into reviewable videos. Their
-separate product boundaries create duplicate timeline, caption, provenance,
-visual, and render concepts. The migration must preserve Mashup's current dirty
-working state, ignored archives, ignored `.mashup/` caches, licensing boundary,
-and resumability while avoiding unrelated Foundry work already present in the
+Both systems transform source-backed media into reviewable videos. Their
+separate product boundaries created duplicate timeline, caption, provenance,
+visual, and render concepts. The migration preserved Mashup's changed working
+state, ignored archives, ignored `.mashup/` caches, licensing boundary, and
+resumability while avoiding unrelated Foundry work already present in the
 monorepo checkout.
 
 ## Goals / Non-Goals
@@ -88,12 +88,15 @@ belong in Reel Pipeline's deterministic scene library. Versioned film skills
 can constrain combinations later, but the consolidation contract describes
 editorial intent rather than a specific implementation effect.
 
-### 5. Compatibility precedes retirement
+### 5. Compatibility proof precedes retirement
 
-The standalone checkout remains untouched while the canonical copy is
-validated. A parity script compares the exported contract from both locations
-for the same fixture. Retirement requires Python tests, Node contract tests,
-one local short render, docs, and explicit status changes.
+The standalone checkout remained available while the canonical copy was
+validated. Retirement required Python tests, Node contract tests, one local
+short render, docs, and explicit status changes. Before archival, every changed
+implementation, test, and editor file was confirmed identical to the Fleet copy
+or strictly behind Fleet's podcast-contract and overlap-safety integration.
+The final public snapshot preserved the incorporated work and design evidence,
+linked to Fleet, and moved remaining follow-up into Fleet issue #73.
 
 ### 6. Exact reuse is invalid; semantic similarity remains scored
 
@@ -134,7 +137,8 @@ flowchart LR
   working tree exactly in the canonical import, record the source path and
   migration date, and avoid deleting the source.
 - **Two copies drift during parity period** → Treat Foundry as canonical after
-  the first green import and add a parity command until retirement.
+  the first green import, compare the final working tree before retirement, and
+  archive the standalone repository after parity.
 - **Local absolute paths leak into committed fixtures** → Contract fixtures use
   repository-relative paths; validators reject remote fetches during local
   render and tests use temporary directories.
@@ -162,8 +166,9 @@ flowchart LR
    when fixture media is available.
 8. Update Reel Pipeline status/docs to mark Mashup as an incorporated
    editorial subsystem.
-9. After explicit parity acceptance in a later change, archive the standalone
-   product without deleting operator archives or caches.
+9. Confirm final working-tree parity, preserve the historical snapshot, move
+   remaining issues into Fleet, and archive the standalone product without
+   deleting operator archives or caches.
 
 Rollback is straightforward during the parity period: keep using the
 standalone Mashup checkout. No data migration or production deployment occurs.

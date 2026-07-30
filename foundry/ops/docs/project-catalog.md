@@ -13,7 +13,7 @@ Generated from 43 internal project identities.
 | PostTrainLLM | maintained | `posttrainllm` | maintained | https://posttrainllm.com |
 | High Signal | maintained | `high-signal` | maintained | https://highsignal.app |
 
-## Toolbox — 22
+## Toolbox — 21
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
@@ -35,7 +35,6 @@ Generated from 43 internal project identities.
 | Karte | maintained | `karte` | maintained | https://karte.cc |
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |
 | App Health | maintained | `app-health` | maintained | https://health.sassmaker.com |
-| Mashup | local-only | `mashup` | hidden | — |
 | Motion | maintained | `motion` | maintained | https://motion.significanthobbies.com |
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Personal website | non-product | `—` | maintained | https://sarthakagrawal.dev |
@@ -50,7 +49,7 @@ Generated from 43 internal project identities.
 | Reel Pipeline | maintained | `foundry/services/reel-pipeline` | hidden | — |
 | Mobile Dev Cockpit | local-only | `foundry/apps/mobile-cockpit` | hidden | — |
 
-## Past / inactive — 12
+## Past / inactive — 13
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
@@ -58,6 +57,7 @@ Generated from 43 internal project identities.
 | Materia | past | `../fleet-inactive-projects/materia` | past | https://materia.significanthobbies.com |
 | AliveVille | past | `../fleet-inactive-projects/aliveville` | past | https://aliveville.com |
 | Protein Index | past | `../fleet-inactive-projects/protein-index` | past | https://protein.significanthobbies.com |
+| Mashup | past | `mashup` | hidden | — |
 | SaaS Ideas | past | `../fleet-inactive-projects/saas-ideas` | hidden | https://ideas.sassmaker.com |
 | TrueHire | past | `../fleet-inactive-projects/truehire` | past | https://truehire.rolepatch.com |
 | Today Little Log | past | `../fleet-inactive-projects/today-little-log` | past | — |

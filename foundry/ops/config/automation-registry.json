@@ -3,9 +3,9 @@
   "updatedAt": "2026-07-30",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 21,
+    "toolbox": 20,
     "foundry": 5,
-    "ignored": 12
+    "ignored": 13
   },
   "defaults": {
     "freshnessHours": {
@@ -1176,32 +1176,23 @@
     {
       "id": "mashup",
       "name": "Mashup",
-      "attention": "toolbox",
+      "attention": "ignored",
       "family": "mashup",
-      "owner": "sarthak",
+      "owner": "none",
       "repository": "mashup",
-      "runtimes": [
-        "local-tool",
-        "data-pipeline"
-      ],
+      "runtimes": [],
       "surfaces": [],
-      "dependencies": [
-        "GitHub Actions",
-        "FFmpeg",
-        "local mlx + HuggingFace models",
-        "source video archive"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "local-checks"
-      ],
-      "contracts": [
-        "build",
-        "errors"
-      ],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest local validation findings; runs entirely offline, so no credential or gateway setup is required. FFmpeg must be built with libfreetype/libass or subtitle burn-in fails at render time",
-      "exceptions": []
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Absorbed into Reel Pipeline; explicit reactivation as a standalone product is forbidden"
+        }
+      ]
     },
     {
       "id": "saas-ideas",

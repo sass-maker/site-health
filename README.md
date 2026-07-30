@@ -58,6 +58,7 @@ setup dependencies and must not be cloned as Fleet projects:
 | [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/services/drank/` |
 | [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/mobile-cockpit/` |
 | [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/tools/psi-swarm/` |
+| [`sarthakagrawal927/mashup`](https://github.com/sarthakagrawal927/mashup) | `foundry/services/reel-pipeline/editorial/` |
 
 Clone `sass-maker/fleet-workspace` once and initialize its public automation
 module:
@@ -80,17 +81,17 @@ human view is [`foundry/ops/docs/project-catalog.md`](foundry/ops/docs/project-c
 
 CodeVetter, HeyPace, PostTrainLLM, High Signal
 
-### Toolbox — 22
+### Toolbox — 21
 
-Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Mashup, Motion, What It Takes to Win, Personal website
+Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, What It Takes to Win, Personal website
 
 ### Foundry — 5
 
 Fleet Workspace, Drank, PSI Swarm, Reel Pipeline, Mobile Dev Cockpit
 
-### Past / inactive — 12
+### Past / inactive — 13
 
-EverythingRated, Materia, AliveVille, Protein Index, SaaS Ideas, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables
+EverythingRated, Materia, AliveVille, Protein Index, Mashup, SaaS Ideas, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables
 
 Past projects are preserved without becoming maintenance obligations. Public
 repositories may appear in the separate Past projects section on SaaS Maker;

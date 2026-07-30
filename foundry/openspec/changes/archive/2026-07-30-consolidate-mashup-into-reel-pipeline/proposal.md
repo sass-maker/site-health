@@ -30,11 +30,12 @@ artifact provenance, review evidence, and Postiz draft handoff.
   continue to support multi-clip long-form targets.
 - Keep every scoring term independently surfaced and keep expensive editorial
   stages resumable after the move.
-- Keep the standalone Mashup checkout operational as a temporary compatibility
-  source until the consolidated tests and one real ZEROPOD proof pass.
-- **BREAKING (later phase):** after parity is proven, the standalone Mashup
-  product will be retired and its active status will move into Reel Pipeline.
-  Retirement is not part of the first consolidation slice.
+- Preserve the standalone Mashup repository as a historical snapshot after
+  parity, move its remaining work into Fleet, and make Reel Pipeline the sole
+  maintained source.
+- **BREAKING:** the standalone Mashup product boundary is retired; compatibility
+  remains available through the preserved `mashup` package and CLI nested
+  inside Reel Pipeline.
 
 ## Capabilities
 
@@ -58,7 +59,8 @@ artifact provenance, review evidence, and Postiz draft handoff.
 - Existing runtimes retained: Node, Chromium/Canvas, FFmpeg, and Rust watcher.
 - New contract and adapter code live in Reel Pipeline; Content Factory and
   Postiz boundaries remain unchanged.
-- No deployment, publishing, credential, database migration, or destructive
-  removal occurs in the first slice.
+- No deployment, publishing, credential, database migration, or local archive
+  removal occurs.
 - The standalone Mashup workdir, archive, and local SQLite state remain local
-  and are not copied into Foundry or committed.
+  and are not copied into Foundry. Its public repository remains read-only for
+  history and attribution with a direct canonical-source link.

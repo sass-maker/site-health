@@ -58,6 +58,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-30 — Historical Foundry repositories retired:** Added exact
+  maintained-source redirects and archived the public Reel Pipeline, Drank,
+  Mobile Dev Cockpit, PSI Swarm, and Mashup repositories in Sarthak's personal
+  namespace. Mashup's complete changed implementation and design evidence were
+  preserved first, its nine historical issues were consolidated into Fleet
+  issue #73, and the canonical editorial runtime remains under
+  `foundry/services/reel-pipeline/editorial/`.
 - **2026-07-30 — Independent-product boundary made one-way:** Removed tracked
   release and agent-instruction dependencies from standalone products to the
   private Fleet checkout while preserving product-owned validation and manual

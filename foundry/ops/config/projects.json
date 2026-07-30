@@ -30,6 +30,7 @@
     "absorbedCheckouts": {
       "aliveville": "ai-game",
       "drank": "drank",
+      "mashup": "reel-pipeline",
       "reel-pipeline": "reel-pipeline",
       "saas-maker": "fleet-workspace",
       "tinygpt": "posttrainllm"
@@ -1054,17 +1055,17 @@
       "id": "mashup",
       "authModel": "required-service",
       "family": "mashup",
-      "tier": "active",
+      "tier": "parked",
       "repo": "mashup",
       "deployKind": "none",
       "cfProject": null,
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Local-only video sequencing experiment: source videos in, one coherent cut out. Runs fully offline on Apple silicon since 2026-07-26 — chat is a local mlx model, embeddings a local HuggingFace encoder, and no subcommand needs the free-ai gateway, so authModel 'required-service' above is stale but left alone because the field is unreachable while status is undeployed. Dev archive (20 public-domain episodes, 9.1h, 727 segments) is downloaded, enriched and embedded. Scope decided 2026-07-26: one operator publishing cuts to their own YouTube channel; source is public, but there is no packaged release, hosted service, or second operator. No Cloudflare deployment.",
+      "notes": "Historical standalone repository archived on 2026-07-30 after its maintained implementation, tests, editor, and provenance behavior were incorporated into foundry/services/reel-pipeline/editorial. Remaining editorial work is owned by Reel Pipeline; this identity is retained for history only.",
       "name": "Mashup",
-      "attention": "toolbox",
-      "lifecycle": "local-only",
+      "attention": "ignored",
+      "lifecycle": "past",
       "repositoryVisibility": "public",
       "public": {
         "listing": "hidden"
