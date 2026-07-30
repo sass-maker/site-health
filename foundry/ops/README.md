@@ -22,6 +22,7 @@ foundry/ops/
 ├── teammates/           # Delegation routing and outcome records
 ├── lib/                 # Shared implementation used by scripts and apps
 ├── templates/           # Reusable source templates
+├── workflows/           # Pinned public credential-free automation submodule
 │
 ├── public/              # Checked-in privacy-filtered public projection
 ├── data/                # Durable evidence ledgers
@@ -72,6 +73,17 @@ documentation. It derives entries from the canonical files under
 `content-coverage` and `launch-campaign` are canonical catalog capabilities but
 do not add new preload links in this change. Content sufficiency routes through
 the existing `site-health` parent.
+
+Public site availability and HTTP performance evidence lives in the pinned
+`sass-maker/workflows` submodule. Fleet validates and updates its allowlisted
+manifest without giving the public repository access to private source:
+
+```bash
+npm run check:public-workflows
+node foundry/ops/scripts/public-workflows.mjs validate
+node foundry/ops/scripts/public-workflows.mjs availability
+node foundry/ops/scripts/public-workflows.mjs performance --runs 3
+```
 
 ```bash
 # Find the right Fleet capability from intent.

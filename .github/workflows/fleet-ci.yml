@@ -12,7 +12,9 @@ on:
       - "foundry/ops/scripts/**"
       - "foundry/ops/templates/**"
       - "foundry/ops/test/**"
+      - "foundry/ops/workflows"
       - "foundry/apps/public-directory/**"
+      - ".gitmodules"
       - ".github/workflows/fleet-ci.yml"
   pull_request:
     branches: [main]
@@ -25,7 +27,9 @@ on:
       - "foundry/ops/scripts/**"
       - "foundry/ops/templates/**"
       - "foundry/ops/test/**"
+      - "foundry/ops/workflows"
       - "foundry/apps/public-directory/**"
+      - ".gitmodules"
       - ".github/workflows/fleet-ci.yml"
   workflow_dispatch:
 
@@ -42,6 +46,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Initialize public workflow module
+        run: git submodule update --init --depth 1 foundry/ops/workflows
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

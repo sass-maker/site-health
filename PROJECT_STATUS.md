@@ -58,6 +58,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-30 — Public credential-free workflow module extracted:** Created
+  public `sass-maker/workflows`, pinned it at `foundry/ops/workflows`, and moved
+  weekly public surface and HTTP performance evidence to standard public
+  runners. Private package/product CI, full PSI/Lighthouse proof, provider
+  inventory, registry checks, mobile proof, and deploy authority remain in
+  Fleet Workspace. The public module accepts no private checkout credential
+  and validates a deterministic allowlisted site manifest.
 - **2026-07-30 — GitHub Actions runs bounded by explicit policy:** Split Fleet
   contracts, feedback, AI Visibility, and Ops Console checks into independent
   path-scoped workflows; made heavy macOS proof manual-only; reduced recurring
@@ -318,6 +325,7 @@ CodeVetter or App Health source.
 | Component | Canonical path | Runtime boundary |
 |---|---|---|
 | Fleet Ops | `foundry/ops/` | Local/hosted scripts, skills, registries, policy |
+| Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |
 | Reel Pipeline | `foundry/services/reel-pipeline/` | Independent Node/Rust/Python media pipeline |
 | Drank | `foundry/services/drank/` | Independent domain-intelligence app/API |
 | PSI Swarm | `foundry/tools/psi-swarm/` | Local CLI plus independently deployable static surface |
@@ -337,6 +345,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   independent package workflows, manual heavy-native proof, weekly audit
   ceilings, concurrency cancellation, job timeouts, and manual-only production
   deployment rules.
+- Public, commit-pinned workflow module with an exact-schema public site
+  manifest, bounded availability and HTTP latency evidence, least-privilege
+  standard-runner jobs, and no private Fleet checkout path.
 - Canonical 43-identity project/domain/deploy/lifecycle catalog with active and
   inactive checkout reconciliation, generated internal inventory views, and a
   privacy-gated SaaS Maker projection for maintained and past public work.

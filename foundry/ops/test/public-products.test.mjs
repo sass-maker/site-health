@@ -68,12 +68,12 @@ test('public projection contains only explicitly allowlisted public products', (
     'https://github.com/Significant-Hobbies/chess/issues',
   );
   assert.equal(
-    Object.hasOwn(projection.products.find((product) => product.id === 'setline'), 'repositoryUrl'),
-    false,
+    projection.products.find((product) => product.id === 'setline').repositoryUrl,
+    'https://github.com/Significant-Hobbies/setline',
   );
   assert.equal(
-    Object.hasOwn(projection.products.find((product) => product.id === 'motion'), 'repositoryUrl'),
-    false,
+    projection.products.find((product) => product.id === 'motion').repositoryUrl,
+    'https://github.com/Significant-Hobbies/motion',
   );
   assert.equal(
     projection.products.find((product) => product.id === 'reader').roadmapUrl,

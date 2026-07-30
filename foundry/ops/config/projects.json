@@ -577,11 +577,11 @@
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Private Significant Hobbies repository. The existing india-numbers Worker and hostname remain live; india-standards.significanthobbies.com is prepared as the canonical domain but is not live until a separately approved release.",
+      "notes": "Public Significant Hobbies repository. The existing india-numbers Worker and hostname remain live; india-standards.significanthobbies.com is prepared as the canonical domain but is not live until a separately approved release.",
       "name": "India Standards",
       "attention": "toolbox",
       "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "repositoryVisibility": "public",
       "public": {
         "listing": "hidden"
       }
@@ -787,7 +787,7 @@
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repo": "setline",
-      "repositoryVisibility": "private",
+      "repositoryVisibility": "public",
       "deployKind": "worker",
       "cfProject": "setline",
       "domains": [
@@ -804,7 +804,8 @@
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained"
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
       },
       "notes": "Local-first workout execution tracker with optional Google sign-in and private D1 sync."
     },
@@ -975,7 +976,7 @@
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "parked",
-      "repo": "protein-index",
+      "repo": "protein-index-resilience",
       "sourcePath": "../fleet-inactive-projects/protein-index",
       "deployKind": "worker",
       "cfProject": "protein-index",
@@ -994,7 +995,7 @@
         "id": "protein-index",
         "name": "Protein Index",
         "description": "Searchable protein and nutrition reference.",
-        "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index"
+        "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index-resilience"
       }
     },
     {
@@ -1060,11 +1061,11 @@
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Local-only video sequencing experiment: source videos in, one coherent cut out. Runs fully offline on Apple silicon since 2026-07-26 — chat is a local mlx model, embeddings a local HuggingFace encoder, and no subcommand needs the free-ai gateway, so authModel 'required-service' above is stale but left alone because the field is unreachable while status is undeployed. Dev archive (20 public-domain episodes, 9.1h, 727 segments) is downloaded, enriched and embedded. Scope decided 2026-07-26: one operator publishing cuts to their own YouTube channel; the software is not released, so there is no second operator and no third-party rights burden. No Cloudflare deployment.",
+      "notes": "Local-only video sequencing experiment: source videos in, one coherent cut out. Runs fully offline on Apple silicon since 2026-07-26 — chat is a local mlx model, embeddings a local HuggingFace encoder, and no subcommand needs the free-ai gateway, so authModel 'required-service' above is stale but left alone because the field is unreachable while status is undeployed. Dev archive (20 public-domain episodes, 9.1h, 727 segments) is downloaded, enriched and embedded. Scope decided 2026-07-26: one operator publishing cuts to their own YouTube channel; source is public, but there is no packaged release, hosted service, or second operator. No Cloudflare deployment.",
       "name": "Mashup",
       "attention": "toolbox",
       "lifecycle": "local-only",
-      "repositoryVisibility": "private",
+      "repositoryVisibility": "public",
       "public": {
         "listing": "hidden"
       }
@@ -1106,11 +1107,11 @@
       "app": "web+ios",
       "inRegistry": false,
       "status": "live",
-      "notes": "Private canonical repository at Significant-Hobbies/motion. The public landing and owned changelog are live-ready on Cloudflare Pages project motion at motion.significanthobbies.com; the iOS game remains intentionally unreleased while physical-device validation is pending.",
+      "notes": "Public canonical repository at Significant-Hobbies/motion. The public landing and owned changelog are live-ready on Cloudflare Pages project motion at motion.significanthobbies.com; the iOS game remains intentionally unreleased while physical-device validation is pending.",
       "name": "Motion",
       "attention": "toolbox",
       "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
         "id": "motion",
@@ -1119,7 +1120,8 @@
         "category": "personal",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "maintained"
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/motion"
       }
     },
     {

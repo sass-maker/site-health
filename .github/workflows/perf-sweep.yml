@@ -1,9 +1,6 @@
 name: Fleet PSI Sweep
 
 on:
-  schedule:
-    # Every Monday 09:00 UTC
-    - cron: '0 9 * * 1'
   workflow_dispatch:
     inputs:
       runs:

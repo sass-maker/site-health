@@ -4,3 +4,6 @@
 [submodule "foundry/services/reel-pipeline/engines/reel-maker"]
 	path = foundry/services/reel-pipeline/engines/reel-maker
 	url = https://github.com/sarthakagrawal927/reel-maker.git
+[submodule "foundry/ops/workflows"]
+	path = foundry/ops/workflows
+	url = https://github.com/sass-maker/workflows.git

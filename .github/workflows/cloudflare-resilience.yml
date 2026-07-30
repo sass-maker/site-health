@@ -1,8 +1,6 @@
 name: Cloudflare Resilience Audit
 
 on:
-  schedule:
-    - cron: '37 6 * * 3'
   workflow_dispatch:
 
 concurrency:

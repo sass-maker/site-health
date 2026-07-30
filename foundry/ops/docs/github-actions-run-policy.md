@@ -34,8 +34,14 @@ an always-on production control plane.
 | Mobile Cockpit CI | Mobile Cockpit paths; portable check only | Portable plus macOS proof |
 | Workflow Policy CI | Workflow and policy-check paths | Available |
 | Fleet Sync Guard | Relevant sync paths and weekly drift check | Available |
-| Cloudflare Resilience Audit | Weekly | Available |
-| Fleet PSI Sweep | Weekly | Available |
+| Cloudflare Resilience Audit | None; private provider/source audit | Manual only |
+| Fleet PSI Sweep | None; full private PSI/Lighthouse evidence | Manual only |
+
+Credential-free public surface and HTTP performance audits execute weekly from
+the public [`sass-maker/workflows`](https://github.com/sass-maker/workflows)
+repository. Fleet pins that repository at `foundry/ops/workflows`. A private
+caller of a reusable public workflow remains private-billed, so private-source
+CI is not routed through the public repository.
 
 Run `npm run check:actions` after editing `.github/workflows/`. The check fails
 on unscoped automatic triggers, missing manual dispatch, missing concurrency or

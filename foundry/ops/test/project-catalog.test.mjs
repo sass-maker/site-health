@@ -114,6 +114,8 @@ test('privacy and overlay identity drift fail validation', () => {
   );
 
   const privateMaintained = structuredClone(catalog);
+  privateMaintained.projects.find((project) => project.id === 'setline').repositoryVisibility =
+    'private';
   privateMaintained.projects.find((project) => project.id === 'setline').public.repositoryUrl =
     'https://github.com/example/private';
   assert.throws(

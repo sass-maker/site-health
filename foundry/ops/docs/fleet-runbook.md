@@ -125,6 +125,7 @@ gh auth status
 wrangler whoami
 gh repo clone sass-maker/fleet-workspace fleet
 cd fleet
+git submodule update --init --depth 1 foundry/ops/workflows
 ./foundry/ops/scripts/agent-stack.sh install-skills
 cd fleet
 

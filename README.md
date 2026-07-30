@@ -31,6 +31,7 @@ generated internal and public views come from the catalog with
 - `foundry/tools/psi-swarm/` — performance and site-health tooling
 - `foundry/apps/mobile-cockpit/` — private mobile Fleet client
 - `foundry/apps/ops-console/` — local operations view
+- `foundry/ops/workflows/` — pinned public, credential-free automation module
 - `foundry/ops/skills/`, `foundry/ops/scripts/`, `foundry/ops/automation/`,
   `foundry/ops/config/` — common operations
 
@@ -51,7 +52,15 @@ setup dependencies and must not be cloned as Fleet projects:
 | [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/mobile-cockpit/` |
 | [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/tools/psi-swarm/` |
 
-Clone `sass-maker/fleet-workspace` once and use the canonical paths above.
+Clone `sass-maker/fleet-workspace` once and initialize its public automation
+module:
+
+```bash
+git submodule update --init --depth 1 foundry/ops/workflows
+```
+
+The module runs only from public inputs. Private Fleet CI and provider inventory
+remain in this repository.
 
 <!-- project-catalog:start -->
 ## Portfolio attention
