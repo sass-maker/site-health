@@ -737,22 +737,16 @@
       "name": "psi-swarm",
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
-      "publicDir": "foundry/helpers/psi-swarm/site/public",
-      "preserveFiles": [
-        "api-ai.json",
-        "llms.txt",
-        "llms-full.txt",
-        "robots.txt"
-      ],
+      "publicDir": "foundry/helpers/psi-swarm/web/public",
       "stack": "astro-static",
-      "altPublicDirs": [
-        "foundry/helpers/psi-swarm/public"
-      ],
+      "generateSitemap": true,
       "productLinks": [
         {
           "title": "Home",
           "url": "https://performance.sassmaker.com/",
-          "description": "Perf dashboards"
+          "description": "Run repeated Lighthouse audits from the local-first controller",
+          "md": "https://performance.sassmaker.com/index.md",
+          "markdown": "# psi-swarm\n\npsi-swarm is a local-first performance tracker that runs Lighthouse repeatedly across realistic device and network presets. It reports p50, p75, p90, and p99 Web Vitals instead of treating one noisy run as truth.\n\n## What the controller does\n\n- Starts swarms against a URL through the local psi-swarm agent\n- Shows distributional Lighthouse and Core Web Vitals evidence\n- Keeps run history and compute on the operator's machine\n- Supports comparisons, watchlists, and project-level history\n\nThe deployed site is a static controller and demo. It does not run remote audits, collect telemetry, or require an account.\n"
         },
         {
           "title": "Projects",
@@ -760,6 +754,34 @@
           "description": "Per-project results",
           "md": "https://performance.sassmaker.com/projects.md",
           "markdown": "# PSI Swarm projects\n\nPSI Swarm groups repeated Lighthouse runs by public project origin so performance can be compared as distributions rather than as one noisy score.\n\n## What each project view shows\n\n- Recent run history\n- Lighthouse performance distributions\n- Core Web Vitals when evidence is available\n- Source URL and observation time\n\nFailed or missing runs remain unmeasured; they are never converted into a zero score.\n"
+        },
+        {
+          "title": "Compare",
+          "url": "https://performance.sassmaker.com/compare/",
+          "description": "Compare two tagged swarms across percentile results",
+          "md": "https://performance.sassmaker.com/compare.md",
+          "markdown": "# Compare performance swarms\n\nThe compare view places two tagged psi-swarm runs side by side. It is intended for checking whether a code or deployment change improved or regressed performance.\n\n## Comparison evidence\n\n- p50, p75, p90, and p99 values rather than a single Lighthouse score\n- Core Web Vitals and Lighthouse category changes\n- Tagged baseline and candidate runs from local history\n- Differences grounded in the stored run observations\n\nA comparison requires the local psi-swarm agent and its SQLite history. The public page is the controller; no private history is uploaded.\n"
+        },
+        {
+          "title": "Watchlist",
+          "url": "https://performance.sassmaker.com/watchlist/",
+          "description": "Review locally tracked performance regressions",
+          "md": "https://performance.sassmaker.com/watchlist.md",
+          "markdown": "# Performance watchlist\n\nThe watchlist is a local regression queue over psi-swarm's SQLite history. It compares recent measurements with a chosen baseline tag or earlier swarm.\n\n## What it tracks\n\n- URLs selected by the operator\n- The latest available repeated-run evidence\n- Changes from a tagged baseline or prior swarm\n- Regressions that need another measurement or investigation\n\nThe watchlist is local-first. The deployed page contains the controller, while watchlist entries and results remain on the operator's machine.\n"
+        },
+        {
+          "title": "Demo gallery",
+          "url": "https://performance.sassmaker.com/gallery/",
+          "description": "Explore static before-and-after performance examples",
+          "md": "https://performance.sassmaker.com/gallery.md",
+          "markdown": "# psi-swarm demo gallery\n\nThe demo gallery contains curated, static before-and-after examples of psi-swarm output. Unlike the controller pages, it works without a local agent.\n\n## What the examples demonstrate\n\n- Distributional results across repeated Lighthouse runs\n- Before-and-after percentile comparisons\n- Evidence-backed performance diagnoses\n- The difference between a representative distribution and one noisy score\n\nThe fixtures are demonstrations, not live measurements of the visitor's site.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://performance.sassmaker.com/changelog/",
+          "description": "Verified psi-swarm product and release history",
+          "md": "https://performance.sassmaker.com/changelog.md",
+          "markdown": "# psi-swarm changelog\n\nVerified milestones for the local-first distributional Lighthouse tracker.\n\n## July 3, 2026 — Complete local web workflow\n\nThe `psi-swarm web` command starts the local agent and opens the browser controller. Operators can run, compare, and inspect swarms while compute and history remain local.\n\n## July 2, 2026 — Guarded manual releases\n\nThe repository deploy command verifies the intended workflow and build before a human-triggered production release.\n\n## June 26, 2026 — Privacy-safe public demo\n\nThe deployed controller stopped probing localhost unless the visitor is on localhost or explicitly supplies agent intent.\n\n## June 13, 2026 — v0.4.0 evidence workflows\n\nLocal regression watchlists, a static demo gallery, and saved trace insights shipped together.\n"
         }
       ],
       "indexMd": "# psi-swarm\n\nDistributional Lighthouse performance audits for the fleet.\n\n## Agent entrypoints\n\n- https://performance.sassmaker.com/llms.txt\n- https://performance.sassmaker.com/api/ai\n- https://performance.sassmaker.com/index.md\n"

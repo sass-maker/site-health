@@ -44,6 +44,11 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-07-31** — Made every public controller route independently
+  discoverable: the Fleet registry now writes agent surfaces into the deployed
+  Astro `web/public` directory, the six canonical routes share complete search
+  and structured metadata, and each route has substantive Markdown in the
+  sitemap and `/api/ai` catalog.
 - **2026-07-29** — Added the owned `/changelog` surface with verified editorial
   milestones, plus internal links from every public web route. Roadmap and
   Source resolve to the Fleet issues view and canonical monorepo directory.

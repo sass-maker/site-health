@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import RunDashboard from '../components/RunDashboard.tsx';
+import PublicRouteHead from '../components/PublicRouteHead.astro';
 ---
 
 <!doctype html>
@@ -11,18 +12,7 @@ import RunDashboard from '../components/RunDashboard.tsx';
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>psi-swarm · perf swarms with p99</title>
-    <meta name="description" content="Run Lighthouse N times across realistic device/network presets. See p50/p75/p90/p99 of your Web Vitals, not one noisy number." />
-    <link rel="canonical" href="https://performance.sassmaker.com/" />
-    <meta property="og:title" content="psi-swarm — Distributional Lighthouse Performance Tracker" />
-    <meta property="og:description" content="Run Lighthouse many times across realistic device presets. Get p50/p75/p90/p99 Web Vitals instead of one noisy point." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://performance.sassmaker.com/" />
-    <meta property="og:site_name" content="psi-swarm" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="psi-swarm — Distributional Lighthouse Performance Tracker" />
-    <meta name="twitter:description" content="Run Lighthouse many times across realistic device presets. Get p50/p75/p90/p99 Web Vitals." />
-    <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sassmaker.com/#org","name":"SaaS Maker (Foundry)","url":"https://sassmaker.com"},{"@type":"WebSite","@id":"https://performance.sassmaker.com/#website","name":"psi-swarm","url":"https://performance.sassmaker.com","description":"Distributional Lighthouse performance tracker.","publisher":{"@id":"https://sassmaker.com/#org"}}]})} />
+    <PublicRouteHead route="home" />
   </head>
   <body class="min-h-screen">
     <main class="max-w-5xl mx-auto px-6 py-10">

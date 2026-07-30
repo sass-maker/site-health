@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import GalleryView from '../components/GalleryView.tsx';
+import PublicRouteHead from '../components/PublicRouteHead.astro';
 ---
 
 <!doctype html>
@@ -11,8 +12,7 @@ import GalleryView from '../components/GalleryView.tsx';
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>psi-swarm · demo gallery</title>
-    <meta name="description" content="Curated before/after psi-swarm fixtures that show what good comparison output looks like." />
+    <PublicRouteHead route="gallery" />
   </head>
   <body class="min-h-screen">
     <main class="max-w-5xl mx-auto px-6 py-10">
