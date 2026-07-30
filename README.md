@@ -38,6 +38,13 @@ generated internal and public views come from the catalog with
 CodeVetter and App Health remain fully independent products. Feedback is a
 Fleet-owned package, not a deployed Fleet service or standalone product.
 
+The orchestration boundary is one-way: Fleet may catalog, inspect, monitor, and
+invoke a standalone product's repo-local commands, but standalone products must
+not require private Fleet files or instructions to build, test, migrate, or
+deploy. Run `npm run check:independence` after fetching child repositories to
+audit their canonical `origin/main` revisions; unavailable checkouts are
+reported as skipped.
+
 ## Merged historical repositories
 
 The following standalone repositories were merged into Fleet and moved to

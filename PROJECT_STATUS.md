@@ -58,6 +58,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-30 — Independent-product boundary made one-way:** Removed tracked
+  release and agent-instruction dependencies from standalone products to the
+  private Fleet checkout while preserving product-owned validation and manual
+  deploy contracts. Added a read-only catalog-driven audit of canonical product
+  revisions so Fleet may orchestrate products without becoming their runtime or
+  setup dependency.
 - **2026-07-30 — Public credential-free workflow module extracted:** Created
   public `sass-maker/workflows`, pinned it at `foundry/ops/workflows`, and moved
   weekly public surface and HTTP performance evidence to standard public
