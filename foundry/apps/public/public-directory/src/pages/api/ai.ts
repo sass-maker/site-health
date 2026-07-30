@@ -1,6 +1,7 @@
 import publicCatalog from '../../../../../../ops/public/products.json';
 import { PACKAGE_URL } from '../../data/links';
 import { LEARNINGS } from '../../data/learnings';
+import { markdownPath, PUBLIC_ROUTES, publicRouteUrl } from '../../data/publicRoutes';
 export const prerender = true;
 export function GET() {
   return new Response(
@@ -16,22 +17,13 @@ export function GET() {
         markdown: { suffix: '.md', negotiation: false },
         canonical: 'https://sassmaker.com',
         sourceOfTruth: 'SaaS Maker privacy-checked public product catalog',
-        surfaces: [
-          {
-            id: 'directory',
-            url: 'https://sassmaker.com/',
-            md: 'https://sassmaker.com/index.md',
-            kind: 'collection',
-            description: 'Software as a specialized service: a living studio of focused products',
-          },
-          {
-            id: 'learnings',
-            url: 'https://sassmaker.com/learnings',
-            md: 'https://sassmaker.com/learnings.md',
-            kind: 'collection',
-            description: 'First-party builder notes and agent-tooling learnings',
-          },
-        ],
+        surfaces: PUBLIC_ROUTES.map((route) => ({
+          id: route.id,
+          url: publicRouteUrl(route),
+          md: `https://sassmaker.com/${markdownPath(route)}.md`,
+          kind: route.kind,
+          description: route.description,
+        })),
         externalResources: [
           {
             id: 'feedback-package',

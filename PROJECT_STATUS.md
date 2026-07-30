@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — SaaS Maker public discovery gained one route source of
+  truth:** Consolidated the directory's 33 canonical HTML routes, Markdown
+  bodies, sitemap entries, and `/api/ai` surfaces into one typed registry.
+  Product profiles, policy pages, changelog, learnings, and the home directory
+  can no longer drift between search and agent discovery. No deployment was
+  performed.
 - **2026-07-31 — Visibility remediation replaced false zeros with honest
   evidence:** PSI projection now ignores failed/null measurements and design
   projection accepts only validated review receipts. The shared agent-surface
