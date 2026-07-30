@@ -479,8 +479,9 @@
       "url": "https://tv.significanthobbies.com",
       "summary": "TV-style random video player for lean-back browsing of curated channels.",
       "publicDir": "looptv/public",
-      "stack": "next-static",
-      "headFile": "looptv/src/app/layout.tsx",
+      "preserveFiles": ["api-ai.json"],
+      "stack": "astro-static",
+      "headFile": "looptv/src/layouts/BaseLayout.astro",
       "schemaType": "SoftwareApplication",
       "sameAs": [
         "https://github.com/Significant-Hobbies/looptv"
@@ -490,9 +491,24 @@
           "title": "Home",
           "url": "https://tv.significanthobbies.com/",
           "description": "Player"
+        },
+        {
+          "title": "Stations",
+          "url": "https://tv.significanthobbies.com/channels",
+          "description": "Curated channel directory"
+        },
+        {
+          "title": "Catalog",
+          "url": "https://tv.significanthobbies.com/catalog",
+          "description": "Public catalog browser"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://tv.significanthobbies.com/changelog",
+          "description": "Verified product history"
         }
       ],
-      "indexMd": "# LoopTV\n\nTV-style random video player for curated channels.\n\n## Agent entrypoints\n\n- https://tv.significanthobbies.com/llms.txt\n- https://tv.significanthobbies.com/api/ai\n- https://tv.significanthobbies.com/index.md\n"
+      "indexMd": "# LoopTV\n\nA lean-back player that turns curated public YouTube channels into television-style stations.\n\n## How it works\n\n- Pick a station or start one at random.\n- LoopTV selects clips from a checked-in, periodically refreshed catalog.\n- YouTube embeds provide playback; LoopTV needs no runtime API key.\n- Watch history, saved videos, and preferences remain in browser storage.\n\n## Agent entrypoints\n\n- https://tv.significanthobbies.com/llms.txt\n- https://tv.significanthobbies.com/api/ai\n- https://tv.significanthobbies.com/index.md\n"
     },
     {
       "id": "anime-list",
