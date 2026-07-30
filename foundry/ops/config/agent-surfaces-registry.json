@@ -568,7 +568,9 @@
         {
           "title": "Login",
           "url": "https://read.significanthobbies.com/login",
-          "description": "Sign in"
+          "md": "https://read.significanthobbies.com/login.md",
+          "description": "Sign in",
+          "markdown": "# Reader sign in\n\nReader requires authentication before a personal research library can be opened. Library items, annotations, chat history, and AI-generated answers are private and are not agent-indexed.\n"
         }
       ],
       "indexMd": "# Reader\n\nResearch library for capture, annotation, and AI chat over your reading.\n\n## Privacy\n\nPersonal libraries require auth and are not agent-indexed. Public marketing surfaces only.\n\n## Agent entrypoints\n\n- https://read.significanthobbies.com/llms.txt\n- https://read.significanthobbies.com/api/ai\n- https://read.significanthobbies.com/index.md\n"
@@ -593,6 +595,20 @@
           "title": "Home",
           "url": "https://mail.significanthobbies.com/",
           "description": "App shell"
+        },
+        {
+          "title": "FAQ",
+          "url": "https://mail.significanthobbies.com/faq",
+          "md": "https://mail.significanthobbies.com/faq.md",
+          "description": "Privacy, semantic search, subscriptions, and sender analytics questions",
+          "markdown": "# Kinetic FAQ\n\nKinetic is a local-first, read-only Gmail workspace. Messages and embeddings live in the browser's IndexedDB; the Worker proxies live Gmail API calls and stores authentication records but does not keep a server-side inbox copy.\n\nKinetic requests `gmail.readonly`. It cannot compose, reply, archive, or delete. Semantic search uses an in-browser Hugging Face Transformers ONNX model, and subscription actions always require an explicit user click.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://mail.significanthobbies.com/changelog",
+          "md": "https://mail.significanthobbies.com/changelog.md",
+          "description": "Verified product, privacy, reliability, and operations changes",
+          "markdown": "# Kinetic changelog\n\nVerified product, privacy, reliability, and operations changes. Planned work stays in GitHub Issues. The public changelog records the Vite and Hono migration, privacy-safe sync evidence, simplified inbox navigation, and release-gate improvements.\n"
         }
       ],
       "generateSitemap": true,
