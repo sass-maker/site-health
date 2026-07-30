@@ -685,7 +685,7 @@
       "url": "https://ai-gateway.sassmaker.com",
       "summary": "OpenAI-compatible LLM gateway fronting free-tier models across multiple providers.",
       "publicDir": "free-ai/site/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": ["api-ai.json", "index.md", "sitemap.xml"],
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "free-ai/site/src/pages/index.astro",
