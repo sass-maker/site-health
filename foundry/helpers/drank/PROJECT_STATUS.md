@@ -44,6 +44,10 @@ Last updated: 2026-07-18
 
 ## Timeline
 
+- **2026-07-31** — Aligned search and agent discovery to the three canonical
+  public pages. The HTML sitemap now derives from the generated agent catalog,
+  query-string duplicates are excluded, and Home, Data, and Changelog each
+  have substantive Markdown plus route-correct canonical and social metadata.
 - **2026-07-29** — Added the owned `/changelog` surface with verified editorial
   release history. The dashboard links to it alongside the GitHub Issues
   roadmap and canonical Fleet source directory.

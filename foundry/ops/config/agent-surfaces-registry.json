@@ -490,8 +490,6 @@
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
       "publicDir": "foundry/helpers/drank/public",
       "preserveFiles": [
-        "llms.txt",
-        "llms-full.txt",
         "robots.txt"
       ],
       "stack": "next-static",
@@ -504,10 +502,26 @@
         {
           "title": "Home",
           "url": "https://domains.sassmaker.com/",
-          "description": "Domain rating tracker"
+          "description": "Track Domain Rating history locally without an account",
+          "md": "https://domains.sassmaker.com/index.md",
+          "markdown": "# DRank\n\nDRank is a browser-local Domain Rating tracker. It combines shared, weekly observations for public example domains with private lists and history that stay in the operator's browser.\n\n## What the dashboard shows\n\n- Current Ahrefs Domain Rating observations\n- Historical changes and trend direction\n- Public examples and an operator's own saved domains\n- An optional, evidence-bounded explanation of a measured change\n\nDomain Rating is a third-party authority signal, not a search ranking or a guarantee. Personal domain lists, predictions, and advice history remain in browser storage; DRank has no account system or server-side personal database.\n"
+        },
+        {
+          "title": "Public DR dataset",
+          "url": "https://domains.sassmaker.com/data",
+          "description": "Inspect and download weekly public Domain Rating observations",
+          "md": "https://domains.sassmaker.com/data.md",
+          "markdown": "# DRank public data\n\nDRank publishes the latest available Domain Rating observations used by its public tracker.\n\n## Data files\n\n- [Fleet domain observations](https://domains.sassmaker.com/data/fleet-dr.json)\n- [Global domain observations](https://domains.sassmaker.com/data/global-dr.json)\n\nThe human data page summarizes tracked domains, observation counts, latest values, and weekly movers from the same committed dataset.\n\nEach observation is evidence, not a promise of search rank. Domain Rating is a third-party authority signal and can change when the upstream dataset is refreshed.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://domains.sassmaker.com/changelog",
+          "description": "Verified DRank product and release history",
+          "md": "https://domains.sassmaker.com/changelog.md",
+          "markdown": "# DRank changelog\n\nVerified milestones for the browser-local Domain Rating tracker.\n\n## July 13, 2026 — Evidence-bounded DR Advisor\n\nDRank added an explicit explanation action grounded only in the selected domain's observed rating and bounded trend context. Advice remains optional and browser-local.\n\n## July 2, 2026 — Static application resilience\n\nThe Next.js application gained route and global error boundaries, and unused Web Vitals code was removed.\n\n## Weekly dataset refresh\n\nThe shared public Domain Rating dataset is refreshed by a scheduled GitHub workflow. Personal lists and history are not part of that shared pipeline.\n"
         }
       ],
-      "indexMd": "# DRank\n\nAhrefs Domain Rating tracker for fleet domains.\n\n## Agent entrypoints\n\n- https://domains.sassmaker.com/llms.txt\n- https://domains.sassmaker.com/api/ai\n- https://domains.sassmaker.com/index.md\n"
+      "indexMd": "# DRank\n\nBrowser-local Domain Rating history for public examples and private operator lists.\n\n## Agent entrypoints\n\n- https://domains.sassmaker.com/llms.txt\n- https://domains.sassmaker.com/api/ai\n- https://domains.sassmaker.com/index.md\n"
     },
     {
       "id": "looptv",
