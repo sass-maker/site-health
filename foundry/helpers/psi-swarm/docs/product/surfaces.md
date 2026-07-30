@@ -115,8 +115,8 @@ flags to use. Codex users: copy the "For Codex users" section from
 
 ## Public agent-indexing surfaces
 
-The deployed site exposes machine-readable entrypoints under `site/public/`
-(copied into the web build):
+The deployed site exposes machine-readable entrypoints directly from
+`web/public/`, the Astro build's canonical static asset directory:
 
 | File | Purpose |
 | --- | --- |

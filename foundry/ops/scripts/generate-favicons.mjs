@@ -340,7 +340,7 @@ const TARGETS = {
     public: ["swe-interview-prep/public"],
   },
   "psi-swarm": {
-    public: ["foundry/helpers/psi-swarm/site/public"],
+    public: ["foundry/helpers/psi-swarm/web/public"],
   },
 };
 
