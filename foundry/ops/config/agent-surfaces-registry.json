@@ -282,8 +282,6 @@
       "url": "https://starboard.codevetter.com",
       "summary": "GitHub stars organizer with semantic search — sub-product of CodeVetter for repo intelligence.",
       "publicDir": "starboard/public",
-      "preserveFiles": ["api-ai.json"],
-      "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "starboard/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -298,12 +296,49 @@
           "description": "Product"
         },
         {
-          "title": "CodeVetter",
-          "url": "https://codevetter.com/",
-          "description": "Parent product"
+          "title": "Discover",
+          "url": "https://starboard.codevetter.com/discover",
+          "md": "https://starboard.codevetter.com/discover.md",
+          "description": "Browse and search the seeded public repository corpus",
+          "markdown": "# Discover repositories\n\nBrowse, search, sort, filter, and paginate Starboard's seeded public GitHub repository corpus without signing in. Authentication adds saved state and collection controls but is not required to inspect public repository metadata.\n"
+        },
+        {
+          "title": "Tools",
+          "url": "https://starboard.codevetter.com/tools",
+          "md": "https://starboard.codevetter.com/tools.md",
+          "description": "Detected tool and framework intelligence",
+          "markdown": "# Starboard tool intelligence\n\nExplore detected tools, frameworks, and platforms across the public repository corpus. Source and confidence labels distinguish manifest or SBOM evidence from weaker README, topic, or metadata inference.\n"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://starboard.codevetter.com/changelog",
+          "md": "https://starboard.codevetter.com/changelog.md",
+          "description": "Verified product history",
+          "markdown": "# Starboard changelog\n\nVerified updates to repository discovery, search, recommendations, alerts, reports, deployment provenance, and database efficiency. Planned work remains in GitHub Issues.\n"
+        },
+        {
+          "title": "About",
+          "url": "https://starboard.codevetter.com/about",
+          "md": "https://starboard.codevetter.com/about.md",
+          "description": "Product purpose and scope",
+          "markdown": "# About Starboard\n\nStarboard turns a large GitHub star list into a searchable personal knowledge base. It combines organization, semantic and full-text search, public discovery, fleet-aware recommendations, maintainer signals, alerts, and shareable reports.\n"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://starboard.codevetter.com/privacy",
+          "md": "https://starboard.codevetter.com/privacy.md",
+          "description": "Privacy and data handling",
+          "markdown": "# Starboard privacy\n\nPublic discovery uses a shared seeded GitHub repository corpus. Personal stars, tags, collections, comments, votes, alerts, and reports require GitHub authentication and remain scoped to the signed-in user unless explicitly shared through a report or list.\n"
+        },
+        {
+          "title": "Terms",
+          "url": "https://starboard.codevetter.com/terms",
+          "md": "https://starboard.codevetter.com/terms.md",
+          "description": "Terms of use",
+          "markdown": "# Starboard terms\n\nTerms for using Starboard's GitHub repository organization, discovery, recommendation, and reporting surfaces. GitHub repository metadata remains subject to its upstream licenses and terms.\n"
         }
       ],
-      "indexMd": "# Starboard\n\nGitHub stars organizer + semantic search (CodeVetter sub-product).\n\n## What it is\n\n- Organize and search starred repositories\n- Semantic search over star metadata\n\n## Agent entrypoints\n\n- https://starboard.codevetter.com/llms.txt\n- https://starboard.codevetter.com/api/ai\n- https://starboard.codevetter.com/index.md\n"
+      "indexMd": "# Starboard\n\nGitHub stars organizer, repository discovery surface, and semantic search product.\n\n## Public without sign-in\n\n- Browse and search the seeded Discover corpus\n- Inspect detected tool and framework intelligence\n- Read the product history, scope, privacy policy, and terms\n\n## With GitHub sign-in\n\n- Sync and organize personal stars with tags and collections\n- Search starred repositories and receive fleet-aware recommendations\n- Track maintainer signals, alerts, and shareable insight reports\n\n## Agent entrypoints\n\n- https://starboard.codevetter.com/llms.txt\n- https://starboard.codevetter.com/api/ai\n- https://starboard.codevetter.com/index.md\n"
     },
     {
       "id": "everythingrated",
