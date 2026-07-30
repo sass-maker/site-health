@@ -11,8 +11,9 @@
  *   node agent-index-audit.mjs --all --summary-json
  *   node agent-index-audit.mjs --project rolepatch
  *
- * Targets come from foundry/ops/config/agent-surfaces-registry.json (the
- * canonical product list). Does NOT call isitagentready.com (rate limits).
+ * Target membership and primary domains come from projects.json. Per-product
+ * indexing metadata comes from agent-surfaces-registry.json and is validated
+ * against that canonical list. Does NOT call isitagentready.com (rate limits).
  * Probes origins directly and detects SPA-fake HTML shells on agent paths.
  *
  * Required checks: llms.txt, /api/ai, homepage markdown, not-SPA-fake,
@@ -144,7 +145,7 @@ function printHelp() {
   agent-index-audit.mjs --project <registry-id>
   agent-index-audit.mjs --all [--json | --summary-json]
 
-Targets: foundry/ops/config/agent-surfaces-registry.json
+Targets: maintained projects from foundry/ops/config/projects.json
 `);
 }
 

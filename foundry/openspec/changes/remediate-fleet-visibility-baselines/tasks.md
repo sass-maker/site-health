@@ -6,6 +6,8 @@
 - [x] 1.2 Reject placeholder or incomplete design evidence instead of projecting
   a zero score.
 - [x] 1.3 Add focused regression coverage for both cases.
+- [x] 1.4 Make `projects.json` the only visibility inventory and reject missing,
+  extra, duplicate, or wrong-domain agent-surface metadata.
 
 ## 2. Shared agent surfaces
 
@@ -26,3 +28,5 @@
 - [x] 4.1 Run each touched project's smallest relevant check.
 - [x] 4.2 Re-run affected Fleet metrics locally.
 - [x] 4.3 Record remaining deploy-only and off-site outcome boundaries.
+- [x] 4.4 Generate a Google sitemap submission report for every maintained
+  primary domain and explicitly separate private/API secondary hosts.

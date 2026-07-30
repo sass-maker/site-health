@@ -19,6 +19,10 @@ changes use existing route/content generators and source data. Large content
 corpora expose deterministic dynamic Markdown or catalog routes rather than
 committing one duplicate file per public page.
 
+`foundry/ops/config/projects.json` is the only inventory. The agent-surface
+registry is a metadata overlay, ordered and validated against the maintained
+catalog identities and their primary domains before any fleet-wide run.
+
 ## Audit loop
 
 For each touched project:
@@ -31,6 +35,11 @@ For each touched project:
 
 The Fleet console distinguishes unavailable measurements from real zero values
 and shows the latest valid evidence only.
+
+Google sitemap readiness is measured independently for every configured
+hostname. Only the first domain of each maintained project is a submission
+target; private Console, search, and ingestion hosts remain visible in the
+report but are not presented as public Search Console properties.
 
 ## Rollout boundary
 

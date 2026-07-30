@@ -62,6 +62,17 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Visibility inventory and sitemap reporting converged on one
+  catalog:** Removed the retired TrueHire project from active indexing,
+  submission, favicon, and repository-hygiene tooling while preserving its
+  historical catalog entry, then archived its GitHub repository. Made
+  `projects.json` the sole membership and primary-domain source for the 27
+  maintained visibility targets; agent-surface metadata now fails validation
+  on missing, extra, duplicate, or mismatched entries. Added a live,
+  recursive sitemap submission report for all 27 primary domains plus three
+  explicitly non-submit secondary hosts. The first unified production probe
+  found 20/27 primary sitemaps live; the remaining source implementations need
+  rollout or DNS correction. No deployment was performed.
 - **2026-07-31 — SaaS Maker public discovery gained one route source of
   truth:** Consolidated the directory's 33 canonical HTML routes, Markdown
   bodies, sitemap entries, and `/api/ai` surfaces into one typed registry.

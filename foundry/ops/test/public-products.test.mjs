@@ -139,7 +139,7 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
     readFile(new URL('../../apps/public/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
   ]);
-  const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');
+  const saasMaker = agentRegistry.products.find((product) => product.id === 'fleet-workspace');
   const publicSaasMaker = buildPublicProducts(projects).products.find(
     (product) => product.id === 'saas-maker',
   );
@@ -149,6 +149,19 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
   assert.equal(Object.hasOwn(publicSaasMaker, 'repositoryUrl'), false);
   assert.equal(Object.hasOwn(publicSaasMaker, 'roadmapUrl'), false);
   assert.deepEqual(saasMaker.sameAs, ['https://github.com/sass-maker']);
+});
+
+test('agent surface metadata covers the maintained project inventory exactly', async () => {
+  const agentRegistry = await readJson(
+    new URL('../config/agent-surfaces-registry.json', import.meta.url),
+  );
+  const maintainedIds = projects.projects
+    .filter((project) => project.public?.listing === 'maintained')
+    .map((project) => project.id)
+    .sort();
+  const agentIds = agentRegistry.products.map((product) => product.id).sort();
+
+  assert.deepEqual(agentIds, maintainedIds);
 });
 
 async function readJson(url) {

@@ -2,8 +2,8 @@
   "version": 1,
   "products": [
     {
-      "id": "saas-maker",
-      "name": "SaaS Maker",
+      "id": "fleet-workspace",
+      "name": "Fleet Workspace",
       "url": "https://sassmaker.com",
       "summary": "Software as a specialized service: a living studio of focused products built for particular problems.",
       "publicDir": "foundry/apps/public/public-directory/public",
@@ -240,43 +240,6 @@
       "indexMd": "# Calorie\n\nPrivate, local-first food, water, and weight journal.\n\n## Public boundary\n\n- Product explanation and optional Google sign-in\n- Deterministic methodology with visible assumptions\n- No public food, water, weight, profile, or journal data\n\n## Agent entrypoint\n\n- https://calorie.significanthobbies.com/llms.txt\n"
     },
     {
-      "id": "materia",
-      "name": "Materia",
-      "url": "https://materia.significanthobbies.com",
-      "summary": "Evidence-graded reference for remedies organized by body part — body → condition → remedy → compound → study, with citations.",
-      "publicDir": "materia/public",
-      "stack": "astro-static",
-      "headFile": "materia/src/layouts/BaseLayout.astro",
-      "schemaType": "WebSite",
-      "sameAs": [
-        "https://github.com/Significant-Hobbies/materia"
-      ],
-      "productLinks": [
-        {
-          "title": "Home",
-          "url": "https://materia.significanthobbies.com/",
-          "description": "Body explorer"
-        },
-        {
-          "title": "Parts",
-          "url": "https://materia.significanthobbies.com/parts",
-          "description": "By anatomical system"
-        },
-        {
-          "title": "Remedies",
-          "url": "https://materia.significanthobbies.com/remedies",
-          "description": "Evidence-graded remedies"
-        },
-        {
-          "title": "Methodology",
-          "url": "https://materia.significanthobbies.com/methodology",
-          "description": "How grades are assigned"
-        }
-      ],
-      "indexMd": "# Materia\n\nEvidence-graded body, supplement, herb, and drug reference.\n\n## What it is\n\n- Layered body explorer into a knowledge graph\n- Body part → condition → remedy → compound → study\n- Every remedy evidence-graded and study-cited\n- Ad-free; not medical advice\n\n## Agent entrypoints\n\n- https://materia.significanthobbies.com/llms.txt\n- https://materia.significanthobbies.com/api/ai\n- https://materia.significanthobbies.com/index.md\n\nPrefer content collection pages and methodology over inventing medical claims.\n"
-    },
-
-    {
       "id": "starboard",
       "name": "Starboard",
       "url": "https://starboard.codevetter.com",
@@ -339,55 +302,6 @@
         }
       ],
       "indexMd": "# Starboard\n\nGitHub stars organizer, repository discovery surface, and semantic search product.\n\n## Public without sign-in\n\n- Browse and search the seeded Discover corpus\n- Inspect detected tool and framework intelligence\n- Read the product history, scope, privacy policy, and terms\n\n## With GitHub sign-in\n\n- Sync and organize personal stars with tags and collections\n- Search starred repositories and receive fleet-aware recommendations\n- Track maintainer signals, alerts, and shareable insight reports\n\n## Agent entrypoints\n\n- https://starboard.codevetter.com/llms.txt\n- https://starboard.codevetter.com/api/ai\n- https://starboard.codevetter.com/index.md\n"
-    },
-    {
-      "id": "everythingrated",
-      "name": "EverythingRated",
-      "url": "https://ratings.highsignal.app",
-      "summary": "Multi-axis rating tool for structured directories and catalogs — decisions with explicit trade-offs, not star averages.",
-      "publicDir": "everythingrated/apps/web/public",
-      "stack": "opennext",
-      "headFile": "everythingrated/apps/web/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
-      "sameAs": [
-        "https://github.com/High-Signal-App/everythingrated"
-      ],
-      "worker": "everythingrated/apps/web/worker.mjs",
-      "productLinks": [
-        {
-          "title": "Home",
-          "url": "https://ratings.highsignal.app/",
-          "description": "Directories and ratings"
-        }
-      ],
-      "indexMd": "# EverythingRated\n\nMulti-axis ratings for structured directories and catalogs.\n\n## What it is\n\n- Rate items on multiple axes (not a single star score)\n- Built for AI/dev tool and catalog decisions\n\n## Agent entrypoints\n\n- https://ratings.highsignal.app/llms.txt\n- https://ratings.highsignal.app/api/ai\n- https://ratings.highsignal.app/index.md\n"
-    },
-    {
-      "id": "truehire",
-      "name": "TrueHire",
-      "url": "https://truehire.rolepatch.com",
-      "summary": "Hiring-side companion under RolePatch for evaluating candidates with structured role fit.",
-      "publicDir": "truehire/apps/web/public",
-      "stack": "opennext",
-      "headFile": "truehire/apps/web/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
-      "sameAs": [
-        "https://github.com/sarthakagrawal927/truehire"
-      ],
-      "worker": "truehire/apps/web/worker.mjs",
-      "productLinks": [
-        {
-          "title": "Home",
-          "url": "https://truehire.rolepatch.com/",
-          "description": "Product"
-        },
-        {
-          "title": "RolePatch",
-          "url": "https://rolepatch.com/",
-          "description": "Parent product"
-        }
-      ],
-      "indexMd": "# TrueHire\n\nHiring companion related to RolePatch for structured candidate evaluation.\n\n## Agent entrypoints\n\n- https://truehire.rolepatch.com/llms.txt\n- https://truehire.rolepatch.com/api/ai\n- https://truehire.rolepatch.com/index.md\n"
     },
     {
       "id": "research-papers",
@@ -801,33 +715,8 @@
       "indexMd": "# psi-swarm\n\nDistributional Lighthouse performance audits for the fleet.\n\n## Agent entrypoints\n\n- https://performance.sassmaker.com/llms.txt\n- https://performance.sassmaker.com/api/ai\n- https://performance.sassmaker.com/index.md\n"
     },
     {
-      "id": "protein-index",
-      "name": "Protein Index",
-      "url": "https://protein.significanthobbies.com",
-      "summary": "A searchable index of proteins.",
-      "publicDir": "protein-index/public",
-      "stack": "vite-spa",
-      "headFile": "protein-index/index.html",
-      "schemaType": "WebSite",
-      "indexMd": "# Protein Index\n\nSearchable protein index.\n"
-    },
-    {
-      "id": "open-historia",
-      "name": "Open Historia",
-      "url": "https://historia.aliveville.com",
-      "summary": "AI-powered grand-strategy history game — command nations through natural language.",
-      "publicDir": "open-historia/public",
-      "stack": "vite-spa",
-      "schemaType": "SoftwareApplication",
-      "applicationCategory": "GameApplication",
-      "sameAs": [
-        "https://github.com/sarthakagrawal927/open-historia"
-      ],
-      "indexMd": "# Open Historia\n\nAI grand-strategy history game.\n"
-    },
-    {
-      "id": "knowledgebase-app",
-      "name": "Private Agent Search",
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
       "url": "https://knowledgebase.sassmaker.com",
       "summary": "Cited search + grounded answers over private, specialized document collections (RAG).",
       "publicDir": "knowledge-base/app/public",
@@ -954,35 +843,6 @@
       "indexMd": "# Setline\n\nBuild the plan once. Follow it precisely every day.\n\n## What it is\n\n- Mobile-first workout execution for a structured programme\n- Exact authored exercise and set order\n- Explicit recorded, calculated, adjusted, and unavailable values\n- Device-first active workouts with optional private sync\n\n## Agent entrypoints\n\n- https://setline.significanthobbies.com/llms.txt\n- https://setline.significanthobbies.com/api/ai\n- https://setline.significanthobbies.com/index.md\n"
     },
     {
-      "id": "india-standards",
-      "name": "India Standards",
-      "url": "https://india-numbers.significanthobbies.com",
-      "summary": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
-      "publicDir": "india-standards/public",
-      "stack": "opennext",
-      "headFile": "india-standards/app/layout.tsx",
-      "schemaType": "WebApplication",
-      "sameAs": [
-        "https://github.com/Significant-Hobbies/india-standards"
-      ],
-      "worker": "india-standards/worker.mjs",
-      "productLinks": [
-        {
-          "title": "Home",
-          "url": "https://india-numbers.significanthobbies.com/",
-          "description": "Demographic standards calculator"
-        },
-        {
-          "title": "Changelog",
-          "url": "https://india-numbers.significanthobbies.com/changelog",
-          "description": "Verified product releases",
-          "markdown": "# India Standards changelog\n\nThe owned changelog records verified releases for the aggregate-only PLFS preview, explicit uncertainty, sparse-cell widening, hosted estimates, and responsive calculator workbench.\n"
-        }
-      ],
-      "generateSitemap": true,
-      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-numbers.significanthobbies.com/llms.txt\n- https://india-numbers.significanthobbies.com/api/ai\n- https://india-numbers.significanthobbies.com/index.md\n"
-    },
-    {
       "id": "motion",
       "name": "Motion",
       "url": "https://motion.significanthobbies.com",
@@ -1013,18 +873,40 @@
       "indexMd": "# Motion\n\nUse your body as a game controller.\n\n## Product boundary\n\n- An iPhone performs body-pose detection on device\n- The game runs on the phone and can be screen-mirrored to a TV\n- Only normalized joints can enter the parked relay preview; camera frames are never transmitted or stored\n- The internal game, camera, and room routes are not public website surfaces\n\n## Agent entrypoints\n\n- https://motion.significanthobbies.com/llms.txt\n- https://motion.significanthobbies.com/api/ai\n- https://motion.significanthobbies.com/index.md\n"
     },
     {
-      "id": "saas-ideas",
-      "name": "SaaS Ideas",
-      "url": "https://ideas.sassmaker.com",
-      "summary": "A scored, sortable catalog of SaaS product ideas.",
-      "publicDir": "saas-ideas/docs",
-      "stack": "static",
-      "headFile": "saas-ideas/docs/index.html",
+      "id": "what-it-takes-to-win",
+      "name": "What It Takes to Win",
+      "url": "https://paths.significanthobbies.com",
+      "summary": "Explore documented early-breakthrough paths without pretending success follows a formula.",
       "schemaType": "WebSite",
       "sameAs": [
-        "https://github.com/sass-maker/saas-ideas"
+        "https://github.com/Significant-Hobbies/what-it-takes-to-win"
       ],
-      "indexMd": "# SaaS Ideas\n\nScored catalog of SaaS product ideas.\n"
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://paths.significanthobbies.com/",
+          "description": "Explore documented success paths"
+        }
+      ],
+      "indexMd": "# What It Takes to Win\n\nEvidence-backed paths to early achievement.\n"
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "url": "https://sarthakagrawal.dev",
+      "summary": "Personal portfolio and concise front door to active work.",
+      "schemaType": "ProfilePage",
+      "sameAs": [
+        "https://github.com/sarthakagrawal927"
+      ],
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://sarthakagrawal.dev/",
+          "description": "Portfolio"
+        }
+      ],
+      "indexMd": "# Sarthak Agrawal\n\nPersonal portfolio and front door to active work.\n"
     }
   ]
 }

@@ -119,16 +119,6 @@ const ICONS = {
       <circle cx="23" cy="23" r="3.2" fill="#eab308"/>
     `,
   },
-  truehire: {
-    bg: "#0f172a",
-    fg: "#34d399",
-    note: "verified hire check badge",
-    mark: `
-      <path fill="#1e293b" d="M16 5.2 24.5 8.5v7.2c0 5.2-3.5 9.4-8.5 11.1-5-1.7-8.5-5.9-8.5-11.1V8.5z"/>
-      <path fill="#34d399" d="M16 7.2 22.8 9.8v6c0 4.1-2.7 7.4-6.8 8.8-4.1-1.4-6.8-4.7-6.8-8.8v-6z"/>
-      <path fill="none" stroke="#0f172a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M11.5 16.2 14.6 19.2 20.8 12.6"/>
-    `,
-  },
   "research-papers": {
     bg: "#0b0f14",
     fg: "#4ea1ff",
@@ -297,10 +287,6 @@ const TARGETS = {
   everythingrated: {
     public: ["everythingrated/apps/web/public"],
     appSvg: ["everythingrated/apps/web/src/app"],
-  },
-  truehire: {
-    public: ["truehire/apps/web/public"],
-    appSvg: ["truehire/apps/web/src/app"],
   },
   "research-papers": {
     public: ["research-papers/web/public"],
