@@ -8,6 +8,7 @@
  *   node agent-index-audit.mjs https://rolepatch.com
  *   node agent-index-audit.mjs --all
  *   node agent-index-audit.mjs --all --json
+ *   node agent-index-audit.mjs --all --summary-json
  *   node agent-index-audit.mjs --project rolepatch
  *
  * Targets come from foundry/ops/config/agent-surfaces-registry.json (the
@@ -87,8 +88,17 @@ async function main() {
     }
   }
 
-  if (args.json) {
-    console.log(JSON.stringify({ generatedAt: new Date().toISOString(), results }, null, 2));
+  if (args.json || args.summaryJson) {
+    const outputResults = args.summaryJson
+      ? results.map(summarizeResult)
+      : results;
+    console.log(
+      JSON.stringify(
+        { generatedAt: new Date().toISOString(), results: outputResults },
+        null,
+        2,
+      ),
+    );
   } else {
     printScoreboard(results);
   }
@@ -102,10 +112,17 @@ async function main() {
 }
 
 function parseArgs(argv) {
-  const args = { json: false, all: false, project: null, urls: [] };
+  const args = {
+    json: false,
+    summaryJson: false,
+    all: false,
+    project: null,
+    urls: [],
+  };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--json') args.json = true;
+    else if (a === '--summary-json') args.summaryJson = true;
     else if (a === '--all') args.all = true;
     else if (a === '--project') args.project = argv[++i];
     else if (a === '--help' || a === '-h') {
@@ -125,10 +142,30 @@ function printHelp() {
   console.log(`Usage:
   agent-index-audit.mjs <url>
   agent-index-audit.mjs --project <registry-id>
-  agent-index-audit.mjs --all [--json]
+  agent-index-audit.mjs --all [--json | --summary-json]
 
 Targets: foundry/ops/config/agent-surfaces-registry.json
 `);
+}
+
+function summarizeResult(result) {
+  return {
+    name: result.name,
+    origin: result.origin,
+    ...(result.id ? { id: result.id } : {}),
+    ...(result.error ? { error: result.error } : {}),
+    tier: result.tier,
+    score: result.score,
+    checks: Object.fromEntries(
+      Object.entries(result.checks || {}).map(([id, check]) => [
+        id,
+        {
+          status: check.status,
+          detail: check.detail,
+        },
+      ]),
+    ),
+  };
 }
 
 function loadIndexNowKey() {

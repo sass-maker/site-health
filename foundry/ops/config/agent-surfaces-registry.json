@@ -196,7 +196,9 @@
         {
           "title": "Explore",
           "url": "https://significanthobbies.com/explore",
-          "description": "Public hobby timelines"
+          "description": "Public hobby timelines",
+          "md": "https://significanthobbies.com/explore.md",
+          "markdown": "# Explore Significant Hobbies\n\nBrowse public hobby timelines, side quests, bucket-list progress, and the rituals people choose to share. Private plans and personal progress remain outside the public index.\n"
         }
       ],
       "indexMd": "# Significant Hobbies\n\nLife planner: private daily rituals + public living (hobbies, bucket lists, side quests).\n\n## What it is\n\n- Hobby timelines and public exploration\n- Private rituals and progress tracking\n- Editorial content for agents at `/llms-full.txt`\n\n## Agent entrypoints\n\n- https://significanthobbies.com/llms.txt\n- https://significanthobbies.com/llms-full.txt\n- https://significanthobbies.com/api/ai\n- https://significanthobbies.com/index.md\n\nAuth-walled personal data is not agent-indexed.\n"
@@ -451,6 +453,11 @@
       "url": "https://domains.sassmaker.com",
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
       "publicDir": "foundry/helpers/drank/public",
+      "preserveFiles": [
+        "llms.txt",
+        "llms-full.txt",
+        "robots.txt"
+      ],
       "stack": "next-static",
       "headFile": "foundry/helpers/drank/app/layout.tsx",
       "schemaType": "SoftwareApplication",
@@ -649,7 +656,12 @@
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
       "publicDir": "foundry/helpers/psi-swarm/site/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json",
+        "llms.txt",
+        "llms-full.txt",
+        "robots.txt"
+      ],
       "stack": "astro-static",
       "altPublicDirs": [
         "foundry/helpers/psi-swarm/public"
@@ -663,7 +675,9 @@
         {
           "title": "Projects",
           "url": "https://performance.sassmaker.com/projects/",
-          "description": "Per-project results"
+          "description": "Per-project results",
+          "md": "https://performance.sassmaker.com/projects.md",
+          "markdown": "# PSI Swarm projects\n\nPSI Swarm groups repeated Lighthouse runs by public project origin so performance can be compared as distributions rather than as one noisy score.\n\n## What each project view shows\n\n- Recent run history\n- Lighthouse performance distributions\n- Core Web Vitals when evidence is available\n- Source URL and observation time\n\nFailed or missing runs remain unmeasured; they are never converted into a zero score.\n"
         }
       ],
       "indexMd": "# psi-swarm\n\nDistributional Lighthouse performance audits for the fleet.\n\n## Agent entrypoints\n\n- https://performance.sassmaker.com/llms.txt\n- https://performance.sassmaker.com/api/ai\n- https://performance.sassmaker.com/index.md\n"

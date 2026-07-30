@@ -25,16 +25,19 @@ export function GET() {
             description: 'Software as a specialized service: a living studio of focused products',
           },
           {
+            id: 'learnings',
+            url: 'https://sassmaker.com/learnings',
+            md: 'https://sassmaker.com/learnings.md',
+            kind: 'collection',
+            description: 'First-party builder notes and agent-tooling learnings',
+          },
+        ],
+        externalResources: [
+          {
             id: 'feedback-package',
             url: PACKAGE_URL,
             kind: 'documentation',
             description: 'Published callback-only feedback package and README',
-          },
-          {
-            id: 'learnings',
-            url: 'https://sassmaker.com/learnings',
-            kind: 'collection',
-            description: 'First-party builder notes and agent-tooling learnings',
           },
         ],
         auth: { public: true, notes: 'Private Fleet controls are intentionally excluded.' },

@@ -94,6 +94,16 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
     integrityPercent: 100,
     failures: [],
   });
+
+  const { stdout: summaryStdout } = await execFileAsync(
+    process.execPath,
+    [auditor.pathname, origin, '--summary-json'],
+    { maxBuffer: 2_000_000 },
+  );
+  const summary = JSON.parse(summaryStdout).results[0];
+  assert.equal(summary.tier, 'S');
+  assert.equal(summary.checks.route_markdown.status, 'pass');
+  assert.equal(summary.checks.route_markdown.data, undefined);
 });
 
 function send(response, contentType, body) {

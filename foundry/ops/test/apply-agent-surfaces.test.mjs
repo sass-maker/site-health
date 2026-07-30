@@ -10,6 +10,16 @@ function dryRun(projectId) {
   });
 }
 
+test('prints help without applying registered products', () => {
+  const output = execFileSync(process.execPath, [script.pathname, '--help'], {
+    encoding: 'utf8',
+  });
+
+  assert.match(output, /Usage:/);
+  assert.match(output, /--force-preserved/);
+  assert.doesNotMatch(output, /Done\. files=/);
+});
+
 test('preserves product-specific discovery files unless explicitly forced', () => {
   const output = dryRun('motion');
 
@@ -28,4 +38,16 @@ test('preserves custom runtime handlers while retaining worker wiring checks', (
   assert.match(output, /agent-edge\.mjs preserved/);
   assert.match(output, /agent-edge\.d\.mts preserved/);
   assert.match(output, /worker already wired/);
+});
+
+test('preserves curated helper discovery copy', () => {
+  const drank = dryRun('drank');
+  const psi = dryRun('psi-swarm');
+
+  assert.match(drank, /llms\.txt preserved/);
+  assert.match(drank, /llms-full\.txt preserved/);
+  assert.match(drank, /robots preserved/);
+  assert.match(psi, /llms\.txt preserved/);
+  assert.match(psi, /llms-full\.txt preserved/);
+  assert.match(psi, /robots preserved/);
 });
