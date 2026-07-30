@@ -2,7 +2,7 @@
 import Footer from '../components/Footer.astro';
 import Nav from '../components/Nav.astro';
 import { CHANGELOG } from '../data/changelog';
-import { PUBLIC_REPOSITORY_URL, ROADMAP_URL } from '../data/links';
+import { GITHUB_ORG_URL } from '../data/links';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -20,12 +20,11 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <aside class="changelog-intro">
           <p>
-            A concise record of meaningful changes to SaaS Maker. Future work
-            belongs in GitHub Issues; this page records what actually shipped.
+            A concise record of meaningful changes to SaaS Maker. This page
+            records what actually shipped.
           </p>
           <nav aria-label="Project resources">
-            <a href={ROADMAP_URL} target="_blank" rel="noopener noreferrer">Roadmap <span aria-hidden="true">↗</span></a>
-            <a href={PUBLIC_REPOSITORY_URL} target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+            <a href={GITHUB_ORG_URL} target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           </nav>
         </aside>
       </header>

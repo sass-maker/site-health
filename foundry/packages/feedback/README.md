@@ -2,7 +2,7 @@
 
 A backend-free React feedback widget with optional screenshots and Pinpoint
 page-element context. The package renders the interface; your application owns
-submission and storage.
+the destination, storage, and retention.
 
 ## Install
 
@@ -10,7 +10,7 @@ submission and storage.
 pnpm add @saas-maker/feedback
 ```
 
-## Quick start
+## Quick start: callback
 
 ```tsx
 import { FeedbackWidget } from '@saas-maker/feedback'
@@ -36,8 +36,42 @@ export function AppFeedback() {
 }
 ```
 
-`onSubmit` may send an email, create an issue, call your own API, or write to any
-system your product already uses. The widget performs no network requests.
+`onSubmit` may send an email, create an issue, call an authenticated API, or
+write to any system your product already uses.
+
+## Quick start: ingestion URL
+
+Use `ingestionUrl` when your caller-owned endpoint accepts the package's stable
+multipart contract:
+
+```tsx
+import { FeedbackWidget } from '@saas-maker/feedback'
+import '@saas-maker/feedback/dist/index.css'
+
+export function AppFeedback() {
+  return <FeedbackWidget ingestionUrl="/api/feedback" />
+}
+```
+
+The destination may be a relative path or an absolute HTTP(S) URL. Cross-origin
+destinations must allow the request through CORS. The package sends no cookies,
+authorization, project key, or other credentials. Use `onSubmit` instead when
+the destination requires authentication or a different payload.
+
+Configure exactly one of `onSubmit` and `ingestionUrl`.
+
+### Endpoint contract
+
+URL mode sends one `POST` with a `FormData` body:
+
+| Field | Value |
+|---|---|
+| `feedback` | JSON string containing the submission without `screenshot` |
+| `screenshot` | Original image file when supplied; otherwise omitted |
+
+The widget displays success only after a 2xx response. A network failure or
+non-2xx response keeps the form data available and shows an error. Requests are
+never retried automatically.
 
 ## Payload
 
@@ -63,14 +97,15 @@ interface FeedbackSubmission {
 }
 ```
 
-The success state appears only after `onSubmit` resolves. If it throws, the
-message is shown in the form.
+The success state appears only after the selected destination succeeds.
+Callback errors and URL ingestion failures are shown in the form.
 
 ## Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `onSubmit` | `(feedback) => void \| Promise<void>` | required | Product-owned submission |
+| `onSubmit` | `(feedback) => void \| Promise<void>` | XOR | Product-owned submission callback |
+| `ingestionUrl` | `string` | XOR | Caller-owned HTTP(S) multipart endpoint |
 | `userEmail` | `string` | — | Pre-filled email |
 | `userName` | `string` | — | Pre-filled name |
 | `requireEmail` | `boolean` | `false` | Require an email before submission |
@@ -83,22 +118,23 @@ message is shown in the form.
 
 ## Pinpoint
 
-Pinpoint lets the user click a page element. The callback receives a selector,
+Pinpoint lets the user click a page element. The submission receives a selector,
 visible text, page path, and source hint when React development metadata or a
-`data-source` attribute is available. No data leaves the browser until your
-callback sends it.
+`data-source` attribute is available. Nothing is submitted until the user
+explicitly sends the form.
 
 ## Screenshots
 
-JPEG, PNG, GIF, and WebP files up to 5 MB can be attached. The callback receives
-the original `File`; the package does not upload or retain it. Process the file
-before the callback resolves if it must be stored.
+JPEG, PNG, GIF, and WebP files up to 5 MB can be attached. Callback mode receives
+the original `File`; URL mode uploads it in the `screenshot` multipart field.
+The package does not retain it.
 
 ## Privacy
 
-Your product controls the destination and retention policy. Disclose collected
-feedback, identity fields, screenshots, and page-element context in your own
-privacy policy where appropriate.
+Your product controls the endpoint, authentication, destination, and retention
+policy. Disclose collected feedback, identity fields, screenshots, and
+page-element context in your own privacy policy where appropriate. Never place
+a secret in client-side widget configuration.
 
 ## Compatibility
 

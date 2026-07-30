@@ -1,1 +1,1 @@
-../../../apps/internal/psi-swarm/SKILL.md
+../../../helpers/psi-swarm/SKILL.md

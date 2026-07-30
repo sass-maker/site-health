@@ -4,6 +4,9 @@ const base = document.querySelector<HTMLMetaElement>('meta[name="founder-api-bas
 const connection = document.querySelector<HTMLElement>("[data-founder-connection]");
 const connectionLabel = document.querySelector<HTMLElement>("[data-founder-connection-label]");
 const date = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" });
+const day = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeZone: "Asia/Kolkata" });
+let selectedProjectId = "";
+let selectedProjectName = "All projects";
 
 function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -22,6 +25,17 @@ function element<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
+function svgElement<K extends keyof SVGElementTagNameMap>(
+  tag: K,
+  attributes: Record<string, string> = {},
+  children: SVGElement[] = [],
+) {
+  const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+  node.append(...children);
+  return node;
+}
+
 function state(value: string) {
   return element("span", { class: `state ${value}` }, [value.replaceAll("-", " ")]);
 }
@@ -29,6 +43,28 @@ function state(value: string) {
 function formatted(value?: string | null) {
   if (!value || !Number.isFinite(Date.parse(value))) return "No verified time";
   return date.format(new Date(value));
+}
+
+function formattedDay(value?: string | null) {
+  if (!value || !Number.isFinite(Date.parse(value))) return "No verified date";
+  return day.format(new Date(value));
+}
+
+function compactNumber(value: number) {
+  return new Intl.NumberFormat("en", { notation: value >= 10_000 ? "compact" : "standard", maximumFractionDigits: 1 }).format(value);
+}
+
+function bytes(value: number) {
+  if (!Number.isFinite(value) || value <= 0) return "0 B";
+  if (value < 1024) return `${value} B`;
+  return `${(value / 1024).toFixed(value < 10 * 1024 ? 1 : 0)} KB`;
+}
+
+function titleCase(value: string) {
+  return value
+    .replaceAll("-", " ")
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 async function api(path: string) {
@@ -71,6 +107,63 @@ function replace(id: string, content: Node) {
 
 function missionHref(id: string) {
   return `/missions?id=${encodeURIComponent(id)}`;
+}
+
+function projectHref(id: string) {
+  const aliases: Record<string, string> = { "fleet-workspace": "fleet-ops" };
+  return `/projects/${aliases[id] ?? id}`;
+}
+
+function catalogProjectId(id?: string) {
+  return id === "fleet-ops" ? "fleet-workspace" : id;
+}
+
+function consoleHref(value?: string | null) {
+  if (!value) return "/metrics";
+  const normalized = value.replace(/^\/connections/, "/metrics");
+  if (!selectedProjectId || normalized.startsWith("/projects/")) return normalized;
+  const url = new URL(normalized, window.location.origin);
+  url.searchParams.set("project", selectedProjectId);
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+async function initProjectScope() {
+  const select = document.querySelector<HTMLSelectElement>("[data-project-scope-select]");
+  if (!select) return;
+  const projects = await api("/v1/projects");
+  const active = projects
+    .filter(
+      (project: JsonRecord) =>
+        project.lifecycle === "maintained" &&
+        (project.publicListing === "maintained" ||
+          project.metricEligibility?.publicSite === true),
+    )
+    .sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name));
+  const requested = new URLSearchParams(window.location.search).get("project") ?? "";
+  const selected = active.find((project: JsonRecord) => project.id === requested);
+  selectedProjectId = selected?.id ?? "";
+  selectedProjectName = selected?.name ?? "All projects";
+  for (const project of active) {
+    select.append(element("option", { value: project.id }, [project.name]));
+  }
+  select.value = selectedProjectId;
+  const label = document.querySelector<HTMLElement>("[data-project-scope-label]");
+  if (label) label.textContent = selectedProjectName;
+  const syncLinks = () => {
+    document.querySelectorAll<HTMLAnchorElement>("[data-project-scope-link]").forEach((link) => {
+      const url = new URL(link.href, window.location.origin);
+      if (selectedProjectId) url.searchParams.set("project", selectedProjectId);
+      else url.searchParams.delete("project");
+      link.href = `${url.pathname}${url.search}${url.hash}`;
+    });
+  };
+  syncLinks();
+  select.addEventListener("change", () => {
+    const url = new URL(window.location.href);
+    if (select.value) url.searchParams.set("project", select.value);
+    else url.searchParams.delete("project");
+    window.location.assign(`${url.pathname}${url.search}${url.hash}`);
+  });
 }
 
 function missionRecord(mission: JsonRecord) {
@@ -147,30 +240,1487 @@ function activityItem(item: JsonRecord) {
   ]);
 }
 
-async function renderHome() {
-  const home = await api("/v1/home");
-  const renderedAt = document.querySelector<HTMLElement>("[data-snapshot-time]");
-  if (renderedAt) renderedAt.textContent = `Evidence rebuilt ${formatted(home.generatedAt)}`;
-  const sections = [
-    ["needs-me", home.needsMe, "Nothing needs your decision", "Foundry will only interrupt you for a bounded owner choice.", decisionCard],
-    ["working-now", home.workingNow, "No accepted work is moving", "Draft missions stay inert until you accept them.", missionRecord],
-    ["what-shipped", home.whatShipped, "No verified outcomes yet", "Completed work appears only after its mission reaches a verified end state.", missionRecord],
-    ["what-changed", home.whatChanged, "No material changes recorded", "Routine provider noise stays out of the owner view.", activityItem],
-    ["recommended-next", home.recommendedNext, "No evidence-backed recommendation", "Foundry will not invent work when the evidence is quiet.", (item: JsonRecord) =>
-      element("div", { class: "record" }, [
-        element("div", { class: "record-main" }, [
-          element("div", { class: "record-kicker" }, [item.projectId ?? "Portfolio"]),
-          element("h3", {}, [item.title]),
-          element("p", {}, [item.rationale]),
-        ]),
-        element("div", { class: "record-side" }, [element("strong", {}, [`${item.score}/100`]), element("small", {}, ["Priority score"])]),
-      ])],
-  ] as const;
-  for (const [id, items, title, detail, renderer] of sections) {
-    const count = document.querySelector<HTMLElement>(`[data-founder-count="${id}"]`);
-    if (count) count.textContent = String(items.length);
-    replace(id, items.length ? element("div", { class: id === "needs-me" ? "decision-grid" : id === "what-changed" ? "timeline" : "record-list" }, items.map(renderer)) : empty(title, detail));
+function connectionStat(label: string, value: string | number, tone: string) {
+  return element("div", { class: `connection-stat connection-stat--${tone}` }, [
+    element("strong", {}, [String(value)]),
+    element("span", {}, [label]),
+  ]);
+}
+
+function connectionSummary(summary: JsonRecord, { compact = false } = {}) {
+  return element("div", { class: compact ? "connection-summary connection-summary--compact" : "connection-summary" }, [
+    connectionStat("Connected", summary.connected ?? 0, "connected"),
+    connectionStat("Partial", summary.partial ?? 0, "partial"),
+    connectionStat("Missing", summary.missing ?? 0, "missing"),
+    connectionStat("Stale evidence", summary.stale ?? 0, "stale"),
+    connectionStat("Unavailable", summary.unavailable ?? 0, "unavailable"),
+    connectionStat("Transport coverage", `${summary.connected ?? 0}/${summary.total ?? 0} · ${summary.coverage ?? 0}%`, "coverage"),
+  ]);
+}
+
+function bucketTile(bucket: JsonRecord, terminal = false) {
+  const components = element("ul", { class: "bucket-components" });
+  for (const component of bucket.components ?? []) {
+    const componentState = component.freshness === "stale" ? "stale" : component.status;
+    const componentStateLabel =
+      component.freshness === "stale"
+        ? "evidence stale"
+        : `path ${component.status}`;
+    components.append(element("li", {}, [
+      element("span", {}, [component.name]),
+      element("span", { class: `component-state component-state--${componentState}` }, [componentStateLabel]),
+      element("small", {}, [component.headline]),
+    ]));
   }
+  return element("article", {
+    class: terminal ? "bucket-tile bucket-tile--terminal" : "bucket-tile",
+    id: `bucket-${bucket.id}`,
+  }, [
+    element("header", {}, [
+      element("span", { class: "bucket-label" }, [bucket.label]),
+      state(bucket.status),
+    ]),
+    element("h3", {}, [bucket.purpose]),
+    components,
+  ]);
+}
+
+function connectionMap(payload: JsonRecord) {
+  const sourceBuckets = payload.buckets.filter((bucket: JsonRecord) => bucket.id !== "dashboard");
+  const dashboard = payload.buckets.find((bucket: JsonRecord) => bucket.id === "dashboard");
+  return element("div", { class: "connection-system" }, [
+    connectionSummary(payload.summary),
+    element("div", { class: "connection-legend" }, [
+      element("span", {}, [element("strong", {}, ["Transport"]), " = implemented path"]),
+      element("span", {}, [element("strong", {}, ["Evidence"]), " = freshness or observed outcome"]),
+    ]),
+    element("div", { class: "system-map" }, [
+      element("div", { class: "bucket-sources" }, sourceBuckets.map((bucket: JsonRecord) => bucketTile(bucket))),
+      element("div", { class: "system-flow", "aria-hidden": "true" }, [
+        element("span", {}, ["Evidence"]),
+        element("i"),
+        element("span", {}, ["Owner view"]),
+      ]),
+      dashboard ? bucketTile(dashboard, true) : null,
+    ]),
+  ]);
+}
+
+function connectionGap(item: JsonRecord) {
+  const displayedState = item.freshness === "stale" ? "stale" : item.status;
+  return element("a", { class: "record connection-gap", href: consoleHref(item.ownerPath) }, [
+    element("div", { class: "record-main" }, [
+      element("div", { class: "record-kicker" }, [item.provider, " → ", item.consumer]),
+      element("h3", {}, [item.detail]),
+      element("p", {}, [item.transport]),
+    ]),
+    element("div", { class: "record-side" }, [
+      state(displayedState),
+      element("small", {}, [item.freshness === "not-applicable" ? "Contract state" : item.freshness]),
+    ]),
+  ]);
+}
+
+function connectionLedgerItem(item: JsonRecord) {
+  const displayedState = item.freshness === "stale" ? "stale" : item.status;
+  const evidence = item.evidence?.length
+    ? element("div", { class: "connection-evidence-list" }, item.evidence.map((pointer: JsonRecord) =>
+        element("div", {}, [
+          element("span", {}, [pointer.label]),
+          element("small", {}, [formatted(pointer.observedAt), " · ", pointer.freshness]),
+        ])))
+    : element("p", { class: "connection-no-evidence" }, ["No durable evidence is attached to this transport yet."]);
+  return element("details", { class: "connection-row", id: item.id }, [
+    element("summary", {}, [
+      element("div", { class: "connection-route" }, [
+        element("strong", {}, [item.provider]),
+        element("span", { "aria-hidden": "true" }, ["→"]),
+        element("strong", {}, [item.consumer]),
+      ]),
+      element("span", { class: "connection-transport" }, [item.transport]),
+      state(displayedState),
+    ]),
+    element("div", { class: "connection-detail" }, [
+      element("p", {}, [item.detail]),
+      evidence,
+      element("a", { class: "action-link", href: consoleHref(item.ownerPath) }, ["Open owning surface"]),
+    ]),
+  ]);
+}
+
+function revealTargetedConnection() {
+  const targetId = decodeURIComponent(window.location.hash.slice(1));
+  if (!targetId) return;
+  const target = document.getElementById(targetId);
+  const sheet = document.querySelector<HTMLDialogElement>("[data-system-sheet]");
+  if (target && sheet?.contains(target) && !sheet.open) sheet.showModal();
+  if (target instanceof HTMLDetailsElement) {
+    target.open = true;
+    target.scrollIntoView({ block: "start" });
+    target.querySelector("summary")?.focus({ preventScroll: true });
+  }
+}
+
+function wireSystemSheet() {
+  const sheet = document.querySelector<HTMLDialogElement>("[data-system-sheet]");
+  const open = document.querySelector<HTMLButtonElement>("[data-system-sheet-open]");
+  const close = document.querySelector<HTMLButtonElement>("[data-system-sheet-close]");
+  if (!sheet || !close) return;
+  open?.addEventListener("click", () => sheet.showModal());
+  close.addEventListener("click", () => sheet.close());
+  sheet.addEventListener("click", (event) => {
+    if (event.target === sheet) sheet.close();
+  });
+}
+
+function evidenceMetric(label: string, value: string | number, detail: string) {
+  return element("div", { class: "evidence-metric" }, [
+    element("span", {}, [label]),
+    element("strong", {}, [String(value)]),
+    element("small", {}, [detail]),
+  ]);
+}
+
+function connectionEvidence(payload: JsonRecord) {
+  const skillRuns = payload.evidence.skillRuns;
+  const workflows = payload.evidence.publicWorkflows;
+  const domains = payload.evidence.domainIntelligence;
+  return element("div", { class: "connection-evidence-grid" }, [
+    element("article", { id: "skill-runs" }, [
+      element("header", {}, [element("h3", {}, ["Skill runs"]), state(skillRuns.runCount > 0 ? "connected" : "unavailable")]),
+      element("div", { class: "evidence-metrics" }, [
+        evidenceMetric("Recorded runs", skillRuns.runCount, "Sanitized, machine-local"),
+        evidenceMetric("Numeric observations", skillRuns.metricCount, "Available for project histories"),
+      ]),
+      element("p", {}, [skillRuns.newestRunAt ? `Newest evidence ${formatted(skillRuns.newestRunAt)}` : "No run evidence is readable."]),
+    ]),
+    element("article", { id: "public-evidence" }, [
+      element("header", {}, [element("h3", {}, ["Public surfaces"]), state(workflows.sites > 0 ? "connected" : "unavailable")]),
+      element("div", { class: "evidence-metrics" }, [
+        evidenceMetric("Audited sites", workflows.sites, "Public workflow manifest"),
+        evidenceMetric("Failing", workflows.failed, "At least one current report"),
+      ]),
+      element("p", {}, [workflows.reports.length ? `Newest report ${formatted(workflows.reports.map((item: JsonRecord) => item.observedAt).filter(Boolean).sort().at(-1))}` : "No public workflow report is readable."]),
+    ]),
+    element("article", { id: "domain-intelligence" }, [
+      element("header", {}, [element("h3", {}, ["Domain intelligence"]), state(domains.drank.domains > 0 || domains.psi.runs > 0 ? "connected" : "unavailable")]),
+      element("div", { class: "evidence-metrics" }, [
+        evidenceMetric("Drank domains", domains.drank.domains, domains.drank.freshness),
+        evidenceMetric("PSI runs", domains.psi.runs, `${domains.psi.tags} tagged groups`),
+      ]),
+      element("p", {}, ["Drank and PSI retain their domain logic; Console receives bounded summaries."]),
+    ]),
+  ]);
+}
+
+function outputMeasure(label: string, value: string | number, detail: string, tone = "") {
+  return element("div", { class: `output-measure${tone ? ` output-measure--${tone}` : ""}` }, [
+    element("strong", {}, [String(value)]),
+    element("span", {}, [label]),
+    element("small", {}, [detail]),
+  ]);
+}
+
+function outputOverview(payload: JsonRecord, { compact = false } = {}) {
+  const summary = payload.outputs.summary;
+  const boundaries = payload.outputs.boundaries;
+  const skillRunDetail = [
+    `${summary.successfulSkillRuns} succeeded`,
+    `${summary.failedSkillRuns} failed`,
+    summary.otherSkillRuns ? `${summary.otherSkillRuns} other` : "",
+  ].filter(Boolean).join(" · ");
+  const measures = element("div", { class: compact ? "output-measures output-measures--compact" : "output-measures" }, [
+    outputMeasure("Skill runs", summary.skillRuns, skillRunDetail, "success"),
+    outputMeasure("Captured outputs", summary.capturedOutputs, bytes(summary.capturedOutputBytes), "accent"),
+    outputMeasure("Measured values", summary.measuredValues, "Structured numeric observations"),
+    outputMeasure("Projects producing", `${summary.projectsProducing}/${summary.projectsTracked}`, "At least one recorded result"),
+    outputMeasure("Public surfaces", `${summary.publicSitesPassed}/${summary.publicSites}`, "Latest checks passed", summary.publicSitesPassed === summary.publicSites ? "success" : "warning"),
+    outputMeasure("PSI measurements", compactNumber(summary.performanceRuns), `${summary.domainHistories} domain histories`),
+  ]);
+  if (compact) return measures;
+  return element("div", { class: "output-system" }, [
+    measures,
+    element("div", { class: "output-boundaries" }, [
+      element("div", {}, [
+        element("strong", {}, ["AI Visibility"]),
+        state(boundaries.aiVisibility.status),
+        element("span", {}, [`${boundaries.aiVisibility.observations}/${boundaries.aiVisibility.configured} project baselines`]),
+      ]),
+      element("div", {}, [
+        element("strong", {}, ["Feedback"]),
+        state(boundaries.feedback.status),
+        element("span", {}, [boundaries.feedback.detail]),
+      ]),
+      element("div", {}, [
+        element("strong", {}, ["Marketing outcomes"]),
+        state(boundaries.marketing.status),
+        element("span", {}, [boundaries.marketing.detail]),
+      ]),
+    ]),
+  ]);
+}
+
+function projectScopeOverview(project: JsonRecord) {
+  return element("div", { class: "project-scope-overview" }, [
+    element("div", { class: "output-measures output-measures--compact" }, [
+      outputMeasure("Recorded results", project.produced.length, "Current provider observations"),
+      outputMeasure("Historical signals", project.history.signals.length, project.history.state),
+      outputMeasure("Skill runs", project.skill?.runCount ?? 0, `${project.skill?.outputCount ?? 0} captured outputs`),
+      outputMeasure("Last observed", project.lastObservedAt ? formatted(project.lastObservedAt) : "—", project.name),
+    ]),
+  ]);
+}
+
+function metricOverview(payload: JsonRecord, project?: JsonRecord | null) {
+  if (project) {
+    const comparable = project.history.signals.filter((signal: JsonRecord) => signal.series?.length >= 2);
+    const improvements = payload.outputs.improvements.filter((item: JsonRecord) => item.projectId === project.projectId);
+    return element("div", { class: "output-measures" }, [
+      outputMeasure("Current results", project.produced.filter((item: JsonRecord) => item.kind !== "skill").length, project.name),
+      outputMeasure("Numeric series", project.history.signals.length, "Retained observations"),
+      outputMeasure("Comparable histories", comparable.length, comparable.length ? "Graphable now" : "Baselines only"),
+      outputMeasure("Improvement actions", improvements.length, improvements.length ? "Produced by current evidence" : "None recorded"),
+      outputMeasure("PSI runs", project.performance?.runs ?? 0, project.performance?.domain ?? "No PSI history"),
+      outputMeasure("D-Rank observations", project.domainRating?.observations ?? 0, project.domainRating?.domain ?? "No domain history"),
+    ]);
+  }
+  const comparableProjects = payload.outputs.projects.filter((item: JsonRecord) => item.history.state === "comparable").length;
+  return element("div", { class: "output-measures" }, [
+    outputMeasure("Measured values", payload.outputs.summary.measuredValues, "Structured numeric observations"),
+    outputMeasure("Comparable projects", `${comparableProjects}/${payload.outputs.summary.projectsTracked}`, "At least one historical signal"),
+    outputMeasure("Public surfaces", `${payload.outputs.summary.publicSitesPassed}/${payload.outputs.summary.publicSites}`, "Latest checks passed"),
+    outputMeasure("PSI measurements", compactNumber(payload.outputs.summary.performanceRuns), `${payload.evidence.domainIntelligence.psi.tags} tagged groups`),
+    outputMeasure("D-Rank histories", payload.outputs.summary.domainHistories, payload.evidence.domainIntelligence.drank.freshness),
+    outputMeasure("AI visibility", `${payload.outputs.boundaries.aiVisibility.observations}/${payload.outputs.boundaries.aiVisibility.configured}`, "Recorded project baselines"),
+  ]);
+}
+
+function outputRun(run: JsonRecord) {
+  const metrics = run.metrics?.length
+    ? run.metrics.map((metric: JsonRecord) =>
+        `${titleCase(metric.metricName)} ${compactNumber(metric.value)}${metric.unit ? ` ${metric.unit}` : ""}`,
+      ).join(" · ")
+    : "";
+  const result = element("div", { class: "skill-ledger__result", role: "cell" }, [
+    element("strong", {}, [run.resultSummary]),
+    metrics ? element("small", {}, [metrics]) : null,
+  ]);
+  if (run.outputCount > 0) {
+    const body = element("div", { class: "skill-run-output__body" }, [
+      element("span", {}, ["Open to load retained output"]),
+    ]);
+    const disclosure = element("details", { class: "skill-run-output" }, [
+      element("summary", {}, [`View output (${run.outputCount})`]),
+      body,
+    ]);
+    let loaded = false;
+    disclosure.addEventListener("toggle", async () => {
+      if (!disclosure.open || loaded) return;
+      loaded = true;
+      body.replaceChildren(element("span", {}, ["Loading retained output…"]));
+      try {
+        const payload = await api(`/v1/skill-runs/${encodeURIComponent(run.runId)}/output`);
+        body.replaceChildren(...payload.streams.map((stream: JsonRecord) =>
+          element("section", { class: "skill-run-output__stream" }, [
+            element("header", {}, [
+              element("strong", {}, [titleCase(stream.kind)]),
+              stream.truncated ? element("span", {}, ["Truncated"]) : null,
+            ]),
+            element("pre", {}, [stream.content || "No retained text"]),
+          ]),
+        ));
+      } catch (error) {
+        loaded = false;
+        body.replaceChildren(errorState(error));
+      }
+    });
+    result.append(disclosure);
+  }
+  return element("div", { class: "skill-ledger__row", role: "row" }, [
+    element("time", { class: "skill-ledger__time", role: "cell", datetime: run.observedAt }, [
+      formatted(run.observedAt),
+    ]),
+    element("span", { class: "skill-ledger__project", role: "cell" }, [run.projectId ?? "Portfolio"]),
+    element("strong", { class: "skill-ledger__skill", role: "cell" }, [titleCase(run.skillId)]),
+    result,
+    element("div", { class: "skill-ledger__status", role: "cell" }, [state(run.status)]),
+  ]);
+}
+
+function skillLedger(runs: JsonRecord[]) {
+  return element("div", { class: "skill-ledger", role: "table", "aria-label": "Skill run history" }, [
+    element("div", { class: "skill-ledger__head", role: "row" }, [
+      element("span", { role: "columnheader" }, ["Time"]),
+      element("span", { role: "columnheader" }, ["Project"]),
+      element("span", { role: "columnheader" }, ["Skill"]),
+      element("span", { role: "columnheader" }, ["Result"]),
+      element("span", { role: "columnheader" }, ["Outcome"]),
+    ]),
+    ...runs.map(outputRun),
+  ]);
+}
+
+function skillHistoryForRuns(runs: JsonRecord[]) {
+  const periods = new Map<string, JsonRecord>();
+  for (const run of runs) {
+    const period = String(run.observedAt).slice(0, 10);
+    const entry = periods.get(period) ?? { period, runs: 0, succeeded: 0, failed: 0 };
+    entry.runs += 1;
+    if (["succeeded", "backfilled"].includes(run.status)) entry.succeeded += 1;
+    if (run.status === "failed") entry.failed += 1;
+    periods.set(period, entry);
+  }
+  return [...periods.values()]
+    .sort((left, right) => left.period.localeCompare(right.period))
+    .slice(-14);
+}
+
+function outputPriority(item: JsonRecord) {
+  return element("a", { class: "output-priority", href: consoleHref(item.work?.ownerPath ?? item.ownerPath) }, [
+    element("span", {}, [item.scope === "project" ? item.projectId : "System"]),
+    element("strong", {}, [item.action]),
+    element("small", {}, [item.signal]),
+    state(item.work?.state ?? "not-started"),
+  ]);
+}
+
+function resultValue(item: JsonRecord) {
+  const problem = String(item.value).toLowerCase() === "failed" || String(item.detail).includes("failed");
+  return element("div", { class: problem ? "project-result project-result--problem" : "project-result" }, [
+    element("span", {}, [item.label]),
+    element("strong", {}, [String(item.value)]),
+    element("small", {}, [item.detail]),
+    item.observedAt
+      ? element("small", { class: "project-result__observed" }, [
+          `${formatted(item.observedAt)} · ${item.freshness ?? "unknown"}`,
+        ])
+      : null,
+  ]);
+}
+
+function historySignal(signal: JsonRecord) {
+  if (signal.series?.length >= 2) return historyChart(signal);
+  const hasDelta = Number.isFinite(signal.delta);
+  const favorable =
+    hasDelta &&
+    ((signal.direction === "higher-is-better" && signal.delta > 0) ||
+      (signal.direction === "lower-is-better" && signal.delta < 0));
+  const unfavorable =
+    hasDelta &&
+    ((signal.direction === "higher-is-better" && signal.delta < 0) ||
+      (signal.direction === "lower-is-better" && signal.delta > 0));
+  const delta = hasDelta
+    ? metricDeltaValue(signal.delta, signal.unit)
+    : signal.history === "baseline-only"
+      ? "Baseline only"
+      : "No history";
+  return element("div", { class: "history-signal" }, [
+    element("span", {}, [signal.label]),
+    element("strong", {}, [
+      Number.isFinite(signal.value) ? metricValue(signal.value, signal.unit) : "—",
+    ]),
+    element("small", { class: favorable ? "positive" : unfavorable ? "negative" : "" }, [delta]),
+  ]);
+}
+
+function metricValue(value: number, unit?: string | null) {
+  const absolute = Math.abs(value);
+  const maximumFractionDigits = absolute > 0 && absolute < .01 ? 4 : absolute < 1 ? 3 : absolute < 100 ? 2 : 1;
+  const formattedValue = new Intl.NumberFormat("en", { maximumFractionDigits }).format(value);
+  if (unit === "percent") return `${formattedValue}%`;
+  if (unit === "rank") return `#${formattedValue}`;
+  if (unit === "milliseconds") return `${formattedValue} ms`;
+  if (unit === "runs") return `${formattedValue} ${Math.abs(value) === 1 ? "run" : "runs"}`;
+  if (unit === "class") return ({ 3: "A", 2: "B", 1: "C" } as Record<number, string>)[Math.round(value)] ?? "—";
+  if (unit?.startsWith("score/")) return `${formattedValue}/${unit.slice("score/".length)}`;
+  return `${formattedValue}${unit ? ` ${unit}` : ""}`;
+}
+
+function metricDeltaValue(value: number, unit?: string | null) {
+  const absolute = metricValue(Math.abs(value), unit);
+  if (unit === "rank") return `${value > 0 ? "+" : value < 0 ? "-" : ""}${absolute.slice(1)} positions`;
+  if (unit === "class") return `${value > 0 ? "+" : value < 0 ? "-" : ""}${Math.abs(value)} ${Math.abs(value) === 1 ? "class" : "classes"}`;
+  return `${value > 0 ? "+" : value < 0 ? "-" : ""}${absolute}`;
+}
+
+function historyChart(signal: JsonRecord, options: JsonRecord = {}) {
+  const series = signal.series
+    .filter((point: JsonRecord) => Number.isFinite(point.value) && point.observedAt)
+    .slice(-60);
+  const values = series.map((point: JsonRecord) => Number(point.value));
+  const minimum = Math.min(...values);
+  const maximum = Math.max(...values);
+  const spread = maximum - minimum || Math.max(Math.abs(maximum) * .1, 1);
+  const width = 360;
+  const height = 112;
+  const inset = 8;
+  const points = series.map((point: JsonRecord, index: number) => {
+    const x = inset + (index / Math.max(1, series.length - 1)) * (width - inset * 2);
+    const y = height - inset - ((Number(point.value) - minimum) / spread) * (height - inset * 2);
+    return { x, y, ...point };
+  });
+  const start = Number(series[0].value);
+  const current = Number(series.at(-1).value);
+  const total = values.reduce((sum: number, value: number) => sum + value, 0);
+  const change = current - start;
+  const percentage = start === 0 || signal.unit === "class"
+    ? null
+    : (change / Math.abs(start)) * 100;
+  const favorable =
+    (signal.direction === "higher-is-better" && change > 0) ||
+    (signal.direction === "lower-is-better" && change < 0);
+  const unfavorable =
+    (signal.direction === "higher-is-better" && change < 0) ||
+    (signal.direction === "lower-is-better" && change > 0);
+  const changeLabel = favorable ? "Improved" : unfavorable ? "Worsened" : change === 0 ? "No net change" : "Changed";
+  const changeText = `${changeLabel}${change === 0 ? "" : ` ${metricDeltaValue(change, signal.unit)}`}${
+    Number.isFinite(percentage) ? ` · ${percentage > 0 ? "+" : ""}${Math.round(percentage * 10) / 10}%` : ""
+  }`;
+  const aggregate = options.aggregate === "sum";
+  const chart = svgElement("svg", {
+    viewBox: `0 0 ${width} ${height}`,
+    role: "img",
+    "aria-label": aggregate
+      ? `${signal.label}: ${metricValue(total, signal.unit)} total across ${series.length} periods; latest ${metricValue(current, signal.unit)}.`
+      : `${signal.label} changed from ${metricValue(start, signal.unit)} to ${metricValue(current, signal.unit)} across ${series.length} observations.`,
+    preserveAspectRatio: "none",
+  }, [
+    svgElement("line", { x1: String(inset), y1: String(height - inset), x2: String(width - inset), y2: String(height - inset), class: "history-chart__axis" }),
+    svgElement("polyline", { points: points.map((point: JsonRecord) => `${point.x},${point.y}`).join(" "), class: "history-chart__line" }),
+  ]);
+  const tooltip = element("div", { class: "history-chart__tooltip", role: "status" });
+  tooltip.hidden = true;
+  const plot = element("div", { class: "history-chart__plot" }, [chart, tooltip]);
+  plot.addEventListener("pointermove", (event) => {
+    const bounds = plot.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - bounds.left) / Math.max(1, bounds.width)));
+    const point = points[Math.round(ratio * Math.max(0, points.length - 1))];
+    tooltip.textContent = `${formatted(point.observedAt)} · ${metricValue(Number(point.value), signal.unit)}`;
+    tooltip.style.left = `${Math.max(8, Math.min(92, (point.x / width) * 100))}%`;
+    tooltip.style.top = `${Math.max(12, Math.min(88, (point.y / height) * 100))}%`;
+    tooltip.hidden = false;
+  });
+  plot.addEventListener("pointerleave", () => {
+    tooltip.hidden = true;
+  });
+  return element("article", { class: "history-chart" }, [
+    element("header", {}, [
+      element("div", {}, [
+        element("span", {}, [titleCase(signal.label)]),
+        element("strong", {}, [metricValue(aggregate ? total : current, signal.unit)]),
+      ]),
+      element("small", { class: aggregate ? "" : favorable ? "positive" : unfavorable ? "negative" : "" }, [
+        aggregate ? `${metricValue(current, signal.unit)} latest` : changeText,
+      ]),
+    ]),
+    plot,
+    element("footer", {}, [
+      element("span", {}, [aggregate ? `${series.length} ${series.length === 1 ? "period" : "periods"}` : `Started ${metricValue(start, signal.unit)}`]),
+      element("span", {}, [aggregate ? `First ${metricValue(start, signal.unit)}` : `${series.length} observations`]),
+      element("span", {}, [
+        `${aggregate ? formattedDay(series[0].observedAt) : formatted(series[0].observedAt)} → ${
+          aggregate ? formattedDay(series.at(-1).observedAt) : formatted(series.at(-1).observedAt)
+        }`,
+      ]),
+    ]),
+  ]);
+}
+
+function skillOutcomeCharts(history: JsonRecord[]) {
+  const series = (field: "succeeded" | "failed") => history.map((period: JsonRecord) => ({
+    observedAt: `${period.period}T00:00:00.000Z`,
+    value: Number(period[field] ?? 0),
+  }));
+  return element("div", { class: "skill-outcome-charts" }, [
+    historyChart(
+      { label: "Successful runs", unit: "runs", direction: "higher-is-better", series: series("succeeded") },
+      { aggregate: "sum" },
+    ),
+    historyChart(
+      { label: "Failed runs", unit: "runs", direction: "lower-is-better", series: series("failed") },
+      { aggregate: "sum" },
+    ),
+  ]);
+}
+
+function projectOutput(project: JsonRecord) {
+  const summaryResults = project.produced.slice(0, 3);
+  const detail = element("div", { class: "project-output__detail" }, [
+    element("div", { class: "project-results-grid" }, project.produced.length
+      ? project.produced.map(resultValue)
+      : [empty("No recorded output", "No current provider has produced evidence for this project.")]),
+    element("div", { class: "project-history-grid" }, project.history.signals.length
+      ? project.history.signals.map(historySignal)
+      : [empty("No historical output", "A second comparable observation is required before Fleet can show movement.")]),
+    element("a", { class: "action-link", href: projectHref(project.projectId) }, ["Open project"]),
+  ]);
+  const details = element("details", { class: "project-output" }, [
+    element("summary", {}, [
+      element("div", { class: "project-output__identity" }, [
+        element("strong", {}, [project.name]),
+        element("small", {}, [project.lastObservedAt ? formatted(project.lastObservedAt) : "No recorded observation"]),
+      ]),
+      element("div", { class: "project-output__summary" }, summaryResults.length
+        ? summaryResults.map((item: JsonRecord) =>
+            element("span", {
+              class: String(item.value).toLowerCase() === "failed" || String(item.detail).includes("failed")
+                ? "problem"
+                : "",
+            }, [item.label, " ", element("strong", {}, [String(item.value)])]))
+        : [element("span", {}, ["No output"])],
+      ),
+      element("div", { class: "project-output__side" }, [
+        state(project.history.state),
+        element("span", {}, ["Inspect"]),
+      ]),
+    ]),
+    detail,
+  ]);
+  if (selectedProjectId === project.projectId) details.setAttribute("open", "");
+  return details;
+}
+
+function projectOutputCollection(projects: JsonRecord[]) {
+  const visible = projects.slice(0, 8);
+  const remaining = projects.slice(8);
+  const list = element("div", { class: "project-output-list" }, visible.map(projectOutput));
+  if (remaining.length > 0) {
+    list.append(element("details", { class: "project-output-more" }, [
+      element("summary", {}, [
+        element("strong", {}, [`${remaining.length} more projects`]),
+        element("span", {}, ["Open the complete project output ledger"]),
+      ]),
+      element("div", {}, remaining.map(projectOutput)),
+    ]));
+  }
+  return list;
+}
+
+function outputHistory(history: JsonRecord[]) {
+  const maximum = Math.max(1, ...history.map((period) => period.outputs));
+  return element("div", { class: "output-history" }, history.map((period) => {
+    const otherRuns = period.runs - period.succeeded - period.failed;
+    return element("div", { class: "output-history__row" }, [
+      element("time", { datetime: period.period }, [period.period]),
+      element("div", { class: "output-history__track", "aria-hidden": "true" }, [
+        element("i", { style: `--history-width:${Math.max(4, (period.outputs / maximum) * 100)}%` }),
+      ]),
+      element("strong", {}, [`${period.outputs} output${period.outputs === 1 ? "" : "s"}`]),
+      element("span", {}, [
+        `${period.succeeded} succeeded · ${period.failed} failed`,
+        otherRuns > 0
+          ? ` · ${otherRuns} other`
+          : "",
+        ` · ${period.metrics} metric${period.metrics === 1 ? "" : "s"}`,
+      ]),
+      (period.failed && period.succeeded) || otherRuns > 0
+        ? state("mixed")
+        : period.failed
+          ? state("failed")
+          : state("succeeded"),
+    ]);
+  }));
+}
+
+function improvementAction(item: JsonRecord) {
+  return element("a", { class: "record improvement-action", href: consoleHref(item.work?.ownerPath ?? item.ownerPath) }, [
+    element("div", { class: "record-main" }, [
+      element("div", { class: "record-kicker" }, [item.scope === "project" ? item.projectId : "System"]),
+      element("h3", {}, [item.action]),
+      element("p", {}, [item.signal]),
+    ]),
+    element("div", { class: "record-side" }, [
+      state(item.work?.state ?? "not-started"),
+      element("small", {}, [
+        item.work
+          ? `${item.severity} priority · linked mission`
+          : `${item.severity} priority · recommendation`,
+      ]),
+    ]),
+  ]);
+}
+
+function renderConnectionHome(payload: JsonRecord) {
+  const improvement = payload.outputs.improvements[0];
+  const body = element("div", { class: "connection-home__content" }, [
+    outputOverview(payload, { compact: true }),
+    element("div", { class: "connection-home__next" }, [
+      element("span", {}, [improvement ? "Highest-impact improvement" : "Output state"]),
+      element("strong", {}, [improvement?.action ?? "No evidence-backed improvement is waiting."]),
+      element("a", { class: "action-link", href: "/metrics" }, ["Open metrics"]),
+    ]),
+  ]);
+  replace("connection-home", body);
+}
+
+function latestResultRecord(item: JsonRecord) {
+  const href = item.kind === "skill"
+    ? "/skill-uses"
+    : ["psi", "domain-rating", "ai-visibility"].includes(item.kind)
+      ? "/metrics"
+      : `/projects/${item.projectId}`;
+  const failed = String(item.value).toLowerCase() === "failed" || String(item.detail).toLowerCase().includes("failed");
+  return element("a", { class: "record", href: consoleHref(href) }, [
+    element("div", { class: "record-main" }, [
+      element("div", { class: "record-kicker" }, [item.projectName]),
+      element("h3", {}, [`${item.label}: ${item.value}`]),
+      element("p", {}, [item.detail]),
+    ]),
+    element("div", { class: "record-side" }, [
+      state(failed ? "failed" : item.freshness ?? "unknown"),
+      element("small", {}, [formatted(item.observedAt)]),
+    ]),
+  ]);
+}
+
+async function renderHome() {
+  const payload = await api("/v1/connections");
+  const renderedAt = document.querySelector<HTMLElement>("[data-snapshot-time]");
+  if (renderedAt) renderedAt.textContent = `Evidence rebuilt ${formatted(payload.generatedAt)}`;
+  const scopedAttention = selectedProjectId
+    ? payload.outputs.improvements.filter((item: JsonRecord) => item.projectId === selectedProjectId)
+    : payload.outputs.improvements.filter((item: JsonRecord) => item.scope === "project" || item.work);
+  const attention = scopedAttention.slice(0, 4);
+  const count = document.querySelector<HTMLElement>('[data-founder-count="overview-attention"]');
+  if (count) count.textContent = String(attention.length);
+  replace(
+    "overview-attention",
+    attention.length
+      ? element("div", { class: "record-list" }, attention.map(improvementAction))
+      : empty("No evidence-backed improvement", "Fleet will not invent work when recorded evidence is healthy."),
+  );
+  const latest = payload.outputs.projects
+    .filter((project: JsonRecord) => !selectedProjectId || project.projectId === selectedProjectId)
+    .flatMap((project: JsonRecord) => project.produced.map((result: JsonRecord) => ({
+      ...result,
+      projectId: project.projectId,
+      projectName: project.name,
+    })))
+    .filter((item: JsonRecord) => item.observedAt)
+    .filter((item: JsonRecord) => {
+      if (selectedProjectId) return true;
+      if (!["availability", "http-performance"].includes(item.kind)) return true;
+      return String(item.value).toLowerCase() === "failed" || String(item.detail).toLowerCase().includes("failed");
+    })
+    .sort((left: JsonRecord, right: JsonRecord) => Date.parse(right.observedAt) - Date.parse(left.observedAt))
+    .slice(0, 10);
+  const latestCount = document.querySelector<HTMLElement>('[data-founder-count="overview-latest"]');
+  if (latestCount) latestCount.textContent = String(latest.length);
+  replace(
+    "overview-latest",
+    latest.length
+      ? element("div", { class: "record-list" }, latest.map(latestResultRecord))
+      : empty("No recent result", selectedProjectId ? `${selectedProjectName} has no recorded result yet.` : "No project has produced dated evidence yet."),
+  );
+}
+
+type MetricFamily =
+  | "search"
+  | "ai"
+  | "drank"
+  | "agent"
+  | "crawl"
+  | "coverage"
+  | "psi"
+  | "design";
+
+type MetricEmptyState = {
+  title: string;
+  detail: string;
+};
+
+type MetricFamilyDefinition = {
+  title: string;
+  runLabel: string;
+  includesProject: (project: JsonRecord) => boolean;
+  matchesSignal: (signal: JsonRecord) => boolean;
+  matchesAction: (action: JsonRecord) => boolean;
+  canRun: (project: JsonRecord) => boolean;
+  runBoundary?: string;
+  emptyState: (project: JsonRecord) => MetricEmptyState;
+  renderEvidence: (
+    project: JsonRecord,
+    signals: JsonRecord[],
+    emptyState: MetricEmptyState,
+  ) => HTMLElement;
+};
+
+const METRIC_FAMILY_ORDER: MetricFamily[] = [
+  "search",
+  "ai",
+  "drank",
+  "agent",
+  "crawl",
+  "coverage",
+  "psi",
+  "design",
+];
+
+const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
+  search: {
+    title: "Search Visibility",
+    runLabel: "Record search run",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => signal.label === "Worst tracked query class",
+    matchesAction: () => false,
+    canRun: () => false,
+    runBoundary: "Agent-run observation",
+    emptyState: (project) => project.searchVisibility?.configured
+      ? {
+          title: "No Search Visibility baseline",
+          detail: "Queries are configured, but no evidence-backed search observation is recorded.",
+        }
+      : {
+          title: "Search Visibility not configured",
+          detail: "This project needs stable tracked queries before comparable search history can begin.",
+        },
+    renderEvidence: renderSearchVisibility,
+  },
+  ai: {
+    title: "AI Visibility",
+    runLabel: "Run canary",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => signal.label.startsWith("AI "),
+    matchesAction: (action) => action.id.includes(":ai-"),
+    canRun: (project) => Boolean(project.aiVisibility?.configured),
+    emptyState: (project) => {
+      if (!project.aiVisibility?.configured) {
+        return {
+          title: "AI Visibility not configured",
+          detail: "This public project needs a project-specific prompt set before it can produce a baseline.",
+        };
+      }
+      return {
+        title: "No AI Visibility baseline",
+        detail: "AI Visibility is configured, but no recorded report is available.",
+      };
+    },
+    renderEvidence: renderAiVisibility,
+  },
+  drank: {
+    title: "D-Rank",
+    runLabel: "Refresh D-Rank",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => signal.label === "Domain rating",
+    matchesAction: (action) => action.id.endsWith(":domain-rating"),
+    canRun: (project) => project.metricEligibility?.publicSite === true,
+    emptyState: () => ({
+      title: "No D-Rank baseline",
+      detail: "This eligible project has no recorded domain-rating observation.",
+    }),
+    renderEvidence: renderMetricCharts,
+  },
+  agent: {
+    title: "AI Agent Readiness",
+    runLabel: "Audit agent readiness",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => signal.label.startsWith("Agent "),
+    matchesAction: () => false,
+    canRun: (project) => project.metricEligibility?.publicSite === true,
+    emptyState: () => ({
+      title: "No AI Agent Readiness baseline",
+      detail: "Run the live audit to check agent entrypoints, public-route Markdown coverage, and catalog integrity.",
+    }),
+    renderEvidence: readinessMetricCharts("agent"),
+  },
+  crawl: {
+    title: "AI Crawlability",
+    runLabel: "Audit AI crawlability",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) =>
+      signal.label === "AI crawlability" ||
+      signal.label.startsWith("AI crawler "),
+    matchesAction: () => false,
+    canRun: (project) => project.metricEligibility?.publicSite === true,
+    emptyState: () => ({
+      title: "No AI Crawlability baseline",
+      detail: "Run the live audit to check robots, critical AI-bot access, and sitemap readiness.",
+    }),
+    renderEvidence: readinessMetricCharts("crawl"),
+  },
+  coverage: {
+    title: "Content Coverage",
+    runLabel: "Inventory content",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => signal.label.startsWith("Content "),
+    matchesAction: () => false,
+    canRun: (project) => project.metricEligibility?.publicSite === true,
+    emptyState: () => ({
+      title: "No Content Coverage baseline",
+      detail: "Run the local inventory to record owned pages and content archetypes.",
+    }),
+    renderEvidence: readinessMetricCharts("coverage"),
+  },
+  psi: {
+    title: "PSI Swarm",
+    runLabel: "Run PSI",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => signal.label.startsWith("PSI "),
+    matchesAction: (action) => action.id.includes(":psi-"),
+    canRun: (project) => project.metricEligibility?.publicSite === true,
+    emptyState: () => ({
+      title: "No PSI Swarm baseline",
+      detail: "This public project is eligible but has no recorded PSI report.",
+    }),
+    renderEvidence: renderMetricCharts,
+  },
+  design: {
+    title: "Design Critique",
+    runLabel: "Validate review",
+    includesProject: (project) => project.metricEligibility?.publicSite === true,
+    matchesSignal: (signal) => /(?:design|critique|audit)/i.test(signal.label),
+    matchesAction: () => false,
+    canRun: (project) => Boolean(project.designReview),
+    emptyState: () => ({
+      title: "No design review",
+      detail: "No valid design-review receipt is available.",
+    }),
+    renderEvidence: renderDesignReview,
+  },
+};
+
+function metricHistoryState(signals: JsonRecord[]) {
+  if (signals.some((signal) => signal.series?.length >= 2)) return "comparable";
+  if (signals.length > 0) return "baseline-only";
+  return "unmeasured";
+}
+
+function renderMetricCharts(
+  _project: JsonRecord,
+  signals: JsonRecord[],
+  emptyState: MetricEmptyState,
+) {
+  if (signals.length === 0) {
+    return empty(emptyState.title, emptyState.detail);
+  }
+  return element("div", { class: "project-history-grid" }, signals.map(historySignal));
+}
+
+function renderSearchVisibility(
+  project: JsonRecord,
+  signals: JsonRecord[],
+  emptyState: MetricEmptyState,
+) {
+  const queries = project.searchVisibility?.queries ?? [];
+  const queryList = queries.length
+    ? element("div", { class: "tracked-intent-list" }, queries.map((query: JsonRecord) => {
+        const latest = query.history?.at(-1);
+        return element("article", { class: "tracked-intent" }, [
+          element("div", {}, [
+            element("span", {}, [query.kind ?? "query"]),
+            element("strong", {}, [query.text]),
+          ]),
+          latest
+            ? element("div", { class: "tracked-intent__result" }, [
+                state(`class-${String(latest.class).toLowerCase()}`),
+                element("small", {}, [formattedDay(latest.observedAt)]),
+              ])
+            : state("unmeasured"),
+        ]);
+      }))
+    : empty("No tracked search terms", "This project needs a stable query set before ranking history can begin.");
+  return element("div", { class: "metric-evidence" }, [
+    queryList,
+    renderMetricCharts(project, signals, emptyState),
+  ]);
+}
+
+function renderAiVisibility(
+  project: JsonRecord,
+  signals: JsonRecord[],
+  emptyState: MetricEmptyState,
+) {
+  const questions = project.aiVisibility?.questions ?? [];
+  const questionList = questions.length
+    ? element("div", { class: "tracked-intent-list" }, questions.map((question: JsonRecord) =>
+        element("article", { class: "tracked-intent" }, [
+          element("div", {}, [
+            element("span", {}, [question.setId ?? "question"]),
+            element("strong", {}, [question.text]),
+          ]),
+          state(project.aiVisibility?.observations > 0 ? "measured" : "unmeasured"),
+        ])))
+    : empty("No tracked AI questions", "This project needs a stable question set before comparable AI visibility can begin.");
+  return element("div", { class: "metric-evidence" }, [
+    project.aiVisibility?.evidenceMode
+      ? element("p", { class: "metric-evidence__summary" }, [
+          `${titleCase(project.aiVisibility.evidenceMode)} evidence · not a live-provider claim`,
+        ])
+      : null,
+    questionList,
+    renderMetricCharts(project, signals, emptyState),
+  ]);
+}
+
+function readinessMetricCharts(family: "agent" | "crawl" | "coverage") {
+  return (
+    project: JsonRecord,
+    signals: JsonRecord[],
+    emptyState: MetricEmptyState,
+  ) => {
+    const latest = project.visibilityReadiness?.[family];
+    const charts = renderMetricCharts(project, signals, emptyState);
+    if (!latest) return charts;
+    return element("div", { class: "metric-evidence" }, [
+      element("p", { class: "metric-evidence__summary" }, [latest.summary]),
+      charts,
+    ]);
+  };
+}
+
+function designScoreTone(score: number, maximum: number) {
+  const ratio = maximum > 0 ? score / maximum : 0;
+  if (ratio >= .85) return "strong";
+  if (ratio >= .7) return "steady";
+  return "needs-work";
+}
+
+function designScoreCard(label: string, score: number, maximum: number) {
+  const percentage = maximum > 0 ? Math.round((score / maximum) * 100) : 0;
+  const boundedPercentage = Math.max(0, Math.min(100, percentage));
+  const tone = designScoreTone(score, maximum);
+  return element("article", { class: `design-score design-score--${tone}` }, [
+    element("span", {}, [label]),
+    element("strong", {}, [
+      String(score),
+      element("small", {}, [`/${maximum}`]),
+    ]),
+    element("div", { class: "design-score__track", "aria-hidden": "true" }, [
+      element("i", { style: `width: ${boundedPercentage}%` }),
+    ]),
+    element("small", {}, [`${boundedPercentage}% of review standard`]),
+  ]);
+}
+
+function renderDesignReview(
+  project: JsonRecord,
+  signals: JsonRecord[],
+  emptyState: MetricEmptyState,
+) {
+  const review = project.designReview;
+  if (!review) return renderMetricCharts(project, signals, emptyState);
+  const historicalSignals = signals.filter((signal) => signal.series?.length >= 2);
+  const content = [
+    element("div", { class: "design-review__scores" }, [
+      designScoreCard("Critique", Number(review.critique), Number(review.critiqueMaximum)),
+      designScoreCard("Audit", Number(review.audit), Number(review.auditMaximum)),
+    ]),
+    element("footer", { class: "design-review__meta" }, [
+      element("span", {}, ["Owner review"]),
+      state(review.ownerDecision ?? "pending"),
+      element("small", {}, [review.observedAt ? formatted(review.observedAt) : "No observation date"]),
+    ]),
+  ];
+  if (historicalSignals.length > 0) {
+    content.push(
+      element("div", { class: "design-review__history" }, [
+        element("span", {}, ["History"]),
+        element("div", { class: "project-history-grid" }, historicalSignals.map(historySignal)),
+      ]),
+    );
+  }
+  return element("div", { class: "design-review" }, content);
+}
+
+function metricRunButton(project: JsonRecord, family: MetricFamily) {
+  const definition = METRIC_FAMILIES[family];
+  if (!definition.canRun(project)) return null;
+  const wrap = element("div", { class: "metric-run-control" });
+  const statusText = element("span", { role: "status", "aria-live": "polite" });
+  const button = element("button", { type: "button", class: "secondary-action" }, [definition.runLabel]);
+  button.addEventListener("click", async () => {
+    button.setAttribute("disabled", "");
+    button.textContent = "Starting…";
+    statusText.textContent = "";
+    try {
+      let run = await mutate("/v1/metric-runs", {
+        family,
+        projectId: project.catalogProjectId ?? project.projectId,
+      });
+      button.textContent = "Running…";
+      statusText.textContent = run.summary;
+      for (let attempt = 0; attempt < 240 && run.state === "running"; attempt += 1) {
+        await new Promise((resolve) => window.setTimeout(resolve, 1500));
+        if (!button.isConnected) return;
+        run = await api(`/v1/metric-runs/${encodeURIComponent(run.runId)}`);
+        statusText.textContent = run.summary;
+      }
+      if (run.state === "succeeded") {
+        button.textContent = "Completed";
+        if (document.body.dataset.founderView === "project") {
+          await renderProjectDetail();
+        } else {
+          await renderMetrics();
+        }
+        return;
+      }
+      throw new Error(run.summary || `${definition.runLabel} failed.`);
+    } catch (error) {
+      button.removeAttribute("disabled");
+      button.textContent = definition.runLabel;
+      statusText.textContent = error instanceof Error ? error.message : "Run failed.";
+    }
+  });
+  wrap.append(button, statusText);
+  return wrap;
+}
+
+function metricRunBoundary(family: MetricFamily) {
+  const boundary = METRIC_FAMILIES[family].runBoundary;
+  return boundary
+    ? element("span", { class: "metric-run-boundary" }, [boundary])
+    : null;
+}
+
+function metricReportProject(
+  project: JsonRecord,
+  signals: JsonRecord[],
+  actions: JsonRecord[],
+  family: MetricFamily,
+) {
+  const definition = METRIC_FAMILIES[family];
+  const historyState = metricHistoryState(signals);
+  const observedAt = signals
+    .map((signal: JsonRecord) => signal.observedAt)
+    .filter(Boolean)
+    .sort((left: string, right: string) => Date.parse(right) - Date.parse(left))[0];
+  const identity = element("div", {}, [
+    element("h3", {}, [project.name]),
+    element("small", {}, [observedAt ? formatted(observedAt) : "No observation"]),
+  ]);
+  const evidence = definition.renderEvidence(project, signals, definition.emptyState(project));
+  const actionRows = actions.map((action: JsonRecord) => {
+    const content = [
+      element("span", {}, ["Next"]),
+      element("strong", {}, [action.action]),
+      state(action.work?.state ?? "not-started"),
+    ];
+    return action.work
+      ? element("a", { class: "metric-report__action", href: consoleHref(action.work.ownerPath) }, content)
+      : element("div", { class: "metric-report__action" }, content);
+  });
+
+  if (family === "design") {
+    return element("details", { class: "metric-report metric-report--disclosure" }, [
+      element("summary", { class: "metric-report__summary" }, [
+        identity,
+        element("div", { class: "metric-report__header-actions" }, [
+          state(historyState),
+          element("span", { class: "metric-report__toggle", "aria-hidden": "true" }),
+        ]),
+      ]),
+      element("div", { class: "metric-report__body" }, [
+        metricRunButton(project, family),
+        metricRunBoundary(family),
+        evidence,
+        ...actionRows,
+      ]),
+    ]);
+  }
+
+  return element("article", { class: "metric-report" }, [
+    element("header", {}, [
+      identity,
+      element("div", { class: "metric-report__header-actions" }, [
+        state(historyState),
+        metricRunButton(project, family),
+        metricRunBoundary(family),
+      ]),
+    ]),
+    evidence,
+    ...actionRows,
+  ]);
+}
+
+function metricReportFamily(
+  projects: JsonRecord[],
+  improvements: JsonRecord[],
+  family: MetricFamily,
+) {
+  const definition = METRIC_FAMILIES[family];
+  const entries = projects.flatMap((project: JsonRecord) => {
+    const signals = project.history.signals.filter(definition.matchesSignal);
+    const included = definition.includesProject(project);
+    if (!included) return [];
+    const actions = improvements.filter((action: JsonRecord) => {
+      if (action.projectId !== project.projectId) return false;
+      return definition.matchesAction(action);
+    });
+    return [metricReportProject(project, signals, actions, family)];
+  });
+  return entries.length ? element("div", { class: "metric-report-list" }, entries) : null;
+}
+
+function projectSignal(project: JsonRecord, label: string) {
+  return project.history.signals.find((signal: JsonRecord) => signal.label === label);
+}
+
+function metricMatrixMeasure(
+  label: string,
+  signal: JsonRecord | undefined,
+  missing: string,
+) {
+  if (!signal || !Number.isFinite(signal.value)) {
+    return element("span", { class: "metric-matrix__measure metric-matrix__measure--missing" }, [
+      element("small", {}, [label]),
+      element("strong", {}, [missing]),
+    ]);
+  }
+  const favorable =
+    Number.isFinite(signal.delta) &&
+    ((signal.direction === "higher-is-better" && signal.delta > 0) ||
+      (signal.direction === "lower-is-better" && signal.delta < 0));
+  const unfavorable =
+    Number.isFinite(signal.delta) &&
+    ((signal.direction === "higher-is-better" && signal.delta < 0) ||
+      (signal.direction === "lower-is-better" && signal.delta > 0));
+  let trendClass = "";
+  if (favorable) trendClass = "positive";
+  if (unfavorable) trendClass = "negative";
+  let trend = "";
+  if (Number.isFinite(signal.delta)) {
+    trend = metricDeltaValue(signal.delta, signal.unit);
+  } else if (signal.history === "baseline-only") {
+    trend = "Baseline";
+  }
+  return element("span", { class: "metric-matrix__measure" }, [
+    element("small", {}, [label]),
+    element("strong", {}, [metricValue(signal.value, signal.unit)]),
+    trend ? element("em", { class: trendClass }, [trend]) : null,
+  ]);
+}
+
+function metricMatrixDesignMeasure(project: JsonRecord, field: "critique" | "audit") {
+  const review = project.designReview;
+  const label = field === "critique" ? "Critique" : "Audit";
+  const maximum = review?.[`${field}Maximum`];
+  if (!Number.isFinite(review?.[field]) || !Number.isFinite(maximum)) {
+    return metricMatrixMeasure(label, undefined, "Not reviewed");
+  }
+  return element("span", { class: "metric-matrix__measure" }, [
+    element("small", {}, [label]),
+    element("strong", {}, [`${review[field]}/${maximum}`]),
+  ]);
+}
+
+function metricMatrixCell(
+  project: JsonRecord,
+  section: "seo" | "geo" | "performance" | "design",
+) {
+  const href = `${projectHref(project.projectId)}#${section}`;
+  const aiVisibilityLabel =
+    project.aiVisibility?.evidenceMode === "fixture" ? "AI fixture" : "AI visibility";
+  const signals = {
+    seo: [
+      metricMatrixMeasure("D-Rank", projectSignal(project, "Domain rating"), "Not measured"),
+      metricMatrixMeasure(
+        "Search",
+        projectSignal(project, "Worst tracked query class"),
+        project.searchVisibility?.configured ? "No baseline" : "Not configured",
+      ),
+    ],
+    geo: [
+      metricMatrixMeasure(
+        aiVisibilityLabel,
+        projectSignal(project, "AI visibility score"),
+        project.aiVisibility?.configured ? "No baseline" : "Not configured",
+      ),
+      metricMatrixMeasure(
+        "Agent-readable",
+        projectSignal(project, "Agent-readable coverage"),
+        "Not measured",
+      ),
+    ],
+    performance: [
+      metricMatrixMeasure("PSI", projectSignal(project, "PSI performance"), "Not measured"),
+      metricMatrixMeasure("LCP", projectSignal(project, "PSI LCP"), "Not measured"),
+    ],
+    design: [
+      metricMatrixDesignMeasure(project, "critique"),
+      metricMatrixDesignMeasure(project, "audit"),
+    ],
+  };
+  return element("a", {
+    class: "metric-matrix__cell",
+    href,
+    "aria-label": `Open ${project.name} ${section} metrics`,
+  }, signals[section]);
+}
+
+function metricMatrixRow(project: JsonRecord) {
+  return element("div", { class: "metric-matrix__row", role: "row" }, [
+    element("a", {
+      class: "metric-matrix__project",
+      href: projectHref(project.projectId),
+      role: "rowheader",
+    }, [
+      element("strong", {}, [project.name]),
+      element("small", {}, [project.domains?.[0] ?? "No domain"]),
+    ]),
+    metricMatrixCell(project, "seo"),
+    metricMatrixCell(project, "geo"),
+    metricMatrixCell(project, "performance"),
+    metricMatrixCell(project, "design"),
+  ]);
+}
+
+type MetricMatrixSort = "project" | "seo" | "geo" | "performance" | "design";
+
+function metricMatrixSortValue(project: JsonRecord, key: MetricMatrixSort) {
+  if (key === "project") return project.name;
+  if (key === "seo") return projectSignal(project, "Domain rating")?.value;
+  if (key === "geo") return projectSignal(project, "AI visibility score")?.value;
+  if (key === "performance") return projectSignal(project, "PSI performance")?.value;
+  return project.designReview?.critique;
+}
+
+function metricMatrix(projects: JsonRecord[]) {
+  let sortKey: MetricMatrixSort = "project";
+  let sortDirection: "ascending" | "descending" = "ascending";
+  const headers = new Map<MetricMatrixSort, HTMLElement>();
+  const matrix = element("div", {
+    class: "metric-matrix",
+    role: "table",
+    "aria-label": "Fleet project metrics",
+  });
+
+  const renderRows = () => {
+    for (const [key, header] of headers) {
+      header.setAttribute("aria-sort", key === sortKey ? sortDirection : "none");
+    }
+    const sorted = [...projects].sort((left, right) => {
+      const leftValue = metricMatrixSortValue(left, sortKey);
+      const rightValue = metricMatrixSortValue(right, sortKey);
+      const leftMissing = leftValue === null || leftValue === undefined || leftValue === "";
+      const rightMissing = rightValue === null || rightValue === undefined || rightValue === "";
+      if (leftMissing !== rightMissing) return leftMissing ? 1 : -1;
+      if (leftMissing && rightMissing) return left.name.localeCompare(right.name);
+      let order = 0;
+      if (typeof leftValue === "string" && typeof rightValue === "string") {
+        order = leftValue.localeCompare(rightValue);
+      } else {
+        order = Number(leftValue) - Number(rightValue);
+      }
+      return sortDirection === "ascending" ? order : -order;
+    });
+    matrix.replaceChildren(head, ...sorted.map(metricMatrixRow));
+  };
+
+  const headerCell = (
+    key: MetricMatrixSort,
+    label: string,
+    description: string,
+  ) => {
+    const header = element("span", { role: "columnheader", "aria-sort": "none" });
+    const button = element("button", {
+      type: "button",
+      title: description,
+      "aria-label": `${label}. ${description}`,
+    }, [
+      label,
+      element("span", { class: "metric-matrix__sort", "aria-hidden": "true" }),
+    ]);
+    button.addEventListener("click", () => {
+      if (sortKey === key) {
+        sortDirection = sortDirection === "ascending" ? "descending" : "ascending";
+      } else {
+        sortKey = key;
+        sortDirection = key === "project" ? "ascending" : "descending";
+      }
+      renderRows();
+    });
+    header.append(button);
+    headers.set(key, header);
+    return header;
+  };
+
+  const head = element("div", { class: "metric-matrix__head", role: "row" }, [
+    headerCell("project", "Project", "Sort alphabetically"),
+    headerCell("seo", "SEO", "Sort by D-Rank"),
+    headerCell("geo", "GEO", "Sort by AI visibility"),
+    headerCell("performance", "Performance", "Sort by PSI score"),
+    headerCell("design", "Design", "Sort by critique score"),
+  ]);
+  renderRows();
+  return matrix;
+}
+
+async function renderMetrics() {
+  const payload = await api("/v1/connections");
+  const renderedAt = document.querySelector<HTMLElement>("[data-connections-time]");
+  if (renderedAt) renderedAt.textContent = `Reports rebuilt ${formatted(payload.generatedAt)}`;
+  const eligibleProjects = payload.outputs.projects
+    .filter((project: JsonRecord) => project.metricEligibility?.publicSite === true)
+    .filter((project: JsonRecord) => !selectedProjectId || project.projectId === selectedProjectId)
+    .sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name));
+  const projectCount = document.querySelector<HTMLElement>('[data-founder-count="metric-projects"]');
+  if (projectCount) projectCount.textContent = String(eligibleProjects.length);
+  replace(
+    "metric-projects",
+    eligibleProjects.length
+      ? metricMatrix(eligibleProjects)
+      : empty("No matching project", "The current project scope has no eligible public measurement surface."),
+  );
+  replace("connection-overview", connectionMap(payload));
+
+  const gaps = payload.connections
+    .filter((item: JsonRecord) => ["missing", "partial", "unavailable"].includes(item.status) || item.freshness === "stale")
+    .sort((left: JsonRecord, right: JsonRecord) => {
+      const leftState = left.freshness === "stale" ? "stale" : left.status;
+      const rightState = right.freshness === "stale" ? "stale" : right.status;
+      const order: JsonRecord = { missing: 0, unavailable: 1, stale: 2, partial: 3 };
+      return (order[leftState] ?? 4) - (order[rightState] ?? 4);
+    });
+  const gapCount = document.querySelector<HTMLElement>('[data-founder-count="connection-gaps"]');
+  if (gapCount) gapCount.textContent = String(gaps.length);
+  replace(
+    "connection-gaps",
+    gaps.length
+      ? element("div", { class: "record-list" }, gaps.map(connectionGap))
+      : empty("Every intended connection is complete", "No missing or partial relationship is present."),
+  );
+
+  const count = document.querySelector<HTMLElement>('[data-founder-count="connections"]');
+  if (count) count.textContent = String(payload.connections.length);
+  replace("connections", element("div", { class: "connection-ledger" }, payload.connections.map(connectionLedgerItem)));
+  replace("connection-evidence", connectionEvidence(payload));
+  wireSystemSheet();
+  revealTargetedConnection();
+  window.addEventListener("hashchange", revealTargetedConnection);
+}
+
+async function renderSkillUses() {
+  const payload = await api("/v1/connections");
+  const renderedAt = document.querySelector<HTMLElement>("[data-skill-uses-time]");
+  if (renderedAt) renderedAt.textContent = `Runs rebuilt ${formatted(payload.generatedAt)}`;
+  const projectRuns = selectedProjectId
+    ? payload.outputs.skillRuns.filter((run: JsonRecord) => run.projectId === selectedProjectId)
+    : payload.outputs.skillRuns;
+  const skills = [...new Set(projectRuns.map((run: JsonRecord) => run.skillId))].sort();
+  const query = new URLSearchParams(window.location.search);
+  let selectedSkill = skills.includes(query.get("skill") ?? "") ? query.get("skill") ?? "" : "";
+  let page = Math.max(1, Number.parseInt(query.get("page") ?? "1", 10) || 1);
+  const pageSize = 15;
+
+  const syncUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    if (selectedSkill) params.set("skill", selectedSkill);
+    else params.delete("skill");
+    if (page > 1) params.set("page", String(page));
+    else params.delete("page");
+    const suffix = params.toString();
+    window.history.replaceState({}, "", `${window.location.pathname}${suffix ? `?${suffix}` : ""}${window.location.hash}`);
+  };
+
+  const draw = () => {
+    const filteredRuns = selectedSkill
+      ? projectRuns.filter((run: JsonRecord) => run.skillId === selectedSkill)
+      : projectRuns;
+    const pages = Math.max(1, Math.ceil(filteredRuns.length / pageSize));
+    page = Math.min(page, pages);
+    syncUrl();
+    const first = (page - 1) * pageSize;
+    const pageRuns = filteredRuns.slice(first, first + pageSize);
+    const history = skillHistoryForRuns(filteredRuns);
+    const runCount = document.querySelector<HTMLElement>('[data-founder-count="skill-runs"]');
+    if (runCount) runCount.textContent = String(filteredRuns.length);
+
+    const select = element("select", { id: "skill-filter-select", name: "skill" }, [
+      element("option", { value: "" }, ["All skills"]),
+      ...skills.map((skill) => element("option", {
+        value: skill,
+        ...(selectedSkill === skill ? { selected: "" } : {}),
+      }, [titleCase(skill)])),
+    ]);
+    select.addEventListener("change", () => {
+      selectedSkill = select.value;
+      page = 1;
+      syncUrl();
+      draw();
+    });
+    const previous = element("button", {
+      type: "button",
+      class: "secondary-action",
+      ...(page <= 1 ? { disabled: "" } : {}),
+    }, ["Previous"]);
+    const next = element("button", {
+      type: "button",
+      class: "secondary-action",
+      ...(page >= pages ? { disabled: "" } : {}),
+    }, ["Next"]);
+    previous.addEventListener("click", () => {
+      page -= 1;
+      syncUrl();
+      draw();
+    });
+    next.addEventListener("click", () => {
+      page += 1;
+      syncUrl();
+      draw();
+    });
+    replace("skill-controls", element("div", { class: "skill-ledger-controls" }, [
+      element("label", { for: "skill-filter-select" }, [
+        element("span", {}, ["Skill"]),
+        select,
+      ]),
+      element("div", { class: "skill-ledger-pagination" }, [
+        element("span", {}, [
+          filteredRuns.length
+            ? `${first + 1}–${Math.min(first + pageSize, filteredRuns.length)} of ${filteredRuns.length}`
+            : "0 runs",
+        ]),
+        previous,
+        next,
+      ]),
+    ]));
+    replace(
+      "skill-outcomes",
+      history.length
+        ? skillOutcomeCharts(history)
+        : empty("No run outcomes", "A retained run will create the first success or failure period."),
+    );
+    replace(
+      "skill-runs",
+      pageRuns.length
+        ? skillLedger(pageRuns)
+        : empty("No recorded skill uses", "No retained run matches this project and skill filter."),
+    );
+  };
+  syncUrl();
+  draw();
+}
+
+async function renderFeedback() {
+  const payload = await api("/v1/connections");
+  const renderedAt = document.querySelector<HTMLElement>("[data-feedback-time]");
+  if (renderedAt) renderedAt.textContent = `Inbox rebuilt ${formatted(payload.generatedAt)}`;
+  const submissions = (payload.outputs.feedback?.submissions ?? [])
+    .filter((item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId);
+  const count = document.querySelector<HTMLElement>('[data-founder-count="feedback-submissions"]');
+  if (count) count.textContent = String(submissions.length);
+  replace(
+    "feedback-submissions",
+    submissions.length
+      ? element("div", { class: "feedback-inbox" }, submissions.map((item: JsonRecord) =>
+          element("article", { class: "feedback-entry" }, [
+            element("header", {}, [
+              element("div", {}, [
+                element("span", {}, [item.projectId ?? "Unknown project"]),
+                element("h3", {}, [item.category ?? "Feedback"]),
+              ]),
+              element("time", { datetime: item.receivedAt }, [formatted(item.receivedAt)]),
+            ]),
+            element("p", {}, [item.message]),
+            element("footer", {}, [
+              item.page ? element("span", {}, [item.page]) : null,
+              item.hasAttachment ? element("span", {}, ["Attachment"]) : null,
+            ]),
+          ])))
+      : empty(
+          "No feedback received",
+          selectedProjectId ? `${selectedProjectName} has no submissions yet.` : "No project has submitted feedback yet.",
+        ),
+  );
 }
 
 async function renderDecisions() {
@@ -185,64 +1735,173 @@ async function renderDecisions() {
 }
 
 async function renderProjects() {
-  const [projects, missions, decisions] = await Promise.all([api("/v1/projects"), api("/v1/missions"), api("/v1/decisions")]);
-  const activeProjects = projects.filter((project: JsonRecord) => project.lifecycle !== "non-product");
-  const groups = new Map<string, JsonRecord[]>();
-  for (const project of activeProjects) {
-    const group = groups.get(project.attention) ?? [];
-    group.push(project);
-    groups.set(project.attention, group);
-  }
-  const groupedList = element("div", { class: "project-groups" });
-  const routeAliases: Record<string, string> = { "fleet-workspace": "fleet-ops" };
-  const labels: Record<string, string> = {
-    "my-work": "My Work",
-    toolbox: "Toolbox",
-    foundry: "Foundry + Helpers",
-    ignored: "Past projects",
-  };
-  for (const attention of ["my-work", "toolbox", "foundry", "ignored"]) {
-    const group = groups.get(attention) ?? [];
-    if (group.length === 0) continue;
-    const list = element("div", { class: "project-list" });
-    for (const project of group) {
-    const projectMissions = missions.filter((mission: JsonRecord) => mission.projectId === project.id);
-    const current = projectMissions.find((mission: JsonRecord) => ["active", "blocked", "awaiting-verification", "accepted"].includes(mission.state));
-    const completed = projectMissions.find((mission: JsonRecord) => mission.state === "completed");
-    const ownerDecision = decisions.find((decision: JsonRecord) => decision.projectId === project.id && ["open", "stale"].includes(decision.state));
-      list.append(element("a", { class: "project", href: `/projects/${routeAliases[project.id] ?? project.id}` }, [
-      element("header", {}, [
-        element("h3", {}, [project.name]),
-        state(project.lifecycle === "past" ? "past" : project.lifecycle === "local-only" ? "local-only" : project.attention),
-      ]),
-      element("dl", {}, [
-        element("div", {}, [element("dt", {}, ["Current objective"]), element("dd", {}, [current?.outcome ?? "No accepted mission"])]),
-        element("div", {}, [element("dt", {}, ["Verified outcome"]), element("dd", {}, [completed?.latestSummary ?? "None recorded"])]),
-        element("div", {}, [element("dt", {}, ["Needs you"]), element("dd", {}, [ownerDecision?.question ?? "No"])]),
-        element("div", {}, [element("dt", {}, ["Evidence"]), element("dd", {}, [projectMissions[0] ? formatted(projectMissions[0].updatedAt) : "No mission evidence"])]),
-      ]),
-      ]));
-    }
-    const details = element("details", { class: "project-group" }, [
-      element("summary", {}, [
-        element("span", {}, [labels[attention] ?? attention.replaceAll("-", " ")]),
-        element("span", { class: "count" }, [String(group.length)]),
-      ]),
-      list,
+  const projects = await api("/v1/projects");
+  const activeProjects = projects.filter(
+    (project: JsonRecord) =>
+      project.lifecycle !== "non-product" &&
+      project.attention !== "ignored" &&
+      (!selectedProjectId || project.id === selectedProjectId),
+  ).sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name));
+  const renderedAt = document.querySelector<HTMLElement>("[data-project-status-time]");
+  if (renderedAt) renderedAt.textContent = `${activeProjects.length} active records`;
+  const directory = element("div", { class: "project-directory" }, activeProjects.map((project: JsonRecord) => {
+    const actions = element("div", { class: "project-directory__actions" }, [
+      project.websiteUrl
+        ? element("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open"])
+        : element("span", { class: "unavailable" }, ["No website"]),
+      project.changelogUrl
+        ? element("a", { href: project.changelogUrl, target: "_blank", rel: "noreferrer" }, ["Changelog"])
+        : element("span", { class: "unavailable" }, ["No changelog"]),
+      project.repositoryUrl
+        ? element("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source"])
+        : element("span", { class: "unavailable" }, ["No source"]),
     ]);
-    if (["my-work", "toolbox"].includes(attention)) details.setAttribute("open", "");
-    groupedList.append(details);
-  }
-  replace("projects", activeProjects.length ? groupedList : empty("No active projects", "The canonical registry did not return an active portfolio."));
+    return element("article", { class: "project-directory__row" }, [
+      element("a", { class: "project-directory__identity", href: projectHref(project.id) }, [
+        element("span", {}, [
+          project.familyName ?? project.family ?? project.id,
+          " · ",
+          titleCase(project.lifecycle ?? "unknown"),
+        ]),
+        element("h3", {}, [project.name]),
+        element("p", {}, [
+          project.description
+            ?? (project.domains?.[0] ? project.domains[0] : project.repo ?? "Canonical Fleet project"),
+        ]),
+        element("small", { class: "project-directory__domain" }, [
+          project.domains?.[0] ?? "No domain",
+        ]),
+      ]),
+      state(project.status ?? project.lifecycle ?? "unknown"),
+      actions,
+    ]);
+  }));
+  const count = document.querySelector<HTMLElement>('[data-founder-count="project-statuses"]');
+  if (count) count.textContent = String(activeProjects.length);
+  replace("project-statuses", activeProjects.length ? directory : empty("No projects", "The canonical registry did not return a matching project."));
+}
+
+function projectMetricPanel(
+  project: JsonRecord,
+  improvements: JsonRecord[],
+  family: MetricFamily,
+) {
+  const definition = METRIC_FAMILIES[family];
+  const signals = project.history.signals.filter(definition.matchesSignal);
+  const historyState = metricHistoryState(signals);
+  const evidence = definition.renderEvidence(project, signals, definition.emptyState(project));
+  const actions = improvements
+    .filter((action: JsonRecord) =>
+      action.projectId === project.projectId && definition.matchesAction(action))
+    .map((action: JsonRecord) => {
+      const content = [
+        element("span", {}, ["Next"]),
+        element("strong", {}, [action.action]),
+        state(action.work?.state ?? "not-started"),
+      ];
+      if (!action.work) {
+        return element("div", { class: "metric-report__action" }, content);
+      }
+      return element("a", {
+        class: "metric-report__action",
+        href: consoleHref(action.work.ownerPath),
+      }, content);
+    });
+  return element("article", { class: "metric-report project-metric-panel" }, [
+    element("header", {}, [
+      element("div", {}, [
+        element("h3", {}, [definition.title]),
+        element("small", {}, [
+          signals[0]?.observedAt ? formatted(signals[0].observedAt) : "No observation",
+        ]),
+      ]),
+      element("div", { class: "metric-report__header-actions" }, [
+        state(historyState),
+        metricRunButton(project, family),
+        metricRunBoundary(family),
+      ]),
+    ]),
+    evidence,
+    ...actions,
+  ]);
+}
+
+function projectMetricSection(
+  project: JsonRecord,
+  improvements: JsonRecord[],
+  section: "seo" | "geo" | "performance" | "design",
+  title: string,
+  description: string,
+  families: MetricFamily[],
+) {
+  return element("section", {
+    class: "owner-section project-metric-section",
+    id: section,
+    "aria-labelledby": `${section}-title`,
+  }, [
+    element("div", { class: "section-head" }, [
+      element("div", {}, [
+        element("h2", { id: `${section}-title` }, [title]),
+        element("p", {}, [description]),
+      ]),
+    ]),
+    element("div", { class: "project-metric-grid" }, families.map((family) =>
+      projectMetricPanel(project, improvements, family))),
+  ]);
+}
+
+function projectMetricsWorkspace(project: JsonRecord, improvements: JsonRecord[]) {
+  return element("div", { class: "project-metrics-workspace" }, [
+    projectMetricSection(
+      project,
+      improvements,
+      "seo",
+      "SEO",
+      "What people search for, where this domain ranks, and whether the site has enough owned content.",
+      ["drank", "search", "coverage"],
+    ),
+    projectMetricSection(
+      project,
+      improvements,
+      "geo",
+      "GEO",
+      "Which questions surface this product, whether answer engines cite it, and whether AI crawlers can reach it.",
+      ["ai", "crawl", "agent"],
+    ),
+    projectMetricSection(
+      project,
+      improvements,
+      "performance",
+      "Performance",
+      "Current PSI score, LCP, CLS, and their historical movement.",
+      ["psi"],
+    ),
+    projectMetricSection(
+      project,
+      improvements,
+      "design",
+      "Design",
+      "The latest critique, audit result, and any comparable review history.",
+      ["design"],
+    ),
+  ]);
+}
+
+function revealProjectMetricSection() {
+  const id = window.location.hash.slice(1);
+  if (!["seo", "geo", "performance", "design"].includes(id)) return;
+  document.getElementById(id)?.scrollIntoView({ block: "start" });
 }
 
 async function renderProjectDetail() {
-  const projectId = document.body.dataset.projectId;
-  const [projects, missions, decisions, recommendations] = await Promise.all([
+  const routeProjectId = document.body.dataset.projectId;
+  const projectId = catalogProjectId(routeProjectId);
+  const [projects, missions, decisions, recommendations, connections] = await Promise.all([
     api("/v1/projects"),
     api("/v1/missions"),
     api("/v1/decisions"),
     api("/v1/home").then((home) => home.recommendedNext),
+    api("/v1/connections"),
   ]);
   const project = projects.find((item: JsonRecord) => item.id === projectId);
   if (!project) {
@@ -254,6 +1913,13 @@ async function renderProjectDetail() {
   const completed = projectMissions.filter((mission: JsonRecord) => mission.state === "completed");
   const needsMe = decisions.filter((decision: JsonRecord) => decision.projectId === project.id && ["open", "stale"].includes(decision.state));
   const next = recommendations.filter((item: JsonRecord) => item.projectId === project.id);
+  const metricProject = connections.outputs.projects.find(
+    (item: JsonRecord) =>
+      item.catalogProjectId === project.id || item.projectId === project.id,
+  );
+  const metricImprovements = connections.outputs.improvements.filter(
+    (item: JsonRecord) => item.projectId === project.id,
+  );
   const wrap = element("div");
   wrap.append(
     element("div", { class: "project-list" }, [
@@ -274,14 +1940,31 @@ async function renderProjectDetail() {
           element("div", {}, [element("dt", {}, ["Domain"]), element("dd", {}, [project.domains?.[0] ?? "No public domain"])]),
           element("div", {}, [element("dt", {}, ["Deploy surface"]), element("dd", {}, [project.deployKind ?? "Unknown"])]),
         ]),
+        element("div", { class: "project-directory__actions project__links" }, [
+          project.websiteUrl
+            ? element("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open"])
+            : null,
+          project.changelogUrl
+            ? element("a", { href: project.changelogUrl, target: "_blank", rel: "noreferrer" }, ["Changelog"])
+            : null,
+          project.repositoryUrl
+            ? element("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source"])
+            : null,
+        ]),
       ]),
     ]),
     element("section", { class: "owner-section" }, [
       element("div", { class: "section-head" }, [element("div", {}, [element("p", { class: "eyebrow" }, ["Work"]), element("h2", {}, ["Missions"])]), element("span", { class: "count" }, [String(projectMissions.length)])]),
       projectMissions.length ? element("div", { class: "record-list" }, projectMissions.map(missionRecord)) : empty("No missions for this product", "The registry record exists, but Foundry has not accepted work against it."),
     ]),
+    metricProject
+      ? projectMetricsWorkspace(metricProject, metricImprovements)
+      : element("section", { class: "owner-section" }, [
+          empty("No project measurements", "This project is not part of the current Metrics coverage set."),
+        ]),
   );
   replace("project-detail", wrap);
+  window.setTimeout(revealProjectMetricSection, 100);
 }
 
 async function renderActivity() {
@@ -359,38 +2042,13 @@ function visibilityProject(project: JsonRecord) {
 
 async function renderMarketing() {
   const marketing = await api("/v1/marketing");
-  const visibility = marketing.aiVisibility;
-  const measured = visibility.projects.filter((project: JsonRecord) => project.latest);
-  const latestCost = measured.reduce(
-    (sum: number, project: JsonRecord) => sum + Number(project.latest.cost?.observedUsd ?? 0),
-    0,
+  const recommendations = marketing.recommendations.filter(
+    (item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId,
   );
-  const schedule = visibility.scheduleIntent;
-  replace("visibility-summary", element("div", { class: "visibility-overview" }, [
-    visibilityMetric("Configured products", String(visibility.projects.length), `${measured.length} with local evidence`),
-    visibilityMetric("Latest observed cost", money(latestCost), "Across each product's latest run"),
-    visibilityMetric("Recurring checks", schedule.enabled ? "Intent on" : "Off", schedule.cadence),
-    element("div", { class: "visibility-schedule" }, [
-      state(schedule.activation.allowed ? "verified" : "disabled"),
-      element("strong", {}, [schedule.activation.allowed ? "Activation gates passed" : "Manual only"]),
-      element("small", {}, [
-        schedule.activation.blockers.length
-          ? "Fresh clones and unverified hosts cannot run this schedule."
-          : "The designated host has verified approval evidence.",
-      ]),
-    ]),
-  ]));
+  const recommendationCount = document.querySelector<HTMLElement>('[data-founder-count="marketing-recommendations"]');
+  if (recommendationCount) recommendationCount.textContent = String(recommendations.length);
   replace(
-    "ai-visibility-projects",
-    visibility.projects.length
-      ? element("div", { class: "visibility-projects" }, visibility.projects.map(visibilityProject))
-      : empty("No products configured", "The canonical marketing registry has no AI visibility projects."),
-  );
-  const recommendations = marketing.recommendations.filter((item: JsonRecord) =>
-    item.evidence?.some((pointer: JsonRecord) => pointer.provider === "ai-visibility"),
-  );
-  replace(
-    "visibility-recommendations",
+    "marketing-recommendations",
     recommendations.length
       ? element("div", { class: "record-list" }, recommendations.map((item: JsonRecord) =>
           element("article", { class: "record" }, [
@@ -400,11 +2058,35 @@ async function renderMarketing() {
               element("p", {}, [item.rationale]),
             ]),
             element("div", { class: "record-side" }, [
-              element("strong", {}, [`${item.score}/100`]),
+              Number.isFinite(item.score) ? element("strong", {}, [`${item.score}/100`]) : null,
               element("small", {}, ["Recommendation only"]),
             ]),
           ])))
-      : empty("No evidence-backed recommendation", "A local run can record evidence without inventing marketing work."),
+      : empty("Nothing worth doing next", selectedProjectId ? `${selectedProjectName} has no evidence-backed marketing recommendation.` : "No evidence-backed marketing recommendation is waiting."),
+  );
+  const outcomes = (marketing.outcomes ?? marketing.receipts ?? [])
+    .filter((item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId);
+  const outcomeCount = document.querySelector<HTMLElement>('[data-founder-count="marketing-outcomes"]');
+  if (outcomeCount) outcomeCount.textContent = String(outcomes.length);
+  replace(
+    "marketing-outcomes",
+    outcomes.length
+      ? element("div", { class: "record-list" }, outcomes.map((item: JsonRecord) =>
+          element("article", { class: "record" }, [
+            element("div", { class: "record-main" }, [
+              element("div", { class: "record-kicker" }, [item.projectId ?? "Portfolio", item.channel ? ` · ${item.channel}` : ""]),
+              element("h3", {}, [item.title ?? item.summary ?? "Published work"]),
+              item.result ? element("p", {}, [item.result]) : null,
+            ]),
+            element("div", { class: "record-side" }, [
+              state(item.status ?? "published"),
+              item.observedAt ? element("small", {}, [formatted(item.observedAt)]) : null,
+            ]),
+          ])))
+      : empty(
+          "No published outcome recorded",
+          selectedProjectId ? `${selectedProjectName} has no publishing receipt or outcome yet.` : "No project has a publishing receipt or outcome yet.",
+        ),
   );
 }
 
@@ -479,15 +2161,16 @@ async function start() {
   if (!view) return;
   const slots = document.querySelectorAll<HTMLElement>("[data-founder-slot]");
   slots.forEach((slot) => {
-    slot.setAttribute("aria-live", "polite");
     slot.setAttribute("aria-busy", "true");
   });
   try {
+    await initProjectScope();
     if (view === "home") await renderHome();
-    if (view === "decisions") await renderDecisions();
-    if (view === "projects") await renderProjects();
+    if (view === "project-statuses") await renderProjects();
     if (view === "project") await renderProjectDetail();
-    if (view === "activity") await renderActivity();
+    if (view === "metrics") await renderMetrics();
+    if (view === "skill-uses") await renderSkillUses();
+    if (view === "feedback") await renderFeedback();
     if (view === "marketing") await renderMarketing();
     if (view === "mission") await renderMission();
     connection?.classList.add("online");

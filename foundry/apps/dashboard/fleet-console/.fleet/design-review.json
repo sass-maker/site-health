@@ -1,0 +1,65 @@
+{
+  "$schema": "fleet.design-review.v1",
+  "version": 1,
+  "project": "fleet-console",
+  "target": "owner-value Fleet Console with focused reports, ledgers, and inbox",
+  "mode": "preserve",
+  "register": "product",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
+  },
+  "direction": {
+    "references": [],
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
+    "before": ".fleet/evidence/integrated-console/after-1440.png"
+  },
+  "evidence": {
+    "screenshots": [
+      {
+        "width": 390,
+        "path": ".fleet/evidence/metric-density/metrics-390.png"
+      },
+      {
+        "width": 768,
+        "path": ".fleet/evidence/metric-density/metrics-768.png"
+      },
+      {
+        "width": 1440,
+        "path": ".fleet/evidence/metric-density/metrics-1440.png"
+      }
+    ],
+    "projectCheck": {
+      "command": "pnpm build",
+      "status": "pass"
+    },
+    "critique": {
+      "score": 36,
+      "maximum": 40
+    },
+    "audit": {
+      "score": 20,
+      "maximum": 20
+    },
+    "unresolved": {
+      "p0": 0,
+      "p1": 0
+    },
+    "detector": {
+      "posture": "advisory",
+      "findings": [
+        "PSI Swarm, D-Rank, and AI Visibility start open so the dashboard immediately shows evidence instead of appearing blank.",
+        "Design Critique starts collapsed, and its 26 project audit records are also independent native disclosures.",
+        "All four metric families show the same 27 eligible projects. D-Rank now has a baseline for all 27; Design Critique has 26 valid receipts and one explicit missing receipt for HeyPace.",
+        "Rendered browser evidence at 390, 768, and 1440 pixels found no horizontal overflow and confirmed the disclosure hierarchy.",
+        "The deterministic Impeccable scan returned zero findings for the Metrics markup."
+      ]
+    }
+  },
+  "ownerFeedback": {
+    "decision": "keep",
+    "note": "Owner approved the corrected Fleet Console revision on 2026-07-31 after primary evidence was restored and design audits remained progressively disclosed."
+  }
+}

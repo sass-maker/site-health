@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-30
+Last updated: 2026-07-31
 
 ## Why / What
 
@@ -53,13 +53,82 @@ CodeVetter or App Health source.
   queues live in `Significant-Hobbies/setline` and
   `Significant-Hobbies/india-standards`; Fleet retains catalog, monitoring,
   automation, and sanitized public-projection links only.
-- Fleet owns `@saas-maker/feedback` as the client package for a shared Feedback
-  product. The shipped package currently delegates submission through
-  `onSubmit`; Fleet-owned ingestion, storage, attachments, product integration,
-  and the Fleet Console inbox are not yet implemented.
+- Fleet owns `@saas-maker/feedback` as the public client package for a shared
+  Feedback product. Consumers choose either an `onSubmit` callback or a
+  compatible caller-owned `ingestionUrl`; Fleet-owned ingestion, storage,
+  and attachments are not yet implemented. Fleet Console now has the
+  project-filtered inbox surface and normalized submission projection, which
+  remains empty until an ingestion owner supplies sanitized submissions.
 
 ## Timeline
 
+- **2026-07-31 — Latest visibility evidence filled across the 27-project
+  matrix:** Recorded current AI Agent Readiness, AI Crawlability, and local
+  content-inventory observations for every metric-eligible project. Added
+  stable brand and category search terms for the 19 projects that had no GEO
+  Observatory configuration, then recorded current URL-backed Bing organic
+  result observations for every new term. Completed HeyPace's design-review
+  receipt, bringing the visible matrix to 27/27 latest observations in every
+  family. Agent Readiness now retains public-route Markdown coverage and
+  `/api/ai` catalog integrity: the first complete sweep found 11,351 bounded
+  sitemap routes, checked 1,473 routes, and confirmed 293 readable routes
+  across all 27 projects. Large corpora use a labelled deterministic 250-route
+  sample. AI Visibility remains an explicitly labelled fixture baseline; no
+  synthetic historical values, deployment, or provider mutation was performed.
+- **2026-07-30 — Metrics became the Fleet visibility workspace:** Expanded the
+  evidence set to include Search Visibility, AI Agent Readiness, AI
+  Crawlability, and Content Coverage. Metrics now opens as a sortable
+  27-project matrix with concrete D-Rank, search, AI, PSI, LCP, and design
+  values. Every cell deep-links to SEO, GEO, Performance, or Design on the
+  canonical project page, where tracked search terms, AI questions, graphs,
+  missing states, and run controls live. A localhost HeyPace crawlability run
+  verified that one shared audit records separate Agent Readiness and
+  Crawlability histories. No deployment was performed.
+- **2026-07-30 — Fleet Console entrypoint became the project directory:**
+  Removed the redundant Overview destination and made Projects the default.
+  Every canonical row now links to its available website, owned changelog, and
+  source, while missing destinations stay explicit. Metrics now fills report
+  space responsively and exposes every dated observation on hover. Generic
+  skill-run history was subsequently retired from the Console; its retained
+  envelopes remain operational evidence only. No deployment was performed.
+- **2026-07-30 — Every Fleet Console page reduced to one owner question:**
+  Removed repository taxonomy, package contracts, storage explanations, generic
+  measurement coverage, and static pipeline descriptions from the primary
+  pages. Overview now shows only attention and newest meaningful results;
+  Project statuses shows lifecycle, objective, owner decision, and next action;
+  Metrics asks whether projects are becoming more visible through direct
+  outcomes and supporting site-health readiness; generic skill runs stay
+  operational rather than becoming product history; Marketing shows campaign
+  and publishing outcomes; and Feedback is the
+  project-filtered inbox with a factual zero-submission state. Connection
+  topology remains secondary in System Map. No deployment or provider mutation
+  was performed.
+- **2026-07-30 — Fleet Console gained project-scoped historical improvement:**
+  Replaced the overloaded Outputs navigation with a collapsible six-bucket
+  sidebar and focused Overview, Project statuses, Metrics, Marketing, and
+  Feedback views. One URL-persisted project scope now follows
+  the operator across views. Comparable skill, PSI Swarm, D-Rank, and AI
+  Visibility observations render as native-unit histories with start, current,
+  absolute and percentage movement, observation count, and date range; one
+  observation remains an explicit baseline. Skill owners remain
+  storage-neutral: the central runner owns normalized envelopes and any future
+  hosted D1 ingestion boundary. No deployment or provider mutation was
+  performed.
+- **2026-07-30 — Helpers and Console clients separated:** Corrected the
+  six-bucket model to Helpers, Skills, Public Apps, Marketing, Packages, and
+  Fleet Console. Moved Drank, PSI Swarm, and AI Visibility under
+  `foundry/helpers/`; placed Mobile Cockpit beside Fleet Console as an
+  experimental local-only client; kept Feedback as the sole public package;
+  and added caller-selected, credential-free ingestion URL support without
+  creating a Fleet backend or deploying any component.
+- **2026-07-30 — Fleet Console became the output and integration view:** Added a
+  fail-soft, privacy-bounded projection spanning all six Foundry buckets. The
+  primary Outputs surface now shows skill executions and captured artifacts,
+  project-level current and historical evidence, portfolio output over time,
+  and deterministic improvement actions. The complete 15-transport topology is
+  preserved in an accessible left-side System Map sheet. Home carries a compact
+  output summary, while missing baselines and unmeasured Feedback and Marketing
+  outcomes remain explicit rather than appearing as shipped.
 - **2026-07-30 — Foundry organized around six product buckets:** Replaced the
   implementation-type top-level model with packages, skills, public apps,
   internal apps, Marketing, and the final dashboard. Moved Mobile Cockpit and
@@ -347,16 +416,16 @@ CodeVetter or App Health source.
 
 | Bucket | Component | Canonical path | Runtime boundary |
 |---|---|---|---|
-| Packages | AI Visibility | `foundry/packages/ai-visibility/` | Framework-independent package plus Fleet evidence consumer |
-| Packages | Feedback | `foundry/packages/feedback/` | Client package shipped; shared ingestion and dashboard missing |
+| Helpers | AI Visibility | `foundry/helpers/ai-visibility/` | Framework-independent helper library plus Fleet evidence consumer |
+| Helpers | Drank | `foundry/helpers/drank/` | Domain-intelligence app/API |
+| Helpers | PSI Swarm | `foundry/helpers/psi-swarm/` | Local CLI plus independently deployable static surface |
 | Skills | Fleet skills | `foundry/ops/skills/` | Agent workflows installed as repo-local symlinks |
-| Public apps | Mobile Dev Cockpit | `foundry/apps/public/mobile-cockpit/` | Local/mobile Fleet client |
 | Public apps | Public directory | `foundry/apps/public/public-directory/` | Static public product projection on Cloudflare Pages |
-| Internal apps | Drank | `foundry/apps/internal/drank/` | Domain-intelligence app/API |
-| Internal apps | PSI Swarm | `foundry/apps/internal/psi-swarm/` | Local CLI plus independently deployable static surface |
 | Marketing | Reel Pipeline | `foundry/marketing/reel-pipeline/` | Node/Rust/Python orchestration, Editorial, rendering, and distribution contracts |
 | Marketing | Content Factory | `foundry/marketing/content-factory/` | Reel Pipeline-owned content rendering/package scripts |
-| Final dashboard | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
+| Packages | Feedback | `foundry/packages/feedback/` | Public client package with caller-owned callback or ingestion URL |
+| Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
+| Fleet Console | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit/` | Experimental local-only mobile client; future undecided |
 | Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
 | Substrate | Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |
 
@@ -399,6 +468,16 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Shared fleet and teammate skills with local agent discovery.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
+- Responsive Fleet Console with a flat collapsible sidebar, a default Projects
+  directory, focused Metrics, Marketing, and Feedback views, one URL-persisted
+  27-project scope, Search Visibility, AI Visibility,
+  D-Rank, AI Agent Readiness, AI Crawlability, Content Coverage, PSI Swarm,
+  and Design Critique reports. Agent Readiness retains public-route Markdown
+  coverage, readable/checked/public route counts, and `/api/ai` catalog
+  integrity as dated project histories. The Console also provides a
+  success/failure skill-result ledger, a privacy-bounded Feedback inbox,
+  deterministic improvement actions, a secondary 15-provider System Map, and
+  fail-soft evidence.
 - Private local Fleet skill-run history with sanitized retained output,
   explicit capture completeness, structured project metric observations,
   Codex/Devin capture paths, idempotent historical backfill, and
@@ -427,8 +506,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   personal/six-organization profile synchronization, canonical repository
   ownership checks, and explicit creator-attribution markers.
 - Feedback client package with Pinpoint context, local screenshot attachment,
-  and consumer-supplied submission; the shared Fleet ingestion and dashboard
-  halves remain unshipped.
+  and consumer-supplied submission; Fleet Console has the project-filtered
+  inbox and privacy-bounded projection, while shared ingestion and persistence
+  remain unshipped.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
   deploy commands for the three Cloudflare surfaces.
 - Local-first founder control with an append-only mission/evidence ledger,

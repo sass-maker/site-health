@@ -13,7 +13,7 @@ const defaultPackageEntry = join(
   '..',
   '..',
   '..',
-  'packages',
+  'helpers',
   'ai-visibility',
   'dist',
   'index.js',
@@ -23,7 +23,7 @@ const defaultPackageSourceDirectory = join(
   '..',
   '..',
   '..',
-  'packages',
+  'helpers',
   'ai-visibility',
   'src',
 );
@@ -339,6 +339,7 @@ export async function runAiVisibilityCanary({
     freshUntil,
     summary: {
       projectId: project.slug,
+      evidenceMode: providerKind,
       completedAnswers,
       configuredCalls: run.coverage.configured,
       visibilityScore: metrics.visibilityScore,
@@ -348,6 +349,7 @@ export async function runAiVisibilityCanary({
   }];
   const payload = {
     runId,
+    evidenceMode: providerKind,
     promptSetId: selectedPromptSet,
     analyzerFingerprint: run.analyzerFingerprint,
     coverage: structuredClone(run.coverage),
@@ -414,6 +416,7 @@ export async function runAiVisibilityCanary({
     duplicate: recorded.duplicate,
     projectId: project.slug,
     runId,
+    evidenceMode: providerKind,
     observedAt,
     freshUntil,
     coverage: payload.coverage,

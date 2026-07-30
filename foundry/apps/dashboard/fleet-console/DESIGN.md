@@ -36,14 +36,22 @@ immutable identifiers and source revisions.
 ## Layout
 
 - Maximum content width: 1,240 px.
-- Persistent top navigation: Home, Projects, Marketing, Decisions, Activity.
-- Home order: Needs me, Working now, What shipped, What changed, Recommended
-  next.
+- A persistent, collapsible left sidebar presents one flat list of owner views;
+  repository taxonomy does not appear in primary navigation.
+- The primary owner views are Projects, Metrics, Marketing, and Feedback. The
+  selected project scope follows the operator between them in the URL.
+- Projects is the default directory with explicit domains plus direct website,
+  changelog, and source destinations. Metrics contains PSI Swarm, D-Rank, AI
+  Visibility, and prominent Design Critique/Audit scorecards. The complete Skill
+  uses ledger is a secondary route reached through one page-header `View all
+  skills` CTA, with skill filtering, pagination, and output disclosed only on
+  demand. Feedback is an inbox. Marketing contains recommendations and
+  published outcomes. System topology is a secondary diagnostic sheet.
 - Use bordered rows and section bands for related records; reserve cards for a
   genuinely independent decision or recommendation.
 - Technical evidence appears in expandable detail or on mission detail pages.
-- At mobile widths, navigation scrolls horizontally and all split layouts
-  become one column without shrinking type.
+- At mobile widths, the sidebar becomes a modal drawer and split layouts become
+  one column without shrinking type.
 
 ## Components
 
@@ -52,6 +60,8 @@ immutable identifiers and source revisions.
   responses.
 - `MissionRow`: outcome, project, actor, lifecycle state, latest verified event.
 - `EvidenceLink`: provider, verification state, observation time, external link.
+- `HistoryChart`: one comparable metric in its native unit, with start, current,
+  absolute and percentage change, observation count, and date range.
 - `StateBadge`: icon/text/color treatment for active, blocked, stale, complete,
   awaiting verification, and unavailable.
 - `ActionButton`: solid accent for one primary action; bordered neutral for

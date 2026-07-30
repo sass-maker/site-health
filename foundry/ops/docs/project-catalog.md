@@ -2,7 +2,7 @@
 
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 
-Generated from 43 internal project identities.
+Generated from 41 internal project identities.
 
 ## My Work — 4
 
@@ -17,7 +17,7 @@ Generated from 43 internal project identities.
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
-| Email Manager | maintained | `email-manager` | maintained | https://mail.sassmaker.com |
+| Email Manager | maintained | `email-manager` | maintained | https://mail.significanthobbies.com |
 | Memory Map | maintained | `chatgpt-memory-insights` | maintained | https://chatgpt.significanthobbies.com |
 | Free AI | maintained | `free-ai` | maintained | https://ai-gateway.sassmaker.com |
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
@@ -39,15 +39,13 @@ Generated from 43 internal project identities.
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Personal website | non-product | `—` | maintained | https://sarthakagrawal.dev |
 
-## Foundry + Helpers — 5
+## Foundry + Helpers — 3
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
 | Fleet Workspace | maintained | `foundry/ops` | maintained | https://sassmaker.com |
-| Drank | maintained | `foundry/apps/internal/drank` | maintained | https://domains.sassmaker.com |
-| PSI Swarm | maintained | `foundry/apps/internal/psi-swarm` | maintained | https://performance.sassmaker.com |
-| Reel Pipeline | maintained | `foundry/marketing/reel-pipeline` | hidden | — |
-| Mobile Dev Cockpit | local-only | `foundry/apps/public/mobile-cockpit` | hidden | — |
+| Drank | maintained | `foundry/helpers/drank` | maintained | https://domains.sassmaker.com |
+| PSI Swarm | maintained | `foundry/helpers/psi-swarm` | maintained | https://performance.sassmaker.com |
 
 ## Past / inactive — 13
 

@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - "foundry/apps/public/mobile-cockpit/**"
+      - "foundry/apps/dashboard/mobile-cockpit/**"
       - ".github/workflows/mobile-cockpit-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "foundry/apps/public/mobile-cockpit/**"
+      - "foundry/apps/dashboard/mobile-cockpit/**"
       - ".github/workflows/mobile-cockpit-ci.yml"
   workflow_dispatch:
 
@@ -26,7 +26,7 @@ jobs:
     timeout-minutes: 20
     defaults:
       run:
-        working-directory: foundry/apps/public/mobile-cockpit
+        working-directory: foundry/apps/dashboard/mobile-cockpit
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: foundry/apps/public/mobile-cockpit/pnpm-lock.yaml
+          cache-dependency-path: foundry/apps/dashboard/mobile-cockpit/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm build:bridge
@@ -54,7 +54,7 @@ jobs:
       EXPO_NO_TELEMETRY: 1
     defaults:
       run:
-        working-directory: foundry/apps/public/mobile-cockpit
+        working-directory: foundry/apps/dashboard/mobile-cockpit
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -64,12 +64,12 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: foundry/apps/public/mobile-cockpit/pnpm-lock.yaml
+          cache-dependency-path: foundry/apps/dashboard/mobile-cockpit/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - name: Generate the native iOS project
         run: pnpm --filter @mobile-dev-cockpit/mobile exec expo prebuild --platform ios --no-install
       - name: Install iOS pods
-        working-directory: foundry/apps/public/mobile-cockpit/apps/mobile/ios
+        working-directory: foundry/apps/dashboard/mobile-cockpit/apps/mobile/ios
         run: pod install
       - name: Compile for iOS Simulator
         run: |

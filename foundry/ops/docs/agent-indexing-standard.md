@@ -22,7 +22,7 @@ Per public **origin**:
 | `GET /llms.txt` | 200; `text/plain` or `text/markdown`; body starts with `#`; **not** HTML |
 | `GET /api/ai` | 200 JSON with `name`, `llms`, `sitemap`, `markdown`, `surfaces[]` |
 | Homepage markdown | `Accept: text/markdown` on `/` **or** `GET /index.md` returns real markdown |
-| Public route markdown | Every **public** sitemap URL has a markdown alternate (`.md` and/or negotiation) |
+| Public route markdown | Every **public** sitemap URL has a markdown alternate (`.md` and/or negotiation); audit every small-site route and a deterministic distributed sample for large corpora |
 | SPA honesty | Agent paths never return an HTML SPA shell for missing files |
 | robots + sitemap | Public crawl allowed; `Sitemap:` present; private/auth Disallow |
 
@@ -62,6 +62,11 @@ GET /api/ai                 # discovery catalog
 Implementation helpers live in `foundry/ops/lib/agent-surfaces/`.
 Templates: `foundry/ops/templates/agent-surfaces/`.
 Audit: `foundry/ops/skills/agent-ready/scripts/agent-index-audit.mjs`.
+
+The audit retains route coverage as percentage, readable/checked counts, and
+the total public sitemap count. It separately retains `/api/ai` surface
+integrity as valid/configured counts and percentage. A sampled large-corpus
+percentage must never be shown without its checked and total denominators.
 
 ## Auto modes
 

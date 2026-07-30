@@ -1,15 +1,15 @@
-name: AI Visibility Package CI
+name: AI Visibility Helper CI
 
 on:
   push:
     branches: [main]
     paths:
-      - "foundry/packages/ai-visibility/**"
+      - "foundry/helpers/ai-visibility/**"
       - ".github/workflows/ai-visibility-package-ci.yml"
   pull_request:
     branches: [main]
     paths:
-      - "foundry/packages/ai-visibility/**"
+      - "foundry/helpers/ai-visibility/**"
       - ".github/workflows/ai-visibility-package-ci.yml"
   workflow_dispatch:
 
@@ -26,7 +26,7 @@ jobs:
     timeout-minutes: 15
     defaults:
       run:
-        working-directory: foundry/packages/ai-visibility
+        working-directory: foundry/helpers/ai-visibility
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -36,6 +36,6 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-          cache-dependency-path: foundry/packages/ai-visibility/pnpm-lock.yaml
+          cache-dependency-path: foundry/helpers/ai-visibility/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm check

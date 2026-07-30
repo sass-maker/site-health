@@ -3,13 +3,13 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://sassmaker.com/#org",
-      "name": "SaaS Maker (Foundry)",
-      "url": "https://sassmaker.com",
+      "@type": "Person",
+      "@id": "https://sarthakagrawal.dev/#person",
+      "name": "Sarthak Agrawal",
+      "url": "https://sarthakagrawal.dev",
       "sameAs": [
-        "https://sassmaker.com",
-        "https://github.com/High-Signal-App/everythingrated"
+        "https://sarthakagrawal.dev",
+        "https://github.com/sarthakagrawal927"
       ]
     },
     {
@@ -19,8 +19,11 @@
       "url": "https://ratings.highsignal.app",
       "description": "Multi-axis rating tool for structured directories and catalogs — decisions with explicit trade-offs, not star averages.",
       "publisher": {
-        "@id": "https://sassmaker.com/#org"
-      }
+        "@id": "https://sarthakagrawal.dev/#person"
+      },
+      "sameAs": [
+        "https://github.com/High-Signal-App/everythingrated"
+      ]
     }
   ]
 }

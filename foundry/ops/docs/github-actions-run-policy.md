@@ -26,7 +26,7 @@ an always-on production control plane.
 |---|---|---|
 | Fleet Contracts CI | Fleet ops/contracts and public-directory paths | Available |
 | Feedback Package CI | Feedback package paths | Available |
-| AI Visibility Package CI | AI Visibility package paths | Available |
+| AI Visibility Helper CI | AI Visibility helper paths | Available |
 | Ops Console CI | Ops Console paths | Available |
 | Drank CI | Drank and shared deploy-helper paths | Available |
 | PSI Swarm CI | PSI Swarm and shared deploy-helper paths | Available |

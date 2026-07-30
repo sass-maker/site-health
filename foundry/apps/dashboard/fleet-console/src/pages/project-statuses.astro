@@ -1,0 +1,15 @@
+---
+import FounderLayout from "../components/FounderLayout.astro";
+---
+
+<FounderLayout
+  title="Projects"
+  description="Every Fleet project, with its Console record, changelog, and source."
+  active="project-statuses"
+  view="project-statuses"
+>
+  <span slot="meta" class="snapshot-time" data-project-status-time>Reading project directory</span>
+  <section class="owner-section owner-section--directory" aria-label="Project directory">
+    <div class="loading-state" data-founder-slot="project-statuses">Building project directory…</div>
+  </section>
+</FounderLayout>

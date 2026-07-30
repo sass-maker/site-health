@@ -160,7 +160,7 @@ task plus Telegram completion/failure evidence.
 | `looptv` | `tv.significanthobbies.com` | none | Public curated channels and categories. |
 | `starboard` | `starboard.codevetter.com` | none initially | CodeVetter umbrella branding won in the Starboard Worker config. |
 | `drank` | `domains.sassmaker.com` | `api.domains.sassmaker.com` | Domain Rating support and High Signal backlinks. |
-| `email-manager` | `mail.sassmaker.com` | none initially | Auth-heavy app; marketing/docs indexable, app private/noindex. |
+| `email-manager` | `mail.significanthobbies.com` | none initially | Auth-heavy app; marketing/docs indexable, app private/noindex. |
 | `free-ai` | `ai-gateway.sassmaker.com` | none | AI Gateway API, dashboard, and documentation. |
 | `reel-pipeline` | `fleet.sassmaker.com/marketing` | none | Merged into Fleet; rendering and posting controls stay private. |
 

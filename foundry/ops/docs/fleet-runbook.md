@@ -228,7 +228,7 @@ The active production fleet is listed in `foundry/ops/config/projects.json`.
 | `anime-list` | MAL Explorer for anime/manga discovery and watchlists | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm pages:build` | `pnpm deploy` |
 | `app-health` | Independent application-health ingestion and evidence product | see project README | see project README / CI | see project README / CI |
 | `codevetter` | Desktop-first AI code review platform | see project README | see project README / CI | see project README / CI |
-| `drank` | Domain rating tracker | `cd foundry/apps/internal/drank && pnpm dev` | root `Drank CI` | `cd foundry/apps/internal/drank && pnpm deploy` |
+| `drank` | Domain rating tracker | `cd foundry/helpers/drank && pnpm dev` | root `Drank CI` | `cd foundry/helpers/drank && pnpm deploy` |
 | `email-manager` | Gmail/email triage and automation | `pnpm dev` | `pnpm lint`, `pnpm cf:build` | `pnpm deploy` |
 | `everythingrated` | Multi-axis ratings for High Signal directories | `pnpm dev` | see project README / CI | project workflows |
 | `free-ai` | OpenAI-compatible gateway for free LLM providers | `pnpm dev` | `pnpm check`, `pnpm test:e2e` when relevant | `pnpm deploy` |

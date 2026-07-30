@@ -25,13 +25,15 @@
       "attention": "my-work | toolbox | foundry | ignored",
       "lifecycle": "maintained | local-only | past | non-product",
       "repositoryVisibility": "public | private | unknown",
+      "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
+      "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained live domain even when the public directory listing is hidden",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden"
     },
     "absorbedCheckouts": {
       "aliveville": "ai-game",
       "drank": "drank",
-      "mashup": "reel-pipeline",
-      "reel-pipeline": "reel-pipeline",
+      "mashup": "fleet-workspace",
+      "reel-pipeline": "fleet-workspace",
       "saas-maker": "fleet-workspace",
       "tinygpt": "posttrainllm"
     },
@@ -59,7 +61,6 @@
         "research-papers",
         "knowledge-base",
         "starboard",
-        "reel-pipeline",
         "motion"
       ],
       "P3": [
@@ -78,7 +79,6 @@
         "karte",
         "ai-game",
         "protein-index",
-        "mobile-dev-cockpit",
         "saas-ideas",
         "truehire",
         "today-little-log",
@@ -200,7 +200,8 @@
       "name": "Fleet Workspace",
       "attention": "foundry",
       "lifecycle": "maintained",
-      "repositoryVisibility": "public",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
       "public": {
         "listing": "maintained",
         "id": "saas-maker",
@@ -209,8 +210,7 @@
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "public-ready",
-        "repositoryUrl": "https://github.com/sass-maker/fleet-workspace"
+        "maturity": "public-ready"
       }
     },
     {
@@ -218,7 +218,7 @@
       "authModel": "public-persistent",
       "family": "fleet-workspace",
       "tier": "active",
-      "repo": "foundry/apps/internal/drank",
+      "repo": "foundry/helpers/drank",
       "deployKind": "pages",
       "cfProject": "drank",
       "domains": [
@@ -251,11 +251,11 @@
       "deployKind": "worker",
       "cfProject": "email-manager",
       "domains": [
-        "mail.sassmaker.com"
+        "mail.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified.",
       "name": "Email Manager",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -269,7 +269,7 @@
         "pillarId": "learn",
         "spotlight": false,
         "maturity": "maintained",
-        "repositoryUrl": "https://github.com/sass-maker/email-manager"
+        "repositoryUrl": "https://github.com/Significant-Hobbies/email-manager"
       }
     },
     {
@@ -325,7 +325,7 @@
         "id": "free-ai",
         "name": "Free AI",
         "description": "OpenAI-compatible gateway across free-tier model providers.",
-        "category": "helper",
+        "category": "product",
         "pillarId": "build",
         "spotlight": false,
         "maturity": "maintained",
@@ -338,7 +338,7 @@
       "authModel": "public-persistent",
       "family": "fleet-workspace",
       "tier": "active",
-      "repo": "foundry/apps/internal/psi-swarm",
+      "repo": "foundry/helpers/psi-swarm",
       "deployKind": "pages",
       "cfProject": "psi-swarm-web",
       "domains": [
@@ -521,7 +521,7 @@
         "id": "knowledge-base",
         "name": "Knowledge Base",
         "description": "Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.",
-        "category": "helper",
+        "category": "product",
         "pillarId": "build",
         "spotlight": false,
         "maturity": "maintained",
@@ -583,8 +583,12 @@
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
+      "metrics": {
+        "publicSite": true
+      },
       "public": {
-        "listing": "hidden"
+        "listing": "hidden",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/india-standards"
       }
     },
     {
@@ -837,7 +841,7 @@
         "pillarId": "build",
         "spotlight": false,
         "maturity": "maintained",
-        "repositoryUrl": "https://github.com/sass-maker/rolepatch"
+        "repositoryUrl": "https://github.com/Significant-Hobbies/rolepatch"
       }
     },
     {
@@ -855,8 +859,8 @@
         "karte.cc"
       ],
       "inRegistry": true,
-      "status": "live",
-      "notes": "name collision risk (PLAID KARTE)",
+      "status": "unverified",
+      "notes": "Canonical domain remains karte.cc, but DNS did not resolve during the 2026-07-30 URL audit. Name collision risk (PLAID KARTE).",
       "name": "Karte",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -953,26 +957,6 @@
       }
     },
     {
-      "id": "reel-pipeline",
-      "authModel": "required-service",
-      "family": "fleet-workspace",
-      "tier": "parked",
-      "repo": "foundry/marketing/reel-pipeline",
-      "deployKind": "worker",
-      "cfProject": "reel-pipeline-artifacts",
-      "domains": [],
-      "inRegistry": false,
-      "status": "unverified",
-      "notes": "reel→Rust rewrite",
-      "name": "Reel Pipeline",
-      "attention": "foundry",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "unknown",
-      "public": {
-        "listing": "hidden"
-      }
-    },
-    {
       "id": "protein-index",
       "authModel": "public-persistent",
       "family": "significanthobbies",
@@ -986,7 +970,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development.",
+      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development. The sourcePath checkout tracks the superseded Significant-Hobbies/protein-index repository; Significant-Hobbies/protein-index-resilience is the canonical public source.",
       "name": "Protein Index",
       "attention": "ignored",
       "lifecycle": "past",
@@ -997,26 +981,6 @@
         "name": "Protein Index",
         "description": "Searchable protein and nutrition reference.",
         "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index-resilience"
-      }
-    },
-    {
-      "id": "mobile-dev-cockpit",
-      "authModel": "required-user",
-      "family": "fleet-workspace",
-      "tier": "parked",
-      "repo": "foundry/apps/public/mobile-cockpit",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
-      "inRegistry": false,
-      "status": "undeployed",
-      "notes": "Private Fleet client; canonical source is inside fleet-workspace.",
-      "name": "Mobile Dev Cockpit",
-      "attention": "foundry",
-      "lifecycle": "local-only",
-      "repositoryVisibility": "unknown",
-      "public": {
-        "listing": "hidden"
       }
     },
     {
@@ -1067,6 +1031,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/mashup",
       "public": {
         "listing": "hidden"
       }

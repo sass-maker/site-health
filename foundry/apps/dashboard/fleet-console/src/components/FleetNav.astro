@@ -2,41 +2,118 @@
 import "../styles/founder.css";
 
 interface Props {
-  active: "home" | "projects" | "market" | "decisions" | "activity" | "overview" | "build";
+  active: "project-statuses" | "metrics" | "market" | "feedback";
 }
 
 const { active } = Astro.props;
-const resolved = active === "overview" ? "home" : active;
 const links = [
-  { id: "home", href: "/", label: "Home" },
-  { id: "projects", href: "/projects", label: "Projects" },
-  { id: "market", href: "/marketing", label: "Marketing" },
-  { id: "decisions", href: "/decisions", label: "Decisions" },
-  { id: "activity", href: "/activity", label: "Activity" },
-];
+  { id: "project-statuses", href: "/project-statuses", label: "Projects", icon: "M4 6h7v5H4z M13 6h7v5h-7z M4 13h7v5H4z M13 13h7v5h-7z" },
+  { id: "metrics", href: "/metrics", label: "Metrics", icon: "M5 18V9 M10 18V5 M15 18v-7 M20 18V3" },
+  { id: "market", href: "/marketing", label: "Marketing", icon: "M4 13V9l12-5v14L4 13z M7 14l1 6h4l-2-7" },
+  { id: "feedback", href: "/feedback", label: "Feedback", icon: "M4 5h16v12H9l-5 4V5z M8 9h8 M8 13h5" },
+] as const;
 ---
 
-<header class="fleet-nav">
-  <a class="brand" href="/">
-    <span class="brand-mark" aria-hidden="true">F</span>
-    <span><strong>Foundry</strong><small>Owner control</small></span>
-  </a>
-  <nav aria-label="Foundry">
+<aside class="fleet-sidebar" id="fleet-sidebar" aria-label="Fleet Console navigation">
+  <div class="sidebar-head">
+    <a class="brand" href="/project-statuses" data-project-scope-link>
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span class="sidebar-copy"><strong>Foundry</strong><small>Owner control</small></span>
+    </a>
+    <button
+      class="sidebar-collapse"
+      type="button"
+      aria-label="Collapse sidebar"
+      aria-expanded="true"
+      data-sidebar-collapse
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6M19 4v16" /></svg>
+    </button>
+    <button class="sidebar-close" type="button" aria-label="Close navigation" data-sidebar-close>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Primary">
     {links.map((link) => (
-      <a aria-current={resolved === link.id ? "page" : undefined} class:list={{ active: resolved === link.id }} href={link.href}>
-        {link.label}
+      <a
+        aria-current={active === link.id ? "page" : undefined}
+        class:list={{ active: active === link.id }}
+        href={link.href}
+        title={link.label}
+        data-project-scope-link
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d={link.icon} /></svg>
+        <span class="sidebar-copy">{link.label}</span>
       </a>
     ))}
   </nav>
-  <span class="connection" data-founder-connection role="status" aria-live="polite">
-    <i aria-hidden="true"></i>
-    <span data-founder-connection-label>Connecting</span>
-  </span>
-</header>
+
+  <div class="sidebar-foot">
+    <span class="connection" data-founder-connection role="status" aria-live="polite">
+      <i aria-hidden="true"></i>
+      <span class="sidebar-copy" data-founder-connection-label>Connecting</span>
+    </span>
+    <a class="sidebar-system-link" href="/metrics#system-map" title="Open system map" data-project-scope-link>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v5 M6 20v-4h12v4 M6 16v-3h12v3 M5 9h14v4H5z" /></svg>
+      <span class="sidebar-copy">System map</span>
+    </a>
+  </div>
+</aside>
 
 <script>
+  const shell = document.querySelector<HTMLElement>("[data-sidebar-shell]");
+  const collapse = document.querySelector<HTMLButtonElement>("[data-sidebar-collapse]");
+  const opener = document.querySelector<HTMLButtonElement>("[data-sidebar-open]");
+  const close = document.querySelector<HTMLButtonElement>("[data-sidebar-close]");
+  const backdrop = document.querySelector<HTMLButtonElement>("[data-sidebar-backdrop]");
+  const main = document.querySelector<HTMLElement>("#main");
   const indicator = document.querySelector<HTMLElement>("[data-founder-connection]");
   const label = document.querySelector<HTMLElement>("[data-founder-connection-label]");
+  const mobile = window.matchMedia("(max-width: 850px)");
+  let returnFocus: HTMLElement | null = null;
+
+  function setCollapsed(collapsed: boolean) {
+    shell?.classList.toggle("sidebar-collapsed", collapsed);
+    collapse?.setAttribute("aria-expanded", String(!collapsed));
+    collapse?.setAttribute("aria-label", collapsed ? "Expand sidebar" : "Collapse sidebar");
+    try { localStorage.setItem("fleet-sidebar-collapsed", String(collapsed)); } catch {}
+  }
+
+  function setOpen(open: boolean, restoreFocus = true) {
+    const isMobile = mobile.matches;
+    const shouldOpen = isMobile && open;
+    shell?.classList.toggle("sidebar-open", shouldOpen);
+    opener?.setAttribute("aria-expanded", String(shouldOpen));
+    if (isMobile) {
+      document.querySelector<HTMLElement>("#fleet-sidebar")?.toggleAttribute("inert", !shouldOpen);
+      document.querySelector<HTMLElement>("#fleet-sidebar")?.setAttribute("aria-hidden", String(!shouldOpen));
+      main?.toggleAttribute("inert", shouldOpen);
+    } else {
+      document.querySelector<HTMLElement>("#fleet-sidebar")?.removeAttribute("inert");
+      document.querySelector<HTMLElement>("#fleet-sidebar")?.removeAttribute("aria-hidden");
+      main?.removeAttribute("inert");
+    }
+    if (shouldOpen) {
+      returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : opener;
+      close?.focus();
+    } else if (restoreFocus && returnFocus) {
+      returnFocus?.focus();
+      returnFocus = null;
+    }
+  }
+
+  try { setCollapsed(localStorage.getItem("fleet-sidebar-collapsed") === "true"); } catch {}
+  setOpen(false, false);
+  collapse?.addEventListener("click", () => setCollapsed(!shell?.classList.contains("sidebar-collapsed")));
+  opener?.addEventListener("click", () => setOpen(true));
+  close?.addEventListener("click", () => setOpen(false));
+  backdrop?.addEventListener("click", () => setOpen(false));
+  mobile.addEventListener("change", () => setOpen(false, false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && shell?.classList.contains("sidebar-open")) setOpen(false);
+  });
+
   fetch("/api/founder/health", { headers: { accept: "application/json" } })
     .then((response) => {
       if (!response.ok) throw new Error("offline");

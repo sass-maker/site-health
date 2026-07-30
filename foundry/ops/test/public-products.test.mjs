@@ -38,7 +38,7 @@ test('public projection contains only explicitly allowlisted public products', (
     })),
     [
       { id: 'chatgpt-memory-insights', url: 'https://chatgpt.significanthobbies.com' },
-      { id: 'email-manager', url: 'https://mail.sassmaker.com' },
+      { id: 'email-manager', url: 'https://mail.significanthobbies.com' },
       { id: 'knowledge-base', url: 'https://knowledgebase.sassmaker.com' },
       { id: 'saas-maker', url: 'https://sassmaker.com' },
       { id: 'setline', url: 'https://setline.significanthobbies.com' },
@@ -51,6 +51,7 @@ test('public projection contains only explicitly allowlisted public products', (
   assert.equal(projection.products.some((product) => product.id === 'mashup'), false);
   assert.equal(projection.products.some((product) => product.id === 'fleet-workspace'), false);
   assert.equal(projection.products.some((product) => product.id === 'mobile-dev-cockpit'), false);
+  assert.equal(projection.products.some((product) => product.id === 'reel-pipeline'), false);
   assert.equal(
     projection.products.find((product) => product.id === 'app-health').url,
     'https://health.sassmaker.com',
@@ -133,7 +134,7 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
   assert.throws(() => assertNoPrivateData({ description: 'api_key=should-not-leak' }), /credential-shaped/);
 });
 
-test('SaaS Maker exposes its canonical public Fleet repository', async () => {
+test('SaaS Maker does not expose its private Fleet repository', async () => {
   const [links, agentRegistry] = await Promise.all([
     readFile(new URL('../../apps/public/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
@@ -144,9 +145,10 @@ test('SaaS Maker exposes its canonical public Fleet repository', async () => {
   );
 
   assert.match(links, /https:\/\/github\.com\/sarthakagrawal927['"]/);
-  assert.match(links, /https:\/\/github\.com\/sass-maker\/fleet-workspace/);
-  assert.equal(publicSaasMaker.repositoryUrl, 'https://github.com/sass-maker/fleet-workspace');
-  assert.deepEqual(saasMaker.sameAs, ['https://github.com/sass-maker/fleet-workspace']);
+  assert.match(links, /https:\/\/github\.com\/sass-maker['"]/);
+  assert.equal(Object.hasOwn(publicSaasMaker, 'repositoryUrl'), false);
+  assert.equal(Object.hasOwn(publicSaasMaker, 'roadmapUrl'), false);
+  assert.deepEqual(saasMaker.sameAs, ['https://github.com/sass-maker']);
 });
 
 async function readJson(url) {

@@ -4,7 +4,7 @@
   "attentionCounts": {
     "my-work": 4,
     "toolbox": 20,
-    "foundry": 5,
+    "foundry": 3,
     "ignored": 13
   },
   "defaults": {
@@ -205,7 +205,7 @@
       "attention": "foundry",
       "family": "fleet-workspace",
       "owner": "foundry",
-      "repository": "foundry/apps/internal/drank",
+      "repository": "foundry/helpers/drank",
       "runtimes": [
         "public-web",
         "data-pipeline",
@@ -256,7 +256,7 @@
         "data-store"
       ],
       "surfaces": [
-        "https://mail.sassmaker.com"
+        "https://mail.significanthobbies.com"
       ],
       "dependencies": [
         "GitHub Actions",
@@ -360,7 +360,7 @@
       "attention": "foundry",
       "family": "fleet-workspace",
       "owner": "foundry",
-      "repository": "foundry/apps/internal/psi-swarm",
+      "repository": "foundry/helpers/psi-swarm",
       "runtimes": [
         "public-web",
         "local-tool",
@@ -1048,46 +1048,6 @@
       ]
     },
     {
-      "id": "reel-pipeline",
-      "name": "Reel Pipeline",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/marketing/reel-pipeline",
-      "runtimes": [
-        "worker",
-        "local-tool",
-        "background-job",
-        "data-store"
-      ],
-      "surfaces": [],
-      "dependencies": [
-        "GitHub Actions",
-        "Cloudflare Workers",
-        "local render engines",
-        "Fleet review queue",
-        "Postiz handoff"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "fleet-deploy",
-        "cloudflare-resilience",
-        "job-receipts",
-        "marketing-receipts",
-        "data-recovery"
-      ],
-      "contracts": [
-        "build",
-        "errors",
-        "jobs",
-        "data-durability",
-        "marketing"
-      ],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "page publication-integrity, scheduler, data, security, or cost risk; digest render failures",
-      "exceptions": []
-    },
-    {
       "id": "protein-index",
       "name": "Protein Index",
       "attention": "ignored",
@@ -1107,37 +1067,6 @@
           "reason": "Retired; explicit reactivation required"
         }
       ]
-    },
-    {
-      "id": "mobile-dev-cockpit",
-      "name": "Mobile Dev Cockpit",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/apps/public/mobile-cockpit",
-      "runtimes": [
-        "mobile",
-        "local-tool"
-      ],
-      "surfaces": [],
-      "dependencies": [
-        "iOS toolchain",
-        "private Fleet bridge"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "release",
-        "privacy-safe-errors",
-        "coverage-snapshot"
-      ],
-      "contracts": [
-        "build",
-        "release",
-        "errors"
-      ],
-      "actionPolicy": "factory-safe",
-      "alertPolicy": "digest build/control-client findings; page privacy or control-plane risk",
-      "exceptions": []
     },
     {
       "id": "app-health",

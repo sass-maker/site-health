@@ -1,0 +1,22 @@
+---
+import FounderLayout from "../components/FounderLayout.astro";
+---
+
+<FounderLayout
+  title="Feedback"
+  description="Feedback submitted across your projects."
+  active="feedback"
+  view="feedback"
+>
+  <span slot="meta" class="snapshot-time" data-feedback-time>Reading feedback</span>
+
+  <section class="owner-section" aria-labelledby="feedback-inbox-title">
+    <div class="section-head">
+      <div>
+        <h2 id="feedback-inbox-title">Inbox</h2>
+      </div>
+      <span class="count" data-founder-count="feedback-submissions">—</span>
+    </div>
+    <div class="loading-state" data-founder-slot="feedback-submissions">Reading submissions…</div>
+  </section>
+</FounderLayout>

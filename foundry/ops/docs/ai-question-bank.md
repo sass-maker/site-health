@@ -531,7 +531,7 @@ All 20 questions need content. Key differentiators:
 
 ---
 
-## Email Manager (mail.sassmaker.com)
+## Email Manager (mail.significanthobbies.com)
 
 Local-first Gmail manager with semantic search, subscription management,
 and sender analytics. Privacy-preserving — data stays on your machine.

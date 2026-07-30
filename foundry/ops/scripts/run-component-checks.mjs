@@ -12,13 +12,13 @@ const checks = [
     'node',
     ['--check', 'scripts/render-content-package.js'],
   ],
-  ['drank', 'foundry/apps/internal/drank', 'pnpm', ['check']],
+  ['drank', 'foundry/helpers/drank', 'pnpm', ['check']],
   ['feedback', 'foundry/packages/feedback', 'pnpm', ['check']],
-  ['ai-visibility', 'foundry/packages/ai-visibility', 'pnpm', ['check']],
+  ['ai-visibility', 'foundry/helpers/ai-visibility', 'pnpm', ['check']],
   ['public-directory', 'foundry/apps/public/public-directory', 'npm', ['run', 'check']],
-  ['mobile-cockpit', 'foundry/apps/public/mobile-cockpit', 'pnpm', ['check']],
-  ['psi-swarm-cli', 'foundry/apps/internal/psi-swarm', 'pnpm', ['build:cli']],
-  ['psi-swarm-web', 'foundry/apps/internal/psi-swarm', 'pnpm', ['build:web']],
+  ['mobile-cockpit', 'foundry/apps/dashboard/mobile-cockpit', 'pnpm', ['check']],
+  ['psi-swarm-cli', 'foundry/helpers/psi-swarm', 'pnpm', ['build:cli']],
+  ['psi-swarm-web', 'foundry/helpers/psi-swarm', 'pnpm', ['build:web']],
   ['fleet-console', 'foundry/apps/dashboard/fleet-console', 'npm', ['run', 'build']],
 ];
 

@@ -51,7 +51,7 @@ const REPOS = {
   'email-manager': {
     repo: 'sass-maker/email-manager',
     topics: ['email', 'gmail', 'productivity'],
-    productUrl: 'https://mail.sassmaker.com',
+    productUrl: 'https://mail.significanthobbies.com',
   },
   'high-signal': {
     repo: 'High-Signal-App/high-signal',

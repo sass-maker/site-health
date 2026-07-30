@@ -11,8 +11,12 @@ The store is operational evidence, not a public analytics product. It lives at:
 ```
 
 Set `FLEET_SKILL_RUNS_DIR` to use an alternate root for tests or another host.
-Nothing in this directory is committed, copied into Founder Control, or emitted
-through the SaaS Maker public projection.
+Nothing in this directory is committed or emitted through the SaaS Maker public
+projection. Founder Control receives counts, structured observations, and at
+most one bounded result summary derived from an already-redacted artifact. The
+summary filter rejects private paths, URLs, email addresses, credential-like
+text, structured blobs, redacted artifacts, and truncated artifacts; retained
+bodies never enter the API.
 
 ## What one run contains
 

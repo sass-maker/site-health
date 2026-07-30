@@ -68,6 +68,158 @@
       "queries": [
         { "qid": "drank-category", "kind": "category", "q": "free domain rating dataset weekly" }
       ]
+    },
+    {
+      "id": "app-health",
+      "origin": "https://health.sassmaker.com",
+      "queries": [
+        { "qid": "app-health-brand", "kind": "brand", "q": "health.sassmaker.com" },
+        { "qid": "app-health-category", "kind": "category", "q": "privacy-first endpoint health monitoring OpenTelemetry" }
+      ]
+    },
+    {
+      "id": "calorie",
+      "origin": "https://calorie.significanthobbies.com",
+      "queries": [
+        { "qid": "calorie-brand", "kind": "brand", "q": "calorie.significanthobbies.com" },
+        { "qid": "calorie-category", "kind": "category", "q": "private local-first food water weight journal" }
+      ]
+    },
+    {
+      "id": "free-ai",
+      "origin": "https://ai-gateway.sassmaker.com",
+      "queries": [
+        { "qid": "free-ai-brand", "kind": "brand", "q": "ai-gateway.sassmaker.com" },
+        { "qid": "free-ai-category", "kind": "category", "q": "free OpenAI-compatible API gateway free-tier model providers" }
+      ]
+    },
+    {
+      "id": "karte",
+      "origin": "https://karte.cc",
+      "queries": [
+        { "qid": "karte-brand", "kind": "brand", "q": "karte.cc" },
+        { "qid": "karte-category", "kind": "category", "q": "AI link-in-bio conversational profile" }
+      ]
+    },
+    {
+      "id": "knowledge-base",
+      "origin": "https://knowledgebase.sassmaker.com",
+      "queries": [
+        { "qid": "knowledge-base-brand", "kind": "brand", "q": "knowledgebase.sassmaker.com" },
+        { "qid": "knowledge-base-category", "kind": "category", "q": "private knowledge base search ranked citations provenance" }
+      ]
+    },
+    {
+      "id": "reader",
+      "origin": "https://read.significanthobbies.com",
+      "queries": [
+        { "qid": "reader-brand", "kind": "brand", "q": "read.significanthobbies.com" },
+        { "qid": "reader-category", "kind": "category", "q": "capture annotate revisit discuss saved reading" }
+      ]
+    },
+    {
+      "id": "swe-interview-prep",
+      "origin": "https://learn.significanthobbies.com",
+      "queries": [
+        { "qid": "swe-interview-prep-brand", "kind": "brand", "q": "learn.significanthobbies.com" },
+        { "qid": "swe-interview-prep-category", "kind": "category", "q": "software engineering interview learning OS DSA system design behavioral" }
+      ]
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "origin": "https://paths.significanthobbies.com",
+      "queries": [
+        { "qid": "what-it-takes-to-win-brand", "kind": "brand", "q": "paths.significanthobbies.com" },
+        { "qid": "what-it-takes-to-win-category", "kind": "category", "q": "database of documented early career breakthroughs" }
+      ]
+    },
+    {
+      "id": "chess",
+      "origin": "https://chess.significanthobbies.com",
+      "queries": [
+        { "qid": "chess-brand", "kind": "brand", "q": "chess.significanthobbies.com" },
+        { "qid": "chess-category", "kind": "category", "q": "browser chess Stockfish AI move coaching" }
+      ]
+    },
+    {
+      "id": "email-manager",
+      "origin": "https://mail.significanthobbies.com",
+      "queries": [
+        { "qid": "email-manager-brand", "kind": "brand", "q": "mail.significanthobbies.com" },
+        { "qid": "email-manager-category", "kind": "category", "q": "local-first Gmail semantic search sender insights unsubscribe" }
+      ]
+    },
+    {
+      "id": "fleet-workspace",
+      "origin": "https://sassmaker.com",
+      "queries": [
+        { "qid": "fleet-workspace-brand", "kind": "brand", "q": "sassmaker.com" },
+        { "qid": "fleet-workspace-category", "kind": "category", "q": "public software studio portfolio changelogs roadmaps source links" }
+      ]
+    },
+    {
+      "id": "looptv",
+      "origin": "https://tv.significanthobbies.com",
+      "queries": [
+        { "qid": "looptv-brand", "kind": "brand", "q": "tv.significanthobbies.com" },
+        { "qid": "looptv-category", "kind": "category", "q": "curated YouTube lean-back random TV channel" }
+      ]
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "origin": "https://chatgpt.significanthobbies.com",
+      "queries": [
+        { "qid": "memory-map-brand", "kind": "brand", "q": "chatgpt.significanthobbies.com" },
+        { "qid": "memory-map-category", "kind": "category", "q": "private browser-local ChatGPT export theme analysis" }
+      ]
+    },
+    {
+      "id": "motion",
+      "origin": "https://motion.significanthobbies.com",
+      "queries": [
+        { "qid": "motion-brand", "kind": "brand", "q": "motion.significanthobbies.com" },
+        { "qid": "motion-category", "kind": "category", "q": "iPhone body movement controller game mirror larger screen" }
+      ]
+    },
+    {
+      "id": "psi-swarm",
+      "origin": "https://performance.sassmaker.com",
+      "queries": [
+        { "qid": "psi-swarm-brand", "kind": "brand", "q": "performance.sassmaker.com" },
+        { "qid": "psi-swarm-category", "kind": "category", "q": "repeated Lighthouse runs p50 p75 p90 p99 Web Vitals" }
+      ]
+    },
+    {
+      "id": "research-papers",
+      "origin": "https://papers.highsignal.app",
+      "queries": [
+        { "qid": "research-papers-brand", "kind": "brand", "q": "papers.highsignal.app" },
+        { "qid": "research-papers-category", "kind": "category", "q": "semantic academic paper search arXiv OpenReview bioRxiv medRxiv" }
+      ]
+    },
+    {
+      "id": "setline",
+      "origin": "https://setline.significanthobbies.com",
+      "queries": [
+        { "qid": "setline-brand", "kind": "brand", "q": "setline.significanthobbies.com" },
+        { "qid": "setline-category", "kind": "category", "q": "offline workout execution tracker user-authored plans rest timers" }
+      ]
+    },
+    {
+      "id": "starboard",
+      "origin": "https://starboard.codevetter.com",
+      "queries": [
+        { "qid": "starboard-brand", "kind": "brand", "q": "starboard.codevetter.com" },
+        { "qid": "starboard-category", "kind": "category", "q": "semantic search organize GitHub starred repositories" }
+      ]
+    },
+    {
+      "id": "india-standards",
+      "origin": "https://india-numbers.significanthobbies.com",
+      "queries": [
+        { "qid": "india-standards-brand", "kind": "brand", "q": "india-numbers.significanthobbies.com" },
+        { "qid": "india-standards-category", "kind": "category", "q": "India demographic calculator survey-weighted correlated filters" }
+      ]
     }
   ]
 }

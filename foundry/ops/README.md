@@ -54,6 +54,7 @@ count, are the source of truth.
 | `seo-audit` | standalone | — |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `token-budget` | standalone | — |
+| `local-ports-cleanup` | standalone | safety-first local port cleanup through `ports` |
 | `mobile-task-control` | standalone | — |
 | `daily-learning` | standalone | fresh private 30-minute learning sessions |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization audits |

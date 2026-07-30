@@ -7,7 +7,9 @@ own provider credentials, raw provider responses, schedules, or publishing.
 
 ## Current operating boundary
 
-- The configured projects are Pace, CodeVetter, PostTrainLLM, and High Signal.
+- All 27 Fleet identities eligible for public-site Metrics are configured.
+  This includes the explicitly metric-enabled India Standards site and excludes
+  the non-product personal website. Each uses its canonical internal project id.
 - Each project declares aliases, competitors, prompt sets, personas, allowed
   provider IDs, a cache window, and call/concurrency/timeout/cost limits.
 - Only fixture providers are allowed. Live providers remain disabled pending
@@ -37,6 +39,8 @@ outside Git.
 The receipt reports configured/completed/cached/unavailable calls, normalized
 visibility, recommendation, rank, citations, competitor share, coverage,
 freshness, observed cost, and comparison with the previous local run.
+Every recorded receipt and evidence summary carries `evidenceMode: fixture`;
+fixture baselines must not be presented as live-provider visibility.
 
 ## Persistence and privacy
 

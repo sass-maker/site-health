@@ -30,7 +30,7 @@ test('real catalog validates with every authored overlay reference', () => {
       toolboxRegistry: toolbox,
       reconcile: false,
     }),
-    { projectCount: 43 },
+    { projectCount: 41 },
   );
 });
 

@@ -233,11 +233,13 @@ Rules:
 
 Fleet operational tooling — skills, scripts, registries, automation, host
 setup, docs, templates, and teammates — lives under `foundry/ops/`. Public,
-internal, and dashboard interfaces live under `foundry/apps/`; Marketing lives
-under `foundry/marketing/`; and reusable packages live under
+and dashboard interfaces live under `foundry/apps/`; Drank, PSI Swarm, and AI
+Visibility live under `foundry/helpers/`; Marketing lives under
+`foundry/marketing/`; and the reusable public Feedback package lives under
 `foundry/packages/`. Agents discover skills via symlinks from their profile
-skill dirs into `foundry/ops/`; edit skills in the repo, never in the symlink
-targets.
+skill dirs into `foundry/ops/`; edit Fleet-owned skills in the repo, never in
+agent profile directories. Helper-owned skill entrypoints remain canonical
+beside their helper and are exposed through thin links in `foundry/ops/skills/`.
 
 ### Structure
 
@@ -257,11 +259,11 @@ foundry/ops/
 ├── test/                ← operational tests and shared fixtures
 └── docs/                ← living references and dated history
 
-foundry/apps/public/     ← SaaS Maker directory and Mobile Cockpit
-foundry/apps/internal/   ← Drank and PSI Swarm
-foundry/apps/dashboard/  ← Fleet Console
+foundry/helpers/        ← AI Visibility, Drank, and PSI Swarm
+foundry/apps/public/     ← SaaS Maker directory
+foundry/apps/dashboard/  ← Fleet Console and experimental Mobile Cockpit client
 foundry/marketing/       ← Reel Pipeline and Content Factory
-foundry/packages/        ← AI Visibility and Feedback
+foundry/packages/        ← public Feedback package
 ```
 
 ### Skill discovery (progressive disclosure)
@@ -278,6 +280,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 | `spec-driven` | standalone | OpenSpec workflow for new features |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `token-budget` | standalone | Codex context/token audit |
+| `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |
 | `design-workflow` | standalone | preserve/overhaul direction, evidence, quality, and owner-acceptance gates |

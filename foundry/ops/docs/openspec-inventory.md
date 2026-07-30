@@ -9,8 +9,8 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 - Registry entries: 42
 - Project/component checkouts with OpenSpec: 23
 - Project/component spec roots: 23
-- Project/component base specs: 180
-- Project/component active changes: 25
+- Project/component base specs: 181
+- Project/component active changes: 26
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -41,10 +41,10 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 | toolbox | Starboard | `starboard` | available |
 | toolbox | SWE Interview Prep | `swe-interview-prep` | available |
 | toolbox | What It Takes to Win | `what-it-takes-to-win` | available |
-| foundry | Drank | `foundry/apps/internal/drank` | available |
+| foundry | Drank | `foundry/helpers/drank` | available |
 | foundry | Fleet Workspace | `.` | available |
-| foundry | Mobile Dev Cockpit | `foundry/apps/public/mobile-cockpit` | available |
-| foundry | PSI Swarm | `foundry/apps/internal/psi-swarm` | none |
+| foundry | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit` | available |
+| foundry | PSI Swarm | `foundry/helpers/psi-swarm` | none |
 | foundry | Reel Pipeline | `foundry/marketing/reel-pipeline` | available |
 | ignored | AliveVille | `../fleet-inactive-projects/aliveville` | not applicable |
 | ignored | Companion Robot | `../fleet-inactive-projects/companion-robot` | not applicable |
@@ -110,7 +110,7 @@ Archived changes: 6
 
 ### Drank
 
-Root: `foundry/apps/internal/drank`
+Root: `foundry/helpers/drank`
 
 Base specs: `dr-advisor`
 
@@ -122,7 +122,7 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-workspace-boundary`, `founder-mission-control`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owned-product-changelogs`, `owner-decision-inbox`, `podcast-editorial-pipeline`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `skill-run-observability`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-workspace-boundary`, `founder-mission-control`, `foundry-product-buckets`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owned-product-changelogs`, `owner-decision-inbox`, `podcast-editorial-pipeline`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `skill-run-observability`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
@@ -136,7 +136,7 @@ Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-
 | `product-scoped-ingest-keys` | 19/19 | complete |
 | `retire-saas-maker` | 26/28 | in progress |
 
-Archived changes: 37
+Archived changes: 38
 
 ### HeyPace
 
@@ -216,7 +216,7 @@ Archived changes: 8
 
 ### Mobile Dev Cockpit
 
-Root: `foundry/apps/public/mobile-cockpit`
+Root: `foundry/apps/dashboard/mobile-cockpit`
 
 Base specs: `agent-supervision`, `dynamic-project-enrollment`, `guarded-deployment`, `mobile-preview-review`, `project-process-control`, `secure-machine-pairing`
 
@@ -315,6 +315,7 @@ Base specs: `expanded-learning-domains`, `public-curriculum-discovery`, `unified
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `2026-07-26-sweep-breadth-triage` | 25/28 | in progress |
+| `add-systems-simulation-labs` | 58/62 | in progress |
 
 Archived changes: 3
 

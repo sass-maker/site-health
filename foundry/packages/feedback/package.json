@@ -24,8 +24,10 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react --external react-dom",
     "typecheck": "tsc --noEmit",
+    "typecheck:contracts": "tsc -p tsconfig.test.json",
     "lint": "biome check .",
-    "check": "pnpm typecheck && pnpm lint && pnpm build && pnpm pack --dry-run"
+    "test": "node --test test/*.test.mjs",
+    "check": "pnpm typecheck && pnpm typecheck:contracts && pnpm lint && pnpm build && pnpm test && pnpm pack --dry-run"
   },
   "peerDependencies": {
     "react": ">=18 <20",

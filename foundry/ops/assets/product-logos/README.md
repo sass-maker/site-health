@@ -30,7 +30,7 @@ Geometric path marks per product. Source of truth for favicons is each product `
 | `anime-list` | MAL Explorer | https://anime.significanthobbies.com | `anime-list-mark.svg` / `anime-list-1024.png` |
 | `chess` | Chess Coach | https://chess.significanthobbies.com | `chess-mark.svg` / `chess-1024.png` |
 | `reader` | Reader | https://read.significanthobbies.com | `reader-mark.svg` / `reader-1024.png` |
-| `email-manager` | Email Manager | https://mail.sassmaker.com | `email-manager-mark.svg` / `email-manager-1024.png` |
+| `email-manager` | Email Manager | https://mail.significanthobbies.com | `email-manager-mark.svg` / `email-manager-1024.png` |
 | `free-ai` | AI Gateway | https://ai-gateway.sassmaker.com | `free-ai-mark.svg` / `free-ai-1024.png` |
 | `swe-interview-prep` | SWE Interview Prep | https://learn.significanthobbies.com | `swe-interview-prep-mark.svg` / `swe-interview-prep-1024.png` |
 | `psi-swarm` | psi-swarm | https://performance.sassmaker.com | `psi-swarm-mark.svg` / `psi-swarm-1024.png` |

@@ -83,11 +83,14 @@ existing behavior, and config/CI tweaks.
 
 All Fleet-owned source lives under `foundry/`. Operational tooling is under
 `foundry/ops/`: skills, scripts, registries, automation, host setup, docs,
-templates, and teammates. Public, internal, and dashboard interfaces live under
-`foundry/apps/`; Marketing lives under `foundry/marketing/`; reusable code
-lives in `foundry/packages/`; and Fleet-owned skills remain canonical under
-`foundry/ops/skills/`. Edit Fleet skills in `foundry/ops/`, not in agent
-profile dirs. Approved third-party skills may be
+templates, and teammates. Focused supporting products live under
+`foundry/helpers/`; public and Fleet Console interfaces live under
+`foundry/apps/`; Marketing lives under `foundry/marketing/`; and the public
+Feedback package lives under `foundry/packages/`. Fleet-owned orchestration
+skills remain canonical under `foundry/ops/skills/`; a helper-specific skill
+may remain canonical beside its helper and be exposed through a thin link in
+that directory. Edit Fleet sources in the repo, not in agent profile dirs.
+Approved third-party skills may be
 installed as ignored, machine-local payloads when their installer is pinned in
 Fleet scripts.
 
@@ -112,6 +115,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), content-coverage (search-intent pages), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
 | `token-budget` | standalone | Codex context/token audit |
+| `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |
 | `design-workflow` | standalone | Fleet preserve/overhaul design gates, review receipts, and owner feedback |

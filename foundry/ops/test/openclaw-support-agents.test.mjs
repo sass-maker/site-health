@@ -27,7 +27,7 @@ test('support-agent installer repairs migrated monorepo workspaces', async () =>
       mkdir(join(workspaceRoot, 'foundry/marketing/reel-pipeline'), {
         recursive: true,
       }),
-      mkdir(join(workspaceRoot, 'foundry/apps/internal/drank'), { recursive: true }),
+      mkdir(join(workspaceRoot, 'foundry/helpers/drank'), { recursive: true }),
       mkdir(binDir, { recursive: true }),
     ]);
     await writeFile(
@@ -69,7 +69,7 @@ exit 1
     );
     assert.match(
       stdout,
-      /update: OpenClaw agent drank .*foundry\/apps\/internal\/drank/,
+      /update: OpenClaw agent drank .*foundry\/helpers\/drank/,
     );
     assert.doesNotMatch(stdout, /foundry\/ops\/aliveville/);
   } finally {

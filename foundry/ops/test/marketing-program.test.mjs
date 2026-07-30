@@ -18,17 +18,26 @@ test('registry covers or explicitly excludes every catalog project and has the e
   const catalogSlugs = catalog.projects
     .filter((project) => project.attention !== 'ignored' && project.tier !== 'non-product')
     .map((project) => project.id);
+  const publicAiVisibilitySlugs = catalog.projects
+    .filter((project) =>
+      (project.public?.listing === 'maintained' || project.metrics?.publicSite === true)
+      && !['past', 'non-product'].includes(project.lifecycle)
+      && project.tier !== 'non-product'
+      && project.domains.length > 0)
+    .map((project) => project.id)
+    .sort();
   const result = validateMarketingProgram(registry, {
     catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],
   });
   assert.deepEqual(result.focusSet, ['pace', 'codevetter', 'posttrainllm', 'high-signal']);
-  assert.equal(result.projects.length, 30);
+  assert.equal(result.projects.length, 28);
   assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
   assert.equal(result.aiVisibility.scheduleIntent.enabled, false);
   assert.deepEqual(
     result.aiVisibility.projects.map((project) => project.slug).sort(),
-    ['codevetter', 'high-signal', 'pace', 'posttrainllm'],
+    publicAiVisibilitySlugs,
   );
+  const promptTexts = new Set();
   for (const project of result.aiVisibility.projects) {
     assert.ok(project.aliases.length > 0);
     assert.ok(project.competitors.length > 0);
@@ -37,7 +46,10 @@ test('registry covers or explicitly excludes every catalog project and has the e
     assert.ok(project.providerPolicy.allowedProviderIds.length > 0);
     assert.ok(project.cacheWindowHours > 0);
     assert.ok(project.runBudget.maxCalls > 0);
+    assert.equal(project.promptSets[0].prompts.length, 2);
+    for (const prompt of project.promptSets[0].prompts) promptTexts.add(prompt.text);
   }
+  assert.equal(promptTexts.size, 54);
 });
 
 test('canonical identities and historical aliases resolve uniquely', () => {

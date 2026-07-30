@@ -1,5 +1,7 @@
 import { defineConfig } from "astro/config";
 
+const founderControlDevUrl = process.env.FOUNDER_CONTROL_DEV_URL ?? "http://127.0.0.1:4187";
+
 export default defineConfig({
   output: "static",
   build: {
@@ -9,7 +11,7 @@ export default defineConfig({
     server: {
       proxy: {
         "/api/founder": {
-          target: "http://127.0.0.1:4187",
+          target: founderControlDevUrl,
           rewrite: (path) => path.replace(/^\/api\/founder/, "")
         }
       }

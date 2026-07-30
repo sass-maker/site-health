@@ -11,7 +11,7 @@
       "headFile": "foundry/apps/public/public-directory/src/layouts/Layout.astro",
       "schemaType": "WebSite",
       "sameAs": [
-        "https://github.com/sass-maker/fleet-workspace"
+        "https://github.com/sass-maker"
       ],
       "hasDynamicLlms": true,
       "skipLlmsOverwrite": true,
@@ -77,7 +77,7 @@
       "headFile": "rolepatch/src/app/layout.tsx",
       "schemaType": "SoftwareApplication",
       "sameAs": [
-        "https://github.com/sass-maker/rolepatch"
+        "https://github.com/Significant-Hobbies/rolepatch"
       ],
       "worker": "rolepatch/worker.mjs",
       "productLinks": [
@@ -429,12 +429,12 @@
       "name": "DRank",
       "url": "https://domains.sassmaker.com",
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
-      "publicDir": "foundry/apps/internal/drank/public",
+      "publicDir": "foundry/helpers/drank/public",
       "stack": "next-static",
-      "headFile": "foundry/apps/internal/drank/app/layout.tsx",
+      "headFile": "foundry/helpers/drank/app/layout.tsx",
       "schemaType": "SoftwareApplication",
       "sameAs": [
-        "https://github.com/sass-maker/fleet-workspace"
+        "https://github.com/sass-maker"
       ],
       "productLinks": [
         {
@@ -546,24 +546,24 @@
     {
       "id": "email-manager",
       "name": "Email Manager",
-      "url": "https://mail.sassmaker.com",
+      "url": "https://mail.significanthobbies.com",
       "summary": "Gmail workspace with local semantic search — private email tooling.",
       "publicDir": "email-manager/public",
       "stack": "spa-hono",
       "headFile": "email-manager/index.html",
       "schemaType": "SoftwareApplication",
       "sameAs": [
-        "https://github.com/sass-maker/email-manager"
+        "https://github.com/Significant-Hobbies/email-manager"
       ],
       "worker": "email-manager/src/worker.ts",
       "productLinks": [
         {
           "title": "Home",
-          "url": "https://mail.sassmaker.com/",
+          "url": "https://mail.significanthobbies.com/",
           "description": "App shell"
         }
       ],
-      "indexMd": "# Email Manager\n\nGmail workspace with local semantic search.\n\n## Privacy\n\nMailbox content is private. Agents should only use public product description surfaces.\n\n## Agent entrypoints\n\n- https://mail.sassmaker.com/llms.txt\n- https://mail.sassmaker.com/api/ai\n- https://mail.sassmaker.com/index.md\n"
+      "indexMd": "# Email Manager\n\nGmail workspace with local semantic search.\n\n## Privacy\n\nMailbox content is private. Agents should only use public product description surfaces.\n\n## Agent entrypoints\n\n- https://mail.significanthobbies.com/llms.txt\n- https://mail.significanthobbies.com/api/ai\n- https://mail.significanthobbies.com/index.md\n"
     },
     {
       "id": "free-ai",
@@ -619,10 +619,10 @@
       "name": "psi-swarm",
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
-      "publicDir": "foundry/apps/internal/psi-swarm/site/public",
+      "publicDir": "foundry/helpers/psi-swarm/site/public",
       "stack": "astro-static",
       "altPublicDirs": [
-        "foundry/apps/internal/psi-swarm/public"
+        "foundry/helpers/psi-swarm/public"
       ],
       "productLinks": [
         {

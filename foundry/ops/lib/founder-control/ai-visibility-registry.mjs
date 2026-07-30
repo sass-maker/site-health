@@ -19,7 +19,7 @@ export function resolveAiVisibilityPortfolio({
 }) {
   const marketing = validateMarketingProgram(marketingProgram);
   const automation = new Map(
-    automationRegistry.entries.map((project) => [project.id, project]),
+    automationRegistry.entries.map((project) => [normalizeIdentity(project.id), project]),
   );
   const reactivated = new Set(reactivatedProjectIds.map(normalizeIdentity));
   const marketingProjects = new Map(marketing.projects.map((project) => [project.slug, project]));
@@ -27,7 +27,10 @@ export function resolveAiVisibilityPortfolio({
   const excluded = [];
 
   for (const config of marketing.aiVisibility.projects) {
-    const lifecycle = automation.get(config.slug);
+    const project = marketingProjects.get(config.slug);
+    const lifecycle = [config.slug, ...(project?.aliases ?? [])]
+      .map((identity) => automation.get(normalizeIdentity(identity)))
+      .find(Boolean);
     if (!lifecycle) {
       excluded.push({ projectId: config.slug, reason: 'missing-lifecycle-entry' });
       continue;
@@ -36,7 +39,6 @@ export function resolveAiVisibilityPortfolio({
       excluded.push({ projectId: config.slug, reason: 'ignored' });
       continue;
     }
-    const project = marketingProjects.get(config.slug);
     eligible.push({
       ...structuredClone(config),
       name: project.name,

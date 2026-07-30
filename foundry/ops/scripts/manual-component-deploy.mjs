@@ -9,10 +9,10 @@ const componentId = process.argv[2];
 
 const components = {
   drank: {
-    root: 'foundry/apps/internal/drank',
+    root: 'foundry/helpers/drank',
     workflow: 'drank-ci.yml',
     paths: [
-      'foundry/apps/internal/drank',
+      'foundry/helpers/drank',
       'foundry/ops/scripts/manual-component-deploy.mjs',
       '.github/workflows/drank-ci.yml',
     ],
@@ -32,10 +32,10 @@ const components = {
     ],
   },
   'psi-swarm': {
-    root: 'foundry/apps/internal/psi-swarm',
+    root: 'foundry/helpers/psi-swarm',
     workflow: 'psi-swarm-ci.yml',
     paths: [
-      'foundry/apps/internal/psi-swarm',
+      'foundry/helpers/psi-swarm',
       'foundry/ops/scripts/manual-component-deploy.mjs',
       '.github/workflows/psi-swarm-ci.yml',
     ],

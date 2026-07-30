@@ -10,8 +10,8 @@ This repository is the canonical Fleet shared-infrastructure project and also
 serves as the local workspace root for independent product repositories.
 
 All Fleet-owned source is nested under `foundry/` and organized by the
-operator-facing product model: packages, skills, public apps, internal apps,
-Marketing, and the final dashboard. `foundry/ops/` is the shared operational
+operator-facing product model: helpers, skills, public apps, Marketing,
+packages, and Fleet Console. `foundry/ops/` is the shared operational
 substrate beneath those buckets. This workspace root remains the agent and
 independent-project entrypoint; independent products remain separately
 versioned and deployed unless explicitly imported as Fleet infrastructure.
@@ -25,16 +25,16 @@ generated internal and public views come from the catalog with
 
 ## Canonical Fleet components
 
-- **Packages:** `foundry/packages/ai-visibility/` and
-  `foundry/packages/feedback/`.
+- **Helpers:** `foundry/helpers/ai-visibility/`,
+  `foundry/helpers/drank/`, and `foundry/helpers/psi-swarm/`.
 - **Skills:** `foundry/ops/skills/` and `foundry/ops/teammates/skills/`.
-- **Public apps:** `foundry/apps/public/mobile-cockpit/` and
-  `foundry/apps/public/public-directory/`.
-- **Internal apps:** `foundry/apps/internal/drank/` and
-  `foundry/apps/internal/psi-swarm/`.
+- **Public apps:** `foundry/apps/public/public-directory/`.
 - **Marketing:** `foundry/marketing/reel-pipeline/` and
   `foundry/marketing/content-factory/`.
-- **Final dashboard:** `foundry/apps/dashboard/fleet-console/`.
+- **Packages:** `foundry/packages/feedback/`.
+- **Fleet Console:** `foundry/apps/dashboard/fleet-console/`, with the
+  experimental local-only mobile client at
+  `foundry/apps/dashboard/mobile-cockpit/`.
 - **Operational substrate:** `foundry/ops/`, including its pinned public,
   credential-free `workflows/` module.
 
@@ -60,9 +60,9 @@ setup dependencies and must not be cloned as Fleet projects:
 | --- | --- |
 | [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `foundry/apps/public/public-directory/` and `foundry/packages/feedback/` |
 | [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `foundry/marketing/reel-pipeline/` |
-| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/apps/internal/drank/` |
-| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/public/mobile-cockpit/` |
-| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/apps/internal/psi-swarm/` |
+| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/helpers/drank/` |
+| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/dashboard/mobile-cockpit/` |
+| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/helpers/psi-swarm/` |
 | [`sarthakagrawal927/mashup`](https://github.com/sarthakagrawal927/mashup) | `foundry/marketing/reel-pipeline/editorial/` |
 
 Clone `sass-maker/fleet-workspace` once and initialize its public automation
@@ -90,9 +90,9 @@ CodeVetter, HeyPace, PostTrainLLM, High Signal
 
 Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, What It Takes to Win, Personal website
 
-### Foundry — 5
+### Foundry — 3
 
-Fleet Workspace, Drank, PSI Swarm, Reel Pipeline, Mobile Dev Cockpit
+Fleet Workspace, Drank, PSI Swarm
 
 ### Past / inactive — 13
 

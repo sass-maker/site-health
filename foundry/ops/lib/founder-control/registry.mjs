@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultRegistryPath = join(moduleDirectory, '..', '..', 'config', 'projects.json');
+const fleetWorkspaceRepository = 'https://github.com/sass-maker/fleet-workspace';
 
 const canonicalNames = {
   'app-health': 'App Health',
@@ -27,24 +28,43 @@ function displayName(project) {
 
 export function loadFounderProjects(registryPath = defaultRegistryPath) {
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
+  const familyNames = new Map(
+    registry.projects.map((project) => [project.id, displayName(project)]),
+  );
   return registry.projects
     .filter((project) => project.status !== 'orphan')
-    .map((project) => ({
-      id: project.id,
-      name: displayName(project),
-      family: project.family,
-      attention: project.attention ?? project.tier,
-      lifecycle: project.lifecycle ?? 'maintained',
-      priority:
-        project.priority ??
-        (registry._meta?.priorities
-          ? Object.entries(registry._meta.priorities).find(([, ids]) => ids.includes(project.id))?.[0] ?? null
-          : null),
-      status: project.status,
-      repo: project.repo,
-      sourcePath: project.sourcePath ?? null,
-      repositoryVisibility: project.repositoryVisibility ?? 'unknown',
-      domains: project.domains ?? [],
-      deployKind: project.deployKind,
-    }));
+    .map((project) => {
+      const domain = project.domains?.[0] ?? null;
+      const workspaceSourceUrl = project.repo?.startsWith('foundry/')
+        ? `${fleetWorkspaceRepository}/tree/main/${project.repo}`
+        : null;
+      return {
+        id: project.id,
+        name: displayName(project),
+        description: project.public?.description ?? null,
+        category: project.public?.category ?? null,
+        family: project.family,
+        familyName: familyNames.get(project.family) ?? displayName({ id: project.family }),
+        attention: project.attention ?? project.tier,
+        lifecycle: project.lifecycle ?? 'maintained',
+        publicListing: project.public?.listing ?? null,
+        metricEligibility: {
+          publicSite: project.metrics?.publicSite === true,
+        },
+        priority:
+          project.priority ??
+          (registry._meta?.priorities
+            ? Object.entries(registry._meta.priorities).find(([, ids]) => ids.includes(project.id))?.[0] ?? null
+            : null),
+        status: project.status,
+        repo: project.repo,
+        sourcePath: project.sourcePath ?? null,
+        repositoryVisibility: project.repositoryVisibility ?? 'unknown',
+        repositoryUrl: project.repositoryUrl ?? project.public?.repositoryUrl ?? workspaceSourceUrl,
+        domains: project.domains ?? [],
+        websiteUrl: domain ? `https://${domain}` : null,
+        changelogUrl: domain ? `https://${domain}/changelog` : null,
+        deployKind: project.deployKind,
+      };
+    });
 }

@@ -36,6 +36,11 @@ const INDEXNOW_CONFIG_PATH = join(FLEET_ROOT, 'foundry/ops/config/indexnow.json'
 
 const UA = 'fleet-agent-index-audit/2.0 (+https://sassmaker.com)';
 const TIMEOUT_MS = 15_000;
+const MAX_SITEMAPS = 50;
+const MAX_PUBLIC_ROUTES = 5_000;
+const MAX_ROUTE_PROBES = 250;
+const MAX_CATALOG_SURFACES = 1_000;
+const PROBE_CONCURRENCY = 8;
 
 // Answer-engine crawlers that must not be disallowed for GEO to work at all.
 const CRITICAL_AI_BOTS = ['GPTBot', 'ClaudeBot', 'OAI-SearchBot', 'PerplexityBot'];
@@ -50,6 +55,8 @@ const REQUIRED_CHECKS = [
   'robots',
   'ai_access',
   'sitemap',
+  'route_markdown',
+  'catalog_integrity',
 ];
 
 async function main() {
@@ -224,7 +231,23 @@ async function auditOrigin(target, { indexNowKey } = {}) {
   checks.ai_access = gradeAiAccess(robots);
 
   // --- sitemap (real XML, same-host locs) ---
-  checks.sitemap = await gradeSitemap(origin, robots);
+  const sitemap = await inspectSitemap(origin, robots);
+  checks.sitemap = sitemap.check;
+
+  // --- public-route Markdown coverage + catalog integrity ---
+  const cachedProbe = createProbeCache();
+  checks.route_markdown = await gradeRouteMarkdown(
+    origin,
+    sitemap,
+    apiAi,
+    cachedProbe,
+  );
+  checks.catalog_integrity = await gradeCatalogIntegrity(
+    origin,
+    sitemap,
+    apiAi,
+    cachedProbe,
+  );
 
   // Bonus (not required for S but reported)
   const skill = await probe(`${origin}/skill.md`);
@@ -301,7 +324,9 @@ function gradeApiAi(probe) {
   }
   try {
     const data = JSON.parse(probe.bodyFull || probe.bodyPreview || '{}');
-    const missing = ['name', 'llms', 'surfaces'].filter((k) => data[k] == null);
+    const missing = ['name', 'llms', 'sitemap', 'markdown', 'surfaces'].filter(
+      (k) => data[k] == null,
+    );
     if (missing.length) {
       return { status: 'fail', detail: `JSON missing ${missing.join(',')}` };
     }
@@ -510,7 +535,7 @@ function isBotBlocked(groups, bot) {
  * entries live on the audited host — catches SPA HTML shells served with 200
  * and workers.dev/pages.dev host leaks.
  */
-async function gradeSitemap(origin, robotsProbe) {
+async function inspectSitemap(origin, robotsProbe) {
   const host = hostOf(origin);
   const candidates = [];
   const robotsText = robotsProbe?.bodyFull || '';
@@ -524,61 +549,349 @@ async function gradeSitemap(origin, robotsProbe) {
 
   const failures = [];
   for (const url of candidates) {
-    let candidateHost;
-    try {
-      candidateHost = hostOf(url);
-    } catch {
-      failures.push(`${url}: unparseable URL`);
-      continue;
-    }
-    if (candidateHost !== host) {
-      failures.push(`${url}: advertised sitemap on foreign host ${candidateHost}`);
-      continue;
-    }
-    const s = await probe(url);
-    if (!s.ok) {
-      failures.push(`${url}: HTTP ${s.status || 'err'}`);
-      continue;
-    }
-    if (s.isHtml) {
-      failures.push(`${url}: HTML/SPA shell, not XML`);
-      continue;
-    }
-    const body = s.bodyFull || s.bodyPreview || '';
-    const head = body.trimStart().slice(0, 300).toLowerCase();
-    const isXml =
-      head.startsWith('<?xml') || head.includes('<urlset') || head.includes('<sitemapindex');
-    if (!isXml) {
-      failures.push(`${url}: not sitemap XML`);
-      continue;
-    }
-    const locs = [...body.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map((x) => x[1]);
-    if (locs.length === 0) {
-      failures.push(`${url}: sitemap has zero <loc> entries`);
-      continue;
-    }
-    const foreign = locs.filter((l) => {
-      try {
-        return hostOf(l) !== host;
-      } catch {
-        return true;
-      }
-    });
-    if (foreign.length) {
-      failures.push(
-        `${url}: ${foreign.length}/${locs.length} <loc> on foreign host (e.g. ${foreign[0]})`
-      );
-      continue;
-    }
-    return {
-      status: 'pass',
-      detail: `${new URL(url).pathname} (${s.status}, ${locs.length} locs, ${s.bytes}B)`,
+    const state = {
+      host,
+      visited: new Set(),
+      routes: new Set(),
+      failures: [],
+      truncated: false,
     };
+    await collectSitemap(url, state);
+    if (state.routes.size > 0) {
+      const suffix = state.truncated ? `, capped at ${MAX_PUBLIC_ROUTES}` : '';
+      return {
+        check: {
+          status: state.truncated ? 'fail' : 'pass',
+          detail:
+            `${new URL(url).pathname} (${state.visited.size} sitemap files, ` +
+            `${state.routes.size} public routes${suffix})`,
+        },
+        urls: [...state.routes],
+        truncated: state.truncated,
+      };
+    }
+    failures.push(...state.failures);
   }
   return {
-    status: 'fail',
-    detail: failures.length ? failures.join('; ') : 'no sitemap candidates found',
+    check: {
+      status: 'fail',
+      detail: failures.length
+        ? failures.slice(0, 5).join('; ')
+        : 'no sitemap candidates found',
+    },
+    urls: [],
+    truncated: false,
   };
+}
+
+async function collectSitemap(url, state) {
+  if (state.visited.size >= MAX_SITEMAPS) {
+    state.truncated = true;
+    return;
+  }
+  let parsed;
+  try {
+    parsed = new URL(decodeXml(url));
+  } catch {
+    state.failures.push(`${url}: unparseable URL`);
+    return;
+  }
+  if (parsed.host !== state.host) {
+    state.failures.push(`${url}: sitemap on foreign host ${parsed.host}`);
+    return;
+  }
+  const normalized = parsed.toString();
+  if (state.visited.has(normalized)) return;
+  state.visited.add(normalized);
+
+  const response = await probe(normalized);
+  if (!response.ok) {
+    state.failures.push(`${normalized}: HTTP ${response.status || 'err'}`);
+    return;
+  }
+  if (response.isHtml) {
+    state.failures.push(`${normalized}: HTML/SPA shell, not XML`);
+    return;
+  }
+  const body = response.bodyFull || response.bodyPreview || '';
+  const head = body.trimStart().slice(0, 500).toLowerCase();
+  const isIndex = head.includes('<sitemapindex');
+  const isUrlSet = head.includes('<urlset');
+  if (!isIndex && !isUrlSet) {
+    state.failures.push(`${normalized}: not sitemap XML`);
+    return;
+  }
+  const locations = [...body.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
+    .map((match) => decodeXml(match[1].trim()));
+  if (locations.length === 0) {
+    state.failures.push(`${normalized}: sitemap has zero <loc> entries`);
+    return;
+  }
+
+  if (isIndex) {
+    for (const location of locations) {
+      if (state.truncated) break;
+      await collectSitemap(location, state);
+    }
+    return;
+  }
+
+  for (const location of locations) {
+    if (state.routes.size >= MAX_PUBLIC_ROUTES) {
+      state.truncated = true;
+      break;
+    }
+    try {
+      const route = new URL(location);
+      if (route.host !== state.host) {
+        state.failures.push(`${location}: public route on foreign host ${route.host}`);
+        continue;
+      }
+      route.hash = '';
+      route.search = '';
+      state.routes.add(route.toString());
+    } catch {
+      state.failures.push(`${location}: unparseable public route`);
+    }
+  }
+}
+
+async function gradeRouteMarkdown(origin, sitemap, apiAiProbe, cachedProbe) {
+  const total = sitemap.urls.length;
+  if (total === 0) {
+    return {
+      status: 'fail',
+      detail: 'no public sitemap routes available for Markdown coverage',
+      data: {
+        readable: 0,
+        checked: 0,
+        total: 0,
+        coveragePercent: 0,
+        sampled: false,
+        failures: [],
+      },
+    };
+  }
+  const catalog = apiSurfaceMarkdownMap(origin, apiAiProbe);
+  const sampledRoutes = evenlySample(sitemap.urls, MAX_ROUTE_PROBES);
+  const checked = sampledRoutes.length;
+  const sampled = checked < total;
+  const results = await mapLimit(sampledRoutes, PROBE_CONCURRENCY, (url) =>
+    probeReadableRoute(origin, url, catalog, cachedProbe),
+  );
+  const readable = results.filter((result) => result.readable).length;
+  const coveragePercent = percentage(readable, checked);
+  const failures = results
+    .filter((result) => !result.readable)
+    .slice(0, 20)
+    .map(({ path, reason }) => ({ path, reason }));
+  return {
+    status: readable === checked && !sitemap.truncated ? 'pass' : 'fail',
+    detail:
+      `${readable}/${checked} checked routes agent-readable (${coveragePercent}%)` +
+      ` · ${total} public routes${sampled ? ' · deterministic sample' : ''}`,
+    data: { readable, checked, total, coveragePercent, sampled, failures },
+  };
+}
+
+async function gradeCatalogIntegrity(
+  origin,
+  sitemap,
+  apiAiProbe,
+  cachedProbe,
+) {
+  const data = parseApiAi(apiAiProbe);
+  const surfaces = Array.isArray(data?.surfaces) ? data.surfaces : [];
+  const configured = surfaces.length;
+  if (configured === 0) {
+    return {
+      status: 'fail',
+      detail: '0/0 catalog surfaces valid (empty surfaces array)',
+      data: { valid: 0, configured: 0, integrityPercent: 0, failures: [] },
+    };
+  }
+  const bounded = surfaces.slice(0, MAX_CATALOG_SURFACES);
+  const publicRoutes = new Set(sitemap.urls.map(canonicalUrl));
+  const results = await mapLimit(bounded, PROBE_CONCURRENCY, async (surface) => {
+    const id = String(surface?.id ?? 'unnamed');
+    if (typeof surface?.url !== 'string' || typeof surface?.md !== 'string') {
+      return { id, valid: false, reason: 'missing url or md' };
+    }
+    const route = sameOriginUrl(origin, surface.url);
+    const markdown = sameOriginUrl(origin, surface.md);
+    if (!route || !markdown) {
+      return { id, valid: false, reason: 'url or md is not same-origin' };
+    }
+    if (!publicRoutes.has(canonicalUrl(route))) {
+      return { id, valid: false, reason: 'url absent from public sitemap' };
+    }
+    const response = await cachedProbe(markdown, {
+      accept: 'text/markdown, text/plain, */*',
+    });
+    if (!isReadableMarkdown(response)) {
+      return {
+        id,
+        valid: false,
+        reason: response.isHtml
+          ? 'md target returned HTML'
+          : `md target HTTP ${response.status || 'err'}`,
+      };
+    }
+    return { id, valid: true };
+  });
+  const valid = results.filter((result) => result.valid).length;
+  const integrityPercent = percentage(valid, configured);
+  const truncated = configured > bounded.length;
+  const failures = results
+    .filter((result) => !result.valid)
+    .slice(0, 20)
+    .map(({ id, reason }) => ({ id, reason }));
+  return {
+    status: valid === configured && !truncated ? 'pass' : 'fail',
+    detail:
+      `${valid}/${configured} catalog surfaces valid (${integrityPercent}%)` +
+      (truncated ? `; capped at ${MAX_CATALOG_SURFACES}` : ''),
+    data: { valid, configured, integrityPercent, failures },
+  };
+}
+
+async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
+  const route = new URL(routeUrl);
+  const path = route.pathname;
+  const negotiated = await cachedProbe(route.toString(), {
+    accept: 'text/markdown, text/plain;q=0.9, text/html;q=0.1',
+  });
+  if (isReadableMarkdown(negotiated)) {
+    return { path, readable: true, method: 'negotiation' };
+  }
+
+  const candidates = [
+    catalog.get(canonicalUrl(route)),
+    ...markdownCandidates(origin, route),
+  ].filter(Boolean);
+  for (const candidate of [...new Set(candidates)]) {
+    const response = await cachedProbe(candidate, {
+      accept: 'text/markdown, text/plain, */*',
+    });
+    if (isReadableMarkdown(response)) {
+      return { path, readable: true, method: new URL(candidate).pathname };
+    }
+  }
+  return {
+    path,
+    readable: false,
+    reason: negotiated.isHtml
+      ? 'negotiation returned HTML and no Markdown alternate resolved'
+      : `negotiation HTTP ${negotiated.status || 'err'} and no Markdown alternate resolved`,
+  };
+}
+
+function markdownCandidates(origin, route) {
+  const path = route.pathname;
+  if (path.endsWith('.md')) return [route.toString()];
+  if (path === '/') return [`${origin}/index.md`];
+  if (path.endsWith('/')) {
+    return [
+      `${origin}${path}index.md`,
+      `${origin}${path.slice(0, -1)}.md`,
+    ];
+  }
+  if (path.endsWith('.html')) {
+    return [`${origin}${path.slice(0, -5)}.md`];
+  }
+  return [`${origin}${path}.md`, `${origin}${path}/index.md`];
+}
+
+function apiSurfaceMarkdownMap(origin, apiAiProbe) {
+  const data = parseApiAi(apiAiProbe);
+  const map = new Map();
+  for (const surface of Array.isArray(data?.surfaces) ? data.surfaces : []) {
+    if (typeof surface?.url !== 'string' || typeof surface?.md !== 'string') continue;
+    const route = sameOriginUrl(origin, surface.url);
+    const markdown = sameOriginUrl(origin, surface.md);
+    if (route && markdown) map.set(canonicalUrl(route), markdown);
+  }
+  return map;
+}
+
+function parseApiAi(probeValue) {
+  try {
+    return JSON.parse(probeValue.bodyFull || probeValue.bodyPreview || '{}');
+  } catch {
+    return null;
+  }
+}
+
+function sameOriginUrl(origin, value) {
+  try {
+    const url = new URL(value, origin);
+    return url.origin === origin ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
+function canonicalUrl(value) {
+  const url = value instanceof URL ? new URL(value) : new URL(value);
+  url.hash = '';
+  url.search = '';
+  if (url.pathname !== '/') url.pathname = url.pathname.replace(/\/+$/, '');
+  return url.toString();
+}
+
+function isReadableMarkdown(response) {
+  if (!response.ok || response.isHtml) return false;
+  return (
+    isMarkdownType(response.contentType) ||
+    response.bodyPreview?.trimStart().startsWith('#')
+  );
+}
+
+function createProbeCache() {
+  const cache = new Map();
+  return (url, options = {}) => {
+    const key = `${url}\n${options.accept ?? ''}`;
+    if (!cache.has(key)) cache.set(key, probe(url, options));
+    return cache.get(key);
+  };
+}
+
+async function mapLimit(values, limit, mapper) {
+  const results = new Array(values.length);
+  let next = 0;
+  async function worker() {
+    while (next < values.length) {
+      const index = next++;
+      results[index] = await mapper(values[index], index);
+    }
+  }
+  await Promise.all(
+    Array.from({ length: Math.min(limit, values.length) }, () => worker()),
+  );
+  return results;
+}
+
+function evenlySample(values, limit) {
+  if (values.length <= limit) return [...values];
+  if (limit <= 1) return [values[0]];
+  return Array.from({ length: limit }, (_, index) => {
+    const position = Math.floor((index * (values.length - 1)) / (limit - 1));
+    return values[position];
+  });
+}
+
+function percentage(numerator, denominator) {
+  if (denominator <= 0) return 0;
+  return Math.round((numerator / denominator) * 1_000) / 10;
+}
+
+function decodeXml(value) {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'");
 }
 
 function isMarkdownType(ct = '') {

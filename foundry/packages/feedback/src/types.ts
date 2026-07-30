@@ -19,8 +19,7 @@ export interface FeedbackSubmission {
   page: FeedbackPageContext;
 }
 
-export interface FeedbackWidgetProps {
-  onSubmit: (feedback: FeedbackSubmission) => void | Promise<void>;
+export interface FeedbackWidgetCommonProps {
   userEmail?: string;
   userName?: string;
   requireEmail?: boolean;
@@ -32,3 +31,17 @@ export interface FeedbackWidgetProps {
   /** Allow pointing at a page element to capture selector, text, source, and URL. */
   enablePointing?: boolean;
 }
+
+export interface FeedbackCallbackDestination {
+  onSubmit: (feedback: FeedbackSubmission) => void | Promise<void>;
+  ingestionUrl?: never;
+}
+
+export interface FeedbackUrlDestination {
+  /** Relative or absolute HTTP(S) endpoint that accepts the documented multipart contract. */
+  ingestionUrl: string;
+  onSubmit?: never;
+}
+
+export type FeedbackWidgetProps = FeedbackWidgetCommonProps &
+  (FeedbackCallbackDestination | FeedbackUrlDestination);

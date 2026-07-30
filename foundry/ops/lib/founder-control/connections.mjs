@@ -1,0 +1,1975 @@
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync, statSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+
+import { SkillRunStore, defaultSkillRunsRoot } from '../skill-run-store.mjs';
+import {
+  defaultVisibilityMetricPath,
+  readVisibilityMetrics,
+} from '../visibility-metric-store.mjs';
+
+export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const BUCKETS = [
+  {
+    id: 'helpers',
+    label: 'Helpers',
+    purpose: 'Focused supporting products',
+    components: ['ai-visibility', 'drank', 'psi-swarm'],
+  },
+  {
+    id: 'skills',
+    label: 'Skills',
+    purpose: 'Agent-operated capabilities',
+    components: ['fleet-skills', 'skill-run-store'],
+  },
+  {
+    id: 'public-apps',
+    label: 'Public apps',
+    purpose: 'Public product surfaces',
+    components: ['public-directory'],
+  },
+  {
+    id: 'marketing',
+    label: 'Marketing',
+    purpose: 'Source-to-outcome production',
+    components: ['editorial', 'content-factory', 'reel-pipeline', 'postiz'],
+  },
+  {
+    id: 'packages',
+    label: 'Packages',
+    purpose: 'Reusable public contracts',
+    components: ['feedback'],
+  },
+  {
+    id: 'dashboard',
+    label: 'Fleet Console',
+    purpose: 'Cross-bucket owner interfaces',
+    components: ['fleet-console', 'mobile-cockpit'],
+  },
+];
+
+function readJson(path, fallback = null) {
+  try {
+    return JSON.parse(readFileSync(path, 'utf8'));
+  } catch {
+    return fallback;
+  }
+}
+
+function readJsonLines(path) {
+  if (!existsSync(path)) return [];
+  return readFileSync(path, 'utf8')
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .flatMap((line) => {
+      try {
+        return [JSON.parse(line)];
+      } catch {
+        return [];
+      }
+    });
+}
+
+function canonicalVisibilityProjectId(value) {
+  const aliases = {
+    'knowledgebase-app': 'knowledge-base',
+    'saas-maker': 'fleet-workspace',
+    'saas-maker-showcase': 'fleet-workspace',
+  };
+  return aliases[value] ?? value;
+}
+
+function searchVisibilityEvidence(fleetRoot) {
+  const config = readJson(
+    resolve(fleetRoot, 'foundry/ops/config/geo-observatory.json'),
+    { products: [] },
+  );
+  const configured = new Map();
+  for (const product of config.products ?? []) {
+    const projectId = canonicalVisibilityProjectId(product.id);
+    const queries = configured.get(projectId) ?? [];
+    queries.push(...(product.queries ?? []).map((query) => ({
+      id: query.qid,
+      kind: query.kind ?? 'unknown',
+      text: query.q,
+    })));
+    configured.set(projectId, queries);
+  }
+  const ledger = readJsonLines(
+    resolve(fleetRoot, 'foundry/ops/data/geo-observatory/ledger.jsonl'),
+  );
+  const byProjectAndDate = new Map();
+  const byProjectAndQuery = new Map();
+  for (const item of ledger) {
+    if (!['A', 'B', 'C'].includes(item?.class) || !item?.date || !item?.product) continue;
+    const projectId = canonicalVisibilityProjectId(item.product);
+    const key = `${projectId}\u0000${item.date}`;
+    const entry = byProjectAndDate.get(key) ?? {
+      projectId,
+      observedAt: `${item.date}T12:00:00.000Z`,
+      values: [],
+    };
+    entry.values.push({ A: 3, B: 2, C: 1 }[item.class]);
+    byProjectAndDate.set(key, entry);
+    if (item.qid) {
+      const queryKey = `${projectId}\u0000${item.qid}`;
+      const queryHistory = byProjectAndQuery.get(queryKey) ?? [];
+      queryHistory.push({
+        observedAt: `${item.date}T12:00:00.000Z`,
+        class: item.class,
+        top: Array.isArray(item.top) ? item.top.slice(0, 5) : [],
+      });
+      byProjectAndQuery.set(queryKey, queryHistory);
+    }
+  }
+  const projects = new Map();
+  for (const entry of byProjectAndDate.values()) {
+    const project = projects.get(entry.projectId) ?? {
+      projectId: entry.projectId,
+      configured: configured.has(entry.projectId),
+      series: [],
+    };
+    project.series.push({
+      observedAt: entry.observedAt,
+      value: Math.min(...entry.values),
+    });
+    projects.set(entry.projectId, project);
+  }
+  for (const projectId of configured.keys()) {
+    if (!projects.has(projectId)) {
+      projects.set(projectId, { projectId, configured: true, series: [] });
+    }
+  }
+  return [...projects.values()].map((project) => ({
+    ...project,
+    queries: (configured.get(project.projectId) ?? []).map((query) => ({
+      ...query,
+      history: (byProjectAndQuery.get(`${project.projectId}\u0000${query.id}`) ?? [])
+        .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt)),
+    })),
+    series: project.series.sort(
+      (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
+    ),
+  }));
+}
+
+function visibilityMetricEvidence(home) {
+  const observations = readVisibilityMetrics({
+    path: defaultVisibilityMetricPath({ home }),
+  });
+  const projects = new Map();
+  for (const observation of observations) {
+    if (!['agent', 'crawl', 'coverage'].includes(observation.family)) continue;
+    const project = projects.get(observation.projectId) ?? {
+      projectId: observation.projectId,
+      families: {},
+    };
+    const family = project.families[observation.family] ?? {
+      latest: null,
+      metrics: new Map(),
+    };
+    family.latest = observation;
+    for (const metric of observation.metrics) {
+      const values = family.metrics.get(metric.label) ?? {
+        label: metric.label,
+        unit: metric.unit,
+        direction: metric.direction,
+        series: [],
+      };
+      values.series.push({
+        observedAt: observation.observedAt,
+        value: metric.value,
+      });
+      family.metrics.set(metric.label, values);
+    }
+    project.families[observation.family] = family;
+    projects.set(observation.projectId, project);
+  }
+  return [...projects.values()].map((project) => ({
+    ...project,
+    families: Object.fromEntries(
+      Object.entries(project.families).map(([familyId, family]) => [
+        familyId,
+        {
+          latest: family.latest,
+          metrics: [...family.metrics.values()],
+        },
+      ]),
+    ),
+  }));
+}
+
+function observedState(observedAt, now, maxAgeMs) {
+  if (!observedAt || !Number.isFinite(Date.parse(observedAt))) return 'unknown';
+  return Date.parse(now) - Date.parse(observedAt) > maxAgeMs ? 'stale' : 'fresh';
+}
+
+function safeSqliteSummary(databasePath) {
+  if (!existsSync(databasePath)) return null;
+  try {
+    const raw = execFileSync(
+      'sqlite3',
+      [
+        '-json',
+        databasePath,
+        "SELECT COUNT(*) AS run_count, MAX(started_at) AS newest_at, COUNT(DISTINCT tag) AS tag_count FROM runs WHERE error IS NULL",
+      ],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 4000 },
+    );
+    return JSON.parse(raw || '[]')[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function safeSqliteProjectHistory(databasePath) {
+  if (!existsSync(databasePath)) return [];
+  try {
+    const raw = execFileSync(
+      'sqlite3',
+      [
+        '-json',
+        databasePath,
+        `WITH ranked AS (
+          SELECT
+            url,
+            started_at,
+            performance_score,
+            lcp,
+            cls,
+            ROW_NUMBER() OVER (PARTITION BY url ORDER BY started_at DESC) AS position,
+            COUNT(*) OVER (PARTITION BY url) AS run_count
+          FROM runs
+          WHERE error IS NULL
+        )
+        SELECT url, started_at, performance_score, lcp, cls, position, run_count
+        FROM ranked
+        WHERE position <= 30
+        ORDER BY url, position`,
+      ],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 4000 },
+    );
+    const byDomain = new Map();
+    for (const row of JSON.parse(raw || '[]')) {
+      let domain;
+      try {
+        domain = new URL(row.url).hostname.replace(/^www\./, '');
+      } catch {
+        continue;
+      }
+      const existing = byDomain.get(domain) ?? { domain, runs: 0, observations: [] };
+      if (Number(row.position) === 1) existing.runs += Number(row.run_count ?? 0);
+      existing.observations.push({
+        observedAt: Number.isFinite(Number(row.started_at))
+          ? new Date(Number(row.started_at)).toISOString()
+          : null,
+        performanceScore: Number.isFinite(Number(row.performance_score))
+          ? Number(row.performance_score)
+          : null,
+        lcp: Number.isFinite(Number(row.lcp)) ? Number(row.lcp) : null,
+        cls: Number.isFinite(Number(row.cls)) ? Number(row.cls) : null,
+      });
+      byDomain.set(domain, existing);
+    }
+    return [...byDomain.values()].map((entry) => {
+      const observations = entry.observations
+        .filter((item) => item.observedAt)
+        .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt))
+        .slice(-30);
+      const latest = observations.at(-1) ?? null;
+      const previous = observations.at(-2) ?? null;
+      return {
+        domain: entry.domain,
+        runs: entry.runs,
+        latest,
+        previous,
+        series: observations,
+        performanceDelta:
+          Number.isFinite(latest?.performanceScore) && Number.isFinite(previous?.performanceScore)
+            ? latest.performanceScore - previous.performanceScore
+            : null,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+function pathComponent({
+  id,
+  name,
+  bucketId,
+  path,
+  root,
+  headline,
+  ownerPath,
+  audience = null,
+}) {
+  const present = existsSync(resolve(root, path));
+  return {
+    id,
+    name,
+    bucketId,
+    sourcePath: path,
+    audience,
+    status: present ? 'connected' : 'unavailable',
+    headline: present ? headline : 'Source is unavailable on this checkout.',
+    ownerPath,
+    freshness: 'not-applicable',
+  };
+}
+
+function connection({
+  id,
+  provider,
+  consumer,
+  transport,
+  status,
+  detail,
+  evidence = [],
+  ownerPath = '/connections',
+  priority = 50,
+}) {
+  return {
+    id,
+    provider,
+    consumer,
+    transport,
+    status,
+    detail,
+    evidence,
+    ownerPath,
+    priority,
+    freshness:
+      evidence.some((item) => item.freshness === 'stale')
+        ? 'stale'
+        : evidence.some((item) => item.freshness === 'unavailable')
+          ? 'unavailable'
+          : evidence.some((item) => item.freshness === 'fresh')
+            ? 'fresh'
+            : 'not-applicable',
+  };
+}
+
+function workflowEvidence(root, now) {
+  const availability = readJson(
+    resolve(root, 'foundry/ops/workflows/reports/availability/latest.json'),
+  );
+  const performance = readJson(
+    resolve(root, 'foundry/ops/workflows/reports/performance/latest.json'),
+  );
+  const summaries = [
+    ['availability', availability],
+    ['performance', performance],
+  ].flatMap(([kind, report]) => {
+    if (!report?.summary) return [];
+    return [{
+      provider: `public-workflows:${kind}`,
+      label: `${report.summary.passed}/${report.summary.sites} sites passed`,
+      observedAt: report.generatedAt ?? null,
+      freshness: observedState(report.generatedAt, now, 8 * DAY_MS),
+    }];
+  });
+  const projects = new Map();
+  for (const [kind, report] of [
+    ['availability', availability],
+    ['performance', performance],
+  ]) {
+    for (const result of report?.results ?? []) {
+      if (typeof result.id !== 'string') continue;
+      const project = projects.get(result.id) ?? { projectId: result.id };
+      project[kind] = {
+        ok: result.ok === true,
+        observedAt: report.generatedAt ?? null,
+        freshness: observedState(report.generatedAt, now, 8 * DAY_MS),
+        ...(kind === 'performance'
+          ? {
+              totalP50Ms: Number(result.metrics?.totalP50Ms ?? 0),
+              totalP90Ms: Number(result.metrics?.totalP90Ms ?? 0),
+            }
+          : {}),
+      };
+      projects.set(result.id, project);
+    }
+  }
+  return {
+    readable: summaries.length > 0,
+    summaries,
+    sites: availability?.summary?.sites ?? performance?.summary?.sites ?? 0,
+    failed: Math.max(
+      Number(availability?.summary?.failed ?? 0),
+      Number(performance?.summary?.failed ?? 0),
+    ),
+    projects: [...projects.values()],
+  };
+}
+
+function skillEvidence(home, now) {
+  const root = defaultSkillRunsRoot({ home, env: {} });
+  if (!existsSync(root)) {
+    return {
+      readable: false,
+      status: null,
+      recent: [],
+      runs: [],
+      metrics: [],
+      projects: [],
+      history: [],
+      projectHistory: [],
+      outputCount: 0,
+      outputBytes: 0,
+    };
+  }
+  try {
+    const store = new SkillRunStore({ root, env: {} });
+    const status = store.status();
+    const runs = store.list({ order: 'desc' });
+    const metrics = store.metrics();
+    const outputSummary = (run) => {
+      const outputs = Object.entries(run.outputs ?? {});
+      return {
+        outputCount: outputs.length,
+        outputBytes: outputs.reduce(
+          (total, [, output]) => total + Number(output.storedBytes ?? 0),
+          0,
+        ),
+        outputKinds: outputs.map(([kind]) => kind),
+        outputRedactions: outputs.reduce(
+          (total, [, output]) => total + Number(output.redactionCount ?? 0),
+          0,
+        ),
+        outputTruncated: outputs.some(([, output]) => output.truncated === true),
+      };
+    };
+    const safeStoredSummary = (run, output) => {
+      if (output.outputRedactions > 0 || output.outputTruncated) return null;
+      const orderedKinds = [
+        ...(run.status === 'failed' ? ['stderr'] : []),
+        'output',
+        'stdout',
+      ].filter((kind, index, values) =>
+        values.indexOf(kind) === index && output.outputKinds.includes(kind),
+      );
+      for (const kind of orderedKinds) {
+        let retained;
+        try {
+          retained = store.output(run.runId, kind);
+        } catch {
+          continue;
+        }
+        for (const rawLine of retained.split(/\r?\n/)) {
+          const candidate = rawLine
+            .replace(/\u001b\[[0-9;]*m/g, '')
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/^[\s>*#`~\-+]+/, '')
+            .replace(/`/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          if (candidate.length < 12 || candidate.length > 240) continue;
+          if (/^[{[<]|[}\]>]$/.test(candidate)) continue;
+          if (/(?:\/Users\/|\/home\/|\/private\/|\/tmp\/|[A-Za-z]:\\)/.test(candidate)) continue;
+          if (/\b[\w.-]+\/[\w./-]+\b/.test(candidate)) continue;
+          if (/https?:\/\/|www\.|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/i.test(candidate)) continue;
+          if (/(?:password|secret|credential|api[_ -]?key)\s*[:=]/i.test(candidate)) continue;
+          if (/^(?:oai-mem-citation|citation_entries|rollout_ids)\b/i.test(candidate)) continue;
+          const bounded = candidate.length > 180
+            ? `${candidate.slice(0, 177).replace(/\s+\S*$/, '')}…`
+            : candidate;
+          return /[.!?…]$/.test(bounded) ? bounded : `${bounded}.`;
+        }
+      }
+      return null;
+    };
+    const resultSummary = (run, output) => {
+      const metricNames = [...new Set(
+        (run.metrics ?? []).map((metric) => metric.metricName.replaceAll('-', ' ')),
+      )];
+      if (metricNames.length > 0) {
+        const visible = metricNames.slice(0, 2).join(' and ');
+        return {
+          text: `Recorded ${visible}${metricNames.length > 2 ? ` and ${metricNames.length - 2} more` : ''}.`,
+          kind: 'structured-metrics',
+        };
+      }
+      const storedSummary = safeStoredSummary(run, output);
+      if (storedSummary) return { text: storedSummary, kind: 'sanitized-excerpt' };
+      if (run.captureCompleteness === 'curated-summary') {
+        return { text: 'Curated historical result retained privately.', kind: 'unavailable' };
+      }
+      if (run.captureCompleteness === 'final-response') {
+        return { text: 'Final assistant result retained privately.', kind: 'unavailable' };
+      }
+      if (output.outputKinds.includes('output')) {
+        return { text: 'Result artifact retained privately.', kind: 'unavailable' };
+      }
+      if (output.outputKinds.some((kind) => ['stdout', 'stderr'].includes(kind))) {
+        return { text: 'Command output retained privately.', kind: 'unavailable' };
+      }
+      return { text: 'No retained result artifact.', kind: 'unavailable' };
+    };
+    const projectMap = new Map();
+    const historyMap = new Map();
+    const projectHistoryMap = new Map();
+    let outputCount = 0;
+    let outputBytes = 0;
+    for (const run of runs) {
+      const output = outputSummary(run);
+      outputCount += output.outputCount;
+      outputBytes += output.outputBytes;
+      const project = projectMap.get(run.projectId) ?? {
+        projectId: run.projectId,
+        runCount: 0,
+        succeeded: 0,
+        failed: 0,
+        outputCount: 0,
+        outputBytes: 0,
+        metricCount: 0,
+        skills: new Set(),
+        newestRunAt: null,
+      };
+      project.runCount += 1;
+      if (['succeeded', 'backfilled'].includes(run.status)) project.succeeded += 1;
+      if (run.status === 'failed') project.failed += 1;
+      project.outputCount += output.outputCount;
+      project.outputBytes += output.outputBytes;
+      project.metricCount += run.metrics?.length ?? 0;
+      project.skills.add(run.skillId);
+      if (!project.newestRunAt || Date.parse(run.observedAt) > Date.parse(project.newestRunAt)) {
+        project.newestRunAt = run.observedAt;
+      }
+      projectMap.set(run.projectId, project);
+
+      const day = run.observedAt.slice(0, 10);
+      const period = historyMap.get(day) ?? {
+        period: day,
+        runs: 0,
+        succeeded: 0,
+        failed: 0,
+        outputs: 0,
+        metrics: 0,
+      };
+      period.runs += 1;
+      if (['succeeded', 'backfilled'].includes(run.status)) period.succeeded += 1;
+      if (run.status === 'failed') period.failed += 1;
+      period.outputs += output.outputCount;
+      period.metrics += run.metrics?.length ?? 0;
+      historyMap.set(day, period);
+      if (run.projectId) {
+        const projectPeriods = projectHistoryMap.get(run.projectId) ?? new Map();
+        const projectPeriod = projectPeriods.get(day) ?? {
+          period: day,
+          runs: 0,
+          succeeded: 0,
+          failed: 0,
+          outputs: 0,
+          metrics: 0,
+        };
+        projectPeriod.runs += 1;
+        if (['succeeded', 'backfilled'].includes(run.status)) projectPeriod.succeeded += 1;
+        if (run.status === 'failed') projectPeriod.failed += 1;
+        projectPeriod.outputs += output.outputCount;
+        projectPeriod.metrics += run.metrics?.length ?? 0;
+        projectPeriods.set(day, projectPeriod);
+        projectHistoryMap.set(run.projectId, projectPeriods);
+      }
+    }
+    const metricsByProject = new Map();
+    for (const metric of metrics) {
+      const values = metricsByProject.get(metric.projectId) ?? [];
+      values.push({
+        skillId: metric.skillId,
+        metricName: metric.metricName,
+        value: metric.value,
+        unit: metric.unit ?? null,
+        direction: metric.direction,
+        observedAt: metric.observedAt,
+      });
+      metricsByProject.set(metric.projectId, values);
+    }
+    const projectedRuns = runs.map((run) => {
+      const output = outputSummary(run);
+      const summary = resultSummary(run, output);
+      return {
+        runId: run.runId,
+        skillId: run.skillId,
+        projectId: run.projectId ?? null,
+        status: run.status,
+        source: run.source,
+        captureCompleteness: run.captureCompleteness,
+        durationMs: run.durationMs ?? null,
+        observedAt: run.observedAt,
+        metricCount: run.metrics?.length ?? 0,
+        metrics: (run.metrics ?? []).map((metric) => ({
+          metricName: metric.metricName,
+          value: metric.value,
+          unit: metric.unit ?? null,
+        })),
+        resultSummary: summary.text,
+        resultSummaryKind: summary.kind,
+        ...output,
+      };
+    });
+    return {
+      readable: true,
+      status,
+      outputCount,
+      outputBytes,
+      recent: projectedRuns.slice(0, 10),
+      runs: projectedRuns,
+      projects: [...projectMap.values()].map((project) => ({
+        ...project,
+        skills: [...project.skills].sort(),
+        metrics: metricsByProject.get(project.projectId) ?? [],
+      })),
+      history: [...historyMap.values()]
+        .sort((left, right) => left.period.localeCompare(right.period))
+        .slice(-14),
+      projectHistory: [...projectHistoryMap.entries()].map(([projectId, periods]) => ({
+        projectId,
+        periods: [...periods.values()]
+          .sort((left, right) => left.period.localeCompare(right.period))
+          .slice(-14),
+      })),
+      metrics: metrics.slice(-24).map((metric) => ({
+        skillId: metric.skillId,
+        projectId: metric.projectId ?? null,
+        metricName: metric.metricName,
+        value: metric.value,
+        unit: metric.unit ?? null,
+        direction: metric.direction,
+        observedAt: metric.observedAt,
+      })),
+      freshness: observedState(status.newestRunAt, now, 7 * DAY_MS),
+    };
+  } catch {
+    return {
+      readable: false,
+      status: null,
+      recent: [],
+      runs: [],
+      metrics: [],
+      projects: [],
+      history: [],
+      projectHistory: [],
+      outputCount: 0,
+      outputBytes: 0,
+    };
+  }
+}
+
+function boundedOwnerOutput(value, limitBytes) {
+  const sanitized = String(value)
+    .replace(/\u001b\[[0-9;]*m/g, '')
+    .replace(/(?:\/Users|\/home|\/private|\/tmp)\/[^\s"'`<>]+/g, '[private path]')
+    .replace(/[A-Za-z]:\\[^\s"'`<>]+/g, '[private path]');
+  const encoded = Buffer.from(sanitized);
+  if (encoded.length <= limitBytes) return { content: sanitized, truncated: false };
+  return {
+    content: encoded.subarray(0, limitBytes).toString('utf8').replace(/\uFFFD$/, ''),
+    truncated: true,
+  };
+}
+
+export function readSkillRunOutput({
+  home,
+  runId,
+  maxResponseBytes = 16 * 1024,
+  maxStreamBytes = 8 * 1024,
+} = {}) {
+  const root = defaultSkillRunsRoot({ home, env: {} });
+  const store = new SkillRunStore({ root, env: {} });
+  const run = store.show(runId);
+  const streams = [];
+  let remainingBytes = maxResponseBytes;
+  for (const kind of ['output', 'stdout', 'stderr']) {
+    const metadata = run.outputs?.[kind];
+    if (!metadata || remainingBytes <= 0) continue;
+    const retained = store.output(run.runId, kind);
+    const limit = Math.min(maxStreamBytes, remainingBytes);
+    const bounded = boundedOwnerOutput(retained, limit);
+    const storedBytes = Buffer.byteLength(bounded.content);
+    remainingBytes -= storedBytes;
+    streams.push({
+      kind,
+      content: bounded.content,
+      truncated: metadata.truncated === true || bounded.truncated,
+    });
+  }
+  return {
+    runId: run.runId,
+    streams,
+    outputCount: streams.length,
+    truncated: streams.some((stream) => stream.truncated) || remainingBytes <= 0,
+  };
+}
+
+function drankEvidence(root, now) {
+  const payload = readJson(
+    resolve(root, 'foundry/helpers/drank/data/fleet-dr.json'),
+  );
+  const domainCount = Object.keys(payload?.domains ?? {}).length;
+  return {
+    readable: Boolean(payload),
+    domainCount,
+    observedAt: payload?.lastUpdated ?? null,
+    freshness: payload
+      ? observedState(payload.lastUpdated, now, 14 * DAY_MS)
+      : 'unavailable',
+    domains: Object.entries(payload?.domains ?? {}).map(([domain, value]) => {
+      const history = [...(value.history ?? [])].sort((left, right) => left.ts - right.ts);
+      const latest = history.at(-1) ?? null;
+      const previous = history.at(-2) ?? null;
+      return {
+        domain,
+        observations: history.length,
+        rating: Number.isFinite(Number(latest?.dr)) ? Number(latest.dr) : null,
+        previousRating: Number.isFinite(Number(previous?.dr)) ? Number(previous.dr) : null,
+        delta:
+          Number.isFinite(Number(latest?.dr)) && Number.isFinite(Number(previous?.dr))
+            ? Number(latest.dr) - Number(previous.dr)
+            : null,
+        observedAt: Number.isFinite(Number(latest?.ts))
+          ? new Date(Number(latest.ts)).toISOString()
+          : payload?.lastUpdated ?? null,
+        series: history
+          .filter((item) => Number.isFinite(Number(item?.ts)) && Number.isFinite(Number(item?.dr)))
+          .map((item) => ({
+            observedAt: new Date(Number(item.ts)).toISOString(),
+            value: Number(item.dr),
+          }))
+          .slice(-60),
+      };
+    }),
+  };
+}
+
+function psiEvidence(home, now) {
+  const databasePath = resolve(home, '.psi-swarm/history.db');
+  const summary = safeSqliteSummary(databasePath);
+  const observedAt = summary?.newest_at
+    ? new Date(Number(summary.newest_at)).toISOString()
+    : null;
+  return {
+    readable: Boolean(summary),
+    runCount: Number(summary?.run_count ?? 0),
+    tagCount: Number(summary?.tag_count ?? 0),
+    observedAt,
+    freshness: summary ? observedState(observedAt, now, 7 * DAY_MS) : 'unavailable',
+    domains: safeSqliteProjectHistory(databasePath),
+  };
+}
+
+function bucketStatus(bucket, components) {
+  const bucketComponents = bucket.components.map((id) => components.get(id));
+  const states = bucketComponents.map((component) => component?.status ?? 'unavailable');
+  if (bucketComponents.some((component) => component?.freshness === 'stale')) return 'partial';
+  if (states.every((state) => state === 'connected')) return 'connected';
+  if (states.every((state) => ['missing', 'unavailable'].includes(state))) return 'missing';
+  return 'partial';
+}
+
+function connectionSummary(connections) {
+  const counts = {
+    connected: 0,
+    partial: 0,
+    missing: 0,
+    unavailable: 0,
+    stale: 0,
+  };
+  for (const item of connections) {
+    counts[item.status] = (counts[item.status] ?? 0) + 1;
+    if (item.freshness === 'stale') counts.stale += 1;
+    if (item.freshness === 'unavailable' && item.status !== 'unavailable') {
+      counts.unavailable += 1;
+    }
+  }
+  const total = connections.length;
+  return {
+    ...counts,
+    total,
+    coverage: total > 0 ? Math.round((counts.connected / total) * 100) : 0,
+  };
+}
+
+function newestTimestamp(values) {
+  return values
+    .filter((value) => value && Number.isFinite(Date.parse(value)))
+    .sort((left, right) => Date.parse(right) - Date.parse(left))[0] ?? null;
+}
+
+function normalizedDomain(value) {
+  if (typeof value !== 'string') return null;
+  try {
+    return new URL(value.includes('://') ? value : `https://${value}`)
+      .hostname
+      .replace(/^www\./, '');
+  } catch {
+    return value.replace(/^www\./, '').split('/')[0] || null;
+  }
+}
+
+function normalizeFeedbackSubmissions(submissions = [], projects = []) {
+  const projectIds = new Set(projects.map((project) => project.id));
+  return submissions
+    .flatMap((item) => {
+      const receivedAt = item?.receivedAt;
+      if (!receivedAt || !Number.isFinite(Date.parse(receivedAt))) return [];
+      const rawMessage = String(item?.message ?? '').replace(/\s+/g, ' ').trim();
+      const sensitive =
+        /(?:\/Users\/|\/home\/|\/private\/|[A-Za-z]:\\)/.test(rawMessage) ||
+        /(?:password|secret|credential|api[_ -]?key)\s*[:=]/i.test(rawMessage);
+      const message = sensitive
+        ? 'Feedback content withheld by the privacy filter.'
+        : rawMessage.slice(0, 500);
+      if (!message) return [];
+      const projectId = projectIds.has(item?.projectId) ? item.projectId : null;
+      const page = typeof item?.page === 'string' && item.page.startsWith('/') && !item.page.includes('..')
+        ? item.page.slice(0, 180)
+        : null;
+      return [{
+        id: String(item?.id ?? `feedback-${receivedAt}`).slice(0, 100),
+        projectId,
+        category: String(item?.category ?? 'Feedback').replace(/\s+/g, ' ').trim().slice(0, 80),
+        message,
+        page,
+        hasAttachment: item?.hasAttachment === true,
+        receivedAt,
+      }];
+    })
+    .sort((left, right) => Date.parse(right.receivedAt) - Date.parse(left.receivedAt))
+    .slice(0, 200);
+}
+
+function historicalSignal({ label, unit = null, direction = null, series = [] }) {
+  const normalized = series
+    .filter(
+      (point) =>
+        Number.isFinite(Number(point?.value)) &&
+        point?.observedAt &&
+        Number.isFinite(Date.parse(point.observedAt)),
+    )
+    .map((point) => ({
+      observedAt: point.observedAt,
+      value: Number(point.value),
+    }))
+    .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt))
+    .slice(-60);
+  if (normalized.length === 0) return null;
+  const latest = normalized.at(-1);
+  const previous = normalized.at(-2) ?? null;
+  return {
+    label,
+    value: latest.value,
+    previousValue: previous?.value ?? null,
+    delta: previous ? latest.value - previous.value : null,
+    unit,
+    direction,
+    observedAt: latest.observedAt,
+    history: previous ? 'comparable' : 'baseline-only',
+    series: normalized,
+  };
+}
+
+function metricSignals(metrics = []) {
+  const grouped = new Map();
+  for (const metric of metrics) {
+    const key = `${metric.metricName}\u0000${metric.unit ?? ''}`;
+    const values = grouped.get(key) ?? [];
+    values.push(metric);
+    grouped.set(key, values);
+  }
+  return [...grouped.values()]
+    .map((values) => historicalSignal({
+      label: values[0].metricName,
+      unit: values[0].unit,
+      direction: values[0].direction,
+      series: values.map((value) => ({
+        observedAt: value.observedAt,
+        value: value.value,
+      })),
+    }))
+    .filter(Boolean);
+}
+
+function designReviewEvidence(fleetRoot, projects) {
+  return projects.flatMap((project) => {
+    if (!project.repo) return [];
+    const receiptPath = project.id === 'fleet-workspace'
+      ? resolve(fleetRoot, 'foundry/apps/dashboard/fleet-console/.fleet/design-review.json')
+      : resolve(fleetRoot, project.repo, '.fleet/design-review.json');
+    const receipt = readJson(receiptPath);
+    const critique = Number(receipt?.evidence?.critique?.score);
+    const critiqueMaximum = Number(receipt?.evidence?.critique?.maximum);
+    const audit = Number(receipt?.evidence?.audit?.score);
+    const auditMaximum = Number(receipt?.evidence?.audit?.maximum);
+    if (
+      receipt?.$schema !== 'fleet.design-review.v1' ||
+      !Number.isFinite(critique) ||
+      !Number.isFinite(critiqueMaximum) ||
+      !Number.isFinite(audit) ||
+      !Number.isFinite(auditMaximum)
+    ) return [];
+    let observedAt = null;
+    try {
+      observedAt = statSync(receiptPath).mtime.toISOString();
+    } catch {}
+    return [{
+      projectId: project.id,
+      critique,
+      critiqueMaximum,
+      audit,
+      auditMaximum,
+      ownerDecision: receipt.ownerFeedback?.decision ?? 'pending',
+      observedAt,
+    }];
+  });
+}
+
+function buildProjectOutputs({
+  projects,
+  skills,
+  workflows,
+  drank,
+  psi,
+  aiProjects,
+  designReviews,
+  searchVisibility,
+  visibilityMetrics,
+}) {
+  const skillProjects = new Map(skills.projects.map((project) => [project.projectId, project]));
+  const workflowProjects = new Map(
+    workflows.projects.map((project) => [project.projectId, project]),
+  );
+  const drankDomains = new Map(
+    drank.domains.map((domain) => [normalizedDomain(domain.domain), domain]),
+  );
+  const psiDomains = new Map(
+    psi.domains.map((domain) => [normalizedDomain(domain.domain), domain]),
+  );
+  const aiByProject = new Map(aiProjects.map((project) => [project.projectId, project]));
+  const designByProject = new Map(
+    designReviews.map((review) => [review.projectId, review]),
+  );
+  const searchByProject = new Map(
+    searchVisibility.map((project) => [project.projectId, project]),
+  );
+  const visibilityByProject = new Map(
+    visibilityMetrics.map((project) => [project.projectId, project]),
+  );
+
+  return projects
+    .map((project) => {
+      const domains = (project.domains ?? []).map(normalizedDomain).filter(Boolean);
+      const publicMetricSite =
+        (project.public?.listing === 'maintained' || project.metrics?.publicSite === true) &&
+        !['past', 'non-product'].includes(project.lifecycle) &&
+        project.tier !== 'non-product' &&
+        domains.length > 0;
+      let projectId = project.id;
+      if (project.lifecycle === 'past' || project.tier === 'non-product') {
+        projectId = project.public?.id ?? project.id;
+      }
+      const skill = skillProjects.get(project.id) ?? null;
+      const workflow = workflowProjects.get(project.id) ?? null;
+      const domainRating = domains.map((domain) => drankDomains.get(domain)).find(Boolean) ?? null;
+      const performance = domains.map((domain) => psiDomains.get(domain)).find(Boolean) ?? null;
+      const ai = aiByProject.get(project.id) ?? null;
+      const designReview = designByProject.get(project.id) ?? null;
+      const search = searchByProject.get(project.id) ?? null;
+      const readiness = visibilityByProject.get(project.id)?.families ?? {};
+      const metrics = metricSignals(skill?.metrics ?? []);
+      const aiHistory = [...(ai?.history ?? [])].sort(
+        (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
+      );
+      const aiSignals = [
+        historicalSignal({
+          label: 'AI visibility score',
+          unit: 'score/100',
+          direction: 'higher-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: item.metrics?.visibilityScore,
+          })),
+        }),
+        historicalSignal({
+          label: 'AI mention rate',
+          unit: 'percent',
+          direction: 'higher-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: Number(item.metrics?.mentionRate) * 100,
+          })),
+        }),
+        historicalSignal({
+          label: 'AI recommendation rate',
+          unit: 'percent',
+          direction: 'higher-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: Number(item.metrics?.recommendationRate) * 100,
+          })),
+        }),
+        historicalSignal({
+          label: 'AI citation rate',
+          unit: 'percent',
+          direction: 'higher-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: Number(item.metrics?.citationRate) * 100,
+          })),
+        }),
+        historicalSignal({
+          label: 'AI coverage rate',
+          unit: 'percent',
+          direction: 'higher-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: Number(item.metrics?.coverageRate) * 100,
+          })),
+        }),
+        historicalSignal({
+          label: 'AI average rank',
+          unit: 'rank',
+          direction: 'lower-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: item.metrics?.averagePosition,
+          })),
+        }),
+        historicalSignal({
+          label: 'AI citations',
+          unit: 'citations',
+          direction: 'higher-is-better',
+          series: aiHistory.map((item) => ({
+            observedAt: item.observedAt,
+            value: item.citations?.total,
+          })),
+        }),
+      ].filter(Boolean);
+      const searchSignal = historicalSignal({
+        label: 'Worst tracked query class',
+        unit: 'class',
+        direction: 'higher-is-better',
+        series: search?.series ?? [],
+      });
+      const readinessSignals = Object.values(readiness).flatMap((family) =>
+        family.metrics.map((metric) =>
+          historicalSignal({
+            label: metric.label,
+            unit: metric.unit,
+            direction: metric.direction,
+            series: metric.series,
+          }),
+        ),
+      ).filter(Boolean);
+      const produced = [];
+      if (skill) {
+        produced.push({
+          kind: 'skill',
+          label: 'Skill runs',
+          value: skill.runCount,
+          detail: `${skill.outputCount} captured outputs · ${skill.metricCount} metrics`,
+          observedAt: skill.newestRunAt,
+          freshness: skills.freshness,
+        });
+      }
+      if (workflow?.availability) {
+        produced.push({
+          kind: 'availability',
+          label: 'Availability check',
+          value: workflow.availability.ok ? 'Passed' : 'Failed',
+          detail: workflow.availability.freshness,
+          observedAt: workflow.availability.observedAt,
+          freshness: workflow.availability.freshness,
+        });
+      }
+      if (workflow?.performance) {
+        produced.push({
+          kind: 'http-performance',
+          label: 'HTTP performance',
+          value: `${Math.round(workflow.performance.totalP50Ms)} ms`,
+          detail: `p50 · ${workflow.performance.ok ? 'passed' : 'failed'}`,
+          observedAt: workflow.performance.observedAt,
+          freshness: workflow.performance.freshness,
+        });
+      }
+      if (performance) {
+        produced.push({
+          kind: 'psi',
+          label: 'PSI measurements',
+          value: performance.runs,
+          detail: Number.isFinite(performance.latest?.performanceScore)
+            ? `latest score ${Math.round(performance.latest.performanceScore)}`
+            : 'score unavailable',
+          observedAt: performance.latest?.observedAt ?? psi.observedAt,
+          freshness: psi.freshness,
+        });
+      }
+      if (domainRating) {
+        produced.push({
+          kind: 'domain-rating',
+          label: 'Domain rating history',
+          value: domainRating.observations,
+          detail: Number.isFinite(domainRating.rating)
+            ? `current rating ${domainRating.rating}`
+            : 'rating unavailable',
+          observedAt: domainRating.observedAt,
+          freshness: drank.freshness,
+        });
+      }
+      if (ai) {
+        produced.push({
+          kind: 'ai-visibility',
+          label: 'AI visibility',
+          value: ai.history?.length ?? 0,
+          detail: ai.latest ? 'latest observation available' : 'baseline not recorded',
+          observedAt: ai.latest?.observedAt ?? null,
+          freshness: ai.latest?.freshness ?? (ai.latest ? 'fresh' : 'unknown'),
+        });
+      }
+      if (designReview) {
+        produced.push({
+          kind: 'design-review',
+          label: 'Design critique',
+          value: `${designReview.critique}/${designReview.critiqueMaximum}`,
+          detail: `audit ${designReview.audit}/${designReview.auditMaximum} · owner ${designReview.ownerDecision}`,
+          observedAt: designReview.observedAt,
+          freshness: 'fresh',
+        });
+      }
+      if (searchSignal) {
+        produced.push({
+          kind: 'search-visibility',
+          label: 'Search visibility',
+          value: { 3: 'A', 2: 'B', 1: 'C' }[searchSignal.value] ?? '—',
+          detail: `${searchSignal.series.length} dated query sets`,
+          observedAt: searchSignal.observedAt,
+          freshness: 'recorded',
+        });
+      }
+      for (const [familyId, family] of Object.entries(readiness)) {
+        if (!family.latest) continue;
+        produced.push({
+          kind: `visibility-${familyId}`,
+          label: {
+            agent: 'AI Agent Readiness',
+            crawl: 'AI Crawlability',
+            coverage: 'Content Coverage',
+          }[familyId] ?? familyId,
+          value: family.latest.status,
+          detail: family.latest.summary,
+          observedAt: family.latest.observedAt,
+          freshness: 'recorded',
+        });
+      }
+
+      const historySignals = [
+        ...metrics,
+        historicalSignal({
+          label: 'Design critique',
+          unit: `score/${designReview?.critiqueMaximum ?? 40}`,
+          direction: 'higher-is-better',
+          series: designReview ? [{
+            observedAt: designReview.observedAt,
+            value: designReview.critique,
+          }] : [],
+        }),
+        historicalSignal({
+          label: 'Design audit',
+          unit: `score/${designReview?.auditMaximum ?? 20}`,
+          direction: 'higher-is-better',
+          series: designReview ? [{
+            observedAt: designReview.observedAt,
+            value: designReview.audit,
+          }] : [],
+        }),
+        historicalSignal({
+          label: 'PSI performance',
+          unit: 'score/100',
+          direction: 'higher-is-better',
+          series: (performance?.series ?? []).map((item) => ({
+            observedAt: item.observedAt,
+            value: item.performanceScore,
+          })),
+        }),
+        historicalSignal({
+          label: 'PSI LCP',
+          unit: 'milliseconds',
+          direction: 'lower-is-better',
+          series: (performance?.series ?? []).map((item) => ({
+            observedAt: item.observedAt,
+            value: item.lcp,
+          })),
+        }),
+        historicalSignal({
+          label: 'PSI CLS',
+          unit: 'score',
+          direction: 'lower-is-better',
+          series: (performance?.series ?? []).map((item) => ({
+            observedAt: item.observedAt,
+            value: item.cls,
+          })),
+        }),
+        historicalSignal({
+          label: 'Domain rating',
+          unit: 'rating',
+          direction: 'higher-is-better',
+          series: domainRating?.series ?? [],
+        }),
+        searchSignal,
+        ...readinessSignals,
+        ...aiSignals,
+      ].filter(Boolean);
+      return {
+        projectId,
+        catalogProjectId: project.id,
+        name: project.name ?? project.id,
+        attention: project.attention ?? null,
+        lifecycle: project.lifecycle ?? null,
+        status: project.status ?? null,
+        domains,
+        metricEligibility: {
+          publicSite: publicMetricSite,
+        },
+        produced,
+        skill: skill
+          ? {
+              runCount: skill.runCount,
+              succeeded: skill.succeeded,
+              failed: skill.failed,
+              outputCount: skill.outputCount,
+              outputBytes: skill.outputBytes,
+              metricCount: skill.metricCount,
+              skills: skill.skills,
+              newestRunAt: skill.newestRunAt,
+            }
+          : null,
+        public: workflow ?? null,
+        performance,
+        domainRating,
+        designReview,
+        aiVisibility: ai
+          ? {
+              configured: true,
+              observations: ai.history?.length ?? 0,
+              observedAt: ai.latest?.observedAt ?? null,
+              evidenceMode:
+                ai.latest?.evidenceMode ??
+                ai.latest?.evidence?.[0]?.summary?.evidenceMode ??
+                null,
+              questions: ai.questions ?? [],
+            }
+          : null,
+        searchVisibility: {
+          configured: search?.configured === true,
+          observations: search?.series?.length ?? 0,
+          observedAt: searchSignal?.observedAt ?? null,
+          queries: search?.queries ?? [],
+        },
+        visibilityReadiness: Object.fromEntries(
+          ['agent', 'crawl', 'coverage'].map((familyId) => [
+            familyId,
+            readiness[familyId]?.latest
+              ? {
+                  status: readiness[familyId].latest.status,
+                  summary: readiness[familyId].latest.summary,
+                  observedAt: readiness[familyId].latest.observedAt,
+                  observations: readiness[familyId].metrics.reduce(
+                    (maximum, metric) => Math.max(maximum, metric.series.length),
+                    0,
+                  ),
+                }
+              : null,
+          ]),
+        ),
+        history: {
+          state: historySignals.some((signal) => signal.history === 'comparable')
+            ? 'comparable'
+            : historySignals.length > 0
+              ? 'baseline-only'
+              : 'none',
+          signals: historySignals,
+        },
+        lastObservedAt: newestTimestamp([
+          skill?.newestRunAt,
+          workflow?.availability?.observedAt,
+          workflow?.performance?.observedAt,
+          performance?.latest?.observedAt,
+          domainRating?.observedAt,
+          ai?.latest?.observedAt,
+          designReview?.observedAt,
+          searchSignal?.observedAt,
+          ...Object.values(readiness).map((family) => family.latest?.observedAt),
+        ]),
+      };
+    })
+    .sort((left, right) => {
+      const producedDifference = right.produced.length - left.produced.length;
+      return producedDifference || left.name.localeCompare(right.name);
+    });
+}
+
+function buildImprovementActions({ projectOutputs, connections }) {
+  const actions = [];
+  for (const item of connections) {
+    if (!['missing', 'partial', 'unavailable'].includes(item.status) && item.freshness !== 'stale') {
+      continue;
+    }
+    actions.push({
+      id: `connection:${item.id}`,
+      scope: 'system',
+      projectId: null,
+      severity: item.status === 'missing' ? 'high' : 'medium',
+      signal: item.detail,
+      action:
+        item.status === 'missing'
+          ? `Implement ${item.provider} → ${item.consumer}`
+          : `Complete ${item.provider} → ${item.consumer}`,
+      ownerPath: item.ownerPath,
+    });
+  }
+  for (const project of projectOutputs) {
+    if (project.public?.availability?.ok === false) {
+      actions.push({
+        id: `project:${project.projectId}:availability`,
+        scope: 'project',
+        projectId: project.projectId,
+        severity: 'high',
+        signal: 'Latest public availability check failed.',
+        action: `Restore ${project.name}'s public surface`,
+        ownerPath: `/projects/${project.projectId}`,
+      });
+    }
+    if (
+      project.public?.performance?.ok === false &&
+      project.public?.availability?.ok !== false
+    ) {
+      actions.push({
+        id: `project:${project.projectId}:http-performance`,
+        scope: 'project',
+        projectId: project.projectId,
+        severity: 'high',
+        signal: 'Latest public HTTP performance check failed.',
+        action: `Repair ${project.name}'s public response path`,
+        ownerPath: `/projects/${project.projectId}`,
+      });
+    }
+    const score = project.performance?.latest?.performanceScore;
+    if (Number.isFinite(score) && score < 80) {
+      actions.push({
+        id: `project:${project.projectId}:psi-score`,
+        scope: 'project',
+        projectId: project.projectId,
+        severity: 'medium',
+        signal: `Latest PSI performance score is ${Math.round(score)}.`,
+        action: `Improve ${project.name}'s measured performance`,
+        ownerPath: `/projects/${project.projectId}`,
+      });
+    } else if (
+      Number.isFinite(project.performance?.performanceDelta) &&
+      project.performance.performanceDelta <= -5
+    ) {
+      actions.push({
+        id: `project:${project.projectId}:psi-regression`,
+        scope: 'project',
+        projectId: project.projectId,
+        severity: 'medium',
+        signal: `PSI performance fell ${Math.abs(Math.round(project.performance.performanceDelta))} points.`,
+        action: `Investigate ${project.name}'s performance regression`,
+        ownerPath: `/projects/${project.projectId}`,
+      });
+    }
+    if (Number.isFinite(project.domainRating?.delta) && project.domainRating.delta < 0) {
+      actions.push({
+        id: `project:${project.projectId}:domain-rating`,
+        scope: 'project',
+        projectId: project.projectId,
+        severity: 'medium',
+        signal: `Domain rating fell ${Math.abs(project.domainRating.delta)} point.`,
+        action: `Recover ${project.name}'s domain authority`,
+        ownerPath: `/projects/${project.projectId}`,
+      });
+    }
+    if (project.aiVisibility?.configured && project.aiVisibility.observations === 0) {
+      actions.push({
+        id: `project:${project.projectId}:ai-baseline`,
+        scope: 'project',
+        projectId: project.projectId,
+        severity: 'medium',
+        signal: 'AI Visibility is configured but has no recorded baseline.',
+        action: `Run ${project.name}'s first AI visibility baseline`,
+        ownerPath: '/marketing',
+      });
+    }
+  }
+  const severity = { high: 0, medium: 1, low: 2 };
+  return actions
+    .sort(
+      (left, right) =>
+        severity[left.severity] - severity[right.severity] ||
+        left.action.localeCompare(right.action),
+    )
+    .slice(0, 12);
+}
+
+function attachImprovementWork(actions, missions) {
+  const activeStates = new Set([
+    'accepted',
+    'active',
+    'blocked',
+    'awaiting-verification',
+  ]);
+  const activeMissions = (missions ?? []).filter((mission) => activeStates.has(mission.state));
+  return actions.map((action) => {
+    const mission = action.projectId
+      ? activeMissions.find((candidate) => candidate.projectId === action.projectId)
+      : null;
+    return {
+      ...action,
+      work: mission
+        ? {
+            missionId: mission.id,
+            state: mission.state,
+            outcome: mission.outcome,
+            updatedAt: mission.updatedAt,
+            ownerPath: `/missions?id=${encodeURIComponent(mission.id)}`,
+          }
+        : null,
+    };
+  });
+}
+
+export function buildFleetConnections({
+  fleetRoot = resolve(import.meta.dirname, '../../../..'),
+  home = process.env.HOME ?? '',
+  now = new Date().toISOString(),
+  marketing = null,
+  missions = [],
+  feedbackSubmissions = [],
+} = {}) {
+  const projectCatalog = readJson(
+    resolve(fleetRoot, 'foundry/ops/config/projects.json'),
+    { projects: [] },
+  );
+  const maintainedProjects = (projectCatalog.projects ?? []).filter(
+    (project) =>
+      !['past', 'non-product'].includes(project.lifecycle) &&
+      project.tier !== 'non-product',
+  );
+  const drank = drankEvidence(fleetRoot, now);
+  const psi = psiEvidence(home, now);
+  const skills = skillEvidence(home, now);
+  const designReviews = designReviewEvidence(fleetRoot, maintainedProjects);
+  const searchVisibility = searchVisibilityEvidence(fleetRoot);
+  const visibilityMetrics = visibilityMetricEvidence(home);
+  const workflows = workflowEvidence(fleetRoot, now);
+  const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
+  const measuredAiProjects = visibleAiProjects.filter((project) => project.latest);
+  const configuredAiProjects = visibleAiProjects.length;
+  const normalizedFeedback = normalizeFeedbackSubmissions(
+    feedbackSubmissions,
+    maintainedProjects,
+  );
+  const maintainedProjectIds = new Set(maintainedProjects.map((project) => project.id));
+  const drankDomains = new Set(
+    drank.domains.map((entry) => normalizedDomain(entry.domain)).filter(Boolean),
+  );
+  const retainedDrankProjects = (projectCatalog.projects ?? []).filter(
+    (project) =>
+      !maintainedProjectIds.has(project.id) &&
+      (project.domains ?? [])
+        .map(normalizedDomain)
+        .filter(Boolean)
+        .some((domain) => drankDomains.has(domain)),
+  );
+  const projectOutputProjects = [...maintainedProjects, ...retainedDrankProjects];
+
+  const componentList = [
+    {
+      id: 'ai-visibility',
+      name: 'AI Visibility',
+      bucketId: 'helpers',
+      status: configuredAiProjects > 0 ? 'connected' : 'partial',
+      headline:
+        configuredAiProjects > 0
+          ? `Evidence: ${measuredAiProjects.length}/${configuredAiProjects} configured products have local observations.`
+          : 'The helper exists, but no Console portfolio is configured.',
+      ownerPath: '/marketing',
+      freshness: measuredAiProjects.length > 0 ? 'fresh' : 'unknown',
+    },
+    {
+      id: 'feedback',
+      name: 'Feedback',
+      bucketId: 'packages',
+      status: 'partial',
+      headline: 'The widget contract and Console inbox exist; no Fleet ingestion supplies submissions.',
+      ownerPath: '/connections#bucket-packages',
+      freshness: 'not-applicable',
+    },
+    pathComponent({
+      id: 'fleet-skills',
+      name: 'Fleet skills',
+      bucketId: 'skills',
+      path: 'foundry/ops/skills',
+      root: fleetRoot,
+      headline: 'Canonical skills are installed into supported agent runtimes.',
+      ownerPath: '/connections#bucket-skills',
+    }),
+    {
+      id: 'skill-run-store',
+      name: 'Skill run history',
+      bucketId: 'skills',
+      status: skills.readable ? 'connected' : 'unavailable',
+      headline: skills.readable
+        ? `${skills.status.runCount} runs and ${skills.status.metricCount} numeric observations retained.`
+        : 'No readable machine-local run store is available.',
+      ownerPath: '/connections#skill-runs',
+      freshness: skills.freshness ?? 'unavailable',
+    },
+    pathComponent({
+      id: 'mobile-cockpit',
+      name: 'Mobile Dev Cockpit',
+      bucketId: 'dashboard',
+      path: 'foundry/apps/dashboard/mobile-cockpit',
+      root: fleetRoot,
+      headline: 'Internal local-only mobile client; its product future remains undecided.',
+      ownerPath: '/connections#bucket-dashboard',
+      audience: 'internal',
+    }),
+    pathComponent({
+      id: 'public-directory',
+      name: 'Public Directory',
+      bucketId: 'public-apps',
+      path: 'foundry/apps/public/public-directory',
+      root: fleetRoot,
+      headline: `${maintainedProjects.length} maintained project identities are available to projections.`,
+      ownerPath: '/projects',
+    }),
+    {
+      id: 'drank',
+      name: 'Drank',
+      bucketId: 'helpers',
+      status: drank.readable ? 'connected' : 'unavailable',
+      headline: drank.readable
+        ? `${drank.domainCount} domains have rating history.`
+        : 'Domain-rating evidence is unavailable.',
+      ownerPath: '/connections#domain-intelligence',
+      freshness: drank.freshness,
+    },
+    {
+      id: 'psi-swarm',
+      name: 'PSI Swarm',
+      bucketId: 'helpers',
+      status: psi.readable ? 'connected' : 'unavailable',
+      headline: psi.readable
+        ? `${psi.runCount} successful performance runs across ${psi.tagCount} tags.`
+        : 'Performance history is unavailable on this machine.',
+      ownerPath: '/connections#domain-intelligence',
+      freshness: psi.freshness,
+    },
+    pathComponent({
+      id: 'editorial',
+      name: 'Editorial',
+      bucketId: 'marketing',
+      path: 'foundry/marketing/reel-pipeline/editorial',
+      root: fleetRoot,
+      headline: 'Editorial commands and contracts feed Reel Pipeline.',
+      ownerPath: '/marketing',
+    }),
+    pathComponent({
+      id: 'content-factory',
+      name: 'Content Factory',
+      bucketId: 'marketing',
+      path: 'foundry/marketing/content-factory',
+      root: fleetRoot,
+      headline: 'Package and rendering commands feed Reel Pipeline.',
+      ownerPath: '/marketing',
+    }),
+    {
+      ...pathComponent({
+        id: 'reel-pipeline',
+        name: 'Reel Pipeline',
+        bucketId: 'marketing',
+        path: 'foundry/marketing/reel-pipeline',
+        root: fleetRoot,
+        headline: 'Internal marketing pipeline; proof and readiness evidence reach the Marketing view.',
+        ownerPath: '/marketing',
+        audience: 'internal',
+      }),
+      status: existsSync(resolve(fleetRoot, 'foundry/marketing/reel-pipeline'))
+        ? 'partial'
+        : 'unavailable',
+    },
+    {
+      id: 'postiz',
+      name: 'Postiz handoff',
+      bucketId: 'marketing',
+      status: 'partial',
+      headline: 'Draft, publication, and analytics receipt contracts exist; live operation stays gated.',
+      ownerPath: '/marketing',
+      freshness: 'unknown',
+    },
+    {
+      id: 'fleet-console',
+      name: 'Fleet Console',
+      bucketId: 'dashboard',
+      status: 'connected',
+      headline: 'Owner control now aggregates connection evidence across all buckets.',
+      ownerPath: '/connections',
+      freshness: 'fresh',
+    },
+  ];
+  const components = new Map(componentList.map((item) => [item.id, item]));
+
+  const evidence = {
+    projects: [{
+      provider: 'project-catalog',
+      label: `${maintainedProjects.length} maintained identities`,
+      observedAt: projectCatalog._meta?.updated ?? null,
+      freshness: 'fresh',
+    }],
+    drank: [{
+      provider: 'drank',
+      label: `${drank.domainCount} domain histories`,
+      observedAt: drank.observedAt,
+      freshness: drank.freshness,
+    }],
+    psi: [{
+      provider: 'psi-swarm',
+      label: psi.readable ? `${psi.runCount} successful runs` : 'No readable history',
+      observedAt: psi.observedAt,
+      freshness: psi.freshness,
+    }],
+    skills: [{
+      provider: 'skill-run-store',
+      label: skills.readable
+        ? `${skills.status.runCount} runs · ${skills.status.metricCount} metrics`
+        : 'Store unavailable',
+      observedAt: skills.status?.newestRunAt ?? null,
+      freshness: skills.freshness ?? 'unavailable',
+    }],
+    ai: [{
+      provider: 'ai-visibility',
+      label: `${measuredAiProjects.length}/${configuredAiProjects} products measured`,
+      observedAt: measuredAiProjects
+        .map((project) => project.latest?.observedAt)
+        .filter(Boolean)
+        .sort()
+        .at(-1) ?? null,
+      freshness: measuredAiProjects.length > 0 ? 'fresh' : 'unknown',
+    }],
+  };
+
+  const connections = [
+    connection({
+      id: 'catalog-to-directory',
+      provider: 'project-catalog',
+      consumer: 'public-directory',
+      transport: 'Generated sanitized product projection',
+      status: maintainedProjects.length > 0 ? 'connected' : 'unavailable',
+      detail: 'Canonical project identity feeds the public SaaS Maker directory.',
+      evidence: evidence.projects,
+      ownerPath: '/projects',
+      priority: 10,
+    }),
+    connection({
+      id: 'catalog-to-console',
+      provider: 'project-catalog',
+      consumer: 'fleet-console',
+      transport: 'Founder Control project projection',
+      status: maintainedProjects.length > 0 ? 'connected' : 'unavailable',
+      detail: 'Project identity and lifecycle are available in the owner view.',
+      evidence: evidence.projects,
+      ownerPath: '/projects',
+      priority: 10,
+    }),
+    connection({
+      id: 'ai-visibility-to-console',
+      provider: 'ai-visibility',
+      consumer: 'fleet-console',
+      transport: 'Normalized visibility ledger',
+      status: configuredAiProjects > 0 ? 'connected' : 'partial',
+      detail: 'History, cost, citations, and recommendations reach Marketing.',
+      evidence: evidence.ai,
+      ownerPath: '/marketing',
+      priority: 20,
+    }),
+    connection({
+      id: 'drank-to-console',
+      provider: 'drank',
+      consumer: 'fleet-console',
+      transport: 'Fleet domain-rating JSON',
+      status: drank.readable ? 'connected' : 'unavailable',
+      detail: 'Domain-rating history is summarized without copying Drank logic.',
+      evidence: evidence.drank,
+      ownerPath: '/connections#domain-intelligence',
+      priority: 20,
+    }),
+    connection({
+      id: 'psi-to-console',
+      provider: 'psi-swarm',
+      consumer: 'fleet-console',
+      transport: 'Machine-local SQLite summary',
+      status: psi.readable ? 'connected' : 'unavailable',
+      detail: 'Performance history is summarized without exposing the database.',
+      evidence: evidence.psi,
+      ownerPath: '/connections#domain-intelligence',
+      priority: 20,
+    }),
+    connection({
+      id: 'editorial-to-reel',
+      provider: 'editorial',
+      consumer: 'reel-pipeline',
+      transport: 'Editorial commands and content contracts',
+      status: components.get('editorial').status === 'connected' ? 'connected' : 'unavailable',
+      detail: 'Source-backed editorial packages enter the rendering pipeline.',
+      ownerPath: '/marketing',
+      priority: 30,
+    }),
+    connection({
+      id: 'content-factory-to-reel',
+      provider: 'content-factory',
+      consumer: 'reel-pipeline',
+      transport: 'Sibling scripts and manifest fixtures',
+      status: components.get('content-factory').status === 'connected' ? 'connected' : 'unavailable',
+      detail: 'Package and rendering commands execute against Reel Pipeline.',
+      ownerPath: '/marketing',
+      priority: 30,
+    }),
+    connection({
+      id: 'reel-to-console',
+      provider: 'reel-pipeline',
+      consumer: 'fleet-console',
+      transport: 'Marketing registry, proof, and readiness summaries',
+      status: 'partial',
+      detail: 'Readiness is visible; one queue-to-outcome state model is not complete.',
+      ownerPath: '/marketing',
+      priority: 60,
+    }),
+    connection({
+      id: 'postiz-to-marketing',
+      provider: 'postiz',
+      consumer: 'reel-pipeline',
+      transport: 'Draft, publication, and analytics receipts',
+      status: 'partial',
+      detail: 'Receipt contracts exist while live scheduling remains deliberately gated.',
+      ownerPath: '/marketing',
+      priority: 60,
+    }),
+    connection({
+      id: 'skills-to-runtimes',
+      provider: 'fleet-skills',
+      consumer: 'agent-runtimes',
+      transport: 'Repo-local installed skill links',
+      status: components.get('fleet-skills').status,
+      detail: 'Canonical skills are exposed without duplicating their source.',
+      ownerPath: '/connections#skills-to-runtimes',
+      priority: 30,
+    }),
+    connection({
+      id: 'skill-runs-to-console',
+      provider: 'skill-run-store',
+      consumer: 'fleet-console',
+      transport: 'Sanitized run and metric summary',
+      status: skills.readable ? 'connected' : 'unavailable',
+      detail: 'Run history and numeric observations now reach the final dashboard.',
+      evidence: evidence.skills,
+      ownerPath: '/connections#skill-runs',
+      priority: 15,
+    }),
+    connection({
+      id: 'feedback-to-ingestion',
+      provider: 'feedback',
+      consumer: 'fleet-feedback-ingestion',
+      transport: 'No Fleet-owned transport',
+      status: 'missing',
+      detail: 'The widget accepts onSubmit or ingestionUrl; no Fleet endpoint receives and retains submissions.',
+      ownerPath: '/connections#feedback-to-ingestion',
+      priority: 100,
+    }),
+    connection({
+      id: 'public-workflows-to-console',
+      provider: 'public-workflows',
+      consumer: 'fleet-console',
+      transport: 'Sanitized latest availability and performance reports',
+      status: workflows.readable ? 'connected' : 'unavailable',
+      detail: workflows.readable
+        ? `${workflows.sites} public surfaces are summarized; ${workflows.failed} currently fail at least one report.`
+        : 'No readable public workflow report is available.',
+      evidence: workflows.summaries,
+      ownerPath: '/connections#public-evidence',
+      priority: 15,
+    }),
+    connection({
+      id: 'mobile-to-operations',
+      provider: 'mobile-cockpit',
+      consumer: 'fleet-operations',
+      transport: 'Authenticated local bridge and allowlisted commands',
+      status: components.get('mobile-cockpit').status,
+      detail: 'The mobile client can inspect and operate configured projects.',
+      ownerPath: '/connections#mobile-to-operations',
+      priority: 30,
+    }),
+    connection({
+      id: 'console-to-mobile',
+      provider: 'fleet-console',
+      consumer: 'mobile-cockpit',
+      transport: 'No first-class mobile dashboard consumer',
+      status: 'missing',
+      detail: 'Fleet Console connection state is not yet presented inside Mobile Cockpit.',
+      ownerPath: '/connections#console-to-mobile',
+      priority: 80,
+    }),
+  ];
+
+  const buckets = BUCKETS.map((bucket) => ({
+    ...bucket,
+    status: bucketStatus(bucket, components),
+    components: bucket.components.map((id) => components.get(id)),
+  }));
+  const gaps = connections
+    .filter(
+      (item) =>
+        ['missing', 'partial', 'unavailable'].includes(item.status) ||
+        item.freshness === 'stale',
+    )
+    .sort((left, right) => right.priority - left.priority || left.id.localeCompare(right.id));
+  const projectOutputs = buildProjectOutputs({
+    projects: projectOutputProjects,
+    skills,
+    workflows,
+    drank,
+    psi,
+    aiProjects: visibleAiProjects,
+    designReviews,
+    searchVisibility,
+    visibilityMetrics,
+  });
+  const improvements = attachImprovementWork(
+    buildImprovementActions({ projectOutputs, connections }),
+    missions,
+  );
+  const activeImprovementActions = improvements.filter((item) => item.work);
+  const producingProjects = projectOutputs.filter((project) => project.produced.length > 0);
+  const successfulSkillRuns = skills.history.reduce(
+    (total, period) => total + period.succeeded,
+    0,
+  );
+  const failedSkillRuns = skills.history.reduce(
+    (total, period) => total + period.failed,
+    0,
+  );
+  const otherSkillRuns = Math.max(
+    0,
+    (skills.status?.runCount ?? 0) - successfulSkillRuns - failedSkillRuns,
+  );
+
+  return {
+    schemaVersion: CONNECTIONS_SCHEMA_VERSION,
+    generatedAt: now,
+    summary: {
+      ...connectionSummary(connections),
+      bucketCount: buckets.length,
+      componentCount: componentList.length,
+      highestPriorityGap: gaps[0]
+        ? {
+            id: gaps[0].id,
+            provider: gaps[0].provider,
+            consumer: gaps[0].consumer,
+            status: gaps[0].status,
+            detail: gaps[0].detail,
+            ownerPath: gaps[0].ownerPath,
+          }
+        : null,
+    },
+    buckets,
+    connections,
+    outputs: {
+      summary: {
+        skillRuns: skills.status?.runCount ?? 0,
+        successfulSkillRuns,
+        failedSkillRuns,
+        otherSkillRuns,
+        capturedOutputs: skills.outputCount,
+        capturedOutputBytes: skills.outputBytes,
+        measuredValues: skills.status?.metricCount ?? 0,
+        projectsProducing: producingProjects.length,
+        projectsTracked: projectOutputs.length,
+        historicalPeriods: skills.history.length,
+        publicSites: workflows.sites,
+        publicSitesPassed: Math.max(0, workflows.sites - workflows.failed),
+        performanceRuns: psi.runCount,
+        domainHistories: drank.domainCount,
+      },
+      recentRuns: skills.recent,
+      skillRuns: skills.runs,
+      skillHistoryByProject: skills.projectHistory,
+      feedback: {
+        total: normalizedFeedback.length,
+        submissions: normalizedFeedback,
+      },
+      projects: projectOutputs,
+      history: skills.history,
+      improvements,
+      improvementWork: {
+        activeActions: activeImprovementActions.length,
+        notStartedActions: improvements.length - activeImprovementActions.length,
+      },
+      boundaries: {
+        aiVisibility: {
+          status: measuredAiProjects.length > 0 ? 'producing' : 'baseline-missing',
+          configured: configuredAiProjects,
+          observations: measuredAiProjects.length,
+          detail:
+            measuredAiProjects.length > 0
+              ? 'Recorded project observations are available.'
+              : 'Configured projects have not produced a local baseline.',
+        },
+        feedback: {
+          status: normalizedFeedback.length > 0 ? 'producing' : 'empty',
+          value: normalizedFeedback.length,
+          detail: normalizedFeedback.length > 0
+            ? `${normalizedFeedback.length} sanitized submission${normalizedFeedback.length === 1 ? '' : 's'} available.`
+            : 'No feedback submissions are available.',
+        },
+        marketing: {
+          status: 'unmeasured',
+          value: null,
+          detail: 'No unified render-to-outcome receipt count is available.',
+        },
+      },
+    },
+    evidence: {
+      skillRuns: {
+        runCount: skills.status?.runCount ?? 0,
+        metricCount: skills.status?.metricCount ?? 0,
+        outputCount: skills.outputCount,
+        outputBytes: skills.outputBytes,
+        newestRunAt: skills.status?.newestRunAt ?? null,
+        recent: skills.recent,
+        metrics: skills.metrics,
+      },
+      publicWorkflows: {
+        sites: workflows.sites,
+        failed: workflows.failed,
+        reports: workflows.summaries,
+      },
+      domainIntelligence: {
+        drank: {
+          domains: drank.domainCount,
+          observedAt: drank.observedAt,
+          freshness: drank.freshness,
+        },
+        psi: {
+          runs: psi.runCount,
+          tags: psi.tagCount,
+          observedAt: psi.observedAt,
+          freshness: psi.freshness,
+        },
+      },
+    },
+  };
+}

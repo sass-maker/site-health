@@ -91,6 +91,119 @@ test('fails closed when no mutation authentication boundary is configured', asyn
   assert.equal(response.status, 401);
 });
 
+test('serves the read-only connection projection without mutation credentials', async (context) => {
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'connections.sqlite'),
+  });
+  const expected = {
+    schemaVersion: 'fleet.connections.v1',
+    generatedAt: '2026-07-30T10:00:00.000Z',
+    summary: { connected: 1, total: 1 },
+    buckets: [],
+    connections: [],
+    evidence: {},
+  };
+  const server = await startFounderControlService({
+    store,
+    port: 0,
+    connectionsProvider: () => expected,
+  });
+  context.after(
+    () =>
+      new Promise((resolve) => {
+        server.close(() => {
+          store.close();
+          resolve();
+        });
+      }),
+  );
+
+  const response = await fetch(
+    `http://127.0.0.1:${server.address().port}/v1/connections`,
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), expected);
+});
+
+test('serves one bounded retained skill output only when explicitly requested', async (context) => {
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'skill-output.sqlite'),
+  });
+  const expected = {
+    runId: 'run-123',
+    streams: [{ kind: 'output', content: 'Finished the audit.', truncated: false }],
+    outputCount: 1,
+    truncated: false,
+  };
+  const server = await startFounderControlService({
+    store,
+    port: 0,
+    skillRunOutputProvider: ({ runId }) => ({ ...expected, runId }),
+  });
+  context.after(
+    () =>
+      new Promise((resolve) => {
+        server.close(() => {
+          store.close();
+          resolve();
+        });
+      }),
+  );
+
+  const response = await fetch(
+    `http://127.0.0.1:${server.address().port}/v1/skill-runs/run-123/output`,
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), expected);
+});
+
+test('starts and polls allowlisted metric runs through explicit loopback trust', async (context) => {
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'metric-runs.sqlite'),
+  });
+  const receipt = {
+    runId: 'metric-1',
+    family: 'psi',
+    projectId: 'codevetter',
+    label: 'PSI Swarm',
+    state: 'running',
+    startedAt: '2026-07-30T10:00:00.000Z',
+    finishedAt: null,
+    exitCode: null,
+    summary: 'PSI Swarm is running.',
+    duplicate: false,
+  };
+  const metricRunController = {
+    start: ({ family, projectId }) => ({ ...receipt, family, projectId }),
+    get: (runId) => runId === receipt.runId ? receipt : null,
+  };
+  const server = await startFounderControlService({
+    store,
+    port: 0,
+    trustLoopback: true,
+    metricRunController,
+  });
+  context.after(
+    () =>
+      new Promise((resolve) => {
+        server.close(() => {
+          store.close();
+          resolve();
+        });
+      }),
+  );
+  const base = `http://127.0.0.1:${server.address().port}`;
+
+  const started = await fetch(`${base}/v1/metric-runs`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ family: 'psi', projectId: 'codevetter' }),
+  });
+  assert.equal(started.status, 202);
+  assert.equal((await started.json()).projectId, 'codevetter');
+  assert.equal((await fetch(`${base}/v1/metric-runs/metric-1`)).status, 200);
+});
+
 test('accepts mutations through the explicit Cloudflare Access boundary only with both identity headers', async (context) => {
   const store = new FounderControlStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'access.sqlite'),

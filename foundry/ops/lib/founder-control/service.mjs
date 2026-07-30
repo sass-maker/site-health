@@ -5,6 +5,8 @@ import { buildDailyBrief } from './projections.mjs';
 import { draftMission } from './intake.mjs';
 import { buildOwnerNotifications } from './learning.mjs';
 import { cloudflareAccessAuthorized } from './access.mjs';
+import { buildFleetConnections, readSkillRunOutput } from './connections.mjs';
+import { createMetricRunController } from './metric-runs.mjs';
 import {
   evaluateAiVisibilityScheduleActivation,
   loadAiVisibilityPortfolio,
@@ -28,7 +30,14 @@ function safeEqual(left, right) {
   return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
 }
 
-function mutationAuthorized(request, { ownerToken, trustAccessHeaders = false, ownerEmail } = {}) {
+function mutationAuthorized(
+  request,
+  { ownerToken, trustAccessHeaders = false, trustLoopback = false, ownerEmail } = {},
+) {
+  if (
+    trustLoopback &&
+    ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(request.socket?.remoteAddress)
+  ) return true;
   if (ownerToken) {
     const authorization = request.headers.authorization ?? '';
     return authorization.startsWith('Bearer ') && safeEqual(authorization.slice(7), ownerToken);
@@ -85,6 +94,12 @@ export function buildMarketingProjection(projections, portfolio, scheduleActivat
         projectId: project.slug,
         name: project.name,
         attention: project.attention,
+        questions: project.promptSets.flatMap((set) =>
+          set.prompts.map((prompt) => ({
+            id: `${set.id}:${prompt.id}`,
+            setId: set.id,
+            text: prompt.text,
+          }))),
         latest: projectedProjects.get(project.slug)?.latest ?? null,
         previous: projectedProjects.get(project.slug)?.previous ?? null,
         comparison: projectedProjects.get(project.slug)?.comparison ?? null,
@@ -105,17 +120,40 @@ export function createFounderControlHandler({
   store,
   ownerToken,
   trustAccessHeaders = false,
+  trustLoopback = false,
   ownerEmail,
   now = () => new Date().toISOString(),
   visibilityPortfolio = loadAiVisibilityPortfolio(),
   visibilityScheduleActivation = {},
+  connectionsProvider = buildFleetConnections,
+  skillRunOutputProvider = readSkillRunOutput,
+  metricRunController,
 }) {
+  const resolvedMetricRunController = metricRunController ?? createMetricRunController({
+    projects: store.projects,
+  });
   return async function founderControlHandler(request, response) {
     try {
       const url = new URL(request.url, 'http://foundry.local');
       const method = request.method ?? 'GET';
       if (method === 'GET' && url.pathname === '/health') {
         return json(response, 200, { ok: true, service: 'founder-control', database: 'available' });
+      }
+
+      const skillRunOutputMatch = url.pathname.match(/^\/v1\/skill-runs\/([^/]+)\/output$/);
+      if (method === 'GET' && skillRunOutputMatch) {
+        return json(
+          response,
+          200,
+          skillRunOutputProvider({ runId: decodeURIComponent(skillRunOutputMatch[1]) }),
+        );
+      }
+      const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
+      if (method === 'GET' && metricRunMatch) {
+        const run = resolvedMetricRunController.get(decodeURIComponent(metricRunMatch[1]));
+        return run
+          ? json(response, 200, run)
+          : json(response, 404, { error: 'metric run not found' });
       }
 
       const projections = projectionFor(store);
@@ -143,9 +181,41 @@ export function createFounderControlHandler({
           buildMarketingProjection(projections, visibilityPortfolio, visibilityScheduleActivation),
         );
       }
+      if (method === 'GET' && url.pathname === '/v1/connections') {
+        const marketing = buildMarketingProjection(
+          projections,
+          visibilityPortfolio,
+          visibilityScheduleActivation,
+        );
+        return json(
+          response,
+          200,
+          connectionsProvider({
+            marketing,
+            missions: projections.missions,
+            now: now(),
+          }),
+        );
+      }
 
-      if (method !== 'GET' && !mutationAuthorized(request, { ownerToken, trustAccessHeaders, ownerEmail })) {
+      if (
+        method !== 'GET' &&
+        !mutationAuthorized(request, {
+          ownerToken,
+          trustAccessHeaders,
+          trustLoopback,
+          ownerEmail,
+        })
+      ) {
         return json(response, 401, { error: 'owner authentication required' });
+      }
+
+      if (method === 'POST' && url.pathname === '/v1/metric-runs') {
+        const body = await readBody(request);
+        return json(response, 202, resolvedMetricRunController.start({
+          family: String(body.family ?? ''),
+          projectId: String(body.projectId ?? ''),
+        }));
       }
 
       if (method === 'POST' && url.pathname === '/v1/missions/draft') {
@@ -292,18 +362,26 @@ export function startFounderControlService({
   port = 4187,
   ownerToken,
   trustAccessHeaders = false,
+  trustLoopback = false,
   ownerEmail,
   visibilityPortfolio,
   visibilityScheduleActivation,
+  connectionsProvider,
+  skillRunOutputProvider,
+  metricRunController,
 } = {}) {
   const server = createServer(
     createFounderControlHandler({
       store,
       ownerToken,
       trustAccessHeaders,
+      trustLoopback,
       ownerEmail,
       ...(visibilityPortfolio ? { visibilityPortfolio } : {}),
       ...(visibilityScheduleActivation ? { visibilityScheduleActivation } : {}),
+      ...(connectionsProvider ? { connectionsProvider } : {}),
+      ...(skillRunOutputProvider ? { skillRunOutputProvider } : {}),
+      ...(metricRunController ? { metricRunController } : {}),
     }),
   );
   return new Promise((resolve, reject) => {

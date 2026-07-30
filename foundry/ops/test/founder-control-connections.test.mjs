@@ -1,0 +1,550 @@
+import assert from 'node:assert/strict';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import test from 'node:test';
+
+import {
+  CONNECTIONS_SCHEMA_VERSION,
+  buildFleetConnections,
+  readSkillRunOutput,
+} from '../lib/founder-control/connections.mjs';
+import { SkillRunStore } from '../lib/skill-run-store.mjs';
+import {
+  appendVisibilityMetric,
+  VISIBILITY_METRIC_SCHEMA,
+} from '../lib/visibility-metric-store.mjs';
+
+const now = '2026-07-30T10:00:00.000Z';
+
+function writeJson(path, value) {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function fixture() {
+  const root = mkdtempSync(join(tmpdir(), 'fleet-connections-'));
+  const home = join(root, 'home');
+  for (const path of [
+    'foundry/ops/skills',
+    'foundry/apps/dashboard/mobile-cockpit',
+    'foundry/apps/public/public-directory',
+    'foundry/marketing/reel-pipeline/editorial',
+    'foundry/marketing/content-factory',
+    'foundry/marketing/reel-pipeline',
+  ]) {
+    mkdirSync(join(root, path), { recursive: true });
+  }
+  writeJson(join(root, 'foundry/ops/config/projects.json'), {
+    _meta: { updated: '2026-07-30' },
+    projects: [
+      {
+        id: 'pace',
+        name: 'Pace',
+        repo: 'pace',
+        lifecycle: 'maintained',
+        tier: 'primary',
+        domains: ['heypace.app'],
+        public: { id: 'pace', listing: 'maintained' },
+      },
+      {
+        id: 'past',
+        name: 'Past project',
+        lifecycle: 'past',
+        tier: 'past',
+        domains: ['past.example'],
+        public: { id: 'past-project', listing: 'past' },
+      },
+      {
+        id: 'personal',
+        name: 'Personal site',
+        lifecycle: 'non-product',
+        tier: 'non-product',
+        domains: ['personal.example'],
+        public: { id: 'personal', listing: 'hidden' },
+      },
+      {
+        id: 'standards',
+        name: 'Standards',
+        lifecycle: 'maintained',
+        tier: 'secondary',
+        domains: ['standards.example'],
+        metrics: { publicSite: true },
+        public: { id: 'standards', listing: 'hidden' },
+      },
+    ],
+  });
+  writeJson(join(root, 'foundry/ops/config/geo-observatory.json'), {
+    products: [{
+      id: 'pace',
+      origin: 'https://heypace.app',
+      queries: [{ qid: 'pace-brand', kind: 'brand', q: 'heypace.app' }],
+    }],
+  });
+  mkdirSync(join(root, 'foundry/ops/data/geo-observatory'), { recursive: true });
+  writeFileSync(
+    join(root, 'foundry/ops/data/geo-observatory/ledger.jsonl'),
+    [
+      JSON.stringify({ date: '2026-07-23', product: 'pace', qid: 'pace-brand', class: 'C' }),
+      JSON.stringify({ date: '2026-07-30', product: 'pace', qid: 'pace-brand', class: 'B' }),
+      '',
+    ].join('\n'),
+  );
+  appendVisibilityMetric(
+    {
+      schemaVersion: VISIBILITY_METRIC_SCHEMA,
+      projectId: 'pace',
+      family: 'agent',
+      observedAt: '2026-07-30T09:20:00.000Z',
+      status: 'needs-work',
+      summary: 'A-tier · 6 passed · 1 failed',
+      metrics: [
+        {
+          label: 'Agent readiness',
+          value: 86,
+          unit: 'percent',
+          direction: 'higher-is-better',
+        },
+        {
+          label: 'Agent-readable coverage',
+          value: 75,
+          unit: 'percent',
+          direction: 'higher-is-better',
+        },
+        {
+          label: 'Agent-readable routes',
+          value: 3,
+          unit: 'routes',
+          direction: 'higher-is-better',
+        },
+        {
+          label: 'Agent public routes',
+          value: 4,
+          unit: 'routes',
+          direction: 'neutral',
+        },
+      ],
+    },
+    { path: join(home, '.fleet/visibility-metrics/ledger.jsonl') },
+  );
+  appendVisibilityMetric(
+    {
+      schemaVersion: VISIBILITY_METRIC_SCHEMA,
+      projectId: 'pace',
+      family: 'crawl',
+      observedAt: '2026-07-30T09:20:00.000Z',
+      status: 'ready',
+      summary: '3/3 crawler checks passed',
+      metrics: [
+        {
+          label: 'AI crawlability',
+          value: 100,
+          unit: 'percent',
+          direction: 'higher-is-better',
+        },
+      ],
+    },
+    { path: join(home, '.fleet/visibility-metrics/ledger.jsonl') },
+  );
+  writeJson(join(root, 'pace/.fleet/design-review.json'), {
+    $schema: 'fleet.design-review.v1',
+    evidence: {
+      critique: { score: 34, maximum: 40 },
+      audit: { score: 18, maximum: 20 },
+    },
+    ownerFeedback: { decision: 'keep' },
+  });
+  writeJson(join(root, 'foundry/helpers/drank/data/fleet-dr.json'), {
+    lastUpdated: '2026-07-29T10:00:00.000Z',
+    domains: {
+      'heypace.app': {
+        history: [
+          { ts: 1784714400000, dr: 7 },
+          { ts: 1785319200000, dr: 8 },
+        ],
+      },
+      'past.example': {
+        history: [{ ts: 1785319200000, dr: 2 }],
+      },
+      'personal.example': {
+        history: [{ ts: 1785319200000, dr: 3 }],
+      },
+    },
+  });
+  for (const mode of ['availability', 'performance']) {
+    writeJson(join(root, `foundry/ops/workflows/reports/${mode}/latest.json`), {
+      schemaVersion: 1,
+      mode,
+      generatedAt: '2026-07-30T08:00:00.000Z',
+      summary: { sites: 1, passed: 1, failed: 0 },
+      results: [{
+        id: 'pace',
+        ok: true,
+        metrics: mode === 'performance'
+          ? { totalP50Ms: 42, totalP90Ms: 68 }
+          : {},
+      }],
+    });
+  }
+
+  const skillRoot = join(home, 'Library', 'Application Support', 'Fleet Ops', 'skill-runs');
+  const skillStore = new SkillRunStore({ root: skillRoot, env: {} });
+  const recordedSkillRun = skillStore.record({
+    run: {
+      idempotencyKey: 'fixture/site-health/1',
+      skillId: 'site-health',
+      skillVersion: '1',
+      projectId: 'pace',
+      projectRoot: '/workspace/pace',
+      actor: 'codex',
+      host: 'fixture-host',
+      source: 'wrapped',
+      captureCompleteness: 'exact-streams',
+      status: 'succeeded',
+      exitCode: 0,
+      startedAt: '2026-07-30T09:00:00.000Z',
+      finishedAt: '2026-07-30T09:00:01.000Z',
+      observedAt: '2026-07-30T09:00:01.000Z',
+      durationMs: 1000,
+      correlationId: 'fixture/connections',
+      sourceReference: 'fixture',
+      metadata: {},
+    },
+    output: [
+      'Completed the responsive performance audit.',
+      'Saved to /Users/sarthak/Desktop/fleet/report.json',
+      'private retained result must not enter the connection projection',
+    ].join('\n'),
+    metrics: [{
+      metricName: 'performance-score',
+      value: 92,
+      unit: 'score-100',
+      direction: 'higher-is-better',
+      entityKind: 'domain',
+      entityId: 'heypace.app',
+      observedAt: '2026-07-30T09:00:01.000Z',
+      provenance: 'fixture',
+      dimensions: {},
+    }],
+  });
+  return { root, home, skillRoot, runId: recordedSkillRun.run.runId };
+}
+
+test('reads one retained skill output with private paths removed', () => {
+  const { home, runId } = fixture();
+  const result = readSkillRunOutput({ home, runId });
+  assert.equal(result.runId, runId);
+  assert.equal(result.outputCount, 1);
+  assert.match(result.streams[0].content, /\[private path\]/);
+  assert.doesNotMatch(result.streams[0].content, /\/Users\/sarthak/);
+});
+
+test('builds one honest six-bucket projection from readable Fleet evidence', () => {
+  const { root, home } = fixture();
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now,
+    marketing: {
+      aiVisibility: {
+        projects: [{
+          projectId: 'pace',
+          name: 'Pace',
+          questions: [{
+            id: 'buyer-discovery:category',
+            setId: 'buyer-discovery',
+            text: 'What is the best private Mac voice assistant?',
+          }],
+          latest: null,
+        }],
+      },
+    },
+    missions: [{
+      id: 'mission-pace-improvement',
+      projectId: 'pace',
+      state: 'active',
+      outcome: 'Create Pace AI visibility baseline',
+      updatedAt: '2026-07-30T09:30:00.000Z',
+    }],
+    feedbackSubmissions: [
+      {
+        id: 'feedback-1',
+        projectId: 'pace',
+        category: 'Bug',
+        message: 'The weekly chart is difficult to read on a phone.',
+        page: '/reports/weekly',
+        hasAttachment: true,
+        receivedAt: '2026-07-30T09:45:00.000Z',
+      },
+      {
+        id: 'feedback-unsafe',
+        projectId: 'unknown',
+        category: 'Support',
+        message: 'api_key=must-not-enter-the-console',
+        page: 'https://example.com/private',
+        receivedAt: '2026-07-30T09:40:00.000Z',
+      },
+    ],
+  });
+
+  assert.equal(result.schemaVersion, CONNECTIONS_SCHEMA_VERSION);
+  assert.equal(result.buckets.length, 6);
+  const internalComponents = result.buckets
+    .flatMap((bucket) => bucket.components)
+    .filter((component) => component.audience === 'internal');
+  assert.deepEqual(
+    internalComponents.map((component) => component.id).sort(),
+    ['mobile-cockpit', 'reel-pipeline'],
+  );
+  assert.equal(
+    internalComponents.find((component) => component.id === 'mobile-cockpit').sourcePath,
+    'foundry/apps/dashboard/mobile-cockpit',
+  );
+  assert.equal(
+    internalComponents.find((component) => component.id === 'reel-pipeline').sourcePath,
+    'foundry/marketing/reel-pipeline',
+  );
+  assert.equal(result.summary.bucketCount, 6);
+  assert.equal(result.summary.connected > 0, true);
+  assert.equal(result.summary.missing, 2);
+  assert.equal(result.summary.highestPriorityGap.id, 'feedback-to-ingestion');
+  assert.equal(
+    result.connections.find((item) => item.id === 'skill-runs-to-console').status,
+    'connected',
+  );
+  assert.equal(
+    result.connections.find((item) => item.id === 'public-workflows-to-console').status,
+    'connected',
+  );
+  assert.equal(result.evidence.skillRuns.runCount, 1);
+  assert.equal(result.evidence.skillRuns.metricCount, 1);
+  assert.equal(result.outputs.summary.skillRuns, 1);
+  assert.equal(result.outputs.summary.successfulSkillRuns, 1);
+  assert.equal(result.outputs.summary.failedSkillRuns, 0);
+  assert.equal(result.outputs.summary.otherSkillRuns, 0);
+  assert.equal(result.outputs.summary.capturedOutputs, 1);
+  assert.equal(result.outputs.summary.measuredValues, 1);
+  assert.equal(result.outputs.history.length, 1);
+  assert.equal(result.outputs.recentRuns[0].outputCount, 1);
+  assert.equal(result.outputs.recentRuns[0].outputBytes > 0, true);
+  assert.equal(result.outputs.recentRuns[0].resultSummary, 'Recorded performance score.');
+  assert.equal(result.outputs.recentRuns[0].resultSummaryKind, 'structured-metrics');
+  assert.equal(result.outputs.recentRuns[0].captureCompleteness, 'exact-streams');
+  assert.equal(result.outputs.recentRuns[0].durationMs, 1000);
+  const paceOutput = result.outputs.projects.find((project) => project.projectId === 'pace');
+  assert.equal(paceOutput.skill.runCount, 1);
+  assert.equal(paceOutput.public.availability.ok, true);
+  assert.equal(paceOutput.domainRating.rating, 8);
+  assert.equal(paceOutput.designReview.critique, 34);
+  assert.equal(
+    paceOutput.history.signals.find((signal) => signal.label === 'Design critique').value,
+    34,
+  );
+  assert.equal(paceOutput.domainRating.series.length, 2);
+  assert.equal(
+    paceOutput.history.signals.find((signal) => signal.label === 'Worst tracked query class')
+      .series.length,
+    2,
+  );
+  assert.equal(
+    paceOutput.history.signals.find((signal) => signal.label === 'Agent readiness').value,
+    86,
+  );
+  assert.equal(
+    paceOutput.history.signals.find(
+      (signal) => signal.label === 'Agent-readable coverage',
+    ).value,
+    75,
+  );
+  assert.equal(paceOutput.searchVisibility.configured, true);
+  assert.equal(paceOutput.searchVisibility.queries[0].text, 'heypace.app');
+  assert.equal(paceOutput.searchVisibility.queries[0].history.length, 2);
+  assert.equal(
+    paceOutput.aiVisibility.questions[0].text,
+    'What is the best private Mac voice assistant?',
+  );
+  assert.equal(paceOutput.visibilityReadiness.agent.status, 'needs-work');
+  assert.equal(paceOutput.visibilityReadiness.crawl.status, 'ready');
+  assert.equal(paceOutput.metricEligibility.publicSite, true);
+  assert.deepEqual(paceOutput.domains, ['heypace.app']);
+  assert.equal(
+    result.outputs.projects.filter((project) => project.domainRating).length,
+    3,
+  );
+  assert.equal(
+    result.outputs.projects.filter((project) => project.metricEligibility.publicSite).length,
+    2,
+  );
+  assert.equal(
+    result.outputs.projects.find((project) => project.projectId === 'standards')
+      .metricEligibility.publicSite,
+    true,
+  );
+  assert.equal(
+    result.outputs.projects.find((project) => project.projectId === 'past-project')
+      .metricEligibility.publicSite,
+    false,
+  );
+  assert.equal(
+    paceOutput.history.signals.find((signal) => signal.label === 'Domain rating').series.length,
+    2,
+  );
+  assert.equal(paceOutput.history.state, 'comparable');
+  assert.equal(result.outputs.skillRuns.length, 1);
+  assert.equal(result.outputs.skillHistoryByProject[0].periods[0].runs, 1);
+  assert.equal(result.outputs.feedback.total, 2);
+  assert.deepEqual(result.outputs.feedback.submissions[0], {
+    id: 'feedback-1',
+    projectId: 'pace',
+    category: 'Bug',
+    message: 'The weekly chart is difficult to read on a phone.',
+    page: '/reports/weekly',
+    hasAttachment: true,
+    receivedAt: '2026-07-30T09:45:00.000Z',
+  });
+  assert.equal(
+    result.outputs.feedback.submissions[1].message,
+    'Feedback content withheld by the privacy filter.',
+  );
+  assert.equal(result.outputs.feedback.submissions[1].projectId, null);
+  assert.equal(result.outputs.feedback.submissions[1].page, null);
+  assert.equal(
+    result.outputs.improvements.some((action) => action.id === 'connection:feedback-to-ingestion'),
+    true,
+  );
+  const linkedImprovement = result.outputs.improvements.find(
+    (action) => action.id === 'project:pace:ai-baseline',
+  );
+  assert.equal(linkedImprovement.work.missionId, 'mission-pace-improvement');
+  assert.equal(linkedImprovement.work.state, 'active');
+  assert.equal(result.outputs.improvementWork.activeActions, 1);
+  assert.equal(
+    result.outputs.improvementWork.notStartedActions,
+    result.outputs.improvements.length - 1,
+  );
+  const connectionAnchors = new Set([
+    ...result.buckets.map((bucket) => `bucket-${bucket.id}`),
+    ...result.connections.map((item) => item.id),
+    'skill-runs',
+    'public-evidence',
+    'domain-intelligence',
+  ]);
+  for (const item of [
+    ...result.buckets.flatMap((bucket) => bucket.components),
+    ...result.connections,
+  ]) {
+    if (!item.ownerPath.startsWith('/connections#')) continue;
+    assert.equal(
+      connectionAnchors.has(item.ownerPath.slice('/connections#'.length)),
+      true,
+      `${item.id} points to a rendered Connections anchor`,
+    );
+  }
+
+  const serialized = JSON.stringify(result);
+  assert.doesNotMatch(serialized, /private retained result/);
+  assert.doesNotMatch(serialized, /Application Support/);
+  assert.doesNotMatch(serialized, /history\.db/);
+  assert.doesNotMatch(serialized, /runs\/2026/);
+});
+
+test('isolates absent machine evidence without hiding implemented contracts', () => {
+  const root = mkdtempSync(join(tmpdir(), 'fleet-connections-empty-'));
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home: join(root, 'empty-home'),
+    now,
+    marketing: { aiVisibility: { projects: [] } },
+  });
+
+  assert.equal(result.buckets.length, 6);
+  assert.equal(
+    result.connections.find((item) => item.id === 'skill-runs-to-console').status,
+    'unavailable',
+  );
+  assert.equal(
+    result.connections.find((item) => item.id === 'feedback-to-ingestion').status,
+    'missing',
+  );
+  assert.equal(
+    result.connections.find((item) => item.id === 'console-to-mobile').status,
+    'missing',
+  );
+  assert.equal(result.evidence.publicWorkflows.sites, 0);
+  assert.equal(result.outputs.summary.capturedOutputs, 0);
+  assert.equal(result.outputs.feedback.total, 0);
+  assert.deepEqual(result.outputs.feedback.submissions, []);
+  assert.equal(result.outputs.projects.every((project) => project.skill === null), true);
+});
+
+test('derives a bounded result summary without projecting the retained body', () => {
+  const { root, home, skillRoot } = fixture();
+  const skillStore = new SkillRunStore({ root: skillRoot, env: {} });
+  skillStore.record({
+    run: {
+      idempotencyKey: 'fixture/spec-driven/2',
+      skillId: 'spec-driven',
+      skillVersion: '1',
+      projectId: 'pace',
+      projectRoot: '/workspace/pace',
+      actor: 'codex',
+      host: 'fixture-host',
+      source: 'codex-hook',
+      captureCompleteness: 'final-response',
+      status: 'succeeded',
+      exitCode: 0,
+      startedAt: '2026-07-30T09:30:00.000Z',
+      finishedAt: '2026-07-30T09:30:01.000Z',
+      observedAt: '2026-07-30T09:30:01.000Z',
+      durationMs: 1000,
+      correlationId: 'fixture/summary',
+      sourceReference: 'fixture',
+      metadata: {},
+    },
+    output: [
+      'Created the output-first Fleet Console specification.',
+      '/Users/example/private/project must not enter the projection.',
+    ].join('\n'),
+    metrics: [],
+  });
+
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now,
+    marketing: { aiVisibility: { projects: [] } },
+  });
+  const recent = result.outputs.recentRuns.find((run) => run.skillId === 'spec-driven');
+  assert.equal(recent.resultSummary, 'Created the output-first Fleet Console specification.');
+  assert.equal(recent.resultSummaryKind, 'sanitized-excerpt');
+  assert.equal(result.outputs.skillRuns.length, 2);
+  assert.equal(
+    result.outputs.skillHistoryByProject.find((item) => item.projectId === 'pace').periods[0].runs,
+    2,
+  );
+  assert.doesNotMatch(JSON.stringify(result), /Users\/example/);
+});
+
+test('surfaces stale evidence independently from an implemented transport', () => {
+  const { root, home } = fixture();
+  writeJson(join(root, 'foundry/helpers/drank/data/fleet-dr.json'), {
+    lastUpdated: '2026-06-01T10:00:00.000Z',
+    domains: { 'heypace.app': { history: [{ ts: 1748772000000, dr: 8 }] } },
+  });
+
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now,
+    marketing: { aiVisibility: { projects: [] } },
+  });
+
+  const drank = result.connections.find((item) => item.id === 'drank-to-console');
+  assert.equal(drank.status, 'connected');
+  assert.equal(drank.freshness, 'stale');
+  assert.equal(result.summary.stale > 0, true);
+  assert.equal(
+    result.buckets.find((bucket) => bucket.id === 'helpers').status,
+    'partial',
+  );
+});

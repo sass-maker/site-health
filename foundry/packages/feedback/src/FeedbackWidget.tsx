@@ -1,10 +1,11 @@
 import type React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ElementPicker } from './components/ElementPicker';
 import { Modal } from './components/Modal';
 import { TriggerButton } from './components/TriggerButton';
 import type { ElementAnchor } from './elementAnchor';
-import type { FeedbackWidgetProps } from './types';
+import { submitFeedbackToUrl } from './ingestion';
+import type { FeedbackSubmission, FeedbackWidgetProps } from './types';
 import './styles/widget.css';
 
 const DEFAULT_TYPES = ['bug', 'feature', 'feedback'] as const;
@@ -13,6 +14,7 @@ const DEFAULT_TRIGGER_TEXT = 'Feedback';
 
 export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
   onSubmit,
+  ingestionUrl,
   userEmail,
   userName,
   requireEmail = false,
@@ -37,6 +39,22 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
   }, []);
   const cancelPick = useCallback(() => setPicking(false), []);
   const clearAnchor = useCallback(() => setAnchor(null), []);
+  const submitFeedback = useMemo(() => {
+    const hasCallback = typeof onSubmit === 'function';
+    const hasIngestionUrl = typeof ingestionUrl === 'string' && ingestionUrl.trim().length > 0;
+
+    if (hasCallback && !hasIngestionUrl) return onSubmit;
+    if (!hasCallback && hasIngestionUrl) {
+      return (submission: FeedbackSubmission) => submitFeedbackToUrl(ingestionUrl, submission);
+    }
+
+    return async () => {
+      if (hasCallback) {
+        throw new Error('FeedbackWidget accepts either onSubmit or ingestionUrl, not both.');
+      }
+      throw new Error('FeedbackWidget requires an onSubmit callback or ingestionUrl.');
+    };
+  }, [ingestionUrl, onSubmit]);
 
   const resolvedTypes = types && types.length > 0 ? types : [...DEFAULT_TYPES];
 
@@ -59,7 +77,7 @@ export const FeedbackWidget: React.FC<FeedbackWidgetProps> = ({
         isOpen={isOpen}
         hidden={picking}
         onClose={() => setIsOpen(false)}
-        onSubmit={onSubmit}
+        onSubmit={submitFeedback}
         userEmail={userEmail}
         userName={userName}
         requireEmail={requireEmail}

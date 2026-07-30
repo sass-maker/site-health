@@ -1,77 +1,30 @@
 ---
 import FounderLayout from "../components/FounderLayout.astro";
-import { getMarketingPipeline } from "../lib/fleet-data";
-
-const pipeline = getMarketingPipeline();
-const readyStages = pipeline.stages.filter((stage) => stage.state === "ready").length;
 ---
 
 <FounderLayout
   title="Marketing"
-  description="See how products appear in AI answers, review evidence-backed recommendations, and keep execution under your control."
+  description="What marketing produced and what is worth doing next."
   active="market"
-  eyebrow="Owner growth view"
   view="marketing"
 >
-  <nav class="surface-tabs" aria-label="Marketing views">
-    <a href="#ai-visibility" aria-current="page">AI Visibility</a>
-    <a href="#publishing">Publishing evidence</a>
-  </nav>
-
-  <section class="owner-section" id="ai-visibility" aria-labelledby="ai-visibility-title">
+  <section class="owner-section" aria-labelledby="marketing-recommendations-title">
     <div class="section-head">
       <div>
-        <p class="eyebrow">AI Visibility</p>
-        <h2 id="ai-visibility-title">How products show up</h2>
-        <p>Normalized answers and citations only. Provider responses and credentials stay with their owners.</p>
+        <h2 id="marketing-recommendations-title">Worth doing next</h2>
       </div>
+      <span class="count" data-founder-count="marketing-recommendations">—</span>
     </div>
-    <div class="loading-state" data-founder-slot="visibility-summary">Loading visibility summary…</div>
+    <div class="loading-state" data-founder-slot="marketing-recommendations">Reading recommendations…</div>
   </section>
 
-  <section class="owner-section" aria-labelledby="visibility-projects-title">
+  <section class="owner-section" aria-labelledby="marketing-outcomes-title">
     <div class="section-head">
       <div>
-        <p class="eyebrow">Portfolio</p>
-        <h2 id="visibility-projects-title">Products in view</h2>
-        <p>Visibility, recommendation, rank, citations, competitor share, coverage, trend, freshness, and cost.</p>
+        <h2 id="marketing-outcomes-title">Published work and outcomes</h2>
       </div>
+      <span class="count" data-founder-count="marketing-outcomes">—</span>
     </div>
-    <div class="loading-state" data-founder-slot="ai-visibility-projects">Loading product evidence…</div>
-  </section>
-
-  <section class="owner-section" aria-labelledby="visibility-recommendations-title">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Recommended next</p>
-        <h2 id="visibility-recommendations-title">Review before acting</h2>
-        <p>Changes become evidence-linked recommendations. They never start marketing work on their own.</p>
-      </div>
-    </div>
-    <div class="loading-state" data-founder-slot="visibility-recommendations">Loading recommendations…</div>
-  </section>
-
-  <section class="owner-section" id="publishing" aria-labelledby="publishing-title">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Publishing evidence</p>
-        <h2 id="publishing-title">Source to channel</h2>
-        <p>Foundry prepares reviewable work; Postiz remains the publication and channel evidence owner.</p>
-      </div>
-      <span class="snapshot-time">{readyStages} of {pipeline.stages.length} stages ready</span>
-    </div>
-    <div class="record-list">
-      {pipeline.stages.map((stage) => (
-        <article class="record">
-          <div class="record-main">
-            <h3>{stage.name}</h3>
-            <p>{stage.detail}</p>
-          </div>
-          <div class="record-side">
-            <span class:list={["state", stage.state]}>{stage.state.replace("-", " ")}</span>
-          </div>
-        </article>
-      ))}
-    </div>
+    <div class="loading-state" data-founder-slot="marketing-outcomes">Reading publishing receipts…</div>
   </section>
 </FounderLayout>

@@ -118,6 +118,52 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
   const projects = loadFounderProjects();
   const project = projects.find((entry) => entry.id === 'codevetter');
   assert.equal(project.repo, 'codevetter');
+  assert.equal(project.websiteUrl, 'https://codevetter.com');
+  assert.equal(project.changelogUrl, 'https://codevetter.com/changelog');
+  assert.equal(project.repositoryUrl, 'https://github.com/Codevetter/codevetter');
+  assert.equal(
+    projects.find((entry) => entry.id === 'significanthobbies').familyName,
+    'Significant Hobbies',
+  );
+  const rolepatch = projects.find((entry) => entry.id === 'rolepatch');
+  const emailManager = projects.find((entry) => entry.id === 'email-manager');
+  assert.equal(rolepatch.family, 'rolepatch');
+  assert.equal(emailManager.family, 'email-manager');
+  assert.equal(
+    rolepatch.repositoryUrl,
+    'https://github.com/Significant-Hobbies/rolepatch',
+  );
+  assert.equal(
+    emailManager.repositoryUrl,
+    'https://github.com/Significant-Hobbies/email-manager',
+  );
+  assert.equal(
+    projects.find((entry) => entry.id === 'protein-index').repositoryUrl,
+    'https://github.com/Significant-Hobbies/protein-index-resilience',
+  );
+  assert.equal(
+    projects.find((entry) => entry.id === 'mashup').repositoryUrl,
+    'https://github.com/sarthakagrawal927/mashup',
+  );
+  const directoryProjects = projects.filter(
+    (entry) =>
+      entry.lifecycle !== 'non-product' &&
+      entry.attention !== 'ignored' &&
+      entry.category !== 'helper',
+  );
+  assert.equal(directoryProjects.length, 25);
+  for (const entry of directoryProjects) {
+    assert.ok(entry.repositoryUrl, `${entry.id}: directory project requires a source URL`);
+    assert.equal(
+      entry.websiteUrl,
+      entry.domains[0] ? `https://${entry.domains[0]}` : null,
+      `${entry.id}: website URL must use its canonical first domain`,
+    );
+  }
+  assert.equal(
+    projects.find((entry) => entry.id === 'psi-swarm').repositoryUrl,
+    'https://github.com/sass-maker/fleet-workspace/tree/main/foundry/helpers/psi-swarm',
+  );
   assert.ok(project.domains.includes('codevetter.com'));
 
   const store = new FounderControlStore({

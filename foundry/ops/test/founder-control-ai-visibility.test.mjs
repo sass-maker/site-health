@@ -100,6 +100,29 @@ test('fresh clones, unverified hosts, and disabled intent cannot execute a sched
   );
 });
 
+test('every maintained public Fleet identity has product-specific fixture coverage', () => {
+  const catalog = JSON.parse(
+    readFileSync(new URL('../config/projects.json', import.meta.url), 'utf8'),
+  );
+  const expected = catalog.projects
+    .filter((project) =>
+      (project.public?.listing === 'maintained' || project.metrics?.publicSite === true)
+      && !['past', 'non-product'].includes(project.lifecycle)
+      && project.tier !== 'non-product'
+      && project.domains.length > 0)
+    .map((project) => project.id)
+    .sort();
+  const portfolio = loadAiVisibilityPortfolio();
+  assert.equal(portfolio.excluded.length, 0);
+  assert.deepEqual(portfolio.eligible.map((project) => project.slug).sort(), expected);
+  assert.equal(portfolio.eligible.length, 27);
+  for (const project of portfolio.eligible) {
+    assert.equal(project.promptSets.length, 1);
+    assert.equal(project.promptSets[0].prompts.length, 2);
+    assert.equal(project.providerPolicy.liveProvidersAllowed, false);
+  }
+});
+
 test('fixture canary records bounded normalized receipts, history, cache use, and recommendations only', async () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), 'foundry-ai-visibility-'));
   const cachePath = join(temporaryDirectory, 'cache.json');
@@ -129,6 +152,8 @@ test('fixture canary records bounded normalized receipts, history, cache use, an
       timedOut: 0,
       failed: 0,
     });
+    assert.equal(first.evidenceMode, 'fixture');
+    assert.equal(first.event.payload.evidenceMode, 'fixture');
     assert.equal(first.cost.providerCalls, 8);
     assert.equal(first.cost.cacheHits, 0);
     assert.equal(first.cost.observedUsd, 0.004);
@@ -174,6 +199,8 @@ test('fixture canary records bounded normalized receipts, history, cache use, an
       (entry) => entry.projectId === 'pace',
     );
     assert.equal(visiblePace.latest.metrics.visibilityScore, first.metrics.visibilityScore);
+    assert.equal(visiblePace.questions.length, 2);
+    assert.match(visiblePace.questions[0].text, /Mac voice assistants/i);
     assert.equal(marketingView.aiVisibility.scheduleIntent.activation.allowed, false);
 
     const persistedCache = readFileSync(cachePath, 'utf8');

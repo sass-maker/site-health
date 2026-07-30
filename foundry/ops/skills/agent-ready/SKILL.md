@@ -41,8 +41,23 @@ node foundry/ops/skills/agent-ready/scripts/agent-index-audit.mjs --all --json
 | `not_spa_fake` | Agent paths are not SPA HTML shells |
 | `robots` | Exists with User-agent |
 | `sitemap` | `sitemap.xml` or `sitemap-index.xml` |
+| `route_markdown` | Public sitemap routes resolve as Markdown; large corpora use a deterministic 250-route sample |
+| `catalog_integrity` | Every bounded `/api/ai` surface has a same-origin, readable Markdown target listed in the sitemap |
 
 Implementation kit: `foundry/ops/lib/agent-surfaces/`.
+
+The audit reports and the Fleet visibility ledger retain:
+
+- agent-readable coverage percentage;
+- readable and checked route counts;
+- total public sitemap route count;
+- catalog-surface integrity percentage;
+- valid and configured catalog-surface counts.
+
+Route volume is context, not a score. A small site with complete coverage is
+healthier than a large corpus with sparse Markdown. For more than 250 public
+routes, the percentage is a deterministic distributed sample and is always
+shown with checked and total counts.
 
 ## Optional: isitagentready.com
 

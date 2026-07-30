@@ -13,6 +13,7 @@ EXPOSED_FLEET_SKILLS=(
   fleet-ops
   fleet-tasks
   code-cleanup
+  local-ports-cleanup
   mobile-task-control
   name-domains
   site-health
