@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — SEO evidence stopped failing open and misreading multiline
+  metadata:** Made the on-page auditor parse multiline and reordered title,
+  meta, and canonical markup correctly, then fail the run when a page is
+  unreachable or returns an HTTP error. Regression fixtures cover both cases;
+  the corrected fleet probe records 25/27 live homepages with no critical
+  on-page failure, PSI Swarm awaiting rollout, and Karte blocked on apex DNS.
 - **2026-07-31 — Provider-backed AI visibility gained a credential-free
   ingestion path:** Added strict, versioned offline observation bundles with
   provider, model, timestamp, request, cost, and canonical-project provenance;

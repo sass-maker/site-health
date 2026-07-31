@@ -42,25 +42,58 @@ fi
 
 # --- helpers -------------------------------------------------------------
 
-fetch() { curl -sL --max-time 30 "$1"; }
+fetch() { curl -fsSL --max-time 30 "$1"; }
 
 # extract <meta> content by name or property
 meta_content() {
   local html="$1" attr="$2" val="$3"
-  echo "$html" | grep -oiE "<meta ${attr}=\"${val}\"[^>]*>" | head -1 \
-    | sed -E "s/.*content=\"([^\"]*)\".*/\1/I" | sed 's/&amp;/\&/g'
+  printf '%s' "$html" | SEO_META_ATTR="$attr" SEO_META_VAL="$val" perl -0777 -ne '
+    my $attr = $ENV{SEO_META_ATTR};
+    my $value = $ENV{SEO_META_VAL};
+    while (/<meta\b[^>]*>/gis) {
+      my $tag = $&;
+      next unless $tag =~ /\b\Q$attr\E\s*=\s*(["\x27])\Q$value\E\1/i;
+      if ($tag =~ /\bcontent\s*=\s*(["\x27])(.*?)\1/is) {
+        my $content = $2;
+        $content =~ s/\s+/ /g;
+        $content =~ s/^\s+|\s+$//g;
+        print $content;
+        last;
+      }
+    }
+  ' | sed 's/&amp;/\&/g'
 }
 
 tag_text() {
   local html="$1" tag="$2"
-  echo "$html" | grep -oiE "<${tag}[^>]*>[^<]*</${tag}>" | head -1 \
-    | sed -E "s/<${tag}[^>]*>(.*)<\/${tag}>/\1/I" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+  printf '%s' "$html" | SEO_TAG_NAME="$tag" perl -0777 -ne '
+    my $name = $ENV{SEO_TAG_NAME};
+    if (/<\Q$name\E\b[^>]*>(.*?)<\/\Q$name\E>/is) {
+      my $content = $1;
+      $content =~ s/<[^>]+>/ /g;
+      $content =~ s/\s+/ /g;
+      $content =~ s/^\s+|\s+$//g;
+      print $content;
+    }
+  '
 }
 
 link_href() {
   local html="$1" rel="$2"
-  echo "$html" | grep -oiE "<link rel=\"${rel}\"[^>]*>" | head -1 \
-    | sed -E "s/.*href=\"([^\"]*)\".*/\1/I"
+  printf '%s' "$html" | SEO_LINK_REL="$rel" perl -0777 -ne '
+    my $rel = $ENV{SEO_LINK_REL};
+    while (/<link\b[^>]*>/gis) {
+      my $tag = $&;
+      next unless $tag =~ /\brel\s*=\s*(["\x27])\Q$rel\E\1/i;
+      if ($tag =~ /\bhref\s*=\s*(["\x27])(.*?)\1/is) {
+        my $href = $2;
+        $href =~ s/\s+/ /g;
+        $href =~ s/^\s+|\s+$//g;
+        print $href;
+        last;
+      }
+    }
+  '
 }
 
 count_tag() {
@@ -79,7 +112,12 @@ FAILED_PAGES=()
 audit_page() {
   local url="$1"
   local html
-  html=$(fetch "$url") || { echo "  FETCH FAILED — could not retrieve $url" >&2; return; }
+  if ! html=$(fetch "$url"); then
+    echo "  FETCH FAILED — could not retrieve $url" >&2
+    ((FAIL++))
+    FAILED_PAGES+=("$url")
+    return
+  fi
 
   echo "===== $url ====="
 
