@@ -41,6 +41,18 @@ test('registry inventory resolves CodeVetter context without live network access
   assert.ok(inventory.unavailableEvidence.some((entry) => entry.source === 'live-sitemap'));
 });
 
+test('registry inventory falls back to canonical repo metadata when publicDir is absent', () => {
+  const inventory = inventoryRegistryProduct('what-it-takes-to-win');
+  assert.equal(inventory.product.id, 'what-it-takes-to-win');
+  assert.equal(inventory.product.publicDir, null);
+  assert.match(inventory.product.repoRoot, /\/what-it-takes-to-win$/u);
+  assert.ok(
+    inventory.unavailableEvidence.some(
+      (entry) => entry.source === 'public-directory',
+    ),
+  );
+});
+
 test('inventory CLI can persist a compact latest verdict for site health', () => {
   const artifact = resolve(mkdtempSync(resolve(tmpdir(), 'fleet-coverage-artifact-')), 'latest.json');
   const cli = resolve(
