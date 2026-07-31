@@ -727,9 +727,17 @@
       "name": "Knowledge Base",
       "url": "https://knowledgebase.sassmaker.com",
       "summary": "Cited search + grounded answers over private, specialized document collections (RAG).",
-      "sourceStatus": "missing",
-      "sourceIssue": "https://github.com/sass-maker/knowledge-base/issues/28",
-      "stack": "next-opennext",
+      "publicDir": "knowledge-base/landing-astro/public",
+      "preserveFiles": [
+        "api-ai.json",
+        "index.md",
+        "llms-full.txt",
+        "llms.txt",
+        "robots.txt",
+        "sitemap.xml"
+      ],
+      "stack": "astro-static",
+      "headFile": "knowledge-base/landing-astro/src/layouts/Layout.astro",
       "schemaType": "SoftwareApplication",
       "applicationCategory": "DeveloperApplication",
       "sameAs": [
@@ -739,11 +747,16 @@
         {
           "title": "Home",
           "url": "https://knowledgebase.sassmaker.com/",
-          "description": "Private cited search workspace"
+          "description": "Public product and capability overview"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://knowledgebase.sassmaker.com/changelog",
+          "description": "Verified product releases"
         }
       ],
       "generateSitemap": true,
-      "indexMd": "# Private Agent Search\n\nCited RAG search over private collections.\n"
+      "indexMd": "# Knowledge Base\n\nCited search and grounded answers over private document collections.\n\n## Public boundary\n\n- The landing, capabilities, security, legal, and changelog pages are public\n- The operator dashboard and indexed documents remain private behind Cloudflare Access\n- Public discovery describes the product and never exposes document content\n\n## Agent entrypoints\n\n- https://knowledgebase.sassmaker.com/llms.txt\n- https://knowledgebase.sassmaker.com/api/ai\n- https://knowledgebase.sassmaker.com/index.md\n"
     },
     {
       "id": "app-health",

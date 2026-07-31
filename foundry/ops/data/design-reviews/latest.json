@@ -1,7 +1,7 @@
 {
   "$schema": "fleet.design-review-snapshot.v1",
   "version": 1,
-  "catalogSha256": "06a0451a1218f37f9bef57b33a2e8099c246a33b36f56b5adf9c4bb4cf673a8c",
+  "catalogSha256": "52d7bfe9cac7f430dc7c2008a70fdecbe2887d4f25bed0552aefda7f88c4b8fc",
   "policySha256": "266b3999929b0485c0cf6e9198f02609d7215325df6212147eeb2939cbc23b05",
   "catalogProjectIds": [
     "anime-list",
@@ -699,19 +699,19 @@
     },
     {
       "projectId": "posttrainllm",
-      "receiptSha256": "bc482c5fc197536f2087f668efec817b0a0f7978cfb30e2f78f9c32abf82655c",
+      "receiptSha256": "7ae51b127eeae479c9aff937aa30f27aacb4e43f1bbe3cc13e188ac6249e02d7",
       "evidenceFiles": [
         {
           "path": ".fleet/evidence/playground-accessibility/after-1440.png",
-          "sha256": "b85f4ddf6d7c5df336f3a6ba5b0af784ec6bb4fe251477f32a1d222c8ef0c109"
+          "sha256": "3fc3031bade5492b379fbda7e538d13b41474dec2d09d551a20f55f44f2d1851"
         },
         {
           "path": ".fleet/evidence/playground-accessibility/after-390.png",
-          "sha256": "93d44d7473536488f8ba9fc4b4314104834043ae09edb594f5b48612fdabe441"
+          "sha256": "48643c1f44e5585b67b74fb2ebab5d4ee22a38cdcfc693ec0807182f7590f13d"
         },
         {
           "path": ".fleet/evidence/playground-accessibility/after-768.png",
-          "sha256": "97a8d61fce396ead686b0b9d9facfdc3370176c151a2d329675fb0471ce19868"
+          "sha256": "36761e643872b0c6f582d150e0641eb1f7d9be128bcea4d89c77577259c1c20f"
         },
         {
           "path": ".fleet/evidence/playground-accessibility/before-1440.png",
@@ -723,11 +723,11 @@
         },
         {
           "path": "PROJECT_STATUS.md",
-          "sha256": "ae6e9ba1680ac07685cbbadd1dec25cef9800134f17a35bdc1cc3d087bc007a1"
+          "sha256": "f4d7fb71d05b736bc6c7b15b532dec7b7959dd6fa577cb4923db39a494e8c318"
         }
       ],
       "critique": {
-        "score": 35,
+        "score": 36,
         "maximum": 40
       },
       "audit": {

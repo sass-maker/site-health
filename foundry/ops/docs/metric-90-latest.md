@@ -1,6 +1,6 @@
 # Fleet metric 90 gate
 
-Generated 2026-07-31T01:27:49.298Z from the canonical visibility project set.
+Generated 2026-07-31T01:36:53.385Z from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
 visibility fail closed. D-Rank and search are external outcomes; the report
@@ -18,7 +18,7 @@ does not replace them with technical proxies.
 | AI crawlability ≥90 | 18/27 | 9 |
 | PSI performance ≥90 | 25/27 | 2 |
 | LCP ≤2.5 s | 27/27 | 0 |
-| Design critique and audit ≥90% | 21/27 | 6 |
+| Design critique and audit ≥90% | 22/27 | 5 |
 
 ## Projects
 
@@ -26,7 +26,7 @@ does not replace them with technical proxies.
 | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
 | CodeVetter | 4.9 | C | 0 | 80 | 0 | 100 | 92 | 1338.1 ms | 93% / 95% | 4/9 |
 | HeyPace | 2.7 | C | 100 | 90 | 9.5 | 100 | 100 | 537.1 ms | 83% / 95% | 4/9 |
-| PostTrainLLM | 2.7 | C | 0 | 80 | 8 | 100 | 99 | 378.2 ms | 88% / 90% | 3/9 |
+| PostTrainLLM | 2.7 | C | 0 | 80 | 8 | 100 | 99 | 378.2 ms | 90% / 90% | 4/9 |
 | Fleet Workspace | 7 | C | 0 | 80 | 3.1 | 100 | 94 | 1614.1 ms | 90% / 100% | 4/9 |
 | Drank | 7 | C | 0 | 90 | 75 | 100 | 98 | 836.2 ms | 90% / 95% | 5/9 |
 | Email Manager | 7 | C | 0 | 70 | 0 | 67 | 100 | 481.4 ms | 90% / 95% | 3/9 |
@@ -69,7 +69,6 @@ does not replace them with technical proxies.
 - **PostTrainLLM · Live AI visibility ≥90** — fixture-only evidence
 - **PostTrainLLM · Agent readiness ≥90** — current 80; target ≥90
 - **PostTrainLLM · Agent-readable coverage ≥90** — current 8; target ≥90
-- **PostTrainLLM · Design critique and audit ≥90%** — critique 88% · audit 90%
 - **Fleet Workspace · D-Rank ≥90** — current 7; target ≥90
 - **Fleet Workspace · Search class A** — current class C
 - **Fleet Workspace · Live AI visibility ≥90** — fixture-only evidence

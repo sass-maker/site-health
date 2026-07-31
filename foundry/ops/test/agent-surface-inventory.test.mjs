@@ -66,14 +66,17 @@ test('source-complete projects preserve their independently owned discovery file
   }
 });
 
-test('Knowledge Base remains measurable without targeting its private dashboard', () => {
+test('Knowledge Base targets its public landing without exposing the private dashboard', () => {
   const knowledgeBase = agentProducts.find(
     (product) => product.id === 'knowledge-base',
   );
 
   assert.ok(knowledgeBase);
-  assert.equal(knowledgeBase.sourceStatus, 'missing');
-  assert.equal(Object.hasOwn(knowledgeBase, 'publicDir'), false);
+  assert.equal(knowledgeBase.url, 'https://knowledgebase.sassmaker.com');
+  assert.equal(
+    knowledgeBase.publicDir,
+    'knowledge-base/landing-astro/public',
+  );
   assert.equal(
     agentProducts.some(
       (product) =>
