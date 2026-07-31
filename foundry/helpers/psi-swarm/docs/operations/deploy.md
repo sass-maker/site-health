@@ -60,18 +60,14 @@ run unless:
 
 It then dispatches `deploy.yml` via `gh workflow run`.
 
-### Known gap: no push-triggered CI
+### Path-scoped CI and deploy gate
 
-There is **no push-triggered CI workflow** — only `deploy.yml` (manual
-dispatch) and `docs.yml` (docs paths, added by this work). The
-`manual-deploy.mjs` source has a `ciWorkflowFile = 'ci.yml'` default, but
-that default is **dead** — the `package.json` script always passes
-`deploy.yml` as the second arg, so the `ci.yml` path is never taken.
+`.github/workflows/psi-swarm-ci.yml` runs the CLI regression suite, CLI/web
+builds, and docs checks for helper pull requests and pushes to `main`.
+`docs.yml` separately covers docs-specific paths.
 
-_Unresolved:_ the green-gate is self-referential (it checks `deploy.yml`'s
-own last run). A real `ci.yml` that runs `pnpm docs:check` + the CLI/web
-builds on push would be a stronger gate and would let `pnpm deploy` check
-something independent of the deploy it's about to trigger. See
+_Unresolved:_ the guarded deploy command still uses `deploy.yml` as its
+green-gate instead of the independent PSI Swarm CI workflow. See
 [testing](../development/testing.md).
 
 ## Deploy history note (2026-06-26)

@@ -1,6 +1,6 @@
 # Project Status
 
-Last updated: 2026-07-03 (v0.4.0)
+Last updated: 2026-07-31 (v0.4.0)
 
 ## Why / What
 
@@ -44,6 +44,11 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-07-31** — Validated the optional external trace-insight boundary
+  against controlled Chrome DevTools MCP traces for a clean control,
+  `DocumentLatency`, and LCP render-delay regression. Added a deterministic
+  CLI-owned test covering adapter discovery, diagnosis, artifact linkage, and
+  SQLite persistence without adding a runtime dependency.
 - **2026-07-31** — Made every public controller route independently
   discoverable: the Fleet registry now writes agent surfaces into the deployed
   Astro `web/public` directory, the six canonical routes share complete search
@@ -102,9 +107,10 @@ Internal (fleet):
   **manual dispatch only** (not push) — `main` stays releasable but is not an
   automatic production trigger. The action runs from `workingDirectory: web`
   with the locally pinned wrangler (the action's own install fails inside this
-  pnpm monorepo). Repo-local guarded deploy: `pnpm deploy`. A separate
-  `.github/workflows/docs.yml` validates `docs/` + builds the Blume site on
-  docs-path changes.
+  pnpm monorepo). Repo-local guarded deploy: `pnpm deploy`.
+  `.github/workflows/psi-swarm-ci.yml` runs the CLI regression suite, CLI/web
+  builds, and docs checks for helper changes; `.github/workflows/docs.yml`
+  separately validates docs paths and builds the Blume site.
 - **Installable skill** — `pnpm install:skill` installs the Claude/Codex skill
   documenting usage paths.
 
@@ -131,7 +137,8 @@ History & analysis (SQLite):
   bundles to `~/.psi-swarm/artifacts/`, derive a builtin diagnosis into
   `run_insights`, render it in CLI/HTML reports, and expose `/api/insights`.
   External adapter hook: `~/.psi-swarm/adapters/trace-insight.mjs` or
-  `PSI_TRACE_INSIGHT_ADAPTER`.
+  `PSI_TRACE_INSIGHT_ADAPTER`; the hook is regression-tested against
+  Chrome DevTools MCP trace oracles.
 - **Local regression watchlist (PRD shipped):** `watchlist` table, `psi-swarm
   watch` subcommands, `/api/watchlist` endpoints, `/watchlist` web UI.
 - Ahrefs Domain Rating for custom-domain projects in `/projects`, CLI, and
