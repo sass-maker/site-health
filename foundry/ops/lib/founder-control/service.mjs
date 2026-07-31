@@ -91,6 +91,38 @@ function outcomeProjection(connections, family) {
       recommendation: boundedSignal(row.recommendation),
       citation: boundedSignal(row.citation),
       averageRank: boundedSignal(row.averageRank),
+      questions: (row.questions ?? []).slice(0, 12).map((question) => ({
+        id: question.id,
+        setId: question.setId,
+        text: question.text,
+      })),
+      coverage: row.coverage
+        ? {
+            configured: Number(row.coverage.configured ?? 0),
+            completed: Number(row.coverage.completed ?? 0),
+            unavailable: Number(row.coverage.unavailable ?? 0),
+            timedOut: Number(row.coverage.timedOut ?? 0),
+            failed: Number(row.coverage.failed ?? 0),
+          }
+        : null,
+      attempts: (row.attempts ?? []).slice(0, 24).map((attempt) => ({
+        promptId: attempt.promptId,
+        persona: attempt.persona,
+        providerId: attempt.providerId,
+        model: attempt.model,
+        status: attempt.status,
+      })),
+      citationSources: {
+        total: Number(row.citationSources?.total ?? 0),
+        owned: Number(row.citationSources?.owned ?? 0),
+        external: Number(row.citationSources?.external ?? 0),
+        unclassified: Number(row.citationSources?.unclassified ?? 0),
+        sources: (row.citationSources?.sources ?? []).slice(0, 50).map((source) => ({
+          url: source.url,
+          host: source.host,
+          ownership: source.ownership,
+        })),
+      },
       crawlerRequests: boundedSignal(row.crawlerRequests, { includeSeries: true }),
       aiReferralVisits: boundedSignal(row.aiReferralVisits, { includeSeries: true }),
     }));

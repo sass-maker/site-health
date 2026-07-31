@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Cloudflare outcome evidence and provider links across existing Console pages",
+  "target": "AI Awareness evidence hierarchy",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,21 +14,21 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/cloudflare-outcomes/before-1440.png"
+    "before": ".fleet/evidence/ai-awareness-evidence/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/cloudflare-outcomes/after-390.png"
+        "path": ".fleet/evidence/ai-awareness-evidence/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/cloudflare-outcomes/after-768.png"
+        "path": ".fleet/evidence/ai-awareness-evidence/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/cloudflare-outcomes/after-1440.png"
+        "path": ".fleet/evidence/ai-awareness-evidence/after-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 34,
       "maximum": 40
     },
     "audit": {
-      "score": 19,
+      "score": 20,
       "maximum": 20
     },
     "unresolved": {
@@ -49,13 +49,11 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": [
-        "Resolved the advisory touch-target finding by making touched table and run controls at least 44 pixels high."
-      ]
+      "findings": []
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly requested Cloudflare metrics, one update path, and exact Google and Cloudflare provider links inside the existing Console pages."
+    "note": "Owner confirmed that AI Awareness must measure model outcomes across project-owned and external web sources, then approved independent agents for final judgment."
   }
 }

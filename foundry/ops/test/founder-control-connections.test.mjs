@@ -66,7 +66,12 @@ function fixture() {
         lifecycle: 'maintained',
         tier: 'primary',
         domains: ['heypace.app'],
-        public: { id: 'pace', listing: 'maintained', description: 'A private Mac voice assistant.' },
+        public: {
+          id: 'pace',
+          listing: 'maintained',
+          description: 'A private Mac voice assistant.',
+          repositoryUrl: 'https://github.com/HeyPace/pace',
+        },
       },
       {
         id: 'past',
@@ -844,7 +849,23 @@ test('limits core AI awareness to provider-backed P1 outcomes', () => {
       citationRate: 0.25,
       averagePosition: 1.7,
     },
-    citations: { total: 1 },
+    coverage: { configured: 4, completed: 3, unavailable: 1, timedOut: 0, failed: 0 },
+    attempts: [{
+      promptId: 'buyer-discovery/category/founder',
+      persona: 'founder',
+      providerId: 'provider-export',
+      model: 'provider-model',
+      status: 'completed',
+    }],
+    citations: {
+      total: 4,
+      urls: [
+        'https://heypace.app/docs',
+        'https://github.com/HeyPace/pace/releases',
+        'https://independent.example/review',
+      ],
+      hosts: ['heypace.app', 'github.com', 'independent.example', 'legacy.example'],
+    },
   };
   const result = buildFleetConnections({
     fleetRoot: root,
@@ -855,7 +876,7 @@ test('limits core AI awareness to provider-backed P1 outcomes', () => {
         projects: [{
           projectId: 'pace',
           name: 'Pace',
-          questions: [],
+          questions: [{ id: 'buyer-discovery:category', setId: 'buyer-discovery', text: 'Which Mac voice agent is private?' }],
           latest: providerRun,
           history: [providerRun],
         }],
@@ -867,6 +888,20 @@ test('limits core AI awareness to provider-backed P1 outcomes', () => {
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'known');
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].mention.value, 75);
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].recommendation.value, 50);
+  assert.deepEqual(result.outputs.ownerOutcomes.coreAi[0].citationSources, {
+    total: 4,
+    owned: 2,
+    external: 1,
+    unclassified: 1,
+    sources: [
+      { url: 'https://heypace.app/docs', host: 'heypace.app', ownership: 'owned' },
+      { url: 'https://github.com/HeyPace/pace/releases', host: 'github.com', ownership: 'owned' },
+      { url: 'https://independent.example/review', host: 'independent.example', ownership: 'external' },
+      { url: null, host: 'legacy.example', ownership: 'unclassified' },
+    ],
+  });
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].questions.length, 1);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].attempts.length, 1);
 });
 
 test('isolates absent machine evidence without hiding implemented contracts', () => {

@@ -950,6 +950,77 @@ function aiRunEvidenceMode(run) {
   return run?.evidenceMode ?? run?.evidence?.[0]?.summary?.evidenceMode ?? null;
 }
 
+function parsedHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return ['http:', 'https:'].includes(url.protocol) ? url : null;
+  } catch {
+    return null;
+  }
+}
+
+function hostMatchesDomain(host, domain) {
+  const normalizedHost = normalizedDomain(host);
+  const normalizedProjectDomain = normalizedDomain(domain);
+  return Boolean(
+    normalizedHost
+    && normalizedProjectDomain
+    && (
+      normalizedHost === normalizedProjectDomain
+      || normalizedHost.endsWith(`.${normalizedProjectDomain}`)
+    )
+  );
+}
+
+function citationOwnership(url, project) {
+  if (project.domains.some((domain) => hostMatchesDomain(url.hostname, domain))) {
+    return 'owned';
+  }
+  const repository = parsedHttpUrl(project.repositoryUrl);
+  if (!repository || url.origin !== repository.origin) return 'external';
+  const repositoryPath = repository.pathname.replace(/\/?(?:\.git)?$/, '').replace(/\/$/, '');
+  const citationPath = url.pathname.replace(/\/$/, '');
+  return citationPath === repositoryPath || citationPath.startsWith(`${repositoryPath}/`)
+    ? 'owned'
+    : 'external';
+}
+
+function citationSourceSummary(project) {
+  const citations = project.aiVisibility?.latest?.citations ?? {};
+  const sources = [];
+  const representedHosts = new Set();
+  for (const value of citations.urls ?? []) {
+    const url = parsedHttpUrl(value);
+    if (!url) continue;
+    const host = normalizedDomain(url.hostname);
+    representedHosts.add(host);
+    sources.push({
+      url: url.href,
+      host,
+      ownership: citationOwnership(url, project),
+    });
+  }
+  for (const value of citations.hosts ?? []) {
+    const host = normalizedDomain(value);
+    if (!host || representedHosts.has(host)) continue;
+    sources.push({
+      url: null,
+      host,
+      ownership: project.domains.some((domain) => hostMatchesDomain(host, domain))
+        ? 'owned'
+        : 'unclassified',
+    });
+  }
+  const boundedSources = sources.slice(0, 50);
+  return {
+    total: Number.isFinite(Number(citations.total)) ? Number(citations.total) : 0,
+    owned: boundedSources.filter((source) => source.ownership === 'owned').length,
+    external: boundedSources.filter((source) => source.ownership === 'external').length,
+    unclassified: boundedSources.filter((source) => source.ownership === 'unclassified').length,
+    sources: boundedSources,
+  };
+}
+
 function normalizeFeedbackSubmissions(submissions = [], projects = []) {
   const projectIds = new Set(projects.map((project) => project.id));
   return submissions
@@ -1340,14 +1411,15 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       }
       const crawler = project.aiVisibility?.discovery?.crawler ?? null;
       const referral = project.aiVisibility?.discovery?.referral ?? null;
+      const citationSources = citationSourceSummary(project);
       return {
         projectId: project.projectId,
         name: project.name,
         domain: project.domains[0] ?? null,
         status,
         observations: project.aiVisibility?.observations ?? 0,
-        observedAt: newestTimestamp([
-          project.aiVisibility?.observedAt,
+        observedAt: project.aiVisibility?.observedAt ?? null,
+        discoveryObservedAt: newestTimestamp([
           crawler?.observedAt,
           referral?.observedAt,
         ]),
@@ -1355,6 +1427,10 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         recommendation: signalByLabel(project, 'AI recommendation rate'),
         citation: signalByLabel(project, 'AI citation rate'),
         averageRank: signalByLabel(project, 'AI average rank'),
+        questions: (project.aiVisibility?.questions ?? []).slice(0, 12),
+        coverage: project.aiVisibility?.latest?.coverage ?? null,
+        attempts: (project.aiVisibility?.latest?.attempts ?? []).slice(0, 24),
+        citationSources,
         crawlerRequests: latestFamilySignal(project, crawler, 'AI crawler requests'),
         aiReferralVisits: latestFamilySignal(project, referral, 'AI referral visits'),
         discovery: { crawler, referral },
@@ -1763,6 +1839,15 @@ function buildProjectOutputs({
           source: 'AI Visibility fixture canary',
         },
         questions: ai?.questions ?? [],
+        latest: latestAiOutcome
+          ? {
+              runId: latestAiOutcome.runId,
+              promptSetId: latestAiOutcome.promptSetId ?? null,
+              coverage: latestAiOutcome.coverage ?? null,
+              citations: latestAiOutcome.citations ?? { total: 0, hosts: [], urls: [] },
+              attempts: latestAiOutcome.attempts ?? [],
+            }
+          : null,
         discovery: {
           crawler: outcomeFamilySummary(outcomes['ai-crawl']),
           referral: outcomeFamilySummary(outcomes['ai-referral']),
@@ -1779,6 +1864,7 @@ function buildProjectOutputs({
         lifecycle: project.lifecycle ?? null,
         status: project.status ?? null,
         domains,
+        repositoryUrl: project.repositoryUrl ?? project.public?.repositoryUrl ?? null,
         metricEligibility: {
           publicSite: publicMetricSite,
           domainCoverage,

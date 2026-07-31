@@ -46,8 +46,11 @@ immutable identifiers and source revisions.
   Google Search shows every canonical public metric project, keeps native Search
   Console units in a sortable ledger, and reveals reporting scope, terms, and
   retained history only when a project row is expanded.
-  AI Awareness is limited to maintained P1 products and provider-backed model
-  outcomes. Marketing shows coverage for every maintained product, while
+  AI Awareness is limited to maintained P1 products and leads with
+  provider-backed model outcomes. Expanded project evidence separates
+  project-owned citations from independent sources and keeps Cloudflare crawl
+  and referral activity in a subordinate discovery layer. Marketing shows
+  coverage for every maintained product, while
   Performance treats PSI and LCP as a pass/fail guardrail for every maintained
   public product. Projects remains the canonical secondary directory with
   explicit website, changelog, source, and project-detail destinations.

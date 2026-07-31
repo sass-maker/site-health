@@ -62,6 +62,17 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-01 — AI Awareness became model-first and web-wide:** Refocused the
+  four core-product ledger on provider-backed mention, recommendation,
+  citation, rank, and independent-source outcomes. Cloudflare crawl and AI
+  referral activity moved into explicitly supporting project detail rather
+  than implying awareness. Each project now expands to show its stable question
+  set, bounded provider/model coverage, project-owned citations, independent
+  external sources, unclassified legacy hosts, and exact Cloudflare links.
+  Future provider observations retain at most 50 normalized citation URLs while
+  raw answers remain excluded; existing host-only history remains readable and
+  honestly unclassified. No provider run, credential, schedule, spend, or
+  deployment was added.
 - **2026-08-01 — Cloudflare runtime evidence became directly usable:** Added
   one read-only, registry-driven portfolio collector for Cloudflare Web
   Analytics, real-user Web Vitals, AI Crawl Control, and AI referral traffic.
@@ -676,16 +687,19 @@ Cloudflare deployment history, not by maintaining duplicate source.
   handoff, ignored-project suppression, and disabled schedule activation gates.
 - Credential-free provider-observation ingestion with strict bundle validation,
   partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
-  retained raw answer text or provider request IDs.
+  retained raw answer text or provider request IDs. Provider-backed runs retain
+  at most 50 normalized citation URLs so Fleet can distinguish project-owned
+  evidence from independent sources without storing model responses.
 - Read-only Google Search Console collection plus credential-free Cloudflare
   outcome ingestion with strict normalized validation, canonical-project
   identity, private history, provider-deep-link validation, and separate
   Search, web-traffic, field-performance, crawler, and AI-referral evidence
   without changing portfolio scores. The portfolio Google Search ledger
   compares all 27 public projects and expands each row to expose bounded query
-  metrics and its exact Search Console property. Existing AI Awareness,
-  Performance, and Marketing pages expose bounded Cloudflare values and
-  breakdowns with exact zone links and one deduplicated portfolio update.
+  metrics and its exact Search Console property. AI Awareness keeps Cloudflare
+  values and exact zone links as subordinate discovery evidence beneath
+  model-answer outcomes; Performance and Marketing expose their bounded
+  Cloudflare values and breakdowns with one deduplicated portfolio update.
   Shared Domain properties and Cloudflare zones are isolated to each project's
   canonical HTTPS hostname.
 - Owner-facing Marketing → AI Visibility view covering visibility,

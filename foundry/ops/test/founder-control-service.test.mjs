@@ -197,6 +197,26 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
         coreAi: [{
           projectId: 'core',
           status: 'not-measured',
+          questions: [{ id: 'set:question', setId: 'set', text: 'Which tool should I use?' }],
+          coverage: { configured: 2, completed: 1, unavailable: 1, timedOut: 0, failed: 0 },
+          attempts: [{
+            promptId: 'set/question/persona',
+            persona: 'persona',
+            providerId: 'provider',
+            model: 'model',
+            status: 'completed',
+            private: 'must-not-leak',
+          }],
+          citationSources: {
+            total: 2,
+            owned: 1,
+            external: 1,
+            unclassified: 0,
+            sources: [
+              { url: 'https://example.com/docs', host: 'example.com', ownership: 'owned', private: 'must-not-leak' },
+              { url: 'https://review.example/item', host: 'review.example', ownership: 'external' },
+            ],
+          },
           crawlerRequests: { value: 18, series: [{ value: 12 }] },
           aiReferralVisits: { value: 3, series: [{ value: 1 }] },
         }],
@@ -281,6 +301,11 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal(search.rows[0].action.id, 'strengthen-ranking-page');
   assert.equal(awareness.rows[0].projectId, 'core');
   assert.equal(awareness.rows[0].crawlerRequests.series.length, 1);
+  assert.equal(awareness.rows[0].questions[0].text, 'Which tool should I use?');
+  assert.equal(awareness.rows[0].attempts[0].model, 'model');
+  assert.equal('private' in awareness.rows[0].attempts[0], false);
+  assert.equal(awareness.rows[0].citationSources.external, 1);
+  assert.equal('private' in awareness.rows[0].citationSources.sources[0], false);
   assert.equal(marketing.rows[0].visits.series.length, 1);
   assert.equal(marketing.rows[0].pageViews.value, 380);
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);

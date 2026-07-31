@@ -1676,6 +1676,7 @@ type OutcomeColumn = {
 type OutcomeTableOptions = {
   details?: (row: JsonRecord) => Node;
   rowKey?: (row: JsonRecord) => string;
+  className?: string;
 };
 
 function matchesProject(projectId?: string | null) {
@@ -1741,12 +1742,14 @@ function outcomeTable(
         class: "outcome-detail-toggle",
         "aria-controls": detailId,
         "aria-expanded": String(expanded),
+        "aria-label": `${expanded ? "Hide" : "View"} ${row.name ?? row.domain ?? rowKey} details`,
       }, [expanded ? "Hide" : "View"]);
       toggle.addEventListener("click", () => {
         const shouldExpand = detailRow.hidden;
         detailRow.hidden = !shouldExpand;
         toggle.setAttribute("aria-expanded", String(shouldExpand));
         toggle.textContent = shouldExpand ? "Hide" : "View";
+        toggle.setAttribute("aria-label", `${shouldExpand ? "Hide" : "View"} ${row.name ?? row.domain ?? rowKey} details`);
         if (shouldExpand) expandedRows.add(rowKey);
         else expandedRows.delete(rowKey);
       });
@@ -1792,7 +1795,8 @@ function outcomeTable(
     body,
   ]);
   draw();
-  return element("div", { class: "outcome-table-wrap" }, [
+  const wrapClass = ["outcome-table-wrap", options.className].filter(Boolean).join(" ");
+  return element("div", { class: wrapClass }, [
     element("p", { class: "outcome-table__scroll-hint" }, ["Swipe sideways to inspect every column."]),
     status,
     table,
@@ -2415,6 +2419,42 @@ function bindPortfolioRefresh(family: PortfolioMetricFamily) {
   });
 }
 
+function portfolioRefreshControl(family: PortfolioMetricFamily, idleLabel = PORTFOLIO_REFRESH_CONFIG[family].idleLabel) {
+  const config = PORTFOLIO_REFRESH_CONFIG[family];
+  const statusText = element("span", {
+    class: "portfolio-refresh-status",
+    role: "status",
+    "aria-live": "polite",
+  });
+  const button = element("button", { type: "button", class: "secondary-action" }, [idleLabel]);
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    button.textContent = config.runningLabel;
+    statusText.textContent = config.startingMessage;
+    try {
+      const run = await startAndPollMetricRun({
+        family,
+        scope: "portfolio",
+        statusText,
+        maxAttempts: config.maxAttempts,
+        isConnected: () => button.isConnected,
+      });
+      if (!run) return;
+      if (run.state !== "succeeded") throw new Error(run.summary || config.failureMessage);
+      await config.refresh();
+      statusText.textContent = config.completedMessage;
+    } catch (error) {
+      statusText.textContent = error instanceof Error ? error.message : config.failureMessage;
+    } finally {
+      if (button.isConnected) {
+        button.disabled = false;
+        button.textContent = idleLabel;
+      }
+    }
+  });
+  return element("div", { class: "outcome-run-control" }, [button, statusText]);
+}
+
 async function renderAiAwareness() {
   const payload = await api("/v1/outcomes/ai-awareness");
   updateOutcomeTime(payload.generatedAt);
@@ -2422,29 +2462,186 @@ async function renderAiAwareness() {
   const count = document.querySelector<HTMLElement>('[data-founder-count="ai-awareness"]');
   if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [
-    { key: "project", label: "Core project", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "geo") },
-    { key: "status", label: "Awareness", description: "Sort by evidence state", value: (row) => row.status, render: (row) => state(row.status) },
-    { key: "crawls", label: "AI crawls", description: "Sort by verified AI crawler requests", value: (row) => row.crawlerRequests?.value, render: (row) => outcomeSignal(row.crawlerRequests) },
-    { key: "referrals", label: "AI visits", description: "Sort by visits referred by AI assistants", value: (row) => row.aiReferralVisits?.value, render: (row) => outcomeSignal(row.aiReferralVisits) },
+    { key: "project", label: "Core product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row, "geo") },
+    { key: "status", label: "Awareness", description: "Sort by evidence state", value: (row) => row.status, render: awarenessState },
     { key: "mention", label: "Mentioned", description: "Sort by model mention rate", value: (row) => row.mention?.value, render: (row) => outcomeSignal(row.mention) },
-    { key: "recommendation", label: "Recommended", description: "Sort by recommendation rate", value: (row) => row.recommendation?.value, render: (row) => outcomeSignal(row.recommendation) },
     { key: "citation", label: "Cited", description: "Sort by citation rate", value: (row) => row.citation?.value, render: (row) => outcomeSignal(row.citation) },
-    { key: "rank", label: "Average rank", description: "Sort by average answer rank", value: (row) => row.averageRank?.value, render: (row) => outcomeSignal(row.averageRank) },
-    { key: "observed", label: "Last observed", description: "Sort by provider observation time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+    { key: "external", label: "External sources", description: "Sort by external citation sources", value: (row) => row.observations > 0 ? row.citationSources?.external ?? 0 : null, render: aiExternalSources },
+    { key: "observed", label: "Last observed", description: "Sort by provider observation time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => row.observedAt ? formattedDay(row.observedAt) : "Not measured" },
   ];
   replace("ai-awareness", rows.length
-    ? outcomeTable(rows, columns, "project", "Core project AI awareness", "ascending", {
+      ? outcomeTable(rows, columns, "project", "Core product AI awareness", "ascending", {
         rowKey: (row) => row.projectId,
-        details: (row) => providerOutcomeDetails({
-          note: "Cloudflare shows whether AI systems reached the product and whether people arrived from AI assistants. Model-answer evidence remains a separate outcome.",
-          outcomes: [
-            { label: "AI crawl", outcome: row.discovery?.crawler, linkLabel: "Open Cloudflare AI" },
-            { label: "AI referral", outcome: row.discovery?.referral, linkLabel: "Open Cloudflare Traffic" },
-          ],
-          signals: [row.crawlerRequests, row.aiReferralVisits],
-        }),
+        details: aiAwarenessDetails,
+        className: "outcome-table-wrap--ai-awareness",
       })
     : empty("No core project in scope", "AI awareness is limited to maintained P1 products."));
+}
+
+function awarenessState(row: JsonRecord) {
+  if (row.status === "not-measured") {
+    return element("span", { class: "state unmeasured-evidence" }, ["not measured"]);
+  }
+  return state(row.status);
+}
+
+function aiExternalSources(row: JsonRecord) {
+  if (row.observations <= 0) {
+    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+  }
+  const external = Number(row.citationSources?.external ?? 0);
+  const unclassified = Number(row.citationSources?.unclassified ?? 0);
+  return element("span", { class: "outcome-signal" }, [
+    element("strong", {}, [String(external)]),
+    element("small", {}, [
+      unclassified > 0
+        ? `${unclassified} unclassified`
+        : external === 1 ? "external source" : "external sources",
+    ]),
+  ]);
+}
+
+function aiEvidenceSection(title: string, description: string, content: Node) {
+  return element("section", { class: "ai-evidence-section" }, [
+    element("header", {}, [
+      element("h3", {}, [title]),
+      element("p", {}, [description]),
+    ]),
+    content,
+  ]);
+}
+
+function aiQuestions(row: JsonRecord) {
+  const questions = row.questions ?? [];
+  if (questions.length === 0) {
+    return empty("No tracked questions", "A stable question set is required before comparable model observations can run.");
+  }
+  return element("div", { class: "tracked-intent-list" }, questions.map((question: JsonRecord) =>
+    element("div", { class: "tracked-intent" }, [
+      element("div", {}, [
+        element("span", {}, [question.setId ?? "question"]),
+        element("strong", {}, [question.text]),
+      ]),
+      element("div", { class: "tracked-intent__result" }, [
+        element("strong", {}, ["Configured"]),
+      ]),
+    ])));
+}
+
+function aiAttempts(row: JsonRecord) {
+  const attempts = row.attempts ?? [];
+  if (attempts.length === 0) {
+    return empty("No model observations", "Cloudflare discovery does not substitute for a provider-backed model answer.");
+  }
+  return element("div", { class: "tracked-intent-list" }, attempts.map((attempt: JsonRecord) =>
+    element("div", { class: "tracked-intent" }, [
+      element("div", {}, [
+        element("span", {}, [attempt.promptId ?? "prompt"]),
+        element("strong", {}, [
+          `${attempt.providerId ?? "Unknown provider"} · ${attempt.model ?? "Unknown model"}`,
+        ]),
+      ]),
+      element("div", { class: "tracked-intent__result" }, [
+        element("strong", {}, [titleCase(attempt.status ?? "unavailable")]),
+        attempt.persona ? element("small", {}, [attempt.persona]) : null,
+      ]),
+    ])));
+}
+
+function aiCitationSources(row: JsonRecord) {
+  const sources = row.citationSources?.sources ?? [];
+  if (sources.length === 0) {
+    return empty("No citation sources observed", "Source ownership becomes measurable with a provider-backed cited answer.");
+  }
+  const visible = sources.slice(0, 10);
+  const rows = visible.map((source: JsonRecord) => {
+    const label = source.ownership === "owned"
+      ? "Project-owned"
+      : source.ownership === "external" ? "External" : "Unclassified";
+    const sourceNode = source.url
+      ? element("a", {
+          href: source.url,
+          target: "_blank",
+          rel: "noreferrer",
+          "aria-label": `${source.host} citation source (opens in a new tab)`,
+        }, [source.url])
+      : element("strong", {}, [source.host]);
+    return element("div", { class: "tracked-intent" }, [
+      element("div", {}, [element("span", {}, [source.host]), sourceNode]),
+      element("div", { class: "tracked-intent__result" }, [element("strong", {}, [label])]),
+    ]);
+  });
+  if (sources.length > visible.length) {
+    rows.push(element("p", { class: "ai-evidence-section__more" }, [
+      `Showing ${visible.length} of ${sources.length} retained sources.`,
+    ]));
+  }
+  return element("div", { class: "tracked-intent-list" }, rows);
+}
+
+function aiAwarenessDetails(row: JsonRecord) {
+  const coverage = row.coverage;
+  const facts = element("dl", { class: "search-detail__facts" }, [
+    element("div", {}, [
+      element("dt", {}, ["Provider coverage"]),
+      element("dd", {}, [coverage ? `${coverage.completed} of ${coverage.configured} calls` : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Recommended"]),
+      element("dd", {}, [row.recommendation ? metricValue(row.recommendation.value, row.recommendation.unit) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Average rank"]),
+      element("dd", {}, [row.averageRank ? metricValue(row.averageRank.value, row.averageRank.unit) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Project-owned sources"]),
+      element("dd", {}, [row.observations > 0 ? String(row.citationSources?.owned ?? 0) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["External sources"]),
+      element("dd", {}, [row.observations > 0 ? String(row.citationSources?.external ?? 0) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Unclassified sources"]),
+      element("dd", {}, [row.observations > 0 ? String(row.citationSources?.unclassified ?? 0) : "Not measured"]),
+    ]),
+  ]);
+  const discovery = providerOutcomeDetails({
+    note: "Cloudflare proves crawler activity and AI-referred visits only. It does not establish a model mention, recommendation, rank, or citation.",
+    outcomes: [
+      { label: "AI crawl", outcome: row.discovery?.crawler, linkLabel: "Open Cloudflare AI" },
+      { label: "AI referral", outcome: row.discovery?.referral, linkLabel: "Open Cloudflare Traffic" },
+    ],
+    signals: [row.crawlerRequests, row.aiReferralVisits],
+  });
+  const discoverySummary = element("summary", {}, [
+    element("span", {}, [
+      element("strong", {}, ["Supporting discovery"]),
+      element("small", {}, [
+        `Crawls ${metricValue(row.crawlerRequests?.value, row.crawlerRequests?.unit)} · referrals ${metricValue(row.aiReferralVisits?.value, row.aiReferralVisits?.unit)}`,
+      ]),
+    ]),
+    element("span", { class: "ai-discovery-disclosure__provider" }, ["Cloudflare only"]),
+  ]);
+  const discoveryDisclosure = element("details", { class: "ai-discovery-disclosure" }, [
+    discoverySummary,
+    element("div", { class: "ai-discovery-disclosure__body" }, [
+      element("p", {}, ["Useful leading signals, never awareness proof."]),
+      portfolioRefreshControl("cloudflare", "Update discovery"),
+      discovery,
+    ]),
+  ]);
+  return element("div", { class: "search-detail ai-awareness-detail" }, [
+    element("p", { class: "search-detail__note" }, [
+      "Awareness is based only on sampled model answers. Source ownership shows whether those answers rely on the product itself or external material elsewhere on the web.",
+    ]),
+    facts,
+    aiEvidenceSection("Questions asked", "The stable prompts used to compare this product over time.", aiQuestions(row)),
+    aiEvidenceSection("Model observations", "The provider and model coverage behind the latest result.", aiAttempts(row)),
+    aiEvidenceSection("Where models got their evidence", "Project-owned, external, and historically unclassified citation sources stay separate.", aiCitationSources(row)),
+    discoveryDisclosure,
+  ]);
 }
 
 function performanceRunControl(row: JsonRecord) {
