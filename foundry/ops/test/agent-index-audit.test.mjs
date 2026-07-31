@@ -13,6 +13,7 @@ const auditor = new URL(
 
 test('records public-route Markdown coverage and catalog integrity', async (t) => {
   let origin;
+  let guideMarkdownAttempts = 0;
   const server = createServer((request, response) => {
     const accept = String(request.headers.accept ?? '');
     const url = new URL(request.url, origin);
@@ -55,6 +56,11 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
       || url.pathname === '/guide.md'
       || url.pathname === '/person/ada.md'
     ) {
+      if (url.pathname === '/guide.md' && guideMarkdownAttempts++ === 0) {
+        response.writeHead(429, { 'content-type': 'text/plain', 'retry-after': '0' });
+        response.end('retry');
+        return;
+      }
       return send(response, 'text/markdown', `# ${url.pathname}\n`);
     }
     if (url.pathname === '/' && accept.includes('text/markdown')) {
@@ -104,6 +110,62 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
   assert.equal(summary.tier, 'S');
   assert.equal(summary.checks.route_markdown.status, 'pass');
   assert.equal(summary.checks.route_markdown.data, undefined);
+});
+
+test('treats a bounded route sample as valid when sitemap XML exceeds the route cap', async (t) => {
+  let origin;
+  const server = createServer((request, response) => {
+    const accept = String(request.headers.accept ?? '');
+    const url = new URL(request.url, origin);
+    if (url.pathname === '/llms.txt') return send(response, 'text/plain', '# Fixture\n');
+    if (url.pathname === '/api/ai') {
+      return send(response, 'application/json', JSON.stringify({
+        name: 'large fixture',
+        llms: `${origin}/llms.txt`,
+        sitemap: `${origin}/sitemap.xml`,
+        markdown: { suffix: '.md', negotiation: true },
+        surfaces: [{ id: 'home', url: '/', md: '/index.md' }],
+      }));
+    }
+    if (url.pathname === '/robots.txt') {
+      return send(
+        response,
+        'text/plain',
+        `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`,
+      );
+    }
+    if (url.pathname === '/sitemap.xml') {
+      const routes = Array.from(
+        { length: 5_001 },
+        (_, index) => `<url><loc>${origin}${index === 0 ? '/' : `/page-${index}/`}</loc></url>`,
+      ).join('');
+      return send(response, 'application/xml', `<?xml version="1.0"?><urlset>${routes}</urlset>`);
+    }
+    if (url.pathname === '/index.md' || accept.includes('text/markdown')) {
+      return send(response, 'text/markdown', `# ${url.pathname}\n`);
+    }
+    return send(response, 'text/html', '<!doctype html><title>Fixture</title>');
+  });
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  t.after(() => server.close());
+  const address = server.address();
+  origin = `http://127.0.0.1:${address.port}`;
+
+  const { stdout } = await execFileAsync(
+    process.execPath,
+    [auditor.pathname, origin, '--json'],
+    { maxBuffer: 2_000_000 },
+  );
+  const result = JSON.parse(stdout).results[0];
+
+  assert.equal(result.tier, 'S');
+  assert.equal(result.checks.sitemap.status, 'pass');
+  assert.match(result.checks.sitemap.detail, /capped at 5000/);
+  assert.equal(result.checks.route_markdown.status, 'pass');
+  assert.equal(result.checks.route_markdown.data.checked, 250);
+  assert.equal(result.checks.route_markdown.data.coveragePercent, 100);
+  assert.equal(result.checks.route_markdown.data.sampled, true);
 });
 
 function send(response, contentType, body) {
