@@ -1,8 +1,11 @@
-# Content Studio
+# Marketing Studio
 
-TubeMagic-style creator toolset built into reel-pipeline: ideation, metadata,
-scripts, brand voice, keyword research, transcripts, thumbnail concepts, and a
-saved-ideas manager. Original implementation; no third-party product code.
+Marketing Studio is Reel Pipeline's unified operator surface for turning a
+natural-language request into an editable video brief, routing that brief to
+the real production workflow, reviewing the result, and preparing an
+unscheduled Postiz draft. The original Content Studio tools remain available
+under the **Tools** view: ideation, metadata, scripts, brand voice, keyword
+research, transcripts, thumbnail concepts, and the saved-ideas manager.
 
 Every tool works offline at $0 via deterministic templates, and upgrades to
 LLM output through a provider chain tried in order (override with
@@ -24,12 +27,60 @@ templates — never an error.
 For the topic→video→post workflow that consumes these tools, see
 [faceless-workflow.md](./faceless-workflow.md).
 
-## Web UI
+## Operator workflow
 
-Every tool below is also usable from the browser: run `npm run dev` and open
-`http://127.0.0.1:4317/studio`. The page has one panel per tool, an ideas
-manager with status dropdowns, and a faceless-run panel (mock engine by
-default; select `moneyprinterturbo` when `npm run moneyprinter:api` is up).
+Run `npm run dev` and open `http://127.0.0.1:4317/studio`.
+
+1. **Create** — describe a video in plain language, then keep refining the same
+   brief with follow-ups such as “make it 30 seconds,” “switch to Instagram,”
+   or “turn this into an app demo.” Every turn updates visible normalized
+   `fleet.marketing-studio-brief.v1` fields. Nothing renders until the operator
+   chooses the named action.
+2. **Productions** — inspect saved intent, playable local artifacts, quality
+   evidence, lifecycle state, and the authoritative continuation.
+3. **Distribute** — prove source, claim, destination, rights, creative
+   approval, quality, render, and stable public media before creating an
+   unscheduled Postiz draft.
+4. **Tools** — use every pre-existing Content Studio form, ideas manager, and
+   legacy render view without changing their API routes.
+
+Briefs persist to ignored local state at `tmp/studio/briefs.json` by default.
+Changing the video kind clears incompatible media and distribution evidence.
+Every field edit or conversational refinement increments the brief revision.
+Conversation cannot approve rights, creative review, quality, distribution,
+scheduling, or publication.
+
+## Production routing
+
+Marketing Studio owns intent and lifecycle state; it does not duplicate the
+specialized runtimes:
+
+| Video kind | Runtime owner | Studio action |
+| --- | --- | --- |
+| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock, Kokoro, or MoneyPrinterTurbo |
+| Brand reel | Anonymous Brand Reel | Continue to `/` with the public canonical website source prefilled |
+| Guided app demo | Forge | Continue to the authenticated Forge host with the brief id, project, workflow kind, and public source prefilled after source rights are approved |
+| Coherent film | Forge | Continue to the authenticated Forge host with safe project/source context and complete Film-style inputs there |
+| Podcast short | Editorial | Continue to the configured editorial service with source media |
+
+Continuation states are explicit: `ready`, `needs-input`, `external-step`, or
+`blocked`. A specialized workflow is never represented as locally executed
+when its actual runtime lives elsewhere. Continuation URLs carry only the
+Studio brief id and safe public metadata; unpublished creative copy, approvals,
+credentials, and private media never enter the URL.
+
+## Postiz boundary
+
+Marketing Studio can prepare the existing approved content-package and media
+receipt contracts, then call the existing Postiz adapter to create a draft.
+Preparation is local and performs no network call. Draft creation requires an
+explicit approver and a stable public HTTPS video URL.
+
+The Studio intentionally has no schedule picker and rejects schedule or
+publish inputs. Postiz remains the only calendar, scheduler, publisher,
+provider-integration, and analytics surface. Live account connection,
+scheduling, publication, and auto-post verification are tracked separately in
+[Fleet Workspace issue #40](https://github.com/sass-maker/fleet-workspace/issues/40).
 
 ## Commands
 
@@ -117,7 +168,10 @@ The faceless workflow saves each rendered topic here automatically.
 
 ```bash
 npm run smoke:studio   # offline smoke: every tool + mock workflow (13 checks)
-node --test test/studio-*.test.js
+node --test test/studio-server.test.js test/studio-workflow.test.js \
+  test/marketing-studio-briefs.test.js \
+  test/marketing-studio-distribution.test.js
 ```
 
-Module map: `src/studio/{llm,ideas,metadata,script,brand-voice,keywords,transcript,thumbnails,idea-store,workflow}.js`.
+Module map:
+`src/studio/{api,ui,briefs,capabilities,distribution,llm,ideas,metadata,script,brand-voice,keywords,transcript,thumbnails,idea-store,workflow}.js`.

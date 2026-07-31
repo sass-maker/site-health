@@ -76,6 +76,35 @@ test('faceless workflow runs mock end-to-end and writes artifacts', async () => 
   assert.equal(metadata.voicePlan.rotation, false);
 });
 
+test('faceless workflow preserves confirmed Marketing Studio inputs in the brief', async () => {
+  const out = await tempDir('studio-confirmed-');
+  const storeDir = await tempDir('studio-store-');
+  const summary = await runFacelessWorkflow({
+    topic: 'Evidence before automation',
+    projectSlug: 'high-signal',
+    channel: 'instagram_reels',
+    briefId: 'brief-confirmed',
+    durationSeconds: 45,
+    hook: 'Proof first. Automation second.',
+    cta: 'Read the evidence',
+    creativeDirection: 'Use one product receipt as the dominant visual.',
+    engine: 'mock',
+    outputDir: out,
+    ideaStore: new IdeaStore({ filePath: path.join(storeDir, 'ideas.json') }),
+    rendererOptions: { mock: { artifactDir: path.join(out, 'renders') } },
+    llm: offlineLlm,
+    logger: silent,
+  });
+  assert.equal(summary.projectSlug, 'high-signal');
+  assert.equal(summary.channel, 'instagram_reels');
+  const brief = JSON.parse(await readFile(path.join(summary.artifactDir, 'brief.json'), 'utf8'));
+  assert.equal(brief.projectSlug, 'high-signal');
+  assert.equal(brief.channel, 'instagram_reels');
+  assert.equal(brief.hook, 'Proof first. Automation second.');
+  assert.equal(brief.cta, 'Read the evidence');
+  assert.match(brief.body, /dominant visual/);
+});
+
 test('workflow does not auto-post and surfaces the handoff command only on request', async () => {
   const out = await tempDir('studio-faceless-');
   const storeDir = await tempDir('studio-store-');

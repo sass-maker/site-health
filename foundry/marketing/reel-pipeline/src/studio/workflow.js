@@ -21,6 +21,9 @@ export function scriptToBrief(script, options = {}) {
     id = `studio_${slugify(script.topic)}`,
     engine = 'mock',
     voiceRotation = false,
+    hook,
+    cta,
+    creativeDirection,
   } = options;
 
   const body = [
@@ -36,15 +39,17 @@ export function scriptToBrief(script, options = {}) {
     '',
     `Captions: auto-generated from narration, bottom position.`,
     `Hashtags: ${script.hashtags.join(' ')}`,
-  ].join('\n');
+    creativeDirection ? `Creative direction: ${creativeDirection}` : null,
+  ].filter(Boolean).join('\n');
 
   const brief = normalizeVideoBrief({
     id,
     projectSlug,
     channel,
     title: script.topic,
-    hook: script.hook,
+    hook: hook ?? script.hook,
     body,
+    cta,
     renderMode: engine,
     durationSeconds: Math.max(5, Math.min(90, script.targetDurationSeconds)),
   });
@@ -70,6 +75,12 @@ export async function runFacelessWorkflow({
   voice = DEFAULT_VOICE,
   voiceRotation = false,
   voiceProfile,
+  projectSlug = 'studio',
+  channel = 'youtube_shorts',
+  briefId,
+  hook,
+  cta,
+  creativeDirection,
   outputDir = './tmp/studio/faceless',
   postHandoff = false,
   ideaId,
@@ -83,8 +94,26 @@ export async function runFacelessWorkflow({
 
   const isKokoroEngine = engine === 'kokoro' || engine === 'kokoro-compose';
   const effectiveVoice = isKokoroEngine ? normalizeKokoroVoice(voice) : voice;
-  const script = await generateScript({ topic, niche, durationSeconds, voice: effectiveVoice, voiceProfile, llm });
-  const { brief, voicePlan } = scriptToBrief(script, { engine, voiceRotation });
+  const script = await generateScript({
+    topic,
+    niche,
+    durationSeconds,
+    voice: effectiveVoice,
+    voiceProfile,
+    inspiration: creativeDirection,
+    llm,
+  });
+  if (hook) script.hook = hook;
+  const { brief, voicePlan } = scriptToBrief(script, {
+    projectSlug,
+    channel,
+    id: briefId ? `studio_${briefId}` : undefined,
+    engine,
+    voiceRotation,
+    hook,
+    cta,
+    creativeDirection,
+  });
   const [titles, tags] = await Promise.all([
     generateTitles({ topic, llm }),
     generateTags({ topic, niche, llm }),
@@ -99,6 +128,9 @@ export async function runFacelessWorkflow({
     tags: tags.tags,
     hashtags: script.hashtags?.length ? script.hashtags : buildHashtags(topic),
     voicePlan,
+    projectSlug,
+    channel,
+    creativeDirection: creativeDirection ?? null,
   }, null, 2));
 
   const engineOptions = isKokoroEngine
@@ -124,6 +156,8 @@ export async function runFacelessWorkflow({
 
   const summary = {
     topic: script.topic,
+    projectSlug,
+    channel,
     scriptSource: script.source,
     engine,
     durationSeconds: script.targetDurationSeconds,
