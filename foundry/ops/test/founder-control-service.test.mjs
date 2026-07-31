@@ -203,6 +203,12 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
         }],
         search: [{
           projectId: 'site',
+          action: {
+            id: 'strengthen-ranking-page',
+            label: 'Strengthen ranking page',
+            reason: 'This result is within reach of page one.',
+            priority: 3,
+          },
           impressions: {
             value: 120,
             series: Array.from({ length: 65 }, (_, index) => ({
@@ -252,6 +258,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal(search.rows[0].impressions.series.length, 60);
   assert.equal(search.rows[0].impressions.series[0].value, 5);
   assert.equal(search.rows[0].clicks.series.length, 1);
+  assert.equal(search.rows[0].action.id, 'strengthen-ranking-page');
   assert.equal(awareness.rows[0].projectId, 'core');
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
   assert.equal(performance.rows[0].psi.value, 95);

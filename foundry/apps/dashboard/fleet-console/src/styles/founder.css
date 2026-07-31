@@ -438,15 +438,31 @@ h1 { max-width: 780px; margin-bottom: 10px; overflow-wrap: anywhere; font-size: 
 .search-detail__empty { margin: 0; color: var(--quiet); }
 .search-detail__terms-wrap,
 .search-detail__history-wrap { max-width: 100%; overflow-x: auto; }
+.search-detail__history-charts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.search-detail__history-charts .history-chart { min-height: 224px; }
 .search-detail__terms table,
-.search-detail__history table { width: 100%; min-width: 620px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.search-detail__history table { width: 100%; min-width: 620px; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
 .search-detail__terms th,
 .search-detail__terms td,
 .search-detail__history th,
 .search-detail__history td { min-width: 0; padding: 9px 10px; border: 1px solid var(--line); background: transparent; }
 .search-detail__terms thead th,
 .search-detail__history thead th { color: var(--quiet); font-size: 9px; letter-spacing: .05em; text-transform: uppercase; }
-.search-detail__terms tbody th { width: 44%; font-weight: 700; }
+.search-detail__terms thead th:first-child { width: 32%; }
+.search-detail__terms thead th:nth-child(2) { width: 28%; }
+.search-detail__terms tbody th { font-weight: 700; }
+.search-term__identity { display: grid; gap: 5px; }
+.search-term__identity strong { overflow-wrap: anywhere; }
+.search-term__page { width: fit-content; max-width: 100%; color: var(--accent); font-size: 11px; font-weight: 600; overflow-wrap: anywhere; }
+.search-action { display: grid; gap: 3px; color: var(--text); }
+.search-action strong { font-weight: 700; }
+.search-action small { max-width: 32ch; color: var(--quiet); font-size: 10px; line-height: 1.35; }
+.search-action--not-measured,
+.search-action--collect-more-data { color: var(--muted); }
+.search-action--check-indexing,
+.search-action--improve-snippet { color: var(--warning); }
+.search-terms-toggle { width: fit-content; min-height: 40px; }
+.search-detail__terms tr[hidden] { display: none; }
 
 .empty-state, .error-state, .loading-state { min-height: 112px; display: grid; align-content: center; gap: 4px; padding: 24px; border: 1px dashed var(--line-strong); color: var(--muted); }
 .empty-state strong, .error-state strong { color: var(--text); }
@@ -1779,6 +1795,7 @@ dd { margin: 0; color: var(--muted); }
   .outcome-table tbody td[data-label="Products"],
   .outcome-table tbody td[data-label="Positioning"] { grid-column: 1 / -1; border-right: 0; }
   .outcome-table tbody td[data-label="Details"] { grid-column: 1 / -1; border-right: 0; }
+  .outcome-table tbody td[data-label="Next action"] { grid-column: 1 / -1; border-right: 0; }
   .outcome-detail-toggle { min-height: 44px; }
   .outcome-table tbody tr.outcome-table__detail-row { display: block; margin-top: -10px; border-top: 0; }
   .outcome-table tbody tr.outcome-table__detail-row[hidden] { display: none; }
@@ -1788,6 +1805,7 @@ dd { margin: 0; color: var(--muted); }
   .search-detail__facts { grid-template-columns: 1fr; }
   .search-detail__facts > div { border-right: 0; border-bottom: 1px solid var(--line); }
   .search-detail__facts > div:last-child { border-bottom: 0; }
+  .search-detail__history-charts { grid-template-columns: 1fr; }
   .search-detail__terms table { display: block; min-width: 0; }
   .search-detail__terms thead { display: none; }
   .search-detail__terms tbody { display: grid; gap: 8px; }
@@ -1796,6 +1814,9 @@ dd { margin: 0; color: var(--muted); }
   .search-detail__terms tbody td { display: grid; gap: 3px; padding: 10px 11px; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .search-detail__terms tbody td:nth-child(odd) { border-right: 0; }
   .search-detail__terms tbody td:nth-last-child(-n + 2) { border-bottom: 0; }
+  .search-detail__terms tbody td.search-term__action { grid-column: 1 / -1; border-right: 0; }
+  .search-detail__terms tbody td.search-term__action ~ td:nth-child(odd) { border-right: 1px solid var(--line); }
+  .search-detail__terms tbody td.search-term__action ~ td:nth-child(even) { border-right: 0; }
   .search-detail__terms tbody td::before { content: attr(data-label); color: var(--quiet); font-size: 9px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
   .outcome-project-links a,
   .outcome-project-more { min-height: 44px; }

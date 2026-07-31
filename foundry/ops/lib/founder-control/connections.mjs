@@ -28,6 +28,68 @@ export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+export const SEARCH_ACTION_SAMPLE_FLOORS = Object.freeze({
+  project: 20,
+  query: 10,
+});
+
+export function searchAction({ observed, impressions, clicks, position, sampleFloor }) {
+  if (!observed) {
+    return {
+      id: 'not-measured',
+      label: 'Not measured',
+      reason: 'No completed Google Search observation is available.',
+      priority: 7,
+    };
+  }
+  if (impressions === 0) {
+    return {
+      id: 'check-indexing',
+      label: 'Check indexing',
+      reason: 'Google recorded zero impressions in the completed reporting window.',
+      priority: 1,
+    };
+  }
+  if (impressions < sampleFloor) {
+    return {
+      id: 'collect-more-data',
+      label: 'Collect more data',
+      reason: `${impressions} impressions is below the ${sampleFloor}-impression action floor.`,
+      priority: 6,
+    };
+  }
+  if (position <= 10 && clicks > 0) {
+    return {
+      id: 'protect-and-expand',
+      label: 'Protect and expand',
+      reason: 'This result already ranks on page one and earns clicks.',
+      priority: 5,
+    };
+  }
+  if (position <= 10) {
+    return {
+      id: 'improve-snippet',
+      label: 'Improve snippet',
+      reason: 'This result ranks on page one but has not earned a click.',
+      priority: 2,
+    };
+  }
+  if (position <= 30) {
+    return {
+      id: 'strengthen-ranking-page',
+      label: 'Strengthen ranking page',
+      reason: 'This result is within reach of page one.',
+      priority: 3,
+    };
+  }
+  return {
+    id: 'build-search-relevance',
+    label: 'Build search relevance',
+    reason: 'This result is visible but ranks beyond position 30.',
+    priority: 4,
+  };
+}
+
 const BUCKETS = [
   {
     id: 'helpers',
@@ -1173,21 +1235,41 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
   const searchRows = publicProjects.map((project) => {
     const outcome = project.searchVisibility?.outcome ?? null;
     const impressions = latestOutcomeSignal(project, outcome, 'Search impressions');
+    const clicks = latestOutcomeSignal(project, outcome, 'Search clicks');
+    const averagePosition = latestOutcomeSignal(project, outcome, 'Search average position');
     let status = 'not-measured';
     if (outcome) status = 'zero-impressions';
     if (outcome && Number(impressions?.value) > 0) status = 'observed';
+    const action = searchAction({
+      observed: Boolean(outcome),
+      impressions: Number(impressions?.value ?? 0),
+      clicks: Number(clicks?.value ?? 0),
+      position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
+      sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
+    });
+    const searchTerms = (outcome?.searchTerms ?? []).map((term) => ({
+      ...term,
+      action: searchAction({
+        observed: true,
+        impressions: Number(term.impressions),
+        clicks: Number(term.clicks),
+        position: Number(term.position),
+        sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.query,
+      }),
+    }));
     return {
       projectId: project.projectId,
       catalogProjectId: project.catalogProjectId,
       name: project.name,
       domain: project.domains[0] ?? null,
       status,
+      action,
       impressions,
-      clicks: latestOutcomeSignal(project, outcome, 'Search clicks'),
+      clicks,
       ctr: latestOutcomeSignal(project, outcome, 'Search CTR'),
-      averagePosition: latestOutcomeSignal(project, outcome, 'Search average position'),
+      averagePosition,
       observations: outcome?.observations ?? 0,
-      searchTerms: outcome?.searchTerms ?? [],
+      searchTerms,
       provider: outcome?.provider ?? null,
       scope: outcome?.scope ?? null,
       period: outcome?.period ?? null,

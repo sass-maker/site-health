@@ -32,7 +32,7 @@ function searchObservation(overrides = {}) {
       { label: 'Search average position', value: 14.2 },
     ],
     searchTerms: [
-      { query: 'private pace app', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
+      { query: 'private pace app', landingPage: 'https://heypace.app/private', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
     ],
     ...overrides,
   };
@@ -61,8 +61,36 @@ test('records normalized provider aggregates idempotently', (context) => {
     direction: 'higher-is-better',
   });
   assert.deepEqual(readVisibilityOutcomes({ path })[0].searchTerms, [
-    { query: 'private pace app', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
+    { query: 'private pace app', landingPage: 'https://heypace.app/private', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
   ]);
+});
+
+test('accepts legacy query-only evidence and rejects invalid landing pages', () => {
+  const legacy = searchObservation({
+    searchTerms: [
+      { query: 'private pace app', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
+    ],
+  });
+  const [normalized] = appendVisibilityOutcomeBundle(bundle([legacy]), {
+    path: join(mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-')), 'ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  }).observations;
+  assert.equal('landingPage' in normalized.searchTerms[0], false);
+
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([searchObservation({
+      id: 'search-pace-invalid-page',
+      searchTerms: [{
+        query: 'private pace app',
+        landingPage: 'javascript:alert(1)',
+        impressions: 40,
+        clicks: 5,
+        ctr: 12.5,
+        position: 3.2,
+      }],
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /landingPage must use HTTP or HTTPS/,
+  );
 });
 
 test('rejects the complete bundle before writing any partial observation', (context) => {

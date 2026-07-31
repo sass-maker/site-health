@@ -2068,47 +2068,35 @@ function searchMetric(signal: JsonRecord | null | undefined, kind: SearchMetricK
 }
 
 function searchObservationHistory(row: JsonRecord) {
-  const definitions: Array<{ key: string; label: string; kind: SearchMetricKind }> = [
-    { key: "impressions", label: "Impressions", kind: "count" },
-    { key: "clicks", label: "Clicks", kind: "count" },
-    { key: "ctr", label: "CTR", kind: "percent" },
-    { key: "averagePosition", label: "Avg position", kind: "rank" },
+  const definitions = [
+    { key: "impressions", label: "Search impressions", unit: "impressions", direction: "higher-is-better" },
+    { key: "clicks", label: "Search clicks", unit: "clicks", direction: "higher-is-better" },
+    { key: "averagePosition", label: "Average position", unit: "rank", direction: "lower-is-better" },
   ];
-  const timestamps = new Set<string>();
+  const charts: Node[] = [];
   for (const definition of definitions) {
-    for (const point of row[definition.key]?.series ?? []) {
-      if (point.observedAt) timestamps.add(point.observedAt);
-    }
+    const series = row[definition.key]?.series ?? [];
+    if (series.length < 2) continue;
+    charts.push(historyChart({
+      label: definition.label,
+      unit: definition.unit,
+      direction: definition.direction,
+      series,
+    }));
   }
-  const observedAt = [...timestamps].sort((left, right) => Date.parse(right) - Date.parse(left));
-  if (observedAt.length < 2) return null;
-  const metricAt = (key: string, timestamp: string) => {
-    const point = (row[key]?.series ?? []).find((item: JsonRecord) => item.observedAt === timestamp);
-    return point?.value;
-  };
-  const header = element("tr", {}, [
-    element("th", { scope: "col" }, ["Observed"]),
-    ...definitions.map((definition) => element("th", { scope: "col" }, [definition.label])),
-  ]);
-  const rows = observedAt.map((timestamp) => element("tr", {}, [
-    element("th", { scope: "row" }, [formatted(timestamp)]),
-    ...definitions.map((definition) => element("td", {}, [
-      searchMetricText(metricAt(definition.key, timestamp), definition.kind),
-    ])),
-  ]));
+  if (charts.length === 0) return null;
   return element("div", { class: "search-detail__history" }, [
-    element("h3", {}, ["Recorded observations"]),
-    element("div", { class: "search-detail__history-wrap" }, [
-      element("table", { "aria-label": `${row.name} Google Search observation history` }, [
-        element("thead", {}, [header]),
-        element("tbody", {}, rows),
-      ]),
-    ]),
+    element("h3", {}, ["Search history"]),
+    element("div", { class: "search-detail__history-charts" }, charts),
   ]);
 }
 
 function searchTermsTable(row: JsonRecord) {
-  const terms = row.searchTerms ?? [];
+  const terms = [...(row.searchTerms ?? [])].sort((left: JsonRecord, right: JsonRecord) => {
+    const priority = Number(left.action?.priority ?? 99) - Number(right.action?.priority ?? 99);
+    if (priority !== 0) return priority;
+    return Number(right.impressions ?? 0) - Number(left.impressions ?? 0);
+  });
   if (terms.length === 0) {
     return element("div", { class: "search-detail__terms" }, [
       element("h2", {}, ["Search terms"]),
@@ -2119,27 +2107,83 @@ function searchTermsTable(row: JsonRecord) {
   }
   const header = element("tr", {}, [
     element("th", { scope: "col" }, ["Search term"]),
+    element("th", { scope: "col" }, ["Action"]),
     element("th", { scope: "col" }, ["Impressions"]),
     element("th", { scope: "col" }, ["Clicks"]),
     element("th", { scope: "col" }, ["CTR"]),
     element("th", { scope: "col" }, ["Avg position"]),
   ]);
-  const rows = terms.map((term: JsonRecord) => element("tr", {}, [
-    element("th", { scope: "row" }, [term.query]),
-    element("td", { "data-label": "Impressions" }, [searchMetricText(term.impressions, "count")]),
-    element("td", { "data-label": "Clicks" }, [searchMetricText(term.clicks, "count")]),
-    element("td", { "data-label": "CTR" }, [searchMetricText(term.ctr, "percent")]),
-    element("td", { "data-label": "Avg position" }, [searchMetricText(term.position, "rank")]),
-  ]));
+  const rows = terms.map((term: JsonRecord, index: number) => {
+    const identity: Node[] = [element("strong", {}, [term.query])];
+    if (term.landingPage) {
+      let label = term.landingPage;
+      try {
+        const url = new URL(term.landingPage);
+        label = `${url.hostname}${url.pathname}`;
+      } catch {}
+      identity.push(element("a", {
+        class: "search-term__page",
+        href: term.landingPage,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      }, [label]));
+    } else {
+      identity.push(element("span", { class: "outcome-missing" }, ["Landing page unavailable"]));
+    }
+    const row = element("tr", {}, [
+      element("th", { scope: "row", class: "search-term__identity" }, identity),
+      element("td", { "data-label": "Action", class: "search-term__action" }, [searchActionLabel(term.action)]),
+      element("td", { "data-label": "Impressions" }, [searchMetricText(term.impressions, "count")]),
+      element("td", { "data-label": "Clicks" }, [searchMetricText(term.clicks, "count")]),
+      element("td", { "data-label": "CTR" }, [searchMetricText(term.ctr, "percent")]),
+      element("td", { "data-label": "Avg position" }, [searchMetricText(term.position, "rank")]),
+    ]);
+    if (index >= 10) row.hidden = true;
+    return row;
+  });
+  const table = element("table", { "aria-label": `${row.name} Google Search terms` }, [
+    element("thead", {}, [header]),
+    element("tbody", {}, rows),
+  ]);
+  const controls: Node[] = [];
+  if (rows.length > 10) {
+    const button = element("button", {
+      type: "button",
+      class: "secondary-action search-terms-toggle",
+      "aria-expanded": "false",
+    }, [`Show ${rows.length - 10} more`]);
+    button.addEventListener("click", () => {
+      const expanded = button.getAttribute("aria-expanded") === "true";
+      for (const item of rows.slice(10)) item.hidden = expanded;
+      button.setAttribute("aria-expanded", String(!expanded));
+      button.textContent = expanded ? `Show ${rows.length - 10} more` : "Show fewer";
+    });
+    controls.push(button);
+  }
   return element("div", { class: "search-detail__terms" }, [
     element("h2", {}, ["Search terms"]),
-    element("div", { class: "search-detail__terms-wrap" }, [
-      element("table", { "aria-label": `${row.name} Google Search terms` }, [
-        element("thead", {}, [header]),
-        element("tbody", {}, rows),
-      ]),
-    ]),
+    element("div", { class: "search-detail__terms-wrap" }, [table]),
+    ...controls,
   ]);
+}
+
+function searchActionLabel(action?: JsonRecord | null) {
+  if (!action?.label) return element("span", { class: "outcome-missing" }, ["Not measured"]);
+  const reason = action.reason ? `${action.label}: ${action.reason}` : action.label;
+  return element("span", {
+    class: `search-action search-action--${action.id ?? "unknown"}`,
+    title: action.reason ?? "",
+    "aria-label": reason,
+  }, [
+    element("strong", {}, [action.label]),
+    action.reason ? element("small", {}, [action.reason]) : null,
+  ]);
+}
+
+function searchActionSortValue(action?: JsonRecord | null) {
+  const priority = Number(action?.priority);
+  if (!Number.isFinite(priority)) return null;
+  return -priority;
 }
 
 function searchOutcomeDetails(row: JsonRecord) {
@@ -2168,9 +2212,9 @@ function searchOutcomeDetails(row: JsonRecord) {
       element("div", {}, [element("dt", {}, ["Property scope"]), element("dd", {}, [row.scope ?? "Not measured"])]),
       element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
     ]),
-    searchTermsTable(row),
   ];
   if (history) content.push(history);
+  content.push(searchTermsTable(row));
   return element("div", { class: "search-detail" }, content);
 }
 
@@ -2185,6 +2229,7 @@ async function renderSearch() {
     { key: "clicks", label: "Clicks", description: "Sort by Google Search clicks", value: (row) => row.clicks?.value, render: (row) => searchMetric(row.clicks, "count") },
     { key: "ctr", label: "CTR", description: "Sort by click-through rate", value: (row) => row.ctr?.value, render: (row) => searchMetric(row.ctr, "percent") },
     { key: "position", label: "Avg position", description: "Sort by average Google Search position", value: (row) => row.averagePosition?.value, render: (row) => searchMetric(row.averagePosition, "rank") },
+    { key: "action", label: "Next action", description: "Sort by recommended next action", value: (row) => searchActionSortValue(row.action), render: (row) => searchActionLabel(row.action) },
     { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
   ];
   replace("search", rows.length

@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-31
+Last updated: 2026-08-01
 
 ## Why / What
 
@@ -62,14 +62,21 @@ CodeVetter or App Health source.
 
 ## Timeline
 
-- **2026-07-31 — Google Search became a portfolio outcome ledger:** Added a
+- **2026-08-01 — Google Search became an action ledger:** Added a
   fourth Metrics route for all 27 canonical public projects with sortable
-  impressions, clicks, CTR, average position, and last-observed values. Each
-  project expands in place to show the exact Search Console scope, completed
-  reporting period, retained snapshots, and up to 25 normalized search terms.
+  impressions, clicks, CTR, average position, next action, and last-observed
+  values. Each project expands in place to show the exact Search Console scope,
+  completed reporting period, retained snapshots, and up to 25 normalized
+  query-page results with direct landing-page links and conservative actions.
+  Expanded project history uses hoverable graphs for impressions, clicks, and
+  average position, while the initial query list is capped at ten with an
+  explicit Show more control.
+  Recommendations are derived from explicit sample floors and ranking bands;
+  they are not stored and cannot mutate content or Search Console.
   The page header shows the shared reporting window and duration separately
   from the evidence rebuild time.
-  The latest read-only collection returned 69 terms across seven projects;
+  The latest read-only collection covered all 27 projects with no unavailable
+  properties and returned 72 query-page rows;
   privacy-filtered or zero-volume results stay explicit instead of being
   invented. Local tests, build, strict OpenSpec validation, and responsive
   review passed; no deployment was performed.

@@ -7,8 +7,10 @@ import test from 'node:test';
 
 import {
   CONNECTIONS_SCHEMA_VERSION,
+  SEARCH_ACTION_SAMPLE_FLOORS,
   buildFleetConnections,
   readSkillRunOutput,
+  searchAction,
 } from '../lib/founder-control/connections.mjs';
 import { SkillRunStore } from '../lib/skill-run-store.mjs';
 import {
@@ -21,6 +23,17 @@ import {
 } from '../lib/visibility-outcome-store.mjs';
 
 const now = '2026-07-30T10:00:00.000Z';
+
+test('derives conservative Search actions from explicit boundaries', () => {
+  const floor = SEARCH_ACTION_SAMPLE_FLOORS.query;
+  assert.equal(searchAction({ observed: false, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'not-measured');
+  assert.equal(searchAction({ observed: true, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'check-indexing');
+  assert.equal(searchAction({ observed: true, impressions: 9, clicks: 0, position: 1, sampleFloor: floor }).id, 'collect-more-data');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 8, sampleFloor: floor }).id, 'improve-snippet');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 1, position: 8, sampleFloor: floor }).id, 'protect-and-expand');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 20, sampleFloor: floor }).id, 'strengthen-ranking-page');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 31, sampleFloor: floor }).id, 'build-search-relevance');
+});
 
 function writeJson(path, value) {
   mkdirSync(dirname(path), { recursive: true });
@@ -441,6 +454,7 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(searchRow.averagePosition.series.length, 1);
   assert.equal(searchRow.observations, 2);
   assert.equal(searchRow.scope, 'sc-domain:heypace.app');
+  assert.equal(searchRow.action.id, 'check-indexing');
 });
 
 test('builds one honest six-bucket projection from readable Fleet evidence', () => {

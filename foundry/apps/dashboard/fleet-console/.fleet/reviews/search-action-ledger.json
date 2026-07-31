@@ -1,0 +1,62 @@
+{
+  "$schema": "fleet.design-review.v1",
+  "version": 1,
+  "project": "fleet-console",
+  "target": "Google Search action ledger and project history",
+  "mode": "preserve",
+  "register": "product",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
+  },
+  "direction": {
+    "references": [
+      "Existing Google Search portfolio ledger",
+      "Existing Foundry history charts"
+    ],
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
+    "before": "artifacts/design/google-search/after-1440.png"
+  },
+  "evidence": {
+    "screenshots": [
+      {
+        "width": 390,
+        "path": "artifacts/design/search-action-ledger/after-390.png"
+      },
+      {
+        "width": 768,
+        "path": "artifacts/design/search-action-ledger/after-768.png"
+      },
+      {
+        "width": 1440,
+        "path": "artifacts/design/search-action-ledger/after-1440.png"
+      }
+    ],
+    "projectCheck": {
+      "command": "pnpm build",
+      "status": "pass"
+    },
+    "critique": {
+      "score": 33,
+      "maximum": 40
+    },
+    "audit": {
+      "score": 17,
+      "maximum": 20
+    },
+    "unresolved": {
+      "p0": 0,
+      "p1": 0
+    },
+    "detector": {
+      "posture": "advisory",
+      "findings": []
+    }
+  },
+  "ownerFeedback": {
+    "decision": "delegated",
+    "note": "Owner approved the restrained action-ledger direction and explicitly requested graphs for impressions, clicks, and average position."
+  }
+}

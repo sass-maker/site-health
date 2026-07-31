@@ -134,18 +134,27 @@ export async function collectSearchConsoleOutcomes({
           startDate,
           endDate,
           pageFilter: selected.pageFilter,
-          dimensions: ['query'],
+          dimensions: ['query', 'page'],
           rowLimit: searchTermLimit,
         }),
       },
     );
     const searchTerms = (termResult.rows ?? []).flatMap((term) => {
       const query = String(term.keys?.[0] ?? '').replace(/\s+/g, ' ').trim();
+      let landingPage = null;
+      try {
+        const url = new URL(String(term.keys?.[1] ?? ''));
+        if (!['http:', 'https:'].includes(url.protocol)) return [];
+        landingPage = url.href;
+      } catch {
+        return [];
+      }
       if (!query || !Number.isFinite(Number(term.position)) || Number(term.position) <= 0) {
         return [];
       }
       return [{
         query,
+        landingPage,
         impressions: Number(term.impressions ?? 0),
         clicks: Number(term.clicks ?? 0),
         ctr: Number(term.ctr ?? 0) * 100,

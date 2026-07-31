@@ -95,9 +95,23 @@ function normalizeSearchTerms(searchTerms, family) {
   assert(searchTerms.length <= 50, 'observation.searchTerms exceeds 50 entries');
   const normalized = searchTerms.map((term, index) => {
     const path = `observation.searchTerms[${index}]`;
-    assertKnownKeys(term, new Set(['query', 'impressions', 'clicks', 'ctr', 'position']), path);
+    assertKnownKeys(term, new Set(['query', 'landingPage', 'impressions', 'clicks', 'ctr', 'position']), path);
     const query = String(term.query ?? '').replace(/\s+/g, ' ').trim();
     assert(query.length > 0 && query.length <= 300, `${path}.query must be 1-300 characters`);
+    let landingPage = null;
+    if (term.landingPage !== undefined && term.landingPage !== null) {
+      assert(typeof term.landingPage === 'string', `${path}.landingPage must be a URL`);
+      assert(term.landingPage.length <= 2048, `${path}.landingPage is too long`);
+      try {
+        const url = new URL(term.landingPage);
+        assert(['http:', 'https:'].includes(url.protocol), `${path}.landingPage must use HTTP or HTTPS`);
+        assert(!url.username && !url.password, `${path}.landingPage must not contain credentials`);
+        landingPage = url.href;
+      } catch (error) {
+        if (error?.message?.startsWith(`${path}.landingPage`)) throw error;
+        throw new Error(`${path}.landingPage must be a URL`);
+      }
+    }
     const impressions = Number(term.impressions);
     const clicks = Number(term.clicks);
     const ctr = Number(term.ctr);
@@ -106,11 +120,18 @@ function normalizeSearchTerms(searchTerms, family) {
     assert(Number.isFinite(clicks) && clicks >= 0, `${path}.clicks is invalid`);
     assert(Number.isFinite(ctr) && ctr >= 0 && ctr <= 100, `${path}.ctr is invalid`);
     assert(Number.isFinite(position) && position > 0, `${path}.position is invalid`);
-    return { query, impressions, clicks, ctr, position };
+    return {
+      query,
+      ...(landingPage ? { landingPage } : {}),
+      impressions,
+      clicks,
+      ctr,
+      position,
+    };
   });
   assert(
-    new Set(normalized.map((term) => term.query)).size === normalized.length,
-    'observation.searchTerms contains duplicate queries',
+    new Set(normalized.map((term) => `${term.query}\n${term.landingPage ?? ''}`)).size === normalized.length,
+    'observation.searchTerms contains duplicate query-page rows',
   );
   return normalized;
 }

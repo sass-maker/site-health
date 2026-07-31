@@ -38,8 +38,8 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     if (body.dimensions?.includes('query')) {
       return filter === 'https://one.example.com/'
         ? Response.json({ rows: [
-            { keys: ['private pace app'], clicks: 2, impressions: 10, ctr: 0.2, position: 2.5 },
-            { keys: ['heypace'], clicks: 0, impressions: 4, ctr: 0, position: 6 },
+            { keys: ['private pace app', 'https://one.example.com/private'], clicks: 2, impressions: 10, ctr: 0.2, position: 2.5 },
+            { keys: ['heypace', 'https://one.example.com/'], clicks: 0, impressions: 4, ctr: 0, position: 6 },
           ] })
         : Response.json({});
     }
@@ -80,11 +80,11 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     { label: 'Search CTR', value: 0 },
   ]);
   assert.deepEqual(result.bundle.observations[0].searchTerms, [
-    { query: 'private pace app', impressions: 10, clicks: 2, ctr: 20, position: 2.5 },
-    { query: 'heypace', impressions: 4, clicks: 0, ctr: 0, position: 6 },
+    { query: 'private pace app', landingPage: 'https://one.example.com/private', impressions: 10, clicks: 2, ctr: 20, position: 2.5 },
+    { query: 'heypace', landingPage: 'https://one.example.com/', impressions: 4, clicks: 0, ctr: 0, position: 6 },
   ]);
   assert.deepEqual(result.bundle.observations[1].searchTerms, []);
-  assert.deepEqual(requests[2].body.dimensions, ['query']);
+  assert.deepEqual(requests[2].body.dimensions, ['query', 'page']);
   assert.equal(requests[2].body.rowLimit, 25);
   assert.equal(result.bundle.observations[0].period.start, '2026-07-01T00:00:00.000Z');
   assert.equal(result.bundle.observations[0].period.end, '2026-07-28T23:59:59.999Z');
