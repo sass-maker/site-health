@@ -107,9 +107,10 @@ Internal (fleet):
   **manual dispatch only** (not push) — `main` stays releasable but is not an
   automatic production trigger. The action runs from `workingDirectory: web`
   with the locally pinned wrangler (the action's own install fails inside this
-  pnpm monorepo). Repo-local guarded deploy: `pnpm deploy`. A separate
-  `.github/workflows/docs.yml` validates `docs/` + builds the Blume site on
-  docs-path changes.
+  pnpm monorepo). Repo-local guarded deploy: `pnpm deploy`.
+  `.github/workflows/psi-swarm-ci.yml` runs the CLI regression suite, CLI/web
+  builds, and docs checks for helper changes; `.github/workflows/docs.yml`
+  separately validates docs paths and builds the Blume site.
 - **Installable skill** — `pnpm install:skill` installs the Claude/Codex skill
   documenting usage paths.
 

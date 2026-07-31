@@ -11,9 +11,8 @@ description: The current test and quality checks.
 - The `cli` package has a narrow Node test suite for the external trace-insight
   adapter boundary. Run it with `pnpm --filter psi-swarm test`.
 - The `web` package has no test script; its build is `astro build`.
-- There is no CI workflow that runs tests on push — the only workflows are
-  `.github/workflows/deploy.yml` (manual dispatch) and
-  `.github/workflows/docs.yml` (docs paths only). See
+- `.github/workflows/psi-swarm-ci.yml` runs the CLI suite, CLI/web builds, and
+  docs checks for helper pull requests and pushes to `main`. See
   [operations → deploy](../operations/deploy.md).
 
 ## What stands in for tests
@@ -45,4 +44,4 @@ is the next highest-value unit-test surface.
 - Add a `ci.yml` workflow that runs the suite on push — note that
   `scripts/manual-deploy.mjs` already references `ci.yml` as the
   green-gate, but **no `ci.yml` exists yet** (see
-  [operations → deploy](../operations/deploy.md#known-gap-no-push-triggered-ci)).
+  [operations → deploy](../operations/deploy.md#path-scoped-ci-and-deploy-gate)).
