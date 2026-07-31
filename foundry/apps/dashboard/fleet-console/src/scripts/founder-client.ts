@@ -2019,6 +2019,36 @@ function searchReportingDay(value: string) {
   }).format(new Date(value));
 }
 
+function updateSearchPeriod(rows: JsonRecord[]) {
+  const target = document.querySelector<HTMLElement>("[data-search-period]");
+  if (!target) return;
+  const periods = new Map<string, { start: string; end: string }>();
+  for (const row of rows) {
+    const start = row.period?.start;
+    const end = row.period?.end;
+    if (typeof start !== "string" || typeof end !== "string") continue;
+    periods.set(`${start}\n${end}`, { start, end });
+  }
+  if (periods.size === 0) {
+    target.textContent = "Reporting period not measured";
+    return;
+  }
+  if (periods.size > 1) {
+    target.textContent = "Reporting periods vary by project";
+    return;
+  }
+  const period = periods.values().next().value;
+  if (!period) return;
+  let label = `Reporting period ${searchReportingDay(period.start)} – ${searchReportingDay(period.end)}`;
+  const startTime = Date.parse(period.start);
+  const endTime = Date.parse(period.end);
+  if (Number.isFinite(startTime) && Number.isFinite(endTime) && endTime >= startTime) {
+    const days = Math.floor((endTime - startTime) / 86_400_000) + 1;
+    label = `${label} · ${days} days`;
+  }
+  target.textContent = label;
+}
+
 function searchMetricText(value: unknown, kind: SearchMetricKind) {
   if (typeof value !== "number" || !Number.isFinite(value)) return "Not measured";
   const numericValue = value;
@@ -2148,6 +2178,7 @@ async function renderSearch() {
   const payload = await api("/v1/outcomes/search");
   updateOutcomeTime(payload.generatedAt);
   const rows = payload.rows ?? [];
+  updateSearchPeriod(rows);
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "search") },
     { key: "impressions", label: "Impressions", description: "Sort by Google Search impressions", value: (row) => row.impressions?.value, render: (row) => searchMetric(row.impressions, "count") },

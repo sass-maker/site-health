@@ -67,6 +67,8 @@ CodeVetter or App Health source.
   impressions, clicks, CTR, average position, and last-observed values. Each
   project expands in place to show the exact Search Console scope, completed
   reporting period, retained snapshots, and up to 25 normalized search terms.
+  The page header shows the shared reporting window and duration separately
+  from the evidence rebuild time.
   The latest read-only collection returned 69 terms across seven projects;
   privacy-filtered or zero-volume results stay explicit instead of being
   invented. Local tests, build, strict OpenSpec validation, and responsive
