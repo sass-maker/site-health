@@ -32,12 +32,7 @@
     "swe-interview-prep",
     "what-it-takes-to-win"
   ],
-  "rejectedProjects": [
-    {
-      "projectId": "knowledge-base",
-      "reason": "validation-failed"
-    }
-  ],
+  "rejectedProjects": [],
   "projects": [
     {
       "projectId": "anime-list",
@@ -61,7 +56,7 @@
         },
         {
           "path": "PROJECT_STATUS.md",
-          "sha256": "30e3863c6fa90cb97a9c5f562d0ef8c8b32e63618aad9a14d9d7841be2850bda"
+          "sha256": "b6a29e34cc7e6cbbce9459a376a21fcee2e7a75ba8a0fbac818a433ea488b7e5"
         },
         {
           "path": "README.md",
@@ -547,6 +542,45 @@
       "ownerDecision": "delegated"
     },
     {
+      "projectId": "knowledge-base",
+      "receiptSha256": "bc963ba4702ad835d27c6b1f55ad9b2d790fd086260dec104cfb3705dac9a753",
+      "evidenceFiles": [
+        {
+          "path": ".fleet/evidence/public-landing/after-1440.png",
+          "sha256": "ee4ae5818ca22d30234385565d1afb5144fa01655be22cf77e1053d704b2a66e"
+        },
+        {
+          "path": ".fleet/evidence/public-landing/after-390.png",
+          "sha256": "afb03ec7e64d3bcd4e87f4a7bd66254723bfab2652f9d47eccbb8156983d5fa6"
+        },
+        {
+          "path": ".fleet/evidence/public-landing/after-768.png",
+          "sha256": "b18e10011aff983bf6d1808dde645f6dcc3436d711910c0edc2e7bcd55ccc1cb"
+        },
+        {
+          "path": ".fleet/evidence/public-landing/before-1440.png",
+          "sha256": "0d7406215b049fd73a13a953f391356c814d79b0796bd694d51f7d739134d99b"
+        },
+        {
+          "path": "DESIGN.md",
+          "sha256": "6a7290a6b8cf18d2c99bdcf55b5513143e8aaa01788613f282b127f3d5a4b1f2"
+        },
+        {
+          "path": "PRODUCT.md",
+          "sha256": "6eed9f03b5a2e226403349719ab7d7e60eaf110bb3a8802853a2d9b240b9d761"
+        }
+      ],
+      "critique": {
+        "score": 36,
+        "maximum": 40
+      },
+      "audit": {
+        "score": 19,
+        "maximum": 20
+      },
+      "ownerDecision": "delegated"
+    },
+    {
       "projectId": "looptv",
       "receiptSha256": "dd74d2649a479ffc7688b17f9086cb80d45cb7692932189c2b583d460dca0ac0",
       "evidenceFiles": [
@@ -977,19 +1011,19 @@
     },
     {
       "projectId": "swe-interview-prep",
-      "receiptSha256": "1fbdbaf293aceab64ff1dfe6207fdd7fcc3563294472e7bf104c0f13a11b4728",
+      "receiptSha256": "78ae568b6a02338c6ad5e7e1da3b5ad09dbc906faaea410b13931cd142a94eb3",
       "evidenceFiles": [
         {
           "path": "artifacts/design/after-1440.png",
-          "sha256": "610a80cd779a388eee27dbf0e01556cb54dec4f6884b5c046087097c40c0ebda"
+          "sha256": "5ecd321b8596e997c0f1be00fc0cc898fa8a7399df88f2310dfcb27066aa20f8"
         },
         {
           "path": "artifacts/design/after-390.png",
-          "sha256": "5f8c575a9ec0e7607f1eb0f24c2427cd10dc2c9492032f5d8a47fd5fa67b4087"
+          "sha256": "761e78745949ec0f51f37bf8a3cda9c2a8c1c9f029003a9f6cc22c464b852279"
         },
         {
           "path": "artifacts/design/after-768.png",
-          "sha256": "e5f8b189dc5dcab4b7014f4d6851eccc58c4fe8f4e90270232a1c5858aad4b8f"
+          "sha256": "a9f534fe5e604249884ef18230727bf01a54494ba1a9878b84dec26c723c811c"
         },
         {
           "path": "artifacts/design/before.png",
@@ -1005,11 +1039,11 @@
         }
       ],
       "critique": {
-        "score": 28,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
-        "score": 15,
+        "score": 19,
         "maximum": 20
       },
       "ownerDecision": "delegated"

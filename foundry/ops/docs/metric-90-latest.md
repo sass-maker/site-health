@@ -1,6 +1,6 @@
 # Fleet metric 90 gate
 
-Generated 2026-07-31T00:59:43.180Z from the canonical visibility project set.
+Generated 2026-07-31T01:20:23.140Z from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
 visibility fail closed. D-Rank and search are external outcomes; the report
@@ -18,7 +18,7 @@ does not replace them with technical proxies.
 | AI crawlability ≥90 | 18/27 | 9 |
 | PSI performance ≥90 | 25/27 | 2 |
 | LCP ≤2.5 s | 27/27 | 0 |
-| Design critique and audit ≥90% | 18/27 | 9 |
+| Design critique and audit ≥90% | 20/27 | 7 |
 
 ## Projects
 
@@ -35,14 +35,14 @@ does not replace them with technical proxies.
 | PSI Swarm | 7 | C | 0 | 80 | 60 | 100 | 99 | 762.0 ms | 90% / 95% | 4/9 |
 | High Signal | 8 | C | 0 | 80 | 50 | 100 | 98 | 925.9 ms | 93% / 95% | 4/9 |
 | Research Papers | 8 | C | 0 | 90 | 1.3 | 100 | 100 | 481.5 ms | 90% / 95% | 5/9 |
-| Knowledge Base | 7 | C | 0 | 11 | 0 | 33 | 92 | 1662.5 ms | — | 2/9 |
+| Knowledge Base | 7 | C | 0 | 11 | 0 | 33 | 92 | 1662.5 ms | 90% / 95% | 3/9 |
 | Significant Hobbies | 7 | A | 0 | 80 | 0.8 | 100 | 87 | 1513.0 ms | 90% / 90% | 4/9 |
 | India Standards | 7 | C | 0 | 11 | 0 | 33 | 90 | 1507.7 ms | 83% / 95% | 2/9 |
 | Anime List | 7 | C | 0 | 56 | 0.4 | 67 | 100 | 507.6 ms | 88% / 90% | 2/9 |
 | Chess | 7 | C | 0 | 90 | 60 | 100 | 99 | 760.2 ms | 90% / 90% | 5/9 |
 | LoopTV | 7 | C | 0 | 90 | 3.4 | 100 | 90 | 1410.3 ms | 88% / 90% | 4/9 |
 | Reader | 7 | C | 0 | 100 | 100 | 100 | 98 | 895.7 ms | 90% / 90% | 6/9 |
-| SWE Interview Prep | 7 | C | 0 | 80 | 2.4 | 100 | 96 | 1428.4 ms | 70% / 75% | 3/9 |
+| SWE Interview Prep | 7 | C | 0 | 80 | 2.4 | 100 | 96 | 1428.4 ms | 90% / 95% | 4/9 |
 | Calorie | 7 | C | 0 | 33 | 0 | 33 | 97 | 1082.5 ms | 90% / 90% | 3/9 |
 | Setline | 7 | C | 0 | 11 | 0 | 33 | 89 | 1832.1 ms | 90% / 90% | 2/9 |
 | RolePatch | 5 | C | 0 | 80 | 15 | 100 | 100 | 426.5 ms | 83% / 85% | 3/9 |
@@ -117,7 +117,6 @@ does not replace them with technical proxies.
 - **Knowledge Base · Agent readiness ≥90** — current 11; target ≥90
 - **Knowledge Base · Agent-readable coverage ≥90** — current 0; target ≥90
 - **Knowledge Base · AI crawlability ≥90** — current 33; target ≥90
-- **Knowledge Base · Design critique and audit ≥90%** — no valid design-review receipt
 - **Significant Hobbies · D-Rank ≥90** — current 7; target ≥90
 - **Significant Hobbies · Live AI visibility ≥90** — fixture-only evidence
 - **Significant Hobbies · Agent readiness ≥90** — current 80; target ≥90
@@ -154,7 +153,6 @@ does not replace them with technical proxies.
 - **SWE Interview Prep · Live AI visibility ≥90** — fixture-only evidence
 - **SWE Interview Prep · Agent readiness ≥90** — current 80; target ≥90
 - **SWE Interview Prep · Agent-readable coverage ≥90** — current 2.4; target ≥90
-- **SWE Interview Prep · Design critique and audit ≥90%** — critique 70% · audit 75%
 - **Calorie · D-Rank ≥90** — current 7; target ≥90
 - **Calorie · Search class A** — current class C
 - **Calorie · Live AI visibility ≥90** — fixture-only evidence
