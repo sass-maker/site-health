@@ -60,3 +60,13 @@ export function domainStrengthRoots(projects) {
       .map(registrableDomain),
   )].sort((left, right) => left.localeCompare(right));
 }
+
+export function publicMetricTargets(projects) {
+  return projects
+    .filter(isPublicMetricProject)
+    .flatMap((project) => {
+      const domain = normalizedDomain(project.domains?.[0]);
+      return domain ? [{ projectId: project.id, domain }] : [];
+    })
+    .sort((left, right) => left.projectId.localeCompare(right.projectId));
+}

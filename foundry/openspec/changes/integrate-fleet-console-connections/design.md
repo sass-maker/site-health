@@ -325,6 +325,16 @@ represented by the page rather than every project subdomain. The client polls
 the same bounded metric-run receipt used by project actions and reloads the
 Domains projection only after the batch completes.
 
+Performance follows the same portfolio-action contract but retains project
+scope: its Re-run all action derives the canonical public metric projects from
+the shared domain-scope resolver and hands their URLs to one allowlisted
+orchestrator. That child runs the existing PSI Swarm command sequentially for
+each project, preserving a single writer for the shared performance history.
+One portfolio receipt carries progress and completion state; the client reloads
+the bounded Performance projection after success. Each Performance row also
+uses the existing project-scoped PSI receipt for a single-product Re-run, with
+the same polling and refresh behavior but without entering the portfolio queue.
+
 ## Risks / Trade-offs
 
 - **Machine-local stores are absent on a fresh clone** → Return `unavailable`

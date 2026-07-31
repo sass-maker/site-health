@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Performance became directly refreshable:** Removed the
+  redundant guardrail section chrome, added one Re-run all action for the 27
+  canonical public metric projects, and added a project-scoped Re-run on every
+  row. The portfolio path runs existing PSI Swarm measurements sequentially
+  through one receipt and derives targets from the same shared eligibility
+  resolver as the page. No measurement or deployment was triggered while
+  shipping the controls.
 - **2026-07-31 — Domains became one direct, safely refreshable ledger:** Removed
   redundant section and summary chrome, kept the dated D-Rank trends, and added
   one localhost-authorized Re-run action. Display coverage and batch targets now

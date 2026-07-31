@@ -1328,18 +1328,14 @@ function metricRunButton(project: JsonRecord, family: MetricFamily) {
     button.textContent = "Starting…";
     statusText.textContent = "";
     try {
-      let run = await mutate("/v1/metric-runs", {
+      button.textContent = "Running…";
+      const run = await startAndPollMetricRun({
         family,
         projectId: project.catalogProjectId ?? project.projectId,
+        statusText,
+        isConnected: () => button.isConnected,
       });
-      button.textContent = "Running…";
-      statusText.textContent = run.summary;
-      for (let attempt = 0; attempt < 240 && run.state === "running"; attempt += 1) {
-        await new Promise((resolve) => window.setTimeout(resolve, 1500));
-        if (!button.isConnected) return;
-        run = await api(`/v1/metric-runs/${encodeURIComponent(run.runId)}`);
-        statusText.textContent = run.summary;
-      }
+      if (!run) return;
       if (run.state === "succeeded") {
         button.textContent = "Completed";
         if (document.body.dataset.founderView === "project") {
@@ -1672,6 +1668,7 @@ type OutcomeColumn = {
   key: string;
   label: string;
   description: string;
+  sortable?: boolean;
   value: (row: JsonRecord) => string | number | null | undefined;
   render: (row: JsonRecord) => Node | string;
 };
@@ -1729,6 +1726,11 @@ function outcomeTable(
 
   const header = element("tr", {}, columns.map((column) => {
     const cell = element("th", { scope: "col", "aria-sort": "none" });
+    if (column.sortable === false) {
+      cell.removeAttribute("aria-sort");
+      cell.append(element("span", { class: "outcome-table__label" }, [column.label]));
+      return cell;
+    }
     const button = element("button", {
       type: "button",
       title: column.description,
@@ -1757,6 +1759,34 @@ function outcomeTable(
     status,
     table,
   ]);
+}
+
+async function startAndPollMetricRun({
+  family,
+  projectId,
+  scope = "project",
+  statusText,
+  maxAttempts = 240,
+  isConnected,
+}: {
+  family: string;
+  projectId?: string;
+  scope?: "project" | "portfolio";
+  statusText?: HTMLElement | null;
+  maxAttempts?: number;
+  isConnected: () => boolean;
+}) {
+  const request: JsonRecord = { family, scope };
+  if (projectId) request.projectId = projectId;
+  let run = await mutate("/v1/metric-runs", request);
+  if (statusText) statusText.textContent = run.summary;
+  for (let attempt = 0; attempt < maxAttempts && run.state === "running"; attempt += 1) {
+    await new Promise((resolve) => window.setTimeout(resolve, 1500));
+    if (!isConnected()) return null;
+    run = await api(`/v1/metric-runs/${encodeURIComponent(run.runId)}`);
+    if (statusText) statusText.textContent = run.summary;
+  }
+  return run;
 }
 
 function outcomeSignal(signal?: JsonRecord | null) {
@@ -1940,36 +1970,68 @@ async function renderDomains() {
     : empty("No matching domain", "The current project scope has no public domain."));
 }
 
-function bindDomainRefresh() {
-  const button = document.querySelector<HTMLButtonElement>("[data-domain-refresh]");
-  const statusText = document.querySelector<HTMLElement>("[data-domain-refresh-status]");
+type PortfolioMetricFamily = "drank" | "psi";
+
+const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
+  idleLabel: string;
+  runningLabel: string;
+  startingMessage: string;
+  completedMessage: string;
+  failureMessage: string;
+  maxAttempts: number;
+  refresh: () => Promise<void>;
+}> = {
+  drank: {
+    idleLabel: "Re-run",
+    runningLabel: "Re-running…",
+    startingMessage: "Starting D-Rank refresh…",
+    completedMessage: "D-Rank updated.",
+    failureMessage: "D-Rank refresh failed.",
+    maxAttempts: 240,
+    refresh: renderDomains,
+  },
+  psi: {
+    idleLabel: "Re-run all",
+    runningLabel: "Running all…",
+    startingMessage: "Starting performance refresh…",
+    completedMessage: "Performance updated.",
+    failureMessage: "Performance refresh failed.",
+    maxAttempts: 2400,
+    refresh: renderPerformance,
+  },
+};
+
+function bindPortfolioRefresh(family: PortfolioMetricFamily) {
+  const config = PORTFOLIO_REFRESH_CONFIG[family];
+  const button = document.querySelector<HTMLButtonElement>(`[data-portfolio-refresh="${family}"]`);
+  const statusText = document.querySelector<HTMLElement>(`[data-portfolio-refresh-status="${family}"]`);
   if (!button || button.dataset.bound === "true") return;
   button.dataset.bound = "true";
   button.addEventListener("click", async () => {
     button.disabled = true;
-    button.textContent = "Re-running…";
-    if (statusText) statusText.textContent = "Starting D-Rank refresh…";
+    button.textContent = config.runningLabel;
+    if (statusText) statusText.textContent = config.startingMessage;
     try {
-      let run = await mutate("/v1/metric-runs", { family: "drank", scope: "portfolio" });
-      if (statusText) statusText.textContent = run.summary;
-      for (let attempt = 0; attempt < 240 && run.state === "running"; attempt += 1) {
-        await new Promise((resolve) => window.setTimeout(resolve, 1500));
-        if (!button.isConnected) return;
-        run = await api(`/v1/metric-runs/${encodeURIComponent(run.runId)}`);
-        if (statusText) statusText.textContent = run.summary;
-      }
+      const run = await startAndPollMetricRun({
+        family,
+        scope: "portfolio",
+        statusText,
+        maxAttempts: config.maxAttempts,
+        isConnected: () => button.isConnected,
+      });
+      if (!run) return;
       if (run.state !== "succeeded") {
-        throw new Error(run.summary || "D-Rank refresh failed.");
+        throw new Error(run.summary || config.failureMessage);
       }
-      await renderDomains();
-      if (statusText) statusText.textContent = "D-Rank updated.";
+      await config.refresh();
+      if (statusText) statusText.textContent = config.completedMessage;
     } catch (error) {
       if (statusText) {
-        statusText.textContent = error instanceof Error ? error.message : "D-Rank refresh failed.";
+        statusText.textContent = error instanceof Error ? error.message : config.failureMessage;
       }
     } finally {
       button.disabled = false;
-      button.textContent = "Re-run";
+      button.textContent = config.idleLabel;
     }
   });
 }
@@ -1994,18 +2056,49 @@ async function renderAiAwareness() {
     : empty("No core project in scope", "AI awareness is limited to maintained P1 products."));
 }
 
+function performanceRunControl(row: JsonRecord) {
+  const wrap = element("div", { class: "outcome-run-control" });
+  const statusText = element("span", { role: "status", "aria-live": "polite" });
+  const button = element("button", { type: "button", class: "secondary-action" }, ["Re-run"]);
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    button.textContent = "Running…";
+    statusText.textContent = "Starting PSI…";
+    try {
+      const run = await startAndPollMetricRun({
+        family: "psi",
+        projectId: row.catalogProjectId ?? row.projectId,
+        statusText,
+        isConnected: () => button.isConnected,
+      });
+      if (!run) return;
+      if (run.state !== "succeeded") {
+        throw new Error(run.summary || "Performance refresh failed.");
+      }
+      statusText.textContent = "Updated.";
+      await renderPerformance();
+    } catch (error) {
+      statusText.textContent = error instanceof Error ? error.message : "Performance refresh failed.";
+    } finally {
+      button.disabled = false;
+      button.textContent = "Re-run";
+    }
+  });
+  wrap.append(button, statusText);
+  return wrap;
+}
+
 async function renderPerformance() {
   const payload = await api("/v1/outcomes/performance");
   updateOutcomeTime(payload.generatedAt);
   const rows = payload.rows ?? [];
-  const count = document.querySelector<HTMLElement>('[data-founder-count="performance"]');
-  if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "performance") },
     { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
     { key: "lcp", label: "LCP", description: "Sort by Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
     { key: "observed", label: "Observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+    { key: "run", label: "Run", description: "Refresh one product", sortable: false, value: (row) => row.projectId, render: performanceRunControl },
   ];
   replace("performance", rows.length
     ? outcomeTable(rows, columns, "project", "Fleet public product performance")
@@ -2602,7 +2695,7 @@ async function start() {
   try {
     await initProjectScope();
     if (view === "domains") {
-      bindDomainRefresh();
+      bindPortfolioRefresh("drank");
       await renderDomains();
     }
     if (view === "ai-awareness") await renderAiAwareness();
@@ -2613,7 +2706,10 @@ async function start() {
     if (view === "skill-uses") await renderSkillUses();
     if (view === "feedback") await renderFeedback();
     if (view === "marketing") await renderMarketing();
-    if (view === "performance") await renderPerformance();
+    if (view === "performance") {
+      bindPortfolioRefresh("psi");
+      await renderPerformance();
+    }
     if (view === "mission") await renderMission();
     connection?.classList.add("online");
     if (connectionLabel) connectionLabel.textContent = "Live evidence";

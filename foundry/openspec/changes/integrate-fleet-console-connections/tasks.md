@@ -222,3 +222,16 @@
   validate the OpenSpec change strictly.
 - [x] 22.4 Trust loopback mutations by default for the localhost-only service so
   local Re-run actions do not require a separate owner token.
+
+## 23. Performance Page Closure
+
+- [x] 23.1 Specify one Performance ledger with no redundant section intro and
+  one canonical Re-run all action.
+- [x] 23.2 Add a sequential portfolio PSI runner using the shared public metric
+  project resolver and one pollable receipt.
+- [x] 23.3 Wire Performance header and per-row actions with running, failure,
+  completion, and bounded projection refresh states.
+- [x] 23.4 Add focused target, runner, route, and client coverage; pass the
+  Console build, strict OpenSpec validation, and diff checks.
+- [x] 23.5 Update durable status, commit, and push only this feature; close the
+  linked issue without deploying.

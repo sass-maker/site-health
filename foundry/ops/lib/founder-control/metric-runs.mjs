@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import { domainStrengthRoots } from './domain-scope.mjs';
+import { domainStrengthRoots, publicMetricTargets } from './domain-scope.mjs';
 
 const FAMILIES = new Set([
   'agent',
@@ -124,27 +124,44 @@ function commandFor({ family, project, fleetRoot }) {
 }
 
 function portfolioCommandFor({ family, fleetRoot, projects }) {
-  if (family !== 'drank') {
-    fail('METRIC_SCOPE_INVALID', 'Portfolio runs are only supported for D-Rank');
+  if (family === 'drank') {
+    const targets = domainStrengthRoots(projects);
+    if (targets.length === 0) {
+      fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
+    }
+    return {
+      command: process.execPath,
+      args: [
+        resolve(fleetRoot, 'foundry/helpers/drank/scripts/update-global-dr.mjs'),
+        '--sites',
+        'data/fleet-sites.json',
+        '--data',
+        'data/fleet-dr.json',
+        '--label',
+        'fleet',
+        ...targets.flatMap((domain) => ['--target', domain]),
+      ],
+      label: 'Portfolio D-Rank',
+    };
   }
-  const targets = domainStrengthRoots(projects);
-  if (targets.length === 0) {
-    fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
+  if (family === 'psi') {
+    const targets = publicMetricTargets(projects);
+    if (targets.length === 0) {
+      fail('METRIC_DOMAIN_MISSING', 'No public performance targets are configured');
+    }
+    return {
+      command: process.execPath,
+      args: [
+        resolve(fleetRoot, 'foundry/ops/scripts/run-performance-portfolio.mjs'),
+        ...targets.flatMap(({ projectId, domain }) => [
+          '--target',
+          `${projectId}=https://${domain}`,
+        ]),
+      ],
+      label: 'Portfolio PSI',
+    };
   }
-  return {
-    command: process.execPath,
-    args: [
-      resolve(fleetRoot, 'foundry/helpers/drank/scripts/update-global-dr.mjs'),
-      '--sites',
-      'data/fleet-sites.json',
-      '--data',
-      'data/fleet-dr.json',
-      '--label',
-      'fleet',
-      ...targets.flatMap((domain) => ['--target', domain]),
-    ],
-    label: 'Portfolio D-Rank',
-  };
+  fail('METRIC_SCOPE_INVALID', 'Unsupported portfolio metric family');
 }
 
 function boundedStatusText(value) {

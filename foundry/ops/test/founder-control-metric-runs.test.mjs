@@ -80,9 +80,52 @@ test('starts one portfolio D-Rank command without per-domain concurrent writers'
   assert.equal(invocation.args.includes('--only'), false);
   assert.deepEqual(invocation.args.slice(-2), ['--target', 'sassmaker.com']);
   assert.throws(
-    () => controller.start({ family: 'psi', scope: 'portfolio' }),
+    () => controller.start({ family: 'agent', scope: 'portfolio' }),
     { code: 'METRIC_SCOPE_INVALID' },
   );
+});
+
+test('starts one portfolio PSI orchestrator with every eligible project target', () => {
+  let invocation;
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [
+      {
+        id: 'fleet-workspace',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['sassmaker.com'],
+      },
+      {
+        id: 'pace',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['heypace.app'],
+      },
+      {
+        id: 'past-project',
+        publicListing: 'past',
+        lifecycle: 'past',
+        domains: ['past.example.com'],
+      },
+    ],
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'psi', scope: 'portfolio' });
+
+  assert.equal(started.label, 'Portfolio PSI');
+  assert.equal(invocation.options.shell, false);
+  assert.equal(invocation.args[0].endsWith('run-performance-portfolio.mjs'), true);
+  assert.deepEqual(invocation.args.slice(1), [
+    '--target',
+    'fleet-workspace=https://sassmaker.com',
+    '--target',
+    'pace=https://heypace.app',
+  ]);
 });
 
 test('rejects unknown projects and validates existing design receipts', () => {

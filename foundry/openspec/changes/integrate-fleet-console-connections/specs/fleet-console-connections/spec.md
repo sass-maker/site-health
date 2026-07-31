@@ -683,3 +683,20 @@ surfaces secondary.
   score and LCP thresholds
 - **AND** products below either threshold are `needs work`
 - **AND** absent evidence is `not measured`, never a passing state
+
+#### Scenario: Operator refreshes all public-product performance
+
+- **WHEN** the operator selects Re-run all from Performance
+- **THEN** Founder Control launches one portfolio PSI receipt covering every
+  canonical public metric project
+- **AND** the targets come from the same eligibility rules used by the page
+- **AND** PSI runs sequentially so its shared history store has one writer
+- **AND** the page exposes running and completion state before showing refreshed evidence
+
+#### Scenario: Operator refreshes one public product
+
+- **WHEN** the operator selects Re-run on one Performance row
+- **THEN** Founder Control launches the existing project-scoped PSI action for
+  only that canonical project URL
+- **AND** the row exposes running, failure, and completion state before the
+  Performance projection refreshes
