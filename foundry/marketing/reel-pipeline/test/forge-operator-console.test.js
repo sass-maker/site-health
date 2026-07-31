@@ -192,6 +192,8 @@ test('authenticated forge console exposes the bounded production loop, not an ed
   assert.match(page, /New film task/);
   assert.match(page, /Film style/);
   assert.match(page, /Record app/);
+  assert.match(page, /studioParams/);
+  assert.match(page, /Approved public source to review/);
   assert.match(page, /same-session|synchronized bottom-right presenter/);
   assert.match(page, /Queue three previews/);
   assert.match(page, /Completed final render/);

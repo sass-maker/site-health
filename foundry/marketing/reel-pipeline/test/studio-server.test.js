@@ -8,8 +8,9 @@ import { writeFile } from 'node:fs/promises';
 import { createServer } from '../src/server/index.js';
 import { StudioLlm } from '../src/studio/llm.js';
 import { IdeaStore } from '../src/studio/idea-store.js';
+import { MarketingBriefStore } from '../src/studio/briefs.js';
 
-async function startServer() {
+async function startServer(studioOverrides = {}) {
   const scratch = await mkdtemp(path.join(tmpdir(), 'studio-server-'));
   const server = createServer({
     reelStoreOptions: { filePath: path.join(scratch, 'reels.json') },
@@ -17,10 +18,12 @@ async function startServer() {
     studio: {
       llm: new StudioLlm({ apiKey: '' }),
       ideaStore: new IdeaStore({ filePath: path.join(scratch, 'ideas.json') }),
+      briefStore: new MarketingBriefStore({ filePath: path.join(scratch, 'briefs.json') }),
       facelessOutputDir: path.join(scratch, 'faceless'),
       artifactRoots: [scratch],
       rendererOptions: { mock: { artifactDir: path.join(scratch, 'renders') } },
       logger: { info: () => {}, warn: () => {} },
+      ...studioOverrides,
     },
   });
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -40,6 +43,22 @@ test('studio server routes', async (t) => {
     for (const marker of ['Video ideas', 'Titles', 'Tags', 'Script', 'Keywords', 'Transcript', 'Thumbnails', 'Brand voice', 'Ideas manager', 'Faceless run']) {
       assert.ok(page.includes(marker), `page missing panel: ${marker}`);
     }
+    for (const marker of [
+      'What should we make?',
+      'Faceless lesson',
+      'Brand reel',
+      'Guided app demo',
+      'Coherent film',
+      'Podcast short',
+      'YouTube Shorts',
+      'Instagram Reels',
+      'Create Postiz draft',
+      'Schedule in Postiz',
+      'Open Postiz',
+    ]) {
+      assert.ok(page.includes(marker), `page missing Marketing Studio control: ${marker}`);
+    }
+    assert.doesNotMatch(page, /type=["']datetime-local["']/);
   });
 
   await t.test('POST /studio/titles returns tool output', async () => {
@@ -149,4 +168,218 @@ test('studio server routes', async (t) => {
     const payload = await res.json();
     assert.equal(payload.data.status, 'posted');
   });
+
+  await t.test('conversational briefs list, update, route, and execute only after confirmation', async () => {
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ request: 'Make a 45-second faceless High Signal lesson for Instagram.' }),
+    });
+    assert.equal(createdRes.status, 201);
+    const created = (await createdRes.json()).data;
+    assert.equal(created.kind, 'faceless');
+    assert.equal(created.projectSlug, 'high-signal');
+    assert.equal(created.capability.state, 'ready');
+
+    const blocked = await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ confirm: false }),
+    });
+    assert.equal(blocked.status, 400);
+    assert.match((await blocked.json()).error, /confirmation/);
+
+    const patched = await fetch(`${base}/studio/briefs/${created.id}`, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ cta: 'Read the evidence' }),
+    });
+    assert.equal(patched.status, 200);
+    assert.equal((await patched.json()).data.revision, 2);
+
+    const refined = await fetch(`${base}/studio/briefs/${created.id}/refine`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ instruction: 'Make it a 30-second YouTube lesson.' }),
+    });
+    assert.equal(refined.status, 200);
+    const refinedBrief = (await refined.json()).data;
+    assert.equal(refinedBrief.durationSeconds, 30);
+    assert.equal(refinedBrief.channel, 'youtube_shorts');
+    assert.equal(refinedBrief.revision, 3);
+    assert.equal(refinedBrief.messages.at(-2).content, 'Make it a 30-second YouTube lesson.');
+
+    const executed = await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ confirm: true }),
+    });
+    assert.equal(executed.status, 200);
+    const execution = (await executed.json()).data;
+    assert.equal(execution.executed, true);
+    assert.equal(execution.brief.lifecycle, 'needs-review');
+    assert.ok(execution.brief.media.videoPath);
+
+    const productions = await fetch(`${base}/studio/productions`);
+    const productionPayload = await productions.json();
+    assert.equal(productionPayload.data.briefs.length, 1);
+    assert.equal(productionPayload.data.briefs[0].media.ideaId, execution.brief.media.ideaId);
+
+    const capabilities = await fetch(`${base}/studio/capabilities?briefId=${created.id}`);
+    assert.equal((await capabilities.json()).data.length, 5);
+  });
+
+  await t.test('every specialized workflow returns its authoritative continuation instead of fake execution', async () => {
+    const cases = [
+      {
+        request: 'Create a brand reel for High Signal.',
+        fields: { sourceEvidence: { canonicalUrl: 'https://highsignal.app' } },
+        owner: 'Brand Reel',
+        href: '/',
+      },
+      {
+        request: 'Create a guided app demo for High Signal.',
+        fields: {
+          sourceEvidence: {
+            canonicalUrl: 'https://highsignal.app',
+            rightsStatus: 'approved',
+          },
+        },
+        owner: 'Forge',
+        href: 'https://reels.sassmaker.com/forge',
+      },
+      {
+        request: 'Create a cinematic LTX film for High Signal.',
+        fields: {
+          creativeDirection: 'Use one approved evidence path from tension to clarity.',
+          sourceEvidence: { rightsStatus: 'approved' },
+        },
+        owner: 'Forge',
+        href: 'https://reels.sassmaker.com/forge',
+      },
+      {
+        request: 'Clip this podcast interview.',
+        fields: {
+          sourceEvidence: {
+            canonicalUrl: 'https://media.example.test/episode.mp4',
+            rightsStatus: 'approved',
+          },
+        },
+        owner: 'Editorial',
+        href: 'http://127.0.0.1:8765',
+      },
+    ];
+
+    for (const item of cases) {
+      const createdRes = await fetch(`${base}/studio/briefs`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ request: item.request, fields: item.fields }),
+      });
+      assert.equal(createdRes.status, 201);
+      const created = (await createdRes.json()).data;
+      const executed = await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ confirm: true }),
+      });
+      assert.equal(executed.status, 200);
+      const payload = await executed.json();
+      assert.equal(payload.data.executed, false);
+      assert.equal(payload.data.continuation.owner, item.owner);
+      const continuation = new URL(payload.data.continuation.href, base);
+      const expected = new URL(item.href, base);
+      assert.equal(continuation.origin, expected.origin);
+      assert.equal(continuation.pathname, expected.pathname);
+      assert.equal(continuation.searchParams.get('studioBriefId'), created.id);
+      if (created.sourceEvidence.canonicalUrl?.startsWith('https://')) {
+        const sourceParam = created.kind === 'brand-reel' ? 'url' : 'sourceUrl';
+        assert.equal(continuation.searchParams.get(sourceParam), created.sourceEvidence.canonicalUrl);
+      }
+      if (created.kind === 'guided-app-demo' || created.kind === 'coherent-film') {
+        assert.equal(continuation.searchParams.get('kind'), created.kind);
+        assert.equal(continuation.searchParams.get('projectName'), created.projectSlug);
+      }
+    }
+  });
+});
+
+test('studio distribution endpoints prepare locally and create an unscheduled Postiz draft', async (t) => {
+  const postCalls = [];
+  const { server, base } = await startServer({
+    postizClient: {
+      post: async (post) => {
+        postCalls.push(post);
+        return { provider: 'postiz', status: 'draft', externalId: 'post-studio-1', externalUrl: null };
+      },
+    },
+    postizAppUrl: 'https://postiz.example.test',
+  });
+  t.after(() => server.close());
+
+  const createdRes = await fetch(`${base}/studio/briefs`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ request: 'Make a faceless High Signal lesson for YouTube.' }),
+  });
+  const created = (await createdRes.json()).data;
+  await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ confirm: true }),
+  });
+  const patchedRes = await fetch(`${base}/studio/briefs/${created.id}`, {
+    method: 'PATCH',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      cta: 'Read the evidence',
+      sourceEvidence: {
+        canonicalUrl: 'https://highsignal.app/evidence',
+        destinationUrl: 'https://highsignal.app',
+        claim: 'High Signal keeps evidence attached to recommendations.',
+        rightsStatus: 'approved',
+      },
+      approval: { creativeStatus: 'approved', qualityAccepted: true },
+      media: {
+        publicUrl: 'https://assets.example.test/video.mp4',
+        reviewedAt: '2026-07-31T12:00:00Z',
+      },
+    }),
+  });
+  assert.equal(patchedRes.status, 200);
+
+  const prepared = await fetch(`${base}/studio/briefs/${created.id}/prepare-distribution`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: '{}',
+  });
+  assert.equal(prepared.status, 200);
+  const preparedPayload = await prepared.json();
+  assert.equal(preparedPayload.data.posted, false);
+  assert.equal(postCalls.length, 0);
+  assert.equal(preparedPayload.data.bundle.request.scheduledFor, null);
+
+  const draft = await fetch(`${base}/studio/briefs/${created.id}/create-postiz-draft`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ approvedBy: 'owner' }),
+  });
+  assert.equal(draft.status, 200);
+  const draftPayload = await draft.json();
+  assert.equal(draftPayload.data.receipt.status, 'draft');
+  assert.equal(postCalls.length, 1);
+  assert.equal(postCalls[0].scheduled_for, null);
+
+  const rejectedSchedule = await fetch(`${base}/studio/briefs/${created.id}/create-postiz-draft`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ approvedBy: 'owner', scheduledFor: '2026-08-01T12:00:00Z' }),
+  });
+  assert.equal(rejectedSchedule.status, 400);
+  assert.match((await rejectedSchedule.json()).error, /does not accept schedules/);
+
+  const readiness = await fetch(`${base}/studio/postiz-readiness`);
+  const readinessPayload = await readiness.json();
+  assert.equal(readinessPayload.data.state, 'ready-for-draft');
+  assert.equal(readinessPayload.data.appUrl, 'https://postiz.example.test/');
 });

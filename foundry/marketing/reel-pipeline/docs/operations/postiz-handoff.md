@@ -28,6 +28,13 @@ The adapter uploads media when needed and creates a Postiz draft. It never
 sets a publication time. An operator must review and schedule the draft in
 Postiz.
 
+Channel mapping is explicit:
+
+- `youtube_shorts` uses the mapped Postiz `youtube` integration and starts with
+  private visibility plus an explicit not-made-for-kids declaration.
+- `instagram_reels` uses the mapped Postiz `instagram` integration; Postiz
+  treats the single uploaded video as a Reel.
+
 ## Cutover proof
 
 1. Run `npm run smoke:postiz` locally.

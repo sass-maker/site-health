@@ -2,62 +2,45 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "CodeVetter evidence-beam film, reusable Film styles, and guided Forge operator console",
-  "mode": "overhaul",
+  "target": "Unified Marketing Studio at /studio",
+  "mode": "preserve",
   "register": "brand",
   "context": {
     "product": "PRODUCT.md",
     "design": "DESIGN.md"
   },
   "direction": {
-    "references": [
-      "Apple product films: physical clarity and negative space",
-      "Linear product motion: continuous spatial storytelling",
-      "Buck studio transitions: disciplined one-idea motion"
-    ],
-    "probes": [
-      {
-        "id": "evidence-beam",
-        "path": "artifacts/design/probes/codevetter-film/evidence-beam.png"
-      },
-      {
-        "id": "graphic-verdict",
-        "path": "artifacts/design/probes/codevetter-film/graphic-verdict.png"
-      },
-      {
-        "id": "human-evidence-path",
-        "path": "artifacts/design/probes/codevetter-film/human-evidence-path.png"
-      }
-    ],
-    "selected": "evidence-beam",
-    "approval": "delegated",
-    "before": "artifacts/design/before.png"
+    "references": [],
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
+    "before": "artifacts/design/marketing-studio/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/after-390.png"
+        "path": "artifacts/design/marketing-studio/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/after-768.png"
+        "path": "artifacts/design/marketing-studio/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/after-1440.png"
+        "path": "artifacts/design/marketing-studio/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "node --test test/coherent-scene-composition.test.js test/coherent-film-renderer.test.js test/film-skills.test.js test/forge-operator-console.test.js test/guided-app-demo.test.js test/local-video-forge.test.js test/worker.test.js && ffprobe -v error -show_entries stream=codec_name,codec_type,width,height,color_range,color_space,color_transfer,color_primaries -show_entries format=duration,size -of json .reel-pipeline/coherent-scenes/codevetter-evidence-beam/renders/codevetter-evidence-beam-2026-07-27T03-18-39-549Z/film.mp4",
+      "command": "npm test && npm run smoke:studio && npm run smoke:postiz && npm run smoke:render-modes && npm run docs:validate && openspec validate unify-marketing-video-studio --strict && git diff --check",
       "status": "pass"
     },
     "critique": {
-      "score": 36,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
-      "score": 17,
+      "score": 18,
       "maximum": 20
     },
     "unresolved": {
@@ -71,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly delegated the visual direction. Evidence Beam was selected to turn the arsenal into one coherent story rather than a feature montage."
+    "note": "The operator delegated completion of the GitHub issue queue and approved the work in this thread on 2026-07-31; retain the existing preserve-mode direction."
   }
 }
