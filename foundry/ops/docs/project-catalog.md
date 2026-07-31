@@ -23,7 +23,7 @@ Generated from 41 internal project identities.
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
 | Knowledge Base | maintained | `knowledge-base` | maintained | https://knowledgebase.sassmaker.com |
 | Significant Hobbies | maintained | `significanthobbies` | maintained | https://significanthobbies.com |
-| India Standards | maintained | `india-standards` | hidden | https://india-numbers.significanthobbies.com |
+| India Standards | maintained | `india-standards` | hidden | https://india-standards.significanthobbies.com |
 | Anime List | maintained | `anime-list` | maintained | https://anime.significanthobbies.com |
 | Chess | maintained | `chess` | maintained | https://chess.significanthobbies.com |
 | LoopTV | maintained | `looptv` | maintained | https://tv.significanthobbies.com |

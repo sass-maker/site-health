@@ -574,11 +574,12 @@
       "deployKind": "worker",
       "cfProject": "india-numbers",
       "domains": [
+        "india-standards.significanthobbies.com",
         "india-numbers.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Public Significant Hobbies repository. The existing india-numbers Worker and hostname remain live; india-standards.significanthobbies.com is prepared as the canonical domain but is not live until a separately approved release.",
+      "notes": "Public Significant Hobbies repository. india-standards.significanthobbies.com is canonical; india-numbers.significanthobbies.com remains a compatibility alias.",
       "name": "India Standards",
       "attention": "toolbox",
       "lifecycle": "maintained",
