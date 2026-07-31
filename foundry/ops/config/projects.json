@@ -283,7 +283,7 @@
       "domains": [
         "chatgpt.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.",
       "name": "Memory Map",
@@ -509,7 +509,7 @@
         "knowledgebase.sassmaker.com",
         "search.sassmaker.com"
       ],
-      "inRegistry": true,
+      "inRegistry": false,
       "status": "live",
       "notes": "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base.",
       "name": "Knowledge Base",
@@ -576,7 +576,7 @@
       "domains": [
         "india-numbers.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Public Significant Hobbies repository. The existing india-numbers Worker and hostname remain live; india-standards.significanthobbies.com is prepared as the canonical domain but is not live until a separately approved release.",
       "name": "India Standards",
@@ -798,7 +798,7 @@
       "domains": [
         "setline.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "app": "web",
       "public": {
@@ -995,7 +995,7 @@
         "health.sassmaker.com",
         "ingest.sassmaker.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Independent SaaS Maker-owned aggregate-only endpoint health product. The public repository is sass-maker/app-health; health.sassmaker.com and ingest.sassmaker.com are live.",
       "name": "App Health",

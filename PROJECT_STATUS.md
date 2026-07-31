@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Canonical AI crawlability inventory aligned:** Added
+  source-complete App Health, India Standards, Memory Map, and Setline to the
+  agent-surface registry under their canonical Fleet project IDs. Removed the
+  Cloudflare Access-protected Knowledge Base operator dashboard from the public
+  crawl inventory; its separate public landing remains a measured gap until
+  that landing's source is recovered. No score threshold or deployment was
+  changed.
 - **2026-07-31 — Latest visibility evidence filled across the 27-project
   matrix:** Recorded current AI Agent Readiness, AI Crawlability, and local
   content-inventory observations for every metric-eligible project. Added
