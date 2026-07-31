@@ -183,3 +183,16 @@
 - [x] 19.6 Add focused projection/client coverage and pass production build,
   strict OpenSpec, responsive browser, critique, audit, and diff checks.
 - [x] 19.7 Update durable status, commit, and push without deploying.
+
+## 20. Fast D-Rank History
+
+- [x] 20.1 Add bounded cached outcome endpoints for Domains, AI Awareness, and
+  Performance while retaining the full connections route.
+- [x] 20.2 Switch the three Metrics views to their bounded endpoints and remove
+  their project-scope dropdowns.
+- [x] 20.3 Add compact no-dot D-Rank lines with pointer and keyboard inspection
+  of dated observations and explicit short-history states.
+- [x] 20.4 Add service coverage for endpoint shape and cache reuse.
+- [x] 20.5 Run focused tests, build, strict OpenSpec, performance trace,
+  responsive browser review, design gate, and diff checks.
+- [x] 20.6 Update durable status, commit, and push without deploying.

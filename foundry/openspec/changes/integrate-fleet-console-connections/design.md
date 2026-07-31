@@ -295,6 +295,24 @@ design review, and detailed histories. The sidebar groups Domains, AI Awareness,
 and Performance as Metrics, with Projects, Marketing, and Feedback as standalone
 tabs below them. Skill evidence and System Map remain secondary supporting surfaces.
 
+### Keep portfolio metrics fast and directly inspectable
+
+The local service prewarms the complete private connections projection once and
+serves bounded `domains`, `ai-awareness`, and `performance` slices from it. The
+full `/v1/connections` route remains available for System Map and project-detail
+compatibility, but the three primary Metrics pages do not download it. A stale
+cache is invalidated only by an explicit projection rebuild or a completed
+metric run. Ordinary navigation therefore never schedules filesystem
+aggregation on the page's critical path, while owner-triggered evidence changes
+still rebuild before the refreshed report is shown.
+
+Domains renders comparable D-Rank series as compact SVG polylines. The line has
+no permanent point markers. Pointer position selects the nearest observation;
+keyboard focus starts at the latest observation and Left/Right moves through
+the series. Both paths expose the same date and rating. One-point and missing
+series stay textual rather than implying a trend. Because all three views answer
+portfolio-wide questions, they omit the project-scope dropdown.
+
 ## Risks / Trade-offs
 
 - **Machine-local stores are absent on a fresh clone** → Return `unavailable`

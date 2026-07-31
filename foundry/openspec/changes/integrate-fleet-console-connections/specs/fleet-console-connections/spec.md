@@ -604,6 +604,22 @@ surfaces secondary.
   history state, and affected products
 - **AND** missing D-Rank evidence remains explicit
 
+#### Scenario: Operator inspects D-Rank history
+
+- **WHEN** a domain has at least two dated D-Rank observations
+- **THEN** Domains shows a continuous line without permanent point markers
+- **AND** pointer hover or keyboard focus reveals the nearest observation date
+  and value
+- **AND** a one-point or missing series remains baseline-only or not measured
+
+#### Scenario: Operator opens a Metrics view
+
+- **WHEN** Domains, AI Awareness, or Performance loads
+- **THEN** it requests only its bounded outcome projection rather than the full
+  connection topology
+- **AND** the page does not show a project-scope dropdown
+- **AND** Projects, Marketing, and Feedback retain project scoping
+
 #### Scenario: Coverage includes a live non-active domain
 
 - **WHEN** a past project or non-product identity explicitly opts its live domain

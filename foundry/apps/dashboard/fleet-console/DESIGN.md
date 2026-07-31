@@ -39,8 +39,9 @@ immutable identifiers and source revisions.
 - A persistent, collapsible left sidebar groups Domains, AI Awareness, and
   Performance under a visible Metrics heading; repository taxonomy does not
   appear in primary navigation.
-- Projects, Marketing, and Feedback remain standalone tabs below Metrics. The selected
-  project scope follows the operator between views in the URL.
+- Projects, Marketing, and Feedback remain standalone tabs below Metrics. Their
+  selected project scope follows the operator between views in the URL. The three
+  portfolio-wide Metrics views do not expose a project filter.
 - Domains answers whether every owned registrable root is becoming stronger.
   AI Awareness is limited to maintained P1 products and provider-backed model
   outcomes. Marketing shows coverage for every maintained product, while
@@ -64,7 +65,9 @@ immutable identifiers and source revisions.
 - `MissionRow`: outcome, project, actor, lifecycle state, latest verified event.
 - `EvidenceLink`: provider, verification state, observation time, external link.
 - `HistoryChart`: one comparable metric in its native unit, with start, current,
-  absolute and percentage change, observation count, and date range.
+  absolute and percentage change, observation count, and date range. The compact
+  Domains variant is a no-dot line that exposes exact dated D-Rank observations
+  on pointer movement and keyboard focus.
 - `StateBadge`: icon/text/color treatment for active, blocked, stale, complete,
   awaiting verification, and unavailable.
 - `ActionButton`: solid accent for one primary action; bordered neutral for

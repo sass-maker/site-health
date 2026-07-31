@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { title, description, active, eyebrow = "Founder control", view, projectId } = Astro.props;
-const filterable = !["project", "mission"].includes(view ?? "");
+const filterable = !["project", "mission", "domains", "ai-awareness", "performance"].includes(view ?? "");
 const directoryView = ["domains", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
 ---
 

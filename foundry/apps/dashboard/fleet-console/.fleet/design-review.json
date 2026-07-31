@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Four outcome owner navigation",
+  "target": "Fast D-Rank history",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,7 +14,7 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/metric-distill/after-1440.png"
+    "before": ".fleet/evidence/portfolio-focus/after-1440.png"
   },
   "evidence": {
     "screenshots": [
@@ -50,13 +50,12 @@
     "detector": {
       "posture": "advisory",
       "findings": [
-        "P2: broad connections payload remains a performance optimization opportunity",
         "P3: favicon is absent in local development"
       ]
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner approved the four outcome direction and explicitly requested the Metrics sidebar heading with standalone Projects and Feedback tabs."
+    "note": "Owner explicitly requested hoverable D-Rank history, portfolio-wide Metrics views without project dropdowns, and a faster Console."
   }
 }

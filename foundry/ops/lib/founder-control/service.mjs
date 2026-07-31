@@ -68,6 +68,50 @@ function projectionFor(store) {
   return store.rebuildProjections();
 }
 
+function boundedSignal(signal, { includeSeries = false } = {}) {
+  if (!signal) return null;
+  const { series, ...bounded } = signal;
+  return includeSeries
+    ? { ...bounded, series: (series ?? []).slice(-60) }
+    : bounded;
+}
+
+function outcomeProjection(connections, family) {
+  const outcomes = connections.outputs?.ownerOutcomes ?? {};
+  let rows = [];
+  if (family === 'domains') {
+    rows = (outcomes.domains ?? []).map((row) => ({
+      ...row,
+      signal: boundedSignal(row.signal, { includeSeries: true }),
+    }));
+  } else if (family === 'ai-awareness') {
+    rows = (outcomes.coreAi ?? []).map((row) => ({
+      ...row,
+      mention: boundedSignal(row.mention),
+      recommendation: boundedSignal(row.recommendation),
+      citation: boundedSignal(row.citation),
+      averageRank: boundedSignal(row.averageRank),
+    }));
+  } else if (family === 'performance') {
+    rows = (outcomes.performance ?? []).map((row) => ({
+      ...row,
+      psi: boundedSignal(row.psi),
+      lcp: boundedSignal(row.lcp),
+    }));
+  } else {
+    return null;
+  }
+  return {
+    schemaVersion: 'fleet.owner-outcome.v1',
+    generatedAt: connections.generatedAt,
+    family,
+    rows,
+    ...(family === 'performance'
+      ? { thresholds: outcomes.performanceThresholds ?? {} }
+      : {}),
+  };
+}
+
 function findMission(projections, missionId) {
   return projections.missions.find((mission) => mission.id === missionId);
 }
@@ -143,12 +187,34 @@ export function createFounderControlHandler({
   visibilityPortfolio = loadAiVisibilityPortfolio(),
   visibilityScheduleActivation = {},
   connectionsProvider = buildFleetConnections,
+  prewarmConnections = false,
   skillRunOutputProvider = readSkillRunOutput,
   metricRunController,
 }) {
   const resolvedMetricRunController = metricRunController ?? createMetricRunController({
     projects: store.projects,
   });
+  let connectionCache = null;
+  const completedMetricRuns = new Set();
+  const rebuildConnections = (projections = projectionFor(store)) => {
+    const marketing = buildMarketingProjection(
+      projections,
+      visibilityPortfolio,
+      visibilityScheduleActivation,
+    );
+    const payload = connectionsProvider({
+      marketing,
+      missions: projections.missions,
+      now: now(),
+    });
+    connectionCache = { payload };
+    return payload;
+  };
+  const cachedConnections = (projections) => {
+    if (!connectionCache) return rebuildConnections(projections);
+    return connectionCache.payload;
+  };
+  if (prewarmConnections) rebuildConnections();
   return async function founderControlHandler(request, response) {
     try {
       const url = new URL(request.url, 'http://foundry.local');
@@ -168,6 +234,10 @@ export function createFounderControlHandler({
       const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
       if (method === 'GET' && metricRunMatch) {
         const run = resolvedMetricRunController.get(decodeURIComponent(metricRunMatch[1]));
+        if (run && run.state !== 'running' && !completedMetricRuns.has(run.runId)) {
+          completedMetricRuns.add(run.runId);
+          connectionCache = null;
+        }
         return run
           ? json(response, 200, run)
           : json(response, 404, { error: 'metric run not found' });
@@ -198,21 +268,18 @@ export function createFounderControlHandler({
           buildMarketingProjection(projections, visibilityPortfolio, visibilityScheduleActivation),
         );
       }
-      if (method === 'GET' && url.pathname === '/v1/connections') {
-        const marketing = buildMarketingProjection(
-          projections,
-          visibilityPortfolio,
-          visibilityScheduleActivation,
-        );
+      const outcomeMatch = url.pathname.match(
+        /^\/v1\/outcomes\/(domains|ai-awareness|performance)$/,
+      );
+      if (method === 'GET' && outcomeMatch) {
         return json(
           response,
           200,
-          connectionsProvider({
-            marketing,
-            missions: projections.missions,
-            now: now(),
-          }),
+          outcomeProjection(cachedConnections(projections), outcomeMatch[1]),
         );
+      }
+      if (method === 'GET' && url.pathname === '/v1/connections') {
+        return json(response, 200, cachedConnections(projections));
       }
 
       if (
@@ -361,7 +428,9 @@ export function createFounderControlHandler({
       }
 
       if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
-        return json(response, 200, projectionFor(store));
+        const rebuilt = projectionFor(store);
+        rebuildConnections(rebuilt);
+        return json(response, 200, rebuilt);
       }
       return json(response, 404, { error: 'route not found' });
     } catch (error) {
@@ -384,6 +453,7 @@ export function startFounderControlService({
   visibilityPortfolio,
   visibilityScheduleActivation,
   connectionsProvider,
+  prewarmConnections = false,
   skillRunOutputProvider,
   metricRunController,
 } = {}) {
@@ -397,6 +467,7 @@ export function startFounderControlService({
       ...(visibilityPortfolio ? { visibilityPortfolio } : {}),
       ...(visibilityScheduleActivation ? { visibilityScheduleActivation } : {}),
       ...(connectionsProvider ? { connectionsProvider } : {}),
+      prewarmConnections,
       ...(skillRunOutputProvider ? { skillRunOutputProvider } : {}),
       ...(metricRunController ? { metricRunController } : {}),
     }),

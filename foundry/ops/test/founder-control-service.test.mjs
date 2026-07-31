@@ -173,6 +173,79 @@ test('serves the read-only connection projection without mutation credentials', 
   assert.deepEqual(await response.json(), expected);
 });
 
+test('prewarms one connection projection and serves bounded owner outcomes', async (context) => {
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-outcomes-')), 'outcomes.sqlite'),
+  });
+  let builds = 0;
+  const expected = {
+    schemaVersion: 'fleet.connections.v1',
+    generatedAt: '2026-07-30T10:00:00.000Z',
+    outputs: {
+      ownerOutcomes: {
+        domains: [{
+          domain: 'example.com',
+          projects: [],
+          signal: {
+            value: 12,
+            series: Array.from({ length: 65 }, (_, index) => ({
+              value: index,
+              observedAt: `2026-07-${String((index % 30) + 1).padStart(2, '0')}T10:00:00.000Z`,
+            })),
+          },
+        }],
+        coreAi: [{ projectId: 'core', status: 'not-measured' }],
+        performance: [{
+          projectId: 'site',
+          status: 'fast-enough',
+          psi: { value: 95, series: [{ value: 90 }] },
+          lcp: { value: 1200, series: [{ value: 1500 }] },
+        }],
+        performanceThresholds: { psiScore: 90, lcpMilliseconds: 2500 },
+      },
+    },
+  };
+  const server = await startFounderControlService({
+    store,
+    port: 0,
+    trustLoopback: true,
+    prewarmConnections: true,
+    connectionsProvider: () => {
+      builds += 1;
+      return expected;
+    },
+  });
+  context.after(
+    () =>
+      new Promise((resolve) => {
+        server.close(() => {
+          store.close();
+          resolve();
+        });
+      }),
+  );
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const domains = await (await fetch(`${base}/v1/outcomes/domains`)).json();
+  const awareness = await (await fetch(`${base}/v1/outcomes/ai-awareness`)).json();
+  const performance = await (await fetch(`${base}/v1/outcomes/performance`)).json();
+  const connections = await (await fetch(`${base}/v1/connections`)).json();
+
+  assert.equal(builds, 1);
+  assert.equal(domains.family, 'domains');
+  assert.equal(domains.rows[0].signal.series.length, 60);
+  assert.equal(domains.rows[0].signal.series[0].value, 5);
+  assert.equal(awareness.rows[0].projectId, 'core');
+  assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
+  assert.equal(performance.rows[0].psi.value, 95);
+  assert.equal('series' in performance.rows[0].psi, false);
+  assert.equal('series' in performance.rows[0].lcp, false);
+  assert.deepEqual(connections, expected);
+
+  const rebuilt = await fetch(`${base}/v1/projections/rebuild`, { method: 'POST' });
+  assert.equal(rebuilt.status, 200);
+  assert.equal(builds, 2);
+});
+
 test('serves one bounded retained skill output only when explicitly requested', async (context) => {
   const store = new FounderControlStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'skill-output.sqlite'),

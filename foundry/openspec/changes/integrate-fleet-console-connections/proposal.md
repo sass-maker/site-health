@@ -50,6 +50,9 @@ model in the Console, with each page answering one clear question.
   and threshold-based performance for every maintained public product. Keep
   Projects, Feedback, skills, System Map, and detailed audits available as
   secondary directory or diagnostic surfaces.
+- Keep the three Metrics views portfolio-wide, serve each from a bounded
+  prewarmed outcome projection, and show comparable D-Rank history as a
+  no-dot line that exposes dated values on pointer hover and keyboard focus.
 - Preserve the six-bucket topology, component states, gaps, and complete
   transport ledger as an inspectable left-side System Map sheet.
 - Add one normalized private API projection for project catalog, AI visibility,

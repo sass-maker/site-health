@@ -1806,12 +1806,79 @@ function updateOutcomeTime(generatedAt: string) {
   if (target) target.textContent = `Evidence rebuilt ${formatted(generatedAt)}`;
 }
 
+function domainTrendChart(signal?: JsonRecord | null) {
+  const series = (signal?.series ?? [])
+    .filter((point: JsonRecord) => Number.isFinite(point.value) && point.observedAt)
+    .slice(-30);
+  if (series.length < 2) {
+    return element("span", { class: "outcome-missing" }, [
+      series.length === 1 ? "Baseline only" : "Not measured",
+    ]);
+  }
+  const width = 180;
+  const height = 48;
+  const inset = 3;
+  const values = series.map((point: JsonRecord) => Number(point.value));
+  const minimum = Math.min(...values);
+  const maximum = Math.max(...values);
+  const flat = minimum === maximum;
+  const visualMinimum = flat ? minimum - 1 : minimum;
+  const visualMaximum = flat ? maximum + 1 : maximum;
+  const points = series.map((point: JsonRecord, index: number) => ({
+    ...point,
+    x: inset + (index / Math.max(1, series.length - 1)) * (width - inset * 2),
+    y: height - inset - ((Number(point.value) - visualMinimum) / (visualMaximum - visualMinimum)) * (height - inset * 2),
+  }));
+  const chartLabel = `D-Rank history from ${formattedDay(series[0].observedAt)} to ${formattedDay(series.at(-1).observedAt)}. Use Left and Right arrow keys to inspect ${series.length} observations.`;
+  const chart = svgElement("svg", {
+    viewBox: `0 0 ${width} ${height}`,
+    preserveAspectRatio: "none",
+    "aria-hidden": "true",
+  }, [
+    svgElement("polyline", {
+      points: points.map((point: JsonRecord) => `${point.x},${point.y}`).join(" "),
+      class: "domain-trend__line",
+    }),
+  ]);
+  const tooltip = element("span", { class: "domain-trend__tooltip", role: "status" });
+  tooltip.hidden = true;
+  let selectedIndex = points.length - 1;
+  const show = (index: number) => {
+    selectedIndex = Math.max(0, Math.min(points.length - 1, index));
+    const point = points[selectedIndex];
+    tooltip.textContent = `${formattedDay(point.observedAt)} · D-Rank ${metricValue(Number(point.value))}`;
+    tooltip.style.left = `${Math.max(8, Math.min(92, (point.x / width) * 100))}%`;
+    tooltip.style.top = `${Math.max(18, Math.min(90, (point.y / height) * 100))}%`;
+    tooltip.hidden = false;
+  };
+  const plot = element("span", {
+    class: "domain-trend",
+    role: "img",
+    tabindex: "0",
+    "aria-label": chartLabel,
+  }, [chart, tooltip]);
+  plot.addEventListener("pointermove", (event) => {
+    const bounds = plot.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - bounds.left) / Math.max(1, bounds.width)));
+    show(Math.round(ratio * (points.length - 1)));
+  });
+  plot.addEventListener("pointerleave", () => {
+    if (document.activeElement !== plot) tooltip.hidden = true;
+  });
+  plot.addEventListener("focus", () => show(points.length - 1));
+  plot.addEventListener("blur", () => { tooltip.hidden = true; });
+  plot.addEventListener("keydown", (event) => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    show(selectedIndex + (event.key === 'ArrowLeft' ? -1 : 1));
+  });
+  return plot;
+}
+
 async function renderDomains() {
-  const payload = await api("/v1/connections");
+  const payload = await api("/v1/outcomes/domains");
   updateOutcomeTime(payload.generatedAt);
-  const rows = (payload.outputs.ownerOutcomes?.domains ?? []).filter((row: JsonRecord) =>
-    !selectedProjectId || row.projects.some((project: JsonRecord) => matchesProject(project.projectId)),
-  );
+  const rows = payload.rows ?? [];
   const count = document.querySelector<HTMLElement>('[data-founder-count="domains"]');
   if (count) count.textContent = String(rows.length);
   const declining = rows.filter((row: JsonRecord) => Number.isFinite(row.signal?.delta) && row.signal.delta < 0).length;
@@ -1858,6 +1925,13 @@ async function renderDomains() {
       render: (row) => state(row.historyState),
     },
     {
+      key: "trend",
+      label: "Trend",
+      description: "Sort by D-Rank change and inspect dated history",
+      value: (row) => row.signal?.delta,
+      render: (row) => domainTrendChart(row.signal),
+    },
+    {
       key: "projects",
       label: "Active projects",
       description: "Sort by number of active projects on the domain",
@@ -1890,9 +1964,9 @@ async function renderDomains() {
 }
 
 async function renderAiAwareness() {
-  const payload = await api("/v1/connections");
+  const payload = await api("/v1/outcomes/ai-awareness");
   updateOutcomeTime(payload.generatedAt);
-  const rows = (payload.outputs.ownerOutcomes?.coreAi ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
+  const rows = payload.rows ?? [];
   const count = document.querySelector<HTMLElement>('[data-founder-count="ai-awareness"]');
   if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [
@@ -1910,9 +1984,9 @@ async function renderAiAwareness() {
 }
 
 async function renderPerformance() {
-  const payload = await api("/v1/connections");
+  const payload = await api("/v1/outcomes/performance");
   updateOutcomeTime(payload.generatedAt);
-  const rows = (payload.outputs.ownerOutcomes?.performance ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
+  const rows = payload.rows ?? [];
   const count = document.querySelector<HTMLElement>('[data-founder-count="performance"]');
   if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [

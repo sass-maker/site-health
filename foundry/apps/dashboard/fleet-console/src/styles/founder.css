@@ -1448,6 +1448,40 @@ dd { margin: 0; color: var(--muted); }
   color: var(--quiet);
   font-size: 10px;
 }
+.domain-trend {
+  position: relative;
+  display: block;
+  width: clamp(128px, 12vw, 180px);
+  min-height: 48px;
+  cursor: crosshair;
+  outline: none;
+}
+.domain-trend:focus-visible {
+  box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent);
+}
+.domain-trend svg { display: block; width: 100%; height: 48px; overflow: visible; }
+.domain-trend__line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.domain-trend__tooltip {
+  position: absolute;
+  z-index: 4;
+  max-width: 210px;
+  padding: 6px 8px;
+  border: 1px solid var(--line-strong);
+  background: rgba(9, 11, 12, .97);
+  color: var(--text);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .28);
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 7px));
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 720;
+}
+.domain-trend__tooltip[hidden] { display: none; }
 .history-projects { display: grid; gap: 22px; }
 .history-project { border-top: 1px solid var(--line); }
 .history-project > header {

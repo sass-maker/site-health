@@ -164,6 +164,7 @@ if (command === 'status') {
   const server = await startFounderControlService({
     store,
     port,
+    prewarmConnections: true,
     ownerToken: process.env.FOUNDER_CONTROL_OWNER_TOKEN,
     trustAccessHeaders: process.env.FOUNDER_CONTROL_TRUST_ACCESS === '1',
     trustLoopback: process.env.FOUNDER_CONTROL_TRUST_LOOPBACK === '1',

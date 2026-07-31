@@ -62,6 +62,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Fleet Console Metrics became fast, comparable outcome views:**
+  Domains now shows compact hoverable and keyboard-inspectable D-Rank history,
+  while single observations remain explicit baselines. Domains, AI Awareness,
+  and Performance now load bounded prewarmed projections instead of the full
+  connection topology and no longer expose redundant project filters. The
+  Domains payload fell from roughly 938 KB to 7 KB and its local request from
+  roughly 1.18 seconds to 6 milliseconds; local LCP measured 59 milliseconds.
+  No deployment was performed.
 - **2026-07-31 — Fleet Console refocused on four owner outcomes:** Grouped
   Domains, AI Awareness, and Performance under a visible Metrics sidebar
   heading, with Projects, Marketing, and Feedback as standalone tabs. Domains now
@@ -554,7 +562,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
   native component boundaries, and an evidence-backed connection map.
 - Responsive Fleet Console with a collapsible sidebar that groups Domains, AI
   Awareness, and Performance under Metrics while keeping Projects, Marketing,
-  and Feedback standalone, one URL-persisted 27-project scope, provider-backed
+  and Feedback standalone. Project-owned views retain one URL-persisted
+  27-project scope, while the three portfolio-wide Metrics views have no
+  redundant project filter. Domains includes compact pointer- and
+  keyboard-inspectable D-Rank history; bounded prewarmed outcome endpoints keep
+  these views independent of the full connection payload. The Console includes provider-backed
   AI Awareness, marketing-receipt coverage, explicit PSI/LCP guardrails,
   Search Visibility, AI Visibility,
   D-Rank, AI Agent Readiness, AI Crawlability, Content Coverage, PSI Swarm,

@@ -37,11 +37,15 @@ canonical project page, where Search, crawlability, readiness, design review,
 histories, missing states, and run controls remain available. Generic skill
 evidence and System Map remain secondary surfaces.
 
-One URL-persisted project scope follows the operator across every project-owned
-view. Membership comes from the canonical project catalog and missing evidence
-is explicit. Comparable numeric evidence stays in native units with exact
-observation times. A single observation remains a baseline instead of becoming
-a fake trend.
+One URL-persisted project scope follows the operator across Projects, Marketing,
+and Feedback. Domains, AI Awareness, and Performance are portfolio-wide and do
+not expose a redundant project filter. Membership comes from the canonical
+project catalog and missing evidence is explicit. Comparable numeric evidence
+stays in native units with exact observation times. Domains adds a compact
+no-dot D-Rank line whose dated values are available by pointer and keyboard. A
+single observation remains a baseline instead of becoming a fake trend. Each
+Metrics view loads a bounded prewarmed projection rather than the full
+connection topology.
 
 ## Unresolved
 
