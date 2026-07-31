@@ -1,6 +1,6 @@
 # Fleet metric 90 gate
 
-Generated 2026-07-31T02:07:11.025Z from the canonical visibility project set.
+Generated 2026-07-31T02:22:55.295Z from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
 visibility fail closed. D-Rank and search are external outcomes; the report
@@ -13,9 +13,9 @@ does not replace them with technical proxies.
 | D-Rank ≥90 | 0/27 | 27 |
 | Search class A | 1/27 | 26 |
 | Live AI visibility ≥90 | 0/27 | 27 |
-| Agent readiness ≥90 | 7/27 | 20 |
-| Agent-readable coverage ≥90 | 2/27 | 25 |
-| AI crawlability ≥90 | 18/27 | 9 |
+| Agent readiness ≥90 | 8/27 | 19 |
+| Agent-readable coverage ≥90 | 3/27 | 24 |
+| AI crawlability ≥90 | 19/27 | 8 |
 | PSI performance ≥90 | 25/27 | 2 |
 | LCP ≤2.5 s | 27/27 | 0 |
 | Design critique and audit ≥90% | 27/27 | 0 |
@@ -24,7 +24,7 @@ does not replace them with technical proxies.
 
 | Project | DR | Search | AI visibility | Agent | Readable | Crawl | PSI | LCP | Design | Gates |
 | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
-| CodeVetter | 4.9 | C | 0 | 80 | 0 | 100 | 92 | 1338.1 ms | 93% / 95% | 4/9 |
+| CodeVetter | 4.9 | C | 0 | 80 | 8.3 | 100 | 92 | 1338.1 ms | 93% / 95% | 4/9 |
 | HeyPace | 2.7 | C | 100 | 90 | 9.5 | 100 | 100 | 537.1 ms | 90% / 95% | 5/9 |
 | PostTrainLLM | 2.7 | C | 0 | 80 | 8 | 100 | 99 | 378.2 ms | 90% / 90% | 4/9 |
 | Fleet Workspace | 7 | C | 0 | 80 | 3.1 | 100 | 94 | 1614.1 ms | 90% / 100% | 4/9 |
@@ -35,7 +35,7 @@ does not replace them with technical proxies.
 | PSI Swarm | 7 | C | 0 | 80 | 60 | 100 | 99 | 762.0 ms | 90% / 95% | 4/9 |
 | High Signal | 8 | C | 0 | 80 | 50 | 100 | 98 | 925.9 ms | 93% / 95% | 4/9 |
 | Research Papers | 8 | C | 0 | 90 | 1.3 | 100 | 100 | 481.5 ms | 90% / 95% | 5/9 |
-| Knowledge Base | 7 | C | 0 | 11 | 0 | 33 | 92 | 1662.5 ms | 90% / 95% | 3/9 |
+| Knowledge Base | 7 | C | 0 | 100 | 100 | 100 | 92 | 1662.5 ms | 90% / 95% | 6/9 |
 | Significant Hobbies | 7 | A | 0 | 80 | 0.8 | 100 | 87 | 1513.0 ms | 90% / 90% | 4/9 |
 | India Standards | 7 | C | 0 | 11 | 0 | 33 | 90 | 1507.7 ms | 90% / 95% | 3/9 |
 | Anime List | 7 | C | 0 | 56 | 0.4 | 67 | 100 | 507.6 ms | 90% / 95% | 3/9 |
@@ -58,7 +58,7 @@ does not replace them with technical proxies.
 - **CodeVetter · Search class A** — current class C
 - **CodeVetter · Live AI visibility ≥90** — fixture-only evidence
 - **CodeVetter · Agent readiness ≥90** — current 80; target ≥90
-- **CodeVetter · Agent-readable coverage ≥90** — current 0; target ≥90
+- **CodeVetter · Agent-readable coverage ≥90** — current 8.3; target ≥90
 - **HeyPace · D-Rank ≥90** — current 2.7; target ≥90
 - **HeyPace · Search class A** — current class C
 - **HeyPace · Live AI visibility ≥90** — fixture-only evidence
@@ -111,9 +111,6 @@ does not replace them with technical proxies.
 - **Knowledge Base · D-Rank ≥90** — current 7; target ≥90
 - **Knowledge Base · Search class A** — current class C
 - **Knowledge Base · Live AI visibility ≥90** — fixture-only evidence
-- **Knowledge Base · Agent readiness ≥90** — current 11; target ≥90
-- **Knowledge Base · Agent-readable coverage ≥90** — current 0; target ≥90
-- **Knowledge Base · AI crawlability ≥90** — current 33; target ≥90
 - **Significant Hobbies · D-Rank ≥90** — current 7; target ≥90
 - **Significant Hobbies · Live AI visibility ≥90** — fixture-only evidence
 - **Significant Hobbies · Agent readiness ≥90** — current 80; target ≥90
