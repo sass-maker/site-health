@@ -252,14 +252,18 @@ flowchart LR
   Projection --> Detail[Project SEO and GEO detail]
 ```
 
-The first implementation stores aggregate Search impressions, clicks, CTR,
-and average position; Cloudflare AI crawler requests and crawled URLs; and AI
-referral visits and page views. It does not treat crawler activity as a model
-mention, referral traffic as a citation, or any absent metric as zero. The
-existing `@saas-maker/ai-visibility` helper remains the only engine for model
-answer mention, recommendation, rank, citation, competitor, and cost analysis.
-Live collectors, Cloudflare AI Gateway provider adapters, secrets, billing,
-and recurring schedules remain an explicit follow-up task.
+The implementation stores aggregate Search impressions, clicks, CTR, and
+average position; Cloudflare AI crawler requests and crawled URLs; and AI
+referral visits and page views. A read-only Search Console collector uses the
+operator's local Application Default Credentials, discovers accessible
+properties, maps each canonical project domain to the closest verified Domain
+or URL-prefix property, and filters Domain-property queries to the project's
+canonical HTTPS host. It retains only aggregate outcome records. It does not
+treat crawler activity as a model mention, referral traffic as a citation, or
+an inaccessible property as zero. The existing `@saas-maker/ai-visibility`
+helper remains the only engine for model answer mention, recommendation, rank,
+citation, competitor, and cost analysis. Cloudflare collectors, billing, and
+recurring schedules remain explicit follow-up tasks.
 
 The projection builder accepts a Fleet root, home path, current time, and
 optional already-built Marketing data. Tests use temporary fixtures and injected

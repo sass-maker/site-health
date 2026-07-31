@@ -95,6 +95,15 @@ test('fails closed when an existing observation id is reused with new values', (
   assert.equal(readVisibilityOutcomes({ path }).length, 1);
 });
 
+test('rejects zero as a Search Console average position', () => {
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([searchObservation({
+      metrics: [{ label: 'Search average position', value: 0 }],
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /must exceed 0/,
+  );
+});
+
 test('ignores malformed records already present in the private ledger', (context) => {
   const directory = mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-'));
   context.after(() => rmSync(directory, { recursive: true, force: true }));

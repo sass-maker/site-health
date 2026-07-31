@@ -1052,18 +1052,21 @@ function designReviewEvidence(fleetRoot, projects) {
 
 function outcomeFamilySummary(family) {
   if (!family?.latest) return null;
+  const latestMetricLabels = new Set(family.latest.metrics.map((metric) => metric.label));
   return {
     observations: family.observations,
     provider: family.latest.provider,
     scope: family.latest.scope,
     observedAt: family.latest.observedAt,
     period: family.latest.period,
-    metrics: family.metrics.map((metric) => ({
-      label: metric.label,
-      value: metric.series.at(-1)?.value ?? null,
-      unit: metric.unit,
-      direction: metric.direction,
-    })),
+    metrics: family.metrics
+      .filter((metric) => latestMetricLabels.has(metric.label))
+      .map((metric) => ({
+        label: metric.label,
+        value: metric.series.at(-1)?.value ?? null,
+        unit: metric.unit,
+        direction: metric.direction,
+      })),
   };
 }
 

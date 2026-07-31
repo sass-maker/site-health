@@ -62,6 +62,15 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Google Search Console became live project evidence:** Enabled
+  the Search Console API on the existing `significanthobbies-dev` quota project,
+  authorized read-only local Application Default Credentials, and added a
+  dependency-free collector. The first completed 28-day run matched all 27
+  eligible Fleet projects through 10 verified properties with no unavailable
+  domains. Eleven projects had impressions; PostTrainLLM led with 642
+  impressions and 3 clicks. Only aggregate project outcomes enter the private
+  ledger; credentials and raw query rows are not retained. No recurring
+  schedule or deployment was added.
 - **2026-07-31 — Fleet Console Metrics became fast, comparable outcome views:**
   Domains now shows compact hoverable and keyboard-inspectable D-Rank history,
   while single observations remain explicit baselines. Domains, AI Awareness,
@@ -620,10 +629,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Credential-free provider-observation ingestion with strict bundle validation,
   partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
   retained raw answer text or provider request IDs.
-- Credential-free Search Console and Cloudflare outcome ingestion with strict
-  aggregate-only validation, canonical-project identity, idempotent private
-  history, and separate Search, crawler, and AI-referral project-detail
-  evidence without changing portfolio scores.
+- Read-only Google Search Console collection plus credential-free Cloudflare
+  outcome ingestion with strict aggregate-only validation, canonical-project
+  identity, private history, and separate Search, crawler, and AI-referral
+  project-detail evidence without changing portfolio scores. Shared Domain
+  properties are isolated by each project's canonical HTTPS hostname.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

@@ -349,6 +349,23 @@ test('projects provider-authoritative search and Cloudflare activity without con
         ],
       },
       {
+        id: 'search-pace-2026-07-31',
+        projectId: 'pace',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:heypace.app',
+        observedAt: '2026-07-31T13:00:00.000Z',
+        period: {
+          start: '2026-07-02T00:00:00.000Z',
+          end: '2026-07-31T12:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 0 },
+          { label: 'Search clicks', value: 0 },
+          { label: 'Search CTR', value: 0 },
+        ],
+      },
+      {
         id: 'cloudflare-crawl-pace-2026-07-30',
         projectId: 'pace',
         family: 'ai-crawl',
@@ -396,8 +413,12 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(pace.metricSemantics.seo.searchOutcome.status, 'measured');
   assert.equal(pace.searchVisibility.outcome.provider, 'google-search-console');
   assert.equal(
-    pace.history.signals.find((signal) => signal.label === 'Search impressions').value,
-    120,
+    pace.history.signals.find((signal) => signal.label === 'Search average position').value,
+    14.2,
+  );
+  assert.equal(
+    pace.searchVisibility.outcome.metrics.some((metric) => metric.label === 'Search average position'),
+    false,
   );
   assert.equal(pace.aiVisibility.observations, 0);
   assert.equal(pace.metricSemantics.geo.aiVisibility.status, 'not-measured');

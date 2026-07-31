@@ -412,14 +412,41 @@ agent-mediated observation workflow instead of exposing a local run action.
 #### Scenario: Operator reviews Search Visibility
 
 - **WHEN** Search Visibility requires a new observation
-- **THEN** the Console labels the agent-run boundary and does not imply that a
-  deterministic local measurement was started
+- **THEN** the owner may invoke the read-only Search Console collector
+- **AND** the collector maps accessible properties to canonical project domains,
+  requests aggregate clicks, impressions, CTR, and average position, and records
+  only normalized outcomes in the private ledger
+- **AND** a missing or unauthorized property is reported as unavailable rather
+  than recorded as zero
 
 #### Scenario: Metric action is already running
 
 - **WHEN** the same metric family and project are already in flight
 - **THEN** Founder Control returns the existing run receipt instead of starting
   another process
+
+### Requirement: Search Console collection is private and read-only
+
+Fleet Ops SHALL collect Search Console outcomes through owner-authorized local
+Application Default Credentials without retaining access tokens, query rows, or
+credentials. Domain-property requests SHALL be constrained to each project's
+canonical HTTPS hostname so projects sharing one root property remain separate.
+The default reporting window SHALL end on a completed, non-preliminary day.
+
+#### Scenario: Several projects share one Domain property
+
+- **WHEN** multiple canonical project hosts are covered by one accessible
+  Search Console Domain property
+- **THEN** the collector queries each host separately with a page filter
+- **AND** stores one project-scoped aggregate observation per host
+
+#### Scenario: Search Console returns no rows
+
+- **WHEN** an authorized property returns no rows for the requested host and
+  completed reporting period
+- **THEN** the collector records zero impressions, clicks, and CTR for that
+  measured scope
+- **AND** does not invent an average position value
 
 ### Requirement: Metrics distinguishes outcomes, readiness, and fixtures
 

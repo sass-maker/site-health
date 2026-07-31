@@ -39,11 +39,12 @@ model in the Console, with each page answering one clear question.
   until real evidence exists. Every displayed measure names its evidence source
   and observation time, and shared domain-level D-Rank values disclose their
   domain scope.
-- Add one credential-free, private visibility-outcome ingestion contract for
-  Google Search Console aggregates, Cloudflare AI crawler activity, and
-  Cloudflare AI referral traffic. Keep provider acquisition outside this
-  change, validate the complete bundle before recording, and project only
-  normalized aggregate metrics into project detail.
+- Add one private visibility-outcome ingestion contract for Google Search
+  Console aggregates, Cloudflare AI crawler activity, and Cloudflare AI
+  referral traffic. Collect Search Console through owner-authorized read-only
+  Application Default Credentials, validate the complete bundle before
+  recording, and project only normalized aggregate metrics into project detail.
+  Keep Cloudflare acquisition outside this change.
 - Refocus primary portfolio navigation on the four owner outcomes that now
   matter: domain strength for every owned domain, provider-backed AI awareness
   for maintained P1 products, marketing coverage for every maintained product,
@@ -70,8 +71,9 @@ model in the Console, with each page answering one clear question.
 - Keep the skill owners storage-neutral. The central runner records normalized
   local envelopes; any future hosted D1 history goes through one authenticated
   Fleet ingestion boundary rather than direct per-skill writes.
-- Do not deploy, activate recurring schedules, modify credentials, call live
-  Google or Cloudflare APIs, or fabricate missing Feedback submissions,
+- Do not deploy, activate recurring schedules, modify credentials beyond the
+  owner-approved local read-only Google authorization, call live Cloudflare
+  APIs, or fabricate missing Feedback submissions,
   Marketing outcomes, or mobile consumers.
 
 ## Capabilities

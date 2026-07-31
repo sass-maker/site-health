@@ -18,7 +18,11 @@ const FAMILY_CONTRACTS = {
       'Search impressions': { unit: 'impressions', direction: 'higher-is-better' },
       'Search clicks': { unit: 'clicks', direction: 'higher-is-better' },
       'Search CTR': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
-      'Search average position': { unit: 'rank', direction: 'lower-is-better' },
+      'Search average position': {
+        unit: 'rank',
+        direction: 'lower-is-better',
+        exclusiveMinimum: 0,
+      },
     },
   },
   'ai-crawl': {
@@ -72,6 +76,9 @@ function normalizeMetric(metric, contract, path) {
   assert(Number.isFinite(value) && value >= 0, `${path}.value must be a non-negative finite number`);
   if (definition.maximum !== undefined) {
     assert(value <= definition.maximum, `${path}.value exceeds ${definition.maximum}`);
+  }
+  if (definition.exclusiveMinimum !== undefined) {
+    assert(value > definition.exclusiveMinimum, `${path}.value must exceed ${definition.exclusiveMinimum}`);
   }
   return {
     label: metric.label,

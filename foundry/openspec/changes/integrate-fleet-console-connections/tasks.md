@@ -196,3 +196,18 @@
 - [x] 20.5 Run focused tests, build, strict OpenSpec, performance trace,
   responsive browser review, design gate, and diff checks.
 - [x] 20.6 Update durable status, commit, and push without deploying.
+
+## 21. Google Search Console Collection
+
+- [x] 21.1 Add a dependency-free read-only Search Console client using local
+  Application Default Credentials.
+- [x] 21.2 Map accessible Domain and URL-prefix properties to canonical Fleet
+  project hosts and keep shared-root projects separated with page filters.
+- [x] 21.3 Normalize completed-period aggregates into the existing private
+  visibility outcome ledger without retaining tokens or raw query rows.
+- [x] 21.4 Cover property selection, zero-data, inaccessible-property, and
+  idempotent ingestion behavior with focused tests.
+- [x] 21.5 Run a live canary, rebuild the local Console projection, and verify
+  Search Visibility displays provider evidence.
+- [x] 21.6 Validate OpenSpec and focused checks, update durable status, commit,
+  and push without deploying or scheduling recurring collection.
