@@ -44,6 +44,9 @@ Last updated: 2026-07-18
 
 ## Timeline
 
+- **2026-07-31** — Restored the documented weekly global and Fleet DR refresh
+  as a monorepo-root GitHub Action with bounded concurrency, timeout, and
+  write permissions.
 - **2026-07-31** — Aligned search and agent discovery to the three canonical
   public pages. The HTML sitemap now derives from the generated agent catalog,
   query-string duplicates are excluded, and Home, Data, and Changelog each
