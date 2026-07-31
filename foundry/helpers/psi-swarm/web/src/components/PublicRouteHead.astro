@@ -9,6 +9,7 @@ const { route } = Astro.props;
 const meta = PUBLIC_ROUTE_META[route];
 const origin = 'https://performance.sassmaker.com';
 const canonical = new URL(meta.path, origin).toString();
+const socialImage = new URL('/og-image.png', origin).toString();
 const schema: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -42,7 +43,13 @@ if (route === 'home') {
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content="psi-swarm" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content={socialImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="psi-swarm local Lighthouse performance dashboard" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={meta.title} />
 <meta name="twitter:description" content={meta.description} />
+<meta name="twitter:image" content={socialImage} />
+<meta name="twitter:image:alt" content="psi-swarm local Lighthouse performance dashboard" />
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
