@@ -609,11 +609,11 @@ function historySignal(signal: JsonRecord) {
     hasDelta &&
     ((signal.direction === "higher-is-better" && signal.delta < 0) ||
       (signal.direction === "lower-is-better" && signal.delta > 0));
-  const delta = hasDelta
-    ? metricDeltaValue(signal.delta, signal.unit)
-    : signal.history === "baseline-only"
-      ? "Baseline only"
-      : "No history";
+  let delta = "No history";
+  if (signal.history === "baseline-only") delta = "Baseline only";
+  if (hasDelta) {
+    delta = signal.delta === 0 ? "No change" : metricDeltaValue(signal.delta, signal.unit);
+  }
   return element("div", { class: "history-signal" }, [
     element("span", {}, [signal.label]),
     element("strong", {}, [
@@ -1750,7 +1750,7 @@ function outcomeTable(
         if (shouldExpand) expandedRows.add(rowKey);
         else expandedRows.delete(rowKey);
       });
-      mainRow.append(element("td", { "data-label": "Details" }, [toggle]));
+      mainRow.insertBefore(element("td", { "data-label": "Details" }, [toggle]), mainRow.children[1]);
       return [mainRow, detailRow];
     }));
     status.textContent = `Sorted by ${column.label}, ${sortDirection}.`;
@@ -1782,7 +1782,7 @@ function outcomeTable(
     return cell;
   });
   if (options.details) {
-    headerCells.push(element("th", { scope: "col" }, [
+    headerCells.splice(1, 0, element("th", { scope: "col" }, [
       element("span", { class: "outcome-table__label" }, ["Details"]),
     ]));
   }
@@ -1832,11 +1832,84 @@ function outcomeSignal(signal?: JsonRecord | null) {
     return element("span", { class: "outcome-missing" }, ["Not measured"]);
   }
   let detail = titleCase(signal.history ?? "baseline-only");
-  if (Number.isFinite(signal.delta)) detail = metricDeltaValue(signal.delta, signal.unit);
+  if (Number.isFinite(signal.delta)) {
+    detail = signal.delta === 0 ? "No change" : metricDeltaValue(signal.delta, signal.unit);
+  }
   return element("span", { class: "outcome-signal" }, [
     element("strong", {}, [metricValue(signal.value, signal.unit)]),
     element("small", {}, [detail]),
   ]);
+}
+
+function providerLink(label: string, url?: string | null) {
+  if (!url) return null;
+  return element("a", {
+    class: "secondary-action provider-link",
+    href: url,
+    target: "_blank",
+    rel: "noreferrer",
+    "aria-label": `${label} (opens in a new tab)`,
+  }, [label]);
+}
+
+function outcomePeriod(outcome?: JsonRecord | null) {
+  if (!outcome?.period?.start || !outcome?.period?.end) return "Not measured";
+  return `${searchReportingDay(outcome.period.start)} – ${searchReportingDay(outcome.period.end)}`;
+}
+
+function outcomeBreakdowns(outcome?: JsonRecord | null) {
+  const breakdowns = outcome?.breakdowns ?? [];
+  if (breakdowns.length === 0) return null;
+  return element("div", { class: "outcome-breakdowns" }, breakdowns.map((breakdown: JsonRecord) => {
+    const children: Node[] = [
+      element("h3", {}, [breakdown.label]),
+      element("div", { class: "tracked-intent-list" }, (breakdown.values ?? []).slice(0, 5).map((item: JsonRecord) =>
+        element("div", { class: "tracked-intent" }, [
+          element("div", {}, [element("strong", {}, [item.label])]),
+          element("div", { class: "tracked-intent__result" }, [
+            element("strong", {}, [metricValue(Number(item.value), breakdown.unit)]),
+          ]),
+        ]),
+      )),
+    ];
+    if ((breakdown.values ?? []).length > 5) {
+      children.push(element("p", { class: "outcome-breakdown__more" }, [
+        `Showing 5 of ${breakdown.values.length}. Open Cloudflare for full detail.`,
+      ]));
+    }
+    return element("section", { class: "outcome-breakdown" }, children);
+  }));
+}
+
+function providerOutcomeDetails({
+  note,
+  outcomes,
+  signals,
+}: {
+  note: string;
+  outcomes: { label: string; outcome?: JsonRecord | null; linkLabel: string }[];
+  signals: (JsonRecord | null | undefined)[];
+}) {
+  const recordedOutcomes = outcomes.filter((item) => item.outcome);
+  const links = recordedOutcomes.flatMap((item) => {
+    const link = providerLink(item.linkLabel, item.outcome?.providerUrl);
+    return link ? [link] : [];
+  });
+  const facts = recordedOutcomes.flatMap((item) => [
+    element("div", {}, [element("dt", {}, [`${item.label} period`]), element("dd", {}, [outcomePeriod(item.outcome)])]),
+    element("div", {}, [element("dt", {}, [`${item.label} scope`]), element("dd", {}, [item.outcome?.scope ?? "Not measured"])]),
+  ]);
+  const signalNodes = signals.flatMap((signal) => signal ? [historySignal(signal)] : []);
+  const breakdownNodes = recordedOutcomes.flatMap((item) => {
+    const breakdown = outcomeBreakdowns(item.outcome);
+    return breakdown ? [breakdown] : [];
+  });
+  const content: Node[] = [element("p", { class: "search-detail__note" }, [note])];
+  if (links.length > 0) content.push(element("div", { class: "provider-links" }, links));
+  if (facts.length > 0) content.push(element("dl", { class: "search-detail__facts" }, facts));
+  if (signalNodes.length > 0) content.push(element("div", { class: "project-history-grid" }, signalNodes));
+  content.push(...breakdownNodes);
+  return element("div", { class: "search-detail" }, content);
 }
 
 function domainRatingSignal(signal?: JsonRecord | null) {
@@ -2204,6 +2277,7 @@ function searchOutcomeDetails(row: JsonRecord) {
     }
   }
   const history = searchObservationHistory(row);
+  const searchConsoleLink = providerLink("Open Search Console", row.providerUrl);
   const content: Node[] = [
     element("p", { class: "search-detail__note" }, [note]),
     element("dl", { class: "search-detail__facts" }, [
@@ -2213,6 +2287,7 @@ function searchOutcomeDetails(row: JsonRecord) {
       element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
     ]),
   ];
+  if (searchConsoleLink) content.splice(1, 0, element("div", { class: "provider-links" }, [searchConsoleLink]));
   if (history) content.push(history);
   content.push(searchTermsTable(row));
   return element("div", { class: "search-detail" }, content);
@@ -2244,7 +2319,19 @@ async function renderSearch() {
     : empty("No Google Search evidence", "No Search Console outcomes are recorded yet."));
 }
 
-type PortfolioMetricFamily = "drank" | "psi" | "search";
+type PortfolioMetricFamily = "drank" | "psi" | "search" | "cloudflare";
+
+const CLOUDFLARE_VIEW_REFRESH: Record<string, () => Promise<void>> = {
+  "ai-awareness": renderAiAwareness,
+  performance: renderPerformance,
+  marketing: renderMarketing,
+};
+
+async function refreshCloudflareView() {
+  const view = document.body.dataset.founderView ?? "";
+  const refresh = CLOUDFLARE_VIEW_REFRESH[view];
+  if (refresh) await refresh();
+}
 
 const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
   idleLabel: string;
@@ -2265,7 +2352,7 @@ const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
     refresh: renderDomains,
   },
   psi: {
-    idleLabel: "Re-run all",
+    idleLabel: "Run all PSI",
     runningLabel: "Running all…",
     startingMessage: "Starting performance refresh…",
     completedMessage: "Performance updated.",
@@ -2281,6 +2368,15 @@ const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
     failureMessage: "Google Search update failed.",
     maxAttempts: 240,
     refresh: renderSearch,
+  },
+  cloudflare: {
+    idleLabel: "Update Cloudflare",
+    runningLabel: "Updating…",
+    startingMessage: "Updating Cloudflare evidence…",
+    completedMessage: "Cloudflare evidence updated.",
+    failureMessage: "Cloudflare update failed.",
+    maxAttempts: 240,
+    refresh: refreshCloudflareView,
   },
 };
 
@@ -2328,21 +2424,33 @@ async function renderAiAwareness() {
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Core project", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "geo") },
     { key: "status", label: "Awareness", description: "Sort by evidence state", value: (row) => row.status, render: (row) => state(row.status) },
+    { key: "crawls", label: "AI crawls", description: "Sort by verified AI crawler requests", value: (row) => row.crawlerRequests?.value, render: (row) => outcomeSignal(row.crawlerRequests) },
+    { key: "referrals", label: "AI visits", description: "Sort by visits referred by AI assistants", value: (row) => row.aiReferralVisits?.value, render: (row) => outcomeSignal(row.aiReferralVisits) },
     { key: "mention", label: "Mentioned", description: "Sort by model mention rate", value: (row) => row.mention?.value, render: (row) => outcomeSignal(row.mention) },
     { key: "recommendation", label: "Recommended", description: "Sort by recommendation rate", value: (row) => row.recommendation?.value, render: (row) => outcomeSignal(row.recommendation) },
     { key: "citation", label: "Cited", description: "Sort by citation rate", value: (row) => row.citation?.value, render: (row) => outcomeSignal(row.citation) },
     { key: "rank", label: "Average rank", description: "Sort by average answer rank", value: (row) => row.averageRank?.value, render: (row) => outcomeSignal(row.averageRank) },
-    { key: "observed", label: "Observed", description: "Sort by provider observation time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+    { key: "observed", label: "Last observed", description: "Sort by provider observation time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
   ];
   replace("ai-awareness", rows.length
-    ? outcomeTable(rows, columns, "project", "Core project AI awareness")
+    ? outcomeTable(rows, columns, "project", "Core project AI awareness", "ascending", {
+        rowKey: (row) => row.projectId,
+        details: (row) => providerOutcomeDetails({
+          note: "Cloudflare shows whether AI systems reached the product and whether people arrived from AI assistants. Model-answer evidence remains a separate outcome.",
+          outcomes: [
+            { label: "AI crawl", outcome: row.discovery?.crawler, linkLabel: "Open Cloudflare AI" },
+            { label: "AI referral", outcome: row.discovery?.referral, linkLabel: "Open Cloudflare Traffic" },
+          ],
+          signals: [row.crawlerRequests, row.aiReferralVisits],
+        }),
+      })
     : empty("No core project in scope", "AI awareness is limited to maintained P1 products."));
 }
 
 function performanceRunControl(row: JsonRecord) {
   const wrap = element("div", { class: "outcome-run-control" });
   const statusText = element("span", { role: "status", "aria-live": "polite" });
-  const button = element("button", { type: "button", class: "secondary-action" }, ["Re-run"]);
+  const button = element("button", { type: "button", class: "secondary-action" }, ["Run PSI"]);
   button.addEventListener("click", async () => {
     button.disabled = true;
     button.textContent = "Running…";
@@ -2364,7 +2472,7 @@ function performanceRunControl(row: JsonRecord) {
       statusText.textContent = error instanceof Error ? error.message : "Performance refresh failed.";
     } finally {
       button.disabled = false;
-      button.textContent = "Re-run";
+      button.textContent = "Run PSI";
     }
   });
   wrap.append(button, statusText);
@@ -2379,12 +2487,20 @@ async function renderPerformance() {
     { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "performance") },
     { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
-    { key: "lcp", label: "LCP", description: "Sort by Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
-    { key: "observed", label: "Observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+    { key: "lcp", label: "Lab LCP", description: "Sort by lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
+    { key: "fieldLcp", label: "Field LCP", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp) },
+    { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
     { key: "run", label: "Run", description: "Refresh one product", sortable: false, value: (row) => row.projectId, render: performanceRunControl },
   ];
   replace("performance", rows.length
-    ? outcomeTable(rows, columns, "project", "Fleet public product performance")
+    ? outcomeTable(rows, columns, "project", "Fleet public product performance", "ascending", {
+        rowKey: (row) => row.projectId,
+        details: (row) => providerOutcomeDetails({
+          note: "PSI is a lab run. Cloudflare field metrics are p75 measurements from real visits during the recorded period.",
+          outcomes: [{ label: "Field performance", outcome: row.field, linkLabel: "Open Cloudflare Speed" }],
+          signals: [row.psi, row.lcp, row.fieldLcp, row.fieldInp, row.fieldCls, row.fieldTtfb, row.rumSamples],
+        }),
+      })
     : empty("No matching public product", "The current project scope has no public performance target."));
 }
 
@@ -2885,20 +3001,29 @@ function visibilityProject(project: JsonRecord) {
 }
 
 async function renderMarketing() {
-  const payload = await api("/v1/connections");
+  const payload = await api("/v1/outcomes/marketing");
   updateOutcomeTime(payload.generatedAt);
-  const rows = (payload.outputs.ownerOutcomes?.marketing ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
+  const rows = (payload.rows ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
   const count = document.querySelector<HTMLElement>('[data-founder-count="marketing-coverage"]');
   if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row) },
     { key: "positioning", label: "Positioning", description: "Sort by positioning readiness", value: (row) => row.positioning, render: (row) => element("span", { class: "outcome-positioning" }, [row.description ?? "No public positioning recorded"]) },
+    { key: "visits", label: "Visits", description: "Sort by Cloudflare Web Analytics visits", value: (row) => row.visits?.value, render: (row) => outcomeSignal(row.visits) },
+    { key: "pageViews", label: "Page views", description: "Sort by Cloudflare Web Analytics page views", value: (row) => row.pageViews?.value, render: (row) => outcomeSignal(row.pageViews) },
     { key: "published", label: "Last published", description: "Sort by latest publishing receipt", value: (row) => row.latestOutcome?.observedAt ? Date.parse(row.latestOutcome.observedAt) : null, render: (row) => row.latestOutcome ? formattedDay(row.latestOutcome.observedAt) : "Never" },
     { key: "recommendations", label: "Next actions", description: "Sort by recommendation count", value: (row) => row.recommendationCount, render: (row) => String(row.recommendationCount) },
     { key: "status", label: "Coverage", description: "Sort by marketing coverage state", value: (row) => row.status, render: (row) => state(row.status) },
   ];
   replace("marketing-coverage", rows.length
-    ? outcomeTable(rows, columns, "project", "Fleet product marketing coverage")
+    ? outcomeTable(rows, columns, "project", "Fleet product marketing coverage", "ascending", {
+        rowKey: (row) => row.projectId,
+        details: (row) => providerOutcomeDetails({
+          note: "Cloudflare Web Analytics shows whether distribution produced visits. Expand the breakdowns to see the pages and referrers responsible.",
+          outcomes: [{ label: "Traffic", outcome: row.traffic, linkLabel: "Open Cloudflare Traffic" }],
+          signals: [row.visits, row.pageViews, row.searchReferrals],
+        }),
+      })
     : empty("No matching product", "The current project scope has no public marketing target."));
 }
 
@@ -2985,16 +3110,23 @@ async function start() {
       bindPortfolioRefresh("search");
       await renderSearch();
     }
-    if (view === "ai-awareness") await renderAiAwareness();
+    if (view === "ai-awareness") {
+      bindPortfolioRefresh("cloudflare");
+      await renderAiAwareness();
+    }
     if (view === "home") await renderHome();
     if (view === "project-statuses") await renderProjects();
     if (view === "project") await renderProjectDetail();
     if (view === "metrics") await renderMetrics();
     if (view === "skill-uses") await renderSkillUses();
     if (view === "feedback") await renderFeedback();
-    if (view === "marketing") await renderMarketing();
+    if (view === "marketing") {
+      bindPortfolioRefresh("cloudflare");
+      await renderMarketing();
+    }
     if (view === "performance") {
       bindPortfolioRefresh("psi");
+      bindPortfolioRefresh("cloudflare");
       await renderPerformance();
     }
     if (view === "mission") await renderMission();

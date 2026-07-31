@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Fast D-Rank history",
+  "target": "Cloudflare outcome evidence and provider links across existing Console pages",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,33 +14,33 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/portfolio-focus/after-1440.png"
+    "before": ".fleet/evidence/cloudflare-outcomes/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/outcome-focus/after-390.png"
+        "path": ".fleet/evidence/cloudflare-outcomes/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/outcome-focus/after-768.png"
+        "path": ".fleet/evidence/cloudflare-outcomes/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/outcome-focus/after-1440.png"
+        "path": ".fleet/evidence/cloudflare-outcomes/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm run build",
+      "command": "pnpm run build",
       "status": "pass"
     },
     "critique": {
-      "score": 32,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
-      "score": 17,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -50,12 +50,12 @@
     "detector": {
       "posture": "advisory",
       "findings": [
-        "P3: favicon is absent in local development"
+        "Resolved the advisory touch-target finding by making touched table and run controls at least 44 pixels high."
       ]
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly requested hoverable D-Rank history, portfolio-wide Metrics views without project dropdowns, and a faster Console."
+    "note": "Owner explicitly requested Cloudflare metrics, one update path, and exact Google and Cloudflare provider links inside the existing Console pages."
   }
 }

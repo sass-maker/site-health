@@ -39,6 +39,24 @@ const FAMILY_CONTRACTS = {
       'AI referral page views': { unit: 'page views', direction: 'higher-is-better' },
     },
   },
+  'web-traffic': {
+    provider: 'cloudflare-web-analytics',
+    metrics: {
+      'Web visits': { unit: 'visits', direction: 'higher-is-better' },
+      'Web page views': { unit: 'page views', direction: 'higher-is-better' },
+      'Search referral visits': { unit: 'visits', direction: 'higher-is-better' },
+    },
+  },
+  'web-vitals': {
+    provider: 'cloudflare-web-analytics',
+    metrics: {
+      'Field LCP': { unit: 'milliseconds', direction: 'lower-is-better' },
+      'Field INP': { unit: 'milliseconds', direction: 'lower-is-better' },
+      'Field CLS': { unit: 'score', direction: 'lower-is-better' },
+      'Field TTFB': { unit: 'milliseconds', direction: 'lower-is-better' },
+      'RUM samples': { unit: 'samples', direction: 'higher-is-better' },
+    },
+  },
 };
 
 function assert(condition, message) {
@@ -66,6 +84,48 @@ function stableJson(value) {
 function normalizeTimestamp(value, path) {
   assert(typeof value === 'string' && Number.isFinite(Date.parse(value)), `${path} must be ISO-8601`);
   return new Date(value).toISOString();
+}
+
+function normalizeProviderUrl(value) {
+  if (value === undefined) return null;
+  assert(typeof value === 'string' && value.length <= 2048, 'observation.providerUrl must be an HTTPS URL');
+  try {
+    const url = new URL(value);
+    assert(url.protocol === 'https:', 'observation.providerUrl must be an HTTPS URL');
+    assert(!url.username && !url.password, 'observation.providerUrl must not contain credentials');
+    return url.href;
+  } catch (error) {
+    if (error?.message?.startsWith('observation.providerUrl')) throw error;
+    throw new Error('observation.providerUrl must be an HTTPS URL');
+  }
+}
+
+function normalizeBreakdowns(value) {
+  if (value === undefined) return [];
+  assert(Array.isArray(value) && value.length <= 6, 'observation.breakdowns must contain at most 6 entries');
+  const breakdowns = value.map((breakdown, index) => {
+    const path = `observation.breakdowns[${index}]`;
+    assertKnownKeys(breakdown, new Set(['id', 'label', 'unit', 'values']), path);
+    assert(typeof breakdown.id === 'string' && IDENTIFIER.test(breakdown.id), `${path}.id is invalid`);
+    const label = String(breakdown.label ?? '').replace(/\s+/g, ' ').trim();
+    const unit = String(breakdown.unit ?? '').replace(/\s+/g, ' ').trim();
+    assert(label.length > 0 && label.length <= 80, `${path}.label must be 1-80 characters`);
+    assert(unit.length > 0 && unit.length <= 40, `${path}.unit must be 1-40 characters`);
+    assert(Array.isArray(breakdown.values) && breakdown.values.length <= 20, `${path}.values must contain at most 20 entries`);
+    const values = breakdown.values.map((item, valueIndex) => {
+      const valuePath = `${path}.values[${valueIndex}]`;
+      assertKnownKeys(item, new Set(['label', 'value']), valuePath);
+      const itemLabel = String(item.label ?? '').replace(/\s+/g, ' ').trim();
+      const itemValue = Number(item.value);
+      assert(itemLabel.length > 0 && itemLabel.length <= 300, `${valuePath}.label must be 1-300 characters`);
+      assert(Number.isFinite(itemValue) && itemValue >= 0, `${valuePath}.value must be a non-negative finite number`);
+      return { label: itemLabel, value: itemValue };
+    });
+    assert(new Set(values.map((item) => item.label)).size === values.length, `${path}.values contains duplicate labels`);
+    return { id: breakdown.id, label, unit, values };
+  });
+  assert(new Set(breakdowns.map((item) => item.id)).size === breakdowns.length, 'observation.breakdowns contains duplicate ids');
+  return breakdowns;
 }
 
 function normalizeMetric(metric, contract, path) {
@@ -139,7 +199,7 @@ function normalizeSearchTerms(searchTerms, family) {
 export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   assertKnownKeys(
     observation,
-    new Set(['id', 'projectId', 'family', 'provider', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms']),
+    new Set(['id', 'projectId', 'family', 'provider', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'breakdowns']),
     'observation',
   );
   assert(typeof observation.id === 'string' && IDENTIFIER.test(observation.id), 'observation.id is invalid');
@@ -169,17 +229,21 @@ export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = 
     normalizeMetric(metric, contract, `observation.metrics[${index}]`));
   assert(new Set(metrics.map((metric) => metric.label)).size === metrics.length, 'observation.metrics contains duplicates');
   const searchTerms = normalizeSearchTerms(observation.searchTerms, observation.family);
+  const providerUrl = normalizeProviderUrl(observation.providerUrl);
+  const breakdowns = normalizeBreakdowns(observation.breakdowns);
   return {
     schemaVersion: VISIBILITY_OUTCOME_SCHEMA,
     id: observation.id,
     projectId: observation.projectId,
     family: observation.family,
     provider: observation.provider,
+    ...(providerUrl ? { providerUrl } : {}),
     scope: observation.scope,
     observedAt,
     period: { start: periodStart, end: periodEnd },
     metrics,
     ...(observation.family === 'search' ? { searchTerms } : {}),
+    ...(breakdowns.length > 0 ? { breakdowns } : {}),
   };
 }
 
@@ -212,6 +276,7 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
           projectId: value.projectId,
           family: value.family,
           provider: value.provider,
+          providerUrl: value.providerUrl,
           scope: value.scope,
           observedAt: value.observedAt,
           period: value.period,
@@ -219,6 +284,7 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
             ? value.metrics.map((metric) => ({ label: metric?.label, value: metric?.value }))
             : value.metrics,
           searchTerms: value.searchTerms,
+          breakdowns: value.breakdowns,
         })];
       } catch {
         return [];

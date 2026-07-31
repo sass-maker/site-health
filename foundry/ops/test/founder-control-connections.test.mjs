@@ -348,6 +348,7 @@ test('projects provider-authoritative search and Cloudflare activity without con
         projectId: 'pace',
         family: 'search',
         provider: 'google-search-console',
+        providerUrl: 'https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Aheypace.app',
         scope: 'sc-domain:heypace.app',
         observedAt: '2026-07-31T12:00:00.000Z',
         period: {
@@ -383,6 +384,7 @@ test('projects provider-authoritative search and Cloudflare activity without con
         projectId: 'pace',
         family: 'ai-crawl',
         provider: 'cloudflare-ai-crawl-control',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/ai',
         scope: 'heypace.app',
         observedAt: '2026-07-31T12:00:00.000Z',
         period: {
@@ -393,12 +395,19 @@ test('projects provider-authoritative search and Cloudflare activity without con
           { label: 'AI crawler requests', value: 18 },
           { label: 'AI crawled URLs', value: 7 },
         ],
+        breakdowns: [{
+          id: 'ai-crawlers',
+          label: 'AI crawlers',
+          unit: 'requests',
+          values: [{ label: 'GPTBot', value: 12 }],
+        }],
       },
       {
         id: 'cloudflare-referral-pace-2026-07-30',
         projectId: 'pace',
         family: 'ai-referral',
         provider: 'cloudflare-web-analytics',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/analytics/traffic',
         scope: 'heypace.app',
         observedAt: '2026-07-31T12:00:00.000Z',
         period: {
@@ -408,6 +417,50 @@ test('projects provider-authoritative search and Cloudflare activity without con
         metrics: [
           { label: 'AI referral visits', value: 3 },
           { label: 'AI referral page views', value: 5 },
+        ],
+      },
+      {
+        id: 'cloudflare-traffic-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'web-traffic',
+        provider: 'cloudflare-web-analytics',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/analytics/traffic',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-03T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Web visits', value: 240 },
+          { label: 'Web page views', value: 380 },
+          { label: 'Search referral visits', value: 44 },
+        ],
+        breakdowns: [{
+          id: 'top-pages',
+          label: 'Top pages',
+          unit: 'page views',
+          values: [{ label: '/', value: 200 }],
+        }],
+      },
+      {
+        id: 'cloudflare-vitals-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'web-vitals',
+        provider: 'cloudflare-web-analytics',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/speed/observatory',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-03T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Field LCP', value: 4200 },
+          { label: 'Field INP', value: 140 },
+          { label: 'Field CLS', value: 0.04 },
+          { label: 'Field TTFB', value: 420 },
+          { label: 'RUM samples', value: 88 },
         ],
       },
     ],
@@ -454,7 +507,28 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(searchRow.averagePosition.series.length, 1);
   assert.equal(searchRow.observations, 2);
   assert.equal(searchRow.scope, 'sc-domain:heypace.app');
+  assert.match(searchRow.providerUrl, /search\.google\.com/);
   assert.equal(searchRow.action.id, 'check-indexing');
+  const marketingRow = result.outputs.ownerOutcomes.marketing.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(marketingRow.visits.value, 240);
+  assert.equal(marketingRow.pageViews.value, 380);
+  assert.equal(marketingRow.traffic.breakdowns[0].values[0].label, '/');
+  assert.match(marketingRow.traffic.providerUrl, /dash\.cloudflare\.com/);
+  const performanceRow = result.outputs.ownerOutcomes.performance.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(performanceRow.fieldLcp.value, 4200);
+  assert.equal(performanceRow.fieldInp.value, 140);
+  assert.equal(performanceRow.status, 'needs-work');
+  assert.match(performanceRow.field.providerUrl, /speed\/observatory/);
+  const awarenessRow = result.outputs.ownerOutcomes.coreAi.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(awarenessRow.crawlerRequests.value, 18);
+  assert.equal(awarenessRow.aiReferralVisits.value, 3);
+  assert.equal(awarenessRow.discovery.crawler.breakdowns[0].values[0].label, 'GPTBot');
 });
 
 test('builds one honest six-bucket projection from readable Fleet evidence', () => {

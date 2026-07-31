@@ -91,12 +91,26 @@ function outcomeProjection(connections, family) {
       recommendation: boundedSignal(row.recommendation),
       citation: boundedSignal(row.citation),
       averageRank: boundedSignal(row.averageRank),
+      crawlerRequests: boundedSignal(row.crawlerRequests, { includeSeries: true }),
+      aiReferralVisits: boundedSignal(row.aiReferralVisits, { includeSeries: true }),
     }));
   } else if (family === 'performance') {
     rows = (outcomes.performance ?? []).map((row) => ({
       ...row,
       psi: boundedSignal(row.psi),
       lcp: boundedSignal(row.lcp),
+      fieldLcp: boundedSignal(row.fieldLcp, { includeSeries: true }),
+      fieldInp: boundedSignal(row.fieldInp, { includeSeries: true }),
+      fieldCls: boundedSignal(row.fieldCls, { includeSeries: true }),
+      fieldTtfb: boundedSignal(row.fieldTtfb, { includeSeries: true }),
+      rumSamples: boundedSignal(row.rumSamples),
+    }));
+  } else if (family === 'marketing') {
+    rows = (outcomes.marketing ?? []).map((row) => ({
+      ...row,
+      visits: boundedSignal(row.visits, { includeSeries: true }),
+      pageViews: boundedSignal(row.pageViews, { includeSeries: true }),
+      searchReferrals: boundedSignal(row.searchReferrals, { includeSeries: true }),
     }));
   } else if (family === 'search') {
     rows = (outcomes.search ?? []).map((row) => ({
@@ -277,7 +291,7 @@ export function createFounderControlHandler({
         );
       }
       const outcomeMatch = url.pathname.match(
-        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance)$/,
+        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing)$/,
       );
       if (method === 'GET' && outcomeMatch) {
         return json(

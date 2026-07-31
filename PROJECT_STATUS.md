@@ -62,6 +62,19 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-01 — Cloudflare runtime evidence became directly usable:** Added
+  one read-only, registry-driven portfolio collector for Cloudflare Web
+  Analytics, real-user Web Vitals, AI Crawl Control, and AI referral traffic.
+  AI Awareness now shows verified crawler requests and AI-referred visits;
+  Performance compares PSI lab results with field LCP and expands to the other
+  p75 Web Vitals; Marketing shows visits and page views with top-page and
+  referrer breakdowns. Each expanded row links to the exact Cloudflare zone,
+  and every Google Search row links to its exact Search Console property.
+  Shared Update controls deduplicate the same 27-project collection. The first
+  live 28-day run recorded 103 bounded observations across all 27 projects:
+  traffic for 26, field performance for 24, and AI crawler evidence for every
+  project. Credentials and raw provider payloads remain outside git, and no
+  deployment was performed.
 - **2026-08-01 — Google Search became an action ledger:** Added a
   fourth Metrics route for all 27 canonical public projects with sortable
   impressions, clicks, CTR, average position, next action, and last-observed
@@ -666,11 +679,15 @@ Cloudflare deployment history, not by maintaining duplicate source.
   retained raw answer text or provider request IDs.
 - Read-only Google Search Console collection plus credential-free Cloudflare
   outcome ingestion with strict normalized validation, canonical-project
-  identity, private history, and separate Search, crawler, and AI-referral
-  evidence without changing portfolio scores. The portfolio Google Search
-  ledger compares all 27 public projects and expands each row to expose bounded
-  query metrics and provider scope. Shared Domain properties are isolated by
-  each project's canonical HTTPS hostname.
+  identity, private history, provider-deep-link validation, and separate
+  Search, web-traffic, field-performance, crawler, and AI-referral evidence
+  without changing portfolio scores. The portfolio Google Search ledger
+  compares all 27 public projects and expands each row to expose bounded query
+  metrics and its exact Search Console property. Existing AI Awareness,
+  Performance, and Marketing pages expose bounded Cloudflare values and
+  breakdowns with exact zone links and one deduplicated portfolio update.
+  Shared Domain properties and Cloudflare zones are isolated to each project's
+  canonical HTTPS hostname.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

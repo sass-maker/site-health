@@ -17,6 +17,7 @@ import {
   readVisibilityOutcomes,
 } from '../visibility-outcome-store.mjs';
 import { visibilityProjects } from '../visibility-projects.mjs';
+import { searchConsoleProviderUrl } from '../search-console.mjs';
 import {
   isDomainStrengthProject,
   isPublicMetricProject,
@@ -1103,10 +1104,12 @@ function outcomeFamilySummary(family) {
   return {
     observations: family.observations,
     provider: family.latest.provider,
+    providerUrl: family.latest.providerUrl ?? null,
     scope: family.latest.scope,
     observedAt: family.latest.observedAt,
     period: family.latest.period,
     searchTerms: family.latest.searchTerms ?? [],
+    breakdowns: family.latest.breakdowns ?? [],
     metrics: family.metrics
       .filter((metric) => latestMetricLabels.has(metric.label))
       .map((metric) => ({
@@ -1120,6 +1123,22 @@ function outcomeFamilySummary(family) {
 
 function signalByLabel(project, label) {
   return project.history.signals.find((signal) => signal.label === label) ?? null;
+}
+
+function latestFamilySignal(project, outcome, label) {
+  if (!outcome) return null;
+  const metric = outcome.metrics?.find((item) => item.label === label);
+  if (!metric) return null;
+  const history = signalByLabel(project, label);
+  return {
+    ...(history ?? {}),
+    ...metric,
+    label,
+    value: metric.value,
+    observedAt: outcome.observedAt,
+    source: outcome.provider,
+    providerUrl: outcome.providerUrl ?? null,
+  };
 }
 
 function latestOutcomeSignal(project, outcome, label) {
@@ -1194,6 +1213,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
       )
       .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
+    const traffic = project.webTraffic?.outcome ?? null;
     return {
       projectId: project.projectId,
       name: project.name,
@@ -1204,13 +1224,27 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       latestOutcome: projectOutcomes[0] ?? null,
       outcomeCount: projectOutcomes.length,
       status: projectOutcomes.length > 0 ? 'marketed' : 'never-marketed',
+      visits: latestFamilySignal(project, traffic, 'Web visits'),
+      pageViews: latestFamilySignal(project, traffic, 'Web page views'),
+      searchReferrals: latestFamilySignal(project, traffic, 'Search referral visits'),
+      traffic,
     };
   });
 
-  const performanceThresholds = { psiScore: 90, lcpMilliseconds: 2500 };
+  const performanceThresholds = {
+    psiScore: 90,
+    lcpMilliseconds: 2500,
+    fieldLcpMilliseconds: 2500,
+    fieldInpMilliseconds: 200,
+    fieldCls: 0.1,
+  };
   const performanceRows = publicProjects.map((project) => {
     const psi = signalByLabel(project, 'PSI performance');
     const lcp = signalByLabel(project, 'PSI LCP');
+    const field = project.fieldPerformance?.outcome ?? null;
+    const fieldLcp = latestFamilySignal(project, field, 'Field LCP');
+    const fieldInp = latestFamilySignal(project, field, 'Field INP');
+    const fieldCls = latestFamilySignal(project, field, 'Field CLS');
     let status = 'not-measured';
     if (psi && lcp) {
       status = 'needs-work';
@@ -1221,6 +1255,12 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         status = 'fast-enough';
       }
     }
+    const fieldFails = (
+      (Number.isFinite(fieldLcp?.value) && fieldLcp.value > performanceThresholds.fieldLcpMilliseconds) ||
+      (Number.isFinite(fieldInp?.value) && fieldInp.value > performanceThresholds.fieldInpMilliseconds) ||
+      (Number.isFinite(fieldCls?.value) && fieldCls.value > performanceThresholds.fieldCls)
+    );
+    if (fieldFails) status = 'needs-work';
     return {
       projectId: project.projectId,
       name: project.name,
@@ -1228,7 +1268,16 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       status,
       psi,
       lcp,
-      observedAt: project.metricSemantics?.performance?.observedAt ?? null,
+      fieldLcp,
+      fieldInp,
+      fieldCls,
+      fieldTtfb: latestFamilySignal(project, field, 'Field TTFB'),
+      rumSamples: latestFamilySignal(project, field, 'RUM samples'),
+      field,
+      observedAt: newestTimestamp([
+        project.metricSemantics?.performance?.observedAt,
+        field?.observedAt,
+      ]),
     };
   });
 
@@ -1271,6 +1320,9 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       observations: outcome?.observations ?? 0,
       searchTerms,
       provider: outcome?.provider ?? null,
+      providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
+        String(outcome?.scope ?? '').split(' · page:')[0],
+      ),
       scope: outcome?.scope ?? null,
       period: outcome?.period ?? null,
       observedAt: outcome?.observedAt ?? null,
@@ -1286,17 +1338,26 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         status = 'not-known';
         if (mention.value > 0) status = 'known';
       }
+      const crawler = project.aiVisibility?.discovery?.crawler ?? null;
+      const referral = project.aiVisibility?.discovery?.referral ?? null;
       return {
         projectId: project.projectId,
         name: project.name,
         domain: project.domains[0] ?? null,
         status,
         observations: project.aiVisibility?.observations ?? 0,
-        observedAt: project.aiVisibility?.observedAt ?? null,
+        observedAt: newestTimestamp([
+          project.aiVisibility?.observedAt,
+          crawler?.observedAt,
+          referral?.observedAt,
+        ]),
         mention,
         recommendation: signalByLabel(project, 'AI recommendation rate'),
         citation: signalByLabel(project, 'AI citation rate'),
         averageRank: signalByLabel(project, 'AI average rank'),
+        crawlerRequests: latestFamilySignal(project, crawler, 'AI crawler requests'),
+        aiReferralVisits: latestFamilySignal(project, referral, 'AI referral visits'),
+        discovery: { crawler, referral },
       };
     });
 
@@ -1599,6 +1660,8 @@ function buildProjectOutputs({
             search: 'Search Console outcome',
             'ai-crawl': 'AI crawler activity',
             'ai-referral': 'AI referral traffic',
+            'web-traffic': 'Web traffic',
+            'web-vitals': 'Real-user performance',
           }[familyId] ?? familyId,
           value: family.observations,
           detail: `${family.latest.provider} · ${family.latest.scope}`,
@@ -1686,6 +1749,8 @@ function buildProjectOutputs({
         ...readinessSignals,
         ...aiSignals,
       ].filter(Boolean);
+      const webTrafficOutcome = outcomeFamilySummary(outcomes['web-traffic']);
+      const webVitalsOutcome = outcomeFamilySummary(outcomes['web-vitals']);
       const aiVisibilityOutput = {
         configured: Boolean(ai),
         observations: aiOutcomeHistory.length,
@@ -1744,6 +1809,12 @@ function buildProjectOutputs({
             }
           : null,
         designReview,
+        webTraffic: {
+          outcome: webTrafficOutcome,
+        },
+        fieldPerformance: {
+          outcome: webVitalsOutcome,
+        },
         aiVisibility: aiVisibilityOutput,
         searchVisibility: {
           configured: search?.configured === true,
