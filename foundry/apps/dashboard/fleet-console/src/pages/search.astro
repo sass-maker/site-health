@@ -9,6 +9,8 @@ import FounderLayout from "../components/FounderLayout.astro";
   view="search"
 >
   <div slot="meta" class="page-head__meta">
+    <button type="button" class="secondary-action" data-portfolio-refresh="search">Update</button>
+    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="search"></span>
     <strong class="search-reporting-period" data-search-period>Reading reporting period</strong>
     <span class="snapshot-time" data-outcome-time>Reading Search Console evidence</span>
   </div>

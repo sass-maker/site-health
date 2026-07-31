@@ -11,6 +11,7 @@ const FAMILIES = new Set([
   'coverage',
   'psi',
   'drank',
+  'search',
   'ai',
   'design',
 ]);
@@ -28,6 +29,9 @@ function projectRoot(fleetRoot, project) {
 }
 
 function commandFor({ family, project, fleetRoot }) {
+  if (family === 'search') {
+    fail('METRIC_SCOPE_INVALID', 'Google Search updates are portfolio-only');
+  }
   const domain = project.domains?.[0] ?? null;
   if (['agent', 'crawl', 'coverage', 'psi', 'drank'].includes(family) && !domain) {
     fail('METRIC_DOMAIN_MISSING', `${project.name} has no canonical domain`);
@@ -159,6 +163,13 @@ function portfolioCommandFor({ family, fleetRoot, projects }) {
         ]),
       ],
       label: 'Portfolio PSI',
+    };
+  }
+  if (family === 'search') {
+    return {
+      command: process.execPath,
+      args: [resolve(fleetRoot, 'foundry/ops/scripts/search-console-collect.mjs')],
+      label: 'Portfolio Google Search',
     };
   }
   fail('METRIC_SCOPE_INVALID', 'Unsupported portfolio metric family');

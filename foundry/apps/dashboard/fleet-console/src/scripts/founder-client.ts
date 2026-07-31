@@ -2244,7 +2244,7 @@ async function renderSearch() {
     : empty("No Google Search evidence", "No Search Console outcomes are recorded yet."));
 }
 
-type PortfolioMetricFamily = "drank" | "psi";
+type PortfolioMetricFamily = "drank" | "psi" | "search";
 
 const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
   idleLabel: string;
@@ -2272,6 +2272,15 @@ const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
     failureMessage: "Performance refresh failed.",
     maxAttempts: 2400,
     refresh: renderPerformance,
+  },
+  search: {
+    idleLabel: "Update",
+    runningLabel: "Updating…",
+    startingMessage: "Updating Google Search evidence…",
+    completedMessage: "Google Search evidence updated.",
+    failureMessage: "Google Search update failed.",
+    maxAttempts: 240,
+    refresh: renderSearch,
   },
 };
 
@@ -2972,7 +2981,10 @@ async function start() {
       bindPortfolioRefresh("drank");
       await renderDomains();
     }
-    if (view === "search") await renderSearch();
+    if (view === "search") {
+      bindPortfolioRefresh("search");
+      await renderSearch();
+    }
     if (view === "ai-awareness") await renderAiAwareness();
     if (view === "home") await renderHome();
     if (view === "project-statuses") await renderProjects();

@@ -75,6 +75,9 @@ CodeVetter or App Health source.
   they are not stored and cannot mutate content or Search Console.
   The page header shows the shared reporting window and duration separately
   from the evidence rebuild time.
+  One Update control now runs the existing read-only portfolio collector,
+  deduplicates active runs, reports progress, and redraws all 27 projects after
+  completion.
   The latest read-only collection covered all 27 projects with no unavailable
   properties and returned 72 query-page rows;
   privacy-filtered or zero-volume results stay explicit instead of being

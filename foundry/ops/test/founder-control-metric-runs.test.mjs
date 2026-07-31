@@ -128,6 +128,37 @@ test('starts one portfolio PSI orchestrator with every eligible project target',
   ]);
 });
 
+test('starts and deduplicates one portfolio Search Console collector', () => {
+  let invocation;
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [{
+      id: 'pace',
+      publicListing: 'maintained',
+      lifecycle: 'maintained',
+      domains: ['heypace.app'],
+    }],
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'search', scope: 'portfolio' });
+  const duplicate = controller.start({ family: 'search', scope: 'portfolio' });
+
+  assert.equal(started.label, 'Portfolio Google Search');
+  assert.equal(duplicate.runId, started.runId);
+  assert.equal(duplicate.duplicate, true);
+  assert.equal(invocation.options.shell, false);
+  assert.equal(invocation.args.length, 1);
+  assert.equal(invocation.args[0].endsWith('search-console-collect.mjs'), true);
+  assert.throws(
+    () => controller.start({ family: 'search', projectId: 'pace' }),
+    { code: 'METRIC_SCOPE_INVALID' },
+  );
+});
+
 test('rejects unknown projects and validates existing design receipts', () => {
   const fleetRoot = mkdtempSync(join(tmpdir(), 'metric-runs-'));
   mkdirSync(join(fleetRoot, 'product', '.fleet'), { recursive: true });
