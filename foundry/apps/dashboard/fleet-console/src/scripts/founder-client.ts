@@ -54,6 +54,10 @@ function compactNumber(value: number) {
   return new Intl.NumberFormat("en", { notation: value >= 10_000 ? "compact" : "standard", maximumFractionDigits: 1 }).format(value);
 }
 
+function compactDecimal(value: number) {
+  return new Intl.NumberFormat("en", { maximumFractionDigits: 1 }).format(value);
+}
+
 function bytes(value: number) {
   if (!Number.isFinite(value) || value <= 0) return "0 B";
   if (value < 1024) return `${value} B`;
@@ -119,8 +123,10 @@ function catalogProjectId(id?: string) {
 }
 
 function consoleHref(value?: string | null) {
-  if (!value) return "/metrics";
-  const normalized = value.replace(/^\/connections/, "/metrics");
+  if (!value) return "/domains";
+  const normalized = value
+    .replace(/^\/connections/, "/domains")
+    .replace(/^\/metrics/, "/domains");
   if (!selectedProjectId || normalized.startsWith("/projects/")) return normalized;
   const url = new URL(normalized, window.location.origin);
   url.searchParams.set("project", selectedProjectId);
@@ -851,7 +857,7 @@ function renderConnectionHome(payload: JsonRecord) {
     element("div", { class: "connection-home__next" }, [
       element("span", {}, [improvement ? "Highest-impact improvement" : "Output state"]),
       element("strong", {}, [improvement?.action ?? "No evidence-backed improvement is waiting."]),
-      element("a", { class: "action-link", href: "/metrics" }, ["Open metrics"]),
+      element("a", { class: "action-link", href: "/domains" }, ["Open portfolio evidence"]),
     ]),
   ]);
   replace("connection-home", body);
@@ -861,7 +867,11 @@ function latestResultRecord(item: JsonRecord) {
   const href = item.kind === "skill"
     ? "/skill-uses"
     : ["psi", "domain-rating", "ai-visibility"].includes(item.kind)
-      ? "/metrics"
+      ? item.kind === "psi"
+        ? "/performance"
+        : item.kind === "ai-visibility"
+          ? "/ai-awareness"
+          : "/domains"
       : `/projects/${item.projectId}`;
   const failed = String(item.value).toLowerCase() === "failed" || String(item.detail).toLowerCase().includes("failed");
   return element("a", { class: "record", href: consoleHref(href) }, [
@@ -1345,7 +1355,7 @@ function metricRunButton(project: JsonRecord, family: MetricFamily) {
         if (document.body.dataset.founderView === "project") {
           await renderProjectDetail();
         } else {
-          await renderMetrics();
+          await renderPerformance();
         }
         return;
       }
@@ -1443,246 +1453,127 @@ function metricReportFamily(
   return entries.length ? element("div", { class: "metric-report-list" }, entries) : null;
 }
 
-function projectSignal(project: JsonRecord, label: string) {
-  return project.history.signals.find((signal: JsonRecord) => signal.label === label);
-}
-
-type MetricMatrixMeasureInput = {
-  label: string;
-  signal?: JsonRecord;
-  missing?: string;
-  source: string;
-  observedAt?: string | null;
-  detail?: string | null;
-  tone?: "support" | "standard";
-};
-
-function metricMatrixMeasure({
-  label,
-  signal,
-  missing = "Not measured",
-  source,
-  observedAt = signal?.observedAt ?? null,
-  detail = null,
-  tone = "standard",
-}: MetricMatrixMeasureInput) {
-  const evidence = [source, observedAt ? formattedDay(observedAt) : "No observation", detail]
-    .filter(Boolean)
-    .join(" · ");
-  if (!signal || !Number.isFinite(signal.value)) {
-    return element("span", {
-      class: `metric-matrix__measure metric-matrix__measure--${tone} metric-matrix__measure--missing`,
-      title: evidence,
-    }, [
-      element("small", {}, [label]),
-      element("strong", {}, [missing]),
-      element("em", {}, [evidence]),
-    ]);
-  }
-  const favorable =
-    Number.isFinite(signal.delta) &&
-    ((signal.direction === "higher-is-better" && signal.delta > 0) ||
-      (signal.direction === "lower-is-better" && signal.delta < 0));
-  const unfavorable =
-    Number.isFinite(signal.delta) &&
-    ((signal.direction === "higher-is-better" && signal.delta < 0) ||
-      (signal.direction === "lower-is-better" && signal.delta > 0));
-  let trendClass = "";
-  if (favorable) trendClass = "positive";
-  if (unfavorable) trendClass = "negative";
-  let trend = "";
-  if (Number.isFinite(signal.delta)) {
-    trend = metricDeltaValue(signal.delta, signal.unit);
-  } else if (signal.history === "baseline-only") {
-    trend = "Baseline";
-  }
-  return element("span", {
-    class: `metric-matrix__measure metric-matrix__measure--${tone}`,
-    title: evidence,
-  }, [
-    element("small", {}, [label]),
-    element("strong", {}, [metricValue(signal.value, signal.unit)]),
-    element("em", { class: trendClass }, [trend ? `${trend} · ${evidence}` : evidence]),
+function portfolioMeasure(label: string, value: string, detail?: string | null) {
+  return element("div", { class: "portfolio-measure" }, [
+    element("span", {}, [label]),
+    element("strong", {}, [value]),
+    detail ? element("small", {}, [detail]) : null,
   ]);
 }
 
-type MetricMatrixColumn = "drank" | "readiness" | "performance";
-
-function metricMatrixCell(project: JsonRecord, column: MetricMatrixColumn) {
-  const semantics = project.metricSemantics ?? {};
-  const domainScope = semantics.seo?.domainAuthority?.sharedRoot
-    ? `shared root ${semantics.seo.domainAuthority.rootDomain}`
-    : semantics.seo?.domainAuthority?.domain ?? null;
-  const cells: Record<MetricMatrixColumn, { section: string; measures: HTMLElement[] }> = {
-    drank: {
-      section: "seo",
-      measures: [
-      metricMatrixMeasure({
-        label: "D-Rank",
-        signal: projectSignal(project, "Domain rating"),
-        source: "Drank",
-        observedAt: semantics.seo?.domainAuthority?.observedAt,
-        detail: domainScope,
-      }),
-      ],
-    },
-    readiness: {
-      section: "geo",
-      measures: [
-      metricMatrixMeasure({
-        label: "Agent readiness",
-        signal: projectSignal(project, "Agent readiness"),
-        source: "Agent audit",
-        observedAt: semantics.geo?.technicalReadiness?.observedAt,
-        tone: "support",
-      }),
-      ],
-    },
-    performance: {
-      section: "performance",
-      measures: [
-      metricMatrixMeasure({
-        label: "PSI",
-        signal: projectSignal(project, "PSI performance"),
-        source: "PSI Swarm",
-        observedAt: semantics.performance?.observedAt,
-      }),
-      metricMatrixMeasure({
-        label: "LCP",
-        signal: projectSignal(project, "PSI LCP"),
-        source: "PSI Swarm",
-        observedAt: semantics.performance?.observedAt,
-      }),
-      ],
-    },
+function portfolioStatusLabel(value: string) {
+  const labels: JsonRecord = {
+    "not-measured": "Not measured",
+    "needs-work": "Needs work",
+    "fast-enough": "Fast enough",
+    measured: "Measured",
+    comparable: "Comparable",
+    "baseline-only": "Baseline only",
   };
-  const cell = cells[column];
-  const href = `${projectHref(project.projectId)}#${cell.section}`;
-  return element("div", {
-    class: `metric-matrix__cell metric-matrix__cell--${column}`,
-    role: "cell",
-  }, [
-    element("a", {
-      href,
-      title: `Open ${project.name} ${column} metrics`,
-    }, cell.measures),
-  ]);
+  return labels[value] ?? titleCase(value);
 }
 
-function metricMatrixRow(project: JsonRecord) {
-  return element("div", { class: "metric-matrix__row", role: "row" }, [
-    element("div", { class: "metric-matrix__project", role: "rowheader" }, [
-      element("a", { href: projectHref(project.projectId) }, [
-        element("strong", {}, [project.name]),
-        element("small", {}, [project.domains?.[0] ?? "No domain"]),
-      ]),
+function domainRow(domain: JsonRecord) {
+  const products = domain.products ?? [];
+  const productLinks = element("div", { class: "portfolio-products", "aria-label": `Products on ${domain.rootDomain}` },
+    products.map((product: JsonRecord) =>
+      element("a", { href: projectHref(product.projectId) }, [product.name])));
+  return element("article", { class: "portfolio-row portfolio-row--domain" }, [
+    element("div", { class: "portfolio-row__identity" }, [
+      element("span", { class: "record-kicker" }, [`${products.length} product${products.length === 1 ? "" : "s"}`]),
+      element("h3", {}, [domain.rootDomain]),
+      productLinks,
     ]),
-    metricMatrixCell(project, "drank"),
-    metricMatrixCell(project, "readiness"),
-    metricMatrixCell(project, "performance"),
+    element("div", { class: "portfolio-row__measures" }, [
+      portfolioMeasure(
+        "D-Rank",
+        Number.isFinite(domain.rating) ? String(domain.rating) : "—",
+        domain.measuredDomain ? `${domain.source} · ${domain.measuredDomain}` : domain.source,
+      ),
+      portfolioMeasure("Change", Number.isFinite(domain.delta) ? `${domain.delta > 0 ? "+" : ""}${compactDecimal(domain.delta)}` : "—", `${domain.observations} observation${domain.observations === 1 ? "" : "s"}`),
+      portfolioMeasure("Observed", domain.observedAt ? formattedDay(domain.observedAt) : "No observation"),
+    ]),
+    element("div", { class: "portfolio-row__state" }, [
+      state(domain.historyState),
+      element("small", {}, [portfolioStatusLabel(domain.historyState)]),
+    ]),
   ]);
 }
 
-type MetricMatrixSort = "project" | MetricMatrixColumn;
-
-function metricMatrixSortValue(project: JsonRecord, key: MetricMatrixSort) {
-  if (key === "project") return project.name;
-  if (key === "drank") return projectSignal(project, "Domain rating")?.value;
-  if (key === "readiness") return projectSignal(project, "Agent readiness")?.value;
-  return projectSignal(project, "PSI performance")?.value;
+function percentValue(value: unknown) {
+  return Number.isFinite(value) ? `${compactDecimal(Number(value))}%` : "—";
 }
 
-function metricMatrix(projects: JsonRecord[]) {
-  let sortKey: MetricMatrixSort = "project";
-  let sortDirection: "ascending" | "descending" = "ascending";
-  const headers = new Map<MetricMatrixSort, HTMLElement>();
-  const sortStatus = element("span", { class: "sr-only", role: "status", "aria-live": "polite" });
-  const matrix = element("div", {
-    class: "metric-matrix",
-    role: "table",
-    "aria-label": "Fleet project metrics",
-  });
-
-  const renderRows = () => {
-    for (const [key, header] of headers) {
-      header.setAttribute("aria-sort", key === sortKey ? sortDirection : "none");
-    }
-    const sorted = [...projects].sort((left, right) => {
-      const leftValue = metricMatrixSortValue(left, sortKey);
-      const rightValue = metricMatrixSortValue(right, sortKey);
-      const leftMissing = leftValue === null || leftValue === undefined || leftValue === "";
-      const rightMissing = rightValue === null || rightValue === undefined || rightValue === "";
-      if (leftMissing !== rightMissing) return leftMissing ? 1 : -1;
-      if (leftMissing && rightMissing) return left.name.localeCompare(right.name);
-      let order = 0;
-      if (typeof leftValue === "string" && typeof rightValue === "string") {
-        order = leftValue.localeCompare(rightValue);
-      } else {
-        order = Number(leftValue) - Number(rightValue);
-      }
-      return sortDirection === "ascending" ? order : -order;
-    });
-    matrix.replaceChildren(head, ...sorted.map(metricMatrixRow));
-    sortStatus.textContent = `Sorted by ${sortKey}, ${sortDirection}.`;
-  };
-
-  const headerCell = (
-    key: MetricMatrixSort,
-    label: string,
-    description: string,
-  ) => {
-    const header = element("span", { role: "columnheader", "aria-sort": "none" });
-    const button = element("button", {
-      type: "button",
-      title: description,
-      "aria-label": `${label}. ${description}`,
-    }, [
-      label,
-      element("span", { class: "metric-matrix__sort", "aria-hidden": "true" }),
-    ]);
-    button.addEventListener("click", () => {
-      if (sortKey === key) {
-        sortDirection = sortDirection === "ascending" ? "descending" : "ascending";
-      } else {
-        sortKey = key;
-        sortDirection = key === "project" ? "ascending" : "descending";
-      }
-      renderRows();
-    });
-    header.append(button);
-    headers.set(key, header);
-    return header;
-  };
-
-  const head = element("div", { class: "metric-matrix__head", role: "row" }, [
-    headerCell("project", "Project", "Sort alphabetically"),
-    headerCell("drank", "D-Rank", "Sort by domain rating"),
-    headerCell("readiness", "Agent readiness", "Sort by technical readiness"),
-    headerCell("performance", "Performance", "Sort by PSI score"),
-  ]);
-  renderRows();
-  return element("div", { class: "metric-matrix-wrap" }, [
-    element("p", { class: "metric-matrix__scroll-hint" }, ["Swipe sideways to compare D-Rank, agent readiness, and performance."]),
-    sortStatus,
-    matrix,
+function aiAwarenessRow(project: JsonRecord) {
+  const providerDetail = project.providers?.length
+    ? project.providers.join(", ")
+    : "No completed provider observation";
+  return element("article", { class: "portfolio-row" }, [
+    element("div", { class: "portfolio-row__identity" }, [
+      element("span", { class: "record-kicker" }, [providerDetail]),
+      element("h3", {}, [project.name]),
+      element("a", { class: "action-link", href: `${projectHref(project.projectId)}#geo` }, ["Open project evidence"]),
+    ]),
+    element("div", { class: "portfolio-row__measures portfolio-row__measures--five" }, [
+      portfolioMeasure("Mention", percentValue(project.mentionRate)),
+      portfolioMeasure("Recommended", percentValue(project.recommendationRate)),
+      portfolioMeasure("Citation rate", percentValue(project.citationRate)),
+      portfolioMeasure("Citations", Number.isFinite(project.citations) ? String(project.citations) : "—"),
+      portfolioMeasure("Coverage", percentValue(project.coverageRate)),
+    ]),
+    element("div", { class: "portfolio-row__state" }, [
+      state(project.status),
+      element("small", {}, [project.observedAt ? formattedDay(project.observedAt) : "Provider outcome required"]),
+    ]),
   ]);
 }
 
-async function renderMetrics() {
+function performanceRow(project: JsonRecord, guardrails: JsonRecord) {
+  const failures = project.failures?.length
+    ? `${project.failures.join(" and ")} outside guardrail`
+    : project.status === "not-measured"
+      ? "Both values are required"
+      : "Both guardrails pass";
+  return element("article", { class: "portfolio-row" }, [
+    element("div", { class: "portfolio-row__identity" }, [
+      element("span", { class: "record-kicker" }, [project.domain ?? "No public domain"]),
+      element("h3", {}, [project.name]),
+      element("a", { class: "action-link", href: `${projectHref(project.projectId)}#performance` }, ["Open performance evidence"]),
+    ]),
+    element("div", { class: "portfolio-row__measures" }, [
+      portfolioMeasure("PSI", Number.isFinite(project.psi) ? String(project.psi) : "—", `Pass ≥ ${guardrails.minimumPsi}`),
+      portfolioMeasure("LCP", Number.isFinite(project.lcpMs) ? `${(project.lcpMs / 1000).toFixed(2)} s` : "—", `Pass ≤ ${(guardrails.maximumLcpMs / 1000).toFixed(1)} s`),
+      portfolioMeasure("Observed", project.observedAt ? formattedDay(project.observedAt) : "No observation", project.source),
+    ]),
+    element("div", { class: "portfolio-row__state" }, [
+      state(project.status),
+      element("small", {}, [failures]),
+    ]),
+  ]);
+}
+
+function filterPortfolioProjects(projects: JsonRecord[]) {
+  return projects.filter(
+    (project) => !selectedProjectId || project.projectId === selectedProjectId,
+  );
+}
+
+async function renderDomains() {
   const payload = await api("/v1/connections");
   const renderedAt = document.querySelector<HTMLElement>("[data-connections-time]");
   if (renderedAt) renderedAt.textContent = `Reports rebuilt ${formatted(payload.generatedAt)}`;
-  const eligibleProjects = payload.outputs.projects
-    .filter((project: JsonRecord) => project.metricEligibility?.publicSite === true)
-    .filter((project: JsonRecord) => !selectedProjectId || project.projectId === selectedProjectId)
-    .sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name));
-  const projectCount = document.querySelector<HTMLElement>('[data-founder-count="metric-projects"]');
-  if (projectCount) projectCount.textContent = String(eligibleProjects.length);
+  const domains = payload.portfolio.domains.filter(
+    (domain: JsonRecord) =>
+      !selectedProjectId ||
+      domain.products.some((project: JsonRecord) => project.projectId === selectedProjectId),
+  );
+  const domainCount = document.querySelector<HTMLElement>('[data-founder-count="domains"]');
+  if (domainCount) domainCount.textContent = String(domains.length);
   replace(
-    "metric-projects",
-    eligibleProjects.length
-      ? metricMatrix(eligibleProjects)
-      : empty("No matching project", "The current project scope has no eligible public measurement surface."),
+    "domains",
+    domains.length
+      ? element("div", { class: "portfolio-directory" }, domains.map(domainRow))
+      : empty("No matching domain", "The current project scope has no maintained public domain."),
   );
   replace("connection-overview", connectionMap(payload));
 
@@ -1710,6 +1601,42 @@ async function renderMetrics() {
   wireSystemSheet();
   revealTargetedConnection();
   window.addEventListener("hashchange", revealTargetedConnection);
+}
+
+async function renderAiAwareness() {
+  const payload = await api("/v1/connections");
+  const renderedAt = document.querySelector<HTMLElement>("[data-connections-time]");
+  if (renderedAt) renderedAt.textContent = `Reports rebuilt ${formatted(payload.generatedAt)}`;
+  const projects = filterPortfolioProjects(payload.portfolio.aiAwareness);
+  const count = document.querySelector<HTMLElement>('[data-founder-count="ai-awareness"]');
+  if (count) count.textContent = String(projects.length);
+  replace(
+    "ai-awareness",
+    projects.length
+      ? element("div", { class: "portfolio-directory" }, projects.map(aiAwarenessRow))
+      : empty(
+          "No matching core product",
+          selectedProjectId
+            ? `${selectedProjectName} is not a maintained P1 product-category project.`
+            : "No maintained P1 product-category project is configured.",
+        ),
+  );
+}
+
+async function renderPerformance() {
+  const payload = await api("/v1/connections");
+  const renderedAt = document.querySelector<HTMLElement>("[data-connections-time]");
+  if (renderedAt) renderedAt.textContent = `Reports rebuilt ${formatted(payload.generatedAt)}`;
+  const projects = filterPortfolioProjects(payload.portfolio.performance);
+  const count = document.querySelector<HTMLElement>('[data-founder-count="performance"]');
+  if (count) count.textContent = String(projects.length);
+  replace(
+    "performance",
+    projects.length
+      ? element("div", { class: "portfolio-directory" }, projects.map((project: JsonRecord) =>
+          performanceRow(project, payload.portfolio.guardrails)))
+      : empty("No matching public product", "The current project scope has no eligible public performance surface."),
+  );
 }
 
 async function renderSkillUses() {
@@ -2166,6 +2093,49 @@ function visibilityProject(project: JsonRecord) {
 
 async function renderMarketing() {
   const marketing = await api("/v1/marketing");
+  const coverage = (marketing.coverage ?? []).filter(
+    (item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId,
+  );
+  const coverageCount = document.querySelector<HTMLElement>('[data-founder-count="marketing-coverage"]');
+  if (coverageCount) coverageCount.textContent = String(coverage.length);
+  const renderedAt = document.querySelector<HTMLElement>("[data-marketing-time]");
+  if (renderedAt) renderedAt.textContent = `Coverage rebuilt ${formatted(marketing.generatedAt)}`;
+  replace(
+    "marketing-coverage",
+    coverage.length
+      ? element("div", { class: "portfolio-directory" }, coverage.map((item: JsonRecord) => {
+          const publication = item.latestPublication;
+          return element("article", { class: "portfolio-row portfolio-row--marketing" }, [
+            element("div", { class: "portfolio-row__identity" }, [
+              element("span", { class: "record-kicker" }, [item.projectId]),
+              element("h3", {}, [item.name]),
+              element("p", {}, [
+                item.positioning?.description ??
+                  "No product positioning is recorded in the project catalog.",
+              ]),
+            ]),
+            element("div", { class: "portfolio-row__publication" }, [
+              element("span", {}, ["Latest publication"]),
+              element("strong", {}, [publication?.summary ?? "Never marketed"]),
+              publication?.observedAt
+                ? element("small", {}, [
+                    `${publication.provider ?? "Evidence"} · ${formattedDay(publication.observedAt)}`,
+                  ])
+                : element("small", {}, ["No normalized publication receipt"]),
+              publication?.url
+                ? element("a", { class: "action-link", href: publication.url, target: "_blank", rel: "noreferrer" }, ["Open receipt"])
+                : null,
+            ]),
+            element("div", { class: "portfolio-row__state" }, [
+              state(item.publicationState),
+              element("small", {}, [
+                `${item.recommendationCount} open recommendation${item.recommendationCount === 1 ? "" : "s"}`,
+              ]),
+            ]),
+          ]);
+        }))
+      : empty("No matching maintained product", "The current project scope has no maintained marketing surface."),
+  );
   const recommendations = marketing.recommendations.filter(
     (item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId,
   );
@@ -2187,30 +2157,6 @@ async function renderMarketing() {
             ]),
           ])))
       : empty("Nothing worth doing next", selectedProjectId ? `${selectedProjectName} has no evidence-backed marketing recommendation.` : "No evidence-backed marketing recommendation is waiting."),
-  );
-  const outcomes = (marketing.outcomes ?? marketing.receipts ?? [])
-    .filter((item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId);
-  const outcomeCount = document.querySelector<HTMLElement>('[data-founder-count="marketing-outcomes"]');
-  if (outcomeCount) outcomeCount.textContent = String(outcomes.length);
-  replace(
-    "marketing-outcomes",
-    outcomes.length
-      ? element("div", { class: "record-list" }, outcomes.map((item: JsonRecord) =>
-          element("article", { class: "record" }, [
-            element("div", { class: "record-main" }, [
-              element("div", { class: "record-kicker" }, [item.projectId ?? "Portfolio", item.channel ? ` · ${item.channel}` : ""]),
-              element("h3", {}, [item.title ?? item.summary ?? "Published work"]),
-              item.result ? element("p", {}, [item.result]) : null,
-            ]),
-            element("div", { class: "record-side" }, [
-              state(item.status ?? "published"),
-              item.observedAt ? element("small", {}, [formatted(item.observedAt)]) : null,
-            ]),
-          ])))
-      : empty(
-          "No published outcome recorded",
-          selectedProjectId ? `${selectedProjectName} has no publishing receipt or outcome yet.` : "No project has a publishing receipt or outcome yet.",
-        ),
   );
 }
 
@@ -2292,7 +2238,9 @@ async function start() {
     if (view === "home") await renderHome();
     if (view === "project-statuses") await renderProjects();
     if (view === "project") await renderProjectDetail();
-    if (view === "metrics") await renderMetrics();
+    if (view === "domains") await renderDomains();
+    if (view === "ai-awareness") await renderAiAwareness();
+    if (view === "performance") await renderPerformance();
     if (view === "skill-uses") await renderSkillUses();
     if (view === "feedback") await renderFeedback();
     if (view === "marketing") await renderMarketing();

@@ -8,6 +8,7 @@ import test from 'node:test';
 import {
   CONNECTIONS_SCHEMA_VERSION,
   buildFleetConnections,
+  buildPortfolioStrengthProjection,
   readSkillRunOutput,
 } from '../lib/founder-control/connections.mjs';
 import { SkillRunStore } from '../lib/skill-run-store.mjs';
@@ -21,6 +22,114 @@ import {
 } from '../lib/visibility-outcome-store.mjs';
 
 const now = '2026-07-30T10:00:00.000Z';
+
+test('builds domain, core AI awareness, marketing, and performance portfolio views', () => {
+  const projects = [
+    {
+      projectId: 'pace',
+      name: 'Pace',
+      lifecycle: 'maintained',
+      priority: 'P1',
+      category: 'product',
+      domains: ['app.heypace.app'],
+      domainRating: {
+        domain: 'app.heypace.app',
+        rating: 8,
+        delta: 1,
+        observations: 2,
+        observedAt: '2026-07-30T09:00:00.000Z',
+      },
+      aiVisibility: {
+        observations: 1,
+        observedAt: '2026-07-30T09:05:00.000Z',
+        attempts: [{
+          status: 'completed',
+          providerId: 'openai',
+          model: 'gpt-5',
+        }],
+      },
+      metricEligibility: { publicSite: true },
+      history: {
+        signals: [
+          { label: 'AI mention rate', value: 50 },
+          { label: 'AI recommendation rate', value: 25 },
+          { label: 'AI citation rate', value: 20 },
+          { label: 'AI citations', value: 2 },
+          { label: 'AI coverage rate', value: 80 },
+          { label: 'PSI performance', value: 94, observedAt: '2026-07-30T09:10:00.000Z' },
+          { label: 'PSI LCP', value: 2100, observedAt: '2026-07-30T09:10:00.000Z' },
+        ],
+      },
+    },
+    {
+      projectId: 'voice',
+      name: 'Voice',
+      lifecycle: 'maintained',
+      priority: 'P2',
+      category: 'product',
+      domains: ['voice.heypace.app'],
+      metricEligibility: { publicSite: true },
+      history: {
+        signals: [
+          { label: 'PSI performance', value: 95, observedAt: '2026-07-30T09:10:00.000Z' },
+        ],
+      },
+    },
+    {
+      projectId: 'slow',
+      name: 'Slow',
+      lifecycle: 'maintained',
+      priority: 'P2',
+      category: 'product',
+      domains: ['slow.example'],
+      metricEligibility: { publicSite: true },
+      history: {
+        signals: [
+          { label: 'PSI performance', value: 89, observedAt: '2026-07-30T09:10:00.000Z' },
+          { label: 'PSI LCP', value: 2600, observedAt: '2026-07-30T09:10:00.000Z' },
+        ],
+      },
+    },
+    {
+      projectId: 'past',
+      name: 'Past',
+      lifecycle: 'past',
+      priority: 'P1',
+      category: 'product',
+      domains: ['past.example'],
+      metricEligibility: { publicSite: true },
+      history: { signals: [] },
+    },
+  ];
+  const marketingCoverage = [{
+    projectId: 'pace',
+    name: 'Pace',
+    publicationState: 'never-marketed',
+  }];
+
+  const result = buildPortfolioStrengthProjection({ projects, marketingCoverage });
+
+  assert.equal(result.domains.length, 2);
+  assert.equal(result.domains[0].rootDomain, 'heypace.app');
+  assert.deepEqual(
+    result.domains[0].products.map((project) => project.projectId),
+    ['pace', 'voice'],
+  );
+  assert.equal(result.domains[0].measuredDomain, 'app.heypace.app');
+  assert.equal(result.domains[0].historyState, 'comparable');
+  assert.deepEqual(result.aiAwareness.map((project) => project.projectId), ['pace']);
+  assert.equal(result.aiAwareness[0].mentionRate, 50);
+  assert.deepEqual(result.aiAwareness[0].providers, ['openai · gpt-5']);
+  assert.equal(result.performance.find((project) => project.projectId === 'pace').status, 'fast-enough');
+  assert.equal(result.performance.find((project) => project.projectId === 'voice').status, 'not-measured');
+  assert.equal(result.performance.find((project) => project.projectId === 'slow').status, 'needs-work');
+  assert.deepEqual(
+    result.performance.find((project) => project.projectId === 'slow').failures,
+    ['PSI', 'LCP'],
+  );
+  assert.deepEqual(result.marketing, marketingCoverage);
+  assert.deepEqual(result.guardrails, { minimumPsi: 90, maximumLcpMs: 2500 });
+});
 
 function writeJson(path, value) {
   mkdirSync(dirname(path), { recursive: true });
@@ -41,7 +150,10 @@ function fixture() {
     mkdirSync(join(root, path), { recursive: true });
   }
   writeJson(join(root, 'foundry/ops/config/projects.json'), {
-    _meta: { updated: '2026-07-30' },
+    _meta: {
+      updated: '2026-07-30',
+      priorities: { P1: ['pace'] },
+    },
     projects: [
       {
         id: 'pace',
@@ -50,7 +162,12 @@ function fixture() {
         lifecycle: 'maintained',
         tier: 'primary',
         domains: ['heypace.app'],
-        public: { id: 'pace', listing: 'maintained' },
+        public: {
+          id: 'pace',
+          listing: 'maintained',
+          category: 'product',
+          description: 'Private voice assistant.',
+        },
       },
       {
         id: 'past',
@@ -413,6 +530,17 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     home,
     now,
     marketing: {
+      coverage: [{
+        projectId: 'pace',
+        name: 'Pace',
+        positioning: {
+          available: true,
+          description: 'Private voice assistant.',
+        },
+        recommendationCount: 0,
+        publicationState: 'never-marketed',
+        latestPublication: null,
+      }],
       aiVisibility: {
         projects: [{
           projectId: 'pace',
@@ -621,6 +749,18 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(
     result.outputs.improvementWork.notStartedActions,
     result.outputs.improvements.length - 1,
+  );
+  assert.equal(result.portfolio.domains.find((domain) => domain.rootDomain === 'heypace.app').rating, 8);
+  assert.equal(result.portfolio.aiAwareness[0].projectId, 'pace');
+  assert.equal(result.portfolio.aiAwareness[0].status, 'not-measured');
+  assert.equal(result.portfolio.marketing[0].publicationState, 'never-marketed');
+  assert.equal(
+    result.portfolio.performance.find((project) => project.projectId === 'pace').status,
+    'fast-enough',
+  );
+  assert.equal(
+    result.portfolio.performance.find((project) => project.projectId === 'standards').status,
+    'not-measured',
   );
   const connectionAnchors = new Set([
     ...result.buckets.map((bucket) => `bucket-${bucket.id}`),
