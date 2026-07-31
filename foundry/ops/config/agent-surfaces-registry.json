@@ -944,7 +944,7 @@
     {
       "id": "india-standards",
       "name": "India Standards",
-      "url": "https://india-numbers.significanthobbies.com",
+      "url": "https://india-standards.significanthobbies.com",
       "summary": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
       "publicDir": "india-standards/public",
       "preserveFiles": [
@@ -966,18 +966,18 @@
       "productLinks": [
         {
           "title": "Home",
-          "url": "https://india-numbers.significanthobbies.com/",
+          "url": "https://india-standards.significanthobbies.com/",
           "description": "Demographic standards calculator"
         },
         {
           "title": "Changelog",
-          "url": "https://india-numbers.significanthobbies.com/changelog",
+          "url": "https://india-standards.significanthobbies.com/changelog",
           "description": "Verified product releases",
           "markdown": "# India Standards changelog\n\nThe owned changelog records verified releases for the aggregate-only PLFS preview, explicit uncertainty, sparse-cell widening, hosted estimates, and responsive calculator workbench.\n"
         }
       ],
       "generateSitemap": true,
-      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-numbers.significanthobbies.com/llms.txt\n- https://india-numbers.significanthobbies.com/api/ai\n- https://india-numbers.significanthobbies.com/index.md\n"
+      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-standards.significanthobbies.com/llms.txt\n- https://india-standards.significanthobbies.com/api/ai\n- https://india-standards.significanthobbies.com/index.md\n"
     }
   ]
 }

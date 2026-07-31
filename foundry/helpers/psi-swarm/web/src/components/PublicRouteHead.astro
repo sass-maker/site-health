@@ -9,6 +9,7 @@ const { route } = Astro.props;
 const meta = PUBLIC_ROUTE_META[route];
 const origin = 'https://performance.sassmaker.com';
 const canonical = new URL(meta.path, origin).toString();
+const socialImage = `${origin}/apple-touch-icon.png`;
 const schema: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -42,7 +43,9 @@ if (route === 'home') {
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content="psi-swarm" />
+<meta property="og:image" content={socialImage} />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content={meta.title} />
 <meta name="twitter:description" content={meta.description} />
+<meta name="twitter:image" content={socialImage} />
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
