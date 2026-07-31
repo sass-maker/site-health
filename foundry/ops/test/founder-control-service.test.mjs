@@ -295,7 +295,7 @@ test('starts and polls allowlisted metric runs through explicit loopback trust',
     duplicate: false,
   };
   const metricRunController = {
-    start: ({ family, projectId }) => ({ ...receipt, family, projectId }),
+    start: ({ family, projectId, scope }) => ({ ...receipt, family, projectId, scope }),
     get: (runId) => runId === receipt.runId ? receipt : null,
   };
   const server = await startFounderControlService({
@@ -322,6 +322,14 @@ test('starts and polls allowlisted metric runs through explicit loopback trust',
   });
   assert.equal(started.status, 202);
   assert.equal((await started.json()).projectId, 'codevetter');
+
+  const portfolio = await fetch(`${base}/v1/metric-runs`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ family: 'drank', scope: 'portfolio' }),
+  });
+  assert.equal(portfolio.status, 202);
+  assert.equal((await portfolio.json()).scope, 'portfolio');
   assert.equal((await fetch(`${base}/v1/metric-runs/metric-1`)).status, 200);
 });
 

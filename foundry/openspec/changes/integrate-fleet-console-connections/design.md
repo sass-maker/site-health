@@ -317,6 +317,14 @@ the series. Both paths expose the same date and rating. One-point and missing
 series stay textual rather than implying a trend. Because all three views answer
 portfolio-wide questions, they omit the project-scope dropdown.
 
+The Domains header exposes one portfolio Re-run action. It starts the existing
+Drank updater once with targets derived from the same canonical project
+eligibility and registrable-domain constants used by the page projection. The
+updater remains the sole writer while it refreshes exactly the root domains
+represented by the page rather than every project subdomain. The client polls
+the same bounded metric-run receipt used by project actions and reloads the
+Domains projection only after the batch completes.
+
 ## Risks / Trade-offs
 
 - **Machine-local stores are absent on a fresh clone** → Return `unavailable`

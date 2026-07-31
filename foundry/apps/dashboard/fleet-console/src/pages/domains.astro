@@ -9,16 +9,11 @@ import FounderLayout from "../components/FounderLayout.astro";
   view="domains"
 >
   <div slot="meta" class="page-head__meta">
+    <button type="button" class="secondary-action" data-domain-refresh>Re-run</button>
+    <span class="domain-refresh-status" role="status" aria-live="polite" data-domain-refresh-status></span>
     <span class="snapshot-time" data-outcome-time>Reading domain evidence</span>
   </div>
-  <section class="owner-section owner-section--directory" aria-labelledby="domain-directory-title">
-    <div class="section-head">
-      <div>
-        <h2 id="domain-directory-title">Domain strength</h2>
-        <p>One row per registrable domain, even when several products share it.</p>
-      </div>
-      <span class="count" data-founder-count="domains">—</span>
-    </div>
+  <section class="owner-section owner-section--directory" aria-label="Domain directory">
     <div class="loading-state" data-founder-slot="domains">Building domain directory…</div>
   </section>
 </FounderLayout>

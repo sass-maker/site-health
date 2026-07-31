@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Domains became one direct, safely refreshable ledger:** Removed
+  redundant section and summary chrome, kept the dated D-Rank trends, and added
+  one localhost-authorized Re-run action. Display coverage and batch targets now
+  share canonical eligibility and registrable-domain constants, so the action
+  refreshes exactly the ten displayed roots through one writer. The latest
+  refresh also added current AliveVille and personal-domain observations. No
+  deployment was performed.
 - **2026-07-31 — Google Search Console became live project evidence:** Enabled
   the Search Console API on the existing `significanthobbies-dev` quota project,
   authorized read-only local Application Default Credentials, and added a

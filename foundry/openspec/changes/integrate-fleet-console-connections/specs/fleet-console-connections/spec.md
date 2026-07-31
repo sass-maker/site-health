@@ -639,6 +639,13 @@ surfaces secondary.
   and value
 - **AND** a one-point or missing series remains baseline-only or not measured
 
+#### Scenario: Operator refreshes domain strength
+
+- **WHEN** the operator selects Re-run from the Domains page
+- **THEN** Founder Control launches one allowlisted portfolio D-Rank process
+- **AND** the process updates all configured domains without concurrent writers
+- **AND** the page exposes running and completion state before showing the refreshed evidence
+
 #### Scenario: Operator opens a Metrics view
 
 - **WHEN** Domains, AI Awareness, or Performance loads

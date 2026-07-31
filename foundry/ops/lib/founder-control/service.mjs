@@ -299,6 +299,7 @@ export function createFounderControlHandler({
         return json(response, 202, resolvedMetricRunController.start({
           family: String(body.family ?? ''),
           projectId: String(body.projectId ?? ''),
+          scope: String(body.scope ?? 'project'),
         }));
       }
 

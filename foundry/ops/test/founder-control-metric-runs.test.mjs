@@ -44,6 +44,47 @@ test('starts one allowlisted project metric command without a shell and deduplic
   assert.equal(controller.get(started.runId).summary, 'D-Rank completed.');
 });
 
+test('starts one portfolio D-Rank command without per-domain concurrent writers', () => {
+  let invocation;
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [
+      {
+        id: 'fleet-workspace',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['fleet.sassmaker.com'],
+      },
+      {
+        id: 'drank',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['domains.sassmaker.com'],
+      },
+    ],
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'drank', scope: 'portfolio' });
+  const duplicate = controller.start({ family: 'drank', scope: 'portfolio' });
+
+  assert.equal(started.scope, 'portfolio');
+  assert.equal(started.projectId, null);
+  assert.equal(started.label, 'Portfolio D-Rank');
+  assert.equal(duplicate.runId, started.runId);
+  assert.equal(duplicate.duplicate, true);
+  assert.equal(invocation.options.shell, false);
+  assert.equal(invocation.args.includes('--only'), false);
+  assert.deepEqual(invocation.args.slice(-2), ['--target', 'sassmaker.com']);
+  assert.throws(
+    () => controller.start({ family: 'psi', scope: 'portfolio' }),
+    { code: 'METRIC_SCOPE_INVALID' },
+  );
+});
+
 test('rejects unknown projects and validates existing design receipts', () => {
   const fleetRoot = mkdtempSync(join(tmpdir(), 'metric-runs-'));
   mkdirSync(join(fleetRoot, 'product', '.fleet'), { recursive: true });

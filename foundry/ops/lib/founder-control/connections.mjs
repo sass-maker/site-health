@@ -17,6 +17,12 @@ import {
   readVisibilityOutcomes,
 } from '../visibility-outcome-store.mjs';
 import { visibilityProjects } from '../visibility-projects.mjs';
+import {
+  isDomainStrengthProject,
+  isPublicMetricProject,
+  normalizedDomain,
+  registrableDomain,
+} from './domain-scope.mjs';
 
 export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
 
@@ -877,27 +883,6 @@ function newestTimestamp(values) {
     .sort((left, right) => Date.parse(right) - Date.parse(left))[0] ?? null;
 }
 
-function normalizedDomain(value) {
-  if (typeof value !== 'string') return null;
-  try {
-    return new URL(value.includes('://') ? value : `https://${value}`)
-      .hostname
-      .replace(/^www\./, '');
-  } catch {
-    return value.replace(/^www\./, '').split('/')[0] || null;
-  }
-}
-
-function registrableDomain(domain) {
-  const labels = String(domain ?? '').split('.').filter(Boolean);
-  if (labels.length <= 2) return labels.join('.');
-  const compoundSuffixes = new Set(['co.in', 'co.uk', 'com.au', 'com.br', 'co.jp']);
-  const suffix = labels.slice(-2).join('.');
-  return compoundSuffixes.has(suffix)
-    ? labels.slice(-3).join('.')
-    : labels.slice(-2).join('.');
-}
-
 function aiRunEvidenceMode(run) {
   return run?.evidenceMode ?? run?.evidence?.[0]?.summary?.evidenceMode ?? null;
 }
@@ -1244,14 +1229,8 @@ function buildProjectOutputs({
   return projects
     .map((project) => {
       const domains = (project.domains ?? []).map(normalizedDomain).filter(Boolean);
-      const publicMetricSite =
-        (project.public?.listing === 'maintained' || project.metrics?.publicSite === true) &&
-        !['past', 'non-product'].includes(project.lifecycle) &&
-        project.tier !== 'non-product' &&
-        domains.length > 0;
-      const domainCoverage = publicMetricSite || (
-        project.metrics?.domainCoverage === true && domains.length > 0
-      );
+      const publicMetricSite = isPublicMetricProject(project);
+      const domainCoverage = isDomainStrengthProject(project);
       let projectId = project.id;
       if (project.lifecycle === 'past' || project.tier === 'non-product') {
         projectId = project.public?.id ?? project.id;

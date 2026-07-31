@@ -1879,19 +1879,6 @@ async function renderDomains() {
   const payload = await api("/v1/outcomes/domains");
   updateOutcomeTime(payload.generatedAt);
   const rows = payload.rows ?? [];
-  const count = document.querySelector<HTMLElement>('[data-founder-count="domains"]');
-  if (count) count.textContent = String(rows.length);
-  const declining = rows.filter((row: JsonRecord) => Number.isFinite(row.signal?.delta) && row.signal.delta < 0).length;
-  const improving = rows.filter((row: JsonRecord) => Number.isFinite(row.signal?.delta) && row.signal.delta > 0).length;
-  const unchanged = rows.filter((row: JsonRecord) => row.signal?.delta === 0).length;
-  const baselineOnly = rows.filter((row: JsonRecord) => row.historyState === "baseline-only").length;
-  const summary = element("div", { class: "outcome-answer", "aria-label": "Domain strength summary" }, [
-    element("span", {}, [element("strong", {}, [String(declining)]), element("small", {}, ["Declining"])]),
-    element("span", {}, [element("strong", {}, [String(improving)]), element("small", {}, ["Improving"])]),
-    element("span", {}, [element("strong", {}, [String(unchanged)]), element("small", {}, ["Unchanged"])]),
-    element("span", {}, [element("strong", {}, [String(baselineOnly)]), element("small", {}, ["Baseline only"])]),
-    element("p", {}, ["D-Rank is a 0–100 authority estimate; higher is better. Change compares the two latest observations."]),
-  ]);
   const columns: OutcomeColumn[] = [
     {
       key: "domain",
@@ -1918,13 +1905,6 @@ async function renderDomains() {
       render: (row) => domainChangeSignal(row.signal),
     },
     {
-      key: "history",
-      label: "History",
-      description: "Sort by history state",
-      value: (row) => row.historyState,
-      render: (row) => state(row.historyState),
-    },
-    {
       key: "trend",
       label: "Trend",
       description: "Sort by D-Rank change and inspect dated history",
@@ -1949,18 +1929,49 @@ async function renderDomains() {
     },
     {
       key: "observed",
-      label: "Observed",
+      label: "Last observed",
       description: "Sort by observation time",
       value: (row) => row.observedAt ? Date.parse(row.observedAt) : null,
       render: (row) => formattedDay(row.observedAt),
     },
   ];
   replace("domains", rows.length
-    ? element("div", { class: "outcome-directory" }, [
-        summary,
-        outcomeTable(rows, columns, "change", "Fleet domain strength", "ascending"),
-      ])
+    ? outcomeTable(rows, columns, "change", "Fleet domain strength", "ascending")
     : empty("No matching domain", "The current project scope has no public domain."));
+}
+
+function bindDomainRefresh() {
+  const button = document.querySelector<HTMLButtonElement>("[data-domain-refresh]");
+  const statusText = document.querySelector<HTMLElement>("[data-domain-refresh-status]");
+  if (!button || button.dataset.bound === "true") return;
+  button.dataset.bound = "true";
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    button.textContent = "Re-running…";
+    if (statusText) statusText.textContent = "Starting D-Rank refresh…";
+    try {
+      let run = await mutate("/v1/metric-runs", { family: "drank", scope: "portfolio" });
+      if (statusText) statusText.textContent = run.summary;
+      for (let attempt = 0; attempt < 240 && run.state === "running"; attempt += 1) {
+        await new Promise((resolve) => window.setTimeout(resolve, 1500));
+        if (!button.isConnected) return;
+        run = await api(`/v1/metric-runs/${encodeURIComponent(run.runId)}`);
+        if (statusText) statusText.textContent = run.summary;
+      }
+      if (run.state !== "succeeded") {
+        throw new Error(run.summary || "D-Rank refresh failed.");
+      }
+      await renderDomains();
+      if (statusText) statusText.textContent = "D-Rank updated.";
+    } catch (error) {
+      if (statusText) {
+        statusText.textContent = error instanceof Error ? error.message : "D-Rank refresh failed.";
+      }
+    } finally {
+      button.disabled = false;
+      button.textContent = "Re-run";
+    }
+  });
 }
 
 async function renderAiAwareness() {
@@ -2590,7 +2601,10 @@ async function start() {
   });
   try {
     await initProjectScope();
-    if (view === "domains") await renderDomains();
+    if (view === "domains") {
+      bindDomainRefresh();
+      await renderDomains();
+    }
     if (view === "ai-awareness") await renderAiAwareness();
     if (view === "home") await renderHome();
     if (view === "project-statuses") await renderProjects();

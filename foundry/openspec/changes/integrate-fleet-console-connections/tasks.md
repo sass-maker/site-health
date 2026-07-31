@@ -211,3 +211,14 @@
   Search Visibility displays provider evidence.
 - [x] 21.6 Validate OpenSpec and focused checks, update durable status, commit,
   and push without deploying or scheduling recurring collection.
+
+## 22. Domains Page Simplification
+
+- [x] 22.1 Remove the section intro, summary strip, and History column, and
+  rename Observed to Last observed.
+- [x] 22.2 Add one safe portfolio D-Rank run boundary and a top-right Re-run
+  control with running, failure, and completion states.
+- [x] 22.3 Add focused controller and service coverage, build the Console, and
+  validate the OpenSpec change strictly.
+- [x] 22.4 Trust loopback mutations by default for the localhost-only service so
+  local Re-run actions do not require a separate owner token.

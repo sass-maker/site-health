@@ -3,6 +3,8 @@ import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { domainStrengthRoots } from './domain-scope.mjs';
+
 const FAMILIES = new Set([
   'agent',
   'crawl',
@@ -121,6 +123,30 @@ function commandFor({ family, project, fleetRoot }) {
   };
 }
 
+function portfolioCommandFor({ family, fleetRoot, projects }) {
+  if (family !== 'drank') {
+    fail('METRIC_SCOPE_INVALID', 'Portfolio runs are only supported for D-Rank');
+  }
+  const targets = domainStrengthRoots(projects);
+  if (targets.length === 0) {
+    fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
+  }
+  return {
+    command: process.execPath,
+    args: [
+      resolve(fleetRoot, 'foundry/helpers/drank/scripts/update-global-dr.mjs'),
+      '--sites',
+      'data/fleet-sites.json',
+      '--data',
+      'data/fleet-dr.json',
+      '--label',
+      'fleet',
+      ...targets.flatMap((domain) => ['--target', domain]),
+    ],
+    label: 'Portfolio D-Rank',
+  };
+}
+
 function boundedStatusText(value) {
   return String(value)
     .replace(/\u001b\[[0-9;]*m/g, '')
@@ -133,6 +159,7 @@ function publicRun(run, { duplicate = false } = {}) {
     runId: run.runId,
     family: run.family,
     projectId: run.projectId,
+    scope: run.scope,
     label: run.label,
     state: run.state,
     startedAt: run.startedAt,
@@ -154,19 +181,25 @@ export function createMetricRunController({
   const active = new Map();
 
   return {
-    start({ family, projectId } = {}) {
+    start({ family, projectId, scope = 'project' } = {}) {
       if (!FAMILIES.has(family)) fail('METRIC_FAMILY_INVALID', 'Unsupported metric family');
-      const project = projectsById.get(projectId);
-      if (!project) fail('METRIC_PROJECT_INVALID', 'Unknown Fleet project');
-      const key = `${family}:${projectId}`;
+      if (!['project', 'portfolio'].includes(scope)) {
+        fail('METRIC_SCOPE_INVALID', 'Unsupported metric scope');
+      }
+      const project = scope === 'project' ? projectsById.get(projectId) : null;
+      if (scope === 'project' && !project) fail('METRIC_PROJECT_INVALID', 'Unknown Fleet project');
+      const key = `${family}:${scope === 'portfolio' ? 'portfolio' : projectId}`;
       const existingId = active.get(key);
       if (existingId) return publicRun(runs.get(existingId), { duplicate: true });
 
-      const plan = commandFor({ family, project, fleetRoot });
+      const plan = scope === 'portfolio'
+        ? portfolioCommandFor({ family, fleetRoot, projects: [...projectsById.values()] })
+        : commandFor({ family, project, fleetRoot });
       const run = {
         runId: `metric_${randomUUID().replaceAll('-', '')}`,
         family,
-        projectId,
+        projectId: scope === 'project' ? projectId : null,
+        scope,
         label: plan.label,
         state: 'running',
         startedAt: now(),

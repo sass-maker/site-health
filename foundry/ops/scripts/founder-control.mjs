@@ -167,7 +167,7 @@ if (command === 'status') {
     prewarmConnections: true,
     ownerToken: process.env.FOUNDER_CONTROL_OWNER_TOKEN,
     trustAccessHeaders: process.env.FOUNDER_CONTROL_TRUST_ACCESS === '1',
-    trustLoopback: process.env.FOUNDER_CONTROL_TRUST_LOOPBACK === '1',
+    trustLoopback: process.env.FOUNDER_CONTROL_TRUST_LOOPBACK !== '0',
     ownerEmail: process.env.FOUNDER_CONTROL_OWNER_EMAIL,
   });
   console.log(`Founder control listening on http://127.0.0.1:${port}`);

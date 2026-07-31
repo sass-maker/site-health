@@ -11,7 +11,7 @@
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -26,6 +26,9 @@ const DATA_PATH = flag('--data', join(ROOT, 'data/global-dr.json'));
 const LABEL = flag('--label', 'global').split('/').at(-1);
 const onlyIndex = args.indexOf('--only');
 const ONLY_DOMAIN = onlyIndex >= 0 ? args[onlyIndex + 1]?.trim().toLowerCase() : null;
+const EXPLICIT_TARGETS = args.flatMap((value, index) =>
+  value === '--target' && args[index + 1] ? [args[index + 1].trim().toLowerCase()] : []
+);
 if (onlyIndex >= 0 && !ONLY_DOMAIN) throw new Error('--only requires a domain');
 
 const API_BASE = 'https://api.ahrefs.com/v3/public/domain-rating-free';
@@ -61,10 +64,20 @@ async function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+export function configuredTargets(configuredSites, explicitTargets = []) {
+  const targets = (explicitTargets.length > 0 ? explicitTargets : configuredSites).map((domain) =>
+    String(domain).trim().toLowerCase()
+  );
+  return [...new Set(targets.filter(Boolean))];
+}
+
 async function main() {
   console.log(`Updating ${LABEL} DR history...`);
 
-  const configuredSites = JSON.parse(readFileSync(SITES_PATH, 'utf8'));
+  const configuredSites = configuredTargets(
+    JSON.parse(readFileSync(SITES_PATH, 'utf8')),
+    EXPLICIT_TARGETS
+  );
   const sites = ONLY_DOMAIN
     ? configuredSites.filter((domain) => domain.toLowerCase() === ONLY_DOMAIN)
     : configuredSites;
@@ -142,7 +155,9 @@ async function main() {
   console.log('Done.');
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
