@@ -42,7 +42,7 @@ fi
 
 # --- helpers -------------------------------------------------------------
 
-fetch() { curl -sL --max-time 30 "$1"; }
+fetch() { curl -fsSL --max-time 30 "$1"; }
 
 # extract <meta> content by name or property
 meta_content() {
@@ -110,9 +110,14 @@ FAILED_PAGES=()
 audit_page() {
   local url="$1"
   local html
-  html=$(fetch "$url") || { echo "  FETCH FAILED — could not retrieve $url" >&2; return; }
-
   echo "===== $url ====="
+  if ! html=$(fetch "$url"); then
+    echo "  fetch              FAIL   could not retrieve $url"
+    ((FAIL++))
+    FAILED_PAGES+=("$url")
+    echo
+    return
+  fi
 
   # --- title ---
   local title
@@ -173,7 +178,7 @@ audit_page() {
   local hreflang_count
   hreflang_count=$(echo "$html" | grep -oiE '<link rel="alternate"[^>]*hreflang=' | wc -l | tr -d ' ')
   if [[ $hreflang_count -eq 0 ]]; then
-    echo "  hreflang           WARN   none found (ok for single-language sites)"; ((WARN++))
+    echo "  hreflang           PASS   none declared (valid for single-language sites)"; ((PASS++))
   else
     local has_xdefault
     has_xdefault=$(echo "$html" | grep -oiE 'hreflang="x-default"' | wc -l | tr -d ' ')

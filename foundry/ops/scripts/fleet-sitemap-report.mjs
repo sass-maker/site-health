@@ -32,9 +32,11 @@ const markdown = `# Google sitemap submission
 Generated ${generatedAt} from the visibility inventory in
 \`foundry/ops/config/projects.json\`.
 
-Submit the sitemap link for each **primary** domain as its own Google Search
-Console property. Secondary private, search, or ingestion hosts are reported
-for completeness and should not be submitted as separate public websites.
+Verify the eight apex domains as Google Search Console **Domain properties**,
+then submit every **primary** host's sitemap under its matching apex property.
+Domain properties cover their subdomains, so subdomains do not need separate
+properties. Secondary private, search, or ingestion hosts are reported for
+completeness and should not be submitted as separate public websites.
 
 **Primary sitemap readiness: ${ready.length}/${primary.length}.**
 

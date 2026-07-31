@@ -1,0 +1,322 @@
+{
+  "codevetter": {
+    "url": "https://codevetter.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "pace": {
+    "url": "https://heypace.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "posttrainllm": {
+    "url": "https://posttrainllm.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "fleet-workspace": {
+    "url": "https://sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "drank": {
+    "url": "https://domains.sassmaker.com/",
+    "pass": 13,
+    "fail": 0,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "email-manager": {
+    "url": "https://mail.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "chatgpt-memory-insights": {
+    "url": "https://chatgpt.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "free-ai": {
+    "url": "https://ai-gateway.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "psi-swarm": {
+    "url": "https://performance.sassmaker.com/",
+    "pass": 12,
+    "fail": 1,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [
+      "og:image"
+    ],
+    "warningChecks": [
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "high-signal": {
+    "url": "https://highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "research-papers": {
+    "url": "https://papers.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "knowledge-base": {
+    "url": "https://knowledgebase.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "significanthobbies": {
+    "url": "https://significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "india-standards": {
+    "url": "https://india-standards.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "anime-list": {
+    "url": "https://anime.significanthobbies.com/",
+    "pass": 13,
+    "fail": 0,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "chess": {
+    "url": "https://chess.significanthobbies.com/",
+    "pass": 13,
+    "fail": 0,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "looptv": {
+    "url": "https://tv.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "reader": {
+    "url": "https://read.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "swe-interview-prep": {
+    "url": "https://learn.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "calorie": {
+    "url": "https://calorie.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "setline": {
+    "url": "https://setline.significanthobbies.com/",
+    "pass": 13,
+    "fail": 0,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "rolepatch": {
+    "url": "https://rolepatch.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "karte": {
+    "url": "https://karte.cc/",
+    "pass": 0,
+    "fail": 1,
+    "warn": 0,
+    "reachable": false,
+    "failedChecks": [
+      "fetch"
+    ],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "starboard": {
+    "url": "https://starboard.codevetter.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "app-health": {
+    "url": "https://health.sassmaker.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "motion": {
+    "url": "https://motion.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  },
+  "what-it-takes-to-win": {
+    "url": "https://paths.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-07-31",
+    "auditedAt": "2026-07-31T08:28:56.803Z"
+  }
+}

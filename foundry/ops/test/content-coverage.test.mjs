@@ -72,4 +72,25 @@ test('inventory CLI can persist a compact latest verdict for site health', () =>
   assert.equal(latest.codevetter.verdict, 'blocked');
   assert.equal(latest.codevetter.create, 1);
   assert.equal(latest.codevetter.blocked, 1);
+  assert.equal(latest.codevetter.coverageModel, true);
+});
+
+test('inventory artifact does not call an unresearched coverage model solid', () => {
+  const artifact = resolve(mkdtempSync(resolve(tmpdir(), 'fleet-coverage-research-')), 'latest.json');
+  const cli = resolve(
+    import.meta.dirname,
+    '../skills/content-coverage/scripts/content-inventory.mjs',
+  );
+  const result = spawnSync(process.execPath, [
+    cli,
+    '--product',
+    'codevetter',
+    '--artifact',
+    artifact,
+    '--json',
+  ], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const latest = JSON.parse(readFileSync(artifact, 'utf8'));
+  assert.equal(latest.codevetter.verdict, 'research');
+  assert.equal(latest.codevetter.coverageModel, false);
 });

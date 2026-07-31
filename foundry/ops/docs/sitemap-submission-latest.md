@@ -1,11 +1,13 @@
 # Google sitemap submission
 
-Generated 2026-07-31T07:20:24.385Z from the visibility inventory in
+Generated 2026-07-31T08:28:56.758Z from the visibility inventory in
 `foundry/ops/config/projects.json`.
 
-Submit the sitemap link for each **primary** domain as its own Google Search
-Console property. Secondary private, search, or ingestion hosts are reported
-for completeness and should not be submitted as separate public websites.
+Verify the eight apex domains as Google Search Console **Domain properties**,
+then submit every **primary** host's sitemap under its matching apex property.
+Domain properties cover their subdomains, so subdomains do not need separate
+properties. Secondary private, search, or ingestion hosts are reported for
+completeness and should not be submitted as separate public websites.
 
 **Primary sitemap readiness: 26/27.**
 
@@ -26,7 +28,8 @@ for completeness and should not be submitted as separate public websites.
 | Knowledge Base | `knowledgebase.sassmaker.com` | Submit | 1 | ready | [https://knowledgebase.sassmaker.com/sitemap.xml](https://knowledgebase.sassmaker.com/sitemap.xml) |
 | Knowledge Base | `search.sassmaker.com` | Secondary | 0 | not-xml | [https://search.sassmaker.com/sitemap.xml](https://search.sassmaker.com/sitemap.xml) |
 | Significant Hobbies | `significanthobbies.com` | Submit | 581 | ready | [https://significanthobbies.com/sitemap.xml](https://significanthobbies.com/sitemap.xml) |
-| India Standards | `india-numbers.significanthobbies.com` | Submit | 2 | ready | [https://india-numbers.significanthobbies.com/sitemap.xml](https://india-numbers.significanthobbies.com/sitemap.xml) |
+| India Standards | `india-standards.significanthobbies.com` | Submit | 2 | ready | [https://india-standards.significanthobbies.com/sitemap.xml](https://india-standards.significanthobbies.com/sitemap.xml) |
+| India Standards | `india-numbers.significanthobbies.com` | Secondary | 0 | wrong-host | [https://india-numbers.significanthobbies.com/sitemap.xml](https://india-numbers.significanthobbies.com/sitemap.xml) |
 | Anime List | `anime.significanthobbies.com` | Submit | 7607 | ready | [https://anime.significanthobbies.com/sitemap.xml](https://anime.significanthobbies.com/sitemap.xml) |
 | Chess Coach | `chess.significanthobbies.com` | Submit | 3 | ready | [https://chess.significanthobbies.com/sitemap.xml](https://chess.significanthobbies.com/sitemap.xml) |
 | LoopTV | `tv.significanthobbies.com` | Submit | 30 | ready | [https://tv.significanthobbies.com/sitemap.xml](https://tv.significanthobbies.com/sitemap.xml) |

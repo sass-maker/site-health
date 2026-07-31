@@ -21,32 +21,21 @@ Companion queues: `work-queue-glm-2026-07.md` (writing/code),
   Then: `node foundry/ops/skills/agent-ready/scripts/agent-index-audit.mjs --all`
   → the 13 `ai-ok ✗` hosts should flip to ✓.
 
-## B2 — Google Search Console: 7 domain properties + sitemaps · ~30 min
+## B2 — Google Search Console: 8 domain properties + sitemaps · ~30 min
 
 - URL: https://search.google.com/search-console → Add property → **Domain**
   type, for each of: `sassmaker.com`, `significanthobbies.com`,
   `highsignal.app`, `rolepatch.com`, `codevetter.com`, `karte.cc`,
-  `posttrainllm.com`. (Domain property covers all subdomains — do NOT add
-  per-subdomain properties.)
+  `posttrainllm.com`, `heypace.app`. A Domain property covers all subdomains;
+  do **not** add per-subdomain properties.
 - Each gives a DNS TXT record → add in Cloudflare dash (DNS → Records →
   Add → TXT, name `@`). Verify in GSC after propagation (~minutes).
-- Then per property, Sitemaps → submit:
-  - sassmaker.com: `https://sassmaker.com/sitemap-index.xml`,
-    `https://docs.sassmaker.com/sitemap-index.xml`,
-    `https://domains.sassmaker.com/sitemap.xml`,
-    `https://mail.sassmaker.com/sitemap.xml`,
-    `https://ai-gateway.sassmaker.com/sitemap.xml`,
-    `https://performance.sassmaker.com/sitemap.xml`
-  - significanthobbies.com: apex `sitemap.xml` + materia/anime/tv/chess/
-    read/learn subdomain sitemaps (read + learn only AFTER their redeploy)
-  - highsignal.app: `https://highsignal.app/sitemap.xml`,
-    `https://ratings.highsignal.app/sitemap.xml`,
-    `https://papers.highsignal.app/sitemap.xml`
-  - rolepatch.com: apex + `https://truehire.rolepatch.com/sitemap.xml`
-  - codevetter.com: apex sitemap-index + `starboard.codevetter.com/sitemap.xml`
-  - karte.cc, posttrainllm.com: apex sitemaps
-- **heypace.app: deferred** — add property + sitemap only after the pace
-  redeploy (its live surfaces still advertise pages.dev URLs until then).
+- Then, inside each Domain property, submit every primary-host sitemap assigned
+  to that property in `foundry/ops/docs/sitemap-submission-latest.md`. Domain
+  verification covers the subdomains, but each subdomain sitemap still needs
+  its own submission for independent success/error reporting. Regenerate the
+  report immediately before this browser task with
+  `node foundry/ops/scripts/fleet-sitemap-report.mjs`.
 - Verify: GSC shows "Success" per sitemap within a day.
 
 ## B3 — Bing Webmaster Tools import · 5 min

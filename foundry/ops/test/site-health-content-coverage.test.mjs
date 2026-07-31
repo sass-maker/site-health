@@ -13,6 +13,7 @@ test('site-health routes content sufficiency and renders latest coverage artifac
     'utf8',
   );
   assert.match(skill, /SEO content sufficiency:[\s\S]*content-coverage\/SKILL\.md/u);
+  assert.match(scorecard, /data\/seo-audit\/latest\.json/u);
   assert.match(scorecard, /data\/content-coverage\/latest\.json/u);
   assert.match(scorecard, /\| product \| GEO \| seo \| content \| perf p75 \| trend \|/u);
   assert.match(scorecard, /blocked coverage action/u);

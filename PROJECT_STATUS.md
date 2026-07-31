@@ -62,6 +62,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Search evidence became durable and fail-closed:** The
+  fleet-wide homepage auditor now persists bounded SEO pass, warning, failure,
+  reachability, and failed-check evidence for the canonical 27 without
+  retaining page bodies. Fetch failures can no longer appear green, and an
+  unresearched content inventory is explicitly `research` rather than
+  `solid`. The Search Console handoff now reflects the current eight apex
+  Domain properties and routes all 27 primary-host sitemap submissions through
+  the generated canonical report.
 - **2026-07-31 — Provider-backed AI visibility gained a credential-free
   ingestion path:** Added strict, versioned offline observation bundles with
   provider, model, timestamp, request, cost, and canonical-project provenance;

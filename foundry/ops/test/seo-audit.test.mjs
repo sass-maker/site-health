@@ -71,5 +71,29 @@ test('SEO audit parses multiline tags and attribute order without false failures
   assert.match(stdout, /og:image\s+PASS/);
   assert.match(stdout, /twitter:card\s+PASS/);
   assert.match(stdout, /json-ld\s+PASS/);
+  assert.match(stdout, /hreflang\s+PASS\s+none declared/);
+  assert.match(stdout, /1 warnings/);
   assert.match(stdout, /all critical checks passed/);
+});
+
+test('SEO audit fails when the page cannot be fetched', async () => {
+  const server = createServer();
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const address = server.address();
+  assert.equal(typeof address, 'object');
+  await new Promise((resolveClose, rejectClose) => {
+    server.close((error) => (error ? rejectClose(error) : resolveClose()));
+  });
+
+  const url = `http://127.0.0.1:${address.port}/`;
+  await assert.rejects(
+    execFileAsync('bash', [auditScript, url], { cwd: fleetRoot }),
+    (error) => {
+      assert.match(error.stdout, /fetch\s+FAIL/);
+      assert.match(error.stdout, /Pages with failures:/);
+      assert.match(error.stdout, new RegExp(url.replaceAll('.', '\\.')));
+      return true;
+    },
+  );
 });
