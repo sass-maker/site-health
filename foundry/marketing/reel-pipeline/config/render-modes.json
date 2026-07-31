@@ -41,6 +41,25 @@
       }
     },
     {
+      "id": "blender",
+      "provider": "blender",
+      "surface": "video-brief",
+      "category": "local-asset",
+      "description": "Renders validated literal-scene manifests through a safe headless Blender 5.2 runtime.",
+      "requires": [
+        "Blender 5.2.x (`brew install --cask blender`)"
+      ],
+      "smoke": {
+        "type": "command",
+        "command": "node",
+        "args": [
+          "-e",
+          "import('./src/adapters/blender.js').then(async m => { const r = await m.probeBlender(); console.log(JSON.stringify(r)); process.exit(r.ready ? 0 : 1); })"
+        ],
+        "hint": "Install Blender 5.2.x to enable real literal-scene rendering."
+      }
+    },
+    {
       "id": "grok-video",
       "aliases": [
         "grok",

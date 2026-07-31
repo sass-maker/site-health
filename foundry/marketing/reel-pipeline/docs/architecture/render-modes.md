@@ -24,6 +24,7 @@ This table mirrors it; update the config first, then this table.
 | `html-composition` | `html`, `web-composition` | local | video-brief | fixture exports preview artifacts |
 | `ascii` | `ascii-animation`, `ascii-fable`, `askai` | local | video-brief | fixture renders an ASCII animation MP4 |
 | `grok-video` | `grok`, `grok-videos` | local-asset | video-brief | script creates a temp MP4 and runs local asset mode |
+| `blender` | — | local-asset | video-brief | probes Blender 5.2 and renders validated literal-scene manifests |
 | `reel-maker` | `remotion` | local-remotion | video-brief | adapter/orchestrator path with `REEL_MAKER_SKIP_REMOTION=1` |
 | `moneyprinterturbo` | `stock` | service | video-brief | `skip` unless `MONEYPRINTER_API_URL` is reachable; canary via `npm run canary:moneyprinter` |
 | `render-pro` | `renderpro` | production | worker-reel-id | syntax check only; live proof mutates a real Worker reel + R2 object |
@@ -31,10 +32,15 @@ This table mirrors it; update the config first, then this table.
 | `brand-video` | — | local | content-package | `npm run render:package` against an approved content-package fixture |
 
 Local/no-credential modes (`mock`, `html-composition`, `ascii`, `grok-video`,
-`reel-maker`) are proven by `npm run smoke:render-modes`. Live-only modes
+`blender`, `reel-maker`) are proven by `npm run smoke:render-modes`. Live-only modes
 (`moneyprinterturbo`, `render-pro`) are tracked separately because they require
 running services or mutate real state. See
 [`operations/runbooks/generation-readiness.md`](../operations/runbooks/generation-readiness.md).
+
+The lyric-video workflow composes exact timed text and approved audio outside
+the general VideoBrief engine factory while using the `blender` adapter for
+optional literal plates. See
+[`lyric-video-and-blender.md`](./lyric-video-and-blender.md).
 
 ## Live generation readiness
 

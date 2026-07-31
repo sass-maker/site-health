@@ -48,6 +48,7 @@ export function normalizeVideoBrief(input) {
     template: optionalString(input.template),
     screenshots: normalizeScreenshots(input.screenshots),
     demoSteps: normalizeDemoSteps(input.demoSteps ?? input.demo_steps),
+    literalScenes: normalizeLiteralScenes(input.literalScenes ?? input.literal_scenes),
     renderMode: normalizeRenderMode(input.renderMode ?? input.render_mode),
     durationSeconds: normalizeDuration(input.durationSeconds ?? input.duration_seconds),
   };
@@ -99,6 +100,18 @@ function normalizeDemoSteps(value) {
     steps.push(step);
   }
   return steps.length ? steps : undefined;
+}
+
+function normalizeLiteralScenes(value) {
+  if (value === undefined || value === null) return undefined;
+  if (!Array.isArray(value)) throw new Error('literalScenes must be an array');
+  return value.slice(0, 60).map((scene, index) => ({
+    id: optionalString(scene?.id) ?? `scene-${index + 1}`,
+    lyric: optionalString(scene?.lyric) ?? '',
+    objects: Array.isArray(scene?.objects) ? scene.objects.map(optionalString).filter(Boolean).slice(0, 8) : ['subject'],
+    camera: optionalString(scene?.camera),
+    palette: optionalString(scene?.palette),
+  }));
 }
 
 export function briefFromMarketingPost(post) {
@@ -205,6 +218,7 @@ function normalizeRenderMode(mode) {
     'kokoro',
     'kokoro-compose',
     'brand-video',
+    'blender',
   ].includes(value)) {
     throw new Error(`unsupported renderMode: ${value}`);
   }

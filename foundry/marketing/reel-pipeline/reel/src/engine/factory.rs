@@ -8,6 +8,7 @@ use crate::brief::VideoBrief;
 use crate::runner::CommandRunner;
 
 use super::ascii_animation::AsciiAnimationEngine;
+use super::blender::BlenderEngine;
 use super::grok_video::GrokVideoEngine;
 use super::html_composition::HtmlCompositionEngine;
 use super::mock::MockEngine;
@@ -18,6 +19,7 @@ use super::{RenderEngine, RenderOptions, RenderResult};
 
 pub enum PipelineEngine<R: CommandRunner> {
     AsciiAnimation(AsciiAnimationEngine<R>),
+    Blender(BlenderEngine<R>),
     Mock(MockEngine),
     GrokVideo(GrokVideoEngine),
     HtmlComposition(HtmlCompositionEngine<R>),
@@ -30,6 +32,7 @@ impl<R: CommandRunner> RenderEngine for PipelineEngine<R> {
     fn name(&self) -> &str {
         match self {
             PipelineEngine::AsciiAnimation(e) => e.name(),
+            PipelineEngine::Blender(e) => e.name(),
             PipelineEngine::Mock(e) => e.name(),
             PipelineEngine::GrokVideo(e) => e.name(),
             PipelineEngine::HtmlComposition(e) => e.name(),
@@ -42,6 +45,7 @@ impl<R: CommandRunner> RenderEngine for PipelineEngine<R> {
     fn create_video(&self, brief: &VideoBrief, options: &RenderOptions) -> Result<RenderResult> {
         match self {
             PipelineEngine::AsciiAnimation(e) => e.create_video(brief, options),
+            PipelineEngine::Blender(e) => e.create_video(brief, options),
             PipelineEngine::Mock(e) => e.create_video(brief, options),
             PipelineEngine::GrokVideo(e) => e.create_video(brief, options),
             PipelineEngine::HtmlComposition(e) => e.create_video(brief, options),
@@ -54,6 +58,7 @@ impl<R: CommandRunner> RenderEngine for PipelineEngine<R> {
     fn render_reel_by_id(&self, reel_id: &str, options: &RenderOptions) -> Result<RenderResult> {
         match self {
             PipelineEngine::AsciiAnimation(e) => e.render_reel_by_id(reel_id, options),
+            PipelineEngine::Blender(e) => e.render_reel_by_id(reel_id, options),
             PipelineEngine::Mock(e) => e.render_reel_by_id(reel_id, options),
             PipelineEngine::GrokVideo(e) => e.render_reel_by_id(reel_id, options),
             PipelineEngine::HtmlComposition(e) => e.render_reel_by_id(reel_id, options),
@@ -66,6 +71,7 @@ impl<R: CommandRunner> RenderEngine for PipelineEngine<R> {
     fn get_status(&self, external_task_id: &str) -> Result<RenderResult> {
         match self {
             PipelineEngine::AsciiAnimation(e) => e.get_status(external_task_id),
+            PipelineEngine::Blender(e) => e.get_status(external_task_id),
             PipelineEngine::Mock(e) => e.get_status(external_task_id),
             PipelineEngine::GrokVideo(e) => e.get_status(external_task_id),
             PipelineEngine::HtmlComposition(e) => e.get_status(external_task_id),
@@ -94,6 +100,9 @@ pub fn create_renderer<R: CommandRunner>(
         "ascii" | "ascii-animation" | "ascii-fable" | "askai" => Ok(
             PipelineEngine::AsciiAnimation(AsciiAnimationEngine::new(runner, repo_root)),
         ),
+        "blender" => Ok(PipelineEngine::Blender(BlenderEngine::new(
+            runner, repo_root,
+        ))),
         "html" | "html-composition" | "web-composition" => Ok(PipelineEngine::HtmlComposition(
             HtmlCompositionEngine::new(runner, repo_root),
         )),
@@ -122,6 +131,7 @@ mod tests {
             ("moneyprinterturbo", "moneyprinterturbo"),
             ("grok-video", "grok-video"),
             ("ascii", "ascii-animation"),
+            ("blender", "blender"),
             ("html-composition", "html-composition"),
             ("remotion", "reel-maker"),
             ("reel-maker", "reel-maker"),

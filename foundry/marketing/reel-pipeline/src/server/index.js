@@ -23,6 +23,7 @@ const port = Number(process.env.PORT ?? 4317);
 export function createServer(options = {}) {
   const reelOptions = { ...options, reelStore: options.reelStore ?? new FileReelStore(options.reelStoreOptions) };
   const lessonOptions = { ...options, lessonStore: options.lessonStore ?? new FileLessonStore(options.lessonStoreOptions) };
+  const studioOptions = options.studio ?? {};
   return http.createServer(async (req, res) => {
     try {
       const requestUrl = new URL(req.url, 'http://127.0.0.1');
@@ -43,7 +44,7 @@ export function createServer(options = {}) {
           req.method,
           requestUrl.pathname,
           () => readJson(req),
-          options.studio ?? {},
+          studioOptions,
           Object.fromEntries(requestUrl.searchParams),
         );
         if (result?.raw) {

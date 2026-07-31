@@ -53,6 +53,24 @@ export function resolveFfmpegPath() {
   return cachedFfmpegPath;
 }
 
+export function probeKokoroComposeReadiness(options = {}) {
+  const kokoroReady = options.kokoroReady ?? isKokoroReady(options.kokoroDir);
+  if (!kokoroReady) {
+    return { ready: false, blocker: 'Install the local Kokoro model with `npm run setup:kokoro`.' };
+  }
+  const pexelsReady = options.pexelsReady
+    ?? Boolean(options.pexelsApiKey || resolvePexelsKey({ configPath: options.configPath ?? MPT_CONFIG }));
+  if (!pexelsReady) {
+    return { ready: false, blocker: 'Configure a Pexels key before using local narrated video.' };
+  }
+  const ffmpegPath = options.ffmpegPath ?? resolveFfmpegPath();
+  const ffmpegReady = options.ffmpegReady ?? hasDrawtext(ffmpegPath);
+  if (!ffmpegReady) {
+    return { ready: false, blocker: 'Install an FFmpeg build with the drawtext filter before using local narrated video.' };
+  }
+  return { ready: true, blocker: null };
+}
+
 function hasDrawtext(binary) {
   try {
     const probe = spawnSync(binary, ['-hide_banner', '-filters'], { encoding: 'utf8', timeout: 15_000 });

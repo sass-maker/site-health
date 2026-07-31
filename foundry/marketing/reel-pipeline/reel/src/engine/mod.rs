@@ -7,6 +7,7 @@
 //! previews, reel-maker/Remotion, and mock dry runs.
 
 pub mod ascii_animation;
+pub mod blender;
 pub mod factory;
 pub mod grok_video;
 pub mod html_composition;

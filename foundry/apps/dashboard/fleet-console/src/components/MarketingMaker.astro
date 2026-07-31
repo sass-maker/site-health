@@ -1,0 +1,357 @@
+---
+const serviceOrigin = import.meta.env.PUBLIC_REEL_PIPELINE_ORIGIN ?? "http://127.0.0.1:4317";
+---
+
+<section class="marketing-maker" aria-labelledby="marketing-create-title" data-marketing-maker data-service-origin={serviceOrigin}>
+  <div class="maker-head">
+    <div>
+      <h2 id="marketing-create-title">Create</h2>
+      <p>Describe the video. The pipeline handles the tools.</p>
+    </div>
+  </div>
+
+  <div class="maker-panel">
+    <form data-video-form>
+      <label class="prompt-field">
+        <span>What should we make?</span>
+        <textarea required rows="4" data-video-prompt placeholder="A 30-second cinematic video about a lonely astronaut finding a garden on Mars."></textarea>
+      </label>
+      <details class="maker-settings">
+        <summary><span>Settings</span><small>Optional</small></summary>
+        <div class="setting-fields">
+          <label>Visual format
+            <select data-video-recipe aria-describedby="video-recipe-description">
+              <option value="auto">Auto — choose a ready format</option>
+              <option value="image-slideshow">Image slideshow</option>
+              <option value="web-motion">Web motion</option>
+              <option value="ascii-story">ASCII animation</option>
+              <option value="local-voice-film">Local narrated video</option>
+              <option value="blender-film">Blender 3D scenes</option>
+              <option value="threejs-scene">Three.js scene</option>
+              <option value="coherent-local-film">Local AI film</option>
+              <option value="grok-asset-film">Grok asset film</option>
+              <option value="stock-faceless">Stock footage video</option>
+              <option value="product-proof">Product proof reel</option>
+              <option value="guided-app-demo">Guided app demo</option>
+              <option value="podcast-short">Podcast clip</option>
+              <option value="literal-lyric-video">Literal lyric video</option>
+            </select>
+          </label>
+          <label>Length
+            <select data-video-duration>
+              <option value="">Auto</option>
+              <option value="15">15 seconds</option>
+              <option value="30">30 seconds</option>
+              <option value="45">45 seconds</option>
+              <option value="60">60 seconds</option>
+            </select>
+          </label>
+        </div>
+        <div class="recipe-summary" id="video-recipe-description" data-recipe-summary>
+          <div class="recipe-summary__head">
+            <strong data-recipe-name>Auto</strong>
+            <span class="recipe-state" data-recipe-state="ready" data-recipe-status>Ready</span>
+          </div>
+          <p data-recipe-description>Chooses a currently runnable local format from your prompt.</p>
+          <small data-recipe-meta>Selection is revealed before rendering starts.</small>
+        </div>
+      </details>
+      <div class="maker-actions">
+        <span>Visuals, sound, models, and rendering are automatic.</span>
+        <button class="maker-primary" type="submit" data-video-submit>Make video</button>
+      </div>
+      <p class="maker-feedback" role="status" aria-live="polite" data-video-feedback></p>
+      <div class="maker-output" data-video-output hidden></div>
+    </form>
+  </div>
+
+</section>
+
+<script>
+  type VideoRecipe = {
+    id: string;
+    name: string;
+    description: string;
+    outputStyle: string;
+    runtime: string;
+    engine: string;
+    action: { kind: "execute" | "continue"; label: string; href?: string | null };
+    spend: { id: string; label: string };
+    readiness: { state: string; ready: boolean; blocker: string | null };
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-marketing-maker]")) {
+    const serviceOrigin = root.dataset.serviceOrigin ?? "http://127.0.0.1:4317";
+    const recipeSelect = root.querySelector<HTMLSelectElement>("[data-video-recipe]")!;
+    const submitButton = root.querySelector<HTMLButtonElement>("[data-video-submit]")!;
+    const recipeName = root.querySelector<HTMLElement>("[data-recipe-name]")!;
+    const recipeStatus = root.querySelector<HTMLElement>("[data-recipe-status]")!;
+    const recipeDescription = root.querySelector<HTMLElement>("[data-recipe-description]")!;
+    const recipeMeta = root.querySelector<HTMLElement>("[data-recipe-meta]")!;
+    let recipes: VideoRecipe[] = [];
+    let recipesPromise: Promise<VideoRecipe[]> | null = null;
+
+    async function request(path: string, init?: RequestInit) {
+      let response: Response;
+      try {
+        response = await fetch(serviceOrigin + path, {
+          ...init,
+          headers: init?.body ? { "content-type": "text/plain" } : undefined,
+        });
+      } catch {
+        throw new Error("Video service is offline. Start Reel Pipeline on port 4317.");
+      }
+      const payload = await response.json();
+      if (!response.ok) throw new Error(typeof payload.error === "string" ? payload.error : "The video service rejected this request.");
+      return payload.data;
+    }
+
+    function setFeedback(element: HTMLElement, message: string, state = "") {
+      element.textContent = message;
+      element.dataset.state = state;
+    }
+
+    function showVideo(output: HTMLElement, url: string, label: string) {
+      output.hidden = false;
+      output.replaceChildren();
+      const video = document.createElement("video");
+      video.controls = true;
+      video.preload = "metadata";
+      video.src = url;
+      video.setAttribute("aria-label", label);
+      output.append(video);
+    }
+
+    function showPreview(output: HTMLElement, url: string, label: string, type: string) {
+      output.hidden = false;
+      output.replaceChildren();
+      if (type === "image") {
+        const image = document.createElement("img");
+        image.src = url;
+        image.alt = label;
+        output.append(image);
+        return;
+      }
+      const frame = document.createElement("iframe");
+      frame.src = url;
+      frame.title = label;
+      frame.loading = "eager";
+      output.append(frame);
+    }
+
+    function showContinuation(output: HTMLElement, href: string, label: string) {
+      output.hidden = false;
+      output.replaceChildren();
+      const link = document.createElement("a");
+      link.className = "maker-continuation";
+      link.href = href;
+      link.textContent = label;
+      output.append(link);
+    }
+
+    function statusFor(recipe: VideoRecipe) {
+      if (recipe.readiness.state === "ready") return { label: "Ready", state: "ready" };
+      if (recipe.readiness.state === "external-step") return { label: "Continue elsewhere", state: "external" };
+      if (recipe.readiness.state === "needs-input") return { label: "Needs input", state: "blocked" };
+      return { label: "Needs setup", state: "blocked" };
+    }
+
+    function updateRecipeSummary() {
+      if (recipeSelect.value === "auto") {
+        recipeName.textContent = "Auto";
+        recipeStatus.textContent = recipes.length ? "Ready" : "Checking";
+        recipeStatus.dataset.recipeState = recipes.length ? "ready" : "checking";
+        recipeDescription.textContent = "Chooses a currently runnable local format from your prompt.";
+        recipeMeta.textContent = "Selection is revealed before rendering starts.";
+        submitButton.disabled = false;
+        submitButton.textContent = "Make video";
+        return;
+      }
+      const recipe = recipes.find((entry) => entry.id === recipeSelect.value);
+      if (!recipe) {
+        recipeName.textContent = recipeSelect.selectedOptions[0]?.textContent ?? "Visual format";
+        recipeStatus.textContent = "Checking";
+        recipeStatus.dataset.recipeState = "checking";
+        recipeDescription.textContent = "Loading current runtime and readiness information.";
+        recipeMeta.textContent = "The video service must confirm this format before it can run.";
+        submitButton.disabled = true;
+        submitButton.textContent = "Checking…";
+        return;
+      }
+      const status = statusFor(recipe);
+      recipeName.textContent = recipe.name;
+      recipeStatus.textContent = status.label;
+      recipeStatus.dataset.recipeState = status.state;
+      recipeDescription.textContent = recipe.readiness.blocker
+        ? `${recipe.outputStyle}. ${recipe.readiness.blocker}`
+        : recipe.outputStyle || recipe.description;
+      recipeMeta.textContent = `${recipe.runtime} · ${recipe.spend.label}`;
+      submitButton.disabled = !recipe.readiness.ready;
+      submitButton.textContent = !recipe.readiness.ready
+        ? "Needs setup"
+        : recipe.action.kind === "continue" ? recipe.action.label : "Make video";
+    }
+
+    function chooseAutoRecipe(prompt: string) {
+      const runnable = recipes.filter((recipe) => recipe.readiness.state === "ready" && recipe.action.kind === "execute");
+      const preferences = [
+        { pattern: /\b(ascii|terminal|pixel)\b/i, id: "ascii-story" },
+        { pattern: /\b(blender|3d|three-dimensional)\b/i, id: "blender-film" },
+        { pattern: /\b(slide|slideshow|photo|image)\b/i, id: "image-slideshow" },
+        { pattern: /\b(narrat|voice|voiceover)\b/i, id: "local-voice-film" },
+        { pattern: /\b(motion|animate|kinetic)\b/i, id: "web-motion" },
+      ];
+      const hinted = preferences.find((preference) => preference.pattern.test(prompt));
+      return runnable.find((recipe) => recipe.id === hinted?.id)
+        ?? runnable.find((recipe) => recipe.id === "web-motion")
+        ?? runnable.find((recipe) => recipe.id === "image-slideshow")
+        ?? runnable[0]
+        ?? null;
+    }
+
+    async function loadRecipes() {
+      if (!recipesPromise) {
+        recipesPromise = request("/studio/arsenal").then((arsenal) => {
+          recipes = Array.isArray(arsenal.recipes) ? arsenal.recipes : [];
+          for (const option of Array.from(recipeSelect.options)) {
+            if (option.value === "auto") continue;
+            const recipe = recipes.find((entry) => entry.id === option.value);
+            if (!recipe) continue;
+            option.textContent = `${recipe.name} — ${statusFor(recipe).label}`;
+          }
+          updateRecipeSummary();
+          return recipes;
+        }).catch((error) => {
+          recipesPromise = null;
+          recipeStatus.textContent = "Service offline";
+          recipeStatus.dataset.recipeState = "blocked";
+          recipeDescription.textContent = error instanceof Error ? error.message : String(error);
+          recipeMeta.textContent = "Start Reel Pipeline to load visual formats.";
+          submitButton.disabled = true;
+          submitButton.textContent = "Service offline";
+          return [];
+        });
+      }
+      return recipesPromise;
+    }
+
+    recipeSelect.addEventListener("change", updateRecipeSummary);
+    void loadRecipes();
+
+    const videoForm = root.querySelector<HTMLFormElement>("[data-video-form]");
+    videoForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = submitButton;
+      const feedback = root.querySelector<HTMLElement>("[data-video-feedback]")!;
+      const output = root.querySelector<HTMLElement>("[data-video-output]")!;
+      const prompt = root.querySelector<HTMLTextAreaElement>("[data-video-prompt]")!.value.trim();
+      const duration = root.querySelector<HTMLSelectElement>("[data-video-duration]")!.value;
+      await loadRecipes();
+      const recipe = recipeSelect.value === "auto"
+        ? chooseAutoRecipe(prompt)
+        : recipes.find((entry) => entry.id === recipeSelect.value) ?? null;
+      if (!recipe || !recipe.readiness.ready) {
+        setFeedback(feedback, recipe?.readiness.blocker || "No runnable visual format is currently available.", "error");
+        updateRecipeSummary();
+        return;
+      }
+      const fields: Record<string, unknown> = {
+        recipeId: recipe.id,
+        recipeOptions: duration ? { durationSeconds: Number(duration) } : {},
+      };
+
+      button.disabled = true;
+      button.textContent = "Making…";
+      output.hidden = true;
+      setFeedback(feedback, `Using ${recipe.name}. Turning the prompt into a production…`);
+      try {
+        let brief = await request("/studio/briefs", { method: "POST", body: JSON.stringify({ request: prompt, fields }) });
+        let rendered = false;
+        const build = brief.actions?.build;
+        if (build?.enabled && build.kind === "execute" && build.endpoint) {
+          const result = await request(build.endpoint, { method: "POST", body: JSON.stringify({ confirm: true }) });
+          brief = result.brief;
+          rendered = result.executed === true;
+        }
+        if (rendered && brief.media?.videoPath) {
+          const path = encodeURIComponent(brief.media.videoPath);
+          showVideo(output, `${serviceOrigin}/studio/render-file?path=${path}`, brief.title || "Generated video");
+          setFeedback(feedback, "Video ready.", "success");
+        } else if (rendered && brief.media?.previewPath) {
+          const path = encodeURIComponent(brief.media.previewPath);
+          showPreview(
+            output,
+            `${serviceOrigin}/studio/render-file?path=${path}`,
+            brief.title || "Generated preview",
+            brief.media.previewType || "html",
+          );
+          setFeedback(feedback, brief.media.previewType === "image" ? "3D scene plate ready." : "Animated preview ready.", "success");
+        } else if (build?.enabled && build.kind === "continue" && build.href) {
+          showContinuation(output, build.href, build.label || "Continue production");
+          setFeedback(feedback, `${recipe.name} is ready to continue in ${recipe.runtime}.`, "success");
+        } else {
+          const blocker = build?.blocker || brief.capability?.blocker || brief.continuation?.blocker;
+          setFeedback(feedback, blocker || "The selected format could not start.", "warning");
+        }
+      } catch (error) {
+        setFeedback(feedback, error instanceof Error ? error.message : String(error), "error");
+      } finally {
+        updateRecipeSummary();
+      }
+    });
+
+  }
+</script>
+
+<style>
+  .marketing-maker { padding: 34px 0 40px; border-bottom: 1px solid var(--line); }
+  .maker-head { margin-bottom: 18px; }
+  .maker-head h2 { margin: 0; font-size: 24px; letter-spacing: -.025em; }
+  .maker-head p { margin: 4px 0 0; color: var(--muted); }
+  .maker-panel { min-width: 0; border: 1px solid var(--line); background: var(--surface); }
+  .maker-panel form { display: grid; min-width: 0; }
+  .prompt-field { display: grid; gap: 7px; padding: 22px; color: var(--muted); font-size: 13px; }
+  .prompt-field > span { color: var(--text); font-weight: 760; }
+  textarea, select { width: 100%; min-width: 0; max-width: 100%; border: 1px solid var(--line-strong); border-radius: 0; background: #0d1112; color: var(--text); }
+  textarea { min-height: 120px; padding: 13px 14px; resize: vertical; font-size: 17px; line-height: 1.5; }
+  select { min-height: 44px; padding: 9px 11px; }
+  textarea:hover, select:hover { border-color: #56615b; }
+  textarea:focus, select:focus { border-color: var(--accent); outline: 0; }
+  .maker-settings { border-top: 1px solid var(--line); }
+  .maker-settings summary { min-height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; color: var(--muted); cursor: pointer; list-style: none; font-weight: 720; }
+  .maker-settings summary::-webkit-details-marker { display: none; }
+  .maker-settings summary small { color: var(--quiet); font-weight: 500; }
+  .maker-settings[open] summary { color: var(--text); }
+  .setting-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 22px 18px; }
+  .setting-fields label { display: grid; min-width: 0; gap: 6px; color: var(--muted); font-size: 12px; }
+  .recipe-summary { display: grid; gap: 5px; margin: 0 22px 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .recipe-summary__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .recipe-summary strong { color: var(--text); font-size: 14px; }
+  .recipe-summary p { margin: 0; color: var(--muted); font-size: 13px; }
+  .recipe-summary small { color: var(--quiet); font-size: 12px; }
+  .recipe-state { color: var(--muted); font-size: 12px; font-weight: 760; }
+  .recipe-state[data-recipe-state="ready"] { color: var(--success); }
+  .recipe-state[data-recipe-state="external"] { color: var(--info); }
+  .recipe-state[data-recipe-state="blocked"] { color: var(--warning); }
+  .maker-actions { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 22px; border-top: 1px solid var(--line); background: #0d1112; }
+  .maker-actions > span { color: var(--quiet); font-size: 12px; }
+  .maker-primary { min-height: 44px; padding: 9px 16px; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); font-weight: 820; cursor: pointer; }
+  .maker-primary:hover { background: var(--accent-hover); }
+  .maker-primary:disabled { opacity: .55; cursor: wait; }
+  .maker-feedback { min-height: 0; margin: 0; padding: 0 22px; color: var(--muted); font-size: 13px; }
+  .maker-feedback:not(:empty) { padding-block: 13px; border-top: 1px solid var(--line); }
+  .maker-feedback[data-state="success"] { color: var(--success); }
+  .maker-feedback[data-state="warning"] { color: var(--warning); }
+  .maker-feedback[data-state="error"] { color: var(--critical); }
+  .maker-output { min-width: 0; padding: 0 22px 22px; }
+  .maker-output video,
+  .maker-output img,
+  .maker-output iframe { display: block; width: 100%; max-width: 100%; height: min(68vh, 720px); border: 0; background: #000; object-fit: contain; }
+  .maker-continuation { display: inline-flex; min-height: 44px; align-items: center; padding: 9px 16px; border: 1px solid var(--line-strong); color: var(--text); font-weight: 760; text-decoration: none; }
+  .maker-continuation:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 720px) {
+    .setting-fields { grid-template-columns: 1fr; }
+    .maker-actions { align-items: stretch; flex-direction: column; }
+    .maker-primary { width: 100%; }
+  }
+</style>

@@ -11,6 +11,7 @@
     "bootstrap:cloudflare": "node scripts/bootstrap-cloudflare.js",
     "probe:engines": "node scripts/probe-engines.js",
     "canary:moneyprinter": "node scripts/canary-moneyprinter-local.js",
+    "canary:lyric": "node scripts/render-lyric-canary.js",
     "moneyprinter:api": "node scripts/start-moneyprinter-api.js",
     "check:cloudflare": "node scripts/check-cloudflare-readiness.js",
     "render:pro": "node ../content-factory/scripts/render-pro.js",

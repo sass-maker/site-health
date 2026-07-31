@@ -88,6 +88,21 @@ commit + artifact URL in the change description.
 - Current status: Node adapter implemented; Rust orchestrator shells out to the
   same Node renderer for parity.
 
+## Blender literal scene plates
+
+- Source: a compatible local Blender 5.2 installation.
+- Role: deterministic silent visual plates for literal lyric-video scenes.
+  Blender does not own lyric text, attribution, captions, or audio.
+- Safety: the adapter runs one repository-owned builder against bounded,
+  validated JSON with factory startup and automatic script execution disabled.
+  Arbitrary Python, add-ons, uploaded `.blend` files, and escaping output paths
+  are rejected.
+- Configure: render mode `blender`; install with
+  `brew install --cask blender`.
+- Current status: Node adapter, real local capability probe, literal scene
+  builder, standard render receipt, and Blender-backed lyric canary implemented.
+  See [`lyric-video-and-blender.md`](./lyric-video-and-blender.md).
+
 ## Editframe-inspired HTML composition
 
 - Upstream: `https://editframe.com/`.

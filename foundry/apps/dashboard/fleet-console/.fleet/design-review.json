@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Fast D-Rank history",
+  "target": "Recipe-based video creation at /marketing",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,21 +14,21 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/portfolio-focus/after-1440.png"
+    "before": "artifacts/design/fleet-console-marketing-maker/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/outcome-focus/after-390.png"
+        "path": "artifacts/design/fleet-console-marketing-maker/after-recipes-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/outcome-focus/after-768.png"
+        "path": "artifacts/design/fleet-console-marketing-maker/after-recipes-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/outcome-focus/after-1440.png"
+        "path": "artifacts/design/fleet-console-marketing-maker/after-recipes-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 32,
+      "score": 34,
       "maximum": 40
     },
     "audit": {
-      "score": 17,
+      "score": 18,
       "maximum": 20
     },
     "unresolved": {
@@ -49,13 +49,11 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": [
-        "P3: favicon is absent in local development"
-      ]
+      "findings": []
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly requested hoverable D-Rank history, portfolio-wide Metrics views without project dropdowns, and a faster Console."
+    "note": "Owner explicitly required Settings to choose the concrete visual production format, including slideshow, Three.js, and ASCII, rather than only a content type."
   }
 }

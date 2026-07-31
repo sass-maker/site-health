@@ -3,6 +3,10 @@ import { IdeaStore, IDEA_STATUSES } from './idea-store.js';
 import { runFacelessWorkflow } from './workflow.js';
 import { buildPublishPacket } from './packet.js';
 import { runImportedVariantWorkflow } from '../significant-content-handoff.js';
+import { runStudioAutopilot, studioAutopilotStatus } from './autopilot.js';
+import { buildStudioArsenal } from './arsenal.js';
+import { probeBlender } from '../adapters/blender.js';
+import { probeKokoroComposeReadiness } from '../adapters/kokoro-compose.js';
 
 /** Fill the backlog: generate ideas for a niche and save them as `new`. */
 export async function planIdeas({ niche, count = 10, store, llm } = {}) {
@@ -106,5 +110,41 @@ export async function factoryStatus({ store, recent = 5 } = {}) {
       updatedAt: idea.updatedAt,
       artifactDir: idea.notes?.match(/artifacts: (.+)$/)?.[1] ?? null,
     }));
-  return { total: ideas.length, counts, recentRenders };
+  const autopilot = await studioAutopilotStatus({ ideaStore });
+  return { total: ideas.length, counts, recentRenders, autopilot };
+}
+
+/** Read-only, machine-readable discovery contract for an AI or CLI operator. */
+export async function inspectStudioArsenal(options = {}) {
+  const blenderCapability = options.blenderCapability ?? await probeBlender(options.blender ?? {});
+  const kokoroCapability = options.kokoroCapability ?? probeKokoroComposeReadiness({
+    kokoroDir: options.kokoroDir,
+    kokoroReady: options.kokoroReady,
+    pexelsReady: options.pexelsReady,
+    pexelsApiKey: options.rendererOptions?.kokoroCompose?.pexelsApiKey,
+    ffmpegPath: options.ffmpegPath,
+    ffmpegReady: options.ffmpegReady,
+  });
+  const recipeContext = {
+    blenderCapability,
+    kokoroReady: kokoroCapability.ready,
+    kokoroBlocker: kokoroCapability.blocker,
+    moneyprinterReady: options.moneyprinterReady === true,
+  };
+  return buildStudioArsenal({
+    filters: options.filters,
+    automationRegistry: options.automationRegistry,
+    automationPolicyOptions: options.automationPolicyOptions,
+    recipeContext,
+    capabilityOptions: {
+      blenderReady: blenderCapability.ready,
+      blenderBlocker: blenderCapability.blocker,
+      forgeUrl: options.forgeUrl,
+      editorialUrl: options.editorialUrl,
+    },
+  });
+}
+
+export async function runFactoryAutopilot(options = {}) {
+  return runStudioAutopilot(options);
 }

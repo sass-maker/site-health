@@ -69,6 +69,7 @@ pub const RENDER_MODES: &[&str] = &[
     "html",
     "html-composition",
     "web-composition",
+    "blender",
 ];
 
 pub fn is_reel_channel(channel: &str) -> bool {

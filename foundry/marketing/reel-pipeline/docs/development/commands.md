@@ -62,6 +62,10 @@ publishing is intentionally rejected.
 | `npm run studio -- <tool>` | Content studio tools |
 | `npm run faceless -- --topic "..."` | Topic-to-video workflow |
 | `npm run factory -- <command>` | Local backlog-to-artifact conveyor |
+| `npm run factory -- arsenal [filters]` | Read-only machine inventory of projects, tools, workflows, recipes, engines, policies, readiness, guardrails, and next actions |
+| `npm run factory -- autopilot --policy <id> --dry-run` | Discover one automation policy without writes, rendering, upload, or Postiz calls |
+| `npm run factory -- autopilot --all --execute --count <n>` | Execute bounded enabled policies with persisted retries and evidence gates |
+| `npm run factory -- status` | Show backlog stages plus content-lane, policy, run, and recovery status |
 | `npm run lesson:render -- ...` | Tutoring lesson renderer |
 | `npm run setup:kokoro` | Install the optional local Kokoro model |
 | `npm run forge:setup` | Install the pinned Local Video Forge runtime and selected LTX-2.3 model files |

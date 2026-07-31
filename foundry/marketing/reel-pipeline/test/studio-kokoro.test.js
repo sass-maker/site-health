@@ -5,7 +5,11 @@ import path from 'node:path';
 import test from 'node:test';
 
 import { KokoroTts, isKokoroReady, normalizeKokoroVoice } from '../src/adapters/kokoro.js';
-import { KokoroComposeAdapter, resolvePexelsKey } from '../src/adapters/kokoro-compose.js';
+import {
+  KokoroComposeAdapter,
+  probeKokoroComposeReadiness,
+  resolvePexelsKey,
+} from '../src/adapters/kokoro-compose.js';
 import { resolveTtsSynthesizer } from '../src/lesson-pipeline.js';
 import { StudioLlm } from '../src/studio/llm.js';
 import { generateScript } from '../src/studio/script.js';
@@ -73,6 +77,25 @@ test('resolvePexelsKey prefers env then falls back to the MPT config file', asyn
   delete process.env.PEXELS_API_KEY;
   assert.equal(resolvePexelsKey({ configPath }), 'file-key-123');
   assert.equal(resolvePexelsKey({ configPath: path.join(dir, 'missing.toml') }), null);
+});
+
+test('kokoro compose readiness includes model, Pexels, and drawtext requirements', () => {
+  assert.deepEqual(probeKokoroComposeReadiness({ kokoroReady: false }), {
+    ready: false,
+    blocker: 'Install the local Kokoro model with `npm run setup:kokoro`.',
+  });
+  assert.deepEqual(probeKokoroComposeReadiness({ kokoroReady: true, pexelsReady: false }), {
+    ready: false,
+    blocker: 'Configure a Pexels key before using local narrated video.',
+  });
+  assert.deepEqual(probeKokoroComposeReadiness({ kokoroReady: true, pexelsReady: true, ffmpegReady: false }), {
+    ready: false,
+    blocker: 'Install an FFmpeg build with the drawtext filter before using local narrated video.',
+  });
+  assert.deepEqual(probeKokoroComposeReadiness({ kokoroReady: true, pexelsReady: true, ffmpegReady: true }), {
+    ready: true,
+    blocker: null,
+  });
 });
 
 test('kokoro compose adapter runs tts, broll, and composer in order', async () => {

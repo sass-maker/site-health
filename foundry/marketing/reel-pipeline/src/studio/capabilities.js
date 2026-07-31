@@ -1,45 +1,7 @@
-export const STUDIO_CAPABILITIES = [
-  {
-    id: 'faceless',
-    name: 'Faceless lesson',
-    owner: 'Marketing Studio',
-    description: 'Script, voice, captions, b-roll direction, render, and quality evidence.',
-    required: ['projectSlug', 'title'],
-    action: { kind: 'execute', label: 'Create video' },
-  },
-  {
-    id: 'brand-reel',
-    name: 'Brand reel',
-    owner: 'Brand Reel',
-    description: 'Turn a real product page into a short proof-led vertical reel.',
-    required: ['projectSlug', 'sourceEvidence.canonicalUrl'],
-    action: { kind: 'continue', label: 'Continue in Brand Reel', href: '/' },
-  },
-  {
-    id: 'guided-app-demo',
-    name: 'Guided app demo',
-    owner: 'Forge',
-    description: 'Record a real app with optional synchronized presenter camera and microphone.',
-    required: ['projectSlug', 'sourceEvidence.canonicalUrl', 'sourceEvidence.rightsStatus'],
-    action: { kind: 'continue', label: 'Continue in Forge', href: 'https://reels.sassmaker.com/forge' },
-  },
-  {
-    id: 'coherent-film',
-    name: 'Coherent film',
-    owner: 'Forge',
-    description: 'Compose approved evidence and generated shots through a versioned Film style.',
-    required: ['projectSlug', 'creativeDirection', 'sourceEvidence.rightsStatus'],
-    action: { kind: 'continue', label: 'Continue in Forge', href: 'https://reels.sassmaker.com/forge' },
-  },
-  {
-    id: 'podcast-short',
-    name: 'Podcast short',
-    owner: 'Editorial',
-    description: 'Select and render a source-faithful clip from transcript and exact source timing.',
-    required: ['sourceEvidence.canonicalUrl', 'sourceEvidence.rightsStatus'],
-    action: { kind: 'continue', label: 'Open podcast editor', href: 'http://127.0.0.1:8765' },
-  },
-];
+import { evaluateLyricReadiness } from '../lyric-video/contracts.js';
+import arsenalConfig from '../../config/studio-arsenal.json' with { type: 'json' };
+
+export const STUDIO_CAPABILITIES = arsenalConfig.capabilities.map((entry) => structuredClone(entry));
 
 export function listStudioCapabilities(brief = null, options = {}) {
   return STUDIO_CAPABILITIES.map((capability) => evaluateStudioCapability(capability.id, brief, options));
@@ -66,6 +28,21 @@ export function evaluateStudioCapability(kind, brief = null, options = {}) {
       missing,
       blocker: `Add ${missing.map(humanField).join(', ')} before continuing.`,
     };
+  }
+  if (brief && kind === 'lyric-video') {
+    const lyricReadiness = evaluateLyricReadiness(brief.lyric, {
+      blenderReady: options.blenderReady,
+      blenderBlocker: options.blenderBlocker,
+    });
+    if (!lyricReadiness.ready) {
+      return {
+        ...definition,
+        action,
+        state: 'needs-input',
+        missing: [],
+        blocker: lyricReadiness.blockers.join(' '),
+      };
+    }
   }
   if (definition.owner !== 'Marketing Studio') {
     return {
@@ -140,5 +117,6 @@ function humanField(field) {
     creativeDirection: 'creative direction',
     'sourceEvidence.canonicalUrl': 'a canonical source URL',
     'sourceEvidence.rightsStatus': 'approved source rights',
+    lyric: 'music and timed lyric details',
   }[field] ?? field;
 }

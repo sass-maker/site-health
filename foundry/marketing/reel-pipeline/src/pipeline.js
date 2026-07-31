@@ -5,6 +5,7 @@ import { GrokVideoAdapter } from './adapters/grok-video.js';
 import { AsciiAnimationAdapter } from './adapters/ascii-animation.js';
 import { HtmlCompositionAdapter } from './adapters/html-composition.js';
 import { KokoroComposeAdapter } from './adapters/kokoro-compose.js';
+import { BlenderAdapter } from './adapters/blender.js';
 import { publishRenderArtifacts } from './artifact-publisher.js';
 import { FileJobStore } from './job-store.js';
 import { assertRenderableReel, attachReelRender } from './reel-intake.js';
@@ -38,6 +39,7 @@ export function createRenderer(mode = 'mock', options = {}) {
   if (mode === 'ascii' || mode === 'ascii-animation' || mode === 'ascii-fable' || mode === 'askai') return contentFactoryAdapter(new AsciiAnimationAdapter(options.asciiAnimation ?? options.ascii ?? options.askai ?? {}));
   if (mode === 'html' || mode === 'html-composition' || mode === 'web-composition') return contentFactoryAdapter(new HtmlCompositionAdapter(options.htmlComposition ?? options.html ?? {}));
   if (mode === 'kokoro' || mode === 'kokoro-compose') return contentFactoryAdapter(new KokoroComposeAdapter(options.kokoroCompose ?? options.kokoro ?? {}));
+  if (mode === 'blender') return contentFactoryAdapter(new BlenderAdapter(options.blender ?? {}));
   if (mode === 'openshorts' || mode === 'ugc_actor') {
     throw new Error('openshorts/ugc_actor was removed; use mock or stock (MoneyPrinterTurbo)');
   }
