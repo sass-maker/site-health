@@ -63,8 +63,8 @@ CodeVetter or App Health source.
 ## Timeline
 
 - **2026-07-31 — Fleet Console refocused on four owner outcomes:** Grouped
-  Domains, AI Awareness, Marketing, and Performance under a visible Metrics
-  sidebar heading, with Projects and Feedback as standalone tabs. Domains now
+  Domains, AI Awareness, and Performance under a visible Metrics sidebar
+  heading, with Projects, Marketing, and Feedback as standalone tabs. Domains now
   deduplicates registrable roots, explains D-Rank, surfaces declining and
   baseline-only domains first, and adapts to a stacked mobile ledger. Core AI
   Awareness accepts only provider-backed model outcomes; Marketing separates
@@ -553,7 +553,7 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
 - Responsive Fleet Console with a collapsible sidebar that groups Domains, AI
-  Awareness, Marketing, and Performance under Metrics while keeping Projects
+  Awareness, and Performance under Metrics while keeping Projects, Marketing,
   and Feedback standalone, one URL-persisted 27-project scope, provider-backed
   AI Awareness, marketing-receipt coverage, explicit PSI/LCP guardrails,
   Search Visibility, AI Visibility,

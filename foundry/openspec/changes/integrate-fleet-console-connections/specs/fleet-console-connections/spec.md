@@ -591,9 +591,9 @@ and record stable observation ids idempotently.
 
 ### Requirement: Four outcome-focused portfolio views
 
-Fleet Console SHALL group Domains, AI Awareness, Marketing, and Performance
-under a visible Metrics heading. Projects and Feedback SHALL remain standalone
-tabs below that group. It SHALL derive membership from the canonical catalog,
+Fleet Console SHALL group Domains, AI Awareness, and Performance under a visible
+Metrics heading. Projects, Marketing, and Feedback SHALL remain standalone tabs
+below that group. It SHALL derive membership from the canonical catalog,
 preserve native provider semantics, and keep skill and technical diagnostic
 surfaces secondary.
 
@@ -603,6 +603,13 @@ surfaces secondary.
 - **THEN** Domains shows that root once with its D-Rank, observation time,
   history state, and affected products
 - **AND** missing D-Rank evidence remains explicit
+
+#### Scenario: Coverage includes a live non-active domain
+
+- **WHEN** a past project or non-product identity explicitly opts its live domain
+  into domain-strength coverage
+- **THEN** Domains shows that registrable root without reactivating the catalog entry
+- **AND** the project association reads `0 active projects`
 
 #### Scenario: Operator reviews core AI awareness
 

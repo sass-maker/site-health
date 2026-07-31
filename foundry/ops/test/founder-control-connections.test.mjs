@@ -61,6 +61,7 @@ function fixture() {
         lifecycle: 'past',
         tier: 'past',
         domains: ['past.example'],
+        metrics: { domainCoverage: true },
         public: { id: 'past-project', listing: 'past' },
       },
       {
@@ -69,6 +70,7 @@ function fixture() {
         lifecycle: 'non-product',
         tier: 'non-product',
         domains: ['personal.example'],
+        metrics: { domainCoverage: true },
         public: { id: 'personal', listing: 'hidden' },
       },
       {
@@ -580,13 +582,21 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(paceOutput.metricEligibility.publicSite, true);
   assert.deepEqual(paceOutput.domains, ['heypace.app']);
   assert.equal(paceOutput.priority, 'P1');
-  assert.equal(result.outputs.ownerOutcomes.domains.length, 1);
+  assert.equal(result.outputs.ownerOutcomes.domains.length, 3);
   assert.equal(result.outputs.ownerOutcomes.domains[0].domain, 'heypace.app');
   assert.deepEqual(
     result.outputs.ownerOutcomes.domains[0].projects.map((project) => project.projectId),
     ['pace', 'standards'],
   );
   assert.equal(result.outputs.ownerOutcomes.domains[0].signal.value, 8);
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.domains.find((domain) => domain.domain === 'past.example').projects,
+    [],
+  );
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.domains.find((domain) => domain.domain === 'personal.example').projects,
+    [],
+  );
   assert.equal(result.outputs.ownerOutcomes.coreAi.length, 1);
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].projectId, 'pace');
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'not-measured');
@@ -623,6 +633,16 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     result.outputs.projects.find((project) => project.projectId === 'past-project')
       .metricEligibility.publicSite,
     false,
+  );
+  assert.equal(
+    result.outputs.projects.find((project) => project.projectId === 'past-project')
+      .metricEligibility.domainCoverage,
+    true,
+  );
+  assert.equal(
+    result.outputs.projects.find((project) => project.projectId === 'personal')
+      .metricEligibility.domainCoverage,
+    true,
   );
   assert.equal(
     paceOutput.history.signals.find((signal) => signal.label === 'Domain rating').series.length,

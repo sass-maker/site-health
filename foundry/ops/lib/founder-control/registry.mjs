@@ -53,6 +53,7 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
         publicListing: project.public?.listing ?? null,
         metricEligibility: {
           publicSite: project.metrics?.publicSite === true,
+          domainCoverage: project.metrics?.domainCoverage === true,
         },
         priority:
           project.priority ??

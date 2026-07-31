@@ -291,9 +291,9 @@ not a portfolio ranking or aggregate grade. Missing evidence remains a first-
 class state in every view.
 
 The existing project page keeps Search Console, crawlability, agent readiness,
-design review, and detailed histories. The sidebar labels the four outcome
-views as Metrics, with Projects and Feedback as standalone tabs below them.
-Skill evidence and System Map remain secondary supporting surfaces.
+design review, and detailed histories. The sidebar groups Domains, AI Awareness,
+and Performance as Metrics, with Projects, Marketing, and Feedback as standalone
+tabs below them. Skill evidence and System Map remain secondary supporting surfaces.
 
 ## Risks / Trade-offs
 

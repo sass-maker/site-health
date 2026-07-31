@@ -1075,8 +1075,11 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
   );
+  const domainProjects = projectOutputs.filter(
+    (project) => project.metricEligibility?.domainCoverage === true,
+  );
   const domainGroups = new Map();
-  for (const project of publicProjects) {
+  for (const project of domainProjects) {
     const authority = project.metricSemantics?.seo?.domainAuthority ?? {};
     const domain = authority.rootDomain ?? authority.domain ?? project.domains[0] ?? null;
     if (!domain) continue;
@@ -1087,7 +1090,9 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       observedAt: null,
       source: authority.source ?? 'Drank · Ahrefs public endpoint',
     };
-    current.projects.push({ projectId: project.projectId, name: project.name });
+    if (project.metricEligibility?.publicSite === true) {
+      current.projects.push({ projectId: project.projectId, name: project.name });
+    }
     const signal = signalByLabel(project, 'Domain rating');
     const signalTime = signal?.observedAt ? Date.parse(signal.observedAt) : Number.NaN;
     const currentTime = current.signal?.observedAt
@@ -1241,6 +1246,9 @@ function buildProjectOutputs({
         !['past', 'non-product'].includes(project.lifecycle) &&
         project.tier !== 'non-product' &&
         domains.length > 0;
+      const domainCoverage = publicMetricSite || (
+        project.metrics?.domainCoverage === true && domains.length > 0
+      );
       let projectId = project.id;
       if (project.lifecycle === 'past' || project.tier === 'non-product') {
         projectId = project.public?.id ?? project.id;
@@ -1593,6 +1601,7 @@ function buildProjectOutputs({
         domains,
         metricEligibility: {
           publicSite: publicMetricSite,
+          domainCoverage,
         },
         produced,
         skill: skill

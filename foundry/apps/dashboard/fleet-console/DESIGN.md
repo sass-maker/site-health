@@ -36,10 +36,10 @@ immutable identifiers and source revisions.
 ## Layout
 
 - Maximum content width: 1,240 px.
-- A persistent, collapsible left sidebar groups Domains, AI Awareness,
-  Marketing, and Performance under a visible Metrics heading; repository
-  taxonomy does not appear in primary navigation.
-- Projects and Feedback remain standalone tabs below Metrics. The selected
+- A persistent, collapsible left sidebar groups Domains, AI Awareness, and
+  Performance under a visible Metrics heading; repository taxonomy does not
+  appear in primary navigation.
+- Projects, Marketing, and Feedback remain standalone tabs below Metrics. The selected
   project scope follows the operator between views in the URL.
 - Domains answers whether every owned registrable root is becoming stronger.
   AI Awareness is limited to maintained P1 products and provider-backed model

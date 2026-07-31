@@ -165,8 +165,8 @@
 
 ## 19. Owner Outcome Refocus
 
-- [x] 19.1 Make Domains, AI Awareness, Marketing, and Performance the primary
-  navigation while keeping Projects, Feedback, skills, and System Map as
+- [x] 19.1 Group Domains, AI Awareness, and Performance under Metrics while
+  keeping Projects, Marketing, Feedback, skills, and System Map as separate or
   secondary surfaces.
 - [x] 19.2 Build a deduplicated registrable-domain directory with D-Rank,
   history state, observation time, affected projects, sorting, and honest

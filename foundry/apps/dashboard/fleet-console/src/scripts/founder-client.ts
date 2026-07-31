@@ -1833,7 +1833,7 @@ async function renderDomains() {
       value: (row) => row.domain,
       render: (row) => element("span", { class: "outcome-identity" }, [
         element("strong", {}, [row.domain]),
-        element("small", {}, [`${row.projects.length} product${row.projects.length === 1 ? "" : "s"}`]),
+        element("small", {}, [`${row.projects.length} active project${row.projects.length === 1 ? "" : "s"}`]),
       ]),
     },
     {
@@ -1859,8 +1859,8 @@ async function renderDomains() {
     },
     {
       key: "projects",
-      label: "Products",
-      description: "Sort by number of products on the domain",
+      label: "Active projects",
+      description: "Sort by number of active projects on the domain",
       value: (row) => row.projects.length,
       render: (row) => {
         const visibleProjects = row.projects.slice(0, 3);
@@ -1869,6 +1869,7 @@ async function renderDomains() {
           ...visibleProjects.map((project: JsonRecord) =>
             element("a", { href: `${projectHref(project.projectId)}#seo` }, [project.name])),
           remaining > 0 ? element("span", { class: "outcome-project-more" }, [`+${remaining} more`]) : null,
+          row.projects.length === 0 ? element("span", { class: "outcome-project-more" }, ["0 active projects"]) : null,
         ]);
       },
     },

@@ -26,7 +26,7 @@
       "lifecycle": "maintained | local-only | past | non-product",
       "repositoryVisibility": "public | private | unknown",
       "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
-      "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained live domain even when the public directory listing is hidden",
+      "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden"
     },
     "absorbedCheckouts": {
@@ -949,6 +949,9 @@
       "lifecycle": "past",
       "sourcePath": "../fleet-inactive-projects/aliveville",
       "repositoryVisibility": "public",
+      "metrics": {
+        "domainCoverage": true
+      },
       "public": {
         "listing": "past",
         "id": "aliveville",
@@ -1314,6 +1317,9 @@
       "attention": "toolbox",
       "lifecycle": "non-product",
       "repositoryVisibility": "public",
+      "metrics": {
+        "domainCoverage": true
+      },
       "public": {
         "listing": "maintained",
         "id": "personal-website",

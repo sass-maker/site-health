@@ -26,9 +26,9 @@ portfolio score or use an empty route as navigation.
 
 ## Chosen structure
 
-A collapsible left sidebar groups Domains, AI Awareness, Marketing, and
-Performance under a visible Metrics heading, with Projects and Feedback as
-standalone tabs below it. Domains deduplicates shared registrable roots. AI Awareness shows
+A collapsible left sidebar groups Domains, AI Awareness, and Performance under
+a visible Metrics heading, with Projects, Marketing, and Feedback as standalone
+tabs below it. Domains deduplicates shared registrable roots. AI Awareness shows
 only maintained P1 products and only provider-backed model outcomes. Marketing
 is a complete maintained-product coverage directory, distinguishing published
 work from recommendations. Performance applies explicit PSI and LCP thresholds
