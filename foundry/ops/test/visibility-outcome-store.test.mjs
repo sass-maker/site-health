@@ -31,6 +31,9 @@ function searchObservation(overrides = {}) {
       { label: 'Search CTR', value: 6.67 },
       { label: 'Search average position', value: 14.2 },
     ],
+    searchTerms: [
+      { query: 'private pace app', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
+    ],
     ...overrides,
   };
 }
@@ -57,6 +60,9 @@ test('records normalized provider aggregates idempotently', (context) => {
     unit: 'impressions',
     direction: 'higher-is-better',
   });
+  assert.deepEqual(readVisibilityOutcomes({ path })[0].searchTerms, [
+    { query: 'private pace app', impressions: 40, clicks: 5, ctr: 12.5, position: 3.2 },
+  ]);
 });
 
 test('rejects the complete bundle before writing any partial observation', (context) => {

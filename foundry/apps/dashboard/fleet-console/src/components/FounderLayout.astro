@@ -5,15 +5,15 @@ import "../styles/founder.css";
 interface Props {
   title: string;
   description: string;
-  active: "domains" | "ai-awareness" | "market" | "performance" | "project-statuses" | "feedback" | "metrics";
+  active: "domains" | "search" | "ai-awareness" | "market" | "performance" | "project-statuses" | "feedback" | "metrics";
   eyebrow?: string;
-  view?: "domains" | "ai-awareness" | "marketing" | "performance" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
+  view?: "domains" | "search" | "ai-awareness" | "marketing" | "performance" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
   projectId?: string;
 }
 
 const { title, description, active, eyebrow = "Founder control", view, projectId } = Astro.props;
-const filterable = !["project", "mission", "domains", "ai-awareness", "performance"].includes(view ?? "");
-const directoryView = ["domains", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
+const filterable = !["project", "mission", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
+const directoryView = ["domains", "search", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
 ---
 
 <!doctype html>
@@ -42,7 +42,7 @@ const directoryView = ["domains", "ai-awareness", "marketing", "performance", "p
         <button
           class="sidebar-mobile-toggle"
           type="button"
-          aria-label="Open navigation"
+          aria-label="Menu"
           aria-controls="fleet-sidebar"
           aria-expanded="false"
           data-sidebar-open

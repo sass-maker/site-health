@@ -201,6 +201,19 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
           psi: { value: 95, series: [{ value: 90 }] },
           lcp: { value: 1200, series: [{ value: 1500 }] },
         }],
+        search: [{
+          projectId: 'site',
+          impressions: {
+            value: 120,
+            series: Array.from({ length: 65 }, (_, index) => ({
+              value: index,
+              observedAt: `2026-07-${String((index % 30) + 1).padStart(2, '0')}T10:00:00.000Z`,
+            })),
+          },
+          clicks: { value: 8, series: [{ value: 6 }] },
+          ctr: { value: 6.67, series: [{ value: 5 }] },
+          averagePosition: { value: 14.2, series: [{ value: 16 }] },
+        }],
         performanceThresholds: { psiScore: 90, lcpMilliseconds: 2500 },
       },
     },
@@ -226,6 +239,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   );
   const base = `http://127.0.0.1:${server.address().port}`;
   const domains = await (await fetch(`${base}/v1/outcomes/domains`)).json();
+  const search = await (await fetch(`${base}/v1/outcomes/search`)).json();
   const awareness = await (await fetch(`${base}/v1/outcomes/ai-awareness`)).json();
   const performance = await (await fetch(`${base}/v1/outcomes/performance`)).json();
   const connections = await (await fetch(`${base}/v1/connections`)).json();
@@ -234,6 +248,10 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal(domains.family, 'domains');
   assert.equal(domains.rows[0].signal.series.length, 60);
   assert.equal(domains.rows[0].signal.series[0].value, 5);
+  assert.equal(search.family, 'search');
+  assert.equal(search.rows[0].impressions.series.length, 60);
+  assert.equal(search.rows[0].impressions.series[0].value, 5);
+  assert.equal(search.rows[0].clicks.series.length, 1);
   assert.equal(awareness.rows[0].projectId, 'core');
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
   assert.equal(performance.rows[0].psi.value, 95);

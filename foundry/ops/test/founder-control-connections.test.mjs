@@ -430,6 +430,17 @@ test('projects provider-authoritative search and Cloudflare activity without con
     pace.history.signals.find((signal) => signal.label === 'AI referral visits').source,
     'Cloudflare Web Analytics',
   );
+  const searchRow = result.outputs.ownerOutcomes.search.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(searchRow.status, 'zero-impressions');
+  assert.equal(searchRow.impressions.value, 0);
+  assert.equal(searchRow.clicks.value, 0);
+  assert.equal(searchRow.ctr.value, 0);
+  assert.equal(searchRow.averagePosition.value, null);
+  assert.equal(searchRow.averagePosition.series.length, 1);
+  assert.equal(searchRow.observations, 2);
+  assert.equal(searchRow.scope, 'sc-domain:heypace.app');
 });
 
 test('builds one honest six-bucket projection from readable Fleet evidence', () => {
@@ -635,6 +646,11 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   );
   assert.equal(
     result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'standards').status,
+    'not-measured',
+  );
+  assert.equal(result.outputs.ownerOutcomes.search.length, 2);
+  assert.equal(
+    result.outputs.ownerOutcomes.search.find((project) => project.projectId === 'pace').status,
     'not-measured',
   );
   assert.equal(

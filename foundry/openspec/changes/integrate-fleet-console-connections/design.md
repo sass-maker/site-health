@@ -258,7 +258,9 @@ referral visits and page views. A read-only Search Console collector uses the
 operator's local Application Default Credentials, discovers accessible
 properties, maps each canonical project domain to the closest verified Domain
 or URL-prefix property, and filters Domain-property queries to the project's
-canonical HTTPS host. It retains only aggregate outcome records. It does not
+canonical HTTPS host. It retains aggregate project outcomes plus at most 25
+normalized top-query aggregates per project and never stores provider tokens
+or raw responses. It does not
 treat crawler activity as a model mention, referral traffic as a citation, or
 an inaccessible property as zero. The existing `@saas-maker/ai-visibility`
 helper remains the only engine for model answer mention, recommendation, rank,
@@ -334,6 +336,24 @@ One portfolio receipt carries progress and completion state; the client reloads
 the bounded Performance projection after success. Each Performance row also
 uses the existing project-scoped PSI receipt for a single-product Re-run, with
 the same polling and refresh behavior but without entering the portfolio queue.
+
+### Present Google Search as a portfolio outcome ledger
+
+Google Search becomes a fourth portfolio-wide Metrics route backed by a
+bounded `search` outcome projection. Membership comes from the same canonical
+public-metric eligibility used by Performance, while values come only from the
+normalized Google Search Console outcome ledger. The projection carries each
+project's latest impressions, clicks, CTR, average position, provider scope,
+reporting period, observation count, and bounded retained series. A zero is a
+provider observation; absent evidence remains `not measured`.
+
+The default order is impressions descending. Every headline measure and the
+observation date remains sortable. Each row has a native disclosure control
+that reveals the exact property or page-filter scope, completed reporting
+window, source, retained observation count, and the bounded top search terms
+with impressions, clicks, CTR, and average position without navigating away or
+downloading the full connections projection. Landing pages, countries,
+devices, indexing status, and sitemap status remain out of scope.
 
 ## Risks / Trade-offs
 

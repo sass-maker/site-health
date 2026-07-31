@@ -1673,6 +1673,11 @@ type OutcomeColumn = {
   render: (row: JsonRecord) => Node | string;
 };
 
+type OutcomeTableOptions = {
+  details?: (row: JsonRecord) => Node;
+  rowKey?: (row: JsonRecord) => string;
+};
+
 function matchesProject(projectId?: string | null) {
   if (!selectedProjectId) return true;
   return projectId === selectedProjectId || projectId === catalogProjectId(selectedProjectId);
@@ -1684,12 +1689,14 @@ function outcomeTable(
   defaultSort: string,
   label: string,
   defaultDirection: "ascending" | "descending" = "ascending",
+  options: OutcomeTableOptions = {},
 ) {
   let sortKey = defaultSort;
   let sortDirection: "ascending" | "descending" = defaultDirection;
   const headCells = new Map<string, HTMLTableCellElement>();
   const body = element("tbody");
   const status = element("span", { class: "sr-only", role: "status", "aria-live": "polite" });
+  const expandedRows = new Set<string>();
 
   const draw = () => {
     for (const [key, cell] of headCells) {
@@ -1713,18 +1720,43 @@ function outcomeTable(
       if (sortDirection === "descending") return -order;
       return order;
     });
-    body.replaceChildren(...sorted.map((row) => {
-      const cells = columns.map((item, index): HTMLTableCellElement => {
+    body.replaceChildren(...sorted.flatMap((row, rowIndex) => {
+      const cells = columns.map((item, columnIndex): HTMLTableCellElement => {
         const rendered = item.render(row);
-        if (index === 0) return element("th", { scope: "row" }, [rendered]);
+        if (columnIndex === 0) return element("th", { scope: "row" }, [rendered]);
         return element("td", { "data-label": item.label }, [rendered]);
       });
-      return element("tr", {}, cells);
+      const mainRow = element("tr", {}, cells);
+      if (!options.details) return [mainRow];
+
+      const rowKey = options.rowKey?.(row) ?? `${rowIndex}`;
+      const detailId = `outcome-detail-${rowKey.replace(/[^a-z0-9_-]+/gi, "-")}`;
+      const detailRow = element("tr", { id: detailId, class: "outcome-table__detail-row" }, [
+        element("td", { colspan: String(columns.length + 1) }, [options.details(row)]),
+      ]);
+      const expanded = expandedRows.has(rowKey);
+      detailRow.hidden = !expanded;
+      const toggle = element("button", {
+        type: "button",
+        class: "outcome-detail-toggle",
+        "aria-controls": detailId,
+        "aria-expanded": String(expanded),
+      }, [expanded ? "Hide" : "View"]);
+      toggle.addEventListener("click", () => {
+        const shouldExpand = detailRow.hidden;
+        detailRow.hidden = !shouldExpand;
+        toggle.setAttribute("aria-expanded", String(shouldExpand));
+        toggle.textContent = shouldExpand ? "Hide" : "View";
+        if (shouldExpand) expandedRows.add(rowKey);
+        else expandedRows.delete(rowKey);
+      });
+      mainRow.append(element("td", { "data-label": "Details" }, [toggle]));
+      return [mainRow, detailRow];
     }));
     status.textContent = `Sorted by ${column.label}, ${sortDirection}.`;
   };
 
-  const header = element("tr", {}, columns.map((column) => {
+  const headerCells = columns.map((column) => {
     const cell = element("th", { scope: "col", "aria-sort": "none" });
     if (column.sortable === false) {
       cell.removeAttribute("aria-sort");
@@ -1748,7 +1780,13 @@ function outcomeTable(
     cell.append(button);
     headCells.set(column.key, cell);
     return cell;
-  }));
+  });
+  if (options.details) {
+    headerCells.push(element("th", { scope: "col" }, [
+      element("span", { class: "outcome-table__label" }, ["Details"]),
+    ]));
+  }
+  const header = element("tr", {}, headerCells);
   const table = element("table", { class: "outcome-table", "aria-label": label }, [
     element("thead", {}, [header]),
     body,
@@ -1968,6 +2006,166 @@ async function renderDomains() {
   replace("domains", rows.length
     ? outcomeTable(rows, columns, "change", "Fleet domain strength", "ascending")
     : empty("No matching domain", "The current project scope has no public domain."));
+}
+
+type SearchMetricKind = "count" | "percent" | "rank";
+
+function searchReportingDay(value: string) {
+  return new Intl.DateTimeFormat("en", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(value));
+}
+
+function searchMetricText(value: unknown, kind: SearchMetricKind) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return "Not measured";
+  const numericValue = value;
+  if (kind === "count") {
+    return new Intl.NumberFormat("en", { maximumFractionDigits: 0 }).format(numericValue);
+  }
+  const formattedValue = new Intl.NumberFormat("en", { maximumFractionDigits: 2 }).format(numericValue);
+  if (kind === "percent") return `${formattedValue}%`;
+  return `#${formattedValue}`;
+}
+
+function searchMetric(signal: JsonRecord | null | undefined, kind: SearchMetricKind) {
+  if (!signal || !Number.isFinite(signal.value)) {
+    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+  }
+  return element("strong", { class: "search-metric" }, [searchMetricText(signal.value, kind)]);
+}
+
+function searchObservationHistory(row: JsonRecord) {
+  const definitions: Array<{ key: string; label: string; kind: SearchMetricKind }> = [
+    { key: "impressions", label: "Impressions", kind: "count" },
+    { key: "clicks", label: "Clicks", kind: "count" },
+    { key: "ctr", label: "CTR", kind: "percent" },
+    { key: "averagePosition", label: "Avg position", kind: "rank" },
+  ];
+  const timestamps = new Set<string>();
+  for (const definition of definitions) {
+    for (const point of row[definition.key]?.series ?? []) {
+      if (point.observedAt) timestamps.add(point.observedAt);
+    }
+  }
+  const observedAt = [...timestamps].sort((left, right) => Date.parse(right) - Date.parse(left));
+  if (observedAt.length < 2) return null;
+  const metricAt = (key: string, timestamp: string) => {
+    const point = (row[key]?.series ?? []).find((item: JsonRecord) => item.observedAt === timestamp);
+    return point?.value;
+  };
+  const header = element("tr", {}, [
+    element("th", { scope: "col" }, ["Observed"]),
+    ...definitions.map((definition) => element("th", { scope: "col" }, [definition.label])),
+  ]);
+  const rows = observedAt.map((timestamp) => element("tr", {}, [
+    element("th", { scope: "row" }, [formatted(timestamp)]),
+    ...definitions.map((definition) => element("td", {}, [
+      searchMetricText(metricAt(definition.key, timestamp), definition.kind),
+    ])),
+  ]));
+  return element("div", { class: "search-detail__history" }, [
+    element("h3", {}, ["Recorded observations"]),
+    element("div", { class: "search-detail__history-wrap" }, [
+      element("table", { "aria-label": `${row.name} Google Search observation history` }, [
+        element("thead", {}, [header]),
+        element("tbody", {}, rows),
+      ]),
+    ]),
+  ]);
+}
+
+function searchTermsTable(row: JsonRecord) {
+  const terms = row.searchTerms ?? [];
+  if (terms.length === 0) {
+    return element("div", { class: "search-detail__terms" }, [
+      element("h2", {}, ["Search terms"]),
+      element("p", { class: "search-detail__empty" }, [
+        "No search terms were returned for this reporting window.",
+      ]),
+    ]);
+  }
+  const header = element("tr", {}, [
+    element("th", { scope: "col" }, ["Search term"]),
+    element("th", { scope: "col" }, ["Impressions"]),
+    element("th", { scope: "col" }, ["Clicks"]),
+    element("th", { scope: "col" }, ["CTR"]),
+    element("th", { scope: "col" }, ["Avg position"]),
+  ]);
+  const rows = terms.map((term: JsonRecord) => element("tr", {}, [
+    element("th", { scope: "row" }, [term.query]),
+    element("td", { "data-label": "Impressions" }, [searchMetricText(term.impressions, "count")]),
+    element("td", { "data-label": "Clicks" }, [searchMetricText(term.clicks, "count")]),
+    element("td", { "data-label": "CTR" }, [searchMetricText(term.ctr, "percent")]),
+    element("td", { "data-label": "Avg position" }, [searchMetricText(term.position, "rank")]),
+  ]));
+  return element("div", { class: "search-detail__terms" }, [
+    element("h2", {}, ["Search terms"]),
+    element("div", { class: "search-detail__terms-wrap" }, [
+      element("table", { "aria-label": `${row.name} Google Search terms` }, [
+        element("thead", {}, [header]),
+        element("tbody", {}, rows),
+      ]),
+    ]),
+  ]);
+}
+
+function searchOutcomeDetails(row: JsonRecord) {
+  let source = "Not measured";
+  if (row.provider === "google-search-console") source = "Google Search Console";
+  let period = "Not measured";
+  if (row.period?.start && row.period?.end) {
+    period = `${searchReportingDay(row.period.start)} – ${searchReportingDay(row.period.end)}`;
+  }
+  let note = "No Google Search Console observation is recorded for this project.";
+  if (row.status === "zero-impressions") {
+    note = "Google recorded zero impressions during this completed reporting window.";
+  }
+  if (row.status === "observed") {
+    note = "These are aggregate Search Console results for the recorded project scope.";
+    if (Number(row.impressions?.value) < 100) {
+      note = "This is a low-volume result; CTR and average position may move sharply between windows.";
+    }
+  }
+  const history = searchObservationHistory(row);
+  const content: Node[] = [
+    element("p", { class: "search-detail__note" }, [note]),
+    element("dl", { class: "search-detail__facts" }, [
+      element("div", {}, [element("dt", {}, ["Source"]), element("dd", {}, [source])]),
+      element("div", {}, [element("dt", {}, ["Reporting period"]), element("dd", {}, [period])]),
+      element("div", {}, [element("dt", {}, ["Property scope"]), element("dd", {}, [row.scope ?? "Not measured"])]),
+      element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
+    ]),
+    searchTermsTable(row),
+  ];
+  if (history) content.push(history);
+  return element("div", { class: "search-detail" }, content);
+}
+
+async function renderSearch() {
+  const payload = await api("/v1/outcomes/search");
+  updateOutcomeTime(payload.generatedAt);
+  const rows = payload.rows ?? [];
+  const columns: OutcomeColumn[] = [
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "search") },
+    { key: "impressions", label: "Impressions", description: "Sort by Google Search impressions", value: (row) => row.impressions?.value, render: (row) => searchMetric(row.impressions, "count") },
+    { key: "clicks", label: "Clicks", description: "Sort by Google Search clicks", value: (row) => row.clicks?.value, render: (row) => searchMetric(row.clicks, "count") },
+    { key: "ctr", label: "CTR", description: "Sort by click-through rate", value: (row) => row.ctr?.value, render: (row) => searchMetric(row.ctr, "percent") },
+    { key: "position", label: "Avg position", description: "Sort by average Google Search position", value: (row) => row.averagePosition?.value, render: (row) => searchMetric(row.averagePosition, "rank") },
+    { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+  ];
+  replace("search", rows.length
+    ? outcomeTable(
+        rows,
+        columns,
+        "impressions",
+        "Google Search results by project",
+        "descending",
+        { details: searchOutcomeDetails, rowKey: (row) => row.projectId },
+      )
+    : empty("No Google Search evidence", "No Search Console outcomes are recorded yet."));
 }
 
 type PortfolioMetricFamily = "drank" | "psi";
@@ -2698,6 +2896,7 @@ async function start() {
       bindPortfolioRefresh("drank");
       await renderDomains();
     }
+    if (view === "search") await renderSearch();
     if (view === "ai-awareness") await renderAiAwareness();
     if (view === "home") await renderHome();
     if (view === "project-statuses") await renderProjects();

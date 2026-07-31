@@ -98,6 +98,14 @@ function outcomeProjection(connections, family) {
       psi: boundedSignal(row.psi),
       lcp: boundedSignal(row.lcp),
     }));
+  } else if (family === 'search') {
+    rows = (outcomes.search ?? []).map((row) => ({
+      ...row,
+      impressions: boundedSignal(row.impressions, { includeSeries: true }),
+      clicks: boundedSignal(row.clicks, { includeSeries: true }),
+      ctr: boundedSignal(row.ctr, { includeSeries: true }),
+      averagePosition: boundedSignal(row.averagePosition, { includeSeries: true }),
+    }));
   } else {
     return null;
   }
@@ -269,7 +277,7 @@ export function createFounderControlHandler({
         );
       }
       const outcomeMatch = url.pathname.match(
-        /^\/v1\/outcomes\/(domains|ai-awareness|performance)$/,
+        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance)$/,
       );
       if (method === 'GET' && outcomeMatch) {
         return json(

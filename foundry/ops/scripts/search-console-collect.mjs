@@ -53,6 +53,7 @@ const collected = await collectSearchConsoleOutcomes({
   quotaProject: config.quotaProject,
   reportingWindowDays: config.reportingWindowDays,
   reportingLagDays: config.reportingLagDays,
+  searchTermLimit: config.searchTermLimit,
 });
 if (collected.bundle.observations.length === 0) {
   throw new Error('No accessible Search Console properties matched Fleet projects');

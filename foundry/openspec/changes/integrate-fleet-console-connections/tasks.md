@@ -235,3 +235,18 @@
   Console build, strict OpenSpec validation, and diff checks.
 - [x] 23.5 Update durable status, commit, and push only this feature; close the
   linked issue without deploying.
+
+## 24. Portfolio Google Search Dashboard
+
+- [x] 24.1 Add bounded Search collection and outcome projection for every
+  canonical public metric project with latest values, normalized top search
+  terms, provider metadata, and retained history.
+- [x] 24.2 Add Google Search to Metrics navigation and build the sortable
+  all-project ledger without a project filter or redundant section chrome.
+- [x] 24.3 Add accessible per-project disclosures for provider scope,
+  reporting period, top search terms, observation count, and honest
+  zero/missing states.
+- [x] 24.4 Add focused projection, route, and client coverage; pass the Console
+  build, strict OpenSpec validation, responsive browser review, and diff checks.
+- [x] 24.5 Update durable product/design truth, commit and push only this
+  feature, and close the linked issue without deploying.

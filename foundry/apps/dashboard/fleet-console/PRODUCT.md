@@ -18,11 +18,12 @@ reading logs, task queues, or infrastructure dashboards.
 
 Foundry is the private owner control loop for the portfolio. It connects an
 objective to bounded missions, accountable actors, decisions, evidence,
-deliverables, and measured outcomes. Its primary portfolio views answer five
+deliverables, and measured outcomes. Its primary portfolio views answer six
 owner questions quickly: which projects exist, where domain strength is
-concentrated, whether core products are known by AI, whether every maintained
-product has marketing proof, and whether public products meet the shared speed
-guardrail. Project detail and secondary diagnostics retain the deeper evidence.
+concentrated, whether people find products through Google, whether core products
+are known by AI, whether every maintained product has marketing proof, and
+whether public products meet the shared speed guardrail. Project detail and
+secondary diagnostics retain the deeper evidence.
 
 ## Positioning
 

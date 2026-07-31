@@ -62,6 +62,15 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Google Search became a portfolio outcome ledger:** Added a
+  fourth Metrics route for all 27 canonical public projects with sortable
+  impressions, clicks, CTR, average position, and last-observed values. Each
+  project expands in place to show the exact Search Console scope, completed
+  reporting period, retained snapshots, and up to 25 normalized search terms.
+  The latest read-only collection returned 69 terms across seven projects;
+  privacy-filtered or zero-volume results stay explicit instead of being
+  invented. Local tests, build, strict OpenSpec validation, and responsive
+  review passed; no deployment was performed.
 - **2026-07-31 — Performance became directly refreshable:** Removed the
   redundant guardrail section chrome, added one Re-run all action for the 27
   canonical public metric projects, and added a project-scoped Re-run on every
@@ -82,9 +91,9 @@ CodeVetter or App Health source.
   dependency-free collector. The first completed 28-day run matched all 27
   eligible Fleet projects through 10 verified properties with no unavailable
   domains. Eleven projects had impressions; PostTrainLLM led with 642
-  impressions and 3 clicks. Only aggregate project outcomes enter the private
-  ledger; credentials and raw query rows are not retained. No recurring
-  schedule or deployment was added.
+  impressions and 3 clicks. Only aggregate outcomes and bounded normalized
+  query metrics enter the private ledger; credentials and raw provider
+  responses are not retained. No recurring schedule or deployment was added.
 - **2026-07-31 — Fleet Console Metrics became fast, comparable outcome views:**
   Domains now shows compact hoverable and keyboard-inspectable D-Rank history,
   while single observations remain explicit baselines. Domains, AI Awareness,
@@ -583,11 +592,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Shared fleet and teammate skills with local agent discovery.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
-- Responsive Fleet Console with a collapsible sidebar that groups Domains, AI
-  Awareness, and Performance under Metrics while keeping Projects, Marketing,
-  and Feedback standalone. Project-owned views retain one URL-persisted
-  27-project scope, while the three portfolio-wide Metrics views have no
-  redundant project filter. Domains includes compact pointer- and
+- Responsive Fleet Console with a collapsible sidebar that groups Domains,
+  Google Search, AI Awareness, and Performance under Metrics while keeping
+  Projects, Marketing, and Feedback standalone. Project-owned views retain one
+  URL-persisted 27-project scope, while the four portfolio-wide Metrics views
+  have no redundant project filter. Domains includes compact pointer- and
   keyboard-inspectable D-Rank history; bounded prewarmed outcome endpoints keep
   these views independent of the full connection payload. The Console includes provider-backed
   AI Awareness, marketing-receipt coverage, explicit PSI/LCP guardrails,
@@ -644,10 +653,12 @@ Cloudflare deployment history, not by maintaining duplicate source.
   partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
   retained raw answer text or provider request IDs.
 - Read-only Google Search Console collection plus credential-free Cloudflare
-  outcome ingestion with strict aggregate-only validation, canonical-project
+  outcome ingestion with strict normalized validation, canonical-project
   identity, private history, and separate Search, crawler, and AI-referral
-  project-detail evidence without changing portfolio scores. Shared Domain
-  properties are isolated by each project's canonical HTTPS hostname.
+  evidence without changing portfolio scores. The portfolio Google Search
+  ledger compares all 27 public projects and expands each row to expose bounded
+  query metrics and provider scope. Shared Domain properties are isolated by
+  each project's canonical HTTPS hostname.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

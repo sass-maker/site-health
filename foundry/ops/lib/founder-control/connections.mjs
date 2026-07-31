@@ -1044,6 +1044,7 @@ function outcomeFamilySummary(family) {
     scope: family.latest.scope,
     observedAt: family.latest.observedAt,
     period: family.latest.period,
+    searchTerms: family.latest.searchTerms ?? [],
     metrics: family.metrics
       .filter((metric) => latestMetricLabels.has(metric.label))
       .map((metric) => ({
@@ -1057,6 +1058,30 @@ function outcomeFamilySummary(family) {
 
 function signalByLabel(project, label) {
   return project.history.signals.find((signal) => signal.label === label) ?? null;
+}
+
+function latestOutcomeSignal(project, outcome, label) {
+  if (!outcome) return null;
+  const history = signalByLabel(project, label);
+  const metric = outcome.metrics?.find((item) => item.label === label);
+  if (!metric) {
+    if (!history) return null;
+    return {
+      ...history,
+      value: null,
+      observedAt: outcome.observedAt,
+      source: 'Google Search Console',
+    };
+  }
+  return {
+    ...history,
+    ...metric,
+    label,
+    value: metric.value,
+    observedAt: outcome.observedAt,
+    source: 'Google Search Console',
+    series: history?.series ?? [{ observedAt: outcome.observedAt, value: metric.value }],
+  };
 }
 
 function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
@@ -1145,6 +1170,31 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     };
   });
 
+  const searchRows = publicProjects.map((project) => {
+    const outcome = project.searchVisibility?.outcome ?? null;
+    const impressions = latestOutcomeSignal(project, outcome, 'Search impressions');
+    let status = 'not-measured';
+    if (outcome) status = 'zero-impressions';
+    if (outcome && Number(impressions?.value) > 0) status = 'observed';
+    return {
+      projectId: project.projectId,
+      catalogProjectId: project.catalogProjectId,
+      name: project.name,
+      domain: project.domains[0] ?? null,
+      status,
+      impressions,
+      clicks: latestOutcomeSignal(project, outcome, 'Search clicks'),
+      ctr: latestOutcomeSignal(project, outcome, 'Search CTR'),
+      averagePosition: latestOutcomeSignal(project, outcome, 'Search average position'),
+      observations: outcome?.observations ?? 0,
+      searchTerms: outcome?.searchTerms ?? [],
+      provider: outcome?.provider ?? null,
+      scope: outcome?.scope ?? null,
+      period: outcome?.period ?? null,
+      observedAt: outcome?.observedAt ?? null,
+    };
+  });
+
   const coreAiRows = publicProjects
     .filter((project) => project.priority === 'P1' && project.lifecycle === 'maintained')
     .map((project) => {
@@ -1179,6 +1229,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     coreAi: coreAiRows.sort((left, right) => left.name.localeCompare(right.name)),
     marketing: marketingRows.sort((left, right) => left.name.localeCompare(right.name)),
     performance: performanceRows.sort((left, right) => left.name.localeCompare(right.name)),
+    search: searchRows.sort((left, right) => left.name.localeCompare(right.name)),
     performanceThresholds,
   };
 }

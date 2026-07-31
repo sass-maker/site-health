@@ -2,5 +2,6 @@
   "schema": "fleet.search-console.v1",
   "quotaProject": "significanthobbies-dev",
   "reportingWindowDays": 28,
-  "reportingLagDays": 3
+  "reportingLagDays": 3,
+  "searchTermLimit": 25
 }

@@ -43,12 +43,13 @@ export function selectSearchConsoleProperty(domain, properties) {
   };
 }
 
-function requestBody({ startDate, endDate, pageFilter }) {
+function requestBody({ startDate, endDate, pageFilter, dimensions = [], rowLimit = 1 }) {
   return {
     startDate,
     endDate,
     dataState: 'final',
-    rowLimit: 1,
+    rowLimit,
+    ...(dimensions.length > 0 ? { dimensions } : {}),
     ...(pageFilter ? {
       dimensionFilterGroups: [{
         filters: [{
@@ -86,9 +87,13 @@ export async function collectSearchConsoleOutcomes({
   now = new Date(),
   reportingWindowDays = 28,
   reportingLagDays = 3,
+  searchTermLimit = 25,
 }) {
   if (!accessToken) throw new Error('Search Console access token is required');
   if (!quotaProject) throw new Error('Search Console quota project is required');
+  if (!Number.isInteger(searchTermLimit) || searchTermLimit < 1 || searchTermLimit > 50) {
+    throw new Error('Search Console search term limit must be 1-50');
+  }
   const endDate = shiftedDay(isoDay(now), -reportingLagDays);
   const startDate = shiftedDay(endDate, -(reportingWindowDays - 1));
   const observedAt = now.toISOString();
@@ -119,6 +124,34 @@ export async function collectSearchConsoleOutcomes({
       },
     );
     const row = result.rows?.[0] ?? null;
+    const termResult = await googleRequest(
+      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`,
+      {
+        accessToken,
+        quotaProject,
+        fetchImpl,
+        body: requestBody({
+          startDate,
+          endDate,
+          pageFilter: selected.pageFilter,
+          dimensions: ['query'],
+          rowLimit: searchTermLimit,
+        }),
+      },
+    );
+    const searchTerms = (termResult.rows ?? []).flatMap((term) => {
+      const query = String(term.keys?.[0] ?? '').replace(/\s+/g, ' ').trim();
+      if (!query || !Number.isFinite(Number(term.position)) || Number(term.position) <= 0) {
+        return [];
+      }
+      return [{
+        query,
+        impressions: Number(term.impressions ?? 0),
+        clicks: Number(term.clicks ?? 0),
+        ctr: Number(term.ctr ?? 0) * 100,
+        position: Number(term.position),
+      }];
+    });
     const metrics = [
       { label: 'Search impressions', value: Number(row?.impressions ?? 0) },
       { label: 'Search clicks', value: Number(row?.clicks ?? 0) },
@@ -141,6 +174,7 @@ export async function collectSearchConsoleOutcomes({
         end: `${endDate}T23:59:59.999Z`,
       },
       metrics,
+      searchTerms,
     });
   }
 

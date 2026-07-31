@@ -7,14 +7,14 @@ related_targets: ["foundry/apps/dashboard/fleet-console/src/pages/index.astro", 
 
 ## Scope and mode
 
-Operate shell and its four outcome-focused owner views.
+Operate shell and its five outcome-focused owner views.
 
 ## Operator job
 
-Answer whether owned domains are strengthening, core products are known by AI,
-maintained products are being marketed, and public products are fast enough.
-Inspect project detail or system topology only when diagnosing why an outcome
-is absent or weak.
+Answer whether owned domains are strengthening, people find products through
+Google, core products are known by AI, maintained products are being marketed,
+and public products are fast enough. Inspect project detail or system topology
+only when diagnosing why an outcome is absent or weak.
 
 ## Proof and constraints
 
@@ -26,26 +26,29 @@ portfolio score or use an empty route as navigation.
 
 ## Chosen structure
 
-A collapsible left sidebar groups Domains, AI Awareness, and Performance under
-a visible Metrics heading, with Projects, Marketing, and Feedback as standalone
-tabs below it. Domains deduplicates shared registrable roots. AI Awareness shows
-only maintained P1 products and only provider-backed model outcomes. Marketing
-is a complete maintained-product coverage directory, distinguishing published
-work from recommendations. Performance applies explicit PSI and LCP thresholds
-without ranking products against one another. Project identities open the
-canonical project page, where Search, crawlability, readiness, design review,
-histories, missing states, and run controls remain available. Generic skill
-evidence and System Map remain secondary surfaces.
+A collapsible left sidebar groups Domains, Google Search, AI Awareness, and
+Performance under a visible Metrics heading, with Projects, Marketing, and
+Feedback as standalone tabs below it. Domains deduplicates shared registrable
+roots. Google Search compares every canonical public project in native Search
+Console units and reveals terms, provider scope, and retained history only in
+each row's disclosure. AI Awareness shows only maintained P1 products and only
+provider-backed model outcomes. Marketing is a complete maintained-product
+coverage directory, distinguishing published work from recommendations.
+Performance applies explicit PSI and LCP thresholds without ranking products
+against one another. Project identities open the canonical project page, where
+crawlability, readiness, design review, deeper histories, missing states, and
+run controls remain available. Generic skill evidence and System Map remain
+secondary surfaces.
 
 One URL-persisted project scope follows the operator across Projects, Marketing,
-and Feedback. Domains, AI Awareness, and Performance are portfolio-wide and do
-not expose a redundant project filter. Membership comes from the canonical
-project catalog and missing evidence is explicit. Comparable numeric evidence
-stays in native units with exact observation times. Domains adds a compact
-no-dot D-Rank line whose dated values are available by pointer and keyboard. A
-single observation remains a baseline instead of becoming a fake trend. Each
-Metrics view loads a bounded prewarmed projection rather than the full
-connection topology.
+and Feedback. Domains, Google Search, AI Awareness, and Performance are
+portfolio-wide and do not expose a redundant project filter. Membership comes
+from the canonical project catalog and missing evidence is explicit. Comparable
+numeric evidence stays in native units with exact observation times. Domains
+adds a compact no-dot D-Rank line whose dated values are available by pointer
+and keyboard. A single observation remains a baseline instead of becoming a
+fake trend. Each Metrics view loads a bounded prewarmed projection rather than
+the full connection topology.
 
 ## Unresolved
 

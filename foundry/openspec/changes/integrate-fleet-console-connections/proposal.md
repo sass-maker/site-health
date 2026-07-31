@@ -54,6 +54,11 @@ model in the Console, with each page answering one clear question.
 - Keep the three Metrics views portfolio-wide, serve each from a bounded
   prewarmed outcome projection, and show comparable D-Rank history as a
   no-dot line that exposes dated values on pointer hover and keyboard focus.
+- Add Google Search as a fourth portfolio-wide Metrics view. Show every
+  canonical public project with its latest Search Console impressions, clicks,
+  CTR, average position, and observation time; keep all columns sortable and
+  expose provider scope, reporting period, bounded top search terms, and
+  retained observations through an accessible per-project disclosure.
 - Preserve the six-bucket topology, component states, gaps, and complete
   transport ledger as an inspectable left-side System Map sheet.
 - Add one normalized private API projection for project catalog, AI visibility,
@@ -96,7 +101,7 @@ model in the Console, with each page answering one clear question.
 ## Impact
 
 The change affects Fleet Console navigation and shell, the
-`/domains`, `/ai-awareness`, `/marketing`, `/performance`,
+`/domains`, `/search`, `/ai-awareness`, `/marketing`, `/performance`,
 `/project-statuses`, `/metrics`, and `/feedback` routes, the retired
 `/skill-uses` redirect,
 existing Marketing route, the System Map sheet, client rendering and styles,

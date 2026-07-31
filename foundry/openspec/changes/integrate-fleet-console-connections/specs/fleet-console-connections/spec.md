@@ -700,3 +700,33 @@ surfaces secondary.
   only that canonical project URL
 - **AND** the row exposes running, failure, and completion state before the
   Performance projection refreshes
+
+### Requirement: Portfolio Google Search outcomes
+
+Fleet Console SHALL expose one portfolio-wide Google Search view for every
+canonical public metric project. It SHALL use only normalized Google Search
+Console observations, preserve native metric units, distinguish an observed
+zero from missing evidence, and avoid presenting low-volume values as a grade.
+
+#### Scenario: Operator compares Google Search results
+
+- **WHEN** recorded Search Console outcomes exist
+- **THEN** Google Search shows one row per eligible project with impressions,
+  clicks, CTR, average position, and last observed time
+- **AND** every headline column is sortable
+- **AND** the default order places the highest-impression projects first
+
+#### Scenario: Operator expands one project
+
+- **WHEN** the operator opens a Google Search project disclosure
+- **THEN** the row reveals its exact provider, property or page-filter scope,
+  completed reporting period, retained observation count, and bounded top
+  search terms with impressions, clicks, CTR, and average position
+- **AND** the disclosure is keyboard accessible and does not require loading
+  the full connection topology
+
+#### Scenario: Search evidence is zero or absent
+
+- **WHEN** Search Console recorded zero impressions for a completed period
+- **THEN** the row displays zero rather than `not measured`
+- **AND** when no provider observation exists it displays `not measured`

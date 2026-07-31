@@ -33,7 +33,16 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
         siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
       });
     }
-    const filter = JSON.parse(options.body).dimensionFilterGroups[0].filters[0].expression;
+    const body = JSON.parse(options.body);
+    const filter = body.dimensionFilterGroups[0].filters[0].expression;
+    if (body.dimensions?.includes('query')) {
+      return filter === 'https://one.example.com/'
+        ? Response.json({ rows: [
+            { keys: ['private pace app'], clicks: 2, impressions: 10, ctr: 0.2, position: 2.5 },
+            { keys: ['heypace'], clicks: 0, impressions: 4, ctr: 0, position: 6 },
+          ] })
+        : Response.json({});
+    }
     return filter === 'https://one.example.com/'
       ? Response.json({ rows: [{ clicks: 2, impressions: 20, ctr: 0.1, position: 4.5 }] })
       : Response.json({});
@@ -52,7 +61,7 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     reportingLagDays: 3,
   });
 
-  assert.equal(requests.length, 3);
+  assert.equal(requests.length, 5);
   assert.equal(result.bundle.observations.length, 2);
   assert.deepEqual(result.unavailable, [{
     projectId: 'missing',
@@ -70,6 +79,13 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     { label: 'Search clicks', value: 0 },
     { label: 'Search CTR', value: 0 },
   ]);
+  assert.deepEqual(result.bundle.observations[0].searchTerms, [
+    { query: 'private pace app', impressions: 10, clicks: 2, ctr: 20, position: 2.5 },
+    { query: 'heypace', impressions: 4, clicks: 0, ctr: 0, position: 6 },
+  ]);
+  assert.deepEqual(result.bundle.observations[1].searchTerms, []);
+  assert.deepEqual(requests[2].body.dimensions, ['query']);
+  assert.equal(requests[2].body.rowLimit, 25);
   assert.equal(result.bundle.observations[0].period.start, '2026-07-01T00:00:00.000Z');
   assert.equal(result.bundle.observations[0].period.end, '2026-07-28T23:59:59.999Z');
 });

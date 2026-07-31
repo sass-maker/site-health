@@ -88,10 +88,37 @@ function normalizeMetric(metric, contract, path) {
   };
 }
 
+function normalizeSearchTerms(searchTerms, family) {
+  if (searchTerms === undefined) return [];
+  assert(family === 'search', 'searchTerms is only supported for Search Console outcomes');
+  assert(Array.isArray(searchTerms), 'observation.searchTerms must be an array');
+  assert(searchTerms.length <= 50, 'observation.searchTerms exceeds 50 entries');
+  const normalized = searchTerms.map((term, index) => {
+    const path = `observation.searchTerms[${index}]`;
+    assertKnownKeys(term, new Set(['query', 'impressions', 'clicks', 'ctr', 'position']), path);
+    const query = String(term.query ?? '').replace(/\s+/g, ' ').trim();
+    assert(query.length > 0 && query.length <= 300, `${path}.query must be 1-300 characters`);
+    const impressions = Number(term.impressions);
+    const clicks = Number(term.clicks);
+    const ctr = Number(term.ctr);
+    const position = Number(term.position);
+    assert(Number.isFinite(impressions) && impressions >= 0, `${path}.impressions is invalid`);
+    assert(Number.isFinite(clicks) && clicks >= 0, `${path}.clicks is invalid`);
+    assert(Number.isFinite(ctr) && ctr >= 0 && ctr <= 100, `${path}.ctr is invalid`);
+    assert(Number.isFinite(position) && position > 0, `${path}.position is invalid`);
+    return { query, impressions, clicks, ctr, position };
+  });
+  assert(
+    new Set(normalized.map((term) => term.query)).size === normalized.length,
+    'observation.searchTerms contains duplicate queries',
+  );
+  return normalized;
+}
+
 export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   assertKnownKeys(
     observation,
-    new Set(['id', 'projectId', 'family', 'provider', 'scope', 'observedAt', 'period', 'metrics']),
+    new Set(['id', 'projectId', 'family', 'provider', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms']),
     'observation',
   );
   assert(typeof observation.id === 'string' && IDENTIFIER.test(observation.id), 'observation.id is invalid');
@@ -120,6 +147,7 @@ export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = 
   const metrics = observation.metrics.map((metric, index) =>
     normalizeMetric(metric, contract, `observation.metrics[${index}]`));
   assert(new Set(metrics.map((metric) => metric.label)).size === metrics.length, 'observation.metrics contains duplicates');
+  const searchTerms = normalizeSearchTerms(observation.searchTerms, observation.family);
   return {
     schemaVersion: VISIBILITY_OUTCOME_SCHEMA,
     id: observation.id,
@@ -130,6 +158,7 @@ export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = 
     observedAt,
     period: { start: periodStart, end: periodEnd },
     metrics,
+    ...(observation.family === 'search' ? { searchTerms } : {}),
   };
 }
 
@@ -168,6 +197,7 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
           metrics: Array.isArray(value.metrics)
             ? value.metrics.map((metric) => ({ label: metric?.label, value: metric?.value }))
             : value.metrics,
+          searchTerms: value.searchTerms,
         })];
       } catch {
         return [];
