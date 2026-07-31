@@ -959,6 +959,25 @@ function parsedHttpUrl(value) {
   }
 }
 
+function cloudflareSpeedProviderUrl(project, fieldOutcome) {
+  const candidates = [
+    fieldOutcome?.providerUrl,
+    project.webTraffic?.outcome?.providerUrl,
+    project.aiVisibility?.discovery?.crawler?.providerUrl,
+  ];
+  for (const candidate of candidates) {
+    const url = parsedHttpUrl(candidate);
+    if (!url || url.hostname !== 'dash.cloudflare.com') continue;
+    const [accountId, zoneId] = url.pathname.split('/').filter(Boolean);
+    if (!accountId || !zoneId) continue;
+    url.pathname = `/${accountId}/${zoneId}/speed/observatory`;
+    url.search = '';
+    url.hash = '';
+    return url.href;
+  }
+  return null;
+}
+
 function hostMatchesDomain(host, domain) {
   const normalizedHost = normalizedDomain(host);
   const normalizedProjectDomain = normalizedDomain(domain);
@@ -1345,6 +1364,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       fieldTtfb: latestFamilySignal(project, field, 'Field TTFB'),
       rumSamples: latestFamilySignal(project, field, 'RUM samples'),
       field,
+      providerUrl: cloudflareSpeedProviderUrl(project, field),
       observedAt: newestTimestamp([
         project.metricSemantics?.performance?.observedAt,
         field?.observedAt,

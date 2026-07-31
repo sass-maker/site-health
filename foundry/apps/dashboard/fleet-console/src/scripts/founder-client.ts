@@ -1946,6 +1946,25 @@ function projectIdentity(row: JsonRecord, section?: string) {
   ]);
 }
 
+function projectIdentityWithProvider(
+  row: JsonRecord,
+  section: string,
+  providerLabel: string,
+  providerUrl?: string | null,
+) {
+  const children: Node[] = [projectIdentity(row, section)];
+  if (providerUrl) {
+    children.push(element("a", {
+      class: "outcome-provider-link",
+      href: providerUrl,
+      target: "_blank",
+      rel: "noreferrer",
+      "aria-label": `Open ${row.name} in ${providerLabel} (opens in a new tab)`,
+    }, [`${providerLabel} ↗`]));
+  }
+  return element("div", { class: "outcome-identity-group" }, children);
+}
+
 function updateOutcomeTime(generatedAt: string) {
   const target = document.querySelector<HTMLElement>("[data-outcome-time]");
   if (target) target.textContent = `Evidence rebuilt ${formatted(generatedAt)}`;
@@ -2303,7 +2322,7 @@ async function renderSearch() {
   const rows = payload.rows ?? [];
   updateSearchPeriod(rows);
   const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "search") },
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentityWithProvider(row, "search", "Search Console", row.providerUrl) },
     { key: "impressions", label: "Impressions", description: "Sort by Google Search impressions", value: (row) => row.impressions?.value, render: (row) => searchMetric(row.impressions, "count") },
     { key: "clicks", label: "Clicks", description: "Sort by Google Search clicks", value: (row) => row.clicks?.value, render: (row) => searchMetric(row.clicks, "count") },
     { key: "ctr", label: "CTR", description: "Sort by click-through rate", value: (row) => row.ctr?.value, render: (row) => searchMetric(row.ctr, "percent") },
@@ -2681,11 +2700,11 @@ async function renderPerformance() {
   updateOutcomeTime(payload.generatedAt);
   const rows = payload.rows ?? [];
   const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "performance") },
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentityWithProvider(row, "performance", "Cloudflare", row.providerUrl) },
     { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
-    { key: "lcp", label: "Lab LCP", description: "Sort by lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
-    { key: "fieldLcp", label: "Field LCP", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp) },
+    { key: "lcp", label: "Lab LCP (desktop)", description: "Sort by desktop lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
+    { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp) },
     { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
     { key: "run", label: "Run", description: "Refresh one product", sortable: false, value: (row) => row.projectId, render: performanceRunControl },
   ];
@@ -2693,7 +2712,7 @@ async function renderPerformance() {
     ? outcomeTable(rows, columns, "project", "Fleet public product performance", "ascending", {
         rowKey: (row) => row.projectId,
         details: (row) => providerOutcomeDetails({
-          note: "PSI is a lab run. Cloudflare field metrics are p75 measurements from real visits during the recorded period.",
+          note: "PSI Swarm derives the lab result from two desktop Lighthouse runs on the canonical URL. Cloudflare field metrics are host-wide p75 measurements from real visits during the recorded period.",
           outcomes: [{ label: "Field performance", outcome: row.field, linkLabel: "Open Cloudflare Speed" }],
           signals: [row.psi, row.lcp, row.fieldLcp, row.fieldInp, row.fieldCls, row.fieldTtfb, row.rumSamples],
         }),

@@ -528,6 +528,7 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(performanceRow.fieldInp.value, 140);
   assert.equal(performanceRow.status, 'needs-work');
   assert.match(performanceRow.field.providerUrl, /speed\/observatory/);
+  assert.match(performanceRow.providerUrl, /speed\/observatory/);
   const awarenessRow = result.outputs.ownerOutcomes.coreAi.find(
     (project) => project.projectId === 'pace',
   );

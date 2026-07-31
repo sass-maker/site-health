@@ -229,6 +229,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
         performance: [{
           projectId: 'site',
           status: 'fast-enough',
+          providerUrl: 'https://dash.cloudflare.com/account/zone/speed/observatory',
           psi: { value: 95, series: [{ value: 90 }] },
           lcp: { value: 1200, series: [{ value: 1500 }] },
           fieldLcp: { value: 1800, series: [{ value: 1900 }] },
@@ -313,6 +314,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal('series' in performance.rows[0].psi, false);
   assert.equal('series' in performance.rows[0].lcp, false);
   assert.equal(performance.rows[0].fieldLcp.series.length, 1);
+  assert.equal(performance.rows[0].providerUrl, 'https://dash.cloudflare.com/account/zone/speed/observatory');
   assert.deepEqual(connections, expected);
 
   const rebuilt = await fetch(`${base}/v1/projections/rebuild`, { method: 'POST' });
