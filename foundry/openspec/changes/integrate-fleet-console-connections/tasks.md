@@ -133,3 +133,14 @@
 - [x] 16.4 Run focused tests, the Fleet Console build, strict OpenSpec
   validation, and responsive browser/design gates.
 - [x] 16.5 Update the durable project status and complete the design receipt.
+
+## 17. Portfolio Matrix Distillation
+
+- [x] 17.1 Remove Search and AI Visibility from the portfolio matrix while no
+  provider-backed outcomes exist, retaining their project-detail evidence.
+- [x] 17.2 Remove Design from the portfolio matrix while retaining the project
+  quality-gate report.
+- [x] 17.3 Reduce the matrix to D-Rank, AI Agent Readiness, PSI, and LCP with
+  sortable native values and project deep links.
+- [x] 17.4 Run focused build, strict OpenSpec, responsive browser, and design
+  review gates; update durable status.

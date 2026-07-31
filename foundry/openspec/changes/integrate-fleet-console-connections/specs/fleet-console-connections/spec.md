@@ -259,11 +259,13 @@ comparable points without combining incompatible units.
 ### Requirement: Metrics is the primary evidence workspace
 
 Metrics SHALL answer whether Fleet projects are becoming more visible. It SHALL
-show one canonical project row with separate SEO, GEO, Performance, and Design
-cells for every eligible project. Cells SHALL expose concrete latest values,
-trend state, and measurement state without calculating or presenting blended
-aggregate scores. The project identity SHALL open its project page and each
-cell SHALL deep-link to the matching project section. The project page SHALL
+show one canonical project row with D-Rank, AI Agent Readiness, PSI, and LCP for
+every eligible project. It SHALL omit portfolio columns whose provider-backed
+outcomes do not exist and SHALL keep Design review in project detail as a
+quality gate rather than a comparative metric. Cells SHALL expose concrete
+latest values, trend state, and measurement state without calculating or
+presenting blended aggregate scores. The project identity SHALL open its project
+page and each cell SHALL deep-link to the matching project section. The project page SHALL
 contain D-Rank, Search Visibility, and Content Coverage under SEO; AI
 Crawlability, AI Agent Readiness, and AI Visibility under GEO; PSI Swarm under
 Performance; and Design Critique under Design.
@@ -300,8 +302,8 @@ set rather than only projects that already produced evidence:
 #### Scenario: Operator opens Metrics
 
 - **WHEN** the Metrics page first renders
-- **THEN** the operator sees every eligible project with separate SEO, GEO,
-  Performance, and Design summaries
+- **THEN** the operator sees every eligible project with D-Rank, Agent
+  Readiness, PSI, and LCP summaries
 - **AND** concrete values such as domain rating and LCP remain visible when
   recorded
 - **AND** selecting a project or summary opens the canonical project page at
@@ -309,7 +311,7 @@ set rather than only projects that already produced evidence:
 
 #### Scenario: Operator opens a project metric section
 
-- **WHEN** the operator follows an SEO, GEO, Performance, or Design summary
+- **WHEN** the operator follows a D-Rank, Agent Readiness, or Performance summary
 - **THEN** the project page shows the native-unit histories, evidence, missing
   states, and available run controls for that section
 - **AND** the other project metric sections remain available on the same page
@@ -431,7 +433,7 @@ as the measurement freshness boundary.
 
 - **WHEN** a project has an AI Visibility observation whose evidence mode is
   `fixture`
-- **THEN** the matrix reports real AI visibility as not measured
+- **THEN** the matrix omits AI Visibility rather than repeating an unmeasured outcome
 - **AND** the fixture remains available only as operational runner evidence
 - **AND** its zero or non-zero value is excluded from outcome sorting and
   visibility claims
@@ -440,8 +442,8 @@ as the measurement freshness boundary.
 
 - **WHEN** a project has tracked web-search queries but no Google Search Console
   observation
-- **THEN** the matrix reports the direct search outcome as not measured and
-  identifies Search Console as the missing source
+- **THEN** the matrix omits the direct search outcome rather than repeating a
+  missing provider state for every project
 - **AND** query-level web-search observations remain available in the detailed
   SEO evidence without being presented as an overall project grade
 

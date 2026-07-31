@@ -41,8 +41,9 @@ immutable identifiers and source revisions.
 - The primary owner views are Projects, Metrics, Marketing, and Feedback. The
   selected project scope follows the operator between them in the URL.
 - Projects is the default directory with explicit domains plus direct website,
-  changelog, and source destinations. Metrics contains PSI Swarm, D-Rank, AI
-  Visibility, and prominent Design Critique/Audit scorecards. The complete Skill
+  changelog, and source destinations. The Metrics portfolio matrix contains
+  D-Rank, AI Agent Readiness, and PSI Swarm; Search, AI Visibility, and Design
+  evidence stay in project detail until they require a portfolio-level decision. The complete Skill
   uses ledger is a secondary route reached through one page-header `View all
   skills` CTA, with skill filtering, pagination, and output disclosed only on
   demand. Feedback is an inbox. Marketing contains recommendations and

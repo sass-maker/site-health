@@ -62,6 +62,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Metrics portfolio comparison became evidence-led:** Reduced
+  the main matrix to the current comparable signals: D-Rank, AI Agent
+  Readiness, PSI, and LCP. Search and AI Visibility remain on each project page
+  until provider-backed outcomes exist, while Design remains there as a quality
+  gate rather than a portfolio ranking. No deployment was performed.
 - **2026-07-31 — Metrics stopped presenting proxies as outcomes:** Separated
   provider-backed search and AI visibility outcomes from technical readiness,
   domain authority, and fixture canaries. Fixture runs no longer enter AI

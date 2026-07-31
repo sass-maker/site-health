@@ -28,11 +28,11 @@ model in the Console, with each page answering one clear question.
   entrypoints: retain the percentage and count of public sitemap routes with a
   working Markdown representation, plus the integrity of `/api/ai` catalog
   surfaces. Keep AI Crawlability limited to whether agents can enter.
-- Summarize those reports in one 27-project Metrics matrix with SEO, GEO,
-  Performance, and Design cells, without blending their native scores. Link
-  every row and cell to the matching section of a dedicated project page.
-  Missing measurements, configuration, public domains, or receipts remain
-  explicit rather than removing the project from a family or presenting zero.
+- Summarize current portfolio-level signals in one 27-project Metrics matrix:
+  D-Rank, AI Agent Readiness, PSI, and LCP, without blending native scores.
+  Keep Search and AI Visibility outcomes out of the matrix until real providers
+  produce evidence, and keep Design review inside each project because it is a
+  project quality gate rather than a comparative portfolio metric.
 - Distinguish earned outcomes, technical readiness, and fixture canaries in the
   projection and UI. Fixture AI results are operational evidence, never AI
   visibility scores; Search Console and provider outcomes remain `not measured`

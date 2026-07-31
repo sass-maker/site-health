@@ -128,10 +128,11 @@ The pages answer separate operator questions:
 - Projects is the default directory and links each canonical record to its
   available website, changelog, and source.
 - Metrics answers whether each Fleet project is becoming more visible through
-  one dense 27-project matrix. Each row shows the canonical project and domain;
-  SEO, GEO, Performance, and Design cells expose concrete latest values such as
-  domain rating, tracked-query state, AI visibility, LCP, PSI score, and design
-  score. The cells do not blend unlike units. The project name opens its
+  one dense 27-project matrix. Each row shows the canonical project and domain,
+  with D-Rank, AI Agent Readiness, PSI, and LCP as current comparable signals.
+  Search and AI Visibility remain in project detail until provider-backed
+  outcomes exist. Design review also remains in project detail because it is a
+  minimum quality gate, not a useful portfolio ranking. The project name opens its
   canonical project page and each metric cell deep-links to the matching
   project section. The project page owns the full graphs, evidence, missing
   states, and run controls: SEO contains D-Rank, Search Visibility, and Content
@@ -218,8 +219,8 @@ as `not measured` until a provider-backed observation exists.
 
 GEO Observatory search classes remain query-level web-search observations, not
 Google Search Console performance. They stay available in the project evidence
-view, while the matrix reports the direct Search Console outcome as `not
-measured` until that provider is connected. Technical GEO audits remain useful
+view, while the matrix omits the direct Search Console outcome until that
+provider is connected. Technical GEO audits remain useful
 as AI Agent Readiness and AI Crawlability and are labeled as readiness rather
 than visibility.
 

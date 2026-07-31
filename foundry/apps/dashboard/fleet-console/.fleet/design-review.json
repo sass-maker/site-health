@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Metrics outcome semantics and measurement states",
+  "target": "Metrics portfolio matrix distillation",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,21 +14,21 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/meaningful-metrics/before-1440.png"
+    "before": ".fleet/evidence/metric-distill/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/meaningful-metrics/after-390.png"
+        "path": ".fleet/evidence/metric-distill/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/meaningful-metrics/after-768.png"
+        "path": ".fleet/evidence/metric-distill/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/meaningful-metrics/after-1440.png"
+        "path": ".fleet/evidence/metric-distill/after-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,7 +36,7 @@
       "status": "pass"
     },
     "critique": {
-      "score": 32,
+      "score": 34,
       "maximum": 40
     },
     "audit": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner said go for it after approving the explicit outcome, readiness, fixture, source, and freshness correction."
+    "note": "Owner explicitly directed removal of Search, AI Visibility, and Design from the portfolio matrix while retaining project-level evidence."
   }
 }

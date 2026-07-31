@@ -26,10 +26,10 @@ portfolio score or use an empty route as navigation.
 ## Chosen structure
 
 A collapsible left sidebar presents one flat owner navigation. Projects is the
-canonical directory. Metrics is a sortable 27-project matrix with separate SEO,
-GEO, Performance, and Design cells showing concrete native values rather than a
-blended score. Project identities and cells open the canonical project page,
-where tracked search terms, AI questions, histories, missing states, and run
+canonical directory. Metrics is a sortable 27-project matrix limited to current
+portfolio signals: D-Rank, AI Agent Readiness, PSI, and LCP. Project identities
+and cells open the canonical project page, where Search observations, AI
+questions and visibility, Design review, histories, missing states, and run
 controls live. Generic skill runs remain operational evidence rather than a
 longitudinal Console page.
 Marketing shows campaign and publishing outcomes. Feedback is the

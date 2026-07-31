@@ -1389,7 +1389,7 @@ type MetricMatrixMeasureInput = {
   source: string;
   observedAt?: string | null;
   detail?: string | null;
-  tone?: "outcome" | "support" | "standard";
+  tone?: "support" | "standard";
 };
 
 function metricMatrixMeasure({
@@ -1441,39 +1441,17 @@ function metricMatrixMeasure({
   ]);
 }
 
-function metricMatrixDesignMeasure(project: JsonRecord, field: "critique" | "audit") {
-  const review = project.designReview;
-  const label = field === "critique" ? "Critique" : "Audit";
-  const maximum = review?.[`${field}Maximum`];
-  if (!Number.isFinite(review?.[field]) || !Number.isFinite(maximum)) {
-    return metricMatrixMeasure({
-      label,
-      missing: "Not reviewed",
-      source: project.metricSemantics?.design?.source ?? "Design review receipt",
-    });
-  }
-  const evidence = [
-    project.metricSemantics?.design?.source ?? "Design review receipt",
-    review.observedAt ? formattedDay(review.observedAt) : "No observation",
-  ].join(" · ");
-  return element("span", { class: "metric-matrix__measure", title: evidence }, [
-    element("small", {}, [label]),
-    element("strong", {}, [`${review[field]}/${maximum}`]),
-    element("em", {}, [evidence]),
-  ]);
-}
+type MetricMatrixColumn = "drank" | "readiness" | "performance";
 
-function metricMatrixCell(
-  project: JsonRecord,
-  section: "seo" | "geo" | "performance" | "design",
-) {
-  const href = `${projectHref(project.projectId)}#${section}`;
+function metricMatrixCell(project: JsonRecord, column: MetricMatrixColumn) {
   const semantics = project.metricSemantics ?? {};
   const domainScope = semantics.seo?.domainAuthority?.sharedRoot
     ? `shared root ${semantics.seo.domainAuthority.rootDomain}`
     : semantics.seo?.domainAuthority?.domain ?? null;
-  const signals = {
-    seo: [
+  const cells: Record<MetricMatrixColumn, { section: string; measures: HTMLElement[] }> = {
+    drank: {
+      section: "seo",
+      measures: [
       metricMatrixMeasure({
         label: "D-Rank",
         signal: projectSignal(project, "Domain rating"),
@@ -1481,33 +1459,23 @@ function metricMatrixCell(
         observedAt: semantics.seo?.domainAuthority?.observedAt,
         detail: domainScope,
       }),
+      ],
+    },
+    readiness: {
+      section: "geo",
+      measures: [
       metricMatrixMeasure({
-        label: "Search outcome",
-        missing: "Not measured",
-        source: "Search Console",
-        detail: "Not connected",
-        tone: "outcome",
-      }),
-    ],
-    geo: [
-      metricMatrixMeasure({
-        label: "AI visibility",
-        signal: projectSignal(project, "AI visibility score"),
-        missing: "Not measured",
-        source: semantics.geo?.aiVisibility?.source ?? "AI providers",
-        observedAt: semantics.geo?.aiVisibility?.observedAt,
-        detail: semantics.geo?.aiVisibility?.status === "measured" ? null : "No provider observation",
-        tone: "outcome",
-      }),
-      metricMatrixMeasure({
-        label: "Technical readiness",
+        label: "Agent readiness",
         signal: projectSignal(project, "Agent readiness"),
         source: "Agent audit",
         observedAt: semantics.geo?.technicalReadiness?.observedAt,
         tone: "support",
       }),
-    ],
-    performance: [
+      ],
+    },
+    performance: {
+      section: "performance",
+      measures: [
       metricMatrixMeasure({
         label: "PSI",
         signal: projectSignal(project, "PSI performance"),
@@ -1520,20 +1488,19 @@ function metricMatrixCell(
         source: "PSI Swarm",
         observedAt: semantics.performance?.observedAt,
       }),
-    ],
-    design: [
-      metricMatrixDesignMeasure(project, "critique"),
-      metricMatrixDesignMeasure(project, "audit"),
-    ],
+      ],
+    },
   };
+  const cell = cells[column];
+  const href = `${projectHref(project.projectId)}#${cell.section}`;
   return element("div", {
-    class: `metric-matrix__cell metric-matrix__cell--${section}`,
+    class: `metric-matrix__cell metric-matrix__cell--${column}`,
     role: "cell",
   }, [
     element("a", {
       href,
-      title: `Open ${project.name} ${section} metrics`,
-    }, signals[section]),
+      title: `Open ${project.name} ${column} metrics`,
+    }, cell.measures),
   ]);
 }
 
@@ -1545,21 +1512,19 @@ function metricMatrixRow(project: JsonRecord) {
         element("small", {}, [project.domains?.[0] ?? "No domain"]),
       ]),
     ]),
-    metricMatrixCell(project, "seo"),
-    metricMatrixCell(project, "geo"),
+    metricMatrixCell(project, "drank"),
+    metricMatrixCell(project, "readiness"),
     metricMatrixCell(project, "performance"),
-    metricMatrixCell(project, "design"),
   ]);
 }
 
-type MetricMatrixSort = "project" | "seo" | "geo" | "performance" | "design";
+type MetricMatrixSort = "project" | MetricMatrixColumn;
 
 function metricMatrixSortValue(project: JsonRecord, key: MetricMatrixSort) {
   if (key === "project") return project.name;
-  if (key === "seo") return projectSignal(project, "Domain rating")?.value;
-  if (key === "geo") return projectSignal(project, "AI visibility score")?.value;
-  if (key === "performance") return projectSignal(project, "PSI performance")?.value;
-  return project.designReview?.critique;
+  if (key === "drank") return projectSignal(project, "Domain rating")?.value;
+  if (key === "readiness") return projectSignal(project, "Agent readiness")?.value;
+  return projectSignal(project, "PSI performance")?.value;
 }
 
 function metricMatrix(projects: JsonRecord[]) {
@@ -1626,14 +1591,13 @@ function metricMatrix(projects: JsonRecord[]) {
 
   const head = element("div", { class: "metric-matrix__head", role: "row" }, [
     headerCell("project", "Project", "Sort alphabetically"),
-    headerCell("seo", "SEO", "Sort by D-Rank"),
-    headerCell("geo", "GEO", "Sort by measured AI visibility outcomes"),
+    headerCell("drank", "D-Rank", "Sort by domain rating"),
+    headerCell("readiness", "Agent readiness", "Sort by technical readiness"),
     headerCell("performance", "Performance", "Sort by PSI score"),
-    headerCell("design", "Design", "Sort by critique score"),
   ]);
   renderRows();
   return element("div", { class: "metric-matrix-wrap" }, [
-    element("p", { class: "metric-matrix__scroll-hint" }, ["Swipe sideways to compare SEO, GEO, performance, and design."]),
+    element("p", { class: "metric-matrix__scroll-hint" }, ["Swipe sideways to compare D-Rank, agent readiness, and performance."]),
     sortStatus,
     matrix,
   ]);
