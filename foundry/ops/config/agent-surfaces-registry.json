@@ -404,6 +404,8 @@
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
       "publicDir": "foundry/helpers/drank/public",
       "preserveFiles": [
+        "llms.txt",
+        "llms-full.txt",
         "robots.txt"
       ],
       "stack": "next-static",
@@ -666,6 +668,12 @@
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
       "publicDir": "foundry/helpers/psi-swarm/web/public",
+      "preserveFiles": [
+        "api-ai.json",
+        "llms.txt",
+        "llms-full.txt",
+        "robots.txt"
+      ],
       "stack": "astro-static",
       "generateSitemap": true,
       "productLinks": [
