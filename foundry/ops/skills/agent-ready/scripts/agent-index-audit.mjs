@@ -9,6 +9,7 @@
  *   node agent-index-audit.mjs --all
  *   node agent-index-audit.mjs --all --json
  *   node agent-index-audit.mjs --all --summary-json
+ *   node agent-index-audit.mjs --all --metric-json
  *   node agent-index-audit.mjs --project rolepatch
  *
  * Target membership and primary domains come from projects.json. Per-product
@@ -89,10 +90,10 @@ async function main() {
     }
   }
 
-  if (args.json || args.summaryJson) {
-    const outputResults = args.summaryJson
-      ? results.map(summarizeResult)
-      : results;
+  if (args.json || args.summaryJson || args.metricJson) {
+    let outputResults = results;
+    if (args.summaryJson) outputResults = results.map(summarizeResult);
+    if (args.metricJson) outputResults = results.map(metricResult);
     console.log(
       JSON.stringify(
         { generatedAt: new Date().toISOString(), results: outputResults },
@@ -116,6 +117,7 @@ function parseArgs(argv) {
   const args = {
     json: false,
     summaryJson: false,
+    metricJson: false,
     all: false,
     project: null,
     urls: [],
@@ -124,6 +126,7 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === '--json') args.json = true;
     else if (a === '--summary-json') args.summaryJson = true;
+    else if (a === '--metric-json') args.metricJson = true;
     else if (a === '--all') args.all = true;
     else if (a === '--project') args.project = argv[++i];
     else if (a === '--help' || a === '-h') {
@@ -143,7 +146,7 @@ function printHelp() {
   console.log(`Usage:
   agent-index-audit.mjs <url>
   agent-index-audit.mjs --project <registry-id>
-  agent-index-audit.mjs --all [--json | --summary-json]
+  agent-index-audit.mjs --all [--json | --summary-json | --metric-json]
 
 Targets: metric-eligible visibility projects from foundry/ops/config/projects.json
 `);
@@ -163,6 +166,30 @@ function summarizeResult(result) {
         {
           status: check.status,
           detail: check.detail,
+        },
+      ]),
+    ),
+  };
+}
+
+/**
+ * Return the bounded audit evidence needed by visibility-metric ingestion.
+ * In particular, omit api_ai.data because a large surfaces catalog can make
+ * the general-purpose --json response exceed child-process output buffers.
+ */
+function metricResult(result) {
+  const includedData = new Set(['route_markdown', 'catalog_integrity']);
+  return {
+    ...summarizeResult(result),
+    pass: result.pass,
+    fail: result.fail,
+    checks: Object.fromEntries(
+      Object.entries(result.checks || {}).map(([id, check]) => [
+        id,
+        {
+          status: check.status,
+          detail: check.detail,
+          ...(includedData.has(id) && check.data ? { data: check.data } : {}),
         },
       ]),
     ),

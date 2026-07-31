@@ -104,6 +104,24 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
   assert.equal(summary.tier, 'S');
   assert.equal(summary.checks.route_markdown.status, 'pass');
   assert.equal(summary.checks.route_markdown.data, undefined);
+
+  const { stdout: metricStdout } = await execFileAsync(
+    process.execPath,
+    [auditor.pathname, origin, '--metric-json'],
+    { maxBuffer: 2_000_000 },
+  );
+  const metric = JSON.parse(metricStdout).results[0];
+  assert.equal(metric.pass, result.pass);
+  assert.equal(metric.fail, result.fail);
+  assert.deepEqual(
+    metric.checks.route_markdown.data,
+    result.checks.route_markdown.data,
+  );
+  assert.deepEqual(
+    metric.checks.catalog_integrity.data,
+    result.checks.catalog_integrity.data,
+  );
+  assert.equal(metric.checks.api_ai.data, undefined);
 });
 
 function send(response, contentType, body) {
