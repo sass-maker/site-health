@@ -13,6 +13,7 @@ const auditor = new URL(
 
 test('records public-route Markdown coverage and catalog integrity', async (t) => {
   let origin;
+  let guideMarkdownAttempts = 0;
   const server = createServer((request, response) => {
     const accept = String(request.headers.accept ?? '');
     const url = new URL(request.url, origin);
@@ -44,11 +45,17 @@ test('records public-route Markdown coverage and catalog integrity', async (t) =
         response,
         'application/xml',
         `<?xml version="1.0"?><urlset>` +
+          `<!--${'x'.repeat(2_100_000)}-->` +
           `<url><loc>${origin}/</loc></url>` +
           `<url><loc>${origin}/guide/</loc></url>` +
           `<url><loc>${origin}/person/ada/</loc></url>` +
           `</urlset>`,
       );
+    }
+    if (url.pathname === '/guide.md' && guideMarkdownAttempts++ === 0) {
+      response.writeHead(429, { 'content-type': 'text/plain' });
+      response.end('retry shortly');
+      return;
     }
     if (
       url.pathname === '/index.md'

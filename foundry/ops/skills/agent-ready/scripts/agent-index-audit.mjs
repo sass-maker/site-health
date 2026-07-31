@@ -40,10 +40,12 @@ const INDEXNOW_CONFIG_PATH = join(FLEET_ROOT, 'foundry/ops/config/indexnow.json'
 const UA = 'fleet-agent-index-audit/2.0 (+https://sassmaker.com)';
 const TIMEOUT_MS = 15_000;
 const MAX_SITEMAPS = 50;
-const MAX_PUBLIC_ROUTES = 5_000;
+const MAX_PUBLIC_ROUTES = 50_000;
+const MAX_SITEMAP_BYTES = 50 * 1024 * 1024;
 const MAX_ROUTE_PROBES = 250;
 const MAX_CATALOG_SURFACES = 1_000;
 const PROBE_CONCURRENCY = 8;
+const TRANSIENT_RETRY_DELAYS_MS = [250, 750];
 
 // Answer-engine crawlers that must not be disallowed for GEO to work at all.
 const CRITICAL_AI_BOTS = ['GPTBot', 'ClaudeBot', 'OAI-SearchBot', 'PerplexityBot'];
@@ -669,7 +671,7 @@ async function collectSitemap(url, state) {
   if (state.visited.has(normalized)) return;
   state.visited.add(normalized);
 
-  const response = await probe(normalized);
+  const response = await probe(normalized, { retainFullBody: true });
   if (!response.ok) {
     state.failures.push(`${normalized}: HTTP ${response.status || 'err'}`);
     return;
@@ -910,6 +912,20 @@ function escapeRegularExpression(value) {
 async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
   const route = new URL(routeUrl);
   const path = route.pathname;
+  const catalogTarget = catalog.get(canonicalUrl(route));
+  if (catalogTarget) {
+    const catalogResponse = await cachedProbe(catalogTarget, {
+      accept: 'text/markdown, text/plain, */*',
+    });
+    if (isReadableMarkdown(catalogResponse)) {
+      return {
+        path,
+        readable: true,
+        method: new URL(catalogTarget).pathname,
+      };
+    }
+  }
+
   const negotiated = await cachedProbe(route.toString(), {
     accept: 'text/markdown, text/plain;q=0.9, text/html;q=0.1',
   });
@@ -918,9 +934,8 @@ async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
   }
 
   const candidates = [
-    catalog.get(canonicalUrl(route)),
     ...markdownCandidates(origin, route),
-  ].filter(Boolean);
+  ].filter((candidate) => candidate && candidate !== catalogTarget);
   for (const candidate of [...new Set(candidates)]) {
     const response = await cachedProbe(candidate, {
       accept: 'text/markdown, text/plain, */*',
@@ -1051,7 +1066,25 @@ function isMarkdownType(ct = '') {
   return c.includes('markdown') || c.includes('text/plain');
 }
 
-async function probe(url, { accept } = {}) {
+async function probe(url, options = {}) {
+  let response = await probeOnce(url, options);
+  for (const delayMs of TRANSIENT_RETRY_DELAYS_MS) {
+    if (!isTransientProbeFailure(response)) break;
+    await wait(delayMs);
+    response = await probeOnce(url, options);
+  }
+  return response;
+}
+
+function isTransientProbeFailure(response) {
+  return response.status === 0 || response.status === 429 || response.status >= 500;
+}
+
+function wait(durationMs) {
+  return new Promise((resolveWait) => setTimeout(resolveWait, durationMs));
+}
+
+async function probeOnce(url, { accept, retainFullBody = false } = {}) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
@@ -1078,7 +1111,10 @@ async function probe(url, { accept } = {}) {
       bytes,
       bodyPreview,
       // Keep full body only for small responses (api/ai, robots, llms)
-      bodyFull: bytes <= 2_000_000 ? bodyFull : bodyPreview,
+      bodyFull:
+        bytes <= 2_000_000 || (retainFullBody && bytes <= MAX_SITEMAP_BYTES)
+          ? bodyFull
+          : bodyPreview,
       isHtml,
       finalUrl: res.url,
     };
