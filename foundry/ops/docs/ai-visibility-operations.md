@@ -12,8 +12,9 @@ own provider credentials, raw provider responses, schedules, or publishing.
   the non-product personal website. Each uses its canonical internal project id.
 - Each project declares aliases, competitors, prompt sets, personas, allowed
   provider IDs, a cache window, and call/concurrency/timeout/cost limits.
-- Only fixture providers are allowed. Live providers remain disabled pending
-  OpenSpec task 7.8 and a separate configuration review.
+- Direct live providers remain disabled. Fleet accepts fixture baselines and
+  strictly validated, operator-supplied provider observations under separate
+  evidence modes.
 - Ignored projects are filtered against `automation-registry.json` before
   selection. A caller must name an ignored project through the explicit
   `--reactivate` option for that one manual run.
@@ -42,6 +43,51 @@ freshness, observed cost, and comparison with the previous local run.
 Every recorded receipt and evidence summary carries `evidenceMode: fixture`;
 fixture baselines must not be presented as live-provider visibility.
 
+## Provider-observation ingestion
+
+Use an approved provider client outside Fleet to capture exact answers, then
+place them in a temporary local bundle matching
+`fleet.ai-visibility-provider-observations.v1`. The non-secret example at
+`foundry/ops/test/fixtures/ai-visibility/provider-observations-v1.example.json`
+shows the shape; its placeholders are not measurement evidence.
+
+Each completed observation must name:
+
+- one exact canonical expanded prompt id;
+- provider id and model;
+- capture time and provider request id;
+- the exact response text;
+- an explicit non-negative observed cost, including `0` when free.
+
+Ingest one or more project runs:
+
+```bash
+node foundry/ops/scripts/ai-visibility-provider-observations.mjs \
+  --input /path/to/private-provider-observations.json
+```
+
+For a portfolio acceptance run, require exact coverage of the currently
+eligible 27 projects:
+
+```bash
+node foundry/ops/scripts/ai-visibility-provider-observations.mjs \
+  --input /path/to/private-provider-observations.json \
+  --require-all
+```
+
+The all-project gate validates the complete bundle before opening the ledger.
+It rejects missing or extra project ids; it never fills gaps. Individual
+missing prompt/provider answers remain explicit unavailable coverage.
+
+The command reads no credential or environment key and makes no provider or
+network request. It analyzes raw answers only in memory and records
+`evidenceMode: provider-observation`, normalized aggregates, status-only
+attempts, costs, and a provenance summary. It does not retain response text or
+provider request ids. Historical comparisons use only the same evidence mode,
+so a provider observation is never shown as movement from a fixture baseline.
+Keep the input in a private temporary location, do not commit it, and remove it
+through the operator's normal secure-file process after verifying the receipt.
+
 ## Persistence and privacy
 
 The ledger stores normalized aggregates, status-only attempt receipts, cost
@@ -55,9 +101,11 @@ They do not create missions, tasks, drafts, publications, or schedules. An
 owner must review and accept a recommendation before the existing
 recommendation-to-mission handoff can draft work.
 
-## Remaining task 7.8 gate
+## Direct-live and cadence gate
 
-Do not add a live provider adapter or recurring cadence yet. Task 7.8 requires
-one separately approved local project canary followed by a human review of data
-quality, retained storage, and observed cost. Schedule activation remains a
-later guarded decision even if that review passes.
+The original task 7.8 fixture rehearsal was accepted on 2026-07-25. Provider
+observations now have a credential-free ingestion path, but this does not
+approve direct provider adapters or recurring cadence. A real provider-
+observation canary still needs human review of data quality, retained storage,
+and observed cost. Schedule activation remains a later guarded decision after
+designated-host verification.
