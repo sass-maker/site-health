@@ -1,6 +1,6 @@
 # Fleet metric 90 gate
 
-Generated 2026-07-31T01:20:23.140Z from the canonical visibility project set.
+Generated 2026-07-31T01:27:49.298Z from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
 visibility fail closed. D-Rank and search are external outcomes; the report
@@ -18,7 +18,7 @@ does not replace them with technical proxies.
 | AI crawlability ≥90 | 18/27 | 9 |
 | PSI performance ≥90 | 25/27 | 2 |
 | LCP ≤2.5 s | 27/27 | 0 |
-| Design critique and audit ≥90% | 20/27 | 7 |
+| Design critique and audit ≥90% | 21/27 | 6 |
 
 ## Projects
 
@@ -29,7 +29,7 @@ does not replace them with technical proxies.
 | PostTrainLLM | 2.7 | C | 0 | 80 | 8 | 100 | 99 | 378.2 ms | 88% / 90% | 3/9 |
 | Fleet Workspace | 7 | C | 0 | 80 | 3.1 | 100 | 94 | 1614.1 ms | 90% / 100% | 4/9 |
 | Drank | 7 | C | 0 | 90 | 75 | 100 | 98 | 836.2 ms | 90% / 95% | 5/9 |
-| Email Manager | 7 | C | 0 | 70 | 0 | 67 | 100 | 481.4 ms | 88% / 95% | 2/9 |
+| Email Manager | 7 | C | 0 | 70 | 0 | 67 | 100 | 481.4 ms | 90% / 95% | 3/9 |
 | Memory Map | 7 | C | 0 | 11 | 0 | 33 | 96 | 1087.1 ms | 90% / 90% | 3/9 |
 | Free AI | 7 | C | 0 | 80 | 6.8 | 100 | 98 | 1108.3 ms | 90% / 95% | 4/9 |
 | PSI Swarm | 7 | C | 0 | 80 | 60 | 100 | 99 | 762.0 ms | 90% / 95% | 4/9 |
@@ -85,7 +85,6 @@ does not replace them with technical proxies.
 - **Email Manager · Agent readiness ≥90** — current 70; target ≥90
 - **Email Manager · Agent-readable coverage ≥90** — current 0; target ≥90
 - **Email Manager · AI crawlability ≥90** — current 67; target ≥90
-- **Email Manager · Design critique and audit ≥90%** — critique 88% · audit 95%
 - **Memory Map · D-Rank ≥90** — current 7; target ≥90
 - **Memory Map · Search class A** — current class C
 - **Memory Map · Live AI visibility ≥90** — fixture-only evidence

@@ -309,19 +309,19 @@
     },
     {
       "projectId": "email-manager",
-      "receiptSha256": "adf6b4c0172be5b22816e9b7e71a207a727eed43c72e7c4309881b1be05e85ce",
+      "receiptSha256": "ef6b6d9b3f52537c8e3552e5789d6989781b9fd18eb17108a2c199039da87990",
       "evidenceFiles": [
         {
           "path": ".fleet/evidence/changelog/after-1440.png",
-          "sha256": "ad8c5dcb185a311a858490247d07301efe5cd9ee1125446a8c0a647915c5ac68"
+          "sha256": "bf2d5a687111ddddf7f70ad3c8a3bc7f22c39406286498da2476b185d75ea7ae"
         },
         {
           "path": ".fleet/evidence/changelog/after-390.png",
-          "sha256": "613c8d7f0669bbfd78ee8718ab3bb7fe3285f78c16ec6a6fac5718a5c889ce6f"
+          "sha256": "7e4b27d5c917e44f988f2470ad250be80a776c094596f28bc8e6146d26e4595c"
         },
         {
           "path": ".fleet/evidence/changelog/after-768.png",
-          "sha256": "f5f5bc596fec23b5eeb1306f1631c9dc4e4188d53583f5ff9bd3959dd2c3ab34"
+          "sha256": "edecc24762276aa7bcefd25c78cd7abb582a2ce2646ded62e69ac7b2090ffc3f"
         },
         {
           "path": ".fleet/evidence/changelog/before-1440.png",
@@ -337,7 +337,7 @@
         }
       ],
       "critique": {
-        "score": 35,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
@@ -524,7 +524,7 @@
         },
         {
           "path": "PROJECT_STATUS.md",
-          "sha256": "8164cf6153b5a061b7f65bf300d5c1bdc38daef5a03cf288d9eb71f173aef80a"
+          "sha256": "1886d51a4e7bdb4b6f4297e173296dd2fa1e29d32b338eba56dafc665c27c3f8"
         },
         {
           "path": "README.md",
