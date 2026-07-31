@@ -5,6 +5,10 @@ import { join, resolve } from 'node:path';
 import { SkillRunStore, defaultSkillRunsRoot } from '../skill-run-store.mjs';
 import { validateDesignReviewEvidence } from '../design-workflow.mjs';
 import {
+  sha256,
+  validateDesignReviewSnapshot,
+} from '../design-review-snapshot.mjs';
+import {
   defaultVisibilityMetricPath,
   readVisibilityMetrics,
 } from '../visibility-metric-store.mjs';
@@ -908,24 +912,51 @@ function metricSignals(metrics = []) {
 }
 
 function designReviewEvidence(fleetRoot, projects) {
-  const policy = readJson(resolve(fleetRoot, 'foundry/ops/config/design-workflow.json'));
-  return projects.flatMap((project) => {
-    if (!project.repo) return [];
+  const policyPath = resolve(fleetRoot, 'foundry/ops/config/design-workflow.json');
+  const policy = readJson(policyPath);
+  const snapshotPath = resolve(
+    fleetRoot,
+    'foundry/ops/data/design-reviews/latest.json',
+  );
+  const snapshotByProject = new Map();
+  try {
+    const snapshot = validateDesignReviewSnapshot(readJson(snapshotPath), {
+      projectIds: projects.map((project) => project.id),
+      policySha256: sha256(readFileSync(policyPath)),
+    });
+    for (const review of snapshot.projects) {
+      snapshotByProject.set(review.projectId, {
+        projectId: review.projectId,
+        critique: review.critique.score,
+        critiqueMaximum: review.critique.maximum,
+        audit: review.audit.score,
+        auditMaximum: review.audit.maximum,
+        ownerDecision: review.ownerDecision,
+        observedAt: null,
+        evidenceSource: 'snapshot',
+        receiptSha256: review.receiptSha256,
+      });
+    }
+  } catch {}
+
+  for (const project of projects) {
+    if (!project.repo) continue;
     const projectRoot = project.id === 'fleet-workspace'
       ? resolve(fleetRoot, 'foundry/apps/dashboard/fleet-console')
       : resolve(fleetRoot, project.repo);
     const receiptPath = resolve(projectRoot, '.fleet/design-review.json');
+    if (existsSync(receiptPath)) snapshotByProject.delete(project.id);
     const receipt = readJson(receiptPath);
     try {
       validateDesignReviewEvidence(receipt, policy, { projectRoot });
     } catch {
-      return [];
+      continue;
     }
     let observedAt = null;
     try {
       observedAt = statSync(receiptPath).mtime.toISOString();
     } catch {}
-    return [{
+    snapshotByProject.set(project.id, {
       projectId: project.id,
       critique: receipt.evidence.critique.score,
       critiqueMaximum: receipt.evidence.critique.maximum,
@@ -933,8 +964,15 @@ function designReviewEvidence(fleetRoot, projects) {
       auditMaximum: receipt.evidence.audit.maximum,
       ownerDecision: receipt.ownerFeedback?.decision ?? 'pending',
       observedAt,
-    }];
-  });
+      evidenceSource: 'direct',
+    });
+  }
+
+  return projects.flatMap((project) => (
+    snapshotByProject.has(project.id)
+      ? [snapshotByProject.get(project.id)]
+      : []
+  ));
 }
 
 function buildProjectOutputs({

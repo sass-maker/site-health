@@ -15,6 +15,9 @@ those values without separating the two would produce misleading improvements.
   current baseline identifies a concrete source-level issue.
 - Re-run the local audits and keep the latest evidence attributable to the
   project and source revision.
+- Preserve validated design-review results as a deterministic, sanitized Fleet
+  snapshot so a fresh Fleet checkout does not depend on colocated product
+  repositories to render or gate the latest scores.
 
 ## Out of Scope
 

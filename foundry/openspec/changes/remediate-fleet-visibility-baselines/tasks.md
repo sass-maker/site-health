@@ -8,6 +8,14 @@
 - [x] 1.3 Add focused regression coverage for both cases.
 - [x] 1.4 Make `projects.json` the only visibility inventory and reject missing,
   extra, duplicate, or wrong-domain agent-surface metadata.
+- [x] 1.5 Add a deterministic sanitized snapshot generator for valid
+  project-owned design-review receipts and required evidence hashes.
+- [x] 1.6 Consume the snapshot as a fail-closed fallback while preserving
+  direct local receipt validation, with focused regression coverage.
+- [x] 1.7 Require exact configured queries, current Web Search evidence URLs,
+  and class-consistent project-origin evidence for GEO observations.
+- [x] 1.8 Correct all 55 current search observations and make later same-day
+  corrections authoritative in the generated report.
 
 ## 2. Shared agent surfaces
 

@@ -8,6 +8,7 @@
  *
  * observations.json: array of entries:
  *   { "date": "YYYY-MM-DD", "product": "<registry id>", "qid": "<config qid>",
+ *     "query": "<exact configured query>", "source": "web-search",
  *     "class": "A"|"B"|"C", "top": ["url", ...], "notes": "..." }
  *
  * Validates against foundry/ops/config/geo-observatory.json, appends to the
@@ -16,7 +17,7 @@
 
 import { readFileSync, writeFileSync, existsSync, appendFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const FLEET_ROOT = resolve(__dirname, '../../..');
@@ -38,22 +39,86 @@ function loadLedger() {
     .map((l) => JSON.parse(l));
 }
 
-function validate(entries, cfg) {
+export function validate(entries, cfg) {
   const products = new Map(cfg.products.map((p) => [p.id, p]));
   const errors = [];
+  const seen = new Set();
   entries.forEach((e, i) => {
-    const where = `entry ${i} (${e.product ?? '?'} / ${e.qid ?? '?'})`;
+    const where = `entry ${i} (${e?.product ?? '?'} / ${e?.qid ?? '?'})`;
+    if (!e || typeof e !== 'object' || Array.isArray(e)) {
+      errors.push(`${where}: observation must be an object`);
+      return;
+    }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date || '')) errors.push(`${where}: bad date`);
     const p = products.get(e.product);
     if (!p) errors.push(`${where}: unknown product`);
-    else if (!p.queries.some((q) => q.qid === e.qid)) errors.push(`${where}: unknown qid for product`);
+    const query = p?.queries.find((q) => q.qid === e.qid);
+    if (p && !query) {
+      errors.push(`${where}: unknown qid for product`);
+    } else if (query && e.query !== query.q) {
+      errors.push(`${where}: query must exactly match configured text`);
+    }
+    const key = `${e.product}|${e.qid}`;
+    if (seen.has(key)) errors.push(`${where}: duplicate product/qid in input`);
+    seen.add(key);
+    if (e.source !== 'web-search') {
+      errors.push(`${where}: source must be web-search`);
+    }
     if (!CLASSES.has(e.class)) errors.push(`${where}: class must be A|B|C`);
-    if (!Array.isArray(e.top)) errors.push(`${where}: top must be an array of URLs`);
+    if (!Array.isArray(e.top)) {
+      errors.push(`${where}: top must be an array of URLs`);
+    } else {
+      const noResults =
+        e.class === 'C' &&
+        e.top.length === 0 &&
+        /no organic results/i.test(e.notes || '');
+      if (!noResults && (e.top.length < 2 || e.top.length > 3)) {
+        errors.push(`${where}: top must contain 2-3 URLs, or be empty for an explicit no-results C`);
+      }
+      const uniqueUrls = new Set();
+      e.top.forEach((url, urlIndex) => {
+        try {
+          const parsed = new URL(url);
+          if (!['http:', 'https:'].includes(parsed.protocol)) throw new Error('bad protocol');
+          if (uniqueUrls.has(parsed.href)) {
+            errors.push(`${where}: duplicate top URL at index ${urlIndex}`);
+          }
+          uniqueUrls.add(parsed.href);
+        } catch {
+          errors.push(`${where}: top URL at index ${urlIndex} must be absolute HTTP(S)`);
+        }
+      });
+      if (query && p?.origin) {
+        const originHost = normalizedHostname(p.origin);
+        const ownsTopResult = e.top
+          .slice(0, 3)
+          .some((url) => {
+            try {
+              return normalizedHostname(url) === originHost;
+            } catch {
+              return false;
+            }
+          });
+        if (e.class === 'A' && !ownsTopResult) {
+          errors.push(`${where}: class A requires the configured origin in the captured top 3`);
+        }
+        if (e.class === 'C' && ownsTopResult) {
+          errors.push(`${where}: class C cannot include the configured origin in the captured top 3`);
+        }
+      }
+    }
+    if (typeof e.notes !== 'string' || e.notes.trim().length < 20) {
+      errors.push(`${where}: notes must provide a factual explanation`);
+    }
   });
   return errors;
 }
 
-function generateReport(ledger, cfg) {
+function normalizedHostname(value) {
+  return new URL(value).hostname.toLowerCase().replace(/^www\./, '');
+}
+
+export function generateReport(ledger, cfg) {
   const dates = [...new Set(ledger.map((e) => e.date))].sort();
   const recent = dates.slice(-5);
   const byKey = new Map(); // product|qid -> {date -> entry}
@@ -127,7 +192,12 @@ function generateReport(ledger, cfg) {
   if (last) {
     lines.push(`## Latest run notes (${last})`);
     lines.push('');
-    for (const e of ledger.filter((x) => x.date === last)) {
+    const latestEntries = cfg.products.flatMap((product) =>
+      product.queries
+        .map((query) => byKey.get(`${product.id}|${query.qid}`)?.get(last))
+        .filter(Boolean),
+    );
+    for (const e of latestEntries) {
       const top = (e.top || []).slice(0, 2).join(', ') || 'no results captured';
       lines.push(`- **${e.product} / ${e.qid}** → ${e.class}. Top: ${top}${e.notes ? ` — ${e.notes}` : ''}`);
     }
@@ -165,4 +235,8 @@ function main() {
   console.log(`Report regenerated → ${REPORT_PATH}`);
 }
 
-main();
+const invokedDirectly =
+  process.argv[1] &&
+  pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
+
+if (invokedDirectly) main();

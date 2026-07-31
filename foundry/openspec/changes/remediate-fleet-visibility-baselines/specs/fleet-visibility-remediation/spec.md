@@ -20,6 +20,26 @@ measurement from a valid numerical zero.
 - **THEN** the project is shown as unmeasured for design
 - **AND** the placeholder is not ranked as a zero score.
 
+#### Scenario: Independent project checkout is unavailable
+
+- **WHEN** a maintained project's receipt was validated from an explicitly
+  selected project workspace and its required evidence bytes were hashed
+- **THEN** Fleet MAY project the sanitized deterministic snapshot when that
+  checkout is absent
+- **AND** a readable local receipt still undergoes direct validation and takes
+  precedence
+- **AND** neither source may invent or mutate the recorded scores.
+
+#### Scenario: Search observation is recorded
+
+- **WHEN** an operator records a current search class for a configured project
+  query
+- **THEN** the evidence names the exact configured query and records two or
+  three current Web Search result URLs
+- **AND** class A requires the project's own origin in the first three results
+- **AND** class C cannot contain the project's own origin
+- **AND** a later corrected observation on the same day takes precedence.
+
 ### Requirement: Source-derived agent coverage
 
 Projects with public route catalogs SHALL be able to expose canonical

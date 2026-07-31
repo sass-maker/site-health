@@ -38,6 +38,22 @@ For each touched project:
 The Fleet console distinguishes unavailable measurements from real zero values
 and shows the latest valid evidence only.
 
+## Portable design-review evidence
+
+A dependency-free Fleet script reads the canonical maintained visibility
+inventory and an explicitly selected project-workspace root. Existing
+project-owned receipts remain authoritative: each one is validated with the
+shared design-review evidence validator before any score is copied. The
+snapshot contains only validated scores, accepted owner decisions, canonical
+project identities, and SHA-256 hashes for the receipt and every file required
+by validation. It excludes free-form receipt content and absolute local paths.
+
+The snapshot is deterministic for identical source bytes and lives under
+`foundry/ops/data/design-reviews/latest.json`. Fleet Console and the strict
+metric report may use it when an independent project checkout is absent.
+When a readable local receipt exists, the normal project-root validation still
+runs and its result takes precedence over the snapshot.
+
 Google sitemap readiness is measured independently for every configured
 hostname. Only the first domain of each visibility project is a submission
 target; private Console, search, and ingestion hosts remain visible in the
