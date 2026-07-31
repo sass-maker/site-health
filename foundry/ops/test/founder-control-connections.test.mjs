@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 import test from 'node:test';
 
 import {
@@ -81,6 +82,33 @@ function fixture() {
       queries: [{ qid: 'pace-brand', kind: 'brand', q: 'heypace.app' }],
     }],
   });
+  writeJson(join(root, 'foundry/ops/config/design-workflow.json'), {
+    $schema: 'fleet.design-workflow.v1',
+    version: 1,
+    impeccableVersion: '4.0.2',
+    impeccablePackageVersion: '3.3.1',
+    lanes: {
+      preserve: { requireBeforeEvidence: true },
+      overhaul: {
+        minimumReferences: 2,
+        maximumReferences: 3,
+        minimumDirectionProbes: 2,
+        maximumDirectionProbes: 3,
+        acceptedDirectionDecisions: ['approved', 'delegated'],
+      },
+    },
+    qualityGate: {
+      minimumCritiqueScore: 32,
+      critiqueMaximum: 40,
+      minimumAuditScore: 16,
+      auditMaximum: 20,
+      maximumUnresolved: { p0: 0, p1: 0 },
+      requiredViewportWidths: [390, 768, 1440],
+      acceptedOwnerDecisions: ['keep', 'delegated'],
+      detectorPosture: 'advisory',
+      requirePassingProjectCheck: true,
+    },
+  });
   mkdirSync(join(root, 'foundry/ops/data/geo-observatory'), { recursive: true });
   writeFileSync(
     join(root, 'foundry/ops/data/geo-observatory/ledger.jsonl'),
@@ -146,14 +174,63 @@ function fixture() {
     },
     { path: join(home, '.fleet/visibility-metrics/ledger.jsonl') },
   );
+  for (const path of [
+    'pace/PRODUCT.md',
+    'pace/DESIGN.md',
+    'pace/artifacts/design/before.png',
+    'pace/artifacts/design/after-390.png',
+    'pace/artifacts/design/after-768.png',
+    'pace/artifacts/design/after-1440.png',
+  ]) {
+    mkdirSync(dirname(join(root, path)), { recursive: true });
+    writeFileSync(join(root, path), '');
+  }
   writeJson(join(root, 'pace/.fleet/design-review.json'), {
     $schema: 'fleet.design-review.v1',
+    version: 1,
+    project: 'pace',
+    target: 'Fixture surface',
+    mode: 'preserve',
+    register: 'product',
+    context: { product: 'PRODUCT.md', design: 'DESIGN.md' },
+    direction: {
+      references: [],
+      probes: [],
+      selected: 'existing-design',
+      approval: 'not-required',
+      before: 'artifacts/design/before.png',
+    },
     evidence: {
+      screenshots: [
+        { width: 390, path: 'artifacts/design/after-390.png' },
+        { width: 768, path: 'artifacts/design/after-768.png' },
+        { width: 1440, path: 'artifacts/design/after-1440.png' },
+      ],
+      projectCheck: { command: 'pnpm test', status: 'pass' },
       critique: { score: 34, maximum: 40 },
       audit: { score: 18, maximum: 20 },
+      unresolved: { p0: 0, p1: 0 },
+      detector: { posture: 'advisory', findings: [] },
     },
     ownerFeedback: { decision: 'keep' },
   });
+  const performanceDatabasePath = join(home, '.psi-swarm/history.db');
+  mkdirSync(dirname(performanceDatabasePath), { recursive: true });
+  const performanceDatabase = new DatabaseSync(performanceDatabasePath);
+  performanceDatabase.exec(`
+    CREATE TABLE runs (
+      url TEXT NOT NULL,
+      started_at INTEGER NOT NULL,
+      performance_score REAL,
+      lcp REAL,
+      cls REAL,
+      error TEXT
+    );
+    INSERT INTO runs VALUES
+      ('https://heypace.app', 1785400000000, 96, 820, 0.01, NULL),
+      ('https://heypace.app', 1785500000000, NULL, NULL, NULL, NULL);
+  `);
+  performanceDatabase.close();
   writeJson(join(root, 'foundry/helpers/drank/data/fleet-dr.json'), {
     lastUpdated: '2026-07-29T10:00:00.000Z',
     domains: {
@@ -335,6 +412,8 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(paceOutput.skill.runCount, 1);
   assert.equal(paceOutput.public.availability.ok, true);
   assert.equal(paceOutput.domainRating.rating, 8);
+  assert.equal(paceOutput.performance.latest.performanceScore, 96);
+  assert.equal(paceOutput.performance.latest.lcp, 820);
   assert.equal(paceOutput.designReview.critique, 34);
   assert.equal(
     paceOutput.history.signals.find((signal) => signal.label === 'Design critique').value,

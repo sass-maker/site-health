@@ -21,7 +21,14 @@ classify coarsely, record honestly.
    an existing query (`qid` history breaks); to track something new, ADD a
    query with a new qid and note it in the commit.
 2. **Probe**: for each product's queries, run live web search (WebSearch
-   tool). Look at the top ~10 organic results.
+   tool). Look at the top ~10 organic results. Use the configured query
+   verbatim and record `query` with that exact text plus
+   `"source": "web-search"`. Never substitute a scraper, cached SERP, generic
+   fallback results, or another search provider's inferred answer. At least
+   two captured results must plausibly answer or collide with the configured
+   query. If the result set is plainly unrelated, rerun that query
+   individually; if it remains unusable, fail the run rather than recording
+   it.
 3. **Classify** each query:
    - **A** — the product's own origin appears in the top 3 organic results.
    - **B** — the product has partial page-1 visibility: its own origin is
@@ -29,10 +36,12 @@ classify coarsely, record honestly.
      directory/aggregator.
    - **C** — the product is absent from the first page entirely.
    Record the top 2-3 result URLs as evidence and a one-line note (who owns
-   the SERP, collisions, anything surprising).
+   the SERP, collisions, anything surprising). An empty result list is
+   permitted only for class C when the note explicitly states that the exact
+   query returned no organic results.
 4. **Record**: write all entries to a temp JSON file
-   (`[{date, product, qid, class, top: [urls], notes}]`, date = today
-   YYYY-MM-DD), then:
+   (`[{date, product, qid, query, source: "web-search", class, top: [urls],
+   notes}]`, date = today YYYY-MM-DD), then:
    `node foundry/ops/scripts/geo-observatory-record.mjs <file>`
    The script validates (unknown product/qid/class → rejected, nothing
    written) and regenerates `foundry/ops/docs/geo-observatory-latest.md`.

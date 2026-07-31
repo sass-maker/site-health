@@ -4,9 +4,7 @@
 
 Define the framework-independent AI visibility engine, bounded execution,
 analysis, product parity, and portfolio measurement contracts.
-
 ## Requirements
-
 ### Requirement: Framework-independent AI visibility package
 
 `@saas-maker/ai-visibility` SHALL expose typed, framework-independent execution
@@ -86,7 +84,9 @@ package before its duplicated engine is removed.
 
 Foundry SHALL configure AI visibility by canonical project and retain normalized
 history sufficient to compare visibility, citations, recommendation, rank, and
-competitor share over time.
+competitor share over time. Foundry SHALL distinguish fixtures, offline
+provider observations, and direct live-provider execution in every recorded
+run.
 
 #### Scenario: Manual project canary completes
 
@@ -94,6 +94,26 @@ competitor share over time.
 - **THEN** Foundry records coverage, normalized aggregates, evidence links,
   observed cost, and recommended actions in Marketing without activating a
   recurring schedule
+
+#### Scenario: Provider observations are imported
+
+- **WHEN** an operator supplies a valid provider-observation bundle whose
+  project and prompt ids match canonical configuration
+- **THEN** Foundry records normalized results as `provider-observation`,
+  retains no raw answer text, and does not load credentials or contact a
+  provider
+
+#### Scenario: Canonical portfolio coverage is required
+
+- **WHEN** the operator requests the all-project coverage gate
+- **THEN** ingestion fails before recording any run unless the bundle contains
+  exactly the 27 currently eligible AI Visibility project ids
+
+#### Scenario: Observation provenance is incomplete
+
+- **WHEN** a completed observation omits provider, model, capture time, provider
+  request id, response text, or explicit cost
+- **THEN** ingestion rejects the bundle before recording any run
 
 #### Scenario: Project is ignored
 

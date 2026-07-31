@@ -62,19 +62,63 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Provider-backed AI visibility gained a credential-free
+  ingestion path:** Added strict, versioned offline observation bundles with
+  provider, model, timestamp, request, cost, and canonical-project provenance;
+  normalized receipts enter the existing private ledger without retaining raw
+  answers or enabling live providers, credentials, schedules, or deployment.
+- **2026-07-31 — Agent-surface source ownership made explicit:** Aligned every
+  maintained project's `inRegistry` flag with the canonical 27-project agent
+  registry, protected independently authored discovery files for App Health,
+  Memory Map, India Standards, Setline, and the recovered Knowledge Base public
+  landing without mapping the private operator dashboard. No deployment was
+  performed.
+- **2026-07-31 — Visibility inventory and sitemap reporting converged on one
+  catalog:** Removed the retired TrueHire project from active indexing,
+  submission, favicon, and repository-hygiene tooling while preserving its
+  historical catalog entry, then archived its GitHub repository. Made
+  `projects.json` the sole membership and primary-domain source for the 27
+  maintained visibility targets; agent-surface metadata now fails validation
+  on missing, extra, duplicate, or mismatched entries. Added a live,
+  recursive sitemap submission report for all 27 primary domains plus three
+  explicitly non-submit secondary hosts. The first unified production probe
+  found 19/27 primary sitemaps live; the remaining source implementations need
+  rollout or DNS correction. No deployment was performed.
+- **2026-07-31 — SaaS Maker public discovery gained one route source of
+  truth:** Consolidated the directory's 33 canonical HTML routes, Markdown
+  bodies, sitemap entries, and `/api/ai` surfaces into one typed registry.
+  Product profiles, policy pages, changelog, learnings, and the home directory
+  can no longer drift between search and agent discovery. No deployment was
+  performed.
+- **2026-07-31 — Visibility remediation replaced false zeros with honest
+  evidence:** PSI projection now ignores failed/null measurements and design
+  projection accepts only validated review receipts. Valid independent-project
+  reviews can now be preserved in a deterministic, sanitized Fleet snapshot
+  containing scores and hashes but no local paths or free-form receipt content;
+  a readable local receipt remains authoritative and fails closed when invalid.
+  The shared agent-surface generator gained truthful Markdown, sitemap,
+  alternate catalog-path, and no-config support; templated collection audits
+  now verify a real sitemap member. Local first passes added or corrected public
+  agent discovery and on-page search prerequisites across the weakest projects,
+  while fresh PSI runs recorded current good desktop LCP for Significant
+  Hobbies, Calorie, and SaaS Maker. No deployment or off-site score was
+  fabricated.
 - **2026-07-31 — Latest visibility evidence filled across the 27-project
   matrix:** Recorded current AI Agent Readiness, AI Crawlability, and local
   content-inventory observations for every metric-eligible project. Added
   stable brand and category search terms for the 19 projects that had no GEO
-  Observatory configuration, then recorded current URL-backed Bing organic
-  result observations for every new term. Completed HeyPace's design-review
-  receipt, bringing the visible matrix to 27/27 latest observations in every
-  family. Agent Readiness now retains public-route Markdown coverage and
-  `/api/ai` catalog integrity: the first complete sweep found 11,351 bounded
-  sitemap routes, checked 1,473 routes, and confirmed 293 readable routes
-  across all 27 projects. Large corpora use a labelled deterministic 250-route
-  sample. AI Visibility remains an explicitly labelled fixture baseline; no
-  synthetic historical values, deployment, or provider mutation was performed.
+  Observatory configuration. Re-probed all 55 configured queries through
+  current Web Search after rejecting semantically unrelated scraper results;
+  the recorder now requires exact configured queries, two or three current
+  evidence URLs, and class-consistent project-origin evidence. Completed
+  HeyPace's design-review receipt, bringing the visible matrix to 27/27 latest
+  observations in every family. Agent Readiness now retains public-route
+  Markdown coverage and `/api/ai` catalog integrity: the first complete sweep
+  found 11,351 bounded sitemap routes, checked 1,473 routes, and confirmed 293
+  readable routes across all 27 projects. Large corpora use a labelled
+  deterministic 250-route sample. AI Visibility remains an explicitly labelled
+  fixture baseline; no synthetic historical values, deployment, or provider
+  mutation was performed.
 - **2026-07-30 — Metrics became the Fleet visibility workspace:** Expanded the
   evidence set to include Search Visibility, AI Agent Readiness, AI
   Crawlability, and Content Coverage. Metrics now opens as a sortable
@@ -519,6 +563,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Foundry AI Visibility consumer with fixture-only manual execution, normalized
   private history/comparison, cost and cache receipts, recommendation-only
   handoff, ignored-project suppression, and disabled schedule activation gates.
+- Credential-free provider-observation ingestion with strict bundle validation,
+  partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
+  retained raw answer text or provider request IDs.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

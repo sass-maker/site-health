@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultRegistryPath = join(moduleDirectory, '..', '..', 'config', 'projects.json');
-const fleetWorkspaceRepository = 'https://github.com/sass-maker/fleet-workspace';
+export const fleetWorkspaceRepository = 'https://github.com/sass-maker/fleet-workspace';
 
 const canonicalNames = {
   'app-health': 'App Health',
@@ -35,9 +35,12 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
     .filter((project) => project.status !== 'orphan')
     .map((project) => {
       const domain = project.domains?.[0] ?? null;
-      const workspaceSourceUrl = project.repo?.startsWith('foundry/')
-        ? `${fleetWorkspaceRepository}/tree/main/${project.repo}`
-        : null;
+      const historicalRepositoryUrl =
+        project.repositoryUrl ?? project.public?.repositoryUrl ?? null;
+      const repositoryUrl =
+        project.lifecycle === 'maintained'
+          ? fleetWorkspaceRepository
+          : historicalRepositoryUrl;
       return {
         id: project.id,
         name: displayName(project),
@@ -60,7 +63,7 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
         repo: project.repo,
         sourcePath: project.sourcePath ?? null,
         repositoryVisibility: project.repositoryVisibility ?? 'unknown',
-        repositoryUrl: project.repositoryUrl ?? project.public?.repositoryUrl ?? workspaceSourceUrl,
+        repositoryUrl,
         domains: project.domains ?? [],
         websiteUrl: domain ? `https://${domain}` : null,
         changelogUrl: domain ? `https://${domain}/changelog` : null,

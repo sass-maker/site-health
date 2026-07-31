@@ -12,14 +12,13 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadRegistry } from './lib/registry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../../..');
 const dry = process.argv.includes('--dry-run');
 
-const registry = JSON.parse(
-  readFileSync(join(ROOT, 'foundry/ops/config/agent-surfaces-registry.json'), 'utf8')
-);
+const registry = loadRegistry();
 
 /** @type {Record<string, { repo: string, topics: string[], productUrl?: string }>} */
 const REPOS = {
@@ -37,11 +36,6 @@ const REPOS = {
     repo: 'sass-maker/rolepatch',
     topics: ['resume', 'ats', 'career', 'ai', 'nextjs'],
     productUrl: 'https://rolepatch.com',
-  },
-  truehire: {
-    repo: 'sarthakagrawal927/truehire',
-    topics: ['hiring', 'recruiting', 'ai'],
-    productUrl: 'https://truehire.rolepatch.com',
   },
   karte: {
     repo: 'Significant-Hobbies/karte',
@@ -187,7 +181,6 @@ const localDirs = {
   codevetter: 'codevetter',
   starboard: 'starboard',
   rolepatch: 'rolepatch',
-  truehire: 'truehire',
   karte: 'karte',
   'email-manager': 'email-manager',
   'high-signal': 'high-signal',

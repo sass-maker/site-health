@@ -11,7 +11,10 @@ import {
 import { attributionReady } from '../lib/founder-control/recommendations.mjs';
 import { draftMission } from '../lib/founder-control/intake.mjs';
 import { buildDailyBrief } from '../lib/founder-control/projections.mjs';
-import { loadFounderProjects } from '../lib/founder-control/registry.mjs';
+import {
+  fleetWorkspaceRepository,
+  loadFounderProjects,
+} from '../lib/founder-control/registry.mjs';
 import { recommendationEvent } from '../lib/founder-control/recommendations.mjs';
 import { FounderControlStore } from '../lib/founder-control/store.mjs';
 
@@ -120,7 +123,7 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
   assert.equal(project.repo, 'codevetter');
   assert.equal(project.websiteUrl, 'https://codevetter.com');
   assert.equal(project.changelogUrl, 'https://codevetter.com/changelog');
-  assert.equal(project.repositoryUrl, 'https://github.com/Codevetter/codevetter');
+  assert.equal(project.repositoryUrl, fleetWorkspaceRepository);
   assert.equal(
     projects.find((entry) => entry.id === 'significanthobbies').familyName,
     'Significant Hobbies',
@@ -129,14 +132,8 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
   const emailManager = projects.find((entry) => entry.id === 'email-manager');
   assert.equal(rolepatch.family, 'rolepatch');
   assert.equal(emailManager.family, 'email-manager');
-  assert.equal(
-    rolepatch.repositoryUrl,
-    'https://github.com/Significant-Hobbies/rolepatch',
-  );
-  assert.equal(
-    emailManager.repositoryUrl,
-    'https://github.com/Significant-Hobbies/email-manager',
-  );
+  assert.equal(rolepatch.repositoryUrl, fleetWorkspaceRepository);
+  assert.equal(emailManager.repositoryUrl, fleetWorkspaceRepository);
   assert.equal(
     projects.find((entry) => entry.id === 'protein-index').repositoryUrl,
     'https://github.com/Significant-Hobbies/protein-index-resilience',
@@ -153,7 +150,11 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
   );
   assert.equal(directoryProjects.length, 25);
   for (const entry of directoryProjects) {
-    assert.ok(entry.repositoryUrl, `${entry.id}: directory project requires a source URL`);
+    assert.equal(
+      entry.repositoryUrl,
+      fleetWorkspaceRepository,
+      `${entry.id}: maintained directory project must share the Fleet source`,
+    );
     assert.equal(
       entry.websiteUrl,
       entry.domains[0] ? `https://${entry.domains[0]}` : null,
@@ -162,7 +163,7 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
   }
   assert.equal(
     projects.find((entry) => entry.id === 'psi-swarm').repositoryUrl,
-    'https://github.com/sass-maker/fleet-workspace/tree/main/foundry/helpers/psi-swarm',
+    fleetWorkspaceRepository,
   );
   assert.ok(project.domains.includes('codevetter.com'));
 

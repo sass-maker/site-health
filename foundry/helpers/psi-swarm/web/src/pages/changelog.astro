@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import PublicRouteHead from '../components/PublicRouteHead.astro';
 
 const sourceUrl =
   'https://github.com/sass-maker/fleet-workspace/tree/main/foundry/helpers/psi-swarm';
@@ -46,9 +47,7 @@ const entries = [
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>psi-swarm · changelog</title>
-    <meta name="description" content="Verified updates to psi-swarm, the local-first distributional Lighthouse performance tracker." />
-    <link rel="canonical" href="https://performance.sassmaker.com/changelog" />
+    <PublicRouteHead route="changelog" />
   </head>
   <body class="min-h-screen">
     <main class="max-w-5xl mx-auto px-6 py-10">
@@ -108,4 +107,3 @@ const entries = [
     </main>
   </body>
 </html>
-

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import CompareView from '../components/CompareView.tsx';
+import PublicRouteHead from '../components/PublicRouteHead.astro';
 ---
 
 <!doctype html>
@@ -11,7 +12,7 @@ import CompareView from '../components/CompareView.tsx';
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>psi-swarm · compare</title>
+    <PublicRouteHead route="compare" />
   </head>
   <body class="min-h-screen">
     <main class="max-w-5xl mx-auto px-6 py-10">

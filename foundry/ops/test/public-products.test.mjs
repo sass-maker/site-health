@@ -7,6 +7,7 @@ import {
   assertNoPrivateData,
   buildPublicProducts,
 } from '../lib/public-products.mjs';
+import { visibilityProjects } from '../lib/visibility-projects.mjs';
 
 const projects = await readJson(new URL('../config/projects.json', import.meta.url));
 
@@ -139,7 +140,7 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
     readFile(new URL('../../apps/public/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
   ]);
-  const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');
+  const saasMaker = agentRegistry.products.find((product) => product.id === 'fleet-workspace');
   const publicSaasMaker = buildPublicProducts(projects).products.find(
     (product) => product.id === 'saas-maker',
   );
@@ -149,6 +150,30 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
   assert.equal(Object.hasOwn(publicSaasMaker, 'repositoryUrl'), false);
   assert.equal(Object.hasOwn(publicSaasMaker, 'roadmapUrl'), false);
   assert.deepEqual(saasMaker.sameAs, ['https://github.com/sass-maker']);
+});
+
+test('agent surface metadata covers the visibility project inventory exactly', async () => {
+  const agentRegistry = await readJson(
+    new URL('../config/agent-surfaces-registry.json', import.meta.url),
+  );
+  const maintainedIds = visibilityProjects(projects)
+    .map((project) => project.id)
+    .sort();
+  const agentIds = agentRegistry.products.map((product) => product.id).sort();
+
+  assert.deepEqual(agentIds, maintainedIds);
+  const metadataById = new Map(
+    agentRegistry.products.map((product) => [product.id, product]),
+  );
+  for (const project of visibilityProjects(projects)) {
+    const repositoryUrl =
+      project.repositoryUrl ?? project.public?.repositoryUrl ?? null;
+    if (project.repositoryVisibility !== 'public' || !repositoryUrl) continue;
+    assert.ok(
+      metadataById.get(project.id)?.sameAs?.includes(repositoryUrl),
+      `${project.id}: agent metadata must use the canonical public repository URL`,
+    );
+  }
 });
 
 async function readJson(url) {
