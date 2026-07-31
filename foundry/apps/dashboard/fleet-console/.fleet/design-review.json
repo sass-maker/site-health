@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Metrics portfolio matrix distillation",
+  "target": "Domains, AI Awareness, Marketing, and Performance portfolio views",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,33 +14,33 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/metric-distill/before-1440.png"
+    "before": ".fleet/evidence/portfolio-focus/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/metric-distill/after-390.png"
+        "path": ".fleet/evidence/portfolio-focus/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/metric-distill/after-768.png"
+        "path": ".fleet/evidence/portfolio-focus/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/metric-distill/after-1440.png"
+        "path": ".fleet/evidence/portfolio-focus/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "pnpm build",
+      "command": "npm run build",
       "status": "pass"
     },
     "critique": {
-      "score": 34,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
-      "score": 19,
+      "score": 18,
       "maximum": 20
     },
     "unresolved": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly directed removal of Search, AI Visibility, and Design from the portfolio matrix while retaining project-level evidence."
+    "note": "Owner delegated completion of the GitHub issue queue and approved the in-scope work; preserve-lane judgment retained the existing Fleet Console visual system."
   }
 }

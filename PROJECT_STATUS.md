@@ -62,6 +62,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Fleet Console refocused on portfolio strength:** Replaced the
+  catch-all Metrics destination with primary Domains, AI Awareness, Marketing,
+  and Performance views alongside Projects. Domains groups shared registrable
+  roots once; AI Awareness uses provider-backed outcomes for maintained P1
+  products only; Marketing shows every maintained product and an explicit
+  never-marketed state; Performance applies PSI ≥ 90 and LCP ≤ 2.5 s without a
+  blended score. Feedback and the System Map remain secondary diagnostics,
+  detailed evidence remains on project pages, and `/metrics` preserves project
+  scope while redirecting to Domains. Local focused tests, responsive review,
+  and the Fleet Console build passed; no deployment was performed.
 - **2026-07-31 — Search and Cloudflare outcomes gained one private intake
   boundary:** Added a strict no-network bundle and idempotent machine-local
   ledger for Google Search Console aggregates, Cloudflare AI crawler activity,
@@ -544,12 +554,16 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
 - Responsive Fleet Console with a flat collapsible sidebar, a default Projects
-  directory, focused Metrics, Marketing, and Feedback views, one URL-persisted
-  27-project scope, Search Visibility, AI Visibility,
-  D-Rank, AI Agent Readiness, AI Crawlability, Content Coverage, PSI Swarm,
-  and Design Critique reports. Agent Readiness retains public-route Markdown
-  coverage, readable/checked/public route counts, and `/api/ai` catalog
-  integrity as dated project histories. The Console also provides a
+  directory, primary Domains, AI Awareness, Marketing, and Performance views,
+  secondary Feedback and System Map diagnostics, and one URL-persisted project
+  scope. Domains groups shared registrable roots, AI Awareness restricts direct
+  outcome claims to provider-backed maintained P1 products, Marketing covers
+  every maintained product, and Performance applies the PSI/LCP guardrail
+  without a blended score. Search Visibility, AI Visibility, D-Rank, AI Agent
+  Readiness, AI Crawlability, Content Coverage, PSI Swarm, and Design Critique
+  remain available in canonical project reports. Agent Readiness retains
+  public-route Markdown coverage, readable/checked/public route counts, and
+  `/api/ai` catalog integrity as dated project histories. The Console also provides a
   success/failure skill-result ledger, a privacy-bounded Feedback inbox,
   deterministic improvement actions, a secondary 15-provider System Map, and
   fail-soft evidence.

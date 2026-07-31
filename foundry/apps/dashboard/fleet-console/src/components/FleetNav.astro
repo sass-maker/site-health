@@ -2,15 +2,16 @@
 import "../styles/founder.css";
 
 interface Props {
-  active: "project-statuses" | "metrics" | "market" | "feedback";
+  active: "project-statuses" | "domains" | "ai-awareness" | "marketing" | "performance" | "feedback";
 }
 
 const { active } = Astro.props;
 const links = [
   { id: "project-statuses", href: "/project-statuses", label: "Projects", icon: "M4 6h7v5H4z M13 6h7v5h-7z M4 13h7v5H4z M13 13h7v5h-7z" },
-  { id: "metrics", href: "/metrics", label: "Metrics", icon: "M5 18V9 M10 18V5 M15 18v-7 M20 18V3" },
-  { id: "market", href: "/marketing", label: "Marketing", icon: "M4 13V9l12-5v14L4 13z M7 14l1 6h4l-2-7" },
-  { id: "feedback", href: "/feedback", label: "Feedback", icon: "M4 5h16v12H9l-5 4V5z M8 9h8 M8 13h5" },
+  { id: "domains", href: "/domains", label: "Domains", icon: "M4 12a8 8 0 1 0 16 0 8 8 0 1 0-16 0z M4 12h16 M12 4c2 2.2 3 4.9 3 8s-1 5.8-3 8c-2-2.2-3-4.9-3-8s1-5.8 3-8z" },
+  { id: "ai-awareness", href: "/ai-awareness", label: "AI Awareness", icon: "M12 3l1.4 4.1L17.5 8.5l-4.1 1.4L12 14l-1.4-4.1-4.1-1.4 4.1-1.4L12 3z M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z" },
+  { id: "marketing", href: "/marketing", label: "Marketing", icon: "M4 13V9l12-5v14L4 13z M7 14l1 6h4l-2-7" },
+  { id: "performance", href: "/performance", label: "Performance", icon: "M4 17a8 8 0 0 1 16 0 M12 17l4-5 M6.5 13.5l-2-2 M17.5 13.5l2-2" },
 ] as const;
 ---
 
@@ -50,14 +51,18 @@ const links = [
   </nav>
 
   <div class="sidebar-foot">
+    <a class="sidebar-system-link" href="/feedback" title="Open feedback" data-project-scope-link>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v12H9l-5 4V5z M8 9h8 M8 13h5" /></svg>
+      <span class="sidebar-copy">Feedback</span>
+    </a>
+    <a class="sidebar-system-link" href="/domains#system-map" title="Open system map" data-project-scope-link>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v5 M6 20v-4h12v4 M6 16v-3h12v3 M5 9h14v4H5z" /></svg>
+      <span class="sidebar-copy">System map</span>
+    </a>
     <span class="connection" data-founder-connection role="status" aria-live="polite">
       <i aria-hidden="true"></i>
       <span class="sidebar-copy" data-founder-connection-label>Connecting</span>
     </span>
-    <a class="sidebar-system-link" href="/metrics#system-map" title="Open system map" data-project-scope-link>
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v5 M6 20v-4h12v4 M6 16v-3h12v3 M5 9h14v4H5z" /></svg>
-      <span class="sidebar-copy">System map</span>
-    </a>
   </div>
 </aside>
 

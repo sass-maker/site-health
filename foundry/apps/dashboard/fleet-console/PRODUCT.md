@@ -18,9 +18,11 @@ reading logs, task queues, or infrastructure dashboards.
 
 Foundry is the private owner control loop for the portfolio. It connects an
 objective to bounded missions, accountable actors, decisions, evidence,
-deliverables, and measured outcomes. Success means the owner can answer five
-questions quickly: what needs me, what is working now, what shipped, what
-changed, and what should happen next.
+deliverables, and measured outcomes. Its primary portfolio views answer five
+owner questions quickly: which projects exist, where domain strength is
+concentrated, whether core products are known by AI, whether every maintained
+product has marketing proof, and whether public products meet the shared speed
+guardrail. Project detail and secondary diagnostics retain the deeper evidence.
 
 ## Positioning
 
@@ -46,7 +48,7 @@ prove.
 ## Design Principles
 
 1. Start with the owner question, not the provider that produced the evidence.
-2. Make attention scarce: routine status belongs in activity, not Needs me.
+2. Compare only compatible evidence and keep missing observations explicit.
 3. Show proof progressively and keep raw provider data with its owner.
 4. Treat empty, stale, blocked, and unavailable as useful states—not visual gaps.
 5. Keep every action bounded, reversible where possible, and explicit about

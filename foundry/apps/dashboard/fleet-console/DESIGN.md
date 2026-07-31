@@ -38,16 +38,16 @@ immutable identifiers and source revisions.
 - Maximum content width: 1,240 px.
 - A persistent, collapsible left sidebar presents one flat list of owner views;
   repository taxonomy does not appear in primary navigation.
-- The primary owner views are Projects, Metrics, Marketing, and Feedback. The
-  selected project scope follows the operator between them in the URL.
+- The primary owner views are Projects, Domains, AI Awareness, Marketing, and
+  Performance. The selected project scope follows the operator between them in
+  the URL. Feedback and System Map remain secondary navigation.
 - Projects is the default directory with explicit domains plus direct website,
-  changelog, and source destinations. The Metrics portfolio matrix contains
-  D-Rank, AI Agent Readiness, and PSI Swarm; Search, AI Visibility, and Design
-  evidence stay in project detail until they require a portfolio-level decision. The complete Skill
-  uses ledger is a secondary route reached through one page-header `View all
-  skills` CTA, with skill filtering, pagination, and output disclosed only on
-  demand. Feedback is an inbox. Marketing contains recommendations and
-  published outcomes. System topology is a secondary diagnostic sheet.
+  changelog, and source destinations. Domains groups registrable roots once.
+  AI Awareness is limited to provider-backed outcomes for maintained P1
+  products. Marketing is a complete maintained-product coverage directory.
+  Performance applies one explicit PSI/LCP guardrail without ranking or
+  blending scores. Search, crawlability, agent readiness, design critique,
+  skill history, and source detail remain in project or secondary diagnostics.
 - Use bordered rows and section bands for related records; reserve cards for a
   genuinely independent decision or recommendation.
 - Technical evidence appears in expandable detail or on mission detail pages.
@@ -63,6 +63,8 @@ immutable identifiers and source revisions.
 - `EvidenceLink`: provider, verification state, observation time, external link.
 - `HistoryChart`: one comparable metric in its native unit, with start, current,
   absolute and percentage change, observation count, and date range.
+- `PortfolioRow`: canonical identity, native evidence values, source and
+  observation metadata, explicit state language, and a project-detail link.
 - `StateBadge`: icon/text/color treatment for active, blocked, stale, complete,
   awaiting verification, and unavailable.
 - `ActionButton`: solid accent for one primary action; bordered neutral for

@@ -8,6 +8,12 @@ model in the Console, with each page answering one clear question.
 
 ## What Changes
 
+The navigation and Metrics bullets below record the evidence workspace delivered
+by this still-open connection change. The later
+`refocus-fleet-console-portfolio` change supersedes that primary navigation with
+Projects, Domains, AI Awareness, Marketing, and Performance, redirects Metrics
+to Domains, and retains detailed evidence on project pages.
+
 - Replace the overloaded Outputs route and empty primary routes with four
   focused views: Projects, Feedback, Metrics, and Marketing.
 - Add a collapsible left sidebar that mirrors the six repository buckets:
@@ -85,7 +91,8 @@ model in the Console, with each page answering one clear question.
 ## Impact
 
 The change affects Fleet Console navigation and shell, the
-`/project-statuses`, `/metrics`, and `/feedback` routes, the retired
+`/project-statuses`, `/domains`, `/ai-awareness`, `/marketing`,
+`/performance`, and `/feedback` routes, the retired `/metrics` and
 `/skill-uses` redirect,
 existing Marketing route, the System Map sheet, client rendering and styles,
 Founder Control API routing, the read-only connection/output adapter, Ops

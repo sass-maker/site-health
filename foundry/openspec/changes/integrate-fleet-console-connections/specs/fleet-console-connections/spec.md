@@ -127,11 +127,12 @@ explicit run, bounded by stream and response size and without filesystem paths.
 ### Requirement: Console mirrors the six product buckets
 
 Fleet Console SHALL expose a responsive, collapsible sidebar that maps the
-owner views to Projects, Metrics, Marketing, and Feedback without
+primary owner views to Projects, Domains, AI Awareness, Marketing, and
+Performance without
 repeating repository bucket headings in the navigation. Projects SHALL be the
 default Console destination; Overview SHALL not remain as a separate primary
-page. Generic skill history SHALL not remain as a primary or secondary Console
-destination.
+page. Feedback and System Map SHALL remain secondary diagnostics. Generic skill
+history SHALL not remain as a primary or secondary Console destination.
 
 #### Scenario: Operator moves between product concerns
 
@@ -154,24 +155,25 @@ destination.
 ### Requirement: Console separates evidence by operator question
 
 Fleet Console SHALL distribute output evidence across focused Projects,
-Metrics, Marketing, and Feedback pages instead of combining all evidence in one
-Outputs page.
+Domains, AI Awareness, Marketing, Performance, and Feedback pages instead of
+combining all evidence in one Outputs page.
 
 #### Scenario: Operator follows a legacy skill-history route
 
 - **WHEN** the operator opens `/skill-uses`, `/activity`, `/build`, or `/devlog`
-- **THEN** the Console redirects to Metrics
+- **THEN** the Console redirects to Domains
 - **AND** generic operational run logs are not presented as longitudinal
   project history
 
-#### Scenario: Operator opens Metrics
+#### Scenario: Operator opens a portfolio evidence view
 
 - **WHEN** helper evidence is available
-- **THEN** Metrics shows every approved visibility outcome and readiness family
-- **AND** each family shows its project-level current result, native-unit
-  history, and evidence-backed action when available
+- **THEN** Domains, AI Awareness, and Performance show only the bounded native
+  evidence defined for that owner question
+- **AND** canonical project detail retains native-unit history and
+  evidence-backed actions when available
 - **AND** availability checks, arbitrary skill metrics, connection coverage,
-  and generic measurement totals remain outside the Metrics page
+  and generic measurement totals remain outside the primary portfolio views
 
 #### Scenario: Operator opens Projects
 
@@ -179,8 +181,8 @@ Outputs page.
 - **THEN** Projects acts as a directory with one row per canonical product and
   direct actions to open its Console record, owned website changelog, and source
   repository
-- **AND** helper-category providers remain in Metrics rather than appearing as
-  standalone directory projects
+- **AND** helper-category providers remain outside Projects unless they are a
+  maintained public product
 - **AND** the directory starts immediately after a compact page-level project
   filter without a redundant subsection heading
 - **AND** unavailable public or source actions are stated honestly rather than
@@ -204,7 +206,7 @@ Outputs page.
 ### Requirement: Console applies one project scope
 
 Fleet Console SHALL expose one URL-persisted project filter across Projects,
-Metrics, Marketing, and Feedback.
+Domains, AI Awareness, Marketing, Performance, and Feedback.
 
 #### Scenario: Operator selects one project
 
@@ -233,7 +235,7 @@ comparable points without combining incompatible units.
 #### Scenario: PSI Swarm has historical observations
 
 - **WHEN** a project has at least two PSI observations
-- **THEN** Metrics graphs performance score, LCP, and CLS as separate dated
+- **THEN** project detail graphs performance score, LCP, and CLS as separate dated
   series and states start, current, change, observation count, and date range
 - **AND** moving anywhere across a plot exposes the nearest observation's exact
   date and native-unit value without persistent point markers
@@ -241,13 +243,13 @@ comparable points without combining incompatible units.
 #### Scenario: D-Rank has historical observations
 
 - **WHEN** a project domain has at least two domain-rating observations
-- **THEN** Metrics graphs domain rating and states its historical improvement
+- **THEN** project detail graphs domain rating and states its historical improvement
   without copying Drank domain logic into the client
 
 #### Scenario: AI Visibility has historical observations
 
 - **WHEN** a project has at least two normalized AI Visibility runs
-- **THEN** Metrics graphs visibility, recommendation, citation, coverage, and
+- **THEN** project detail graphs visibility, recommendation, citation, coverage, and
   rank histories in their own units
 
 #### Scenario: Numerical signal has one observation
@@ -256,20 +258,17 @@ comparable points without combining incompatible units.
 - **THEN** the Console shows a baseline-only state and does not draw a trend or
   claim improvement
 
-### Requirement: Metrics is the primary evidence workspace
+### Requirement: Project detail is the detailed evidence workspace
 
-Metrics SHALL answer whether Fleet projects are becoming more visible. It SHALL
-show one canonical project row with D-Rank, AI Agent Readiness, PSI, and LCP for
-every eligible project. It SHALL omit portfolio columns whose provider-backed
-outcomes do not exist and SHALL keep Design review in project detail as a
-quality gate rather than a comparative metric. Cells SHALL expose concrete
-latest values, trend state, and measurement state without calculating or
-presenting blended aggregate scores. The project identity SHALL open its project
-page and each cell SHALL deep-link to the matching project section. The project page SHALL
+The canonical project page SHALL retain the detailed SEO, GEO, Performance, and
+Design evidence that previously appeared under Metrics. Primary portfolio views
+SHALL expose only the native evidence needed for their owner question and SHALL
+not calculate or present blended aggregate scores. Portfolio project identities
+SHALL open the matching project section. The project page SHALL
 contain D-Rank, Search Visibility, and Content Coverage under SEO; AI
 Crawlability, AI Agent Readiness, and AI Visibility under GEO; PSI Swarm under
 Performance; and Design Critique under Design.
-Generic skill-run history SHALL remain outside Metrics and SHALL not be linked
+Generic skill-run history SHALL remain outside primary views and SHALL not be linked
 as a secondary Console product.
 
 The matrix and every project section SHALL use the same canonical 27-project
@@ -299,13 +298,13 @@ set rather than only projects that already produced evidence:
   catalog-surface integrity as a percentage and native valid/configured
   surface counts. Route volume alone SHALL NOT increase readiness.
 
-#### Scenario: Operator opens Metrics
+#### Scenario: Operator opens a portfolio evidence view
 
-- **WHEN** the Metrics page first renders
-- **THEN** the operator sees every eligible project with D-Rank, Agent
-  Readiness, PSI, and LCP summaries
-- **AND** concrete values such as domain rating and LCP remain visible when
-  recorded
+- **WHEN** Domains, AI Awareness, or Performance first renders
+- **THEN** the operator sees every eligible root or project for that bounded
+  owner question
+- **AND** concrete native values such as domain rating, provider outcomes, PSI,
+  and LCP remain visible when recorded
 - **AND** selecting a project or summary opens the canonical project page at
   the relevant detailed section
 
@@ -318,7 +317,7 @@ set rather than only projects that already produced evidence:
 
 #### Scenario: Eligible project has no recorded evidence
 
-- **WHEN** an eligible project has no recorded evidence for a Metrics family
+- **WHEN** an eligible project has no recorded evidence for a portfolio family
 - **THEN** its family still includes the project with an explicit missing
   baseline, configuration, public-domain, or receipt state
 - **AND** the Console does not present missing evidence as a zero score
@@ -328,13 +327,13 @@ set rather than only projects that already produced evidence:
 - **WHEN** the checked-in D-Rank dataset contains a domain mapped to a past or
   non-product catalog identity
 - **THEN** D-Rank preserves that history in its authoritative dataset
-- **AND** the primary Metrics coverage count does not treat that identity as an
+- **AND** the primary Domains coverage count does not treat that identity as an
   active eligible project
 
 #### Scenario: Operator reviews observability history
 
 - **WHEN** comparable observability observations are retained
-- **THEN** Metrics graphs those project-level histories in their native units
+- **THEN** project detail graphs those histories in their native units
 - **AND** unrelated skill runs do not appear as project trends
 
 #### Scenario: Public project publishes agent-readable routes
@@ -343,7 +342,7 @@ set rather than only projects that already produced evidence:
 - **THEN** the shared agent audit checks every bounded same-origin page on
   small sites and a deterministic distributed sample on large corpora for
   Markdown negotiation or a same-route Markdown alternate
-- **AND** Metrics retains the dated readable count, checked-route count,
+- **AND** project detail retains the dated readable count, checked-route count,
   public-route count, and coverage percentage
 - **AND** the readiness result distinguishes complete coverage from a large but
   partially readable corpus
@@ -353,7 +352,7 @@ set rather than only projects that already produced evidence:
 - **WHEN** `/api/ai` advertises one or more surfaces
 - **THEN** the shared agent audit verifies that each bounded same-origin
   Markdown target resolves as non-HTML agent-readable content
-- **AND** Metrics retains valid/configured counts and integrity percentage
+- **AND** project detail retains valid/configured counts and integrity percentage
 - **AND** an empty array or an unreadable advertised target does not count as
   complete surface integrity
 
@@ -361,7 +360,7 @@ set rather than only projects that already produced evidence:
 
 - **WHEN** a project has a valid design-review receipt or explicit design score
   observation
-- **THEN** Metrics showcases critique and audit as prominent scored results
+- **THEN** project detail showcases critique and audit as prominent scored results
   against their native maximums, with completion bars, observation time, and
   owner-review state
 - **AND** historical charts appear only when comparable design history exists
@@ -421,7 +420,7 @@ agent-mediated observation workflow instead of exposing a local run action.
 - **THEN** Founder Control returns the existing run receipt instead of starting
   another process
 
-### Requirement: Metrics distinguishes outcomes, readiness, and fixtures
+### Requirement: Portfolio evidence distinguishes outcomes, readiness, and fixtures
 
 The normalized projection and Console MUST distinguish earned search or AI
 visibility outcomes from technical readiness audits, domain-level authority
@@ -480,7 +479,7 @@ as longitudinal project metrics.
 - **THEN** the central runner records one immutable normalized envelope and
   retained output metadata for operational inspection
 - **AND** only approved observability observations project longitudinally into
-  Metrics
+  project detail
 
 #### Scenario: Hosted history is added later
 
@@ -491,7 +490,7 @@ as longitudinal project metrics.
 ### Requirement: Console preserves topology in a System Map sheet
 
 The six-bucket panorama, gaps, complete connection ledger, and provider evidence
-SHALL remain available from Metrics in a modal left-side sheet.
+SHALL remain available from Domains in a modal left-side sheet.
 
 #### Scenario: Operator opens the System Map
 
@@ -505,7 +504,7 @@ SHALL remain available from Metrics in a modal left-side sheet.
 - **THEN** the System Map opens, the matching disclosure expands, and keyboard
   focus moves to that row
 
-#### Scenario: Operator opens Metrics on a phone
+#### Scenario: Operator opens Domains on a phone
 
 - **WHEN** the viewport is 390 pixels wide
 - **THEN** measures, project results, improvement actions, and the full-width
