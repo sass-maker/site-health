@@ -145,7 +145,7 @@ function printHelp() {
   agent-index-audit.mjs --project <registry-id>
   agent-index-audit.mjs --all [--json | --summary-json]
 
-Targets: maintained projects from foundry/ops/config/projects.json
+Targets: metric-eligible visibility projects from foundry/ops/config/projects.json
 `);
 }
 

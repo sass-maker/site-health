@@ -9,6 +9,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { visibilityProjects } from '../../lib/visibility-projects.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // lib → scripts → ops → foundry → fleet root
@@ -45,9 +46,7 @@ export function loadRegistry(
 
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
   const catalog = JSON.parse(readFileSync(projectsPath, 'utf8'));
-  const maintained = (catalog.projects || []).filter(
-    (project) => project.public?.listing === 'maintained'
-  );
+  const maintained = visibilityProjects(catalog);
   const metadataById = new Map(
     (registry.products || []).map((product) => [product.id, product])
   );

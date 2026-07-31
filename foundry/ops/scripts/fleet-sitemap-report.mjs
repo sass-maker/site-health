@@ -2,6 +2,7 @@
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { visibilityProjects } from '../lib/visibility-projects.mjs';
 
 const FLEET_ROOT = resolve(import.meta.dirname, '../../..');
 const CATALOG_PATH = resolve(FLEET_ROOT, 'foundry/ops/config/projects.json');
@@ -10,8 +11,7 @@ const MAX_SITEMAPS_PER_DOMAIN = 50;
 const TIMEOUT_MS = 15_000;
 
 const catalog = JSON.parse(readFileSync(CATALOG_PATH, 'utf8'));
-const targets = catalog.projects
-  .filter((project) => project.public?.listing === 'maintained')
+const targets = visibilityProjects(catalog)
   .flatMap((project) =>
     (project.domains ?? []).map((domain, index) => ({
       projectId: project.id,
@@ -29,7 +29,7 @@ const blocked = primary.filter((result) => result.state !== 'ready');
 
 const markdown = `# Google sitemap submission
 
-Generated ${generatedAt} from the maintained inventory in
+Generated ${generatedAt} from the visibility inventory in
 \`foundry/ops/config/projects.json\`.
 
 Submit the sitemap link for each **primary** domain as its own Google Search

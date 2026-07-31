@@ -1,6 +1,6 @@
 # Site health — fleet scorecard
 
-Generated 2026-07-30 by `site-health-scorecard.mjs`. GEO is live-probed;
+Generated 2026-07-31 by `site-health-scorecard.mjs`. GEO is live-probed;
 seo/content/perf columns read the latest saved artifacts ("–" = no artifact yet — run
 the seo-audit / content-coverage / psi-swarm subskills to populate); trend reads the
 geo-observatory ledger. Do not edit by hand.
@@ -22,6 +22,7 @@ geo-observatory ledger. Do not edit by hand.
 | research-papers | A 90% | – | – | – | brand:C category:C |
 | knowledge-base | C 11% | – | – | – | brand:C category:C |
 | significanthobbies | A 80% | – | – | – | brand:A |
+| india-standards | C 11% | – | – | – | brand:C category:C |
 | anime-list | A 56% | – | – | – | 1:C category:C |
 | chess | A 90% | – | – | – | brand:C category:C |
 | looptv | A 90% | – | – | – | brand:C category:C |
@@ -35,7 +36,6 @@ geo-observatory ledger. Do not edit by hand.
 | app-health | C 11% | – | – | – | brand:C category:C |
 | motion | A 67% | – | – | – | brand:C category:C |
 | what-it-takes-to-win | S 100% | – | – | – | brand:C category:C |
-| sarthakagrawal-personal | A 56% | – | – | – | – |
 
 ## Problems (worst first per product)
 
@@ -52,6 +52,7 @@ geo-observatory ledger. Do not edit by hand.
 - **research-papers** — route_markdown: 3/231 checked routes agent-readable (1.3%) · 231 public routes
 - **knowledge-base** — route_markdown: no public sitemap routes available for Markdown coverage
 - **significanthobbies** — route_markdown: 2/250 checked routes agent-readable (0.8%) · 580 public routes · deterministic sample
+- **india-standards** — route_markdown: no public sitemap routes available for Markdown coverage
 - **anime-list** — route_markdown: 1/250 checked routes agent-readable (0.4%) · 5000 public routes · deterministic sample
 - **chess** — route_markdown: 3/5 checked routes agent-readable (60%) · 5 public routes
 - **looptv** — route_markdown: 1/29 checked routes agent-readable (3.4%) · 29 public routes
@@ -63,4 +64,3 @@ geo-observatory ledger. Do not edit by hand.
 - **starboard** — route_markdown: 2/36 checked routes agent-readable (5.6%) · 36 public routes
 - **app-health** — route_markdown: no public sitemap routes available for Markdown coverage
 - **motion** — route_markdown: 1/2 checked routes agent-readable (50%) · 2 public routes
-- **sarthakagrawal-personal** — route_markdown: 0/12 checked routes agent-readable (0%) · 12 public routes

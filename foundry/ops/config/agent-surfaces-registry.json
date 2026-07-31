@@ -748,7 +748,7 @@
       "schemaType": "SoftwareApplication",
       "applicationCategory": "DeveloperApplication",
       "sameAs": [
-        "https://github.com/sarthakagrawal927/app-health"
+        "https://github.com/sass-maker/app-health"
       ],
       "worker": "app-health/apps/worker/src/index.ts",
       "productLinks": [
@@ -777,7 +777,7 @@
       "headFile": "chatgpt-memory-insights/src/pages/index.astro",
       "schemaType": "SoftwareApplication",
       "sameAs": [
-        "https://github.com/sarthakagrawal927/chatgpt-memory-insights"
+        "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
       ],
       "productLinks": [
         {
@@ -891,22 +891,33 @@
       "indexMd": "# What It Takes to Win\n\nEvidence-backed paths to early achievement.\n"
     },
     {
-      "id": "sarthakagrawal-personal",
-      "name": "Sarthak Agrawal",
-      "url": "https://sarthakagrawal.dev",
-      "summary": "Personal portfolio and concise front door to active work.",
-      "schemaType": "ProfilePage",
+      "id": "india-standards",
+      "name": "India Standards",
+      "url": "https://india-numbers.significanthobbies.com",
+      "summary": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
+      "publicDir": "india-standards/public",
+      "stack": "opennext",
+      "headFile": "india-standards/app/layout.tsx",
+      "schemaType": "WebApplication",
       "sameAs": [
-        "https://github.com/sarthakagrawal927"
+        "https://github.com/Significant-Hobbies/india-standards"
       ],
+      "worker": "india-standards/worker.mjs",
       "productLinks": [
         {
           "title": "Home",
-          "url": "https://sarthakagrawal.dev/",
-          "description": "Portfolio"
+          "url": "https://india-numbers.significanthobbies.com/",
+          "description": "Demographic standards calculator"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://india-numbers.significanthobbies.com/changelog",
+          "description": "Verified product releases",
+          "markdown": "# India Standards changelog\n\nThe owned changelog records verified releases for the aggregate-only PLFS preview, explicit uncertainty, sparse-cell widening, hosted estimates, and responsive calculator workbench.\n"
         }
       ],
-      "indexMd": "# Sarthak Agrawal\n\nPersonal portfolio and front door to active work.\n"
+      "generateSitemap": true,
+      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-numbers.significanthobbies.com/llms.txt\n- https://india-numbers.significanthobbies.com/api/ai\n- https://india-numbers.significanthobbies.com/index.md\n"
     }
   ]
 }

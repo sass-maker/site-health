@@ -30,3 +30,16 @@
 - [x] 4.3 Record remaining deploy-only and off-site outcome boundaries.
 - [x] 4.4 Generate a Google sitemap submission report for every maintained
   primary domain and explicitly separate private/API secondary hosts.
+
+## 5. Portfolio 90+ gate
+
+- [x] 5.1 Add a fail-closed report that requires the canonical project
+  inventory and reports every technical and external outcome gate separately.
+- [x] 5.2 Record a fresh production AI Agent Readiness and AI Crawlability
+  observation for all 27 projects.
+- [ ] 5.3 Clear every source-controllable SEO, GEO, performance, and design
+  gate at 90 or better with valid project evidence.
+- [ ] 5.4 Deploy the verified source remediations after explicit release
+  authorization, then re-run the production gates.
+- [ ] 5.5 Record live provider-backed AI visibility and current external search
+  and domain-authority outcomes at 90 or better without fixture substitution.

@@ -1,13 +1,13 @@
 # Google sitemap submission
 
-Generated 2026-07-30T23:40:56.616Z from the maintained inventory in
+Generated 2026-07-31T00:04:23.002Z from the visibility inventory in
 `foundry/ops/config/projects.json`.
 
 Submit the sitemap link for each **primary** domain as its own Google Search
 Console property. Secondary private, search, or ingestion hosts are reported
 for completeness and should not be submitted as separate public websites.
 
-**Primary sitemap readiness: 20/27.**
+**Primary sitemap readiness: 19/27.**
 
 | Project | Domain | Role | Same-host URLs | State | Sitemap |
 | --- | --- | --- | ---: | --- | --- |
@@ -21,11 +21,12 @@ for completeness and should not be submitted as separate public websites.
 | Memory Map | `chatgpt.significanthobbies.com` | Submit | 0 | not-xml | [https://chatgpt.significanthobbies.com/sitemap.xml](https://chatgpt.significanthobbies.com/sitemap.xml) |
 | Free AI | `ai-gateway.sassmaker.com` | Submit | 44 | ready | [https://ai-gateway.sassmaker.com/sitemap.xml](https://ai-gateway.sassmaker.com/sitemap.xml) |
 | PSI Swarm | `performance.sassmaker.com` | Submit | 5 | ready | [https://performance.sassmaker.com/sitemap.xml](https://performance.sassmaker.com/sitemap.xml) |
-| High Signal | `highsignal.app` | Submit | 13904 | ready | [https://highsignal.app/sitemap.xml](https://highsignal.app/sitemap.xml) |
+| High Signal | `highsignal.app` | Submit | 13905 | ready | [https://highsignal.app/sitemap.xml](https://highsignal.app/sitemap.xml) |
 | Research Papers | `papers.highsignal.app` | Submit | 309 | ready | [https://papers.highsignal.app/sitemap.xml](https://papers.highsignal.app/sitemap.xml) |
 | Knowledge Base | `knowledgebase.sassmaker.com` | Submit | 0 | not-xml | [https://knowledgebase.sassmaker.com/sitemap.xml](https://knowledgebase.sassmaker.com/sitemap.xml) |
 | Knowledge Base | `search.sassmaker.com` | Secondary | 0 | not-xml | [https://search.sassmaker.com/sitemap.xml](https://search.sassmaker.com/sitemap.xml) |
 | Significant Hobbies | `significanthobbies.com` | Submit | 580 | ready | [https://significanthobbies.com/sitemap.xml](https://significanthobbies.com/sitemap.xml) |
+| India Standards | `india-numbers.significanthobbies.com` | Submit | 0 | http-404 | [https://india-numbers.significanthobbies.com/sitemap.xml](https://india-numbers.significanthobbies.com/sitemap.xml) |
 | Anime List | `anime.significanthobbies.com` | Submit | 7611 | ready | [https://anime.significanthobbies.com/sitemap.xml](https://anime.significanthobbies.com/sitemap.xml) |
 | Chess Coach | `chess.significanthobbies.com` | Submit | 5 | ready | [https://chess.significanthobbies.com/sitemap.xml](https://chess.significanthobbies.com/sitemap.xml) |
 | LoopTV | `tv.significanthobbies.com` | Submit | 29 | ready | [https://tv.significanthobbies.com/sitemap.xml](https://tv.significanthobbies.com/sitemap.xml) |
@@ -40,13 +41,13 @@ for completeness and should not be submitted as separate public websites.
 | App Health | `ingest.sassmaker.com` | Secondary | 0 | http-404 | [https://ingest.sassmaker.com/sitemap.xml](https://ingest.sassmaker.com/sitemap.xml) |
 | Motion | `motion.significanthobbies.com` | Submit | 2 | ready | [https://motion.significanthobbies.com/sitemap.xml](https://motion.significanthobbies.com/sitemap.xml) |
 | What It Takes to Win | `paths.significanthobbies.com` | Submit | 4990 | ready | [https://paths.significanthobbies.com/sitemap.xml](https://paths.significanthobbies.com/sitemap.xml) |
-| Sarthak Agrawal | `sarthakagrawal.dev` | Submit | 12 | ready | [https://sarthakagrawal.dev/sitemap-index.xml](https://sarthakagrawal.dev/sitemap-index.xml) |
 
 ## Not submit-ready
 
 - **mail.significanthobbies.com** — wrong-host: 4 URLs point elsewhere
 - **chatgpt.significanthobbies.com** — not-xml: application HTML or non-XML response
 - **knowledgebase.sassmaker.com** — not-xml: application HTML or non-XML response
+- **india-numbers.significanthobbies.com** — http-404: HTTP 404
 - **calorie.significanthobbies.com** — not-xml: application HTML or non-XML response
 - **setline.significanthobbies.com** — http-404: HTTP 404
 - **karte.cc** — error: fetch failed

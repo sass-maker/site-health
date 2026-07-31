@@ -19,9 +19,11 @@ changes use existing route/content generators and source data. Large content
 corpora expose deterministic dynamic Markdown or catalog routes rather than
 committing one duplicate file per public page.
 
-`foundry/ops/config/projects.json` is the only inventory. The agent-surface
-registry is a metadata overlay, ordered and validated against the maintained
-catalog identities and their primary domains before any fleet-wide run.
+`foundry/ops/config/projects.json` is the only inventory. One shared selector
+includes maintained public listings plus explicit `metrics.publicSite`
+opt-ins, while excluding non-products. The agent-surface registry is a
+metadata overlay, ordered and validated against those identities and their
+primary domains before any fleet-wide run.
 
 ## Audit loop
 
@@ -37,7 +39,7 @@ The Fleet console distinguishes unavailable measurements from real zero values
 and shows the latest valid evidence only.
 
 Google sitemap readiness is measured independently for every configured
-hostname. Only the first domain of each maintained project is a submission
+hostname. Only the first domain of each visibility project is a submission
 target; private Console, search, and ingestion hosts remain visible in the
 report but are not presented as public Search Console properties.
 
@@ -45,3 +47,15 @@ report but are not presented as public Search Console properties.
 
 This change ends at locally verified source and evidence. Production deployment
 and post-deploy remeasurement require separate authorization.
+
+## Portfolio 90+ completion gate
+
+The portfolio is not complete merely because remediation source exists. A
+fail-closed ledger must cover exactly the canonical visibility inventory and
+must reject missing evidence, fixture-only AI visibility, failed audits, and
+invalid design receipts.
+
+Technical percentage gates require 90 or better. LCP requires 2.5 seconds or
+better. Search class A, live AI visibility at 90 or better, and D-Rank at 90 or
+better remain external outcome gates: local metadata and content work are
+prerequisites, not substitutes for those observations.

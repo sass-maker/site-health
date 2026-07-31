@@ -8,6 +8,7 @@ import {
   defaultVisibilityMetricPath,
   readVisibilityMetrics,
 } from '../visibility-metric-store.mjs';
+import { visibilityProjects } from '../visibility-projects.mjs';
 
 export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
 
@@ -1462,11 +1463,7 @@ export function buildFleetConnections({
     resolve(fleetRoot, 'foundry/ops/config/projects.json'),
     { projects: [] },
   );
-  const maintainedProjects = (projectCatalog.projects ?? []).filter(
-    (project) =>
-      !['past', 'non-product'].includes(project.lifecycle) &&
-      project.tier !== 'non-product',
-  );
+  const maintainedProjects = visibilityProjects(projectCatalog);
   const drank = drankEvidence(fleetRoot, now);
   const psi = psiEvidence(home, now);
   const skills = skillEvidence(home, now);

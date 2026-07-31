@@ -71,7 +71,7 @@ CodeVetter or App Health source.
   on missing, extra, duplicate, or mismatched entries. Added a live,
   recursive sitemap submission report for all 27 primary domains plus three
   explicitly non-submit secondary hosts. The first unified production probe
-  found 20/27 primary sitemaps live; the remaining source implementations need
+  found 19/27 primary sitemaps live; the remaining source implementations need
   rollout or DNS correction. No deployment was performed.
 - **2026-07-31 — SaaS Maker public discovery gained one route source of
   truth:** Consolidated the directory's 33 canonical HTML routes, Markdown
