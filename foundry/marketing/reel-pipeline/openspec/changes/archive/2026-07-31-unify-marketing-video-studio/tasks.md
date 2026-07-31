@@ -33,6 +33,6 @@
 - [x] 5.1 Add focused API, store, classifier, routing, package, draft-boundary, and existing-route regression tests
 - [x] 5.2 Run Studio smoke, focused Node tests, full Node/Rust tests, docs validation, strict OpenSpec validation, and `git diff --check`
 - [x] 5.3 Run browser interaction checks and capture after evidence at 390, 768, and 1440 pixels
-- [ ] 5.4 Complete Impeccable critique, P0/P1 fixes, polish, audit, and the Fleet design-review gate with owner `keep` or delegated feedback
+- [x] 5.4 Complete Impeccable critique, P0/P1 fixes, polish, audit, and the Fleet design-review gate with owner `keep` or delegated feedback
 - [x] 5.5 Update Content Studio docs and `PROJECT_STATUS.md` only after the implemented and locally verified behavior is true
 - [x] 5.6 Keep live Postiz account connection, scheduling, publication, and auto-post verification out of this change and linked to Fleet Workspace issue #40
