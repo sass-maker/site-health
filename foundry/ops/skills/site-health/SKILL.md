@@ -37,7 +37,8 @@ table dump.
 
 ## Conventions (all subskills)
 
-- Targets resolve via `foundry/ops/scripts/lib/registry.mjs`
-  (agent-surfaces-registry.json is the canonical product list).
+- Targets resolve via `foundry/ops/scripts/lib/registry.mjs`.
+  `projects.json` is the canonical product list; the agent-surfaces registry
+  only supplies per-product indexing metadata and must match it exactly.
 - Reports land at `foundry/ops/docs/<skill>-latest.md`.
 - Evidence over vibes: cite URLs/numbers for every failing grade.

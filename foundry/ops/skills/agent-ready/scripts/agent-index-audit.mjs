@@ -8,10 +8,12 @@
  *   node agent-index-audit.mjs https://rolepatch.com
  *   node agent-index-audit.mjs --all
  *   node agent-index-audit.mjs --all --json
+ *   node agent-index-audit.mjs --all --summary-json
  *   node agent-index-audit.mjs --project rolepatch
  *
- * Targets come from foundry/ops/config/agent-surfaces-registry.json (the
- * canonical product list). Does NOT call isitagentready.com (rate limits).
+ * Target membership and primary domains come from projects.json. Per-product
+ * indexing metadata comes from agent-surfaces-registry.json and is validated
+ * against that canonical list. Does NOT call isitagentready.com (rate limits).
  * Probes origins directly and detects SPA-fake HTML shells on agent paths.
  *
  * Required checks: llms.txt, /api/ai, homepage markdown, not-SPA-fake,
@@ -87,8 +89,17 @@ async function main() {
     }
   }
 
-  if (args.json) {
-    console.log(JSON.stringify({ generatedAt: new Date().toISOString(), results }, null, 2));
+  if (args.json || args.summaryJson) {
+    const outputResults = args.summaryJson
+      ? results.map(summarizeResult)
+      : results;
+    console.log(
+      JSON.stringify(
+        { generatedAt: new Date().toISOString(), results: outputResults },
+        null,
+        2,
+      ),
+    );
   } else {
     printScoreboard(results);
   }
@@ -102,10 +113,17 @@ async function main() {
 }
 
 function parseArgs(argv) {
-  const args = { json: false, all: false, project: null, urls: [] };
+  const args = {
+    json: false,
+    summaryJson: false,
+    all: false,
+    project: null,
+    urls: [],
+  };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--json') args.json = true;
+    else if (a === '--summary-json') args.summaryJson = true;
     else if (a === '--all') args.all = true;
     else if (a === '--project') args.project = argv[++i];
     else if (a === '--help' || a === '-h') {
@@ -125,10 +143,30 @@ function printHelp() {
   console.log(`Usage:
   agent-index-audit.mjs <url>
   agent-index-audit.mjs --project <registry-id>
-  agent-index-audit.mjs --all [--json]
+  agent-index-audit.mjs --all [--json | --summary-json]
 
-Targets: foundry/ops/config/agent-surfaces-registry.json
+Targets: metric-eligible visibility projects from foundry/ops/config/projects.json
 `);
+}
+
+function summarizeResult(result) {
+  return {
+    name: result.name,
+    origin: result.origin,
+    ...(result.id ? { id: result.id } : {}),
+    ...(result.error ? { error: result.error } : {}),
+    tier: result.tier,
+    score: result.score,
+    checks: Object.fromEntries(
+      Object.entries(result.checks || {}).map(([id, check]) => [
+        id,
+        {
+          status: check.status,
+          detail: check.detail,
+        },
+      ]),
+    ),
+  };
 }
 
 function loadIndexNowKey() {
@@ -717,13 +755,19 @@ async function gradeCatalogIntegrity(
     if (typeof surface?.url !== 'string' || typeof surface?.md !== 'string') {
       return { id, valid: false, reason: 'missing url or md' };
     }
-    const route = sameOriginUrl(origin, surface.url);
-    const markdown = sameOriginUrl(origin, surface.md);
-    if (!route || !markdown) {
+    const targets = resolveCatalogSurfaceTargets(origin, surface, sitemap.urls);
+    if (!targets) {
       return { id, valid: false, reason: 'url or md is not same-origin' };
     }
+    const { route, markdown, templated } = targets;
     if (!publicRoutes.has(canonicalUrl(route))) {
-      return { id, valid: false, reason: 'url absent from public sitemap' };
+      return {
+        id,
+        valid: false,
+        reason: templated
+          ? 'url template has no matching public sitemap route'
+          : 'url absent from public sitemap',
+      };
     }
     const response = await cachedProbe(markdown, {
       accept: 'text/markdown, text/plain, */*',
@@ -753,6 +797,87 @@ async function gradeCatalogIntegrity(
       (truncated ? `; capped at ${MAX_CATALOG_SURFACES}` : ''),
     data: { valid, configured, integrityPercent, failures },
   };
+}
+
+function resolveCatalogSurfaceTargets(origin, surface, sitemapUrls) {
+  const routeTemplate = parseSameOriginTemplate(origin, surface.url);
+  const markdownTemplate = parseSameOriginTemplate(origin, surface.md);
+  if (!routeTemplate || !markdownTemplate) return null;
+  if (routeTemplate.names.length === 0 && markdownTemplate.names.length === 0) {
+    return {
+      route: routeTemplate.url.toString(),
+      markdown: markdownTemplate.url.toString(),
+      templated: false,
+    };
+  }
+  if (
+    routeTemplate.names.length === 0
+    || routeTemplate.names.join('\0') !== markdownTemplate.names.join('\0')
+  ) {
+    return null;
+  }
+  for (const candidate of sitemapUrls) {
+    const candidateUrl = new URL(candidate);
+    const match = candidateUrl.pathname.match(routeTemplate.pattern);
+    if (!match) continue;
+    const values = new Map(
+      routeTemplate.names.map((name, index) => [name, match[index + 1]]),
+    );
+    return {
+      route: candidateUrl.toString(),
+      markdown: materializeUrlTemplate(markdownTemplate, values),
+      templated: true,
+    };
+  }
+  return {
+    route: routeTemplate.url.toString(),
+    markdown: markdownTemplate.url.toString(),
+    templated: true,
+  };
+}
+
+function parseSameOriginTemplate(origin, value) {
+  const names = [];
+  const sentinels = [];
+  const replaced = value.replace(/\{([A-Za-z][A-Za-z0-9_-]*)\}/g, (_match, name) => {
+    const sentinel = `fleet-template-${names.length}`;
+    names.push(name);
+    sentinels.push(sentinel);
+    return sentinel;
+  });
+  let url;
+  try {
+    url = new URL(replaced, origin);
+  } catch {
+    return null;
+  }
+  if (url.origin !== origin) return null;
+  let patternSource = escapeRegularExpression(url.pathname);
+  for (const sentinel of sentinels) {
+    patternSource = patternSource.replace(
+      escapeRegularExpression(sentinel),
+      '([^/]+)',
+    );
+  }
+  return {
+    url,
+    names,
+    sentinels,
+    pattern: new RegExp(`^${patternSource}$`),
+  };
+}
+
+function materializeUrlTemplate(template, values) {
+  const url = new URL(template.url);
+  for (let index = 0; index < template.names.length; index += 1) {
+    const value = values.get(template.names[index]);
+    url.pathname = url.pathname.replace(template.sentinels[index], value);
+  }
+  return url.toString();
+}
+
+function escapeRegularExpression(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {

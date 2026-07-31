@@ -12,37 +12,71 @@ const agentProducts = JSON.parse(
   ),
 ).products;
 
-const auditedPublicProducts = new Map([
-  ['anime-list', 'https://anime.significanthobbies.com'],
-  ['app-health', 'https://health.sassmaker.com'],
-  ['calorie', 'https://calorie.significanthobbies.com'],
-  ['india-standards', 'https://india-numbers.significanthobbies.com'],
-  ['karte', 'https://karte.cc'],
-  ['email-manager', 'https://mail.significanthobbies.com'],
-  ['chatgpt-memory-insights', 'https://chatgpt.significanthobbies.com'],
-  ['setline', 'https://setline.significanthobbies.com'],
-]);
+const sourceCompleteProjects = [
+  'app-health',
+  'chatgpt-memory-insights',
+  'india-standards',
+  'setline',
+];
 
-test('canonical agent inventory covers the audited public product identities', () => {
-  const registryById = new Map(
-    agentProducts.map((product) => [product.id, product]),
-  );
-  const projectsById = new Map(projects.map((project) => [project.id, project]));
+test('maintained project registry flags match canonical agent metadata', () => {
+  const registryIds = new Set(agentProducts.map((product) => product.id));
 
-  for (const [id, url] of auditedPublicProducts) {
-    const project = projectsById.get(id);
-    const agentProduct = registryById.get(id);
-    assert.ok(project, `${id} should exist in projects.json`);
-    assert.equal(project.inRegistry, true, `${id} should declare registry coverage`);
-    assert.ok(agentProduct, `${id} should exist in the agent registry`);
-    assert.equal(agentProduct.url, url, `${id} should use its canonical public origin`);
+  for (const project of projects.filter(
+    (project) => project.lifecycle === 'maintained',
+  )) {
+    assert.equal(
+      project.inRegistry,
+      registryIds.has(project.id),
+      `${project.id}: inRegistry`,
+    );
   }
 });
 
-test('private Knowledge Base dashboard is not a public crawl target', () => {
-  const knowledgeBase = projects.find((project) => project.id === 'knowledge-base');
+test('source-complete projects declare their canonical agent registry coverage', () => {
+  const projectsById = new Map(projects.map((project) => [project.id, project]));
+  const registryById = new Map(
+    agentProducts.map((product) => [product.id, product]),
+  );
+
+  for (const id of sourceCompleteProjects) {
+    assert.equal(projectsById.get(id)?.inRegistry, true, `${id}: registry flag`);
+    assert.ok(registryById.has(id), `${id}: agent registry entry`);
+  }
+});
+
+test('source-complete projects preserve their independently owned discovery files', () => {
+  const registryById = new Map(
+    agentProducts.map((product) => [product.id, product]),
+  );
+  const requiredFiles = [
+    'api-ai.json',
+    'index.md',
+    'llms-full.txt',
+    'llms.txt',
+    'robots.txt',
+    'sitemap.xml',
+  ];
+
+  for (const id of sourceCompleteProjects) {
+    const preserved = new Set(registryById.get(id)?.preserveFiles ?? []);
+    for (const file of requiredFiles) {
+      assert.ok(preserved.has(file), `${id}: preserve ${file}`);
+    }
+  }
+});
+
+test('Knowledge Base targets its public landing without exposing the private dashboard', () => {
+  const knowledgeBase = agentProducts.find(
+    (product) => product.id === 'knowledge-base',
+  );
+
   assert.ok(knowledgeBase);
-  assert.equal(knowledgeBase.inRegistry, false);
+  assert.equal(knowledgeBase.url, 'https://knowledgebase.sassmaker.com');
+  assert.equal(
+    knowledgeBase.publicDir,
+    'knowledge-base/landing-astro/public',
+  );
   assert.equal(
     agentProducts.some(
       (product) =>
@@ -51,18 +85,4 @@ test('private Knowledge Base dashboard is not a public crawl target', () => {
     ),
     false,
   );
-});
-
-test('new source-complete products preserve their owned agent files', () => {
-  const registryById = new Map(
-    agentProducts.map((product) => [product.id, product]),
-  );
-  for (const id of [
-    'app-health',
-    'india-standards',
-    'chatgpt-memory-insights',
-    'setline',
-  ]) {
-    assert.equal(registryById.get(id)?.skipLlmsOverwrite, true);
-  }
 });

@@ -95,9 +95,9 @@ relevant checks for a docs change are:
 psi-swarm/
 ├── cli/          ← Node CLI + headless Chrome runner + HTTP agent
 ├── web/          ← Astro + React + Tailwind dashboard
+│   └── public/   ← deployed agent-indexing surfaces and static assets
 ├── scripts/      ← deploy, skill install, cache-rules
 ├── docs/         ← this knowledge system (source of truth)
-├── site/public/  ← agent-indexing surfaces (llms.txt, api-ai.json, …)
 ├── blume.config.ts  ← Blume presentation config
 └── SKILL.md      ← installable agent skill (do not edit from docs work)
 ```

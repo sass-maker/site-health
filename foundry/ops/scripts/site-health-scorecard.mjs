@@ -42,13 +42,22 @@ if (!all && !onlyId) {
 }
 
 function runGeoAudit() {
-  const args = onlyId ? [AUDIT, '--project', onlyId, '--json'] : [AUDIT, '--all', '--json'];
-  const r = spawnSync('node', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  const args = onlyId
+    ? [AUDIT, '--project', onlyId, '--summary-json']
+    : [AUDIT, '--all', '--summary-json'];
+  const r = spawnSync('node', args, {
+    encoding: 'utf8',
+    maxBuffer: 8 * 1024 * 1024,
+  });
   // audit exits 1 when any host is below S — output is still valid JSON
   try {
     return JSON.parse(r.stdout).results;
   } catch {
-    console.error('agent-index-audit did not return JSON:\n', (r.stderr || '').slice(0, 500));
+    const cause = r.error ? ` (${r.error.message})` : '';
+    console.error(
+      `agent-index-audit did not return summary JSON${cause}:\n`,
+      (r.stderr || '').slice(0, 500),
+    );
     process.exit(1);
   }
 }

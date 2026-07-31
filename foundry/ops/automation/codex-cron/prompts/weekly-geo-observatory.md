@@ -9,8 +9,15 @@ Boundaries:
   existing query.
 - Use live web search for every configured query and classify only from the
   observed first page.
+- Record the configured query text verbatim and `source: "web-search"` for
+  every observation. Never substitute a scraper, cached SERP, or generic
+  fallback result set.
+- Rerun any query whose results are plainly unrelated. If at least two
+  results do not plausibly answer or collide with the query after a focused
+  rerun, fail the run instead of recording false evidence.
 - Every observation must include two or three evidence URLs and a short factual
-  note.
+  note. The only exception is a class C exact query with no organic results;
+  record an empty list and state that explicitly.
 - Do not scrape AI-product UIs or use a paid search/API provider.
 - Record through `foundry/ops/scripts/geo-observatory-record.mjs`; never edit
   the ledger or generated report manually.
