@@ -65,8 +65,9 @@ export class PostizClient {
       throw new PostizClientError(`Postiz provider mismatch for ${accountSlug}: expected ${expectedProvider}`, { code: 'POSTIZ_MAPPING' });
     }
 
-    const media = await this.uploadFromUrl(input?.result_url);
     const requestId = requiredString(input?.id, 'id');
+    validatePostMetadata(input, expectedProvider);
+    const media = await this.uploadFromUrl(input?.result_url);
     const body = draftPayload(input, mapping.integrationId, media, expectedProvider, this.now);
     const payload = await this.request('/posts', { method: 'POST', body, ambiguousCreate: true, requestId });
     const created = Array.isArray(payload) ? payload[0] : null;
@@ -173,7 +174,7 @@ function draftPayload(input, integrationId, media, provider, now) {
   const title = requiredString(input?.title, 'title');
   const content = requiredString(input?.body, 'body');
   const settings = provider === 'youtube'
-    ? { __type: 'youtube', title, type: 'private', selfDeclaredMadeForKids: false, tags: [] }
+    ? { __type: 'youtube', title, type: 'private', selfDeclaredMadeForKids: 'no', tags: [] }
     : { __type: 'instagram', post_type: 'post', is_trial_reel: false, collaborators: [] };
   return {
     type: 'draft',
@@ -186,6 +187,14 @@ function draftPayload(input, integrationId, media, provider, now) {
       settings,
     }],
   };
+}
+
+function validatePostMetadata(input, provider) {
+  const title = requiredString(input?.title, 'title');
+  requiredString(input?.body, 'body');
+  if (provider === 'youtube' && (title.length < 2 || title.length > 100)) {
+    throw new PostizClientError('YouTube title must contain 2 to 100 characters', { code: 'POSTIZ_INPUT' });
+  }
 }
 
 function validateIntegrationMap(input) {

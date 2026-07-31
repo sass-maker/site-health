@@ -57,8 +57,25 @@ test('creates a private YouTube draft with provider-specific settings', async ()
   });
   await client.post(input('youtube_shorts', 'brand-youtube'));
   assert.deepEqual(calls[1].body.posts[0].settings, {
-    __type: 'youtube', title: 'A specific product update', type: 'private', selfDeclaredMadeForKids: false, tags: [],
+    __type: 'youtube', title: 'A specific product update', type: 'private', selfDeclaredMadeForKids: 'no', tags: [],
   });
+});
+
+test('rejects invalid YouTube metadata before uploading media', async () => {
+  let calls = 0;
+  const client = new PostizClient({
+    apiKey: 'secret',
+    integrations,
+    fetchImpl: async () => {
+      calls += 1;
+      return response({});
+    },
+  });
+  await assert.rejects(
+    () => client.post({ ...input('youtube_shorts', 'brand-youtube'), title: 'x'.repeat(101) }),
+    /YouTube title must contain 2 to 100 characters/,
+  );
+  assert.equal(calls, 0);
 });
 
 test('fails before network access for missing or mismatched mappings', async () => {

@@ -40,6 +40,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: foundry/helpers/psi-swarm/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter psi-swarm test
       - run: pnpm run build:cli
       - run: pnpm run build:web
       - run: pnpm run docs:check

@@ -8,6 +8,17 @@ import { generateThumbnailConcepts } from './thumbnails.js';
 import { IdeaStore } from './idea-store.js';
 import { runFacelessWorkflow } from './workflow.js';
 import { planIdeas, produceNext, factoryStatus } from './factory.js';
+import {
+  MarketingBriefStore,
+  generateMarketingBriefDraft,
+  refineMarketingBriefDraft,
+} from './briefs.js';
+import { continuationForBrief, evaluateStudioCapability, listStudioCapabilities } from './capabilities.js';
+import {
+  buildStudioDistributionBundle,
+  createStudioPostizDraft,
+  studioPostizReadiness,
+} from './distribution.js';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -86,7 +97,7 @@ async function readJsonIfPresent(filePath) {
   }
 }
 
-async function listRenders(options) {
+export async function listRenders(options) {
   const store = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
   const ideas = await store.listIdeas();
   const renders = [];
@@ -132,6 +143,133 @@ async function serveRenderFile(rawPath, options) {
 export async function handleStudioRequest(method, pathname, readBody, options = {}, query = {}) {
   if (!pathname.startsWith('/studio/')) return null;
   const tool = pathname.slice('/studio/'.length);
+  const briefStore = () => options.briefStore ?? new MarketingBriefStore(options.briefStoreOptions);
+
+  if (method === 'GET' && tool === 'capabilities') {
+    const brief = query.briefId ? await briefStore().get(query.briefId) : null;
+    if (query.briefId && !brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    return {
+      status: 200,
+      body: { data: listStudioCapabilities(brief, capabilityOptions(options)) },
+    };
+  }
+  if (method === 'GET' && tool === 'briefs') {
+    const briefs = await briefStore().list();
+    return { status: 200, body: { data: briefs.map((brief) => decorateBrief(brief, options)) } };
+  }
+  if (method === 'POST' && tool === 'briefs') {
+    const body = await readBody();
+    const draft = body?.request
+      ? await generateMarketingBriefDraft(body.request, { llm: options.llm, now: options.now })
+      : body;
+    const brief = await briefStore().create({ ...draft, ...(body?.fields ?? {}) });
+    return { status: 201, body: { data: decorateBrief(brief, options) } };
+  }
+  const briefMatch = tool.match(/^briefs\/([^/]+)$/);
+  if (briefMatch && method === 'GET') {
+    const brief = await briefStore().get(decodeURIComponent(briefMatch[1]));
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  if (briefMatch && method === 'PATCH') {
+    const body = await readBody();
+    const brief = await briefStore().update(decodeURIComponent(briefMatch[1]), body ?? {});
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  const refineMatch = tool.match(/^briefs\/([^/]+)\/refine$/);
+  if (refineMatch && method === 'POST') {
+    const id = decodeURIComponent(refineMatch[1]);
+    const store = briefStore();
+    const current = await store.get(id);
+    if (!current) return { status: 404, body: { error: 'marketing brief not found' } };
+    const body = await readBody();
+    const patch = await refineMarketingBriefDraft(current, body?.instruction, {
+      llm: options.llm,
+      now: options.now,
+    });
+    const brief = await store.update(id, patch);
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  const executeMatch = tool.match(/^briefs\/([^/]+)\/execute$/);
+  if (executeMatch && method === 'POST') {
+    const body = await readBody();
+    const data = await executeMarketingBrief(decodeURIComponent(executeMatch[1]), body ?? {}, options, briefStore());
+    return { status: 200, body: { data } };
+  }
+  const prepareMatch = tool.match(/^briefs\/([^/]+)\/prepare-distribution$/);
+  if (prepareMatch && method === 'POST') {
+    const id = decodeURIComponent(prepareMatch[1]);
+    const store = briefStore();
+    const brief = await store.get(id);
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    const bundle = buildStudioDistributionBundle(brief, { now: options.now });
+    const updated = await store.update(id, {
+      lifecycle: 'ready-for-distribution',
+      distribution: {
+        preparedAt: (options.now?.() ?? new Date()).toISOString(),
+        request: bundle.request,
+        receipt: null,
+      },
+    });
+    return {
+      status: 200,
+      body: {
+        data: {
+          brief: decorateBrief(updated, options),
+          bundle,
+          posted: false,
+          boundary: 'Prepared only. No Postiz network call, schedule, or publication occurred.',
+        },
+      },
+    };
+  }
+  const draftMatch = tool.match(/^briefs\/([^/]+)\/create-postiz-draft$/);
+  if (draftMatch && method === 'POST') {
+    const id = decodeURIComponent(draftMatch[1]);
+    const body = await readBody();
+    const store = briefStore();
+    const brief = await store.get(id);
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    const draft = await createStudioPostizDraft(brief, {
+      ...options,
+      approvedBy: body?.approvedBy,
+      scheduledFor: body?.scheduledFor,
+      publishNow: body?.publishNow,
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'distributed',
+      distribution: {
+        preparedAt: draft.request.createdAt,
+        request: draft.request,
+        receipt: draft.receipt,
+      },
+    });
+    return {
+      status: 200,
+      body: {
+        data: {
+          brief: decorateBrief(updated, options),
+          receipt: draft.receipt,
+          boundary: 'Unscheduled Postiz draft created. Continue in Postiz to schedule or publish.',
+        },
+      },
+    };
+  }
+  if (method === 'GET' && tool === 'productions') {
+    const [briefs, renders] = await Promise.all([briefStore().list(), listRenders(options)]);
+    return {
+      status: 200,
+      body: {
+        data: {
+          briefs: briefs.map((brief) => decorateBrief(brief, options)),
+          legacyRenders: renders,
+        },
+      },
+    };
+  }
+  if (method === 'GET' && tool === 'postiz-readiness') {
+    return { status: 200, body: { data: studioPostizReadiness(options) } };
+  }
 
   if (method === 'GET' && tool === 'ideas-list') {
     const store = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
@@ -156,4 +294,72 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   const body = await readBody();
   const data = await handler(body ?? {});
   return { status: 200, body: { data } };
+}
+
+async function executeMarketingBrief(id, body, options, store) {
+  if (body.confirm !== true) throw new Error('explicit execution confirmation is required');
+  const brief = await store.get(id);
+  if (!brief) throw new Error('marketing brief not found');
+  const capability = evaluateStudioCapability(brief.kind, brief, capabilityOptions(options));
+  if (brief.kind !== 'faceless') {
+    return {
+      brief: decorateBrief(brief, options),
+      continuation: continuationForBrief(brief, capabilityOptions(options)),
+      executed: false,
+    };
+  }
+  if (capability.state !== 'ready') throw new Error(capability.blocker ?? 'video workflow is not ready');
+  await store.update(id, { lifecycle: 'producing', lastError: null });
+  try {
+    const summary = await runFacelessWorkflow({
+      topic: brief.title,
+      niche: brief.summary,
+      durationSeconds: brief.durationSeconds,
+      engine: brief.engine,
+      projectSlug: brief.projectSlug,
+      channel: brief.channel,
+      briefId: brief.id,
+      hook: brief.hook,
+      cta: brief.cta,
+      creativeDirection: brief.creativeDirection,
+      outputDir: options.facelessOutputDir,
+      ideaStore: options.ideaStore,
+      rendererOptions: options.rendererOptions ?? {},
+      llm: options.llm,
+      logger: options.logger ?? console,
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'needs-review',
+      lastError: null,
+      media: {
+        artifactDir: summary.artifactDir,
+        videoPath: summary.video,
+        publicUrl: null,
+        ideaId: summary.ideaId,
+        provider: summary.engine,
+        quality: summary.quality,
+        reviewedAt: null,
+      },
+    });
+    return { brief: decorateBrief(updated, options), production: summary, executed: true };
+  } catch (error) {
+    await store.update(id, { lifecycle: 'failed', lastError: error.message });
+    throw error;
+  }
+}
+
+function decorateBrief(brief, options) {
+  const capability = evaluateStudioCapability(brief.kind, brief, capabilityOptions(options));
+  return {
+    ...brief,
+    capability,
+    continuation: continuationForBrief(brief, capabilityOptions(options)),
+  };
+}
+
+function capabilityOptions(options) {
+  return {
+    forgeUrl: options.forgeUrl ?? process.env.REEL_FORGE_URL,
+    editorialUrl: options.editorialUrl ?? process.env.REEL_EDITORIAL_URL,
+  };
 }

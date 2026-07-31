@@ -1,6 +1,6 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-07-29
+Last updated: 2026-07-31
 
 ## Why / What
 
@@ -33,6 +33,12 @@ or provider analytics. Postiz owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-07-31:** unified the internal Marketing Studio around a persistent,
+  conversational video brief covering faceless lessons, brand reels, guided
+  app demos, coherent films, and podcast shorts. Added explicit runtime
+  routing, production review/playback, fail-closed distribution evidence, and
+  an unscheduled Postiz draft handoff while leaving scheduling and publication
+  inside Postiz.
 - **2026-07-29:** consolidated Mashup's Python planner, SQLite-backed stage
   state, provenance-gated archive tooling, tests, and operator editor under
   `editorial/`. Added the strict `fleet.podcast-edit.v1` handoff, an
@@ -71,7 +77,7 @@ or provider analytics. Postiz owns that downstream lifecycle.
 ## Products
 
 - Anonymous brand-reel generator.
-- Internal content studio and faceless/lesson workflows.
+- Internal Marketing Studio and faceless/lesson workflows.
 - Worker/R2 production reel renderer.
 - Content-package renderer and Postiz draft handoff.
 - Source-backed podcast planning, approval, and multi-clip rendering.
@@ -85,6 +91,18 @@ or provider analytics. Postiz owns that downstream lifecycle.
 - Worker/R2 render flow with Rust watch/render orchestration.
 - Significant Content and High Signal intake contracts.
 - Postiz integration mapping, media upload, and draft creation adapter.
+- Conversational `fleet.marketing-studio-brief.v1` intake with revisioned local
+  persistence, multi-turn natural-language refinement, normalized
+  brand/channel/creative state, and honest readiness across five video
+  workflows.
+- Unified Create, Productions, Distribute, and Tools operator views with
+  explicit execution, local artifact playback, quality state, specialized
+  runtime continuations, safe public-field prefill for Brand Reel and Forge,
+  and the complete legacy Content Studio toolset.
+- Fail-closed Studio-to-Postiz preparation requiring source, claim,
+  destination, rights, creative approval, quality evidence, render evidence,
+  and a stable public media URL; draft handoff accepts neither scheduling nor
+  publication inputs.
 - Fail-closed rejection of native social-provider distribution.
 - Node and Rust regression suites plus focused Postiz and render-mode smokes.
 - Local Video Forge JSON manifests, approval/memory gates, resumable
