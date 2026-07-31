@@ -39,6 +39,11 @@ model in the Console, with each page answering one clear question.
   until real evidence exists. Every displayed measure names its evidence source
   and observation time, and shared domain-level D-Rank values disclose their
   domain scope.
+- Add one credential-free, private visibility-outcome ingestion contract for
+  Google Search Console aggregates, Cloudflare AI crawler activity, and
+  Cloudflare AI referral traffic. Keep provider acquisition outside this
+  change, validate the complete bundle before recording, and project only
+  normalized aggregate metrics into project detail.
 - Preserve the six-bucket topology, component states, gaps, and complete
   transport ledger as an inspectable left-side System Map sheet.
 - Add one normalized private API projection for project catalog, AI visibility,
@@ -56,8 +61,9 @@ model in the Console, with each page answering one clear question.
 - Keep the skill owners storage-neutral. The central runner records normalized
   local envelopes; any future hosted D1 history goes through one authenticated
   Fleet ingestion boundary rather than direct per-skill writes.
-- Do not deploy, activate recurring schedules, modify credentials, or fabricate
-  missing Feedback submissions, Marketing outcomes, or mobile consumers.
+- Do not deploy, activate recurring schedules, modify credentials, call live
+  Google or Cloudflare APIs, or fabricate missing Feedback submissions,
+  Marketing outcomes, or mobile consumers.
 
 ## Capabilities
 

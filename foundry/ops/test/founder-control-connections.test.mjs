@@ -15,6 +15,10 @@ import {
   appendVisibilityMetric,
   VISIBILITY_METRIC_SCHEMA,
 } from '../lib/visibility-metric-store.mjs';
+import {
+  appendVisibilityOutcomeBundle,
+  VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+} from '../lib/visibility-outcome-store.mjs';
 
 const now = '2026-07-30T10:00:00.000Z';
 
@@ -314,6 +318,92 @@ test('reads one retained skill output with private paths removed', () => {
   assert.equal(result.outputCount, 1);
   assert.match(result.streams[0].content, /\[private path\]/);
   assert.doesNotMatch(result.streams[0].content, /\/Users\/sarthak/);
+});
+
+test('projects provider-authoritative search and Cloudflare activity without conflating AI visibility', () => {
+  const { root, home } = fixture();
+  appendVisibilityOutcomeBundle({
+    schema: VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+    observations: [
+      {
+        id: 'search-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-01T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 120 },
+          { label: 'Search clicks', value: 8 },
+          { label: 'Search CTR', value: 6.67 },
+          { label: 'Search average position', value: 14.2 },
+        ],
+      },
+      {
+        id: 'cloudflare-crawl-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'ai-crawl',
+        provider: 'cloudflare-ai-crawl-control',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-24T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'AI crawler requests', value: 18 },
+          { label: 'AI crawled URLs', value: 7 },
+        ],
+      },
+      {
+        id: 'cloudflare-referral-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'ai-referral',
+        provider: 'cloudflare-web-analytics',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-24T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'AI referral visits', value: 3 },
+          { label: 'AI referral page views', value: 5 },
+        ],
+      },
+    ],
+  }, {
+    path: join(home, '.fleet/visibility-outcomes/ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  });
+
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now: '2026-07-31T14:00:00.000Z',
+  });
+  const pace = result.outputs.projects.find((project) => project.projectId === 'pace');
+
+  assert.equal(pace.metricSemantics.seo.searchOutcome.status, 'measured');
+  assert.equal(pace.searchVisibility.outcome.provider, 'google-search-console');
+  assert.equal(
+    pace.history.signals.find((signal) => signal.label === 'Search impressions').value,
+    120,
+  );
+  assert.equal(pace.aiVisibility.observations, 0);
+  assert.equal(pace.metricSemantics.geo.aiVisibility.status, 'not-measured');
+  assert.equal(pace.metricSemantics.geo.crawlerActivity.status, 'measured');
+  assert.equal(pace.metricSemantics.geo.referralTraffic.status, 'measured');
+  assert.equal(pace.aiVisibility.discovery.crawler.metrics[0].value, 18);
+  assert.equal(pace.aiVisibility.discovery.referral.metrics[0].value, 3);
+  assert.equal(
+    pace.history.signals.find((signal) => signal.label === 'AI referral visits').source,
+    'Cloudflare Web Analytics',
+  );
 });
 
 test('builds one honest six-bucket projection from readable Fleet evidence', () => {

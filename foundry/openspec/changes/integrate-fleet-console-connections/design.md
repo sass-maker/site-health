@@ -231,6 +231,36 @@ subdomains are not mistaken for independent measurements. Generated-at time is
 never used as measurement freshness; each visible value uses the provider's
 own observation time.
 
+### Ingest external visibility outcomes through one private contract
+
+Search Console and Cloudflare remain provider authorities. Fleet adds one
+credential-free bundle validator and machine-local append-only store rather
+than embedding OAuth, API tokens, or provider clients in the Console. A bundle
+is validated in full before any record is written and accepts only canonical
+visibility projects, known provider/family pairs, bounded aggregate metrics,
+explicit periods, and stable observation ids. Duplicate ids are idempotent;
+conflicting reuse fails closed.
+
+```mermaid
+flowchart LR
+  GSC[Search Console export] --> Bundle[Visibility outcome bundle]
+  Crawl[Cloudflare AI Crawl Control export] --> Bundle
+  Referral[Cloudflare Web Analytics export] --> Bundle
+  Bundle --> Validator[Credential-free validator]
+  Validator --> Ledger[Private local outcome ledger]
+  Ledger --> Projection[Founder connection projection]
+  Projection --> Detail[Project SEO and GEO detail]
+```
+
+The first implementation stores aggregate Search impressions, clicks, CTR,
+and average position; Cloudflare AI crawler requests and crawled URLs; and AI
+referral visits and page views. It does not treat crawler activity as a model
+mention, referral traffic as a citation, or any absent metric as zero. The
+existing `@saas-maker/ai-visibility` helper remains the only engine for model
+answer mention, recommendation, rank, citation, competitor, and cost analysis.
+Live collectors, Cloudflare AI Gateway provider adapters, secrets, billing,
+and recurring schedules remain an explicit follow-up task.
+
 The projection builder accepts a Fleet root, home path, current time, and
 optional already-built Marketing data. Tests use temporary fixtures and injected
 readers instead of the operator's real machine state.

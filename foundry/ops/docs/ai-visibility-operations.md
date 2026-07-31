@@ -88,6 +88,32 @@ so a provider observation is never shown as movement from a fixture baseline.
 Keep the input in a private temporary location, do not commit it, and remove it
 through the operator's normal secure-file process after verifying the receipt.
 
+## Search and Cloudflare outcome ingestion
+
+Search Console, AI Crawl Control, and Web Analytics measure different outcomes
+from model-answer visibility. Export normalized aggregates into a temporary
+bundle matching `fleet.visibility-outcome-bundle.v1`; the non-secret example at
+`foundry/ops/test/fixtures/visibility-outcomes/provider-outcomes-v1.example.json`
+shows the accepted shape.
+
+```bash
+node foundry/ops/scripts/visibility-outcomes-ingest.mjs \
+  --input /path/to/private-visibility-outcomes.json
+```
+
+The command makes no network request and reads no credentials. It validates the
+whole bundle before writing to the private machine-local ledger. Accepted
+families are deliberately narrow:
+
+- Google Search Console: impressions, clicks, CTR, and average position;
+- Cloudflare AI Crawl Control: AI crawler requests and crawled URLs;
+- Cloudflare Web Analytics: AI referral visits and page views.
+
+Project detail shows these provider-native values with scope, reporting period,
+observation time, and history. Cloudflare crawler access and referral traffic
+remain discovery evidence; neither is counted as a model mention,
+recommendation, rank, or citation. The portfolio matrix is unchanged.
+
 ## Persistence and privacy
 
 The ledger stores normalized aggregates, status-only attempt receipts, cost

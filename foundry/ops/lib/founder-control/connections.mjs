@@ -12,6 +12,10 @@ import {
   defaultVisibilityMetricPath,
   readVisibilityMetrics,
 } from '../visibility-metric-store.mjs';
+import {
+  defaultVisibilityOutcomePath,
+  readVisibilityOutcomes,
+} from '../visibility-outcome-store.mjs';
 import { visibilityProjects } from '../visibility-projects.mjs';
 
 export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
@@ -208,6 +212,62 @@ function visibilityMetricEvidence(home) {
         {
           latest: family.latest,
           metrics: [...family.metrics.values()],
+        },
+      ]),
+    ),
+  }));
+}
+
+function visibilityOutcomeEvidence(home) {
+  const observations = readVisibilityOutcomes({
+    path: defaultVisibilityOutcomePath({ home }),
+  });
+  const projects = new Map();
+  for (const observation of observations) {
+    const project = projects.get(observation.projectId) ?? {
+      projectId: observation.projectId,
+      families: {},
+    };
+    const family = project.families[observation.family] ?? {
+      latest: null,
+      metrics: new Map(),
+      observations: 0,
+    };
+    family.latest = !family.latest || Date.parse(observation.observedAt) >= Date.parse(family.latest.observedAt)
+      ? observation
+      : family.latest;
+    family.observations += 1;
+    for (const metric of observation.metrics) {
+      const values = family.metrics.get(metric.label) ?? {
+        label: metric.label,
+        unit: metric.unit,
+        direction: metric.direction,
+        source: observation.provider,
+        series: [],
+      };
+      values.series.push({
+        observedAt: observation.observedAt,
+        value: metric.value,
+      });
+      family.metrics.set(metric.label, values);
+    }
+    project.families[observation.family] = family;
+    projects.set(observation.projectId, project);
+  }
+  return [...projects.values()].map((project) => ({
+    ...project,
+    families: Object.fromEntries(
+      Object.entries(project.families).map(([familyId, family]) => [
+        familyId,
+        {
+          latest: family.latest,
+          observations: family.observations,
+          metrics: [...family.metrics.values()].map((metric) => ({
+            ...metric,
+            series: metric.series.sort(
+              (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
+            ),
+          })),
         },
       ]),
     ),
@@ -990,6 +1050,23 @@ function designReviewEvidence(fleetRoot, projects) {
   ));
 }
 
+function outcomeFamilySummary(family) {
+  if (!family?.latest) return null;
+  return {
+    observations: family.observations,
+    provider: family.latest.provider,
+    scope: family.latest.scope,
+    observedAt: family.latest.observedAt,
+    period: family.latest.period,
+    metrics: family.metrics.map((metric) => ({
+      label: metric.label,
+      value: metric.series.at(-1)?.value ?? null,
+      unit: metric.unit,
+      direction: metric.direction,
+    })),
+  };
+}
+
 function buildProjectOutputs({
   projects,
   skills,
@@ -1000,6 +1077,7 @@ function buildProjectOutputs({
   designReviews,
   searchVisibility,
   visibilityMetrics,
+  visibilityOutcomes,
 }) {
   const skillProjects = new Map(skills.projects.map((project) => [project.projectId, project]));
   const workflowProjects = new Map(
@@ -1020,6 +1098,9 @@ function buildProjectOutputs({
   );
   const visibilityByProject = new Map(
     visibilityMetrics.map((project) => [project.projectId, project]),
+  );
+  const outcomesByProject = new Map(
+    visibilityOutcomes.map((project) => [project.projectId, project]),
   );
   const domainRootCounts = new Map();
   for (const project of projects) {
@@ -1049,6 +1130,7 @@ function buildProjectOutputs({
       const designReview = designByProject.get(project.id) ?? null;
       const search = searchByProject.get(project.id) ?? null;
       const readiness = visibilityByProject.get(project.id)?.families ?? {};
+      const outcomes = outcomesByProject.get(project.id)?.families ?? {};
       const metrics = metricSignals(skill?.metrics ?? []);
       const aiHistory = [...(ai?.history ?? [])].sort(
         (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
@@ -1138,6 +1220,21 @@ function buildProjectOutputs({
         source: 'GEO Observatory · current web search',
         series: search?.series ?? [],
       });
+      const outcomeSignals = Object.values(outcomes).flatMap((family) =>
+        family.metrics.map((metric) =>
+          historicalSignal({
+            label: metric.label,
+            unit: metric.unit,
+            direction: metric.direction,
+            source: {
+              'google-search-console': 'Google Search Console',
+              'cloudflare-ai-crawl-control': 'Cloudflare AI Crawl Control',
+              'cloudflare-web-analytics': 'Cloudflare Web Analytics',
+            }[metric.source] ?? metric.source,
+            series: metric.series,
+          }),
+        ),
+      ).filter(Boolean);
       const readinessSignals = Object.entries(readiness).flatMap(([familyId, family]) =>
         family.metrics.map((metric) =>
           historicalSignal({
@@ -1248,6 +1345,21 @@ function buildProjectOutputs({
           freshness: 'recorded',
         });
       }
+      for (const [familyId, family] of Object.entries(outcomes)) {
+        if (!family.latest) continue;
+        produced.push({
+          kind: `visibility-outcome-${familyId}`,
+          label: {
+            search: 'Search Console outcome',
+            'ai-crawl': 'AI crawler activity',
+            'ai-referral': 'AI referral traffic',
+          }[familyId] ?? familyId,
+          value: family.observations,
+          detail: `${family.latest.provider} · ${family.latest.scope}`,
+          observedAt: family.latest.observedAt,
+          freshness: 'recorded',
+        });
+      }
       for (const [familyId, family] of Object.entries(readiness)) {
         if (!family.latest) continue;
         produced.push({
@@ -1324,9 +1436,27 @@ function buildProjectOutputs({
           series: domainRating?.series ?? [],
         }),
         searchSignal,
+        ...outcomeSignals,
         ...readinessSignals,
         ...aiSignals,
       ].filter(Boolean);
+      const aiVisibilityOutput = {
+        configured: Boolean(ai),
+        observations: aiOutcomeHistory.length,
+        observedAt: latestAiOutcome?.observedAt ?? null,
+        evidenceMode: aiRunEvidenceMode(latestAiOutcome),
+        source: latestAiOutcome ? 'AI Visibility provider observation' : null,
+        fixture: {
+          observations: aiFixtureHistory.length,
+          observedAt: latestAiFixture?.observedAt ?? null,
+          source: 'AI Visibility fixture canary',
+        },
+        questions: ai?.questions ?? [],
+        discovery: {
+          crawler: outcomeFamilySummary(outcomes['ai-crawl']),
+          referral: outcomeFamilySummary(outcomes['ai-referral']),
+        },
+      };
       return {
         projectId,
         catalogProjectId: project.id,
@@ -1364,26 +1494,13 @@ function buildProjectOutputs({
             }
           : null,
         designReview,
-        aiVisibility: ai
-          ? {
-              configured: true,
-              observations: aiOutcomeHistory.length,
-              observedAt: latestAiOutcome?.observedAt ?? null,
-              evidenceMode: aiRunEvidenceMode(latestAiOutcome),
-              source: latestAiOutcome ? 'AI Visibility provider observation' : null,
-              fixture: {
-                observations: aiFixtureHistory.length,
-                observedAt: latestAiFixture?.observedAt ?? null,
-                source: 'AI Visibility fixture canary',
-              },
-              questions: ai.questions ?? [],
-            }
-          : null,
+        aiVisibility: aiVisibilityOutput,
         searchVisibility: {
           configured: search?.configured === true,
           observations: search?.series?.length ?? 0,
           observedAt: searchSignal?.observedAt ?? null,
           queries: search?.queries ?? [],
+          outcome: outcomeFamilySummary(outcomes.search),
         },
         visibilityReadiness: Object.fromEntries(
           ['agent', 'crawl', 'coverage'].map((familyId) => [
@@ -1427,10 +1544,10 @@ function buildProjectOutputs({
                 },
             searchOutcome: {
               kind: 'outcome',
-              status: 'not-measured',
+              status: outcomes.search?.latest ? 'measured' : 'not-measured',
               source: 'Google Search Console',
-              observedAt: null,
-              reason: 'Search Console is not connected.',
+              observedAt: outcomes.search?.latest?.observedAt ?? null,
+              reason: outcomes.search?.latest ? null : 'Search Console is not connected.',
             },
             trackedSearch: {
               kind: 'observation',
@@ -1459,6 +1576,18 @@ function buildProjectOutputs({
               source: 'AI Visibility fixture canary',
               observedAt: latestAiFixture?.observedAt ?? null,
             },
+            crawlerActivity: {
+              kind: 'outcome',
+              status: outcomes['ai-crawl']?.latest ? 'measured' : 'not-measured',
+              source: 'Cloudflare AI Crawl Control',
+              observedAt: outcomes['ai-crawl']?.latest?.observedAt ?? null,
+            },
+            referralTraffic: {
+              kind: 'outcome',
+              status: outcomes['ai-referral']?.latest ? 'measured' : 'not-measured',
+              source: 'Cloudflare Web Analytics',
+              observedAt: outcomes['ai-referral']?.latest?.observedAt ?? null,
+            },
           },
           performance: {
             source: 'PSI Swarm',
@@ -1486,6 +1615,7 @@ function buildProjectOutputs({
           ai?.latest?.observedAt,
           designReview?.observedAt,
           searchSignal?.observedAt,
+          ...Object.values(outcomes).map((family) => family.latest?.observedAt),
           ...Object.values(readiness).map((family) => family.latest?.observedAt),
         ]),
       };
@@ -1645,6 +1775,7 @@ export function buildFleetConnections({
   const designReviews = designReviewEvidence(fleetRoot, maintainedProjects);
   const searchVisibility = searchVisibilityEvidence(fleetRoot);
   const visibilityMetrics = visibilityMetricEvidence(home);
+  const visibilityOutcomes = visibilityOutcomeEvidence(home);
   const workflows = workflowEvidence(fleetRoot, now);
   const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
   const measuredAiProjects = visibleAiProjects.flatMap((project) => {
@@ -2032,6 +2163,7 @@ export function buildFleetConnections({
     designReviews,
     searchVisibility,
     visibilityMetrics,
+    visibilityOutcomes,
   });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),

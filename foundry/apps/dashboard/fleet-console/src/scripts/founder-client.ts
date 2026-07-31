@@ -941,6 +941,8 @@ type MetricFamilyDefinition = {
   matchesAction: (action: JsonRecord) => boolean;
   canRun: (project: JsonRecord) => boolean;
   runBoundary?: string;
+  historyState?: (project: JsonRecord, signals: JsonRecord[]) => string;
+  observedAt?: (project: JsonRecord, signals: JsonRecord[]) => string | null;
   emptyState: (project: JsonRecord) => MetricEmptyState;
   renderEvidence: (
     project: JsonRecord,
@@ -965,10 +967,14 @@ const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
     title: "Search outcomes & observations",
     runLabel: "Record search run",
     includesProject: (project) => project.metricEligibility?.publicSite === true,
-    matchesSignal: (signal) => signal.label === "Worst tracked query class",
+    matchesSignal: (signal) =>
+      signal.label === "Worst tracked query class" || signal.label.startsWith("Search "),
     matchesAction: () => false,
     canRun: () => false,
-    runBoundary: "Web-search observation · Search Console not connected",
+    historyState: (_project, signals) => metricHistoryState(
+      signals.filter((signal) => signal.source === "Google Search Console"),
+    ),
+    observedAt: (project) => project.searchVisibility?.outcome?.observedAt ?? null,
     emptyState: (project) => project.searchVisibility?.configured
       ? {
           title: "No Search Visibility baseline",
@@ -984,15 +990,13 @@ const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
     title: "AI Visibility",
     runLabel: "Run fixture canary",
     includesProject: (project) => project.metricEligibility?.publicSite === true,
-    matchesSignal: (signal) => [
-      "AI visibility score",
-      "AI mention rate",
-      "AI recommendation rate",
-      "AI citation rate",
-      "AI coverage rate",
-      "AI average rank",
-      "AI citations",
-    ].includes(signal.label),
+    matchesSignal: (signal) =>
+      signal.label.startsWith("AI visibility") ||
+      signal.label.startsWith("AI mention") ||
+      signal.label.startsWith("AI recommendation") ||
+      signal.label.startsWith("AI citation") ||
+      signal.label.startsWith("AI coverage") ||
+      signal.label.startsWith("AI average rank"),
     matchesAction: (action) => action.id.includes(":ai-"),
     canRun: (project) => Boolean(project.aiVisibility?.configured),
     emptyState: (project) => {
@@ -1042,7 +1046,8 @@ const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
     includesProject: (project) => project.metricEligibility?.publicSite === true,
     matchesSignal: (signal) =>
       signal.label === "AI crawlability" ||
-      signal.label.startsWith("AI crawler "),
+      signal.label === "AI crawler checks passed" ||
+      signal.label === "AI crawler checks failed",
     matchesAction: () => false,
     canRun: (project) => project.metricEligibility?.publicSite === true,
     emptyState: () => ({
@@ -1098,6 +1103,27 @@ function metricHistoryState(signals: JsonRecord[]) {
   return "unmeasured";
 }
 
+function metricFamilyHistoryState(
+  definition: MetricFamilyDefinition,
+  project: JsonRecord,
+  signals: JsonRecord[],
+) {
+  if (definition.historyState) return definition.historyState(project, signals);
+  return metricHistoryState(signals);
+}
+
+function metricFamilyObservedAt(
+  definition: MetricFamilyDefinition,
+  project: JsonRecord,
+  signals: JsonRecord[],
+) {
+  if (definition.observedAt) return definition.observedAt(project, signals);
+  return signals
+    .map((signal: JsonRecord) => signal.observedAt)
+    .filter(Boolean)
+    .sort((left: string, right: string) => Date.parse(right) - Date.parse(left))[0] ?? null;
+}
+
 function renderMetricCharts(
   _project: JsonRecord,
   signals: JsonRecord[],
@@ -1114,6 +1140,11 @@ function renderSearchVisibility(
   signals: JsonRecord[],
   emptyState: MetricEmptyState,
 ) {
+  const outcome = project.searchVisibility?.outcome;
+  let outcomeSummary = "Direct search outcome is not measured · Google Search Console is not connected. The rows below are current web-search observations, not an overall grade.";
+  if (outcome) {
+    outcomeSummary = `Google Search Console outcome · ${outcomeMetricsSummary(outcome)} · ${formatted(outcome.observedAt)} · ${formattedDay(outcome.period?.start)} to ${formattedDay(outcome.period?.end)} · ${outcome.scope}`;
+  }
   const queries = project.searchVisibility?.queries ?? [];
   const queryList = queries.length
     ? element("div", { class: "tracked-intent-list" }, queries.map((query: JsonRecord) => {
@@ -1134,9 +1165,7 @@ function renderSearchVisibility(
     : empty("No tracked search terms", "This project needs a stable query set before ranking history can begin.");
   return element("div", { class: "metric-evidence" }, [
     element("div", { class: "metric-evidence__summary" }, [
-      element("span", {}, [
-        "Direct search outcome is not measured · Google Search Console is not connected. The rows below are current web-search observations, not an overall grade.",
-      ]),
+      element("span", {}, [outcomeSummary]),
       element("a", {
         href: "https://search.google.com/search-console",
         target: "_blank",
@@ -1148,12 +1177,50 @@ function renderSearchVisibility(
   ]);
 }
 
+function outcomeMetricsSummary(outcome: JsonRecord) {
+  const metrics = Array.isArray(outcome.metrics) ? outcome.metrics : [];
+  if (metrics.length === 0) return "No aggregate values";
+  return metrics
+    .map((metric: JsonRecord) => `${metric.label.replace(/^AI /, "")}: ${metricValue(metric.value, metric.unit)}`)
+    .join(" · ");
+}
+
+function discoveryOutcomeSummary(label: string, outcome: JsonRecord | null | undefined) {
+  if (!outcome) return null;
+  return element("p", { class: "metric-evidence__summary" }, [
+    `${label} · ${outcomeMetricsSummary(outcome)} · ${formatted(outcome.observedAt)} · ${formattedDay(outcome.period?.start)} to ${formattedDay(outcome.period?.end)} · ${outcome.scope}`,
+  ]);
+}
+
 function renderAiVisibility(
   project: JsonRecord,
   signals: JsonRecord[],
   emptyState: MetricEmptyState,
 ) {
   const questions = project.aiVisibility?.questions ?? [];
+  const discoverySummaries = [
+    discoveryOutcomeSummary(
+      "Cloudflare AI crawler activity",
+      project.aiVisibility?.discovery?.crawler,
+    ),
+    discoveryOutcomeSummary(
+      "Cloudflare AI referral traffic",
+      project.aiVisibility?.discovery?.referral,
+    ),
+  ].filter(Boolean);
+  let discoverySection = null;
+  if (discoverySummaries.length > 0) {
+    discoverySection = element("section", {
+      class: "metric-discovery",
+      "aria-label": "Discovery evidence",
+    }, [
+      element("p", { class: "metric-evidence__summary" }, [
+        element("strong", {}, ["Discovery evidence"]),
+        " · crawler access and referral traffic do not establish a model mention, citation, rank, or recommendation.",
+      ]),
+      ...discoverySummaries,
+    ]);
+  }
   const questionList = questions.length
     ? element("div", { class: "tracked-intent-list" }, questions.map((question: JsonRecord) =>
         element("article", { class: "tracked-intent" }, [
@@ -1174,6 +1241,7 @@ function renderAiVisibility(
             ? `Real AI visibility is not measured · ${project.aiVisibility.fixture.observations} fixture canary recorded for runner verification.`
             : "Real AI visibility is not measured · no provider-backed observation or fixture canary is recorded.",
         ]),
+    discoverySection,
     questionList,
     renderMetricCharts(project, signals, emptyState),
   ]);
@@ -1306,11 +1374,8 @@ function metricReportProject(
   family: MetricFamily,
 ) {
   const definition = METRIC_FAMILIES[family];
-  const historyState = metricHistoryState(signals);
-  const observedAt = signals
-    .map((signal: JsonRecord) => signal.observedAt)
-    .filter(Boolean)
-    .sort((left: string, right: string) => Date.parse(right) - Date.parse(left))[0];
+  const historyState = metricFamilyHistoryState(definition, project, signals);
+  const observedAt = metricFamilyObservedAt(definition, project, signals);
   const identity = element("div", {}, [
     element("h3", {}, [project.name]),
     element("small", {}, [observedAt ? formatted(observedAt) : "No observation"]),
@@ -1846,7 +1911,8 @@ function projectMetricPanel(
 ) {
   const definition = METRIC_FAMILIES[family];
   const signals = project.history.signals.filter(definition.matchesSignal);
-  const historyState = metricHistoryState(signals);
+  const historyState = metricFamilyHistoryState(definition, project, signals);
+  const observedAt = metricFamilyObservedAt(definition, project, signals);
   const evidence = definition.renderEvidence(project, signals, definition.emptyState(project));
   const actions = improvements
     .filter((action: JsonRecord) =>
@@ -1870,7 +1936,7 @@ function projectMetricPanel(
       element("div", {}, [
         element("h3", {}, [definition.title]),
         element("small", {}, [
-          signals[0]?.observedAt ? formatted(signals[0].observedAt) : "No observation",
+          observedAt ? formatted(observedAt) : "No observation",
         ]),
       ]),
       element("div", { class: "metric-report__header-actions" }, [

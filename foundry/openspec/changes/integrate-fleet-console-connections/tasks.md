@@ -144,3 +144,21 @@
   sortable native values and project deep links.
 - [x] 17.4 Run focused build, strict OpenSpec, responsive browser, and design
   review gates; update durable status.
+
+## 18. Provider Outcome Intake
+
+- [x] 18.1 Define and test a strict credential-free bundle contract and private
+  idempotent store for Search Console, Cloudflare AI Crawl Control, and
+  Cloudflare Web Analytics aggregates.
+- [x] 18.2 Add a no-network ingestion command with canonical-project,
+  provider/family, metric, period, privacy, and all-before-write validation.
+- [x] 18.3 Project Search Console outcomes and Cloudflare crawler/referral
+  activity into project SEO/GEO histories without changing the portfolio
+  matrix or conflating those signals with live model-answer visibility.
+- [x] 18.4 Add focused store, command, projection, and UI/build coverage; run
+  strict OpenSpec and diff checks.
+- [x] 18.5 Create one detailed GitHub task for OAuth/token authorization,
+  Cloudflare AI Gateway provider adapters, billing/cost gates, live collectors,
+  first canaries, and schedule activation.
+- [x] 18.6 Update durable status, commit, and push without deploying or touching
+  credentials or production configuration.

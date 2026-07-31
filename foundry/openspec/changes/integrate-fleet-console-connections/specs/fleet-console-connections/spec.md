@@ -554,3 +554,37 @@ connection topology, or explanatory filler.
 - **WHEN** the operator explicitly opens System Map
 - **THEN** connection topology remains available as secondary diagnostics and
   never occupies a primary owner page
+
+### Requirement: Credential-free external outcome ingestion
+
+Founder Control SHALL accept a versioned private bundle of normalized Google
+Search Console, Cloudflare AI Crawl Control, and Cloudflare Web Analytics
+observations without loading credentials or calling provider APIs. It SHALL
+validate the complete bundle before writing, require canonical project identity
+and explicit provider periods, reject unknown metrics and private/raw fields,
+and record stable observation ids idempotently.
+
+#### Scenario: Operator imports provider aggregates
+
+- **WHEN** an operator supplies a valid bundle containing Search Console and
+  Cloudflare aggregate observations
+- **THEN** Fleet records only the normalized aggregate metrics in its private
+  local visibility-outcome ledger
+- **AND** project SEO and GEO detail expose their native values, source,
+  period, observation time, and history
+- **AND** the portfolio matrix remains unchanged
+
+#### Scenario: Bundle validation fails
+
+- **WHEN** any observation names an unknown project, unsupported
+  provider/family pair, unknown metric, invalid period, secret/raw field, or
+  conflicting observation id
+- **THEN** ingestion fails before recording any observation
+
+#### Scenario: Cloudflare activity exists without model-answer evidence
+
+- **WHEN** AI crawler or AI referral activity is recorded but no live model
+  answer observation exists
+- **THEN** the project page shows the Cloudflare activity separately
+- **AND** AI Visibility remains unmeasured rather than treating crawler access
+  or referral visits as a mention, recommendation, rank, or citation

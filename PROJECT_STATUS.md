@@ -62,6 +62,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Search and Cloudflare outcomes gained one private intake
+  boundary:** Added a strict no-network bundle and idempotent machine-local
+  ledger for Google Search Console aggregates, Cloudflare AI crawler activity,
+  and Cloudflare AI referrals. Project SEO/GEO detail now exposes native
+  values, provider scope, reporting period, observation time, and history while
+  keeping crawler/referral discovery separate from model-answer visibility and
+  leaving the portfolio matrix unchanged. Live authorization, collectors,
+  provider adapters, billing gates, first canaries, and cadence remain in
+  GitHub issue #91; no credentials, provider calls, deployment, or production
+  configuration were touched.
 - **2026-07-31 — Metrics portfolio comparison became evidence-led:** Reduced
   the main matrix to the current comparable signals: D-Rank, AI Agent
   Readiness, PSI, and LCP. Search and AI Visibility remain on each project page
@@ -587,6 +597,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Credential-free provider-observation ingestion with strict bundle validation,
   partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
   retained raw answer text or provider request IDs.
+- Credential-free Search Console and Cloudflare outcome ingestion with strict
+  aggregate-only validation, canonical-project identity, idempotent private
+  history, and separate Search, crawler, and AI-referral project-detail
+  evidence without changing portfolio scores.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.
