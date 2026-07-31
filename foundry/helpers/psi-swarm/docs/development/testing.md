@@ -1,17 +1,15 @@
 ---
 title: Testing
-description: The current test/quality situation — no automated test suite yet.
+description: The current test and quality checks.
 ---
 
 # Testing
 
-_Unresolved:_ there is **no automated test suite** in this repo today.
-
 ## Current state
 
 - The root `package.json` has no `test` or `lint` script.
-- The `cli` package has no test script; its build is `tsc` (type-check by
-  side effect).
+- The `cli` package has a narrow Node test suite for the external trace-insight
+  adapter boundary. Run it with `pnpm --filter psi-swarm test`.
 - The `web` package has no test script; its build is `astro build`.
 - There is no CI workflow that runs tests on push — the only workflows are
   `.github/workflows/deploy.yml` (manual dispatch) and
@@ -26,17 +24,17 @@ _Unresolved:_ there is **no automated test suite** in this repo today.
   links (see [workflow](./workflow.md)).
 - **Smoke checks in deploy CI.** The deploy workflow curls `/` and
   `/projects/` against the production URL after a Pages deploy.
-- **Manual runs.** The product is a measurement tool; correctness is
-  validated by running swarms against known URLs and reading the percentile
-  tables.
+- **Trace regression fixtures.** The external adapter suite is correlated to
+  controlled Chrome DevTools MCP traces; see
+  [external trace-insight validation](./trace-insight-validation.md).
+- **Manual runs.** Broader measurement correctness is still validated by
+  running swarms against known URLs and reading the percentile tables.
 
-## Why no suite yet
+## Remaining gap
 
-The codebase is small (~5.5k LOC in `cli/src`) and the core math
-(percentile interpolation in `cli/src/stats.ts`, preset resolution in
-`cli/src/presets.ts`) is the highest-value thing to unit-test. This is
-recorded as a follow-up, not a decision to skip — see
-[STATUS.md](../../STATUS.md).
+Most of the codebase still has no automated coverage. Core math (percentile
+interpolation in `cli/src/stats.ts`, preset resolution in `cli/src/presets.ts`)
+is the next highest-value unit-test surface.
 
 ## If you add tests
 
