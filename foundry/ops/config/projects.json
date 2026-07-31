@@ -194,7 +194,7 @@
         "sassmaker.com",
         "fleet.sassmaker.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Canonical shared-infrastructure source. sassmaker.com is a static public directory generated from Fleet's privacy-checked projection on Cloudflare Pages. The operational Fleet Console remains machine-hosted at fleet.sassmaker.com through Cloudflare Tunnel.",
       "name": "Fleet Workspace",
@@ -283,7 +283,7 @@
       "domains": [
         "chatgpt.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.",
       "name": "Memory Map",
@@ -576,7 +576,7 @@
       "domains": [
         "india-numbers.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Public Significant Hobbies repository. The existing india-numbers Worker and hostname remain live; india-standards.significanthobbies.com is prepared as the canonical domain but is not live until a separately approved release.",
       "name": "India Standards",
@@ -798,7 +798,7 @@
       "domains": [
         "setline.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "app": "web",
       "public": {
@@ -995,7 +995,7 @@
         "health.sassmaker.com",
         "ingest.sassmaker.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Independent SaaS Maker-owned aggregate-only endpoint health product. The public repository is sass-maker/app-health; health.sassmaker.com and ingest.sassmaker.com are live.",
       "name": "App Health",
@@ -1071,7 +1071,7 @@
         "motion.significanthobbies.com"
       ],
       "app": "web+ios",
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Public canonical repository at Significant-Hobbies/motion. The public landing and owned changelog are live-ready on Cloudflare Pages project motion at motion.significanthobbies.com; the iOS game remains intentionally unreleased while physical-device validation is pending.",
       "name": "Motion",

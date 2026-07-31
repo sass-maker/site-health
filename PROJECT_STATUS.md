@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Agent-surface source ownership made explicit:** Aligned every
+  maintained project's `inRegistry` flag with the canonical 27-project agent
+  registry, protected independently authored discovery files for App Health,
+  Memory Map, India Standards, and Setline, and retained Knowledge Base as a
+  measured visibility target without mapping its missing public landing to the
+  private operator dashboard. Knowledge Base issue #28 remains the source
+  recovery boundary; no deployment was performed.
 - **2026-07-31 — Visibility inventory and sitemap reporting converged on one
   catalog:** Removed the retired TrueHire project from active indexing,
   submission, favicon, and repository-hygiene tooling while preserving its

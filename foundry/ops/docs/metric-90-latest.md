@@ -1,6 +1,6 @@
 # Fleet metric 90 gate
 
-Generated 2026-07-31T00:07:59.688Z from the canonical visibility project set.
+Generated 2026-07-31T00:27:38.659Z from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
 visibility fail closed. D-Rank and search are external outcomes; the report
@@ -24,152 +24,62 @@ does not replace them with technical proxies.
 
 | Project | DR | Search | AI visibility | Agent | Readable | Crawl | PSI | LCP | Design | Gates |
 | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
-| Fleet Workspace | 7 | C | 0 | 80 | 3.1 | 100 | 94 | 1614.1 ms | 90% / 100% | 4/9 |
-| Anime List | 7 | C | 0 | 56 | 0.4 | 67 | 100 | 507.6 ms | — | 2/9 |
-| App Health | 7 | C | 0 | 11 | 0 | 33 | 99 | 759.0 ms | — | 2/9 |
-| Calorie | 7 | C | 0 | 33 | 0 | 33 | 97 | 1082.5 ms | — | 2/9 |
-| Chess | 7 | C | 0 | 90 | 60 | 100 | 99 | 760.2 ms | — | 4/9 |
 | CodeVetter | 4.9 | C | 0 | 80 | 0 | 100 | 92 | 1338.1 ms | — | 3/9 |
-| Drank | 7 | C | 0 | 90 | 75 | 100 | 98 | 836.2 ms | 90% / 95% | 5/9 |
-| Free AI | 7 | C | 0 | 80 | 6.8 | 100 | 98 | 1108.3 ms | — | 3/9 |
-| High Signal | 8 | B | 0 | 80 | 50 | 100 | 98 | 925.9 ms | — | 3/9 |
-| India Standards | 7 | C | 0 | 11 | 0 | 33 | 90 | 1507.7 ms | — | 2/9 |
-| Karte | 7 | C | 0 | 11 | 0 | 33 | 100 | 626.6 ms | — | 2/9 |
-| Knowledge Base | 7 | C | 0 | 11 | 0 | 33 | 92 | 1662.5 ms | — | 2/9 |
-| PostTrainLLM | 2.7 | C | 0 | 80 | 8 | 100 | 99 | 378.2 ms | — | 3/9 |
-| PSI Swarm | 7 | C | 0 | 80 | 60 | 100 | 99 | 762.0 ms | 90% / 95% | 4/9 |
-| Reader | 7 | C | 0 | 100 | 100 | 100 | 98 | 895.7 ms | — | 5/9 |
-| Research Papers | 8 | C | 0 | 90 | 1.3 | 100 | 100 | 481.5 ms | — | 4/9 |
-| RolePatch | 5 | C | 0 | 80 | 15 | 100 | 100 | 426.5 ms | — | 3/9 |
-| Significant Hobbies | 7 | A | 0 | 80 | 0.8 | 100 | 87 | 1513.0 ms | — | 3/9 |
-| SWE Interview Prep | 7 | C | 0 | 80 | 2.4 | 100 | 96 | 1428.4 ms | — | 3/9 |
-| What It Takes to Win | 7 | C | 0 | 100 | 100 | 100 | 100 | 486.6 ms | — | 5/9 |
-| Email Manager | 7 | C | 0 | 70 | 0 | 67 | 100 | 481.4 ms | — | 2/9 |
 | HeyPace | 2.7 | C | 100 | 90 | 9.5 | 100 | 100 | 537.1 ms | — | 4/9 |
-| LoopTV | 7 | C | 0 | 90 | 3.4 | 100 | 90 | 1410.3 ms | — | 4/9 |
+| PostTrainLLM | 2.7 | C | 0 | 80 | 8 | 100 | 99 | 378.2 ms | — | 3/9 |
+| Fleet Workspace | 7 | C | 0 | 80 | 3.1 | 100 | 94 | 1614.1 ms | 90% / 100% | 4/9 |
+| Drank | 7 | C | 0 | 90 | 75 | 100 | 98 | 836.2 ms | 90% / 95% | 5/9 |
+| Email Manager | 7 | C | 0 | 70 | 0 | 67 | 100 | 481.4 ms | — | 2/9 |
 | Memory Map | 7 | C | 0 | 11 | 0 | 33 | 96 | 1087.1 ms | — | 2/9 |
-| Motion | 7 | C | 0 | 67 | 50 | 100 | 100 | 480.0 ms | — | 3/9 |
+| Free AI | 7 | C | 0 | 80 | 6.8 | 100 | 98 | 1108.3 ms | — | 3/9 |
+| PSI Swarm | 7 | C | 0 | 80 | 60 | 100 | 99 | 762.0 ms | 90% / 95% | 4/9 |
+| High Signal | 8 | B | 0 | 80 | 50 | 100 | 98 | 925.9 ms | — | 3/9 |
+| Research Papers | 8 | C | 0 | 90 | 1.3 | 100 | 100 | 481.5 ms | — | 4/9 |
+| Knowledge Base | 7 | C | 0 | 11 | 0 | 33 | 92 | 1662.5 ms | — | 2/9 |
+| Significant Hobbies | 7 | A | 0 | 80 | 0.8 | 100 | 87 | 1513.0 ms | — | 3/9 |
+| India Standards | 7 | C | 0 | 11 | 0 | 33 | 90 | 1507.7 ms | — | 2/9 |
+| Anime List | 7 | C | 0 | 56 | 0.4 | 67 | 100 | 507.6 ms | — | 2/9 |
+| Chess | 7 | C | 0 | 90 | 60 | 100 | 99 | 760.2 ms | — | 4/9 |
+| LoopTV | 7 | C | 0 | 90 | 3.4 | 100 | 90 | 1410.3 ms | — | 4/9 |
+| Reader | 7 | C | 0 | 100 | 100 | 100 | 98 | 895.7 ms | — | 5/9 |
+| SWE Interview Prep | 7 | C | 0 | 80 | 2.4 | 100 | 96 | 1428.4 ms | — | 3/9 |
+| Calorie | 7 | C | 0 | 33 | 0 | 33 | 97 | 1082.5 ms | — | 2/9 |
 | Setline | 7 | C | 0 | 11 | 0 | 33 | 89 | 1832.1 ms | — | 1/9 |
+| RolePatch | 5 | C | 0 | 80 | 15 | 100 | 100 | 426.5 ms | — | 3/9 |
+| Karte | 7 | C | 0 | 11 | 0 | 33 | 100 | 626.6 ms | — | 2/9 |
 | Starboard | 4.9 | C | 0 | 80 | 5.6 | 100 | 99 | 764.5 ms | — | 3/9 |
+| App Health | 7 | C | 0 | 11 | 0 | 33 | 99 | 759.0 ms | — | 2/9 |
+| Motion | 7 | C | 0 | 67 | 50 | 100 | 100 | 480.0 ms | — | 3/9 |
+| What It Takes to Win | 7 | C | 0 | 100 | 100 | 100 | 100 | 486.6 ms | — | 5/9 |
 
 ## Remaining work
 
-- **Fleet Workspace · D-Rank ≥90** — current 7; target ≥90
-- **Fleet Workspace · Search class A** — current class C
-- **Fleet Workspace · Live AI visibility ≥90** — fixture-only evidence
-- **Fleet Workspace · Agent readiness ≥90** — current 80; target ≥90
-- **Fleet Workspace · Agent-readable coverage ≥90** — current 3.1; target ≥90
-- **Anime List · D-Rank ≥90** — current 7; target ≥90
-- **Anime List · Search class A** — current class C
-- **Anime List · Live AI visibility ≥90** — fixture-only evidence
-- **Anime List · Agent readiness ≥90** — current 56; target ≥90
-- **Anime List · Agent-readable coverage ≥90** — current 0.4; target ≥90
-- **Anime List · AI crawlability ≥90** — current 67; target ≥90
-- **Anime List · Design critique and audit ≥90%** — no valid design-review receipt
-- **App Health · D-Rank ≥90** — current 7; target ≥90
-- **App Health · Search class A** — current class C
-- **App Health · Live AI visibility ≥90** — fixture-only evidence
-- **App Health · Agent readiness ≥90** — current 11; target ≥90
-- **App Health · Agent-readable coverage ≥90** — current 0; target ≥90
-- **App Health · AI crawlability ≥90** — current 33; target ≥90
-- **App Health · Design critique and audit ≥90%** — no valid design-review receipt
-- **Calorie · D-Rank ≥90** — current 7; target ≥90
-- **Calorie · Search class A** — current class C
-- **Calorie · Live AI visibility ≥90** — fixture-only evidence
-- **Calorie · Agent readiness ≥90** — current 33; target ≥90
-- **Calorie · Agent-readable coverage ≥90** — current 0; target ≥90
-- **Calorie · AI crawlability ≥90** — current 33; target ≥90
-- **Calorie · Design critique and audit ≥90%** — no valid design-review receipt
-- **Chess · D-Rank ≥90** — current 7; target ≥90
-- **Chess · Search class A** — current class C
-- **Chess · Live AI visibility ≥90** — fixture-only evidence
-- **Chess · Agent-readable coverage ≥90** — current 60; target ≥90
-- **Chess · Design critique and audit ≥90%** — no valid design-review receipt
 - **CodeVetter · D-Rank ≥90** — current 4.9; target ≥90
 - **CodeVetter · Search class A** — current class C
 - **CodeVetter · Live AI visibility ≥90** — fixture-only evidence
 - **CodeVetter · Agent readiness ≥90** — current 80; target ≥90
 - **CodeVetter · Agent-readable coverage ≥90** — current 0; target ≥90
 - **CodeVetter · Design critique and audit ≥90%** — no valid design-review receipt
-- **Drank · D-Rank ≥90** — current 7; target ≥90
-- **Drank · Search class A** — current class C
-- **Drank · Live AI visibility ≥90** — fixture-only evidence
-- **Drank · Agent-readable coverage ≥90** — current 75; target ≥90
-- **Free AI · D-Rank ≥90** — current 7; target ≥90
-- **Free AI · Search class A** — current class C
-- **Free AI · Live AI visibility ≥90** — fixture-only evidence
-- **Free AI · Agent readiness ≥90** — current 80; target ≥90
-- **Free AI · Agent-readable coverage ≥90** — current 6.8; target ≥90
-- **Free AI · Design critique and audit ≥90%** — no valid design-review receipt
-- **High Signal · D-Rank ≥90** — current 8; target ≥90
-- **High Signal · Search class A** — current class B
-- **High Signal · Live AI visibility ≥90** — fixture-only evidence
-- **High Signal · Agent readiness ≥90** — current 80; target ≥90
-- **High Signal · Agent-readable coverage ≥90** — current 50; target ≥90
-- **High Signal · Design critique and audit ≥90%** — no valid design-review receipt
-- **India Standards · D-Rank ≥90** — current 7; target ≥90
-- **India Standards · Search class A** — current class C
-- **India Standards · Live AI visibility ≥90** — fixture-only evidence
-- **India Standards · Agent readiness ≥90** — current 11; target ≥90
-- **India Standards · Agent-readable coverage ≥90** — current 0; target ≥90
-- **India Standards · AI crawlability ≥90** — current 33; target ≥90
-- **India Standards · Design critique and audit ≥90%** — no valid design-review receipt
-- **Karte · D-Rank ≥90** — current 7; target ≥90
-- **Karte · Search class A** — current class C
-- **Karte · Live AI visibility ≥90** — fixture-only evidence
-- **Karte · Agent readiness ≥90** — current 11; target ≥90
-- **Karte · Agent-readable coverage ≥90** — current 0; target ≥90
-- **Karte · AI crawlability ≥90** — current 33; target ≥90
-- **Karte · Design critique and audit ≥90%** — no valid design-review receipt
-- **Knowledge Base · D-Rank ≥90** — current 7; target ≥90
-- **Knowledge Base · Search class A** — current class C
-- **Knowledge Base · Live AI visibility ≥90** — fixture-only evidence
-- **Knowledge Base · Agent readiness ≥90** — current 11; target ≥90
-- **Knowledge Base · Agent-readable coverage ≥90** — current 0; target ≥90
-- **Knowledge Base · AI crawlability ≥90** — current 33; target ≥90
-- **Knowledge Base · Design critique and audit ≥90%** — no valid design-review receipt
+- **HeyPace · D-Rank ≥90** — current 2.7; target ≥90
+- **HeyPace · Search class A** — current class C
+- **HeyPace · Live AI visibility ≥90** — fixture-only evidence
+- **HeyPace · Agent-readable coverage ≥90** — current 9.5; target ≥90
+- **HeyPace · Design critique and audit ≥90%** — no valid design-review receipt
 - **PostTrainLLM · D-Rank ≥90** — current 2.7; target ≥90
 - **PostTrainLLM · Search class A** — current class C
 - **PostTrainLLM · Live AI visibility ≥90** — fixture-only evidence
 - **PostTrainLLM · Agent readiness ≥90** — current 80; target ≥90
 - **PostTrainLLM · Agent-readable coverage ≥90** — current 8; target ≥90
 - **PostTrainLLM · Design critique and audit ≥90%** — no valid design-review receipt
-- **PSI Swarm · D-Rank ≥90** — current 7; target ≥90
-- **PSI Swarm · Search class A** — current class C
-- **PSI Swarm · Live AI visibility ≥90** — fixture-only evidence
-- **PSI Swarm · Agent readiness ≥90** — current 80; target ≥90
-- **PSI Swarm · Agent-readable coverage ≥90** — current 60; target ≥90
-- **Reader · D-Rank ≥90** — current 7; target ≥90
-- **Reader · Search class A** — current class C
-- **Reader · Live AI visibility ≥90** — fixture-only evidence
-- **Reader · Design critique and audit ≥90%** — no valid design-review receipt
-- **Research Papers · D-Rank ≥90** — current 8; target ≥90
-- **Research Papers · Search class A** — current class C
-- **Research Papers · Live AI visibility ≥90** — fixture-only evidence
-- **Research Papers · Agent-readable coverage ≥90** — current 1.3; target ≥90
-- **Research Papers · Design critique and audit ≥90%** — no valid design-review receipt
-- **RolePatch · D-Rank ≥90** — current 5; target ≥90
-- **RolePatch · Search class A** — current class C
-- **RolePatch · Live AI visibility ≥90** — fixture-only evidence
-- **RolePatch · Agent readiness ≥90** — current 80; target ≥90
-- **RolePatch · Agent-readable coverage ≥90** — current 15; target ≥90
-- **RolePatch · Design critique and audit ≥90%** — no valid design-review receipt
-- **Significant Hobbies · D-Rank ≥90** — current 7; target ≥90
-- **Significant Hobbies · Live AI visibility ≥90** — fixture-only evidence
-- **Significant Hobbies · Agent readiness ≥90** — current 80; target ≥90
-- **Significant Hobbies · Agent-readable coverage ≥90** — current 0.8; target ≥90
-- **Significant Hobbies · PSI performance ≥90** — current 87; target ≥90
-- **Significant Hobbies · Design critique and audit ≥90%** — no valid design-review receipt
-- **SWE Interview Prep · D-Rank ≥90** — current 7; target ≥90
-- **SWE Interview Prep · Search class A** — current class C
-- **SWE Interview Prep · Live AI visibility ≥90** — fixture-only evidence
-- **SWE Interview Prep · Agent readiness ≥90** — current 80; target ≥90
-- **SWE Interview Prep · Agent-readable coverage ≥90** — current 2.4; target ≥90
-- **SWE Interview Prep · Design critique and audit ≥90%** — no valid design-review receipt
-- **What It Takes to Win · D-Rank ≥90** — current 7; target ≥90
-- **What It Takes to Win · Search class A** — current class C
-- **What It Takes to Win · Live AI visibility ≥90** — fixture-only evidence
-- **What It Takes to Win · Design critique and audit ≥90%** — no valid design-review receipt
+- **Fleet Workspace · D-Rank ≥90** — current 7; target ≥90
+- **Fleet Workspace · Search class A** — current class C
+- **Fleet Workspace · Live AI visibility ≥90** — fixture-only evidence
+- **Fleet Workspace · Agent readiness ≥90** — current 80; target ≥90
+- **Fleet Workspace · Agent-readable coverage ≥90** — current 3.1; target ≥90
+- **Drank · D-Rank ≥90** — current 7; target ≥90
+- **Drank · Search class A** — current class C
+- **Drank · Live AI visibility ≥90** — fixture-only evidence
+- **Drank · Agent-readable coverage ≥90** — current 75; target ≥90
 - **Email Manager · D-Rank ≥90** — current 7; target ≥90
 - **Email Manager · Search class A** — current class C
 - **Email Manager · Live AI visibility ≥90** — fixture-only evidence
@@ -177,16 +87,6 @@ does not replace them with technical proxies.
 - **Email Manager · Agent-readable coverage ≥90** — current 0; target ≥90
 - **Email Manager · AI crawlability ≥90** — current 67; target ≥90
 - **Email Manager · Design critique and audit ≥90%** — no valid design-review receipt
-- **HeyPace · D-Rank ≥90** — current 2.7; target ≥90
-- **HeyPace · Search class A** — current class C
-- **HeyPace · Live AI visibility ≥90** — fixture-only evidence
-- **HeyPace · Agent-readable coverage ≥90** — current 9.5; target ≥90
-- **HeyPace · Design critique and audit ≥90%** — no valid design-review receipt
-- **LoopTV · D-Rank ≥90** — current 7; target ≥90
-- **LoopTV · Search class A** — current class C
-- **LoopTV · Live AI visibility ≥90** — fixture-only evidence
-- **LoopTV · Agent-readable coverage ≥90** — current 3.4; target ≥90
-- **LoopTV · Design critique and audit ≥90%** — no valid design-review receipt
 - **Memory Map · D-Rank ≥90** — current 7; target ≥90
 - **Memory Map · Search class A** — current class C
 - **Memory Map · Live AI visibility ≥90** — fixture-only evidence
@@ -194,12 +94,82 @@ does not replace them with technical proxies.
 - **Memory Map · Agent-readable coverage ≥90** — current 0; target ≥90
 - **Memory Map · AI crawlability ≥90** — current 33; target ≥90
 - **Memory Map · Design critique and audit ≥90%** — no valid design-review receipt
-- **Motion · D-Rank ≥90** — current 7; target ≥90
-- **Motion · Search class A** — current class C
-- **Motion · Live AI visibility ≥90** — fixture-only evidence
-- **Motion · Agent readiness ≥90** — current 67; target ≥90
-- **Motion · Agent-readable coverage ≥90** — current 50; target ≥90
-- **Motion · Design critique and audit ≥90%** — no valid design-review receipt
+- **Free AI · D-Rank ≥90** — current 7; target ≥90
+- **Free AI · Search class A** — current class C
+- **Free AI · Live AI visibility ≥90** — fixture-only evidence
+- **Free AI · Agent readiness ≥90** — current 80; target ≥90
+- **Free AI · Agent-readable coverage ≥90** — current 6.8; target ≥90
+- **Free AI · Design critique and audit ≥90%** — no valid design-review receipt
+- **PSI Swarm · D-Rank ≥90** — current 7; target ≥90
+- **PSI Swarm · Search class A** — current class C
+- **PSI Swarm · Live AI visibility ≥90** — fixture-only evidence
+- **PSI Swarm · Agent readiness ≥90** — current 80; target ≥90
+- **PSI Swarm · Agent-readable coverage ≥90** — current 60; target ≥90
+- **High Signal · D-Rank ≥90** — current 8; target ≥90
+- **High Signal · Search class A** — current class B
+- **High Signal · Live AI visibility ≥90** — fixture-only evidence
+- **High Signal · Agent readiness ≥90** — current 80; target ≥90
+- **High Signal · Agent-readable coverage ≥90** — current 50; target ≥90
+- **High Signal · Design critique and audit ≥90%** — no valid design-review receipt
+- **Research Papers · D-Rank ≥90** — current 8; target ≥90
+- **Research Papers · Search class A** — current class C
+- **Research Papers · Live AI visibility ≥90** — fixture-only evidence
+- **Research Papers · Agent-readable coverage ≥90** — current 1.3; target ≥90
+- **Research Papers · Design critique and audit ≥90%** — no valid design-review receipt
+- **Knowledge Base · D-Rank ≥90** — current 7; target ≥90
+- **Knowledge Base · Search class A** — current class C
+- **Knowledge Base · Live AI visibility ≥90** — fixture-only evidence
+- **Knowledge Base · Agent readiness ≥90** — current 11; target ≥90
+- **Knowledge Base · Agent-readable coverage ≥90** — current 0; target ≥90
+- **Knowledge Base · AI crawlability ≥90** — current 33; target ≥90
+- **Knowledge Base · Design critique and audit ≥90%** — no valid design-review receipt
+- **Significant Hobbies · D-Rank ≥90** — current 7; target ≥90
+- **Significant Hobbies · Live AI visibility ≥90** — fixture-only evidence
+- **Significant Hobbies · Agent readiness ≥90** — current 80; target ≥90
+- **Significant Hobbies · Agent-readable coverage ≥90** — current 0.8; target ≥90
+- **Significant Hobbies · PSI performance ≥90** — current 87; target ≥90
+- **Significant Hobbies · Design critique and audit ≥90%** — no valid design-review receipt
+- **India Standards · D-Rank ≥90** — current 7; target ≥90
+- **India Standards · Search class A** — current class C
+- **India Standards · Live AI visibility ≥90** — fixture-only evidence
+- **India Standards · Agent readiness ≥90** — current 11; target ≥90
+- **India Standards · Agent-readable coverage ≥90** — current 0; target ≥90
+- **India Standards · AI crawlability ≥90** — current 33; target ≥90
+- **India Standards · Design critique and audit ≥90%** — no valid design-review receipt
+- **Anime List · D-Rank ≥90** — current 7; target ≥90
+- **Anime List · Search class A** — current class C
+- **Anime List · Live AI visibility ≥90** — fixture-only evidence
+- **Anime List · Agent readiness ≥90** — current 56; target ≥90
+- **Anime List · Agent-readable coverage ≥90** — current 0.4; target ≥90
+- **Anime List · AI crawlability ≥90** — current 67; target ≥90
+- **Anime List · Design critique and audit ≥90%** — no valid design-review receipt
+- **Chess · D-Rank ≥90** — current 7; target ≥90
+- **Chess · Search class A** — current class C
+- **Chess · Live AI visibility ≥90** — fixture-only evidence
+- **Chess · Agent-readable coverage ≥90** — current 60; target ≥90
+- **Chess · Design critique and audit ≥90%** — no valid design-review receipt
+- **LoopTV · D-Rank ≥90** — current 7; target ≥90
+- **LoopTV · Search class A** — current class C
+- **LoopTV · Live AI visibility ≥90** — fixture-only evidence
+- **LoopTV · Agent-readable coverage ≥90** — current 3.4; target ≥90
+- **LoopTV · Design critique and audit ≥90%** — no valid design-review receipt
+- **Reader · D-Rank ≥90** — current 7; target ≥90
+- **Reader · Search class A** — current class C
+- **Reader · Live AI visibility ≥90** — fixture-only evidence
+- **Reader · Design critique and audit ≥90%** — no valid design-review receipt
+- **SWE Interview Prep · D-Rank ≥90** — current 7; target ≥90
+- **SWE Interview Prep · Search class A** — current class C
+- **SWE Interview Prep · Live AI visibility ≥90** — fixture-only evidence
+- **SWE Interview Prep · Agent readiness ≥90** — current 80; target ≥90
+- **SWE Interview Prep · Agent-readable coverage ≥90** — current 2.4; target ≥90
+- **SWE Interview Prep · Design critique and audit ≥90%** — no valid design-review receipt
+- **Calorie · D-Rank ≥90** — current 7; target ≥90
+- **Calorie · Search class A** — current class C
+- **Calorie · Live AI visibility ≥90** — fixture-only evidence
+- **Calorie · Agent readiness ≥90** — current 33; target ≥90
+- **Calorie · Agent-readable coverage ≥90** — current 0; target ≥90
+- **Calorie · AI crawlability ≥90** — current 33; target ≥90
+- **Calorie · Design critique and audit ≥90%** — no valid design-review receipt
 - **Setline · D-Rank ≥90** — current 7; target ≥90
 - **Setline · Search class A** — current class C
 - **Setline · Live AI visibility ≥90** — fixture-only evidence
@@ -208,9 +178,39 @@ does not replace them with technical proxies.
 - **Setline · AI crawlability ≥90** — current 33; target ≥90
 - **Setline · PSI performance ≥90** — current 89; target ≥90
 - **Setline · Design critique and audit ≥90%** — no valid design-review receipt
+- **RolePatch · D-Rank ≥90** — current 5; target ≥90
+- **RolePatch · Search class A** — current class C
+- **RolePatch · Live AI visibility ≥90** — fixture-only evidence
+- **RolePatch · Agent readiness ≥90** — current 80; target ≥90
+- **RolePatch · Agent-readable coverage ≥90** — current 15; target ≥90
+- **RolePatch · Design critique and audit ≥90%** — no valid design-review receipt
+- **Karte · D-Rank ≥90** — current 7; target ≥90
+- **Karte · Search class A** — current class C
+- **Karte · Live AI visibility ≥90** — fixture-only evidence
+- **Karte · Agent readiness ≥90** — current 11; target ≥90
+- **Karte · Agent-readable coverage ≥90** — current 0; target ≥90
+- **Karte · AI crawlability ≥90** — current 33; target ≥90
+- **Karte · Design critique and audit ≥90%** — no valid design-review receipt
 - **Starboard · D-Rank ≥90** — current 4.9; target ≥90
 - **Starboard · Search class A** — current class C
 - **Starboard · Live AI visibility ≥90** — fixture-only evidence
 - **Starboard · Agent readiness ≥90** — current 80; target ≥90
 - **Starboard · Agent-readable coverage ≥90** — current 5.6; target ≥90
 - **Starboard · Design critique and audit ≥90%** — no valid design-review receipt
+- **App Health · D-Rank ≥90** — current 7; target ≥90
+- **App Health · Search class A** — current class C
+- **App Health · Live AI visibility ≥90** — fixture-only evidence
+- **App Health · Agent readiness ≥90** — current 11; target ≥90
+- **App Health · Agent-readable coverage ≥90** — current 0; target ≥90
+- **App Health · AI crawlability ≥90** — current 33; target ≥90
+- **App Health · Design critique and audit ≥90%** — no valid design-review receipt
+- **Motion · D-Rank ≥90** — current 7; target ≥90
+- **Motion · Search class A** — current class C
+- **Motion · Live AI visibility ≥90** — fixture-only evidence
+- **Motion · Agent readiness ≥90** — current 67; target ≥90
+- **Motion · Agent-readable coverage ≥90** — current 50; target ≥90
+- **Motion · Design critique and audit ≥90%** — no valid design-review receipt
+- **What It Takes to Win · D-Rank ≥90** — current 7; target ≥90
+- **What It Takes to Win · Search class A** — current class C
+- **What It Takes to Win · Live AI visibility ≥90** — fixture-only evidence
+- **What It Takes to Win · Design critique and audit ≥90%** — no valid design-review receipt

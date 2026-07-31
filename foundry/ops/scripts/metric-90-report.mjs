@@ -33,10 +33,12 @@ const connections = buildFleetConnections({
 });
 store.close();
 
-const rows = connections.outputs.projects
+const scoredRows = connections.outputs.projects
   .filter((project) => project.metricEligibility.publicSite)
   .map(scoreProject);
-assertProjectCoverage(rows, expectedProjectIds);
+assertProjectCoverage(scoredRows, expectedProjectIds);
+const rowsById = new Map(scoredRows.map((row) => [row.id, row]));
+const rows = expectedProjectIds.map((id) => rowsById.get(id));
 
 const gates = [
   ['domainRating', 'D-Rank ≥90'],

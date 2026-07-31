@@ -1,6 +1,6 @@
 # Google sitemap submission
 
-Generated 2026-07-31T00:04:23.002Z from the visibility inventory in
+Generated 2026-07-31T00:25:43.968Z from the visibility inventory in
 `foundry/ops/config/projects.json`.
 
 Submit the sitemap link for each **primary** domain as its own Google Search
