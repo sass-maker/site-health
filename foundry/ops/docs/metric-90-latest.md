@@ -1,6 +1,6 @@
 # Fleet metric 90 gate
 
-Generated 2026-07-31T02:22:55.295Z from the canonical visibility project set.
+Generated 2026-07-31T02:26:14.556Z from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
 visibility fail closed. D-Rank and search are external outcomes; the report
@@ -36,7 +36,7 @@ does not replace them with technical proxies.
 | High Signal | 8 | C | 0 | 80 | 50 | 100 | 98 | 925.9 ms | 93% / 95% | 4/9 |
 | Research Papers | 8 | C | 0 | 90 | 1.3 | 100 | 100 | 481.5 ms | 90% / 95% | 5/9 |
 | Knowledge Base | 7 | C | 0 | 100 | 100 | 100 | 92 | 1662.5 ms | 90% / 95% | 6/9 |
-| Significant Hobbies | 7 | A | 0 | 80 | 0.8 | 100 | 87 | 1513.0 ms | 90% / 90% | 4/9 |
+| Significant Hobbies | 7 | A | 0 | 80 | 0.8 | 100 | 89 | 1391.1 ms | 90% / 90% | 4/9 |
 | India Standards | 7 | C | 0 | 11 | 0 | 33 | 90 | 1507.7 ms | 90% / 95% | 3/9 |
 | Anime List | 7 | C | 0 | 56 | 0.4 | 67 | 100 | 507.6 ms | 90% / 95% | 3/9 |
 | Chess | 7 | C | 0 | 90 | 60 | 100 | 99 | 760.2 ms | 90% / 90% | 5/9 |
@@ -115,7 +115,7 @@ does not replace them with technical proxies.
 - **Significant Hobbies · Live AI visibility ≥90** — fixture-only evidence
 - **Significant Hobbies · Agent readiness ≥90** — current 80; target ≥90
 - **Significant Hobbies · Agent-readable coverage ≥90** — current 0.8; target ≥90
-- **Significant Hobbies · PSI performance ≥90** — current 87; target ≥90
+- **Significant Hobbies · PSI performance ≥90** — current 89; target ≥90
 - **India Standards · D-Rank ≥90** — current 7; target ≥90
 - **India Standards · Search class A** — current class C
 - **India Standards · Live AI visibility ≥90** — fixture-only evidence
