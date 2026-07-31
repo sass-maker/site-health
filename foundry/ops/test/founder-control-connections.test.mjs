@@ -8,7 +8,6 @@ import test from 'node:test';
 import {
   CONNECTIONS_SCHEMA_VERSION,
   buildFleetConnections,
-  buildPortfolioStrengthProjection,
   readSkillRunOutput,
 } from '../lib/founder-control/connections.mjs';
 import { SkillRunStore } from '../lib/skill-run-store.mjs';
@@ -22,114 +21,6 @@ import {
 } from '../lib/visibility-outcome-store.mjs';
 
 const now = '2026-07-30T10:00:00.000Z';
-
-test('builds domain, core AI awareness, marketing, and performance portfolio views', () => {
-  const projects = [
-    {
-      projectId: 'pace',
-      name: 'Pace',
-      lifecycle: 'maintained',
-      priority: 'P1',
-      category: 'product',
-      domains: ['app.heypace.app'],
-      domainRating: {
-        domain: 'app.heypace.app',
-        rating: 8,
-        delta: 1,
-        observations: 2,
-        observedAt: '2026-07-30T09:00:00.000Z',
-      },
-      aiVisibility: {
-        observations: 1,
-        observedAt: '2026-07-30T09:05:00.000Z',
-        attempts: [{
-          status: 'completed',
-          providerId: 'openai',
-          model: 'gpt-5',
-        }],
-      },
-      metricEligibility: { publicSite: true },
-      history: {
-        signals: [
-          { label: 'AI mention rate', value: 50 },
-          { label: 'AI recommendation rate', value: 25 },
-          { label: 'AI citation rate', value: 20 },
-          { label: 'AI citations', value: 2 },
-          { label: 'AI coverage rate', value: 80 },
-          { label: 'PSI performance', value: 94, observedAt: '2026-07-30T09:10:00.000Z' },
-          { label: 'PSI LCP', value: 2100, observedAt: '2026-07-30T09:10:00.000Z' },
-        ],
-      },
-    },
-    {
-      projectId: 'voice',
-      name: 'Voice',
-      lifecycle: 'maintained',
-      priority: 'P2',
-      category: 'product',
-      domains: ['voice.heypace.app'],
-      metricEligibility: { publicSite: true },
-      history: {
-        signals: [
-          { label: 'PSI performance', value: 95, observedAt: '2026-07-30T09:10:00.000Z' },
-        ],
-      },
-    },
-    {
-      projectId: 'slow',
-      name: 'Slow',
-      lifecycle: 'maintained',
-      priority: 'P2',
-      category: 'product',
-      domains: ['slow.example'],
-      metricEligibility: { publicSite: true },
-      history: {
-        signals: [
-          { label: 'PSI performance', value: 89, observedAt: '2026-07-30T09:10:00.000Z' },
-          { label: 'PSI LCP', value: 2600, observedAt: '2026-07-30T09:10:00.000Z' },
-        ],
-      },
-    },
-    {
-      projectId: 'past',
-      name: 'Past',
-      lifecycle: 'past',
-      priority: 'P1',
-      category: 'product',
-      domains: ['past.example'],
-      metricEligibility: { publicSite: true },
-      history: { signals: [] },
-    },
-  ];
-  const marketingCoverage = [{
-    projectId: 'pace',
-    name: 'Pace',
-    publicationState: 'never-marketed',
-  }];
-
-  const result = buildPortfolioStrengthProjection({ projects, marketingCoverage });
-
-  assert.equal(result.domains.length, 2);
-  assert.equal(result.domains[0].rootDomain, 'heypace.app');
-  assert.deepEqual(
-    result.domains[0].products.map((project) => project.projectId),
-    ['pace', 'voice'],
-  );
-  assert.equal(result.domains[0].measuredDomain, 'app.heypace.app');
-  assert.equal(result.domains[0].historyState, 'comparable');
-  assert.deepEqual(result.aiAwareness.map((project) => project.projectId), ['pace']);
-  assert.equal(result.aiAwareness[0].mentionRate, 50);
-  assert.deepEqual(result.aiAwareness[0].providers, ['openai · gpt-5']);
-  assert.equal(result.performance.find((project) => project.projectId === 'pace').status, 'fast-enough');
-  assert.equal(result.performance.find((project) => project.projectId === 'voice').status, 'not-measured');
-  assert.equal(result.performance.find((project) => project.projectId === 'slow').status, 'needs-work');
-  assert.deepEqual(
-    result.performance.find((project) => project.projectId === 'slow').failures,
-    ['PSI', 'LCP'],
-  );
-  assert.deepEqual(result.marketing, marketingCoverage);
-  assert.deepEqual(result.guardrails, { minimumPsi: 90, maximumLcpMs: 2500 });
-});
 
 function writeJson(path, value) {
   mkdirSync(dirname(path), { recursive: true });
@@ -152,7 +43,7 @@ function fixture() {
   writeJson(join(root, 'foundry/ops/config/projects.json'), {
     _meta: {
       updated: '2026-07-30',
-      priorities: { P1: ['pace'] },
+      priorities: { P1: ['pace'], P2: [], P3: ['standards'] },
     },
     projects: [
       {
@@ -162,12 +53,7 @@ function fixture() {
         lifecycle: 'maintained',
         tier: 'primary',
         domains: ['heypace.app'],
-        public: {
-          id: 'pace',
-          listing: 'maintained',
-          category: 'product',
-          description: 'Private voice assistant.',
-        },
+        public: { id: 'pace', listing: 'maintained', description: 'A private Mac voice assistant.' },
       },
       {
         id: 'past',
@@ -190,9 +76,9 @@ function fixture() {
         name: 'Standards',
         lifecycle: 'maintained',
         tier: 'secondary',
-        domains: ['standards.example'],
+        domains: ['docs.heypace.app'],
         metrics: { publicSite: true },
-        public: { id: 'standards', listing: 'hidden' },
+        public: { id: 'standards', listing: 'hidden', description: 'The shared product standards.' },
       },
     ],
   });
@@ -530,16 +416,14 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     home,
     now,
     marketing: {
-      coverage: [{
+      recommendations: [{ projectId: 'pace', title: 'Publish the comparison page.' }],
+      outcomes: [{
+        id: 'marketing-pace-1',
         projectId: 'pace',
-        name: 'Pace',
-        positioning: {
-          available: true,
-          description: 'Private voice assistant.',
-        },
-        recommendationCount: 0,
-        publicationState: 'never-marketed',
-        latestPublication: null,
+        stage: 'publication',
+        status: 'published',
+        title: 'Pace launch note',
+        observedAt: '2026-07-30T08:00:00.000Z',
       }],
       aiVisibility: {
         projects: [{
@@ -642,7 +526,7 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(paceOutput.domainRating.rating, 8);
   assert.equal(paceOutput.domainRating.source, 'Drank · Ahrefs public endpoint');
   assert.equal(paceOutput.domainRating.rootDomain, 'heypace.app');
-  assert.equal(paceOutput.domainRating.sharedRoot, false);
+  assert.equal(paceOutput.domainRating.sharedRoot, true);
   assert.equal(paceOutput.performance.latest.performanceScore, 96);
   assert.equal(paceOutput.performance.latest.lcp, 820);
   assert.equal(paceOutput.designReview.critique, 34);
@@ -695,6 +579,33 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(paceOutput.visibilityReadiness.crawl.status, 'ready');
   assert.equal(paceOutput.metricEligibility.publicSite, true);
   assert.deepEqual(paceOutput.domains, ['heypace.app']);
+  assert.equal(paceOutput.priority, 'P1');
+  assert.equal(result.outputs.ownerOutcomes.domains.length, 1);
+  assert.equal(result.outputs.ownerOutcomes.domains[0].domain, 'heypace.app');
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.domains[0].projects.map((project) => project.projectId),
+    ['pace', 'standards'],
+  );
+  assert.equal(result.outputs.ownerOutcomes.domains[0].signal.value, 8);
+  assert.equal(result.outputs.ownerOutcomes.coreAi.length, 1);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].projectId, 'pace');
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'not-measured');
+  assert.equal(
+    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'pace').status,
+    'marketed',
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').status,
+    'never-marketed',
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'pace').status,
+    'fast-enough',
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'standards').status,
+    'not-measured',
+  );
   assert.equal(
     result.outputs.projects.filter((project) => project.domainRating).length,
     3,
@@ -750,18 +661,6 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     result.outputs.improvementWork.notStartedActions,
     result.outputs.improvements.length - 1,
   );
-  assert.equal(result.portfolio.domains.find((domain) => domain.rootDomain === 'heypace.app').rating, 8);
-  assert.equal(result.portfolio.aiAwareness[0].projectId, 'pace');
-  assert.equal(result.portfolio.aiAwareness[0].status, 'not-measured');
-  assert.equal(result.portfolio.marketing[0].publicationState, 'never-marketed');
-  assert.equal(
-    result.portfolio.performance.find((project) => project.projectId === 'pace').status,
-    'fast-enough',
-  );
-  assert.equal(
-    result.portfolio.performance.find((project) => project.projectId === 'standards').status,
-    'not-measured',
-  );
   const connectionAnchors = new Set([
     ...result.buckets.map((bucket) => `bucket-${bucket.id}`),
     ...result.connections.map((item) => item.id),
@@ -786,6 +685,43 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.doesNotMatch(serialized, /Application Support/);
   assert.doesNotMatch(serialized, /history\.db/);
   assert.doesNotMatch(serialized, /runs\/2026/);
+});
+
+test('limits core AI awareness to provider-backed P1 outcomes', () => {
+  const { root, home } = fixture();
+  const providerRun = {
+    observedAt: '2026-07-30T09:10:00.000Z',
+    evidenceMode: 'provider-observation',
+    metrics: {
+      visibilityScore: 82,
+      mentionRate: 0.75,
+      recommendationRate: 0.5,
+      citationRate: 0.25,
+      averagePosition: 1.7,
+    },
+    citations: { total: 1 },
+  };
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now,
+    marketing: {
+      aiVisibility: {
+        projects: [{
+          projectId: 'pace',
+          name: 'Pace',
+          questions: [],
+          latest: providerRun,
+          history: [providerRun],
+        }],
+      },
+    },
+  });
+
+  assert.deepEqual(result.outputs.ownerOutcomes.coreAi.map((project) => project.projectId), ['pace']);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'known');
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].mention.value, 75);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].recommendation.value, 50);
 });
 
 test('isolates absent machine evidence without hiding implemented contracts', () => {

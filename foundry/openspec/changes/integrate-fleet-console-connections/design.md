@@ -8,12 +8,6 @@ connections work, but owner review found that topology does not explain what
 those connections produced. Feedback and the Console-to-Mobile relationship
 have contracts or intent without an implemented end-to-end consumer.
 
-This document also preserves the evolution of the original Metrics workspace.
-The current primary portfolio navigation is owned by
-`portfolio-strength-console`: Projects, Domains, AI Awareness, Marketing, and
-Performance. Metrics redirects to Domains; detailed SEO, GEO, performance, and
-design evidence remains on canonical project pages.
-
 The work crosses the private Founder Control server, machine-local evidence,
 checked-in reports, and an established responsive Astro interface. It must not
 expose retained skill output, private feedback content, credentials, or raw
@@ -80,10 +74,7 @@ flowchart LR
   Contracts[Feedback + Mobile contracts] --> Projection
   Projection --> API[Founder Control API]
   API --> Projects[Projects directory]
-  API --> Domains[Domains]
-  API --> Awareness[AI Awareness]
-  API --> Performance[Performance]
-  API --> MarketingView[Marketing]
+  API --> Metrics[Metrics]
   API --> Feedback[Feedback]
   API --> Sheet[System Map sheet]
 ```
@@ -122,28 +113,28 @@ run's already-sanitized, size-bounded streams without filesystem paths.
 
 The established near-black Foundry visual system becomes a desktop sidebar
 shell. The sidebar is collapsible, keeps icon and accessible-label navigation
-when narrow, and becomes a modal drawer on phone widths. The final portfolio
-distillation exposes five operator destinations:
+when narrow, and becomes a modal drawer on phone widths. It collapses repository
+taxonomy into five operator destinations:
 
 ```text
 Projects       -> canonical directory
-Domains        -> registrable-root domain strength
-AI Awareness   -> provider-backed P1 product outcomes
-Marketing      -> positioning, publication proof, and recommendations
-Performance    -> PSI and LCP guardrail
+Metrics        -> visibility outcomes, site-health readiness, and design review
+Marketing      -> recommendations and published outcomes
+Feedback       -> owner inbox
 ```
 
 The pages answer separate operator questions:
 
 - Projects is the default directory and links each canonical record to its
   available website, changelog, and source.
-- Domains groups domain-rating evidence once per registrable root. AI Awareness
-  answers whether maintained P1 products are known by AI using provider-backed
-  outcomes only. Performance applies the explicit PSI/LCP guardrail without a
-  blended score. Search readiness and Design review remain in project detail
-  because they are supporting evidence or quality gates rather than direct
-  portfolio outcomes. Each portfolio row opens its canonical project evidence.
-  The project page owns the full graphs, evidence, missing
+- Metrics answers whether each Fleet project is becoming more visible through
+  one dense 27-project matrix. Each row shows the canonical project and domain,
+  with D-Rank, AI Agent Readiness, PSI, and LCP as current comparable signals.
+  Search and AI Visibility remain in project detail until provider-backed
+  outcomes exist. Design review also remains in project detail because it is a
+  minimum quality gate, not a useful portfolio ranking. The project name opens its
+  canonical project page and each metric cell deep-links to the matching
+  project section. The project page owns the full graphs, evidence, missing
   states, and run controls: SEO contains D-Rank, Search Visibility, and Content
   Coverage; GEO contains AI Crawlability, AI Agent Readiness, and AI
   Visibility; Performance contains PSI Swarm; and Design contains Design
@@ -273,6 +264,36 @@ and recurring schedules remain an explicit follow-up task.
 The projection builder accepts a Fleet root, home path, current time, and
 optional already-built Marketing data. Tests use temporary fixtures and injected
 readers instead of the operator's real machine state.
+
+### Organize the owner surface around four outcomes
+
+The primary navigation stops mirroring the available evidence families. It
+answers four stable owner questions instead:
+
+```mermaid
+flowchart LR
+  Catalog[Canonical project catalog] --> Domains[Domains]
+  Catalog --> Core[Core P1 products]
+  Catalog --> Products[Maintained products]
+  Drank[D-Rank history] --> Domains
+  AI[Provider-backed AI observations] --> Core
+  Marketing[Publishing receipts and recommendations] --> Products
+  PSI[PSI and LCP evidence] --> Products
+```
+
+`projects.json` remains the authority for membership. A core AI product is a
+maintained `P1` product; non-product P1 identities are excluded. Domain rows
+deduplicate projects that inherit the same registrable-root D-Rank evidence.
+Marketing coverage never equates a recommendation with completed promotion: a
+product without a publishing receipt remains `never marketed` even if suggested
+work exists. Performance is a guardrail using explicit PSI and LCP thresholds,
+not a portfolio ranking or aggregate grade. Missing evidence remains a first-
+class state in every view.
+
+The existing project page keeps Search Console, crawlability, agent readiness,
+design review, and detailed histories. The sidebar labels the four outcome
+views as Metrics, with Projects and Feedback as standalone tabs below them.
+Skill evidence and System Map remain secondary supporting surfaces.
 
 ## Risks / Trade-offs
 

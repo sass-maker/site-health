@@ -4,60 +4,21 @@ import FounderLayout from "../components/FounderLayout.astro";
 
 <FounderLayout
   title="Domains"
-  description="Domain strength grouped once per registrable root, with the products that share it."
+  description="Is every owned domain becoming more authoritative?"
   active="domains"
   view="domains"
 >
   <div slot="meta" class="page-head__meta">
-    <span class="snapshot-time" data-connections-time>Reading domain evidence</span>
+    <span class="snapshot-time" data-outcome-time>Reading domain evidence</span>
   </div>
-
   <section class="owner-section owner-section--directory" aria-labelledby="domain-directory-title">
     <div class="section-head">
       <div>
-        <h2 id="domain-directory-title">Registrable roots</h2>
-        <p>Drank history is shown once for each root rather than repeated per product.</p>
+        <h2 id="domain-directory-title">Domain strength</h2>
+        <p>One row per registrable domain, even when several products share it.</p>
       </div>
       <span class="count" data-founder-count="domains">—</span>
     </div>
-    <div class="loading-state" data-founder-slot="domains">Building the domain directory…</div>
+    <div class="loading-state" data-founder-slot="domains">Building domain directory…</div>
   </section>
-
-  <dialog class="system-sheet" id="system-map" data-system-sheet aria-labelledby="system-sheet-title">
-    <header class="system-sheet__head">
-      <div>
-        <p class="eyebrow">Supporting evidence</p>
-        <h2 id="system-sheet-title">System map</h2>
-        <p>How the six repository buckets and fifteen transports supply the portfolio views in this Console.</p>
-      </div>
-      <button class="secondary-action" type="button" data-system-sheet-close>Close</button>
-    </header>
-    <div class="system-sheet__body">
-      <section class="connection-overview" aria-labelledby="connection-overview-title">
-        <div class="connection-overview__head">
-          <div><p class="eyebrow">Portfolio nervous system</p><h3 id="connection-overview-title">From source to owner</h3></div>
-          <a class="action-link" href="#connection-ledger">Inspect every connection</a>
-        </div>
-        <div class="loading-state" data-founder-slot="connection-overview">Building the six-bucket map…</div>
-      </section>
-      <section class="owner-section" id="connection-gaps" aria-labelledby="connection-gaps-title">
-        <div class="section-head">
-          <div><p class="eyebrow">Work that closes the loop</p><h3 id="connection-gaps-title">Gaps worth seeing</h3></div>
-          <span class="count" data-founder-count="connection-gaps">—</span>
-        </div>
-        <div class="loading-state" data-founder-slot="connection-gaps">Reading incomplete transports…</div>
-      </section>
-      <section class="owner-section" id="connection-ledger" aria-labelledby="connection-ledger-title">
-        <div class="section-head">
-          <div><p class="eyebrow">Durable contracts</p><h3 id="connection-ledger-title">Connection ledger</h3></div>
-          <span class="count" data-founder-count="connections">—</span>
-        </div>
-        <div class="loading-state" data-founder-slot="connections">Loading connection ledger…</div>
-      </section>
-      <section class="owner-section" aria-labelledby="connection-evidence-title">
-        <div class="section-head"><div><p class="eyebrow">What is flowing</p><h3 id="connection-evidence-title">Evidence now</h3></div></div>
-        <div class="loading-state" data-founder-slot="connection-evidence">Loading bounded evidence…</div>
-      </section>
-    </div>
-  </dialog>
 </FounderLayout>

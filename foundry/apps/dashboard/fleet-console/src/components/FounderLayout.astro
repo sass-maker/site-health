@@ -5,15 +5,15 @@ import "../styles/founder.css";
 interface Props {
   title: string;
   description: string;
-  active: "project-statuses" | "domains" | "ai-awareness" | "marketing" | "performance" | "feedback";
+  active: "domains" | "ai-awareness" | "market" | "performance" | "project-statuses" | "feedback" | "metrics";
   eyebrow?: string;
-  view?: "project-statuses" | "project" | "domains" | "ai-awareness" | "performance" | "feedback" | "mission" | "marketing";
+  view?: "domains" | "ai-awareness" | "marketing" | "performance" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
   projectId?: string;
 }
 
 const { title, description, active, eyebrow = "Founder control", view, projectId } = Astro.props;
 const filterable = !["project", "mission"].includes(view ?? "");
-const directoryView = view === "project-statuses";
+const directoryView = ["domains", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
 ---
 
 <!doctype html>

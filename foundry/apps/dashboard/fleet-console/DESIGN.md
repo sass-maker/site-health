@@ -36,18 +36,20 @@ immutable identifiers and source revisions.
 ## Layout
 
 - Maximum content width: 1,240 px.
-- A persistent, collapsible left sidebar presents one flat list of owner views;
-  repository taxonomy does not appear in primary navigation.
-- The primary owner views are Projects, Domains, AI Awareness, Marketing, and
-  Performance. The selected project scope follows the operator between them in
-  the URL. Feedback and System Map remain secondary navigation.
-- Projects is the default directory with explicit domains plus direct website,
-  changelog, and source destinations. Domains groups registrable roots once.
-  AI Awareness is limited to provider-backed outcomes for maintained P1
-  products. Marketing is a complete maintained-product coverage directory.
-  Performance applies one explicit PSI/LCP guardrail without ranking or
-  blending scores. Search, crawlability, agent readiness, design critique,
-  skill history, and source detail remain in project or secondary diagnostics.
+- A persistent, collapsible left sidebar groups Domains, AI Awareness,
+  Marketing, and Performance under a visible Metrics heading; repository
+  taxonomy does not appear in primary navigation.
+- Projects and Feedback remain standalone tabs below Metrics. The selected
+  project scope follows the operator between views in the URL.
+- Domains answers whether every owned registrable root is becoming stronger.
+  AI Awareness is limited to maintained P1 products and provider-backed model
+  outcomes. Marketing shows coverage for every maintained product, while
+  Performance treats PSI and LCP as a pass/fail guardrail for every maintained
+  public product. Projects remains the canonical secondary directory with
+  explicit website, changelog, source, and project-detail destinations.
+  Skill uses and System Map remain secondary diagnostic surfaces.
+  Search Console, crawlability, agent readiness, design review, and full metric
+  histories stay inside project detail.
 - Use bordered rows and section bands for related records; reserve cards for a
   genuinely independent decision or recommendation.
 - Technical evidence appears in expandable detail or on mission detail pages.
@@ -63,8 +65,6 @@ immutable identifiers and source revisions.
 - `EvidenceLink`: provider, verification state, observation time, external link.
 - `HistoryChart`: one comparable metric in its native unit, with start, current,
   absolute and percentage change, observation count, and date range.
-- `PortfolioRow`: canonical identity, native evidence values, source and
-  observation metadata, explicit state language, and a project-detail link.
 - `StateBadge`: icon/text/color treatment for active, blocked, stale, complete,
   awaiting verification, and unavailable.
 - `ActionButton`: solid accent for one primary action; bordered neutral for

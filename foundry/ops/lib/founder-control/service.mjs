@@ -85,72 +85,26 @@ export function buildMarketingProjection(projections, portfolio, scheduleActivat
   const projectedProjects = new Map(
     projections.aiVisibility.projects.map((project) => [project.projectId, project]),
   );
-  const openRecommendations = projections.recommendations.filter(
-    (item) => item.state === 'open' && item.projectId,
-  );
-  const publicationByProject = new Map();
-  for (const mission of projections.missions) {
-    if (!mission.projectId) continue;
-    for (const event of mission.timeline ?? []) {
-      if (event.summary !== 'Marketing publication receipt') continue;
-      for (const evidence of event.evidence ?? []) {
-        const observedAt = evidence.observedAt ?? event.occurredAt;
-        const current = publicationByProject.get(mission.projectId);
-        const candidateTime = Date.parse(observedAt ?? '');
-        const currentTime = Date.parse(current?.observedAt ?? '');
-        if (
-          !current ||
-          (Number.isFinite(candidateTime) &&
-            (!Number.isFinite(currentTime) || candidateTime > currentTime))
-        ) {
-          publicationByProject.set(mission.projectId, {
-            provider: evidence.provider,
-            kind: evidence.kind,
-            id: evidence.id,
-            state: evidence.state,
-            observedAt,
-            summary: evidence.summary ?? event.summary,
-            url: evidence.url ?? null,
-          });
-        }
-      }
-    }
-  }
-  const coverage = projections.projects
-    .filter((project) => project.lifecycle === 'maintained')
-    .map((project) => {
-      const latestPublication = publicationByProject.get(project.id) ?? null;
-      return {
-        projectId: project.id,
-        name: project.name,
-        positioning: {
-          available: Boolean(project.description),
-          description: project.description ?? null,
-        },
-        recommendationCount: openRecommendations.filter(
-          (item) => item.projectId === project.id,
-        ).length,
-        publicationState: latestPublication ? 'published' : 'never-marketed',
-        latestPublication,
-      };
-    })
-    .sort((left, right) => left.name.localeCompare(right.name));
+  const outcomes = projections.activity.flatMap((event) => {
+    const match = String(event.summary ?? '').match(/^Marketing (publication|measurement) receipt$/);
+    if (!match) return [];
+    const pointer = event.evidence?.[0] ?? null;
+    return [{
+      id: event.id,
+      projectId: event.projectId ?? null,
+      missionId: event.missionId ?? null,
+      stage: match[1],
+      status: pointer?.state ?? 'recorded',
+      provider: pointer?.provider ?? event.actor?.id ?? null,
+      title: pointer?.summary ?? event.summary,
+      observedAt: event.occurredAt,
+      url: pointer?.url ?? null,
+    }];
+  });
   return {
     generatedAt: projections.generatedAt,
-    recommendations: openRecommendations,
-    coverage,
-    outcomes: coverage.flatMap((project) =>
-      project.latestPublication
-        ? [{
-            projectId: project.projectId,
-            title: project.latestPublication.summary,
-            status: project.latestPublication.state,
-            observedAt: project.latestPublication.observedAt,
-            provider: project.latestPublication.provider,
-            url: project.latestPublication.url,
-          }]
-        : [],
-    ),
+    recommendations: projections.recommendations.filter((item) => item.projectId),
+    outcomes,
     providerEvidence: 'linked-only',
     aiVisibility: {
       projects: portfolio.eligible.map((project) => ({

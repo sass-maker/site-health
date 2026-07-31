@@ -1067,6 +1067,129 @@ function outcomeFamilySummary(family) {
   };
 }
 
+function signalByLabel(project, label) {
+  return project.history.signals.find((signal) => signal.label === label) ?? null;
+}
+
+function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
+  const publicProjects = projectOutputs.filter(
+    (project) => project.metricEligibility?.publicSite === true,
+  );
+  const domainGroups = new Map();
+  for (const project of publicProjects) {
+    const authority = project.metricSemantics?.seo?.domainAuthority ?? {};
+    const domain = authority.rootDomain ?? authority.domain ?? project.domains[0] ?? null;
+    if (!domain) continue;
+    const current = domainGroups.get(domain) ?? {
+      domain,
+      projects: [],
+      signal: null,
+      observedAt: null,
+      source: authority.source ?? 'Drank · Ahrefs public endpoint',
+    };
+    current.projects.push({ projectId: project.projectId, name: project.name });
+    const signal = signalByLabel(project, 'Domain rating');
+    const signalTime = signal?.observedAt ? Date.parse(signal.observedAt) : Number.NaN;
+    const currentTime = current.signal?.observedAt
+      ? Date.parse(current.signal.observedAt)
+      : Number.NaN;
+    if (
+      signal &&
+      (!current.signal || (Number.isFinite(signalTime) && signalTime > currentTime))
+    ) {
+      current.signal = signal;
+      current.observedAt = signal.observedAt;
+    }
+    domainGroups.set(domain, current);
+  }
+
+  const recommendations = marketing?.recommendations ?? [];
+  const outcomes = marketing?.outcomes ?? marketing?.receipts ?? [];
+  const marketingRows = publicProjects.map((project) => {
+    const projectRecommendations = recommendations.filter(
+      (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
+    );
+    const projectOutcomes = outcomes
+      .filter(
+        (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
+      )
+      .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
+    return {
+      projectId: project.projectId,
+      name: project.name,
+      domain: project.domains[0] ?? null,
+      positioning: project.description ? 'ready' : 'missing',
+      description: project.description,
+      recommendationCount: projectRecommendations.length,
+      latestOutcome: projectOutcomes[0] ?? null,
+      outcomeCount: projectOutcomes.length,
+      status: projectOutcomes.length > 0 ? 'marketed' : 'never-marketed',
+    };
+  });
+
+  const performanceThresholds = { psiScore: 90, lcpMilliseconds: 2500 };
+  const performanceRows = publicProjects.map((project) => {
+    const psi = signalByLabel(project, 'PSI performance');
+    const lcp = signalByLabel(project, 'PSI LCP');
+    let status = 'not-measured';
+    if (psi && lcp) {
+      status = 'needs-work';
+      if (
+        psi.value >= performanceThresholds.psiScore &&
+        lcp.value <= performanceThresholds.lcpMilliseconds
+      ) {
+        status = 'fast-enough';
+      }
+    }
+    return {
+      projectId: project.projectId,
+      name: project.name,
+      domain: project.domains[0] ?? null,
+      status,
+      psi,
+      lcp,
+      observedAt: project.metricSemantics?.performance?.observedAt ?? null,
+    };
+  });
+
+  const coreAiRows = publicProjects
+    .filter((project) => project.priority === 'P1' && project.lifecycle === 'maintained')
+    .map((project) => {
+      const mention = signalByLabel(project, 'AI mention rate');
+      let status = 'not-measured';
+      if (project.aiVisibility?.observations > 0 && Number.isFinite(mention?.value)) {
+        status = 'not-known';
+        if (mention.value > 0) status = 'known';
+      }
+      return {
+        projectId: project.projectId,
+        name: project.name,
+        domain: project.domains[0] ?? null,
+        status,
+        observations: project.aiVisibility?.observations ?? 0,
+        observedAt: project.aiVisibility?.observedAt ?? null,
+        mention,
+        recommendation: signalByLabel(project, 'AI recommendation rate'),
+        citation: signalByLabel(project, 'AI citation rate'),
+        averageRank: signalByLabel(project, 'AI average rank'),
+      };
+    });
+
+  return {
+    domains: [...domainGroups.values()]
+      .map((entry) => ({
+        ...entry,
+        projects: entry.projects.sort((left, right) => left.name.localeCompare(right.name)),
+        historyState: entry.signal?.history ?? 'unmeasured',
+      }))
+      .sort((left, right) => left.domain.localeCompare(right.domain)),
+    coreAi: coreAiRows.sort((left, right) => left.name.localeCompare(right.name)),
+    marketing: marketingRows.sort((left, right) => left.name.localeCompare(right.name)),
+    performance: performanceRows.sort((left, right) => left.name.localeCompare(right.name)),
+    performanceThresholds,
+  };
+}
+
 function buildProjectOutputs({
   projects,
   skills,
@@ -1446,7 +1569,6 @@ function buildProjectOutputs({
         observedAt: latestAiOutcome?.observedAt ?? null,
         evidenceMode: aiRunEvidenceMode(latestAiOutcome),
         source: latestAiOutcome ? 'AI Visibility provider observation' : null,
-        attempts: latestAiOutcome?.attempts ?? [],
         fixture: {
           observations: aiFixtureHistory.length,
           observedAt: latestAiFixture?.observedAt ?? null,
@@ -1463,12 +1585,11 @@ function buildProjectOutputs({
         catalogProjectId: project.id,
         name: project.name ?? project.id,
         description: project.public?.description ?? null,
-        category: project.public?.category ?? null,
         priority: project.priority ?? null,
+        tier: project.tier ?? null,
         attention: project.attention ?? null,
         lifecycle: project.lifecycle ?? null,
         status: project.status ?? null,
-        publicListing: project.public?.listing ?? null,
         domains,
         metricEligibility: {
           publicSite: publicMetricSite,
@@ -1761,134 +1882,6 @@ function attachImprovementWork(actions, missions) {
   });
 }
 
-const PERFORMANCE_GUARDRAILS = Object.freeze({
-  minimumPsi: 90,
-  maximumLcpMs: 2500,
-});
-
-function outputSignal(project, label) {
-  return project.history.signals.find((signal) => signal.label === label) ?? null;
-}
-
-export function buildPortfolioStrengthProjection({
-  projects = [],
-  marketingCoverage = [],
-} = {}) {
-  const maintained = projects.filter((project) => project.lifecycle === 'maintained');
-  const domainsByRoot = new Map();
-  for (const project of maintained) {
-    for (const domain of project.domains ?? []) {
-      const rootDomain = registrableDomain(domain);
-      if (!rootDomain) continue;
-      const group = domainsByRoot.get(rootDomain) ?? {
-        rootDomain,
-        products: [],
-        ratingCandidates: [],
-      };
-      if (!group.products.some((item) => item.projectId === project.projectId)) {
-        group.products.push({
-          projectId: project.projectId,
-          name: project.name,
-          domain,
-        });
-      }
-      if (project.domainRating && Number.isFinite(project.domainRating.rating)) {
-        group.ratingCandidates.push(project.domainRating);
-      }
-      domainsByRoot.set(rootDomain, group);
-    }
-  }
-  const domains = [...domainsByRoot.values()]
-    .map((group) => {
-      const rating = [...group.ratingCandidates].sort(
-        (left, right) =>
-          Date.parse(right.observedAt ?? 0) - Date.parse(left.observedAt ?? 0) ||
-          Number(right.domain === group.rootDomain) - Number(left.domain === group.rootDomain),
-      )[0] ?? null;
-      return {
-        rootDomain: group.rootDomain,
-        products: group.products.sort((left, right) => left.name.localeCompare(right.name)),
-        measuredDomain: rating?.domain ?? null,
-        rating: rating?.rating ?? null,
-        delta: rating?.delta ?? null,
-        observations: rating?.observations ?? 0,
-        historyState:
-          (rating?.observations ?? 0) >= 2
-            ? 'comparable'
-            : rating
-              ? 'baseline-only'
-              : 'not-measured',
-        observedAt: rating?.observedAt ?? null,
-        source: 'Drank · Ahrefs public endpoint',
-      };
-    })
-    .sort((left, right) => left.rootDomain.localeCompare(right.rootDomain));
-
-  const aiAwareness = maintained
-    .filter((project) => project.priority === 'P1' && project.category === 'product')
-    .map((project) => {
-      const measured = project.aiVisibility?.observations > 0;
-      const providers = [
-        ...new Set(
-          (project.aiVisibility?.attempts ?? [])
-            .filter((attempt) => attempt.status === 'completed')
-            .map((attempt) => [attempt.providerId, attempt.model].filter(Boolean).join(' · '))
-            .filter(Boolean),
-        ),
-      ].sort();
-      const metric = (label) => measured ? outputSignal(project, label)?.value ?? null : null;
-      return {
-        projectId: project.projectId,
-        name: project.name,
-        status: measured ? 'measured' : 'not-measured',
-        observedAt: measured ? project.aiVisibility.observedAt : null,
-        source: measured ? 'AI Visibility provider observation' : null,
-        providers,
-        mentionRate: metric('AI mention rate'),
-        recommendationRate: metric('AI recommendation rate'),
-        citationRate: metric('AI citation rate'),
-        citations: metric('AI citations'),
-        coverageRate: metric('AI coverage rate'),
-      };
-    })
-    .sort((left, right) => left.name.localeCompare(right.name));
-
-  const performance = maintained
-    .filter((project) => project.metricEligibility?.publicSite === true)
-    .map((project) => {
-      const psi = outputSignal(project, 'PSI performance');
-      const lcp = outputSignal(project, 'PSI LCP');
-      const measured = Number.isFinite(psi?.value) && Number.isFinite(lcp?.value);
-      const failures = [];
-      if (measured && psi.value < PERFORMANCE_GUARDRAILS.minimumPsi) failures.push('PSI');
-      if (measured && lcp.value > PERFORMANCE_GUARDRAILS.maximumLcpMs) failures.push('LCP');
-      return {
-        projectId: project.projectId,
-        name: project.name,
-        domain: project.domains?.[0] ?? null,
-        status: !measured
-          ? 'not-measured'
-          : failures.length > 0
-            ? 'needs-work'
-            : 'fast-enough',
-        psi: Number.isFinite(psi?.value) ? psi.value : null,
-        lcpMs: Number.isFinite(lcp?.value) ? lcp.value : null,
-        observedAt: newestTimestamp([psi?.observedAt, lcp?.observedAt]),
-        failures,
-        source: 'PSI Swarm',
-      };
-    })
-    .sort((left, right) => left.name.localeCompare(right.name));
-
-  return {
-    guardrails: PERFORMANCE_GUARDRAILS,
-    domains,
-    aiAwareness,
-    marketing: [...marketingCoverage].sort((left, right) => left.name.localeCompare(right.name)),
-    performance,
-  };
-}
-
 export function buildFleetConnections({
   fleetRoot = resolve(import.meta.dirname, '../../../..'),
   home = process.env.HOME ?? '',
@@ -1901,16 +1894,16 @@ export function buildFleetConnections({
     resolve(fleetRoot, 'foundry/ops/config/projects.json'),
     { projects: [] },
   );
-  const priorityByProject = new Map(
-    Object.entries(projectCatalog._meta?.priorities ?? {}).flatMap(([priority, ids]) =>
-      (ids ?? []).map((projectId) => [projectId, priority]),
-    ),
-  );
-  const withPriority = (project) => ({
+  const priorityByProject = new Map();
+  for (const priority of ['P1', 'P2', 'P3']) {
+    for (const projectId of projectCatalog._meta?.priorities?.[priority] ?? []) {
+      priorityByProject.set(projectId, priority);
+    }
+  }
+  const maintainedProjects = visibilityProjects(projectCatalog).map((project) => ({
     ...project,
-    priority: priorityByProject.get(project.id) ?? project.priority ?? null,
-  });
-  const maintainedProjects = visibilityProjects(projectCatalog).map(withPriority);
+    priority: project.priority ?? priorityByProject.get(project.id) ?? null,
+  }));
   const drank = drankEvidence(fleetRoot, now);
   const psi = psiEvidence(home, now);
   const skills = skillEvidence(home, now);
@@ -1943,10 +1936,7 @@ export function buildFleetConnections({
         .filter(Boolean)
         .some((domain) => drankDomains.has(domain)),
   );
-  const projectOutputProjects = [
-    ...maintainedProjects,
-    ...retainedDrankProjects.map(withPriority),
-  ];
+  const projectOutputProjects = [...maintainedProjects, ...retainedDrankProjects];
 
   const componentList = [
     {
@@ -2310,10 +2300,7 @@ export function buildFleetConnections({
     visibilityMetrics,
     visibilityOutcomes,
   });
-  const portfolio = buildPortfolioStrengthProjection({
-    projects: projectOutputs,
-    marketingCoverage: marketing?.coverage ?? [],
-  });
+  const ownerOutcomes = buildOwnerOutcomeProjection({ projectOutputs, marketing });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),
     missions,
@@ -2353,7 +2340,6 @@ export function buildFleetConnections({
     },
     buckets,
     connections,
-    portfolio,
     outputs: {
       summary: {
         skillRuns: skills.status?.runCount ?? 0,
@@ -2378,6 +2364,7 @@ export function buildFleetConnections({
         total: normalizedFeedback.length,
         submissions: normalizedFeedback,
       },
+      ownerOutcomes,
       projects: projectOutputs,
       history: skills.history,
       improvements,

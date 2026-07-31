@@ -10,61 +10,49 @@ import {
 } from '../lib/founder-control/service.mjs';
 import { FounderControlStore } from '../lib/founder-control/store.mjs';
 
-test('projects marketing coverage for every maintained product with the latest publication only', () => {
-  const result = buildMarketingProjection({
-    generatedAt: '2026-07-30T10:00:00.000Z',
-    projects: [
-      { id: 'pace', name: 'Pace', description: 'Private voice assistant.', lifecycle: 'maintained' },
-      { id: 'quiet', name: 'Quiet', lifecycle: 'maintained' },
-      { id: 'past', name: 'Past', lifecycle: 'past' },
-    ],
-    recommendations: [
-      { id: 'open', projectId: 'pace', state: 'open' },
-      { id: 'closed', projectId: 'pace', state: 'accepted' },
-    ],
-    missions: [{
-      projectId: 'pace',
-      timeline: [
-        {
-          summary: 'Marketing publication receipt',
-          occurredAt: '2026-07-20T10:00:00.000Z',
-          evidence: [{
-            id: 'old',
-            provider: 'postiz',
-            kind: 'social-post',
-            state: 'published',
-            observedAt: '2026-07-20T10:00:00.000Z',
-            summary: 'Older launch note',
-          }],
-        },
-        {
-          summary: 'Marketing publication receipt',
-          occurredAt: '2026-07-30T10:00:00.000Z',
-          evidence: [{
-            id: 'new',
-            provider: 'postiz',
-            kind: 'social-post',
-            state: 'published',
-            observedAt: '2026-07-30T10:00:00.000Z',
-            summary: 'New launch note',
-            url: 'https://example.com/post',
-          }],
-        },
-      ],
-    }],
+test('projects only explicit marketing receipts into the owner coverage view', () => {
+  const projection = buildMarketingProjection({
+    generatedAt: '2026-07-31T10:00:00.000Z',
+    recommendations: [],
     aiVisibility: { projects: [] },
+    activity: [
+      {
+        id: 'publish-1',
+        projectId: 'pace',
+        missionId: 'mission-1',
+        summary: 'Marketing publication receipt',
+        occurredAt: '2026-07-31T09:00:00.000Z',
+        evidence: [{
+          provider: 'postiz',
+          state: 'published',
+          summary: 'Pace launch note',
+          url: 'https://example.com/post/1',
+        }],
+      },
+      {
+        id: 'ordinary-event',
+        projectId: 'pace',
+        summary: 'Project evidence updated',
+        occurredAt: '2026-07-31T09:30:00.000Z',
+        evidence: [],
+      },
+    ],
   }, {
     eligible: [],
-    scheduleIntent: {},
+    scheduleIntent: { enabled: false },
   });
 
-  assert.deepEqual(result.coverage.map((project) => project.projectId), ['pace', 'quiet']);
-  assert.equal(result.coverage[0].positioning.description, 'Private voice assistant.');
-  assert.equal(result.coverage[0].recommendationCount, 1);
-  assert.equal(result.coverage[0].latestPublication.id, 'new');
-  assert.equal(result.coverage[1].publicationState, 'never-marketed');
-  assert.deepEqual(result.recommendations.map((item) => item.id), ['open']);
-  assert.equal(result.outcomes.length, 1);
+  assert.deepEqual(projection.outcomes, [{
+    id: 'publish-1',
+    projectId: 'pace',
+    missionId: 'mission-1',
+    stage: 'publication',
+    status: 'published',
+    provider: 'postiz',
+    title: 'Pace launch note',
+    observedAt: '2026-07-31T09:00:00.000Z',
+    url: 'https://example.com/post/1',
+  }]);
 });
 
 test('serves owner views and rejects unauthenticated mutations', async (context) => {

@@ -8,12 +8,6 @@ model in the Console, with each page answering one clear question.
 
 ## What Changes
 
-The navigation and Metrics bullets below record the evidence workspace delivered
-by this still-open connection change. The later
-`refocus-fleet-console-portfolio` change supersedes that primary navigation with
-Projects, Domains, AI Awareness, Marketing, and Performance, redirects Metrics
-to Domains, and retains detailed evidence on project pages.
-
 - Replace the overloaded Outputs route and empty primary routes with four
   focused views: Projects, Feedback, Metrics, and Marketing.
 - Add a collapsible left sidebar that mirrors the six repository buckets:
@@ -50,6 +44,12 @@ to Domains, and retains detailed evidence on project pages.
   Cloudflare AI referral traffic. Keep provider acquisition outside this
   change, validate the complete bundle before recording, and project only
   normalized aggregate metrics into project detail.
+- Refocus primary portfolio navigation on the four owner outcomes that now
+  matter: domain strength for every owned domain, provider-backed AI awareness
+  for maintained P1 products, marketing coverage for every maintained product,
+  and threshold-based performance for every maintained public product. Keep
+  Projects, Feedback, skills, System Map, and detailed audits available as
+  secondary directory or diagnostic surfaces.
 - Preserve the six-bucket topology, component states, gaps, and complete
   transport ledger as an inspectable left-side System Map sheet.
 - Add one normalized private API projection for project catalog, AI visibility,
@@ -91,8 +91,8 @@ to Domains, and retains detailed evidence on project pages.
 ## Impact
 
 The change affects Fleet Console navigation and shell, the
-`/project-statuses`, `/domains`, `/ai-awareness`, `/marketing`,
-`/performance`, and `/feedback` routes, the retired `/metrics` and
+`/domains`, `/ai-awareness`, `/marketing`, `/performance`,
+`/project-statuses`, `/metrics`, and `/feedback` routes, the retired
 `/skill-uses` redirect,
 existing Marketing route, the System Map sheet, client rendering and styles,
 Founder Control API routing, the read-only connection/output adapter, Ops

@@ -162,3 +162,24 @@
   first canaries, and schedule activation.
 - [x] 18.6 Update durable status, commit, and push without deploying or touching
   credentials or production configuration.
+
+## 19. Owner Outcome Refocus
+
+- [x] 19.1 Make Domains, AI Awareness, Marketing, and Performance the primary
+  navigation while keeping Projects, Feedback, skills, and System Map as
+  secondary surfaces.
+- [x] 19.2 Build a deduplicated registrable-domain directory with D-Rank,
+  history state, observation time, affected projects, sorting, and honest
+  missing evidence.
+- [x] 19.3 Build a maintained-P1 AI Awareness view using only provider-backed
+  model-answer outcomes and excluding fixtures, crawler activity, readiness,
+  and non-product identities.
+- [x] 19.4 Turn Marketing into a maintained-product coverage directory with
+  positioning, last publishing receipt, recommendation count, and an explicit
+  never-marketed state.
+- [x] 19.5 Build a maintained-public-product Performance guardrail using
+  explicit PSI and LCP thresholds with fast-enough, needs-work, and
+  not-measured states.
+- [x] 19.6 Add focused projection/client coverage and pass production build,
+  strict OpenSpec, responsive browser, critique, audit, and diff checks.
+- [x] 19.7 Update durable status, commit, and push without deploying.
