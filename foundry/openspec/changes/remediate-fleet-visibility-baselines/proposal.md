@@ -18,6 +18,12 @@ those values without separating the two would produce misleading improvements.
 - Preserve validated design-review results as a deterministic, sanitized Fleet
   snapshot so a fresh Fleet checkout does not depend on colocated product
   repositories to render or gate the latest scores.
+- Carry each project's exact tracked brand and category search intents into the
+  generated public agent catalog and full agent brief from one canonical
+  registry, without rewriting or keyword-stuffing the queries.
+- Keep raw Domain Rating visible while evaluating the portfolio goal against a
+  dated, attributable external benchmark percentile rather than treating a raw
+  rating of 90 as synonymous with the 90th percentile.
 
 ## Out of Scope
 
@@ -25,4 +31,6 @@ those values without separating the two would produce misleading improvements.
 - Invented historical results.
 - Claims that off-site authority or live search visibility improved before a
   deployed re-observation proves it.
+- Self-referential percentile ranking across only the Fleet portfolio, or an
+  unattributed benchmark that cannot be reproduced.
 - Broad visual redesigns.

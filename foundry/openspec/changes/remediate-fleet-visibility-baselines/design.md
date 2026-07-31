@@ -25,6 +25,19 @@ opt-ins, while excluding non-products. The agent-surface registry is a
 metadata overlay, ordered and validated against those identities and their
 primary domains before any fleet-wide run.
 
+`foundry/ops/config/geo-observatory.json` remains the canonical tracked-query
+overlay. Generation joins it to the visibility inventory by project id and
+selects the exact configured `brand` and `category` records. The generated
+`/api/ai` catalog exposes them as structured `searchIntents`, while
+`llms-full.txt` renders the same ids, kinds, and query text for one-shot agent
+readers. The generator rejects missing projects and duplicate query ids instead
+of deriving substitute copy.
+
+Domain authority keeps two separate values: the provider-observed raw Domain
+Rating and a computed percentile rank. The percentile calculation accepts only
+a dated external benchmark with an attributable source, defined cohort, and
+reproducible method. Fleet's 27 domains cannot serve as their own benchmark.
+
 ## Audit loop
 
 For each touched project:
@@ -72,6 +85,8 @@ must reject missing evidence, fixture-only AI visibility, failed audits, and
 invalid design receipts.
 
 Technical percentage gates require 90 or better. LCP requires 2.5 seconds or
-better. Search class A, live AI visibility at 90 or better, and D-Rank at 90 or
-better remain external outcome gates: local metadata and content work are
-prerequisites, not substitutes for those observations.
+better. Search class A, live AI visibility at 90 or better, and an externally
+benchmarked Domain Rating percentile at 90 or better remain outcome gates:
+local metadata and content work are prerequisites, not substitutes for those
+observations. The raw Domain Rating remains visible but is not treated as a
+percentile.

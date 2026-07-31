@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import test from 'node:test';
 
@@ -21,6 +26,21 @@ function dryRunAtRoot(projectId, fleetRoot) {
   );
 }
 
+function runAtRoot(projectId, fleetRoot) {
+  return execFileSync(
+    process.execPath,
+    [
+      script.pathname,
+      '--id',
+      projectId,
+      '--fleet-root',
+      fleetRoot,
+      '--no-config',
+    ],
+    { encoding: 'utf8' },
+  );
+}
+
 test('prints help without applying registered products', () => {
   const output = execFileSync(process.execPath, [script.pathname, '--help'], {
     encoding: 'utf8',
@@ -32,7 +52,20 @@ test('prints help without applying registered products', () => {
 });
 
 test('preserves product-specific discovery files unless explicitly forced', () => {
-  const output = dryRun('motion');
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const publicDir = join(fleetRoot, 'motion/landing');
+  for (const relativePath of [
+    'llms.txt',
+    'index.md',
+    'api/ai.json',
+    'robots.txt',
+    'sitemap.xml',
+  ]) {
+    const path = join(publicDir, relativePath);
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, `preserved ${relativePath}\n`);
+  }
+  const output = dryRunAtRoot('motion', fleetRoot);
 
   assert.match(output, /llms\.txt preserved/);
   assert.match(output, /index\.md preserved/);
@@ -41,6 +74,37 @@ test('preserves product-specific discovery files unless explicitly forced', () =
   assert.match(output, /sitemap\.xml preserved/);
   assert.match(output, /llms-full\.txt/);
   assert.match(output, /changelog\.md/);
+});
+
+test('writes tracked search intents into the catalog and full agent brief', () => {
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const publicDir = join(fleetRoot, 'research-papers/web/public');
+  mkdirSync(publicDir, { recursive: true });
+
+  runAtRoot('research-papers', fleetRoot);
+
+  const catalog = JSON.parse(
+    readFileSync(join(publicDir, 'api-ai.json'), 'utf8'),
+  );
+  const fullBrief = readFileSync(join(publicDir, 'llms-full.txt'), 'utf8');
+  assert.deepEqual(catalog.searchIntents, [
+    {
+      id: 'research-papers-brand',
+      kind: 'brand',
+      query: 'papers.highsignal.app',
+    },
+    {
+      id: 'research-papers-category',
+      kind: 'category',
+      query:
+        'semantic academic paper search arXiv OpenReview bioRxiv medRxiv',
+    },
+  ]);
+  assert.match(fullBrief, /## Tracked search intents/);
+  assert.match(
+    fullBrief,
+    /\[category\] research-papers-category: semantic academic paper search/,
+  );
 });
 
 test('preserves custom runtime handlers while retaining worker wiring checks', () => {

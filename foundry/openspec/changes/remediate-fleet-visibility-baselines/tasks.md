@@ -16,12 +16,18 @@
   and class-consistent project-origin evidence for GEO observations.
 - [x] 1.8 Correct all 55 current search observations and make later same-day
   corrections authoritative in the generated report.
+- [x] 1.9 Replace the raw `Domain Rating >= 90` gate with a fail-closed,
+  evidence-backed external percentile calculation while retaining the raw
+  rating and regression coverage.
 
 ## 2. Shared agent surfaces
 
 - [x] 2.1 Audit zero and partial agent-readable coverage projects.
 - [x] 2.2 Improve shared route/catalog generation where a reusable gap exists.
 - [x] 2.3 Apply bounded project adapters without duplicating large corpora.
+- [x] 2.4 Join exact tracked brand/category intents into generated agent
+  catalogs and full briefs, rejecting missing identities and duplicate query
+  ids with focused regression coverage.
 
 ## 3. Project prerequisites
 
@@ -49,5 +55,6 @@
   gate at 90 or better with valid project evidence.
 - [ ] 5.4 Deploy the verified source remediations after explicit release
   authorization, then re-run the production gates.
-- [ ] 5.5 Record live provider-backed AI visibility and current external search
-  and domain-authority outcomes at 90 or better without fixture substitution.
+- [ ] 5.5 Record live provider-backed AI visibility, current external search,
+  and externally benchmarked domain-authority percentile outcomes at 90 or
+  better without fixture substitution.
