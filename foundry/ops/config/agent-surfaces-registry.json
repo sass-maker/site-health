@@ -221,6 +221,36 @@
       "indexMd": "# Calorie\n\nPrivate, local-first food, water, and weight journal.\n\n## Public boundary\n\n- Product explanation and optional Google sign-in\n- Deterministic methodology with visible assumptions\n- No public food, water, weight, profile, or journal data\n\n## Agent entrypoint\n\n- https://calorie.significanthobbies.com/llms.txt\n"
     },
     {
+      "id": "app-health",
+      "name": "App Health",
+      "url": "https://health.sassmaker.com",
+      "summary": "Privacy-first aggregate endpoint health for Node, Go, Cloudflare, and OpenTelemetry services.",
+      "publicDir": "app-health/apps/web/public",
+      "stack": "spa-hono",
+      "headFile": "app-health/apps/web/index.html",
+      "schemaType": "SoftwareApplication",
+      "applicationCategory": "DeveloperApplication",
+      "sameAs": [
+        "https://github.com/sass-maker/app-health"
+      ],
+      "worker": "app-health/apps/worker/src/index.ts",
+      "hasDynamicLlms": true,
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://health.sassmaker.com/",
+          "description": "Aggregate endpoint health dashboard"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://health.sassmaker.com/changelog",
+          "description": "Verified product releases"
+        }
+      ],
+      "indexMd": "# App Health\n\nPrivacy-first aggregate endpoint health for Node, Go, Cloudflare, and OpenTelemetry services.\n\n## Public boundary\n\n- Aggregate endpoint latency, status, and availability summaries\n- No request bodies, headers, cookies, query values, identities, logs, or stack traces\n- Owner APIs remain authenticated and are not agent-indexed\n\n## Agent entrypoints\n\n- https://health.sassmaker.com/llms.txt\n- https://health.sassmaker.com/api/ai\n- https://health.sassmaker.com/index.md\n"
+    },
+    {
       "id": "materia",
       "name": "Materia",
       "url": "https://materia.significanthobbies.com",
@@ -496,6 +526,35 @@
       "indexMd": "# MAL Explorer\n\nAnime/manga discovery with multi-axis filtering and watchlists.\n\n## Note for agents\n\nThe UI is a client SPA. Prefer this markdown and `/api/ai` over scraping HTML shells.\n\n## Agent entrypoints\n\n- https://anime.significanthobbies.com/llms.txt\n- https://anime.significanthobbies.com/api/ai\n- https://anime.significanthobbies.com/index.md\n"
     },
     {
+      "id": "india-standards",
+      "name": "India Standards",
+      "url": "https://india-numbers.significanthobbies.com",
+      "summary": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
+      "publicDir": "india-standards/public",
+      "stack": "opennext",
+      "headFile": "india-standards/app/layout.tsx",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/india-standards"
+      ],
+      "worker": "india-standards/worker.mjs",
+      "hasDynamicLlms": true,
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://india-numbers.significanthobbies.com/",
+          "description": "Demographic standards calculator"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://india-numbers.significanthobbies.com/changelog",
+          "description": "Verified product releases"
+        }
+      ],
+      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, uncertainty range, and range tightness\n- Height remains unavailable until its source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-numbers.significanthobbies.com/llms.txt\n- https://india-numbers.significanthobbies.com/api/ai\n- https://india-numbers.significanthobbies.com/index.md\n"
+    },
+    {
       "id": "chess",
       "name": "Chess Coach",
       "url": "https://chess.significanthobbies.com",
@@ -564,6 +623,72 @@
         }
       ],
       "indexMd": "# Email Manager\n\nGmail workspace with local semantic search.\n\n## Privacy\n\nMailbox content is private. Agents should only use public product description surfaces.\n\n## Agent entrypoints\n\n- https://mail.significanthobbies.com/llms.txt\n- https://mail.significanthobbies.com/api/ai\n- https://mail.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "url": "https://chatgpt.significanthobbies.com",
+      "summary": "Browser-local analysis and semantic exploration for user-supplied ChatGPT exports.",
+      "publicDir": "chatgpt-memory-insights/public",
+      "stack": "astro-static",
+      "headFile": "chatgpt-memory-insights/src/pages/index.astro",
+      "schemaType": "SoftwareApplication",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
+      ],
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://chatgpt.significanthobbies.com/",
+          "description": "Private browser-local memory analysis"
+        },
+        {
+          "title": "About",
+          "url": "https://chatgpt.significanthobbies.com/about",
+          "description": "Product and privacy boundary"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://chatgpt.significanthobbies.com/changelog",
+          "description": "Verified product releases"
+        }
+      ],
+      "indexMd": "# Memory Map\n\nBrowser-local analysis and semantic exploration for user-supplied ChatGPT exports.\n\n## Privacy boundary\n\n- Export archives and derived conversation text stay in the browser\n- Optional persistence is device-local\n- No user archive, memory graph, or conversation content is public or agent-indexed\n\n## Agent entrypoints\n\n- https://chatgpt.significanthobbies.com/llms.txt\n- https://chatgpt.significanthobbies.com/api/ai\n- https://chatgpt.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "url": "https://setline.significanthobbies.com",
+      "summary": "Mobile-first workout execution tracker for user-authored plans, recorded sets, and rest timing.",
+      "publicDir": "setline/public",
+      "stack": "vite-worker",
+      "headFile": "setline/app/layout.tsx",
+      "schemaType": "SoftwareApplication",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/setline"
+      ],
+      "worker": "setline/worker/index.ts",
+      "hasDynamicLlms": true,
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://setline.significanthobbies.com/",
+          "description": "Workout execution tracker"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://setline.significanthobbies.com/privacy",
+          "description": "Local and optional cloud data handling"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://setline.significanthobbies.com/changelog",
+          "description": "Verified product releases"
+        }
+      ],
+      "indexMd": "# Setline\n\nMobile-first workout execution tracker for following user-authored plans, recording sets, and timing rest.\n\n## Public boundary\n\n- Product, privacy, terms, and changelog pages are public\n- Workout plans, session history, and authenticated state remain private\n\n## Agent entrypoints\n\n- https://setline.significanthobbies.com/llms.txt\n- https://setline.significanthobbies.com/api/ai\n- https://setline.significanthobbies.com/index.md\n"
     },
     {
       "id": "free-ai",
@@ -662,20 +787,6 @@
         "https://github.com/sarthakagrawal927/open-historia"
       ],
       "indexMd": "# Open Historia\n\nAI grand-strategy history game.\n"
-    },
-    {
-      "id": "knowledgebase-app",
-      "name": "Private Agent Search",
-      "url": "https://search.sassmaker.com",
-      "summary": "Cited search + grounded answers over private, specialized document collections (RAG).",
-      "publicDir": "knowledge-base/app/public",
-      "stack": "next-opennext",
-      "schemaType": "SoftwareApplication",
-      "applicationCategory": "DeveloperApplication",
-      "sameAs": [
-        "https://github.com/sass-maker/knowledge-base"
-      ],
-      "indexMd": "# Private Agent Search\n\nCited RAG search over private collections.\n"
     },
     {
       "id": "saas-ideas",
