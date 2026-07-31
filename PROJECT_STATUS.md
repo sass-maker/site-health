@@ -62,6 +62,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Provider-backed AI visibility gained a credential-free
+  ingestion path:** Added strict, versioned offline observation bundles with
+  provider, model, timestamp, request, cost, and canonical-project provenance;
+  normalized receipts enter the existing private ledger without retaining raw
+  answers or enabling live providers, credentials, schedules, or deployment.
 - **2026-07-31 — Agent-surface source ownership made explicit:** Aligned every
   maintained project's `inRegistry` flag with the canonical 27-project agent
   registry, protected independently authored discovery files for App Health,
@@ -558,6 +563,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Foundry AI Visibility consumer with fixture-only manual execution, normalized
   private history/comparison, cost and cache receipts, recommendation-only
   handoff, ignored-project suppression, and disabled schedule activation gates.
+- Credential-free provider-observation ingestion with strict bundle validation,
+  partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
+  retained raw answer text or provider request IDs.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.
