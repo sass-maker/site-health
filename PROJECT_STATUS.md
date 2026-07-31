@@ -62,6 +62,16 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-07-31 — Metrics stopped presenting proxies as outcomes:** Separated
+  provider-backed search and AI visibility outcomes from technical readiness,
+  domain authority, and fixture canaries. Fixture runs no longer enter AI
+  scores or sorting; Search Console and real AI outcomes remain explicitly not
+  measured until connected. Every matrix value now shows its evidence source
+  and provider observation time, D-Rank exposes domain scope, four stale agent
+  audits were refreshed, and responsive table semantics now preserve native
+  links, sticky project context, sort announcements, and narrow-screen guidance.
+  Local validation passed with a 32/40 design review, 19/20 implementation
+  audit, zero P0/P1 findings, and no deployment.
 - **2026-07-31 — SEO evidence stopped failing open and misreading multiline
   metadata:** Made the on-page auditor parse multiline and reordered title,
   meta, and canonical markup correctly, then fail the run when a page is

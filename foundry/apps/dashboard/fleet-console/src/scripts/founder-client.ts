@@ -620,6 +620,9 @@ function historySignal(signal: JsonRecord) {
       Number.isFinite(signal.value) ? metricValue(signal.value, signal.unit) : "—",
     ]),
     element("small", { class: favorable ? "positive" : unfavorable ? "negative" : "" }, [delta]),
+    element("small", { class: "history-signal__source" }, [
+      `${signal.source ?? "Recorded evidence"} · ${formatted(signal.observedAt)}`,
+    ]),
   ]);
 }
 
@@ -631,7 +634,7 @@ function metricValue(value: number, unit?: string | null) {
   if (unit === "rank") return `#${formattedValue}`;
   if (unit === "milliseconds") return `${formattedValue} ms`;
   if (unit === "runs") return `${formattedValue} ${Math.abs(value) === 1 ? "run" : "runs"}`;
-  if (unit === "class") return ({ 3: "A", 2: "B", 1: "C" } as Record<number, string>)[Math.round(value)] ?? "—";
+  if (unit === "class") return ({ 3: "Own domain top 3", 2: "Partial page one", 1: "Absent" } as Record<number, string>)[Math.round(value)] ?? "—";
   if (unit?.startsWith("score/")) return `${formattedValue}/${unit.slice("score/".length)}`;
   return `${formattedValue}${unit ? ` ${unit}` : ""}`;
 }
@@ -722,6 +725,7 @@ function historyChart(signal: JsonRecord, options: JsonRecord = {}) {
           aggregate ? formattedDay(series.at(-1).observedAt) : formatted(series.at(-1).observedAt)
         }`,
       ]),
+      signal.source ? element("span", {}, [signal.source]) : null,
     ]),
   ]);
 }
@@ -958,13 +962,13 @@ const METRIC_FAMILY_ORDER: MetricFamily[] = [
 
 const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
   search: {
-    title: "Search Visibility",
+    title: "Search outcomes & observations",
     runLabel: "Record search run",
     includesProject: (project) => project.metricEligibility?.publicSite === true,
     matchesSignal: (signal) => signal.label === "Worst tracked query class",
     matchesAction: () => false,
     canRun: () => false,
-    runBoundary: "Agent-run observation",
+    runBoundary: "Web-search observation · Search Console not connected",
     emptyState: (project) => project.searchVisibility?.configured
       ? {
           title: "No Search Visibility baseline",
@@ -978,9 +982,17 @@ const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
   },
   ai: {
     title: "AI Visibility",
-    runLabel: "Run canary",
+    runLabel: "Run fixture canary",
     includesProject: (project) => project.metricEligibility?.publicSite === true,
-    matchesSignal: (signal) => signal.label.startsWith("AI "),
+    matchesSignal: (signal) => [
+      "AI visibility score",
+      "AI mention rate",
+      "AI recommendation rate",
+      "AI citation rate",
+      "AI coverage rate",
+      "AI average rank",
+      "AI citations",
+    ].includes(signal.label),
     matchesAction: (action) => action.id.includes(":ai-"),
     canRun: (project) => Boolean(project.aiVisibility?.configured),
     emptyState: (project) => {
@@ -991,10 +1003,11 @@ const METRIC_FAMILIES: Record<MetricFamily, MetricFamilyDefinition> = {
         };
       }
       return {
-        title: "No AI Visibility baseline",
-        detail: "AI Visibility is configured, but no recorded report is available.",
+        title: "AI Visibility not measured",
+        detail: "Questions are configured, but no provider-backed observation is recorded.",
       };
     },
+    runBoundary: "Fixture runner · not a visibility outcome",
     renderEvidence: renderAiVisibility,
   },
   drank: {
@@ -1112,14 +1125,24 @@ function renderSearchVisibility(
           ]),
           latest
             ? element("div", { class: "tracked-intent__result" }, [
-                state(`class-${String(latest.class).toLowerCase()}`),
-                element("small", {}, [formattedDay(latest.observedAt)]),
+                element("strong", {}, [{ A: "Own domain top 3", B: "Partial page one", C: "Absent" }[latest.class] ?? "Unknown"]),
+                element("small", {}, [`Web search · ${formattedDay(latest.observedAt)}`]),
               ])
             : state("unmeasured"),
         ]);
       }))
     : empty("No tracked search terms", "This project needs a stable query set before ranking history can begin.");
   return element("div", { class: "metric-evidence" }, [
+    element("div", { class: "metric-evidence__summary" }, [
+      element("span", {}, [
+        "Direct search outcome is not measured · Google Search Console is not connected. The rows below are current web-search observations, not an overall grade.",
+      ]),
+      element("a", {
+        href: "https://search.google.com/search-console",
+        target: "_blank",
+        rel: "noreferrer",
+      }, ["Open Search Console"]),
+    ]),
     queryList,
     renderMetricCharts(project, signals, emptyState),
   ]);
@@ -1142,11 +1165,15 @@ function renderAiVisibility(
         ])))
     : empty("No tracked AI questions", "This project needs a stable question set before comparable AI visibility can begin.");
   return element("div", { class: "metric-evidence" }, [
-    project.aiVisibility?.evidenceMode
+    project.aiVisibility?.observations > 0
       ? element("p", { class: "metric-evidence__summary" }, [
-          `${titleCase(project.aiVisibility.evidenceMode)} evidence · not a live-provider claim`,
+          `Provider-backed outcome · ${formatted(project.aiVisibility.observedAt)}`,
         ])
-      : null,
+      : element("p", { class: "metric-evidence__summary" }, [
+          project.aiVisibility?.fixture?.observations > 0
+            ? `Real AI visibility is not measured · ${project.aiVisibility.fixture.observations} fixture canary recorded for runner verification.`
+            : "Real AI visibility is not measured · no provider-backed observation or fixture canary is recorded.",
+        ]),
     questionList,
     renderMetricCharts(project, signals, emptyState),
   ]);
@@ -1355,15 +1382,36 @@ function projectSignal(project: JsonRecord, label: string) {
   return project.history.signals.find((signal: JsonRecord) => signal.label === label);
 }
 
-function metricMatrixMeasure(
-  label: string,
-  signal: JsonRecord | undefined,
-  missing: string,
-) {
+type MetricMatrixMeasureInput = {
+  label: string;
+  signal?: JsonRecord;
+  missing?: string;
+  source: string;
+  observedAt?: string | null;
+  detail?: string | null;
+  tone?: "outcome" | "support" | "standard";
+};
+
+function metricMatrixMeasure({
+  label,
+  signal,
+  missing = "Not measured",
+  source,
+  observedAt = signal?.observedAt ?? null,
+  detail = null,
+  tone = "standard",
+}: MetricMatrixMeasureInput) {
+  const evidence = [source, observedAt ? formattedDay(observedAt) : "No observation", detail]
+    .filter(Boolean)
+    .join(" · ");
   if (!signal || !Number.isFinite(signal.value)) {
-    return element("span", { class: "metric-matrix__measure metric-matrix__measure--missing" }, [
+    return element("span", {
+      class: `metric-matrix__measure metric-matrix__measure--${tone} metric-matrix__measure--missing`,
+      title: evidence,
+    }, [
       element("small", {}, [label]),
       element("strong", {}, [missing]),
+      element("em", {}, [evidence]),
     ]);
   }
   const favorable =
@@ -1383,10 +1431,13 @@ function metricMatrixMeasure(
   } else if (signal.history === "baseline-only") {
     trend = "Baseline";
   }
-  return element("span", { class: "metric-matrix__measure" }, [
+  return element("span", {
+    class: `metric-matrix__measure metric-matrix__measure--${tone}`,
+    title: evidence,
+  }, [
     element("small", {}, [label]),
     element("strong", {}, [metricValue(signal.value, signal.unit)]),
-    trend ? element("em", { class: trendClass }, [trend]) : null,
+    element("em", { class: trendClass }, [trend ? `${trend} · ${evidence}` : evidence]),
   ]);
 }
 
@@ -1395,11 +1446,20 @@ function metricMatrixDesignMeasure(project: JsonRecord, field: "critique" | "aud
   const label = field === "critique" ? "Critique" : "Audit";
   const maximum = review?.[`${field}Maximum`];
   if (!Number.isFinite(review?.[field]) || !Number.isFinite(maximum)) {
-    return metricMatrixMeasure(label, undefined, "Not reviewed");
+    return metricMatrixMeasure({
+      label,
+      missing: "Not reviewed",
+      source: project.metricSemantics?.design?.source ?? "Design review receipt",
+    });
   }
-  return element("span", { class: "metric-matrix__measure" }, [
+  const evidence = [
+    project.metricSemantics?.design?.source ?? "Design review receipt",
+    review.observedAt ? formattedDay(review.observedAt) : "No observation",
+  ].join(" · ");
+  return element("span", { class: "metric-matrix__measure", title: evidence }, [
     element("small", {}, [label]),
     element("strong", {}, [`${review[field]}/${maximum}`]),
+    element("em", {}, [evidence]),
   ]);
 }
 
@@ -1408,54 +1468,82 @@ function metricMatrixCell(
   section: "seo" | "geo" | "performance" | "design",
 ) {
   const href = `${projectHref(project.projectId)}#${section}`;
-  const aiVisibilityLabel =
-    project.aiVisibility?.evidenceMode === "fixture" ? "AI fixture" : "AI visibility";
+  const semantics = project.metricSemantics ?? {};
+  const domainScope = semantics.seo?.domainAuthority?.sharedRoot
+    ? `shared root ${semantics.seo.domainAuthority.rootDomain}`
+    : semantics.seo?.domainAuthority?.domain ?? null;
   const signals = {
     seo: [
-      metricMatrixMeasure("D-Rank", projectSignal(project, "Domain rating"), "Not measured"),
-      metricMatrixMeasure(
-        "Search",
-        projectSignal(project, "Worst tracked query class"),
-        project.searchVisibility?.configured ? "No baseline" : "Not configured",
-      ),
+      metricMatrixMeasure({
+        label: "D-Rank",
+        signal: projectSignal(project, "Domain rating"),
+        source: "Drank",
+        observedAt: semantics.seo?.domainAuthority?.observedAt,
+        detail: domainScope,
+      }),
+      metricMatrixMeasure({
+        label: "Search outcome",
+        missing: "Not measured",
+        source: "Search Console",
+        detail: "Not connected",
+        tone: "outcome",
+      }),
     ],
     geo: [
-      metricMatrixMeasure(
-        aiVisibilityLabel,
-        projectSignal(project, "AI visibility score"),
-        project.aiVisibility?.configured ? "No baseline" : "Not configured",
-      ),
-      metricMatrixMeasure(
-        "Agent-readable",
-        projectSignal(project, "Agent-readable coverage"),
-        "Not measured",
-      ),
+      metricMatrixMeasure({
+        label: "AI visibility",
+        signal: projectSignal(project, "AI visibility score"),
+        missing: "Not measured",
+        source: semantics.geo?.aiVisibility?.source ?? "AI providers",
+        observedAt: semantics.geo?.aiVisibility?.observedAt,
+        detail: semantics.geo?.aiVisibility?.status === "measured" ? null : "No provider observation",
+        tone: "outcome",
+      }),
+      metricMatrixMeasure({
+        label: "Technical readiness",
+        signal: projectSignal(project, "Agent readiness"),
+        source: "Agent audit",
+        observedAt: semantics.geo?.technicalReadiness?.observedAt,
+        tone: "support",
+      }),
     ],
     performance: [
-      metricMatrixMeasure("PSI", projectSignal(project, "PSI performance"), "Not measured"),
-      metricMatrixMeasure("LCP", projectSignal(project, "PSI LCP"), "Not measured"),
+      metricMatrixMeasure({
+        label: "PSI",
+        signal: projectSignal(project, "PSI performance"),
+        source: "PSI Swarm",
+        observedAt: semantics.performance?.observedAt,
+      }),
+      metricMatrixMeasure({
+        label: "LCP",
+        signal: projectSignal(project, "PSI LCP"),
+        source: "PSI Swarm",
+        observedAt: semantics.performance?.observedAt,
+      }),
     ],
     design: [
       metricMatrixDesignMeasure(project, "critique"),
       metricMatrixDesignMeasure(project, "audit"),
     ],
   };
-  return element("a", {
-    class: "metric-matrix__cell",
-    href,
-    "aria-label": `Open ${project.name} ${section} metrics`,
-  }, signals[section]);
+  return element("div", {
+    class: `metric-matrix__cell metric-matrix__cell--${section}`,
+    role: "cell",
+  }, [
+    element("a", {
+      href,
+      title: `Open ${project.name} ${section} metrics`,
+    }, signals[section]),
+  ]);
 }
 
 function metricMatrixRow(project: JsonRecord) {
   return element("div", { class: "metric-matrix__row", role: "row" }, [
-    element("a", {
-      class: "metric-matrix__project",
-      href: projectHref(project.projectId),
-      role: "rowheader",
-    }, [
-      element("strong", {}, [project.name]),
-      element("small", {}, [project.domains?.[0] ?? "No domain"]),
+    element("div", { class: "metric-matrix__project", role: "rowheader" }, [
+      element("a", { href: projectHref(project.projectId) }, [
+        element("strong", {}, [project.name]),
+        element("small", {}, [project.domains?.[0] ?? "No domain"]),
+      ]),
     ]),
     metricMatrixCell(project, "seo"),
     metricMatrixCell(project, "geo"),
@@ -1478,6 +1566,7 @@ function metricMatrix(projects: JsonRecord[]) {
   let sortKey: MetricMatrixSort = "project";
   let sortDirection: "ascending" | "descending" = "ascending";
   const headers = new Map<MetricMatrixSort, HTMLElement>();
+  const sortStatus = element("span", { class: "sr-only", role: "status", "aria-live": "polite" });
   const matrix = element("div", {
     class: "metric-matrix",
     role: "table",
@@ -1504,6 +1593,7 @@ function metricMatrix(projects: JsonRecord[]) {
       return sortDirection === "ascending" ? order : -order;
     });
     matrix.replaceChildren(head, ...sorted.map(metricMatrixRow));
+    sortStatus.textContent = `Sorted by ${sortKey}, ${sortDirection}.`;
   };
 
   const headerCell = (
@@ -1537,12 +1627,16 @@ function metricMatrix(projects: JsonRecord[]) {
   const head = element("div", { class: "metric-matrix__head", role: "row" }, [
     headerCell("project", "Project", "Sort alphabetically"),
     headerCell("seo", "SEO", "Sort by D-Rank"),
-    headerCell("geo", "GEO", "Sort by AI visibility"),
+    headerCell("geo", "GEO", "Sort by measured AI visibility outcomes"),
     headerCell("performance", "Performance", "Sort by PSI score"),
     headerCell("design", "Design", "Sort by critique score"),
   ]);
   renderRows();
-  return matrix;
+  return element("div", { class: "metric-matrix-wrap" }, [
+    element("p", { class: "metric-matrix__scroll-hint" }, ["Swipe sideways to compare SEO, GEO, performance, and design."]),
+    sortStatus,
+    matrix,
+  ]);
 }
 
 async function renderMetrics() {

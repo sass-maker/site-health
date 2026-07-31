@@ -121,3 +121,15 @@
   27 metric-eligible projects without deploying or changing providers.
 - [x] 15.5 Run focused tests, Fleet Console build, strict OpenSpec validation,
   and diff checks; update durable project status with the measured outcome.
+
+## 16. Meaningful Metric Semantics
+
+- [x] 16.1 Add normalized outcome, readiness, fixture, domain-scope, source, and
+  observation-time semantics with focused projection tests.
+- [x] 16.2 Replace ambiguous matrix grades and fixture scores with explicit
+  measured/not-measured states and evidence metadata.
+- [x] 16.3 Keep detailed query and canary evidence available without presenting
+  either as a direct outcome.
+- [x] 16.4 Run focused tests, the Fleet Console build, strict OpenSpec
+  validation, and responsive browser/design gates.
+- [x] 16.5 Update the durable project status and complete the design receipt.

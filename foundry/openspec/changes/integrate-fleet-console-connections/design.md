@@ -207,6 +207,29 @@ On phone widths the sidebar becomes a full-height drawer and all ledgers stack.
 
 ### Keep implementation injectable and testable
 
+### Keep outcome, readiness, and fixture semantics separate
+
+The Metrics projection gives every headline measurement an explicit semantic
+kind: `outcome`, `readiness`, `domain`, or `fixture`. A fixture canary proves
+that the AI Visibility runner and normalization path work; it does not measure
+whether a project appears in real model answers. The matrix therefore excludes
+fixture values from AI Visibility outcomes and sorting, and reports the outcome
+as `not measured` until a provider-backed observation exists.
+
+GEO Observatory search classes remain query-level web-search observations, not
+Google Search Console performance. They stay available in the project evidence
+view, while the matrix reports the direct Search Console outcome as `not
+measured` until that provider is connected. Technical GEO audits remain useful
+as AI Agent Readiness and AI Crawlability and are labeled as readiness rather
+than visibility.
+
+D-Rank is a domain-level observation. The projection carries the measured
+domain, source, observation time, and whether the project inherits a shared
+root-domain value. The Console displays that scope so duplicated values across
+subdomains are not mistaken for independent measurements. Generated-at time is
+never used as measurement freshness; each visible value uses the provider's
+own observation time.
+
 The projection builder accepts a Fleet root, home path, current time, and
 optional already-built Marketing data. Tests use temporary fixtures and injected
 readers instead of the operator's real machine state.

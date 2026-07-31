@@ -419,6 +419,52 @@ agent-mediated observation workflow instead of exposing a local run action.
 - **THEN** Founder Control returns the existing run receipt instead of starting
   another process
 
+### Requirement: Metrics distinguishes outcomes, readiness, and fixtures
+
+The normalized projection and Console MUST distinguish earned search or AI
+visibility outcomes from technical readiness audits, domain-level authority
+measurements, and fixture canaries. Every displayed measurement MUST retain its
+source and provider observation time. The API generation time MUST NOT be used
+as the measurement freshness boundary.
+
+#### Scenario: Only an AI fixture canary exists
+
+- **WHEN** a project has an AI Visibility observation whose evidence mode is
+  `fixture`
+- **THEN** the matrix reports real AI visibility as not measured
+- **AND** the fixture remains available only as operational runner evidence
+- **AND** its zero or non-zero value is excluded from outcome sorting and
+  visibility claims
+
+#### Scenario: Search Console evidence is absent
+
+- **WHEN** a project has tracked web-search queries but no Google Search Console
+  observation
+- **THEN** the matrix reports the direct search outcome as not measured and
+  identifies Search Console as the missing source
+- **AND** query-level web-search observations remain available in the detailed
+  SEO evidence without being presented as an overall project grade
+
+#### Scenario: Technical GEO readiness is recorded
+
+- **WHEN** an Agent Readiness or Crawlability audit records a score
+- **THEN** the GEO summary labels that value technical readiness rather than
+  earned AI visibility
+- **AND** it retains the audit source and observation time
+
+#### Scenario: D-Rank is measured for a domain
+
+- **WHEN** Drank records a domain rating used by one or more project rows
+- **THEN** every row identifies the measured domain, source, observation time,
+  and whether the value is inherited from a shared root-domain scope
+
+#### Scenario: A visible measure has no defensible source
+
+- **WHEN** the projection cannot provide both provider evidence and an
+  observation time for an outcome
+- **THEN** the Console shows an explicit not-measured state instead of a zero,
+  letter grade, generated timestamp, or inferred score
+
 ### Requirement: Operational skill logs remain centrally owned
 
 Skill implementations SHALL emit structured observations to the Fleet runner

@@ -828,6 +828,20 @@ function normalizedDomain(value) {
   }
 }
 
+function registrableDomain(domain) {
+  const labels = String(domain ?? '').split('.').filter(Boolean);
+  if (labels.length <= 2) return labels.join('.');
+  const compoundSuffixes = new Set(['co.in', 'co.uk', 'com.au', 'com.br', 'co.jp']);
+  const suffix = labels.slice(-2).join('.');
+  return compoundSuffixes.has(suffix)
+    ? labels.slice(-3).join('.')
+    : labels.slice(-2).join('.');
+}
+
+function aiRunEvidenceMode(run) {
+  return run?.evidenceMode ?? run?.evidence?.[0]?.summary?.evidenceMode ?? null;
+}
+
 function normalizeFeedbackSubmissions(submissions = [], projects = []) {
   const projectIds = new Set(projects.map((project) => project.id));
   return submissions
@@ -860,7 +874,7 @@ function normalizeFeedbackSubmissions(submissions = [], projects = []) {
     .slice(0, 200);
 }
 
-function historicalSignal({ label, unit = null, direction = null, series = [] }) {
+function historicalSignal({ label, unit = null, direction = null, source = null, series = [] }) {
   const normalized = series
     .filter(
       (point) =>
@@ -884,6 +898,7 @@ function historicalSignal({ label, unit = null, direction = null, series = [] })
     delta: previous ? latest.value - previous.value : null,
     unit,
     direction,
+    source,
     observedAt: latest.observedAt,
     history: previous ? 'comparable' : 'baseline-only',
     series: normalized,
@@ -1006,6 +1021,13 @@ function buildProjectOutputs({
   const visibilityByProject = new Map(
     visibilityMetrics.map((project) => [project.projectId, project]),
   );
+  const domainRootCounts = new Map();
+  for (const project of projects) {
+    for (const domain of (project.domains ?? []).map(normalizedDomain).filter(Boolean)) {
+      const root = registrableDomain(domain);
+      domainRootCounts.set(root, (domainRootCounts.get(root) ?? 0) + 1);
+    }
+  }
 
   return projects
     .map((project) => {
@@ -1031,12 +1053,19 @@ function buildProjectOutputs({
       const aiHistory = [...(ai?.history ?? [])].sort(
         (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
       );
+      const aiOutcomeHistory = aiHistory.filter(
+        (item) => aiRunEvidenceMode(item) === 'provider-observation',
+      );
+      const aiFixtureHistory = aiHistory.filter((item) => aiRunEvidenceMode(item) === 'fixture');
+      const latestAiOutcome = aiOutcomeHistory.at(-1) ?? null;
+      const latestAiFixture = aiFixtureHistory.at(-1) ?? null;
       const aiSignals = [
         historicalSignal({
           label: 'AI visibility score',
           unit: 'score/100',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: item.metrics?.visibilityScore,
           })),
@@ -1045,7 +1074,8 @@ function buildProjectOutputs({
           label: 'AI mention rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.mentionRate) * 100,
           })),
@@ -1054,7 +1084,8 @@ function buildProjectOutputs({
           label: 'AI recommendation rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.recommendationRate) * 100,
           })),
@@ -1063,7 +1094,8 @@ function buildProjectOutputs({
           label: 'AI citation rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.citationRate) * 100,
           })),
@@ -1072,7 +1104,8 @@ function buildProjectOutputs({
           label: 'AI coverage rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.coverageRate) * 100,
           })),
@@ -1081,7 +1114,8 @@ function buildProjectOutputs({
           label: 'AI average rank',
           unit: 'rank',
           direction: 'lower-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: item.metrics?.averagePosition,
           })),
@@ -1090,7 +1124,8 @@ function buildProjectOutputs({
           label: 'AI citations',
           unit: 'citations',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: item.citations?.total,
           })),
@@ -1100,14 +1135,20 @@ function buildProjectOutputs({
         label: 'Worst tracked query class',
         unit: 'class',
         direction: 'higher-is-better',
+        source: 'GEO Observatory · current web search',
         series: search?.series ?? [],
       });
-      const readinessSignals = Object.values(readiness).flatMap((family) =>
+      const readinessSignals = Object.entries(readiness).flatMap(([familyId, family]) =>
         family.metrics.map((metric) =>
           historicalSignal({
             label: metric.label,
             unit: metric.unit,
             direction: metric.direction,
+            source: {
+              agent: 'AI Agent Readiness audit',
+              crawl: 'AI Crawlability audit',
+              coverage: 'Content Coverage inventory',
+            }[familyId] ?? 'Visibility audit',
             series: metric.series,
           }),
         ),
@@ -1167,14 +1208,24 @@ function buildProjectOutputs({
           freshness: drank.freshness,
         });
       }
-      if (ai) {
+      if (latestAiOutcome) {
         produced.push({
           kind: 'ai-visibility',
           label: 'AI visibility',
-          value: ai.history?.length ?? 0,
-          detail: ai.latest ? 'latest observation available' : 'baseline not recorded',
-          observedAt: ai.latest?.observedAt ?? null,
-          freshness: ai.latest?.freshness ?? (ai.latest ? 'fresh' : 'unknown'),
+          value: aiOutcomeHistory.length,
+          detail: 'provider-backed observation available',
+          observedAt: latestAiOutcome.observedAt,
+          freshness: latestAiOutcome.freshness ?? 'recorded',
+        });
+      }
+      if (latestAiFixture) {
+        produced.push({
+          kind: 'ai-visibility-fixture',
+          label: 'AI fixture canary',
+          value: aiFixtureHistory.length,
+          detail: 'runner evidence only · not a visibility outcome',
+          observedAt: latestAiFixture.observedAt,
+          freshness: latestAiFixture.freshness ?? 'recorded',
         });
       }
       if (designReview) {
@@ -1219,6 +1270,7 @@ function buildProjectOutputs({
           label: 'Design critique',
           unit: `score/${designReview?.critiqueMaximum ?? 40}`,
           direction: 'higher-is-better',
+          source: 'Validated design-review receipt',
           series: designReview ? [{
             observedAt: designReview.observedAt,
             value: designReview.critique,
@@ -1228,6 +1280,7 @@ function buildProjectOutputs({
           label: 'Design audit',
           unit: `score/${designReview?.auditMaximum ?? 20}`,
           direction: 'higher-is-better',
+          source: 'Validated design-review receipt',
           series: designReview ? [{
             observedAt: designReview.observedAt,
             value: designReview.audit,
@@ -1237,6 +1290,7 @@ function buildProjectOutputs({
           label: 'PSI performance',
           unit: 'score/100',
           direction: 'higher-is-better',
+          source: 'PSI Swarm',
           series: (performance?.series ?? []).map((item) => ({
             observedAt: item.observedAt,
             value: item.performanceScore,
@@ -1246,6 +1300,7 @@ function buildProjectOutputs({
           label: 'PSI LCP',
           unit: 'milliseconds',
           direction: 'lower-is-better',
+          source: 'PSI Swarm',
           series: (performance?.series ?? []).map((item) => ({
             observedAt: item.observedAt,
             value: item.lcp,
@@ -1255,6 +1310,7 @@ function buildProjectOutputs({
           label: 'PSI CLS',
           unit: 'score',
           direction: 'lower-is-better',
+          source: 'PSI Swarm',
           series: (performance?.series ?? []).map((item) => ({
             observedAt: item.observedAt,
             value: item.cls,
@@ -1264,6 +1320,7 @@ function buildProjectOutputs({
           label: 'Domain rating',
           unit: 'rating',
           direction: 'higher-is-better',
+          source: 'Drank · Ahrefs public endpoint',
           series: domainRating?.series ?? [],
         }),
         searchSignal,
@@ -1296,17 +1353,29 @@ function buildProjectOutputs({
           : null,
         public: workflow ?? null,
         performance,
-        domainRating,
+        domainRating: domainRating
+          ? {
+              ...domainRating,
+              source: 'Drank · Ahrefs public endpoint',
+              rootDomain: registrableDomain(domainRating.domain),
+              sharedRoot:
+                (domainRootCounts.get(registrableDomain(domainRating.domain)) ?? 0) > 1,
+              inherited: false,
+            }
+          : null,
         designReview,
         aiVisibility: ai
           ? {
               configured: true,
-              observations: ai.history?.length ?? 0,
-              observedAt: ai.latest?.observedAt ?? null,
-              evidenceMode:
-                ai.latest?.evidenceMode ??
-                ai.latest?.evidence?.[0]?.summary?.evidenceMode ??
-                null,
+              observations: aiOutcomeHistory.length,
+              observedAt: latestAiOutcome?.observedAt ?? null,
+              evidenceMode: aiRunEvidenceMode(latestAiOutcome),
+              source: latestAiOutcome ? 'AI Visibility provider observation' : null,
+              fixture: {
+                observations: aiFixtureHistory.length,
+                observedAt: latestAiFixture?.observedAt ?? null,
+                source: 'AI Visibility fixture canary',
+              },
               questions: ai.questions ?? [],
             }
           : null,
@@ -1332,6 +1401,74 @@ function buildProjectOutputs({
               : null,
           ]),
         ),
+        metricSemantics: {
+          seo: {
+            domainAuthority: domainRating
+              ? {
+                  kind: 'domain',
+                  status: 'measured',
+                  source: 'Drank · Ahrefs public endpoint',
+                  observedAt: domainRating.observedAt,
+                  domain: domainRating.domain,
+                  rootDomain: registrableDomain(domainRating.domain),
+                  sharedRoot:
+                    (domainRootCounts.get(registrableDomain(domainRating.domain)) ?? 0) > 1,
+                  inherited: false,
+                }
+              : {
+                  kind: 'domain',
+                  status: 'not-measured',
+                  source: 'Drank · Ahrefs public endpoint',
+                  observedAt: null,
+                  domain: domains[0] ?? null,
+                  rootDomain: registrableDomain(domains[0]),
+                  sharedRoot: false,
+                  inherited: false,
+                },
+            searchOutcome: {
+              kind: 'outcome',
+              status: 'not-measured',
+              source: 'Google Search Console',
+              observedAt: null,
+              reason: 'Search Console is not connected.',
+            },
+            trackedSearch: {
+              kind: 'observation',
+              status: searchSignal ? 'measured' : 'not-measured',
+              source: 'GEO Observatory · current web search',
+              observedAt: searchSignal?.observedAt ?? null,
+            },
+          },
+          geo: {
+            aiVisibility: {
+              kind: 'outcome',
+              status: latestAiOutcome ? 'measured' : 'not-measured',
+              source: latestAiOutcome ? 'AI Visibility provider observation' : null,
+              observedAt: latestAiOutcome?.observedAt ?? null,
+              reason: latestAiOutcome ? null : 'No provider-backed observation.',
+            },
+            technicalReadiness: {
+              kind: 'readiness',
+              status: readiness.agent?.latest ? 'measured' : 'not-measured',
+              source: 'AI Agent Readiness audit',
+              observedAt: readiness.agent?.latest?.observedAt ?? null,
+            },
+            fixtureCanary: {
+              kind: 'fixture',
+              status: latestAiFixture ? 'recorded' : 'not-recorded',
+              source: 'AI Visibility fixture canary',
+              observedAt: latestAiFixture?.observedAt ?? null,
+            },
+          },
+          performance: {
+            source: 'PSI Swarm',
+            observedAt: performance?.latest?.observedAt ?? null,
+          },
+          design: {
+            source: 'Validated design-review receipt',
+            observedAt: designReview?.observedAt ?? null,
+          },
+        },
         history: {
           state: historySignals.some((signal) => signal.history === 'comparable')
             ? 'comparable'
@@ -1510,7 +1647,12 @@ export function buildFleetConnections({
   const visibilityMetrics = visibilityMetricEvidence(home);
   const workflows = workflowEvidence(fleetRoot, now);
   const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
-  const measuredAiProjects = visibleAiProjects.filter((project) => project.latest);
+  const measuredAiProjects = visibleAiProjects.flatMap((project) => {
+    const latest = [...(project.history ?? [])]
+      .filter((run) => aiRunEvidenceMode(run) === 'provider-observation')
+      .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt))[0];
+    return latest ? [{ ...project, latest }] : [];
+  });
   const configuredAiProjects = visibleAiProjects.length;
   const normalizedFeedback = normalizeFeedbackSubmissions(
     feedbackSubmissions,
@@ -1538,7 +1680,7 @@ export function buildFleetConnections({
       status: configuredAiProjects > 0 ? 'connected' : 'partial',
       headline:
         configuredAiProjects > 0
-          ? `Evidence: ${measuredAiProjects.length}/${configuredAiProjects} configured products have local observations.`
+          ? `Evidence: ${measuredAiProjects.length}/${configuredAiProjects} configured products have provider-backed observations.`
           : 'The helper exists, but no Console portfolio is configured.',
       ownerPath: '/marketing',
       freshness: measuredAiProjects.length > 0 ? 'fresh' : 'unknown',
@@ -1696,7 +1838,7 @@ export function buildFleetConnections({
     }],
     ai: [{
       provider: 'ai-visibility',
-      label: `${measuredAiProjects.length}/${configuredAiProjects} products measured`,
+      label: `${measuredAiProjects.length}/${configuredAiProjects} provider-backed outcomes`,
       observedAt: measuredAiProjects
         .map((project) => project.latest?.observedAt)
         .filter(Boolean)
@@ -1968,8 +2110,8 @@ export function buildFleetConnections({
           observations: measuredAiProjects.length,
           detail:
             measuredAiProjects.length > 0
-              ? 'Recorded project observations are available.'
-              : 'Configured projects have not produced a local baseline.',
+              ? 'Provider-backed project observations are available.'
+              : 'Configured projects have fixture canaries only; real outcomes are not measured.',
         },
         feedback: {
           status: normalizedFeedback.length > 0 ? 'producing' : 'empty',

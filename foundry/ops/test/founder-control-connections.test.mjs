@@ -332,7 +332,17 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
             setId: 'buyer-discovery',
             text: 'What is the best private Mac voice assistant?',
           }],
-          latest: null,
+          latest: {
+            observedAt: '2026-07-30T09:10:00.000Z',
+            metrics: { visibilityScore: 100 },
+            evidence: [{ summary: { evidenceMode: 'fixture' } }],
+          },
+          history: [{
+            observedAt: '2026-07-30T09:10:00.000Z',
+            metrics: { visibilityScore: 100 },
+            citations: { total: 4 },
+            evidence: [{ summary: { evidenceMode: 'fixture' } }],
+          }],
         }],
       },
     },
@@ -412,6 +422,9 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(paceOutput.skill.runCount, 1);
   assert.equal(paceOutput.public.availability.ok, true);
   assert.equal(paceOutput.domainRating.rating, 8);
+  assert.equal(paceOutput.domainRating.source, 'Drank · Ahrefs public endpoint');
+  assert.equal(paceOutput.domainRating.rootDomain, 'heypace.app');
+  assert.equal(paceOutput.domainRating.sharedRoot, false);
   assert.equal(paceOutput.performance.latest.performanceScore, 96);
   assert.equal(paceOutput.performance.latest.lcp, 820);
   assert.equal(paceOutput.designReview.critique, 34);
@@ -442,6 +455,24 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     paceOutput.aiVisibility.questions[0].text,
     'What is the best private Mac voice assistant?',
   );
+  assert.equal(paceOutput.aiVisibility.observations, 0);
+  assert.equal(paceOutput.aiVisibility.observedAt, null);
+  assert.equal(paceOutput.aiVisibility.fixture.observations, 1);
+  assert.equal(
+    paceOutput.history.signals.some((signal) => signal.label === 'AI visibility score'),
+    false,
+  );
+  assert.deepEqual(paceOutput.metricSemantics.seo.searchOutcome, {
+    kind: 'outcome',
+    status: 'not-measured',
+    source: 'Google Search Console',
+    observedAt: null,
+    reason: 'Search Console is not connected.',
+  });
+  assert.equal(paceOutput.metricSemantics.seo.trackedSearch.status, 'measured');
+  assert.equal(paceOutput.metricSemantics.geo.aiVisibility.status, 'not-measured');
+  assert.equal(paceOutput.metricSemantics.geo.technicalReadiness.status, 'measured');
+  assert.equal(paceOutput.metricSemantics.geo.fixtureCanary.status, 'recorded');
   assert.equal(paceOutput.visibilityReadiness.agent.status, 'needs-work');
   assert.equal(paceOutput.visibilityReadiness.crawl.status, 'ready');
   assert.equal(paceOutput.metricEligibility.publicSite, true);

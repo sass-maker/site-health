@@ -33,6 +33,12 @@ model in the Console, with each page answering one clear question.
   every row and cell to the matching section of a dedicated project page.
   Missing measurements, configuration, public domains, or receipts remain
   explicit rather than removing the project from a family or presenting zero.
+- Distinguish earned outcomes, technical readiness, and fixture canaries in the
+  projection and UI. Fixture AI results are operational evidence, never AI
+  visibility scores; Search Console and provider outcomes remain `not measured`
+  until real evidence exists. Every displayed measure names its evidence source
+  and observation time, and shared domain-level D-Rank values disclose their
+  domain scope.
 - Preserve the six-bucket topology, component states, gaps, and complete
   transport ledger as an inspectable left-side System Map sheet.
 - Add one normalized private API projection for project catalog, AI visibility,
