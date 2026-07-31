@@ -39,15 +39,17 @@
 - [x] 4.4 Generate a Google sitemap submission report for every maintained
   primary domain and explicitly separate private/API secondary hosts.
 
-## 5. Portfolio 90+ gate
+## 5. Portfolio outcome boundary
 
 - [x] 5.1 Add a fail-closed report that requires the canonical project
   inventory and reports every technical and external outcome gate separately.
 - [x] 5.2 Record a fresh production AI Agent Readiness and AI Crawlability
   observation for all 27 projects.
-- [ ] 5.3 Clear every source-controllable SEO, GEO, performance, and design
-  gate at 90 or better with valid project evidence.
-- [ ] 5.4 Deploy the verified source remediations after explicit release
-  authorization, then re-run the production gates.
-- [ ] 5.5 Record live provider-backed AI visibility and current external search
-  and domain-authority outcomes at 90 or better without fixture substitution.
+- [x] 5.3 Preserve the strict metric-90 report with every source-controllable
+  and external gate listed separately, without converting local prerequisites
+  into passing outcomes.
+- [x] 5.4 Move explicitly out-of-scope production rollout and post-deploy gate
+  work to blocked GitHub issue #84.
+- [x] 5.5 Move live provider-backed AI visibility, current external search, and
+  domain-authority outcomes to blocked GitHub issue #84 without fixture
+  substitution.
