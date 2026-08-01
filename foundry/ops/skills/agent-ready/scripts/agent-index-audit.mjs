@@ -647,7 +647,9 @@ async function collectSitemap(url, state) {
   if (state.visited.has(normalized)) return;
   state.visited.add(normalized);
 
-  const response = await probe(normalized);
+  // Sitemaps may legitimately exceed the normal diagnostic body-retention
+  // limit. The collector needs the complete XML to discover every route.
+  const response = await probe(normalized, { retainFullBody: true });
   if (!response.ok) {
     state.failures.push(`${normalized}: HTTP ${response.status || 'err'}`);
     return;
@@ -1041,7 +1043,7 @@ async function probe(url, options = {}) {
   return result;
 }
 
-async function probeOnce(url, { accept } = {}) {
+async function probeOnce(url, { accept, retainFullBody = false } = {}) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
@@ -1067,8 +1069,8 @@ async function probeOnce(url, { accept } = {}) {
       contentType,
       bytes,
       bodyPreview,
-      // Keep full body only for small responses (api/ai, robots, llms)
-      bodyFull: bytes <= 2_000_000 ? bodyFull : bodyPreview,
+      // Keep full bodies for small diagnostics or callers that must parse all content.
+      bodyFull: retainFullBody || bytes <= 2_000_000 ? bodyFull : bodyPreview,
       isHtml,
       finalUrl: res.url,
       retryAfter: res.headers.get('retry-after'),

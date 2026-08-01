@@ -168,6 +168,78 @@ test('treats a bounded route sample as valid when sitemap XML exceeds the route 
   assert.equal(result.checks.route_markdown.data.sampled, true);
 });
 
+test('retains complete sitemap XML above the normal body limit', async (t) => {
+  let origin;
+  const server = createServer((request, response) => {
+    const accept = String(request.headers.accept ?? '');
+    const url = new URL(request.url, origin);
+    if (url.pathname === '/llms.txt') return send(response, 'text/plain', '# Fixture\n');
+    if (url.pathname === '/api/ai') {
+      return send(response, 'application/json', JSON.stringify({
+        name: 'large-body fixture',
+        llms: `${origin}/llms.txt`,
+        sitemap: `${origin}/sitemap.xml`,
+        markdown: { suffix: '.md', negotiation: true },
+        surfaces: [
+          { id: 'home', url: '/', md: '/index.md' },
+          { id: 'guide', url: '/guide/', md: '/guide.md' },
+          { id: 'about', url: '/about/', md: '/about.md' },
+        ],
+      }));
+    }
+    if (url.pathname === '/robots.txt') {
+      return send(
+        response,
+        'text/plain',
+        `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`,
+      );
+    }
+    if (url.pathname === '/sitemap.xml') {
+      const padding = 'x'.repeat(2_000_001);
+      return send(
+        response,
+        'application/xml',
+        `<?xml version="1.0"?><urlset><!--${padding}-->` +
+          `<url><loc>${origin}/</loc></url>` +
+          `<url><loc>${origin}/guide/</loc></url>` +
+          `<url><loc>${origin}/about/</loc></url>` +
+          `</urlset>`,
+      );
+    }
+    if (
+      url.pathname === '/index.md'
+      || url.pathname === '/guide.md'
+      || url.pathname === '/about.md'
+      || accept.includes('text/markdown')
+    ) {
+      return send(response, 'text/markdown', `# ${url.pathname}\n`);
+    }
+    return send(response, 'text/html', '<!doctype html><title>Fixture</title>');
+  });
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  t.after(() => server.close());
+  const address = server.address();
+  origin = `http://127.0.0.1:${address.port}`;
+
+  const { stdout } = await execFileAsync(
+    process.execPath,
+    [auditor.pathname, origin, '--json'],
+    { maxBuffer: 2_000_000 },
+  );
+  const result = JSON.parse(stdout).results[0];
+
+  assert.equal(result.tier, 'S');
+  assert.equal(result.checks.sitemap.status, 'pass');
+  assert.equal(result.checks.route_markdown.data.total, 3);
+  assert.deepEqual(result.checks.catalog_integrity.data, {
+    valid: 3,
+    configured: 3,
+    integrityPercent: 100,
+    failures: [],
+  });
+});
+
 function send(response, contentType, body) {
   response.writeHead(200, { 'content-type': contentType });
   response.end(body);
