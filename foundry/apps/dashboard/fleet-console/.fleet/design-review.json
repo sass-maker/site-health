@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "AI Awareness evidence hierarchy",
+  "target": "Google Search and Performance project expansions",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,21 +14,21 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/ai-awareness-evidence/before-1440.png"
+    "before": ".fleet/evidence/compact-console-diagnostics/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/ai-awareness-evidence/after-390.png"
+        "path": ".fleet/evidence/compact-console-diagnostics/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/ai-awareness-evidence/after-768.png"
+        "path": ".fleet/evidence/compact-console-diagnostics/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/ai-awareness-evidence/after-1440.png"
+        "path": ".fleet/evidence/compact-console-diagnostics/after-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 34,
+      "score": 36,
       "maximum": 40
     },
     "audit": {
-      "score": 20,
+      "score": 17,
       "maximum": 20
     },
     "unresolved": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner confirmed that AI Awareness must measure model outcomes across project-owned and external web sources, then approved independent agents for final judgment."
+    "note": "Owner approved the compact implementation and explicitly asked that it avoid adding unnecessary surface area."
   }
 }

@@ -514,6 +514,13 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(searchRow.scope, 'sc-domain:heypace.app');
   assert.match(searchRow.providerUrl, /search\.google\.com/);
   assert.equal(searchRow.action.id, 'check-indexing');
+  assert.deepEqual(searchRow.trackedQueries, [{
+    id: 'pace-brand',
+    kind: 'brand',
+    text: 'heypace.app',
+    class: 'B',
+    observedAt: '2026-07-30T12:00:00.000Z',
+  }]);
   const marketingRow = result.outputs.ownerOutcomes.marketing.find(
     (project) => project.projectId === 'pace',
   );

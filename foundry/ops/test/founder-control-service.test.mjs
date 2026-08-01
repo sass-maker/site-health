@@ -237,6 +237,14 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
         }],
         search: [{
           projectId: 'site',
+          trackedQueries: [{
+            id: 'site-brand',
+            kind: 'brand',
+            text: 'site.example',
+            class: 'A',
+            observedAt: '2026-07-30T12:00:00.000Z',
+            private: 'not exposed',
+          }],
           action: {
             id: 'strengthen-ranking-page',
             label: 'Strengthen ranking page',
@@ -300,6 +308,13 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal(search.rows[0].impressions.series[0].value, 5);
   assert.equal(search.rows[0].clicks.series.length, 1);
   assert.equal(search.rows[0].action.id, 'strengthen-ranking-page');
+  assert.deepEqual(search.rows[0].trackedQueries, [{
+    id: 'site-brand',
+    kind: 'brand',
+    text: 'site.example',
+    class: 'A',
+    observedAt: '2026-07-30T12:00:00.000Z',
+  }]);
   assert.equal(awareness.rows[0].projectId, 'core');
   assert.equal(awareness.rows[0].crawlerRequests.series.length, 1);
   assert.equal(awareness.rows[0].questions[0].text, 'Which tool should I use?');
