@@ -3,7 +3,10 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import { collectSearchConsoleOutcomes } from '../lib/search-console.mjs';
+import {
+  collectSearchConsoleOutcomes,
+  ensureSearchConsoleSitemaps,
+} from '../lib/search-console.mjs';
 import {
   appendVisibilityOutcomeBundle,
   defaultVisibilityOutcomePath,
@@ -15,9 +18,13 @@ const catalog = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/
 const config = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/search-console.json'), 'utf8'));
 
 function parseArgs(args) {
-  const options = { projectId: null, ledgerPath: null };
+  const options = { projectId: null, ledgerPath: null, discoveryCycle: false };
   for (let index = 0; index < args.length; index += 1) {
     const flag = args[index];
+    if (flag === '--discovery-cycle') {
+      options.discoveryCycle = true;
+      continue;
+    }
     const value = args[index + 1];
     if (!value || value.startsWith('--')) throw new Error(`Missing value for ${flag ?? 'argument'}`);
     if (flag === '--project') options.projectId = value;
@@ -47,6 +54,40 @@ const projects = options.projectId
   : eligible;
 if (projects.length === 0) throw new Error(`Unknown Search Console project: ${options.projectId}`);
 
+let discovery = null;
+if (options.discoveryCycle) {
+  const indexNow = spawnSync(
+    process.execPath,
+    [resolve(FLEET_ROOT, 'foundry/ops/scripts/indexnow-submit.mjs')],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+  );
+  if (indexNow.status !== 0) {
+    throw new Error(`IndexNow discovery update failed: ${indexNow.stderr.trim() || indexNow.stdout.trim() || 'unknown error'}`);
+  }
+  const indexNowSummary = indexNow.stdout.match(
+    /Done\. urls=(\d+) skipped_already=(\d+) batches_ok=(\d+) batches_fail=(\d+)/,
+  );
+  if (!indexNowSummary || Number(indexNowSummary[4]) > 0) {
+    throw new Error(`IndexNow discovery update was incomplete: ${indexNow.stdout.trim() || 'missing receipt'}`);
+  }
+  const googleSitemaps = await ensureSearchConsoleSitemaps({
+    projects,
+    accessToken: accessToken(),
+    quotaProject: config.quotaProject,
+  });
+  discovery = {
+    indexNow: {
+      submittedUrls: Number(indexNowSummary[1]),
+      skippedUrls: Number(indexNowSummary[2]),
+      successfulBatches: Number(indexNowSummary[3]),
+    },
+    googleSitemaps: googleSitemaps.reduce((counts, result) => {
+      counts[result.state] = (counts[result.state] ?? 0) + 1;
+      return counts;
+    }, {}),
+  };
+}
+
 const collected = await collectSearchConsoleOutcomes({
   projects,
   accessToken: accessToken(),
@@ -72,4 +113,5 @@ process.stdout.write(`${JSON.stringify({
   unavailable: collected.unavailable,
   recorded: receipt.recorded,
   duplicates: receipt.duplicates,
+  ...(discovery ? { discovery } : {}),
 }, null, 2)}\n`);

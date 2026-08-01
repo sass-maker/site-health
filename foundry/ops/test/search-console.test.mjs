@@ -3,9 +3,53 @@ import test from 'node:test';
 
 import {
   collectSearchConsoleOutcomes,
+  ensureSearchConsoleSitemaps,
   searchConsoleProviderUrl,
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
+
+test('keeps Google sitemap submission automatic and bounded', async () => {
+  const requests = [];
+  const fetchImpl = async (url, options = {}) => {
+    requests.push({ url, method: options.method ?? 'GET' });
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    if (options.method === 'PUT') {
+      if (url.includes(encodeURIComponent('https://blocked.example.com/sitemap.xml'))) {
+        return Response.json({ error: { message: 'insufficient scope' } }, { status: 403 });
+      }
+      return new Response(null, { status: 204 });
+    }
+    return Response.json({
+      sitemap: url.includes(encodeURIComponent('sc-domain:example.com'))
+        ? [{ path: 'https://ready.example.com/sitemap.xml' }]
+        : [],
+    });
+  };
+
+  const results = await ensureSearchConsoleSitemaps({
+    projects: [
+      { id: 'ready', domains: ['ready.example.com'] },
+      { id: 'new', domains: ['new.example.com'] },
+      { id: 'blocked', domains: ['blocked.example.com'] },
+      { id: 'missing', domains: ['missing.test'] },
+    ],
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+  });
+
+  assert.deepEqual(results.map((result) => [result.projectId, result.state]), [
+    ['ready', 'already-submitted'],
+    ['new', 'submitted'],
+    ['blocked', 'blocked'],
+    ['missing', 'property-unavailable'],
+  ]);
+  assert.equal(requests.filter((request) => request.method === 'PUT').length, 2);
+});
 
 test('selects the closest accessible property for a canonical domain', () => {
   const properties = [
@@ -43,6 +87,19 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
       });
     }
     const body = JSON.parse(options.body);
+    if (url.includes('/urlInspection/index:inspect')) {
+      return Response.json({ inspectionResult: { indexStatusResult: {
+        verdict: 'PASS',
+        coverageState: 'Submitted and indexed',
+        robotsTxtState: 'ALLOWED',
+        indexingState: 'INDEXING_ALLOWED',
+        pageFetchState: 'SUCCESSFUL',
+        lastCrawlTime: '2026-07-25T12:00:00Z',
+        userCanonical: body.inspectionUrl,
+        googleCanonical: body.inspectionUrl,
+        sitemap: [`${body.inspectionUrl}sitemap.xml`],
+      } } });
+    }
     const filter = body.dimensionFilterGroups[0].filters[0].expression;
     if (body.dimensions?.includes('query')) {
       return filter === 'https://one.example.com/'
@@ -70,7 +127,7 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     reportingLagDays: 3,
   });
 
-  assert.equal(requests.length, 5);
+  assert.equal(requests.length, 7);
   assert.equal(result.bundle.observations.length, 2);
   assert.deepEqual(result.unavailable, [{
     projectId: 'missing',
@@ -94,8 +151,22 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     { query: 'heypace', landingPage: 'https://one.example.com/', impressions: 4, clicks: 0, ctr: 0, position: 6 },
   ]);
   assert.deepEqual(result.bundle.observations[1].searchTerms, []);
-  assert.deepEqual(requests[2].body.dimensions, ['query', 'page']);
-  assert.equal(requests[2].body.rowLimit, 25);
+  assert.deepEqual(result.bundle.observations[0].indexInspection, {
+    inspectedUrl: 'https://one.example.com/',
+    state: 'indexed',
+    verdict: 'PASS',
+    coverageState: 'Submitted and indexed',
+    robotsTxtState: 'ALLOWED',
+    indexingState: 'INDEXING_ALLOWED',
+    pageFetchState: 'SUCCESSFUL',
+    lastCrawlTime: '2026-07-25T12:00:00.000Z',
+    userCanonical: 'https://one.example.com/',
+    googleCanonical: 'https://one.example.com/',
+    sitemapUrls: ['https://one.example.com/sitemap.xml'],
+  });
+  const queryRequest = requests.find((request) => request.body?.dimensions?.includes('query'));
+  assert.deepEqual(queryRequest.body.dimensions, ['query', 'page']);
+  assert.equal(queryRequest.body.rowLimit, 25);
   assert.equal(result.bundle.observations[0].period.start, '2026-07-01T00:00:00.000Z');
   assert.equal(result.bundle.observations[0].period.end, '2026-07-28T23:59:59.999Z');
 });

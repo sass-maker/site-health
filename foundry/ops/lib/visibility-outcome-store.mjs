@@ -196,10 +196,58 @@ function normalizeSearchTerms(searchTerms, family) {
   return normalized;
 }
 
+function normalizeHttpsUrl(value, path) {
+  assert(typeof value === 'string' && value.length <= 2048, `${path} must be an HTTPS URL`);
+  try {
+    const url = new URL(value);
+    assert(url.protocol === 'https:' && !url.username && !url.password, `${path} must be an HTTPS URL`);
+    return url.href;
+  } catch (error) {
+    if (error?.message?.startsWith(path)) throw error;
+    throw new Error(`${path} must be an HTTPS URL`);
+  }
+}
+
+function normalizeIndexInspection(value, family) {
+  if (value === undefined) return null;
+  assert(family === 'search', 'indexInspection is only supported for Search Console outcomes');
+  const path = 'observation.indexInspection';
+  assertKnownKeys(value, new Set([
+    'inspectedUrl', 'state', 'verdict', 'coverageState', 'robotsTxtState',
+    'indexingState', 'pageFetchState', 'lastCrawlTime', 'userCanonical',
+    'googleCanonical', 'sitemapUrls', 'failureReason',
+  ]), path);
+  const states = new Set(['indexed', 'not-indexed', 'unknown', 'unavailable']);
+  assert(states.has(value.state), `${path}.state is invalid`);
+  const optionalText = (field, maximum = 300) => {
+    const entry = value[field];
+    if (entry === null || entry === undefined) return null;
+    assert(typeof entry === 'string' && entry.trim().length > 0 && entry.length <= maximum, `${path}.${field} is invalid`);
+    return entry.trim();
+  };
+  const sitemapUrls = value.sitemapUrls === undefined ? [] : value.sitemapUrls;
+  assert(Array.isArray(sitemapUrls) && sitemapUrls.length <= 10, `${path}.sitemapUrls is invalid`);
+  const normalized = {
+    inspectedUrl: normalizeHttpsUrl(value.inspectedUrl, `${path}.inspectedUrl`),
+    state: value.state,
+    verdict: optionalText('verdict', 40),
+    coverageState: optionalText('coverageState'),
+    robotsTxtState: optionalText('robotsTxtState', 80),
+    indexingState: optionalText('indexingState', 80),
+    pageFetchState: optionalText('pageFetchState', 80),
+  };
+  if (value.failureReason !== undefined) normalized.failureReason = optionalText('failureReason');
+  if (value.lastCrawlTime !== undefined) normalized.lastCrawlTime = normalizeTimestamp(value.lastCrawlTime, `${path}.lastCrawlTime`);
+  if (value.userCanonical !== undefined) normalized.userCanonical = normalizeHttpsUrl(value.userCanonical, `${path}.userCanonical`);
+  if (value.googleCanonical !== undefined) normalized.googleCanonical = normalizeHttpsUrl(value.googleCanonical, `${path}.googleCanonical`);
+  if (sitemapUrls.length > 0) normalized.sitemapUrls = [...new Set(sitemapUrls.map((url) => normalizeHttpsUrl(url, `${path}.sitemapUrls`)))];
+  return normalized;
+}
+
 export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   assertKnownKeys(
     observation,
-    new Set(['id', 'projectId', 'family', 'provider', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'breakdowns']),
+    new Set(['id', 'projectId', 'family', 'provider', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'indexInspection', 'breakdowns']),
     'observation',
   );
   assert(typeof observation.id === 'string' && IDENTIFIER.test(observation.id), 'observation.id is invalid');
@@ -229,6 +277,7 @@ export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = 
     normalizeMetric(metric, contract, `observation.metrics[${index}]`));
   assert(new Set(metrics.map((metric) => metric.label)).size === metrics.length, 'observation.metrics contains duplicates');
   const searchTerms = normalizeSearchTerms(observation.searchTerms, observation.family);
+  const indexInspection = normalizeIndexInspection(observation.indexInspection, observation.family);
   const providerUrl = normalizeProviderUrl(observation.providerUrl);
   const breakdowns = normalizeBreakdowns(observation.breakdowns);
   return {
@@ -243,6 +292,7 @@ export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = 
     period: { start: periodStart, end: periodEnd },
     metrics,
     ...(observation.family === 'search' ? { searchTerms } : {}),
+    ...(indexInspection ? { indexInspection } : {}),
     ...(breakdowns.length > 0 ? { breakdowns } : {}),
   };
 }
@@ -284,6 +334,7 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
             ? value.metrics.map((metric) => ({ label: metric?.label, value: metric?.value }))
             : value.metrics,
           searchTerms: value.searchTerms,
+          indexInspection: value.indexInspection,
           breakdowns: value.breakdowns,
         })];
       } catch {

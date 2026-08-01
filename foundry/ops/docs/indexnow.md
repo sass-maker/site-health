@@ -35,7 +35,8 @@ node foundry/ops/scripts/indexnow-submit.mjs --reset-state    # clear state file
 ```
 
 Config: `foundry/ops/config/indexnow.json`
-State (changed-only): `foundry/ops/config/indexnow-state.json`
+State (changed-only): `foundry/ops/config/indexnow-state.json` (ignored local
+runtime state). Override it with `FLEET_INDEXNOW_STATE_PATH` for an isolated run.
 Products: `foundry/ops/config/agent-surfaces-registry.json`
 Origins: `product.indexNowOrigin` || `marketingOrigin` || `url` (no hardcoded hosts in the script).
 

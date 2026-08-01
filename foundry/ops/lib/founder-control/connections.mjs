@@ -34,20 +34,47 @@ export const SEARCH_ACTION_SAMPLE_FLOORS = Object.freeze({
   query: 10,
 });
 
-export function searchAction({ observed, impressions, clicks, position, sampleFloor }) {
+function daysAfter(timestamp, days) {
+  const value = Date.parse(timestamp);
+  return Number.isFinite(value) ? new Date(value + days * DAY_MS).toISOString() : null;
+}
+
+export function searchAction({ observed, impressions, clicks, position, sampleFloor, inspection = null, observedAt = null }) {
   if (!observed) {
     return {
-      id: 'not-measured',
-      label: 'Not measured',
+      id: 'measure-search',
+      label: 'Measure now',
+      stage: 'measure',
       reason: 'No completed Google Search observation is available.',
       priority: 7,
     };
   }
   if (impressions === 0) {
+    if (inspection?.state === 'indexed') {
+      const nextMeasurementAt = daysAfter(observedAt, 7);
+      return {
+        id: 'wait-indexed',
+        label: 'Wait, then measure',
+        stage: 'wait',
+        reason: 'Google reports the canonical homepage as indexed; wait for search demand and the next completed data window.',
+        ...(nextMeasurementAt ? { nextMeasurementAt } : {}),
+        priority: 6,
+      };
+    }
+    if (inspection?.state === 'not-indexed' || inspection?.state === 'unknown') {
+      return {
+        id: 'fix-indexing',
+        label: 'Fix indexing',
+        stage: 'change',
+        reason: inspection.coverageState ?? 'Google did not return a passing index verdict for the canonical homepage.',
+        priority: 1,
+      };
+    }
     return {
-      id: 'check-indexing',
-      label: 'Check indexing',
-      reason: 'Google recorded zero impressions in the completed reporting window.',
+      id: 'inspection-unavailable',
+      label: 'Inspection unavailable',
+      stage: 'measure',
+      reason: 'Google URL Inspection did not complete for the canonical homepage.',
       priority: 1,
     };
   }
@@ -55,6 +82,7 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
     return {
       id: 'collect-more-data',
       label: 'Collect more data',
+      stage: 'wait',
       reason: `${impressions} impressions is below the ${sampleFloor}-impression action floor.`,
       priority: 6,
     };
@@ -63,6 +91,7 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
     return {
       id: 'protect-and-expand',
       label: 'Protect and expand',
+      stage: 'change',
       reason: 'This result already ranks on page one and earns clicks.',
       priority: 5,
     };
@@ -71,6 +100,7 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
     return {
       id: 'improve-snippet',
       label: 'Improve snippet',
+      stage: 'change',
       reason: 'This result ranks on page one but has not earned a click.',
       priority: 2,
     };
@@ -79,6 +109,7 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
     return {
       id: 'strengthen-ranking-page',
       label: 'Strengthen ranking page',
+      stage: 'change',
       reason: 'This result is within reach of page one.',
       priority: 3,
     };
@@ -86,6 +117,7 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
   return {
     id: 'build-search-relevance',
     label: 'Build search relevance',
+    stage: 'change',
     reason: 'This result is visible but ranks beyond position 30.',
     priority: 4,
   };
@@ -299,6 +331,7 @@ function visibilityOutcomeEvidence(home) {
     };
     const family = project.families[observation.family] ?? {
       latest: null,
+      latestIndexInspection: null,
       metrics: new Map(),
       observations: 0,
     };
@@ -306,6 +339,13 @@ function visibilityOutcomeEvidence(home) {
       ? observation
       : family.latest;
     family.observations += 1;
+    if (
+      observation.family === 'search' &&
+      observation.indexInspection?.state !== 'unavailable' &&
+      (!family.latestIndexInspection || Date.parse(observation.observedAt) >= Date.parse(family.latestIndexInspection.observedAt))
+    ) {
+      family.latestIndexInspection = observation;
+    }
     for (const metric of observation.metrics) {
       const values = family.metrics.get(metric.label) ?? {
         label: metric.label,
@@ -330,6 +370,7 @@ function visibilityOutcomeEvidence(home) {
         familyId,
         {
           latest: family.latest,
+          latestIndexInspection: family.latestIndexInspection,
           observations: family.observations,
           metrics: [...family.metrics.values()].map((metric) => ({
             ...metric,
@@ -1199,6 +1240,7 @@ function outcomeFamilySummary(family) {
     observedAt: family.latest.observedAt,
     period: family.latest.period,
     searchTerms: family.latest.searchTerms ?? [],
+    indexInspection: family.latestIndexInspection?.indexInspection ?? family.latest.indexInspection ?? null,
     breakdowns: family.latest.breakdowns ?? [],
     metrics: family.metrics
       .filter((metric) => latestMetricLabels.has(metric.label))
@@ -1402,6 +1444,8 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       clicks: Number(clicks?.value ?? 0),
       position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
       sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
+      inspection: outcome?.indexInspection ?? null,
+      observedAt: outcome?.observedAt ?? null,
     });
     const searchTerms = (outcome?.searchTerms ?? []).map((term) => ({
       ...term,
@@ -1426,6 +1470,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       averagePosition,
       observations: outcome?.observations ?? 0,
       searchTerms,
+      indexInspection: outcome?.indexInspection ?? null,
       trackedQueries: latestTrackedQueries(project),
       provider: outcome?.provider ?? null,
       providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(

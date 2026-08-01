@@ -26,8 +26,25 @@ const now = '2026-07-30T10:00:00.000Z';
 
 test('derives conservative Search actions from explicit boundaries', () => {
   const floor = SEARCH_ACTION_SAMPLE_FLOORS.query;
-  assert.equal(searchAction({ observed: false, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'not-measured');
-  assert.equal(searchAction({ observed: true, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'check-indexing');
+  assert.equal(searchAction({ observed: false, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'measure-search');
+  assert.equal(searchAction({ observed: true, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'inspection-unavailable');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-02T00:00:00.000Z',
+    inspection: { state: 'indexed' },
+  }).id, 'wait-indexed');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    inspection: { state: 'not-indexed', coverageState: 'Crawled - currently not indexed' },
+  }).id, 'fix-indexing');
   assert.equal(searchAction({ observed: true, impressions: 9, clicks: 0, position: 1, sampleFloor: floor }).id, 'collect-more-data');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 8, sampleFloor: floor }).id, 'improve-snippet');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 1, position: 8, sampleFloor: floor }).id, 'protect-and-expand');
@@ -366,6 +383,15 @@ test('projects provider-authoritative search and Cloudflare activity without con
           { label: 'Search CTR', value: 6.67 },
           { label: 'Search average position', value: 14.2 },
         ],
+        indexInspection: {
+          inspectedUrl: 'https://heypace.app/',
+          state: 'indexed',
+          verdict: 'PASS',
+          coverageState: 'Submitted and indexed',
+          robotsTxtState: 'ALLOWED',
+          indexingState: 'INDEXING_ALLOWED',
+          pageFetchState: 'SUCCESSFUL',
+        },
       },
       {
         id: 'search-pace-2026-07-31',
@@ -383,6 +409,16 @@ test('projects provider-authoritative search and Cloudflare activity without con
           { label: 'Search clicks', value: 0 },
           { label: 'Search CTR', value: 0 },
         ],
+        indexInspection: {
+          inspectedUrl: 'https://heypace.app/',
+          state: 'unavailable',
+          verdict: null,
+          coverageState: null,
+          robotsTxtState: null,
+          indexingState: null,
+          pageFetchState: null,
+          failureReason: 'Search Console request timed out',
+        },
       },
       {
         id: 'cloudflare-crawl-pace-2026-07-30',
@@ -513,7 +549,8 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(searchRow.observations, 2);
   assert.equal(searchRow.scope, 'sc-domain:heypace.app');
   assert.match(searchRow.providerUrl, /search\.google\.com/);
-  assert.equal(searchRow.action.id, 'check-indexing');
+  assert.equal(searchRow.action.id, 'wait-indexed');
+  assert.equal(searchRow.indexInspection.state, 'indexed');
   assert.deepEqual(searchRow.trackedQueries, [{
     id: 'pace-brand',
     kind: 'brand',
