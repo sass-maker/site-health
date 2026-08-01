@@ -107,7 +107,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 
 | Skill | Type | Notes |
 |---|---|---|
-| `fleet-ops` | parent | routes to audit/init/deploy/parity/workspace/Cloudflare and Turso spend/fleet-tasks subskills |
+| `fleet-ops` | parent | routes to audit/init/deploy/parity/workspace/Cloudflare and Turso spend subskills |
 | `fleet-deploy-parity` | standalone | fleet-wide "is everything deployed to the latest?" — Cloudflare Pages deployments match current main SHA, Workers at 100% traffic, Actions green at HEAD |
 | `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |

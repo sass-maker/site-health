@@ -1,7 +1,0 @@
-{
-  "schema": "fleet.skill-execution-profile.v1",
-  "recommended": { "intelligence": "balanced", "reasoning": "medium" },
-  "minimum": { "intelligence": "balanced", "reasoning": "low" },
-  "degradation": "ask",
-  "rationale": "Read-only aggregation of GitHub issues across known repos; the script does the work, the agent summarizes."
-}
