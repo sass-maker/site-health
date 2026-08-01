@@ -26,10 +26,6 @@ const job = await createDraftVideo({
   grokVideo: { artifactDir: './tmp/render-mode-smoke/artifacts' },
   asciiAnimation: { artifactDir: './tmp/render-mode-smoke/artifacts' },
   htmlComposition: { artifactDir: './tmp/render-mode-smoke/artifacts' },
-  reelMaker: {
-    artifactDir: './tmp/render-mode-smoke/artifacts',
-    skipRemotionRender: process.env.REEL_MAKER_SKIP_REMOTION === '1',
-  },
   storeOptions: { dir: './tmp/render-mode-smoke/jobs' },
 });
 

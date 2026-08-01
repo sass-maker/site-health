@@ -150,6 +150,7 @@ function distributionReceipt(request, result, now = () => new Date()) {
     status: result.status,
     externalId: result.externalId ?? null,
     externalUrl: result.externalUrl ?? null,
+    scheduledFor: request.scheduledFor,
     recordedAt: now().toISOString(),
   };
 }

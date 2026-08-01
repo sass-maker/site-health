@@ -43,34 +43,6 @@
       "command": "npm run smoke:postiz"
     },
     {
-      "id": "moneyprinter-real-mp4",
-      "description": "MoneyPrinterTurbo produced a real MP4 larger than 1 KB from local canary inputs.",
-      "generationCases": ["marketing-render-modes"],
-      "type": "report",
-      "report": "tmp/moneyprinter-canary-result.json",
-      "schema": "reel-pipeline.moneyprinter-canary.v1",
-      "expect": [
-        { "path": "ok", "equals": true },
-        { "path": "outputSize", "min": 1024 }
-      ],
-      "requiredForFullReadiness": true,
-      "refreshable": true,
-      "docs": "docs/operations/runbooks/generation-readiness.md#live-render-proof",
-      "command": "MONEYPRINTER_API_URL=http://127.0.0.1:18080 npm run canary:moneyprinter"
-    },
-    {
-      "id": "reel-maker-full",
-      "description": "reel-maker adapter generated at least one reviewable or ready variant.",
-      "generationCases": ["marketing-render-modes"],
-      "type": "report",
-      "report": "tmp/reel-maker-smoke/report.json",
-      "schema": "reel-pipeline.reel-maker-smoke.v1",
-      "expect": [{ "path": "ok", "equals": true }],
-      "requiredForFullReadiness": true,
-      "refreshable": true,
-      "command": "npm run smoke:reel-maker"
-    },
-    {
       "id": "artifact-worker-range-playback",
       "description": "Artifact Worker served health, full MP4/object fetch, and HTTP byte range playback.",
       "generationCases": ["marketing-render-modes", "worker-render-pro"],

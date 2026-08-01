@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Google Search and Performance project expansions",
+  "target": "48-variant video creation and playable style exploration at /marketing and /marketing/explore-gallery",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,33 +14,33 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/compact-console-diagnostics/before-1440.png"
+    "before": "artifacts/design/fleet-console-marketing-maker/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/compact-console-diagnostics/after-390.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/compact-console-diagnostics/after-768.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/compact-console-diagnostics/after-1440.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "pnpm run build",
+      "command": "npm run build",
       "status": "pass"
     },
     "critique": {
-      "score": 36,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
-      "score": 17,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner approved the compact implementation and explicitly asked that it avoid adding unnecessary surface area."
+    "note": "Owner delegated the preserve-mode direction, required every bounded combination to remain selectable, and named the main-product route /marketing/explore-gallery."
   }
 }

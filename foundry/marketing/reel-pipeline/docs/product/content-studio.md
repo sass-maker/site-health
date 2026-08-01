@@ -1,9 +1,10 @@
 # Marketing Studio
 
 Marketing Studio is Reel Pipeline's unified operator surface for turning a
-natural-language request into an editable video brief, routing that brief to
-the real production workflow, reviewing the result, and preparing an
-unscheduled Postiz draft. The original Content Studio tools remain available
+natural-language request or standing automation policy into an editable video
+brief, routing that brief to the real production workflow, reviewing the
+result, and preparing an evidence-gated Postiz draft or exact future schedule.
+The original Content Studio tools remain available
 under the **Tools** view: ideation, metadata, scripts, brand voice, keyword
 research, transcripts, thumbnail concepts, and the saved-ideas manager.
 
@@ -29,15 +30,21 @@ For the topic→video→post workflow that consumes these tools, see
 
 ## Operator workflow
 
-Run `npm run dev` and open `http://127.0.0.1:4317/studio`.
+The primary operator entry is Fleet Console's existing Marketing dashboard at
+`http://localhost:4321/marketing`. Start Reel Pipeline with `npm run dev` so the
+dashboard can use its local generation service on port 4317. The standalone
+`/studio` route is retained only for diagnostics. Mashup remains a CLI-only
+editorial capability and is intentionally absent from every web UI.
 
-1. **Create** — describe a video in plain language, then keep refining the same
+1. **Create** — the **Ask Me** lane. Describe a video in plain language, then keep refining the same
    brief with follow-ups such as “make it 30 seconds,” “switch to Instagram,”
    or “turn this into an app demo.” Every turn updates visible normalized
    `fleet.marketing-studio-brief.v1` fields. Nothing renders until the operator
    chooses the named action.
-2. **Productions** — inspect saved intent, playable local artifacts, quality
-   evidence, lifecycle state, and the authoritative continuation.
+2. **Productions** — filter the shared queue by **Project Autopilot**, **Ask
+   Me**, or **Personal Automations**. Inspect saved intent, source and policy
+   revision, recipe/spend choice, playable local artifacts, quality evidence,
+   distribution state, and the authoritative recovery action.
 3. **Distribute** — prove source, claim, destination, rights, creative
    approval, quality, render, and stable public media before creating an
    unscheduled Postiz draft.
@@ -50,6 +57,51 @@ Every field edit or conversational refinement increments the brief revision.
 Conversation cannot approve rights, creative review, quality, distribution,
 scheduling, or publication.
 
+## Standing-policy automation
+
+`config/studio-automation.json` is the versioned, secret-free authority for
+unattended work. The initial policies cover High Signal daily source briefs,
+Significant Hobbies weekly editorial posts, and major maintained-project
+changelog events. High Signal and Significant Hobbies reuse their existing
+content-package extractors. Changelog discovery reads the canonical Fleet
+project catalog and durable `PROJECT_STATUS.md` Timeline, rejects ambiguous or
+maintenance-only entries, and preserves the same-origin public `/changelog`
+URL as evidence.
+
+Every source revision and channel gets a stable idempotency key. Reruns reuse
+the existing Idea, Marketing Brief, render evidence, stable-media evidence,
+and Postiz receipt. A policy ranks only its allowed recipes within its spend
+ceiling, records every bounded attempt, and stops with a named recovery action
+when rendering, quality, stable media, or Postiz readiness is missing.
+
+Dry run is the default:
+
+```bash
+npm run factory -- autopilot --policy high-signal-daily --dry-run --count 1
+npm run factory -- autopilot --all --dry-run
+```
+
+Execution requires `--execute`. It may render, advance through the configured
+artifact publisher, and create the policy-authorized Postiz draft or future
+schedule. It never publishes immediately or contacts a social provider
+directly.
+
+## AI operator discovery
+
+Future AI operators use one read-only arsenal contract rather than reconciling
+the planner, Tools view, render modes, and automation policies independently:
+
+```bash
+npm run factory -- arsenal
+npm run factory -- arsenal --spend-ceiling local-compute --readiness ready
+```
+
+`GET /studio/arsenal` returns the same schema and accepts `recipe`, `channel`,
+`owner`, `spendCeiling`, and `readiness` filters. Inspection never creates a
+brief, renders, uploads, or contacts Postiz. See
+[`studio-agent-arsenal.md`](../architecture/studio-agent-arsenal.md) for the
+canonical registry boundary and the agent execution contract.
+
 ## Production routing
 
 Marketing Studio owns intent and lifecycle state; it does not duplicate the
@@ -57,7 +109,7 @@ specialized runtimes:
 
 | Video kind | Runtime owner | Studio action |
 | --- | --- | --- |
-| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock, Kokoro, or MoneyPrinterTurbo |
+| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock or Kokoro |
 | Brand reel | Anonymous Brand Reel | Continue to `/` with the public canonical website source prefilled |
 | Guided app demo | Forge | Continue to the authenticated Forge host with the brief id, project, workflow kind, and public source prefilled after source rights are approved |
 | Coherent film | Forge | Continue to the authenticated Forge host with safe project/source context and complete Film-style inputs there |
@@ -76,11 +128,10 @@ receipt contracts, then call the existing Postiz adapter to create a draft.
 Preparation is local and performs no network call. Draft creation requires an
 explicit approver and a stable public HTTPS video URL.
 
-The Studio intentionally has no schedule picker and rejects schedule or
-publish inputs. Postiz remains the only calendar, scheduler, publisher,
-provider-integration, and analytics surface. Live account connection,
-scheduling, publication, and auto-post verification are tracked separately in
-[Fleet Workspace issue #40](https://github.com/sass-maker/fleet-workspace/issues/40).
+The Studio accepts only an unscheduled draft or an exact future schedule after
+all evidence gates pass. It rejects immediate-publication inputs and duplicate
+receipts. Postiz remains the only calendar, durable scheduler, publisher,
+provider-integration, and analytics surface.
 
 ## Commands
 
@@ -174,4 +225,4 @@ node --test test/studio-server.test.js test/studio-workflow.test.js \
 ```
 
 Module map:
-`src/studio/{api,ui,briefs,capabilities,distribution,llm,ideas,metadata,script,brand-voice,keywords,transcript,thumbnails,idea-store,workflow}.js`.
+`src/studio/{api,ui,autopilot,autopilot-sources,automation-policy,briefs,capabilities,distribution,llm,ideas,metadata,script,brand-voice,keywords,transcript,thumbnails,idea-store,workflow}.js`.
