@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import test from 'node:test';
 
@@ -32,7 +32,20 @@ test('prints help without applying registered products', () => {
 });
 
 test('preserves product-specific discovery files unless explicitly forced', () => {
-  const output = dryRun('motion');
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const publicDir = join(fleetRoot, 'motion/landing');
+  for (const relativePath of [
+    'llms.txt',
+    'index.md',
+    'api/ai.json',
+    'robots.txt',
+    'sitemap.xml',
+  ]) {
+    const path = join(publicDir, relativePath);
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, `preserved ${relativePath}\n`);
+  }
+  const output = dryRunAtRoot('motion', fleetRoot);
 
   assert.match(output, /llms\.txt preserved/);
   assert.match(output, /index\.md preserved/);
