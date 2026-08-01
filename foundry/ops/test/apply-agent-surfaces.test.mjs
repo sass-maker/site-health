@@ -32,7 +32,15 @@ test('prints help without applying registered products', () => {
 });
 
 test('preserves product-specific discovery files unless explicitly forced', () => {
-  const output = dryRun('motion');
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const publicDir = join(fleetRoot, 'motion/landing');
+  mkdirSync(join(publicDir, 'api'), { recursive: true });
+  for (const file of ['llms.txt', 'index.md', 'robots.txt', 'sitemap.xml']) {
+    writeFileSync(join(publicDir, file), 'curated\n');
+  }
+  writeFileSync(join(publicDir, 'api/ai.json'), '{}\n');
+
+  const output = dryRunAtRoot('motion', fleetRoot);
 
   assert.match(output, /llms\.txt preserved/);
   assert.match(output, /index\.md preserved/);

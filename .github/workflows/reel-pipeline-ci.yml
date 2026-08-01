@@ -39,6 +39,10 @@ jobs:
           cache: npm
           cache-dependency-path: foundry/marketing/reel-pipeline/package-lock.json
       - run: npm ci
+      - name: Install FFmpeg test runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
       - run: node --test
       - run: node scripts/validate-docs.mjs
 
