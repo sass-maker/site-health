@@ -159,6 +159,35 @@ test('starts and deduplicates one portfolio Search Console collector', () => {
   );
 });
 
+test('starts and deduplicates one portfolio Cloudflare collector', () => {
+  let invocation;
+  const child = fakeProcess();
+  const fleetRoot = '/fleet';
+  const controller = createMetricRunController({
+    projects: [{ id: 'pace', domains: ['heypace.app'] }],
+    fleetRoot,
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'cloudflare', scope: 'portfolio' });
+  const duplicate = controller.start({ family: 'cloudflare', scope: 'portfolio' });
+
+  assert.equal(started.label, 'Portfolio Cloudflare outcomes');
+  assert.equal(duplicate.runId, started.runId);
+  assert.equal(duplicate.duplicate, true);
+  assert.equal(invocation.options.shell, false);
+  assert.deepEqual(invocation.args, [
+    join(fleetRoot, 'foundry/ops/scripts/cloudflare-outcomes-collect.mjs'),
+  ]);
+  assert.throws(
+    () => controller.start({ family: 'cloudflare', projectId: 'pace' }),
+    { code: 'METRIC_SCOPE_INVALID' },
+  );
+});
+
 test('rejects unknown projects and validates existing design receipts', () => {
   const fleetRoot = mkdtempSync(join(tmpdir(), 'metric-runs-'));
   mkdirSync(join(fleetRoot, 'product', '.fleet'), { recursive: true });

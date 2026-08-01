@@ -65,6 +65,30 @@ test('records normalized provider aggregates idempotently', (context) => {
   ]);
 });
 
+test('retains bounded provider links and breakdowns', () => {
+  const [normalized] = appendVisibilityOutcomeBundle(bundle([searchObservation({
+    providerUrl: 'https://search.google.com/search-console?resource_id=sc-domain%3Aheypace.app',
+    breakdowns: [{
+      id: 'top-pages',
+      label: 'Top pages',
+      unit: 'page views',
+      values: [{ label: '/private', value: 12 }],
+    }],
+  })]), {
+    path: join(mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-')), 'ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  }).observations;
+
+  assert.match(normalized.providerUrl, /^https:\/\/search\.google\.com\//);
+  assert.deepEqual(normalized.breakdowns[0].values, [{ label: '/private', value: 12 }]);
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([searchObservation({
+      providerUrl: 'javascript:alert(1)',
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /providerUrl must be an HTTPS URL/,
+  );
+});
+
 test('accepts legacy query-only evidence and rejects invalid landing pages', () => {
   const legacy = searchObservation({
     searchTerms: [

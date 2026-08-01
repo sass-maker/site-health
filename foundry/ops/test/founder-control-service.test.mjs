@@ -194,12 +194,46 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
             })),
           },
         }],
-        coreAi: [{ projectId: 'core', status: 'not-measured' }],
+        coreAi: [{
+          projectId: 'core',
+          status: 'not-measured',
+          questions: [{ id: 'set:question', setId: 'set', text: 'Which tool should I use?' }],
+          coverage: { configured: 2, completed: 1, unavailable: 1, timedOut: 0, failed: 0 },
+          attempts: [{
+            promptId: 'set/question/persona',
+            persona: 'persona',
+            providerId: 'provider',
+            model: 'model',
+            status: 'completed',
+            private: 'must-not-leak',
+          }],
+          citationSources: {
+            total: 2,
+            owned: 1,
+            external: 1,
+            unclassified: 0,
+            sources: [
+              { url: 'https://example.com/docs', host: 'example.com', ownership: 'owned', private: 'must-not-leak' },
+              { url: 'https://review.example/item', host: 'review.example', ownership: 'external' },
+            ],
+          },
+          crawlerRequests: { value: 18, series: [{ value: 12 }] },
+          aiReferralVisits: { value: 3, series: [{ value: 1 }] },
+        }],
+        marketing: [{
+          projectId: 'site',
+          visits: { value: 240, series: [{ value: 180 }] },
+          pageViews: { value: 380, series: [{ value: 300 }] },
+          searchReferrals: { value: 44, series: [{ value: 30 }] },
+        }],
         performance: [{
           projectId: 'site',
           status: 'fast-enough',
+          providerUrl: 'https://dash.cloudflare.com/account/zone/speed/observatory',
           psi: { value: 95, series: [{ value: 90 }] },
           lcp: { value: 1200, series: [{ value: 1500 }] },
+          fieldLcp: { value: 1800, series: [{ value: 1900 }] },
+          fieldInp: { value: 140, series: [{ value: 160 }] },
         }],
         search: [{
           projectId: 'site',
@@ -220,7 +254,13 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
           ctr: { value: 6.67, series: [{ value: 5 }] },
           averagePosition: { value: 14.2, series: [{ value: 16 }] },
         }],
-        performanceThresholds: { psiScore: 90, lcpMilliseconds: 2500 },
+        performanceThresholds: {
+          psiScore: 90,
+          lcpMilliseconds: 2500,
+          fieldLcpMilliseconds: 2500,
+          fieldInpMilliseconds: 200,
+          fieldCls: 0.1,
+        },
       },
     },
   };
@@ -248,6 +288,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   const search = await (await fetch(`${base}/v1/outcomes/search`)).json();
   const awareness = await (await fetch(`${base}/v1/outcomes/ai-awareness`)).json();
   const performance = await (await fetch(`${base}/v1/outcomes/performance`)).json();
+  const marketing = await (await fetch(`${base}/v1/outcomes/marketing`)).json();
   const connections = await (await fetch(`${base}/v1/connections`)).json();
 
   assert.equal(builds, 1);
@@ -260,10 +301,20 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal(search.rows[0].clicks.series.length, 1);
   assert.equal(search.rows[0].action.id, 'strengthen-ranking-page');
   assert.equal(awareness.rows[0].projectId, 'core');
+  assert.equal(awareness.rows[0].crawlerRequests.series.length, 1);
+  assert.equal(awareness.rows[0].questions[0].text, 'Which tool should I use?');
+  assert.equal(awareness.rows[0].attempts[0].model, 'model');
+  assert.equal('private' in awareness.rows[0].attempts[0], false);
+  assert.equal(awareness.rows[0].citationSources.external, 1);
+  assert.equal('private' in awareness.rows[0].citationSources.sources[0], false);
+  assert.equal(marketing.rows[0].visits.series.length, 1);
+  assert.equal(marketing.rows[0].pageViews.value, 380);
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
   assert.equal(performance.rows[0].psi.value, 95);
   assert.equal('series' in performance.rows[0].psi, false);
   assert.equal('series' in performance.rows[0].lcp, false);
+  assert.equal(performance.rows[0].fieldLcp.series.length, 1);
+  assert.equal(performance.rows[0].providerUrl, 'https://dash.cloudflare.com/account/zone/speed/observatory');
   assert.deepEqual(connections, expected);
 
   const rebuilt = await fetch(`${base}/v1/projections/rebuild`, { method: 'POST' });

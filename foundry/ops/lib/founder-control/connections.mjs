@@ -17,6 +17,7 @@ import {
   readVisibilityOutcomes,
 } from '../visibility-outcome-store.mjs';
 import { visibilityProjects } from '../visibility-projects.mjs';
+import { searchConsoleProviderUrl } from '../search-console.mjs';
 import {
   isDomainStrengthProject,
   isPublicMetricProject,
@@ -949,6 +950,96 @@ function aiRunEvidenceMode(run) {
   return run?.evidenceMode ?? run?.evidence?.[0]?.summary?.evidenceMode ?? null;
 }
 
+function parsedHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return ['http:', 'https:'].includes(url.protocol) ? url : null;
+  } catch {
+    return null;
+  }
+}
+
+function cloudflareSpeedProviderUrl(project, fieldOutcome) {
+  const candidates = [
+    fieldOutcome?.providerUrl,
+    project.webTraffic?.outcome?.providerUrl,
+    project.aiVisibility?.discovery?.crawler?.providerUrl,
+  ];
+  for (const candidate of candidates) {
+    const url = parsedHttpUrl(candidate);
+    if (!url || url.hostname !== 'dash.cloudflare.com') continue;
+    const [accountId, zoneId] = url.pathname.split('/').filter(Boolean);
+    if (!accountId || !zoneId) continue;
+    url.pathname = `/${accountId}/${zoneId}/speed/observatory`;
+    url.search = '';
+    url.hash = '';
+    return url.href;
+  }
+  return null;
+}
+
+function hostMatchesDomain(host, domain) {
+  const normalizedHost = normalizedDomain(host);
+  const normalizedProjectDomain = normalizedDomain(domain);
+  return Boolean(
+    normalizedHost
+    && normalizedProjectDomain
+    && (
+      normalizedHost === normalizedProjectDomain
+      || normalizedHost.endsWith(`.${normalizedProjectDomain}`)
+    )
+  );
+}
+
+function citationOwnership(url, project) {
+  if (project.domains.some((domain) => hostMatchesDomain(url.hostname, domain))) {
+    return 'owned';
+  }
+  const repository = parsedHttpUrl(project.repositoryUrl);
+  if (!repository || url.origin !== repository.origin) return 'external';
+  const repositoryPath = repository.pathname.replace(/\/?(?:\.git)?$/, '').replace(/\/$/, '');
+  const citationPath = url.pathname.replace(/\/$/, '');
+  return citationPath === repositoryPath || citationPath.startsWith(`${repositoryPath}/`)
+    ? 'owned'
+    : 'external';
+}
+
+function citationSourceSummary(project) {
+  const citations = project.aiVisibility?.latest?.citations ?? {};
+  const sources = [];
+  const representedHosts = new Set();
+  for (const value of citations.urls ?? []) {
+    const url = parsedHttpUrl(value);
+    if (!url) continue;
+    const host = normalizedDomain(url.hostname);
+    representedHosts.add(host);
+    sources.push({
+      url: url.href,
+      host,
+      ownership: citationOwnership(url, project),
+    });
+  }
+  for (const value of citations.hosts ?? []) {
+    const host = normalizedDomain(value);
+    if (!host || representedHosts.has(host)) continue;
+    sources.push({
+      url: null,
+      host,
+      ownership: project.domains.some((domain) => hostMatchesDomain(host, domain))
+        ? 'owned'
+        : 'unclassified',
+    });
+  }
+  const boundedSources = sources.slice(0, 50);
+  return {
+    total: Number.isFinite(Number(citations.total)) ? Number(citations.total) : 0,
+    owned: boundedSources.filter((source) => source.ownership === 'owned').length,
+    external: boundedSources.filter((source) => source.ownership === 'external').length,
+    unclassified: boundedSources.filter((source) => source.ownership === 'unclassified').length,
+    sources: boundedSources,
+  };
+}
+
 function normalizeFeedbackSubmissions(submissions = [], projects = []) {
   const projectIds = new Set(projects.map((project) => project.id));
   return submissions
@@ -1103,10 +1194,12 @@ function outcomeFamilySummary(family) {
   return {
     observations: family.observations,
     provider: family.latest.provider,
+    providerUrl: family.latest.providerUrl ?? null,
     scope: family.latest.scope,
     observedAt: family.latest.observedAt,
     period: family.latest.period,
     searchTerms: family.latest.searchTerms ?? [],
+    breakdowns: family.latest.breakdowns ?? [],
     metrics: family.metrics
       .filter((metric) => latestMetricLabels.has(metric.label))
       .map((metric) => ({
@@ -1120,6 +1213,22 @@ function outcomeFamilySummary(family) {
 
 function signalByLabel(project, label) {
   return project.history.signals.find((signal) => signal.label === label) ?? null;
+}
+
+function latestFamilySignal(project, outcome, label) {
+  if (!outcome) return null;
+  const metric = outcome.metrics?.find((item) => item.label === label);
+  if (!metric) return null;
+  const history = signalByLabel(project, label);
+  return {
+    ...(history ?? {}),
+    ...metric,
+    label,
+    value: metric.value,
+    observedAt: outcome.observedAt,
+    source: outcome.provider,
+    providerUrl: outcome.providerUrl ?? null,
+  };
 }
 
 function latestOutcomeSignal(project, outcome, label) {
@@ -1194,6 +1303,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
       )
       .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
+    const traffic = project.webTraffic?.outcome ?? null;
     return {
       projectId: project.projectId,
       name: project.name,
@@ -1204,13 +1314,27 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       latestOutcome: projectOutcomes[0] ?? null,
       outcomeCount: projectOutcomes.length,
       status: projectOutcomes.length > 0 ? 'marketed' : 'never-marketed',
+      visits: latestFamilySignal(project, traffic, 'Web visits'),
+      pageViews: latestFamilySignal(project, traffic, 'Web page views'),
+      searchReferrals: latestFamilySignal(project, traffic, 'Search referral visits'),
+      traffic,
     };
   });
 
-  const performanceThresholds = { psiScore: 90, lcpMilliseconds: 2500 };
+  const performanceThresholds = {
+    psiScore: 90,
+    lcpMilliseconds: 2500,
+    fieldLcpMilliseconds: 2500,
+    fieldInpMilliseconds: 200,
+    fieldCls: 0.1,
+  };
   const performanceRows = publicProjects.map((project) => {
     const psi = signalByLabel(project, 'PSI performance');
     const lcp = signalByLabel(project, 'PSI LCP');
+    const field = project.fieldPerformance?.outcome ?? null;
+    const fieldLcp = latestFamilySignal(project, field, 'Field LCP');
+    const fieldInp = latestFamilySignal(project, field, 'Field INP');
+    const fieldCls = latestFamilySignal(project, field, 'Field CLS');
     let status = 'not-measured';
     if (psi && lcp) {
       status = 'needs-work';
@@ -1221,6 +1345,12 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         status = 'fast-enough';
       }
     }
+    const fieldFails = (
+      (Number.isFinite(fieldLcp?.value) && fieldLcp.value > performanceThresholds.fieldLcpMilliseconds) ||
+      (Number.isFinite(fieldInp?.value) && fieldInp.value > performanceThresholds.fieldInpMilliseconds) ||
+      (Number.isFinite(fieldCls?.value) && fieldCls.value > performanceThresholds.fieldCls)
+    );
+    if (fieldFails) status = 'needs-work';
     return {
       projectId: project.projectId,
       name: project.name,
@@ -1228,7 +1358,17 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       status,
       psi,
       lcp,
-      observedAt: project.metricSemantics?.performance?.observedAt ?? null,
+      fieldLcp,
+      fieldInp,
+      fieldCls,
+      fieldTtfb: latestFamilySignal(project, field, 'Field TTFB'),
+      rumSamples: latestFamilySignal(project, field, 'RUM samples'),
+      field,
+      providerUrl: cloudflareSpeedProviderUrl(project, field),
+      observedAt: newestTimestamp([
+        project.metricSemantics?.performance?.observedAt,
+        field?.observedAt,
+      ]),
     };
   });
 
@@ -1271,6 +1411,9 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       observations: outcome?.observations ?? 0,
       searchTerms,
       provider: outcome?.provider ?? null,
+      providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
+        String(outcome?.scope ?? '').split(' · page:')[0],
+      ),
       scope: outcome?.scope ?? null,
       period: outcome?.period ?? null,
       observedAt: outcome?.observedAt ?? null,
@@ -1286,6 +1429,9 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         status = 'not-known';
         if (mention.value > 0) status = 'known';
       }
+      const crawler = project.aiVisibility?.discovery?.crawler ?? null;
+      const referral = project.aiVisibility?.discovery?.referral ?? null;
+      const citationSources = citationSourceSummary(project);
       return {
         projectId: project.projectId,
         name: project.name,
@@ -1293,10 +1439,21 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         status,
         observations: project.aiVisibility?.observations ?? 0,
         observedAt: project.aiVisibility?.observedAt ?? null,
+        discoveryObservedAt: newestTimestamp([
+          crawler?.observedAt,
+          referral?.observedAt,
+        ]),
         mention,
         recommendation: signalByLabel(project, 'AI recommendation rate'),
         citation: signalByLabel(project, 'AI citation rate'),
         averageRank: signalByLabel(project, 'AI average rank'),
+        questions: (project.aiVisibility?.questions ?? []).slice(0, 12),
+        coverage: project.aiVisibility?.latest?.coverage ?? null,
+        attempts: (project.aiVisibility?.latest?.attempts ?? []).slice(0, 24),
+        citationSources,
+        crawlerRequests: latestFamilySignal(project, crawler, 'AI crawler requests'),
+        aiReferralVisits: latestFamilySignal(project, referral, 'AI referral visits'),
+        discovery: { crawler, referral },
       };
     });
 
@@ -1599,6 +1756,8 @@ function buildProjectOutputs({
             search: 'Search Console outcome',
             'ai-crawl': 'AI crawler activity',
             'ai-referral': 'AI referral traffic',
+            'web-traffic': 'Web traffic',
+            'web-vitals': 'Real-user performance',
           }[familyId] ?? familyId,
           value: family.observations,
           detail: `${family.latest.provider} · ${family.latest.scope}`,
@@ -1686,6 +1845,8 @@ function buildProjectOutputs({
         ...readinessSignals,
         ...aiSignals,
       ].filter(Boolean);
+      const webTrafficOutcome = outcomeFamilySummary(outcomes['web-traffic']);
+      const webVitalsOutcome = outcomeFamilySummary(outcomes['web-vitals']);
       const aiVisibilityOutput = {
         configured: Boolean(ai),
         observations: aiOutcomeHistory.length,
@@ -1698,6 +1859,15 @@ function buildProjectOutputs({
           source: 'AI Visibility fixture canary',
         },
         questions: ai?.questions ?? [],
+        latest: latestAiOutcome
+          ? {
+              runId: latestAiOutcome.runId,
+              promptSetId: latestAiOutcome.promptSetId ?? null,
+              coverage: latestAiOutcome.coverage ?? null,
+              citations: latestAiOutcome.citations ?? { total: 0, hosts: [], urls: [] },
+              attempts: latestAiOutcome.attempts ?? [],
+            }
+          : null,
         discovery: {
           crawler: outcomeFamilySummary(outcomes['ai-crawl']),
           referral: outcomeFamilySummary(outcomes['ai-referral']),
@@ -1714,6 +1884,7 @@ function buildProjectOutputs({
         lifecycle: project.lifecycle ?? null,
         status: project.status ?? null,
         domains,
+        repositoryUrl: project.repositoryUrl ?? project.public?.repositoryUrl ?? null,
         metricEligibility: {
           publicSite: publicMetricSite,
           domainCoverage,
@@ -1744,6 +1915,12 @@ function buildProjectOutputs({
             }
           : null,
         designReview,
+        webTraffic: {
+          outcome: webTrafficOutcome,
+        },
+        fieldPerformance: {
+          outcome: webVitalsOutcome,
+        },
         aiVisibility: aiVisibilityOutput,
         searchVisibility: {
           configured: search?.configured === true,

@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   collectSearchConsoleOutcomes,
+  searchConsoleProviderUrl,
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
 
@@ -22,6 +23,14 @@ test('selects the closest accessible property for a canonical domain', () => {
     permissionLevel: 'siteOwner',
     pageFilter: 'https://other.example.com/',
   });
+});
+
+test('builds one exact Search Console property link', () => {
+  assert.equal(
+    searchConsoleProviderUrl('sc-domain:example.com'),
+    'https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Aexample.com',
+  );
+  assert.equal(searchConsoleProviderUrl(''), null);
 });
 
 test('collects project-scoped aggregates and keeps unavailable properties out of the ledger bundle', async () => {
@@ -74,6 +83,7 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     { label: 'Search CTR', value: 10 },
     { label: 'Search average position', value: 4.5 },
   ]);
+  assert.match(result.bundle.observations[0].providerUrl, /resource_id=sc-domain%3Aexample\.com$/);
   assert.deepEqual(result.bundle.observations[1].metrics, [
     { label: 'Search impressions', value: 0 },
     { label: 'Search clicks', value: 0 },

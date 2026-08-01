@@ -12,9 +12,15 @@ const FAMILIES = new Set([
   'psi',
   'drank',
   'search',
+  'cloudflare',
   'ai',
   'design',
 ]);
+
+const PORTFOLIO_ONLY_FAMILIES = Object.freeze({
+  search: 'Google Search',
+  cloudflare: 'Cloudflare',
+});
 const MAX_CAPTURE_CHARACTERS = 12_000;
 
 function fail(code, message) {
@@ -29,8 +35,8 @@ function projectRoot(fleetRoot, project) {
 }
 
 function commandFor({ family, project, fleetRoot }) {
-  if (family === 'search') {
-    fail('METRIC_SCOPE_INVALID', 'Google Search updates are portfolio-only');
+  if (PORTFOLIO_ONLY_FAMILIES[family]) {
+    fail('METRIC_SCOPE_INVALID', `${PORTFOLIO_ONLY_FAMILIES[family]} updates are portfolio-only`);
   }
   const domain = project.domains?.[0] ?? null;
   if (['agent', 'crawl', 'coverage', 'psi', 'drank'].includes(family) && !domain) {
@@ -170,6 +176,13 @@ function portfolioCommandFor({ family, fleetRoot, projects }) {
       command: process.execPath,
       args: [resolve(fleetRoot, 'foundry/ops/scripts/search-console-collect.mjs')],
       label: 'Portfolio Google Search',
+    };
+  }
+  if (family === 'cloudflare') {
+    return {
+      command: process.execPath,
+      args: [resolve(fleetRoot, 'foundry/ops/scripts/cloudflare-outcomes-collect.mjs')],
+      label: 'Portfolio Cloudflare outcomes',
     };
   }
   fail('METRIC_SCOPE_INVALID', 'Unsupported portfolio metric family');

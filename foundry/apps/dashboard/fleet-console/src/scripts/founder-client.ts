@@ -609,11 +609,11 @@ function historySignal(signal: JsonRecord) {
     hasDelta &&
     ((signal.direction === "higher-is-better" && signal.delta < 0) ||
       (signal.direction === "lower-is-better" && signal.delta > 0));
-  const delta = hasDelta
-    ? metricDeltaValue(signal.delta, signal.unit)
-    : signal.history === "baseline-only"
-      ? "Baseline only"
-      : "No history";
+  let delta = "No history";
+  if (signal.history === "baseline-only") delta = "Baseline only";
+  if (hasDelta) {
+    delta = signal.delta === 0 ? "No change" : metricDeltaValue(signal.delta, signal.unit);
+  }
   return element("div", { class: "history-signal" }, [
     element("span", {}, [signal.label]),
     element("strong", {}, [
@@ -1676,6 +1676,7 @@ type OutcomeColumn = {
 type OutcomeTableOptions = {
   details?: (row: JsonRecord) => Node;
   rowKey?: (row: JsonRecord) => string;
+  className?: string;
 };
 
 function matchesProject(projectId?: string | null) {
@@ -1741,16 +1742,18 @@ function outcomeTable(
         class: "outcome-detail-toggle",
         "aria-controls": detailId,
         "aria-expanded": String(expanded),
+        "aria-label": `${expanded ? "Hide" : "View"} ${row.name ?? row.domain ?? rowKey} details`,
       }, [expanded ? "Hide" : "View"]);
       toggle.addEventListener("click", () => {
         const shouldExpand = detailRow.hidden;
         detailRow.hidden = !shouldExpand;
         toggle.setAttribute("aria-expanded", String(shouldExpand));
         toggle.textContent = shouldExpand ? "Hide" : "View";
+        toggle.setAttribute("aria-label", `${shouldExpand ? "Hide" : "View"} ${row.name ?? row.domain ?? rowKey} details`);
         if (shouldExpand) expandedRows.add(rowKey);
         else expandedRows.delete(rowKey);
       });
-      mainRow.append(element("td", { "data-label": "Details" }, [toggle]));
+      mainRow.insertBefore(element("td", { "data-label": "Details" }, [toggle]), mainRow.children[1]);
       return [mainRow, detailRow];
     }));
     status.textContent = `Sorted by ${column.label}, ${sortDirection}.`;
@@ -1782,7 +1785,7 @@ function outcomeTable(
     return cell;
   });
   if (options.details) {
-    headerCells.push(element("th", { scope: "col" }, [
+    headerCells.splice(1, 0, element("th", { scope: "col" }, [
       element("span", { class: "outcome-table__label" }, ["Details"]),
     ]));
   }
@@ -1792,7 +1795,8 @@ function outcomeTable(
     body,
   ]);
   draw();
-  return element("div", { class: "outcome-table-wrap" }, [
+  const wrapClass = ["outcome-table-wrap", options.className].filter(Boolean).join(" ");
+  return element("div", { class: wrapClass }, [
     element("p", { class: "outcome-table__scroll-hint" }, ["Swipe sideways to inspect every column."]),
     status,
     table,
@@ -1832,11 +1836,84 @@ function outcomeSignal(signal?: JsonRecord | null) {
     return element("span", { class: "outcome-missing" }, ["Not measured"]);
   }
   let detail = titleCase(signal.history ?? "baseline-only");
-  if (Number.isFinite(signal.delta)) detail = metricDeltaValue(signal.delta, signal.unit);
+  if (Number.isFinite(signal.delta)) {
+    detail = signal.delta === 0 ? "No change" : metricDeltaValue(signal.delta, signal.unit);
+  }
   return element("span", { class: "outcome-signal" }, [
     element("strong", {}, [metricValue(signal.value, signal.unit)]),
     element("small", {}, [detail]),
   ]);
+}
+
+function providerLink(label: string, url?: string | null) {
+  if (!url) return null;
+  return element("a", {
+    class: "secondary-action provider-link",
+    href: url,
+    target: "_blank",
+    rel: "noreferrer",
+    "aria-label": `${label} (opens in a new tab)`,
+  }, [label]);
+}
+
+function outcomePeriod(outcome?: JsonRecord | null) {
+  if (!outcome?.period?.start || !outcome?.period?.end) return "Not measured";
+  return `${searchReportingDay(outcome.period.start)} – ${searchReportingDay(outcome.period.end)}`;
+}
+
+function outcomeBreakdowns(outcome?: JsonRecord | null) {
+  const breakdowns = outcome?.breakdowns ?? [];
+  if (breakdowns.length === 0) return null;
+  return element("div", { class: "outcome-breakdowns" }, breakdowns.map((breakdown: JsonRecord) => {
+    const children: Node[] = [
+      element("h3", {}, [breakdown.label]),
+      element("div", { class: "tracked-intent-list" }, (breakdown.values ?? []).slice(0, 5).map((item: JsonRecord) =>
+        element("div", { class: "tracked-intent" }, [
+          element("div", {}, [element("strong", {}, [item.label])]),
+          element("div", { class: "tracked-intent__result" }, [
+            element("strong", {}, [metricValue(Number(item.value), breakdown.unit)]),
+          ]),
+        ]),
+      )),
+    ];
+    if ((breakdown.values ?? []).length > 5) {
+      children.push(element("p", { class: "outcome-breakdown__more" }, [
+        `Showing 5 of ${breakdown.values.length}. Open Cloudflare for full detail.`,
+      ]));
+    }
+    return element("section", { class: "outcome-breakdown" }, children);
+  }));
+}
+
+function providerOutcomeDetails({
+  note,
+  outcomes,
+  signals,
+}: {
+  note: string;
+  outcomes: { label: string; outcome?: JsonRecord | null; linkLabel: string }[];
+  signals: (JsonRecord | null | undefined)[];
+}) {
+  const recordedOutcomes = outcomes.filter((item) => item.outcome);
+  const links = recordedOutcomes.flatMap((item) => {
+    const link = providerLink(item.linkLabel, item.outcome?.providerUrl);
+    return link ? [link] : [];
+  });
+  const facts = recordedOutcomes.flatMap((item) => [
+    element("div", {}, [element("dt", {}, [`${item.label} period`]), element("dd", {}, [outcomePeriod(item.outcome)])]),
+    element("div", {}, [element("dt", {}, [`${item.label} scope`]), element("dd", {}, [item.outcome?.scope ?? "Not measured"])]),
+  ]);
+  const signalNodes = signals.flatMap((signal) => signal ? [historySignal(signal)] : []);
+  const breakdownNodes = recordedOutcomes.flatMap((item) => {
+    const breakdown = outcomeBreakdowns(item.outcome);
+    return breakdown ? [breakdown] : [];
+  });
+  const content: Node[] = [element("p", { class: "search-detail__note" }, [note])];
+  if (links.length > 0) content.push(element("div", { class: "provider-links" }, links));
+  if (facts.length > 0) content.push(element("dl", { class: "search-detail__facts" }, facts));
+  if (signalNodes.length > 0) content.push(element("div", { class: "project-history-grid" }, signalNodes));
+  content.push(...breakdownNodes);
+  return element("div", { class: "search-detail" }, content);
 }
 
 function domainRatingSignal(signal?: JsonRecord | null) {
@@ -1867,6 +1944,25 @@ function projectIdentity(row: JsonRecord, section?: string) {
     element("strong", {}, [row.name]),
     element("small", {}, [row.domain ?? "No domain"]),
   ]);
+}
+
+function projectIdentityWithProvider(
+  row: JsonRecord,
+  section: string,
+  providerLabel: string,
+  providerUrl?: string | null,
+) {
+  const children: Node[] = [projectIdentity(row, section)];
+  if (providerUrl) {
+    children.push(element("a", {
+      class: "outcome-provider-link",
+      href: providerUrl,
+      target: "_blank",
+      rel: "noreferrer",
+      "aria-label": `Open ${row.name} in ${providerLabel} (opens in a new tab)`,
+    }, [`${providerLabel} ↗`]));
+  }
+  return element("div", { class: "outcome-identity-group" }, children);
 }
 
 function updateOutcomeTime(generatedAt: string) {
@@ -2204,6 +2300,7 @@ function searchOutcomeDetails(row: JsonRecord) {
     }
   }
   const history = searchObservationHistory(row);
+  const searchConsoleLink = providerLink("Open Search Console", row.providerUrl);
   const content: Node[] = [
     element("p", { class: "search-detail__note" }, [note]),
     element("dl", { class: "search-detail__facts" }, [
@@ -2213,6 +2310,7 @@ function searchOutcomeDetails(row: JsonRecord) {
       element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
     ]),
   ];
+  if (searchConsoleLink) content.splice(1, 0, element("div", { class: "provider-links" }, [searchConsoleLink]));
   if (history) content.push(history);
   content.push(searchTermsTable(row));
   return element("div", { class: "search-detail" }, content);
@@ -2224,7 +2322,7 @@ async function renderSearch() {
   const rows = payload.rows ?? [];
   updateSearchPeriod(rows);
   const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "search") },
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentityWithProvider(row, "search", "Search Console", row.providerUrl) },
     { key: "impressions", label: "Impressions", description: "Sort by Google Search impressions", value: (row) => row.impressions?.value, render: (row) => searchMetric(row.impressions, "count") },
     { key: "clicks", label: "Clicks", description: "Sort by Google Search clicks", value: (row) => row.clicks?.value, render: (row) => searchMetric(row.clicks, "count") },
     { key: "ctr", label: "CTR", description: "Sort by click-through rate", value: (row) => row.ctr?.value, render: (row) => searchMetric(row.ctr, "percent") },
@@ -2244,7 +2342,19 @@ async function renderSearch() {
     : empty("No Google Search evidence", "No Search Console outcomes are recorded yet."));
 }
 
-type PortfolioMetricFamily = "drank" | "psi" | "search";
+type PortfolioMetricFamily = "drank" | "psi" | "search" | "cloudflare";
+
+const CLOUDFLARE_VIEW_REFRESH: Record<string, () => Promise<void>> = {
+  "ai-awareness": renderAiAwareness,
+  performance: renderPerformance,
+  marketing: renderMarketing,
+};
+
+async function refreshCloudflareView() {
+  const view = document.body.dataset.founderView ?? "";
+  const refresh = CLOUDFLARE_VIEW_REFRESH[view];
+  if (refresh) await refresh();
+}
 
 const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
   idleLabel: string;
@@ -2265,7 +2375,7 @@ const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
     refresh: renderDomains,
   },
   psi: {
-    idleLabel: "Re-run all",
+    idleLabel: "Run all PSI",
     runningLabel: "Running all…",
     startingMessage: "Starting performance refresh…",
     completedMessage: "Performance updated.",
@@ -2281,6 +2391,15 @@ const PORTFOLIO_REFRESH_CONFIG: Record<PortfolioMetricFamily, {
     failureMessage: "Google Search update failed.",
     maxAttempts: 240,
     refresh: renderSearch,
+  },
+  cloudflare: {
+    idleLabel: "Update Cloudflare",
+    runningLabel: "Updating…",
+    startingMessage: "Updating Cloudflare evidence…",
+    completedMessage: "Cloudflare evidence updated.",
+    failureMessage: "Cloudflare update failed.",
+    maxAttempts: 240,
+    refresh: refreshCloudflareView,
   },
 };
 
@@ -2319,6 +2438,42 @@ function bindPortfolioRefresh(family: PortfolioMetricFamily) {
   });
 }
 
+function portfolioRefreshControl(family: PortfolioMetricFamily, idleLabel = PORTFOLIO_REFRESH_CONFIG[family].idleLabel) {
+  const config = PORTFOLIO_REFRESH_CONFIG[family];
+  const statusText = element("span", {
+    class: "portfolio-refresh-status",
+    role: "status",
+    "aria-live": "polite",
+  });
+  const button = element("button", { type: "button", class: "secondary-action" }, [idleLabel]);
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    button.textContent = config.runningLabel;
+    statusText.textContent = config.startingMessage;
+    try {
+      const run = await startAndPollMetricRun({
+        family,
+        scope: "portfolio",
+        statusText,
+        maxAttempts: config.maxAttempts,
+        isConnected: () => button.isConnected,
+      });
+      if (!run) return;
+      if (run.state !== "succeeded") throw new Error(run.summary || config.failureMessage);
+      await config.refresh();
+      statusText.textContent = config.completedMessage;
+    } catch (error) {
+      statusText.textContent = error instanceof Error ? error.message : config.failureMessage;
+    } finally {
+      if (button.isConnected) {
+        button.disabled = false;
+        button.textContent = idleLabel;
+      }
+    }
+  });
+  return element("div", { class: "outcome-run-control" }, [button, statusText]);
+}
+
 async function renderAiAwareness() {
   const payload = await api("/v1/outcomes/ai-awareness");
   updateOutcomeTime(payload.generatedAt);
@@ -2326,23 +2481,192 @@ async function renderAiAwareness() {
   const count = document.querySelector<HTMLElement>('[data-founder-count="ai-awareness"]');
   if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [
-    { key: "project", label: "Core project", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "geo") },
-    { key: "status", label: "Awareness", description: "Sort by evidence state", value: (row) => row.status, render: (row) => state(row.status) },
+    { key: "project", label: "Core product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row, "geo") },
+    { key: "status", label: "Awareness", description: "Sort by evidence state", value: (row) => row.status, render: awarenessState },
     { key: "mention", label: "Mentioned", description: "Sort by model mention rate", value: (row) => row.mention?.value, render: (row) => outcomeSignal(row.mention) },
-    { key: "recommendation", label: "Recommended", description: "Sort by recommendation rate", value: (row) => row.recommendation?.value, render: (row) => outcomeSignal(row.recommendation) },
     { key: "citation", label: "Cited", description: "Sort by citation rate", value: (row) => row.citation?.value, render: (row) => outcomeSignal(row.citation) },
-    { key: "rank", label: "Average rank", description: "Sort by average answer rank", value: (row) => row.averageRank?.value, render: (row) => outcomeSignal(row.averageRank) },
-    { key: "observed", label: "Observed", description: "Sort by provider observation time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+    { key: "external", label: "External sources", description: "Sort by external citation sources", value: (row) => row.observations > 0 ? row.citationSources?.external ?? 0 : null, render: aiExternalSources },
+    { key: "observed", label: "Last observed", description: "Sort by provider observation time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => row.observedAt ? formattedDay(row.observedAt) : "Not measured" },
   ];
   replace("ai-awareness", rows.length
-    ? outcomeTable(rows, columns, "project", "Core project AI awareness")
+      ? outcomeTable(rows, columns, "project", "Core product AI awareness", "ascending", {
+        rowKey: (row) => row.projectId,
+        details: aiAwarenessDetails,
+        className: "outcome-table-wrap--ai-awareness",
+      })
     : empty("No core project in scope", "AI awareness is limited to maintained P1 products."));
+}
+
+function awarenessState(row: JsonRecord) {
+  if (row.status === "not-measured") {
+    return element("span", { class: "state unmeasured-evidence" }, ["not measured"]);
+  }
+  return state(row.status);
+}
+
+function aiExternalSources(row: JsonRecord) {
+  if (row.observations <= 0) {
+    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+  }
+  const external = Number(row.citationSources?.external ?? 0);
+  const unclassified = Number(row.citationSources?.unclassified ?? 0);
+  return element("span", { class: "outcome-signal" }, [
+    element("strong", {}, [String(external)]),
+    element("small", {}, [
+      unclassified > 0
+        ? `${unclassified} unclassified`
+        : external === 1 ? "external source" : "external sources",
+    ]),
+  ]);
+}
+
+function aiEvidenceSection(title: string, description: string, content: Node) {
+  return element("section", { class: "ai-evidence-section" }, [
+    element("header", {}, [
+      element("h3", {}, [title]),
+      element("p", {}, [description]),
+    ]),
+    content,
+  ]);
+}
+
+function aiQuestions(row: JsonRecord) {
+  const questions = row.questions ?? [];
+  if (questions.length === 0) {
+    return empty("No tracked questions", "A stable question set is required before comparable model observations can run.");
+  }
+  return element("div", { class: "tracked-intent-list" }, questions.map((question: JsonRecord) =>
+    element("div", { class: "tracked-intent" }, [
+      element("div", {}, [
+        element("span", {}, [question.setId ?? "question"]),
+        element("strong", {}, [question.text]),
+      ]),
+      element("div", { class: "tracked-intent__result" }, [
+        element("strong", {}, ["Configured"]),
+      ]),
+    ])));
+}
+
+function aiAttempts(row: JsonRecord) {
+  const attempts = row.attempts ?? [];
+  if (attempts.length === 0) {
+    return empty("No model observations", "Cloudflare discovery does not substitute for a provider-backed model answer.");
+  }
+  return element("div", { class: "tracked-intent-list" }, attempts.map((attempt: JsonRecord) =>
+    element("div", { class: "tracked-intent" }, [
+      element("div", {}, [
+        element("span", {}, [attempt.promptId ?? "prompt"]),
+        element("strong", {}, [
+          `${attempt.providerId ?? "Unknown provider"} · ${attempt.model ?? "Unknown model"}`,
+        ]),
+      ]),
+      element("div", { class: "tracked-intent__result" }, [
+        element("strong", {}, [titleCase(attempt.status ?? "unavailable")]),
+        attempt.persona ? element("small", {}, [attempt.persona]) : null,
+      ]),
+    ])));
+}
+
+function aiCitationSources(row: JsonRecord) {
+  const sources = row.citationSources?.sources ?? [];
+  if (sources.length === 0) {
+    return empty("No citation sources observed", "Source ownership becomes measurable with a provider-backed cited answer.");
+  }
+  const visible = sources.slice(0, 10);
+  const rows = visible.map((source: JsonRecord) => {
+    const label = source.ownership === "owned"
+      ? "Project-owned"
+      : source.ownership === "external" ? "External" : "Unclassified";
+    const sourceNode = source.url
+      ? element("a", {
+          href: source.url,
+          target: "_blank",
+          rel: "noreferrer",
+          "aria-label": `${source.host} citation source (opens in a new tab)`,
+        }, [source.url])
+      : element("strong", {}, [source.host]);
+    return element("div", { class: "tracked-intent" }, [
+      element("div", {}, [element("span", {}, [source.host]), sourceNode]),
+      element("div", { class: "tracked-intent__result" }, [element("strong", {}, [label])]),
+    ]);
+  });
+  if (sources.length > visible.length) {
+    rows.push(element("p", { class: "ai-evidence-section__more" }, [
+      `Showing ${visible.length} of ${sources.length} retained sources.`,
+    ]));
+  }
+  return element("div", { class: "tracked-intent-list" }, rows);
+}
+
+function aiAwarenessDetails(row: JsonRecord) {
+  const coverage = row.coverage;
+  const facts = element("dl", { class: "search-detail__facts" }, [
+    element("div", {}, [
+      element("dt", {}, ["Provider coverage"]),
+      element("dd", {}, [coverage ? `${coverage.completed} of ${coverage.configured} calls` : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Recommended"]),
+      element("dd", {}, [row.recommendation ? metricValue(row.recommendation.value, row.recommendation.unit) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Average rank"]),
+      element("dd", {}, [row.averageRank ? metricValue(row.averageRank.value, row.averageRank.unit) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Project-owned sources"]),
+      element("dd", {}, [row.observations > 0 ? String(row.citationSources?.owned ?? 0) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["External sources"]),
+      element("dd", {}, [row.observations > 0 ? String(row.citationSources?.external ?? 0) : "Not measured"]),
+    ]),
+    element("div", {}, [
+      element("dt", {}, ["Unclassified sources"]),
+      element("dd", {}, [row.observations > 0 ? String(row.citationSources?.unclassified ?? 0) : "Not measured"]),
+    ]),
+  ]);
+  const discovery = providerOutcomeDetails({
+    note: "Cloudflare proves crawler activity and AI-referred visits only. It does not establish a model mention, recommendation, rank, or citation.",
+    outcomes: [
+      { label: "AI crawl", outcome: row.discovery?.crawler, linkLabel: "Open Cloudflare AI" },
+      { label: "AI referral", outcome: row.discovery?.referral, linkLabel: "Open Cloudflare Traffic" },
+    ],
+    signals: [row.crawlerRequests, row.aiReferralVisits],
+  });
+  const discoverySummary = element("summary", {}, [
+    element("span", {}, [
+      element("strong", {}, ["Supporting discovery"]),
+      element("small", {}, [
+        `Crawls ${metricValue(row.crawlerRequests?.value, row.crawlerRequests?.unit)} · referrals ${metricValue(row.aiReferralVisits?.value, row.aiReferralVisits?.unit)}`,
+      ]),
+    ]),
+    element("span", { class: "ai-discovery-disclosure__provider" }, ["Cloudflare only"]),
+  ]);
+  const discoveryDisclosure = element("details", { class: "ai-discovery-disclosure" }, [
+    discoverySummary,
+    element("div", { class: "ai-discovery-disclosure__body" }, [
+      element("p", {}, ["Useful leading signals, never awareness proof."]),
+      portfolioRefreshControl("cloudflare", "Update discovery"),
+      discovery,
+    ]),
+  ]);
+  return element("div", { class: "search-detail ai-awareness-detail" }, [
+    element("p", { class: "search-detail__note" }, [
+      "Awareness is based only on sampled model answers. Source ownership shows whether those answers rely on the product itself or external material elsewhere on the web.",
+    ]),
+    facts,
+    aiEvidenceSection("Questions asked", "The stable prompts used to compare this product over time.", aiQuestions(row)),
+    aiEvidenceSection("Model observations", "The provider and model coverage behind the latest result.", aiAttempts(row)),
+    aiEvidenceSection("Where models got their evidence", "Project-owned, external, and historically unclassified citation sources stay separate.", aiCitationSources(row)),
+    discoveryDisclosure,
+  ]);
 }
 
 function performanceRunControl(row: JsonRecord) {
   const wrap = element("div", { class: "outcome-run-control" });
   const statusText = element("span", { role: "status", "aria-live": "polite" });
-  const button = element("button", { type: "button", class: "secondary-action" }, ["Re-run"]);
+  const button = element("button", { type: "button", class: "secondary-action" }, ["Run PSI"]);
   button.addEventListener("click", async () => {
     button.disabled = true;
     button.textContent = "Running…";
@@ -2364,7 +2688,7 @@ function performanceRunControl(row: JsonRecord) {
       statusText.textContent = error instanceof Error ? error.message : "Performance refresh failed.";
     } finally {
       button.disabled = false;
-      button.textContent = "Re-run";
+      button.textContent = "Run PSI";
     }
   });
   wrap.append(button, statusText);
@@ -2376,15 +2700,23 @@ async function renderPerformance() {
   updateOutcomeTime(payload.generatedAt);
   const rows = payload.rows ?? [];
   const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row, "performance") },
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentityWithProvider(row, "performance", "Cloudflare", row.providerUrl) },
     { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
-    { key: "lcp", label: "LCP", description: "Sort by Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
-    { key: "observed", label: "Observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+    { key: "lcp", label: "Lab LCP (desktop)", description: "Sort by desktop lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
+    { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp) },
+    { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
     { key: "run", label: "Run", description: "Refresh one product", sortable: false, value: (row) => row.projectId, render: performanceRunControl },
   ];
   replace("performance", rows.length
-    ? outcomeTable(rows, columns, "project", "Fleet public product performance")
+    ? outcomeTable(rows, columns, "project", "Fleet public product performance", "ascending", {
+        rowKey: (row) => row.projectId,
+        details: (row) => providerOutcomeDetails({
+          note: "PSI Swarm derives the lab result from two desktop Lighthouse runs on the canonical URL. Cloudflare field metrics are host-wide p75 measurements from real visits during the recorded period.",
+          outcomes: [{ label: "Field performance", outcome: row.field, linkLabel: "Open Cloudflare Speed" }],
+          signals: [row.psi, row.lcp, row.fieldLcp, row.fieldInp, row.fieldCls, row.fieldTtfb, row.rumSamples],
+        }),
+      })
     : empty("No matching public product", "The current project scope has no public performance target."));
 }
 
@@ -2885,20 +3217,29 @@ function visibilityProject(project: JsonRecord) {
 }
 
 async function renderMarketing() {
-  const payload = await api("/v1/connections");
+  const payload = await api("/v1/outcomes/marketing");
   updateOutcomeTime(payload.generatedAt);
-  const rows = (payload.outputs.ownerOutcomes?.marketing ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
+  const rows = (payload.rows ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
   const count = document.querySelector<HTMLElement>('[data-founder-count="marketing-coverage"]');
   if (count) count.textContent = String(rows.length);
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row) },
     { key: "positioning", label: "Positioning", description: "Sort by positioning readiness", value: (row) => row.positioning, render: (row) => element("span", { class: "outcome-positioning" }, [row.description ?? "No public positioning recorded"]) },
+    { key: "visits", label: "Visits", description: "Sort by Cloudflare Web Analytics visits", value: (row) => row.visits?.value, render: (row) => outcomeSignal(row.visits) },
+    { key: "pageViews", label: "Page views", description: "Sort by Cloudflare Web Analytics page views", value: (row) => row.pageViews?.value, render: (row) => outcomeSignal(row.pageViews) },
     { key: "published", label: "Last published", description: "Sort by latest publishing receipt", value: (row) => row.latestOutcome?.observedAt ? Date.parse(row.latestOutcome.observedAt) : null, render: (row) => row.latestOutcome ? formattedDay(row.latestOutcome.observedAt) : "Never" },
     { key: "recommendations", label: "Next actions", description: "Sort by recommendation count", value: (row) => row.recommendationCount, render: (row) => String(row.recommendationCount) },
     { key: "status", label: "Coverage", description: "Sort by marketing coverage state", value: (row) => row.status, render: (row) => state(row.status) },
   ];
   replace("marketing-coverage", rows.length
-    ? outcomeTable(rows, columns, "project", "Fleet product marketing coverage")
+    ? outcomeTable(rows, columns, "project", "Fleet product marketing coverage", "ascending", {
+        rowKey: (row) => row.projectId,
+        details: (row) => providerOutcomeDetails({
+          note: "Cloudflare Web Analytics shows whether distribution produced visits. Expand the breakdowns to see the pages and referrers responsible.",
+          outcomes: [{ label: "Traffic", outcome: row.traffic, linkLabel: "Open Cloudflare Traffic" }],
+          signals: [row.visits, row.pageViews, row.searchReferrals],
+        }),
+      })
     : empty("No matching product", "The current project scope has no public marketing target."));
 }
 
@@ -2985,16 +3326,23 @@ async function start() {
       bindPortfolioRefresh("search");
       await renderSearch();
     }
-    if (view === "ai-awareness") await renderAiAwareness();
+    if (view === "ai-awareness") {
+      bindPortfolioRefresh("cloudflare");
+      await renderAiAwareness();
+    }
     if (view === "home") await renderHome();
     if (view === "project-statuses") await renderProjects();
     if (view === "project") await renderProjectDetail();
     if (view === "metrics") await renderMetrics();
     if (view === "skill-uses") await renderSkillUses();
     if (view === "feedback") await renderFeedback();
-    if (view === "marketing") await renderMarketing();
+    if (view === "marketing") {
+      bindPortfolioRefresh("cloudflare");
+      await renderMarketing();
+    }
     if (view === "performance") {
       bindPortfolioRefresh("psi");
+      bindPortfolioRefresh("cloudflare");
       await renderPerformance();
     }
     if (view === "mission") await renderMission();

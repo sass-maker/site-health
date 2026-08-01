@@ -43,6 +43,12 @@ export function selectSearchConsoleProperty(domain, properties) {
   };
 }
 
+export function searchConsoleProviderUrl(siteUrl) {
+  const property = String(siteUrl ?? '').trim();
+  if (!property) return null;
+  return `https://search.google.com/search-console/performance/search-analytics?resource_id=${encodeURIComponent(property)}`;
+}
+
 function requestBody({ startDate, endDate, pageFilter, dimensions = [], rowLimit = 1 }) {
   return {
     startDate,
@@ -174,6 +180,7 @@ export async function collectSearchConsoleOutcomes({
       projectId: project.id,
       family: 'search',
       provider: 'google-search-console',
+      providerUrl: searchConsoleProviderUrl(selected.siteUrl),
       scope: selected.pageFilter
         ? `${selected.siteUrl} · page:${selected.pageFilter}`
         : selected.siteUrl,
