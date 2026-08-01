@@ -14,7 +14,9 @@
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
       "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
       "deployTargets": "optional exact per-surface objects with id, kind, name, and sourcePath; required for mixed or multi-source deploys",
+      "d1Databases": "optional exact Cloudflare D1 database names currently owned by this project",
       "tursoDatabases": "optional exact Turso database names owned by this project",
+      "databaseResources": "optional exact relational database resources with provider, name, and prepared | authoritative | rollback-held state",
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
@@ -539,15 +541,27 @@
       "repo": "significanthobbies",
       "deployKind": "worker",
       "cfProject": "significanthobbies",
-      "tursoDatabases": [
+      "d1Databases": [
         "significanthobbies"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "significanthobbies",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "significanthobbies",
+          "state": "rollback-held"
+        }
       ],
       "domains": [
         "significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "apex/hub",
+      "notes": "apex/hub; D1 significanthobbies is authoritative; Turso significanthobbies is rollback-held and not retired",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -600,15 +614,27 @@
       "repo": "anime-list",
       "deployKind": "pages",
       "cfProject": "anime-list",
-      "tursoDatabases": [
-        "mal-watchlist"
+      "d1Databases": [
+        "anime-list"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "anime-list",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "mal-watchlist",
+          "state": "rollback-held"
+        }
       ],
       "domains": [
         "anime.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 anime-list is authoritative; Turso mal-watchlist is rollback-held and not retired",
       "name": "Anime List",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -695,15 +721,27 @@
       "repo": "reader",
       "deployKind": "worker",
       "cfProject": "reader",
-      "tursoDatabases": [
+      "d1Databases": [
         "reader"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "reader",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "reader",
+          "state": "rollback-held"
+        }
       ],
       "domains": [
         "read.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 reader is authoritative; Turso reader is rollback-held and not retired",
       "name": "Reader",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -728,15 +766,27 @@
       "repo": "swe-interview-prep",
       "deployKind": "pages",
       "cfProject": "swe-interview-prep",
-      "tursoDatabases": [
+      "d1Databases": [
         "swe-interview-prep"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "swe-interview-prep",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "swe-interview-prep",
+          "state": "rollback-held"
+        }
       ],
       "domains": [
         "learn.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 swe-interview-prep is authoritative; Turso swe-interview-prep is rollback-held and not retired",
       "name": "SWE Interview Prep",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -853,8 +903,15 @@
       "repo": "karte",
       "deployKind": "worker",
       "cfProject": "linkchat",
-      "tursoDatabases": [
-        "linkchat"
+      "d1Databases": [
+        "linkchat-auth"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "linkchat-auth",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "karte.cc"
@@ -887,15 +944,27 @@
       "repo": "starboard",
       "deployKind": "worker",
       "cfProject": "starboard",
-      "tursoDatabases": [
+      "d1Databases": [
         "starboard"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "starboard",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "starboard",
+          "state": "rollback-held"
+        }
       ],
       "domains": [
         "starboard.codevetter.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 starboard is authoritative; Turso starboard is rollback-held and not retired",
       "name": "Starboard",
       "attention": "toolbox",
       "lifecycle": "maintained",

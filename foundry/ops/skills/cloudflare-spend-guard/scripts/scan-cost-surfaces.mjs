@@ -11,6 +11,8 @@ const CONFIG_PATTERN = /(^|\/)wrangler\.(toml|json|jsonc)$/;
 const PACKAGE_PATTERN = /(^|\/)package\.json$/;
 const SAFE_ENV_EXAMPLE_PATTERN = /(^|\/)(?:\.env(?:\.[^/]+)?\.example|\.dev\.vars\.example)$/;
 const TURSO_PACKAGE_PATTERN = /^(?:@libsql\/|@tursodatabase\/|libsql$)/;
+const DATABASE_PROVIDERS = new Set(['cloudflare-d1', 'turso']);
+const DATABASE_STATES = new Set(['prepared', 'authoritative', 'rollback-held']);
 
 const SURFACE_DEFINITIONS = [
   { product: 'd1', keys: ['d1_databases'], identifiers: ['database_name', 'binding'] },
@@ -202,6 +204,30 @@ function declaredProducts(deployKind, files = []) {
   return products;
 }
 
+function declaredDatabaseResources(project) {
+  const resources = project.databaseResources ?? [];
+  if (!Array.isArray(resources)) {
+    throw new Error(`Project ${project.id} databaseResources must be an array`);
+  }
+  const seen = new Set();
+  return resources.map((resource) => {
+    if (!resource || !DATABASE_PROVIDERS.has(resource.provider)) {
+      throw new Error(`Project ${project.id} has an invalid database provider`);
+    }
+    if (typeof resource.name !== 'string' || resource.name.trim() === '') {
+      throw new Error(`Project ${project.id} has a database resource without a name`);
+    }
+    if (!DATABASE_STATES.has(resource.state)) {
+      throw new Error(`Project ${project.id} database ${resource.name} has an invalid state`);
+    }
+    const key = `${resource.provider}:${resource.name}`;
+    if (seen.has(key)) throw new Error(`Project ${project.id} declares duplicate database ${key}`);
+    seen.add(key);
+    return { provider: resource.provider, name: resource.name, state: resource.state };
+  }).sort((left, right) =>
+    left.provider.localeCompare(right.provider) || left.name.localeCompare(right.name));
+}
+
 function scanTursoSurface(project, repoPath, files) {
   const packageFiles = files.filter((file) => PACKAGE_PATTERN.test(file));
   const dependencyFiles = [];
@@ -357,6 +383,12 @@ export function scanFleetCostSurfaces({ fleetRoot = DEFAULT_FLEET_ROOT, projectI
     const tursoSurface = repoPath && existsSync(repoPath)
       ? scanTursoSurface(project, repoPath, files)
       : null;
+    const databaseResources = declaredDatabaseResources(project);
+    const declaredDatabaseSurfaces = databaseResources.map((resource) => ({
+      product: resource.provider === 'cloudflare-d1' ? 'd1' : 'turso',
+      sourceFiles: ['projects.json'],
+      identifiers: [resource.name],
+    }));
 
     return {
       id: project.id,
@@ -369,13 +401,15 @@ export function scanFleetCostSurfaces({ fleetRoot = DEFAULT_FLEET_ROOT, projectI
       declared: {
         cloudflareProject: project.cfProject ?? null,
         pagesProjects: [...(project.cfPages ?? [])].sort(),
+        d1Databases: [...(project.d1Databases ?? [])].sort(),
         tursoDatabases: [...(project.tursoDatabases ?? [])].sort(),
+        databaseResources,
         domains: [...(project.domains ?? [])].sort(),
       },
       costSurfaces: mergeSurfaces(
         configs,
         declaredProducts(project.deployKind, files),
-        [tursoSurface],
+        [tursoSurface, ...declaredDatabaseSurfaces],
       ),
       configs: configs.map((config) => ({
         path: config.path,
