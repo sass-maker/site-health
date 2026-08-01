@@ -33,9 +33,8 @@ ElevenLabs otherwise.
 ### Requirement: Kokoro faceless render engine
 The faceless workflow SHALL support a `kokoro` engine that produces an MP4
 from a studio script using Kokoro narration, Pexels b-roll per scene, and the
-existing FFmpeg lesson compositor. The Pexels key SHALL resolve from
-`PEXELS_API_KEY`, falling back to the local MoneyPrinterTurbo config file,
-and SHALL never be logged.
+existing FFmpeg lesson compositor. The Pexels key SHALL resolve only from
+`PEXELS_API_KEY` and SHALL never be logged.
 
 #### Scenario: Local kokoro render
 - **WHEN** the workflow runs with `--engine kokoro` and Kokoro + a Pexels key are available
@@ -44,4 +43,3 @@ and SHALL never be logged.
 #### Scenario: Missing prerequisites
 - **WHEN** the `kokoro` engine runs without Kokoro installed or without a resolvable Pexels key
 - **THEN** it fails with an actionable error naming the setup command or missing key
-

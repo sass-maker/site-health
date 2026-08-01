@@ -38,6 +38,19 @@ test('natural-language draft uses the deterministic fallback and normalized vide
   assert.equal(draft.messages.length, 2);
 });
 
+test('initial conversation preserves explicit source and destination URLs without granting approval', async () => {
+  const draft = await generateMarketingBriefDraft(
+    'Create a guided app demo for High Signal. Source: https://highsignal.app/evidence. CTA destination: https://highsignal.app/start.',
+    { llm: offlineLlm },
+  );
+  const store = await tempStore();
+  const brief = await store.create(draft);
+  assert.equal(brief.sourceEvidence.canonicalUrl, 'https://highsignal.app/evidence');
+  assert.equal(brief.sourceEvidence.destinationUrl, 'https://highsignal.app/start');
+  assert.equal(brief.sourceEvidence.rightsStatus, 'unknown');
+  assert.equal(brief.approval.creativeStatus, 'proposed');
+});
+
 test('brief store persists normalized state and increments revisions', async () => {
   const store = await tempStore();
   const draft = await generateMarketingBriefDraft('Make a faceless High Signal lesson for YouTube.', { llm: offlineLlm });
@@ -55,6 +68,32 @@ test('brief store persists normalized state and increments revisions', async () 
   assert.equal((await store.list()).length, 1);
 });
 
+test('brief store preserves optional production selections and clears artifacts when the recipe changes', async () => {
+  const store = await tempStore();
+  const created = await store.create({
+    request: 'Create an ASCII story for High Signal.',
+    projectSlug: 'high-signal',
+    ideaId: 'idea_1',
+    recipeId: 'ascii-story',
+    recipeOptions: {
+      channel: 'instagram_reels', durationSeconds: 12, qualityTier: 'standard', variantCount: 1,
+      values: { palette: 'terminal' },
+    },
+    media: { videoPath: '/tmp/ascii.mp4' },
+    lifecycle: 'needs-review',
+  });
+  assert.equal(created.ideaId, 'idea_1');
+  assert.equal(created.recipeId, 'ascii-story');
+  assert.equal(created.recipeOptions.values.palette, 'terminal');
+  const changed = await store.update(created.id, {
+    recipeId: 'image-slideshow',
+    recipeOptions: { channel: 'youtube_shorts', durationSeconds: 30, qualityTier: 'draft', variantCount: 1 },
+    engine: 'html-composition',
+  });
+  assert.equal(changed.media, null);
+  assert.equal(changed.lifecycle, 'planned');
+});
+
 test('follow-up instructions refine safe fields and preserve approval boundaries', async () => {
   const store = await tempStore();
   const created = await store.create(await generateMarketingBriefDraft(
@@ -70,11 +109,40 @@ test('follow-up instructions refine safe fields and preserve approval boundaries
   assert.equal(updated.kind, 'guided-app-demo');
   assert.equal(updated.durationSeconds, 30);
   assert.equal(updated.channel, 'instagram_reels');
+  assert.match(updated.title, /30-second guided app demo.+Instagram Reels/i);
+  assert.match(updated.hook, /30-second guided app demo.+Instagram Reels/i);
+  assert.match(updated.summary, /30-second guided app demo.+Instagram Reels/i);
+  assert.doesNotMatch(`${updated.title} ${updated.hook} ${updated.summary}`, /faceless|60-second|YouTube/i);
+  assert.match(updated.creativeDirection, /real application dominant/i);
   assert.equal(updated.sourceEvidence.canonicalUrl, 'https://highsignal.app/');
   assert.equal(updated.sourceEvidence.rightsStatus, 'unknown');
   assert.equal(updated.approval.creativeStatus, 'proposed');
   assert.equal(updated.messages.at(-2).role, 'operator');
   assert.match(updated.messages.at(-1).content, /Updated/);
+});
+
+test('structural refinements replace contradictory generated copy but preserve neutral titles', async () => {
+  const store = await tempStore();
+  const created = await store.create({
+    ...await generateMarketingBriefDraft(
+      'Create a 60-second faceless High Signal lesson for YouTube about concrete evidence.',
+      { llm: offlineLlm },
+    ),
+    title: 'Concrete Evidence',
+    summary: 'A High Signal lesson about concrete evidence.',
+    creativeDirection: 'Faceless educational video.',
+  });
+  const patch = await refineMarketingBriefDraft(
+    created,
+    'Turn this into a 30-second guided app demo for Instagram.',
+    { llm: offlineLlm },
+  );
+  const updated = await store.update(created.id, patch);
+  assert.equal(updated.title, 'Concrete Evidence');
+  assert.match(updated.hook, /30-second guided app demo.+Instagram Reels/i);
+  assert.match(updated.summary, /30-second guided app demo.+Instagram Reels/i);
+  assert.match(updated.creativeDirection, /real application dominant/i);
+  assert.doesNotMatch(`${updated.hook} ${updated.summary} ${updated.creativeDirection}`, /faceless|lesson|60-second|YouTube/i);
 });
 
 test('changing video kind clears incompatible execution and distribution state', async () => {
@@ -101,7 +169,7 @@ test('classifier covers every supported video workflow', () => {
   assert.equal(classifyKind('teach five interview tips'), 'faceless');
 });
 
-test('capability registry reports all five owners and actionable readiness', async () => {
+test('capability registry reports all six owners and actionable readiness', async () => {
   const store = await tempStore();
   const draft = await generateMarketingBriefDraft('Make a faceless High Signal lesson.', { llm: offlineLlm });
   const brief = await store.create(draft);
@@ -112,6 +180,7 @@ test('capability registry reports all five owners and actionable readiness', asy
     'guided-app-demo',
     'coherent-film',
     'podcast-short',
+    'lyric-video',
   ]);
   assert.equal(evaluateStudioCapability('faceless', brief).state, 'ready');
   const guided = evaluateStudioCapability('guided-app-demo', brief);
@@ -119,6 +188,45 @@ test('capability registry reports all five owners and actionable readiness', asy
   assert.match(guided.blocker, /source URL/);
   const continuation = continuationForBrief(brief);
   assert.equal(continuation.endpoint, `/studio/briefs/${brief.id}/execute`);
+});
+
+test('lyric video classification and capability fail closed on timed lyrics and separate rights', async () => {
+  assert.equal(classifyKind('Make a literal lyric video from my cleared song'), 'lyric-video');
+  const store = await tempStore();
+  const brief = await store.create(await generateMarketingBriefDraft(
+    'Make a lyric video from this popular song.',
+    { llm: offlineLlm },
+  ));
+  assert.equal(brief.kind, 'lyric-video');
+  assert.equal(brief.engine, 'lyric-canvas');
+  const blocked = evaluateStudioCapability('lyric-video', brief, { blenderReady: true });
+  assert.equal(blocked.state, 'needs-input');
+  assert.match(blocked.blocker, /operator-supplied timed lyrics/i);
+  assert.match(blocked.blocker, /composition and lyric rights/i);
+  assert.match(blocked.blocker, /Attribution is not permission/i);
+});
+
+test('rights-ready lyric video becomes locally executable', async () => {
+  const store = await tempStore();
+  const brief = await store.create({
+    request: 'Make a literal lyric video from my cleared recording.',
+    kind: 'lyric-video',
+    title: 'Literal stars',
+    lyric: {
+      audioPath: './test/fixtures/lyrics/twinkle-original.wav',
+      audioDurationMs: 5000,
+      timedLyrics: '[00:00.00]A bright star\n[00:02.50]Above the world',
+      attribution: 'Words and recording supplied by operator.',
+      rights: {
+        composition: 'owned',
+        master: 'owned',
+        evidence: 'Operator rights record 123.',
+      },
+    },
+  });
+  const ready = evaluateStudioCapability('lyric-video', brief, { blenderReady: true });
+  assert.equal(ready.state, 'ready');
+  assert.equal(continuationForBrief(brief).endpoint, `/studio/briefs/${brief.id}/execute`);
 });
 
 test('specialized continuations prefill only safe public context', async () => {

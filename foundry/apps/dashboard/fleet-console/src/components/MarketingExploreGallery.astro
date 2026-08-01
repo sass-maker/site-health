@@ -1,0 +1,316 @@
+---
+const serviceOrigin = import.meta.env.PUBLIC_REEL_PIPELINE_ORIGIN ?? "http://127.0.0.1:4317";
+---
+
+<!--
+THESIS: Real output leads; backend names cannot stand in for visual quality.
+OWN-WORLD: The existing near-black Foundry workspace, hairline divisions, mint actions, and candid state language frame edge-to-edge moving artifacts.
+STORY: Scan distinct visual families, inspect how each sample was made, then carry one exact reproducible preset into the existing maker.
+FIRST VIEWPORT: A compact title and filter rail sit above two wide lead films; provenance remains below the work, never over it.
+FORM: Style-first film contact sheet inside the established Console shell; preserve-mode Experience surface with no alternate visual identity.
+-->
+<section
+  class="explore-gallery"
+  aria-labelledby="explore-gallery-title"
+  data-explore-gallery
+  data-service-origin={serviceOrigin}
+>
+  <header class="gallery-intro">
+    <div>
+      <h1 id="explore-gallery-title">See the style before you make it.</h1>
+      <p>Real local outputs, grouped by what they feel like—not by the tool that happened to render them.</p>
+    </div>
+    <div class="gallery-tally" aria-live="polite">
+      <strong data-gallery-count>—</strong>
+      <span>playable examples</span>
+    </div>
+  </header>
+
+  <div class="gallery-controls">
+    <div class="gallery-filters" role="toolbar" aria-label="Filter video styles" data-gallery-filters>
+      <button type="button" aria-pressed="true" data-gallery-family="all">All styles</button>
+    </div>
+    <p class="gallery-result-count" data-gallery-result-count>Loading the local gallery…</p>
+  </div>
+
+  <div class="gallery-state" role="status" aria-live="polite" data-gallery-state>
+    Reading playable evidence from Reel Pipeline…
+  </div>
+  <div class="gallery-grid" aria-live="polite" data-gallery-grid hidden></div>
+</section>
+
+<script>
+  type GalleryItem = {
+    id: string;
+    title: string;
+    family: string;
+    description: string;
+    engine: string;
+    sourcePosture: string;
+    qualityTier: "showcase" | "experiment" | "baseline";
+    spend: string;
+    variantId: string | null;
+    playable: boolean;
+    mediaUrl: string | null;
+  };
+
+  type Gallery = {
+    count: number;
+    playableCount: number;
+    families: string[];
+    items: GalleryItem[];
+  };
+
+  const postureLabels: Record<string, string> = {
+    "local-render": "Local render",
+    "specialist-proof": "Specialist proof",
+    "local-model-proof": "Local model proof",
+    "baseline-local": "Local baseline",
+    "baseline-import": "Imported baseline",
+    "external-continuation": "External continuation",
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-explore-gallery]")) {
+    const serviceOrigin = root.dataset.serviceOrigin ?? "http://127.0.0.1:4317";
+    const filters = root.querySelector<HTMLElement>("[data-gallery-filters]")!;
+    const grid = root.querySelector<HTMLElement>("[data-gallery-grid]")!;
+    const state = root.querySelector<HTMLElement>("[data-gallery-state]")!;
+    const count = root.querySelector<HTMLElement>("[data-gallery-count]")!;
+    const resultCount = root.querySelector<HTMLElement>("[data-gallery-result-count]")!;
+    let gallery: Gallery | null = null;
+    let activeFamily = "all";
+
+    function labelFor(value: string) {
+      return postureLabels[value] ?? value.split("-").map((part) => part ? part[0].toUpperCase() + part.slice(1) : part).join(" ");
+    }
+
+    function element<K extends keyof HTMLElementTagNameMap>(name: K, className?: string) {
+      const node = document.createElement(name);
+      if (className) node.className = className;
+      return node;
+    }
+
+    function metadata(term: string, value: string) {
+      const group = element("div");
+      const dt = element("dt");
+      const dd = element("dd");
+      dt.textContent = term;
+      dd.textContent = value;
+      group.append(dt, dd);
+      return group;
+    }
+
+    function actionFor(item: GalleryItem) {
+      if (!item.playable) {
+        const status = element("span", "gallery-card__note");
+        status.textContent = "Sample unavailable on this machine";
+        return status;
+      }
+      if (item.qualityTier !== "showcase") {
+        const status = element("span", "gallery-card__note");
+        status.textContent = item.qualityTier === "baseline" ? "Reference baseline only" : "Visual ingredient, not a finished preset";
+        return status;
+      }
+      if (!item.variantId) {
+        const status = element("span", "gallery-card__note");
+        status.textContent = "Inspect only — no matching local preset";
+        return status;
+      }
+      const link = element("a", "gallery-card__action");
+      link.href = `/marketing?variant=${encodeURIComponent(item.variantId)}#marketing-create-title`;
+      link.textContent = "Use this style";
+      return link;
+    }
+
+    function cardFor(item: GalleryItem, index: number) {
+      const card = element("article", "gallery-card");
+      card.dataset.family = item.family;
+      card.dataset.quality = item.qualityTier;
+      if (index < 2 && item.qualityTier === "showcase") card.classList.add("gallery-card--feature");
+
+      const media = element("div", "gallery-card__media");
+      if (item.playable && item.mediaUrl) {
+        const video = element("video");
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = "none";
+        video.dataset.src = serviceOrigin + item.mediaUrl;
+        video.setAttribute("aria-label", `${item.title} sample video`);
+        video.addEventListener("loadedmetadata", () => {
+          if (Number.isFinite(video.duration) && video.duration > 0.2) video.currentTime = 0.2;
+        }, { once: true });
+        video.addEventListener("play", () => {
+          for (const other of grid.querySelectorAll<HTMLVideoElement>("video")) {
+            if (other !== video) other.pause();
+          }
+        });
+        media.append(video);
+      } else {
+        const unavailable = element("div", "gallery-card__unavailable");
+        unavailable.innerHTML = "<strong>Not on this machine</strong><span>The registry is intact; the local artifact is missing.</span>";
+        media.append(unavailable);
+      }
+
+      const copy = element("div", "gallery-card__copy");
+      const head = element("div", "gallery-card__head");
+      const family = element("span", "gallery-card__family");
+      family.textContent = item.family;
+      const tier = element("span", "gallery-card__tier");
+      tier.textContent = item.qualityTier;
+      head.append(family, tier);
+      const title = element("h2");
+      title.textContent = item.title;
+      const description = element("p");
+      description.textContent = item.description;
+      const details = element("dl");
+      details.append(
+        metadata("Made with", item.engine),
+        metadata("Source", labelFor(item.sourcePosture)),
+        metadata("Cost", item.spend),
+      );
+      const footer = element("div", "gallery-card__footer");
+      footer.append(actionFor(item));
+      copy.append(head, title, description, details, footer);
+      card.append(media, copy);
+      return card;
+    }
+
+    function attachLazyVideos() {
+      const videos = [...grid.querySelectorAll<HTMLVideoElement>("video[data-src]")];
+      if (!("IntersectionObserver" in window)) {
+        for (const video of videos) {
+          video.src = video.dataset.src ?? "";
+          delete video.dataset.src;
+        }
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const video = entry.target as HTMLVideoElement;
+          video.preload = "metadata";
+          video.src = video.dataset.src ?? "";
+          delete video.dataset.src;
+          video.load();
+          observer.unobserve(video);
+        }
+      }, { rootMargin: "320px 0px" });
+      for (const video of videos) observer.observe(video);
+    }
+
+    function applyFilter(family: string) {
+      if (!gallery) return;
+      activeFamily = family;
+      for (const button of filters.querySelectorAll<HTMLButtonElement>("button[data-gallery-family]")) {
+        button.setAttribute("aria-pressed", String(button.dataset.galleryFamily === family));
+      }
+      let visible = 0;
+      for (const card of grid.querySelectorAll<HTMLElement>("[data-family]")) {
+        const show = family === "all" || card.dataset.family === family;
+        card.hidden = !show;
+        if (show) visible += 1;
+      }
+      resultCount.textContent = `${visible} ${visible === 1 ? "example" : "examples"}${family === "all" ? " across the current arsenal" : ` in ${family}`}`;
+    }
+
+    async function loadGallery() {
+      try {
+        const response = await fetch(`${serviceOrigin}/studio/explore-gallery`, { headers: { accept: "application/json" } });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(typeof payload.error === "string" ? payload.error : "Gallery request failed");
+        gallery = payload.data as Gallery;
+        count.textContent = String(gallery.playableCount);
+        for (const family of gallery.families) {
+          const button = element("button");
+          button.type = "button";
+          button.dataset.galleryFamily = family;
+          button.setAttribute("aria-pressed", "false");
+          button.textContent = family;
+          button.addEventListener("click", () => applyFilter(family));
+          filters.append(button);
+        }
+        filters.querySelector<HTMLButtonElement>("[data-gallery-family='all']")?.addEventListener("click", () => applyFilter("all"));
+        const qualityOrder = { showcase: 0, experiment: 1, baseline: 2 } as const;
+        const rank = (item: GalleryItem) => qualityOrder[item.qualityTier];
+        const playable = gallery.items.filter((item) => item.playable).sort((a, b) => rank(a) - rank(b));
+        const unavailable = gallery.items.filter((item) => !item.playable).sort((a, b) => rank(a) - rank(b));
+        grid.replaceChildren(...[...playable, ...unavailable].map(cardFor));
+        state.hidden = true;
+        grid.hidden = false;
+        applyFilter(activeFamily);
+        attachLazyVideos();
+      } catch (error) {
+        count.textContent = "0";
+        resultCount.textContent = "Gallery unavailable";
+        state.dataset.state = "error";
+        state.textContent = `${error instanceof Error ? error.message : String(error)} Start Reel Pipeline on port 4317, then reload this page.`;
+      }
+    }
+
+    void loadGallery();
+  }
+</script>
+
+<style is:global>
+  .explore-gallery { padding: 34px 0 80px; }
+  .gallery-intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+  .gallery-intro h1 { max-width: 760px; margin: 0; font-size: clamp(34px, 5vw, 62px); line-height: .98; letter-spacing: -.035em; text-wrap: balance; }
+  .gallery-intro p { max-width: 68ch; margin: 16px 0 0; color: var(--muted); font-size: 16px; line-height: 1.55; }
+  .gallery-tally { min-width: 150px; padding: 0 0 3px 20px; border-left: 1px solid var(--line-strong); }
+  .gallery-tally strong { display: block; font-size: 34px; line-height: 1; letter-spacing: -.035em; }
+  .gallery-tally span { display: block; margin-top: 7px; color: var(--muted); font-size: 12px; }
+  .gallery-controls { position: sticky; top: 0; z-index: 4; display: grid; gap: 12px; padding: 18px 0 14px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--canvas) 94%, transparent); backdrop-filter: blur(10px); }
+  .gallery-filters { display: flex; flex-wrap: wrap; gap: 7px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
+  .gallery-filters button { flex: none; min-height: 34px; padding: 6px 11px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: 12px; font-weight: 720; cursor: pointer; }
+  .gallery-filters button:hover { border-color: var(--muted); color: var(--text); }
+  .gallery-filters button[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--text); }
+  .gallery-filters button:focus-visible, .gallery-card__action:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .gallery-result-count { margin: 0; color: var(--quiet); font-size: 12px; }
+  .gallery-state { margin-top: 24px; padding: 20px 0; border-block: 1px solid var(--line); color: var(--muted); }
+  .gallery-state[data-state="error"] { color: var(--critical); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 22px 16px; padding-top: 24px; }
+  .gallery-grid[hidden], .gallery-card[hidden] { display: none; }
+  .gallery-card { grid-column: span 4; min-width: 0; border-top: 1px solid var(--line-strong); background: var(--surface); }
+  .gallery-card--feature { grid-column: span 6; display: grid; grid-template-columns: minmax(210px, .8fr) minmax(0, 1fr); }
+  .gallery-card[data-quality="baseline"] { opacity: .78; }
+  .gallery-card__media { position: relative; min-height: 240px; aspect-ratio: 9 / 16; overflow: hidden; background: #050607; }
+  .gallery-card--feature .gallery-card__media { aspect-ratio: auto; min-height: 520px; }
+  .gallery-card video { display: block; width: 100%; height: 100%; background: #050607; object-fit: contain; }
+  .gallery-card__unavailable { display: grid; height: 100%; min-height: 300px; place-content: center; gap: 8px; padding: 24px; text-align: center; }
+  .gallery-card__unavailable strong { font-size: 14px; }
+  .gallery-card__unavailable span { color: var(--muted); font-size: 12px; line-height: 1.45; }
+  .gallery-card__copy { display: grid; align-content: start; gap: 12px; padding: 18px; }
+  .gallery-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .gallery-card__family { color: var(--accent); font-size: 11px; font-weight: 760; }
+  .gallery-card__tier { color: var(--quiet); font-size: 10px; font-weight: 720; text-transform: capitalize; }
+  .gallery-card[data-quality="baseline"] .gallery-card__tier { color: var(--warning); }
+  .gallery-card h2 { margin: 0; font-size: 21px; line-height: 1.08; letter-spacing: -.025em; text-wrap: balance; }
+  .gallery-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+  .gallery-card dl { display: grid; gap: 8px; margin: 4px 0 0; padding-top: 13px; border-top: 1px solid var(--line); }
+  .gallery-card dl div { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 10px; }
+  .gallery-card dt { color: var(--quiet); font-size: 11px; }
+  .gallery-card dd { margin: 0; color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+  .gallery-card__footer { align-self: end; padding-top: 6px; }
+  .gallery-card__action { display: inline-flex; min-height: 38px; align-items: center; padding: 7px 12px; border: 1px solid var(--accent); background: var(--accent); color: #07110f; font-size: 12px; font-weight: 800; text-decoration: none; }
+  .gallery-card__action:hover { background: transparent; color: var(--accent); }
+  .gallery-card__note { color: var(--quiet); font-size: 11px; line-height: 1.4; }
+  @media (max-width: 1060px) {
+    .gallery-card { grid-column: span 6; }
+    .gallery-card--feature { display: block; }
+    .gallery-card--feature .gallery-card__media { min-height: 0; aspect-ratio: 9 / 16; }
+  }
+  @media (max-width: 720px) {
+    .explore-gallery { padding-top: 24px; }
+    .gallery-intro { grid-template-columns: 1fr; align-items: start; }
+    .gallery-intro h1 { font-size: clamp(34px, 11vw, 48px); }
+    .gallery-tally { display: flex; min-width: 0; align-items: baseline; gap: 9px; padding: 0; border: 0; }
+    .gallery-tally span { margin: 0; }
+    .gallery-controls { margin-inline: -2px; }
+    .gallery-filters { flex-wrap: nowrap; }
+    .gallery-grid { gap: 18px; }
+    .gallery-card, .gallery-card--feature { grid-column: 1 / -1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-controls { backdrop-filter: none; }
+  }
+</style>

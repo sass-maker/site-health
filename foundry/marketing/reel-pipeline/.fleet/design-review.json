@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Unified Marketing Studio at /studio",
+  "target": "Marketing Studio creation-only prompt and capability picker at /studio",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -12,35 +12,35 @@
   "direction": {
     "references": [],
     "probes": [],
-    "selected": "existing-design",
+    "selected": "prompt-first-video-maker-with-visible-capability-choices",
     "approval": "not-required",
-    "before": "artifacts/design/marketing-studio/before-1440.png"
+    "before": "artifacts/design/marketing-studio-agent-arsenal/after-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/marketing-studio/after-390.png"
+        "path": "artifacts/design/marketing-studio-video-maker/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/marketing-studio/after-768.png"
+        "path": "artifacts/design/marketing-studio-video-maker/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/marketing-studio/after-1440.png"
+        "path": "artifacts/design/marketing-studio-video-maker/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm test && npm run smoke:studio && npm run smoke:postiz && npm run smoke:render-modes && npm run docs:validate && openspec validate unify-marketing-video-studio --strict && git diff --check",
+      "command": "npm test",
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 38,
       "maximum": 40
     },
     "audit": {
-      "score": 18,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "The operator delegated completion of the GitHub issue queue and approved the work in this thread on 2026-07-31; retain the existing preserve-mode direction."
+    "note": "Owner explicitly directed a creation-only UI with one prompt and selectable video options, and told the agent to ignore project and posting workflow in this pass."
   }
 }

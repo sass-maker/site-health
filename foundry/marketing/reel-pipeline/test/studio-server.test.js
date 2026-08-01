@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtemp } from 'node:fs/promises';
+import { copyFile, mkdtemp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -9,6 +9,20 @@ import { createServer } from '../src/server/index.js';
 import { StudioLlm } from '../src/studio/llm.js';
 import { IdeaStore } from '../src/studio/idea-store.js';
 import { MarketingBriefStore } from '../src/studio/briefs.js';
+
+function deterministicHtmlVideoOptions() {
+  return {
+    frameRenderer: async (_htmlPath, timeline, framesDir) => Promise.all(timeline.scenes.map(async (scene) => {
+      const framePath = path.join(framesDir, `scene-${scene.index}.png`);
+      await writeFile(framePath, Buffer.from('fixture-png'));
+      return { path: framePath, duration: scene.duration, motion: scene.motion };
+    })),
+    commandRunner: async (_binary, args) => {
+      await writeFile(args.at(-1), Buffer.from('fixture-video'));
+      return { stdout: '', stderr: '' };
+    },
+  };
+}
 
 async function startServer(studioOverrides = {}) {
   const scratch = await mkdtemp(path.join(tmpdir(), 'studio-server-'));
@@ -21,7 +35,45 @@ async function startServer(studioOverrides = {}) {
       briefStore: new MarketingBriefStore({ filePath: path.join(scratch, 'briefs.json') }),
       facelessOutputDir: path.join(scratch, 'faceless'),
       artifactRoots: [scratch],
-      rendererOptions: { mock: { artifactDir: path.join(scratch, 'renders') } },
+      galleryRoot: scratch,
+      galleryConfig: {
+        schema: 'fleet.video-explore-gallery.v1',
+        version: 1,
+        items: [{
+          id: 'gallery-proof',
+          title: 'Gallery proof',
+          family: 'Motion graphics',
+          description: 'Registered range fixture.',
+          engine: 'HTML / Canvas',
+          sourcePosture: 'local-render',
+          qualityTier: 'showcase',
+          spend: 'No API spend',
+          variantId: 'web-motion--visualstyle-kinetic-type',
+          source: 'gallery.mp4',
+        }],
+      },
+      rendererOptions: {
+        mock: { artifactDir: path.join(scratch, 'renders') },
+        htmlComposition: { artifactDir: path.join(scratch, 'html-renders'), ...deterministicHtmlVideoOptions() },
+      },
+      blenderCapability: { ready: false, executable: null, version: null, blocker: 'Blender unavailable for deterministic test.' },
+      htmlCapability: { ready: true, chromePath: '/fixture/chrome', ffmpegPath: '/fixture/ffmpeg', blocker: null },
+      kokoroReady: false,
+      platformAudioCommandRunner: async (command, args) => {
+        if (command !== 'ffmpeg') throw new Error(`unexpected platform-audio command: ${command}`);
+        await copyFile(args[args.indexOf('-i') + 1], args.at(-1));
+        return { stdout: '', stderr: '' };
+      },
+      platformAudioProbe: async () => ({
+        durationSeconds: 30,
+        bytes: 128,
+        hasVideo: true,
+        hasAudio: false,
+        videoCodec: 'h264',
+        width: 1080,
+        height: 1920,
+        frameRate: '30/1',
+      }),
       logger: { info: () => {}, warn: () => {} },
       ...studioOverrides,
     },
@@ -35,7 +87,7 @@ test('studio server routes', async (t) => {
   const { server, base, scratch } = await startServer();
   t.after(() => server.close());
 
-  await t.test('GET /studio serves the page with all tool panels', async () => {
+  await t.test('GET /studio serves a simple Video Maker while keeping tool APIs available', async () => {
     const res = await fetch(`${base}/studio`);
     assert.equal(res.status, 200);
     assert.match(res.headers.get('content-type'), /text\/html/);
@@ -44,21 +96,22 @@ test('studio server routes', async (t) => {
       assert.ok(page.includes(marker), `page missing panel: ${marker}`);
     }
     for (const marker of [
+      '<h1>Video Maker</h1>',
+      'Describe the video.',
+      'Everything else is chosen automatically.',
+      'Make video',
+      'Settings <span>Optional</span>',
       'What should we make?',
       'Faceless lesson',
       'Brand reel',
       'Guided app demo',
       'Coherent film',
-      'Podcast short',
-      'YouTube Shorts',
-      'Instagram Reels',
-      'Create Postiz draft',
-      'Schedule in Postiz',
-      'Open Postiz',
+      'Lyric video',
     ]) {
-      assert.ok(page.includes(marker), `page missing Marketing Studio control: ${marker}`);
+      assert.ok(page.includes(marker), `page missing Video Maker control: ${marker}`);
     }
-    assert.doesNotMatch(page, /type=["']datetime-local["']/);
+    assert.doesNotMatch(page, /<section class="capability-picker"/);
+    assert.match(page, /id="tab-tools"[^>]+hidden/);
   });
 
   await t.test('POST /studio/titles returns tool output', async () => {
@@ -82,6 +135,70 @@ test('studio server routes', async (t) => {
     assert.equal(res.status, 400);
     const payload = await res.json();
     assert.match(payload.error, /topic/);
+  });
+
+  await t.test('production planner scopes ideas, saves a normalized plan, and builds an HTML preview explicitly', async () => {
+    const catalogRes = await fetch(`${base}/studio/production-planner`);
+    assert.equal(catalogRes.status, 200);
+    const catalog = (await catalogRes.json()).data;
+    assert.ok(catalog.projects.some((project) => project.slug === 'high-signal'));
+    assert.ok(catalog.recipes.some((recipe) => recipe.id === 'threejs-scene' && recipe.owner === 'Editorial'));
+    assert.equal(catalog.ideas.length, 0);
+
+    const ideaRes = await fetch(`${base}/studio/project-ideas`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ projectSlug: 'high-signal', title: 'Evidence over vibes', hook: 'Show the proof first.' }),
+    });
+    assert.equal(ideaRes.status, 201);
+    const idea = (await ideaRes.json()).data;
+    assert.equal(idea.projectSlug, 'high-signal');
+
+    const scoped = await fetch(`${base}/studio/production-planner?projectSlug=high-signal`);
+    assert.ok((await scoped.json()).data.ideas.some((entry) => entry.id === idea.id));
+    const otherProject = await fetch(`${base}/studio/ideas-list?projectSlug=karte`);
+    assert.ok(!(await otherProject.json()).data.some((entry) => entry.id === idea.id));
+
+    const planRes = await fetch(`${base}/studio/production-plans`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        projectSlug: 'high-signal', ideaId: idea.id, recipeId: 'image-slideshow',
+        options: { channel: 'instagram_reels', durationSeconds: 24, qualityTier: 'standard', variantCount: 1, transition: 'push' },
+      }),
+    });
+    const planJson = await planRes.json();
+    assert.equal(planRes.status, 201, JSON.stringify(planJson));
+    const plan = planJson.data;
+    assert.equal(plan.ideaId, idea.id);
+    assert.equal(plan.recipeId, 'image-slideshow');
+    assert.equal(plan.engine, 'html-composition');
+    assert.equal(plan.actions.build.kind, 'execute');
+    assert.equal(plan.actions.preview.enabled, false);
+    assert.equal(plan.actions.post.enabled, false);
+
+    const invalidRes = await fetch(`${base}/studio/production-plans`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        projectSlug: 'high-signal', ideaId: idea.id, recipeId: 'ascii-story', options: { variantCount: 9 },
+      }),
+    });
+    assert.equal(invalidRes.status, 400);
+    assert.match((await invalidRes.json()).error, /between 1 and 6/);
+
+    const builtRes = await fetch(`${base}/studio/briefs/${plan.id}/execute`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ confirm: true }),
+    });
+    const builtJson = await builtRes.json();
+    assert.equal(builtRes.status, 200, JSON.stringify(builtJson));
+    assert.equal(builtJson.data.executed, true);
+    assert.equal(builtJson.data.brief.media.previewType, 'video');
+    assert.match(builtJson.data.brief.media.videoPath, /\.mp4$/);
+    assert.equal(builtJson.data.brief.actions.preview.enabled, true);
+    assert.equal(builtJson.data.brief.actions.post.enabled, false);
   });
 
   await t.test('unknown tool returns 404', async () => {
@@ -127,11 +244,35 @@ test('studio server routes', async (t) => {
     const ok = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(inside)}`);
     assert.equal(ok.status, 200);
     assert.equal(ok.headers.get('content-type'), 'video/mp4');
+    assert.equal(ok.headers.get('accept-ranges'), 'bytes');
+
+    const ranged = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(inside)}`, {
+      headers: { range: 'bytes=5-9' },
+    });
+    assert.equal(ranged.status, 206);
+    assert.equal(ranged.headers.get('content-range'), 'bytes 5-9/16');
+    assert.equal(await ranged.text(), 'video');
 
     const outside = await fetch(`${base}/studio/render-file?path=${encodeURIComponent('/etc/hosts')}`);
     assert.equal(outside.status, 403);
     const sneaky = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(path.join(scratch, '..', '..', 'etc', 'hosts'))}`);
     assert.equal(sneaky.status, 403);
+  });
+
+  await t.test('explore gallery streams registered media by stable id with byte ranges', async () => {
+    await writeFile(path.join(scratch, 'gallery.mp4'), 'registered gallery bytes');
+    const registry = await fetch(`${base}/studio/explore-gallery`);
+    assert.equal(registry.status, 200);
+    const payload = await registry.json();
+    assert.equal(payload.data.playableCount, 1);
+    assert.equal(payload.data.items[0].mediaUrl, '/studio/explore-gallery/gallery-proof/media');
+    assert.equal('source' in payload.data.items[0], false);
+
+    const media = await fetch(`${base}${payload.data.items[0].mediaUrl}`, { headers: { range: 'bytes=0-9' } });
+    assert.equal(media.status, 206);
+    assert.equal(media.headers.get('accept-ranges'), 'bytes');
+    assert.equal(media.headers.get('content-range'), 'bytes 0-9/24');
+    assert.equal(await media.text(), 'registered');
   });
 
   await t.test('factory plan/produce/status over the API', async () => {
@@ -220,13 +361,119 @@ test('studio server routes', async (t) => {
     assert.equal(execution.brief.lifecycle, 'needs-review');
     assert.ok(execution.brief.media.videoPath);
 
+    const previewRes = await fetch(`${base}/studio/platform-audio-preview`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        briefId: created.id,
+        confirm: true,
+        reference: {
+          provider: 'youtube',
+          videoId: 'weRHyjj34ZE',
+          spotifyTrackId: '2N7vjHuOfnyF5eUzv5brZ0',
+          artist: 'Shakira',
+          title: 'Whenever, Wherever',
+          startSeconds: 47,
+          durationSeconds: 30,
+          targetPlatform: 'youtube_shorts',
+        },
+      }),
+    });
+    const previewJson = await previewRes.json();
+    assert.equal(previewRes.status, 200, JSON.stringify(previewJson));
+    const previewPayload = previewJson.data;
+    assert.equal(previewPayload.downloadedAudio, false);
+    assert.equal(previewPayload.preview.reference.videoId, 'weRHyjj34ZE');
+    assert.equal(previewPayload.preview.reference.reviewProvider, 'spotify');
+    assert.equal(previewPayload.preview.ready, true);
+    assert.equal(previewPayload.brief.media.platformAudio.receiptPath, previewPayload.preview.receiptPath);
+
     const productions = await fetch(`${base}/studio/productions`);
     const productionPayload = await productions.json();
-    assert.equal(productionPayload.data.briefs.length, 1);
-    assert.equal(productionPayload.data.briefs[0].media.ideaId, execution.brief.media.ideaId);
+    const productionBrief = productionPayload.data.briefs.find((brief) => brief.id === created.id);
+    assert.ok(productionBrief);
+    assert.equal(productionBrief.media.ideaId, execution.brief.media.ideaId);
+    assert.ok(
+      !productionPayload.data.legacyRenders.some((render) => render.video === execution.brief.media.videoPath),
+      'brief-owned video should not be duplicated through the legacy render index',
+    );
 
     const capabilities = await fetch(`${base}/studio/capabilities?briefId=${created.id}`);
-    assert.equal((await capabilities.json()).data.length, 5);
+    assert.equal((await capabilities.json()).data.length, 6);
+  });
+
+  await t.test('projectless prompt can create a faceless video', async () => {
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method:'POST',
+      headers:{ 'content-type':'application/json' },
+      body:JSON.stringify({
+        request:'Create a 15-second faceless explainer about why the moon has phases.',
+        fields:{ kind:'faceless', durationSeconds:15, engine:'mock' },
+      }),
+    });
+    assert.equal(createdRes.status, 201);
+    const created = (await createdRes.json()).data;
+    assert.equal(created.projectSlug, null);
+    assert.equal(created.capability.state, 'ready');
+    const executedRes = await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+      method:'POST', headers:{ 'content-type':'application/json' }, body:JSON.stringify({ confirm:true }),
+    });
+    assert.equal(executedRes.status, 200);
+    const executed = (await executedRes.json()).data;
+    assert.equal(executed.executed, true);
+    assert.ok(executed.brief.media.videoPath);
+  });
+
+  await t.test('projectless prompt preserves the selected visual recipe', async () => {
+    const arsenalRes = await fetch(`${base}/studio/arsenal`);
+    assert.equal(arsenalRes.status, 200);
+    const arsenal = (await arsenalRes.json()).data;
+    const recipe = arsenal.recipes.find((entry) => entry.id === 'image-slideshow');
+    assert.equal(recipe.readiness.state, 'ready');
+    assert.equal(recipe.engine, 'html-composition');
+
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        request: 'Explain why the sky changes color at sunset.',
+        fields: { recipeId: 'image-slideshow', recipeOptions: { durationSeconds: 15 } },
+      }),
+    });
+    assert.equal(createdRes.status, 201);
+    const created = (await createdRes.json()).data;
+    assert.equal(created.projectSlug, null);
+    assert.equal(created.recipeId, 'image-slideshow');
+    assert.equal(created.engine, 'html-composition');
+    assert.equal(created.durationSeconds, 15);
+    assert.equal(created.actions.build.enabled, true);
+    assert.equal(created.actions.build.kind, 'execute');
+  });
+
+  await t.test('Blender readiness and lyric route expose truthful safe boundaries', async () => {
+    const readiness = await fetch(`${base}/studio/blender-readiness`);
+    assert.equal(readiness.status, 200);
+    const capability = (await readiness.json()).data;
+    assert.equal(typeof capability.ready, 'boolean');
+    assert.equal('apiKey' in capability, false);
+
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ request: 'Make a literal lyric video from this cleared song.' }),
+    });
+    assert.equal(createdRes.status, 201);
+    const created = (await createdRes.json()).data;
+    assert.equal(created.kind, 'lyric-video');
+    assert.match(created.capability.blocker, /operator-supplied timed lyrics/i);
+
+    const unconfirmed = await fetch(`${base}/studio/lyric-video`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ briefId: created.id, confirm: false }),
+    });
+    assert.equal(unconfirmed.status, 400);
+    assert.match((await unconfirmed.json()).error, /confirmation/i);
   });
 
   await t.test('every specialized workflow returns its authoritative continuation instead of fake execution', async () => {
@@ -304,51 +551,62 @@ test('studio server routes', async (t) => {
   });
 });
 
-test('studio distribution endpoints prepare locally and create an unscheduled Postiz draft', async (t) => {
+test('studio distribution endpoints prepare, draft, and schedule through Postiz', async (t) => {
   const postCalls = [];
   const { server, base } = await startServer({
     postizClient: {
       post: async (post) => {
         postCalls.push(post);
-        return { provider: 'postiz', status: 'draft', externalId: 'post-studio-1', externalUrl: null };
+        return {
+          provider: 'postiz',
+          status: post.scheduled_for ? 'scheduled' : 'draft',
+          externalId: `post-studio-${postCalls.length}`,
+          externalUrl: null,
+        };
       },
     },
     postizAppUrl: 'https://postiz.example.test',
+    now: () => new Date('2026-07-31T12:05:00Z'),
   });
   t.after(() => server.close());
 
-  const createdRes = await fetch(`${base}/studio/briefs`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ request: 'Make a faceless High Signal lesson for YouTube.' }),
-  });
-  const created = (await createdRes.json()).data;
-  await fetch(`${base}/studio/briefs/${created.id}/execute`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ confirm: true }),
-  });
-  const patchedRes = await fetch(`${base}/studio/briefs/${created.id}`, {
-    method: 'PATCH',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      cta: 'Read the evidence',
-      sourceEvidence: {
-        canonicalUrl: 'https://highsignal.app/evidence',
-        destinationUrl: 'https://highsignal.app',
-        claim: 'High Signal keeps evidence attached to recommendations.',
-        rightsStatus: 'approved',
-      },
-      approval: { creativeStatus: 'approved', qualityAccepted: true },
-      media: {
-        publicUrl: 'https://assets.example.test/video.mp4',
-        reviewedAt: '2026-07-31T12:00:00Z',
-      },
-    }),
-  });
-  assert.equal(patchedRes.status, 200);
+  async function createApprovedProduction(request) {
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ request }),
+    });
+    const created = (await createdRes.json()).data;
+    await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ confirm: true }),
+    });
+    const patchedRes = await fetch(`${base}/studio/briefs/${created.id}`, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        cta: 'Read the evidence',
+        sourceEvidence: {
+          canonicalUrl: 'https://highsignal.app/evidence',
+          destinationUrl: 'https://highsignal.app',
+          claim: 'High Signal keeps evidence attached to recommendations.',
+          rightsStatus: 'approved',
+        },
+        approval: { creativeStatus: 'approved', qualityAccepted: true },
+        media: {
+          publicUrl: 'https://assets.example.test/video.mp4',
+          reviewedAt: '2026-07-31T12:00:00Z',
+        },
+      }),
+    });
+    assert.equal(patchedRes.status, 200);
+    return created;
+  }
 
-  const prepared = await fetch(`${base}/studio/briefs/${created.id}/prepare-distribution`, {
+  const draftProduction = await createApprovedProduction('Make a faceless High Signal lesson for YouTube.');
+
+  const prepared = await fetch(`${base}/studio/briefs/${draftProduction.id}/prepare-distribution`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: '{}',
@@ -359,7 +617,7 @@ test('studio distribution endpoints prepare locally and create an unscheduled Po
   assert.equal(postCalls.length, 0);
   assert.equal(preparedPayload.data.bundle.request.scheduledFor, null);
 
-  const draft = await fetch(`${base}/studio/briefs/${created.id}/create-postiz-draft`, {
+  const draft = await fetch(`${base}/studio/briefs/${draftProduction.id}/create-postiz-draft`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ approvedBy: 'owner' }),
@@ -370,16 +628,117 @@ test('studio distribution endpoints prepare locally and create an unscheduled Po
   assert.equal(postCalls.length, 1);
   assert.equal(postCalls[0].scheduled_for, null);
 
-  const rejectedSchedule = await fetch(`${base}/studio/briefs/${created.id}/create-postiz-draft`, {
+  const scheduledProduction = await createApprovedProduction('Make a faceless High Signal lesson for Instagram.');
+  const scheduled = await fetch(`${base}/studio/briefs/${scheduledProduction.id}/schedule-postiz`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ approvedBy: 'owner', scheduledFor: '2026-08-01T12:00:00Z' }),
   });
-  assert.equal(rejectedSchedule.status, 400);
-  assert.match((await rejectedSchedule.json()).error, /does not accept schedules/);
+  assert.equal(scheduled.status, 200);
+  const scheduledPayload = await scheduled.json();
+  assert.equal(scheduledPayload.data.brief.lifecycle, 'scheduled');
+  assert.equal(scheduledPayload.data.brief.distribution.request.scheduledFor, '2026-08-01T12:00:00.000Z');
+  assert.equal(scheduledPayload.data.receipt.status, 'scheduled');
+  assert.equal(scheduledPayload.data.receipt.scheduledFor, '2026-08-01T12:00:00.000Z');
+  assert.equal(postCalls.length, 2);
+  assert.equal(postCalls[1].scheduled_for, '2026-08-01T12:00:00.000Z');
+
+  const rejectedDuplicate = await fetch(`${base}/studio/briefs/${scheduledProduction.id}/schedule-postiz`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ approvedBy: 'owner', scheduledFor: '2026-08-02T12:00:00Z' }),
+  });
+  assert.equal(rejectedDuplicate.status, 400);
+  assert.match((await rejectedDuplicate.json()).error, /receipt already exists/);
+  assert.equal(postCalls.length, 2);
+
+  const rejectedImmediate = await fetch(`${base}/studio/briefs/${scheduledProduction.id}/schedule-postiz`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ approvedBy: 'owner', scheduledFor: '2026-08-02T12:00:00Z', publishNow: true }),
+  });
+  assert.equal(rejectedImmediate.status, 400);
+  assert.match((await rejectedImmediate.json()).error, /does not accept immediate publication/);
+  assert.equal(postCalls.length, 2);
 
   const readiness = await fetch(`${base}/studio/postiz-readiness`);
   const readinessPayload = await readiness.json();
-  assert.equal(readinessPayload.data.state, 'ready-for-draft');
+  assert.equal(readinessPayload.data.state, 'ready-for-submission');
   assert.equal(readinessPayload.data.appUrl, 'https://postiz.example.test/');
+});
+
+test('studio autopilot APIs expose policy and status reads plus one confirmed bounded invocation', async (t) => {
+  const calls = [];
+  const { server, base } = await startServer({
+    autopilotRunner: async (input) => {
+      calls.push(input);
+      return { schema: 'fleet.studio-autopilot-run.v1', runId: 'fixture-run', mode: input.execute ? 'execute' : 'dry-run' };
+    },
+  });
+  t.after(() => server.close());
+
+  const policies = await fetch(`${base}/studio/autopilot/policies`);
+  assert.equal(policies.status, 200);
+  assert.deepEqual((await policies.json()).data.policies.map((entry) => entry.id), [
+    'high-signal-daily', 'significant-hobbies-weekly', 'major-project-changelog',
+  ]);
+
+  const status = await fetch(`${base}/studio/autopilot/status`);
+  assert.equal(status.status, 200);
+  assert.deepEqual((await status.json()).data.lanes, {
+    'project-automation': 0, 'operator-request': 0, 'personal-automation': 0,
+  });
+  assert.equal((await (await fetch(`${base}/studio/autopilot/runs`)).json()).data.length, 0);
+  assert.equal((await (await fetch(`${base}/studio/autopilot/exceptions`)).json()).data.length, 0);
+
+  const rejected = await fetch(`${base}/studio/autopilot/run`, {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ policy: 'high-signal-daily' }),
+  });
+  assert.equal(rejected.status, 400);
+  assert.match((await rejected.json()).error, /confirmation/);
+
+  const invoked = await fetch(`${base}/studio/autopilot/run`, {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ confirm: true, policy: 'high-signal-daily', execute: false, count: 1 }),
+  });
+  assert.equal(invoked.status, 200);
+  assert.equal((await invoked.json()).data.mode, 'dry-run');
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].count, 1);
+});
+
+test('studio probes and caches Blender readiness before creating a recipe brief', async (t) => {
+  const calls = [];
+  const { server, base } = await startServer({
+    blenderCapability: undefined,
+    blender: {
+      blenderPath: '/test/blender',
+      commandRunner: async (executable, args) => {
+        calls.push({ executable, args });
+        return { stdout: 'Blender 5.2.0 LTS\n', stderr: '' };
+      },
+    },
+  });
+  t.after(() => server.close());
+
+  const createdRes = await fetch(`${base}/studio/briefs`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      request: 'Make an abstract 3D animation about momentum.',
+      fields: { recipeId: 'blender-film', recipeOptions: { durationSeconds: 15 } },
+    }),
+  });
+  const createdJson = await createdRes.json();
+  assert.equal(createdRes.status, 201, JSON.stringify(createdJson));
+  assert.equal(createdJson.data.recipe.readiness.ready, true);
+  assert.equal(createdJson.data.actions.build.enabled, true);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].executable, '/test/blender');
+
+  const readinessRes = await fetch(`${base}/studio/blender-readiness`);
+  assert.equal(readinessRes.status, 200);
+  assert.equal((await readinessRes.json()).data.version, '5.2.0');
+  assert.equal(calls.length, 1, 'the server should reuse the readiness result across requests');
 });

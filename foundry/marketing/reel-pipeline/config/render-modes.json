@@ -41,6 +41,25 @@
       }
     },
     {
+      "id": "blender",
+      "provider": "blender",
+      "surface": "video-brief",
+      "category": "local-asset",
+      "description": "Renders validated literal-scene manifests through a safe headless Blender 5.2 runtime.",
+      "requires": [
+        "Blender 5.2.x (`brew install --cask blender`)"
+      ],
+      "smoke": {
+        "type": "command",
+        "command": "node",
+        "args": [
+          "-e",
+          "import('./src/adapters/blender.js').then(async m => { const r = await m.probeBlender(); console.log(JSON.stringify(r)); process.exit(r.ready ? 0 : 1); })"
+        ],
+        "hint": "Install Blender 5.2.x to enable real literal-scene rendering."
+      }
+    },
+    {
       "id": "grok-video",
       "aliases": [
         "grok",
@@ -52,40 +71,6 @@
       "description": "Copies approved local Grok/Imagine MP4 exports into the standard artifact flow.",
       "smoke": {
         "type": "grokFixture"
-      }
-    },
-    {
-      "id": "reel-maker",
-      "aliases": [
-        "remotion"
-      ],
-      "provider": "reel-maker",
-      "surface": "video-brief",
-      "category": "local-remotion",
-      "description": "Remotion/product-proof adapter behind the VideoBrief contract.",
-      "smoke": {
-        "type": "renderFixture",
-        "env": {
-          "REEL_MAKER_SKIP_REMOTION": "1"
-        },
-        "note": "Remotion skipped; adapter/orchestrator path verified."
-      }
-    },
-    {
-      "id": "moneyprinterturbo",
-      "aliases": [
-        "stock"
-      ],
-      "provider": "moneyprinterturbo",
-      "surface": "video-brief",
-      "category": "service",
-      "description": "Default stock-footage MP4 renderer through a running MoneyPrinterTurbo API.",
-      "smoke": {
-        "type": "service",
-        "urlEnv": "MONEYPRINTER_API_URL",
-        "defaultUrl": "http://127.0.0.1:8080",
-        "path": "/docs",
-        "hint": "Start MoneyPrinterTurbo, then run npm run canary:moneyprinter for a real MP4 canary."
       }
     },
     {
@@ -118,7 +103,7 @@
       "description": "Fully local faceless renderer: Kokoro-82M narration + Pexels b-roll + FFmpeg compose.",
       "requires": [
         "npm run setup:kokoro (one-time ~340MB model download)",
-        "Pexels key (env or MoneyPrinterTurbo config)"
+        "PEXELS_API_KEY"
       ],
       "smoke": {
         "type": "command",
