@@ -74,40 +74,6 @@
       }
     },
     {
-      "id": "reel-maker",
-      "aliases": [
-        "remotion"
-      ],
-      "provider": "reel-maker",
-      "surface": "video-brief",
-      "category": "local-remotion",
-      "description": "Remotion/product-proof adapter behind the VideoBrief contract.",
-      "smoke": {
-        "type": "renderFixture",
-        "env": {
-          "REEL_MAKER_SKIP_REMOTION": "1"
-        },
-        "note": "Remotion skipped; adapter/orchestrator path verified."
-      }
-    },
-    {
-      "id": "moneyprinterturbo",
-      "aliases": [
-        "stock"
-      ],
-      "provider": "moneyprinterturbo",
-      "surface": "video-brief",
-      "category": "service",
-      "description": "Default stock-footage MP4 renderer through a running MoneyPrinterTurbo API.",
-      "smoke": {
-        "type": "service",
-        "urlEnv": "MONEYPRINTER_API_URL",
-        "defaultUrl": "http://127.0.0.1:8080",
-        "path": "/docs",
-        "hint": "Start MoneyPrinterTurbo, then run npm run canary:moneyprinter for a real MP4 canary."
-      }
-    },
-    {
       "id": "render-pro",
       "aliases": [
         "renderpro"
@@ -137,7 +103,7 @@
       "description": "Fully local faceless renderer: Kokoro-82M narration + Pexels b-roll + FFmpeg compose.",
       "requires": [
         "npm run setup:kokoro (one-time ~340MB model download)",
-        "Pexels key (env or MoneyPrinterTurbo config)"
+        "PEXELS_API_KEY"
       ],
       "smoke": {
         "type": "command",

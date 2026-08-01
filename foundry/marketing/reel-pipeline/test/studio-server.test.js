@@ -10,6 +10,20 @@ import { StudioLlm } from '../src/studio/llm.js';
 import { IdeaStore } from '../src/studio/idea-store.js';
 import { MarketingBriefStore } from '../src/studio/briefs.js';
 
+function deterministicHtmlVideoOptions() {
+  return {
+    frameRenderer: async (_htmlPath, timeline, framesDir) => Promise.all(timeline.scenes.map(async (scene) => {
+      const framePath = path.join(framesDir, `scene-${scene.index}.png`);
+      await writeFile(framePath, Buffer.from('fixture-png'));
+      return { path: framePath, duration: scene.duration, motion: scene.motion };
+    })),
+    commandRunner: async (_binary, args) => {
+      await writeFile(args.at(-1), Buffer.from('fixture-video'));
+      return { stdout: '', stderr: '' };
+    },
+  };
+}
+
 async function startServer(studioOverrides = {}) {
   const scratch = await mkdtemp(path.join(tmpdir(), 'studio-server-'));
   const server = createServer({
@@ -21,13 +35,30 @@ async function startServer(studioOverrides = {}) {
       briefStore: new MarketingBriefStore({ filePath: path.join(scratch, 'briefs.json') }),
       facelessOutputDir: path.join(scratch, 'faceless'),
       artifactRoots: [scratch],
+      galleryRoot: scratch,
+      galleryConfig: {
+        schema: 'fleet.video-explore-gallery.v1',
+        version: 1,
+        items: [{
+          id: 'gallery-proof',
+          title: 'Gallery proof',
+          family: 'Motion graphics',
+          description: 'Registered range fixture.',
+          engine: 'HTML / Canvas',
+          sourcePosture: 'local-render',
+          qualityTier: 'showcase',
+          spend: 'No API spend',
+          variantId: 'web-motion--visualstyle-kinetic-type',
+          source: 'gallery.mp4',
+        }],
+      },
       rendererOptions: {
         mock: { artifactDir: path.join(scratch, 'renders') },
-        htmlComposition: { artifactDir: path.join(scratch, 'html-renders') },
+        htmlComposition: { artifactDir: path.join(scratch, 'html-renders'), ...deterministicHtmlVideoOptions() },
       },
       blenderCapability: { ready: false, executable: null, version: null, blocker: 'Blender unavailable for deterministic test.' },
+      htmlCapability: { ready: true, chromePath: '/fixture/chrome', ffmpegPath: '/fixture/ffmpeg', blocker: null },
       kokoroReady: false,
-      moneyprinterReady: false,
       platformAudioCommandRunner: async (command, args) => {
         if (command !== 'ffmpeg') throw new Error(`unexpected platform-audio command: ${command}`);
         await copyFile(args[args.indexOf('-i') + 1], args.at(-1));
@@ -164,8 +195,8 @@ test('studio server routes', async (t) => {
     const builtJson = await builtRes.json();
     assert.equal(builtRes.status, 200, JSON.stringify(builtJson));
     assert.equal(builtJson.data.executed, true);
-    assert.equal(builtJson.data.brief.media.previewType, 'html');
-    assert.match(builtJson.data.brief.media.previewPath, /composition\.html$/);
+    assert.equal(builtJson.data.brief.media.previewType, 'video');
+    assert.match(builtJson.data.brief.media.videoPath, /\.mp4$/);
     assert.equal(builtJson.data.brief.actions.preview.enabled, true);
     assert.equal(builtJson.data.brief.actions.post.enabled, false);
   });
@@ -213,11 +244,35 @@ test('studio server routes', async (t) => {
     const ok = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(inside)}`);
     assert.equal(ok.status, 200);
     assert.equal(ok.headers.get('content-type'), 'video/mp4');
+    assert.equal(ok.headers.get('accept-ranges'), 'bytes');
+
+    const ranged = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(inside)}`, {
+      headers: { range: 'bytes=5-9' },
+    });
+    assert.equal(ranged.status, 206);
+    assert.equal(ranged.headers.get('content-range'), 'bytes 5-9/16');
+    assert.equal(await ranged.text(), 'video');
 
     const outside = await fetch(`${base}/studio/render-file?path=${encodeURIComponent('/etc/hosts')}`);
     assert.equal(outside.status, 403);
     const sneaky = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(path.join(scratch, '..', '..', 'etc', 'hosts'))}`);
     assert.equal(sneaky.status, 403);
+  });
+
+  await t.test('explore gallery streams registered media by stable id with byte ranges', async () => {
+    await writeFile(path.join(scratch, 'gallery.mp4'), 'registered gallery bytes');
+    const registry = await fetch(`${base}/studio/explore-gallery`);
+    assert.equal(registry.status, 200);
+    const payload = await registry.json();
+    assert.equal(payload.data.playableCount, 1);
+    assert.equal(payload.data.items[0].mediaUrl, '/studio/explore-gallery/gallery-proof/media');
+    assert.equal('source' in payload.data.items[0], false);
+
+    const media = await fetch(`${base}${payload.data.items[0].mediaUrl}`, { headers: { range: 'bytes=0-9' } });
+    assert.equal(media.status, 206);
+    assert.equal(media.headers.get('accept-ranges'), 'bytes');
+    assert.equal(media.headers.get('content-range'), 'bytes 0-9/24');
+    assert.equal(await media.text(), 'registered');
   });
 
   await t.test('factory plan/produce/status over the API', async () => {

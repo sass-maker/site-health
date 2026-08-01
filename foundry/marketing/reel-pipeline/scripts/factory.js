@@ -5,7 +5,7 @@ const USAGE = `Usage: npm run factory -- <command> [flags]
 
 Commands:
   plan     --niche <niche> [--count N]     Fill the backlog with ideas
-  produce  [--count N] [--engine kokoro|moneyprinterturbo|mock]
+  produce  [--count N] [--engine kokoro|mock]
            [--duration S] [--out DIR]      Render the next N backlog ideas
   status                                    Pipeline counts + recent renders
   arsenal [--recipe <id>] [--channel <id>] [--owner <name>]

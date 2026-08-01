@@ -27,6 +27,7 @@ export function scriptToBrief(script, options = {}) {
     creativeDirection,
     recordingUrl,
     literalScenes,
+    renderOptions,
   } = options;
 
   const body = [
@@ -57,6 +58,7 @@ export function scriptToBrief(script, options = {}) {
     durationSeconds: Math.max(5, Math.min(90, script.targetDurationSeconds)),
     recordingUrl,
     literalScenes,
+    renderOptions,
   });
 
   const baseVoice = script.voice ?? DEFAULT_VOICE;
@@ -88,6 +90,7 @@ export async function runFacelessWorkflow({
   creativeDirection,
   recordingUrl,
   literalScenes,
+  renderOptions,
   outputDir = './tmp/studio/faceless',
   postHandoff = false,
   ideaId,
@@ -122,6 +125,7 @@ export async function runFacelessWorkflow({
     creativeDirection,
     recordingUrl,
     literalScenes,
+    renderOptions,
   });
   const [titles, tags] = await Promise.all([
     generateTitles({ topic, llm }),

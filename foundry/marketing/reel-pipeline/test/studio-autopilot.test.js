@@ -14,12 +14,15 @@ import {
 } from '../src/studio/autopilot.js';
 
 const NOW = new Date('2026-07-31T12:00:00.000Z');
+const READY_RECIPE_CONTEXT = {
+  htmlCapability: { ready: true, chromePath: '/fixture/chrome', ffmpegPath: '/fixture/ffmpeg', blocker: null },
+};
 
 test('ranks ready policy recipes within spend and explains rejections', () => {
   const ranked = rankPolicyRecipes(policy({
     recipes: ['grok-asset-film', 'image-slideshow'],
     spendCeiling: 'local-compute',
-  }));
+  }), READY_RECIPE_CONTEXT);
   assert.equal(ranked.selected.id, 'image-slideshow');
   assert.equal(ranked.candidates[0].accepted, false);
   assert.equal(ranked.candidates[0].reason, 'spend-ceiling');
@@ -181,6 +184,7 @@ async function tempStores() {
   return {
     ideaStore: new IdeaStore({ filePath: path.join(dir, 'ideas.json') }),
     briefStore: new MarketingBriefStore({ filePath: path.join(dir, 'briefs.json'), now: () => NOW }),
+    recipeContext: READY_RECIPE_CONTEXT,
   };
 }
 

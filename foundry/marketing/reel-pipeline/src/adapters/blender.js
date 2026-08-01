@@ -8,25 +8,49 @@ import { promisify } from 'node:util';
 const execFileAsync = promisify(execFile);
 const DEFAULT_ARTIFACT_DIR = './artifacts/blender';
 const BUILDER_PATH = fileURLToPath(new URL('../../scripts/blender/literal_scene_builder.py', import.meta.url));
-const BUILDER_VERSION = 'literal-scene-builder-v1';
+const BUILDER_VERSION = 'literal-scene-builder-v2';
 const SUPPORTED_VERSION = { major: 5, minor: 2 };
 const ALLOWED_OBJECTS = new Set(['star', 'diamond', 'world', 'traveller', 'light', 'rain', 'heart', 'road', 'subject']);
 const ALLOWED_CAMERAS = new Set(['static', 'slow-push', 'gentle-orbit']);
 const ALLOWED_PALETTES = new Set(['midnight-gold', 'blue-silver', 'violet-cyan']);
+const ALLOWED_VISUAL_STYLES = new Set([
+  'cosmic-shrine',
+  'brutalist-monument',
+  'glass-studio',
+  'low-poly-valley',
+  'organic-bloom',
+  'kinetic-sculpture',
+  'neon-tunnel',
+  'paper-diorama',
+]);
+const STYLE_CAMERAS = {
+  'cosmic-shrine': 'gentle-orbit',
+  'brutalist-monument': 'static',
+  'glass-studio': 'slow-push',
+  'low-poly-valley': 'slow-push',
+  'organic-bloom': 'gentle-orbit',
+  'kinetic-sculpture': 'gentle-orbit',
+  'neon-tunnel': 'slow-push',
+  'paper-diorama': 'static',
+};
 
 export class BlenderAdapter {
   constructor(options = {}) {
     this.artifactDir = path.resolve(options.artifactDir ?? DEFAULT_ARTIFACT_DIR);
     this.blenderPath = options.blenderPath ?? null;
+    this.ffmpegPath = options.ffmpegPath ?? process.env.FFMPEG_PATH ?? 'ffmpeg';
     this.commandRunner = options.commandRunner ?? defaultCommandRunner;
+    this.videoCommandRunner = options.videoCommandRunner ?? defaultCommandRunner;
     this.now = options.now ?? (() => new Date());
     this.timeoutMs = clampInteger(options.timeoutMs ?? 5 * 60_000, 10_000, 30 * 60_000);
   }
 
   async capability() {
-    return probeBlender({
+    return probeBlenderVideo({
       blenderPath: this.blenderPath,
+      ffmpegPath: this.ffmpegPath,
       commandRunner: this.commandRunner,
+      videoCommandRunner: this.videoCommandRunner,
     });
   }
 
@@ -39,6 +63,7 @@ export class BlenderAdapter {
         objects: ['subject'],
         camera: 'slow-push',
         palette: 'midnight-gold',
+        visualStyle: brief.renderOptions?.visualStyle ?? 'cosmic-shrine',
       }];
     return this.renderScenes({
       id: brief.id,
@@ -46,6 +71,7 @@ export class BlenderAdapter {
       width: 540,
       height: 960,
       samples: 16,
+      durationSeconds: brief.durationSeconds ?? 20,
     });
   }
 
@@ -65,6 +91,7 @@ export class BlenderAdapter {
     }));
     const manifestPath = path.join(runDir, 'scene-manifest.json');
     const resultPath = path.join(runDir, 'render.json');
+    const videoPath = path.join(runDir, `${safeSlug(input.id ?? 'literal-scenes')}.mp4`);
     await mkdir(path.join(runDir, 'plates'), { recursive: true });
     await writeFile(manifestPath, manifestJson);
 
@@ -108,14 +135,27 @@ export class BlenderAdapter {
       });
     }
 
+    await encodeBlenderPlates({
+      plates,
+      manifest,
+      videoPath,
+      ffmpegPath: capability.ffmpegPath,
+      commandRunner: this.videoCommandRunner,
+      timeoutMs: this.timeoutMs,
+    });
+    const videoInfo = await stat(videoPath).catch(() => null);
+    if (!videoInfo?.isFile() || videoInfo.size < 8) {
+      throw new Error('Blender plate composition did not produce a playable MP4 artifact');
+    }
+
     const durationMs = Date.now() - startedAt;
     const render = {
       provider: 'blender',
       externalTaskId: taskId,
       status: 'completed',
-      videos: [],
+      videos: [videoPath],
       artifacts: plates.map((plate) => plate.path),
-      durationSeconds: null,
+      durationSeconds: manifest.durationSeconds,
       proofType: 'generated_card',
       captionText: manifest.scenes[0]?.lyric ?? null,
       renderLog: [
@@ -125,12 +165,14 @@ export class BlenderAdapter {
         `cacheIdentity=${cacheIdentity}`,
         `scenes=${manifest.scenes.length}`,
         `durationMs=${durationMs}`,
+        'delivery=final-video',
       ],
       raw: {
         aspect: `${manifest.width}:${manifest.height}`,
         width: manifest.width,
         height: manifest.height,
         manifestPath,
+        videoPath,
         manifestHash,
         cacheIdentity,
         builderVersion: BUILDER_VERSION,
@@ -149,6 +191,28 @@ export class BlenderAdapter {
   async getStatus(externalTaskId) {
     const resultPath = resolveRunPath(this.artifactDir, `${externalTaskId}/render.json`);
     return JSON.parse(await readFile(resultPath, 'utf8')).render;
+  }
+}
+
+export async function probeBlenderVideo(options = {}) {
+  const blender = await probeBlender(options);
+  if (!blender.ready) return { ...blender, ffmpegPath: options.ffmpegPath ?? process.env.FFMPEG_PATH ?? 'ffmpeg' };
+  const ffmpegPath = options.ffmpegPath ?? process.env.FFMPEG_PATH ?? 'ffmpeg';
+  try {
+    const result = await (options.videoCommandRunner ?? defaultCommandRunner)(ffmpegPath, ['-version'], {
+      timeout: 15_000,
+      maxBuffer: 1024 * 1024,
+    });
+    const output = `${result?.stdout ?? ''}\n${result?.stderr ?? ''}`;
+    if (!/ffmpeg/i.test(output)) throw new Error('version output was not recognized');
+    return { ...blender, ffmpegPath };
+  } catch (error) {
+    return {
+      ...blender,
+      ready: false,
+      ffmpegPath,
+      blocker: `Blender ${blender.version} is installed, but FFmpeg is unavailable: ${sanitizeProcessError(error)}`,
+    };
   }
 }
 
@@ -212,6 +276,7 @@ function normalizeBlenderManifest(input = {}, options) {
   const width = clampInteger(input.width ?? 540, 360, 1080);
   const height = clampInteger(input.height ?? 960, 640, 1920);
   const samples = clampInteger(input.samples ?? 16, 1, 64);
+  const durationSeconds = clampInteger(input.durationSeconds ?? 20, 5, 90);
   const runDir = path.resolve(options.runDir);
   const scenes = input.scenes.map((scene, index) => normalizeScene(scene, index, runDir));
   return {
@@ -220,9 +285,43 @@ function normalizeBlenderManifest(input = {}, options) {
     width,
     height,
     samples,
+    durationSeconds,
     transparent: false,
     scenes,
   };
+}
+
+async function encodeBlenderPlates({ plates, manifest, videoPath, ffmpegPath, commandRunner, timeoutMs }) {
+  const segmentDuration = manifest.durationSeconds / plates.length;
+  const args = ['-y'];
+  for (const plate of plates) args.push('-framerate', '30', '-loop', '1', '-t', String(segmentDuration), '-i', plate.path);
+  args.push('-f', 'lavfi', '-t', String(manifest.durationSeconds), '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000');
+  const filters = plates.map((_, index) => {
+    const camera = manifest.scenes[index]?.camera ?? 'static';
+    const zoom = camera === 'static' ? '1' : camera === 'gentle-orbit' ? "1.02+0.012*sin(on/24)" : "min(zoom+0.0007,1.05)";
+    return `[${index}:v]scale=${manifest.width}:${manifest.height}:force_original_aspect_ratio=increase,`
+      + `crop=${manifest.width}:${manifest.height},zoompan=z='${zoom}':d=1:s=${manifest.width}x${manifest.height}:fps=30,`
+      + `trim=duration=${segmentDuration},setpts=PTS-STARTPTS,setsar=1[v${index}]`;
+  });
+  args.push(
+    '-filter_complex', `${filters.join(';')};${plates.map((_, index) => `[v${index}]`).join('')}concat=n=${plates.length}:v=1:a=0[v]`,
+    '-map', '[v]',
+    '-map', `${plates.length}:a`,
+    '-c:v', 'libx264',
+    '-pix_fmt', 'yuv420p',
+    '-preset', 'veryfast',
+    '-crf', '18',
+    '-c:a', 'aac',
+    '-b:a', '96k',
+    '-movflags', '+faststart',
+    '-shortest',
+    videoPath,
+  );
+  try {
+    await commandRunner(ffmpegPath, args, { timeout: timeoutMs, maxBuffer: 16 * 1024 * 1024 });
+  } catch (error) {
+    throw new Error(`Blender plate composition failed: ${sanitizeProcessError(error)}`);
+  }
 }
 
 function normalizeScene(scene, index, runDir) {
@@ -235,7 +334,8 @@ function normalizeScene(scene, index, runDir) {
   const rawObjects = Array.isArray(scene.objects) ? scene.objects : ['subject'];
   const objects = [...new Set(rawObjects.flatMap(toAllowedObject))].slice(0, 8);
   if (!objects.length) objects.push('subject');
-  const camera = ALLOWED_CAMERAS.has(scene.camera) ? scene.camera : 'static';
+  const visualStyle = ALLOWED_VISUAL_STYLES.has(scene.visualStyle) ? scene.visualStyle : 'cosmic-shrine';
+  const camera = ALLOWED_CAMERAS.has(scene.camera) ? scene.camera : STYLE_CAMERAS[visualStyle];
   const palette = ALLOWED_PALETTES.has(scene.palette) ? scene.palette : 'midnight-gold';
   return {
     id,
@@ -244,6 +344,7 @@ function normalizeScene(scene, index, runDir) {
     objects,
     camera,
     palette,
+    visualStyle,
     seed: stableSeed(`${id}:${scene.lyric ?? ''}`),
     output,
   };

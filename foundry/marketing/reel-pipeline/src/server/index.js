@@ -48,8 +48,11 @@ export function createServer(options = {}) {
           Object.fromEntries(requestUrl.searchParams),
         );
         if (result?.raw) {
-          res.writeHead(result.status, { 'content-type': result.raw.contentType });
-          return res.end(result.raw.content);
+          return sendAnonymousArtifact(req, res, {
+            state: 'completed',
+            reviewed: true,
+            ...result.raw,
+          }, { cors: true });
         }
         if (result) return json(res, result.status, result.body);
       }

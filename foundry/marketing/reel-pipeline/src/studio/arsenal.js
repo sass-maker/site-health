@@ -22,6 +22,7 @@ export async function buildStudioArsenal(options = {}) {
   const workflows = listStudioCapabilities(options.brief ?? null, options.capabilityOptions ?? {});
   const allRecipes = listProductionRecipes(options.recipeContext ?? {});
   const recipes = allRecipes.filter((recipe) => recipeMatches(recipe, filters, manifest));
+  const variants = recipes.flatMap((recipe) => recipe.variants);
   const selectedRecipeIds = new Set(recipes.map((recipe) => recipe.id));
   const automations = automation.policies.map((policy) => ({
     ...structuredClone(policy),
@@ -47,6 +48,7 @@ export async function buildStudioArsenal(options = {}) {
     tools: structuredClone(manifest.tools),
     capabilities: workflows,
     recipes,
+    variants,
     engines: describeEngines(manifest, allRecipes, options.recipeContext ?? {}),
     automations,
     summary: {
@@ -55,6 +57,7 @@ export async function buildStudioArsenal(options = {}) {
       capabilities: workflows.length,
       recipes: recipes.length,
       totalRecipes: manifest.recipes.length,
+      variants: variants.length,
       engines: renderModesConfig.modes.length + manifest.specializedRuntimes.length,
       automations: automations.length,
     },
@@ -172,11 +175,11 @@ function describeEngines(manifest, recipes, recipeContext) {
 
 function engineReadiness(id, context) {
   if (id === 'blender') return readinessValue(context.blenderCapability?.ready, context.blenderCapability?.blocker ?? null);
+  if (id === 'html-composition') return readinessValue(context.htmlCapability?.ready, context.htmlCapability?.blocker ?? null);
   if (id === 'kokoro') return readinessValue(
     context.kokoroReady,
     context.kokoroReady ? null : context.kokoroBlocker ?? 'Kokoro is not ready on this host.',
   );
-  if (id === 'moneyprinterturbo') return readinessValue(context.moneyprinterReady, context.moneyprinterReady ? null : 'MoneyPrinterTurbo is not verified on this host.');
   return { state: 'not-probed', ready: null, blocker: 'Run the engine-specific smoke or canary before execution.' };
 }
 
@@ -227,14 +230,18 @@ function normalizeRecipes(input, context) {
     if (!context.engineIds.has(engine)) throw new Error(`${id}: unknown render engine ${engine}`);
     const spend = requiredString(entry.spend, `${id}.spend`);
     if (!context.spendClassIds.includes(spend)) throw new Error(`${id}: unsupported spend class ${spend}`);
+    const delivery = requiredString(entry.delivery, `${id}.delivery`);
+    if (!['final-video', 'preview', 'continuation'].includes(delivery)) throw new Error(`${id}: unsupported delivery ${delivery}`);
     const action = normalizeAction(entry.action ?? { kind: 'execute', label: 'Build preview' }, `${id}.action`);
+    if (delivery === 'continuation' && action.kind !== 'continue') throw new Error(`${id}: continuation delivery requires a continue action`);
+    if (delivery !== 'continuation' && action.kind !== 'execute') throw new Error(`${id}: ${delivery} delivery requires an execute action`);
     const defaults = entry.defaults ?? {};
     if (!Number.isInteger(defaults.durationSeconds) || defaults.durationSeconds < 5 || defaults.durationSeconds > 90) throw new Error(`${id}: invalid default duration`);
     if (!context.qualityTiers.includes(defaults.qualityTier)) throw new Error(`${id}: invalid default quality tier`);
     if (!Number.isInteger(defaults.variantCount) || defaults.variantCount < 1 || defaults.variantCount > 6) throw new Error(`${id}: invalid default variant count`);
     const options = objectArray(entry.options ?? [], `${id}.options`).map((option, optionIndex) => normalizeOptionDefinition(option, `${id}.options[${optionIndex}]`));
     assertUniqueIds(options, `${id} option`);
-    return { ...structuredClone(entry), id, owner, engine, spend, action, options, requirements: uniqueStrings(entry.requirements ?? [], `${id}.requirements`) };
+    return { ...structuredClone(entry), id, owner, engine, spend, delivery, action, options, requirements: uniqueStrings(entry.requirements ?? [], `${id}.requirements`) };
   });
 }
 

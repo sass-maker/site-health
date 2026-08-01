@@ -32,8 +32,6 @@ manual prerequisites.
 
 | Capability | Evidence |
 | --- | --- |
-| MoneyPrinterTurbo | `MONEYPRINTER_API_URL=http://127.0.0.1:18080 npm run canary:moneyprinter` |
-| reel-maker | `npm run smoke:reel-maker` |
 | Worker/R2 render | `npm run render:pro -- <approved-reel-id>` |
 | R2 byte-range playback | `npm run smoke:artifact` with artifact URL/key |
 | Postiz draft | one approved canary confirmed as an unscheduled draft in Postiz |

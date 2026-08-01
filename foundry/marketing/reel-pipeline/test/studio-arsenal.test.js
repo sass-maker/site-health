@@ -19,9 +19,9 @@ const EMPTY_AUTOMATION = {
   policies: [],
 };
 const READY_LOCAL_CONTEXT = {
+  htmlCapability: { ready: true, blocker: null },
   blenderCapability: { ready: true, blocker: null },
   kokoroReady: true,
-  moneyprinterReady: false,
 };
 
 test('canonical arsenal validates every tool, workflow, recipe, owner, spend class, and engine reference', () => {
@@ -31,7 +31,7 @@ test('canonical arsenal validates every tool, workflow, recipe, owner, spend cla
   });
   assert.equal(manifest.schema, 'fleet.studio-arsenal.v1');
   assert.equal(manifest.capabilities.length, 6);
-  assert.equal(manifest.recipes.length, 13);
+  assert.equal(manifest.recipes.length, 12);
   assert.equal(manifest.tools.length, 17);
   assert.ok(manifest.specializedRuntimes.some((entry) => entry.id === 'lyric-canvas'));
 });
@@ -68,6 +68,9 @@ test('agent filters produce a bounded read-only candidate set with provenance an
   assert.equal(arsenal.sources.arsenal.path, 'config/studio-arsenal.json');
   assert.ok(arsenal.guardrails.some((rule) => /read-only/i.test(rule)));
   assert.ok(arsenal.workflow.every((operation) => typeof operation.confirmationRequired === 'boolean'));
+  assert.equal(arsenal.variants.length, 12);
+  assert.equal(arsenal.summary.variants, 12);
+  assert.ok(arsenal.variants.every((variant) => variant.delivery.kind === 'final-video'));
 });
 
 test('GET /studio/arsenal is read-only and returns the same agent schema', async () => {
@@ -78,14 +81,22 @@ test('GET /studio/arsenal is read-only and returns the same agent schema', async
   }, {
     automationRegistry: EMPTY_AUTOMATION,
     blenderCapability: READY_LOCAL_CONTEXT.blenderCapability,
+    htmlCapability: READY_LOCAL_CONTEXT.htmlCapability,
     kokoroReady: true,
-    moneyprinterReady: false,
   }, { recipe: 'image-slideshow', readiness: 'ready' });
 
   assert.equal(result.status, 200);
   assert.equal(result.body.data.schema, STUDIO_ARSENAL_SNAPSHOT_SCHEMA);
   assert.equal(result.body.data.readOnly, true);
   assert.deepEqual(result.body.data.recipes.map((recipe) => recipe.id), ['image-slideshow']);
+  assert.deepEqual(result.body.data.variants.map((variant) => variant.id), [
+    'image-slideshow--visualstyle-cinematic-slideshow',
+    'image-slideshow--visualstyle-editorial-cutout',
+    'image-slideshow--visualstyle-filmstrip',
+    'image-slideshow--visualstyle-split-frame',
+    'image-slideshow--visualstyle-polaroid-stack',
+    'image-slideshow--visualstyle-soft-parallax',
+  ]);
   assert.equal(bodyReads, 0);
 });
 
@@ -102,4 +113,5 @@ test('factory arsenal command emits the same filterable schema without executing
   assert.equal(arsenal.schema, STUDIO_ARSENAL_SNAPSHOT_SCHEMA);
   assert.equal(arsenal.readOnly, true);
   assert.deepEqual(arsenal.recipes.map((recipe) => recipe.id), ['image-slideshow']);
+  assert.equal(arsenal.variants.length, 6);
 });

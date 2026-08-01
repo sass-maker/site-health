@@ -7,8 +7,7 @@ URLs, and render engines. Every render adapter accepts a `VideoBrief`.
 - Contract code: `src/video-brief.js` (Node) and `reel/src/brief.rs` (Rust).
   Both accept camelCase and snake_case keys.
 - Validation covers channels (`tiktok`, `instagram_reels`, `youtube_shorts`),
-  proof types, render modes, duration bounds, reel-body shape, and
-  `toMoneyPrinterRequest` conversion.
+  proof types, render modes, duration bounds, and reel-body shape.
 - `POST /reels` and `POST /reels/signal` are the intake endpoints; the latter
   consumes High Signal reel briefs.
 
@@ -25,16 +24,13 @@ This table mirrors it; update the config first, then this table.
 | `ascii` | `ascii-animation`, `ascii-fable`, `askai` | local | video-brief | fixture renders an ASCII animation MP4 |
 | `grok-video` | `grok`, `grok-videos` | local-asset | video-brief | script creates a temp MP4 and runs local asset mode |
 | `blender` | — | local-asset | video-brief | probes Blender 5.2 and renders validated literal-scene manifests |
-| `reel-maker` | `remotion` | local-remotion | video-brief | adapter/orchestrator path with `REEL_MAKER_SKIP_REMOTION=1` |
-| `moneyprinterturbo` | `stock` | service | video-brief | `skip` unless `MONEYPRINTER_API_URL` is reachable; canary via `npm run canary:moneyprinter` |
 | `render-pro` | `renderpro` | production | worker-reel-id | syntax check only; live proof mutates a real Worker reel + R2 object |
 | `kokoro` | `kokoro-compose` | local | faceless-workflow | `npm run setup:kokoro` then readiness check |
 | `brand-video` | — | local | content-package | `npm run render:package` against an approved content-package fixture |
 
 Local/no-credential modes (`mock`, `html-composition`, `ascii`, `grok-video`,
-`blender`, `reel-maker`) are proven by `npm run smoke:render-modes`. Live-only modes
-(`moneyprinterturbo`, `render-pro`) are tracked separately because they require
-running services or mutate real state. See
+`blender`) are proven by `npm run smoke:render-modes`. The live `render-pro`
+path is tracked separately because it mutates real state. See
 [`operations/runbooks/generation-readiness.md`](../operations/runbooks/generation-readiness.md).
 
 The lyric-video workflow composes exact timed text and approved audio outside

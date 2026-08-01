@@ -23,3 +23,42 @@ The control server SHALL serve the unified Marketing Studio at `GET /studio` wit
 - **WHEN** the operator selects an existing brief after a reload
 - **THEN** the page restores the saved project, idea, recipe, and options and identifies the next incomplete or actionable step
 
+## ADDED Requirements
+
+### Requirement: Grouped recipe-variant selector
+The Fleet Console Marketing maker SHALL expose Auto plus every finite recipe variant in one native grouped selector, SHALL keep unavailable variants selectable for inspection, and SHALL show the selected variant's delivery type, spend posture, runtime, required follow-up, and exact blocker.
+
+#### Scenario: Operator opens the format selector
+- **WHEN** the current arsenal contains the initial recipe definitions
+- **THEN** the selector exposes all 48 finite variants grouped by recipe without multiplying them by the separate duration selector
+
+#### Scenario: Operator chooses a blocked variant
+- **WHEN** a variant requires a missing runtime, rights assertion, source, or local asset
+- **THEN** selection remains possible, execution is disabled, and the summary names the exact missing requirement without hiding the variant
+
+#### Scenario: Operator chooses a finite variant
+- **WHEN** a variant is selected and the operator submits a prompt
+- **THEN** its stable variant identifier and normalized option values are saved on the brief and used by execution
+
+#### Scenario: Auto is selected
+- **WHEN** the operator leaves format on Auto
+- **THEN** the maker chooses only a locally ready final-MP4 variant and reveals the chosen variant before rendering starts
+
+### Requirement: Marketing Explore Gallery
+Fleet Console SHALL serve a style-first gallery at `/marketing/explore-gallery` inside the existing Marketing product shell. The gallery SHALL present registered real artifacts with their visual family, actual engine, source posture, spend posture, and delivery state, and SHALL hand reproducible samples back to the main maker using a stable variant id.
+
+#### Scenario: Operator explores available styles
+- **WHEN** the operator opens `/marketing/explore-gallery`
+- **THEN** the route retains the Fleet Console navigation and Marketing context, groups playable artifacts by visible treatment, and provides family filters without duplicating the creation form
+
+#### Scenario: Operator chooses a reproducible sample
+- **WHEN** a gallery item maps to a stable recipe variant
+- **THEN** its action opens `/marketing` with that exact variant selected and the maker displays its current readiness and requirements
+
+#### Scenario: Sample is imported or unavailable
+- **WHEN** an entry is an imported provider asset, external continuation, baseline fixture, or missing local file
+- **THEN** the gallery labels that posture explicitly and does not claim the sample is a locally generated premium result
+
+#### Scenario: Browser requests a video range
+- **WHEN** a gallery video requests a valid MP4 byte range
+- **THEN** the Reel Pipeline returns `206 Partial Content` with `Accept-Ranges`, `Content-Range`, and the requested bytes

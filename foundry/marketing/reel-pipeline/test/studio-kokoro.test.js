@@ -63,20 +63,16 @@ test('lesson tts provider selection honours explicit provider', () => {
   assert.throws(() => resolveTtsSynthesizer({ ttsProvider: 'bogus' }), /unsupported LESSON_TTS_PROVIDER/);
 });
 
-test('resolvePexelsKey prefers env then falls back to the MPT config file', async (t) => {
-  const dir = await mkdtemp(path.join(tmpdir(), 'kokoro-cfg-'));
-  const configPath = path.join(dir, 'config.toml');
-  await writeFile(configPath, 'pexels_api_keys = ["file-key-123"]\n');
+test('resolvePexelsKey reads only the explicit environment variable', async (t) => {
   const original = process.env.PEXELS_API_KEY;
   t.after(() => {
     if (original === undefined) delete process.env.PEXELS_API_KEY;
     else process.env.PEXELS_API_KEY = original;
   });
   process.env.PEXELS_API_KEY = 'env-key';
-  assert.equal(resolvePexelsKey({ configPath }), 'env-key');
+  assert.equal(resolvePexelsKey(), 'env-key');
   delete process.env.PEXELS_API_KEY;
-  assert.equal(resolvePexelsKey({ configPath }), 'file-key-123');
-  assert.equal(resolvePexelsKey({ configPath: path.join(dir, 'missing.toml') }), null);
+  assert.equal(resolvePexelsKey(), null);
 });
 
 test('kokoro compose readiness includes model, Pexels, and drawtext requirements', () => {

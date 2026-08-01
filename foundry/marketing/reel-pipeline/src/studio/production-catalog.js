@@ -5,6 +5,12 @@ const CHANNELS = [...arsenalConfig.channels];
 const QUALITY_TIERS = [...arsenalConfig.qualityTiers];
 const SPEND = Object.fromEntries(Object.entries(arsenalConfig.spendClasses).map(([id, value]) => [id, { id, ...value }]));
 const RECIPE_DEFINITIONS = arsenalConfig.recipes.map((entry) => recipe(entry));
+const MAX_RECIPE_VARIANTS = 256;
+const DELIVERY_LABELS = {
+  'final-video': 'Final MP4',
+  preview: 'Preview artifact',
+  continuation: 'Continue in another tool',
+};
 
 export function listProductionProjects() {
   return Object.entries(brandConfig.brands ?? {}).map(([slug, brand]) => ({
@@ -20,6 +26,10 @@ export function listProductionRecipes(context = {}) {
   return RECIPE_DEFINITIONS.map((definition) => decorateRecipe(definition, context));
 }
 
+export function listRecipeVariants(context = {}) {
+  return listProductionRecipes(context).flatMap((recipe) => recipe.variants);
+}
+
 export function getProductionRecipe(id, context = {}) {
   const definition = RECIPE_DEFINITIONS.find((entry) => entry.id === id);
   if (!definition) throw new Error(`unknown video recipe: ${id}`);
@@ -28,15 +38,35 @@ export function getProductionRecipe(id, context = {}) {
 
 export function normalizeRecipeOptions(recipeId, input = {}) {
   const recipe = getProductionRecipe(recipeId);
+  const variants = recipe.variants;
+  const variantById = input.variantId ? variants.find((variant) => variant.id === input.variantId) : null;
+  if (input.variantId && !variantById) throw new Error(`unsupported variant for ${recipeId}: ${input.variantId}`);
+  const requestedValues = Object.fromEntries(recipe.options.map((option) => [
+    option.id,
+    normalizeOption(option, input.values?.[option.id] ?? input[option.id] ?? variantById?.values?.[option.id]),
+  ]));
+  const selectedVariant = variantById
+    ?? variants.find((variant) => finiteValuesMatch(recipe.options, variant.values, requestedValues));
+  if (!selectedVariant) throw new Error(`unsupported variant for ${recipeId}: ${input.variantId ?? JSON.stringify(requestedValues)}`);
+  for (const option of recipe.options.filter((entry) => entry.type !== 'text')) {
+    if (requestedValues[option.id] !== selectedVariant.values[option.id]) {
+      throw new Error(`${option.id} does not match variant ${selectedVariant.id}`);
+    }
+  }
   const channel = input.channel ?? recipe.defaults.channel;
   if (!recipe.channels.includes(channel)) throw new Error(`unsupported channel for ${recipeId}: ${channel}`);
   const durationSeconds = boundedInteger(input.durationSeconds ?? recipe.defaults.durationSeconds, 5, 90, 'durationSeconds');
   const qualityTier = input.qualityTier ?? recipe.defaults.qualityTier;
   if (!QUALITY_TIERS.includes(qualityTier)) throw new Error(`qualityTier must be one of ${QUALITY_TIERS.join(', ')}`);
   const variantCount = boundedInteger(input.variantCount ?? recipe.defaults.variantCount, 1, 6, 'variantCount');
-  const values = {};
-  for (const option of recipe.options) values[option.id] = normalizeOption(option, input.values?.[option.id] ?? input[option.id]);
-  return { channel, durationSeconds, qualityTier, variantCount, values };
+  return {
+    variantId: selectedVariant.id,
+    channel,
+    durationSeconds,
+    qualityTier,
+    variantCount,
+    values: { ...selectedVariant.values, ...requestedValues },
+  };
 }
 
 export function productionActions(brief, context = {}) {
@@ -63,13 +93,91 @@ export function productionActions(brief, context = {}) {
 
 function decorateRecipe(definition, context) {
   const readiness = readinessFor(definition, context);
-  return structuredClone({ ...definition, spend: SPEND[definition.spend], readiness });
+  const decorated = structuredClone({
+    ...definition,
+    spend: SPEND[definition.spend],
+    readiness,
+    delivery: deliveryMetadata(definition.delivery),
+  });
+  decorated.variants = expandRecipeVariants(decorated);
+  return decorated;
+}
+
+function expandRecipeVariants(recipe) {
+  const boundedOptions = recipe.options.filter((option) => option.type !== 'text');
+  const unboundedOptions = recipe.options
+    .filter((option) => option.type === 'text')
+    .map((option) => ({ id: option.id, label: option.label, type: option.type, placeholder: option.placeholder ?? null }));
+  const dimensions = boundedOptions.map((option) => ({
+    option,
+    values: option.type === 'boolean' ? [false, true] : option.choices,
+  }));
+  const combinations = dimensions.reduce(
+    (rows, dimension) => rows.flatMap((row) => dimension.values.map((value) => ({ ...row, [dimension.option.id]: value }))),
+    [{}],
+  );
+  if (combinations.length > MAX_RECIPE_VARIANTS) {
+    throw new Error(`${recipe.id}: variant expansion exceeds ${MAX_RECIPE_VARIANTS}`);
+  }
+  return combinations.map((finiteValues) => {
+    const values = { ...finiteValues };
+    for (const option of recipe.options.filter((entry) => entry.type === 'text')) values[option.id] = option.default;
+    const optionLabels = boundedOptions.map((option) => `${option.label}: ${displayOptionValue(values[option.id])}`);
+    const idParts = boundedOptions.map((option) => `${stableSegment(option.id)}-${stableSegment(values[option.id])}`);
+    if (unboundedOptions.length) idParts.push('custom-input');
+    return {
+      id: `${recipe.id}--${idParts.join('--') || 'default'}`,
+      recipeId: recipe.id,
+      group: recipe.group,
+      name: recipe.name,
+      label: optionLabels.length ? `${recipe.name} — ${optionLabels.join(', ')}` : recipe.name,
+      values,
+      unboundedOptions: structuredClone(unboundedOptions),
+      delivery: structuredClone(recipe.delivery),
+      spend: structuredClone(recipe.spend),
+      runtime: recipe.runtime,
+      owner: recipe.owner,
+      outputStyle: recipe.outputStyle,
+      action: structuredClone(recipe.action),
+      readiness: structuredClone(recipe.readiness),
+      selectable: true,
+      executionReady: recipe.delivery.kind === 'final-video' && recipe.action.kind === 'execute' && recipe.readiness.state === 'ready',
+      autoEligible: recipe.delivery.kind === 'final-video' && recipe.action.kind === 'execute' && recipe.readiness.state === 'ready',
+    };
+  });
+}
+
+function deliveryMetadata(kind) {
+  if (!DELIVERY_LABELS[kind]) throw new Error(`unsupported delivery kind: ${kind}`);
+  return { kind, label: DELIVERY_LABELS[kind] };
+}
+
+function finiteValuesMatch(options, expected, actual) {
+  return options.filter((option) => option.type !== 'text').every((option) => expected[option.id] === actual[option.id]);
+}
+
+function displayOptionValue(value) {
+  if (typeof value === 'boolean') return value ? 'On' : 'Off';
+  return String(value).split('-').map((part) => part ? part[0].toUpperCase() + part.slice(1) : part).join(' ');
+}
+
+function stableSegment(value) {
+  const segment = String(value).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return segment || 'default';
 }
 
 function readinessFor(definition, context) {
   const brief = context.brief ?? null;
   const missing = missingBriefRequirements(definition, brief);
   if (missing.length) return { state: 'needs-input', ready: false, blocker: `Add ${missing.join(', ')} before continuing.` };
+  if (definition.engine === 'html-composition') {
+    const capability = context.htmlCapability;
+    if (!capability?.ready) return {
+      state: 'needs-runtime',
+      ready: false,
+      blocker: capability?.blocker ?? 'Chrome and FFmpeg must be ready before this recipe can produce a final MP4.',
+    };
+  }
   if (definition.readiness === 'blender') {
     const capability = context.blenderCapability;
     if (!capability?.ready) return { state: 'needs-runtime', ready: false, blocker: capability?.blocker ?? 'Check Blender 5.2 readiness on this machine.' };
@@ -80,9 +188,6 @@ function readinessFor(definition, context) {
       ready: false,
       blocker: context.kokoroBlocker ?? 'Install the local Kokoro model and configure the b-roll source.',
     };
-  }
-  if (definition.readiness === 'moneyprinter' && context.moneyprinterReady !== true) {
-    return { state: 'needs-runtime', ready: false, blocker: 'Start and verify the MoneyPrinterTurbo service.' };
   }
   if (definition.readiness === 'grok-asset') {
     const asset = brief?.recipeOptions?.values?.approvedAssetPath;
@@ -160,6 +265,7 @@ function recipe(input) {
     requirements: [],
     readiness: null,
     action: { kind: 'execute', label: 'Build preview', href: null },
+    delivery: 'preview',
     ...structuredClone(input),
     defaults: { channel: 'youtube_shorts', ...input.defaults },
   };

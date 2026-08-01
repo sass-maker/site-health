@@ -49,6 +49,7 @@ export function normalizeVideoBrief(input) {
     screenshots: normalizeScreenshots(input.screenshots),
     demoSteps: normalizeDemoSteps(input.demoSteps ?? input.demo_steps),
     literalScenes: normalizeLiteralScenes(input.literalScenes ?? input.literal_scenes),
+    renderOptions: normalizeRenderOptions(input.renderOptions ?? input.render_options),
     renderMode: normalizeRenderMode(input.renderMode ?? input.render_mode),
     durationSeconds: normalizeDuration(input.durationSeconds ?? input.duration_seconds),
   };
@@ -111,7 +112,21 @@ function normalizeLiteralScenes(value) {
     objects: Array.isArray(scene?.objects) ? scene.objects.map(optionalString).filter(Boolean).slice(0, 8) : ['subject'],
     camera: optionalString(scene?.camera),
     palette: optionalString(scene?.palette),
+    visualStyle: optionalString(scene?.visualStyle ?? scene?.visual_style),
   }));
+}
+
+function normalizeRenderOptions(value) {
+  if (value === undefined || value === null) return undefined;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('renderOptions must be an object');
+  const entries = Object.entries(value).slice(0, 20).map(([key, candidate]) => {
+    if (!/^[a-z][a-zA-Z0-9]{0,39}$/.test(key)) throw new Error(`unsupported render option key: ${key}`);
+    if (typeof candidate === 'boolean') return [key, candidate];
+    if (typeof candidate === 'number' && Number.isFinite(candidate)) return [key, candidate];
+    if (typeof candidate === 'string') return [key, candidate.trim().slice(0, 160)];
+    throw new Error(`render option ${key} must be a string, number, or boolean`);
+  });
+  return entries.length ? Object.fromEntries(entries) : undefined;
 }
 
 export function briefFromMarketingPost(post) {
@@ -125,51 +140,8 @@ export function briefFromMarketingPost(post) {
     hook: post.hook ?? post.title,
     body: post.body,
     cta: post.cta,
-    renderMode: 'stock',
+    renderMode: 'html-composition',
   });
-}
-
-export function toMoneyPrinterRequest(brief) {
-  return {
-    video_subject: `${brief.projectSlug}: ${brief.title}`,
-    video_script: buildNarrationScript(brief),
-    video_terms: extractSearchTerms(brief),
-    video_aspect: '9:16',
-    video_concat_mode: 'random',
-    video_transition_mode: 'FadeIn',
-    video_clip_duration: 4,
-    video_count: 1,
-    video_source: 'pexels',
-    voice_name: 'en-US-AriaNeural-Female',
-    voice_rate: 1.05,
-    bgm_type: 'random',
-    bgm_volume: 0.12,
-    subtitle_enabled: true,
-    subtitle_position: 'bottom',
-    font_size: 68,
-    stroke_color: '#000000',
-    stroke_width: 2,
-  };
-}
-
-function buildNarrationScript(brief) {
-  const lines = [
-    brief.hook,
-    cleanForNarration(brief.body),
-    brief.cta ? `Try this next: ${brief.cta}` : '',
-  ].filter(Boolean);
-  return lines.join('\n\n');
-}
-
-function extractSearchTerms(brief) {
-  const terms = [
-    brief.projectSlug.replaceAll('-', ' '),
-    brief.audience,
-    brief.title,
-    'software demo',
-    'startup product',
-  ].filter(Boolean);
-  return Array.from(new Set(terms)).slice(0, 5);
 }
 
 function looksLikeVideoBrief(body) {
@@ -182,15 +154,6 @@ function looksLikeVideoBrief(body) {
   );
 }
 
-function cleanForNarration(text) {
-  return text
-    .replace(/^#+\s+/gm, '')
-    .replace(/\*\*/g, '')
-    .replace(/[-*]\s+/g, '')
-    .replace(/\b(asset prompts?|edit notes?|shot list|captions?):/gi, '')
-    .trim();
-}
-
 function normalizeChannel(channel) {
   const value = stringOrThrow(channel, 'channel');
   if (!CHANNELS.has(value)) throw new Error(`unsupported channel: ${value}`);
@@ -198,13 +161,9 @@ function normalizeChannel(channel) {
 }
 
 function normalizeRenderMode(mode) {
-  const value = optionalString(mode) ?? 'stock';
+  const value = optionalString(mode) ?? 'html-composition';
   if (![
-    'stock',
-    'remotion',
-    'reel-maker',
     'mock',
-    'moneyprinterturbo',
     'grok',
     'grok-video',
     'grok-videos',

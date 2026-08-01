@@ -5,7 +5,8 @@ import { buildPublishPacket } from './packet.js';
 import { runImportedVariantWorkflow } from '../significant-content-handoff.js';
 import { runStudioAutopilot, studioAutopilotStatus } from './autopilot.js';
 import { buildStudioArsenal } from './arsenal.js';
-import { probeBlender } from '../adapters/blender.js';
+import { probeBlenderVideo } from '../adapters/blender.js';
+import { probeHtmlComposition } from '../adapters/html-composition.js';
 import { probeKokoroComposeReadiness } from '../adapters/kokoro-compose.js';
 
 /** Fill the backlog: generate ideas for a niche and save them as `new`. */
@@ -116,7 +117,8 @@ export async function factoryStatus({ store, recent = 5 } = {}) {
 
 /** Read-only, machine-readable discovery contract for an AI or CLI operator. */
 export async function inspectStudioArsenal(options = {}) {
-  const blenderCapability = options.blenderCapability ?? await probeBlender(options.blender ?? {});
+  const blenderCapability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
+  const htmlCapability = options.htmlCapability ?? await probeHtmlComposition(options.rendererOptions?.htmlComposition ?? {});
   const kokoroCapability = options.kokoroCapability ?? probeKokoroComposeReadiness({
     kokoroDir: options.kokoroDir,
     kokoroReady: options.kokoroReady,
@@ -127,9 +129,9 @@ export async function inspectStudioArsenal(options = {}) {
   });
   const recipeContext = {
     blenderCapability,
+    htmlCapability,
     kokoroReady: kokoroCapability.ready,
     kokoroBlocker: kokoroCapability.blocker,
-    moneyprinterReady: options.moneyprinterReady === true,
   };
   return buildStudioArsenal({
     filters: options.filters,

@@ -109,7 +109,7 @@ specialized runtimes:
 
 | Video kind | Runtime owner | Studio action |
 | --- | --- | --- |
-| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock, Kokoro, or MoneyPrinterTurbo |
+| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock or Kokoro |
 | Brand reel | Anonymous Brand Reel | Continue to `/` with the public canonical website source prefilled |
 | Guided app demo | Forge | Continue to the authenticated Forge host with the brief id, project, workflow kind, and public source prefilled after source rights are approved |
 | Coherent film | Forge | Continue to the authenticated Forge host with safe project/source context and complete Film-style inputs there |

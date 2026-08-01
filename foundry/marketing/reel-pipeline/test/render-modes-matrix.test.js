@@ -53,7 +53,7 @@ test('render mode smoke report is stable machine-readable evidence', () => {
     now: new Date('2026-07-09T00:00:00.000Z'),
     checks: [
       { name: 'mock', status: 'ok', detail: 'provider=mock status=completed manifest=/tmp/manifest.json' },
-      { name: 'moneyprinterturbo', status: 'skip', hint: 'start service' },
+      { name: 'render-pro', status: 'skip', hint: 'needs approved reel id' },
     ],
   });
 
@@ -69,10 +69,10 @@ test('render mode smoke report is stable machine-readable evidence', () => {
       hint: null,
     },
     {
-      name: 'moneyprinterturbo',
+      name: 'render-pro',
       status: 'skip',
       detail: null,
-      hint: 'start service',
+      hint: 'needs approved reel id',
     },
   ]);
 });

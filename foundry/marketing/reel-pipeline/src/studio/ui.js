@@ -661,13 +661,12 @@ export function studioPageHtml() {
                   <select id="brief-engine">
                     <option value="mock">Mock proof</option>
                     <option value="kokoro">Kokoro local</option>
-                    <option value="moneyprinterturbo">MoneyPrinterTurbo</option>
                     <option value="lyric-canvas">Lyric canvas</option>
                     <option value="blender">Blender literal scenes</option>
                     <option value="html-composition">HTML / Canvas composition</option>
                     <option value="ascii">ASCII animation</option>
                     <option value="grok-video">Approved Grok asset</option>
-                    <option value="reel-maker">Reel Maker / Remotion</option>
+                    <option value="brand-reel">Brand Reel handoff</option>
                     <option value="forge">Forge</option>
                     <option value="ltx">Forge local model</option>
                     <option value="editorial">Editorial</option>

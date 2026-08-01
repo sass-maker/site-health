@@ -13,8 +13,8 @@ export const VIDEO_KINDS = ['faceless', 'brand-reel', 'guided-app-demo', 'cohere
 export const BRIEF_LIFECYCLES = ['planned', 'producing', 'needs-review', 'ready-for-distribution', 'scheduled', 'distributed', 'failed'];
 const CHANNELS = ['instagram_reels', 'youtube_shorts'];
 const ENGINES = [
-  'mock', 'kokoro', 'moneyprinterturbo', 'lyric-canvas', 'blender',
-  'html-composition', 'ascii', 'grok-video', 'reel-maker', 'forge', 'ltx', 'editorial', 'threejs',
+  'mock', 'kokoro', 'lyric-canvas', 'blender',
+  'html-composition', 'ascii', 'grok-video', 'brand-reel', 'forge', 'ltx', 'editorial', 'threejs',
 ];
 const RIGHTS_STATES = ['unknown', 'approved', 'rejected'];
 const CREATIVE_STATES = ['proposed', 'approved', 'rejected'];

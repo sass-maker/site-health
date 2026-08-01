@@ -7,60 +7,17 @@ Engine facts live here; the adapter code lives under `src/adapters/` and
 
 ## Strategy
 
-- Default to cheap/local render paths first, then premium UGC actors when
-  quality requires it.
+- Default to repository-owned local render paths first, then explicit
+  specialized handoffs when quality requires them.
 - Keep render engines behind adapters under `src/adapters/`. Do not edit
-  vendored upstream engines under `engines/*` unless there is no adapter-only
-  path; prefer sending patches upstream.
+  third-party engine checkouts into this service.
 - Every engine integration must have a smoke test that proves
   request → status → artifact metadata.
-- `MoneyPrinterTurbo`: default cheap renderer for stock-footage + voice +
-  subtitles.
 - `OpenShorts`: rejected UGC actor workflow; adapter and submodule removed (see
   [`decisions/0002-openshorts-removed-parked.md`](./decisions/0002-openshorts-removed-parked.md)).
-- `reel-maker`: legacy Remotion/Modal engine; reuse pieces after the pipeline
-  contract is stable.
-
-## Pinned submodules
-
-`reel-pipeline` pins upstream engines as git submodules. They are not copied
-into the product layer and must not auto-update. Verify with:
-
-```bash
-git submodule status
-```
-
-| Engine | Path | Commit | Ref | Role |
-| --- | --- | --- | --- | --- |
-| MoneyPrinterTurbo | `engines/MoneyPrinterTurbo` | `bf229e20012e38f3bf161679fa98894b1e6f6d63` | `v1.2.8` | default cheap stock-footage renderer |
-| reel-maker | `engines/reel-maker` | `cedeeea002566bb81b2dff7b67ef852957fadbaf` | `heads/main` | internal Remotion + Modal prototype engine |
-
-The pin manifest above is generated from `git submodule status`. Update it
-intentionally, always alongside a passing render canary, and record the new
-commit + artifact URL in the change description.
-
-> Gotcha: `reel-maker` floats on `heads/main`, while MoneyPrinterTurbo is
-> pinned to a tag. A bare `git submodule update --remote` silently advances the
-> floating engine without a canary — never run that
-> on `main`. Use the upgrade flow in
-> [`development/submodules.md`](../development/submodules.md).
-
-## MoneyPrinterTurbo
-
-- Upstream: `https://github.com/harry0703/MoneyPrinterTurbo` (MIT).
-- Local path: `engines/MoneyPrinterTurbo`.
-- Role: default cheap renderer for stock-footage reels. Good for stock-footage
-  videos with Edge TTS, subtitles, background music, and FFmpeg/MoviePy
-  composition.
-- Why first: MIT licensed, heavily starred, actively maintained, and practical
-  for fast MP4 generation. The first canary uses locally generated fixtures so
-  the renderer can be verified without API quota.
-- Dependencies: Python 3.11, FFmpeg, ImageMagick, one LLM provider, stock media
-  source such as Pexels/Pixabay or local materials, optional Redis, optional
-  Upload-Post.
-- Current status: HTTP adapter implemented (`src/adapters/moneyprinterturbo.js`,
-  `reel/src/engine/moneyprinter.rs`); local canary implemented; real MP4 upload
-  to R2 verified.
+- Checkout-backed MoneyPrinterTurbo and reel-maker integrations were removed on
+  2026-08-01. Neither was initialized on the working host, while repository-owned
+  render paths already covered the supported local workflow.
 
 ## Grok / Imagine local MP4s
 
@@ -135,17 +92,6 @@ commit + artifact URL in the change description.
   two-stage generation with model revision, prompt, seed, dimensions, frame
   count, runtime, and hash. Publication rights remain an explicit asset-level
   gate.
-
-## reel-maker
-
-- Upstream: `https://github.com/sarthakagrawal927/reel-maker`.
-- Local path: `engines/reel-maker`.
-- Role: older internal Remotion + Modal prototype. Kept as a reference engine.
-  It should either be superseded by this repo or reused behind the same
-  `VideoBrief` adapter contract.
-- Current status: Remotion shell-out adapter (`src/adapters/reel-maker.js`,
-  `reel/src/engine/reel_maker.rs`); the `remotion` mode. Lower priority than
-  `render-pro.js`, which is the canonical production renderer.
 
 ## OpenShorts (removed)
 

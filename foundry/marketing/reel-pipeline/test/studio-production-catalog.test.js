@@ -7,17 +7,18 @@ import {
   getProductionRecipe,
   listProductionProjects,
   listProductionRecipes,
+  listRecipeVariants,
   normalizeRecipeOptions,
   productionActions,
 } from '../src/studio/production-catalog.js';
 
 test('production catalog covers every requested runtime with normalized comparison fields', () => {
   const recipes = listProductionRecipes({
+    htmlCapability: { ready: true, blocker: null },
     blenderCapability: { ready: false, blocker: 'Blender unavailable for test.' },
     kokoroReady: false,
-    moneyprinterReady: false,
   });
-  assert.equal(recipes.length, 13);
+  assert.equal(recipes.length, 12);
   assert.deepEqual(recipes.map((entry) => entry.id), PRODUCTION_RECIPE_IDS);
   assert.deepEqual(PRODUCTION_SPEND_CLASSES, ['none', 'local-compute', 'external-service', 'paid-api']);
   for (const recipe of recipes) {
@@ -32,7 +33,6 @@ test('production catalog covers every requested runtime with normalized comparis
   assert.equal(getProductionRecipe('threejs-scene').owner, 'Editorial');
   assert.equal(getProductionRecipe('blender-film', { blenderCapability: { ready: true } }).readiness.state, 'ready');
   assert.match(getProductionRecipe('local-voice-film').readiness.blocker, /Kokoro/i);
-  assert.match(getProductionRecipe('stock-faceless').readiness.blocker, /MoneyPrinterTurbo/i);
 });
 
 test('recipe options are bounded, normalized, and reject unsupported values', () => {
@@ -43,6 +43,7 @@ test('recipe options are bounded, normalized, and reject unsupported values', ()
     variantCount: 3,
     values: { palette: 'terminal' },
   }), {
+    variantId: 'ascii-story--palette-terminal',
     channel: 'instagram_reels',
     durationSeconds: 18,
     qualityTier: 'draft',
@@ -54,11 +55,65 @@ test('recipe options are bounded, normalized, and reject unsupported values', ()
   assert.throws(() => getProductionRecipe('imaginary-engine'), /unknown video recipe/);
 });
 
+test('recipe catalog expands all bounded combinations into stable selectable variants', () => {
+  const context = {
+    htmlCapability: { ready: true, blocker: null },
+    blenderCapability: { ready: true, blocker: null },
+    kokoroReady: true,
+  };
+  const variants = listRecipeVariants(context);
+  assert.equal(variants.length, 48);
+  assert.equal(new Set(variants.map((variant) => variant.id)).size, 48);
+  assert.ok(variants.every((variant) => variant.selectable));
+  assert.deepEqual(
+    variants.filter((variant) => variant.recipeId === 'blender-film').map((variant) => variant.id),
+    [
+      'blender-film--visualstyle-cosmic-shrine',
+      'blender-film--visualstyle-brutalist-monument',
+      'blender-film--visualstyle-glass-studio',
+      'blender-film--visualstyle-low-poly-valley',
+      'blender-film--visualstyle-organic-bloom',
+      'blender-film--visualstyle-kinetic-sculpture',
+      'blender-film--visualstyle-neon-tunnel',
+      'blender-film--visualstyle-paper-diorama',
+    ],
+  );
+  const grok = variants.find((variant) => variant.recipeId === 'grok-asset-film');
+  assert.equal(grok.id, 'grok-asset-film--custom-input');
+  assert.deepEqual(grok.unboundedOptions.map((option) => option.id), ['approvedAssetPath']);
+  assert.equal(grok.readiness.state, 'needs-input');
+  assert.equal(grok.delivery.kind, 'final-video');
+  assert.ok(variants.filter((variant) => variant.autoEligible).every((variant) => variant.delivery.kind === 'final-video'));
+  assert.ok(variants.filter((variant) => variant.delivery.kind === 'continuation').every((variant) => !variant.autoEligible));
+});
+
+test('stable variant ids select finite values while duration and free-form input stay separate', () => {
+  assert.deepEqual(normalizeRecipeOptions('literal-lyric-video', {
+    variantId: 'literal-lyric-video--visualstyle-kinetic-type--useblender-true',
+    durationSeconds: 60,
+  }), {
+    variantId: 'literal-lyric-video--visualstyle-kinetic-type--useblender-true',
+    channel: 'youtube_shorts',
+    durationSeconds: 60,
+    qualityTier: 'high',
+    variantCount: 1,
+    values: { visualStyle: 'kinetic-type', useBlender: true },
+  });
+  assert.equal(normalizeRecipeOptions('grok-asset-film', {
+    variantId: 'grok-asset-film--custom-input',
+    values: { approvedAssetPath: '/tmp/approved.mp4' },
+  }).values.approvedAssetPath, '/tmp/approved.mp4');
+  assert.throws(() => normalizeRecipeOptions('ascii-story', {
+    variantId: 'ascii-story--palette-terminal',
+    values: { palette: 'amber' },
+  }), /does not match variant/);
+});
+
 test('terminal actions distinguish local build, external continuation, preview, and Postiz evidence', () => {
   const local = productionActions({
     id: 'brief-local', recipeId: 'image-slideshow', projectSlug: 'high-signal',
     media: null, sourceEvidence: {}, approval: {},
-  });
+  }, { htmlCapability: { ready: true, blocker: null } });
   assert.equal(local.build.kind, 'execute');
   assert.equal(local.build.enabled, true);
   assert.equal(local.preview.enabled, false);

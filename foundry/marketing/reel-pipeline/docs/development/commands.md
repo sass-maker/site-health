@@ -29,8 +29,6 @@ commands.
 | `npm run render:html -- --brief <file>` | Export HTML composition artifacts |
 | `npm run render:package -- --file <package>` | Render an approved content package |
 | `npm run render:podcast-edit -- --file <podcast-edit>` | Render an approved `fleet.podcast-edit.v1` document |
-| `npm run render:reel-maker` | Run the reel-maker adapter |
-| `npm run canary:moneyprinter` | Real MoneyPrinterTurbo MP4 canary |
 | `npm run probe:engines` | Inspect renderer prerequisites without rendering |
 
 ## Podcast editorial

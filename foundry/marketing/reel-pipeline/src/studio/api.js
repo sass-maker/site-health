@@ -8,7 +8,8 @@ import { generateThumbnailConcepts } from './thumbnails.js';
 import { IdeaStore } from './idea-store.js';
 import { runFacelessWorkflow } from './workflow.js';
 import { renderLyricVideo } from '../lyric-video/compositor.js';
-import { probeBlender } from '../adapters/blender.js';
+import { probeBlenderVideo } from '../adapters/blender.js';
+import { probeHtmlComposition } from '../adapters/html-composition.js';
 import { probeKokoroComposeReadiness } from '../adapters/kokoro-compose.js';
 import { createPlatformAudioPreview } from '../platform-audio.js';
 import { planIdeas, produceNext, factoryStatus } from './factory.js';
@@ -34,10 +35,11 @@ import {
   studioPostizReadiness,
   submitStudioPostiz,
 } from './distribution.js';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { listExploreGallery, openExploreGalleryMedia } from './explore-gallery.js';
 
-const FACELESS_ENGINES = new Set(['mock', 'moneyprinterturbo', 'kokoro']);
+const FACELESS_ENGINES = new Set(['mock', 'kokoro']);
 
 export function toolHandlers(options = {}) {
   const llm = options.llm;
@@ -153,8 +155,9 @@ async function serveRenderFile(rawPath, options) {
   const type = FILE_TYPES[path.extname(resolved).toLowerCase()];
   if (!type) return { status: 403, body: { error: 'unsupported file type' } };
   try {
-    const content = await readFile(resolved);
-    return { status: 200, raw: { content, contentType: type } };
+    const info = await stat(resolved);
+    if (!info.isFile() || info.size < 1) throw new Error('not a file');
+    return { status: 200, raw: { path: resolved, size: info.size, filename: path.basename(resolved), contentType: type } };
   } catch {
     return { status: 404, body: { error: 'file not found' } };
   }
@@ -163,13 +166,21 @@ async function serveRenderFile(rawPath, options) {
 export async function handleStudioRequest(method, pathname, readBody, options = {}, query = {}) {
   if (!pathname.startsWith('/studio/')) return null;
   const tool = pathname.slice('/studio/'.length);
+  if (method === 'GET' && tool === 'explore-gallery') {
+    return { status: 200, body: { data: await listExploreGallery(options) } };
+  }
+  const galleryMediaMatch = tool.match(/^explore-gallery\/([^/]+)\/media$/);
+  if (method === 'GET' && galleryMediaMatch) {
+    const raw = await openExploreGalleryMedia(decodeURIComponent(galleryMediaMatch[1]), options);
+    return raw ? { status: 200, raw } : { status: 404, body: { error: 'gallery sample not found' } };
+  }
   const briefStore = () => options.briefStore ?? new MarketingBriefStore(options.briefStoreOptions);
   await ensureProductionReadiness(options);
 
   if (method === 'GET' && tool === 'arsenal') {
     const brief = query.briefId ? await briefStore().get(query.briefId) : null;
     if (query.briefId && !brief) return { status: 404, body: { error: 'marketing brief not found' } };
-    const blenderCapability = options.blenderCapability ?? await probeBlender(options.blender ?? {});
+    const blenderCapability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
     options.blenderCapability = blenderCapability;
     const recipeContext = { ...productionContext(options), brief };
     const data = await buildStudioArsenal({
@@ -192,13 +203,13 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
     };
   }
   if (method === 'GET' && tool === 'blender-readiness') {
-    const capability = options.blenderCapability ?? await probeBlender(options.blender ?? {});
+    const capability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
     options.blenderCapability = capability;
     return { status: 200, body: { data: capability } };
   }
   if (method === 'GET' && tool === 'production-planner') {
     const store = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
-    const blenderCapability = options.blenderCapability ?? await probeBlender(options.blender ?? {});
+    const blenderCapability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
     options.blenderCapability = blenderCapability;
     const context = productionContext(options);
     return {
@@ -530,7 +541,10 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
 
 async function ensureProductionReadiness(options) {
   if (options.blenderCapability == null) {
-    options.blenderCapability = await probeBlender(options.blender ?? {});
+    options.blenderCapability = await probeBlenderVideo(options.blender ?? {});
+  }
+  if (options.htmlCapability == null) {
+    options.htmlCapability = await probeHtmlComposition(options.rendererOptions?.htmlComposition ?? {});
   }
   if (options.kokoroCapability == null) {
     options.kokoroCapability = probeKokoroComposeReadiness({
@@ -611,14 +625,16 @@ async function executeMarketingBrief(id, body, options, store) {
       hook: brief.hook,
       cta: brief.cta,
       creativeDirection: brief.creativeDirection,
+      renderOptions: brief.recipeOptions?.values,
       ideaId: brief.ideaId ?? undefined,
       recordingUrl: brief.recipeOptions?.values?.approvedAssetPath || undefined,
       literalScenes: brief.engine === 'blender' ? [{
         id: 'scene-1',
         lyric: brief.hook,
-        objects: ['subject'],
+        objects: [brief.hook],
         camera: brief.recipeOptions?.values?.camera,
         palette: brief.recipeOptions?.values?.palette,
+        visualStyle: brief.recipeOptions?.values?.visualStyle,
       }] : undefined,
       outputDir: options.facelessOutputDir,
       ideaStore: options.ideaStore,
@@ -686,9 +702,9 @@ function productionContext(options) {
     blenderCapability: options.blenderCapability ?? (options.blenderReady !== undefined
       ? { ready: options.blenderReady, blocker: options.blenderBlocker ?? null }
       : null),
+    htmlCapability: options.htmlCapability ?? null,
     kokoroReady: kokoroCapability.ready,
     kokoroBlocker: kokoroCapability.blocker,
-    moneyprinterReady: options.moneyprinterReady === true,
   };
 }
 

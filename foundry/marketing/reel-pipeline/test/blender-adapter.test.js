@@ -26,6 +26,15 @@ function fixtureRunner(calls) {
   };
 }
 
+function fixtureVideoRunner(calls) {
+  return async (binary, args) => {
+    calls.push({ binary, args: [...args] });
+    if (args.includes('-version')) return { stdout: 'ffmpeg version 7.1\n', stderr: '' };
+    await writeFile(args.at(-1), Buffer.from('fixture-video'));
+    return { stdout: '', stderr: '' };
+  };
+}
+
 const scenes = [
   {
     id: 'star-cue',
@@ -76,12 +85,29 @@ test('Blender scene manifest allows bounded literal objects and rejects code', (
   );
 });
 
+test('Blender visual styles select distinct bounded scene directions', () => {
+  const manifest = buildBlenderSceneManifest({
+    id: 'style-fixture',
+    scenes: [
+      { id: 'cosmic', lyric: 'A bright signal appears.', objects: ['star'], visualStyle: 'cosmic-shrine' },
+      { id: 'paper', lyric: 'The signal becomes a paper world.', objects: ['subject'], visualStyle: 'paper-diorama' },
+    ],
+  }, { runDir: '/tmp/blender-style-fixture' });
+  assert.equal(manifest.builderVersion, 'literal-scene-builder-v2');
+  assert.equal(manifest.scenes[0].visualStyle, 'cosmic-shrine');
+  assert.equal(manifest.scenes[0].camera, 'gentle-orbit');
+  assert.equal(manifest.scenes[1].visualStyle, 'paper-diorama');
+  assert.equal(manifest.scenes[1].camera, 'static');
+});
+
 test('Blender adapter smoke proves safe command posture and artifact provenance', async () => {
   const calls = [];
+  const videoCalls = [];
   const adapter = new BlenderAdapter({
     artifactDir: './tmp/blender-adapter-test',
     blenderPath: '/fixture/blender',
     commandRunner: fixtureRunner(calls),
+    videoCommandRunner: fixtureVideoRunner(videoCalls),
     now: () => new Date('2026-07-31T00:00:00Z'),
   });
   const render = await adapter.renderScenes({
@@ -90,12 +116,15 @@ test('Blender adapter smoke proves safe command posture and artifact provenance'
     width: 540,
     height: 960,
     samples: 8,
+    durationSeconds: 12,
   });
   assert.equal(render.status, 'completed');
   assert.equal(render.provider, 'blender');
   assert.equal(render.raw.blenderVersion, '5.2.0');
-  assert.equal(render.raw.builderVersion, 'literal-scene-builder-v1');
+  assert.equal(render.raw.builderVersion, 'literal-scene-builder-v2');
   assert.equal(render.raw.plates.length, 2);
+  assert.equal(render.videos.length, 1);
+  assert.equal(render.durationSeconds, 12);
   assert.ok(render.raw.plates.every((plate) => plate.bytes > 0 && plate.sha256.length === 64));
   const renderCall = calls[1];
   assert.equal(renderCall.binary, '/fixture/blender');
@@ -104,6 +133,9 @@ test('Blender adapter smoke proves safe command posture and artifact provenance'
   assert.ok(renderCall.args.includes('--disable-autoexec'));
   assert.ok(renderCall.args.includes('--python'));
   assert.match(renderCall.args[renderCall.args.indexOf('--python') + 1], /literal_scene_builder\.py$/);
+  assert.deepEqual(videoCalls[0].args, ['-version']);
+  assert.equal(videoCalls[1].binary, 'ffmpeg');
+  assert.match(videoCalls[1].args.at(-1), /literal-stars\.mp4$/);
 });
 
 test('Blender renderer is registered behind the existing adapter factory', () => {
@@ -111,6 +143,7 @@ test('Blender renderer is registered behind the existing adapter factory', () =>
     blender: {
       blenderPath: '/fixture/blender',
       commandRunner: fixtureRunner([]),
+      videoCommandRunner: fixtureVideoRunner([]),
     },
   });
   assert.equal(renderer.constructor.name, 'BlenderAdapter');

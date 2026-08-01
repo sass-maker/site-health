@@ -1,6 +1,4 @@
-import { MoneyPrinterTurboAdapter } from './adapters/moneyprinterturbo.js';
 import { MockRenderer } from './adapters/mock-renderer.js';
-import { ReelMakerAdapter } from './adapters/reel-maker.js';
 import { GrokVideoAdapter } from './adapters/grok-video.js';
 import { AsciiAnimationAdapter } from './adapters/ascii-animation.js';
 import { HtmlCompositionAdapter } from './adapters/html-composition.js';
@@ -10,46 +8,19 @@ import { publishRenderArtifacts } from './artifact-publisher.js';
 import { FileJobStore } from './job-store.js';
 import { assertRenderableReel, attachReelRender } from './reel-intake.js';
 import { normalizeVideoBrief } from './video-brief.js';
-import { ProductProofCapture, loadPlaywrightFactory } from './product-proof-capture.js';
 import { buildVariantPlan } from './reel-templates.js';
 import { scoreVariant } from './reel-quality.js';
 import { selfReviewRender } from './reel-self-review.js';
 import { wrapLegacyRenderer } from '../../content-factory/src/manifest.js';
 
-let cachedProductProofCapture = null;
-
-export async function resolveProductProofCapture(options = {}) {
-  if (options.productProofCapture) return options.productProofCapture;
-  if (options.reelMaker?.productProofCapture) return options.reelMaker.productProofCapture;
-  if (cachedProductProofCapture) return cachedProductProofCapture;
-  const browserFactory = await loadPlaywrightFactory();
-  if (!browserFactory) return null;
-  cachedProductProofCapture = new ProductProofCapture({
-    outputDir: options.proofOutputDir ?? process.env.REEL_PROOF_DIR ?? './tmp/product-proof',
-    browserFactory,
-    logger: options.logger,
-  });
-  return cachedProductProofCapture;
-}
-
 export function createRenderer(mode = 'mock', options = {}) {
-  if (mode === 'stock') return contentFactoryAdapter(new MoneyPrinterTurboAdapter(options.moneyprinterturbo));
-  if (mode === 'moneyprinterturbo') return contentFactoryAdapter(new MoneyPrinterTurboAdapter(options.moneyprinterturbo));
   if (mode === 'grok' || mode === 'grok-video' || mode === 'grok-videos') return contentFactoryAdapter(new GrokVideoAdapter(options.grokVideo ?? options.grok ?? {}));
   if (mode === 'ascii' || mode === 'ascii-animation' || mode === 'ascii-fable' || mode === 'askai') return contentFactoryAdapter(new AsciiAnimationAdapter(options.asciiAnimation ?? options.ascii ?? options.askai ?? {}));
   if (mode === 'html' || mode === 'html-composition' || mode === 'web-composition') return contentFactoryAdapter(new HtmlCompositionAdapter(options.htmlComposition ?? options.html ?? {}));
   if (mode === 'kokoro' || mode === 'kokoro-compose') return contentFactoryAdapter(new KokoroComposeAdapter(options.kokoroCompose ?? options.kokoro ?? {}));
   if (mode === 'blender') return contentFactoryAdapter(new BlenderAdapter(options.blender ?? {}));
   if (mode === 'openshorts' || mode === 'ugc_actor') {
-    throw new Error('openshorts/ugc_actor was removed; use mock or stock (MoneyPrinterTurbo)');
-  }
-  if (mode === 'remotion' || mode === 'reel-maker') {
-    return contentFactoryAdapter(new ReelMakerAdapter({
-      ...(options.reelMaker ?? options.reelmaker ?? {}),
-      productProofCapture: options.productProofCapture
-        ?? options.reelMaker?.productProofCapture
-        ?? null,
-    }));
+    throw new Error('openshorts/ugc_actor was removed; use a supported local renderer');
   }
   if (mode === 'mock') return contentFactoryAdapter(new MockRenderer(options.mock));
   throw new Error(`unsupported renderer mode: ${mode}`);
@@ -63,17 +34,7 @@ export async function renderReelVariants(brief, options = {}) {
   const variantCount = Math.max(1, Math.min(6, Number(options.variantCount ?? 1)));
   const mode = options.mode ?? brief.renderMode ?? 'mock';
   const plan = buildVariantPlan(brief, { variantCount });
-  const productProofCapture = (mode === 'remotion' || mode === 'reel-maker')
-    ? await resolveProductProofCapture(options)
-    : null;
-  const renderOptions = productProofCapture
-    ? {
-      ...options,
-      productProofCapture,
-      reelMaker: { ...(options.reelMaker ?? {}), productProofCapture },
-    }
-    : options;
-  const renderer = options.renderer ?? createRenderer(mode, renderOptions);
+  const renderer = options.renderer ?? createRenderer(mode, options);
   const variants = [];
   const renderLog = [];
 
@@ -91,7 +52,7 @@ export async function renderReelVariants(brief, options = {}) {
       // been rewritten to upload URLs). Verified facts beat claimed metadata.
       const review = raw.status === 'completed'
         ? await selfReviewRender(raw, {
-          commandRunner: options.commandRunner ?? options.reelMaker?.commandRunner,
+          commandRunner: options.commandRunner,
           ffprobePath: options.ffprobePath,
         })
         : null;
@@ -208,21 +169,13 @@ export async function renderReelDraft(id, options = {}) {
   const mode = options.mode ?? record.brief?.renderMode ?? 'mock';
   const variantCount = Math.max(1, Math.min(6, Number(options.variantCount ?? 1)));
   const wantsVariants = variantCount > 1;
-  const wantsProductProof = (mode === 'remotion' || mode === 'reel-maker')
-    && (record.brief?.productUrl || record.brief?.proofUrl || record.brief?.targetRoute
-      || (Array.isArray(record.brief?.screenshots) && record.brief.screenshots.length)
-      || (Array.isArray(record.brief?.demoSteps) && record.brief.demoSteps.length));
-
-  if (wantsVariants || wantsProductProof) {
-    const productProofCapture = await resolveProductProofCapture(options);
+  if (wantsVariants) {
     const { variants, renderLog } = await renderReelVariants(
       { ...record.brief, renderMode: mode },
       {
         ...options,
         mode,
         variantCount,
-        productProofCapture,
-        reelMaker: { ...(options.reelMaker ?? {}), productProofCapture },
       },
     );
     const reel = await attachReelRender(id, { variants, renderLog, job: { id: `${record.id}-render-${Date.now()}` } }, { reelStore });

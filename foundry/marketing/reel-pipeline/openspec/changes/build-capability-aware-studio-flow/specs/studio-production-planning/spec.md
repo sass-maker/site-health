@@ -78,6 +78,32 @@ Marketing Studio SHALL save the selected idea, recipe, channel, duration, qualit
 - **WHEN** a caller supplies an unsupported channel, duration, quality tier, variant count, or recipe option
 - **THEN** the Studio rejects or normalizes it before execution and reports the valid range
 
+### Requirement: Exhaustive finite recipe variants
+Marketing Studio SHALL deterministically expand every finite select and boolean recipe option into stable selectable variants while keeping duration, free text, file paths, and other unbounded inputs as separate fields.
+
+#### Scenario: Recipe has multiple finite options
+- **WHEN** a recipe defines three camera choices and three palette choices
+- **THEN** the catalog exposes all nine camera and palette variants with stable identifiers, normalized values, and deterministic ordering
+
+#### Scenario: Recipe requires an arbitrary local path
+- **WHEN** a recipe includes a free-text or file-path input
+- **THEN** the catalog exposes one selectable recipe variant and identifies the unresolved input instead of inventing path combinations
+
+#### Scenario: Variant catalog is regenerated
+- **WHEN** the same arsenal revision is loaded more than once
+- **THEN** every variant retains the same identifier, label, values, order, readiness, and delivery contract
+
+### Requirement: Explicit delivery contract
+Every recipe variant SHALL identify whether its successful action produces a final local MP4, a local preview, or an external continuation, and SHALL report runtime or input blockers separately from selectability.
+
+#### Scenario: Local recipe is labelled ready
+- **WHEN** a locally executable variant is reported as Ready
+- **THEN** confirmed execution produces a playable MP4 path and media evidence rather than only HTML or a still image
+
+#### Scenario: Variant is preview-only or external
+- **WHEN** a variant cannot produce a final local MP4 in Marketing Studio
+- **THEN** it remains selectable and is labelled Preview only or Continue elsewhere with its exact owner and next action
+
 ### Requirement: Truthful terminal actions
 Marketing Studio SHALL expose Edit, Build or Preview, and Prepare in Postiz actions for a saved plan, with each action enabled only when its prerequisites and ownership permit it.
 

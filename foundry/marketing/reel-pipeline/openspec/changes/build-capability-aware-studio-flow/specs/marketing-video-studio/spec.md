@@ -1,7 +1,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: Complete workflow catalog
-Marketing Studio SHALL show image slideshow, web motion, ASCII, faceless/lesson, brand reel, guided app demo, coherent local-model film, Grok-asset film, Blender film, podcast short, and lyric video as explicit recipes with truthful output style, spend posture, runtime owner, readiness, required inputs, supported channels, and action.
+Marketing Studio SHALL show image slideshow, web motion, ASCII, faceless/lesson, brand reel, guided app demo, coherent local-model film, Grok-asset film, Blender film, podcast short, and lyric video as explicit recipes with exhaustive finite variants, truthful delivery type, spend posture, runtime owner, readiness, required inputs, supported channels, and action. A recipe SHALL NOT be labelled Ready unless confirmed local execution returns a playable MP4.
 
 #### Scenario: Workflow is ready in another surface
 - **WHEN** a guided app demo brief has the inputs required by Forge
@@ -18,6 +18,10 @@ Marketing Studio SHALL show image slideshow, web motion, ASCII, faceless/lesson,
 #### Scenario: Multiple implementations produce similar output
 - **WHEN** image, web-motion, local-model, Grok, or Blender recipes can satisfy the same idea
 - **THEN** the Studio keeps them as distinct choices and compares their engine, spend, runtime, quality, and prerequisites without silently choosing the most expensive path
+
+#### Scenario: Browser or Blender composition is locally ready
+- **WHEN** the required local Chrome, FFmpeg, and Blender runtimes are available
+- **THEN** HTML composition and Blender variants produce final vertical MP4 artifacts and retain their source preview or plate evidence
 
 ### Requirement: Explicit execution confirmation
 Marketing Studio SHALL NOT execute a render solely because a project, idea, recipe, options, conversation, or brief was selected or saved and SHALL require an explicit operator build or continuation action.
@@ -40,4 +44,3 @@ Marketing Studio SHALL list saved plans and produced artifacts with their projec
 #### Scenario: Saved plan has no artifact
 - **WHEN** the operator opens a planned production before execution
 - **THEN** Productions identifies its selected recipe, readiness, blocker, and build or continuation action instead of displaying a fake preview
-

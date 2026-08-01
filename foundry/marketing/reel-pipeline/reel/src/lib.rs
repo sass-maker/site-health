@@ -3,8 +3,8 @@
 //! Rust orchestration for render engines and R2 artifact publishing. Heavy
 //! lifting stays behind traits and adapter-specific
 //! engines:
-//!   - [`engine::RenderEngine`] → render-pro, MoneyPrinterTurbo, Grok local
-//!     MP4s, ASCII animation, HTML composition, reel-maker, and mock engines.
+//!   - [`engine::RenderEngine`] → render-pro, Grok local MP4s, ASCII animation,
+//!     HTML composition, Blender, and mock engines.
 //!   - [`publisher::ArtifactPublisher`] → [`publisher::R2Publisher`]
 //!     (shells out to `wrangler r2 object put`).
 //!

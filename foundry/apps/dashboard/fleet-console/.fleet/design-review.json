@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Recipe-based video creation at /marketing",
+  "target": "48-variant video creation and playable style exploration at /marketing and /marketing/explore-gallery",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -20,15 +20,15 @@
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/fleet-console-marketing-maker/after-recipes-390.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/fleet-console-marketing-maker/after-recipes-768.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/fleet-console-marketing-maker/after-recipes-1440.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 34,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
-      "score": 18,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly required Settings to choose the concrete visual production format, including slideshow, Three.js, and ASCII, rather than only a content type."
+    "note": "Owner delegated the preserve-mode direction, required every bounded combination to remain selectable, and named the main-product route /marketing/explore-gallery."
   }
 }

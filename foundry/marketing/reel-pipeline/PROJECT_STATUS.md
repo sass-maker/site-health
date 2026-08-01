@@ -1,6 +1,6 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-07-31
+Last updated: 2026-08-01
 
 ## Why / What
 
@@ -21,8 +21,7 @@ owns that downstream lifecycle.
 - Postiz for draft review, scheduling, publishing, integrations, and metrics.
 - FFmpeg/Chromium and optional local render engines, including Blender 5.2, on
   generation hosts.
-- Optional MoneyPrinterTurbo, Kokoro, Grok/Imagine local assets, and Remotion
-  adapters.
+- Optional Kokoro, Grok/Imagine local assets, and Blender adapters.
 - Python 3.11+, uv, FFmpeg, and optional local transcription engines for the
   nested podcast editorial runtime.
 
@@ -35,6 +34,10 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-01:** removed the unused MoneyPrinterTurbo and reel-maker engine
+  submodules, their checkout-backed Node/Rust adapters, false readiness gates,
+  and the blocked stock-service recipe. Product Proof remains an explicit
+  Brand Reel handoff; local video creation remains repository-owned.
 - **2026-07-31:** added rights-gated literal lyric videos to Marketing Studio
   with exact timed-text preservation, separate composition and recording
   evidence, deterministic cue-to-scene planning, optional safe Blender 5.2
@@ -96,8 +99,8 @@ owns that downstream lifecycle.
 
 - VideoBrief validation and provider-neutral render adapters.
 - Content Factory manifests with hashes and provenance.
-- Local render modes: mock, HTML composition, ASCII, Grok local asset,
-  reel-maker adapter smoke, Kokoro, and brand video.
+- Local render modes: mock, HTML composition, ASCII, Blender, Grok local asset,
+  Kokoro, and brand video.
 - Worker/R2 render flow with Rust watch/render orchestration.
 - Significant Content and High Signal intake contracts.
 - Postiz integration mapping, media upload, and draft or exact future-schedule
@@ -112,7 +115,12 @@ owns that downstream lifecycle.
   captions, attribution, approved audio, hashes, and quality evidence.
 - Safe Blender 5.2 adapter execution through a repository-owned scene builder,
   bounded manifests, factory startup, disabled auto-execution, run-directory
-  path controls, versioned provenance, and artifact hashes.
+  path controls, versioned provenance, artifact hashes, and eight distinct
+  local 3D scene languages.
+- A secret-free, byte-range-capable Explore Gallery registry with 41 playable
+  local examples, truthful baseline/experiment provenance, style-family
+  filtering in Fleet Console, and exact handoff into 48 selectable production
+  combinations.
 - Unified Create, Productions, Distribute, and Tools operator views with
   explicit execution, local artifact playback, quality state, specialized
   runtime continuations, safe public-field prefill for Brand Reel and Forge,
