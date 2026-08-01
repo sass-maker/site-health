@@ -106,7 +106,6 @@ test('factory arsenal command emits the same filterable schema without executing
     'arsenal',
     '--recipe', 'image-slideshow',
     '--spend-ceiling', 'none',
-    '--readiness', 'ready',
   ], { cwd: process.cwd(), timeout: 30_000 });
   assert.equal(stderr, '');
   const arsenal = JSON.parse(stdout);
