@@ -36,6 +36,6 @@
 - [x] 5.1 Run focused contract, generator, adapter-family, server, and Fleet Console build checks.
 - [x] 5.2 Run full Reel Pipeline Node/Rust suites, Editorial checks where touched, and diff checks.
 - [x] 5.3 Capture Fleet Console evidence at 390, 768, and 1440 pixels and complete critique, polish, audit, and design receipt with zero P0/P1.
-- [ ] 5.4 Strict-validate and archive the OpenSpec change and update affected project truth.
+- [x] 5.4 Strict-validate and archive the OpenSpec change and update affected project truth.
 - [x] 5.5 Reconcile issue #115 and only demonstrably superseded Reel Pipeline issues.
-- [ ] 5.6 Review for copyrighted/private media, credentials, production config, and unrelated files; commit, push, and open a PR closing #115 without deploying.
+- [x] 5.6 Review for copyrighted/private media, credentials, production config, and unrelated files; commit, push, and open a PR closing #115 without deploying.
