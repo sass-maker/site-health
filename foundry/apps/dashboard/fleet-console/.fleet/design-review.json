@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "48-variant video creation and playable style exploration at /marketing and /marketing/explore-gallery",
+  "target": "48-variant video creation, playable exploration, and ordered style mixing at /marketing and /marketing/explore-gallery",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -20,7 +20,7 @@
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-390.png"
+        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-mix-390.png"
       },
       {
         "width": 768,
@@ -28,7 +28,7 @@
       },
       {
         "width": 1440,
-        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-1440.png"
+        "path": "artifacts/design/fleet-console-marketing-maker/after-mix-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 37,
       "maximum": 40
     },
     "audit": {
-      "score": 19,
+      "score": 20,
       "maximum": 20
     },
     "unresolved": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner delegated the preserve-mode direction, required every bounded combination to remain selectable, and named the main-product route /marketing/explore-gallery."
+    "note": "Owner delegated the preserve-mode direction, required every bounded combination in the main product, approved the gallery system, and requested mix-and-match style selection."
   }
 }

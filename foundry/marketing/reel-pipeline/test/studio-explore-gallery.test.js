@@ -8,6 +8,7 @@ import {
   listExploreGallery,
   openExploreGalleryMedia,
   validateExploreGallery,
+  validateExploreGalleryMedia,
 } from '../src/studio/explore-gallery.js';
 
 function fixtureConfig(source = 'sample.mp4') {
@@ -62,4 +63,20 @@ test('gallery registry preserves unavailable samples and rejects unsafe definiti
     () => validateExploreGallery({ ...fixtureConfig(), items: [{ ...fixtureConfig().items[0], variantId: 'made-up' }] }, { galleryRoot: root }),
     /unknown variant/,
   );
+  assert.throws(
+    () => validateExploreGallery({ ...fixtureConfig(), items: [...fixtureConfig().items, fixtureConfig().items[0]] }, { galleryRoot: root }),
+    /duplicate explore gallery id/,
+  );
+});
+
+test('checked-in gallery is complete, playable, hash-valid, and portable', async () => {
+  const gallery = await listExploreGallery();
+  assert.equal(gallery.version, 2);
+  assert.equal(gallery.count, 48);
+  assert.equal(gallery.playableCount, 48);
+  assert.equal(new Set(gallery.items.map((item) => item.variantId)).size, 48);
+  assert.ok(gallery.items.every((item) => item.sourcePosture === 'fixture' && item.executionMode === 'fixture'));
+  const validation = await validateExploreGalleryMedia();
+  assert.equal(validation.variants, 48);
+  assert.ok(validation.totalBytes > 0 && validation.totalBytes < 8 * 1024 * 1024);
 });

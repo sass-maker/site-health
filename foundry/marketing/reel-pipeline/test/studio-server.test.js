@@ -450,6 +450,40 @@ test('studio server routes', async (t) => {
     assert.equal(created.actions.build.kind, 'execute');
   });
 
+  await t.test('Fleet Console can execute any exact variant as a portable fixture and seek its MP4', async () => {
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        request: 'Show a concise kinetic explanation.',
+        fields: {
+          recipeId: 'web-motion',
+          recipeOptions: { variantId: 'web-motion--visualstyle-kinetic-type' },
+        },
+      }),
+    });
+    assert.equal(createdRes.status, 201);
+    const created = (await createdRes.json()).data;
+    const executionRes = await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ confirm: true, mode: 'fixture' }),
+    });
+    const executionJson = await executionRes.json();
+    assert.equal(executionRes.status, 200, JSON.stringify(executionJson));
+    const execution = executionJson.data;
+    assert.equal(execution.executed, true);
+    assert.equal(execution.production.mode, 'fixture');
+    assert.equal(execution.production.variantId, 'web-motion--visualstyle-kinetic-type');
+    assert.equal(execution.brief.media.execution.provenance.posture, 'fixture');
+
+    const pathValue = encodeURIComponent(execution.brief.media.videoPath);
+    const mediaRes = await fetch(`${base}/studio/render-file?path=${pathValue}`, { headers: { range: 'bytes=0-99' } });
+    assert.equal(mediaRes.status, 206);
+    assert.equal(mediaRes.headers.get('content-type'), 'video/mp4');
+    assert.equal((await mediaRes.arrayBuffer()).byteLength, 24);
+  });
+
   await t.test('Blender readiness and lyric route expose truthful safe boundaries', async () => {
     const readiness = await fetch(`${base}/studio/blender-readiness`);
     assert.equal(readiness.status, 200);
@@ -741,4 +775,50 @@ test('studio probes and caches Blender readiness before creating a recipe brief'
   assert.equal(readinessRes.status, 200);
   assert.equal((await readinessRes.json()).data.version, '5.2.0');
   assert.equal(calls.length, 1, 'the server should reuse the readiness result across requests');
+});
+
+test('Fleet Console real mode crosses a registered owner adapter and preserves its evidence', async (t) => {
+  const ownerRoot = await mkdtemp(path.join(tmpdir(), 'studio-owner-adapter-'));
+  const videoPath = path.join(ownerRoot, 'threejs-owner.mp4');
+  const manifestPath = path.join(ownerRoot, 'threejs-owner.json');
+  await writeFile(videoPath, Buffer.from('owner-video'));
+  await writeFile(manifestPath, JSON.stringify({ verdict: 'pass' }));
+  const { server, base } = await startServer({
+    artifactRoots: [ownerRoot],
+    videoRealExecutors: {
+      'threejs-scene': async () => ({
+        videoPath,
+        renderer: 'forge-threejs',
+        ownerManifestPath: manifestPath,
+        provenance: { posture: 'real', renderer: 'forge-threejs' },
+        quality: { verdict: 'pass', basis: 'owner fixture' },
+      }),
+    },
+  });
+  t.after(() => server.close());
+
+  const createdRes = await fetch(`${base}/studio/briefs`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      request: 'Make a Three.js diagram about a reliable pipeline.',
+      fields: {
+        recipeId: 'threejs-scene',
+        recipeOptions: { variantId: 'threejs-scene--scenestyle-diagram' },
+      },
+    }),
+  });
+  const created = (await createdRes.json()).data;
+  const executionRes = await fetch(`${base}/studio/briefs/${created.id}/execute`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ confirm: true, mode: 'real', inputs: {} }),
+  });
+  const executionJson = await executionRes.json();
+  assert.equal(executionRes.status, 200, JSON.stringify(executionJson));
+  assert.equal(executionJson.data.executed, true);
+  assert.equal(executionJson.data.production.mode, 'real');
+  assert.equal(executionJson.data.production.owner, 'Forge');
+  assert.equal(executionJson.data.production.evidence.ownerManifestPath, manifestPath);
+  assert.equal(executionJson.data.brief.media.execution.quality.verdict, 'pass');
 });

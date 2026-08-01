@@ -3,6 +3,7 @@ import renderModesConfig from '../../config/render-modes.json' with { type: 'jso
 
 import { loadAutomationPolicies } from './automation-policy.js';
 import { listStudioCapabilities } from './capabilities.js';
+import { describeVariantExecution } from './execution-registry.js';
 import { listProductionProjects, listProductionRecipes, PRODUCTION_SPEND_CLASSES } from './production-catalog.js';
 
 export const STUDIO_ARSENAL_SCHEMA = 'fleet.studio-arsenal.v1';
@@ -22,7 +23,7 @@ export async function buildStudioArsenal(options = {}) {
   const workflows = listStudioCapabilities(options.brief ?? null, options.capabilityOptions ?? {});
   const allRecipes = listProductionRecipes(options.recipeContext ?? {});
   const recipes = allRecipes.filter((recipe) => recipeMatches(recipe, filters, manifest));
-  const variants = recipes.flatMap((recipe) => recipe.variants);
+  const variants = recipes.flatMap((recipe) => recipe.variants).map(describeVariantExecution);
   const selectedRecipeIds = new Set(recipes.map((recipe) => recipe.id));
   const automations = automation.policies.map((policy) => ({
     ...structuredClone(policy),

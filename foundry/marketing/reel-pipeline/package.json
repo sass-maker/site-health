@@ -11,6 +11,8 @@
     "bootstrap:cloudflare": "node scripts/bootstrap-cloudflare.js",
     "probe:engines": "node scripts/probe-engines.js",
     "canary:lyric": "node scripts/render-lyric-canary.js",
+    "gallery:build": "node scripts/build-video-preview-pack.js",
+    "gallery:check": "node scripts/build-video-preview-pack.js --check",
     "check:cloudflare": "node scripts/check-cloudflare-readiness.js",
     "render:pro": "node ../content-factory/scripts/render-pro.js",
     "render:html": "node scripts/export-html-composition.js",
