@@ -62,6 +62,15 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-01 — Marketing gained one complete video-maker boundary:** Kept
+  prompt-first creation solely inside Fleet Console `/marketing`, made all 48
+  stable video variants selectable and immediately playable through portable
+  rights-safe fixtures, and made `/marketing/explore-gallery` the reusable
+  visual catalog. Operators can now combine two or three gallery styles as an
+  ordered base/influence mix and render a locally blended preview with exact
+  component provenance. Real production remains separately gated by source,
+  rights, runtime, and owner evidence. No provider media, credentials,
+  publishing, or deployment was added.
 - **2026-08-01 — AI Awareness became model-first and web-wide:** Refocused the
   four core-product ledger on provider-backed mention, recommendation,
   citation, rank, and independent-source outcomes. Cloudflare crawl and AI

@@ -4,6 +4,7 @@ import path from 'node:path';
 import brandConfig from '../../config/brand-channels.json' with { type: 'json' };
 
 import { normalizeLyricDetails } from '../lyric-video/contracts.js';
+import { getExecutionAdapter } from './execution-registry.js';
 import { resolveStudioLlm } from './llm.js';
 import { getProductionRecipe, normalizeRecipeOptions, PRODUCTION_RECIPE_IDS } from './production-catalog.js';
 import { normalizeContentOrigin } from './content-origin.js';
@@ -183,6 +184,7 @@ export function normalizeMarketingBrief(input = {}) {
   const recipeId = PRODUCTION_RECIPE_IDS.includes(input.recipeId) ? input.recipeId : null;
   const recipe = recipeId ? getProductionRecipe(recipeId) : null;
   const recipeOptions = recipeId ? normalizeRecipeOptions(recipeId, input.recipeOptions) : null;
+  const executionInputs = recipeId ? normalizeExecutionInputs(recipeId, input.executionInputs) : {};
   const kind = recipe?.kind ?? (VIDEO_KINDS.includes(input.kind) ? input.kind : classifyKind(request));
   const projectSlug = normalizeProjectSlug(input.projectSlug);
   const channel = recipeOptions?.channel ?? (CHANNELS.includes(input.channel) ? input.channel : inferChannel(request));
@@ -207,6 +209,7 @@ export function normalizeMarketingBrief(input = {}) {
     ideaId: optionalString(input.ideaId) ?? null,
     recipeId,
     recipeOptions,
+    executionInputs,
     channel,
     durationSeconds: recipeOptions?.durationSeconds ?? duration(input.durationSeconds ?? inferDuration(request)),
     engine: recipe?.engine ?? (ENGINES.includes(input.engine) ? input.engine : kind === 'lyric-video' ? 'lyric-canvas' : 'mock'),
@@ -533,6 +536,9 @@ function mergeBrief(current, patch) {
   return {
     ...current,
     ...patch,
+    executionInputs: patch.executionInputs === undefined
+      ? current.executionInputs
+      : { ...current.executionInputs, ...patch.executionInputs },
     sourceEvidence: { ...current.sourceEvidence, ...(patch.sourceEvidence ?? {}) },
     approval: { ...current.approval, ...(patch.approval ?? {}) },
     lyric: patch.lyric === undefined
@@ -560,7 +566,21 @@ function changesProductionSelection(current, patch) {
   if (patch.ideaId !== undefined && patch.ideaId !== current.ideaId) return true;
   if (patch.recipeId !== undefined && patch.recipeId !== current.recipeId) return true;
   if (patch.recipeOptions !== undefined && JSON.stringify(patch.recipeOptions) !== JSON.stringify(current.recipeOptions)) return true;
+  if (patch.executionInputs !== undefined && JSON.stringify(patch.executionInputs) !== JSON.stringify(current.executionInputs)) return true;
   return false;
+}
+
+function normalizeExecutionInputs(recipeId, input) {
+  if (input == null) return {};
+  if (typeof input !== 'object' || Array.isArray(input)) throw new Error('executionInputs must be an object');
+  const allowed = new Set(getExecutionAdapter(recipeId).inputs.map((field) => field.id));
+  const normalized = {};
+  for (const [key, value] of Object.entries(input)) {
+    if (!allowed.has(key)) continue;
+    if (typeof value !== 'string') throw new Error(`executionInputs.${key} must be a string`);
+    normalized[key] = value.trim().slice(0, 100_000);
+  }
+  return normalized;
 }
 
 function normalizeProjectSlug(value) {
@@ -589,6 +609,7 @@ function normalizeMedia(media) {
     publicUrl: optionalUrl(media.publicUrl, 'media.publicUrl'),
     ideaId: optionalString(media.ideaId),
     provider: optionalString(media.provider),
+    execution: media.execution && typeof media.execution === 'object' ? structuredClone(media.execution) : null,
     quality: media.quality && typeof media.quality === 'object' ? structuredClone(media.quality) : null,
     reviewedAt: media.reviewedAt ? iso(media.reviewedAt, 'media.reviewedAt') : null,
     captionsPath: optionalString(media.captionsPath),

@@ -38,6 +38,9 @@ import {
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { listExploreGallery, openExploreGalleryMedia } from './explore-gallery.js';
+import { executeVideoVariant } from './video-execution.js';
+import { getExecutionAdapter, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
+import { executeVideoMix } from './video-mix.js';
 
 const FACELESS_ENGINES = new Set(['mock', 'kokoro']);
 
@@ -102,6 +105,7 @@ function artifactRoots(options) {
   const roots = options.artifactRoots ?? [
     path.resolve('tmp/studio'),
     path.resolve('artifacts'),
+    path.resolve('fixtures/video-gallery/videos'),
   ];
   return roots.map((root) => path.resolve(root));
 }
@@ -562,10 +566,75 @@ async function executeMarketingBrief(id, body, options, store) {
   if (body.confirm !== true) throw new Error('explicit execution confirmation is required');
   const brief = await store.get(id);
   if (!brief) throw new Error('marketing brief not found');
+  if (body.mode === 'fixture' && body.mixVariantIds != null) {
+    const execution = await executeVideoMix(brief, {
+      variantIds: body.mixVariantIds,
+      galleryOptions: { galleryConfig: options.galleryConfig, galleryRoot: options.galleryRoot },
+      outputDir: options.mixArtifactDir,
+      commandRunner: options.mixCommandRunner,
+      ffmpegPath: options.ffmpegPath,
+      ffprobePath: options.ffprobePath,
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'needs-review',
+      lastError: null,
+      media: {
+        artifactDir: path.dirname(execution.artifact.videoPath),
+        videoPath: execution.artifact.videoPath,
+        publicUrl: null,
+        provider: execution.adapter,
+        quality: execution.quality,
+        reviewedAt: null,
+        execution,
+      },
+    });
+    return { brief: decorateBrief(updated, options), production: execution, executed: true };
+  }
+  if (body.mode === 'fixture') {
+    const execution = await executeVideoVariant(brief, {
+      mode: 'fixture',
+      galleryOptions: { galleryConfig: options.galleryConfig, galleryRoot: options.galleryRoot },
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'needs-review',
+      lastError: null,
+      media: {
+        artifactDir: path.dirname(execution.artifact.videoPath),
+        videoPath: execution.artifact.videoPath,
+        publicUrl: null,
+        provider: execution.adapter,
+        quality: execution.quality,
+        reviewedAt: null,
+        execution,
+      },
+    });
+    return { brief: decorateBrief(updated, options), production: execution, executed: true };
+  }
   if (brief.recipeId) {
     const actions = productionActions(brief, productionContext(options));
     if (!actions.build.enabled) throw new Error(actions.build.blocker ?? 'video recipe is not ready');
     if (actions.build.kind === 'continue') {
+      if (body.mode === 'real') {
+        const execution = await executeVideoVariant(brief, {
+          mode: 'real',
+          inputs: body.inputs ?? brief.executionInputs ?? {},
+          realExecutors: options.videoRealExecutors,
+        });
+        const updated = await store.update(id, {
+          lifecycle: 'needs-review',
+          lastError: null,
+          media: {
+            artifactDir: path.dirname(execution.artifact.videoPath),
+            videoPath: execution.artifact.videoPath,
+            publicUrl: null,
+            provider: execution.adapter,
+            quality: execution.quality,
+            reviewedAt: null,
+            execution,
+          },
+        });
+        return { brief: decorateBrief(updated, options), production: execution, executed: true };
+      }
       return { brief: decorateBrief(brief, options), continuation: actions.build, executed: false };
     }
   }
@@ -594,6 +663,12 @@ async function executeMarketingBrief(id, body, options, store) {
         now: options.now,
       });
       if (render.status !== 'completed') throw new Error('lyric video quality evidence did not pass');
+      const execution = await localExecutionEnvelope(brief, {
+        videoPath: render.raw.videoPath,
+        renderer: render.provider,
+        quality: render.raw.quality,
+        ownerManifestPath: render.raw.manifestPath,
+      });
       const updated = await store.update(id, {
         lifecycle: 'needs-review',
         lastError: null,
@@ -610,9 +685,10 @@ async function executeMarketingBrief(id, body, options, store) {
           rightsPath: render.raw.rightsPath,
           manifestPath: render.raw.manifestPath,
           blender: render.raw.blender,
+          execution,
         },
       });
-      return { brief: decorateBrief(updated, options), production: render, executed: true };
+      return { brief: decorateBrief(updated, options), production: execution ?? render, executed: true };
     }
     const summary = await runFacelessWorkflow({
       topic: brief.title,
@@ -642,6 +718,12 @@ async function executeMarketingBrief(id, body, options, store) {
       llm: options.llm,
       logger: options.logger ?? console,
     });
+    const execution = await localExecutionEnvelope(brief, {
+      videoPath: summary.video,
+      renderer: summary.engine,
+      quality: summary.quality,
+      ownerManifestPath: summary.manifestPath ?? null,
+    });
     const updated = await store.update(id, {
       lifecycle: 'needs-review',
       lastError: null,
@@ -655,13 +737,41 @@ async function executeMarketingBrief(id, body, options, store) {
         provider: summary.engine,
         quality: summary.quality,
         reviewedAt: null,
+        execution,
       },
     });
-    return { brief: decorateBrief(updated, options), production: summary, executed: true };
+    return { brief: decorateBrief(updated, options), production: execution ?? summary, executed: true };
   } catch (error) {
     await store.update(id, { lifecycle: 'failed', lastError: error.message });
     throw error;
   }
+}
+
+async function localExecutionEnvelope(brief, result) {
+  if (!brief.recipeId || !result.videoPath) return null;
+  const adapter = getExecutionAdapter(brief.recipeId);
+  const normalized = normalizeRecipeOptions(brief.recipeId, brief.recipeOptions ?? {});
+  const info = await stat(result.videoPath).catch(() => null);
+  return {
+    schema: VIDEO_EXECUTION_SCHEMA,
+    status: 'completed',
+    mode: 'real',
+    briefId: brief.id,
+    recipeId: brief.recipeId,
+    variantId: normalized.variantId,
+    adapter: adapter.id,
+    owner: adapter.owner,
+    artifact: {
+      videoPath: path.resolve(result.videoPath),
+      bytes: info?.size ?? null,
+      sha256: null,
+      contentType: 'video/mp4',
+    },
+    provenance: { posture: 'real', renderer: result.renderer ?? adapter.id },
+    quality: result.quality ?? { verdict: 'pass', basis: 'local renderer evidence' },
+    evidence: { ownerManifestPath: result.ownerManifestPath ?? null },
+    blockers: [],
+  };
 }
 
 function decorateBrief(brief, options) {

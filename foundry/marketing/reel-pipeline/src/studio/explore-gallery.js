@@ -1,4 +1,5 @@
-import { stat } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -7,6 +8,7 @@ import { listRecipeVariants } from './production-catalog.js';
 
 const DEFAULT_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const POSTURES = new Set([
+  'fixture',
   'local-render',
   'specialist-proof',
   'local-model-proof',
@@ -15,6 +17,7 @@ const POSTURES = new Set([
   'external-continuation',
 ]);
 const QUALITY_TIERS = new Set(['showcase', 'experiment', 'baseline']);
+const EXECUTION_MODES = new Set(['fixture', 'real']);
 
 export async function listExploreGallery(options = {}) {
   const registry = validateExploreGallery(options.galleryConfig ?? galleryConfig, options);
@@ -27,10 +30,15 @@ export async function listExploreGallery(options = {}) {
       family: item.family,
       description: item.description,
       engine: item.engine,
+      renderer: item.renderer,
+      intendedRuntime: item.intendedRuntime,
       sourcePosture: item.sourcePosture,
+      executionMode: item.executionMode,
       qualityTier: item.qualityTier,
       spend: item.spend,
       variantId: item.variantId,
+      prompt: item.prompt,
+      evidence: item.evidence,
       playable,
       bytes: playable ? info.size : null,
       mediaUrl: playable ? `/studio/explore-gallery/${encodeURIComponent(item.id)}/media` : null,
@@ -58,16 +66,28 @@ export async function openExploreGalleryMedia(id, options = {}) {
     size: info.size,
     filename: `${item.id}.mp4`,
     contentType: 'video/mp4',
+    variantId: item.variantId,
+    sha256: item.sha256,
+    renderer: item.renderer,
+    evidencePath: item.resolvedEvidence,
   };
 }
 
+export async function openExploreGalleryMediaByVariant(variantId, options = {}) {
+  const registry = validateExploreGallery(options.galleryConfig ?? galleryConfig, options);
+  const item = registry.items.find((entry) => entry.variantId === variantId);
+  if (!item) return null;
+  return openExploreGalleryMedia(item.id, options);
+}
+
 export function validateExploreGallery(input, options = {}) {
-  if (!input || input.schema !== 'fleet.video-explore-gallery.v1' || input.version !== 1 || !Array.isArray(input.items)) {
+  if (!input || input.schema !== 'fleet.video-explore-gallery.v1' || ![1, 2].includes(input.version) || !Array.isArray(input.items)) {
     throw new Error('explore gallery must use fleet.video-explore-gallery.v1');
   }
   const root = path.resolve(options.galleryRoot ?? DEFAULT_ROOT);
-  const knownVariants = new Set(listRecipeVariants().map((variant) => variant.id));
+  const knownVariants = new Set((options.variants ?? listRecipeVariants()).map((variant) => variant.id));
   const ids = new Set();
+  const variantIds = new Set();
   const items = input.items.map((entry, index) => {
     if (!entry || typeof entry !== 'object' || Array.isArray(entry)) throw new Error(`explore gallery item ${index + 1} must be an object`);
     const id = required(entry.id, `explore gallery item ${index + 1} id`);
@@ -75,25 +95,67 @@ export function validateExploreGallery(input, options = {}) {
     ids.add(id);
     if (!POSTURES.has(entry.sourcePosture)) throw new Error(`${id}: unsupported source posture`);
     if (!QUALITY_TIERS.has(entry.qualityTier)) throw new Error(`${id}: unsupported quality tier`);
-    if (entry.variantId != null && !knownVariants.has(entry.variantId)) throw new Error(`${id}: unknown variant ${entry.variantId}`);
+    if (entry.variantId == null) throw new Error(`${id}: variantId is required`);
+    if (!knownVariants.has(entry.variantId)) throw new Error(`${id}: unknown variant ${entry.variantId}`);
+    if (variantIds.has(entry.variantId)) throw new Error(`duplicate explore gallery variant: ${entry.variantId}`);
+    variantIds.add(entry.variantId);
     const source = required(entry.source, `${id} source`);
     if (path.isAbsolute(source)) throw new Error(`${id}: source must be relative to the gallery root`);
     const resolvedSource = path.resolve(root, source);
     if (resolvedSource !== root && !resolvedSource.startsWith(`${root}${path.sep}`)) throw new Error(`${id}: source escapes the gallery root`);
+    const evidence = entry.evidence ? required(entry.evidence, `${id} evidence`) : null;
+    const resolvedEvidence = evidence ? path.resolve(root, evidence) : null;
+    if (resolvedEvidence && resolvedEvidence !== root && !resolvedEvidence.startsWith(`${root}${path.sep}`)) throw new Error(`${id}: evidence escapes the gallery root`);
+    const executionMode = entry.executionMode ?? (entry.sourcePosture === 'fixture' ? 'fixture' : 'real');
+    if (!EXECUTION_MODES.has(executionMode)) throw new Error(`${id}: unsupported execution mode`);
+    const sha256 = entry.sha256 ?? null;
+    if (sha256 != null && !/^[a-f0-9]{64}$/.test(sha256)) throw new Error(`${id}: invalid sha256`);
     return {
       id,
       title: required(entry.title, `${id} title`),
       family: required(entry.family, `${id} family`),
       description: required(entry.description, `${id} description`),
       engine: required(entry.engine, `${id} engine`),
+      renderer: required(entry.renderer ?? entry.engine, `${id} renderer`),
+      intendedRuntime: required(entry.intendedRuntime ?? entry.engine, `${id} intendedRuntime`),
       sourcePosture: entry.sourcePosture,
+      executionMode,
       qualityTier: entry.qualityTier,
       spend: required(entry.spend, `${id} spend`),
-      variantId: entry.variantId ?? null,
+      variantId: entry.variantId,
+      prompt: required(entry.prompt ?? `Create a ${entry.title} video.`, `${id} prompt`),
+      evidence,
+      resolvedEvidence,
+      sha256,
       resolvedSource,
     };
   });
+  if (input.version >= 2) {
+    const missing = [...knownVariants].filter((id) => !variantIds.has(id));
+    if (missing.length) throw new Error(`explore gallery missing variants: ${missing.join(', ')}`);
+    if (items.length !== knownVariants.size) throw new Error(`explore gallery must contain exactly ${knownVariants.size} variants`);
+  }
   return { schema: input.schema, version: input.version, items };
+}
+
+export async function validateExploreGalleryMedia(options = {}) {
+  const registry = validateExploreGallery(options.galleryConfig ?? galleryConfig, options);
+  const failures = [];
+  let totalBytes = 0;
+  for (const item of registry.items) {
+    const info = await stat(item.resolvedSource).catch(() => null);
+    if (!info?.isFile() || info.size < 1) {
+      failures.push(`${item.variantId}: missing media`);
+      continue;
+    }
+    totalBytes += info.size;
+    if (item.sha256) {
+      const digest = createHash('sha256').update(await readFile(item.resolvedSource)).digest('hex');
+      if (digest !== item.sha256) failures.push(`${item.variantId}: sha256 mismatch`);
+    }
+  }
+  if (failures.length) throw new Error(`gallery media validation failed: ${failures.join('; ')}`);
+  return { variants: registry.items.length, totalBytes };
 }
 
 function required(value, field) {

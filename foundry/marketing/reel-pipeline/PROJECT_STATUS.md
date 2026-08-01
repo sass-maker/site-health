@@ -34,6 +34,13 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-01:** completed the Fleet Console Marketing video arsenal boundary:
+  all 48 stable variants now have compact rights-safe vertical MP4 fixtures,
+  exact prompt presets, byte-range playback, fixture/real execution envelopes,
+  registered owner adapters, and fail-closed completeness checks. Added ordered
+  two-to-three-style gallery mixes with deterministic local FFmpeg composition
+  and component provenance; Fleet Console `/marketing` remains the only
+  product maker UI.
 - **2026-08-01:** removed the unused MoneyPrinterTurbo and reel-maker engine
   submodules, their checkout-backed Node/Rust adapters, false readiness gates,
   and the blocked stock-service recipe. Product Proof remains an explicit
@@ -94,6 +101,8 @@ owns that downstream lifecycle.
 - Content-package renderer and Postiz draft or future-schedule handoff.
 - Source-backed podcast planning, approval, and multi-clip rendering.
 - Rights-gated literal lyric-video production with optional Blender scenes.
+- Fleet Console Marketing execution API with exact gallery previews and
+  deterministic ordered style mixes.
 
 ## Features (shipped)
 
@@ -117,10 +126,14 @@ owns that downstream lifecycle.
   bounded manifests, factory startup, disabled auto-execution, run-directory
   path controls, versioned provenance, artifact hashes, and eight distinct
   local 3D scene languages.
-- A secret-free, byte-range-capable Explore Gallery registry with 41 playable
-  local examples, truthful baseline/experiment provenance, style-family
-  filtering in Fleet Console, and exact handoff into 48 selectable production
-  combinations.
+- A secret-free, byte-range-capable Explore Gallery registry with 48 exact,
+  portable, hash-validated rights-safe MP4 previews; style-family filtering;
+  exact preset handoff; and ordered two-to-three-style mixes rendered locally
+  with component provenance.
+- Versioned fixture/real video execution envelopes, complete adapter and input
+  registries for all 12 recipes and 48 variants, normalized local and owner
+  receipts, contextual blockers, and catalog/gallery/preset completeness that
+  fails closed on missing, duplicate, null, unknown, or stale identifiers.
 - Unified Create, Productions, Distribute, and Tools operator views with
   explicit execution, local artifact playback, quality state, specialized
   runtime continuations, safe public-field prefill for Brand Reel and Forge,
