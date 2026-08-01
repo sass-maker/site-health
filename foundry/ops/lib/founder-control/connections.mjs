@@ -1231,6 +1231,22 @@ function latestFamilySignal(project, outcome, label) {
   };
 }
 
+function latestTrackedQueries(project) {
+  return (project.searchVisibility?.queries ?? [])
+    .flatMap((query) => {
+      const latest = query.history?.at(-1);
+      if (!latest || !['A', 'B', 'C'].includes(latest.class)) return [];
+      return [{
+        id: query.id,
+        kind: query.kind,
+        text: query.text,
+        class: latest.class,
+        observedAt: latest.observedAt,
+      }];
+    })
+    .slice(0, 12);
+}
+
 function latestOutcomeSignal(project, outcome, label) {
   if (!outcome) return null;
   const history = signalByLabel(project, label);
@@ -1410,6 +1426,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       averagePosition,
       observations: outcome?.observations ?? 0,
       searchTerms,
+      trackedQueries: latestTrackedQueries(project),
       provider: outcome?.provider ?? null,
       providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
         String(outcome?.scope ?? '').split(' · page:')[0],

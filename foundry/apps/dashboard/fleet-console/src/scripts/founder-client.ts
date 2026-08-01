@@ -2106,6 +2106,20 @@ async function renderDomains() {
 
 type SearchMetricKind = "count" | "percent" | "rank";
 
+const SEARCH_RESULT_CLASS_LABELS: Record<string, string> = {
+  A: "Own domain top 3",
+  B: "Partial page one",
+  C: "Absent from page one",
+};
+
+const DEFAULT_PERFORMANCE_THRESHOLDS = {
+  psiScore: 90,
+  lcpMilliseconds: 2_500,
+  fieldLcpMilliseconds: 2_500,
+  fieldInpMilliseconds: 200,
+  fieldCls: 0.1,
+};
+
 function searchReportingDay(value: string) {
   return new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -2195,7 +2209,7 @@ function searchTermsTable(row: JsonRecord) {
   });
   if (terms.length === 0) {
     return element("div", { class: "search-detail__terms" }, [
-      element("h2", {}, ["Search terms"]),
+      element("h2", {}, ["Search Console terms"]),
       element("p", { class: "search-detail__empty" }, [
         "No search terms were returned for this reporting window.",
       ]),
@@ -2257,9 +2271,31 @@ function searchTermsTable(row: JsonRecord) {
     controls.push(button);
   }
   return element("div", { class: "search-detail__terms" }, [
-    element("h2", {}, ["Search terms"]),
+    element("h2", {}, ["Search Console terms"]),
     element("div", { class: "search-detail__terms-wrap" }, [table]),
     ...controls,
+  ]);
+}
+
+function trackedTargetQueries(row: JsonRecord) {
+  const queries = row.trackedQueries ?? [];
+  if (queries.length === 0) return null;
+  return element("div", { class: "search-detail__terms" }, [
+    element("h2", {}, ["Tracked target queries"]),
+    element("p", { class: "search-detail__note" }, [
+      "Live web-search checks for terms Fleet intentionally tracks; separate from Search Console impressions.",
+    ]),
+    element("div", { class: "tracked-intent-list" }, queries.map((query: JsonRecord) =>
+      element("article", { class: "tracked-intent" }, [
+        element("div", {}, [
+          element("span", {}, [query.kind ?? "query"]),
+          element("strong", {}, [query.text]),
+        ]),
+        element("div", { class: "tracked-intent__result" }, [
+          element("strong", {}, [SEARCH_RESULT_CLASS_LABELS[query.class] ?? "Not measured"]),
+          element("small", {}, [`Live web search · ${formattedDay(query.observedAt)}`]),
+        ]),
+      ]))),
   ]);
 }
 
@@ -2313,6 +2349,8 @@ function searchOutcomeDetails(row: JsonRecord) {
   if (searchConsoleLink) content.splice(1, 0, element("div", { class: "provider-links" }, [searchConsoleLink]));
   if (history) content.push(history);
   content.push(searchTermsTable(row));
+  const targetQueries = trackedTargetQueries(row);
+  if (targetQueries) content.push(targetQueries);
   return element("div", { class: "search-detail" }, content);
 }
 
@@ -2695,6 +2733,57 @@ function performanceRunControl(row: JsonRecord) {
   return wrap;
 }
 
+function finiteNumber(value: unknown, fallback: number) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  return fallback;
+}
+
+function measuredSignalValue(signal: JsonRecord | null | undefined) {
+  if (typeof signal?.value === "number" && Number.isFinite(signal.value)) return signal.value;
+  return null;
+}
+
+function performanceDiagnosis(row: JsonRecord, thresholds: JsonRecord) {
+  const limits = {
+    psiScore: finiteNumber(thresholds.psiScore, DEFAULT_PERFORMANCE_THRESHOLDS.psiScore),
+    labLcp: finiteNumber(thresholds.lcpMilliseconds, DEFAULT_PERFORMANCE_THRESHOLDS.lcpMilliseconds),
+    fieldLcp: finiteNumber(thresholds.fieldLcpMilliseconds, DEFAULT_PERFORMANCE_THRESHOLDS.fieldLcpMilliseconds),
+    fieldInp: finiteNumber(thresholds.fieldInpMilliseconds, DEFAULT_PERFORMANCE_THRESHOLDS.fieldInpMilliseconds),
+    fieldCls: finiteNumber(thresholds.fieldCls, DEFAULT_PERFORMANCE_THRESHOLDS.fieldCls),
+  };
+  const labLcp = measuredSignalValue(row.lcp);
+  const fieldLcp = measuredSignalValue(row.fieldLcp);
+  const psi = measuredSignalValue(row.psi);
+  const fieldInp = measuredSignalValue(row.fieldInp);
+  const fieldCls = measuredSignalValue(row.fieldCls);
+  const scope = "Lab measures the canonical page on desktop; field is host-wide p75 from real visits.";
+  const otherFailures: string[] = [];
+  if (psi !== null && psi < limits.psiScore) {
+    otherFailures.push(`PSI is ${metricValue(psi, "score/100")} (target ${metricValue(limits.psiScore, "score/100")})`);
+  }
+  if (fieldInp !== null && fieldInp > limits.fieldInp) {
+    otherFailures.push(`field INP is ${metricValue(fieldInp, "milliseconds")} (target ${metricValue(limits.fieldInp, "milliseconds")} or lower)`);
+  }
+  if (fieldCls !== null && fieldCls > limits.fieldCls) {
+    otherFailures.push(`field CLS is ${metricValue(fieldCls, "score")} (target ${metricValue(limits.fieldCls, "score")} or lower)`);
+  }
+  let additionalDiagnosis = "";
+  if (otherFailures.length > 0) {
+    additionalDiagnosis = ` The overall guardrail also needs work: ${otherFailures.join("; ")}.`;
+  }
+
+  if (labLcp === null && fieldLcp === null) return `Lab and field LCP are not measured.${additionalDiagnosis} ${scope}`;
+  if (labLcp === null) return `Only field LCP is measured, so there is no lab comparison yet.${additionalDiagnosis} ${scope}`;
+  if (fieldLcp === null) return `Only lab LCP is measured, so there is no real-user comparison yet.${additionalDiagnosis} ${scope}`;
+
+  const labPasses = labLcp <= limits.labLcp;
+  const fieldPasses = fieldLcp <= limits.fieldLcp;
+  if (labPasses && fieldPasses) return `Both lab and field LCP meet their guardrails.${additionalDiagnosis} ${scope}`;
+  if (!labPasses && !fieldPasses) return `Both lab and field LCP need work against their guardrails.${additionalDiagnosis} ${scope}`;
+  if (!labPasses) return `Lab LCP needs work while real-user field LCP passes. Check cold-load and canonical-page work first.${additionalDiagnosis} ${scope}`;
+  return `Field LCP needs work while the canonical lab result passes. Check slower routes and real-user conditions first.${additionalDiagnosis} ${scope}`;
+}
+
 async function renderPerformance() {
   const payload = await api("/v1/outcomes/performance");
   updateOutcomeTime(payload.generatedAt);
@@ -2712,7 +2801,7 @@ async function renderPerformance() {
     ? outcomeTable(rows, columns, "project", "Fleet public product performance", "ascending", {
         rowKey: (row) => row.projectId,
         details: (row) => providerOutcomeDetails({
-          note: "PSI Swarm derives the lab result from two desktop Lighthouse runs on the canonical URL. Cloudflare field metrics are host-wide p75 measurements from real visits during the recorded period.",
+          note: performanceDiagnosis(row, payload.thresholds ?? {}),
           outcomes: [{ label: "Field performance", outcome: row.field, linkLabel: "Open Cloudflare Speed" }],
           signals: [row.psi, row.lcp, row.fieldLcp, row.fieldInp, row.fieldCls, row.fieldTtfb, row.rumSamples],
         }),

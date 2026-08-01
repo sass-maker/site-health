@@ -147,6 +147,13 @@ function outcomeProjection(connections, family) {
   } else if (family === 'search') {
     rows = (outcomes.search ?? []).map((row) => ({
       ...row,
+      trackedQueries: (row.trackedQueries ?? []).slice(0, 12).map((query) => ({
+        id: query.id,
+        kind: query.kind,
+        text: query.text,
+        class: query.class,
+        observedAt: query.observedAt,
+      })),
       impressions: boundedSignal(row.impressions, { includeSeries: true }),
       clicks: boundedSignal(row.clicks, { includeSeries: true }),
       ctr: boundedSignal(row.ctr, { includeSeries: true }),
