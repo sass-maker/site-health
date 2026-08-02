@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "turso-d1-migration-receipt.v1",
+  "projectId": "reader",
+  "mode": "cutover",
+  "authority": "d1",
+  "source": {
+    "provider": "none",
+    "name": "reader",
+    "role": "none",
+    "schemaRevision": null,
+    "sizeBytes": 434176
+  },
+  "target": {
+    "provider": "cloudflare-d1",
+    "name": "reader",
+    "role": "authoritative",
+    "schemaRevision": "0002_first_green_goblin.sql",
+    "sizeBytes": 471040
+  },
+  "schemaChecks": [
+    {
+      "id": "source-catalog-shape",
+      "status": "pass",
+      "sourceValue": "13 tables, 15 indexes",
+      "targetValue": "14 tables, 18 indexes",
+      "detail": "The tracked D1 schema is additive: production Turso lacks only the memories table and its three indexes."
+    },
+    {
+      "id": "local-d1-migrations",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "3 migrations, 35 commands",
+      "detail": "All tracked migrations applied through Wrangler's isolated local D1 ledger."
+    },
+    {
+      "id": "local-foreign-key-check",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": 0,
+      "detail": "PRAGMA foreign_key_check returned no rows."
+    }
+  ],
+  "dataChecks": [
+    {
+      "id": "production-row-parity",
+      "status": "pass",
+      "sourceValue": "143 rows across 13 source tables; article/api-key/list/board signatures 218509/969/1054/727",
+      "targetValue": "143 source rows plus empty memories table; signatures 218509/969/1054/727",
+      "detail": "Every source-table row count matched remote D1, the additive memories table remained empty, representative full-row aggregate signatures matched, and foreign-key checking returned no violations."
+    },
+    {
+      "id": "preview-data-policy",
+      "status": "pass",
+      "sourceValue": "no approved sanitized fixture set",
+      "targetValue": "schema only; 0 application and auth rows",
+      "detail": "Reader preview is schema-only because this personal-use product has no maintained sanitized fixture set."
+    },
+    {
+      "id": "r2-preservation",
+      "status": "pass",
+      "sourceValue": "PDFS_BUCKET",
+      "targetValue": "PDFS_BUCKET",
+      "detail": "The PDF object-storage binding and application path are unchanged; local D1 uses a separate local R2 binding."
+    }
+  ],
+  "journeyChecks": [
+    {
+      "id": "better-auth-session",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "HTTP 200 null session",
+      "detail": "The local Worker initialized Better Auth over D1 and served the anonymous session endpoint successfully."
+    },
+    {
+      "id": "protected-article-route",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "HTTP 401",
+      "detail": "The D1-backed Worker correctly rejected an unauthenticated article request."
+    },
+    {
+      "id": "repository-validation",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "83 tests, merged-main CI, typecheck, Biome, docs, production build",
+      "detail": "All relevant local and merged-main checks passed; Biome retains pre-existing warning-level findings."
+    },
+    {
+      "id": "production-cutover",
+      "status": "pass",
+      "sourceValue": "Turso rollback-held",
+      "targetValue": "Worker version 170 at 100% traffic; tag 55a77d4d212b67f5847c8f5ea16c9c8ece8c8535",
+      "detail": "The manual deployment, runtime-secret gate, workflow smoke, homepage request, anonymous session request, and protected-route check passed with the production D1 binding; R2 was unchanged."
+    }
+  ],
+  "timings": {
+    "observedAt": "2026-08-01T16:48:00Z",
+    "rehearsalMs": null,
+    "writeFreezeMs": null
+  },
+  "approval": {
+    "remoteMutationApproved": true,
+    "cutoverApproved": true,
+    "retirementApproved": true
+  },
+  "rollback": {
+    "sourcePreserved": false,
+    "releaseAvailable": false,
+    "reconciliationRequired": false
+  },
+  "result": "pass",
+  "notes": [
+    "D1 is authoritative. Fresh pre-switch and post-switch Turso snapshots matched the staged D1 row counts and aggregate signatures, so no delta import was required.",
+    "Explicit retirement approval was received and the Turso database was deleted on 2026-08-02; R2 was unchanged and credential cleanup remains separate.",
+    "Dependency audit reports 27 high advisories; Knip and all project checks otherwise pass.",
+    "Production deployment run: https://github.com/Significant-Hobbies/reader/actions/runs/30708641208"
+  ]
+}

@@ -7,7 +7,15 @@ import { fetchTranscript } from './transcript.js';
 import { generateThumbnailConcepts } from './thumbnails.js';
 import { IdeaStore } from './idea-store.js';
 import { runFacelessWorkflow } from './workflow.js';
+import { renderLyricVideo } from '../lyric-video/compositor.js';
+import { probeBlenderVideo } from '../adapters/blender.js';
+import { probeHtmlComposition } from '../adapters/html-composition.js';
+import { probeKokoroComposeReadiness } from '../adapters/kokoro-compose.js';
+import { createPlatformAudioPreview } from '../platform-audio.js';
 import { planIdeas, produceNext, factoryStatus } from './factory.js';
+import { loadAutomationPolicies } from './automation-policy.js';
+import { runStudioAutopilot, studioAutopilotStatus } from './autopilot.js';
+import { buildStudioArsenal } from './arsenal.js';
 import {
   MarketingBriefStore,
   generateMarketingBriefDraft,
@@ -15,16 +23,28 @@ import {
 } from './briefs.js';
 import { continuationForBrief, evaluateStudioCapability, listStudioCapabilities } from './capabilities.js';
 import {
+  getProductionRecipe,
+  listProductionProjects,
+  listProductionRecipes,
+  normalizeRecipeOptions,
+  productionActions,
+} from './production-catalog.js';
+import {
   buildStudioDistributionBundle,
   createStudioPostizDraft,
   studioPostizReadiness,
+  submitStudioPostiz,
 } from './distribution.js';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { listExploreGallery, openExploreGalleryMedia } from './explore-gallery.js';
+import { executeVideoVariant } from './video-execution.js';
+import { getExecutionAdapter, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
+import { executeVideoMix } from './video-mix.js';
 
-const FACELESS_ENGINES = new Set(['mock', 'moneyprinterturbo', 'kokoro']);
+const FACELESS_ENGINES = new Set(['mock', 'kokoro']);
 
-function toolHandlers(options) {
+export function toolHandlers(options = {}) {
   const llm = options.llm;
   const store = () => options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
   return {
@@ -85,8 +105,14 @@ function artifactRoots(options) {
   const roots = options.artifactRoots ?? [
     path.resolve('tmp/studio'),
     path.resolve('artifacts'),
+    path.resolve('fixtures/video-gallery/videos'),
   ];
   return roots.map((root) => path.resolve(root));
+}
+
+function isInsideArtifactRoots(filePath, options) {
+  const resolved = path.resolve(String(filePath ?? ''));
+  return artifactRoots(options).some((root) => resolved === root || resolved.startsWith(root + path.sep));
 }
 
 async function readJsonIfPresent(filePath) {
@@ -133,8 +159,9 @@ async function serveRenderFile(rawPath, options) {
   const type = FILE_TYPES[path.extname(resolved).toLowerCase()];
   if (!type) return { status: 403, body: { error: 'unsupported file type' } };
   try {
-    const content = await readFile(resolved);
-    return { status: 200, raw: { content, contentType: type } };
+    const info = await stat(resolved);
+    if (!info.isFile() || info.size < 1) throw new Error('not a file');
+    return { status: 200, raw: { path: resolved, size: info.size, filename: path.basename(resolved), contentType: type } };
   } catch {
     return { status: 404, body: { error: 'file not found' } };
   }
@@ -143,8 +170,34 @@ async function serveRenderFile(rawPath, options) {
 export async function handleStudioRequest(method, pathname, readBody, options = {}, query = {}) {
   if (!pathname.startsWith('/studio/')) return null;
   const tool = pathname.slice('/studio/'.length);
+  if (method === 'GET' && tool === 'explore-gallery') {
+    return { status: 200, body: { data: await listExploreGallery(options) } };
+  }
+  const galleryMediaMatch = tool.match(/^explore-gallery\/([^/]+)\/media$/);
+  if (method === 'GET' && galleryMediaMatch) {
+    const raw = await openExploreGalleryMedia(decodeURIComponent(galleryMediaMatch[1]), options);
+    return raw ? { status: 200, raw } : { status: 404, body: { error: 'gallery sample not found' } };
+  }
   const briefStore = () => options.briefStore ?? new MarketingBriefStore(options.briefStoreOptions);
+  await ensureProductionReadiness(options);
 
+  if (method === 'GET' && tool === 'arsenal') {
+    const brief = query.briefId ? await briefStore().get(query.briefId) : null;
+    if (query.briefId && !brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    const blenderCapability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
+    options.blenderCapability = blenderCapability;
+    const recipeContext = { ...productionContext(options), brief };
+    const data = await buildStudioArsenal({
+      brief,
+      filters: query,
+      supportedToolIds: Object.keys(toolHandlers(options)),
+      automationRegistry: options.automationRegistry,
+      automationPolicyOptions: options.automationPolicyOptions,
+      recipeContext,
+      capabilityOptions: capabilityOptions(options),
+    });
+    return { status: 200, body: { data } };
+  }
   if (method === 'GET' && tool === 'capabilities') {
     const brief = query.briefId ? await briefStore().get(query.briefId) : null;
     if (query.briefId && !brief) return { status: 404, body: { error: 'marketing brief not found' } };
@@ -152,6 +205,110 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       status: 200,
       body: { data: listStudioCapabilities(brief, capabilityOptions(options)) },
     };
+  }
+  if (method === 'GET' && tool === 'blender-readiness') {
+    const capability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
+    options.blenderCapability = capability;
+    return { status: 200, body: { data: capability } };
+  }
+  if (method === 'GET' && tool === 'production-planner') {
+    const store = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
+    const blenderCapability = options.blenderCapability ?? await probeBlenderVideo(options.blender ?? {});
+    options.blenderCapability = blenderCapability;
+    const context = productionContext(options);
+    return {
+      status: 200,
+      body: {
+        data: {
+          projects: listProductionProjects(),
+          ideas: query.projectSlug ? await store.listIdeas({ projectSlug: query.projectSlug, lane: 'operator-request' }) : [],
+          recipes: listProductionRecipes(context),
+        },
+      },
+    };
+  }
+  if (method === 'GET' && tool === 'autopilot/policies') {
+    const registry = options.automationRegistry ?? await loadAutomationPolicies(options.automationPolicyOptions);
+    return { status: 200, body: { data: registry } };
+  }
+  if (method === 'GET' && ['autopilot/status', 'autopilot/runs', 'autopilot/exceptions'].includes(tool)) {
+    const status = await studioAutopilotStatus({
+      ideaStore: options.ideaStore,
+      ideaStoreOptions: options.ideaStoreOptions,
+    });
+    if (tool === 'autopilot/runs') return { status: 200, body: { data: status.runs } };
+    if (tool === 'autopilot/exceptions') return { status: 200, body: { data: status.exceptions } };
+    return { status: 200, body: { data: status } };
+  }
+  if (method === 'POST' && tool === 'autopilot/run') {
+    const body = await readBody();
+    if (body?.confirm !== true) throw new Error('explicit local autopilot invocation confirmation is required');
+    if (Boolean(body.policy) === Boolean(body.all)) throw new Error('select exactly one automation policy or all policies');
+    const runner = options.autopilotRunner ?? runStudioAutopilot;
+    const data = await runner({
+      policy: body.policy,
+      all: body.all === true,
+      execute: body.execute === true,
+      count: body.count,
+      registry: options.automationRegistry,
+      policyOptions: options.automationPolicyOptions,
+      ideaStore: options.ideaStore,
+      briefStore: options.briefStore,
+      fleetRoot: options.fleetRoot,
+      outputDir: options.autopilotOutputDir ?? options.facelessOutputDir,
+      rendererOptions: options.rendererOptions,
+      artifactOptions: options.artifactOptions,
+      postizClient: options.postizClient,
+      now: options.now,
+      logger: options.logger,
+    });
+    return { status: 200, body: { data } };
+  }
+  if (method === 'POST' && tool === 'project-ideas') {
+    const body = await readBody();
+    const idea = await (options.ideaStore ?? new IdeaStore(options.ideaStoreOptions)).saveIdea({
+      projectSlug: body?.projectSlug,
+      title: body?.title,
+      angle: body?.angle,
+      hook: body?.hook,
+      format: body?.format,
+      notes: body?.notes,
+    });
+    return { status: 201, body: { data: idea } };
+  }
+  if (method === 'POST' && tool === 'production-plans') {
+    const body = await readBody();
+    const ideaStore = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
+    const idea = (await ideaStore.listIdeas({ projectSlug: body?.projectSlug }))
+      .find((entry) => entry.id === body?.ideaId);
+    if (!idea) throw new Error('select an idea that belongs to the selected Fleet project');
+    const recipe = getProductionRecipe(body?.recipeId, productionContext(options));
+    const recipeOptions = normalizeRecipeOptions(recipe.id, body?.options ?? {});
+    const evidence = body?.evidence ?? {};
+    const brief = await briefStore().create({
+      request: `Create ${recipe.name} for ${idea.title}.`,
+      generation: { source: 'template', provider: null },
+      messages: [],
+      projectSlug: body.projectSlug,
+      ideaId: idea.id,
+      recipeId: recipe.id,
+      recipeOptions,
+      kind: recipe.kind,
+      engine: recipe.engine,
+      channel: recipeOptions.channel,
+      durationSeconds: recipeOptions.durationSeconds,
+      title: idea.title,
+      hook: idea.hook ?? idea.angle ?? idea.title,
+      summary: idea.notes ?? idea.angle ?? idea.title,
+      creativeDirection: productionDirection(recipe, recipeOptions),
+      sourceEvidence: {
+        canonicalUrl: evidence.canonicalUrl ?? null,
+        claim: evidence.claim ?? null,
+        destinationUrl: evidence.destinationUrl ?? null,
+        rightsStatus: evidence.rightsStatus ?? 'unknown',
+      },
+    });
+    return { status: 201, body: { data: decorateBrief(brief, options) } };
   }
   if (method === 'GET' && tool === 'briefs') {
     const briefs = await briefStore().list();
@@ -196,6 +353,50 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
     const data = await executeMarketingBrief(decodeURIComponent(executeMatch[1]), body ?? {}, options, briefStore());
     return { status: 200, body: { data } };
   }
+  if (method === 'POST' && tool === 'lyric-video') {
+    const body = await readBody();
+    if (!body?.briefId) throw new Error('briefId is required');
+    const data = await executeMarketingBrief(body.briefId, body, options, briefStore());
+    return { status: 200, body: { data } };
+  }
+  if (method === 'POST' && tool === 'platform-audio-preview') {
+    const body = await readBody();
+    if (body?.confirm !== true) throw new Error('explicit platform-audio preview confirmation is required');
+    if (!body?.briefId) throw new Error('briefId is required');
+    const store = briefStore();
+    const brief = await store.get(body.briefId);
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    if (!brief.media?.videoPath) throw new Error('production video is required before platform-audio preview');
+    if (!isInsideArtifactRoots(brief.media.videoPath, options)) throw new Error('production video is outside artifact roots');
+    const artifactDir = brief.media.artifactDir && isInsideArtifactRoots(brief.media.artifactDir, options)
+      ? brief.media.artifactDir
+      : path.dirname(brief.media.videoPath);
+    const preview = await createPlatformAudioPreview({
+      reference: body.reference,
+      videoPath: brief.media.videoPath,
+      artifactDir,
+    }, {
+      commandRunner: options.platformAudioCommandRunner,
+      ffmpegPath: options.ffmpegPath,
+      ffprobePath: options.ffprobePath,
+      probeMedia: options.platformAudioProbe,
+      now: options.now,
+    });
+    const updated = await store.update(brief.id, {
+      media: { platformAudio: preview },
+    });
+    return {
+      status: 200,
+      body: {
+        data: {
+          brief: decorateBrief(updated, options),
+          preview,
+          downloadedAudio: false,
+          boundary: preview.boundary,
+        },
+      },
+    };
+  }
   const prepareMatch = tool.match(/^briefs\/([^/]+)\/prepare-distribution$/);
   if (prepareMatch && method === 'POST') {
     const id = decodeURIComponent(prepareMatch[1]);
@@ -223,6 +424,39 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       },
     };
   }
+  const scheduleMatch = tool.match(/^briefs\/([^/]+)\/schedule-postiz$/);
+  if (scheduleMatch && method === 'POST') {
+    const id = decodeURIComponent(scheduleMatch[1]);
+    const body = await readBody();
+    if (!body?.scheduledFor) throw new Error('scheduledFor is required');
+    const store = briefStore();
+    const brief = await store.get(id);
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    const scheduled = await submitStudioPostiz(brief, {
+      ...options,
+      approvedBy: body.approvedBy,
+      scheduledFor: body.scheduledFor,
+      publishNow: body.publishNow,
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'scheduled',
+      distribution: {
+        preparedAt: scheduled.request.createdAt,
+        request: scheduled.request,
+        receipt: scheduled.receipt,
+      },
+    });
+    return {
+      status: 200,
+      body: {
+        data: {
+          brief: decorateBrief(updated, options),
+          receipt: scheduled.receipt,
+          boundary: `Scheduled in Postiz for ${scheduled.request.scheduledFor}. Provider publication has not happened yet.`,
+        },
+      },
+    };
+  }
   const draftMatch = tool.match(/^briefs\/([^/]+)\/create-postiz-draft$/);
   if (draftMatch && method === 'POST') {
     const id = decodeURIComponent(draftMatch[1]);
@@ -233,7 +467,6 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
     const draft = await createStudioPostizDraft(brief, {
       ...options,
       approvedBy: body?.approvedBy,
-      scheduledFor: body?.scheduledFor,
       publishNow: body?.publishNow,
     });
     const updated = await store.update(id, {
@@ -250,19 +483,33 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
         data: {
           brief: decorateBrief(updated, options),
           receipt: draft.receipt,
-          boundary: 'Unscheduled Postiz draft created. Continue in Postiz to schedule or publish.',
+          boundary: 'Unscheduled Postiz draft created. It is not scheduled or published.',
         },
       },
     };
   }
   if (method === 'GET' && tool === 'productions') {
-    const [briefs, renders] = await Promise.all([briefStore().list(), listRenders(options)]);
+    const ideaStore = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
+    const [briefs, renders, ideas] = await Promise.all([briefStore().list(), listRenders(options), ideaStore.listIdeas()]);
+    const ideasById = new Map(ideas.map((idea) => [idea.id, idea]));
+    const briefVideoPaths = new Set(
+      briefs
+        .map((brief) => brief.media?.videoPath)
+        .filter(Boolean)
+        .map((videoPath) => path.resolve(videoPath)),
+    );
+    const legacyRenders = renders.filter(
+      (render) => !render.video || !briefVideoPaths.has(path.resolve(render.video)),
+    );
     return {
       status: 200,
       body: {
         data: {
-          briefs: briefs.map((brief) => decorateBrief(brief, options)),
-          legacyRenders: renders,
+          briefs: briefs.map((brief) => ({
+            ...decorateBrief(brief, options),
+            automation: brief.ideaId ? ideasById.get(brief.ideaId)?.automation ?? null : null,
+          })),
+          legacyRenders,
         },
       },
     };
@@ -273,7 +520,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
 
   if (method === 'GET' && tool === 'ideas-list') {
     const store = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
-    return { status: 200, body: { data: await store.listIdeas() } };
+    return { status: 200, body: { data: await store.listIdeas({ projectSlug: query.projectSlug }) } };
   }
   if (method === 'GET' && tool === 'renders-list') {
     return { status: 200, body: { data: await listRenders(options) } };
@@ -296,12 +543,103 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   return { status: 200, body: { data } };
 }
 
+async function ensureProductionReadiness(options) {
+  if (options.blenderCapability == null) {
+    options.blenderCapability = await probeBlenderVideo(options.blender ?? {});
+  }
+  if (options.htmlCapability == null) {
+    options.htmlCapability = await probeHtmlComposition(options.rendererOptions?.htmlComposition ?? {});
+  }
+  if (options.kokoroCapability == null) {
+    options.kokoroCapability = probeKokoroComposeReadiness({
+      kokoroDir: options.kokoroDir,
+      kokoroReady: options.kokoroReady,
+      pexelsReady: options.pexelsReady,
+      pexelsApiKey: options.rendererOptions?.kokoroCompose?.pexelsApiKey,
+      ffmpegPath: options.ffmpegPath,
+      ffmpegReady: options.ffmpegReady,
+    });
+  }
+}
+
 async function executeMarketingBrief(id, body, options, store) {
   if (body.confirm !== true) throw new Error('explicit execution confirmation is required');
   const brief = await store.get(id);
   if (!brief) throw new Error('marketing brief not found');
+  if (body.mode === 'fixture' && body.mixVariantIds != null) {
+    const execution = await executeVideoMix(brief, {
+      variantIds: body.mixVariantIds,
+      galleryOptions: { galleryConfig: options.galleryConfig, galleryRoot: options.galleryRoot },
+      outputDir: options.mixArtifactDir,
+      commandRunner: options.mixCommandRunner,
+      ffmpegPath: options.ffmpegPath,
+      ffprobePath: options.ffprobePath,
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'needs-review',
+      lastError: null,
+      media: {
+        artifactDir: path.dirname(execution.artifact.videoPath),
+        videoPath: execution.artifact.videoPath,
+        publicUrl: null,
+        provider: execution.adapter,
+        quality: execution.quality,
+        reviewedAt: null,
+        execution,
+      },
+    });
+    return { brief: decorateBrief(updated, options), production: execution, executed: true };
+  }
+  if (body.mode === 'fixture') {
+    const execution = await executeVideoVariant(brief, {
+      mode: 'fixture',
+      galleryOptions: { galleryConfig: options.galleryConfig, galleryRoot: options.galleryRoot },
+    });
+    const updated = await store.update(id, {
+      lifecycle: 'needs-review',
+      lastError: null,
+      media: {
+        artifactDir: path.dirname(execution.artifact.videoPath),
+        videoPath: execution.artifact.videoPath,
+        publicUrl: null,
+        provider: execution.adapter,
+        quality: execution.quality,
+        reviewedAt: null,
+        execution,
+      },
+    });
+    return { brief: decorateBrief(updated, options), production: execution, executed: true };
+  }
+  if (brief.recipeId) {
+    const actions = productionActions(brief, productionContext(options));
+    if (!actions.build.enabled) throw new Error(actions.build.blocker ?? 'video recipe is not ready');
+    if (actions.build.kind === 'continue') {
+      if (body.mode === 'real') {
+        const execution = await executeVideoVariant(brief, {
+          mode: 'real',
+          inputs: body.inputs ?? brief.executionInputs ?? {},
+          realExecutors: options.videoRealExecutors,
+        });
+        const updated = await store.update(id, {
+          lifecycle: 'needs-review',
+          lastError: null,
+          media: {
+            artifactDir: path.dirname(execution.artifact.videoPath),
+            videoPath: execution.artifact.videoPath,
+            publicUrl: null,
+            provider: execution.adapter,
+            quality: execution.quality,
+            reviewedAt: null,
+            execution,
+          },
+        });
+        return { brief: decorateBrief(updated, options), production: execution, executed: true };
+      }
+      return { brief: decorateBrief(brief, options), continuation: actions.build, executed: false };
+    }
+  }
   const capability = evaluateStudioCapability(brief.kind, brief, capabilityOptions(options));
-  if (brief.kind !== 'faceless') {
+  if (!['faceless', 'lyric-video'].includes(brief.kind)) {
     return {
       brief: decorateBrief(brief, options),
       continuation: continuationForBrief(brief, capabilityOptions(options)),
@@ -311,22 +649,80 @@ async function executeMarketingBrief(id, body, options, store) {
   if (capability.state !== 'ready') throw new Error(capability.blocker ?? 'video workflow is not ready');
   await store.update(id, { lifecycle: 'producing', lastError: null });
   try {
+    if (brief.kind === 'lyric-video') {
+      const render = await renderLyricVideo(brief, {
+        confirm: true,
+        artifactDir: options.lyricArtifactDir,
+        audioRoots: options.lyricAudioRoots,
+        blenderAdapter: options.blenderAdapter,
+        blender: options.blender,
+        frameRenderer: options.lyricFrameRenderer,
+        commandRunner: options.lyricCommandRunner,
+        ffmpegPath: options.ffmpegPath,
+        ffprobePath: options.ffprobePath,
+        now: options.now,
+      });
+      if (render.status !== 'completed') throw new Error('lyric video quality evidence did not pass');
+      const execution = await localExecutionEnvelope(brief, {
+        videoPath: render.raw.videoPath,
+        renderer: render.provider,
+        quality: render.raw.quality,
+        ownerManifestPath: render.raw.manifestPath,
+      });
+      const updated = await store.update(id, {
+        lifecycle: 'needs-review',
+        lastError: null,
+        media: {
+          artifactDir: render.raw.artifactDir,
+          videoPath: render.raw.videoPath,
+          publicUrl: null,
+          ideaId: null,
+          provider: render.provider,
+          quality: render.raw.quality,
+          reviewedAt: null,
+          captionsPath: render.raw.captionsPath,
+          scenePlanPath: render.raw.scenePlanPath,
+          rightsPath: render.raw.rightsPath,
+          manifestPath: render.raw.manifestPath,
+          blender: render.raw.blender,
+          execution,
+        },
+      });
+      return { brief: decorateBrief(updated, options), production: execution ?? render, executed: true };
+    }
     const summary = await runFacelessWorkflow({
       topic: brief.title,
       niche: brief.summary,
       durationSeconds: brief.durationSeconds,
       engine: brief.engine,
-      projectSlug: brief.projectSlug,
+      projectSlug: brief.projectSlug ?? 'studio',
       channel: brief.channel,
       briefId: brief.id,
       hook: brief.hook,
       cta: brief.cta,
       creativeDirection: brief.creativeDirection,
+      renderOptions: brief.recipeOptions?.values,
+      ideaId: brief.ideaId ?? undefined,
+      recordingUrl: brief.recipeOptions?.values?.approvedAssetPath || undefined,
+      literalScenes: brief.engine === 'blender' ? [{
+        id: 'scene-1',
+        lyric: brief.hook,
+        objects: [brief.hook],
+        camera: brief.recipeOptions?.values?.camera,
+        palette: brief.recipeOptions?.values?.palette,
+        visualStyle: brief.recipeOptions?.values?.visualStyle,
+      }] : undefined,
       outputDir: options.facelessOutputDir,
       ideaStore: options.ideaStore,
       rendererOptions: options.rendererOptions ?? {},
       llm: options.llm,
       logger: options.logger ?? console,
+    });
+    const execution = await localExecutionEnvelope(brief, {
+      videoPath: summary.video,
+      renderer: summary.engine,
+      quality: summary.quality,
+      ownerManifestPath: summary.manifestPath ?? null,
     });
     const updated = await store.update(id, {
       lifecycle: 'needs-review',
@@ -334,32 +730,107 @@ async function executeMarketingBrief(id, body, options, store) {
       media: {
         artifactDir: summary.artifactDir,
         videoPath: summary.video,
+        previewPath: summary.previewPath,
+        previewType: summary.previewType,
         publicUrl: null,
         ideaId: summary.ideaId,
         provider: summary.engine,
         quality: summary.quality,
         reviewedAt: null,
+        execution,
       },
     });
-    return { brief: decorateBrief(updated, options), production: summary, executed: true };
+    return { brief: decorateBrief(updated, options), production: execution ?? summary, executed: true };
   } catch (error) {
     await store.update(id, { lifecycle: 'failed', lastError: error.message });
     throw error;
   }
 }
 
+async function localExecutionEnvelope(brief, result) {
+  if (!brief.recipeId || !result.videoPath) return null;
+  const adapter = getExecutionAdapter(brief.recipeId);
+  const normalized = normalizeRecipeOptions(brief.recipeId, brief.recipeOptions ?? {});
+  const info = await stat(result.videoPath).catch(() => null);
+  return {
+    schema: VIDEO_EXECUTION_SCHEMA,
+    status: 'completed',
+    mode: 'real',
+    briefId: brief.id,
+    recipeId: brief.recipeId,
+    variantId: normalized.variantId,
+    adapter: adapter.id,
+    owner: adapter.owner,
+    artifact: {
+      videoPath: path.resolve(result.videoPath),
+      bytes: info?.size ?? null,
+      sha256: null,
+      contentType: 'video/mp4',
+    },
+    provenance: { posture: 'real', renderer: result.renderer ?? adapter.id },
+    quality: result.quality ?? { verdict: 'pass', basis: 'local renderer evidence' },
+    evidence: { ownerManifestPath: result.ownerManifestPath ?? null },
+    blockers: [],
+  };
+}
+
 function decorateBrief(brief, options) {
   const capability = evaluateStudioCapability(brief.kind, brief, capabilityOptions(options));
+  const actions = productionActions(brief, productionContext(options));
+  const continuation = brief.recipeId ? continuationFromAction(actions.build) : continuationForBrief(brief, capabilityOptions(options));
   return {
     ...brief,
     capability,
-    continuation: continuationForBrief(brief, capabilityOptions(options)),
+    recipe: brief.recipeId ? getProductionRecipe(brief.recipeId, { ...productionContext(options), brief }) : null,
+    actions,
+    continuation,
   };
+}
+
+function continuationFromAction(action) {
+  return {
+    owner: null,
+    state: action.enabled ? (action.kind === 'continue' ? 'external-step' : 'ready') : 'needs-input',
+    label: action.label,
+    href: action.href,
+    method: action.kind === 'execute' ? 'POST' : 'GET',
+    endpoint: action.endpoint,
+    blocker: action.blocker,
+  };
+}
+
+function productionContext(options) {
+  const kokoroCapability = options.kokoroCapability ?? probeKokoroComposeReadiness({
+    kokoroDir: options.kokoroDir,
+    kokoroReady: options.kokoroReady,
+    pexelsReady: options.pexelsReady,
+    pexelsApiKey: options.rendererOptions?.kokoroCompose?.pexelsApiKey,
+    ffmpegPath: options.ffmpegPath,
+    ffmpegReady: options.ffmpegReady,
+  });
+  return {
+    blenderCapability: options.blenderCapability ?? (options.blenderReady !== undefined
+      ? { ready: options.blenderReady, blocker: options.blenderBlocker ?? null }
+      : null),
+    htmlCapability: options.htmlCapability ?? null,
+    kokoroReady: kokoroCapability.ready,
+    kokoroBlocker: kokoroCapability.blocker,
+  };
+}
+
+function productionDirection(recipe, options) {
+  const selected = Object.entries(options.values)
+    .filter(([, value]) => value !== '' && value !== false)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ');
+  return `${recipe.outputStyle}. ${recipe.description}${selected ? ` Selected options: ${selected}.` : ''}`;
 }
 
 function capabilityOptions(options) {
   return {
     forgeUrl: options.forgeUrl ?? process.env.REEL_FORGE_URL,
     editorialUrl: options.editorialUrl ?? process.env.REEL_EDITORIAL_URL,
+    blenderReady: options.blenderCapability?.ready ?? options.blenderReady,
+    blenderBlocker: options.blenderCapability?.blocker ?? options.blenderBlocker,
   };
 }

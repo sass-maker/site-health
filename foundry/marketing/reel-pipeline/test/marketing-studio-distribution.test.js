@@ -7,7 +7,9 @@ import test from 'node:test';
 import {
   buildStudioDistributionBundle,
   createStudioPostizDraft,
+  normalizeFutureSchedule,
   studioPostizReadiness,
+  submitStudioPostiz,
 } from '../src/studio/distribution.js';
 
 function approvedBrief(overrides = {}) {
@@ -65,6 +67,43 @@ test('prepare fails closed when public media or approval evidence is incomplete'
   );
 });
 
+test('lyric distribution requires separate music rights and retained cue evidence', () => {
+  const lyricBrief = approvedBrief({
+    kind: 'lyric-video',
+    lyric: {
+      attribution: 'Words and music by operator; original recording by operator.',
+      rights: {
+        composition: 'owned',
+        master: 'original-recording',
+        evidence: 'Operator rights record 123.',
+      },
+    },
+    media: {
+      ...approvedBrief().media,
+      rightsPath: '/tmp/rights.json',
+      scenePlanPath: '/tmp/literal-scene-plan.json',
+    },
+  });
+  assert.doesNotThrow(() => buildStudioDistributionBundle(lyricBrief));
+  assert.throws(
+    () => buildStudioDistributionBundle({
+      ...lyricBrief,
+      lyric: {
+        ...lyricBrief.lyric,
+        rights: { composition: 'unknown', master: 'unknown' },
+      },
+    }),
+    /composition and lyric rights/i,
+  );
+  assert.throws(
+    () => buildStudioDistributionBundle({
+      ...lyricBrief,
+      media: { ...lyricBrief.media, scenePlanPath: null },
+    }),
+    /literal lyric scene plan/i,
+  );
+});
+
 test('draft submission requires explicit approval and never supplies a schedule', async () => {
   const calls = [];
   const postizClient = {
@@ -86,15 +125,70 @@ test('draft submission requires explicit approval and never supplies a schedule'
   assert.equal('accountSlug' in result.receipt, false);
 });
 
-test('Marketing Studio rejects schedule and publish inputs', async () => {
+test('scheduled submission preserves exact UTC time in the sanitized request and receipt', async () => {
+  const calls = [];
+  const result = await submitStudioPostiz(approvedBrief(), {
+    approvedBy: 'owner',
+    scheduledFor: '2026-08-01T12:00:00+05:30',
+    postizClient: {
+      post: async (post) => {
+        calls.push(post);
+        return { provider: 'postiz', status: 'scheduled', externalId: 'post-2', externalUrl: null };
+      },
+    },
+    now: () => new Date('2026-07-31T12:05:00Z'),
+  });
+  assert.equal(result.request.scheduledFor, '2026-08-01T06:30:00.000Z');
+  assert.equal(result.receipt.status, 'scheduled');
+  assert.equal(result.receipt.scheduledFor, '2026-08-01T06:30:00.000Z');
+  assert.equal(calls[0].scheduled_for, '2026-08-01T06:30:00.000Z');
+  assert.equal('accountSlug' in result.receipt, false);
+  assert.equal('body' in result.receipt, false);
+});
+
+test('Marketing Studio rejects invalid, past, and immediate publication before Postiz access', async () => {
+  let calls = 0;
+  const postizClient = { post: async () => { calls += 1; return {}; } };
+  assert.throws(
+    () => normalizeFutureSchedule('not-a-date', new Date('2026-07-31T12:05:00Z')),
+    /must be an ISO date/,
+  );
   await assert.rejects(
-    () => createStudioPostizDraft(approvedBrief(), {
+    () => submitStudioPostiz(approvedBrief(), {
+      approvedBy: 'owner',
+      scheduledFor: '2026-07-31T12:00:00Z',
+      postizClient,
+      now: () => new Date('2026-07-31T12:05:00Z'),
+    }),
+    /must be in the future/,
+  );
+  await assert.rejects(
+    () => submitStudioPostiz(approvedBrief(), {
+      approvedBy: 'owner',
+      publishNow: true,
+      postizClient,
+    }),
+    /does not accept immediate publication/,
+  );
+  assert.equal(calls, 0);
+});
+
+test('Marketing Studio rejects duplicate Postiz submissions before network access', async () => {
+  let calls = 0;
+  await assert.rejects(
+    () => submitStudioPostiz(approvedBrief({
+      distribution: {
+        receipt: { externalId: 'existing-postiz-post', status: 'scheduled' },
+      },
+    }), {
       approvedBy: 'owner',
       scheduledFor: '2026-08-01T12:00:00Z',
-      postizClient: { post: async () => ({}) },
+      postizClient: { post: async () => { calls += 1; return {}; } },
+      now: () => new Date('2026-07-31T12:05:00Z'),
     }),
-    /does not accept schedules/,
+    /receipt already exists/,
   );
+  assert.equal(calls, 0);
 });
 
 test('readiness exposes only safe configuration booleans and the Postiz boundary', () => {
@@ -102,9 +196,9 @@ test('readiness exposes only safe configuration booleans and the Postiz boundary
     postizClient: {},
     postizAppUrl: 'https://postiz.example.test/public/v1',
   });
-  assert.equal(readiness.state, 'ready-for-draft');
+  assert.equal(readiness.state, 'ready-for-submission');
   assert.equal(readiness.appUrl, 'https://postiz.example.test/');
-  assert.match(readiness.boundary, /unscheduled drafts only/);
+  assert.match(readiness.boundary, /drafts or schedule future posts/);
   assert.equal(JSON.stringify(readiness).includes('integrationId'), false);
 });
 
@@ -117,7 +211,7 @@ test('readiness recognizes the default-style machine-local mapping file', async 
     integrationsPath,
     postizAppUrl: 'https://postiz.example.test',
   });
-  assert.equal(readiness.state, 'ready-for-draft');
+  assert.equal(readiness.state, 'ready-for-submission');
   assert.equal(readiness.apiConfigured, true);
   assert.equal(readiness.mappingConfigured, true);
   assert.equal(JSON.stringify(readiness).includes('present-but-never-returned'), false);

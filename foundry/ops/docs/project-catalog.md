@@ -23,7 +23,7 @@ Generated from 41 internal project identities.
 | Research Papers | maintained | `research-papers` | maintained | https://papers.highsignal.app |
 | Knowledge Base | maintained | `knowledge-base` | maintained | https://knowledgebase.sassmaker.com |
 | Significant Hobbies | maintained | `significanthobbies` | maintained | https://significanthobbies.com |
-| India Standards | maintained | `india-standards` | hidden | https://india-numbers.significanthobbies.com |
+| India Standards | maintained | `india-standards` | hidden | https://india-standards.significanthobbies.com |
 | Anime List | maintained | `anime-list` | maintained | https://anime.significanthobbies.com |
 | Chess | maintained | `chess` | maintained | https://chess.significanthobbies.com |
 | LoopTV | maintained | `looptv` | maintained | https://tv.significanthobbies.com |
@@ -57,7 +57,7 @@ Generated from 41 internal project identities.
 | Protein Index | past | `../fleet-inactive-projects/protein-index` | past | https://protein.significanthobbies.com |
 | Mashup | past | `mashup` | hidden | — |
 | SaaS Ideas | past | `../fleet-inactive-projects/saas-ideas` | hidden | https://ideas.sassmaker.com |
-| TrueHire | past | `../fleet-inactive-projects/truehire` | past | — |
+| TrueHire | past | `../fleet-inactive-projects/truehire` | past | https://truehire.rolepatch.com |
 | Today Little Log | past | `../fleet-inactive-projects/today-little-log` | past | — |
 | Open Historia | past | `../fleet-inactive-projects/open-historia` | past | https://historia.aliveville.com |
 | Companion Robot | past | `../fleet-inactive-projects/companion-robot` | past | — |

@@ -68,6 +68,111 @@ function projectionFor(store) {
   return store.rebuildProjections();
 }
 
+function boundedSignal(signal, { includeSeries = false } = {}) {
+  if (!signal) return null;
+  const { series, ...bounded } = signal;
+  return includeSeries
+    ? { ...bounded, series: (series ?? []).slice(-60) }
+    : bounded;
+}
+
+function outcomeProjection(connections, family) {
+  const outcomes = connections.outputs?.ownerOutcomes ?? {};
+  let rows = [];
+  if (family === 'domains') {
+    rows = (outcomes.domains ?? []).map((row) => ({
+      ...row,
+      signal: boundedSignal(row.signal, { includeSeries: true }),
+    }));
+  } else if (family === 'ai-awareness') {
+    rows = (outcomes.coreAi ?? []).map((row) => ({
+      ...row,
+      mention: boundedSignal(row.mention),
+      recommendation: boundedSignal(row.recommendation),
+      citation: boundedSignal(row.citation),
+      averageRank: boundedSignal(row.averageRank),
+      questions: (row.questions ?? []).slice(0, 12).map((question) => ({
+        id: question.id,
+        setId: question.setId,
+        text: question.text,
+      })),
+      coverage: row.coverage
+        ? {
+            configured: Number(row.coverage.configured ?? 0),
+            completed: Number(row.coverage.completed ?? 0),
+            unavailable: Number(row.coverage.unavailable ?? 0),
+            timedOut: Number(row.coverage.timedOut ?? 0),
+            failed: Number(row.coverage.failed ?? 0),
+          }
+        : null,
+      attempts: (row.attempts ?? []).slice(0, 24).map((attempt) => ({
+        promptId: attempt.promptId,
+        persona: attempt.persona,
+        providerId: attempt.providerId,
+        model: attempt.model,
+        status: attempt.status,
+      })),
+      citationSources: {
+        total: Number(row.citationSources?.total ?? 0),
+        owned: Number(row.citationSources?.owned ?? 0),
+        external: Number(row.citationSources?.external ?? 0),
+        unclassified: Number(row.citationSources?.unclassified ?? 0),
+        sources: (row.citationSources?.sources ?? []).slice(0, 50).map((source) => ({
+          url: source.url,
+          host: source.host,
+          ownership: source.ownership,
+        })),
+      },
+      crawlerRequests: boundedSignal(row.crawlerRequests, { includeSeries: true }),
+      aiReferralVisits: boundedSignal(row.aiReferralVisits, { includeSeries: true }),
+    }));
+  } else if (family === 'performance') {
+    rows = (outcomes.performance ?? []).map((row) => ({
+      ...row,
+      psi: boundedSignal(row.psi),
+      lcp: boundedSignal(row.lcp),
+      fieldLcp: boundedSignal(row.fieldLcp, { includeSeries: true }),
+      fieldInp: boundedSignal(row.fieldInp, { includeSeries: true }),
+      fieldCls: boundedSignal(row.fieldCls, { includeSeries: true }),
+      fieldTtfb: boundedSignal(row.fieldTtfb, { includeSeries: true }),
+      rumSamples: boundedSignal(row.rumSamples),
+    }));
+  } else if (family === 'marketing') {
+    rows = (outcomes.marketing ?? []).map((row) => ({
+      ...row,
+      visits: boundedSignal(row.visits, { includeSeries: true }),
+      pageViews: boundedSignal(row.pageViews, { includeSeries: true }),
+      searchReferrals: boundedSignal(row.searchReferrals, { includeSeries: true }),
+    }));
+  } else if (family === 'search') {
+    rows = (outcomes.search ?? []).map((row) => ({
+      ...row,
+      trackedQueries: (row.trackedQueries ?? []).slice(0, 12).map((query) => ({
+        id: query.id,
+        kind: query.kind,
+        text: query.text,
+        class: query.class,
+        observedAt: query.observedAt,
+      })),
+      impressions: boundedSignal(row.impressions, { includeSeries: true }),
+      clicks: boundedSignal(row.clicks, { includeSeries: true }),
+      ctr: boundedSignal(row.ctr, { includeSeries: true }),
+      averagePosition: boundedSignal(row.averagePosition, { includeSeries: true }),
+    }));
+  } else {
+    return null;
+  }
+  return {
+    schemaVersion: 'fleet.owner-outcome.v1',
+    generatedAt: connections.generatedAt,
+    family,
+    rows,
+    ...(family === 'performance'
+      ? { thresholds: outcomes.performanceThresholds ?? {} }
+      : {}),
+  };
+}
+
 function findMission(projections, missionId) {
   return projections.missions.find((mission) => mission.id === missionId);
 }
@@ -85,9 +190,26 @@ export function buildMarketingProjection(projections, portfolio, scheduleActivat
   const projectedProjects = new Map(
     projections.aiVisibility.projects.map((project) => [project.projectId, project]),
   );
+  const outcomes = projections.activity.flatMap((event) => {
+    const match = String(event.summary ?? '').match(/^Marketing (publication|measurement) receipt$/);
+    if (!match) return [];
+    const pointer = event.evidence?.[0] ?? null;
+    return [{
+      id: event.id,
+      projectId: event.projectId ?? null,
+      missionId: event.missionId ?? null,
+      stage: match[1],
+      status: pointer?.state ?? 'recorded',
+      provider: pointer?.provider ?? event.actor?.id ?? null,
+      title: pointer?.summary ?? event.summary,
+      observedAt: event.occurredAt,
+      url: pointer?.url ?? null,
+    }];
+  });
   return {
     generatedAt: projections.generatedAt,
     recommendations: projections.recommendations.filter((item) => item.projectId),
+    outcomes,
     providerEvidence: 'linked-only',
     aiVisibility: {
       projects: portfolio.eligible.map((project) => ({
@@ -126,12 +248,34 @@ export function createFounderControlHandler({
   visibilityPortfolio = loadAiVisibilityPortfolio(),
   visibilityScheduleActivation = {},
   connectionsProvider = buildFleetConnections,
+  prewarmConnections = false,
   skillRunOutputProvider = readSkillRunOutput,
   metricRunController,
 }) {
   const resolvedMetricRunController = metricRunController ?? createMetricRunController({
     projects: store.projects,
   });
+  let connectionCache = null;
+  const completedMetricRuns = new Set();
+  const rebuildConnections = (projections = projectionFor(store)) => {
+    const marketing = buildMarketingProjection(
+      projections,
+      visibilityPortfolio,
+      visibilityScheduleActivation,
+    );
+    const payload = connectionsProvider({
+      marketing,
+      missions: projections.missions,
+      now: now(),
+    });
+    connectionCache = { payload };
+    return payload;
+  };
+  const cachedConnections = (projections) => {
+    if (!connectionCache) return rebuildConnections(projections);
+    return connectionCache.payload;
+  };
+  if (prewarmConnections) rebuildConnections();
   return async function founderControlHandler(request, response) {
     try {
       const url = new URL(request.url, 'http://foundry.local');
@@ -151,6 +295,10 @@ export function createFounderControlHandler({
       const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
       if (method === 'GET' && metricRunMatch) {
         const run = resolvedMetricRunController.get(decodeURIComponent(metricRunMatch[1]));
+        if (run && run.state !== 'running' && !completedMetricRuns.has(run.runId)) {
+          completedMetricRuns.add(run.runId);
+          connectionCache = null;
+        }
         return run
           ? json(response, 200, run)
           : json(response, 404, { error: 'metric run not found' });
@@ -181,21 +329,18 @@ export function createFounderControlHandler({
           buildMarketingProjection(projections, visibilityPortfolio, visibilityScheduleActivation),
         );
       }
-      if (method === 'GET' && url.pathname === '/v1/connections') {
-        const marketing = buildMarketingProjection(
-          projections,
-          visibilityPortfolio,
-          visibilityScheduleActivation,
-        );
+      const outcomeMatch = url.pathname.match(
+        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing)$/,
+      );
+      if (method === 'GET' && outcomeMatch) {
         return json(
           response,
           200,
-          connectionsProvider({
-            marketing,
-            missions: projections.missions,
-            now: now(),
-          }),
+          outcomeProjection(cachedConnections(projections), outcomeMatch[1]),
         );
+      }
+      if (method === 'GET' && url.pathname === '/v1/connections') {
+        return json(response, 200, cachedConnections(projections));
       }
 
       if (
@@ -215,6 +360,7 @@ export function createFounderControlHandler({
         return json(response, 202, resolvedMetricRunController.start({
           family: String(body.family ?? ''),
           projectId: String(body.projectId ?? ''),
+          scope: String(body.scope ?? 'project'),
         }));
       }
 
@@ -344,7 +490,9 @@ export function createFounderControlHandler({
       }
 
       if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
-        return json(response, 200, projectionFor(store));
+        const rebuilt = projectionFor(store);
+        rebuildConnections(rebuilt);
+        return json(response, 200, rebuilt);
       }
       return json(response, 404, { error: 'route not found' });
     } catch (error) {
@@ -367,6 +515,7 @@ export function startFounderControlService({
   visibilityPortfolio,
   visibilityScheduleActivation,
   connectionsProvider,
+  prewarmConnections = false,
   skillRunOutputProvider,
   metricRunController,
 } = {}) {
@@ -380,6 +529,7 @@ export function startFounderControlService({
       ...(visibilityPortfolio ? { visibilityPortfolio } : {}),
       ...(visibilityScheduleActivation ? { visibilityScheduleActivation } : {}),
       ...(connectionsProvider ? { connectionsProvider } : {}),
+      prewarmConnections,
       ...(skillRunOutputProvider ? { skillRunOutputProvider } : {}),
       ...(metricRunController ? { metricRunController } : {}),
     }),

@@ -5,11 +5,13 @@ import path from 'node:path';
 import { normalizeContentPackage } from '../content-package.js';
 import { buildDistributionRequest, executeDistribution } from '../distribution.js';
 import { PostizClient } from '../postiz-client.js';
+import { evaluateLyricRights } from '../lyric-video/contracts.js';
 
 export function buildStudioDistributionBundle(brief, options = {}) {
   assertDistributionEvidence(brief);
   const now = options.now?.() ?? new Date();
   const occurredAt = now.toISOString();
+  const scheduledFor = normalizeFutureSchedule(options.scheduledFor, now);
   const variantId = `studio-${brief.id}`;
   const packageInput = {
     schema: 'fleet.content-package.v1',
@@ -68,25 +70,38 @@ export function buildStudioDistributionBundle(brief, options = {}) {
   };
   const request = buildDistributionRequest(contentPackage, mediaReceipt, {
     provider: 'postiz',
-    scheduledFor: null,
+    scheduledFor,
     createdAt: occurredAt,
   });
   return { contentPackage, mediaReceipt, request };
 }
 
 export async function createStudioPostizDraft(brief, options = {}) {
-  if (options.scheduledFor !== undefined || options.publishNow !== undefined) {
-    throw new Error('Marketing Studio does not accept schedules or publication actions; continue in Postiz');
+  if (options.scheduledFor !== undefined) {
+    throw new Error('createStudioPostizDraft does not accept a schedule; use submitStudioPostiz');
+  }
+  return submitStudioPostiz(brief, options);
+}
+
+export async function submitStudioPostiz(brief, options = {}) {
+  if (options.publishNow !== undefined) {
+    throw new Error('Marketing Studio does not accept immediate publication actions');
+  }
+  if (brief?.distribution?.receipt?.externalId) {
+    throw new Error('a Postiz receipt already exists for this production; manage it in Postiz');
   }
   const approvedBy = requiredString(options.approvedBy, 'approvedBy');
+  const now = options.now?.() ?? new Date();
+  const scheduledFor = normalizeFutureSchedule(options.scheduledFor, now);
+  const fixedNow = () => now;
+  const bundle = buildStudioDistributionBundle(brief, { now: fixedNow, approvedBy, scheduledFor });
   const postizClient = options.postizClient ?? await resolveStudioPostizClient(options);
-  const bundle = buildStudioDistributionBundle(brief, { now: options.now, approvedBy });
   const approvedRequest = {
     ...bundle.request,
-    scheduledFor: null,
+    scheduledFor,
     approval: {
       status: 'approved',
-      approvedAt: (options.now?.() ?? new Date()).toISOString(),
+      approvedAt: now.toISOString(),
       approvedBy,
     },
   };
@@ -94,12 +109,20 @@ export async function createStudioPostizDraft(brief, options = {}) {
     bundle.contentPackage,
     bundle.mediaReceipt,
     approvedRequest,
-    { postizProvider: postizClient, now: options.now },
+    { postizProvider: postizClient, now: fixedNow },
   );
   return {
     request: approvedRequest,
-    receipt: sanitizeDistributionReceipt(receipt),
+    receipt: sanitizeDistributionReceipt(receipt, scheduledFor),
   };
+}
+
+export function normalizeFutureSchedule(value, now = new Date()) {
+  if (value === undefined || value === null || value === '') return null;
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) throw new Error('scheduledFor must be an ISO date');
+  if (date.getTime() <= now.getTime()) throw new Error('scheduledFor must be in the future');
+  return date.toISOString();
 }
 
 export async function resolveStudioPostizClient(options = {}) {
@@ -137,17 +160,23 @@ export function studioPostizReadiness(options = {}) {
     || existsSync(integrationsPath),
   );
   return {
-    state: apiKeyPresent && mappingConfigured ? 'ready-for-draft' : 'not-configured',
+    state: apiKeyPresent && mappingConfigured ? 'ready-for-submission' : 'not-configured',
     apiConfigured: apiKeyPresent,
     mappingConfigured,
     appUrl: normalizePostizAppUrl(options.postizAppUrl ?? process.env.POSTIZ_APP_URL ?? baseUrl),
     schedulingOwner: 'Postiz',
-    boundary: 'Marketing Studio creates unscheduled drafts only. Calendar, scheduling, publication, and analytics continue in Postiz.',
+    boundary: 'Marketing Studio can create drafts or schedule future posts through Postiz. Postiz owns credentials, publication state, calendar lifecycle, and analytics.',
   };
 }
 
 function assertDistributionEvidence(brief) {
   const missing = [];
+  if (brief?.kind === 'lyric-video') {
+    const lyricRights = evaluateLyricRights(brief.lyric);
+    if (!lyricRights.ready) missing.push(...lyricRights.blockers);
+    if (!brief?.media?.rightsPath) missing.push('lyric rights manifest');
+    if (!brief?.media?.scenePlanPath) missing.push('literal lyric scene plan');
+  }
   if (!brief?.projectSlug) missing.push('Fleet brand');
   if (!brief?.sourceEvidence?.canonicalUrl) missing.push('canonical source URL');
   if (!brief?.sourceEvidence?.claim) missing.push('source-backed claim');
@@ -162,7 +191,17 @@ function assertDistributionEvidence(brief) {
   if (missing.length) throw new Error(`distribution evidence incomplete: ${missing.join(', ')}`);
 }
 
-function sanitizeDistributionReceipt(receipt) {
+function isPublicHttps(value) {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== 'https:') return false;
+    return !['localhost', '127.0.0.1', '::1'].includes(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function sanitizeDistributionReceipt(receipt, scheduledFor) {
   return {
     schema: receipt.schema,
     requestId: receipt.requestId,
@@ -174,18 +213,9 @@ function sanitizeDistributionReceipt(receipt) {
     status: receipt.status,
     externalId: receipt.externalId,
     externalUrl: receipt.externalUrl,
+    scheduledFor,
     recordedAt: receipt.recordedAt,
   };
-}
-
-function isPublicHttps(value) {
-  try {
-    const url = new URL(value);
-    if (url.protocol !== 'https:') return false;
-    return !['localhost', '127.0.0.1', '::1'].includes(url.hostname);
-  } catch {
-    return false;
-  }
 }
 
 function normalizePostizAppUrl(value) {

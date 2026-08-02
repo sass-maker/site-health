@@ -7,7 +7,8 @@ import test from 'node:test';
 import { StudioLlm } from '../src/studio/llm.js';
 import { IdeaStore } from '../src/studio/idea-store.js';
 import { generateScript } from '../src/studio/script.js';
-import { scriptToBrief, runFacelessWorkflow, runBatch } from '../src/studio/workflow.js';
+import { scriptToBrief, runFacelessWorkflow, runBatch, runSourceBackedWorkflow } from '../src/studio/workflow.js';
+import { getProductionRecipe } from '../src/studio/production-catalog.js';
 
 const offlineLlm = new StudioLlm({ apiKey: '' });
 const silent = { info: () => {}, warn: () => {} };
@@ -122,6 +123,36 @@ test('workflow does not auto-post and surfaces the handoff command only on reque
   const withHandoff = await runFacelessWorkflow({ ...base, postHandoff: true });
   assert.match(withHandoff.postHandoff.command, /distribution/);
   assert.match(withHandoff.postHandoff.command, /postiz/);
+});
+
+test('source-backed workflow renders deterministic supplied copy without inventing claims', async () => {
+  const out = await tempDir('studio-source-backed-');
+  const store = new IdeaStore({ filePath: path.join(out, 'ideas.json') });
+  const idea = await store.saveIdea({ title: 'Evidence changes the decision', projectSlug: 'high-signal' });
+  const summary = await runSourceBackedWorkflow({
+    source: {
+      projectSlug: 'high-signal', title: 'Evidence changes the decision',
+      summary: 'One proof makes the choice easier.', claim: 'Visible evidence improves trust.',
+      hook: 'Show the proof first.', cta: 'Read the evidence.',
+      canonicalUrl: 'https://highsignal.app/briefs/proof-1', contentPackage: null,
+    },
+    recipe: getProductionRecipe('image-slideshow'),
+    channel: 'youtube_shorts', ideaId: idea.id, ideaStore: store, outputDir: out,
+    rendererOptions: { renderer: { createVideo: async () => ({ provider: 'fixture', status: 'completed', videos: ['/tmp/source-backed.mp4'] }) } },
+    publishArtifacts: async (render) => render,
+    assessQuality: async () => ({ verdict: 'pass', overall: 90 }),
+    logger: silent,
+  });
+  const script = JSON.parse(await readFile(path.join(summary.artifactDir, 'script.json'), 'utf8'));
+  assert.equal(script.source, 'standing-policy-source');
+  assert.deepEqual(script.scenes.map((scene) => scene.narration), [
+    'Show the proof first.',
+    'One proof makes the choice easier.',
+    'Visible evidence improves trust.',
+    'Read the evidence.',
+  ]);
+  assert.equal(summary.publicUrl, null);
+  assert.equal((await store.listIdeas())[0].status, 'rendered');
 });
 
 test('batch isolates per-topic failures and reports the split', async () => {

@@ -44,6 +44,10 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-07-31** — Completed the public social-search metadata contract with a
+  real 1200×630 product preview plus Open Graph and Twitter image metadata on
+  every public route. The production homepage audit now has a source-side fix
+  for its only remaining critical on-page SEO failure; rollout remains manual.
 - **2026-07-31** — Validated the optional external trace-insight boundary
   against controlled Chrome DevTools MCP traces for a clean control,
   `DocumentLatency`, and LCP render-delay regression. Added a deterministic

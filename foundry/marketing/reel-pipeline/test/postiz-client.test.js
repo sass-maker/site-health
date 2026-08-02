@@ -61,6 +61,56 @@ test('creates a private YouTube draft with provider-specific settings', async ()
   });
 });
 
+test('creates exact future Instagram and YouTube schedules without a live provider call', async () => {
+  for (const [channel, accountSlug, integrationId] of [
+    ['instagram_reels', 'brand-instagram', 'ig-1'],
+    ['youtube_shorts', 'brand-youtube', 'yt-1'],
+  ]) {
+    const calls = [];
+    const client = new PostizClient({
+      apiKey: 'secret',
+      integrations,
+      now: () => new Date('2026-07-21T12:00:00Z'),
+      fetchImpl: async (url, init) => {
+        calls.push({ url, init, body: init.body ? JSON.parse(init.body) : null });
+        return calls.length === 1
+          ? response({ id: `media-${integrationId}`, path: 'https://uploads.example.test/video.mp4' })
+          : response([{ postId: `post-${integrationId}`, integration: integrationId }]);
+      },
+    });
+    const result = await client.post({
+      ...input(channel, accountSlug),
+      scheduled_for: '2026-07-22T09:30:00+05:30',
+    });
+    assert.equal(result.status, 'scheduled');
+    assert.equal(calls[1].body.type, 'schedule');
+    assert.equal(calls[1].body.date, '2026-07-22T04:00:00.000Z');
+    assert.equal(calls[1].body.posts[0].integration.id, integrationId);
+  }
+});
+
+test('rejects invalid or past schedules before media upload', async () => {
+  let calls = 0;
+  const client = new PostizClient({
+    apiKey: 'secret',
+    integrations,
+    now: () => new Date('2026-07-21T12:00:00Z'),
+    fetchImpl: async () => {
+      calls += 1;
+      return response({});
+    },
+  });
+  await assert.rejects(
+    () => client.post({ ...input('instagram_reels', 'brand-instagram'), scheduled_for: 'not-a-date' }),
+    /must be an ISO date/,
+  );
+  await assert.rejects(
+    () => client.post({ ...input('youtube_shorts', 'brand-youtube'), scheduled_for: '2026-07-21T11:59:00Z' }),
+    /must be in the future/,
+  );
+  assert.equal(calls, 0);
+});
+
 test('rejects invalid YouTube metadata before uploading media', async () => {
   let calls = 0;
   const client = new PostizClient({

@@ -121,3 +121,132 @@
   27 metric-eligible projects without deploying or changing providers.
 - [x] 15.5 Run focused tests, Fleet Console build, strict OpenSpec validation,
   and diff checks; update durable project status with the measured outcome.
+
+## 16. Meaningful Metric Semantics
+
+- [x] 16.1 Add normalized outcome, readiness, fixture, domain-scope, source, and
+  observation-time semantics with focused projection tests.
+- [x] 16.2 Replace ambiguous matrix grades and fixture scores with explicit
+  measured/not-measured states and evidence metadata.
+- [x] 16.3 Keep detailed query and canary evidence available without presenting
+  either as a direct outcome.
+- [x] 16.4 Run focused tests, the Fleet Console build, strict OpenSpec
+  validation, and responsive browser/design gates.
+- [x] 16.5 Update the durable project status and complete the design receipt.
+
+## 17. Portfolio Matrix Distillation
+
+- [x] 17.1 Remove Search and AI Visibility from the portfolio matrix while no
+  provider-backed outcomes exist, retaining their project-detail evidence.
+- [x] 17.2 Remove Design from the portfolio matrix while retaining the project
+  quality-gate report.
+- [x] 17.3 Reduce the matrix to D-Rank, AI Agent Readiness, PSI, and LCP with
+  sortable native values and project deep links.
+- [x] 17.4 Run focused build, strict OpenSpec, responsive browser, and design
+  review gates; update durable status.
+
+## 18. Provider Outcome Intake
+
+- [x] 18.1 Define and test a strict credential-free bundle contract and private
+  idempotent store for Search Console, Cloudflare AI Crawl Control, and
+  Cloudflare Web Analytics aggregates.
+- [x] 18.2 Add a no-network ingestion command with canonical-project,
+  provider/family, metric, period, privacy, and all-before-write validation.
+- [x] 18.3 Project Search Console outcomes and Cloudflare crawler/referral
+  activity into project SEO/GEO histories without changing the portfolio
+  matrix or conflating those signals with live model-answer visibility.
+- [x] 18.4 Add focused store, command, projection, and UI/build coverage; run
+  strict OpenSpec and diff checks.
+- [x] 18.5 Create one detailed GitHub task for OAuth/token authorization,
+  Cloudflare AI Gateway provider adapters, billing/cost gates, live collectors,
+  first canaries, and schedule activation.
+- [x] 18.6 Update durable status, commit, and push without deploying or touching
+  credentials or production configuration.
+
+## 19. Owner Outcome Refocus
+
+- [x] 19.1 Group Domains, AI Awareness, and Performance under Metrics while
+  keeping Projects, Marketing, Feedback, skills, and System Map as separate or
+  secondary surfaces.
+- [x] 19.2 Build a deduplicated registrable-domain directory with D-Rank,
+  history state, observation time, affected projects, sorting, and honest
+  missing evidence.
+- [x] 19.3 Build a maintained-P1 AI Awareness view using only provider-backed
+  model-answer outcomes and excluding fixtures, crawler activity, readiness,
+  and non-product identities.
+- [x] 19.4 Turn Marketing into a maintained-product coverage directory with
+  positioning, last publishing receipt, recommendation count, and an explicit
+  never-marketed state.
+- [x] 19.5 Build a maintained-public-product Performance guardrail using
+  explicit PSI and LCP thresholds with fast-enough, needs-work, and
+  not-measured states.
+- [x] 19.6 Add focused projection/client coverage and pass production build,
+  strict OpenSpec, responsive browser, critique, audit, and diff checks.
+- [x] 19.7 Update durable status, commit, and push without deploying.
+
+## 20. Fast D-Rank History
+
+- [x] 20.1 Add bounded cached outcome endpoints for Domains, AI Awareness, and
+  Performance while retaining the full connections route.
+- [x] 20.2 Switch the three Metrics views to their bounded endpoints and remove
+  their project-scope dropdowns.
+- [x] 20.3 Add compact no-dot D-Rank lines with pointer and keyboard inspection
+  of dated observations and explicit short-history states.
+- [x] 20.4 Add service coverage for endpoint shape and cache reuse.
+- [x] 20.5 Run focused tests, build, strict OpenSpec, performance trace,
+  responsive browser review, design gate, and diff checks.
+- [x] 20.6 Update durable status, commit, and push without deploying.
+
+## 21. Google Search Console Collection
+
+- [x] 21.1 Add a dependency-free read-only Search Console client using local
+  Application Default Credentials.
+- [x] 21.2 Map accessible Domain and URL-prefix properties to canonical Fleet
+  project hosts and keep shared-root projects separated with page filters.
+- [x] 21.3 Normalize completed-period aggregates into the existing private
+  visibility outcome ledger without retaining tokens or raw query rows.
+- [x] 21.4 Cover property selection, zero-data, inaccessible-property, and
+  idempotent ingestion behavior with focused tests.
+- [x] 21.5 Run a live canary, rebuild the local Console projection, and verify
+  Search Visibility displays provider evidence.
+- [x] 21.6 Validate OpenSpec and focused checks, update durable status, commit,
+  and push without deploying or scheduling recurring collection.
+
+## 22. Domains Page Simplification
+
+- [x] 22.1 Remove the section intro, summary strip, and History column, and
+  rename Observed to Last observed.
+- [x] 22.2 Add one safe portfolio D-Rank run boundary and a top-right Re-run
+  control with running, failure, and completion states.
+- [x] 22.3 Add focused controller and service coverage, build the Console, and
+  validate the OpenSpec change strictly.
+- [x] 22.4 Trust loopback mutations by default for the localhost-only service so
+  local Re-run actions do not require a separate owner token.
+
+## 23. Performance Page Closure
+
+- [x] 23.1 Specify one Performance ledger with no redundant section intro and
+  one canonical Re-run all action.
+- [x] 23.2 Add a sequential portfolio PSI runner using the shared public metric
+  project resolver and one pollable receipt.
+- [x] 23.3 Wire Performance header and per-row actions with running, failure,
+  completion, and bounded projection refresh states.
+- [x] 23.4 Add focused target, runner, route, and client coverage; pass the
+  Console build, strict OpenSpec validation, and diff checks.
+- [x] 23.5 Update durable status, commit, and push only this feature; close the
+  linked issue without deploying.
+
+## 24. Portfolio Google Search Dashboard
+
+- [x] 24.1 Add bounded Search collection and outcome projection for every
+  canonical public metric project with latest values, normalized top search
+  terms, provider metadata, and retained history.
+- [x] 24.2 Add Google Search to Metrics navigation and build the sortable
+  all-project ledger without a project filter or redundant section chrome.
+- [x] 24.3 Add accessible per-project disclosures for provider scope,
+  reporting period, top search terms, observation count, and honest
+  zero/missing states.
+- [x] 24.4 Add focused projection, route, and client coverage; pass the Console
+  build, strict OpenSpec validation, responsive browser review, and diff checks.
+- [x] 24.5 Update durable product/design truth, commit and push only this
+  feature, and close the linked issue without deploying.

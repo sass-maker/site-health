@@ -88,6 +88,47 @@ so a provider observation is never shown as movement from a fixture baseline.
 Keep the input in a private temporary location, do not commit it, and remove it
 through the operator's normal secure-file process after verifying the receipt.
 
+## Search and Cloudflare outcome ingestion
+
+Search Console, AI Crawl Control, and Web Analytics measure different outcomes
+from model-answer visibility. Export normalized aggregates into a temporary
+bundle matching `fleet.visibility-outcome-bundle.v1`; the non-secret example at
+`foundry/ops/test/fixtures/visibility-outcomes/provider-outcomes-v1.example.json`
+shows the accepted shape.
+
+```bash
+node foundry/ops/scripts/visibility-outcomes-ingest.mjs \
+  --input /path/to/private-visibility-outcomes.json
+```
+
+The command makes no network request and reads no credentials. It validates the
+whole bundle before writing to the private machine-local ledger. Accepted
+families are deliberately narrow:
+
+- Google Search Console: impressions, clicks, CTR, and average position;
+- Cloudflare AI Crawl Control: AI crawler requests and crawled URLs;
+- Cloudflare Web Analytics: AI referral visits and page views.
+
+Project detail shows these provider-native values with scope, reporting period,
+observation time, and history. Cloudflare crawler access and referral traffic
+remain discovery evidence; neither is counted as a model mention,
+recommendation, rank, or citation. The portfolio matrix is unchanged.
+
+Search Console collection is direct and read-only. It uses the operator's
+local Google Application Default Credentials and the non-secret quota project
+in `foundry/ops/config/search-console.json`:
+
+```bash
+node foundry/ops/scripts/search-console-collect.mjs
+node foundry/ops/scripts/search-console-collect.mjs --project posttrainllm
+```
+
+The default run queries the 28 completed days ending three days ago. Accessible
+Domain properties cover their subdomains; every project query is constrained to
+its canonical HTTPS hostname. The collector retains only normalized aggregate
+metrics in the private ledger and reports inaccessible properties instead of
+recording them as zero.
+
 ## Persistence and privacy
 
 The ledger stores normalized aggregates, status-only attempt receipts, cost
@@ -104,8 +145,8 @@ recommendation-to-mission handoff can draft work.
 ## Direct-live and cadence gate
 
 The original task 7.8 fixture rehearsal was accepted on 2026-07-25. Provider
-observations now have a credential-free ingestion path, but this does not
-approve direct provider adapters or recurring cadence. A real provider-
-observation canary still needs human review of data quality, retained storage,
-and observed cost. Schedule activation remains a later guarded decision after
-designated-host verification.
+observations retain a credential-free ingestion path, and Search Console has an
+owner-approved read-only local collector. Cloudflare and model-provider
+adapters plus recurring cadence still require their own guarded activation.
+Schedule activation remains a later decision after designated-host
+verification.

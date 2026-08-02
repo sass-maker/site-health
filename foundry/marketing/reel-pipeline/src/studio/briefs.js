@@ -3,13 +3,20 @@ import path from 'node:path';
 
 import brandConfig from '../../config/brand-channels.json' with { type: 'json' };
 
+import { normalizeLyricDetails } from '../lyric-video/contracts.js';
+import { getExecutionAdapter } from './execution-registry.js';
 import { resolveStudioLlm } from './llm.js';
+import { getProductionRecipe, normalizeRecipeOptions, PRODUCTION_RECIPE_IDS } from './production-catalog.js';
+import { normalizeContentOrigin } from './content-origin.js';
 
 export const MARKETING_BRIEF_SCHEMA = 'fleet.marketing-studio-brief.v1';
-export const VIDEO_KINDS = ['faceless', 'brand-reel', 'guided-app-demo', 'coherent-film', 'podcast-short'];
-export const BRIEF_LIFECYCLES = ['planned', 'producing', 'needs-review', 'ready-for-distribution', 'distributed', 'failed'];
+export const VIDEO_KINDS = ['faceless', 'brand-reel', 'guided-app-demo', 'coherent-film', 'podcast-short', 'lyric-video'];
+export const BRIEF_LIFECYCLES = ['planned', 'producing', 'needs-review', 'ready-for-distribution', 'scheduled', 'distributed', 'failed'];
 const CHANNELS = ['instagram_reels', 'youtube_shorts'];
-const ENGINES = ['mock', 'kokoro', 'moneyprinterturbo'];
+const ENGINES = [
+  'mock', 'kokoro', 'lyric-canvas', 'blender',
+  'html-composition', 'ascii', 'grok-video', 'brand-reel', 'forge', 'ltx', 'editorial', 'threejs',
+];
 const RIGHTS_STATES = ['unknown', 'approved', 'rejected'];
 const CREATIVE_STATES = ['proposed', 'approved', 'rejected'];
 
@@ -67,9 +74,9 @@ export class MarketingBriefStore {
     const index = briefs.findIndex((entry) => entry.id === id);
     if (index === -1) throw new Error(`marketing brief not found: ${id}`);
     const current = briefs[index];
-    const kindChanged = patch.kind !== undefined && patch.kind !== current.kind;
+    const productionChanged = changesProductionSelection(current, patch);
     const merged = mergeBrief(current, patch);
-    if (kindChanged) {
+    if (productionChanged) {
       merged.media = null;
       merged.distribution = null;
       merged.lifecycle = 'planned';
@@ -98,7 +105,7 @@ export async function generateMarketingBriefDraft(request, options = {}) {
         role: 'system',
         content: [
           'Turn the operator request into strict JSON for a video production brief.',
-          'Allowed kind values: faceless, brand-reel, guided-app-demo, coherent-film, podcast-short.',
+          'Allowed kind values: faceless, brand-reel, guided-app-demo, coherent-film, podcast-short, lyric-video.',
           'Allowed channel values: instagram_reels, youtube_shorts.',
           'Return: kind, projectSlug, channel, durationSeconds, engine, title, hook, summary, cta, creativeDirection.',
           'Use null when the request does not provide a project. Do not invent claims, URLs, rights, approvals, or publication actions.',
@@ -139,7 +146,7 @@ export async function refineMarketingBriefDraft(brief, instruction, options = {}
           'Revise an existing video production brief from one operator follow-up.',
           'Return JSON containing only fields the instruction explicitly changes.',
           'Allowed fields: kind, projectSlug, channel, durationSeconds, engine, title, hook, summary, cta, creativeDirection, sourceUrl, destinationUrl.',
-          'Allowed kind values: faceless, brand-reel, guided-app-demo, coherent-film, podcast-short.',
+          'Allowed kind values: faceless, brand-reel, guided-app-demo, coherent-film, podcast-short, lyric-video.',
           'Allowed channel values: instagram_reels, youtube_shorts.',
           'Never return rights, approval, quality, media, distribution, schedule, publish, or credential fields.',
           `Current brief: ${JSON.stringify(refinementContext(current))}`,
@@ -174,9 +181,13 @@ export async function refineMarketingBriefDraft(brief, instruction, options = {}
 export function normalizeMarketingBrief(input = {}) {
   if (input.schema !== MARKETING_BRIEF_SCHEMA) throw new Error('unsupported marketing brief schema');
   const request = requiredString(input.request, 'request');
-  const kind = VIDEO_KINDS.includes(input.kind) ? input.kind : classifyKind(request);
+  const recipeId = PRODUCTION_RECIPE_IDS.includes(input.recipeId) ? input.recipeId : null;
+  const recipe = recipeId ? getProductionRecipe(recipeId) : null;
+  const recipeOptions = recipeId ? normalizeRecipeOptions(recipeId, input.recipeOptions) : null;
+  const executionInputs = recipeId ? normalizeExecutionInputs(recipeId, input.executionInputs) : {};
+  const kind = recipe?.kind ?? (VIDEO_KINDS.includes(input.kind) ? input.kind : classifyKind(request));
   const projectSlug = normalizeProjectSlug(input.projectSlug);
-  const channel = CHANNELS.includes(input.channel) ? input.channel : inferChannel(request);
+  const channel = recipeOptions?.channel ?? (CHANNELS.includes(input.channel) ? input.channel : inferChannel(request));
   const lifecycle = BRIEF_LIFECYCLES.includes(input.lifecycle) ? input.lifecycle : 'planned';
   const createdAt = iso(input.createdAt, 'createdAt');
   const updatedAt = iso(input.updatedAt, 'updatedAt');
@@ -194,9 +205,14 @@ export function normalizeMarketingBrief(input = {}) {
     },
     kind,
     projectSlug,
+    origin: normalizeContentOrigin(input.origin, { projectSlug }),
+    ideaId: optionalString(input.ideaId) ?? null,
+    recipeId,
+    recipeOptions,
+    executionInputs,
     channel,
-    durationSeconds: duration(input.durationSeconds ?? inferDuration(request)),
-    engine: ENGINES.includes(input.engine) ? input.engine : 'mock',
+    durationSeconds: recipeOptions?.durationSeconds ?? duration(input.durationSeconds ?? inferDuration(request)),
+    engine: recipe?.engine ?? (ENGINES.includes(input.engine) ? input.engine : kind === 'lyric-video' ? 'lyric-canvas' : 'mock'),
     title: optionalString(input.title) ?? titleFrom(request),
     hook: optionalString(input.hook) ?? firstSentence(request),
     summary: optionalString(input.summary) ?? request,
@@ -210,6 +226,7 @@ export function normalizeMarketingBrief(input = {}) {
         ? input.sourceEvidence.rightsStatus
         : 'unknown',
     },
+    lyric: kind === 'lyric-video' ? normalizeLyricDetails(input.lyric) : null,
     approval: {
       creativeStatus: CREATIVE_STATES.includes(input.approval?.creativeStatus)
         ? input.approval.creativeStatus
@@ -225,6 +242,7 @@ export function normalizeMarketingBrief(input = {}) {
 
 export function classifyKind(request) {
   const text = String(request ?? '').toLowerCase();
+  if (/\b(lyric video|timed lyrics?|lrc|karaoke video|music visuali[sz]er)\b/.test(text)) return 'lyric-video';
   if (/\b(podcast|episode|clip this|speaker footage|interview clip)\b/.test(text)) return 'podcast-short';
   if (/\b(screen ?record|app demo|walkthrough|presenter|camera|show the app)\b/.test(text)) return 'guided-app-demo';
   if (/\b(cinematic|atmosphere|generated film|film style|keyframe|ltx)\b/.test(text)) return 'coherent-film';
@@ -239,12 +257,17 @@ function templateBrief(request) {
     projectSlug: inferProject(request),
     channel: inferChannel(request),
     durationSeconds: inferDuration(request),
-    engine: 'mock',
+    engine: kind === 'lyric-video' ? 'lyric-canvas' : 'mock',
     title: titleFrom(request),
     hook: firstSentence(request),
     summary: request,
     cta: null,
     creativeDirection: directionFor(kind),
+    sourceEvidence: {
+      canonicalUrl: initialSourceUrl(request),
+      destinationUrl: initialDestinationUrl(request),
+      rightsStatus: 'unknown',
+    },
   };
 }
 
@@ -305,10 +328,81 @@ function deterministicRefinement(current, instruction) {
   for (const [field, value] of Object.entries(labeled)) {
     if (value) patch[field] = value;
   }
+  synchronizeDependentBriefCopy(current, patch);
   if (!Object.keys(patch).length && instruction.trim() !== current.creativeDirection) {
     patch.creativeDirection = instruction.trim();
   }
   return patch;
+}
+
+function synchronizeDependentBriefCopy(current, patch) {
+  const structureChanged = ['kind', 'projectSlug', 'channel', 'durationSeconds']
+    .some((field) => patch[field] !== undefined && patch[field] !== current[field]);
+  if (!structureChanged) return;
+
+  const next = { ...current, ...patch };
+  const projectName = brandConfig.brands?.[next.projectSlug]?.name ?? 'the selected product';
+  const channelName = next.channel === 'instagram_reels' ? 'Instagram Reels' : 'YouTube Shorts';
+  const sentence = `Create a ${next.durationSeconds}-second ${humanKind(next.kind)} for ${projectName} on ${channelName}.`;
+
+  if (
+    patch.title === undefined
+    && (current.title === titleFrom(current.request) || referencesChangedStructure(current.title, current, patch))
+  ) {
+    patch.title = titleFrom(sentence);
+  }
+  if (
+    patch.hook === undefined
+    && (current.hook === firstSentence(current.request) || referencesChangedStructure(current.hook, current, patch))
+  ) {
+    patch.hook = sentence;
+  }
+  if (
+    patch.summary === undefined
+    && (current.summary === current.request || referencesChangedStructure(current.summary, current, patch))
+  ) {
+    patch.summary = sentence;
+  }
+  if (
+    patch.creativeDirection === undefined
+    && (
+      current.creativeDirection === directionFor(current.kind)
+      || referencesChangedStructure(current.creativeDirection, current, patch)
+    )
+    && next.kind !== current.kind
+  ) {
+    patch.creativeDirection = directionFor(next.kind);
+  }
+}
+
+function referencesChangedStructure(value, current, patch) {
+  const text = String(value ?? '');
+  if (patch.durationSeconds !== undefined && patch.durationSeconds !== current.durationSeconds) {
+    const durationPattern = new RegExp(`\\b${current.durationSeconds}\\s*(?:-| )?\\s*(?:seconds?|secs?|s)\\b`, 'i');
+    if (durationPattern.test(text)) return true;
+  }
+  if (patch.channel !== undefined && patch.channel !== current.channel) {
+    const channelPattern = current.channel === 'instagram_reels'
+      ? /\b(?:instagram|ig reels?|reels?)\b/i
+      : /\b(?:youtube|yt shorts?|shorts?)\b/i;
+    if (channelPattern.test(text)) return true;
+  }
+  if (patch.kind !== undefined && patch.kind !== current.kind) {
+    const kindPattern = {
+      faceless: /\b(?:faceless|lesson|explainer)\b/i,
+      'brand-reel': /\b(?:brand reel|product reel|website reel|launch reel)\b/i,
+      'guided-app-demo': /\b(?:guided app demo|app demo|walkthrough|screen ?record(?:ing)?)\b/i,
+      'coherent-film': /\b(?:coherent film|cinematic|generated film|film style|keyframe)\b/i,
+      'podcast-short': /\b(?:podcast|episode clip|interview clip)\b/i,
+      'lyric-video': /\b(?:lyric video|timed lyrics?|karaoke video|music visuali[sz]er)\b/i,
+    }[current.kind];
+    if (kindPattern?.test(text)) return true;
+  }
+  if (patch.projectSlug !== undefined && patch.projectSlug !== current.projectSlug) {
+    const projectName = brandConfig.brands?.[current.projectSlug]?.name;
+    if (projectName && text.toLowerCase().includes(projectName.toLowerCase())) return true;
+  }
+  return false;
 }
 
 function normalizeRefinementPatch(current, input = {}) {
@@ -375,6 +469,7 @@ function humanFieldName(field) {
 
 function explicitKind(value) {
   const text = String(value ?? '').toLowerCase();
+  if (/\b(lyric video|timed lyrics?|karaoke video|music visuali[sz]er)\b/.test(text)) return 'lyric-video';
   if (/\b(podcast|episode clip|interview clip)\b/.test(text)) return 'podcast-short';
   if (/\b(app demo|walkthrough|screen ?record|guided demo)\b/.test(text)) return 'guided-app-demo';
   if (/\b(coherent film|cinematic|generated film|film style|keyframe)\b/.test(text)) return 'coherent-film';
@@ -407,6 +502,19 @@ function labeledUrl(value, label) {
   return labelMatch?.[1]?.replace(/[.)!?]+$/, '') ?? null;
 }
 
+function initialSourceUrl(value) {
+  return labeledUrl(value, /\b(?:source|canonical|website|product)\b/i) ?? firstExplicitUrl(value);
+}
+
+function initialDestinationUrl(value) {
+  return labeledUrl(value, /\b(?:destination|landing|cta)\b/i);
+}
+
+function firstExplicitUrl(value) {
+  const match = String(value ?? '').match(/https?:\/\/[^\s,]+/i);
+  return match?.[0]?.replace(/[.)!?]+$/, '') ?? null;
+}
+
 function inferProject(request) {
   const text = String(request ?? '').toLowerCase();
   for (const [slug, brand] of Object.entries(brandConfig.brands ?? {})) {
@@ -428,9 +536,20 @@ function mergeBrief(current, patch) {
   return {
     ...current,
     ...patch,
+    executionInputs: patch.executionInputs === undefined
+      ? current.executionInputs
+      : { ...current.executionInputs, ...patch.executionInputs },
     sourceEvidence: { ...current.sourceEvidence, ...(patch.sourceEvidence ?? {}) },
     approval: { ...current.approval, ...(patch.approval ?? {}) },
+    lyric: patch.lyric === undefined
+      ? current.lyric
+      : patch.lyric === null ? null : {
+        ...(current.lyric ?? {}),
+        ...patch.lyric,
+        rights: { ...(current.lyric?.rights ?? {}), ...(patch.lyric.rights ?? {}) },
+      },
     generation: current.generation,
+    origin: current.origin,
     media: patch.media === undefined
       ? current.media
       : patch.media === null ? null : { ...(current.media ?? {}), ...patch.media },
@@ -439,6 +558,29 @@ function mergeBrief(current, patch) {
       : patch.distribution === null ? null : { ...(current.distribution ?? {}), ...patch.distribution },
     messages: patch.messages ?? current.messages,
   };
+}
+
+function changesProductionSelection(current, patch) {
+  if (patch.kind !== undefined && patch.kind !== current.kind) return true;
+  if (patch.projectSlug !== undefined && patch.projectSlug !== current.projectSlug) return true;
+  if (patch.ideaId !== undefined && patch.ideaId !== current.ideaId) return true;
+  if (patch.recipeId !== undefined && patch.recipeId !== current.recipeId) return true;
+  if (patch.recipeOptions !== undefined && JSON.stringify(patch.recipeOptions) !== JSON.stringify(current.recipeOptions)) return true;
+  if (patch.executionInputs !== undefined && JSON.stringify(patch.executionInputs) !== JSON.stringify(current.executionInputs)) return true;
+  return false;
+}
+
+function normalizeExecutionInputs(recipeId, input) {
+  if (input == null) return {};
+  if (typeof input !== 'object' || Array.isArray(input)) throw new Error('executionInputs must be an object');
+  const allowed = new Set(getExecutionAdapter(recipeId).inputs.map((field) => field.id));
+  const normalized = {};
+  for (const [key, value] of Object.entries(input)) {
+    if (!allowed.has(key)) continue;
+    if (typeof value !== 'string') throw new Error(`executionInputs.${key} must be a string`);
+    normalized[key] = value.trim().slice(0, 100_000);
+  }
+  return normalized;
 }
 
 function normalizeProjectSlug(value) {
@@ -462,11 +604,25 @@ function normalizeMedia(media) {
   return {
     artifactDir: optionalString(media.artifactDir),
     videoPath: optionalString(media.videoPath),
+    previewPath: optionalString(media.previewPath),
+    previewType: ['video', 'image', 'html'].includes(media.previewType) ? media.previewType : null,
     publicUrl: optionalUrl(media.publicUrl, 'media.publicUrl'),
     ideaId: optionalString(media.ideaId),
     provider: optionalString(media.provider),
+    execution: media.execution && typeof media.execution === 'object' ? structuredClone(media.execution) : null,
     quality: media.quality && typeof media.quality === 'object' ? structuredClone(media.quality) : null,
     reviewedAt: media.reviewedAt ? iso(media.reviewedAt, 'media.reviewedAt') : null,
+    captionsPath: optionalString(media.captionsPath),
+    scenePlanPath: optionalString(media.scenePlanPath),
+    rightsPath: optionalString(media.rightsPath),
+    manifestPath: optionalString(media.manifestPath),
+    blender: media.blender && typeof media.blender === 'object' ? structuredClone(media.blender) : null,
+    platformAudio: media.platformAudio && typeof media.platformAudio === 'object'
+      ? structuredClone(media.platformAudio)
+      : null,
+    uploadEvidence: media.uploadEvidence && typeof media.uploadEvidence === 'object'
+      ? structuredClone(media.uploadEvidence)
+      : null,
   };
 }
 
@@ -490,6 +646,7 @@ function directionFor(kind) {
     'guided-app-demo': 'Keep the real application dominant and use presenter capture only when useful.',
     'coherent-film': 'One visual metaphor, continuous spatial logic, and reproducible generated shots.',
     'podcast-short': 'Preserve the source speaker, exact timing, transcript meaning, and visual credits.',
+    'lyric-video': 'Make every supplied lyric cue literal, readable, synchronized, and rights-evidenced.',
   }[kind];
 }
 

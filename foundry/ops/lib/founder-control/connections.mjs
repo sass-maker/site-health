@@ -12,11 +12,116 @@ import {
   defaultVisibilityMetricPath,
   readVisibilityMetrics,
 } from '../visibility-metric-store.mjs';
+import {
+  defaultVisibilityOutcomePath,
+  readVisibilityOutcomes,
+} from '../visibility-outcome-store.mjs';
 import { visibilityProjects } from '../visibility-projects.mjs';
+import { searchConsoleProviderUrl } from '../search-console.mjs';
+import {
+  isDomainStrengthProject,
+  isPublicMetricProject,
+  normalizedDomain,
+  registrableDomain,
+} from './domain-scope.mjs';
 
 export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+
+export const SEARCH_ACTION_SAMPLE_FLOORS = Object.freeze({
+  project: 20,
+  query: 10,
+});
+
+function daysAfter(timestamp, days) {
+  const value = Date.parse(timestamp);
+  return Number.isFinite(value) ? new Date(value + days * DAY_MS).toISOString() : null;
+}
+
+export function searchAction({ observed, impressions, clicks, position, sampleFloor, inspection = null, observedAt = null }) {
+  if (!observed) {
+    return {
+      id: 'measure-search',
+      label: 'Measure now',
+      stage: 'measure',
+      reason: 'No completed Google Search observation is available.',
+      priority: 7,
+    };
+  }
+  if (impressions === 0) {
+    if (inspection?.state === 'indexed') {
+      const nextMeasurementAt = daysAfter(observedAt, 7);
+      return {
+        id: 'wait-indexed',
+        label: 'Wait, then measure',
+        stage: 'wait',
+        reason: 'Google reports the canonical homepage as indexed; wait for search demand and the next completed data window.',
+        ...(nextMeasurementAt ? { nextMeasurementAt } : {}),
+        priority: 6,
+      };
+    }
+    if (inspection?.state === 'not-indexed' || inspection?.state === 'unknown') {
+      return {
+        id: 'fix-indexing',
+        label: 'Fix indexing',
+        stage: 'change',
+        reason: inspection.coverageState ?? 'Google did not return a passing index verdict for the canonical homepage.',
+        priority: 1,
+      };
+    }
+    return {
+      id: 'inspection-unavailable',
+      label: 'Inspection unavailable',
+      stage: 'measure',
+      reason: 'Google URL Inspection did not complete for the canonical homepage.',
+      priority: 1,
+    };
+  }
+  if (impressions < sampleFloor) {
+    return {
+      id: 'collect-more-data',
+      label: 'Collect more data',
+      stage: 'wait',
+      reason: `${impressions} impressions is below the ${sampleFloor}-impression action floor.`,
+      priority: 6,
+    };
+  }
+  if (position <= 10 && clicks > 0) {
+    return {
+      id: 'protect-and-expand',
+      label: 'Protect and expand',
+      stage: 'change',
+      reason: 'This result already ranks on page one and earns clicks.',
+      priority: 5,
+    };
+  }
+  if (position <= 10) {
+    return {
+      id: 'improve-snippet',
+      label: 'Improve snippet',
+      stage: 'change',
+      reason: 'This result ranks on page one but has not earned a click.',
+      priority: 2,
+    };
+  }
+  if (position <= 30) {
+    return {
+      id: 'strengthen-ranking-page',
+      label: 'Strengthen ranking page',
+      stage: 'change',
+      reason: 'This result is within reach of page one.',
+      priority: 3,
+    };
+  }
+  return {
+    id: 'build-search-relevance',
+    label: 'Build search relevance',
+    stage: 'change',
+    reason: 'This result is visible but ranks beyond position 30.',
+    priority: 4,
+  };
+}
 
 const BUCKETS = [
   {
@@ -208,6 +313,71 @@ function visibilityMetricEvidence(home) {
         {
           latest: family.latest,
           metrics: [...family.metrics.values()],
+        },
+      ]),
+    ),
+  }));
+}
+
+function visibilityOutcomeEvidence(home) {
+  const observations = readVisibilityOutcomes({
+    path: defaultVisibilityOutcomePath({ home }),
+  });
+  const projects = new Map();
+  for (const observation of observations) {
+    const project = projects.get(observation.projectId) ?? {
+      projectId: observation.projectId,
+      families: {},
+    };
+    const family = project.families[observation.family] ?? {
+      latest: null,
+      latestIndexInspection: null,
+      metrics: new Map(),
+      observations: 0,
+    };
+    family.latest = !family.latest || Date.parse(observation.observedAt) >= Date.parse(family.latest.observedAt)
+      ? observation
+      : family.latest;
+    family.observations += 1;
+    if (
+      observation.family === 'search' &&
+      observation.indexInspection?.state !== 'unavailable' &&
+      (!family.latestIndexInspection || Date.parse(observation.observedAt) >= Date.parse(family.latestIndexInspection.observedAt))
+    ) {
+      family.latestIndexInspection = observation;
+    }
+    for (const metric of observation.metrics) {
+      const values = family.metrics.get(metric.label) ?? {
+        label: metric.label,
+        unit: metric.unit,
+        direction: metric.direction,
+        source: observation.provider,
+        series: [],
+      };
+      values.series.push({
+        observedAt: observation.observedAt,
+        value: metric.value,
+      });
+      family.metrics.set(metric.label, values);
+    }
+    project.families[observation.family] = family;
+    projects.set(observation.projectId, project);
+  }
+  return [...projects.values()].map((project) => ({
+    ...project,
+    families: Object.fromEntries(
+      Object.entries(project.families).map(([familyId, family]) => [
+        familyId,
+        {
+          latest: family.latest,
+          latestIndexInspection: family.latestIndexInspection,
+          observations: family.observations,
+          metrics: [...family.metrics.values()].map((metric) => ({
+            ...metric,
+            series: metric.series.sort(
+              (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
+            ),
+          })),
         },
       ]),
     ),
@@ -817,15 +987,98 @@ function newestTimestamp(values) {
     .sort((left, right) => Date.parse(right) - Date.parse(left))[0] ?? null;
 }
 
-function normalizedDomain(value) {
-  if (typeof value !== 'string') return null;
+function aiRunEvidenceMode(run) {
+  return run?.evidenceMode ?? run?.evidence?.[0]?.summary?.evidenceMode ?? null;
+}
+
+function parsedHttpUrl(value) {
   try {
-    return new URL(value.includes('://') ? value : `https://${value}`)
-      .hostname
-      .replace(/^www\./, '');
+    const url = new URL(value);
+    return ['http:', 'https:'].includes(url.protocol) ? url : null;
   } catch {
-    return value.replace(/^www\./, '').split('/')[0] || null;
+    return null;
   }
+}
+
+function cloudflareSpeedProviderUrl(project, fieldOutcome) {
+  const candidates = [
+    fieldOutcome?.providerUrl,
+    project.webTraffic?.outcome?.providerUrl,
+    project.aiVisibility?.discovery?.crawler?.providerUrl,
+  ];
+  for (const candidate of candidates) {
+    const url = parsedHttpUrl(candidate);
+    if (!url || url.hostname !== 'dash.cloudflare.com') continue;
+    const [accountId, zoneId] = url.pathname.split('/').filter(Boolean);
+    if (!accountId || !zoneId) continue;
+    url.pathname = `/${accountId}/${zoneId}/speed/observatory`;
+    url.search = '';
+    url.hash = '';
+    return url.href;
+  }
+  return null;
+}
+
+function hostMatchesDomain(host, domain) {
+  const normalizedHost = normalizedDomain(host);
+  const normalizedProjectDomain = normalizedDomain(domain);
+  return Boolean(
+    normalizedHost
+    && normalizedProjectDomain
+    && (
+      normalizedHost === normalizedProjectDomain
+      || normalizedHost.endsWith(`.${normalizedProjectDomain}`)
+    )
+  );
+}
+
+function citationOwnership(url, project) {
+  if (project.domains.some((domain) => hostMatchesDomain(url.hostname, domain))) {
+    return 'owned';
+  }
+  const repository = parsedHttpUrl(project.repositoryUrl);
+  if (!repository || url.origin !== repository.origin) return 'external';
+  const repositoryPath = repository.pathname.replace(/\/?(?:\.git)?$/, '').replace(/\/$/, '');
+  const citationPath = url.pathname.replace(/\/$/, '');
+  return citationPath === repositoryPath || citationPath.startsWith(`${repositoryPath}/`)
+    ? 'owned'
+    : 'external';
+}
+
+function citationSourceSummary(project) {
+  const citations = project.aiVisibility?.latest?.citations ?? {};
+  const sources = [];
+  const representedHosts = new Set();
+  for (const value of citations.urls ?? []) {
+    const url = parsedHttpUrl(value);
+    if (!url) continue;
+    const host = normalizedDomain(url.hostname);
+    representedHosts.add(host);
+    sources.push({
+      url: url.href,
+      host,
+      ownership: citationOwnership(url, project),
+    });
+  }
+  for (const value of citations.hosts ?? []) {
+    const host = normalizedDomain(value);
+    if (!host || representedHosts.has(host)) continue;
+    sources.push({
+      url: null,
+      host,
+      ownership: project.domains.some((domain) => hostMatchesDomain(host, domain))
+        ? 'owned'
+        : 'unclassified',
+    });
+  }
+  const boundedSources = sources.slice(0, 50);
+  return {
+    total: Number.isFinite(Number(citations.total)) ? Number(citations.total) : 0,
+    owned: boundedSources.filter((source) => source.ownership === 'owned').length,
+    external: boundedSources.filter((source) => source.ownership === 'external').length,
+    unclassified: boundedSources.filter((source) => source.ownership === 'unclassified').length,
+    sources: boundedSources,
+  };
 }
 
 function normalizeFeedbackSubmissions(submissions = [], projects = []) {
@@ -860,7 +1113,7 @@ function normalizeFeedbackSubmissions(submissions = [], projects = []) {
     .slice(0, 200);
 }
 
-function historicalSignal({ label, unit = null, direction = null, series = [] }) {
+function historicalSignal({ label, unit = null, direction = null, source = null, series = [] }) {
   const normalized = series
     .filter(
       (point) =>
@@ -884,6 +1137,7 @@ function historicalSignal({ label, unit = null, direction = null, series = [] })
     delta: previous ? latest.value - previous.value : null,
     unit,
     direction,
+    source,
     observedAt: latest.observedAt,
     history: previous ? 'comparable' : 'baseline-only',
     series: normalized,
@@ -975,6 +1229,312 @@ function designReviewEvidence(fleetRoot, projects) {
   ));
 }
 
+function outcomeFamilySummary(family) {
+  if (!family?.latest) return null;
+  const latestMetricLabels = new Set(family.latest.metrics.map((metric) => metric.label));
+  return {
+    observations: family.observations,
+    provider: family.latest.provider,
+    providerUrl: family.latest.providerUrl ?? null,
+    scope: family.latest.scope,
+    observedAt: family.latest.observedAt,
+    period: family.latest.period,
+    searchTerms: family.latest.searchTerms ?? [],
+    indexInspection: family.latestIndexInspection?.indexInspection ?? family.latest.indexInspection ?? null,
+    breakdowns: family.latest.breakdowns ?? [],
+    metrics: family.metrics
+      .filter((metric) => latestMetricLabels.has(metric.label))
+      .map((metric) => ({
+        label: metric.label,
+        value: metric.series.at(-1)?.value ?? null,
+        unit: metric.unit,
+        direction: metric.direction,
+      })),
+  };
+}
+
+function signalByLabel(project, label) {
+  return project.history.signals.find((signal) => signal.label === label) ?? null;
+}
+
+function latestFamilySignal(project, outcome, label) {
+  if (!outcome) return null;
+  const metric = outcome.metrics?.find((item) => item.label === label);
+  if (!metric) return null;
+  const history = signalByLabel(project, label);
+  return {
+    ...(history ?? {}),
+    ...metric,
+    label,
+    value: metric.value,
+    observedAt: outcome.observedAt,
+    source: outcome.provider,
+    providerUrl: outcome.providerUrl ?? null,
+  };
+}
+
+function latestTrackedQueries(project) {
+  return (project.searchVisibility?.queries ?? [])
+    .flatMap((query) => {
+      const latest = query.history?.at(-1);
+      if (!latest || !['A', 'B', 'C'].includes(latest.class)) return [];
+      return [{
+        id: query.id,
+        kind: query.kind,
+        text: query.text,
+        class: latest.class,
+        observedAt: latest.observedAt,
+      }];
+    })
+    .slice(0, 12);
+}
+
+function latestOutcomeSignal(project, outcome, label) {
+  if (!outcome) return null;
+  const history = signalByLabel(project, label);
+  const metric = outcome.metrics?.find((item) => item.label === label);
+  if (!metric) {
+    if (!history) return null;
+    return {
+      ...history,
+      value: null,
+      observedAt: outcome.observedAt,
+      source: 'Google Search Console',
+    };
+  }
+  return {
+    ...history,
+    ...metric,
+    label,
+    value: metric.value,
+    observedAt: outcome.observedAt,
+    source: 'Google Search Console',
+    series: history?.series ?? [{ observedAt: outcome.observedAt, value: metric.value }],
+  };
+}
+
+function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
+  const publicProjects = projectOutputs.filter(
+    (project) => project.metricEligibility?.publicSite === true,
+  );
+  const domainProjects = projectOutputs.filter(
+    (project) => project.metricEligibility?.domainCoverage === true,
+  );
+  const domainGroups = new Map();
+  for (const project of domainProjects) {
+    const authority = project.metricSemantics?.seo?.domainAuthority ?? {};
+    const domain = authority.rootDomain ?? authority.domain ?? project.domains[0] ?? null;
+    if (!domain) continue;
+    const current = domainGroups.get(domain) ?? {
+      domain,
+      projects: [],
+      signal: null,
+      observedAt: null,
+      source: authority.source ?? 'Drank · Ahrefs public endpoint',
+    };
+    if (project.metricEligibility?.publicSite === true) {
+      current.projects.push({ projectId: project.projectId, name: project.name });
+    }
+    const signal = signalByLabel(project, 'Domain rating');
+    const signalTime = signal?.observedAt ? Date.parse(signal.observedAt) : Number.NaN;
+    const currentTime = current.signal?.observedAt
+      ? Date.parse(current.signal.observedAt)
+      : Number.NaN;
+    if (
+      signal &&
+      (!current.signal || (Number.isFinite(signalTime) && signalTime > currentTime))
+    ) {
+      current.signal = signal;
+      current.observedAt = signal.observedAt;
+    }
+    domainGroups.set(domain, current);
+  }
+
+  const recommendations = marketing?.recommendations ?? [];
+  const outcomes = marketing?.outcomes ?? marketing?.receipts ?? [];
+  const marketingRows = publicProjects.map((project) => {
+    const projectRecommendations = recommendations.filter(
+      (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
+    );
+    const projectOutcomes = outcomes
+      .filter(
+        (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
+      )
+      .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
+    const traffic = project.webTraffic?.outcome ?? null;
+    return {
+      projectId: project.projectId,
+      name: project.name,
+      domain: project.domains[0] ?? null,
+      positioning: project.description ? 'ready' : 'missing',
+      description: project.description,
+      recommendationCount: projectRecommendations.length,
+      latestOutcome: projectOutcomes[0] ?? null,
+      outcomeCount: projectOutcomes.length,
+      status: projectOutcomes.length > 0 ? 'marketed' : 'never-marketed',
+      visits: latestFamilySignal(project, traffic, 'Web visits'),
+      pageViews: latestFamilySignal(project, traffic, 'Web page views'),
+      searchReferrals: latestFamilySignal(project, traffic, 'Search referral visits'),
+      traffic,
+    };
+  });
+
+  const performanceThresholds = {
+    psiScore: 90,
+    lcpMilliseconds: 2500,
+    fieldLcpMilliseconds: 2500,
+    fieldInpMilliseconds: 200,
+    fieldCls: 0.1,
+  };
+  const performanceRows = publicProjects.map((project) => {
+    const psi = signalByLabel(project, 'PSI performance');
+    const lcp = signalByLabel(project, 'PSI LCP');
+    const field = project.fieldPerformance?.outcome ?? null;
+    const fieldLcp = latestFamilySignal(project, field, 'Field LCP');
+    const fieldInp = latestFamilySignal(project, field, 'Field INP');
+    const fieldCls = latestFamilySignal(project, field, 'Field CLS');
+    let status = 'not-measured';
+    if (psi && lcp) {
+      status = 'needs-work';
+      if (
+        psi.value >= performanceThresholds.psiScore &&
+        lcp.value <= performanceThresholds.lcpMilliseconds
+      ) {
+        status = 'fast-enough';
+      }
+    }
+    const fieldFails = (
+      (Number.isFinite(fieldLcp?.value) && fieldLcp.value > performanceThresholds.fieldLcpMilliseconds) ||
+      (Number.isFinite(fieldInp?.value) && fieldInp.value > performanceThresholds.fieldInpMilliseconds) ||
+      (Number.isFinite(fieldCls?.value) && fieldCls.value > performanceThresholds.fieldCls)
+    );
+    if (fieldFails) status = 'needs-work';
+    return {
+      projectId: project.projectId,
+      name: project.name,
+      domain: project.domains[0] ?? null,
+      status,
+      psi,
+      lcp,
+      fieldLcp,
+      fieldInp,
+      fieldCls,
+      fieldTtfb: latestFamilySignal(project, field, 'Field TTFB'),
+      rumSamples: latestFamilySignal(project, field, 'RUM samples'),
+      field,
+      providerUrl: cloudflareSpeedProviderUrl(project, field),
+      observedAt: newestTimestamp([
+        project.metricSemantics?.performance?.observedAt,
+        field?.observedAt,
+      ]),
+    };
+  });
+
+  const searchRows = publicProjects.map((project) => {
+    const outcome = project.searchVisibility?.outcome ?? null;
+    const impressions = latestOutcomeSignal(project, outcome, 'Search impressions');
+    const clicks = latestOutcomeSignal(project, outcome, 'Search clicks');
+    const averagePosition = latestOutcomeSignal(project, outcome, 'Search average position');
+    let status = 'not-measured';
+    if (outcome) status = 'zero-impressions';
+    if (outcome && Number(impressions?.value) > 0) status = 'observed';
+    const action = searchAction({
+      observed: Boolean(outcome),
+      impressions: Number(impressions?.value ?? 0),
+      clicks: Number(clicks?.value ?? 0),
+      position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
+      sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
+      inspection: outcome?.indexInspection ?? null,
+      observedAt: outcome?.observedAt ?? null,
+    });
+    const searchTerms = (outcome?.searchTerms ?? []).map((term) => ({
+      ...term,
+      action: searchAction({
+        observed: true,
+        impressions: Number(term.impressions),
+        clicks: Number(term.clicks),
+        position: Number(term.position),
+        sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.query,
+      }),
+    }));
+    return {
+      projectId: project.projectId,
+      catalogProjectId: project.catalogProjectId,
+      name: project.name,
+      domain: project.domains[0] ?? null,
+      status,
+      action,
+      impressions,
+      clicks,
+      ctr: latestOutcomeSignal(project, outcome, 'Search CTR'),
+      averagePosition,
+      observations: outcome?.observations ?? 0,
+      searchTerms,
+      indexInspection: outcome?.indexInspection ?? null,
+      trackedQueries: latestTrackedQueries(project),
+      provider: outcome?.provider ?? null,
+      providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
+        String(outcome?.scope ?? '').split(' · page:')[0],
+      ),
+      scope: outcome?.scope ?? null,
+      period: outcome?.period ?? null,
+      observedAt: outcome?.observedAt ?? null,
+    };
+  });
+
+  const coreAiRows = publicProjects
+    .filter((project) => project.priority === 'P1' && project.lifecycle === 'maintained')
+    .map((project) => {
+      const mention = signalByLabel(project, 'AI mention rate');
+      let status = 'not-measured';
+      if (project.aiVisibility?.observations > 0 && Number.isFinite(mention?.value)) {
+        status = 'not-known';
+        if (mention.value > 0) status = 'known';
+      }
+      const crawler = project.aiVisibility?.discovery?.crawler ?? null;
+      const referral = project.aiVisibility?.discovery?.referral ?? null;
+      const citationSources = citationSourceSummary(project);
+      return {
+        projectId: project.projectId,
+        name: project.name,
+        domain: project.domains[0] ?? null,
+        status,
+        observations: project.aiVisibility?.observations ?? 0,
+        observedAt: project.aiVisibility?.observedAt ?? null,
+        discoveryObservedAt: newestTimestamp([
+          crawler?.observedAt,
+          referral?.observedAt,
+        ]),
+        mention,
+        recommendation: signalByLabel(project, 'AI recommendation rate'),
+        citation: signalByLabel(project, 'AI citation rate'),
+        averageRank: signalByLabel(project, 'AI average rank'),
+        questions: (project.aiVisibility?.questions ?? []).slice(0, 12),
+        coverage: project.aiVisibility?.latest?.coverage ?? null,
+        attempts: (project.aiVisibility?.latest?.attempts ?? []).slice(0, 24),
+        citationSources,
+        crawlerRequests: latestFamilySignal(project, crawler, 'AI crawler requests'),
+        aiReferralVisits: latestFamilySignal(project, referral, 'AI referral visits'),
+        discovery: { crawler, referral },
+      };
+    });
+
+  return {
+    domains: [...domainGroups.values()]
+      .map((entry) => ({
+        ...entry,
+        projects: entry.projects.sort((left, right) => left.name.localeCompare(right.name)),
+        historyState: entry.signal?.history ?? 'unmeasured',
+      }))
+      .sort((left, right) => left.domain.localeCompare(right.domain)),
+    coreAi: coreAiRows.sort((left, right) => left.name.localeCompare(right.name)),
+    marketing: marketingRows.sort((left, right) => left.name.localeCompare(right.name)),
+    performance: performanceRows.sort((left, right) => left.name.localeCompare(right.name)),
+    search: searchRows.sort((left, right) => left.name.localeCompare(right.name)),
+    performanceThresholds,
+  };
+}
+
 function buildProjectOutputs({
   projects,
   skills,
@@ -985,6 +1545,7 @@ function buildProjectOutputs({
   designReviews,
   searchVisibility,
   visibilityMetrics,
+  visibilityOutcomes,
 }) {
   const skillProjects = new Map(skills.projects.map((project) => [project.projectId, project]));
   const workflowProjects = new Map(
@@ -1006,15 +1567,22 @@ function buildProjectOutputs({
   const visibilityByProject = new Map(
     visibilityMetrics.map((project) => [project.projectId, project]),
   );
+  const outcomesByProject = new Map(
+    visibilityOutcomes.map((project) => [project.projectId, project]),
+  );
+  const domainRootCounts = new Map();
+  for (const project of projects) {
+    for (const domain of (project.domains ?? []).map(normalizedDomain).filter(Boolean)) {
+      const root = registrableDomain(domain);
+      domainRootCounts.set(root, (domainRootCounts.get(root) ?? 0) + 1);
+    }
+  }
 
   return projects
     .map((project) => {
       const domains = (project.domains ?? []).map(normalizedDomain).filter(Boolean);
-      const publicMetricSite =
-        (project.public?.listing === 'maintained' || project.metrics?.publicSite === true) &&
-        !['past', 'non-product'].includes(project.lifecycle) &&
-        project.tier !== 'non-product' &&
-        domains.length > 0;
+      const publicMetricSite = isPublicMetricProject(project);
+      const domainCoverage = isDomainStrengthProject(project);
       let projectId = project.id;
       if (project.lifecycle === 'past' || project.tier === 'non-product') {
         projectId = project.public?.id ?? project.id;
@@ -1027,16 +1595,24 @@ function buildProjectOutputs({
       const designReview = designByProject.get(project.id) ?? null;
       const search = searchByProject.get(project.id) ?? null;
       const readiness = visibilityByProject.get(project.id)?.families ?? {};
+      const outcomes = outcomesByProject.get(project.id)?.families ?? {};
       const metrics = metricSignals(skill?.metrics ?? []);
       const aiHistory = [...(ai?.history ?? [])].sort(
         (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
       );
+      const aiOutcomeHistory = aiHistory.filter(
+        (item) => aiRunEvidenceMode(item) === 'provider-observation',
+      );
+      const aiFixtureHistory = aiHistory.filter((item) => aiRunEvidenceMode(item) === 'fixture');
+      const latestAiOutcome = aiOutcomeHistory.at(-1) ?? null;
+      const latestAiFixture = aiFixtureHistory.at(-1) ?? null;
       const aiSignals = [
         historicalSignal({
           label: 'AI visibility score',
           unit: 'score/100',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: item.metrics?.visibilityScore,
           })),
@@ -1045,7 +1621,8 @@ function buildProjectOutputs({
           label: 'AI mention rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.mentionRate) * 100,
           })),
@@ -1054,7 +1631,8 @@ function buildProjectOutputs({
           label: 'AI recommendation rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.recommendationRate) * 100,
           })),
@@ -1063,7 +1641,8 @@ function buildProjectOutputs({
           label: 'AI citation rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.citationRate) * 100,
           })),
@@ -1072,7 +1651,8 @@ function buildProjectOutputs({
           label: 'AI coverage rate',
           unit: 'percent',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: Number(item.metrics?.coverageRate) * 100,
           })),
@@ -1081,7 +1661,8 @@ function buildProjectOutputs({
           label: 'AI average rank',
           unit: 'rank',
           direction: 'lower-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: item.metrics?.averagePosition,
           })),
@@ -1090,7 +1671,8 @@ function buildProjectOutputs({
           label: 'AI citations',
           unit: 'citations',
           direction: 'higher-is-better',
-          series: aiHistory.map((item) => ({
+          source: 'AI Visibility provider observation',
+          series: aiOutcomeHistory.map((item) => ({
             observedAt: item.observedAt,
             value: item.citations?.total,
           })),
@@ -1100,14 +1682,35 @@ function buildProjectOutputs({
         label: 'Worst tracked query class',
         unit: 'class',
         direction: 'higher-is-better',
+        source: 'GEO Observatory · current web search',
         series: search?.series ?? [],
       });
-      const readinessSignals = Object.values(readiness).flatMap((family) =>
+      const outcomeSignals = Object.values(outcomes).flatMap((family) =>
         family.metrics.map((metric) =>
           historicalSignal({
             label: metric.label,
             unit: metric.unit,
             direction: metric.direction,
+            source: {
+              'google-search-console': 'Google Search Console',
+              'cloudflare-ai-crawl-control': 'Cloudflare AI Crawl Control',
+              'cloudflare-web-analytics': 'Cloudflare Web Analytics',
+            }[metric.source] ?? metric.source,
+            series: metric.series,
+          }),
+        ),
+      ).filter(Boolean);
+      const readinessSignals = Object.entries(readiness).flatMap(([familyId, family]) =>
+        family.metrics.map((metric) =>
+          historicalSignal({
+            label: metric.label,
+            unit: metric.unit,
+            direction: metric.direction,
+            source: {
+              agent: 'AI Agent Readiness audit',
+              crawl: 'AI Crawlability audit',
+              coverage: 'Content Coverage inventory',
+            }[familyId] ?? 'Visibility audit',
             series: metric.series,
           }),
         ),
@@ -1167,14 +1770,24 @@ function buildProjectOutputs({
           freshness: drank.freshness,
         });
       }
-      if (ai) {
+      if (latestAiOutcome) {
         produced.push({
           kind: 'ai-visibility',
           label: 'AI visibility',
-          value: ai.history?.length ?? 0,
-          detail: ai.latest ? 'latest observation available' : 'baseline not recorded',
-          observedAt: ai.latest?.observedAt ?? null,
-          freshness: ai.latest?.freshness ?? (ai.latest ? 'fresh' : 'unknown'),
+          value: aiOutcomeHistory.length,
+          detail: 'provider-backed observation available',
+          observedAt: latestAiOutcome.observedAt,
+          freshness: latestAiOutcome.freshness ?? 'recorded',
+        });
+      }
+      if (latestAiFixture) {
+        produced.push({
+          kind: 'ai-visibility-fixture',
+          label: 'AI fixture canary',
+          value: aiFixtureHistory.length,
+          detail: 'runner evidence only · not a visibility outcome',
+          observedAt: latestAiFixture.observedAt,
+          freshness: latestAiFixture.freshness ?? 'recorded',
         });
       }
       if (designReview) {
@@ -1194,6 +1807,23 @@ function buildProjectOutputs({
           value: { 3: 'A', 2: 'B', 1: 'C' }[searchSignal.value] ?? '—',
           detail: `${searchSignal.series.length} dated query sets`,
           observedAt: searchSignal.observedAt,
+          freshness: 'recorded',
+        });
+      }
+      for (const [familyId, family] of Object.entries(outcomes)) {
+        if (!family.latest) continue;
+        produced.push({
+          kind: `visibility-outcome-${familyId}`,
+          label: {
+            search: 'Search Console outcome',
+            'ai-crawl': 'AI crawler activity',
+            'ai-referral': 'AI referral traffic',
+            'web-traffic': 'Web traffic',
+            'web-vitals': 'Real-user performance',
+          }[familyId] ?? familyId,
+          value: family.observations,
+          detail: `${family.latest.provider} · ${family.latest.scope}`,
+          observedAt: family.latest.observedAt,
           freshness: 'recorded',
         });
       }
@@ -1219,6 +1849,7 @@ function buildProjectOutputs({
           label: 'Design critique',
           unit: `score/${designReview?.critiqueMaximum ?? 40}`,
           direction: 'higher-is-better',
+          source: 'Validated design-review receipt',
           series: designReview ? [{
             observedAt: designReview.observedAt,
             value: designReview.critique,
@@ -1228,6 +1859,7 @@ function buildProjectOutputs({
           label: 'Design audit',
           unit: `score/${designReview?.auditMaximum ?? 20}`,
           direction: 'higher-is-better',
+          source: 'Validated design-review receipt',
           series: designReview ? [{
             observedAt: designReview.observedAt,
             value: designReview.audit,
@@ -1237,6 +1869,7 @@ function buildProjectOutputs({
           label: 'PSI performance',
           unit: 'score/100',
           direction: 'higher-is-better',
+          source: 'PSI Swarm',
           series: (performance?.series ?? []).map((item) => ({
             observedAt: item.observedAt,
             value: item.performanceScore,
@@ -1246,6 +1879,7 @@ function buildProjectOutputs({
           label: 'PSI LCP',
           unit: 'milliseconds',
           direction: 'lower-is-better',
+          source: 'PSI Swarm',
           series: (performance?.series ?? []).map((item) => ({
             observedAt: item.observedAt,
             value: item.lcp,
@@ -1255,6 +1889,7 @@ function buildProjectOutputs({
           label: 'PSI CLS',
           unit: 'score',
           direction: 'lower-is-better',
+          source: 'PSI Swarm',
           series: (performance?.series ?? []).map((item) => ({
             observedAt: item.observedAt,
             value: item.cls,
@@ -1264,22 +1899,57 @@ function buildProjectOutputs({
           label: 'Domain rating',
           unit: 'rating',
           direction: 'higher-is-better',
+          source: 'Drank · Ahrefs public endpoint',
           series: domainRating?.series ?? [],
         }),
         searchSignal,
+        ...outcomeSignals,
         ...readinessSignals,
         ...aiSignals,
       ].filter(Boolean);
+      const webTrafficOutcome = outcomeFamilySummary(outcomes['web-traffic']);
+      const webVitalsOutcome = outcomeFamilySummary(outcomes['web-vitals']);
+      const aiVisibilityOutput = {
+        configured: Boolean(ai),
+        observations: aiOutcomeHistory.length,
+        observedAt: latestAiOutcome?.observedAt ?? null,
+        evidenceMode: aiRunEvidenceMode(latestAiOutcome),
+        source: latestAiOutcome ? 'AI Visibility provider observation' : null,
+        fixture: {
+          observations: aiFixtureHistory.length,
+          observedAt: latestAiFixture?.observedAt ?? null,
+          source: 'AI Visibility fixture canary',
+        },
+        questions: ai?.questions ?? [],
+        latest: latestAiOutcome
+          ? {
+              runId: latestAiOutcome.runId,
+              promptSetId: latestAiOutcome.promptSetId ?? null,
+              coverage: latestAiOutcome.coverage ?? null,
+              citations: latestAiOutcome.citations ?? { total: 0, hosts: [], urls: [] },
+              attempts: latestAiOutcome.attempts ?? [],
+            }
+          : null,
+        discovery: {
+          crawler: outcomeFamilySummary(outcomes['ai-crawl']),
+          referral: outcomeFamilySummary(outcomes['ai-referral']),
+        },
+      };
       return {
         projectId,
         catalogProjectId: project.id,
         name: project.name ?? project.id,
+        description: project.public?.description ?? null,
+        priority: project.priority ?? null,
+        tier: project.tier ?? null,
         attention: project.attention ?? null,
         lifecycle: project.lifecycle ?? null,
         status: project.status ?? null,
         domains,
+        repositoryUrl: project.repositoryUrl ?? project.public?.repositoryUrl ?? null,
         metricEligibility: {
           publicSite: publicMetricSite,
+          domainCoverage,
         },
         produced,
         skill: skill
@@ -1296,25 +1966,30 @@ function buildProjectOutputs({
           : null,
         public: workflow ?? null,
         performance,
-        domainRating,
-        designReview,
-        aiVisibility: ai
+        domainRating: domainRating
           ? {
-              configured: true,
-              observations: ai.history?.length ?? 0,
-              observedAt: ai.latest?.observedAt ?? null,
-              evidenceMode:
-                ai.latest?.evidenceMode ??
-                ai.latest?.evidence?.[0]?.summary?.evidenceMode ??
-                null,
-              questions: ai.questions ?? [],
+              ...domainRating,
+              source: 'Drank · Ahrefs public endpoint',
+              rootDomain: registrableDomain(domainRating.domain),
+              sharedRoot:
+                (domainRootCounts.get(registrableDomain(domainRating.domain)) ?? 0) > 1,
+              inherited: false,
             }
           : null,
+        designReview,
+        webTraffic: {
+          outcome: webTrafficOutcome,
+        },
+        fieldPerformance: {
+          outcome: webVitalsOutcome,
+        },
+        aiVisibility: aiVisibilityOutput,
         searchVisibility: {
           configured: search?.configured === true,
           observations: search?.series?.length ?? 0,
           observedAt: searchSignal?.observedAt ?? null,
           queries: search?.queries ?? [],
+          outcome: outcomeFamilySummary(outcomes.search),
         },
         visibilityReadiness: Object.fromEntries(
           ['agent', 'crawl', 'coverage'].map((familyId) => [
@@ -1332,6 +2007,86 @@ function buildProjectOutputs({
               : null,
           ]),
         ),
+        metricSemantics: {
+          seo: {
+            domainAuthority: domainRating
+              ? {
+                  kind: 'domain',
+                  status: 'measured',
+                  source: 'Drank · Ahrefs public endpoint',
+                  observedAt: domainRating.observedAt,
+                  domain: domainRating.domain,
+                  rootDomain: registrableDomain(domainRating.domain),
+                  sharedRoot:
+                    (domainRootCounts.get(registrableDomain(domainRating.domain)) ?? 0) > 1,
+                  inherited: false,
+                }
+              : {
+                  kind: 'domain',
+                  status: 'not-measured',
+                  source: 'Drank · Ahrefs public endpoint',
+                  observedAt: null,
+                  domain: domains[0] ?? null,
+                  rootDomain: registrableDomain(domains[0]),
+                  sharedRoot: false,
+                  inherited: false,
+                },
+            searchOutcome: {
+              kind: 'outcome',
+              status: outcomes.search?.latest ? 'measured' : 'not-measured',
+              source: 'Google Search Console',
+              observedAt: outcomes.search?.latest?.observedAt ?? null,
+              reason: outcomes.search?.latest ? null : 'Search Console is not connected.',
+            },
+            trackedSearch: {
+              kind: 'observation',
+              status: searchSignal ? 'measured' : 'not-measured',
+              source: 'GEO Observatory · current web search',
+              observedAt: searchSignal?.observedAt ?? null,
+            },
+          },
+          geo: {
+            aiVisibility: {
+              kind: 'outcome',
+              status: latestAiOutcome ? 'measured' : 'not-measured',
+              source: latestAiOutcome ? 'AI Visibility provider observation' : null,
+              observedAt: latestAiOutcome?.observedAt ?? null,
+              reason: latestAiOutcome ? null : 'No provider-backed observation.',
+            },
+            technicalReadiness: {
+              kind: 'readiness',
+              status: readiness.agent?.latest ? 'measured' : 'not-measured',
+              source: 'AI Agent Readiness audit',
+              observedAt: readiness.agent?.latest?.observedAt ?? null,
+            },
+            fixtureCanary: {
+              kind: 'fixture',
+              status: latestAiFixture ? 'recorded' : 'not-recorded',
+              source: 'AI Visibility fixture canary',
+              observedAt: latestAiFixture?.observedAt ?? null,
+            },
+            crawlerActivity: {
+              kind: 'outcome',
+              status: outcomes['ai-crawl']?.latest ? 'measured' : 'not-measured',
+              source: 'Cloudflare AI Crawl Control',
+              observedAt: outcomes['ai-crawl']?.latest?.observedAt ?? null,
+            },
+            referralTraffic: {
+              kind: 'outcome',
+              status: outcomes['ai-referral']?.latest ? 'measured' : 'not-measured',
+              source: 'Cloudflare Web Analytics',
+              observedAt: outcomes['ai-referral']?.latest?.observedAt ?? null,
+            },
+          },
+          performance: {
+            source: 'PSI Swarm',
+            observedAt: performance?.latest?.observedAt ?? null,
+          },
+          design: {
+            source: 'Validated design-review receipt',
+            observedAt: designReview?.observedAt ?? null,
+          },
+        },
         history: {
           state: historySignals.some((signal) => signal.history === 'comparable')
             ? 'comparable'
@@ -1349,6 +2104,7 @@ function buildProjectOutputs({
           ai?.latest?.observedAt,
           designReview?.observedAt,
           searchSignal?.observedAt,
+          ...Object.values(outcomes).map((family) => family.latest?.observedAt),
           ...Object.values(readiness).map((family) => family.latest?.observedAt),
         ]),
       };
@@ -1501,16 +2257,31 @@ export function buildFleetConnections({
     resolve(fleetRoot, 'foundry/ops/config/projects.json'),
     { projects: [] },
   );
-  const maintainedProjects = visibilityProjects(projectCatalog);
+  const priorityByProject = new Map();
+  for (const priority of ['P1', 'P2', 'P3']) {
+    for (const projectId of projectCatalog._meta?.priorities?.[priority] ?? []) {
+      priorityByProject.set(projectId, priority);
+    }
+  }
+  const maintainedProjects = visibilityProjects(projectCatalog).map((project) => ({
+    ...project,
+    priority: project.priority ?? priorityByProject.get(project.id) ?? null,
+  }));
   const drank = drankEvidence(fleetRoot, now);
   const psi = psiEvidence(home, now);
   const skills = skillEvidence(home, now);
   const designReviews = designReviewEvidence(fleetRoot, maintainedProjects);
   const searchVisibility = searchVisibilityEvidence(fleetRoot);
   const visibilityMetrics = visibilityMetricEvidence(home);
+  const visibilityOutcomes = visibilityOutcomeEvidence(home);
   const workflows = workflowEvidence(fleetRoot, now);
   const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
-  const measuredAiProjects = visibleAiProjects.filter((project) => project.latest);
+  const measuredAiProjects = visibleAiProjects.flatMap((project) => {
+    const latest = [...(project.history ?? [])]
+      .filter((run) => aiRunEvidenceMode(run) === 'provider-observation')
+      .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt))[0];
+    return latest ? [{ ...project, latest }] : [];
+  });
   const configuredAiProjects = visibleAiProjects.length;
   const normalizedFeedback = normalizeFeedbackSubmissions(
     feedbackSubmissions,
@@ -1538,7 +2309,7 @@ export function buildFleetConnections({
       status: configuredAiProjects > 0 ? 'connected' : 'partial',
       headline:
         configuredAiProjects > 0
-          ? `Evidence: ${measuredAiProjects.length}/${configuredAiProjects} configured products have local observations.`
+          ? `Evidence: ${measuredAiProjects.length}/${configuredAiProjects} configured products have provider-backed observations.`
           : 'The helper exists, but no Console portfolio is configured.',
       ownerPath: '/marketing',
       freshness: measuredAiProjects.length > 0 ? 'fresh' : 'unknown',
@@ -1696,7 +2467,7 @@ export function buildFleetConnections({
     }],
     ai: [{
       provider: 'ai-visibility',
-      label: `${measuredAiProjects.length}/${configuredAiProjects} products measured`,
+      label: `${measuredAiProjects.length}/${configuredAiProjects} provider-backed outcomes`,
       observedAt: measuredAiProjects
         .map((project) => project.latest?.observedAt)
         .filter(Boolean)
@@ -1890,7 +2661,9 @@ export function buildFleetConnections({
     designReviews,
     searchVisibility,
     visibilityMetrics,
+    visibilityOutcomes,
   });
+  const ownerOutcomes = buildOwnerOutcomeProjection({ projectOutputs, marketing });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),
     missions,
@@ -1954,6 +2727,7 @@ export function buildFleetConnections({
         total: normalizedFeedback.length,
         submissions: normalizedFeedback,
       },
+      ownerOutcomes,
       projects: projectOutputs,
       history: skills.history,
       improvements,
@@ -1968,8 +2742,8 @@ export function buildFleetConnections({
           observations: measuredAiProjects.length,
           detail:
             measuredAiProjects.length > 0
-              ? 'Recorded project observations are available.'
-              : 'Configured projects have not produced a local baseline.',
+              ? 'Provider-backed project observations are available.'
+              : 'Configured projects have fixture canaries only; real outcomes are not measured.',
         },
         feedback: {
           status: normalizedFeedback.length > 0 ? 'producing' : 'empty',

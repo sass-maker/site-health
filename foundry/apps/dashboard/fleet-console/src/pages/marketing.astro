@@ -1,30 +1,28 @@
 ---
 import FounderLayout from "../components/FounderLayout.astro";
+import MarketingMaker from "../components/MarketingMaker.astro";
 ---
 
 <FounderLayout
   title="Marketing"
-  description="What marketing produced and what is worth doing next."
+  description="Is every product positioned and receiving real distribution?"
   active="market"
   view="marketing"
 >
-  <section class="owner-section" aria-labelledby="marketing-recommendations-title">
+  <div slot="meta" class="page-head__meta">
+    <button type="button" class="secondary-action" data-portfolio-refresh="cloudflare">Update Cloudflare</button>
+    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="cloudflare"></span>
+    <span class="snapshot-time" data-outcome-time>Reading coverage</span>
+  </div>
+  <MarketingMaker />
+  <section class="owner-section owner-section--directory" aria-labelledby="marketing-coverage-title">
     <div class="section-head">
       <div>
-        <h2 id="marketing-recommendations-title">Worth doing next</h2>
+        <h2 id="marketing-coverage-title">Product coverage</h2>
+        <p>Positioning, publishing receipts, and the next evidence-backed actions.</p>
       </div>
-      <span class="count" data-founder-count="marketing-recommendations">—</span>
+      <span class="count" data-founder-count="marketing-coverage">—</span>
     </div>
-    <div class="loading-state" data-founder-slot="marketing-recommendations">Reading recommendations…</div>
-  </section>
-
-  <section class="owner-section" aria-labelledby="marketing-outcomes-title">
-    <div class="section-head">
-      <div>
-        <h2 id="marketing-outcomes-title">Published work and outcomes</h2>
-      </div>
-      <span class="count" data-founder-count="marketing-outcomes">—</span>
-    </div>
-    <div class="loading-state" data-founder-slot="marketing-outcomes">Reading publishing receipts…</div>
+    <div class="loading-state" data-founder-slot="marketing-coverage">Building marketing coverage…</div>
   </section>
 </FounderLayout>

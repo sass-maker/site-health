@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-07-31
+Last updated: 2026-08-02
 
 ## Why / What
 
@@ -491,6 +491,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
+- Project-owned Cloudflare D1 persistence and audited cutover receipts for
+  Anime List, Karte, Open Historia, Reader, Significant Hobbies, Starboard,
+  SWE Interview Prep, and TrueHire, with no remaining Turso databases.
 - Enforced GitHub Actions run policy with path-scoped automatic checks,
   independent package workflows, manual heavy-native proof, weekly audit
   ceilings, concurrency cancellation, job timeouts, and manual-only production
@@ -520,9 +523,15 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Shared fleet and teammate skills with local agent discovery.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
-- Responsive Fleet Console with a flat collapsible sidebar, a default Projects
-  directory, focused Metrics, Marketing, and Feedback views, one URL-persisted
-  27-project scope, Search Visibility, AI Visibility,
+- Responsive Fleet Console with a collapsible sidebar that groups Domains,
+  Google Search, AI Awareness, and Performance under Metrics while keeping
+  Projects, Marketing, and Feedback standalone. Project-owned views retain one
+  URL-persisted 27-project scope, while the four portfolio-wide Metrics views
+  have no redundant project filter. Domains includes compact pointer- and
+  keyboard-inspectable D-Rank history; bounded prewarmed outcome endpoints keep
+  these views independent of the full connection payload. The Console includes provider-backed
+  AI Awareness, marketing-receipt coverage, explicit PSI/LCP guardrails,
+  Search Visibility, AI Visibility,
   D-Rank, AI Agent Readiness, AI Crawlability, Content Coverage, PSI Swarm,
   and Design Critique reports. Agent Readiness retains public-route Markdown
   coverage, readable/checked/public route counts, and `/api/ai` catalog
@@ -573,7 +582,21 @@ Cloudflare deployment history, not by maintaining duplicate source.
   handoff, ignored-project suppression, and disabled schedule activation gates.
 - Credential-free provider-observation ingestion with strict bundle validation,
   partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
-  retained raw answer text or provider request IDs.
+  retained raw answer text or provider request IDs. Provider-backed runs retain
+  at most 50 normalized citation URLs so Fleet can distinguish project-owned
+  evidence from independent sources without storing model responses.
+- Read-only Google Search Console collection plus credential-free Cloudflare
+  outcome ingestion with strict normalized validation, canonical-project
+  identity, private history, provider-deep-link validation, and separate
+  Search, web-traffic, field-performance, crawler, and AI-referral evidence
+  without changing portfolio scores. The portfolio Google Search ledger
+  compares all 27 public projects and expands each row to expose bounded query
+  metrics and its exact Search Console property. AI Awareness keeps Cloudflare
+  values and exact zone links as subordinate discovery evidence beneath
+  model-answer outcomes; Performance and Marketing expose their bounded
+  Cloudflare values and breakdowns with one deduplicated portfolio update.
+  Shared Domain properties and Cloudflare zones are isolated to each project's
+  canonical HTTPS hostname.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

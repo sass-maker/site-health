@@ -621,20 +621,23 @@ async function inspectSitemap(origin, robotsProbe) {
       visited: new Set(),
       routes: new Set(),
       failures: [],
-      truncated: false,
+      truncationReasons: new Set(),
     };
     await collectSitemap(url, state);
     if (state.routes.size > 0) {
-      const suffix = state.truncated ? `, capped at ${MAX_PUBLIC_ROUTES}` : '';
+      const routeCapped = state.truncationReasons.has('route-cap');
+      const sitemapCapped = state.truncationReasons.has('sitemap-cap');
+      const suffix = routeCapped ? `, capped at ${MAX_PUBLIC_ROUTES}` : '';
       return {
         check: {
-          status: state.truncated ? 'fail' : 'pass',
+          status: sitemapCapped ? 'fail' : 'pass',
           detail:
             `${new URL(url).pathname} (${state.visited.size} sitemap files, ` +
             `${state.routes.size} public routes${suffix})`,
         },
         urls: [...state.routes],
-        truncated: state.truncated,
+        truncated: sitemapCapped,
+        routeCapped,
       };
     }
     failures.push(...state.failures);
@@ -653,7 +656,7 @@ async function inspectSitemap(origin, robotsProbe) {
 
 async function collectSitemap(url, state) {
   if (state.visited.size >= MAX_SITEMAPS) {
-    state.truncated = true;
+    state.truncationReasons.add('sitemap-cap');
     return;
   }
   let parsed;
@@ -697,7 +700,7 @@ async function collectSitemap(url, state) {
 
   if (isIndex) {
     for (const location of locations) {
-      if (state.truncated) break;
+      if (state.truncationReasons.has('sitemap-cap')) break;
       await collectSitemap(location, state);
     }
     return;
@@ -705,7 +708,7 @@ async function collectSitemap(url, state) {
 
   for (const location of locations) {
     if (state.routes.size >= MAX_PUBLIC_ROUTES) {
-      state.truncated = true;
+      state.truncationReasons.add('route-cap');
       break;
     }
     try {
@@ -1117,6 +1120,7 @@ async function probeOnce(url, { accept, retainFullBody = false } = {}) {
           : bodyPreview,
       isHtml,
       finalUrl: res.url,
+      retryAfter: res.headers.get('retry-after'),
     };
   } catch (err) {
     return {
@@ -1132,6 +1136,18 @@ async function probeOnce(url, { accept, retainFullBody = false } = {}) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+function parseRetryAfterMs(value) {
+  if (!value) return 0;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1_000;
+  const date = Date.parse(value);
+  return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0;
+}
+
+function delay(milliseconds) {
+  return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
 }
 
 function detectHtml(preview, contentType) {

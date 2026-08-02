@@ -14,7 +14,9 @@
       "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
       "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
       "deployTargets": "optional exact per-surface objects with id, kind, name, and sourcePath; required for mixed or multi-source deploys",
+      "d1Databases": "optional exact Cloudflare D1 database names currently owned by this project",
       "tursoDatabases": "optional exact Turso database names owned by this project",
+      "databaseResources": "optional exact relational database resources with provider, name, and prepared | authoritative | rollback-held state",
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
@@ -26,7 +28,7 @@
       "lifecycle": "maintained | local-only | past | non-product",
       "repositoryVisibility": "public | private | unknown",
       "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
-      "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained live domain even when the public directory listing is hidden",
+      "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden"
     },
     "absorbedCheckouts": {
@@ -539,15 +541,22 @@
       "repo": "significanthobbies",
       "deployKind": "worker",
       "cfProject": "significanthobbies",
-      "tursoDatabases": [
+      "d1Databases": [
         "significanthobbies"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "significanthobbies",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "apex/hub",
+      "notes": "apex/hub; D1 significanthobbies is authoritative; the retired Turso source was deleted 2026-08-02",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -600,15 +609,22 @@
       "repo": "anime-list",
       "deployKind": "pages",
       "cfProject": "anime-list",
-      "tursoDatabases": [
-        "mal-watchlist"
+      "d1Databases": [
+        "anime-list"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "anime-list",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "anime.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 anime-list is authoritative; the retired Turso source was deleted 2026-08-02",
       "name": "Anime List",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -695,15 +711,22 @@
       "repo": "reader",
       "deployKind": "worker",
       "cfProject": "reader",
-      "tursoDatabases": [
+      "d1Databases": [
         "reader"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "reader",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "read.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 reader is authoritative; the retired Turso source was deleted 2026-08-02",
       "name": "Reader",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -728,15 +751,22 @@
       "repo": "swe-interview-prep",
       "deployKind": "pages",
       "cfProject": "swe-interview-prep",
-      "tursoDatabases": [
+      "d1Databases": [
         "swe-interview-prep"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "swe-interview-prep",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "learn.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 swe-interview-prep is authoritative; the retired Turso source was deleted 2026-08-02",
       "name": "SWE Interview Prep",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -853,8 +883,15 @@
       "repo": "karte",
       "deployKind": "worker",
       "cfProject": "linkchat",
-      "tursoDatabases": [
-        "linkchat"
+      "d1Databases": [
+        "linkchat-auth"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "linkchat-auth",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "karte.cc"
@@ -887,15 +924,22 @@
       "repo": "starboard",
       "deployKind": "worker",
       "cfProject": "starboard",
-      "tursoDatabases": [
+      "d1Databases": [
         "starboard"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "starboard",
+          "state": "authoritative"
+        }
       ],
       "domains": [
         "starboard.codevetter.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "D1 starboard is authoritative; the retired Turso source was deleted 2026-08-02",
       "name": "Starboard",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -949,6 +993,9 @@
       "lifecycle": "past",
       "sourcePath": "../fleet-inactive-projects/aliveville",
       "repositoryVisibility": "public",
+      "metrics": {
+        "domainCoverage": true
+      },
       "public": {
         "listing": "past",
         "id": "aliveville",
@@ -1097,11 +1144,24 @@
       "family": "rolepatch",
       "tier": "out-of-fleet",
       "repo": "truehire",
-      "deployKind": "none",
-      "domains": [],
+      "deployKind": "worker",
+      "cfProject": "truehire",
+      "d1Databases": [
+        "truehire"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "truehire",
+          "state": "authoritative"
+        }
+      ],
+      "domains": [
+        "truehire.rolepatch.com"
+      ],
       "inRegistry": false,
       "status": "archived",
-      "notes": "Archived and superseded by RolePatch; retained only in the historical public catalog.",
+      "notes": "Archived and superseded by RolePatch; its retained public Worker uses D1, and the retired Turso source was deleted 2026-08-02.",
       "name": "TrueHire",
       "attention": "ignored",
       "lifecycle": "past",
@@ -1149,12 +1209,22 @@
       "sourcePath": "../fleet-inactive-projects/open-historia",
       "deployKind": "worker",
       "cfProject": "open-historia",
+      "d1Databases": [
+        "open-historia"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "open-historia",
+          "state": "authoritative"
+        }
+      ],
       "domains": [
         "historia.aliveville.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.",
+      "notes": "Live product at historia.aliveville.com (aliveville family); its Worker uses D1, and the retired Turso source was deleted 2026-08-02 — NOT an orphan; keep.",
       "name": "Open Historia",
       "attention": "ignored",
       "lifecycle": "past",
@@ -1314,6 +1384,9 @@
       "attention": "toolbox",
       "lifecycle": "non-product",
       "repositoryVisibility": "public",
+      "metrics": {
+        "domainCoverage": true
+      },
       "public": {
         "listing": "maintained",
         "id": "personal-website",

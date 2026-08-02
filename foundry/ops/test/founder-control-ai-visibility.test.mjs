@@ -253,11 +253,15 @@ test('provider observation ingestion records normalized evidence without retaini
   const project = findAiVisibilityProject(portfolio, 'pace');
   const secretMarker = 'RAW_PROVIDER_ANSWER_MUST_NOT_PERSIST';
   const requestMarker = 'request-pace';
+  const citationUrls = [
+    'https://heypace.app',
+    ...Array.from({ length: 55 }, (_, index) => `https://source${index}.example/item`),
+  ];
   const [prepared] = prepareProviderObservationRuns({
     bundle: {
       schema: 'fleet.ai-visibility-provider-observations.v1',
       runs: [providerObservationRun(project, {
-        responseText: `${secretMarker} HeyPace is recommended. Source: https://heypace.app`,
+        responseText: `${secretMarker} HeyPace is recommended. Sources: ${citationUrls.join(' ')}`,
         observedCostUsd: 0.002,
       })],
     },
@@ -293,6 +297,10 @@ test('provider observation ingestion records normalized evidence without retaini
     assert.equal(receipt.cost.providerCalls, 1);
     assert.equal(receipt.cost.receipts.length, 1);
     assert.equal(receipt.comparison, null);
+    assert.equal(receipt.event.payload.citations.total, 56);
+    assert.equal(receipt.event.payload.citations.urls.length, 50);
+    assert.equal(receipt.event.payload.citations.urls[0], 'https://heypace.app/');
+    assert.equal(receipt.event.payload.citations.hosts.includes('heypace.app'), true);
     assert.deepEqual(receipt.event.payload.provenance, {
       source: 'operator-supplied-provider-export',
       providerIds: ['provider-export'],

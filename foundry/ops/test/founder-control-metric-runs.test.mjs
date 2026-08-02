@@ -44,6 +44,151 @@ test('starts one allowlisted project metric command without a shell and deduplic
   assert.equal(controller.get(started.runId).summary, 'D-Rank completed.');
 });
 
+test('starts one portfolio D-Rank command without per-domain concurrent writers', () => {
+  let invocation;
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [
+      {
+        id: 'fleet-workspace',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['fleet.sassmaker.com'],
+      },
+      {
+        id: 'drank',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['domains.sassmaker.com'],
+      },
+    ],
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'drank', scope: 'portfolio' });
+  const duplicate = controller.start({ family: 'drank', scope: 'portfolio' });
+
+  assert.equal(started.scope, 'portfolio');
+  assert.equal(started.projectId, null);
+  assert.equal(started.label, 'Portfolio D-Rank');
+  assert.equal(duplicate.runId, started.runId);
+  assert.equal(duplicate.duplicate, true);
+  assert.equal(invocation.options.shell, false);
+  assert.equal(invocation.args.includes('--only'), false);
+  assert.deepEqual(invocation.args.slice(-2), ['--target', 'sassmaker.com']);
+  assert.throws(
+    () => controller.start({ family: 'agent', scope: 'portfolio' }),
+    { code: 'METRIC_SCOPE_INVALID' },
+  );
+});
+
+test('starts one portfolio PSI orchestrator with every eligible project target', () => {
+  let invocation;
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [
+      {
+        id: 'fleet-workspace',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['sassmaker.com'],
+      },
+      {
+        id: 'pace',
+        publicListing: 'maintained',
+        lifecycle: 'maintained',
+        domains: ['heypace.app'],
+      },
+      {
+        id: 'past-project',
+        publicListing: 'past',
+        lifecycle: 'past',
+        domains: ['past.example.com'],
+      },
+    ],
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'psi', scope: 'portfolio' });
+
+  assert.equal(started.label, 'Portfolio PSI');
+  assert.equal(invocation.options.shell, false);
+  assert.equal(invocation.args[0].endsWith('run-performance-portfolio.mjs'), true);
+  assert.deepEqual(invocation.args.slice(1), [
+    '--target',
+    'fleet-workspace=https://sassmaker.com',
+    '--target',
+    'pace=https://heypace.app',
+  ]);
+});
+
+test('starts and deduplicates one portfolio Search Console collector', () => {
+  let invocation;
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [{
+      id: 'pace',
+      publicListing: 'maintained',
+      lifecycle: 'maintained',
+      domains: ['heypace.app'],
+    }],
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'search', scope: 'portfolio' });
+  const duplicate = controller.start({ family: 'search', scope: 'portfolio' });
+
+  assert.equal(started.label, 'Portfolio search discovery');
+  assert.equal(duplicate.runId, started.runId);
+  assert.equal(duplicate.duplicate, true);
+  assert.equal(invocation.options.shell, false);
+  assert.equal(invocation.args.length, 2);
+  assert.equal(invocation.args[0].endsWith('search-console-collect.mjs'), true);
+  assert.equal(invocation.args[1], '--discovery-cycle');
+  assert.throws(
+    () => controller.start({ family: 'search', projectId: 'pace' }),
+    { code: 'METRIC_SCOPE_INVALID' },
+  );
+});
+
+test('starts and deduplicates one portfolio Cloudflare collector', () => {
+  let invocation;
+  const child = fakeProcess();
+  const fleetRoot = '/fleet';
+  const controller = createMetricRunController({
+    projects: [{ id: 'pace', domains: ['heypace.app'] }],
+    fleetRoot,
+    spawnProcess: (command, args, options) => {
+      invocation = { command, args, options };
+      return child;
+    },
+  });
+
+  const started = controller.start({ family: 'cloudflare', scope: 'portfolio' });
+  const duplicate = controller.start({ family: 'cloudflare', scope: 'portfolio' });
+
+  assert.equal(started.label, 'Portfolio Cloudflare outcomes');
+  assert.equal(duplicate.runId, started.runId);
+  assert.equal(duplicate.duplicate, true);
+  assert.equal(invocation.options.shell, false);
+  assert.deepEqual(invocation.args, [
+    join(fleetRoot, 'foundry/ops/scripts/cloudflare-outcomes-collect.mjs'),
+  ]);
+  assert.throws(
+    () => controller.start({ family: 'cloudflare', projectId: 'pace' }),
+    { code: 'METRIC_SCOPE_INVALID' },
+  );
+});
+
 test('rejects unknown projects and validates existing design receipts', () => {
   const fleetRoot = mkdtempSync(join(tmpdir(), 'metric-runs-'));
   mkdirSync(join(fleetRoot, 'product', '.fleet'), { recursive: true });

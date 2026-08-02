@@ -5,15 +5,15 @@ import "../styles/founder.css";
 interface Props {
   title: string;
   description: string;
-  active: "project-statuses" | "metrics" | "market" | "feedback";
+  active: "domains" | "search" | "ai-awareness" | "market" | "performance" | "project-statuses" | "feedback" | "metrics";
   eyebrow?: string;
-  view?: "project-statuses" | "project" | "metrics" | "feedback" | "mission" | "marketing";
+  view?: "domains" | "search" | "ai-awareness" | "marketing" | "performance" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
   projectId?: string;
 }
 
 const { title, description, active, eyebrow = "Founder control", view, projectId } = Astro.props;
-const filterable = !["project", "mission"].includes(view ?? "");
-const directoryView = view === "project-statuses";
+const filterable = !["project", "mission", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
+const directoryView = ["domains", "search", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
 ---
 
 <!doctype html>
@@ -42,7 +42,7 @@ const directoryView = view === "project-statuses";
         <button
           class="sidebar-mobile-toggle"
           type="button"
-          aria-label="Open navigation"
+          aria-label="Menu"
           aria-controls="fleet-sidebar"
           aria-expanded="false"
           data-sidebar-open

@@ -33,10 +33,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Check out fleet workspace
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Check out portfolio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: sarthakagrawal927/portfolio
           path: portfolio
@@ -52,7 +52,7 @@ jobs:
           git clone --depth 1 https://github.com/Significant-Hobbies/.github sync-targets/significant-hobbies-profile
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
 

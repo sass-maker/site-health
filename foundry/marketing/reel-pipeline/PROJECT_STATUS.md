@@ -1,16 +1,17 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-07-31
+Last updated: 2026-08-01
 
 ## Why / What
 
 Reel Pipeline is Fleet's media-generation and source-editorial service. It
 accepts approved, source-backed briefs or podcast edit decisions, renders
-reviewable media, records artifact provenance, and creates draft handoffs for
-Postiz.
+reviewable media, records artifact provenance, and creates evidence-gated draft
+or future-schedule handoffs for Postiz.
 
-It deliberately does not own social credentials, schedules, publishing state,
-or provider analytics. Postiz owns that downstream lifecycle.
+It deliberately does not own social credentials, durable calendar execution,
+rescheduling, cancellation, publishing state, or provider analytics. Postiz
+owns that downstream lifecycle.
 
 ## Dependencies
 
@@ -18,9 +19,9 @@ or provider analytics. Postiz owns that downstream lifecycle.
 
 - Cloudflare Worker and R2 for production artifact intake/storage.
 - Postiz for draft review, scheduling, publishing, integrations, and metrics.
-- FFmpeg/Chromium and optional local render engines on generation hosts.
-- Optional MoneyPrinterTurbo, Kokoro, Grok/Imagine local assets, and Remotion
-  adapters.
+- FFmpeg/Chromium and optional local render engines, including Blender 5.2, on
+  generation hosts.
+- Optional Kokoro, Grok/Imagine local assets, and Blender adapters.
 - Python 3.11+, uv, FFmpeg, and optional local transcription engines for the
   nested podcast editorial runtime.
 
@@ -33,12 +34,30 @@ or provider analytics. Postiz owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-01:** completed the Fleet Console Marketing video arsenal boundary:
+  all 48 stable variants now have compact rights-safe vertical MP4 fixtures,
+  exact prompt presets, byte-range playback, fixture/real execution envelopes,
+  registered owner adapters, and fail-closed completeness checks. Added ordered
+  two-to-three-style gallery mixes with deterministic local FFmpeg composition
+  and component provenance; Fleet Console `/marketing` remains the only
+  product maker UI.
+- **2026-08-01:** removed the unused MoneyPrinterTurbo and reel-maker engine
+  submodules, their checkout-backed Node/Rust adapters, false readiness gates,
+  and the blocked stock-service recipe. Product Proof remains an explicit
+  Brand Reel handoff; local video creation remains repository-owned.
+- **2026-07-31:** added rights-gated literal lyric videos to Marketing Studio
+  with exact timed-text preservation, separate composition and recording
+  evidence, deterministic cue-to-scene planning, optional safe Blender 5.2
+  plates, local composition, review receipts, and a reproducible public-domain
+  “Twinkle, Twinkle, Little Star” canary using a new local recording.
 - **2026-07-31:** unified the internal Marketing Studio around a persistent,
   conversational video brief covering faceless lessons, brand reels, guided
   app demos, coherent films, and podcast shorts. Added explicit runtime
-  routing, production review/playback, fail-closed distribution evidence, and
-  an unscheduled Postiz draft handoff while leaving scheduling and publication
-  inside Postiz.
+  routing, deduplicated production review/playback, fail-closed distribution
+  evidence, and Postiz draft or exact future-schedule handoffs for YouTube
+  Shorts and Instagram Reels. Postiz remains the owner of credentials, durable
+  calendar execution, publication state, rescheduling, cancellation, and
+  analytics.
 - **2026-07-29:** consolidated Mashup's Python planner, SQLite-backed stage
   state, provenance-gated archive tooling, tests, and operator editor under
   `editorial/`. Added the strict `fleet.podcast-edit.v1` handoff, an
@@ -79,30 +98,52 @@ or provider analytics. Postiz owns that downstream lifecycle.
 - Anonymous brand-reel generator.
 - Internal Marketing Studio and faceless/lesson workflows.
 - Worker/R2 production reel renderer.
-- Content-package renderer and Postiz draft handoff.
+- Content-package renderer and Postiz draft or future-schedule handoff.
 - Source-backed podcast planning, approval, and multi-clip rendering.
+- Rights-gated literal lyric-video production with optional Blender scenes.
+- Fleet Console Marketing execution API with exact gallery previews and
+  deterministic ordered style mixes.
 
 ## Features (shipped)
 
 - VideoBrief validation and provider-neutral render adapters.
 - Content Factory manifests with hashes and provenance.
-- Local render modes: mock, HTML composition, ASCII, Grok local asset,
-  reel-maker adapter smoke, Kokoro, and brand video.
+- Local render modes: mock, HTML composition, ASCII, Blender, Grok local asset,
+  Kokoro, and brand video.
 - Worker/R2 render flow with Rust watch/render orchestration.
 - Significant Content and High Signal intake contracts.
-- Postiz integration mapping, media upload, and draft creation adapter.
+- Postiz integration mapping, media upload, and draft or exact future-schedule
+  adapter for YouTube Shorts and Instagram Reels.
 - Conversational `fleet.marketing-studio-brief.v1` intake with revisioned local
   persistence, multi-turn natural-language refinement, normalized
-  brand/channel/creative state, and honest readiness across five video
-  workflows.
+  brand/channel/creative state, explicit source-URL capture without inferred
+  approval, and honest readiness across six video workflows.
+- Exact LRC, SRT, or structured lyric-cue normalization; separate
+  composition/lyric and master-recording rights gates; one-to-one literal scene
+  planning; deterministic native or Blender-backed plates; synchronized
+  captions, attribution, approved audio, hashes, and quality evidence.
+- Safe Blender 5.2 adapter execution through a repository-owned scene builder,
+  bounded manifests, factory startup, disabled auto-execution, run-directory
+  path controls, versioned provenance, artifact hashes, and eight distinct
+  local 3D scene languages.
+- A secret-free, byte-range-capable Explore Gallery registry with 48 exact,
+  portable, hash-validated rights-safe MP4 previews; style-family filtering;
+  exact preset handoff; and ordered two-to-three-style mixes rendered locally
+  with component provenance.
+- Versioned fixture/real video execution envelopes, complete adapter and input
+  registries for all 12 recipes and 48 variants, normalized local and owner
+  receipts, contextual blockers, and catalog/gallery/preset completeness that
+  fails closed on missing, duplicate, null, unknown, or stale identifiers.
 - Unified Create, Productions, Distribute, and Tools operator views with
   explicit execution, local artifact playback, quality state, specialized
   runtime continuations, safe public-field prefill for Brand Reel and Forge,
-  and the complete legacy Content Studio toolset.
+  deduplicated brief-owned artifacts, and the complete legacy Content Studio
+  toolset.
 - Fail-closed Studio-to-Postiz preparation requiring source, claim,
   destination, rights, creative approval, quality evidence, render evidence,
-  and a stable public media URL; draft handoff accepts neither scheduling nor
-  publication inputs.
+  and a stable public media URL; draft and scheduled submissions preserve the
+  exact UTC timestamp, reject invalid or past times, reject immediate
+  publication, and prevent duplicate Postiz submissions.
 - Fail-closed rejection of native social-provider distribution.
 - Node and Rust regression suites plus focused Postiz and render-mode smokes.
 - Local Video Forge JSON manifests, approval/memory gates, resumable

@@ -49,10 +49,10 @@ export class CdpSession {
   }
 }
 
-export async function withChrome({ width, height }, body) {
+export async function withChrome({ width, height, chromePath = CHROME_BIN }, body) {
   const userDataDir = await mkdtemp(path.join(tmpdir(), 'reel-cdp-'));
   const port = 9222 + Math.floor(Math.random() * 1000);
-  const proc = spawn(CHROME_BIN, [
+  const proc = spawn(chromePath, [
     '--headless=new',
     `--remote-debugging-port=${port}`,
     `--user-data-dir=${userDataDir}`,

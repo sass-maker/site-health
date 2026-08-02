@@ -1,63 +1,15 @@
----
-import FounderLayout from "../components/FounderLayout.astro";
----
-
-<FounderLayout
-  title="Metrics"
-  description="Is each project becoming more visible?"
-  active="metrics"
-  view="metrics"
->
-  <div slot="meta" class="page-head__meta">
-    <span class="snapshot-time" data-connections-time>Reading measurements</span>
-  </div>
-
-  <section class="owner-section owner-section--directory" aria-labelledby="metric-matrix-title">
-    <div class="section-head">
-      <div>
-        <h2 id="metric-matrix-title">Project measurements</h2>
-        <p>Latest evidence at a glance. Open any cell for the full project history.</p>
-      </div>
-      <span class="count" data-founder-count="metric-projects">—</span>
-    </div>
-    <div class="loading-state" data-founder-slot="metric-projects">Building the project matrix…</div>
-  </section>
-
-  <dialog class="system-sheet" id="system-map" data-system-sheet aria-labelledby="system-sheet-title">
-    <header class="system-sheet__head">
-      <div>
-        <p class="eyebrow">Supporting evidence</p>
-        <h2 id="system-sheet-title">System map</h2>
-        <p>How the six repository buckets and fifteen transports supply the measurements in this Console.</p>
-      </div>
-      <button class="secondary-action" type="button" data-system-sheet-close>Close</button>
-    </header>
-    <div class="system-sheet__body">
-      <section class="connection-overview" aria-labelledby="connection-overview-title">
-        <div class="connection-overview__head">
-          <div><p class="eyebrow">Portfolio nervous system</p><h3 id="connection-overview-title">From source to owner</h3></div>
-          <a class="action-link" href="#connection-ledger">Inspect every connection</a>
-        </div>
-        <div class="loading-state" data-founder-slot="connection-overview">Building the six-bucket map…</div>
-      </section>
-      <section class="owner-section" id="connection-gaps" aria-labelledby="connection-gaps-title">
-        <div class="section-head">
-          <div><p class="eyebrow">Work that closes the loop</p><h3 id="connection-gaps-title">Gaps worth seeing</h3></div>
-          <span class="count" data-founder-count="connection-gaps">—</span>
-        </div>
-        <div class="loading-state" data-founder-slot="connection-gaps">Reading incomplete transports…</div>
-      </section>
-      <section class="owner-section" id="connection-ledger" aria-labelledby="connection-ledger-title">
-        <div class="section-head">
-          <div><p class="eyebrow">Durable contracts</p><h3 id="connection-ledger-title">Connection ledger</h3></div>
-          <span class="count" data-founder-count="connections">—</span>
-        </div>
-        <div class="loading-state" data-founder-slot="connections">Loading connection ledger…</div>
-      </section>
-      <section class="owner-section" aria-labelledby="connection-evidence-title">
-        <div class="section-head"><div><p class="eyebrow">What is flowing</p><h3 id="connection-evidence-title">Evidence now</h3></div></div>
-        <div class="loading-state" data-founder-slot="connection-evidence">Loading bounded evidence…</div>
-      </section>
-    </div>
-  </dialog>
-</FounderLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Domains · Foundry</title>
+    <noscript><meta http-equiv="refresh" content="0;url=/domains" /></noscript>
+  </head>
+  <body>
+    <p><a href="/domains">Continue to Domains</a></p>
+    <script is:inline>
+      window.location.replace(`/domains${window.location.search}${window.location.hash}`);
+    </script>
+  </body>
+</html>

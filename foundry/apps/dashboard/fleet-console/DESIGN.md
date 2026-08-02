@@ -36,17 +36,27 @@ immutable identifiers and source revisions.
 ## Layout
 
 - Maximum content width: 1,240 px.
-- A persistent, collapsible left sidebar presents one flat list of owner views;
-  repository taxonomy does not appear in primary navigation.
-- The primary owner views are Projects, Metrics, Marketing, and Feedback. The
-  selected project scope follows the operator between them in the URL.
-- Projects is the default directory with explicit domains plus direct website,
-  changelog, and source destinations. Metrics contains PSI Swarm, D-Rank, AI
-  Visibility, and prominent Design Critique/Audit scorecards. The complete Skill
-  uses ledger is a secondary route reached through one page-header `View all
-  skills` CTA, with skill filtering, pagination, and output disclosed only on
-  demand. Feedback is an inbox. Marketing contains recommendations and
-  published outcomes. System topology is a secondary diagnostic sheet.
+- A persistent, collapsible left sidebar groups Domains, Google Search, AI
+  Awareness, and Performance under a visible Metrics heading; repository
+  taxonomy does not appear in primary navigation.
+- Projects, Marketing, and Feedback remain standalone tabs below Metrics. Their
+  selected project scope follows the operator between views in the URL. The four
+  portfolio-wide Metrics views do not expose a project filter.
+- Domains answers whether every owned registrable root is becoming stronger.
+  Google Search shows every canonical public metric project, keeps native Search
+  Console units in a sortable ledger, and reveals reporting scope, terms, and
+  retained history only when a project row is expanded.
+  AI Awareness is limited to maintained P1 products and leads with
+  provider-backed model outcomes. Expanded project evidence separates
+  project-owned citations from independent sources and keeps Cloudflare crawl
+  and referral activity in a subordinate discovery layer. Marketing shows
+  coverage for every maintained product, while
+  Performance treats PSI and LCP as a pass/fail guardrail for every maintained
+  public product. Projects remains the canonical secondary directory with
+  explicit website, changelog, source, and project-detail destinations.
+  Skill uses and System Map remain secondary diagnostic surfaces. Crawlability,
+  agent readiness, design review, and full diagnostic histories stay inside
+  project detail.
 - Use bordered rows and section bands for related records; reserve cards for a
   genuinely independent decision or recommendation.
 - Technical evidence appears in expandable detail or on mission detail pages.
@@ -61,7 +71,9 @@ immutable identifiers and source revisions.
 - `MissionRow`: outcome, project, actor, lifecycle state, latest verified event.
 - `EvidenceLink`: provider, verification state, observation time, external link.
 - `HistoryChart`: one comparable metric in its native unit, with start, current,
-  absolute and percentage change, observation count, and date range.
+  absolute and percentage change, observation count, and date range. The compact
+  Domains variant is a no-dot line that exposes exact dated D-Rank observations
+  on pointer movement and keyboard focus.
 - `StateBadge`: icon/text/color treatment for active, blocked, stale, complete,
   awaiting verification, and unavailable.
 - `ActionButton`: solid accent for one primary action; bordered neutral for

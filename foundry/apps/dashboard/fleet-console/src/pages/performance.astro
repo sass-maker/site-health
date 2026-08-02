@@ -1,0 +1,21 @@
+---
+import FounderLayout from "../components/FounderLayout.astro";
+---
+
+<FounderLayout
+  title="Performance"
+  description="Is every public product fast enough?"
+  active="performance"
+  view="performance"
+>
+  <div slot="meta" class="page-head__meta">
+    <button type="button" class="secondary-action" data-portfolio-refresh="psi">Run all PSI</button>
+    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="psi"></span>
+    <button type="button" class="secondary-action" data-portfolio-refresh="cloudflare">Update Cloudflare</button>
+    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="cloudflare"></span>
+    <span class="snapshot-time" data-outcome-time>Reading performance evidence</span>
+  </div>
+  <section class="owner-section owner-section--directory" aria-label="Public product performance">
+    <div class="loading-state" data-founder-slot="performance">Building performance guardrail…</div>
+  </section>
+</FounderLayout>

@@ -1,0 +1,26 @@
+---
+import FounderLayout from "../components/FounderLayout.astro";
+---
+
+<FounderLayout
+  title="AI awareness"
+  description="Are the core products mentioned, recommended, and cited across real model answers?"
+  active="ai-awareness"
+  view="ai-awareness"
+>
+  <div slot="meta" class="page-head__meta">
+    <span class="state none" data-ai-awareness-state>Reading model checks</span>
+    <span class="measurement-boundary-note" data-ai-awareness-boundary>Provider-backed Codex and Claude observations</span>
+    <span class="snapshot-time" data-outcome-time>Reading provider evidence</span>
+  </div>
+  <section class="owner-section owner-section--directory" aria-labelledby="ai-awareness-title">
+    <div class="section-head">
+      <div>
+        <h2 id="ai-awareness-title">Core product awareness</h2>
+        <p>Model outcomes first. Crawl and referral activity remain supporting discovery evidence.</p>
+      </div>
+      <span class="count" data-founder-count="ai-awareness">—</span>
+    </div>
+    <div class="loading-state" data-founder-slot="ai-awareness">Building AI awareness view…</div>
+  </section>
+</FounderLayout>

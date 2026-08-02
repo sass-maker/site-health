@@ -435,9 +435,20 @@ function rankMetrics(run) {
 }
 
 function citationSummary(rows, engine) {
-  const urls = rows.flatMap((row) => row.citations);
+  const citations = rows.flatMap((row) => row.citations);
+  const urls = [...new Set(citations.flatMap((value) => {
+    try {
+      const url = new URL(value);
+      if (!['http:', 'https:'].includes(url.protocol)) return [];
+      url.hash = '';
+      return [url.href];
+    } catch {
+      return [];
+    }
+  }))].slice(0, 50);
   return {
-    total: urls.length,
+    total: citations.length,
+    urls,
     hosts: [...new Set(urls.map(engine.hostOf).filter(Boolean))].sort(),
   };
 }
