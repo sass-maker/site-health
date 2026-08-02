@@ -18,11 +18,12 @@
     "report:sitemaps": "node foundry/ops/scripts/fleet-sitemap-report.mjs",
     "report:metric-90": "node foundry/ops/scripts/metric-90-report.mjs",
     "generate:openspec-inventory": "node foundry/ops/scripts/generate-openspec-inventory.mjs",
-    "check:public": "node foundry/ops/scripts/generate-public-products.mjs --check && node foundry/ops/scripts/sync-public-workflows-manifest.mjs --check && npm --prefix foundry/apps/public/public-directory run check",
+    "check:public": "node foundry/ops/scripts/generate-public-products.mjs --check && node foundry/ops/scripts/sync-public-workflows-manifest.mjs --check && pnpm --prefix foundry/apps/public/public-directory run check",
     "check:registry": "node foundry/ops/scripts/generate-project-surfaces.mjs --check && node foundry/ops/scripts/validate-automation-registry.mjs && node foundry/ops/scripts/validate-marketing-program.mjs && node foundry/ops/scripts/check-retired-marketing-boundaries.mjs && node foundry/ops/scripts/check-independent-product-boundaries.mjs",
-    "test:fleet": "npm run check:components && npm run check:actions && node --test foundry/ops/test/*.test.mjs"
+    "test:fleet": "pnpm run check:components && pnpm run check:actions && node --test foundry/ops/test/*.test.mjs"
   },
   "engines": {
     "node": ">=22"
-  }
+  },
+  "packageManager": "pnpm@10.33.2"
 }

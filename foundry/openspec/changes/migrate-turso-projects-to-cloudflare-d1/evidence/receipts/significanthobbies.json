@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "turso-d1-migration-receipt.v1",
+  "projectId": "significanthobbies",
+  "mode": "cutover",
+  "authority": "d1",
+  "source": {
+    "provider": "turso",
+    "name": "significanthobbies",
+    "role": "rollback-held",
+    "schemaRevision": null,
+    "sizeBytes": 425984
+  },
+  "target": {
+    "provider": "cloudflare-d1",
+    "name": "significanthobbies",
+    "role": "authoritative",
+    "schemaRevision": "0001_worthless_post.sql",
+    "sizeBytes": 471040
+  },
+  "schemaChecks": [
+    {
+      "id": "source-catalog-shape",
+      "status": "pass",
+      "sourceValue": "24 tables, 45 indexes",
+      "targetValue": "26 tables, 50 indexes",
+      "detail": "The D1 schema preserves all 24 Turso tables and 45 indexes, then adds the shipped TrajectoryContract and TrajectoryReview tables with five indexes; D1 also records its migration ledger."
+    },
+    {
+      "id": "local-d1-migration",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": 77,
+      "detail": "The deterministic baseline and trajectory-contract follow-up applied 77 SQL commands to isolated and remote D1 databases."
+    },
+    {
+      "id": "local-foreign-key-check",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": 0,
+      "detail": "PRAGMA foreign_key_check returned no rows after migration, seed, auth, and trajectory writes."
+    }
+  ],
+  "dataChecks": [
+    {
+      "id": "fixture-seed",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "10 users, 10 timelines",
+      "detail": "The maintained seed completed against local D1 and produced all deterministic demo journeys."
+    },
+    {
+      "id": "production-row-parity",
+      "status": "pass",
+      "sourceValue": "30 rows across 24 application tables; User signature 3146; Timeline signature 7159",
+      "targetValue": "30 rows across 24 application tables; User signature 3146; Timeline signature 7159",
+      "detail": "Every application-table row count matched the production Turso export; representative full-row aggregate signatures matched and remote foreign-key checking returned no violations."
+    },
+    {
+      "id": "preview-data-policy",
+      "status": "pass",
+      "sourceValue": "13 demo-domain users, 10 demo timelines",
+      "targetValue": "13 users, 10 timelines, 0 auth/account/session rows",
+      "detail": "Preview contains only the sanitized demo-domain fixture subset and no production authentication or account records."
+    }
+  ],
+  "journeyChecks": [
+    {
+      "id": "better-auth-and-authenticated-routes",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "19 Playwright tests",
+      "detail": "Better Auth sign-up/sign-in and authenticated read/write journeys passed against local D1."
+    },
+    {
+      "id": "trajectory-atomic-adjustment",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "1 active contract with review history",
+      "detail": "The D1 transactional batch recorded a review, closed the prior contract, and opened exactly one adjusted active contract."
+    },
+    {
+      "id": "repository-validation",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "439 unit tests, 124 CI E2E tests, typecheck, Biome, docs, production build",
+      "detail": "All merged-main validation passed, including the full D1-backed browser suite and production build."
+    },
+    {
+      "id": "production-cutover",
+      "status": "pass",
+      "sourceValue": "Turso rollback-held",
+      "targetValue": "Worker version 187 at 100% traffic; tag 0aaa4d9f30ef68d580646489a7eed7a6621a0600",
+      "detail": "The manual deployment, cache purge, homepage smoke, cache-busted Worker-route smoke, anonymous session request, and direct route probes passed with the production D1 binding."
+    }
+  ],
+  "timings": {
+    "observedAt": "2026-08-01T16:48:00Z",
+    "rehearsalMs": null,
+    "writeFreezeMs": null
+  },
+  "approval": {
+    "remoteMutationApproved": true,
+    "cutoverApproved": true,
+    "retirementApproved": false
+  },
+  "rollback": {
+    "sourcePreserved": true,
+    "releaseAvailable": true,
+    "reconciliationRequired": false
+  },
+  "result": "pass",
+  "notes": [
+    "D1 is authoritative. Fresh pre-switch and post-switch Turso snapshots matched the staged D1 row counts and aggregate signatures, so no delta import was required.",
+    "Turso and its Worker secrets remain rollback-held and unmodified; retirement and secret removal require separate approval after observation.",
+    "Dependency audit reports 18 high advisories and strict Knip reports one unrelated unused exported type; both predate this migration.",
+    "Production deployment run: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/30708741104"
+  ]
+}
