@@ -57,7 +57,7 @@ Generated from 41 internal project identities.
 | Protein Index | past | `../fleet-inactive-projects/protein-index` | past | https://protein.significanthobbies.com |
 | Mashup | past | `mashup` | hidden | — |
 | SaaS Ideas | past | `../fleet-inactive-projects/saas-ideas` | hidden | https://ideas.sassmaker.com |
-| TrueHire | past | `../fleet-inactive-projects/truehire` | past | https://truehire.rolepatch.com |
+| TrueHire | past | `../fleet-inactive-projects/truehire` | past | — |
 | Today Little Log | past | `../fleet-inactive-projects/today-little-log` | past | — |
 | Open Historia | past | `../fleet-inactive-projects/open-historia` | past | https://historia.aliveville.com |
 | Companion Robot | past | `../fleet-inactive-projects/companion-robot` | past | — |
