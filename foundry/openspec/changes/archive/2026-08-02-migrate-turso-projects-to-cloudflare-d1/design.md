@@ -1,6 +1,6 @@
 ## Context
 
-See `proposal.md` for motivation and scope. The six projects all use SQLite-compatible Turso/libSQL, but their access patterns differ: some run directly in Workers or Pages Functions, some use Drizzle or Better Auth adapters, and Anime List and Starboard also run database-heavy GitHub Actions or operator scripts outside a Cloudflare request. The migration must therefore standardize safety and evidence while allowing a small project-specific adapter.
+See `proposal.md` for motivation and scope. The eight projects all use SQLite-compatible Turso/libSQL, but their access patterns differ: some run directly in Workers or Pages Functions, some use Drizzle or authentication adapters, and Anime List and Starboard also run database-heavy GitHub Actions or operator scripts outside a Cloudflare request. The migration must therefore standardize safety and evidence while allowing a small project-specific adapter.
 
 The Fleet root currently contains unrelated work. Planning lives in the existing Fleet OpenSpec store; implementation must occur on clean, issue-linked branches in each child repository and must preserve unrelated root changes.
 
@@ -8,7 +8,7 @@ The Fleet root currently contains unrelated work. Planning lives in the existing
 
 **Goals:**
 
-- Make D1 authoritative for all six scoped products without changing customer-visible product behavior.
+- Make D1 authoritative for all eight scoped products without changing customer-visible product behavior.
 - Use one shared cutover contract and project-specific implementation slices.
 - Keep local tests isolated and make schema/data parity independently auditable.
 - Make every production mutation explicit, reversible, and scoped to one project.
@@ -58,7 +58,7 @@ Every project receipt records schema objects, per-table row counts, foreign-key 
 
 ### 6. Roll out by complexity, with a review gate per project
 
-The proposed order is:
+The completed and final rollout order is:
 
 1. `karte` — first verify whether its production runtime is already D1-backed and only Turso scripts/registry remain; if so, treat it as reconciliation rather than a data cutover.
 2. `significanthobbies` — compact Drizzle boundary and existing Cloudflare Worker surface.
@@ -66,6 +66,8 @@ The proposed order is:
 4. `swe-interview-prep` — Pages Functions with a broad direct-query handler surface.
 5. `anime-list` — a 42 MB catalog/user database that fits one D1 binding, but has scheduled catalog refreshes and a broad batch surface.
 6. `starboard` — a 2.13 GB source with two virtual tables, six triggers, a large query/script surface, and multiple database-touching workflows.
+7. `open-historia` — a live Hono Worker with Better Auth and cloud saves; its Turso database reports no reads or writes, so the cutover is primarily schema/runtime verification.
+8. `truehire` — a retained archived product with a live OpenNext Worker and light historical database reads; preserve every existing table and row before retiring the source.
 
 The order can change after the inventory tasks measure schema size, access paths, and operational constraints. No implementation or cutover for project N+1 depends on project N being complete.
 

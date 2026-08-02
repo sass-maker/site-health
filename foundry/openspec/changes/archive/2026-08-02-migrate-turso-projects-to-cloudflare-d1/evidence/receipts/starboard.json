@@ -4,9 +4,9 @@
   "mode": "cutover",
   "authority": "d1",
   "source": {
-    "provider": "turso",
+    "provider": "none",
     "name": "starboard",
-    "role": "rollback-held",
+    "role": "none",
     "schemaRevision": null,
     "sizeBytes": 2133086208
   },
@@ -108,11 +108,11 @@
   "approval": {
     "remoteMutationApproved": true,
     "cutoverApproved": true,
-    "retirementApproved": false
+    "retirementApproved": true
   },
   "rollback": {
-    "sourcePreserved": true,
-    "releaseAvailable": true,
+    "sourcePreserved": false,
+    "releaseAvailable": false,
     "reconciliationRequired": false
   },
   "result": "pass",
@@ -120,9 +120,9 @@
     "Owning issue: https://github.com/Codevetter/starboard/issues/49. Duplicate issue #50 was closed after discovery.",
     "Baseline PSI run run_b687b85e4d8fac19d9d3e6bf257e825f; report /Users/sarthak/.psi-swarm/reports/psi-swarm-starboard.codevetter.com-2026-08-01T19-02-06.html.",
     "Code cleanup run run_c6e25c1bc56599beb4fcfd6826689f4c found no critical advisories; 14 high advisories and one unused export predate this migration.",
-    "Cloudflare Workers Paid capacity was verified before implementation. Turso retirement and secret removal remain separate approval steps.",
+    "Cloudflare Workers Paid capacity was verified before implementation. Explicit retirement approval was later received; credential cleanup remains separate.",
     "Cutover PRs #51, #52, and #53 merged; documentation PR #54 merged after all required checks passed. Deploy run 30720998042, operator smoke 30721106035, catch-up 30721151022, and zero-pending proof 30721198381 succeeded.",
     "CI maintenance PR #55 upgraded cloudflare/wrangler-action to v4; main CI 30722081042 and deploy 30722138628 passed without the prior Node 20 action-runtime warning.",
-    "Post-cutover PSI report: /Users/sarthak/.psi-swarm/reports/psi-swarm-starboard.codevetter.com_-2026-08-01T22-29-18.html. Turso and its secrets remain rollback-held and were not retired."
+    "Post-cutover PSI report: /Users/sarthak/.psi-swarm/reports/psi-swarm-starboard.codevetter.com_-2026-08-01T22-29-18.html. The Turso database was deleted on 2026-08-02."
   ]
 }

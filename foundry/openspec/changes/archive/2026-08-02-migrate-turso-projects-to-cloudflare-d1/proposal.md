@@ -1,14 +1,14 @@
 ## Why
 
-Six maintained Fleet projects still depend on Turso even though their application runtimes already live on Cloudflare. Moving their relational persistence to Cloudflare D1 reduces provider sprawl and credential/operations overhead, while requiring a staged cutover because these databases contain user, authentication, catalog, and automation state.
+Eight deployed or retained Fleet products still have Turso databases even though their application runtimes already live on Cloudflare. Six maintained products have completed their D1 cutovers; this final expansion covers the live Open Historia and retained TrueHire serving paths before all eight Turso databases are retired. Moving their relational persistence to Cloudflare D1 removes the remaining provider sprawl and credential/operations overhead while preserving live behavior.
 
 ## What Changes
 
-- Migrate `anime-list`, `karte`, `reader`, `significanthobbies`, `starboard`, and `swe-interview-prep` from Turso/libSQL to one project-owned Cloudflare D1 database per product surface.
+- Migrate `anime-list`, `karte`, `reader`, `significanthobbies`, `starboard`, `swe-interview-prep`, `open-historia`, and `truehire` from Turso/libSQL to one project-owned Cloudflare D1 database per product surface.
 - Replace runtime libSQL clients with D1 bindings while preserving existing API contracts, authentication behavior, query results, scheduled jobs, and local-development workflows.
 - Convert each current schema and migration history into deterministic D1 migrations and add repeatable, sanitized export/import tooling for the one-time data move.
 - Add per-project parity checks for schema, row counts, critical aggregates, foreign-key integrity, and representative read/write journeys before cutover.
-- Stage projects independently, beginning with the lowest-risk canary; do not batch all six production cutovers.
+- Stage projects independently, beginning with the lowest-risk canary; do not batch the production cutovers.
 - Keep Turso read-only as a rollback source for a bounded observation window, then retire Turso configuration only after acceptance and explicit approval.
 - **BREAKING**: deployment configuration will require a D1 binding and will no longer require Turso URL/token variables after each project completes its cutover.
 
@@ -26,9 +26,9 @@ Six maintained Fleet projects still depend on Turso even though their applicatio
 
 ## Impact
 
-- **Projects:** `anime-list`, `karte`, `reader`, `significanthobbies`, `starboard`, and `swe-interview-prep`.
+- **Projects:** `anime-list`, `karte`, `reader`, `significanthobbies`, `starboard`, `swe-interview-prep`, `open-historia`, and `truehire`.
 - **Runtime/config:** Worker or Pages Functions bindings, Wrangler configuration, database adapters, auth adapters, scheduled jobs, environment validation, and local test bindings.
-- **Data:** six Turso databases (`mal-watchlist`, `linkchat`, `reader`, `significanthobbies`, `starboard`, and `swe-interview-prep`) mapped to six project-owned D1 databases; Anime List's optional split manga connection must be collapsed or explicitly retained as a second D1 binding only if measured size/operation constraints require it.
+- **Data:** eight Turso databases (`mal-watchlist`, `linkchat`, `reader`, `significanthobbies`, `starboard`, `swe-interview-prep`, `open-historia`, and `truehire`) mapped to eight project-owned D1 databases; Anime List's optional split manga connection must be collapsed or explicitly retained as a second D1 binding only if measured size/operation constraints require it.
 - **Tooling/docs:** schema migrations, one-time transfer commands, verification receipts, CI checks, `PROJECT_STATUS.md`, Fleet project registry, and spend-surface scanner fixtures.
 - **Dependencies:** remove `@libsql/client` and Turso-only Drizzle configuration only after each project's D1 adapter and scripts no longer need them; dependency edits must follow the Fleet code-cleanup boundary.
 - **Production:** no database creation, data export/import, binding mutation, secret removal, deploy, or Turso retirement occurs during proposal review. Each mutation is a separately approved per-project task.

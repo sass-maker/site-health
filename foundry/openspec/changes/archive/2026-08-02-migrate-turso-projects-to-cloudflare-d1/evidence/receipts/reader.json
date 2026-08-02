@@ -4,9 +4,9 @@
   "mode": "cutover",
   "authority": "d1",
   "source": {
-    "provider": "turso",
+    "provider": "none",
     "name": "reader",
-    "role": "rollback-held",
+    "role": "none",
     "schemaRevision": null,
     "sizeBytes": 434176
   },
@@ -101,17 +101,17 @@
   "approval": {
     "remoteMutationApproved": true,
     "cutoverApproved": true,
-    "retirementApproved": false
+    "retirementApproved": true
   },
   "rollback": {
-    "sourcePreserved": true,
-    "releaseAvailable": true,
+    "sourcePreserved": false,
+    "releaseAvailable": false,
     "reconciliationRequired": false
   },
   "result": "pass",
   "notes": [
     "D1 is authoritative. Fresh pre-switch and post-switch Turso snapshots matched the staged D1 row counts and aggregate signatures, so no delta import was required.",
-    "Turso and its Worker secrets remain rollback-held and unmodified; R2 was unchanged, and retirement or secret removal require separate approval after observation.",
+    "Explicit retirement approval was received and the Turso database was deleted on 2026-08-02; R2 was unchanged and credential cleanup remains separate.",
     "Dependency audit reports 27 high advisories; Knip and all project checks otherwise pass.",
     "Production deployment run: https://github.com/Significant-Hobbies/reader/actions/runs/30708641208"
   ]

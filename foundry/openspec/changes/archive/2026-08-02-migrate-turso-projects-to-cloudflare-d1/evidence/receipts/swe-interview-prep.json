@@ -4,9 +4,9 @@
   "mode": "cutover",
   "authority": "d1",
   "source": {
-    "provider": "turso",
+    "provider": "none",
     "name": "swe-interview-prep",
-    "role": "rollback-held",
+    "role": "none",
     "schemaRevision": null,
     "sizeBytes": 266240
   },
@@ -94,11 +94,11 @@
   "approval": {
     "remoteMutationApproved": true,
     "cutoverApproved": true,
-    "retirementApproved": false
+    "retirementApproved": true
   },
   "rollback": {
-    "sourcePreserved": true,
-    "releaseAvailable": true,
+    "sourcePreserved": false,
+    "releaseAvailable": false,
     "reconciliationRequired": false
   },
   "result": "pass",
@@ -107,7 +107,7 @@
     "A real Pages rehearsal exposed and fixed a legacy verifier module-load failure that had blocked authenticated learning actions in the Pages runtime.",
     "Code cleanup retains pre-existing audit advisories and unrelated strict Knip findings; project check, format, typecheck, tests, and whitespace pass.",
     "D1 is authoritative. Pre-import, pre-switch, and post-switch Turso exports were byte-identical (SHA-256 1c831d47d89398f9e5fcdf940e9ceb9fa5c0c8f6d07d58812a2e490c78dc9f58).",
-    "Turso and its Pages secrets remain rollback-held and unmodified; retirement or secret removal requires separate approval after observation.",
+    "Explicit retirement approval was received and the Turso database was deleted on 2026-08-02; credential cleanup remains separate.",
     "Migration PR: https://github.com/Significant-Hobbies/swe-interview-prep/pull/40",
     "Status PR: https://github.com/Significant-Hobbies/swe-interview-prep/pull/41",
     "Final production deployment run: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/30710480262",
