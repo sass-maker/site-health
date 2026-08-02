@@ -160,7 +160,7 @@ test('treats a bounded route sample as valid when sitemap XML exceeds the route 
     }
     if (url.pathname === '/sitemap.xml') {
       const routes = Array.from(
-        { length: 5_001 },
+        { length: 50_001 },
         (_, index) => `<url><loc>${origin}${index === 0 ? '/' : `/page-${index}/`}</loc></url>`,
       ).join('');
       return send(response, 'application/xml', `<?xml version="1.0"?><urlset>${routes}</urlset>`);
@@ -179,13 +179,13 @@ test('treats a bounded route sample as valid when sitemap XML exceeds the route 
   const { stdout } = await execFileAsync(
     process.execPath,
     [auditor.pathname, origin, '--json'],
-    { maxBuffer: 2_000_000 },
+    { maxBuffer: 20_000_000 },
   );
   const result = JSON.parse(stdout).results[0];
 
   assert.equal(result.tier, 'S');
   assert.equal(result.checks.sitemap.status, 'pass');
-  assert.match(result.checks.sitemap.detail, /capped at 5000/);
+  assert.match(result.checks.sitemap.detail, /capped at 50000/);
   assert.equal(result.checks.route_markdown.status, 'pass');
   assert.equal(result.checks.route_markdown.data.checked, 250);
   assert.equal(result.checks.route_markdown.data.coveragePercent, 100);
