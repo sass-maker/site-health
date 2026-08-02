@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-01
+Last updated: 2026-08-02
 
 ## Why / What
 
@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-02 — Fleet relational persistence consolidated on Cloudflare D1:**
+  Migrated and verified eight product databases, deployed the two remaining
+  serving paths with exact Git SHA tags, then retired all eight Turso database
+  resources after explicit approval and post-deletion health checks. The
+  canonical registry now identifies only the project-owned D1 databases as
+  authoritative; credential cleanup remains a separate operation.
 - **2026-08-01 — Marketing gained one complete video-maker boundary:** Kept
   prompt-first creation solely inside Fleet Console `/marketing`, made all 48
   stable video variants selectable and immediately playable through portable
@@ -608,6 +614,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
+- Project-owned Cloudflare D1 persistence and audited cutover receipts for
+  Anime List, Karte, Open Historia, Reader, Significant Hobbies, Starboard,
+  SWE Interview Prep, and TrueHire, with no remaining Turso databases.
 - Enforced GitHub Actions run policy with path-scoped automatic checks,
   independent package workflows, manual heavy-native proof, weekly audit
   ceilings, concurrency cancellation, job timeouts, and manual-only production

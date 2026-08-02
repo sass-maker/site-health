@@ -4,7 +4,7 @@
   "mode": "reconciliation",
   "authority": "d1",
   "source": {
-    "provider": "turso",
+    "provider": "none",
     "name": "linkchat",
     "role": "none",
     "schemaRevision": null,
@@ -94,17 +94,17 @@
   "approval": {
     "remoteMutationApproved": false,
     "cutoverApproved": false,
-    "retirementApproved": false
+    "retirementApproved": true
   },
   "rollback": {
-    "sourcePreserved": true,
-    "releaseAvailable": true,
+    "sourcePreserved": false,
+    "releaseAvailable": false,
     "reconciliationRequired": false
   },
   "result": "pass",
   "notes": [
-    "No remote D1 query, write, schema change, resource creation, binding mutation, deployment, secret change, or Turso mutation occurred.",
-    "The local Turso CLI is not authenticated, so the historical Turso database state remains unverified.",
+    "Karte was already D1-authoritative when reconciled; no D1 production mutation was required for that reconciliation.",
+    "Explicit retirement approval was received and the historical Turso database was deleted on 2026-08-02; credential cleanup remains separate.",
     "Karte reconciliation is published as draft PR https://github.com/Significant-Hobbies/karte/pull/49 at commit 6dcd04d.",
     "Dependency audit reports 18 high advisories and strict Knip reports one unrelated unused export; both predate and remain outside this reconciliation."
   ]

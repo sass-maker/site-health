@@ -4,9 +4,9 @@
   "mode": "cutover",
   "authority": "d1",
   "source": {
-    "provider": "turso",
+    "provider": "none",
     "name": "mal-watchlist",
-    "role": "rollback-held",
+    "role": "none",
     "schemaRevision": null,
     "sizeBytes": 42074112
   },
@@ -108,11 +108,11 @@
   "approval": {
     "remoteMutationApproved": true,
     "cutoverApproved": true,
-    "retirementApproved": false
+    "retirementApproved": true
   },
   "rollback": {
-    "sourcePreserved": true,
-    "releaseAvailable": true,
+    "sourcePreserved": false,
+    "releaseAvailable": false,
     "reconciliationRequired": false
   },
   "result": "pass",
@@ -121,6 +121,6 @@
     "Current-main parity deploy: https://github.com/Significant-Hobbies/anime-list/actions/runs/30713791910; active Worker tag e9ee151469a03f882ab12cdc2aa13a9a064604e4.",
     "D1 import source manifest SHA-256: b31c51b727023a2b3052873d7d836fa947e689ece3af6cbd3294eb409d70dbae; 41,333 statements in 9 atomic chunks.",
     "PSI before run run_ed37794ff3e70e5f27d78c79bfa57a20; after run run_3b69aae27d015b29075039e6d3f7d0b3; compare run run_58e2d945db1dcf4b609e5d66cbb5fb7d.",
-    "Turso database and unused Worker secret bindings remain retained for rollback. Retirement or secret removal requires separate explicit approval."
+    "Explicit retirement approval was received and the Turso database was deleted on 2026-08-02; credential cleanup remains separate."
   ]
 }
