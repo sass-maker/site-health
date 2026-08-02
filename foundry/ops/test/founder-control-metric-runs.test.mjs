@@ -147,12 +147,13 @@ test('starts and deduplicates one portfolio Search Console collector', () => {
   const started = controller.start({ family: 'search', scope: 'portfolio' });
   const duplicate = controller.start({ family: 'search', scope: 'portfolio' });
 
-  assert.equal(started.label, 'Portfolio Google Search');
+  assert.equal(started.label, 'Portfolio search discovery');
   assert.equal(duplicate.runId, started.runId);
   assert.equal(duplicate.duplicate, true);
   assert.equal(invocation.options.shell, false);
-  assert.equal(invocation.args.length, 1);
+  assert.equal(invocation.args.length, 2);
   assert.equal(invocation.args[0].endsWith('search-console-collect.mjs'), true);
+  assert.equal(invocation.args[1], '--discovery-cycle');
   assert.throws(
     () => controller.start({ family: 'search', projectId: 'pace' }),
     { code: 'METRIC_SCOPE_INVALID' },

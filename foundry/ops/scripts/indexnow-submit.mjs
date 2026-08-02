@@ -34,7 +34,9 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const FLEET_ROOT = resolve(__dirname, '../../..');
 const CONFIG_PATH = join(FLEET_ROOT, 'foundry/ops/config/indexnow.json');
-const STATE_PATH = join(FLEET_ROOT, 'foundry/ops/config/indexnow-state.json');
+const STATE_PATH = process.env.FLEET_INDEXNOW_STATE_PATH
+  ? resolve(process.env.FLEET_INDEXNOW_STATE_PATH)
+  : join(FLEET_ROOT, 'foundry/ops/config/indexnow-state.json');
 
 const DEFAULT_TIMEOUT_MS = 20_000;
 const DEFAULT_RETRIES = 3;
@@ -398,6 +400,20 @@ function chunk(arr, size) {
   return out;
 }
 
+async function mapWithConcurrency(values, limit, mapper) {
+  const results = new Array(values.length);
+  let nextIndex = 0;
+  async function worker() {
+    while (nextIndex < values.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await mapper(values[index], index);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, values.length) }, worker));
+  return results;
+}
+
 async function main() {
   let cfg = loadConfig();
   const registry = loadRegistry();
@@ -462,18 +478,34 @@ async function main() {
       urls: [singleUrl],
     });
   } else {
-    for (const p of products) {
+    const eligibleProducts = products.filter((p) => {
       const origin = productOrigin(p);
       const host = hostOf(origin);
-      if (onlyHost && host !== onlyHost) continue;
-      process.stdout.write(`Collect ${p.id} (${origin})… `);
+      return !onlyHost || host === onlyHost;
+    });
+    const collections = await mapWithConcurrency(eligibleProducts, 4, async (p) => {
+      const origin = productOrigin(p);
       try {
         const urls = await collectSitemapUrls(
           origin,
           cfg.userAgent || 'fleet-indexnow/1.0',
           maxUrls
         );
-        console.log(`${urls.length} urls`);
+        return { p, origin, urls };
+      } catch (error) {
+        return { p, origin, error };
+      }
+    });
+    for (const result of collections) {
+      const { p, origin } = result;
+      const host = hostOf(origin);
+      if (result.error) {
+        console.log(`Collect ${p.id} (${origin})… FAIL: ${result.error.message}`);
+        continue;
+      }
+      const { urls } = result;
+      console.log(`Collect ${p.id} (${origin})… ${urls.length} urls`);
+      try {
         const prev = byHost.get(host);
         if (prev) {
           const set = new Set([...prev.urls, ...urls]);
@@ -483,7 +515,6 @@ async function main() {
         }
       } catch (e) {
         console.log(`FAIL: ${e.message}`);
-        // continue other hosts — never abort the fleet run
       }
     }
   }

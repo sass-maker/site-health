@@ -35,3 +35,6 @@ foundry/ops/.devin-runs/
 
 # Grok fan-out worktrees
 foundry/ops/.grok-wt/
+
+# Local discovery-submission history.
+foundry/ops/config/indexnow-state.json

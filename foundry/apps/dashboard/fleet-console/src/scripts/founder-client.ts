@@ -1926,18 +1926,6 @@ function domainRatingSignal(signal?: JsonRecord | null) {
   ]);
 }
 
-function domainChangeSignal(signal?: JsonRecord | null) {
-  if (!signal || !Number.isFinite(signal.delta)) {
-    return element("span", { class: "outcome-missing" }, ["No comparison"]);
-  }
-  const sign = signal.delta > 0 ? "+" : "";
-  const value = new Intl.NumberFormat("en", { maximumFractionDigits: 1 }).format(signal.delta);
-  let tone = "neutral";
-  if (signal.delta > 0) tone = "positive";
-  if (signal.delta < 0) tone = "negative";
-  return element("strong", { class: `outcome-change ${tone}` }, [`${sign}${value}`]);
-}
-
 function projectIdentity(row: JsonRecord, section?: string) {
   const href = `${projectHref(row.projectId)}${section ? `#${section}` : ""}`;
   return element("a", { class: "outcome-identity", href }, [
@@ -2062,13 +2050,6 @@ async function renderDomains() {
       render: (row) => domainRatingSignal(row.signal),
     },
     {
-      key: "change",
-      label: "Change",
-      description: "Sort by change between the latest observations",
-      value: (row) => row.signal?.delta,
-      render: (row) => domainChangeSignal(row.signal),
-    },
-    {
       key: "trend",
       label: "Trend",
       description: "Sort by D-Rank change and inspect dated history",
@@ -2100,7 +2081,7 @@ async function renderDomains() {
     },
   ];
   replace("domains", rows.length
-    ? outcomeTable(rows, columns, "change", "Fleet domain strength", "ascending")
+    ? outcomeTable(rows, columns, "rating", "Fleet domain strength", "descending")
     : empty("No matching domain", "The current project scope has no public domain."));
 }
 
@@ -2203,8 +2184,6 @@ function searchObservationHistory(row: JsonRecord) {
 
 function searchTermsTable(row: JsonRecord) {
   const terms = [...(row.searchTerms ?? [])].sort((left: JsonRecord, right: JsonRecord) => {
-    const priority = Number(left.action?.priority ?? 99) - Number(right.action?.priority ?? 99);
-    if (priority !== 0) return priority;
     return Number(right.impressions ?? 0) - Number(left.impressions ?? 0);
   });
   if (terms.length === 0) {
@@ -2217,7 +2196,6 @@ function searchTermsTable(row: JsonRecord) {
   }
   const header = element("tr", {}, [
     element("th", { scope: "col" }, ["Search term"]),
-    element("th", { scope: "col" }, ["Action"]),
     element("th", { scope: "col" }, ["Impressions"]),
     element("th", { scope: "col" }, ["Clicks"]),
     element("th", { scope: "col" }, ["CTR"]),
@@ -2242,7 +2220,6 @@ function searchTermsTable(row: JsonRecord) {
     }
     const row = element("tr", {}, [
       element("th", { scope: "row", class: "search-term__identity" }, identity),
-      element("td", { "data-label": "Action", class: "search-term__action" }, [searchActionLabel(term.action)]),
       element("td", { "data-label": "Impressions" }, [searchMetricText(term.impressions, "count")]),
       element("td", { "data-label": "Clicks" }, [searchMetricText(term.clicks, "count")]),
       element("td", { "data-label": "CTR" }, [searchMetricText(term.ctr, "percent")]),
@@ -2299,25 +2276,6 @@ function trackedTargetQueries(row: JsonRecord) {
   ]);
 }
 
-function searchActionLabel(action?: JsonRecord | null) {
-  if (!action?.label) return element("span", { class: "outcome-missing" }, ["Not measured"]);
-  const reason = action.reason ? `${action.label}: ${action.reason}` : action.label;
-  return element("span", {
-    class: `search-action search-action--${action.id ?? "unknown"}`,
-    title: action.reason ?? "",
-    "aria-label": reason,
-  }, [
-    element("strong", {}, [action.label]),
-    action.reason ? element("small", {}, [action.reason]) : null,
-  ]);
-}
-
-function searchActionSortValue(action?: JsonRecord | null) {
-  const priority = Number(action?.priority);
-  if (!Number.isFinite(priority)) return null;
-  return -priority;
-}
-
 function searchOutcomeDetails(row: JsonRecord) {
   let source = "Not measured";
   if (row.provider === "google-search-console") source = "Google Search Console";
@@ -2344,6 +2302,14 @@ function searchOutcomeDetails(row: JsonRecord) {
       element("div", {}, [element("dt", {}, ["Reporting period"]), element("dd", {}, [period])]),
       element("div", {}, [element("dt", {}, ["Property scope"]), element("dd", {}, [row.scope ?? "Not measured"])]),
       element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
+      element("div", {}, [
+        element("dt", {}, ["Google index"]),
+        element("dd", {}, [row.indexInspection?.coverageState ?? row.indexInspection?.failureReason ?? row.indexInspection?.state ?? "Inspection unavailable"]),
+      ]),
+      row.indexInspection?.lastCrawlTime ? element("div", {}, [
+        element("dt", {}, ["Last crawled"]),
+        element("dd", {}, [formattedDay(row.indexInspection.lastCrawlTime)]),
+      ]) : null,
     ]),
   ];
   if (searchConsoleLink) content.splice(1, 0, element("div", { class: "provider-links" }, [searchConsoleLink]));
@@ -2365,7 +2331,6 @@ async function renderSearch() {
     { key: "clicks", label: "Clicks", description: "Sort by Google Search clicks", value: (row) => row.clicks?.value, render: (row) => searchMetric(row.clicks, "count") },
     { key: "ctr", label: "CTR", description: "Sort by click-through rate", value: (row) => row.ctr?.value, render: (row) => searchMetric(row.ctr, "percent") },
     { key: "position", label: "Avg position", description: "Sort by average Google Search position", value: (row) => row.averagePosition?.value, render: (row) => searchMetric(row.averagePosition, "rank") },
-    { key: "action", label: "Next action", description: "Sort by recommended next action", value: (row) => searchActionSortValue(row.action), render: (row) => searchActionLabel(row.action) },
     { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
   ];
   replace("search", rows.length
@@ -2518,9 +2483,12 @@ async function renderAiAwareness() {
   const rows = payload.rows ?? [];
   const count = document.querySelector<HTMLElement>('[data-founder-count="ai-awareness"]');
   if (count) count.textContent = String(rows.length);
+  const measured = rows.filter((row: JsonRecord) => row.observations > 0).length;
+  const stateLabel = document.querySelector<HTMLElement>("[data-ai-awareness-state]");
+  if (stateLabel) stateLabel.textContent = `${measured}/${rows.length} measured`;
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Core product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row, "geo") },
-    { key: "status", label: "Awareness", description: "Sort by evidence state", value: (row) => row.status, render: awarenessState },
+    { key: "status", label: "Awareness", description: "Sort by measured awareness", value: (row) => row.status, render: awarenessState },
     { key: "mention", label: "Mentioned", description: "Sort by model mention rate", value: (row) => row.mention?.value, render: (row) => outcomeSignal(row.mention) },
     { key: "citation", label: "Cited", description: "Sort by citation rate", value: (row) => row.citation?.value, render: (row) => outcomeSignal(row.citation) },
     { key: "external", label: "External sources", description: "Sort by external citation sources", value: (row) => row.observations > 0 ? row.citationSources?.external ?? 0 : null, render: aiExternalSources },

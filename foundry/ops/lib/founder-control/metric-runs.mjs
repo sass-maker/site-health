@@ -174,8 +174,11 @@ function portfolioCommandFor({ family, fleetRoot, projects }) {
   if (family === 'search') {
     return {
       command: process.execPath,
-      args: [resolve(fleetRoot, 'foundry/ops/scripts/search-console-collect.mjs')],
-      label: 'Portfolio Google Search',
+      args: [
+        resolve(fleetRoot, 'foundry/ops/scripts/search-console-collect.mjs'),
+        '--discovery-cycle',
+      ],
+      label: 'Portfolio search discovery',
     };
   }
   if (family === 'cloudflare') {

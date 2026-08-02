@@ -1,4 +1,6 @@
 const SEARCH_CONSOLE_API = 'https://www.googleapis.com/webmasters/v3';
+const SEARCH_CONSOLE_INSPECTION_API = 'https://searchconsole.googleapis.com/v1';
+const SEARCH_CONSOLE_TIMEOUT_MS = 20_000;
 
 function isoDay(date) {
   return date.toISOString().slice(0, 10);
@@ -8,6 +10,41 @@ function shiftedDay(day, amount) {
   const date = new Date(`${day}T00:00:00.000Z`);
   date.setUTCDate(date.getUTCDate() + amount);
   return isoDay(date);
+}
+
+async function mapWithConcurrency(values, limit, mapper) {
+  const results = new Array(values.length);
+  let nextIndex = 0;
+  async function worker() {
+    while (nextIndex < values.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await mapper(values[index], index);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, values.length) }, worker));
+  return results;
+}
+
+function createConcurrencyGate(limit) {
+  let active = 0;
+  const queue = [];
+  const advance = () => {
+    if (active >= limit || queue.length === 0) return;
+    active += 1;
+    const { task, resolve, reject } = queue.shift();
+    Promise.resolve()
+      .then(task)
+      .then(resolve, reject)
+      .finally(() => {
+        active -= 1;
+        advance();
+      });
+  };
+  return (task) => new Promise((resolve, reject) => {
+    queue.push({ task, resolve, reject });
+    advance();
+  });
 }
 
 function propertyDomain(siteUrl) {
@@ -68,9 +105,17 @@ function requestBody({ startDate, endDate, pageFilter, dimensions = [], rowLimit
   };
 }
 
-async function googleRequest(path, { accessToken, quotaProject, fetchImpl, body }) {
-  const response = await fetchImpl(`${SEARCH_CONSOLE_API}${path}`, {
-    method: body ? 'POST' : 'GET',
+async function googleRequest(path, {
+  accessToken,
+  quotaProject,
+  fetchImpl,
+  body,
+  method = body ? 'POST' : 'GET',
+  baseUrl = SEARCH_CONSOLE_API,
+}) {
+  const response = await fetchImpl(`${baseUrl}${path}`, {
+    method,
+    signal: AbortSignal.timeout(SEARCH_CONSOLE_TIMEOUT_MS),
     headers: {
       authorization: `Bearer ${accessToken}`,
       'x-goog-user-project': quotaProject,
@@ -78,11 +123,169 @@ async function googleRequest(path, { accessToken, quotaProject, fetchImpl, body 
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
-  const payload = await response.json();
+  let payload = {};
+  if (typeof response.text === 'function') {
+    const responseText = await response.text();
+    payload = responseText.trim() ? JSON.parse(responseText) : {};
+  } else {
+    payload = await response.json();
+  }
   if (!response.ok) {
     throw new Error(`Search Console request failed (${response.status}): ${payload?.error?.message ?? 'unknown error'}`);
   }
   return payload;
+}
+
+export async function ensureSearchConsoleSitemaps({
+  projects,
+  accessToken,
+  quotaProject,
+  fetchImpl = fetch,
+}) {
+  if (!accessToken) throw new Error('Search Console access token is required');
+  if (!quotaProject) throw new Error('Search Console quota project is required');
+  const siteList = await googleRequest('/sites', { accessToken, quotaProject, fetchImpl });
+  const properties = siteList.siteEntry ?? [];
+  const plans = [];
+  const seen = new Set();
+
+  for (const project of projects) {
+    const domain = project.domains?.[0];
+    const selected = domain ? selectSearchConsoleProperty(domain, properties) : null;
+    if (!selected) {
+      plans.push({ project, domain: domain ?? null, selected: null, sitemapUrl: null });
+      continue;
+    }
+    const sitemapUrl = `https://${domain}/sitemap.xml`;
+    const key = `${selected.siteUrl}\n${sitemapUrl}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    plans.push({ project, domain, selected, sitemapUrl });
+  }
+
+  const propertyUrls = [...new Set(plans.flatMap((plan) => plan.selected ? [plan.selected.siteUrl] : []))];
+  const propertyListings = await mapWithConcurrency(propertyUrls, 4, async (siteUrl) => {
+    try {
+      const listed = await googleRequest(`/sites/${encodeURIComponent(siteUrl)}/sitemaps`, {
+        accessToken,
+        quotaProject,
+        fetchImpl,
+      });
+      return [siteUrl, { paths: new Set((listed.sitemap ?? []).map((entry) => entry.path)) }];
+    } catch (error) {
+      return [siteUrl, { error }];
+    }
+  });
+  const listingsByProperty = new Map(propertyListings);
+  let submissionBlockedReason = null;
+
+  return mapWithConcurrency(plans, 4, async ({ project, domain, selected, sitemapUrl }) => {
+    if (!selected) {
+      return { projectId: project.id, domain, state: 'property-unavailable' };
+    }
+    const listing = listingsByProperty.get(selected.siteUrl);
+    if (listing?.error) {
+      return {
+        projectId: project.id,
+        domain,
+        sitemapUrl,
+        state: 'blocked',
+        reason: boundedProviderText(listing.error instanceof Error ? listing.error.message : listing.error),
+      };
+    }
+    if (listing?.paths.has(sitemapUrl)) {
+      return { projectId: project.id, domain, sitemapUrl, state: 'already-submitted' };
+    }
+    if (submissionBlockedReason) {
+      return { projectId: project.id, domain, sitemapUrl, state: 'blocked', reason: submissionBlockedReason };
+    }
+    try {
+      await googleRequest(
+        `/sites/${encodeURIComponent(selected.siteUrl)}/sitemaps/${encodeURIComponent(sitemapUrl)}`,
+        { accessToken, quotaProject, fetchImpl, method: 'PUT' },
+      );
+      return { projectId: project.id, domain, sitemapUrl, state: 'submitted' };
+    } catch (error) {
+      const reason = boundedProviderText(error instanceof Error ? error.message : error);
+      if (/\(403\).*insufficient authentication scopes/i.test(reason ?? '')) {
+        submissionBlockedReason = reason;
+      }
+      return {
+        projectId: project.id,
+        domain,
+        sitemapUrl,
+        state: 'blocked',
+        reason,
+      };
+    }
+  });
+}
+
+function boundedProviderText(value, maximum = 300) {
+  const normalized = String(value ?? '').replace(/\s+/g, ' ').trim();
+  return normalized ? normalized.slice(0, maximum) : null;
+}
+
+function safeHttpsUrl(value) {
+  try {
+    const url = new URL(String(value ?? ''));
+    return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function inspectSearchConsoleUrl({
+  inspectionUrl,
+  siteUrl,
+  accessToken,
+  quotaProject,
+  fetchImpl = fetch,
+}) {
+  let lastError = null;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const payload = await googleRequest('/urlInspection/index:inspect', {
+        accessToken,
+        quotaProject,
+        fetchImpl,
+        baseUrl: SEARCH_CONSOLE_INSPECTION_API,
+        body: { inspectionUrl, siteUrl, languageCode: 'en-US' },
+      });
+      const result = payload.inspectionResult?.indexStatusResult ?? {};
+      const verdict = boundedProviderText(result.verdict, 40);
+      const lastCrawlTime = Number.isFinite(Date.parse(result.lastCrawlTime))
+        ? new Date(result.lastCrawlTime).toISOString()
+        : null;
+      const sitemapUrls = [...new Set((result.sitemap ?? []).map(safeHttpsUrl).filter(Boolean))].slice(0, 10);
+      return {
+        inspectedUrl: inspectionUrl,
+        state: verdict === 'PASS' ? 'indexed' : verdict ? 'not-indexed' : 'unknown',
+        verdict,
+        coverageState: boundedProviderText(result.coverageState),
+        robotsTxtState: boundedProviderText(result.robotsTxtState, 80),
+        indexingState: boundedProviderText(result.indexingState, 80),
+        pageFetchState: boundedProviderText(result.pageFetchState, 80),
+        ...(lastCrawlTime ? { lastCrawlTime } : {}),
+        ...(safeHttpsUrl(result.userCanonical) ? { userCanonical: safeHttpsUrl(result.userCanonical) } : {}),
+        ...(safeHttpsUrl(result.googleCanonical) ? { googleCanonical: safeHttpsUrl(result.googleCanonical) } : {}),
+        ...(sitemapUrls.length > 0 ? { sitemapUrls } : {}),
+      };
+    } catch (error) {
+      lastError = error;
+      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+  }
+  return {
+    inspectedUrl: inspectionUrl,
+    state: 'unavailable',
+    verdict: null,
+    coverageState: null,
+    robotsTxtState: null,
+    indexingState: null,
+    pageFetchState: null,
+    failureReason: boundedProviderText(lastError instanceof Error ? lastError.message : lastError),
+  };
 }
 
 export async function collectSearchConsoleOutcomes({
@@ -110,29 +313,25 @@ export async function collectSearchConsoleOutcomes({
     fetchImpl,
   });
   const properties = siteList.siteEntry ?? [];
-  const observations = [];
-  const unavailable = [];
-
-  for (const project of projects) {
+  const inspectOneAtATime = createConcurrencyGate(1);
+  const collectedProjects = await mapWithConcurrency(projects, 4, async (project) => {
     const domain = project.domains?.[0];
     const selected = domain ? selectSearchConsoleProperty(domain, properties) : null;
     if (!selected) {
-      unavailable.push({ projectId: project.id, domain: domain ?? null, reason: 'property-unavailable' });
-      continue;
+      return {
+        unavailable: { projectId: project.id, domain: domain ?? null, reason: 'property-unavailable' },
+      };
     }
-    const result = await googleRequest(
-      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`,
-      {
+    const aggregateRequest = googleRequest(
+      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`, {
         accessToken,
         quotaProject,
         fetchImpl,
         body: requestBody({ startDate, endDate, pageFilter: selected.pageFilter }),
       },
     );
-    const row = result.rows?.[0] ?? null;
-    const termResult = await googleRequest(
-      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`,
-      {
+    const termsRequest = googleRequest(
+      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`, {
         accessToken,
         quotaProject,
         fetchImpl,
@@ -145,6 +344,20 @@ export async function collectSearchConsoleOutcomes({
         }),
       },
     );
+    const inspectedUrl = `https://${domain}/`;
+    const inspectionRequest = inspectOneAtATime(() => inspectSearchConsoleUrl({
+      inspectionUrl: inspectedUrl,
+      siteUrl: selected.siteUrl,
+      accessToken,
+      quotaProject,
+      fetchImpl,
+    }));
+    const [result, termResult, indexInspection] = await Promise.all([
+      aggregateRequest,
+      termsRequest,
+      inspectionRequest,
+    ]);
+    const row = result.rows?.[0] ?? null;
     const searchTerms = (termResult.rows ?? []).flatMap((term) => {
       const query = String(term.keys?.[0] ?? '').replace(/\s+/g, ' ').trim();
       let landingPage = null;
@@ -175,7 +388,7 @@ export async function collectSearchConsoleOutcomes({
         ? [{ label: 'Search average position', value: Number(row.position) }]
         : []),
     ];
-    observations.push({
+    return { observation: {
       id: `search-${project.id}-${endDate}-${runId}`,
       projectId: project.id,
       family: 'search',
@@ -191,8 +404,11 @@ export async function collectSearchConsoleOutcomes({
       },
       metrics,
       searchTerms,
-    });
-  }
+      indexInspection,
+    } };
+  });
+  const observations = collectedProjects.flatMap((result) => result.observation ? [result.observation] : []);
+  const unavailable = collectedProjects.flatMap((result) => result.unavailable ? [result.unavailable] : []);
 
   return {
     bundle: {
