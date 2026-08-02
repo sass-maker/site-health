@@ -52,8 +52,8 @@ const components = [
   {
     id: 'public-directory',
     root: 'foundry/apps/public/public-directory',
-    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'package-lock.json'],
-    nativeCheck: 'npm run check',
+    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'pnpm-lock.yaml'],
+    nativeCheck: 'pnpm run check',
   },
   {
     id: 'mobile-cockpit',
@@ -70,8 +70,8 @@ const components = [
   {
     id: 'fleet-console',
     root: 'foundry/apps/dashboard/fleet-console',
-    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'package-lock.json'],
-    nativeCheck: 'npm run build',
+    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'pnpm-lock.yaml'],
+    nativeCheck: 'pnpm run build',
   },
 ];
 

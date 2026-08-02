@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "turso-d1-migration-receipt.v1",
+  "projectId": "karte",
+  "mode": "reconciliation",
+  "authority": "d1",
+  "source": {
+    "provider": "turso",
+    "name": "linkchat",
+    "role": "none",
+    "schemaRevision": null,
+    "sizeBytes": null
+  },
+  "target": {
+    "provider": "cloudflare-d1",
+    "name": "linkchat-auth",
+    "role": "authoritative",
+    "schemaRevision": "010_creator_opportunities.sql",
+    "sizeBytes": 786432
+  },
+  "schemaChecks": [
+    {
+      "id": "tracked-d1-migrations",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": 11,
+      "detail": "All 11 tracked migrations applied to an isolated local D1 database."
+    },
+    {
+      "id": "local-foreign-key-check",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": 0,
+      "detail": "PRAGMA foreign_key_check returned no rows after migration and fixtures."
+    },
+    {
+      "id": "live-d1-table-count",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": 24,
+      "detail": "Read-only Cloudflare D1 metadata reports 24 live tables."
+    }
+  ],
+  "dataChecks": [
+    {
+      "id": "live-d1-activity",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": true,
+      "detail": "Read-only D1 metadata reports current reads and writes, consistent with the tracked runtime binding."
+    },
+    {
+      "id": "turso-parity",
+      "status": "not-applicable",
+      "sourceValue": null,
+      "targetValue": null,
+      "detail": "Karte completed its production Turso-to-D1 migration before this reconciliation; no new transfer was performed."
+    }
+  ],
+  "journeyChecks": [
+    {
+      "id": "local-schema-and-demo-seed",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "1 user, 4 pages",
+      "detail": "Isolated setup applied migrations and loaded four deterministic demo profiles."
+    },
+    {
+      "id": "aggregate-rebuild",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": true,
+      "detail": "D1-backed aggregate rebuild completed against isolated local state."
+    },
+    {
+      "id": "profile-enrichment-write",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": true,
+      "detail": "D1-backed profile enrichment read and write path completed against an isolated demo profile."
+    },
+    {
+      "id": "repository-validation",
+      "status": "pass",
+      "sourceValue": null,
+      "targetValue": "88 tests, typecheck, docs check, production build",
+      "detail": "All relevant local checks passed; existing audit and Knip findings are recorded separately."
+    }
+  ],
+  "timings": {
+    "observedAt": "2026-08-01T14:42:30Z",
+    "rehearsalMs": null,
+    "writeFreezeMs": null
+  },
+  "approval": {
+    "remoteMutationApproved": false,
+    "cutoverApproved": false,
+    "retirementApproved": false
+  },
+  "rollback": {
+    "sourcePreserved": true,
+    "releaseAvailable": true,
+    "reconciliationRequired": false
+  },
+  "result": "pass",
+  "notes": [
+    "No remote D1 query, write, schema change, resource creation, binding mutation, deployment, secret change, or Turso mutation occurred.",
+    "The local Turso CLI is not authenticated, so the historical Turso database state remains unverified.",
+    "Karte reconciliation is published as draft PR https://github.com/Significant-Hobbies/karte/pull/49 at commit 6dcd04d.",
+    "Dependency audit reports 18 high advisories and strict Knip reports one unrelated unused export; both predate and remain outside this reconciliation."
+  ]
+}

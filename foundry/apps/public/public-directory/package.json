@@ -10,12 +10,18 @@
     "build": "astro build",
     "preview": "astro preview",
     "typecheck": "astro sync && tsc --noEmit",
-    "check": "npm run typecheck && npm run build",
-    "deploy": "npm run check && npx wrangler@4.114.0 pages deploy dist --project-name saas-maker-home --branch main"
+    "check": "pnpm run typecheck && pnpm run build",
+    "deploy": "pnpm run check && pnpm dlx wrangler@4.114.0 pages deploy dist --project-name saas-maker-home --branch main"
   },
   "dependencies": {
     "astro": "5.12.0",
     "typescript": "5.8.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
 }
