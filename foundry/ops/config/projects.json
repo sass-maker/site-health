@@ -549,6 +549,11 @@
           "provider": "cloudflare-d1",
           "name": "significanthobbies",
           "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "significanthobbies",
+          "state": "rollback-held"
         }
       ],
       "domains": [
@@ -556,7 +561,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "apex/hub; D1 significanthobbies is authoritative; the retired Turso source was deleted 2026-08-02",
+      "notes": "apex/hub; D1 significanthobbies is authoritative; Turso significanthobbies is rollback-held and not retired",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -588,7 +593,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Public Significant Hobbies repository. india-standards.significanthobbies.com is the canonical live domain; the existing india-numbers Worker hostname remains a compatibility alias.",
+      "notes": "Public Significant Hobbies repository. india-standards.significanthobbies.com is canonical; india-numbers.significanthobbies.com remains a compatibility alias.",
       "name": "India Standards",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -617,6 +622,11 @@
           "provider": "cloudflare-d1",
           "name": "anime-list",
           "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "mal-watchlist",
+          "state": "rollback-held"
         }
       ],
       "domains": [
@@ -624,7 +634,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 anime-list is authoritative; the retired Turso source was deleted 2026-08-02",
+      "notes": "D1 anime-list is authoritative; Turso mal-watchlist is rollback-held and not retired",
       "name": "Anime List",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -719,6 +729,11 @@
           "provider": "cloudflare-d1",
           "name": "reader",
           "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "reader",
+          "state": "rollback-held"
         }
       ],
       "domains": [
@@ -726,7 +741,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 reader is authoritative; the retired Turso source was deleted 2026-08-02",
+      "notes": "D1 reader is authoritative; Turso reader is rollback-held and not retired",
       "name": "Reader",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -759,6 +774,11 @@
           "provider": "cloudflare-d1",
           "name": "swe-interview-prep",
           "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "swe-interview-prep",
+          "state": "rollback-held"
         }
       ],
       "domains": [
@@ -766,7 +786,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 swe-interview-prep is authoritative; the retired Turso source was deleted 2026-08-02",
+      "notes": "D1 swe-interview-prep is authoritative; Turso swe-interview-prep is rollback-held and not retired",
       "name": "SWE Interview Prep",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -932,6 +952,11 @@
           "provider": "cloudflare-d1",
           "name": "starboard",
           "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "starboard",
+          "state": "rollback-held"
         }
       ],
       "domains": [
@@ -939,7 +964,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 starboard is authoritative; the retired Turso source was deleted 2026-08-02",
+      "notes": "D1 starboard is authoritative; Turso starboard is rollback-held and not retired",
       "name": "Starboard",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1196,22 +1221,12 @@
       "sourcePath": "../fleet-inactive-projects/open-historia",
       "deployKind": "worker",
       "cfProject": "open-historia",
-      "d1Databases": [
-        "open-historia"
-      ],
-      "databaseResources": [
-        {
-          "provider": "cloudflare-d1",
-          "name": "open-historia",
-          "state": "authoritative"
-        }
-      ],
       "domains": [
         "historia.aliveville.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Live product at historia.aliveville.com (aliveville family); its Worker uses D1, and the retired Turso source was deleted 2026-08-02 — NOT an orphan; keep.",
+      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.",
       "name": "Open Historia",
       "attention": "ignored",
       "lifecycle": "past",
