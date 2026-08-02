@@ -9,6 +9,7 @@ import { loadFounderProjects } from '../lib/founder-control/registry.mjs';
 import { buildMarketingProjection } from '../lib/founder-control/service.mjs';
 import { FounderControlStore } from '../lib/founder-control/store.mjs';
 import { visibilityProjects } from '../lib/visibility-projects.mjs';
+import { domainRatingPercentile } from '../lib/domain-authority-percentile.mjs';
 
 const FLEET_ROOT = resolve(import.meta.dirname, '../../..');
 const OUTPUT_PATH = resolve(FLEET_ROOT, 'foundry/ops/docs/metric-90-latest.md');
@@ -16,8 +17,15 @@ const PROJECT_CATALOG_PATH = resolve(
   FLEET_ROOT,
   'foundry/ops/config/projects.json',
 );
+const DOMAIN_RATING_BENCHMARK_PATH = resolve(
+  FLEET_ROOT,
+  'foundry/ops/config/domain-rating-benchmark.json',
+);
 
 const catalog = JSON.parse(readFileSync(PROJECT_CATALOG_PATH, 'utf8'));
+const domainRatingBenchmark = JSON.parse(
+  readFileSync(DOMAIN_RATING_BENCHMARK_PATH, 'utf8'),
+);
 const expectedProjectIds = visibilityProjects(catalog).map((project) => project.id);
 const projects = loadFounderProjects(PROJECT_CATALOG_PATH);
 const store = new FounderControlStore({ projects });
@@ -41,7 +49,7 @@ const rowsById = new Map(scoredRows.map((row) => [row.id, row]));
 const rows = expectedProjectIds.map((id) => rowsById.get(id));
 
 const gates = [
-  ['domainRating', 'D-Rank ≥90'],
+  ['domainRating', 'D-Rank external percentile ≥90'],
   ['search', 'Search class A'],
   ['aiVisibility', 'Live AI visibility ≥90'],
   ['agentReadiness', 'Agent readiness ≥90'],
@@ -58,8 +66,13 @@ const markdown = `# Fleet metric 90 gate
 Generated ${generatedAt} from the canonical visibility project set.
 
 This is a strict progress ledger. Missing evidence and fixture-only AI
-visibility fail closed. D-Rank and search are external outcomes; the report
-does not replace them with technical proxies.
+visibility fail closed. D-Rank retains the raw Ahrefs score and uses a
+conservative percentile lower bound from an attributed external cohort;
+search remains an external outcome.
+
+Domain Rating benchmark: [${domainRatingBenchmark.cohort.provider}](${domainRatingBenchmark.cohort.sourceUrl}),
+${domainRatingBenchmark.cohort.total.toLocaleString('en-US')} websites,
+observed ${domainRatingBenchmark.cohort.observedAt}.
 
 ## Portfolio progress
 
@@ -72,8 +85,8 @@ ${gates.map(([id, label]) => {
 
 ## Projects
 
-| Project | DR | Search | AI visibility | Agent | Readable | Crawl | PSI | LCP | Design | Gates |
-| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
+| Project | DR | DR percentile floor | Search | AI visibility | Agent | Readable | Crawl | PSI | LCP | Design | Gates |
+| --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: |
 ${rows.map(renderRow).join('\n')}
 
 ## Remaining work
@@ -102,6 +115,10 @@ function scoreProject(project) {
     project.history.signals.map((signal) => [signal.label, signal.value]),
   );
   const domainRating = finite(signals.get('Domain rating'));
+  const domainRatingEvidence = domainRatingPercentile(
+    domainRating,
+    domainRatingBenchmark,
+  );
   const search = finite(signals.get('Worst tracked query class'));
   const aiVisibility = finite(signals.get('AI visibility score'));
   const agentReadiness = finite(signals.get('Agent readiness'));
@@ -126,6 +143,8 @@ function scoreProject(project) {
     name: project.name,
     values: {
       domainRating,
+      domainRatingPercentile:
+        domainRatingEvidence?.percentileLowerBound ?? null,
       search,
       aiVisibility,
       agentReadiness,
@@ -137,7 +156,7 @@ function scoreProject(project) {
       auditRatio,
     },
     gates: {
-      domainRating: threshold(domainRating, 90, 'higher'),
+      domainRating: domainRatingGate(domainRatingEvidence),
       search: {
         pass: search === 3,
         detail: search == null ? 'not measured' : `current class ${searchClass(search)}`,
@@ -163,6 +182,18 @@ function scoreProject(project) {
             : `critique ${percent(critiqueRatio)} · audit ${percent(auditRatio)}`,
       },
     },
+  };
+}
+
+function domainRatingGate(evidence) {
+  if (!evidence) {
+    return { pass: false, detail: 'not measured' };
+  }
+  return {
+    pass: evidence.percentileLowerBound >= 90,
+    detail:
+      `raw DR ${format(evidence.raw)}; external percentile floor ` +
+      `${format(evidence.percentileLowerBound)}; target ≥90`,
   };
 }
 
@@ -225,6 +256,9 @@ function renderRow(row) {
   return [
     `| ${escapeCell(row.name)}`,
     format(row.values.domainRating),
+    row.values.domainRatingPercentile == null
+      ? '—'
+      : `${format(row.values.domainRatingPercentile)}th`,
     searchClass(row.values.search),
     format(row.values.aiVisibility),
     format(row.values.agentReadiness),

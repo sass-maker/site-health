@@ -4,133 +4,96 @@ import { once } from 'node:events';
 import { createServer } from 'node:http';
 import { promisify } from 'node:util';
 import test from 'node:test';
+import { resolve } from 'node:path';
 
 const execFileAsync = promisify(execFile);
-const audit = new URL('../skills/seo-audit/scripts/seo-audit.sh', import.meta.url);
+const fleetRoot = resolve(import.meta.dirname, '../../..');
+const auditScript = resolve(
+  fleetRoot,
+  'foundry/ops/skills/seo-audit/scripts/seo-audit.sh',
+);
 
-test('reads multiline metadata regardless of attribute order', async (t) => {
-  let origin;
-  const server = createServer((request, response) => {
-    const url = new URL(request.url, origin);
-    if (url.pathname === '/robots.txt') {
-      return send(
-        response,
-        'text/plain',
-        `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`,
-      );
-    }
-    if (url.pathname === '/sitemap.xml') {
-      return send(
-        response,
-        'application/xml',
-        `<?xml version="1.0"?><urlset><url><loc>${origin}/</loc></url></urlset>`,
-      );
-    }
-    if (url.pathname === '/') {
-      return send(
-        response,
-        'text/html',
-        `<!doctype html>
-        <html lang="en">
-          <head>
-            <title>
-              Multiline metadata fixture
-            </title>
-            <meta
-              content="A sufficiently descriptive fixture summary that proves multiline metadata is parsed without depending on line layout."
-              name="description"
-            />
-            <link
-              href="${origin}/"
-              rel="canonical"
-            />
-            <meta content="Fixture title" property="og:title" />
-            <meta
-              property="og:description"
-              content="A useful social description for the multiline fixture."
-            />
-            <meta
-              content="${origin}/preview.png"
-              property="og:image"
-            />
-            <meta content="summary_large_image" name="twitter:card" />
-            <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage"}</script>
-          </head>
-          <body>
-            <main><h1>Fixture home</h1><h2>What it verifies</h2><p>Metadata parsing.</p></main>
-          </body>
-        </html>`,
-      );
-    }
-    response.writeHead(404, { 'content-type': 'text/plain' });
-    response.end('not found');
+test('SEO audit parses multiline tags and attribute order without false failures', async (t) => {
+  const description =
+    'A complete product description that is deliberately long enough for the SEO audit metadata floor.';
+  const server = createServer((_request, response) => {
+    response.setHeader('content-type', 'text/html; charset=utf-8');
+    response.end(`<!doctype html>
+      <html lang="en">
+        <head>
+          <title>A complete multiline metadata fixture</title>
+          <meta
+            content="${description}"
+            name="description"
+          />
+          <link
+            href="http://example.test/"
+            rel="canonical"
+          />
+          <meta content="Fixture title" property="og:title" />
+          <meta
+            content="${description}"
+            property="og:description"
+          />
+          <meta property="og:image" content="http://example.test/share.png" />
+          <meta content="summary_large_image" name="twitter:card" />
+          <script nonce="fixture" type="application/ld+json">
+            {"@context":"https://schema.org","@type":"WebSite"}
+          </script>
+        </head>
+        <body>
+          <h1>Fixture heading</h1>
+          <h2>Fixture section</h2>
+          <p>Visible fixture copy.</p>
+        </body>
+      </html>`);
   });
-
   server.listen(0, '127.0.0.1');
   await once(server, 'listening');
-  t.after(() => server.close());
-  const address = server.address();
-  origin = `http://127.0.0.1:${address.port}`;
-
-  const { stdout } = await execFileAsync(
-    'bash',
-    [audit.pathname, `${origin}/`, '--site', origin],
-    { maxBuffer: 2_000_000 },
+  t.after(
+    () =>
+      new Promise((resolveClose, rejectClose) => {
+        server.close((error) => (error ? rejectClose(error) : resolveClose()));
+      }),
   );
+
+  const address = server.address();
+  assert.equal(typeof address, 'object');
+  const url = `http://127.0.0.1:${address.port}/`;
+  const { stdout } = await execFileAsync('bash', [auditScript, url], {
+    cwd: fleetRoot,
+  });
 
   assert.match(stdout, /meta-description\s+PASS/);
   assert.match(stdout, /canonical\s+PASS/);
+  assert.match(stdout, /og:title\s+PASS/);
   assert.match(stdout, /og:description\s+PASS/);
   assert.match(stdout, /og:image\s+PASS/);
   assert.match(stdout, /twitter:card\s+PASS/);
-  assert.doesNotMatch(stdout, /meta-description\s+FAIL/);
+  assert.match(stdout, /json-ld\s+PASS/);
+  assert.match(stdout, /hreflang\s+PASS\s+none declared/);
+  assert.match(stdout, /1 warnings/);
+  assert.match(stdout, /all critical checks passed/);
 });
 
-test('fails closed when an audited page cannot be fetched', async (t) => {
-  let origin;
-  const server = createServer((request, response) => {
-    const url = new URL(request.url, origin);
-    if (url.pathname === '/robots.txt') {
-      return send(
-        response,
-        'text/plain',
-        `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`,
-      );
-    }
-    if (url.pathname === '/sitemap.xml') {
-      return send(
-        response,
-        'application/xml',
-        `<?xml version="1.0"?><urlset><url><loc>${origin}/</loc></url></urlset>`,
-      );
-    }
-    response.writeHead(404, { 'content-type': 'text/plain' });
-    response.end('not found');
-  });
-
+test('SEO audit fails when the page cannot be fetched', async () => {
+  const server = createServer();
   server.listen(0, '127.0.0.1');
   await once(server, 'listening');
-  t.after(() => server.close());
   const address = server.address();
-  origin = `http://127.0.0.1:${address.port}`;
+  assert.equal(typeof address, 'object');
+  await new Promise((resolveClose, rejectClose) => {
+    server.close((error) => (error ? rejectClose(error) : resolveClose()));
+  });
 
+  const url = `http://127.0.0.1:${address.port}/`;
   await assert.rejects(
-    execFileAsync(
-      'bash',
-      [audit.pathname, `${origin}/missing`, '--site', origin],
-      { maxBuffer: 2_000_000 },
-    ),
+    execFileAsync('bash', [auditScript, url], { cwd: fleetRoot }),
     (error) => {
-      assert.equal(error.code, 1);
-      assert.match(error.stderr, /FETCH FAILED/);
-      assert.match(error.stdout, /Pages with failures/);
-      assert.match(error.stdout, new RegExp(`${origin}/missing`));
+      assert.match(error.stdout, /fetch\s+FAIL/);
+      assert.match(error.stdout, /Pages with failures:/);
+      assert.match(error.stdout, new RegExp(url.replaceAll('.', '\\.')));
       return true;
     },
   );
 });
-
-function send(response, contentType, body) {
-  response.writeHead(200, { 'content-type': contentType });
-  response.end(body);
-}

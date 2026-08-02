@@ -1,7 +1,7 @@
 {
   "$schema": "fleet.design-review-snapshot.v1",
   "version": 1,
-  "catalogSha256": "52d7bfe9cac7f430dc7c2008a70fdecbe2887d4f25bed0552aefda7f88c4b8fc",
+  "catalogSha256": "06a0451a1218f37f9bef57b33a2e8099c246a33b36f56b5adf9c4bb4cf673a8c",
   "policySha256": "266b3999929b0485c0cf6e9198f02609d7215325df6212147eeb2939cbc23b05",
   "catalogProjectIds": [
     "anime-list",
@@ -36,19 +36,19 @@
   "projects": [
     {
       "projectId": "anime-list",
-      "receiptSha256": "e27e53562211362b11592b06ade0ea5c7401a03ee119170109b1580591700b29",
+      "receiptSha256": "6da1f4fe7984158abcc7fa887045390db5701754c9e8d9afce2c5cc1fad0ea9b",
       "evidenceFiles": [
         {
           "path": "artifacts/design-wave2/after-1440.png",
-          "sha256": "b1552adb6f2643d3d128c6f719af6cb10172f5937750583ab61281ffeb375753"
+          "sha256": "08c582ccc2225c41c86ec0559afc25415b82408075dcdf302d80968b358c81d5"
         },
         {
           "path": "artifacts/design-wave2/after-390.png",
-          "sha256": "3ba812febf84cb48d11355973b12da3f6a2f8b1ee67d96593a7cbcbf47faebb5"
+          "sha256": "597f16d56ad8b6758d81116abd4a355838d13edcf7c1f10290da2073dea200f0"
         },
         {
           "path": "artifacts/design-wave2/after-768.png",
-          "sha256": "4bc8f54ec0a38299a0720bcaba6265a592f3be8325f2280f2fc2f47f198b8fe7"
+          "sha256": "aded4df77ab7c3ed18b8cca96079e44a304849b86b4aca1b340cbc2c464edc6e"
         },
         {
           "path": "artifacts/design-wave2/before.png",
@@ -56,7 +56,7 @@
         },
         {
           "path": "PROJECT_STATUS.md",
-          "sha256": "b6a29e34cc7e6cbbce9459a376a21fcee2e7a75ba8a0fbac818a433ea488b7e5"
+          "sha256": "688c84018a11ab8651353ee670755523a4bebf2d770e79cc1378320207321ca1"
         },
         {
           "path": "README.md",
@@ -64,11 +64,11 @@
         }
       ],
       "critique": {
-        "score": 35,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
-        "score": 18,
+        "score": 19,
         "maximum": 20
       },
       "ownerDecision": "delegated"
@@ -465,19 +465,19 @@
     },
     {
       "projectId": "india-standards",
-      "receiptSha256": "dc993cebf60f97e800202e4944eeaf9f3473a5466a5d31f5c5e76b078fcb4a15",
+      "receiptSha256": "d7e10568fe0160acc0e213c19528f9dd792de052d3f31be0aaa9f9e973f2c017",
       "evidenceFiles": [
         {
           "path": "artifacts/design/review/after-1440.png",
-          "sha256": "a11a43d6d55f099444b89f47118d709ade0c006d51207ebde7989b99ff3f676b"
+          "sha256": "d9febd04af1d8bd2c6bb62acd7f3a9e3aaa3a0d41958602075e8e3fd42b7f23e"
         },
         {
           "path": "artifacts/design/review/after-390.png",
-          "sha256": "e373b7c845974048150ccda283a58b9da686b09148c3cedd52ff49a2a9251366"
+          "sha256": "2947e90015e1ae27a9ecb5ef8289cc1a8f54087a393139b6667558dc554a0bcd"
         },
         {
           "path": "artifacts/design/review/after-768.png",
-          "sha256": "34949388d382ff5d1bdb5c0de205d7b9641fa3d4d39067d42793ae936a468390"
+          "sha256": "1ef3111ffc76a08750176f677f1384fe5a2ab1567d4b0cbd49c94a7007ecc6e0"
         },
         {
           "path": "artifacts/design/review/before-390.png",
@@ -493,7 +493,7 @@
         }
       ],
       "critique": {
-        "score": 33,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
@@ -582,19 +582,19 @@
     },
     {
       "projectId": "looptv",
-      "receiptSha256": "dd74d2649a479ffc7688b17f9086cb80d45cb7692932189c2b583d460dca0ac0",
+      "receiptSha256": "b958bcb96133be3ea89190576453598f144fc3bc0ad9db60d3feb41a1c2f6a44",
       "evidenceFiles": [
         {
           "path": "artifacts/design-wave2/after-1440.png",
-          "sha256": "7f504cc9a8f2972218d62f51999fa60d1c6ceac20b7908d7b1ed82304516e881"
+          "sha256": "2d16d8893b383de8dfc01618b9d6f84cfa1cbbd681960f9ff5400136ae2ef7a8"
         },
         {
           "path": "artifacts/design-wave2/after-390.png",
-          "sha256": "3aed10f40e4e8a6dd7ef59472e872ed3402ff5ebe7dd8dfca10af0045f3b8a85"
+          "sha256": "dfdb3d15d992cabe119812fc9754c7926438d1dea12f20b8404f2cc21f4d1795"
         },
         {
           "path": "artifacts/design-wave2/after-768.png",
-          "sha256": "b6c0caed826272ff7a76b60933f2eac7c175e9c8d5a2b633cc4a6532aff3a733"
+          "sha256": "297a907ae1e0ef8089021bfb159b9e2da85324471b01fdfef5430bd353485243"
         },
         {
           "path": "artifacts/design-wave2/before.png",
@@ -602,7 +602,7 @@
         },
         {
           "path": "PROJECT_STATUS.md",
-          "sha256": "17dc4a4d487cb25268152cc8cd13582fa9765b53768b42e577943e4bd92697f0"
+          "sha256": "735fd37a0f92fecfc2776a43d63f7cf712185a386a962b57c62fd644880f6645"
         },
         {
           "path": "README.md",
@@ -610,7 +610,7 @@
         }
       ],
       "critique": {
-        "score": 35,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
@@ -660,19 +660,19 @@
     },
     {
       "projectId": "pace",
-      "receiptSha256": "50327c8b0f6584b2ac35aedc81ebe2de6876674ce06d237107dcb9c7d53d2294",
+      "receiptSha256": "480ee5e787fbf850976e5823229ac2fdce662e58f7f3a30161cc681813741005",
       "evidenceFiles": [
         {
           "path": "artifacts/design/after-1440.png",
-          "sha256": "89dfa2884594a12679a652890f9b3091ee64d1cf8991a2afe86432b423244100"
+          "sha256": "af49bd38fd5d9ec8595fa63dbbab867f6fe243e48af664b57942b6fa823416af"
         },
         {
           "path": "artifacts/design/after-390.png",
-          "sha256": "d1a39e37b56caec2af8a0bb02ca93844fe9989f8f8fd1f895f74c2f5a2a30c77"
+          "sha256": "196e9796e32926f2d567b3bb4090b3b6c8c188c53f3ac7b60d7bb238079f14e2"
         },
         {
           "path": "artifacts/design/after-768.png",
-          "sha256": "f9fb1ce597f44069fd4a3fd8dbf4870afb4bd32ccd914fe8627522c6878bbcae"
+          "sha256": "53c96216ee60106fcf4b763333d4cbb38026a374e51b330963154fe8b72fc4fb"
         },
         {
           "path": "artifacts/design/before.png",
@@ -688,7 +688,7 @@
         }
       ],
       "critique": {
-        "score": 33,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
@@ -855,19 +855,19 @@
     },
     {
       "projectId": "rolepatch",
-      "receiptSha256": "f7a60bdfae4b8ccb4620b8f8070ff10708931bd7c3bb818272d21e37ffdc378f",
+      "receiptSha256": "d19527b7489056e5b0ed6b0516aede6dc6d8cd4bdf5d00751961475afc26e5ad",
       "evidenceFiles": [
         {
           "path": ".fleet/evidence/landing-hero/after-1440.png",
-          "sha256": "b5bc935d69d847bca0b67c84629bb8b73428d7c2ce2f95cf2af5a364d79ce96e"
+          "sha256": "b2a81b2d293c53d7383395e9491eb0a0c9bc50db880139c135a4a3a25624c839"
         },
         {
           "path": ".fleet/evidence/landing-hero/after-390.png",
-          "sha256": "ae97910ab09fa13ef58bdc5b3e59f9035156f9395fe909b06ef2ea3716a2696b"
+          "sha256": "2181b6f3a25234edd764abf0004ce336910c029dcbb6b80a33d87938c7bc2e29"
         },
         {
           "path": ".fleet/evidence/landing-hero/after-768.png",
-          "sha256": "8532e6e73e159c4b18f988149732bef7bd9a649c8acefbf8834a24ff3cac4b40"
+          "sha256": "c3597c50304962589de04698b1fa48040d0ba21fa23900e27ac5e69c8d7ad802"
         },
         {
           "path": ".fleet/evidence/landing-hero/before-390.png",
@@ -883,11 +883,11 @@
         }
       ],
       "critique": {
-        "score": 33,
+        "score": 36,
         "maximum": 40
       },
       "audit": {
-        "score": 17,
+        "score": 19,
         "maximum": 20
       },
       "ownerDecision": "delegated"

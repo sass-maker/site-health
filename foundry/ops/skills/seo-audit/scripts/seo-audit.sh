@@ -47,53 +47,51 @@ fetch() { curl -fsSL --max-time 30 "$1"; }
 # extract <meta> content by name or property
 meta_content() {
   local html="$1" attr="$2" val="$3"
-  printf '%s' "$html" | SEO_META_ATTR="$attr" SEO_META_VAL="$val" perl -0777 -ne '
-    my $attr = $ENV{SEO_META_ATTR};
-    my $value = $ENV{SEO_META_VAL};
-    while (/<meta\b[^>]*>/gis) {
-      my $tag = $&;
-      next unless $tag =~ /\b\Q$attr\E\s*=\s*(["\x27])\Q$value\E\1/i;
-      if ($tag =~ /\bcontent\s*=\s*(["\x27])(.*?)\1/is) {
+  printf '%s' "$html" | perl -0777 -e '
+    my ($wanted_attr, $wanted_value) = @ARGV;
+    my $source = do { local $/; <STDIN> };
+    while ($source =~ /<meta\b([^>]*)>/gis) {
+      my $attributes = $1;
+      next unless $attributes =~ /\b\Q$wanted_attr\E\s*=\s*(["'\''])\Q$wanted_value\E\1/i;
+      if ($attributes =~ /\bcontent\s*=\s*(["'\''])(.*?)\1/is) {
         my $content = $2;
-        $content =~ s/\s+/ /g;
-        $content =~ s/^\s+|\s+$//g;
+        $content =~ s/&amp;/&/g;
         print $content;
         last;
       }
     }
-  ' | sed 's/&amp;/\&/g'
+  ' "$attr" "$val"
 }
 
 tag_text() {
   local html="$1" tag="$2"
-  printf '%s' "$html" | SEO_TAG_NAME="$tag" perl -0777 -ne '
-    my $name = $ENV{SEO_TAG_NAME};
-    if (/<\Q$name\E\b[^>]*>(.*?)<\/\Q$name\E>/is) {
-      my $content = $1;
-      $content =~ s/<[^>]+>/ /g;
-      $content =~ s/\s+/ /g;
-      $content =~ s/^\s+|\s+$//g;
-      print $content;
+  printf '%s' "$html" | perl -0777 -e '
+    my ($tag) = @ARGV;
+    my $source = do { local $/; <STDIN> };
+    if ($source =~ /<\Q$tag\E\b[^>]*>(.*?)<\/\Q$tag\E>/is) {
+      my $text = $1;
+      $text =~ s/<[^>]+>/ /g;
+      $text =~ s/\s+/ /g;
+      $text =~ s/^\s+|\s+$//g;
+      print $text;
     }
-  '
+  ' "$tag"
 }
 
 link_href() {
   local html="$1" rel="$2"
-  printf '%s' "$html" | SEO_LINK_REL="$rel" perl -0777 -ne '
-    my $rel = $ENV{SEO_LINK_REL};
-    while (/<link\b[^>]*>/gis) {
-      my $tag = $&;
-      next unless $tag =~ /\brel\s*=\s*(["\x27])\Q$rel\E\1/i;
-      if ($tag =~ /\bhref\s*=\s*(["\x27])(.*?)\1/is) {
-        my $href = $2;
-        $href =~ s/\s+/ /g;
-        $href =~ s/^\s+|\s+$//g;
-        print $href;
+  printf '%s' "$html" | perl -0777 -e '
+    my ($wanted_rel) = @ARGV;
+    my $source = do { local $/; <STDIN> };
+    while ($source =~ /<link\b([^>]*)>/gis) {
+      my $attributes = $1;
+      next unless $attributes =~ /\brel\s*=\s*(["'\''])\Q$wanted_rel\E\1/i;
+      if ($attributes =~ /\bhref\s*=\s*(["'\''])(.*?)\1/is) {
+        print $2;
         last;
       }
     }
-  '
+  ' "$rel"
 }
 
 count_tag() {
@@ -112,14 +110,14 @@ FAILED_PAGES=()
 audit_page() {
   local url="$1"
   local html
+  echo "===== $url ====="
   if ! html=$(fetch "$url"); then
-    echo "  FETCH FAILED — could not retrieve $url" >&2
+    echo "  fetch              FAIL   could not retrieve $url"
     ((FAIL++))
     FAILED_PAGES+=("$url")
+    echo
     return
   fi
-
-  echo "===== $url ====="
 
   # --- title ---
   local title
@@ -180,7 +178,7 @@ audit_page() {
   local hreflang_count
   hreflang_count=$(echo "$html" | grep -oiE '<link rel="alternate"[^>]*hreflang=' | wc -l | tr -d ' ')
   if [[ $hreflang_count -eq 0 ]]; then
-    echo "  hreflang           WARN   none found (ok for single-language sites)"; ((WARN++))
+    echo "  hreflang           PASS   none declared (valid for single-language sites)"; ((PASS++))
   else
     local has_xdefault
     has_xdefault=$(echo "$html" | grep -oiE 'hreflang="x-default"' | wc -l | tr -d ' ')
@@ -193,7 +191,13 @@ audit_page() {
 
   # --- JSON-LD ---
   local jsonld_count
-  jsonld_count=$(echo "$html" | grep -oiE '<script type="application/ld\+json">' | wc -l | tr -d ' ')
+  jsonld_count=$(printf '%s' "$html" | perl -0777 -ne '
+    my $count = 0;
+    while (/<script\b([^>]*)>/gis) {
+      $count++ if $1 =~ /\btype\s*=\s*(["'\''])application\/ld\+json\1/i;
+    }
+    print $count;
+  ')
   if [[ $jsonld_count -eq 0 ]]; then
     echo "  json-ld            FAIL   no structured data"; ((FAIL++))
   else
@@ -234,8 +238,14 @@ audit_page() {
 
   # --- image alt text ---
   local total_imgs imgs_no_alt
-  total_imgs=$(echo "$html" | grep -oiE '<img[^>]*>' | wc -l | tr -d ' ')
-  imgs_no_alt=$(echo "$html" | grep -oiE '<img[^>]*>' | grep -viE 'alt=' | wc -l | tr -d ' ')
+  total_imgs=$(printf '%s' "$html" | perl -0777 -ne 'print scalar(() = /<img\b[^>]*>/gis)')
+  imgs_no_alt=$(printf '%s' "$html" | perl -0777 -ne '
+    my $count = 0;
+    while (/<img\b([^>]*)>/gis) {
+      $count++ unless $1 =~ /\balt\s*=/i;
+    }
+    print $count;
+  ')
   if [[ $total_imgs -eq 0 ]]; then
     echo "  img-alt            PASS   no images on page"; ((PASS++))
   elif [[ $imgs_no_alt -gt 0 ]]; then

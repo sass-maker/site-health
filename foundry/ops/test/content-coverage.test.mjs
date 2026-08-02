@@ -41,6 +41,18 @@ test('registry inventory resolves CodeVetter context without live network access
   assert.ok(inventory.unavailableEvidence.some((entry) => entry.source === 'live-sitemap'));
 });
 
+test('registry inventory falls back to canonical repo metadata when publicDir is absent', () => {
+  const inventory = inventoryRegistryProduct('what-it-takes-to-win');
+  assert.equal(inventory.product.id, 'what-it-takes-to-win');
+  assert.equal(inventory.product.publicDir, null);
+  assert.match(inventory.product.repoRoot, /\/what-it-takes-to-win$/u);
+  assert.ok(
+    inventory.unavailableEvidence.some(
+      (entry) => entry.source === 'public-directory',
+    ),
+  );
+});
+
 test('inventory CLI can persist a compact latest verdict for site health', () => {
   const artifact = resolve(mkdtempSync(resolve(tmpdir(), 'fleet-coverage-artifact-')), 'latest.json');
   const cli = resolve(
@@ -60,4 +72,25 @@ test('inventory CLI can persist a compact latest verdict for site health', () =>
   assert.equal(latest.codevetter.verdict, 'blocked');
   assert.equal(latest.codevetter.create, 1);
   assert.equal(latest.codevetter.blocked, 1);
+  assert.equal(latest.codevetter.coverageModel, true);
+});
+
+test('inventory artifact does not call an unresearched coverage model solid', () => {
+  const artifact = resolve(mkdtempSync(resolve(tmpdir(), 'fleet-coverage-research-')), 'latest.json');
+  const cli = resolve(
+    import.meta.dirname,
+    '../skills/content-coverage/scripts/content-inventory.mjs',
+  );
+  const result = spawnSync(process.execPath, [
+    cli,
+    '--product',
+    'codevetter',
+    '--artifact',
+    artifact,
+    '--json',
+  ], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const latest = JSON.parse(readFileSync(artifact, 'utf8'));
+  assert.equal(latest.codevetter.verdict, 'research');
+  assert.equal(latest.codevetter.coverageModel, false);
 });

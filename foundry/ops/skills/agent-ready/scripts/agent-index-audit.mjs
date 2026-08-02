@@ -9,6 +9,7 @@
  *   node agent-index-audit.mjs --all
  *   node agent-index-audit.mjs --all --json
  *   node agent-index-audit.mjs --all --summary-json
+ *   node agent-index-audit.mjs --all --metric-json
  *   node agent-index-audit.mjs --project rolepatch
  *
  * Target membership and primary domains come from projects.json. Per-product
@@ -39,12 +40,12 @@ const INDEXNOW_CONFIG_PATH = join(FLEET_ROOT, 'foundry/ops/config/indexnow.json'
 const UA = 'fleet-agent-index-audit/2.0 (+https://sassmaker.com)';
 const TIMEOUT_MS = 15_000;
 const MAX_SITEMAPS = 50;
-const MAX_PUBLIC_ROUTES = 5_000;
+const MAX_PUBLIC_ROUTES = 50_000;
+const MAX_SITEMAP_BYTES = 50 * 1024 * 1024;
 const MAX_ROUTE_PROBES = 250;
 const MAX_CATALOG_SURFACES = 1_000;
 const PROBE_CONCURRENCY = 8;
-const MAX_PROBE_ATTEMPTS = 3;
-const PROBE_RETRY_BASE_MS = 250;
+const TRANSIENT_RETRY_DELAYS_MS = [250, 750];
 
 // Answer-engine crawlers that must not be disallowed for GEO to work at all.
 const CRITICAL_AI_BOTS = ['GPTBot', 'ClaudeBot', 'OAI-SearchBot', 'PerplexityBot'];
@@ -91,10 +92,10 @@ async function main() {
     }
   }
 
-  if (args.json || args.summaryJson) {
-    const outputResults = args.summaryJson
-      ? results.map(summarizeResult)
-      : results;
+  if (args.json || args.summaryJson || args.metricJson) {
+    let outputResults = results;
+    if (args.summaryJson) outputResults = results.map(summarizeResult);
+    if (args.metricJson) outputResults = results.map(metricResult);
     console.log(
       JSON.stringify(
         { generatedAt: new Date().toISOString(), results: outputResults },
@@ -118,6 +119,7 @@ function parseArgs(argv) {
   const args = {
     json: false,
     summaryJson: false,
+    metricJson: false,
     all: false,
     project: null,
     urls: [],
@@ -126,6 +128,7 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === '--json') args.json = true;
     else if (a === '--summary-json') args.summaryJson = true;
+    else if (a === '--metric-json') args.metricJson = true;
     else if (a === '--all') args.all = true;
     else if (a === '--project') args.project = argv[++i];
     else if (a === '--help' || a === '-h') {
@@ -145,7 +148,7 @@ function printHelp() {
   console.log(`Usage:
   agent-index-audit.mjs <url>
   agent-index-audit.mjs --project <registry-id>
-  agent-index-audit.mjs --all [--json | --summary-json]
+  agent-index-audit.mjs --all [--json | --summary-json | --metric-json]
 
 Targets: metric-eligible visibility projects from foundry/ops/config/projects.json
 `);
@@ -165,6 +168,30 @@ function summarizeResult(result) {
         {
           status: check.status,
           detail: check.detail,
+        },
+      ]),
+    ),
+  };
+}
+
+/**
+ * Return the bounded audit evidence needed by visibility-metric ingestion.
+ * In particular, omit api_ai.data because a large surfaces catalog can make
+ * the general-purpose --json response exceed child-process output buffers.
+ */
+function metricResult(result) {
+  const includedData = new Set(['route_markdown', 'catalog_integrity']);
+  return {
+    ...summarizeResult(result),
+    pass: result.pass,
+    fail: result.fail,
+    checks: Object.fromEntries(
+      Object.entries(result.checks || {}).map(([id, check]) => [
+        id,
+        {
+          status: check.status,
+          detail: check.detail,
+          ...(includedData.has(id) && check.data ? { data: check.data } : {}),
         },
       ]),
     ),
@@ -647,8 +674,6 @@ async function collectSitemap(url, state) {
   if (state.visited.has(normalized)) return;
   state.visited.add(normalized);
 
-  // Sitemaps may legitimately exceed the normal diagnostic body-retention
-  // limit. The collector needs the complete XML to discover every route.
   const response = await probe(normalized, { retainFullBody: true });
   if (!response.ok) {
     state.failures.push(`${normalized}: HTTP ${response.status || 'err'}`);
@@ -890,6 +915,20 @@ function escapeRegularExpression(value) {
 async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
   const route = new URL(routeUrl);
   const path = route.pathname;
+  const catalogTarget = catalog.get(canonicalUrl(route));
+  if (catalogTarget) {
+    const catalogResponse = await cachedProbe(catalogTarget, {
+      accept: 'text/markdown, text/plain, */*',
+    });
+    if (isReadableMarkdown(catalogResponse)) {
+      return {
+        path,
+        readable: true,
+        method: new URL(catalogTarget).pathname,
+      };
+    }
+  }
+
   const negotiated = await cachedProbe(route.toString(), {
     accept: 'text/markdown, text/plain;q=0.9, text/html;q=0.1',
   });
@@ -898,9 +937,8 @@ async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
   }
 
   const candidates = [
-    catalog.get(canonicalUrl(route)),
     ...markdownCandidates(origin, route),
-  ].filter(Boolean);
+  ].filter((candidate) => candidate && candidate !== catalogTarget);
   for (const candidate of [...new Set(candidates)]) {
     const response = await cachedProbe(candidate, {
       accept: 'text/markdown, text/plain, */*',
@@ -1032,15 +1070,21 @@ function isMarkdownType(ct = '') {
 }
 
 async function probe(url, options = {}) {
-  let result;
-  for (let attempt = 0; attempt < MAX_PROBE_ATTEMPTS; attempt++) {
-    result = await probeOnce(url, options);
-    if (result.status !== 429 || attempt === MAX_PROBE_ATTEMPTS - 1) return result;
-    const retryAfterMs = parseRetryAfterMs(result.retryAfter);
-    const backoffMs = PROBE_RETRY_BASE_MS * 2 ** attempt;
-    await delay(Math.max(retryAfterMs, backoffMs));
+  let response = await probeOnce(url, options);
+  for (const delayMs of TRANSIENT_RETRY_DELAYS_MS) {
+    if (!isTransientProbeFailure(response)) break;
+    await wait(delayMs);
+    response = await probeOnce(url, options);
   }
-  return result;
+  return response;
+}
+
+function isTransientProbeFailure(response) {
+  return response.status === 0 || response.status === 429 || response.status >= 500;
+}
+
+function wait(durationMs) {
+  return new Promise((resolveWait) => setTimeout(resolveWait, durationMs));
 }
 
 async function probeOnce(url, { accept, retainFullBody = false } = {}) {
@@ -1069,8 +1113,11 @@ async function probeOnce(url, { accept, retainFullBody = false } = {}) {
       contentType,
       bytes,
       bodyPreview,
-      // Keep full bodies for small diagnostics or callers that must parse all content.
-      bodyFull: retainFullBody || bytes <= 2_000_000 ? bodyFull : bodyPreview,
+      // Keep full body only for small responses (api/ai, robots, llms)
+      bodyFull:
+        bytes <= 2_000_000 || (retainFullBody && bytes <= MAX_SITEMAP_BYTES)
+          ? bodyFull
+          : bodyPreview,
       isHtml,
       finalUrl: res.url,
       retryAfter: res.headers.get('retry-after'),

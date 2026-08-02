@@ -59,10 +59,18 @@ function runAgentAudit() {
         'foundry/ops/skills/agent-ready/scripts/agent-index-audit.mjs',
       ),
       origin,
-      '--json',
+      '--metric-json',
     ],
     { cwd: FLEET_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
   );
+  if (result.error) {
+    throw new Error(`AI Agent Readiness failed to run: ${result.error.message}`);
+  }
+  if (result.status === 2) {
+    throw new Error(
+      `AI Agent Readiness failed: ${result.stderr.trim() || 'unknown error'}`,
+    );
+  }
   const payload = parseJsonResult(result.stdout, 'AI Agent Readiness');
   const audit = payload.results?.[0];
   if (!audit) throw new Error('AI Agent Readiness returned no result');
