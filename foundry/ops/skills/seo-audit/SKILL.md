@@ -162,10 +162,13 @@ To audit a fleet product, read the production URL from the project's
 To audit all fleet products' main pages:
 
 ```bash
-for url in $(grep -oE 'https://[^ "]+' ~/Desktop/fleet/README.md | sort -u); do
-  bash foundry/ops/skills/seo-audit/scripts/seo-audit.sh "$url" --site "$(echo "$url" | sed 's|\(/[^/]*\)$||')"
-done
+node foundry/ops/skills/seo-audit/scripts/seo-audit-fleet.mjs --all
 ```
+
+This reads the canonical visibility inventory, audits every primary homepage,
+and updates the bounded artifact consumed by the combined site-health
+scorecard. Use `--id <project>` for one product or `--json` for structured
+output.
 
 ## Relationship to other skills
 

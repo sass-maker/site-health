@@ -1,8 +1,12 @@
-# Content Studio
+# Marketing Studio
 
-TubeMagic-style creator toolset built into reel-pipeline: ideation, metadata,
-scripts, brand voice, keyword research, transcripts, thumbnail concepts, and a
-saved-ideas manager. Original implementation; no third-party product code.
+Marketing Studio is Reel Pipeline's unified operator surface for turning a
+natural-language request or standing automation policy into an editable video
+brief, routing that brief to the real production workflow, reviewing the
+result, and preparing an evidence-gated Postiz draft or exact future schedule.
+The original Content Studio tools remain available
+under the **Tools** view: ideation, metadata, scripts, brand voice, keyword
+research, transcripts, thumbnail concepts, and the saved-ideas manager.
 
 Every tool works offline at $0 via deterministic templates, and upgrades to
 LLM output through a provider chain tried in order (override with
@@ -24,12 +28,110 @@ templates — never an error.
 For the topic→video→post workflow that consumes these tools, see
 [faceless-workflow.md](./faceless-workflow.md).
 
-## Web UI
+## Operator workflow
 
-Every tool below is also usable from the browser: run `npm run dev` and open
-`http://127.0.0.1:4317/studio`. The page has one panel per tool, an ideas
-manager with status dropdowns, and a faceless-run panel (mock engine by
-default; select `moneyprinterturbo` when `npm run moneyprinter:api` is up).
+The primary operator entry is Fleet Console's existing Marketing dashboard at
+`http://localhost:4321/marketing`. Start Reel Pipeline with `npm run dev` so the
+dashboard can use its local generation service on port 4317. The standalone
+`/studio` route is retained only for diagnostics. Mashup remains a CLI-only
+editorial capability and is intentionally absent from every web UI.
+
+1. **Create** — the **Ask Me** lane. Describe a video in plain language, then keep refining the same
+   brief with follow-ups such as “make it 30 seconds,” “switch to Instagram,”
+   or “turn this into an app demo.” Every turn updates visible normalized
+   `fleet.marketing-studio-brief.v1` fields. Nothing renders until the operator
+   chooses the named action.
+2. **Productions** — filter the shared queue by **Project Autopilot**, **Ask
+   Me**, or **Personal Automations**. Inspect saved intent, source and policy
+   revision, recipe/spend choice, playable local artifacts, quality evidence,
+   distribution state, and the authoritative recovery action.
+3. **Distribute** — prove source, claim, destination, rights, creative
+   approval, quality, render, and stable public media before creating an
+   unscheduled Postiz draft.
+4. **Tools** — use every pre-existing Content Studio form, ideas manager, and
+   legacy render view without changing their API routes.
+
+Briefs persist to ignored local state at `tmp/studio/briefs.json` by default.
+Changing the video kind clears incompatible media and distribution evidence.
+Every field edit or conversational refinement increments the brief revision.
+Conversation cannot approve rights, creative review, quality, distribution,
+scheduling, or publication.
+
+## Standing-policy automation
+
+`config/studio-automation.json` is the versioned, secret-free authority for
+unattended work. The initial policies cover High Signal daily source briefs,
+Significant Hobbies weekly editorial posts, and major maintained-project
+changelog events. High Signal and Significant Hobbies reuse their existing
+content-package extractors. Changelog discovery reads the canonical Fleet
+project catalog and durable `PROJECT_STATUS.md` Timeline, rejects ambiguous or
+maintenance-only entries, and preserves the same-origin public `/changelog`
+URL as evidence.
+
+Every source revision and channel gets a stable idempotency key. Reruns reuse
+the existing Idea, Marketing Brief, render evidence, stable-media evidence,
+and Postiz receipt. A policy ranks only its allowed recipes within its spend
+ceiling, records every bounded attempt, and stops with a named recovery action
+when rendering, quality, stable media, or Postiz readiness is missing.
+
+Dry run is the default:
+
+```bash
+npm run factory -- autopilot --policy high-signal-daily --dry-run --count 1
+npm run factory -- autopilot --all --dry-run
+```
+
+Execution requires `--execute`. It may render, advance through the configured
+artifact publisher, and create the policy-authorized Postiz draft or future
+schedule. It never publishes immediately or contacts a social provider
+directly.
+
+## AI operator discovery
+
+Future AI operators use one read-only arsenal contract rather than reconciling
+the planner, Tools view, render modes, and automation policies independently:
+
+```bash
+npm run factory -- arsenal
+npm run factory -- arsenal --spend-ceiling local-compute --readiness ready
+```
+
+`GET /studio/arsenal` returns the same schema and accepts `recipe`, `channel`,
+`owner`, `spendCeiling`, and `readiness` filters. Inspection never creates a
+brief, renders, uploads, or contacts Postiz. See
+[`studio-agent-arsenal.md`](../architecture/studio-agent-arsenal.md) for the
+canonical registry boundary and the agent execution contract.
+
+## Production routing
+
+Marketing Studio owns intent and lifecycle state; it does not duplicate the
+specialized runtimes:
+
+| Video kind | Runtime owner | Studio action |
+| --- | --- | --- |
+| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock or Kokoro |
+| Brand reel | Anonymous Brand Reel | Continue to `/` with the public canonical website source prefilled |
+| Guided app demo | Forge | Continue to the authenticated Forge host with the brief id, project, workflow kind, and public source prefilled after source rights are approved |
+| Coherent film | Forge | Continue to the authenticated Forge host with safe project/source context and complete Film-style inputs there |
+| Podcast short | Editorial | Continue to the configured editorial service with source media |
+
+Continuation states are explicit: `ready`, `needs-input`, `external-step`, or
+`blocked`. A specialized workflow is never represented as locally executed
+when its actual runtime lives elsewhere. Continuation URLs carry only the
+Studio brief id and safe public metadata; unpublished creative copy, approvals,
+credentials, and private media never enter the URL.
+
+## Postiz boundary
+
+Marketing Studio can prepare the existing approved content-package and media
+receipt contracts, then call the existing Postiz adapter to create a draft.
+Preparation is local and performs no network call. Draft creation requires an
+explicit approver and a stable public HTTPS video URL.
+
+The Studio accepts only an unscheduled draft or an exact future schedule after
+all evidence gates pass. It rejects immediate-publication inputs and duplicate
+receipts. Postiz remains the only calendar, durable scheduler, publisher,
+provider-integration, and analytics surface.
 
 ## Commands
 
@@ -117,7 +219,10 @@ The faceless workflow saves each rendered topic here automatically.
 
 ```bash
 npm run smoke:studio   # offline smoke: every tool + mock workflow (13 checks)
-node --test test/studio-*.test.js
+node --test test/studio-server.test.js test/studio-workflow.test.js \
+  test/marketing-studio-briefs.test.js \
+  test/marketing-studio-distribution.test.js
 ```
 
-Module map: `src/studio/{llm,ideas,metadata,script,brand-voice,keywords,transcript,thumbnails,idea-store,workflow}.js`.
+Module map:
+`src/studio/{api,ui,autopilot,autopilot-sources,automation-policy,briefs,capabilities,distribution,llm,ideas,metadata,script,brand-voice,keywords,transcript,thumbnails,idea-store,workflow}.js`.

@@ -328,6 +328,7 @@ export function forgeOperatorPageHtml() {
       },
     };
     const form = document.querySelector('#forge-form');
+    const studioParams = new URLSearchParams(window.location.search);
     const queueList = document.querySelector('#queue-list');
     const detail = document.querySelector('#job-detail');
     const toast = document.querySelector('#toast');
@@ -705,6 +706,26 @@ export function forgeOperatorPageHtml() {
         const option = node('option', '', skill.ref + ' — ' + skill.title);
         option.value = skill.ref;
         skillSelect.append(option);
+      }
+      const requestedKind = studioParams.get('kind');
+      if (
+        requestedKind === 'guided-app-demo'
+        && [...skillSelect.options].some((option) => option.value === 'guided-app-demo@1')
+      ) {
+        skillSelect.value = 'guided-app-demo@1';
+      }
+      const projectName = studioParams.get('projectName');
+      if (projectName && /^[a-z0-9][a-z0-9-]{0,79}$/i.test(projectName)) {
+        form.elements.projectName.value = projectName;
+      }
+      const sourceUrl = studioParams.get('sourceUrl');
+      if (sourceUrl) {
+        try {
+          const parsed = new URL(sourceUrl);
+          if (parsed.protocol === 'https:') {
+            form.elements.context.value = 'Approved public source to review: ' + parsed.toString();
+          }
+        } catch {}
       }
       updateIntakeMode();
     }

@@ -7,9 +7,8 @@ TBD - created by archiving change content-studio-faceless-pipeline. Update Purpo
 The workflow SHALL take a topic (plus optional niche, duration, voice, and
 brand-voice profile) and produce: a script, a VideoBrief, and a rendered MP4
 via an existing render adapter, writing artifacts under an output directory.
-Supported engines SHALL be `mock` (smoke runs), `moneyprinterturbo` (stock
-footage + Edge-TTS via the local MoneyPrinterTurbo API), and `kokoro` (fully
-local compose: Kokoro narration + Pexels b-roll + FFmpeg). `render-pro.js`
+Supported engines SHALL be `mock` (smoke runs) and `kokoro` (fully local
+compose: Kokoro narration + Pexels b-roll + FFmpeg). `render-pro.js`
 remains the canonical production renderer and is not modified.
 
 #### Scenario: Mock end-to-end
@@ -22,7 +21,7 @@ remains the canonical production renderer and is not modified.
 
 #### Scenario: Kokoro engine selected
 - **WHEN** the workflow runs with `--engine kokoro`
-- **THEN** the render uses the local Kokoro compose adapter and no MoneyPrinterTurbo API call is made
+- **THEN** the render uses the local Kokoro compose adapter without another engine service
 
 ### Requirement: Single-voice default
 Generated briefs SHALL use one narration voice for the entire video by
@@ -56,4 +55,3 @@ duplicate entry, and the run summary SHALL include the render quality report.
 #### Scenario: Existing idea advanced
 - **WHEN** the workflow runs with an `ideaId` from the backlog
 - **THEN** that idea moves to `rendered` and no new idea entry is created
-

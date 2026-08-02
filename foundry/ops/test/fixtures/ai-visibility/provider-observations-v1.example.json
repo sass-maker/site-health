@@ -1,0 +1,27 @@
+{
+  "schema": "fleet.ai-visibility-provider-observations.v1",
+  "runs": [
+    {
+      "projectId": "pace",
+      "runId": "replace-with-provider-export-run-id",
+      "observedAt": "2026-07-31T10:00:00.000Z",
+      "promptSetId": "buyer-discovery",
+      "providers": [
+        {
+          "id": "replace-with-provider-id",
+          "model": "replace-with-provider-model",
+          "grounded": true,
+          "observations": {
+            "buyer-discovery/category/indie-founder": {
+              "status": "completed",
+              "capturedAt": "2026-07-31T10:00:00.000Z",
+              "providerRequestId": "replace-with-provider-request-id",
+              "responseText": "Replace this example with the exact provider answer.",
+              "observedCostUsd": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

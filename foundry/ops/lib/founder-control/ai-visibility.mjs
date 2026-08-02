@@ -134,16 +134,251 @@ export function createFixtureVisibilityProviders(fixture, engine) {
   });
 }
 
-function assertProvidersAllowed(project, providers, providerKind) {
-  if (providers.length === 0) throw new Error('At least one fixture provider is required');
-  if (providerKind !== 'fixture' && project.providerPolicy.liveProvidersAllowed !== true) {
-    throw new Error(`Live providers are disabled for ${project.slug}`);
+const PROVIDER_OBSERVATION_SCHEMA = 'fleet.ai-visibility-provider-observations.v1';
+const PROVIDER_OBSERVATION_STATUSES = new Set(['completed', 'unavailable', 'failed']);
+
+function requiredString(value, label) {
+  if (typeof value !== 'string' || !value.trim()) {
+    throw new Error(`${label} must be a non-empty string`);
   }
+  return value.trim();
+}
+
+function requiredText(value, label) {
+  if (typeof value !== 'string' || !value.trim()) {
+    throw new Error(`${label} must be non-empty text`);
+  }
+  return value;
+}
+
+function requiredIsoTimestamp(value, label) {
+  const timestamp = requiredString(value, label);
+  if (!Number.isFinite(Date.parse(timestamp))) {
+    throw new Error(`${label} must be an ISO timestamp`);
+  }
+  return timestamp;
+}
+
+function explicitCost(value, label) {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
+    throw new Error(`${label} must be an explicit non-negative number`);
+  }
+  return value;
+}
+
+function validateProviderObservation(observation, label) {
+  if (!observation || typeof observation !== 'object' || Array.isArray(observation)) {
+    throw new Error(`${label} must be an object`);
+  }
+  const status = requiredString(observation.status, `${label}.status`);
+  if (!PROVIDER_OBSERVATION_STATUSES.has(status)) {
+    throw new Error(`${label}.status must be completed, unavailable, or failed`);
+  }
+  const capturedAt = requiredIsoTimestamp(observation.capturedAt, `${label}.capturedAt`);
+  if (status !== 'completed') {
+    return {
+      status,
+      capturedAt,
+      ...(observation.providerRequestId
+        ? { providerRequestId: requiredString(observation.providerRequestId, `${label}.providerRequestId`) }
+        : {}),
+    };
+  }
+  return {
+    status,
+    capturedAt,
+    providerRequestId: requiredString(
+      observation.providerRequestId,
+      `${label}.providerRequestId`,
+    ),
+    responseText: requiredText(observation.responseText, `${label}.responseText`),
+    observedCostUsd: explicitCost(observation.observedCostUsd, `${label}.observedCostUsd`),
+  };
+}
+
+function createProviderObservationAdapter(provider, canonicalPromptIds, engine, label) {
+  if (!provider || typeof provider !== 'object' || Array.isArray(provider)) {
+    throw new Error(`${label} must be an object`);
+  }
+  const id = requiredString(provider.id, `${label}.id`);
+  const model = requiredString(provider.model, `${label}.model`);
+  if (!provider.observations || typeof provider.observations !== 'object' || Array.isArray(provider.observations)) {
+    throw new Error(`${label}.observations must be an object`);
+  }
+  const observations = new Map();
+  for (const [promptId, observation] of Object.entries(provider.observations)) {
+    if (!canonicalPromptIds.has(promptId)) {
+      throw new Error(`${label}.observations contains unknown prompt ${promptId}`);
+    }
+    observations.set(
+      promptId,
+      validateProviderObservation(observation, `${label}.observations.${promptId}`),
+    );
+  }
+  if (observations.size === 0) {
+    throw new Error(`${label}.observations must contain at least one canonical prompt`);
+  }
+  return {
+    id,
+    model,
+    grounded: Boolean(provider.grounded),
+    providerObservation: true,
+    observationPromptIds: [...observations.keys()],
+    estimateCostUsd: (prompt) => observations.get(prompt.id)?.observedCostUsd ?? 0,
+    execute: async ({ prompt }) => {
+      const observation = observations.get(prompt.id);
+      if (!observation || observation.status === 'unavailable') {
+        throw new engine.ProviderUnavailableError(`No completed provider observation for ${prompt.id}`);
+      }
+      if (observation.status === 'failed') {
+        throw new Error(`Provider observation recorded a failed response for ${prompt.id}`);
+      }
+      return {
+        text: observation.responseText,
+        model,
+        observedCostUsd: observation.observedCostUsd,
+        providerRequestId: observation.providerRequestId,
+      };
+    },
+    observationProvenance: {
+      capturedAt: [...observations.values()].map((entry) => entry.capturedAt),
+      completedCount: [...observations.values()]
+        .filter((entry) => entry.status === 'completed')
+        .length,
+      requestIds: [...observations.values()]
+        .map((entry) => entry.providerRequestId)
+        .filter(Boolean),
+    },
+  };
+}
+
+export function prepareProviderObservationRuns({
+  bundle,
+  portfolio,
+  engine,
+  requireAll = false,
+}) {
+  if (bundle?.schema !== PROVIDER_OBSERVATION_SCHEMA || !Array.isArray(bundle.runs)) {
+    throw new Error(`Provider observations must use ${PROVIDER_OBSERVATION_SCHEMA}`);
+  }
+  if (bundle.runs.length === 0) throw new Error('Provider observations must contain at least one run');
+  const projectIds = bundle.runs.map((run, index) =>
+    requiredString(run?.projectId, `runs[${index}].projectId`),
+  );
+  if (new Set(projectIds).size !== projectIds.length) {
+    throw new Error('Provider observation project ids must be unique');
+  }
+  if (requireAll) {
+    const expected = portfolio.eligible.map((project) => project.slug).sort();
+    const received = [...projectIds].sort();
+    if (JSON.stringify(received) !== JSON.stringify(expected)) {
+      const expectedSet = new Set(expected);
+      const receivedSet = new Set(received);
+      const missing = expected.filter((projectId) => !receivedSet.has(projectId));
+      const extra = received.filter((projectId) => !expectedSet.has(projectId));
+      throw new Error(
+        `Provider observations do not cover the canonical ${expected.length}: `
+        + `missing=${missing.join(',') || 'none'} extra=${extra.join(',') || 'none'}`,
+      );
+    }
+  }
+
+  return bundle.runs.map((input, runIndex) => {
+    const project = portfolio.eligible.find((candidate) => candidate.slug === input.projectId);
+    if (!project) throw new Error(`AI visibility is not configured for project ${input.projectId}`);
+    const runId = requiredString(input.runId, `runs[${runIndex}].runId`);
+    const observedAt = requiredIsoTimestamp(input.observedAt, `runs[${runIndex}].observedAt`);
+    const { promptSetId, prompts } = expandVisibilityPrompts(project, input.promptSetId);
+    const canonicalPromptIds = new Set(prompts.map((prompt) => prompt.id));
+    if (!Array.isArray(input.providers) || input.providers.length === 0) {
+      throw new Error(`runs[${runIndex}].providers must contain at least one provider`);
+    }
+    const providers = input.providers.map((provider, providerIndex) =>
+      createProviderObservationAdapter(
+        provider,
+        canonicalPromptIds,
+        engine,
+        `runs[${runIndex}].providers[${providerIndex}]`,
+      ),
+    );
+    if (new Set(providers.map((provider) => provider.id)).size !== providers.length) {
+      throw new Error(`runs[${runIndex}].providers contains duplicate provider ids`);
+    }
+    const requiredCalls = prompts.length * providers.length;
+    if (requiredCalls > project.runBudget.maxCalls) {
+      throw new Error(
+        `Provider observations for ${project.slug} require ${requiredCalls} calls, `
+        + `exceeding maxCalls ${project.runBudget.maxCalls}`,
+      );
+    }
+    const observedCostUsd = providers.reduce(
+      (providerTotal, provider) =>
+        providerTotal
+        + prompts.reduce((promptTotal, prompt) => promptTotal + provider.estimateCostUsd(prompt), 0),
+      0,
+    );
+    if (
+      project.runBudget.maxEstimatedCostUsd !== undefined
+      && observedCostUsd > project.runBudget.maxEstimatedCostUsd
+    ) {
+      throw new Error(
+        `Provider observations for ${project.slug} report $${observedCostUsd.toFixed(6)}, `
+        + `exceeding limit $${project.runBudget.maxEstimatedCostUsd.toFixed(6)}`,
+      );
+    }
+    const capturedAt = providers
+      .flatMap((provider) => provider.observationProvenance.capturedAt)
+      .sort();
+    const requestIds = providers
+      .flatMap((provider) => provider.observationProvenance.requestIds);
+    const completedObservationCount = providers.reduce(
+      (count, provider) => count + provider.observationProvenance.completedCount,
+      0,
+    );
+    return {
+      project,
+      promptSetId,
+      providers,
+      runId,
+      observedAt,
+      provenance: {
+        source: 'operator-supplied-provider-export',
+        providerIds: providers.map((provider) => provider.id).sort(),
+        models: [...new Set(providers.map((provider) => provider.model))].sort(),
+        observationCount: capturedAt.length,
+        completedObservationCount,
+        capturedAtRange: {
+          first: capturedAt[0],
+          last: capturedAt.at(-1),
+        },
+        providerRequestIdCount: requestIds.length,
+      },
+    };
+  });
+}
+
+function assertProvidersAllowed(project, providers, providerKind) {
+  if (providers.length === 0) throw new Error('At least one provider is required');
   const allowed = new Set(project.providerPolicy.allowedProviderIds);
   for (const provider of providers) {
-    if (!allowed.has(provider.id)) throw new Error(`Provider ${provider.id} is not allowed for ${project.slug}`);
-    if (providerKind === 'fixture' && provider.fixture !== true) {
-      throw new Error(`Provider ${provider.id} is not marked as a fixture provider`);
+    if (providerKind === 'fixture') {
+      if (!allowed.has(provider.id)) {
+        throw new Error(`Provider ${provider.id} is not allowed for ${project.slug}`);
+      }
+      if (provider.fixture !== true) {
+        throw new Error(`Provider ${provider.id} is not marked as a fixture provider`);
+      }
+    } else if (providerKind === 'provider-observation') {
+      if (provider.providerObservation !== true) {
+        throw new Error(`Provider ${provider.id} is not a validated provider observation`);
+      }
+    } else {
+      if (project.providerPolicy.liveProvidersAllowed !== true) {
+        throw new Error(`Live providers are disabled for ${project.slug}`);
+      }
+      if (!allowed.has(provider.id)) {
+        throw new Error(`Provider ${provider.id} is not allowed for ${project.slug}`);
+      }
     }
   }
 }
@@ -200,9 +435,20 @@ function rankMetrics(run) {
 }
 
 function citationSummary(rows, engine) {
-  const urls = rows.flatMap((row) => row.citations);
+  const citations = rows.flatMap((row) => row.citations);
+  const urls = [...new Set(citations.flatMap((value) => {
+    try {
+      const url = new URL(value);
+      if (!['http:', 'https:'].includes(url.protocol)) return [];
+      url.hash = '';
+      return [url.href];
+    } catch {
+      return [];
+    }
+  }))].slice(0, 50);
   return {
-    total: urls.length,
+    total: citations.length,
+    urls,
     hosts: [...new Set(urls.map(engine.hostOf).filter(Boolean))].sort(),
   };
 }
@@ -280,10 +526,14 @@ export async function runAiVisibilityCanary({
   engine,
   promptSetId,
   providerKind = 'fixture',
+  provenance,
   now = () => new Date().toISOString(),
   runId = randomUUID(),
 }) {
   assertProvidersAllowed(project, providers, providerKind);
+  if (providerKind === 'provider-observation' && !provenance) {
+    throw new Error('Provider observation provenance is required');
+  }
   const observedAt = now();
   const { promptSetId: selectedPromptSet, prompts } = expandVisibilityPrompts(project, promptSetId);
   const costReceipts = [];
@@ -310,6 +560,17 @@ export async function runAiVisibilityCanary({
   const report = buildReport({ engine, project, rows, observedAt });
   const coverageDenominator = run.coverage.configured || 1;
   const completedAnswers = run.coverage.completed + run.coverage.cached;
+  const observedPromptKeys = new Set(
+    providers.flatMap((provider) =>
+      (provider.observationPromptIds ?? [])
+        .map((promptId) => `${provider.id}\u0000${promptId}`),
+    ),
+  );
+  const retainedCostReceipts = providerKind === 'provider-observation'
+    ? costReceipts.filter((receipt) =>
+      observedPromptKeys.has(`${receipt.providerId}\u0000${receipt.promptId}`),
+    )
+    : costReceipts;
   const metrics = {
     visibilityScore: report.score.score,
     mentionRate: round(report.shareOfVoice.brandMentionRate),
@@ -324,7 +585,12 @@ export async function runAiVisibilityCanary({
   const citations = citationSummary(rows, engine);
   const previousEvent = store
     .listEvents()
-    .filter((event) => event.type === 'visibility.run-recorded' && event.projectId === project.slug)
+    .filter(
+      (event) =>
+        event.type === 'visibility.run-recorded'
+        && event.projectId === project.slug
+        && event.payload.evidenceMode === providerKind,
+    )
     .at(-1);
   const comparison = comparisonFor(metrics, citations, previousEvent);
   const freshUntil = new Date(
@@ -356,9 +622,11 @@ export async function runAiVisibilityCanary({
     cost: {
       estimatedUsd: round(run.cost.estimatedUsd),
       observedUsd: round(run.cost.observedUsd),
-      providerCalls: run.cost.providerCalls,
+      providerCalls: providerKind === 'provider-observation'
+        ? retainedCostReceipts.length
+        : run.cost.providerCalls,
       cacheHits: run.cost.cacheHits,
-      receipts: costReceipts.map((receipt) => ({
+      receipts: retainedCostReceipts.map((receipt) => ({
         promptId: receipt.promptId,
         providerId: receipt.providerId,
         model: receipt.model,
@@ -383,6 +651,7 @@ export async function runAiVisibilityCanary({
       observedCostUsd: round(attempt.observedCostUsd),
       retryable: attempt.retryable,
     })),
+    ...(provenance ? { provenance: structuredClone(provenance) } : {}),
     ...(comparison ? { comparison } : {}),
   };
   const recorded = store.append({

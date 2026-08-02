@@ -76,6 +76,8 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
       const pointer = event.evidence[0] ?? null;
       projectRuns.push({
         runId: event.payload.runId,
+        promptSetId: event.payload.promptSetId ?? null,
+        evidenceMode: event.payload.evidenceMode ?? null,
         projectId: event.projectId,
         observedAt: event.occurredAt,
         freshUntil: pointer?.freshUntil ?? null,

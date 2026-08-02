@@ -89,16 +89,35 @@ export function inventoryRegistryProduct(productId, options = {}) {
   const product = registry.products.find((entry) => entry.id === productId);
   if (!product) throw new Error(`unknown registry product: ${productId}`);
 
-  const repoName = product.publicDir.split('/')[0];
+  const publicDir =
+    typeof product.publicDir === 'string' && product.publicDir.length > 0
+      ? product.publicDir
+      : null;
+  const projectsPath = join(fleetRoot, 'foundry/ops/config/projects.json');
+  const project = existsSync(projectsPath)
+    ? JSON.parse(readFileSync(projectsPath, 'utf8')).projects?.find(
+        (entry) => entry.id === productId,
+      )
+    : null;
+  const repositoryPath = publicDir ?? project?.sourcePath ?? project?.repo ?? null;
+  if (!repositoryPath) {
+    throw new Error(
+      `${productId}: content inventory requires publicDir, sourcePath, or repo metadata`,
+    );
+  }
+  const repoName = repositoryPath.split('/')[0];
   const repoRoot = repoName === 'foundry' ? resolve(fleetRoot, 'foundry') : resolve(fleetRoot, repoName);
   const candidates = [
-    resolve(fleetRoot, product.publicDir),
+    publicDir ? resolve(fleetRoot, publicDir) : null,
     resolve(repoRoot, 'src/pages'),
     resolve(repoRoot, 'src/app'),
     resolve(repoRoot, 'src/content'),
     resolve(repoRoot, 'content'),
     resolve(repoRoot, 'docs'),
-  ].filter((path, index, values) => existsSync(path) && values.indexOf(path) === index);
+  ].filter(
+    (path, index, values) =>
+      path != null && existsSync(path) && values.indexOf(path) === index,
+  );
 
   const files = candidates.flatMap((root) => walkContentFiles(root, options.maxFiles ?? 5_000));
   const uniqueFiles = [...new Set(files)].sort();
@@ -127,7 +146,7 @@ export function inventoryRegistryProduct(productId, options = {}) {
       url: product.url,
       summary: product.summary,
       repoRoot,
-      publicDir: product.publicDir,
+      publicDir,
     },
     pages,
     expectedArchetypes: options.expectedArchetypes ?? [],
@@ -143,6 +162,15 @@ export function inventoryRegistryProduct(productId, options = {}) {
         source: 'search-competitors',
         reason: 'Requires live research during the skill workflow.',
       },
+      ...(publicDir
+        ? []
+        : [
+            {
+              source: 'public-directory',
+              reason:
+                'No static publicDir is declared; repository routes and live sitemap evidence remain inventory sources.',
+            },
+          ]),
     ],
   };
 }

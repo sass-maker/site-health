@@ -1,0 +1,24 @@
+{
+  "schema": "fleet.domain-rating-benchmark.v1",
+  "metric": "Ahrefs Domain Rating",
+  "cohort": {
+    "provider": "Ahrefs",
+    "description": "Anonymized Google Search Console cohort grouped by Ahrefs Domain Rating",
+    "sourceUrl": "https://ahrefs.com/blog/average-organic-traffic-benchmarks/",
+    "publishedAt": "2026-06-23",
+    "observedAt": "2026-07-31",
+    "total": 344956,
+    "bins": [
+      { "minInclusive": 0, "maxExclusive": 10, "count": 165663 },
+      { "minInclusive": 10, "maxExclusive": 20, "count": 50510 },
+      { "minInclusive": 20, "maxExclusive": 30, "count": 44178 },
+      { "minInclusive": 30, "maxExclusive": 40, "count": 34027 },
+      { "minInclusive": 40, "maxExclusive": 50, "count": 19291 },
+      { "minInclusive": 50, "maxExclusive": 60, "count": 14165 },
+      { "minInclusive": 60, "maxExclusive": 70, "count": 7777 },
+      { "minInclusive": 70, "maxExclusive": 80, "count": 7414 },
+      { "minInclusive": 80, "maxExclusive": 90, "count": 1534 },
+      { "minInclusive": 90, "maxExclusive": 100, "count": 397 }
+    ]
+  }
+}

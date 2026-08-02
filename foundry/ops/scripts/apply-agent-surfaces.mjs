@@ -20,6 +20,7 @@ import {
 } from 'node:fs';
 import { dirname, join, relative as pathRelative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildTrackedSearchIntentMap } from '../lib/tracked-search-intents.mjs';
 import { loadRegistry, productOrigin } from './lib/registry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -72,6 +73,14 @@ const jsonldEmitMode = args.includes('--jsonld-emit');
 const onlyId = args.includes('--id') ? args[args.indexOf('--id') + 1] : null;
 
 const registry = loadRegistry(REGISTRY);
+const trackedSearchIntents = buildTrackedSearchIntentMap({
+  products: registry.products,
+  observatory: JSON.parse(readFileSync(GEO_OBSERVATORY, 'utf8')),
+});
+const registeredProducts = registry.products.map((product) => ({
+  ...product,
+  searchIntents: trackedSearchIntents.get(product.id),
+}));
 
 // --- JSON-LD emit mode: write standalone snippet files to foundry/ops/out/jsonld/ ---
 if (jsonldEmitMode) {
@@ -83,7 +92,7 @@ if (jsonldEmitMode) {
   let ok = 0;
   let fail = 0;
 
-  for (const product of registry.products) {
+  for (const product of registeredProducts) {
     if (onlyId && product.id !== onlyId) continue;
 
     // Only emit for products with a headFile.
@@ -124,7 +133,7 @@ if (jsonldMode) {
   let fail = 0;
   let skipped = 0;
 
-  for (const product of registry.products) {
+  for (const product of registeredProducts) {
     if (onlyId && product.id !== onlyId) continue;
 
     const json = buildJsonLd(product, registry);
@@ -220,7 +229,7 @@ let written = 0;
 let patched = 0;
 let skipped = 0;
 
-for (const product of registry.products) {
+for (const product of registeredProducts) {
   if (onlyId && product.id !== onlyId) continue;
   const result = applyProduct(product);
   written += result.written;
@@ -488,6 +497,7 @@ function buildSurface(product) {
     sitemap: `${origin}/sitemap.xml`,
     robots: `${origin}/robots.txt`,
     markdown: { suffix: '.md', negotiation: true },
+    searchIntents: product.searchIntents,
     surfaces: [
       {
         id: 'home',
@@ -524,6 +534,12 @@ function buildSurface(product) {
     '## Product links',
     '',
     ...productLinks.map((l) => `- ${l.title}: ${l.url}${l.description ? ` — ${l.description}` : ''}`),
+    '',
+    '## Tracked search intents',
+    '',
+    ...product.searchIntents.map(
+      (intent) => `- [${intent.kind}] ${intent.id}: ${intent.query}`,
+    ),
     '',
     '## Machine surfaces',
     '',

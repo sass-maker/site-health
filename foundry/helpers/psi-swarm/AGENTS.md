@@ -33,12 +33,12 @@ pinned via `packageManager`.
 
 ## Critical constraints
 
-- **No root test/lint scripts.** CLI and web have their own; today neither
-  has a test suite (see [docs/development/testing.md](./docs/development/testing.md)).
-- **No automated CI on push.** Only `.github/workflows/deploy.yml`
-  (manual dispatch) and `.github/workflows/docs.yml` (docs paths) exist.
-  `scripts/manual-deploy.mjs` has a dead `ci.yml` default that is never
-  used — `pnpm deploy` passes `deploy.yml` as the green-gate. See
+- **No root test/lint scripts.** The CLI owns a narrow external-adapter
+  regression suite; the web package has no test suite. See
+  [docs/development/testing.md](./docs/development/testing.md).
+- **Path-scoped CI exists.** `.github/workflows/psi-swarm-ci.yml` runs the CLI
+  regression suite, CLI/web builds, and docs checks for helper changes.
+  `.github/workflows/deploy.yml` remains manual. See
   [docs/operations/deploy.md](./docs/operations/deploy.md).
 - **Deploy is manual.** `main` should stay releasable/green but is not an
   automatic production trigger. Use `pnpm deploy` (guarded) — see

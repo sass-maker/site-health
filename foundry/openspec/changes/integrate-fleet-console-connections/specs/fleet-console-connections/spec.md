@@ -259,11 +259,13 @@ comparable points without combining incompatible units.
 ### Requirement: Metrics is the primary evidence workspace
 
 Metrics SHALL answer whether Fleet projects are becoming more visible. It SHALL
-show one canonical project row with separate SEO, GEO, Performance, and Design
-cells for every eligible project. Cells SHALL expose concrete latest values,
-trend state, and measurement state without calculating or presenting blended
-aggregate scores. The project identity SHALL open its project page and each
-cell SHALL deep-link to the matching project section. The project page SHALL
+show one canonical project row with D-Rank, AI Agent Readiness, PSI, and LCP for
+every eligible project. It SHALL omit portfolio columns whose provider-backed
+outcomes do not exist and SHALL keep Design review in project detail as a
+quality gate rather than a comparative metric. Cells SHALL expose concrete
+latest values, trend state, and measurement state without calculating or
+presenting blended aggregate scores. The project identity SHALL open its project
+page and each cell SHALL deep-link to the matching project section. The project page SHALL
 contain D-Rank, Search Visibility, and Content Coverage under SEO; AI
 Crawlability, AI Agent Readiness, and AI Visibility under GEO; PSI Swarm under
 Performance; and Design Critique under Design.
@@ -300,8 +302,8 @@ set rather than only projects that already produced evidence:
 #### Scenario: Operator opens Metrics
 
 - **WHEN** the Metrics page first renders
-- **THEN** the operator sees every eligible project with separate SEO, GEO,
-  Performance, and Design summaries
+- **THEN** the operator sees every eligible project with D-Rank, Agent
+  Readiness, PSI, and LCP summaries
 - **AND** concrete values such as domain rating and LCP remain visible when
   recorded
 - **AND** selecting a project or summary opens the canonical project page at
@@ -309,7 +311,7 @@ set rather than only projects that already produced evidence:
 
 #### Scenario: Operator opens a project metric section
 
-- **WHEN** the operator follows an SEO, GEO, Performance, or Design summary
+- **WHEN** the operator follows a D-Rank, Agent Readiness, or Performance summary
 - **THEN** the project page shows the native-unit histories, evidence, missing
   states, and available run controls for that section
 - **AND** the other project metric sections remain available on the same page
@@ -410,14 +412,87 @@ agent-mediated observation workflow instead of exposing a local run action.
 #### Scenario: Operator reviews Search Visibility
 
 - **WHEN** Search Visibility requires a new observation
-- **THEN** the Console labels the agent-run boundary and does not imply that a
-  deterministic local measurement was started
+- **THEN** the owner may invoke the read-only Search Console collector
+- **AND** the collector maps accessible properties to canonical project domains,
+  requests aggregate clicks, impressions, CTR, and average position, and records
+  only normalized outcomes in the private ledger
+- **AND** a missing or unauthorized property is reported as unavailable rather
+  than recorded as zero
 
 #### Scenario: Metric action is already running
 
 - **WHEN** the same metric family and project are already in flight
 - **THEN** Founder Control returns the existing run receipt instead of starting
   another process
+
+### Requirement: Search Console collection is private and read-only
+
+Fleet Ops SHALL collect Search Console outcomes through owner-authorized local
+Application Default Credentials without retaining access tokens, query rows, or
+credentials. Domain-property requests SHALL be constrained to each project's
+canonical HTTPS hostname so projects sharing one root property remain separate.
+The default reporting window SHALL end on a completed, non-preliminary day.
+
+#### Scenario: Several projects share one Domain property
+
+- **WHEN** multiple canonical project hosts are covered by one accessible
+  Search Console Domain property
+- **THEN** the collector queries each host separately with a page filter
+- **AND** stores one project-scoped aggregate observation per host
+
+#### Scenario: Search Console returns no rows
+
+- **WHEN** an authorized property returns no rows for the requested host and
+  completed reporting period
+- **THEN** the collector records zero impressions, clicks, and CTR for that
+  measured scope
+- **AND** does not invent an average position value
+
+### Requirement: Metrics distinguishes outcomes, readiness, and fixtures
+
+The normalized projection and Console MUST distinguish earned search or AI
+visibility outcomes from technical readiness audits, domain-level authority
+measurements, and fixture canaries. Every displayed measurement MUST retain its
+source and provider observation time. The API generation time MUST NOT be used
+as the measurement freshness boundary.
+
+#### Scenario: Only an AI fixture canary exists
+
+- **WHEN** a project has an AI Visibility observation whose evidence mode is
+  `fixture`
+- **THEN** the matrix omits AI Visibility rather than repeating an unmeasured outcome
+- **AND** the fixture remains available only as operational runner evidence
+- **AND** its zero or non-zero value is excluded from outcome sorting and
+  visibility claims
+
+#### Scenario: Search Console evidence is absent
+
+- **WHEN** a project has tracked web-search queries but no Google Search Console
+  observation
+- **THEN** the matrix omits the direct search outcome rather than repeating a
+  missing provider state for every project
+- **AND** query-level web-search observations remain available in the detailed
+  SEO evidence without being presented as an overall project grade
+
+#### Scenario: Technical GEO readiness is recorded
+
+- **WHEN** an Agent Readiness or Crawlability audit records a score
+- **THEN** the GEO summary labels that value technical readiness rather than
+  earned AI visibility
+- **AND** it retains the audit source and observation time
+
+#### Scenario: D-Rank is measured for a domain
+
+- **WHEN** Drank records a domain rating used by one or more project rows
+- **THEN** every row identifies the measured domain, source, observation time,
+  and whether the value is inherited from a shared root-domain scope
+
+#### Scenario: A visible measure has no defensible source
+
+- **WHEN** the projection cannot provide both provider evidence and an
+  observation time for an outcome
+- **THEN** the Console shows an explicit not-measured state instead of a zero,
+  letter grade, generated timestamp, or inferred score
 
 ### Requirement: Operational skill logs remain centrally owned
 
@@ -506,3 +581,152 @@ connection topology, or explanatory filler.
 - **WHEN** the operator explicitly opens System Map
 - **THEN** connection topology remains available as secondary diagnostics and
   never occupies a primary owner page
+
+### Requirement: Credential-free external outcome ingestion
+
+Founder Control SHALL accept a versioned private bundle of normalized Google
+Search Console, Cloudflare AI Crawl Control, and Cloudflare Web Analytics
+observations without loading credentials or calling provider APIs. It SHALL
+validate the complete bundle before writing, require canonical project identity
+and explicit provider periods, reject unknown metrics and private/raw fields,
+and record stable observation ids idempotently.
+
+#### Scenario: Operator imports provider aggregates
+
+- **WHEN** an operator supplies a valid bundle containing Search Console and
+  Cloudflare aggregate observations
+- **THEN** Fleet records only the normalized aggregate metrics in its private
+  local visibility-outcome ledger
+- **AND** project SEO and GEO detail expose their native values, source,
+  period, observation time, and history
+- **AND** the portfolio matrix remains unchanged
+
+#### Scenario: Bundle validation fails
+
+- **WHEN** any observation names an unknown project, unsupported
+  provider/family pair, unknown metric, invalid period, secret/raw field, or
+  conflicting observation id
+- **THEN** ingestion fails before recording any observation
+
+#### Scenario: Cloudflare activity exists without model-answer evidence
+
+- **WHEN** AI crawler or AI referral activity is recorded but no live model
+  answer observation exists
+- **THEN** the project page shows the Cloudflare activity separately
+- **AND** AI Visibility remains unmeasured rather than treating crawler access
+  or referral visits as a mention, recommendation, rank, or citation
+
+### Requirement: Four outcome-focused portfolio views
+
+Fleet Console SHALL group Domains, AI Awareness, and Performance under a visible
+Metrics heading. Projects, Marketing, and Feedback SHALL remain standalone tabs
+below that group. It SHALL derive membership from the canonical catalog,
+preserve native provider semantics, and keep skill and technical diagnostic
+surfaces secondary.
+
+#### Scenario: Operator reviews domain strength
+
+- **WHEN** one or more maintained products share a registrable domain root
+- **THEN** Domains shows that root once with its D-Rank, observation time,
+  history state, and affected products
+- **AND** missing D-Rank evidence remains explicit
+
+#### Scenario: Operator inspects D-Rank history
+
+- **WHEN** a domain has at least two dated D-Rank observations
+- **THEN** Domains shows a continuous line without permanent point markers
+- **AND** pointer hover or keyboard focus reveals the nearest observation date
+  and value
+- **AND** a one-point or missing series remains baseline-only or not measured
+
+#### Scenario: Operator refreshes domain strength
+
+- **WHEN** the operator selects Re-run from the Domains page
+- **THEN** Founder Control launches one allowlisted portfolio D-Rank process
+- **AND** the process updates all configured domains without concurrent writers
+- **AND** the page exposes running and completion state before showing the refreshed evidence
+
+#### Scenario: Operator opens a Metrics view
+
+- **WHEN** Domains, AI Awareness, or Performance loads
+- **THEN** it requests only its bounded outcome projection rather than the full
+  connection topology
+- **AND** the page does not show a project-scope dropdown
+- **AND** Projects, Marketing, and Feedback retain project scoping
+
+#### Scenario: Coverage includes a live non-active domain
+
+- **WHEN** a past project or non-product identity explicitly opts its live domain
+  into domain-strength coverage
+- **THEN** Domains shows that registrable root without reactivating the catalog entry
+- **AND** the project association reads `0 active projects`
+
+#### Scenario: Operator reviews core AI awareness
+
+- **WHEN** the catalog contains maintained P1 products
+- **THEN** AI Awareness shows only those products and their provider-backed
+  mention, recommendation, citation, rank, and coverage outcomes
+- **AND** fixtures, crawler activity, and technical readiness cannot mark a
+  product as known by AI
+
+#### Scenario: Operator reviews marketing coverage
+
+- **WHEN** the catalog contains a maintained product
+- **THEN** Marketing shows its positioning availability, latest publishing
+  receipt, outstanding evidence-backed recommendations, and whether it has
+  never produced a marketing outcome
+
+#### Scenario: Operator reviews whether products are fast enough
+
+- **WHEN** a maintained public product has PSI and LCP evidence
+- **THEN** Performance labels it `fast enough` only when it meets explicit
+  score and LCP thresholds
+- **AND** products below either threshold are `needs work`
+- **AND** absent evidence is `not measured`, never a passing state
+
+#### Scenario: Operator refreshes all public-product performance
+
+- **WHEN** the operator selects Re-run all from Performance
+- **THEN** Founder Control launches one portfolio PSI receipt covering every
+  canonical public metric project
+- **AND** the targets come from the same eligibility rules used by the page
+- **AND** PSI runs sequentially so its shared history store has one writer
+- **AND** the page exposes running and completion state before showing refreshed evidence
+
+#### Scenario: Operator refreshes one public product
+
+- **WHEN** the operator selects Re-run on one Performance row
+- **THEN** Founder Control launches the existing project-scoped PSI action for
+  only that canonical project URL
+- **AND** the row exposes running, failure, and completion state before the
+  Performance projection refreshes
+
+### Requirement: Portfolio Google Search outcomes
+
+Fleet Console SHALL expose one portfolio-wide Google Search view for every
+canonical public metric project. It SHALL use only normalized Google Search
+Console observations, preserve native metric units, distinguish an observed
+zero from missing evidence, and avoid presenting low-volume values as a grade.
+
+#### Scenario: Operator compares Google Search results
+
+- **WHEN** recorded Search Console outcomes exist
+- **THEN** Google Search shows one row per eligible project with impressions,
+  clicks, CTR, average position, and last observed time
+- **AND** every headline column is sortable
+- **AND** the default order places the highest-impression projects first
+
+#### Scenario: Operator expands one project
+
+- **WHEN** the operator opens a Google Search project disclosure
+- **THEN** the row reveals its exact provider, property or page-filter scope,
+  completed reporting period, retained observation count, and bounded top
+  search terms with impressions, clicks, CTR, and average position
+- **AND** the disclosure is keyboard accessible and does not require loading
+  the full connection topology
+
+#### Scenario: Search evidence is zero or absent
+
+- **WHEN** Search Console recorded zero impressions for a completed period
+- **THEN** the row displays zero rather than `not measured`
+- **AND** when no provider observation exists it displays `not measured`

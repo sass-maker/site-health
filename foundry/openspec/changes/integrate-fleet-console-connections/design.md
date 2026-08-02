@@ -128,10 +128,11 @@ The pages answer separate operator questions:
 - Projects is the default directory and links each canonical record to its
   available website, changelog, and source.
 - Metrics answers whether each Fleet project is becoming more visible through
-  one dense 27-project matrix. Each row shows the canonical project and domain;
-  SEO, GEO, Performance, and Design cells expose concrete latest values such as
-  domain rating, tracked-query state, AI visibility, LCP, PSI score, and design
-  score. The cells do not blend unlike units. The project name opens its
+  one dense 27-project matrix. Each row shows the canonical project and domain,
+  with D-Rank, AI Agent Readiness, PSI, and LCP as current comparable signals.
+  Search and AI Visibility remain in project detail until provider-backed
+  outcomes exist. Design review also remains in project detail because it is a
+  minimum quality gate, not a useful portfolio ranking. The project name opens its
   canonical project page and each metric cell deep-links to the matching
   project section. The project page owns the full graphs, evidence, missing
   states, and run controls: SEO contains D-Rank, Search Visibility, and Content
@@ -207,9 +208,152 @@ On phone widths the sidebar becomes a full-height drawer and all ledgers stack.
 
 ### Keep implementation injectable and testable
 
+### Keep outcome, readiness, and fixture semantics separate
+
+The Metrics projection gives every headline measurement an explicit semantic
+kind: `outcome`, `readiness`, `domain`, or `fixture`. A fixture canary proves
+that the AI Visibility runner and normalization path work; it does not measure
+whether a project appears in real model answers. The matrix therefore excludes
+fixture values from AI Visibility outcomes and sorting, and reports the outcome
+as `not measured` until a provider-backed observation exists.
+
+GEO Observatory search classes remain query-level web-search observations, not
+Google Search Console performance. They stay available in the project evidence
+view, while the matrix omits the direct Search Console outcome until that
+provider is connected. Technical GEO audits remain useful
+as AI Agent Readiness and AI Crawlability and are labeled as readiness rather
+than visibility.
+
+D-Rank is a domain-level observation. The projection carries the measured
+domain, source, observation time, and whether the project inherits a shared
+root-domain value. The Console displays that scope so duplicated values across
+subdomains are not mistaken for independent measurements. Generated-at time is
+never used as measurement freshness; each visible value uses the provider's
+own observation time.
+
+### Ingest external visibility outcomes through one private contract
+
+Search Console and Cloudflare remain provider authorities. Fleet adds one
+credential-free bundle validator and machine-local append-only store rather
+than embedding OAuth, API tokens, or provider clients in the Console. A bundle
+is validated in full before any record is written and accepts only canonical
+visibility projects, known provider/family pairs, bounded aggregate metrics,
+explicit periods, and stable observation ids. Duplicate ids are idempotent;
+conflicting reuse fails closed.
+
+```mermaid
+flowchart LR
+  GSC[Search Console export] --> Bundle[Visibility outcome bundle]
+  Crawl[Cloudflare AI Crawl Control export] --> Bundle
+  Referral[Cloudflare Web Analytics export] --> Bundle
+  Bundle --> Validator[Credential-free validator]
+  Validator --> Ledger[Private local outcome ledger]
+  Ledger --> Projection[Founder connection projection]
+  Projection --> Detail[Project SEO and GEO detail]
+```
+
+The implementation stores aggregate Search impressions, clicks, CTR, and
+average position; Cloudflare AI crawler requests and crawled URLs; and AI
+referral visits and page views. A read-only Search Console collector uses the
+operator's local Application Default Credentials, discovers accessible
+properties, maps each canonical project domain to the closest verified Domain
+or URL-prefix property, and filters Domain-property queries to the project's
+canonical HTTPS host. It retains aggregate project outcomes plus at most 25
+normalized top-query aggregates per project and never stores provider tokens
+or raw responses. It does not
+treat crawler activity as a model mention, referral traffic as a citation, or
+an inaccessible property as zero. The existing `@saas-maker/ai-visibility`
+helper remains the only engine for model answer mention, recommendation, rank,
+citation, competitor, and cost analysis. Cloudflare collectors, billing, and
+recurring schedules remain explicit follow-up tasks.
+
 The projection builder accepts a Fleet root, home path, current time, and
 optional already-built Marketing data. Tests use temporary fixtures and injected
 readers instead of the operator's real machine state.
+
+### Organize the owner surface around four outcomes
+
+The primary navigation stops mirroring the available evidence families. It
+answers four stable owner questions instead:
+
+```mermaid
+flowchart LR
+  Catalog[Canonical project catalog] --> Domains[Domains]
+  Catalog --> Core[Core P1 products]
+  Catalog --> Products[Maintained products]
+  Drank[D-Rank history] --> Domains
+  AI[Provider-backed AI observations] --> Core
+  Marketing[Publishing receipts and recommendations] --> Products
+  PSI[PSI and LCP evidence] --> Products
+```
+
+`projects.json` remains the authority for membership. A core AI product is a
+maintained `P1` product; non-product P1 identities are excluded. Domain rows
+deduplicate projects that inherit the same registrable-root D-Rank evidence.
+Marketing coverage never equates a recommendation with completed promotion: a
+product without a publishing receipt remains `never marketed` even if suggested
+work exists. Performance is a guardrail using explicit PSI and LCP thresholds,
+not a portfolio ranking or aggregate grade. Missing evidence remains a first-
+class state in every view.
+
+The existing project page keeps Search Console, crawlability, agent readiness,
+design review, and detailed histories. The sidebar groups Domains, AI Awareness,
+and Performance as Metrics, with Projects, Marketing, and Feedback as standalone
+tabs below them. Skill evidence and System Map remain secondary supporting surfaces.
+
+### Keep portfolio metrics fast and directly inspectable
+
+The local service prewarms the complete private connections projection once and
+serves bounded `domains`, `ai-awareness`, and `performance` slices from it. The
+full `/v1/connections` route remains available for System Map and project-detail
+compatibility, but the three primary Metrics pages do not download it. A stale
+cache is invalidated only by an explicit projection rebuild or a completed
+metric run. Ordinary navigation therefore never schedules filesystem
+aggregation on the page's critical path, while owner-triggered evidence changes
+still rebuild before the refreshed report is shown.
+
+Domains renders comparable D-Rank series as compact SVG polylines. The line has
+no permanent point markers. Pointer position selects the nearest observation;
+keyboard focus starts at the latest observation and Left/Right moves through
+the series. Both paths expose the same date and rating. One-point and missing
+series stay textual rather than implying a trend. Because all three views answer
+portfolio-wide questions, they omit the project-scope dropdown.
+
+The Domains header exposes one portfolio Re-run action. It starts the existing
+Drank updater once with targets derived from the same canonical project
+eligibility and registrable-domain constants used by the page projection. The
+updater remains the sole writer while it refreshes exactly the root domains
+represented by the page rather than every project subdomain. The client polls
+the same bounded metric-run receipt used by project actions and reloads the
+Domains projection only after the batch completes.
+
+Performance follows the same portfolio-action contract but retains project
+scope: its Re-run all action derives the canonical public metric projects from
+the shared domain-scope resolver and hands their URLs to one allowlisted
+orchestrator. That child runs the existing PSI Swarm command sequentially for
+each project, preserving a single writer for the shared performance history.
+One portfolio receipt carries progress and completion state; the client reloads
+the bounded Performance projection after success. Each Performance row also
+uses the existing project-scoped PSI receipt for a single-product Re-run, with
+the same polling and refresh behavior but without entering the portfolio queue.
+
+### Present Google Search as a portfolio outcome ledger
+
+Google Search becomes a fourth portfolio-wide Metrics route backed by a
+bounded `search` outcome projection. Membership comes from the same canonical
+public-metric eligibility used by Performance, while values come only from the
+normalized Google Search Console outcome ledger. The projection carries each
+project's latest impressions, clicks, CTR, average position, provider scope,
+reporting period, observation count, and bounded retained series. A zero is a
+provider observation; absent evidence remains `not measured`.
+
+The default order is impressions descending. Every headline measure and the
+observation date remains sortable. Each row has a native disclosure control
+that reveals the exact property or page-filter scope, completed reporting
+window, source, retained observation count, and the bounded top search terms
+with impressions, clicks, CTR, and average position without navigating away or
+downloading the full connections projection. Landing pages, countries,
+devices, indexing status, and sitemap status remain out of scope.
 
 ## Risks / Trade-offs
 

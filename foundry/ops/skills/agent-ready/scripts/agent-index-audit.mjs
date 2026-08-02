@@ -39,10 +39,12 @@ const INDEXNOW_CONFIG_PATH = join(FLEET_ROOT, 'foundry/ops/config/indexnow.json'
 const UA = 'fleet-agent-index-audit/2.0 (+https://sassmaker.com)';
 const TIMEOUT_MS = 15_000;
 const MAX_SITEMAPS = 50;
-const MAX_PUBLIC_ROUTES = 5_000;
+const MAX_PUBLIC_ROUTES = 50_000;
+const MAX_SITEMAP_BYTES = 50 * 1024 * 1024;
 const MAX_ROUTE_PROBES = 250;
 const MAX_CATALOG_SURFACES = 1_000;
 const PROBE_CONCURRENCY = 8;
+const TRANSIENT_RETRY_DELAYS_MS = [250, 750];
 
 // Answer-engine crawlers that must not be disallowed for GEO to work at all.
 const CRITICAL_AI_BOTS = ['GPTBot', 'ClaudeBot', 'OAI-SearchBot', 'PerplexityBot'];
@@ -592,20 +594,23 @@ async function inspectSitemap(origin, robotsProbe) {
       visited: new Set(),
       routes: new Set(),
       failures: [],
-      truncated: false,
+      truncationReasons: new Set(),
     };
     await collectSitemap(url, state);
     if (state.routes.size > 0) {
-      const suffix = state.truncated ? `, capped at ${MAX_PUBLIC_ROUTES}` : '';
+      const routeCapped = state.truncationReasons.has('route-cap');
+      const sitemapCapped = state.truncationReasons.has('sitemap-cap');
+      const suffix = routeCapped ? `, capped at ${MAX_PUBLIC_ROUTES}` : '';
       return {
         check: {
-          status: state.truncated ? 'fail' : 'pass',
+          status: sitemapCapped ? 'fail' : 'pass',
           detail:
             `${new URL(url).pathname} (${state.visited.size} sitemap files, ` +
             `${state.routes.size} public routes${suffix})`,
         },
         urls: [...state.routes],
-        truncated: state.truncated,
+        truncated: sitemapCapped,
+        routeCapped,
       };
     }
     failures.push(...state.failures);
@@ -624,7 +629,7 @@ async function inspectSitemap(origin, robotsProbe) {
 
 async function collectSitemap(url, state) {
   if (state.visited.size >= MAX_SITEMAPS) {
-    state.truncated = true;
+    state.truncationReasons.add('sitemap-cap');
     return;
   }
   let parsed;
@@ -642,7 +647,7 @@ async function collectSitemap(url, state) {
   if (state.visited.has(normalized)) return;
   state.visited.add(normalized);
 
-  const response = await probe(normalized);
+  const response = await probe(normalized, { retainFullBody: true });
   if (!response.ok) {
     state.failures.push(`${normalized}: HTTP ${response.status || 'err'}`);
     return;
@@ -668,7 +673,7 @@ async function collectSitemap(url, state) {
 
   if (isIndex) {
     for (const location of locations) {
-      if (state.truncated) break;
+      if (state.truncationReasons.has('sitemap-cap')) break;
       await collectSitemap(location, state);
     }
     return;
@@ -676,7 +681,7 @@ async function collectSitemap(url, state) {
 
   for (const location of locations) {
     if (state.routes.size >= MAX_PUBLIC_ROUTES) {
-      state.truncated = true;
+      state.truncationReasons.add('route-cap');
       break;
     }
     try {
@@ -883,6 +888,20 @@ function escapeRegularExpression(value) {
 async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
   const route = new URL(routeUrl);
   const path = route.pathname;
+  const catalogTarget = catalog.get(canonicalUrl(route));
+  if (catalogTarget) {
+    const catalogResponse = await cachedProbe(catalogTarget, {
+      accept: 'text/markdown, text/plain, */*',
+    });
+    if (isReadableMarkdown(catalogResponse)) {
+      return {
+        path,
+        readable: true,
+        method: new URL(catalogTarget).pathname,
+      };
+    }
+  }
+
   const negotiated = await cachedProbe(route.toString(), {
     accept: 'text/markdown, text/plain;q=0.9, text/html;q=0.1',
   });
@@ -891,9 +910,8 @@ async function probeReadableRoute(origin, routeUrl, catalog, cachedProbe) {
   }
 
   const candidates = [
-    catalog.get(canonicalUrl(route)),
     ...markdownCandidates(origin, route),
-  ].filter(Boolean);
+  ].filter((candidate) => candidate && candidate !== catalogTarget);
   for (const candidate of [...new Set(candidates)]) {
     const response = await cachedProbe(candidate, {
       accept: 'text/markdown, text/plain, */*',
@@ -1024,7 +1042,25 @@ function isMarkdownType(ct = '') {
   return c.includes('markdown') || c.includes('text/plain');
 }
 
-async function probe(url, { accept } = {}) {
+async function probe(url, options = {}) {
+  let response = await probeOnce(url, options);
+  for (const delayMs of TRANSIENT_RETRY_DELAYS_MS) {
+    if (!isTransientProbeFailure(response)) break;
+    await wait(delayMs);
+    response = await probeOnce(url, options);
+  }
+  return response;
+}
+
+function isTransientProbeFailure(response) {
+  return response.status === 0 || response.status === 429 || response.status >= 500;
+}
+
+function wait(durationMs) {
+  return new Promise((resolveWait) => setTimeout(resolveWait, durationMs));
+}
+
+async function probeOnce(url, { accept, retainFullBody = false } = {}) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
@@ -1051,9 +1087,13 @@ async function probe(url, { accept } = {}) {
       bytes,
       bodyPreview,
       // Keep full body only for small responses (api/ai, robots, llms)
-      bodyFull: bytes <= 2_000_000 ? bodyFull : bodyPreview,
+      bodyFull:
+        bytes <= 2_000_000 || (retainFullBody && bytes <= MAX_SITEMAP_BYTES)
+          ? bodyFull
+          : bodyPreview,
       isHtml,
       finalUrl: res.url,
+      retryAfter: res.headers.get('retry-after'),
     };
   } catch (err) {
     return {
@@ -1069,6 +1109,18 @@ async function probe(url, { accept } = {}) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+function parseRetryAfterMs(value) {
+  if (!value) return 0;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1_000;
+  const date = Date.parse(value);
+  return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0;
+}
+
+function delay(milliseconds) {
+  return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
 }
 
 function detectHtml(preview, contentType) {

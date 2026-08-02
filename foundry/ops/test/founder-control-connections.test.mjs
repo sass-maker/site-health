@@ -7,16 +7,50 @@ import test from 'node:test';
 
 import {
   CONNECTIONS_SCHEMA_VERSION,
+  SEARCH_ACTION_SAMPLE_FLOORS,
   buildFleetConnections,
   readSkillRunOutput,
+  searchAction,
 } from '../lib/founder-control/connections.mjs';
 import { SkillRunStore } from '../lib/skill-run-store.mjs';
 import {
   appendVisibilityMetric,
   VISIBILITY_METRIC_SCHEMA,
 } from '../lib/visibility-metric-store.mjs';
+import {
+  appendVisibilityOutcomeBundle,
+  VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+} from '../lib/visibility-outcome-store.mjs';
 
 const now = '2026-07-30T10:00:00.000Z';
+
+test('derives conservative Search actions from explicit boundaries', () => {
+  const floor = SEARCH_ACTION_SAMPLE_FLOORS.query;
+  assert.equal(searchAction({ observed: false, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'measure-search');
+  assert.equal(searchAction({ observed: true, impressions: 0, clicks: 0, position: Infinity, sampleFloor: floor }).id, 'inspection-unavailable');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-02T00:00:00.000Z',
+    inspection: { state: 'indexed' },
+  }).id, 'wait-indexed');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    inspection: { state: 'not-indexed', coverageState: 'Crawled - currently not indexed' },
+  }).id, 'fix-indexing');
+  assert.equal(searchAction({ observed: true, impressions: 9, clicks: 0, position: 1, sampleFloor: floor }).id, 'collect-more-data');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 8, sampleFloor: floor }).id, 'improve-snippet');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 1, position: 8, sampleFloor: floor }).id, 'protect-and-expand');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 20, sampleFloor: floor }).id, 'strengthen-ranking-page');
+  assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 31, sampleFloor: floor }).id, 'build-search-relevance');
+});
 
 function writeJson(path, value) {
   mkdirSync(dirname(path), { recursive: true });
@@ -37,7 +71,10 @@ function fixture() {
     mkdirSync(join(root, path), { recursive: true });
   }
   writeJson(join(root, 'foundry/ops/config/projects.json'), {
-    _meta: { updated: '2026-07-30' },
+    _meta: {
+      updated: '2026-07-30',
+      priorities: { P1: ['pace'], P2: [], P3: ['standards'] },
+    },
     projects: [
       {
         id: 'pace',
@@ -46,7 +83,12 @@ function fixture() {
         lifecycle: 'maintained',
         tier: 'primary',
         domains: ['heypace.app'],
-        public: { id: 'pace', listing: 'maintained' },
+        public: {
+          id: 'pace',
+          listing: 'maintained',
+          description: 'A private Mac voice assistant.',
+          repositoryUrl: 'https://github.com/HeyPace/pace',
+        },
       },
       {
         id: 'past',
@@ -54,6 +96,7 @@ function fixture() {
         lifecycle: 'past',
         tier: 'past',
         domains: ['past.example'],
+        metrics: { domainCoverage: true },
         public: { id: 'past-project', listing: 'past' },
       },
       {
@@ -62,6 +105,7 @@ function fixture() {
         lifecycle: 'non-product',
         tier: 'non-product',
         domains: ['personal.example'],
+        metrics: { domainCoverage: true },
         public: { id: 'personal', listing: 'hidden' },
       },
       {
@@ -69,9 +113,9 @@ function fixture() {
         name: 'Standards',
         lifecycle: 'maintained',
         tier: 'secondary',
-        domains: ['standards.example'],
+        domains: ['docs.heypace.app'],
         metrics: { publicSite: true },
-        public: { id: 'standards', listing: 'hidden' },
+        public: { id: 'standards', listing: 'hidden', description: 'The shared product standards.' },
       },
     ],
   });
@@ -316,6 +360,227 @@ test('reads one retained skill output with private paths removed', () => {
   assert.doesNotMatch(result.streams[0].content, /\/Users\/sarthak/);
 });
 
+test('projects provider-authoritative search and Cloudflare activity without conflating AI visibility', () => {
+  const { root, home } = fixture();
+  appendVisibilityOutcomeBundle({
+    schema: VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+    observations: [
+      {
+        id: 'search-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'search',
+        provider: 'google-search-console',
+        providerUrl: 'https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Aheypace.app',
+        scope: 'sc-domain:heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-01T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 120 },
+          { label: 'Search clicks', value: 8 },
+          { label: 'Search CTR', value: 6.67 },
+          { label: 'Search average position', value: 14.2 },
+        ],
+        indexInspection: {
+          inspectedUrl: 'https://heypace.app/',
+          state: 'indexed',
+          verdict: 'PASS',
+          coverageState: 'Submitted and indexed',
+          robotsTxtState: 'ALLOWED',
+          indexingState: 'INDEXING_ALLOWED',
+          pageFetchState: 'SUCCESSFUL',
+        },
+      },
+      {
+        id: 'search-pace-2026-07-31',
+        projectId: 'pace',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:heypace.app',
+        observedAt: '2026-07-31T13:00:00.000Z',
+        period: {
+          start: '2026-07-02T00:00:00.000Z',
+          end: '2026-07-31T12:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 0 },
+          { label: 'Search clicks', value: 0 },
+          { label: 'Search CTR', value: 0 },
+        ],
+        indexInspection: {
+          inspectedUrl: 'https://heypace.app/',
+          state: 'unavailable',
+          verdict: null,
+          coverageState: null,
+          robotsTxtState: null,
+          indexingState: null,
+          pageFetchState: null,
+          failureReason: 'Search Console request timed out',
+        },
+      },
+      {
+        id: 'cloudflare-crawl-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'ai-crawl',
+        provider: 'cloudflare-ai-crawl-control',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/ai',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-24T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'AI crawler requests', value: 18 },
+          { label: 'AI crawled URLs', value: 7 },
+        ],
+        breakdowns: [{
+          id: 'ai-crawlers',
+          label: 'AI crawlers',
+          unit: 'requests',
+          values: [{ label: 'GPTBot', value: 12 }],
+        }],
+      },
+      {
+        id: 'cloudflare-referral-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'ai-referral',
+        provider: 'cloudflare-web-analytics',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/analytics/traffic',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-24T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'AI referral visits', value: 3 },
+          { label: 'AI referral page views', value: 5 },
+        ],
+      },
+      {
+        id: 'cloudflare-traffic-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'web-traffic',
+        provider: 'cloudflare-web-analytics',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/analytics/traffic',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-03T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Web visits', value: 240 },
+          { label: 'Web page views', value: 380 },
+          { label: 'Search referral visits', value: 44 },
+        ],
+        breakdowns: [{
+          id: 'top-pages',
+          label: 'Top pages',
+          unit: 'page views',
+          values: [{ label: '/', value: 200 }],
+        }],
+      },
+      {
+        id: 'cloudflare-vitals-pace-2026-07-30',
+        projectId: 'pace',
+        family: 'web-vitals',
+        provider: 'cloudflare-web-analytics',
+        providerUrl: 'https://dash.cloudflare.com/account/zone/speed/observatory',
+        scope: 'heypace.app',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-03T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Field LCP', value: 4200 },
+          { label: 'Field INP', value: 140 },
+          { label: 'Field CLS', value: 0.04 },
+          { label: 'Field TTFB', value: 420 },
+          { label: 'RUM samples', value: 88 },
+        ],
+      },
+    ],
+  }, {
+    path: join(home, '.fleet/visibility-outcomes/ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  });
+
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now: '2026-07-31T14:00:00.000Z',
+  });
+  const pace = result.outputs.projects.find((project) => project.projectId === 'pace');
+
+  assert.equal(pace.metricSemantics.seo.searchOutcome.status, 'measured');
+  assert.equal(pace.searchVisibility.outcome.provider, 'google-search-console');
+  assert.equal(
+    pace.history.signals.find((signal) => signal.label === 'Search average position').value,
+    14.2,
+  );
+  assert.equal(
+    pace.searchVisibility.outcome.metrics.some((metric) => metric.label === 'Search average position'),
+    false,
+  );
+  assert.equal(pace.aiVisibility.observations, 0);
+  assert.equal(pace.metricSemantics.geo.aiVisibility.status, 'not-measured');
+  assert.equal(pace.metricSemantics.geo.crawlerActivity.status, 'measured');
+  assert.equal(pace.metricSemantics.geo.referralTraffic.status, 'measured');
+  assert.equal(pace.aiVisibility.discovery.crawler.metrics[0].value, 18);
+  assert.equal(pace.aiVisibility.discovery.referral.metrics[0].value, 3);
+  assert.equal(
+    pace.history.signals.find((signal) => signal.label === 'AI referral visits').source,
+    'Cloudflare Web Analytics',
+  );
+  const searchRow = result.outputs.ownerOutcomes.search.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(searchRow.status, 'zero-impressions');
+  assert.equal(searchRow.impressions.value, 0);
+  assert.equal(searchRow.clicks.value, 0);
+  assert.equal(searchRow.ctr.value, 0);
+  assert.equal(searchRow.averagePosition.value, null);
+  assert.equal(searchRow.averagePosition.series.length, 1);
+  assert.equal(searchRow.observations, 2);
+  assert.equal(searchRow.scope, 'sc-domain:heypace.app');
+  assert.match(searchRow.providerUrl, /search\.google\.com/);
+  assert.equal(searchRow.action.id, 'wait-indexed');
+  assert.equal(searchRow.indexInspection.state, 'indexed');
+  assert.deepEqual(searchRow.trackedQueries, [{
+    id: 'pace-brand',
+    kind: 'brand',
+    text: 'heypace.app',
+    class: 'B',
+    observedAt: '2026-07-30T12:00:00.000Z',
+  }]);
+  const marketingRow = result.outputs.ownerOutcomes.marketing.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(marketingRow.visits.value, 240);
+  assert.equal(marketingRow.pageViews.value, 380);
+  assert.equal(marketingRow.traffic.breakdowns[0].values[0].label, '/');
+  assert.match(marketingRow.traffic.providerUrl, /dash\.cloudflare\.com/);
+  const performanceRow = result.outputs.ownerOutcomes.performance.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(performanceRow.fieldLcp.value, 4200);
+  assert.equal(performanceRow.fieldInp.value, 140);
+  assert.equal(performanceRow.status, 'needs-work');
+  assert.match(performanceRow.field.providerUrl, /speed\/observatory/);
+  assert.match(performanceRow.providerUrl, /speed\/observatory/);
+  const awarenessRow = result.outputs.ownerOutcomes.coreAi.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(awarenessRow.crawlerRequests.value, 18);
+  assert.equal(awarenessRow.aiReferralVisits.value, 3);
+  assert.equal(awarenessRow.discovery.crawler.breakdowns[0].values[0].label, 'GPTBot');
+});
+
 test('builds one honest six-bucket projection from readable Fleet evidence', () => {
   const { root, home } = fixture();
   const result = buildFleetConnections({
@@ -323,6 +588,15 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     home,
     now,
     marketing: {
+      recommendations: [{ projectId: 'pace', title: 'Publish the comparison page.' }],
+      outcomes: [{
+        id: 'marketing-pace-1',
+        projectId: 'pace',
+        stage: 'publication',
+        status: 'published',
+        title: 'Pace launch note',
+        observedAt: '2026-07-30T08:00:00.000Z',
+      }],
       aiVisibility: {
         projects: [{
           projectId: 'pace',
@@ -332,7 +606,17 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
             setId: 'buyer-discovery',
             text: 'What is the best private Mac voice assistant?',
           }],
-          latest: null,
+          latest: {
+            observedAt: '2026-07-30T09:10:00.000Z',
+            metrics: { visibilityScore: 100 },
+            evidence: [{ summary: { evidenceMode: 'fixture' } }],
+          },
+          history: [{
+            observedAt: '2026-07-30T09:10:00.000Z',
+            metrics: { visibilityScore: 100 },
+            citations: { total: 4 },
+            evidence: [{ summary: { evidenceMode: 'fixture' } }],
+          }],
         }],
       },
     },
@@ -442,10 +726,68 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     paceOutput.aiVisibility.questions[0].text,
     'What is the best private Mac voice assistant?',
   );
+  assert.equal(paceOutput.aiVisibility.observations, 0);
+  assert.equal(paceOutput.aiVisibility.observedAt, null);
+  assert.equal(paceOutput.aiVisibility.fixture.observations, 1);
+  assert.equal(
+    paceOutput.history.signals.some((signal) => signal.label === 'AI visibility score'),
+    false,
+  );
+  assert.deepEqual(paceOutput.metricSemantics.seo.searchOutcome, {
+    kind: 'outcome',
+    status: 'not-measured',
+    source: 'Google Search Console',
+    observedAt: null,
+    reason: 'Search Console is not connected.',
+  });
+  assert.equal(paceOutput.metricSemantics.seo.trackedSearch.status, 'measured');
+  assert.equal(paceOutput.metricSemantics.geo.aiVisibility.status, 'not-measured');
+  assert.equal(paceOutput.metricSemantics.geo.technicalReadiness.status, 'measured');
+  assert.equal(paceOutput.metricSemantics.geo.fixtureCanary.status, 'recorded');
   assert.equal(paceOutput.visibilityReadiness.agent.status, 'needs-work');
   assert.equal(paceOutput.visibilityReadiness.crawl.status, 'ready');
   assert.equal(paceOutput.metricEligibility.publicSite, true);
   assert.deepEqual(paceOutput.domains, ['heypace.app']);
+  assert.equal(paceOutput.priority, 'P1');
+  assert.equal(result.outputs.ownerOutcomes.domains.length, 3);
+  assert.equal(result.outputs.ownerOutcomes.domains[0].domain, 'heypace.app');
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.domains[0].projects.map((project) => project.projectId),
+    ['pace', 'standards'],
+  );
+  assert.equal(result.outputs.ownerOutcomes.domains[0].signal.value, 8);
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.domains.find((domain) => domain.domain === 'past.example').projects,
+    [],
+  );
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.domains.find((domain) => domain.domain === 'personal.example').projects,
+    [],
+  );
+  assert.equal(result.outputs.ownerOutcomes.coreAi.length, 1);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].projectId, 'pace');
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'not-measured');
+  assert.equal(
+    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'pace').status,
+    'marketed',
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').status,
+    'never-marketed',
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'pace').status,
+    'fast-enough',
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'standards').status,
+    'not-measured',
+  );
+  assert.equal(result.outputs.ownerOutcomes.search.length, 2);
+  assert.equal(
+    result.outputs.ownerOutcomes.search.find((project) => project.projectId === 'pace').status,
+    'not-measured',
+  );
   assert.equal(
     result.outputs.projects.filter((project) => project.domainRating).length,
     3,
@@ -463,6 +805,16 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     result.outputs.projects.find((project) => project.projectId === 'past-project')
       .metricEligibility.publicSite,
     false,
+  );
+  assert.equal(
+    result.outputs.projects.find((project) => project.projectId === 'past-project')
+      .metricEligibility.domainCoverage,
+    true,
+  );
+  assert.equal(
+    result.outputs.projects.find((project) => project.projectId === 'personal')
+      .metricEligibility.domainCoverage,
+    true,
   );
   assert.equal(
     paceOutput.history.signals.find((signal) => signal.label === 'Domain rating').series.length,
@@ -525,6 +877,73 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.doesNotMatch(serialized, /Application Support/);
   assert.doesNotMatch(serialized, /history\.db/);
   assert.doesNotMatch(serialized, /runs\/2026/);
+});
+
+test('limits core AI awareness to provider-backed P1 outcomes', () => {
+  const { root, home } = fixture();
+  const providerRun = {
+    observedAt: '2026-07-30T09:10:00.000Z',
+    evidenceMode: 'provider-observation',
+    metrics: {
+      visibilityScore: 82,
+      mentionRate: 0.75,
+      recommendationRate: 0.5,
+      citationRate: 0.25,
+      averagePosition: 1.7,
+    },
+    coverage: { configured: 4, completed: 3, unavailable: 1, timedOut: 0, failed: 0 },
+    attempts: [{
+      promptId: 'buyer-discovery/category/founder',
+      persona: 'founder',
+      providerId: 'provider-export',
+      model: 'provider-model',
+      status: 'completed',
+    }],
+    citations: {
+      total: 4,
+      urls: [
+        'https://heypace.app/docs',
+        'https://github.com/HeyPace/pace/releases',
+        'https://independent.example/review',
+      ],
+      hosts: ['heypace.app', 'github.com', 'independent.example', 'legacy.example'],
+    },
+  };
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now,
+    marketing: {
+      aiVisibility: {
+        projects: [{
+          projectId: 'pace',
+          name: 'Pace',
+          questions: [{ id: 'buyer-discovery:category', setId: 'buyer-discovery', text: 'Which Mac voice agent is private?' }],
+          latest: providerRun,
+          history: [providerRun],
+        }],
+      },
+    },
+  });
+
+  assert.deepEqual(result.outputs.ownerOutcomes.coreAi.map((project) => project.projectId), ['pace']);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'known');
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].mention.value, 75);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].recommendation.value, 50);
+  assert.deepEqual(result.outputs.ownerOutcomes.coreAi[0].citationSources, {
+    total: 4,
+    owned: 2,
+    external: 1,
+    unclassified: 1,
+    sources: [
+      { url: 'https://heypace.app/docs', host: 'heypace.app', ownership: 'owned' },
+      { url: 'https://github.com/HeyPace/pace/releases', host: 'github.com', ownership: 'owned' },
+      { url: 'https://independent.example/review', host: 'independent.example', ownership: 'external' },
+      { url: null, host: 'legacy.example', ownership: 'unclassified' },
+    ],
+  });
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].questions.length, 1);
+  assert.equal(result.outputs.ownerOutcomes.coreAi[0].attempts.length, 1);
 });
 
 test('isolates absent machine evidence without hiding implemented contracts', () => {

@@ -19,7 +19,6 @@ Subskills live as sibling directories under `foundry/ops/skills/`.
 | "Do the public products work?" / "open every website and click around" / "test guest journeys" / "check each product's unique pages" | `public-product-smoke` | `../public-product-smoke/SKILL.md` |
 | "Is everything deployed to the latest?" / "is production in sync with main?" / "what's not deployed yet?" / "are all sites live?" | `fleet-deploy-parity` | `../fleet-deploy-parity/SKILL.md` |
 | "Am I paying Cloudflare or Turso?" / "will this project cost money?" / "will Turso block queries?" / "is this usage needed?" / "optimize cloud spend" | `cloudflare-spend-guard` | `../cloudflare-spend-guard/SKILL.md` |
-| "What are all my tasks across repos?" / "show me the fleet backlog" / "what's open across the fleet?" / "all open issues everywhere" | `fleet-tasks` | `../fleet-tasks/SKILL.md` |
 
 ## How to use
 
@@ -31,6 +30,11 @@ If the request spans multiple subskills (e.g. "audit the fleet, then scaffold a 
 
 ## What this skill does NOT cover
 
+- Cross-repo open issue lists ("what's open across the fleet?", "the fleet
+  backlog") → GitHub already aggregates this across every org. Use
+  `gh search issues --state open --author @me --limit 100`, or the web view at
+  `https://github.com/issues?q=is:open+author:@me+sort:updated-desc`. Fleet has
+  no homegrown aggregator for this on purpose.
 - Delegating to other agent CLIs → use the `call-teammate` skill
 - Domain name generation → use `name-domains` skill
 - Lighthouse/perf audits → use `psi-swarm` skill

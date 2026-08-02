@@ -28,11 +28,37 @@ model in the Console, with each page answering one clear question.
   entrypoints: retain the percentage and count of public sitemap routes with a
   working Markdown representation, plus the integrity of `/api/ai` catalog
   surfaces. Keep AI Crawlability limited to whether agents can enter.
-- Summarize those reports in one 27-project Metrics matrix with SEO, GEO,
-  Performance, and Design cells, without blending their native scores. Link
-  every row and cell to the matching section of a dedicated project page.
-  Missing measurements, configuration, public domains, or receipts remain
-  explicit rather than removing the project from a family or presenting zero.
+- Summarize current portfolio-level signals in one 27-project Metrics matrix:
+  D-Rank, AI Agent Readiness, PSI, and LCP, without blending native scores.
+  Keep Search and AI Visibility outcomes out of the matrix until real providers
+  produce evidence, and keep Design review inside each project because it is a
+  project quality gate rather than a comparative portfolio metric.
+- Distinguish earned outcomes, technical readiness, and fixture canaries in the
+  projection and UI. Fixture AI results are operational evidence, never AI
+  visibility scores; Search Console and provider outcomes remain `not measured`
+  until real evidence exists. Every displayed measure names its evidence source
+  and observation time, and shared domain-level D-Rank values disclose their
+  domain scope.
+- Add one private visibility-outcome ingestion contract for Google Search
+  Console aggregates, Cloudflare AI crawler activity, and Cloudflare AI
+  referral traffic. Collect Search Console through owner-authorized read-only
+  Application Default Credentials, validate the complete bundle before
+  recording, and project only normalized aggregate metrics into project detail.
+  Keep Cloudflare acquisition outside this change.
+- Refocus primary portfolio navigation on the four owner outcomes that now
+  matter: domain strength for every owned domain, provider-backed AI awareness
+  for maintained P1 products, marketing coverage for every maintained product,
+  and threshold-based performance for every maintained public product. Keep
+  Projects, Feedback, skills, System Map, and detailed audits available as
+  secondary directory or diagnostic surfaces.
+- Keep the three Metrics views portfolio-wide, serve each from a bounded
+  prewarmed outcome projection, and show comparable D-Rank history as a
+  no-dot line that exposes dated values on pointer hover and keyboard focus.
+- Add Google Search as a fourth portfolio-wide Metrics view. Show every
+  canonical public project with its latest Search Console impressions, clicks,
+  CTR, average position, and observation time; keep all columns sortable and
+  expose provider scope, reporting period, bounded top search terms, and
+  retained observations through an accessible per-project disclosure.
 - Preserve the six-bucket topology, component states, gaps, and complete
   transport ledger as an inspectable left-side System Map sheet.
 - Add one normalized private API projection for project catalog, AI visibility,
@@ -50,8 +76,10 @@ model in the Console, with each page answering one clear question.
 - Keep the skill owners storage-neutral. The central runner records normalized
   local envelopes; any future hosted D1 history goes through one authenticated
   Fleet ingestion boundary rather than direct per-skill writes.
-- Do not deploy, activate recurring schedules, modify credentials, or fabricate
-  missing Feedback submissions, Marketing outcomes, or mobile consumers.
+- Do not deploy, activate recurring schedules, modify credentials beyond the
+  owner-approved local read-only Google authorization, call live Cloudflare
+  APIs, or fabricate missing Feedback submissions,
+  Marketing outcomes, or mobile consumers.
 
 ## Capabilities
 
@@ -73,6 +101,7 @@ model in the Console, with each page answering one clear question.
 ## Impact
 
 The change affects Fleet Console navigation and shell, the
+`/domains`, `/search`, `/ai-awareness`, `/marketing`, `/performance`,
 `/project-statuses`, `/metrics`, and `/feedback` routes, the retired
 `/skill-uses` redirect,
 existing Marketing route, the System Map sheet, client rendering and styles,

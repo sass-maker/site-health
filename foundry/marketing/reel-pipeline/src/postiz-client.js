@@ -65,15 +65,18 @@ export class PostizClient {
       throw new PostizClientError(`Postiz provider mismatch for ${accountSlug}: expected ${expectedProvider}`, { code: 'POSTIZ_MAPPING' });
     }
 
-    const media = await this.uploadFromUrl(input?.result_url);
     const requestId = requiredString(input?.id, 'id');
-    const body = draftPayload(input, mapping.integrationId, media, expectedProvider, this.now);
+    validatePostMetadata(input, expectedProvider);
+    const now = this.now();
+    const scheduledFor = normalizeFutureSchedule(input?.scheduled_for, now);
+    const media = await this.uploadFromUrl(input?.result_url);
+    const body = postPayload(input, mapping.integrationId, media, expectedProvider, scheduledFor, now);
     const payload = await this.request('/posts', { method: 'POST', body, ambiguousCreate: true, requestId });
     const created = Array.isArray(payload) ? payload[0] : null;
     const postId = requiredString(created?.postId, 'post.postId');
     return {
       provider: 'postiz',
-      status: 'draft',
+      status: scheduledFor ? 'scheduled' : 'draft',
       externalId: postId,
       externalUrl: null,
       requestId,
@@ -169,15 +172,15 @@ export class PostizClientError extends Error {
   }
 }
 
-function draftPayload(input, integrationId, media, provider, now) {
+function postPayload(input, integrationId, media, provider, scheduledFor, now) {
   const title = requiredString(input?.title, 'title');
   const content = requiredString(input?.body, 'body');
   const settings = provider === 'youtube'
-    ? { __type: 'youtube', title, type: 'private', selfDeclaredMadeForKids: false, tags: [] }
+    ? { __type: 'youtube', title, type: 'private', selfDeclaredMadeForKids: 'no', tags: [] }
     : { __type: 'instagram', post_type: 'post', is_trial_reel: false, collaborators: [] };
   return {
-    type: 'draft',
-    date: now().toISOString(),
+    type: scheduledFor ? 'schedule' : 'draft',
+    date: scheduledFor ?? now.toISOString(),
     shortLink: false,
     tags: [{ value: requiredString(input?.id, 'id'), label: 'fleet-request' }],
     posts: [{
@@ -186,6 +189,26 @@ function draftPayload(input, integrationId, media, provider, now) {
       settings,
     }],
   };
+}
+
+function normalizeFutureSchedule(value, now) {
+  if (value === undefined || value === null || value === '') return null;
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) {
+    throw new PostizClientError('scheduled_for must be an ISO date', { code: 'POSTIZ_INPUT' });
+  }
+  if (date.getTime() <= now.getTime()) {
+    throw new PostizClientError('scheduled_for must be in the future', { code: 'POSTIZ_INPUT' });
+  }
+  return date.toISOString();
+}
+
+function validatePostMetadata(input, provider) {
+  const title = requiredString(input?.title, 'title');
+  requiredString(input?.body, 'body');
+  if (provider === 'youtube' && (title.length < 2 || title.length > 100)) {
+    throw new PostizClientError('YouTube title must contain 2 to 100 characters', { code: 'POSTIZ_INPUT' });
+  }
 }
 
 function validateIntegrationMap(input) {

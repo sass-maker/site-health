@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "turso-d1-migration-receipt.v1",
+  "projectId": "truehire",
+  "mode": "cutover",
+  "authority": "d1",
+  "source": {
+    "provider": "none",
+    "name": "truehire",
+    "role": "none",
+    "schemaRevision": null,
+    "sizeBytes": null
+  },
+  "target": {
+    "provider": "cloudflare-d1",
+    "name": "truehire",
+    "role": "authoritative",
+    "schemaRevision": "0006_tidy_bloodscream.sql",
+    "sizeBytes": null
+  },
+  "schemaChecks": [
+    {
+      "id": "foreign-keys",
+      "status": "pass",
+      "sourceValue": "production export",
+      "targetValue": "no violations",
+      "detail": "The remote D1 foreign-key check returned no violations after import."
+    }
+  ],
+  "dataChecks": [
+    {
+      "id": "table-row-parity",
+      "status": "pass",
+      "sourceValue": "3,398 application rows",
+      "targetValue": "exact per-table match",
+      "detail": "All 17 application-table counts matched; D1 also contains seven Drizzle migration-ledger rows."
+    }
+  ],
+  "journeyChecks": [
+    {
+      "id": "public-runtime",
+      "status": "pass",
+      "sourceValue": "retained public product",
+      "targetValue": "home, stats, handles, auth session, and sitemap 200",
+      "detail": "The custom domain remained healthy after the D1 deploy and again after Turso retirement."
+    }
+  ],
+  "timings": {
+    "observedAt": "2026-08-02T06:40:00Z",
+    "rehearsalMs": null,
+    "writeFreezeMs": null
+  },
+  "approval": {
+    "remoteMutationApproved": true,
+    "cutoverApproved": true,
+    "retirementApproved": true
+  },
+  "rollback": {
+    "sourcePreserved": false,
+    "releaseAvailable": false,
+    "reconciliationRequired": false
+  },
+  "result": "pass",
+  "notes": [
+    "Migration PR https://github.com/sarthakagrawal927/truehire/pull/11 merged at 09a039fe968eae2bab94bb718f8129265014bc77.",
+    "Production Worker versions were tagged with the exact merge SHA and the D1 binding was verified live.",
+    "The Turso database was deleted on 2026-08-02 after post-cutover acceptance; credential cleanup remains separate."
+  ]
+}

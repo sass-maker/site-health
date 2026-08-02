@@ -29,6 +29,15 @@ const COLORS = {
   rail: [28, 24, 19],
 };
 
+const ASCII_PALETTES = {
+  amber: { bg: '#100f0d', panel: '#17130f', ink: '#242018', dim: '#5d5444', dot: '#a3977b', cream: '#f7ebca', amber: '#e7a849', red: '#e1564c', blue: '#8be2ff', green: '#91e98f', spark: '#fff39b' },
+  mono: { bg: '#0b0c0e', panel: '#141619', ink: '#24282d', dim: '#6e757c', dot: '#9ca4aa', cream: '#f4f6f7', amber: '#c3c9cd', red: '#ffffff', blue: '#aab3ba', green: '#d9dee1', spark: '#ffffff' },
+  terminal: { bg: '#02120b', panel: '#041a10', ink: '#07301d', dim: '#347354', dot: '#62aa7f', cream: '#caffdd', amber: '#8bff9c', red: '#ff7f7f', blue: '#6ef5d0', green: '#40ff84', spark: '#e3ff83' },
+  cobalt: { bg: '#07101f', panel: '#0b1930', ink: '#122c50', dim: '#587095', dot: '#8399bb', cream: '#edf5ff', amber: '#ffd166', red: '#ff6b87', blue: '#61dafb', green: '#7ce38b', spark: '#fff08a' },
+  magenta: { bg: '#180817', panel: '#260e25', ink: '#42183f', dim: '#86587f', dot: '#b77cad', cream: '#fff0fb', amber: '#ffca6b', red: '#ff4f9a', blue: '#7ee8fa', green: '#bbff85', spark: '#fff18c' },
+  paper: { bg: '#e8e0ce', panel: '#d8cfba', ink: '#bcb19a', dim: '#8b816c', dot: '#6d6556', cream: '#1a1814', amber: '#9b5f1f', red: '#a33f32', blue: '#225f78', green: '#3d6d4a', spark: '#b87916' },
+};
+
 const FONT = {
   'A': ['01110', '10001', '10001', '11111', '10001', '10001', '10001'],
   'B': ['11110', '10001', '10001', '11110', '10001', '10001', '11110'],
@@ -112,7 +121,8 @@ export class AsciiAnimationAdapter {
     const videoPath = path.join(dir, `${stableSlug(brief.projectSlug)}-${stableSlug(brief.id)}.mp4`);
     await mkdir(framesDir, { recursive: true });
 
-    const renderLog = ['style=ascii-fable'];
+    const theme = buildAsciiTheme(brief);
+    const renderLog = ['style=ascii-fable', `palette=${theme.palette.id}`];
     let framePattern = path.join(framesDir, 'frame_%04d.ppm');
     try {
       if (this.renderer === 'browser') {
@@ -210,7 +220,7 @@ export async function renderAsciiFrames(brief, options) {
 
   for (let frame = 0; frame < frameCount; frame += 1) {
     const pixels = makeCanvas(width, height);
-    const scene = new AsciiScene(pixels, width, height);
+    const scene = new AsciiScene(pixels, width, height, theme.colors);
     drawFrame(scene, frame, frameCount, theme);
     await writeFile(path.join(framesDir, `frame_${String(frame).padStart(4, '0')}.ppm`), ppmBuffer(width, height, pixels));
   }
@@ -251,17 +261,17 @@ function browserHtml(theme) {
 <meta name="viewport" content="width=1080,height=1920,initial-scale=1">
 <style>
   :root {
-    --bg: #100f0d;
-    --panel: #17130f;
-    --ink: #242018;
-    --dim: #5d5444;
-    --dot: #a3977b;
-    --cream: #f7ebca;
-    --amber: #e7a849;
-    --red: #e1564c;
-    --blue: #8be2ff;
-    --green: #91e98f;
-    --spark: #fff39b;
+    --bg: ${theme.palette.bg};
+    --panel: ${theme.palette.panel};
+    --ink: ${theme.palette.ink};
+    --dim: ${theme.palette.dim};
+    --dot: ${theme.palette.dot};
+    --cream: ${theme.palette.cream};
+    --amber: ${theme.palette.amber};
+    --red: ${theme.palette.red};
+    --blue: ${theme.palette.blue};
+    --green: ${theme.palette.green};
+    --spark: ${theme.palette.spark};
   }
   * { box-sizing: border-box; }
   html, body {
@@ -275,7 +285,7 @@ function browserHtml(theme) {
   }
   body {
     background:
-      linear-gradient(180deg, #100f0d 0%, #14120f 56%, #18130f 100%);
+      linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--panel) 82%, var(--bg)) 56%, var(--panel) 100%);
   }
   .frame {
     position: relative;
@@ -506,11 +516,12 @@ window.renderAsciiFrame(0, 0);
 }
 
 function drawFrame(scene, frame, frameCount, theme) {
+  const colors = theme.colors;
   const p = frame / Math.max(1, frameCount - 1);
   scene.background();
   scene.box(1, 1, 22, 40, Math.floor(frame / 5) % 2);
-  scene.text(2.0, 2.2, theme.title, COLORS.cream, 1.9);
-  scene.mono(3.2, 5.6, [theme.subtitle], COLORS.amber, 0.72);
+  scene.text(2.0, 2.2, theme.title, colors.cream, 1.9);
+  scene.mono(3.2, 5.6, [theme.subtitle], colors.amber, 0.72);
   drawCodeRail(scene, frame, theme);
 
   if (p < 0.36) {
@@ -522,21 +533,22 @@ function drawFrame(scene, frame, frameCount, theme) {
   }
 
   const [sx, sy] = sparkPosition(p);
-  scene.cell(sx - 2, sy, '.', COLORS.dot, 0.8);
-  scene.cell(sx - 1, sy, 'O', COLORS.cream, 0.85);
-  scene.cell(sx, sy, '*', COLORS.spark, 1);
+  scene.cell(sx - 2, sy, '.', colors.dot, 0.8);
+  scene.cell(sx - 1, sy, 'O', colors.cream, 0.85);
+  scene.cell(sx, sy, '*', colors.spark, 1);
   for (let i = 0; i < 18; i += 1) {
     const x = 4 + ((i * 7 + Math.floor(frame / 6)) % 16);
     const y = 14 + ((i * 5) % 18);
-    scene.cell(x, y, '.', COLORS.dim, 0.5);
+    scene.cell(x, y, '.', colors.dim, 0.5);
   }
-  scene.panel(2.5, 35.0, 19.0, 3.0, COLORS.rail);
-  scene.mono(3.45, 35.85, ['SAME LAWS. DIFFERENT SCALE.'], COLORS.cream, 0.72);
+  scene.panel(2.5, 35.0, 19.0, 3.0, colors.rail);
+  scene.mono(3.45, 35.85, ['SAME LAWS. DIFFERENT SCALE.'], colors.cream, 0.72);
 }
 
 function drawAtom(scene, frame, theme) {
+  const colors = theme.colors;
   const flicker = frame % 18 < 12 ? '*' : 'O';
-  scene.mono(8.4, 10.0, ['-- ATOM --'], COLORS.amber, 0.78);
+  scene.mono(8.4, 10.0, ['-- ATOM --'], colors.amber, 0.78);
   scene.mono(3.4, 14.0, [
     '        .       .',
     '    .     \\   /     .',
@@ -545,15 +557,16 @@ function drawAtom(scene, frame, theme) {
     ' .         / \\         .',
     '    .     /   \\     .',
     '        .       .',
-  ], (ch) => asciiColor(ch, { core: COLORS.red, wire: COLORS.blue }), 0.72);
-  scene.cell(10, 20, flicker, COLORS.spark, 0.9);
-  scene.cell(15, 20, flicker, COLORS.spark, 0.9);
-  scene.mono(3.8, 31.0, [theme.atomCaption], COLORS.cream, 0.68);
+  ], (ch) => asciiColor(ch, { core: colors.red, wire: colors.blue }), 0.72);
+  scene.cell(10, 20, flicker, colors.spark, 0.9);
+  scene.cell(15, 20, flicker, colors.spark, 0.9);
+  scene.mono(3.8, 31.0, [theme.atomCaption], colors.cream, 0.68);
 }
 
 function drawBond(scene, frame, theme) {
+  const colors = theme.colors;
   const phase = Math.round(Math.sin(frame * 0.12));
-  scene.mono(8.6, 10.0, ['-- BOND --'], COLORS.amber, 0.78);
+  scene.mono(8.6, 10.0, ['-- BOND --'], colors.amber, 0.78);
   scene.mono(4.3, 14.0 + phase * 0.15, [
     '          (O)',
     '           |',
@@ -563,14 +576,15 @@ function drawBond(scene, frame, theme) {
     '          O',
     '          |',
     '         (O)',
-  ], (ch) => asciiColor(ch, { core: COLORS.green, wire: COLORS.blue }), 0.72);
-  scene.cell(18, 21 + phase, '*', COLORS.spark, 0.9);
-  scene.mono(3.85, 31.0, [theme.bondCaption], COLORS.cream, 0.68);
+  ], (ch) => asciiColor(ch, { core: colors.green, wire: colors.blue }), 0.72);
+  scene.cell(18, 21 + phase, '*', colors.spark, 0.9);
+  scene.mono(3.85, 31.0, [theme.bondCaption], colors.cream, 0.68);
 }
 
 function drawOrbit(scene, frame, theme) {
+  const colors = theme.colors;
   const pos = orbitStar(frame);
-  scene.mono(8.0, 10.0, ['-- ORBIT --'], COLORS.amber, 0.78);
+  scene.mono(8.0, 10.0, ['-- ORBIT --'], colors.amber, 0.78);
   scene.mono(3.3, 14.0, [
     '      .-----------.',
     '   .-/             \\-.',
@@ -578,30 +592,32 @@ function drawOrbit(scene, frame, theme) {
     '  \\                   /',
     '   `-.             .-`',
     '      `----...----`',
-  ], (ch) => asciiColor(ch, { core: COLORS.blue, wire: COLORS.dot }), 0.72);
-  scene.cell(pos[0], pos[1], '*', COLORS.spark, 0.95);
-  scene.mono(4.0, 31.0, [theme.orbitCaption], COLORS.cream, 0.68);
+  ], (ch) => asciiColor(ch, { core: colors.blue, wire: colors.dot }), 0.72);
+  scene.cell(pos[0], pos[1], '*', colors.spark, 0.95);
+  scene.mono(4.0, 31.0, [theme.orbitCaption], colors.cream, 0.68);
 }
 
 function drawCodeRail(scene, frame, theme) {
-  scene.panel(3.0, 7.5, 18.0, 4.5, COLORS.rail);
+  const colors = theme.colors;
+  scene.panel(3.0, 7.5, 18.0, 4.5, colors.rail);
   const cursor = frame % 24 < 12 ? '_' : ' ';
   scene.mono(4.0, 8.15, [
     '> SCALE.RUN();',
     `STATE = [${theme.sequence.join(', ')}];`,
     `RETURN MOTION${cursor}`,
   ], (ch) => {
-    if ('>[]();=,'.includes(ch)) return COLORS.dim;
-    if (ch === '_') return COLORS.spark;
-    return COLORS.dot;
+    if ('>[]();=,'.includes(ch)) return colors.dim;
+    if (ch === '_') return colors.spark;
+    return colors.dot;
   }, 0.56);
 }
 
 class AsciiScene {
-  constructor(pixels, width, height) {
+  constructor(pixels, width, height, colors = COLORS) {
     this.pixels = pixels;
     this.width = width;
     this.height = height;
+    this.colors = colors;
     this.cellW = width / COLS;
     this.cellH = height / ROWS;
   }
@@ -609,9 +625,10 @@ class AsciiScene {
   background() {
     for (let y = 0; y < this.height; y += 1) {
       const shade = Math.floor((18 * y) / this.height);
-      fillRect(this.pixels, this.width, 0, y, this.width, 1, [16 + Math.floor(shade / 3), 15 + Math.floor(shade / 5), 13 + Math.floor(shade / 6)]);
+      const base = this.colors.bg;
+      fillRect(this.pixels, this.width, 0, y, this.width, 1, base.map((channel) => Math.min(255, channel + Math.floor(shade / 4))));
     }
-    fillRect(this.pixels, this.width, 34, 44, this.width - 68, this.height - 88, COLORS.panel, false);
+    fillRect(this.pixels, this.width, 34, 44, this.width - 68, this.height - 88, this.colors.panel, false);
   }
 
   panel(x, y, w, h, color) {
@@ -629,14 +646,14 @@ class AsciiScene {
   box(x0, y0, x1, y1, phase) {
     for (let x = x0; x <= x1; x += 1) {
       if ((x + phase) % 2 === 0) {
-        this.cell(x, y0, '.', COLORS.dot, 0.7);
-        this.cell(x, y1, '.', COLORS.dot, 0.7);
+        this.cell(x, y0, '.', this.colors.dot, 0.7);
+        this.cell(x, y1, '.', this.colors.dot, 0.7);
       }
     }
     for (let y = y0; y <= y1; y += 1) {
       if ((y + phase) % 2 === 0) {
-        this.cell(x0, y, '.', COLORS.dot, 0.7);
-        this.cell(x1, y, '.', COLORS.dot, 0.7);
+        this.cell(x0, y, '.', this.colors.dot, 0.7);
+        this.cell(x1, y, '.', this.colors.dot, 0.7);
       }
     }
   }
@@ -689,9 +706,10 @@ class AsciiScene {
   }
 }
 
-function buildAsciiTheme(brief) {
+export function buildAsciiTheme(brief) {
   const words = tokenize(`${brief.title} ${brief.hook} ${brief.body}`);
   const science = words.some((word) => ['atom', 'molecule', 'orbit', 'space', 'scale', 'science'].includes(word));
+  const palette = ASCII_PALETTES[brief.renderOptions?.palette] ?? ASCII_PALETTES.amber;
   return {
     title: science ? 'ASCII SCALE' : 'ASCII SIGNAL',
     subtitle: science ? 'TINY RULES / HUGE WORLDS' : 'SMALL SIGNAL / BIG STORY',
@@ -699,7 +717,15 @@ function buildAsciiTheme(brief) {
     atomCaption: science ? 'MASS APPEARS AS PATTERN' : 'SIGNAL APPEARS AS PATTERN',
     bondCaption: science ? 'PATTERNS START TO BIND' : 'PATTERNS START TO LINK',
     orbitCaption: science ? 'SCALE BECOMES MOTION' : 'THE STORY STARTS MOVING',
+    palette: { id: brief.renderOptions?.palette in ASCII_PALETTES ? brief.renderOptions.palette : 'amber', ...palette },
+    colors: Object.fromEntries(Object.entries(palette).map(([key, value]) => [key === 'ink' ? 'rail' : key, hexToRgb(value)])),
   };
+}
+
+function hexToRgb(value) {
+  const match = String(value).match(/^#([0-9a-f]{6})$/i);
+  if (!match) return [0, 0, 0];
+  return [0, 2, 4].map((offset) => Number.parseInt(match[1].slice(offset, offset + 2), 16));
 }
 
 function sparkPosition(progress) {

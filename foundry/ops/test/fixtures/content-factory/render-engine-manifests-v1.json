@@ -14,19 +14,13 @@
       "file": "ascii.mp4",
       "content": "ascii-video"
     },
+    {
+      "mode": "blender",
+      "provider": "blender",
+      "file": "blender-frame.png",
+      "content": "blender-literal-scene"
+    },
     { "mode": "grok-video", "provider": "grok-video", "file": "grok.mp4", "content": "grok-video" },
-    {
-      "mode": "reel-maker",
-      "provider": "reel-maker",
-      "file": "reel-maker.mp4",
-      "content": "reel-maker-video"
-    },
-    {
-      "mode": "moneyprinterturbo",
-      "provider": "moneyprinterturbo",
-      "file": "moneyprinter.mp4",
-      "content": "moneyprinter-video"
-    },
     {
       "mode": "render-pro",
       "provider": "render-pro",

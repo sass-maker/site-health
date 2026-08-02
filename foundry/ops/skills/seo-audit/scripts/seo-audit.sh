@@ -42,25 +42,56 @@ fi
 
 # --- helpers -------------------------------------------------------------
 
-fetch() { curl -sL --max-time 30 "$1"; }
+fetch() { curl -fsSL --max-time 30 "$1"; }
 
 # extract <meta> content by name or property
 meta_content() {
   local html="$1" attr="$2" val="$3"
-  echo "$html" | grep -oiE "<meta ${attr}=\"${val}\"[^>]*>" | head -1 \
-    | sed -E "s/.*content=\"([^\"]*)\".*/\1/I" | sed 's/&amp;/\&/g'
+  printf '%s' "$html" | perl -0777 -e '
+    my ($wanted_attr, $wanted_value) = @ARGV;
+    my $source = do { local $/; <STDIN> };
+    while ($source =~ /<meta\b([^>]*)>/gis) {
+      my $attributes = $1;
+      next unless $attributes =~ /\b\Q$wanted_attr\E\s*=\s*(["'\''])\Q$wanted_value\E\1/i;
+      if ($attributes =~ /\bcontent\s*=\s*(["'\''])(.*?)\1/is) {
+        my $content = $2;
+        $content =~ s/&amp;/&/g;
+        print $content;
+        last;
+      }
+    }
+  ' "$attr" "$val"
 }
 
 tag_text() {
   local html="$1" tag="$2"
-  echo "$html" | grep -oiE "<${tag}[^>]*>[^<]*</${tag}>" | head -1 \
-    | sed -E "s/<${tag}[^>]*>(.*)<\/${tag}>/\1/I" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+  printf '%s' "$html" | perl -0777 -e '
+    my ($tag) = @ARGV;
+    my $source = do { local $/; <STDIN> };
+    if ($source =~ /<\Q$tag\E\b[^>]*>(.*?)<\/\Q$tag\E>/is) {
+      my $text = $1;
+      $text =~ s/<[^>]+>/ /g;
+      $text =~ s/\s+/ /g;
+      $text =~ s/^\s+|\s+$//g;
+      print $text;
+    }
+  ' "$tag"
 }
 
 link_href() {
   local html="$1" rel="$2"
-  echo "$html" | grep -oiE "<link rel=\"${rel}\"[^>]*>" | head -1 \
-    | sed -E "s/.*href=\"([^\"]*)\".*/\1/I"
+  printf '%s' "$html" | perl -0777 -e '
+    my ($wanted_rel) = @ARGV;
+    my $source = do { local $/; <STDIN> };
+    while ($source =~ /<link\b([^>]*)>/gis) {
+      my $attributes = $1;
+      next unless $attributes =~ /\brel\s*=\s*(["'\''])\Q$wanted_rel\E\1/i;
+      if ($attributes =~ /\bhref\s*=\s*(["'\''])(.*?)\1/is) {
+        print $2;
+        last;
+      }
+    }
+  ' "$rel"
 }
 
 count_tag() {
@@ -79,9 +110,14 @@ FAILED_PAGES=()
 audit_page() {
   local url="$1"
   local html
-  html=$(fetch "$url") || { echo "  FETCH FAILED — could not retrieve $url" >&2; return; }
-
   echo "===== $url ====="
+  if ! html=$(fetch "$url"); then
+    echo "  fetch              FAIL   could not retrieve $url"
+    ((FAIL++))
+    FAILED_PAGES+=("$url")
+    echo
+    return
+  fi
 
   # --- title ---
   local title
@@ -142,7 +178,7 @@ audit_page() {
   local hreflang_count
   hreflang_count=$(echo "$html" | grep -oiE '<link rel="alternate"[^>]*hreflang=' | wc -l | tr -d ' ')
   if [[ $hreflang_count -eq 0 ]]; then
-    echo "  hreflang           WARN   none found (ok for single-language sites)"; ((WARN++))
+    echo "  hreflang           PASS   none declared (valid for single-language sites)"; ((PASS++))
   else
     local has_xdefault
     has_xdefault=$(echo "$html" | grep -oiE 'hreflang="x-default"' | wc -l | tr -d ' ')
@@ -155,7 +191,13 @@ audit_page() {
 
   # --- JSON-LD ---
   local jsonld_count
-  jsonld_count=$(echo "$html" | grep -oiE '<script type="application/ld\+json">' | wc -l | tr -d ' ')
+  jsonld_count=$(printf '%s' "$html" | perl -0777 -ne '
+    my $count = 0;
+    while (/<script\b([^>]*)>/gis) {
+      $count++ if $1 =~ /\btype\s*=\s*(["'\''])application\/ld\+json\1/i;
+    }
+    print $count;
+  ')
   if [[ $jsonld_count -eq 0 ]]; then
     echo "  json-ld            FAIL   no structured data"; ((FAIL++))
   else
@@ -196,8 +238,14 @@ audit_page() {
 
   # --- image alt text ---
   local total_imgs imgs_no_alt
-  total_imgs=$(echo "$html" | grep -oiE '<img[^>]*>' | wc -l | tr -d ' ')
-  imgs_no_alt=$(echo "$html" | grep -oiE '<img[^>]*>' | grep -viE 'alt=' | wc -l | tr -d ' ')
+  total_imgs=$(printf '%s' "$html" | perl -0777 -ne 'print scalar(() = /<img\b[^>]*>/gis)')
+  imgs_no_alt=$(printf '%s' "$html" | perl -0777 -ne '
+    my $count = 0;
+    while (/<img\b([^>]*)>/gis) {
+      $count++ unless $1 =~ /\balt\s*=/i;
+    }
+    print $count;
+  ')
   if [[ $total_imgs -eq 0 ]]; then
     echo "  img-alt            PASS   no images on page"; ((PASS++))
   elif [[ $imgs_no_alt -gt 0 ]]; then

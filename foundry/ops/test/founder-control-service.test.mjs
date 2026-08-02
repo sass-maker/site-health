@@ -4,8 +4,56 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-import { startFounderControlService } from '../lib/founder-control/service.mjs';
+import {
+  buildMarketingProjection,
+  startFounderControlService,
+} from '../lib/founder-control/service.mjs';
 import { FounderControlStore } from '../lib/founder-control/store.mjs';
+
+test('projects only explicit marketing receipts into the owner coverage view', () => {
+  const projection = buildMarketingProjection({
+    generatedAt: '2026-07-31T10:00:00.000Z',
+    recommendations: [],
+    aiVisibility: { projects: [] },
+    activity: [
+      {
+        id: 'publish-1',
+        projectId: 'pace',
+        missionId: 'mission-1',
+        summary: 'Marketing publication receipt',
+        occurredAt: '2026-07-31T09:00:00.000Z',
+        evidence: [{
+          provider: 'postiz',
+          state: 'published',
+          summary: 'Pace launch note',
+          url: 'https://example.com/post/1',
+        }],
+      },
+      {
+        id: 'ordinary-event',
+        projectId: 'pace',
+        summary: 'Project evidence updated',
+        occurredAt: '2026-07-31T09:30:00.000Z',
+        evidence: [],
+      },
+    ],
+  }, {
+    eligible: [],
+    scheduleIntent: { enabled: false },
+  });
+
+  assert.deepEqual(projection.outcomes, [{
+    id: 'publish-1',
+    projectId: 'pace',
+    missionId: 'mission-1',
+    stage: 'publication',
+    status: 'published',
+    provider: 'postiz',
+    title: 'Pace launch note',
+    observedAt: '2026-07-31T09:00:00.000Z',
+    url: 'https://example.com/post/1',
+  }]);
+});
 
 test('serves owner views and rejects unauthenticated mutations', async (context) => {
   const store = new FounderControlStore({
@@ -125,6 +173,170 @@ test('serves the read-only connection projection without mutation credentials', 
   assert.deepEqual(await response.json(), expected);
 });
 
+test('prewarms one connection projection and serves bounded owner outcomes', async (context) => {
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-outcomes-')), 'outcomes.sqlite'),
+  });
+  let builds = 0;
+  const expected = {
+    schemaVersion: 'fleet.connections.v1',
+    generatedAt: '2026-07-30T10:00:00.000Z',
+    outputs: {
+      ownerOutcomes: {
+        domains: [{
+          domain: 'example.com',
+          projects: [],
+          signal: {
+            value: 12,
+            series: Array.from({ length: 65 }, (_, index) => ({
+              value: index,
+              observedAt: `2026-07-${String((index % 30) + 1).padStart(2, '0')}T10:00:00.000Z`,
+            })),
+          },
+        }],
+        coreAi: [{
+          projectId: 'core',
+          status: 'not-measured',
+          questions: [{ id: 'set:question', setId: 'set', text: 'Which tool should I use?' }],
+          coverage: { configured: 2, completed: 1, unavailable: 1, timedOut: 0, failed: 0 },
+          attempts: [{
+            promptId: 'set/question/persona',
+            persona: 'persona',
+            providerId: 'provider',
+            model: 'model',
+            status: 'completed',
+            private: 'must-not-leak',
+          }],
+          citationSources: {
+            total: 2,
+            owned: 1,
+            external: 1,
+            unclassified: 0,
+            sources: [
+              { url: 'https://example.com/docs', host: 'example.com', ownership: 'owned', private: 'must-not-leak' },
+              { url: 'https://review.example/item', host: 'review.example', ownership: 'external' },
+            ],
+          },
+          crawlerRequests: { value: 18, series: [{ value: 12 }] },
+          aiReferralVisits: { value: 3, series: [{ value: 1 }] },
+        }],
+        marketing: [{
+          projectId: 'site',
+          visits: { value: 240, series: [{ value: 180 }] },
+          pageViews: { value: 380, series: [{ value: 300 }] },
+          searchReferrals: { value: 44, series: [{ value: 30 }] },
+        }],
+        performance: [{
+          projectId: 'site',
+          status: 'fast-enough',
+          providerUrl: 'https://dash.cloudflare.com/account/zone/speed/observatory',
+          psi: { value: 95, series: [{ value: 90 }] },
+          lcp: { value: 1200, series: [{ value: 1500 }] },
+          fieldLcp: { value: 1800, series: [{ value: 1900 }] },
+          fieldInp: { value: 140, series: [{ value: 160 }] },
+        }],
+        search: [{
+          projectId: 'site',
+          trackedQueries: [{
+            id: 'site-brand',
+            kind: 'brand',
+            text: 'site.example',
+            class: 'A',
+            observedAt: '2026-07-30T12:00:00.000Z',
+            private: 'not exposed',
+          }],
+          action: {
+            id: 'strengthen-ranking-page',
+            label: 'Strengthen ranking page',
+            reason: 'This result is within reach of page one.',
+            priority: 3,
+          },
+          impressions: {
+            value: 120,
+            series: Array.from({ length: 65 }, (_, index) => ({
+              value: index,
+              observedAt: `2026-07-${String((index % 30) + 1).padStart(2, '0')}T10:00:00.000Z`,
+            })),
+          },
+          clicks: { value: 8, series: [{ value: 6 }] },
+          ctr: { value: 6.67, series: [{ value: 5 }] },
+          averagePosition: { value: 14.2, series: [{ value: 16 }] },
+        }],
+        performanceThresholds: {
+          psiScore: 90,
+          lcpMilliseconds: 2500,
+          fieldLcpMilliseconds: 2500,
+          fieldInpMilliseconds: 200,
+          fieldCls: 0.1,
+        },
+      },
+    },
+  };
+  const server = await startFounderControlService({
+    store,
+    port: 0,
+    trustLoopback: true,
+    prewarmConnections: true,
+    connectionsProvider: () => {
+      builds += 1;
+      return expected;
+    },
+  });
+  context.after(
+    () =>
+      new Promise((resolve) => {
+        server.close(() => {
+          store.close();
+          resolve();
+        });
+      }),
+  );
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const domains = await (await fetch(`${base}/v1/outcomes/domains`)).json();
+  const search = await (await fetch(`${base}/v1/outcomes/search`)).json();
+  const awareness = await (await fetch(`${base}/v1/outcomes/ai-awareness`)).json();
+  const performance = await (await fetch(`${base}/v1/outcomes/performance`)).json();
+  const marketing = await (await fetch(`${base}/v1/outcomes/marketing`)).json();
+  const connections = await (await fetch(`${base}/v1/connections`)).json();
+
+  assert.equal(builds, 1);
+  assert.equal(domains.family, 'domains');
+  assert.equal(domains.rows[0].signal.series.length, 60);
+  assert.equal(domains.rows[0].signal.series[0].value, 5);
+  assert.equal(search.family, 'search');
+  assert.equal(search.rows[0].impressions.series.length, 60);
+  assert.equal(search.rows[0].impressions.series[0].value, 5);
+  assert.equal(search.rows[0].clicks.series.length, 1);
+  assert.equal(search.rows[0].action.id, 'strengthen-ranking-page');
+  assert.deepEqual(search.rows[0].trackedQueries, [{
+    id: 'site-brand',
+    kind: 'brand',
+    text: 'site.example',
+    class: 'A',
+    observedAt: '2026-07-30T12:00:00.000Z',
+  }]);
+  assert.equal(awareness.rows[0].projectId, 'core');
+  assert.equal(awareness.rows[0].crawlerRequests.series.length, 1);
+  assert.equal(awareness.rows[0].questions[0].text, 'Which tool should I use?');
+  assert.equal(awareness.rows[0].attempts[0].model, 'model');
+  assert.equal('private' in awareness.rows[0].attempts[0], false);
+  assert.equal(awareness.rows[0].citationSources.external, 1);
+  assert.equal('private' in awareness.rows[0].citationSources.sources[0], false);
+  assert.equal(marketing.rows[0].visits.series.length, 1);
+  assert.equal(marketing.rows[0].pageViews.value, 380);
+  assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
+  assert.equal(performance.rows[0].psi.value, 95);
+  assert.equal('series' in performance.rows[0].psi, false);
+  assert.equal('series' in performance.rows[0].lcp, false);
+  assert.equal(performance.rows[0].fieldLcp.series.length, 1);
+  assert.equal(performance.rows[0].providerUrl, 'https://dash.cloudflare.com/account/zone/speed/observatory');
+  assert.deepEqual(connections, expected);
+
+  const rebuilt = await fetch(`${base}/v1/projections/rebuild`, { method: 'POST' });
+  assert.equal(rebuilt.status, 200);
+  assert.equal(builds, 2);
+});
+
 test('serves one bounded retained skill output only when explicitly requested', async (context) => {
   const store = new FounderControlStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'skill-output.sqlite'),
@@ -174,7 +386,7 @@ test('starts and polls allowlisted metric runs through explicit loopback trust',
     duplicate: false,
   };
   const metricRunController = {
-    start: ({ family, projectId }) => ({ ...receipt, family, projectId }),
+    start: ({ family, projectId, scope }) => ({ ...receipt, family, projectId, scope }),
     get: (runId) => runId === receipt.runId ? receipt : null,
   };
   const server = await startFounderControlService({
@@ -201,6 +413,14 @@ test('starts and polls allowlisted metric runs through explicit loopback trust',
   });
   assert.equal(started.status, 202);
   assert.equal((await started.json()).projectId, 'codevetter');
+
+  const portfolio = await fetch(`${base}/v1/metric-runs`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ family: 'drank', scope: 'portfolio' }),
+  });
+  assert.equal(portfolio.status, 202);
+  assert.equal((await portfolio.json()).scope, 'portfolio');
   assert.equal((await fetch(`${base}/v1/metric-runs/metric-1`)).status, 200);
 });
 

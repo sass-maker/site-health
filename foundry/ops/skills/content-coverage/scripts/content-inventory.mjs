@@ -30,7 +30,7 @@ if (!inputPath && !productId) {
     input.unavailableEvidence = input.unavailableEvidence.filter(
       (entry) => entry.source !== 'live-sitemap',
     );
-    if (live.errors.length) {
+    if (live.pages.length === 0 && live.errors.length) {
       input.unavailableEvidence.push({
         source: 'live-sitemap',
         reason: live.errors.join('; '),
@@ -51,12 +51,14 @@ if (!inputPath && !productId) {
           audit.coverage.filter((entry) => entry.action === action).length,
         ]),
     );
+    const hasCoverageModel = audit.coverage.length > 0;
+    let verdict = 'solid';
+    if (!hasCoverageModel) verdict = 'research';
+    else if (counts.blocked > 0) verdict = 'blocked';
+    else if (counts.create + counts.update + counts.merge > 0) verdict = 'gaps';
     artifact[audit.product.id] = {
-      verdict: counts.blocked > 0
-        ? 'blocked'
-        : counts.create + counts.update + counts.merge > 0
-          ? 'gaps'
-          : 'solid',
+      verdict,
+      coverageModel: hasCoverageModel,
       ...counts,
       date: audit.generatedAt.slice(0, 10),
     };

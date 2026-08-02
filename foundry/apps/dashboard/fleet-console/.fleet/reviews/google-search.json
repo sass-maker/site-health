@@ -1,0 +1,61 @@
+{
+  "$schema": "fleet.design-review.v1",
+  "version": 1,
+  "project": "fleet-console",
+  "target": "Portfolio Google Search dashboard",
+  "mode": "preserve",
+  "register": "product",
+  "context": {
+    "product": "PRODUCT.md",
+    "design": "DESIGN.md"
+  },
+  "direction": {
+    "references": [
+      "Existing Domains and Performance portfolio ledgers"
+    ],
+    "probes": [],
+    "selected": "existing-design",
+    "approval": "not-required",
+    "before": ".fleet/evidence/outcome-focus/after-1440.png"
+  },
+  "evidence": {
+    "screenshots": [
+      {
+        "width": 390,
+        "path": "artifacts/design/google-search/after-390.png"
+      },
+      {
+        "width": 768,
+        "path": "artifacts/design/google-search/after-768.png"
+      },
+      {
+        "width": 1440,
+        "path": "artifacts/design/google-search/after-1440.png"
+      }
+    ],
+    "projectCheck": {
+      "command": "pnpm build",
+      "status": "pass"
+    },
+    "critique": {
+      "score": 34,
+      "maximum": 40
+    },
+    "audit": {
+      "score": 19,
+      "maximum": 20
+    },
+    "unresolved": {
+      "p0": 0,
+      "p1": 0
+    },
+    "detector": {
+      "posture": "advisory",
+      "findings": []
+    }
+  },
+  "ownerFeedback": {
+    "decision": "delegated",
+    "note": "Owner specified a Performance-style all-project ledger with search terms in each expanded project view."
+  }
+}
