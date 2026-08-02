@@ -38,6 +38,10 @@ const REGISTRY = join(
   sourceFleetRoot,
   'foundry/ops/config/agent-surfaces-registry.json'
 );
+const GEO_OBSERVATORY = join(
+  sourceFleetRoot,
+  'foundry/ops/config/geo-observatory.json',
+);
 const EDGE_TEMPLATE = join(
   sourceFleetRoot,
   'foundry/ops/lib/agent-surfaces/agent-edge.template.mjs'

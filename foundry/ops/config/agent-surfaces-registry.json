@@ -727,9 +727,17 @@
       "name": "Knowledge Base",
       "url": "https://knowledgebase.sassmaker.com",
       "summary": "Cited search + grounded answers over private, specialized document collections (RAG).",
-      "sourceStatus": "missing",
-      "sourceIssue": "https://github.com/sass-maker/knowledge-base/issues/28",
-      "stack": "next-opennext",
+      "publicDir": "knowledge-base/landing-astro/public",
+      "preserveFiles": [
+        "api-ai.json",
+        "index.md",
+        "llms-full.txt",
+        "llms.txt",
+        "robots.txt",
+        "sitemap.xml"
+      ],
+      "stack": "astro-static",
+      "headFile": "knowledge-base/landing-astro/src/layouts/Layout.astro",
       "schemaType": "SoftwareApplication",
       "applicationCategory": "DeveloperApplication",
       "sameAs": [
@@ -739,11 +747,16 @@
         {
           "title": "Home",
           "url": "https://knowledgebase.sassmaker.com/",
-          "description": "Private cited search workspace"
+          "description": "Public product and capability overview"
+        },
+        {
+          "title": "Changelog",
+          "url": "https://knowledgebase.sassmaker.com/changelog",
+          "description": "Verified product releases"
         }
       ],
       "generateSitemap": true,
-      "indexMd": "# Private Agent Search\n\nCited RAG search over private collections.\n"
+      "indexMd": "# Knowledge Base\n\nCited search and grounded answers over private document collections.\n\n## Public boundary\n\n- The landing, capabilities, security, legal, and changelog pages are public\n- The operator dashboard and indexed documents remain private behind Cloudflare Access\n- Public discovery describes the product and never exposes document content\n\n## Agent entrypoints\n\n- https://knowledgebase.sassmaker.com/llms.txt\n- https://knowledgebase.sassmaker.com/api/ai\n- https://knowledgebase.sassmaker.com/index.md\n"
     },
     {
       "id": "app-health",
@@ -931,7 +944,7 @@
     {
       "id": "india-standards",
       "name": "India Standards",
-      "url": "https://india-numbers.significanthobbies.com",
+      "url": "https://india-standards.significanthobbies.com",
       "summary": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
       "publicDir": "india-standards/public",
       "preserveFiles": [
@@ -953,18 +966,18 @@
       "productLinks": [
         {
           "title": "Home",
-          "url": "https://india-numbers.significanthobbies.com/",
+          "url": "https://india-standards.significanthobbies.com/",
           "description": "Demographic standards calculator"
         },
         {
           "title": "Changelog",
-          "url": "https://india-numbers.significanthobbies.com/changelog",
+          "url": "https://india-standards.significanthobbies.com/changelog",
           "description": "Verified product releases",
           "markdown": "# India Standards changelog\n\nThe owned changelog records verified releases for the aggregate-only PLFS preview, explicit uncertainty, sparse-cell widening, hosted estimates, and responsive calculator workbench.\n"
         }
       ],
       "generateSitemap": true,
-      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-numbers.significanthobbies.com/llms.txt\n- https://india-numbers.significanthobbies.com/api/ai\n- https://india-numbers.significanthobbies.com/index.md\n"
+      "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-standards.significanthobbies.com/llms.txt\n- https://india-standards.significanthobbies.com/api/ai\n- https://india-standards.significanthobbies.com/index.md\n"
     }
   ]
 }
