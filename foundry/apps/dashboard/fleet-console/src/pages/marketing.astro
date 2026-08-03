@@ -5,24 +5,22 @@ import MarketingMaker from "../components/MarketingMaker.astro";
 
 <FounderLayout
   title="Marketing"
-  description="Is every product positioned and receiving real distribution?"
+  description="Projects and the posts created for them."
   active="market"
   view="marketing"
 >
   <div slot="meta" class="page-head__meta">
-    <button type="button" class="secondary-action" data-portfolio-refresh="cloudflare">Update Cloudflare</button>
-    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="cloudflare"></span>
-    <span class="snapshot-time" data-outcome-time>Reading coverage</span>
+    <span class="snapshot-time" data-outcome-time>Reading posts</span>
   </div>
   <MarketingMaker />
-  <section class="owner-section owner-section--directory" aria-labelledby="marketing-coverage-title">
+  <section class="owner-section owner-section--directory" aria-labelledby="marketing-projects-title">
     <div class="section-head">
       <div>
-        <h2 id="marketing-coverage-title">Product coverage</h2>
-        <p>Positioning, publishing receipts, and the next evidence-backed actions.</p>
+        <h2 id="marketing-projects-title">Projects and posts</h2>
+        <p>Published and recorded posts, grouped by project.</p>
       </div>
       <span class="count" data-founder-count="marketing-coverage">—</span>
     </div>
-    <div class="loading-state" data-founder-slot="marketing-coverage">Building marketing coverage…</div>
+    <div class="loading-state" data-founder-slot="marketing-coverage">Loading projects and posts…</div>
   </section>
 </FounderLayout>

@@ -85,6 +85,11 @@ test('recipe catalog expands all bounded combinations into stable selectable var
   assert.equal(grok.delivery.kind, 'final-video');
   assert.ok(variants.filter((variant) => variant.autoEligible).every((variant) => variant.delivery.kind === 'final-video'));
   assert.ok(variants.filter((variant) => variant.delivery.kind === 'continuation').every((variant) => !variant.autoEligible));
+  assert.deepEqual(
+    variants.filter((variant) => variant.recipeId === 'local-voice-film').map((variant) => variant.values.voice),
+    ['af_heart', 'am_adam'],
+  );
+  assert.match(variants.find((variant) => variant.id === 'local-voice-film--voice-af-heart').label, /Heart · Warm and conversational/);
 });
 
 test('stable variant ids select finite values while duration and free-form input stay separate', () => {

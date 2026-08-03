@@ -138,6 +138,7 @@ test('composition exposes the original deterministic visual primitives and timel
     'evidence-path',
     'focus-pull',
     'mask-zoom',
+    'parallax-depth',
     'match-cut',
   ]);
   assert.match(html, /window\.renderAt=async/);

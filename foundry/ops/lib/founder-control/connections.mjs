@@ -1320,10 +1320,21 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       )
       .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
     const traffic = project.webTraffic?.outcome ?? null;
+    const posts = projectOutcomes.slice(0, 20).map((item) => ({
+      id: item.id ?? null,
+      title: item.title ?? null,
+      provider: item.provider ?? null,
+      stage: item.stage ?? null,
+      status: item.status ?? 'recorded',
+      observedAt: item.observedAt ?? null,
+      url: item.url ?? null,
+    }));
     return {
       projectId: project.projectId,
       name: project.name,
       domain: project.domains[0] ?? null,
+      posts,
+      postCount: projectOutcomes.length,
       positioning: project.description ? 'ready' : 'missing',
       description: project.description,
       recommendationCount: projectRecommendations.length,

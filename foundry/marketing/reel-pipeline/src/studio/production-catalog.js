@@ -1,4 +1,5 @@
 import arsenalConfig from '../../config/studio-arsenal.json' with { type: 'json' };
+import { POST_READY_VOICE_CATALOG } from '../post-ready/voices.js';
 import brandConfig from '../../config/brand-channels.json' with { type: 'json' };
 
 const CHANNELS = [...arsenalConfig.channels];
@@ -158,7 +159,9 @@ function finiteValuesMatch(options, expected, actual) {
 
 function displayOptionValue(value) {
   if (typeof value === 'boolean') return value ? 'On' : 'Off';
-  return String(value).split('-').map((part) => part ? part[0].toUpperCase() + part.slice(1) : part).join(' ');
+  const voice = POST_READY_VOICE_CATALOG.find((entry) => entry.id === value);
+  if (voice) return `${voice.label} · ${voice.character}`;
+  return String(value).split(/[-_]/).map((part) => part ? part[0].toUpperCase() + part.slice(1) : part).join(' ');
 }
 
 function stableSegment(value) {

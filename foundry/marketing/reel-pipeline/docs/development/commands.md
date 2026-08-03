@@ -29,7 +29,45 @@ commands.
 | `npm run render:html -- --brief <file>` | Export HTML composition artifacts |
 | `npm run render:package -- --file <package>` | Render an approved content package |
 | `npm run render:podcast-edit -- --file <podcast-edit>` | Render an approved `fleet.podcast-edit.v1` document |
+| `npm run render:post-ready -- --brief <brief.json>` | Produce one review-gated 9:16 master with narration, music, motion, captions, provenance, and one-frame-per-second evidence |
 | `npm run probe:engines` | Inspect renderer prerequisites without rendering |
+
+### Post-ready local preset
+
+The post-ready preset accepts `fleet.post-ready-video.v1`. The brief must be
+owner-approved and include a 20–35 second scene plan, narration, music intent,
+rights-safe visual sources, purposeful motion, captions, transitions, and a
+closing beat. A generated music bed is available as the rights-safe default;
+approved narration or music files require explicit source and license fields.
+
+From a worktree, point at shared ignored model directories instead of copying
+them:
+
+```bash
+npm run render:post-ready -- \
+  --brief fixtures/post-ready/reference-protected-hour/brief.json \
+  --voice af_bella \
+  --voice-speed 1.04 \
+  --kokoro-dir /path/to/shared/tools/kokoro \
+  --video-runtime-root /path/to/shared/ltx-2-mlx \
+  --video-model-root /path/to/shared/ltx-model
+```
+
+Run `npm run render:post-ready -- --list-voices` to inspect the curated voice
+catalog. The current friendly/poppy choices are Bella, Heart, Nova, and Puck;
+the same brief can be rerendered with any catalog id through `--voice` without
+editing the source JSON.
+
+Each timestamped run under `.reel-pipeline/post-ready/` contains `final.mp4`,
+`captions.srt`, the narration, music and final-mix WAV files, normalized plans,
+source and output hashes, engine readiness, stage diagnostics, a complete
+technical review, one JPEG per second, a contact sheet, and
+`production-receipt.json`.
+
+Technical completion remains `review-only`. To mark the receipt post-ready,
+pass an explicit review document with `--review <review.json>`. It must approve
+voice, music, animation, captions, pacing, and transitions and contain no
+critical issue. The command never uploads or publishes the result.
 
 ## Podcast editorial
 

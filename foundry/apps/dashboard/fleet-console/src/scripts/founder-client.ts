@@ -3311,25 +3311,42 @@ async function renderMarketing() {
   const rows = (payload.rows ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
   const count = document.querySelector<HTMLElement>('[data-founder-count="marketing-coverage"]');
   if (count) count.textContent = String(rows.length);
-  const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row) },
-    { key: "positioning", label: "Positioning", description: "Sort by positioning readiness", value: (row) => row.positioning, render: (row) => element("span", { class: "outcome-positioning" }, [row.description ?? "No public positioning recorded"]) },
-    { key: "visits", label: "Visits", description: "Sort by Cloudflare Web Analytics visits", value: (row) => row.visits?.value, render: (row) => outcomeSignal(row.visits) },
-    { key: "pageViews", label: "Page views", description: "Sort by Cloudflare Web Analytics page views", value: (row) => row.pageViews?.value, render: (row) => outcomeSignal(row.pageViews) },
-    { key: "published", label: "Last published", description: "Sort by latest publishing receipt", value: (row) => row.latestOutcome?.observedAt ? Date.parse(row.latestOutcome.observedAt) : null, render: (row) => row.latestOutcome ? formattedDay(row.latestOutcome.observedAt) : "Never" },
-    { key: "recommendations", label: "Next actions", description: "Sort by recommendation count", value: (row) => row.recommendationCount, render: (row) => String(row.recommendationCount) },
-    { key: "status", label: "Coverage", description: "Sort by marketing coverage state", value: (row) => row.status, render: (row) => state(row.status) },
-  ];
+
+  const postRow = (post: JsonRecord) => {
+    const title = post.title || "Recorded post";
+    const titleNode = post.url
+      ? element("a", { href: post.url, target: "_blank", rel: "noreferrer" }, [title])
+      : element("strong", {}, [title]);
+    const source = post.provider ? titleCase(post.provider) : "Provider not recorded";
+    const kind = post.stage ? titleCase(post.stage) : "Post";
+    return element("li", { class: "marketing-post" }, [
+      element("div", { class: "marketing-post__main" }, [
+        titleNode,
+        element("small", {}, [`${source} · ${kind} · ${formattedDay(post.observedAt)}`]),
+      ]),
+      state(post.status || "recorded"),
+    ]);
+  };
+
+  const projectRow = (row: JsonRecord) => {
+    const posts = row.posts ?? [];
+    const retained = Number(row.postCount ?? posts.length);
+    return element("article", { class: "marketing-project" }, [
+      element("header", { class: "marketing-project__header" }, [
+        projectIdentity(row),
+        element("span", { class: posts.length ? "marketing-project__count" : "marketing-project__count is-empty" }, [
+          posts.length ? `${retained} post${retained === 1 ? "" : "s"}` : "No posts yet",
+        ]),
+      ]),
+      posts.length
+        ? element("ol", { class: "marketing-posts", "aria-label": `${row.name} posts` }, posts.map(postRow))
+        : null,
+    ]);
+  };
+
   replace("marketing-coverage", rows.length
-    ? outcomeTable(rows, columns, "project", "Fleet product marketing coverage", "ascending", {
-        rowKey: (row) => row.projectId,
-        details: (row) => providerOutcomeDetails({
-          note: "Cloudflare Web Analytics shows whether distribution produced visits. Expand the breakdowns to see the pages and referrers responsible.",
-          outcomes: [{ label: "Traffic", outcome: row.traffic, linkLabel: "Open Cloudflare Traffic" }],
-          signals: [row.visits, row.pageViews, row.searchReferrals],
-        }),
-      })
-    : empty("No matching product", "The current project scope has no public marketing target."));
+    ? element("div", { class: "marketing-projects" }, [...rows].sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name)).map(projectRow))
+    : empty("No matching project", "The current project scope has no public marketing project."));
 }
 
 async function renderMission() {
@@ -3401,6 +3418,10 @@ async function renderMission() {
 async function start() {
   const view = document.body.dataset.founderView;
   if (!view) return;
+  if (document.body.dataset.founderEvidence === "false") {
+    if (connectionLabel) connectionLabel.textContent = "Local gallery";
+    return;
+  }
   const slots = document.querySelectorAll<HTMLElement>("[data-founder-slot]");
   slots.forEach((slot) => {
     slot.setAttribute("aria-busy", "true");

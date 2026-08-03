@@ -37,7 +37,13 @@ import {
 } from './distribution.js';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
-import { listExploreGallery, openExploreGalleryMedia } from './explore-gallery.js';
+import {
+  listExploreGallery,
+  listRepresentativeExploreGallery,
+  openExploreGalleryMedia,
+  openRepresentativeExploreGalleryMedia,
+  openRepresentativeExploreGalleryPoster,
+} from './explore-gallery.js';
 import { executeVideoVariant } from './video-execution.js';
 import { getExecutionAdapter, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
 import { executeVideoMix } from './video-mix.js';
@@ -172,6 +178,19 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   const tool = pathname.slice('/studio/'.length);
   if (method === 'GET' && tool === 'explore-gallery') {
     return { status: 200, body: { data: await listExploreGallery(options) } };
+  }
+  if (method === 'GET' && tool === 'explore-gallery/representatives') {
+    return { status: 200, body: { data: await listRepresentativeExploreGallery(options) } };
+  }
+  const representativeMediaMatch = tool.match(/^explore-gallery\/representatives\/([^/]+)\/media$/);
+  if (method === 'GET' && representativeMediaMatch) {
+    const raw = await openRepresentativeExploreGalleryMedia(decodeURIComponent(representativeMediaMatch[1]), options);
+    return raw ? { status: 200, raw } : { status: 404, body: { error: 'representative gallery sample not found' } };
+  }
+  const representativePosterMatch = tool.match(/^explore-gallery\/representatives\/([^/]+)\/poster$/);
+  if (method === 'GET' && representativePosterMatch) {
+    const raw = await openRepresentativeExploreGalleryPoster(decodeURIComponent(representativePosterMatch[1]), options);
+    return raw ? { status: 200, raw } : { status: 404, body: { error: 'representative gallery poster not found' } };
   }
   const galleryMediaMatch = tool.match(/^explore-gallery\/([^/]+)\/media$/);
   if (method === 'GET' && galleryMediaMatch) {
@@ -701,6 +720,7 @@ async function executeMarketingBrief(id, body, options, store) {
       hook: brief.hook,
       cta: brief.cta,
       creativeDirection: brief.creativeDirection,
+      voice: brief.recipeOptions?.values?.voice,
       renderOptions: brief.recipeOptions?.values,
       ideaId: brief.ideaId ?? undefined,
       recordingUrl: brief.recipeOptions?.values?.approvedAssetPath || undefined,

@@ -12,6 +12,8 @@ const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PACK_ROOT = path.join(ROOT, 'fixtures/video-gallery');
 const SOURCE_ROOT = path.join(PACK_ROOT, 'sources');
 const VIDEO_ROOT = path.join(PACK_ROOT, 'videos');
+const IMAGE_STORY_ROOT = path.join(PACK_ROOT, 'assets/image-stories');
+const PROOF_ROOT = path.join(PACK_ROOT, 'proofs');
 const RASTER_ROOT = path.join(ROOT, 'tmp/video-gallery-rasters');
 const MANIFEST_PATH = path.join(PACK_ROOT, 'manifest.json');
 const GALLERY_PATH = path.join(ROOT, 'config/explore-gallery.json');
@@ -47,6 +49,19 @@ const PALETTES = [
   ['#12120e', '#d9e785', '#fbffdf', '#424827'],
 ];
 
+const IMAGE_STORY_ASSETS = [
+  'cinematic-world.webp',
+  'editorial-world.webp',
+  'three-dimensional-world.webp',
+  'illustrated-world.webp',
+  'motion-world.webp',
+  'ascii-world.webp',
+].map((name) => path.join(IMAGE_STORY_ROOT, name));
+const REAL_PROOF_EVIDENCE = [
+  path.join(PROOF_ROOT, 'blender/evidence.json'),
+  path.join(PROOF_ROOT, 'video-model/evidence.json'),
+];
+
 const checkOnly = process.argv.includes('--check');
 
 await mkdir(SOURCE_ROOT, { recursive: true });
@@ -67,6 +82,23 @@ if (checkOnly) {
     totalBytes += info.size;
     const digest = sha256(await readFile(videoPath));
     if (digest !== item.sha256) failures.push(`${item.variantId}: sha256 mismatch`);
+    if (isRangeProofVariant(item.variantId)) {
+      if (!['local-render', 'local-model-proof'].includes(item.sourcePosture) || item.executionMode !== 'real') {
+        failures.push(`${item.variantId}: real proof posture missing`);
+      }
+      if (item.renderer === 'ffmpeg-svg-fixture@1') failures.push(`${item.variantId}: generic fixture renderer is not a range proof`);
+      const sourceProofPath = item.sourceProof ? path.join(ROOT, item.sourceProof) : null;
+      const sourceProofInfo = sourceProofPath ? await stat(sourceProofPath).catch(() => null) : null;
+      if (!sourceProofInfo?.isFile()) failures.push(`${item.variantId}: proof source missing`);
+      else if (sha256(await readFile(sourceProofPath)) !== item.sourceProofSha256) failures.push(`${item.variantId}: proof source sha256 mismatch`);
+      const proofEvidencePath = item.proofEvidence ? path.join(ROOT, item.proofEvidence) : null;
+      if (!proofEvidencePath || !(await stat(proofEvidencePath).catch(() => null))?.isFile()) {
+        failures.push(`${item.variantId}: proof evidence missing`);
+      }
+      if (item.variantId.startsWith('coherent-local-film--')) {
+        if (!item.prompt || !item.keyframeSha256 || !item.modelRevision) failures.push(`${item.variantId}: local-model generation evidence incomplete`);
+      }
+    }
     const probe = await probeVideo(videoPath).catch((error) => ({ error: error.message }));
     if (probe.error) failures.push(`${item.variantId}: ${probe.error}`);
     else {
@@ -83,6 +115,7 @@ if (checkOnly) {
 }
 
 const variants = listRecipeVariants();
+const realProofs = await loadRealProofs();
 const items = [];
 for (const [index, variant] of variants.entries()) {
   const sourceName = `${variant.id}.svg`;
@@ -90,32 +123,65 @@ for (const [index, variant] of variants.entries()) {
   const sourcePath = path.join(SOURCE_ROOT, sourceName);
   const videoPath = path.join(VIDEO_ROOT, videoName);
   const rasterPath = path.join(RASTER_ROOT, `${variant.id}.png`);
-  const svg = fixtureSvg(variant, index);
-  await writeFile(sourcePath, svg);
-  await rasterizeSvg(sourcePath, rasterPath);
-  await renderPreview(rasterPath, videoPath, 180 + (index * 17) % 280, index);
+  const isImageSlideshow = variant.recipeId === 'image-slideshow';
+  const realProof = realProofs.get(variant.id);
+  let sourceFixture;
+  let sourceSha256;
+  let sourceAssets;
+  let sourceAssetSha256s;
+  let sourceProof;
+  let sourceProofSha256;
+  if (isImageSlideshow) {
+    const imagePaths = imageStoryAssetsFor(index);
+    await renderImageSlideshowPreview(variant.values.visualStyle, imagePaths, videoPath, 180 + (index * 17) % 280);
+    sourceAssets = imagePaths.map((assetPath) => path.relative(ROOT, assetPath));
+    sourceAssetSha256s = await Promise.all(imagePaths.map(async (assetPath) => sha256(await readFile(assetPath))));
+  } else if (realProof) {
+    const proofPath = path.join(ROOT, realProof.source);
+    await renderProofPreview(proofPath, videoPath, 180 + (index * 17) % 280);
+    sourceProof = realProof.source;
+    sourceProofSha256 = realProof.sha256;
+  } else {
+    const svg = fixtureSvg(variant, index);
+    await writeFile(sourcePath, svg);
+    await rasterizeSvg(sourcePath, rasterPath);
+    await renderPreview(rasterPath, videoPath, 180 + (index * 17) % 280, index);
+    sourceFixture = path.relative(ROOT, sourcePath);
+    sourceSha256 = sha256(Buffer.from(svg));
+  }
   const videoBytes = await readFile(videoPath);
-  const sourceBytes = Buffer.from(svg);
   const probe = await probeVideo(videoPath);
   items.push({
     id: `fixture-${variant.id}`,
     title: variant.label,
     family: FAMILY[variant.recipeId],
-    description: `${variant.outputStyle}. A deterministic preview of this exact option.`,
-    engine: 'Fleet fixture renderer',
-    renderer: 'ffmpeg-svg-fixture@1',
+    description: realProof
+      ? `${variant.outputStyle}. A real ${variant.recipeId === 'blender-film' ? 'Blender 5.2 animation' : 'local LTX image-to-video'} proof of this exact option.`
+      : isImageSlideshow
+        ? `${variant.outputStyle}. A deterministic multi-image preview of this exact option.`
+        : `${variant.outputStyle}. A deterministic preview of this exact option.`,
+    engine: realProof?.engine ?? (isImageSlideshow ? 'Fleet image sequence renderer' : 'Fleet fixture renderer'),
+    renderer: realProof?.renderer ?? (isImageSlideshow ? 'ffmpeg-image-sequence@1' : 'ffmpeg-svg-fixture@1'),
     intendedRuntime: variant.runtime,
-    sourcePosture: 'fixture',
-    executionMode: 'fixture',
+    sourcePosture: realProof?.sourcePosture ?? 'fixture',
+    executionMode: realProof ? 'real' : 'fixture',
     qualityTier: 'showcase',
     spend: variant.spend.label,
     variantId: variant.id,
-    prompt: promptFor(variant),
+    prompt: realProof?.prompt ?? promptFor(variant),
     source: path.relative(ROOT, videoPath),
-    sourceFixture: path.relative(ROOT, sourcePath),
-    evidence: path.relative(ROOT, MANIFEST_PATH),
+    ...(sourceFixture ? { sourceFixture } : {}),
+    ...(sourceAssets ? { sourceAssets } : {}),
+    evidence: realProof?.evidencePath ?? path.relative(ROOT, MANIFEST_PATH),
+    ...(sourceProof ? { sourceProof } : {}),
+    ...(realProof?.evidencePath ? { proofEvidence: realProof.evidencePath } : {}),
     sha256: sha256(videoBytes),
-    sourceSha256: sha256(sourceBytes),
+    ...(sourceSha256 ? { sourceSha256 } : {}),
+    ...(sourceAssetSha256s ? { sourceAssetSha256s } : {}),
+    ...(sourceProofSha256 ? { sourceProofSha256 } : {}),
+    ...(realProof?.keyframe ? { keyframe: realProof.keyframe } : {}),
+    ...(realProof?.keyframeSha256 ? { keyframeSha256: realProof.keyframeSha256 } : {}),
+    ...(realProof?.modelRevision ? { modelRevision: realProof.modelRevision } : {}),
     media: probe,
   });
   process.stdout.write(`built ${index + 1}/${variants.length} ${variant.id}\n`);
@@ -128,8 +194,8 @@ const manifest = {
   schema: 'fleet.video-preview-pack.v1',
   version: 1,
   generatedAt: '2026-08-01T00:00:00.000Z',
-  renderer: 'ffmpeg-svg-fixture@1',
-  rights: 'Original deterministic text, tone, and vector fixtures; no commercial media.',
+  renderer: 'fleet-gallery-fixtures@2',
+  rights: 'Original deterministic image, text, tone, and vector fixtures; no commercial media.',
   width: WIDTH,
   height: HEIGHT,
   durationSeconds: DURATION_SECONDS,
@@ -141,7 +207,7 @@ await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
 const gallery = {
   schema: 'fleet.video-explore-gallery.v1',
   version: 2,
-  items: items.map(({ sourceFixture, sourceSha256, media, ...item }) => item),
+  items: items.map(({ sourceFixture, sourceSha256, sourceAssets, sourceAssetSha256s, media, ...item }) => item),
 };
 await writeFile(GALLERY_PATH, `${JSON.stringify(gallery, null, 2)}\n`);
 console.log(JSON.stringify({ status: 'built', variants: items.length, totalBytes, manifest: path.relative(ROOT, MANIFEST_PATH) }, null, 2));
@@ -248,6 +314,136 @@ function podcastVisual(style, accent, surface, text) {
 function lyricVisual(style, useBlender, accent, surface, text) {
   if (style === 'kinetic-type') return `<g><text x="180" y="164" text-anchor="middle" fill="${text}" font-family="Arial" font-size="46" font-weight="900">EVERY</text><text x="180" y="222" text-anchor="middle" fill="${accent}" font-family="Arial" font-size="58" font-weight="900">WORD</text><text x="180" y="266" text-anchor="middle" fill="${text}" font-family="Arial" font-size="30" font-weight="800">MOVES.</text><path d="M61 318h238" stroke="${accent}" stroke-width="8" stroke-dasharray="24 10"/>${useBlender ? `<path d="M180 87l112 194-112 76L68 281z" fill="none" stroke="${accent}" opacity=".28"/>` : ''}</g>`;
   return `<g><circle cx="180" cy="194" r="101" fill="${accent}" opacity=".15"/><text x="180" y="190" text-anchor="middle" fill="${text}" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="800">THE WORDS</text><text x="180" y="230" text-anchor="middle" fill="${accent}" font-family="Arial,Helvetica,sans-serif" font-size="22">BECOME THE SCENE</text><path d="M91 277h178" stroke="${accent}" stroke-width="5" stroke-dasharray="19 9"/>${useBlender ? `<path d="M180 86l95 164-95 85-95-85z" fill="none" stroke="${text}" opacity=".3"/>` : ''}</g>`;
+}
+
+function imageStoryAssetsFor(index) {
+  const offset = (index * 2) % IMAGE_STORY_ASSETS.length;
+  return [0, 1, 2].map((step) => IMAGE_STORY_ASSETS[(offset + step) % IMAGE_STORY_ASSETS.length]);
+}
+
+async function renderImageSlideshowPreview(style, imagePaths, videoPath, frequency) {
+  const inputArgs = imagePaths.flatMap((imagePath) => [
+    '-loop', '1', '-framerate', '25', '-t', String(DURATION_SECONDS), '-i', imagePath,
+  ]);
+  await run(FFMPEG, [
+    '-y', '-loglevel', 'error', ...inputArgs,
+    '-f', 'lavfi', '-i', `sine=frequency=${frequency}:sample_rate=48000:duration=${DURATION_SECONDS}`,
+    '-filter_complex', imageSlideshowFilter(style),
+    '-t', String(DURATION_SECONDS),
+    '-map', '[outv]', '-map', `${imagePaths.length}:a`,
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '26', '-profile:v', 'main',
+    '-c:a', 'aac', '-b:a', '48k', '-ac', '2', '-ar', '48000', '-shortest',
+    '-map_metadata', '-1', '-movflags', '+faststart', videoPath,
+  ]);
+}
+
+async function renderProofPreview(sourcePath, videoPath, frequency) {
+  await run(FFMPEG, [
+    '-y', '-loglevel', 'error', '-i', sourcePath,
+    '-f', 'lavfi', '-i', `sine=frequency=${frequency}:sample_rate=48000:duration=${DURATION_SECONDS}`,
+    '-filter_complex', `[0:v]scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=increase,crop=${WIDTH}:${HEIGHT},fps=25,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration=1,trim=duration=${DURATION_SECONDS},format=yuv420p[outv]`,
+    '-map', '[outv]', '-map', '1:a', '-t', String(DURATION_SECONDS),
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24', '-profile:v', 'main',
+    '-c:a', 'aac', '-b:a', '48k', '-ac', '2', '-ar', '48000', '-shortest',
+    '-map_metadata', '-1', '-movflags', '+faststart', videoPath,
+  ]);
+}
+
+async function loadRealProofs() {
+  const proofs = new Map();
+  for (const evidencePath of REAL_PROOF_EVIDENCE) {
+    const evidenceBytes = await readFile(evidencePath);
+    const evidence = JSON.parse(evidenceBytes.toString('utf8'));
+    for (const item of evidence.items ?? []) {
+      if (!isRangeProofVariant(item.variantId)) continue;
+      if (proofs.has(item.variantId)) throw new Error(`duplicate real proof: ${item.variantId}`);
+      const sourcePath = path.join(ROOT, item.source);
+      const sourceBytes = await readFile(sourcePath);
+      const sourceDigest = sha256(sourceBytes);
+      if (sourceDigest !== item.sha256) throw new Error(`${item.variantId}: proof source sha256 mismatch`);
+      const isBlender = item.variantId.startsWith('blender-film--');
+      proofs.set(item.variantId, {
+        ...item,
+        evidencePath: path.relative(ROOT, evidencePath),
+        engine: isBlender ? `Blender ${evidence.blenderVersion}` : 'Local LTX-2.3 MLX',
+        renderer: evidence.renderer,
+        sourcePosture: isBlender ? 'local-render' : 'local-model-proof',
+        modelRevision: isBlender ? null : evidence.runtime?.modelRevision,
+      });
+    }
+  }
+  const expected = variantsForRangeProofs();
+  for (const variantId of expected) {
+    if (!proofs.has(variantId)) throw new Error(`missing real proof: ${variantId}`);
+  }
+  return proofs;
+}
+
+function variantsForRangeProofs() {
+  return [
+    'blender-film--visualstyle-cosmic-shrine',
+    'blender-film--visualstyle-brutalist-monument',
+    'blender-film--visualstyle-glass-studio',
+    'blender-film--visualstyle-low-poly-valley',
+    'blender-film--visualstyle-organic-bloom',
+    'blender-film--visualstyle-kinetic-sculpture',
+    'blender-film--visualstyle-neon-tunnel',
+    'blender-film--visualstyle-paper-diorama',
+    'coherent-local-film--continuity-strict',
+    'coherent-local-film--continuity-balanced',
+    'coherent-local-film--continuity-experimental',
+  ];
+}
+
+function isRangeProofVariant(variantId) {
+  return variantsForRangeProofs().includes(variantId);
+}
+
+function imageSlideshowFilter(style) {
+  const cover = `scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=increase,crop=${WIDTH}:${HEIGHT},setsar=1,fps=25`;
+  if (style === 'editorial-cutout') {
+    return `[0:v]${cover},drawbox=x=0:y=0:w=iw:h=12:color=#ef553d:t=fill[v0];`
+      + `[1:v]${cover},drawbox=x=0:y=0:w=12:h=ih:color=#1d4ed8:t=fill[v1];`
+      + `[2:v]${cover},drawbox=x=0:y=h-12:w=iw:h=12:color=#f2c94c:t=fill[v2];`
+      + `[v0][v1]xfade=transition=slideleft:duration=0.18:offset=0.72[x1];`
+      + `[x1][v2]xfade=transition=wipeup:duration=0.18:offset=1.48,trim=duration=${DURATION_SECONDS},format=yuv420p[outv]`;
+  }
+  if (style === 'filmstrip') {
+    return `[0:v]scale=280:498:force_original_aspect_ratio=increase,crop=280:498,pad=304:546:12:12:color=#f4ead8[v0];`
+      + `[1:v]scale=280:498:force_original_aspect_ratio=increase,crop=280:498,pad=304:546:12:12:color=#f4ead8[v1];`
+      + `[2:v]scale=280:498:force_original_aspect_ratio=increase,crop=280:498,pad=304:546:12:12:color=#f4ead8[v2];`
+      + `[v0][v1][v2]vstack=inputs=3[stack];`
+      + `[stack]pad=360:1638:28:0:color=#111111,crop=360:640:0:'min((in_h-out_h)*t/${DURATION_SECONDS},in_h-out_h)',fps=25,setsar=1,format=yuv420p[outv]`;
+  }
+  if (style === 'split-frame') {
+    return `[0:v]scale=180:640:force_original_aspect_ratio=increase,crop=180:640,setsar=1,fps=25[left];`
+      + `[1:v]scale=180:640:force_original_aspect_ratio=increase,crop=180:640,setsar=1,fps=25[mid];`
+      + `[mid]split=2[mid1][mid2];`
+      + `[2:v]scale=180:640:force_original_aspect_ratio=increase,crop=180:640,setsar=1,fps=25[right];`
+      + `[left][mid1]hstack=inputs=2[first];[mid2][right]hstack=inputs=2[second];`
+      + `[first][second]xfade=transition=wipeleft:duration=0.24:offset=1.12,trim=duration=${DURATION_SECONDS},format=yuv420p[outv]`;
+  }
+  if (style === 'polaroid-stack') {
+    return `color=c=#121314:s=${WIDTH}x${HEIGHT}:r=25:d=${DURATION_SECONDS}[base];`
+      + `[0:v]scale=270:480:force_original_aspect_ratio=increase,crop=270:480,pad=294:534:12:12:color=white,format=rgba,rotate=-.055:ow=rotw(iw):oh=roth(ih):c=none[p0];`
+      + `[1:v]scale=270:480:force_original_aspect_ratio=increase,crop=270:480,pad=294:534:12:12:color=white,format=rgba,rotate=.05:ow=rotw(iw):oh=roth(ih):c=none,fade=t=in:st=0.72:d=0.18:alpha=1[p1];`
+      + `[2:v]scale=270:480:force_original_aspect_ratio=increase,crop=270:480,pad=294:534:12:12:color=white,format=rgba,rotate=-.025:ow=rotw(iw):oh=roth(ih):c=none,fade=t=in:st=1.48:d=0.18:alpha=1[p2];`
+      + `[base][p0]overlay=x='(W-w)/2-10':y=55:shortest=1[s0];`
+      + `[s0][p1]overlay=x='(W-w)/2+10':y=70:shortest=1[s1];`
+      + `[s1][p2]overlay=x='(W-w)/2':y=62:shortest=1,format=yuv420p[outv]`;
+  }
+  if (style === 'soft-parallax') {
+    return `[0:v]scale=430:764:force_original_aspect_ratio=increase,crop=360:640:x='(iw-ow)*t/${DURATION_SECONDS}':y='(ih-oh)*(1-t/${DURATION_SECONDS})',setsar=1,fps=25[base];`
+      + `[1:v]scale=250:444:force_original_aspect_ratio=increase,crop=250:444,format=rgba,colorchannelmixer=aa=.58[layer1];`
+      + `[2:v]scale=180:320:force_original_aspect_ratio=increase,crop=180:320,format=rgba,colorchannelmixer=aa=.7[layer2];`
+      + `[base][layer1]overlay=x='24+10*sin(t*2)':y='92-16*t':shortest=1[s1];`
+      + `[s1][layer2]overlay=x='150-8*t':y='270+12*t':shortest=1,format=yuv420p[outv]`;
+  }
+  return `[0:v]scale=400:712:force_original_aspect_ratio=increase,crop=360:640:x='(iw-ow)*t/${DURATION_SECONDS}':y='(ih-oh)/2',setsar=1,fps=25[v0];`
+    + `[1:v]scale=400:712:force_original_aspect_ratio=increase,crop=360:640:x='(iw-ow)*(1-t/${DURATION_SECONDS})':y='(ih-oh)/2',setsar=1,fps=25[v1];`
+    + `[2:v]scale=400:712:force_original_aspect_ratio=increase,crop=360:640:x='(iw-ow)*t/${DURATION_SECONDS}':y='(ih-oh)/2',setsar=1,fps=25[v2];`
+    + `[v0][v1]xfade=transition=fade:duration=0.28:offset=0.72[x1];`
+    + `[x1][v2]xfade=transition=fade:duration=0.28:offset=1.48,trim=duration=${DURATION_SECONDS},format=yuv420p[outv]`;
 }
 
 async function renderPreview(sourcePath, videoPath, frequency, index) {
