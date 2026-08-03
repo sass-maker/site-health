@@ -148,14 +148,18 @@ const secondaryLinks = [
     }
   });
 
-  fetch("/api/founder/health", { headers: { accept: "application/json" } })
-    .then((response) => {
-      if (!response.ok) throw new Error("offline");
-      indicator?.classList.add("online");
-      if (label) label.textContent = "Live evidence";
-    })
-    .catch(() => {
-      indicator?.classList.add("offline");
-      if (label) label.textContent = "Offline";
-    });
+  if (document.body.dataset.founderEvidence === "false") {
+    if (label) label.textContent = "Local gallery";
+  } else {
+    fetch("/api/founder/health", { headers: { accept: "application/json" } })
+      .then((response) => {
+        if (!response.ok) throw new Error("offline");
+        indicator?.classList.add("online");
+        if (label) label.textContent = "Live evidence";
+      })
+      .catch(() => {
+        indicator?.classList.add("offline");
+        if (label) label.textContent = "Offline";
+      });
+  }
 </script>

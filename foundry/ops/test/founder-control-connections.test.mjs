@@ -589,14 +589,28 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     now,
     marketing: {
       recommendations: [{ projectId: 'pace', title: 'Publish the comparison page.' }],
-      outcomes: [{
-        id: 'marketing-pace-1',
-        projectId: 'pace',
-        stage: 'publication',
-        status: 'published',
-        title: 'Pace launch note',
-        observedAt: '2026-07-30T08:00:00.000Z',
-      }],
+      outcomes: [
+        {
+          id: 'marketing-pace-1',
+          projectId: 'pace',
+          stage: 'publication',
+          status: 'published',
+          provider: 'youtube',
+          title: 'Pace launch note',
+          observedAt: '2026-07-30T08:00:00.000Z',
+          url: 'https://example.com/pace-launch',
+          privatePayload: 'must-not-reach-the-project-post-projection',
+        },
+        {
+          id: 'marketing-pace-older',
+          projectId: 'pace',
+          stage: 'publication',
+          status: 'published',
+          provider: 'instagram',
+          title: 'Pace first look',
+          observedAt: '2026-07-29T08:00:00.000Z',
+        },
+      ],
       aiVisibility: {
         projects: [{
           projectId: 'pace',
@@ -773,6 +787,19 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(
     result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'pace').status,
     'marketed',
+  );
+  const paceMarketing = result.outputs.ownerOutcomes.marketing.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(paceMarketing.postCount, 2);
+  assert.deepEqual(paceMarketing.posts.map((post) => post.id), [
+    'marketing-pace-1',
+    'marketing-pace-older',
+  ]);
+  assert.equal('privatePayload' in paceMarketing.posts[0], false);
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').posts,
+    [],
   );
   assert.equal(
     result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').status,

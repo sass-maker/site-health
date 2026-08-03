@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "48-variant video creation, playable exploration, and ordered style mixing at /marketing and /marketing/explore-gallery",
+  "target": "Quality-gated representative proofs at /marketing/explore-gallery",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,33 +14,33 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": "artifacts/design/fleet-console-marketing-maker/before-1440.png"
+    "before": "artifacts/design/fleet-console-marketing-explore-gallery/after-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-mix-390.png"
+        "path": "artifacts/design/fleet-console-marketing-gallery-quality/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/fleet-console-marketing-explore-gallery/after-768.png"
+        "path": "artifacts/design/fleet-console-marketing-gallery-quality/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/fleet-console-marketing-maker/after-mix-1440.png"
+        "path": "artifacts/design/fleet-console-marketing-gallery-quality/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm run build",
+      "command": "PUBLIC_REEL_PIPELINE_ORIGIN=http://127.0.0.1:4318 npm run build",
       "status": "pass"
     },
     "critique": {
-      "score": 37,
+      "score": 36,
       "maximum": 40
     },
     "audit": {
-      "score": 20,
+      "score": 18,
       "maximum": 20
     },
     "unresolved": {
@@ -49,11 +49,14 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": []
+      "findings": [
+        "Advisory: the HTML composition renderer uses Inter.",
+        "Advisory: the lyric compositor uses Inter."
+      ]
     }
   },
   "ownerFeedback": {
-    "decision": "delegated",
-    "note": "Owner delegated the preserve-mode direction, required every bounded combination in the main product, approved the gallery system, and requested mix-and-match style selection."
+    "decision": "pending",
+    "note": "Independent critique found no unresolved P0 or P1 after lab proofs were visibly separated from showcase proofs; owner keep feedback is still required."
   }
 }

@@ -76,6 +76,21 @@ function boundedSignal(signal, { includeSeries = false } = {}) {
     : bounded;
 }
 
+function boundedText(value, maximum) {
+  if (value === null || value === undefined) return null;
+  return String(value).slice(0, maximum);
+}
+
+function publicPostUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(String(value));
+    return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
 function outcomeProjection(connections, family) {
   const outcomes = connections.outputs?.ownerOutcomes ?? {};
   let rows = [];
@@ -138,12 +153,26 @@ function outcomeProjection(connections, family) {
       rumSamples: boundedSignal(row.rumSamples),
     }));
   } else if (family === 'marketing') {
-    rows = (outcomes.marketing ?? []).map((row) => ({
-      ...row,
-      visits: boundedSignal(row.visits, { includeSeries: true }),
-      pageViews: boundedSignal(row.pageViews, { includeSeries: true }),
-      searchReferrals: boundedSignal(row.searchReferrals, { includeSeries: true }),
-    }));
+    rows = (outcomes.marketing ?? []).map((row) => {
+      const posts = (row.posts ?? []).slice(0, 20).map((post) => ({
+        id: boundedText(post.id, 160),
+        title: boundedText(post.title, 240),
+        provider: boundedText(post.provider, 80),
+        stage: boundedText(post.stage, 60),
+        status: boundedText(post.status, 60) ?? 'recorded',
+        observedAt: Number.isFinite(Date.parse(post.observedAt)) ? post.observedAt : null,
+        url: publicPostUrl(post.url),
+      }));
+      return {
+        projectId: boundedText(row.projectId, 160),
+        name: boundedText(row.name, 160) ?? 'Unnamed project',
+        domain: boundedText(row.domain, 240),
+        postCount: Number.isFinite(Number(row.postCount))
+          ? Math.max(posts.length, Number(row.postCount))
+          : posts.length,
+        posts,
+      };
+    });
   } else if (family === 'search') {
     rows = (outcomes.search ?? []).map((row) => ({
       ...row,
