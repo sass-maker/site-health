@@ -375,7 +375,7 @@ h1 { max-width: 780px; margin-bottom: 10px; overflow-wrap: anywhere; font-size: 
 .state.completed, .state.resolved, .state.verified, .state.succeeded, .state.published, .state.comparable { color: var(--success); }
 .state.connected { color: var(--success); }
 .state.fresh { color: var(--success); }
-.state.partial, .state.blocked, .state.stale, .state.awaiting-verification, .state.snoozed, .state.disabled, .state.baseline-only { color: var(--warning); }
+.state.partial, .state.blocked, .state.stale, .state.awaiting-verification, .state.snoozed, .state.disabled, .state.baseline-only, .state.monitoring { color: var(--warning); }
 .state.mixed { color: var(--warning); }
 .state.not-started { color: var(--warning); }
 .state.missing, .state.rejected, .state.cancelled, .state.unavailable, .state.reversed, .state.failed, .state.unmeasured { color: var(--critical); }
