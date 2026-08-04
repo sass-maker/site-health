@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Applied Search work now enters measure mode:** Added a
+  bounded private receipt linking a project, evidence-backed query action,
+  landing page, shipped revision, and timestamp. A matching receipt newer than
+  its Search observation now becomes `Wait, then measure` until a completed
+  provider window can judge the change.
+
 - **2026-08-05 — Search changes now require query-level evidence:** Portfolio
   averages and operator `site:` checks can no longer prescribe product edits.
   A Google Search change action now requires a retained non-audit query that
