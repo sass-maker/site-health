@@ -2725,6 +2725,9 @@ function performanceDiagnosis(row: JsonRecord, thresholds: JsonRecord) {
   const fieldInp = measuredSignalValue(row.fieldInp);
   const fieldCls = measuredSignalValue(row.fieldCls);
   const scope = "Lab measures the canonical page on desktop; field is host-wide p75 from real visits.";
+  if (row.status === "monitoring") {
+    return "The current lab guardrail passes, while the older Cloudflare field window still fails. Fleet is waiting for newer real-user evidence before closing this measurement. " + scope;
+  }
   const otherFailures: string[] = [];
   if (psi !== null && psi < limits.psiScore) {
     otherFailures.push(`PSI is ${metricValue(psi, "score/100")} (target ${metricValue(limits.psiScore, "score/100")})`);

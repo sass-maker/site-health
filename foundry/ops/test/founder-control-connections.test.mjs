@@ -935,6 +935,56 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.doesNotMatch(serialized, /runs\/2026/);
 });
 
+test('monitors an older failing field window after a newer passing lab run', () => {
+  const { root, home } = fixture();
+  appendVisibilityOutcomeBundle({
+    schema: VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+    observations: [{
+      id: 'cloudflare-vitals-pace-monitoring',
+      projectId: 'pace',
+      family: 'web-vitals',
+      provider: 'cloudflare-web-analytics',
+      scope: 'heypace.app',
+      observedAt: '2026-07-31T12:00:00.000Z',
+      period: {
+        start: '2026-07-03T00:00:00.000Z',
+        end: '2026-07-30T23:59:59.000Z',
+      },
+      metrics: [
+        { label: 'Field LCP', value: 4200 },
+        { label: 'Field INP', value: 140 },
+        { label: 'Field CLS', value: 0.04 },
+        { label: 'Field TTFB', value: 420 },
+        { label: 'RUM samples', value: 88 },
+      ],
+    }],
+  }, {
+    path: join(home, '.fleet/visibility-outcomes/ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  });
+  const performanceDatabase = new DatabaseSync(join(home, '.psi-swarm/history.db'));
+  performanceDatabase.prepare(`
+    UPDATE runs
+    SET started_at = ?
+    WHERE performance_score IS NOT NULL
+  `).run(Date.parse('2026-07-31T13:00:00.000Z'));
+  performanceDatabase.close();
+
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now: '2026-07-31T14:00:00.000Z',
+  });
+  const performance = result.outputs.ownerOutcomes.performance.find(
+    (project) => project.projectId === 'pace',
+  );
+
+  assert.equal(performance.psi.value, 96);
+  assert.ok(performance.fieldLcp, JSON.stringify(performance));
+  assert.equal(performance.fieldLcp.value, 4200);
+  assert.equal(performance.status, 'monitoring');
+});
+
 test('limits core AI awareness to provider-backed P1 outcomes', () => {
   const { root, home } = fixture();
   const providerRun = {

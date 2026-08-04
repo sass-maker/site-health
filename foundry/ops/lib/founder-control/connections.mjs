@@ -1427,21 +1427,31 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     const fieldInp = latestFamilySignal(project, field, 'Field INP');
     const fieldCls = latestFamilySignal(project, field, 'Field CLS');
     let status = 'not-measured';
+    let labPasses = false;
     if (psi && lcp) {
       status = 'needs-work';
-      if (
+      labPasses = (
         psi.value >= performanceThresholds.psiScore &&
         lcp.value <= performanceThresholds.lcpMilliseconds
-      ) {
-        status = 'fast-enough';
-      }
+      );
+      if (labPasses) status = 'fast-enough';
     }
     const fieldFails = (
       (Number.isFinite(fieldLcp?.value) && fieldLcp.value > performanceThresholds.fieldLcpMilliseconds) ||
       (Number.isFinite(fieldInp?.value) && fieldInp.value > performanceThresholds.fieldInpMilliseconds) ||
       (Number.isFinite(fieldCls?.value) && fieldCls.value > performanceThresholds.fieldCls)
     );
-    if (fieldFails) status = 'needs-work';
+    if (fieldFails) {
+      const labObservedAt = newestTimestamp([psi?.observedAt, lcp?.observedAt]);
+      const fieldObservedAt = field?.observedAt ?? null;
+      const fieldPredatesPassingLab = (
+        labPasses &&
+        Number.isFinite(Date.parse(labObservedAt)) &&
+        Number.isFinite(Date.parse(fieldObservedAt)) &&
+        Date.parse(fieldObservedAt) < Date.parse(labObservedAt)
+      );
+      status = fieldPredatesPassingLab ? 'monitoring' : 'needs-work';
+    }
     return {
       projectId: project.projectId,
       name: project.name,
