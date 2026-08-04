@@ -25,6 +25,7 @@ Markdown but does not replace it as the source of truth.
 - [`architecture/render-modes.md`](./architecture/render-modes.md)
 - [`architecture/studio-agent-arsenal.md`](./architecture/studio-agent-arsenal.md)
 - [`architecture/engines.md`](./architecture/engines.md)
+- [`architecture/generation-craft.md`](./architecture/generation-craft.md)
 - [`architecture/rust-orchestrator.md`](./architecture/rust-orchestrator.md)
 - [`architecture/decisions/`](./architecture/decisions/)
 

@@ -147,3 +147,12 @@ not copied:
   time-addressable composition. Its PolyForm Noncommercial license and
   editor-sized Next/Canvas runtime make it unsuitable as a Fleet production
   dependency, so no source or package was copied.
+- **SuperCMO Skills** (`https://github.com/SupercmoHQ/superCMO-skills`,
+  Apache-2.0) — cloud-first creative generation skill pack whose runtime we
+  did not adopt (local-first stance unchanged; see
+  [`decisions/0002-openshorts-removed-parked.md`](./decisions/0002-openshorts-removed-parked.md)).
+  We extracted the engine-agnostic generation craft — anchor-reference
+  consistency across clips, script-to-duration budgeting, read-supplied-media
+  first, intent-based routing with a fallback ladder, and pending-job
+  discipline — into [`generation-craft.md`](./generation-craft.md). No code,
+  MCP server, installer, telemetry, or credential surface was copied.
