@@ -117,6 +117,25 @@ test('accepts legacy query-only evidence and rejects invalid landing pages', () 
   );
 });
 
+test('retains long provider queries within the bounded ledger limit', () => {
+  const longQuery = `${'site:example.com '.repeat(30)}search intent`;
+  const [normalized] = appendVisibilityOutcomeBundle(bundle([searchObservation({
+    id: 'search-pace-long-query',
+    searchTerms: [{
+      query: longQuery,
+      impressions: 1,
+      clicks: 0,
+      ctr: 0,
+      position: 8,
+    }],
+  })]), {
+    path: join(mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-')), 'ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  }).observations;
+
+  assert.equal(normalized.searchTerms[0].query, longQuery.trim());
+});
+
 test('rejects the complete bundle before writing any partial observation', (context) => {
   const directory = mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-'));
   context.after(() => rmSync(directory, { recursive: true, force: true }));
