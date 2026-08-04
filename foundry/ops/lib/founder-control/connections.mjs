@@ -23,6 +23,10 @@ import {
   readSearchIndexingRequests,
 } from '../search-indexing-request-store.mjs';
 import {
+  defaultSearchChangeReceiptPath,
+  readSearchChangeReceipts,
+} from '../search-change-receipt-store.mjs';
+import {
   isDomainStrengthProject,
   isPublicMetricProject,
   normalizedDomain,
@@ -188,6 +192,7 @@ export function projectSearchAction({
   observedAt = null,
   indexingRequestedAt = null,
   searchTerms = [],
+  changeReceipt = null,
 }) {
   const aggregateAction = searchAction({
     observed,
@@ -209,6 +214,23 @@ export function projectSearchAction({
       Number(right.impressions) - Number(left.impressions)
     ))[0];
   if (evidenceBackedChange) {
+    const changedAfterObservation = (
+      changeReceipt?.actionId === evidenceBackedChange.action.id &&
+      changeReceipt?.query === evidenceBackedChange.query &&
+      Number.isFinite(Date.parse(changeReceipt?.changedAt)) &&
+      Number.isFinite(Date.parse(observedAt)) &&
+      Date.parse(changeReceipt.changedAt) > Date.parse(observedAt)
+    );
+    if (changedAfterObservation) {
+      return {
+        id: 'wait-after-search-change',
+        label: 'Wait, then measure',
+        stage: 'wait',
+        reason: `Fleet updated the landing page for “${evidenceBackedChange.query}”; wait for a new completed Search Console window.`,
+        nextMeasurementAt: daysAfter(changeReceipt.changedAt, SITEMAP_REMEASUREMENT_DAYS),
+        priority: 6,
+      };
+    }
     return {
       ...evidenceBackedChange.action,
       reason: `“${evidenceBackedChange.query}” has ${evidenceBackedChange.impressions} impressions at average position ${Number(evidenceBackedChange.position).toFixed(1)}.`,
@@ -1414,7 +1436,12 @@ function latestOutcomeSignal(project, outcome, label) {
   };
 }
 
-function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexingRequestByProject }) {
+function buildOwnerOutcomeProjection({
+  projectOutputs,
+  marketing,
+  latestIndexingRequestByProject,
+  latestSearchChangeByProject,
+}) {
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
   );
@@ -1571,6 +1598,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexing
       }),
     }));
     const indexingRequest = latestIndexingRequestByProject.get(project.projectId) ?? null;
+    const searchChangeReceipt = latestSearchChangeByProject.get(project.projectId) ?? null;
     const action = projectSearchAction({
       observed: Boolean(outcome),
       impressions: Number(impressions?.value ?? 0),
@@ -1580,6 +1608,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexing
       observedAt: outcome?.observedAt ?? null,
       indexingRequestedAt: indexingRequest?.requestedAt ?? null,
       searchTerms,
+      changeReceipt: searchChangeReceipt,
     });
     return {
       projectId: project.projectId,
@@ -1596,6 +1625,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexing
       searchTerms,
       indexInspection: outcome?.indexInspection ?? null,
       indexingRequest,
+      searchChangeReceipt,
       trackedQueries: latestTrackedQueries(project),
       provider: outcome?.provider ?? null,
       providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
@@ -2405,6 +2435,12 @@ export function buildFleetConnections({
   })) {
     latestIndexingRequestByProject.set(request.projectId, request);
   }
+  const latestSearchChangeByProject = new Map();
+  for (const receipt of readSearchChangeReceipts({
+    path: defaultSearchChangeReceiptPath({ home }),
+  })) {
+    latestSearchChangeByProject.set(receipt.projectId, receipt);
+  }
   const workflows = workflowEvidence(fleetRoot, now);
   const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
   const measuredAiProjects = visibleAiProjects.flatMap((project) => {
@@ -2798,6 +2834,7 @@ export function buildFleetConnections({
     projectOutputs,
     marketing,
     latestIndexingRequestByProject,
+    latestSearchChangeByProject,
   });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),

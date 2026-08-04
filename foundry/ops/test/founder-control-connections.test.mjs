@@ -135,6 +135,26 @@ test('requires query-level evidence before prescribing a project Search change',
       },
     }],
   }).id, 'strengthen-ranking-page');
+  assert.equal(projectSearchAction({
+    ...aggregate,
+    observedAt: '2026-08-04T12:00:00.000Z',
+    searchTerms: [{
+      query: 'saas maker tools',
+      impressions: 12,
+      position: 18,
+      action: {
+        id: 'strengthen-ranking-page',
+        label: 'Strengthen ranking page',
+        stage: 'change',
+        priority: 3,
+      },
+    }],
+    changeReceipt: {
+      actionId: 'strengthen-ranking-page',
+      query: 'saas maker tools',
+      changedAt: '2026-08-05T12:00:00.000Z',
+    },
+  }).id, 'wait-after-search-change');
 });
 
 function writeJson(path, value) {
