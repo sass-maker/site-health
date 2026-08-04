@@ -2293,6 +2293,11 @@ function searchOutcomeDetails(row: JsonRecord) {
       note = "This is a low-volume result; CTR and average position may move sharply between windows.";
     }
   }
+  const actionParts = [row.action?.label, row.action?.reason].filter(Boolean);
+  if (row.action?.nextMeasurementAt) {
+    actionParts.push(`Next measurement ${formattedDay(row.action.nextMeasurementAt)}.`);
+  }
+  const actionSummary = actionParts.join(" — ") || "Awaiting measurement";
   const history = searchObservationHistory(row);
   const searchConsoleLink = providerLink("Open Search Console", row.providerUrl);
   const content: Node[] = [
@@ -2302,6 +2307,7 @@ function searchOutcomeDetails(row: JsonRecord) {
       element("div", {}, [element("dt", {}, ["Reporting period"]), element("dd", {}, [period])]),
       element("div", {}, [element("dt", {}, ["Property scope"]), element("dd", {}, [row.scope ?? "Not measured"])]),
       element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
+      element("div", {}, [element("dt", {}, ["Next step"]), element("dd", {}, [actionSummary])]),
       element("div", {}, [
         element("dt", {}, ["Google index"]),
         element("dd", {}, [row.indexInspection?.coverageState ?? row.indexInspection?.failureReason ?? row.indexInspection?.state ?? "Inspection unavailable"]),

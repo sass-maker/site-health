@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Manual indexing requests became durable Search evidence:**
+  Added a private, bounded receipt for owner-confirmed Google Search Console
+  indexing requests. A request newer than the last URL inspection now moves the
+  project from `Fix indexing` to `Wait, then measure` without changing or
+  overstating Google's reported indexing verdict.
+
 - **2026-07-31 — Search evidence became durable and fail-closed:** The
   fleet-wide homepage auditor now persists bounded SEO pass, warning, failure,
   reachability, and failed-check evidence for the canonical 27 without

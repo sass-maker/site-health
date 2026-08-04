@@ -19,6 +19,10 @@ import {
 import { visibilityProjects } from '../visibility-projects.mjs';
 import { searchConsoleProviderUrl } from '../search-console.mjs';
 import {
+  defaultSearchIndexingRequestPath,
+  readSearchIndexingRequests,
+} from '../search-indexing-request-store.mjs';
+import {
   isDomainStrengthProject,
   isPublicMetricProject,
   normalizedDomain,
@@ -42,7 +46,16 @@ function daysAfter(timestamp, days) {
   return Number.isFinite(value) ? new Date(value + days * DAY_MS).toISOString() : null;
 }
 
-export function searchAction({ observed, impressions, clicks, position, sampleFloor, inspection = null, observedAt = null }) {
+export function searchAction({
+  observed,
+  impressions,
+  clicks,
+  position,
+  sampleFloor,
+  inspection = null,
+  observedAt = null,
+  indexingRequestedAt = null,
+}) {
   if (!observed) {
     return {
       id: 'measure-search',
@@ -65,6 +78,23 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
       };
     }
     if (inspection?.state === 'not-indexed' || inspection?.state === 'unknown') {
+      const requestTime = Date.parse(indexingRequestedAt);
+      const inspectionTime = Date.parse(observedAt);
+      if (
+        Number.isFinite(requestTime) &&
+        Number.isFinite(inspectionTime) &&
+        requestTime > inspectionTime
+      ) {
+        const nextMeasurementAt = daysAfter(indexingRequestedAt, SITEMAP_REMEASUREMENT_DAYS);
+        return {
+          id: 'wait-after-indexing-request',
+          label: 'Wait, then measure',
+          stage: 'wait',
+          reason: 'Google accepted an indexing request after the latest inspection; wait for its next crawl.',
+          ...(nextMeasurementAt ? { nextMeasurementAt } : {}),
+          priority: 6,
+        };
+      }
       const sitemapSubmittedAt = Date.parse(inspection.sitemapSubmittedAt);
       const observationTime = Date.parse(observedAt);
       const sitemapAge = observationTime - sitemapSubmittedAt;
@@ -1335,7 +1365,7 @@ function latestOutcomeSignal(project, outcome, label) {
   };
 }
 
-function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
+function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexingRequestByProject }) {
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
   );
@@ -1481,6 +1511,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     let status = 'not-measured';
     if (outcome) status = 'zero-impressions';
     if (outcome && Number(impressions?.value) > 0) status = 'observed';
+    const indexingRequest = latestIndexingRequestByProject.get(project.projectId) ?? null;
     const action = searchAction({
       observed: Boolean(outcome),
       impressions: Number(impressions?.value ?? 0),
@@ -1489,6 +1520,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
       inspection: outcome?.indexInspection ?? null,
       observedAt: outcome?.observedAt ?? null,
+      indexingRequestedAt: indexingRequest?.requestedAt ?? null,
     });
     const searchTerms = (outcome?.searchTerms ?? []).map((term) => ({
       ...term,
@@ -1514,6 +1546,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       observations: outcome?.observations ?? 0,
       searchTerms,
       indexInspection: outcome?.indexInspection ?? null,
+      indexingRequest,
       trackedQueries: latestTrackedQueries(project),
       provider: outcome?.provider ?? null,
       providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
@@ -2317,6 +2350,12 @@ export function buildFleetConnections({
   const searchVisibility = searchVisibilityEvidence(fleetRoot);
   const visibilityMetrics = visibilityMetricEvidence(home);
   const visibilityOutcomes = visibilityOutcomeEvidence(home);
+  const latestIndexingRequestByProject = new Map();
+  for (const request of readSearchIndexingRequests({
+    path: defaultSearchIndexingRequestPath({ home }),
+  })) {
+    latestIndexingRequestByProject.set(request.projectId, request);
+  }
   const workflows = workflowEvidence(fleetRoot, now);
   const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
   const measuredAiProjects = visibleAiProjects.flatMap((project) => {
@@ -2706,7 +2745,11 @@ export function buildFleetConnections({
     visibilityMetrics,
     visibilityOutcomes,
   });
-  const ownerOutcomes = buildOwnerOutcomeProjection({ projectOutputs, marketing });
+  const ownerOutcomes = buildOwnerOutcomeProjection({
+    projectOutputs,
+    marketing,
+    latestIndexingRequestByProject,
+  });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),
     missions,
