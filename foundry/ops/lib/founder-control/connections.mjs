@@ -175,6 +175,55 @@ export function searchAction({
   };
 }
 
+function isAuditSearchQuery(value) {
+  return /(^|\s|-)site:/i.test(String(value ?? '').trim());
+}
+
+export function projectSearchAction({
+  observed,
+  impressions,
+  clicks,
+  position,
+  inspection = null,
+  observedAt = null,
+  indexingRequestedAt = null,
+  searchTerms = [],
+}) {
+  const aggregateAction = searchAction({
+    observed,
+    impressions,
+    clicks,
+    position,
+    sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
+    inspection,
+    observedAt,
+    indexingRequestedAt,
+  });
+  if (!observed || impressions === 0) return aggregateAction;
+
+  const evidenceBackedChange = searchTerms
+    .filter((term) => !isAuditSearchQuery(term.query))
+    .filter((term) => term.action?.stage === 'change')
+    .sort((left, right) => (
+      Number(left.action.priority) - Number(right.action.priority) ||
+      Number(right.impressions) - Number(left.impressions)
+    ))[0];
+  if (evidenceBackedChange) {
+    return {
+      ...evidenceBackedChange.action,
+      reason: `“${evidenceBackedChange.query}” has ${evidenceBackedChange.impressions} impressions at average position ${Number(evidenceBackedChange.position).toFixed(1)}.`,
+    };
+  }
+
+  return {
+    id: 'collect-more-data',
+    label: 'Collect more data',
+    stage: 'wait',
+    reason: `No retained non-audit query meets the ${SEARCH_ACTION_SAMPLE_FLOORS.query}-impression action floor; ${impressions} aggregate impressions are not enough to prescribe a page change.`,
+    priority: 6,
+  };
+}
+
 const BUCKETS = [
   {
     id: 'helpers',
@@ -1511,17 +1560,6 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexing
     let status = 'not-measured';
     if (outcome) status = 'zero-impressions';
     if (outcome && Number(impressions?.value) > 0) status = 'observed';
-    const indexingRequest = latestIndexingRequestByProject.get(project.projectId) ?? null;
-    const action = searchAction({
-      observed: Boolean(outcome),
-      impressions: Number(impressions?.value ?? 0),
-      clicks: Number(clicks?.value ?? 0),
-      position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
-      sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
-      inspection: outcome?.indexInspection ?? null,
-      observedAt: outcome?.observedAt ?? null,
-      indexingRequestedAt: indexingRequest?.requestedAt ?? null,
-    });
     const searchTerms = (outcome?.searchTerms ?? []).map((term) => ({
       ...term,
       action: searchAction({
@@ -1532,6 +1570,17 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing, latestIndexing
         sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.query,
       }),
     }));
+    const indexingRequest = latestIndexingRequestByProject.get(project.projectId) ?? null;
+    const action = projectSearchAction({
+      observed: Boolean(outcome),
+      impressions: Number(impressions?.value ?? 0),
+      clicks: Number(clicks?.value ?? 0),
+      position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
+      inspection: outcome?.indexInspection ?? null,
+      observedAt: outcome?.observedAt ?? null,
+      indexingRequestedAt: indexingRequest?.requestedAt ?? null,
+      searchTerms,
+    });
     return {
       projectId: project.projectId,
       catalogProjectId: project.catalogProjectId,

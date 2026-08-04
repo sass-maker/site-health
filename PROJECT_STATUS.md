@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Search changes now require query-level evidence:** Portfolio
+  averages and operator `site:` checks can no longer prescribe product edits.
+  A Google Search change action now requires a retained non-audit query that
+  meets the explicit query sample floor; otherwise the project remains in
+  bounded data collection.
+
 - **2026-08-05 — Manual indexing requests became durable Search evidence:**
   Added a private, bounded receipt for owner-confirmed Google Search Console
   indexing requests. A request newer than the last URL inspection now moves the

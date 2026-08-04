@@ -7,6 +7,7 @@ import test from 'node:test';
 
 import {
   CONNECTIONS_SCHEMA_VERSION,
+  projectSearchAction,
   SEARCH_ACTION_SAMPLE_FLOORS,
   buildFleetConnections,
   readSkillRunOutput,
@@ -102,6 +103,38 @@ test('derives conservative Search actions from explicit boundaries', () => {
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 1, position: 8, sampleFloor: floor }).id, 'protect-and-expand');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 20, sampleFloor: floor }).id, 'strengthen-ranking-page');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 31, sampleFloor: floor }).id, 'build-search-relevance');
+});
+
+test('requires query-level evidence before prescribing a project Search change', () => {
+  const aggregate = {
+    observed: true,
+    impressions: 176,
+    clicks: 1,
+    position: 14.5,
+  };
+  assert.equal(projectSearchAction({
+    ...aggregate,
+    searchTerms: [{
+      query: 'site:sassmaker.com',
+      impressions: 40,
+      position: 12,
+      action: { id: 'strengthen-ranking-page', stage: 'change', priority: 3 },
+    }],
+  }).id, 'collect-more-data');
+  assert.equal(projectSearchAction({
+    ...aggregate,
+    searchTerms: [{
+      query: 'saas maker tools',
+      impressions: 12,
+      position: 18,
+      action: {
+        id: 'strengthen-ranking-page',
+        label: 'Strengthen ranking page',
+        stage: 'change',
+        priority: 3,
+      },
+    }],
+  }).id, 'strengthen-ranking-page');
 });
 
 function writeJson(path, value) {
