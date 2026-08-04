@@ -51,6 +51,32 @@ test('derives conservative Search actions from explicit boundaries', () => {
     clicks: 0,
     position: Infinity,
     sampleFloor: floor,
+    observedAt: '2026-08-04T12:00:00.000Z',
+    indexingRequestedAt: '2026-08-05T12:00:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      coverageState: 'URL is unknown to Google',
+    },
+  }).id, 'wait-after-indexing-request');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-05T12:00:00.000Z',
+    indexingRequestedAt: '2026-08-04T12:00:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      coverageState: 'URL is unknown to Google',
+    },
+  }).id, 'fix-indexing');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
     observedAt: '2026-08-04T12:05:00.000Z',
     inspection: {
       state: 'not-indexed',
