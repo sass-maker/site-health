@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
   searchConsoleProviderUrl,
@@ -25,7 +26,10 @@ test('keeps Google sitemap submission automatic and bounded', async () => {
     }
     return Response.json({
       sitemap: url.includes(encodeURIComponent('sc-domain:example.com'))
-        ? [{ path: 'https://ready.example.com/sitemap.xml' }]
+        ? [{
+            path: 'https://ready.example.com/sitemap.xml',
+            lastSubmitted: '2026-08-01T12:00:00.000Z',
+          }]
         : [],
     });
   };
@@ -40,6 +44,7 @@ test('keeps Google sitemap submission automatic and bounded', async () => {
     accessToken: 'not-retained',
     quotaProject: 'quota-project',
     fetchImpl,
+    now: new Date('2026-08-04T12:00:00.000Z'),
   });
 
   assert.deepEqual(results.map((result) => [result.projectId, result.state]), [
@@ -49,6 +54,29 @@ test('keeps Google sitemap submission automatic and bounded', async () => {
     ['missing', 'property-unavailable'],
   ]);
   assert.equal(requests.filter((request) => request.method === 'PUT').length, 2);
+  assert.equal(results[0].submittedAt, '2026-08-01T12:00:00.000Z');
+  assert.equal(results[1].submittedAt, '2026-08-04T12:00:00.000Z');
+});
+
+test('attaches successful sitemap evidence to matching Search observations', () => {
+  const bundle = {
+    schema: 'fleet.visibility-outcome-bundle.v1',
+    observations: [
+      { projectId: 'ready', indexInspection: { state: 'not-indexed' } },
+      { projectId: 'blocked', indexInspection: { state: 'not-indexed' } },
+    ],
+  };
+  const attached = attachSitemapSubmissionState(bundle, [
+    { projectId: 'ready', state: 'submitted', submittedAt: '2026-08-04T12:00:00.000Z' },
+    { projectId: 'blocked', state: 'blocked' },
+  ]);
+
+  assert.deepEqual(attached.observations[0].indexInspection, {
+    state: 'not-indexed',
+    sitemapSubmissionState: 'submitted',
+    sitemapSubmittedAt: '2026-08-04T12:00:00.000Z',
+  });
+  assert.deepEqual(attached.observations[1].indexInspection, { state: 'not-indexed' });
 });
 
 test('selects the closest accessible property for a canonical domain', () => {

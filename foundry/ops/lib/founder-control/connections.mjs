@@ -28,6 +28,9 @@ import {
 export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const SITEMAP_INDEXING_GRACE_DAYS = 14;
+const SITEMAP_REMEASUREMENT_DAYS = 7;
+const SUCCESSFUL_SITEMAP_STATES = new Set(['submitted', 'already-submitted']);
 
 export const SEARCH_ACTION_SAMPLE_FLOORS = Object.freeze({
   project: 20,
@@ -62,6 +65,25 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
       };
     }
     if (inspection?.state === 'not-indexed' || inspection?.state === 'unknown') {
+      const sitemapSubmittedAt = Date.parse(inspection.sitemapSubmittedAt);
+      const observationTime = Date.parse(observedAt);
+      const sitemapAge = observationTime - sitemapSubmittedAt;
+      if (
+        SUCCESSFUL_SITEMAP_STATES.has(inspection.sitemapSubmissionState) &&
+        Number.isFinite(sitemapAge) &&
+        sitemapAge >= 0 &&
+        sitemapAge <= SITEMAP_INDEXING_GRACE_DAYS * DAY_MS
+      ) {
+        const nextMeasurementAt = daysAfter(observedAt, SITEMAP_REMEASUREMENT_DAYS);
+        return {
+          id: 'wait-after-sitemap',
+          label: 'Wait, then measure',
+          stage: 'wait',
+          reason: 'Fleet submitted the sitemap; Google has not discovered the canonical homepage yet.',
+          ...(nextMeasurementAt ? { nextMeasurementAt } : {}),
+          priority: 6,
+        };
+      }
       return {
         id: 'fix-indexing',
         label: 'Fix indexing',

@@ -141,6 +141,7 @@ export async function ensureSearchConsoleSitemaps({
   accessToken,
   quotaProject,
   fetchImpl = fetch,
+  now = new Date(),
 }) {
   if (!accessToken) throw new Error('Search Console access token is required');
   if (!quotaProject) throw new Error('Search Console quota project is required');
@@ -171,7 +172,9 @@ export async function ensureSearchConsoleSitemaps({
         quotaProject,
         fetchImpl,
       });
-      return [siteUrl, { paths: new Set((listed.sitemap ?? []).map((entry) => entry.path)) }];
+      return [siteUrl, {
+        entries: new Map((listed.sitemap ?? []).map((entry) => [entry.path, entry])),
+      }];
     } catch (error) {
       return [siteUrl, { error }];
     }
@@ -193,8 +196,18 @@ export async function ensureSearchConsoleSitemaps({
         reason: boundedProviderText(listing.error instanceof Error ? listing.error.message : listing.error),
       };
     }
-    if (listing?.paths.has(sitemapUrl)) {
-      return { projectId: project.id, domain, sitemapUrl, state: 'already-submitted' };
+    const listedSitemap = listing?.entries.get(sitemapUrl);
+    if (listedSitemap) {
+      const submittedAt = Number.isFinite(Date.parse(listedSitemap.lastSubmitted))
+        ? new Date(listedSitemap.lastSubmitted).toISOString()
+        : null;
+      return {
+        projectId: project.id,
+        domain,
+        sitemapUrl,
+        state: 'already-submitted',
+        ...(submittedAt ? { submittedAt } : {}),
+      };
     }
     if (submissionBlockedReason) {
       return { projectId: project.id, domain, sitemapUrl, state: 'blocked', reason: submissionBlockedReason };
@@ -204,7 +217,13 @@ export async function ensureSearchConsoleSitemaps({
         `/sites/${encodeURIComponent(selected.siteUrl)}/sitemaps/${encodeURIComponent(sitemapUrl)}`,
         { accessToken, quotaProject, fetchImpl, method: 'PUT' },
       );
-      return { projectId: project.id, domain, sitemapUrl, state: 'submitted' };
+      return {
+        projectId: project.id,
+        domain,
+        sitemapUrl,
+        state: 'submitted',
+        submittedAt: now.toISOString(),
+      };
     } catch (error) {
       const reason = boundedProviderText(error instanceof Error ? error.message : error);
       if (/\(403\).*insufficient authentication scopes/i.test(reason ?? '')) {
@@ -219,6 +238,33 @@ export async function ensureSearchConsoleSitemaps({
       };
     }
   });
+}
+
+const RECORDED_SITEMAP_STATES = new Set(['submitted', 'already-submitted']);
+
+export function attachSitemapSubmissionState(bundle, sitemapResults) {
+  const sitemapByProject = new Map(sitemapResults.map((result) => [result.projectId, result]));
+  return {
+    ...bundle,
+    observations: bundle.observations.map((observation) => {
+      const sitemap = sitemapByProject.get(observation.projectId);
+      if (
+        !observation.indexInspection ||
+        !sitemap?.submittedAt ||
+        !RECORDED_SITEMAP_STATES.has(sitemap.state)
+      ) {
+        return observation;
+      }
+      return {
+        ...observation,
+        indexInspection: {
+          ...observation.indexInspection,
+          sitemapSubmissionState: sitemap.state,
+          sitemapSubmittedAt: sitemap.submittedAt,
+        },
+      };
+    }),
+  };
 }
 
 function boundedProviderText(value, maximum = 300) {

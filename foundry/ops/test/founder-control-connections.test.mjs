@@ -45,6 +45,32 @@ test('derives conservative Search actions from explicit boundaries', () => {
     sampleFloor: floor,
     inspection: { state: 'not-indexed', coverageState: 'Crawled - currently not indexed' },
   }).id, 'fix-indexing');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-04T12:05:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      sitemapSubmissionState: 'submitted',
+      sitemapSubmittedAt: '2026-08-04T12:00:00.000Z',
+    },
+  }).id, 'wait-after-sitemap');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-04T12:00:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      sitemapSubmissionState: 'already-submitted',
+      sitemapSubmittedAt: '2026-07-01T12:00:00.000Z',
+    },
+  }).id, 'fix-indexing');
   assert.equal(searchAction({ observed: true, impressions: 9, clicks: 0, position: 1, sampleFloor: floor }).id, 'collect-more-data');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 8, sampleFloor: floor }).id, 'improve-snippet');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 1, position: 8, sampleFloor: floor }).id, 'protect-and-expand');
