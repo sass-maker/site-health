@@ -1831,9 +1831,9 @@ async function startAndPollMetricRun({
   return run;
 }
 
-function outcomeSignal(signal?: JsonRecord | null) {
+function outcomeSignal(signal?: JsonRecord | null, missing = "Not measured") {
   if (!signal || !Number.isFinite(signal.value)) {
-    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+    return element("span", { class: "outcome-missing" }, [missing]);
   }
   let detail = titleCase(signal.history ?? "baseline-only");
   if (Number.isFinite(signal.delta)) {
@@ -2742,7 +2742,7 @@ function performanceDiagnosis(row: JsonRecord, thresholds: JsonRecord) {
 
   if (labLcp === null && fieldLcp === null) return `Lab and field LCP are not measured.${additionalDiagnosis} ${scope}`;
   if (labLcp === null) return `Only field LCP is measured, so there is no lab comparison yet.${additionalDiagnosis} ${scope}`;
-  if (fieldLcp === null) return `Only lab LCP is measured, so there is no real-user comparison yet.${additionalDiagnosis} ${scope}`;
+  if (fieldLcp === null) return `Lab LCP is measured; Cloudflare has no real-user field sample yet.${additionalDiagnosis} ${scope}`;
 
   const labPasses = labLcp <= limits.labLcp;
   const fieldPasses = fieldLcp <= limits.fieldLcp;
@@ -2761,7 +2761,7 @@ async function renderPerformance() {
     { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
     { key: "lcp", label: "Lab LCP (desktop)", description: "Sort by desktop lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
-    { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp) },
+    { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp, "No field sample") },
     { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
     { key: "run", label: "Run", description: "Refresh one product", sortable: false, value: (row) => row.projectId, render: performanceRunControl },
   ];
