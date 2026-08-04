@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import {
+  attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
 } from '../lib/search-console.mjs';
@@ -55,6 +56,7 @@ const projects = options.projectId
 if (projects.length === 0) throw new Error(`Unknown Search Console project: ${options.projectId}`);
 
 let discovery = null;
+let googleSitemaps = [];
 if (options.discoveryCycle) {
   const indexNow = spawnSync(
     process.execPath,
@@ -70,7 +72,7 @@ if (options.discoveryCycle) {
   if (!indexNowSummary || Number(indexNowSummary[4]) > 0) {
     throw new Error(`IndexNow discovery update was incomplete: ${indexNow.stdout.trim() || 'missing receipt'}`);
   }
-  const googleSitemaps = await ensureSearchConsoleSitemaps({
+  googleSitemaps = await ensureSearchConsoleSitemaps({
     projects,
     accessToken: accessToken(),
     quotaProject: config.quotaProject,
@@ -96,11 +98,14 @@ const collected = await collectSearchConsoleOutcomes({
   reportingLagDays: config.reportingLagDays,
   searchTermLimit: config.searchTermLimit,
 });
-if (collected.bundle.observations.length === 0) {
+const outcomeBundle = options.discoveryCycle
+  ? attachSitemapSubmissionState(collected.bundle, googleSitemaps)
+  : collected.bundle;
+if (outcomeBundle.observations.length === 0) {
   throw new Error('No accessible Search Console properties matched Fleet projects');
 }
 const ledgerPath = options.ledgerPath ?? defaultVisibilityOutcomePath();
-const receipt = appendVisibilityOutcomeBundle(collected.bundle, {
+const receipt = appendVisibilityOutcomeBundle(outcomeBundle, {
   path: ledgerPath,
   allowedProjectIds: new Set(eligible.map((project) => project.id)),
 });

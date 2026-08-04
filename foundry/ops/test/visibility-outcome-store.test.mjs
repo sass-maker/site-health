@@ -89,6 +89,30 @@ test('retains bounded provider links and breakdowns', () => {
   );
 });
 
+test('retains paired sitemap submission evidence', () => {
+  const [normalized] = appendVisibilityOutcomeBundle(bundle([searchObservation({
+    indexInspection: {
+      inspectedUrl: 'https://heypace.app/',
+      state: 'not-indexed',
+      sitemapSubmissionState: 'submitted',
+      sitemapSubmittedAt: '2026-07-31T11:55:00.000Z',
+    },
+  })]), { allowedProjectIds: new Set(['pace']) }).observations;
+
+  assert.equal(normalized.indexInspection.sitemapSubmissionState, 'submitted');
+  assert.equal(normalized.indexInspection.sitemapSubmittedAt, '2026-07-31T11:55:00.000Z');
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([searchObservation({
+      indexInspection: {
+        inspectedUrl: 'https://heypace.app/',
+        state: 'not-indexed',
+        sitemapSubmissionState: 'submitted',
+      },
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /must include sitemapSubmissionState and sitemapSubmittedAt together/,
+  );
+});
+
 test('accepts legacy query-only evidence and rejects invalid landing pages', () => {
   const legacy = searchObservation({
     searchTerms: [

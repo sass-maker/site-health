@@ -219,7 +219,8 @@ function normalizeIndexInspection(value, family) {
   assertKnownKeys(value, new Set([
     'inspectedUrl', 'state', 'verdict', 'coverageState', 'robotsTxtState',
     'indexingState', 'pageFetchState', 'lastCrawlTime', 'userCanonical',
-    'googleCanonical', 'sitemapUrls', 'failureReason',
+    'googleCanonical', 'sitemapUrls', 'sitemapSubmissionState',
+    'sitemapSubmittedAt', 'failureReason',
   ]), path);
   const states = new Set(['indexed', 'not-indexed', 'unknown', 'unavailable']);
   assert(states.has(value.state), `${path}.state is invalid`);
@@ -231,6 +232,12 @@ function normalizeIndexInspection(value, family) {
   };
   const sitemapUrls = value.sitemapUrls === undefined ? [] : value.sitemapUrls;
   assert(Array.isArray(sitemapUrls) && sitemapUrls.length <= 10, `${path}.sitemapUrls is invalid`);
+  const hasSitemapSubmissionState = value.sitemapSubmissionState !== undefined;
+  const hasSitemapSubmittedAt = value.sitemapSubmittedAt !== undefined;
+  assert(
+    hasSitemapSubmissionState === hasSitemapSubmittedAt,
+    `${path} must include sitemapSubmissionState and sitemapSubmittedAt together`,
+  );
   const normalized = {
     inspectedUrl: normalizeHttpsUrl(value.inspectedUrl, `${path}.inspectedUrl`),
     state: value.state,
@@ -245,6 +252,14 @@ function normalizeIndexInspection(value, family) {
   if (value.userCanonical !== undefined) normalized.userCanonical = normalizeHttpsUrl(value.userCanonical, `${path}.userCanonical`);
   if (value.googleCanonical !== undefined) normalized.googleCanonical = normalizeHttpsUrl(value.googleCanonical, `${path}.googleCanonical`);
   if (sitemapUrls.length > 0) normalized.sitemapUrls = [...new Set(sitemapUrls.map((url) => normalizeHttpsUrl(url, `${path}.sitemapUrls`)))];
+  if (hasSitemapSubmissionState) {
+    assert(
+      new Set(['submitted', 'already-submitted']).has(value.sitemapSubmissionState),
+      `${path}.sitemapSubmissionState is invalid`,
+    );
+    normalized.sitemapSubmissionState = value.sitemapSubmissionState;
+    normalized.sitemapSubmittedAt = normalizeTimestamp(value.sitemapSubmittedAt, `${path}.sitemapSubmittedAt`);
+  }
   return normalized;
 }
 
