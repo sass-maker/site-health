@@ -11,6 +11,7 @@ export const VISIBILITY_OUTCOME_BUNDLE_SCHEMA = 'fleet.visibility-outcome-bundle
 export const VISIBILITY_OUTCOME_SCHEMA = 'fleet.visibility-outcome.v1';
 
 const IDENTIFIER = /^[a-z0-9][a-z0-9._:-]{0,159}$/;
+const MAX_SEARCH_QUERY_LENGTH = 2_048;
 const FAMILY_CONTRACTS = {
   search: {
     provider: 'google-search-console',
@@ -157,7 +158,10 @@ function normalizeSearchTerms(searchTerms, family) {
     const path = `observation.searchTerms[${index}]`;
     assertKnownKeys(term, new Set(['query', 'landingPage', 'impressions', 'clicks', 'ctr', 'position']), path);
     const query = String(term.query ?? '').replace(/\s+/g, ' ').trim();
-    assert(query.length > 0 && query.length <= 300, `${path}.query must be 1-300 characters`);
+    assert(
+      query.length > 0 && query.length <= MAX_SEARCH_QUERY_LENGTH,
+      `${path}.query must be 1-${MAX_SEARCH_QUERY_LENGTH} characters`,
+    );
     let landingPage = null;
     if (term.landingPage !== undefined && term.landingPage !== null) {
       assert(typeof term.landingPage === 'string', `${path}.landingPage must be a URL`);
