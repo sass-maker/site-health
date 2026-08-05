@@ -3110,7 +3110,7 @@ function renderHistory(samples) {
     { name:'Review', detail:'Playable artifact evidence' },
   ];
   const picture = entry?.video
-    ? '<div class="history-picture"><span class="history-video-label">Local final</span><video controls playsinline preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '"></video></div>'
+    ? '<div class="history-picture"><span class="history-video-label">Local final</span><video controls playsinline preload="metadata" aria-label="Video: ' + escapeText(activeSample.title) + '" src="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '"></video></div>'
     : '<div class="history-picture"><div class="history-picture-empty"><div><strong>Ready to run</strong><p>This test has a frozen prompt, reference, model, and seed. Its video will appear here after the serial LTX run.</p></div></div></div>';
   const testedCount = samples.filter((sample) => sample.entry?.video).length;
   document.getElementById('history-showcase').innerHTML = picture +
