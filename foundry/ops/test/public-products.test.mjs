@@ -136,13 +136,14 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
 });
 
 test('SaaS Maker does not expose its private Fleet repository', async () => {
-  const [links, agentRegistry, registrySource, projectsSource, routesSource, navSource] = await Promise.all([
+  const [links, agentRegistry, registrySource, projectsSource, routesSource, navSource, redirects] = await Promise.all([
     readFile(new URL('../../apps/public/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
     readFile(new URL('../../apps/public/public-directory/src/data/registry.ts', import.meta.url), 'utf8'),
     readFile(new URL('../../apps/public/public-directory/src/data/projects.ts', import.meta.url), 'utf8'),
     readFile(new URL('../../apps/public/public-directory/src/data/publicRoutes.ts', import.meta.url), 'utf8'),
     readFile(new URL('../../apps/public/public-directory/src/components/Nav.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../../apps/public/public-directory/public/_redirects', import.meta.url), 'utf8'),
   ]);
   const saasMaker = agentRegistry.products.find((product) => product.id === 'fleet-workspace');
   const publicSaasMaker = buildPublicProducts(projects).products.find(
@@ -159,6 +160,8 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
   assert.match(routesSource, /filter\(\(product\) => product\.id !== 'saas-maker'\)/);
   assert.match(navSource, /GITHUB_ORG_URL/);
   assert.match(navSource, /Public source index/);
+  assert.match(redirects, /^\/p\/saas-maker \/ 301$/m);
+  assert.match(redirects, /^\/p\/saas-maker\.md \/index\.md 301$/m);
 });
 
 test('SaaS Maker exposes the complete learning article to agents', async () => {
