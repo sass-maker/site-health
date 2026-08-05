@@ -12,11 +12,15 @@ import {
   appendVisibilityOutcomeBundle,
   defaultVisibilityOutcomePath,
 } from '../lib/visibility-outcome-store.mjs';
-import { visibilityProjects } from '../lib/visibility-projects.mjs';
+import { validateRootBrandContract } from '../lib/root-brand-contract.mjs';
+import { validateRootSearchQueryContract } from '../lib/root-search-query-contract.mjs';
+import { searchConsoleProjects } from '../lib/visibility-projects.mjs';
 
 const FLEET_ROOT = resolve(import.meta.dirname, '../../..');
 const catalog = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/projects.json'), 'utf8'));
 const config = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/search-console.json'), 'utf8'));
+const rootBrands = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/root-brands.json'), 'utf8'));
+const rootQueries = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/root-search-queries.json'), 'utf8'));
 
 function parseArgs(args) {
   const options = { projectId: null, ledgerPath: null, discoveryCycle: false };
@@ -49,7 +53,9 @@ function accessToken() {
 }
 
 const options = parseArgs(process.argv.slice(2));
-const eligible = visibilityProjects(catalog);
+const brandMap = validateRootBrandContract(rootBrands, catalog.projects ?? []);
+const rootsByDomain = validateRootSearchQueryContract(rootQueries, brandMap, catalog.projects ?? []);
+const eligible = searchConsoleProjects(catalog, rootsByDomain);
 const projects = options.projectId
   ? eligible.filter((project) => project.id === options.projectId)
   : eligible;

@@ -9,6 +9,7 @@ import {
   ROOT_SEARCH_QUERY_KINDS,
   validateRootSearchQueryContract,
 } from '../lib/root-search-query-contract.mjs';
+import { searchConsoleProjects, visibilityProjects } from '../lib/visibility-projects.mjs';
 
 const projects = JSON.parse(readFileSync(new URL('../config/projects.json', import.meta.url))).projects;
 const brands = validateRootBrandContract(
@@ -24,6 +25,23 @@ test('covers the exact ten roots with one active query per required intent', () 
   for (const root of roots.values()) {
     assert.deepEqual(root.activeQueries.map((query) => query.kind), ROOT_SEARCH_QUERY_KINDS);
     assert.equal(root.activeQueries.length, 4);
+  }
+});
+
+test('Search Console covers every contracted root without expanding the public metric portfolio', () => {
+  const catalog = { projects };
+  const roots = validateRootSearchQueryContract(contract, brands, projects);
+  const publicProjects = visibilityProjects(catalog);
+  const searchProjects = searchConsoleProjects(catalog, roots);
+
+  assert.equal(publicProjects.length, 27);
+  assert.equal(searchProjects.length, 29);
+  assert.equal(publicProjects.some((project) => project.id === 'ai-game'), false);
+  assert.equal(publicProjects.some((project) => project.id === 'sarthakagrawal-personal'), false);
+  for (const root of roots.values()) {
+    const target = searchProjects.find((project) => project.id === root.projectId);
+    assert.ok(target, `missing Search Console target for ${root.rootDomain}`);
+    assert.equal(target.domains[0], root.rootDomain);
   }
 });
 

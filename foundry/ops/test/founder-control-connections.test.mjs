@@ -456,6 +456,40 @@ function fixture() {
   return { root, home, skillRoot, runId: recordedSkillRun.run.runId };
 }
 
+function writeFixtureRootSearchContracts(root) {
+  const entries = [
+    { rootDomain: 'heypace.app', projectId: 'pace', name: 'Pace' },
+    { rootDomain: 'past.example', projectId: 'past', name: 'Past project' },
+    { rootDomain: 'personal.example', projectId: 'personal', name: 'Personal site' },
+  ];
+  writeJson(join(root, 'foundry/ops/config/root-brands.json'), {
+    version: 1,
+    brands: entries.map((entry) => ({
+      rootDomain: entry.rootDomain,
+      canonicalName: entry.name,
+      alternateNames: [entry.rootDomain],
+    })),
+  });
+  writeJson(join(root, 'foundry/ops/config/root-search-queries.json'), {
+    version: 1,
+    cadence: 'weekly',
+    roots: entries.map((entry) => ({
+      rootDomain: entry.rootDomain,
+      projectId: entry.projectId,
+      collision: {
+        state: 'clear',
+        note: `Fixture search identity for ${entry.rootDomain}.`,
+      },
+      queries: [
+        { id: `${entry.projectId}-brand`, kind: 'brand', text: entry.projectId === 'pace' ? entry.rootDomain : entry.name, status: 'active' },
+        { id: `${entry.projectId}-domain`, kind: 'exact-domain', text: `${entry.rootDomain} exact`, status: 'active' },
+        { id: `${entry.projectId}-category`, kind: 'category', text: `${entry.name} category`, status: 'active' },
+        { id: `${entry.projectId}-problem`, kind: 'problem', text: `${entry.name} problem`, status: 'active' },
+      ],
+    })),
+  });
+}
+
 test('reads one retained skill output with private paths removed', () => {
   const { home, runId } = fixture();
   const result = readSkillRunOutput({ home, runId });
@@ -463,6 +497,78 @@ test('reads one retained skill output with private paths removed', () => {
   assert.equal(result.outputCount, 1);
   assert.match(result.streams[0].content, /\[private path\]/);
   assert.doesNotMatch(result.streams[0].content, /\/Users\/sarthak/);
+});
+
+test('projects supplemental root Search Console evidence without expanding other metric portfolios', () => {
+  const { root, home } = fixture();
+  writeFixtureRootSearchContracts(root);
+  appendVisibilityOutcomeBundle({
+    schema: VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+    observations: [
+      {
+        id: 'search-past-2026-07-30',
+        projectId: 'past',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:past.example',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-01T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 7 },
+          { label: 'Search clicks', value: 1 },
+          { label: 'Search CTR', value: 14.29 },
+          { label: 'Search average position', value: 9 },
+        ],
+      },
+      {
+        id: 'search-personal-2026-07-30',
+        projectId: 'personal',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:personal.example',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-01T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 11 },
+          { label: 'Search clicks', value: 2 },
+          { label: 'Search CTR', value: 18.18 },
+          { label: 'Search average position', value: 5 },
+        ],
+      },
+    ],
+  }, {
+    path: join(home, '.fleet/visibility-outcomes/ledger.jsonl'),
+    allowedProjectIds: new Set(['past', 'personal']),
+  });
+
+  const result = buildFleetConnections({ fleetRoot: root, home, now });
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.search.map((row) => row.projectId).sort(),
+    ['pace', 'past-project', 'personal', 'standards'],
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.search.find((row) => row.projectId === 'past-project').impressions.value,
+    7,
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.search.find((row) => row.projectId === 'personal').impressions.value,
+    11,
+  );
+  assert.equal(result.outputs.ownerOutcomes.performance.length, 2);
+  assert.equal(
+    result.outputs.projects.filter((project) => project.metricEligibility.publicSite).length,
+    2,
+  );
+  assert.equal(
+    result.outputs.projects.filter((project) => project.metricEligibility.searchConsole).length,
+    4,
+  );
 });
 
 test('projects provider-authoritative search and Cloudflare activity without conflating AI visibility', () => {
