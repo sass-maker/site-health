@@ -91,6 +91,43 @@ function publicPostUrl(value) {
   }
 }
 
+function boundedTrackedQuery(query) {
+  const liveSearch = { state: query.liveSearch?.state === 'observed' ? 'observed' : 'not-observed' };
+  if (liveSearch.state === 'observed') {
+    liveSearch.class = ['A', 'B', 'C'].includes(query.liveSearch?.class)
+      ? query.liveSearch.class
+      : null;
+    liveSearch.observedAt = Number.isFinite(Date.parse(query.liveSearch?.observedAt))
+      ? query.liveSearch.observedAt
+      : null;
+  }
+
+  const searchConsole = {
+    state: query.searchConsole?.state === 'observed' ? 'observed' : 'not-observed',
+  };
+  if (searchConsole.state === 'observed') {
+    for (const key of ['impressions', 'clicks', 'position']) {
+      const value = Number(query.searchConsole?.[key]);
+      searchConsole[key] = Number.isFinite(value) ? value : null;
+    }
+  }
+
+  const collisionState = ['clear', 'ambiguous'].includes(query.collision?.state)
+    ? query.collision.state
+    : null;
+  return {
+    id: boundedText(query.id, 160),
+    kind: boundedText(query.kind, 40),
+    text: boundedText(query.text, 240),
+    rootDomain: boundedText(query.rootDomain, 240),
+    collision: collisionState
+      ? { state: collisionState, note: boundedText(query.collision?.note, 320) }
+      : null,
+    liveSearch,
+    searchConsole,
+  };
+}
+
 function outcomeProjection(connections, family) {
   const outcomes = connections.outputs?.ownerOutcomes ?? {};
   let rows = [];
@@ -176,13 +213,7 @@ function outcomeProjection(connections, family) {
   } else if (family === 'search') {
     rows = (outcomes.search ?? []).map((row) => ({
       ...row,
-      trackedQueries: (row.trackedQueries ?? []).slice(0, 12).map((query) => ({
-        id: query.id,
-        kind: query.kind,
-        text: query.text,
-        class: query.class,
-        observedAt: query.observedAt,
-      })),
+      trackedQueries: (row.trackedQueries ?? []).slice(0, 12).map(boundedTrackedQuery),
       impressions: boundedSignal(row.impressions, { includeSeries: true }),
       clicks: boundedSignal(row.clicks, { includeSeries: true }),
       ctr: boundedSignal(row.ctr, { includeSeries: true }),

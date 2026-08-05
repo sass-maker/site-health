@@ -265,8 +265,14 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
             id: 'site-brand',
             kind: 'brand',
             text: 'site.example',
-            class: 'A',
-            observedAt: '2026-07-30T12:00:00.000Z',
+            rootDomain: 'site.example',
+            collision: { state: 'clear', note: 'No known collision.' },
+            liveSearch: {
+              state: 'observed',
+              class: 'A',
+              observedAt: '2026-07-30T12:00:00.000Z',
+            },
+            searchConsole: { state: 'not-observed' },
             private: 'not exposed',
           }],
           action: {
@@ -336,8 +342,14 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
     id: 'site-brand',
     kind: 'brand',
     text: 'site.example',
-    class: 'A',
-    observedAt: '2026-07-30T12:00:00.000Z',
+    rootDomain: 'site.example',
+    collision: { state: 'clear', note: 'No known collision.' },
+    liveSearch: {
+      state: 'observed',
+      class: 'A',
+      observedAt: '2026-07-30T12:00:00.000Z',
+    },
+    searchConsole: { state: 'not-observed' },
   }]);
   assert.equal(awareness.rows[0].projectId, 'core');
   assert.equal(awareness.rows[0].crawlerRequests.series.length, 1);

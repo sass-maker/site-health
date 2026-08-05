@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Root-domain search intent became measurable:** Added a
+  validated weekly query contract for the exact ten canonical roots, with one
+  active brand, exact-domain, category, and problem query per root. Ambiguous
+  names carry explicit collision notes, superseded queries remain historical,
+  and Fleet Console now separates factual Search Console rows from weekly live
+  web-search observations while leaving missing evidence as not observed.
+
 - **2026-08-05 — Search Console sitemap inventory was reconciled:** Added a
   preview-first, fail-closed reconciliation command over the 27 canonical
   project hosts plus all ten root domains. The live apply retained 27 project
@@ -631,6 +638,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   Cloudflare values and breakdowns with one deduplicated portfolio update.
   Shared Domain properties and Cloudflare zones are isolated to each project's
   canonical HTTPS hostname.
+- Validated ten-root search query contract with stable brand, exact-domain,
+  category, and problem intents; explicit collision metadata; additive query
+  history; and provider-honest per-query evidence in project Search details.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

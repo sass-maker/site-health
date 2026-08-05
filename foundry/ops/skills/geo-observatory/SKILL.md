@@ -17,9 +17,10 @@ classify coarsely, record honestly.
 
 ## Protocol
 
-1. **Load config**: `foundry/ops/config/geo-observatory.json`. Never rephrase
-   an existing query (`qid` history breaks); to track something new, ADD a
-   query with a new qid and note it in the commit.
+1. **Load config**: `foundry/ops/config/geo-observatory.json` plus the active
+   root-domain queries in `foundry/ops/config/root-search-queries.json`. Never
+   rephrase an existing query (`qid` history breaks); to track something new,
+   ADD a query with a new qid and retain the old one as historical.
 2. **Probe**: for each product's queries, run live web search (WebSearch
    tool). Look at the top ~10 organic results. Use the configured query
    verbatim and record `query` with that exact text plus
