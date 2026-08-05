@@ -207,20 +207,7 @@ const learningRoutes: PublicRoute[] = LEARNINGS.map((learning) => ({
   path: learning.href,
   description: learning.description,
   kind: 'article',
-  markdown: [
-    `# ${learning.title}`,
-    '',
-    learning.description,
-    '',
-    `- Published: ${learning.publishedAt}`,
-    `- Author: ${learning.author}`,
-    `- Reading time: ${learning.readingTime}`,
-    '',
-    'This Markdown surface carries the published article summary and canonical human-readable route. The full article is available at:',
-    '',
-    `${SITE_URL}${learning.href}`,
-    '',
-  ].join('\n'),
+  markdown: learning.markdown,
 }));
 
 const productRoutes: PublicRoute[] = PAGED_PRODUCTS.map((product) => ({

@@ -161,6 +161,29 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
   assert.match(navSource, /Public source index/);
 });
 
+test('SaaS Maker exposes the complete learning article to agents', async () => {
+  const [routesSource, articleMarkdown] = await Promise.all([
+    readFile(
+      new URL('../../apps/public/public-directory/src/data/publicRoutes.ts', import.meta.url),
+      'utf8',
+    ),
+    readFile(
+      new URL(
+        '../../apps/public/public-directory/src/data/articles/skills-should-declare-capabilities-not-model-names.md',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ]);
+
+  assert.match(routesSource, /markdown: learning\.markdown/);
+  assert.match(articleMarkdown, /## What is the methodology\?/);
+  assert.match(articleMarkdown, /## Where does it fall short\?/);
+  assert.match(articleMarkdown, /## Sources and implementation/);
+  assert.ok(articleMarkdown.split(/\s+/u).length > 700);
+  assert.doesNotMatch(articleMarkdown, /full article is available at/i);
+});
+
 test('agent surface metadata covers the visibility project inventory exactly', async () => {
   const agentRegistry = await readJson(
     new URL('../config/agent-surfaces-registry.json', import.meta.url),
