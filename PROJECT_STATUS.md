@@ -62,6 +62,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — SaaS Maker canonical homepage consolidated:** The public
+  directory no longer generates or links a competing `/p/saas-maker` profile.
+  Its source navigation now names and consistently links the public
+  `sass-maker` organization as the public source index; the private Fleet
+  workspace remains intentionally undisclosed.
 - **2026-08-05 — Root-domain search intent became measurable:** Added a
   validated weekly query contract for the exact ten canonical roots, with one
   active brand, exact-domain, category, and problem query per root. Ambiguous

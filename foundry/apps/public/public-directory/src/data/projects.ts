@@ -39,7 +39,7 @@ interface PublicProduct {
 }
 
 const products = (publicCatalog.products as PublicProduct[]).filter(
-  (product) => product.id !== 'personal-website'
+  (product) => !['personal-website', 'saas-maker'].includes(product.id)
 );
 const spotlightOrder = ['codevetter', 'posttrainllm', 'pace', 'high-signal'];
 

@@ -74,7 +74,10 @@ export const REGISTRY_PRODUCTS = (publicCatalog.products as CatalogProduct[])
 export const REGISTRY_BY_ID = Object.fromEntries(
   REGISTRY_PRODUCTS.map((product) => [product.id, product])
 );
-export const PAGED_PRODUCTS = REGISTRY_PRODUCTS;
+// SaaS Maker is the directory itself. Giving it a second indexable profile at
+// `/p/saas-maker` splits exact-brand signals and makes the homepage compete
+// with its own catalog entry.
+export const PAGED_PRODUCTS = REGISTRY_PRODUCTS.filter((product) => product.id !== 'saas-maker');
 
 export function llmsTxtUrl(product: RegistryProduct): string {
   return `${product.url.replace(/\/$/, '')}/llms.txt`;
