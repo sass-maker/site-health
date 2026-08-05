@@ -61,6 +61,30 @@ contain selection heuristics and output contracts; they do not vendor a large,
 fast-staling catalog. This retains current verification and lets the agent use
 the best available browser, CLI, or project-native tool.
 
+Design Engineer Tools and DesEngs remain named broad-discovery seeds. Neither
+feed is copied into a Fleet registry or treated as evidence that a listed tool
+is current, suitable, free, or licensed for reuse.
+
+### Give creative effects four explicit modes
+
+Keep one child skill but route inside it to `shape`, `audit`, `opportunities`,
+or `vocabulary`. `shape` owns new-effect planning and implementation when
+requested. `audit` inspects existing code and produces prioritized source-linked
+findings. `opportunities` identifies where motion adds meaning and where the UI
+should remain still. `vocabulary` translates imprecise intent into an
+implementation-neutral motion contract. Separate modes avoid adding several
+overlapping animation skills and let read-only requests stop before mutation.
+
+### Make code probes temporary comparison infrastructure
+
+Allow `design-inspiration` to create two or three project-native code probes
+when screenshots cannot demonstrate interaction or responsive behavior. Keep
+them behind a temporary comparison surface that is absent from production
+navigation and analytics. Record the selected probe in the existing receipt,
+then remove the comparison surface before completion unless the owner
+explicitly makes it part of the product. This provides higher-fidelity
+direction evidence without leaving a hidden prototype route behind.
+
 ### Share one dependency-free diagnostics command
 
 Add a small Node script under the parent skill that reports availability of
@@ -93,6 +117,9 @@ surface to the effects skill.
 - **External references drift** -> Require live verification for current tool,
   price, license, and compatibility claims; keep the bundled source maps
   illustrative rather than exhaustive.
+- **Temporary code probes leak into the product** -> Isolate comparison
+  infrastructure, keep it out of navigation and analytics, and make removal or
+  explicit owner retention part of the completion contract.
 - **Effects encourage spectacle over utility** -> Require a named purpose,
   fallback, reduced-motion behavior, input safety, and a measurable budget
   before implementation.

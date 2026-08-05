@@ -38,6 +38,10 @@ content, assets, or proprietary implementation.
 - **WHEN** research supports an active Fleet overhaul workflow
 - **THEN** it narrows the evidence to two or three named references suitable for the existing direction receipt and keeps direction probes distinct from source screenshots
 
+#### Scenario: Static probes cannot resolve the direction
+- **WHEN** an approved overhaul needs working interaction or responsive behavior to compare directions
+- **THEN** the workflow may create a temporary project-native comparison surface for two or three code probes, isolates it from production navigation and analytics, records the selected probe, and removes the temporary surface before completion unless the owner explicitly retains it
+
 ### Requirement: Component research covers complete behavior
 The component-pattern workflow MUST compare mature implementations and produce
 project-adapted guidance for anatomy, states, input methods, accessibility,
@@ -67,7 +71,9 @@ to a new framework.
 ### Requirement: Creative effects are purposeful, accessible, and bounded
 The creative-effects workflow MUST tie animation, SVG, Canvas, shader, pointer,
 or scroll effects to a named communication or interaction purpose and define
-reduced-motion, input, visibility, and low-capability behavior.
+reduced-motion, input, visibility, and low-capability behavior. It SHALL expose
+distinct `shape`, `audit`, `opportunities`, and `vocabulary` modes without
+loading implementation guidance that the selected mode does not need.
 
 #### Scenario: An expressive effect is requested
 - **WHEN** the agent shapes or builds a creative browser effect
@@ -76,6 +82,18 @@ reduced-motion, input, visibility, and low-capability behavior.
 #### Scenario: The effect harms core use
 - **WHEN** the effect obscures content, traps input, destabilizes layout, or exceeds the agreed performance or accessibility boundary
 - **THEN** the workflow simplifies, disables, or removes the effect rather than treating spectacle as the primary success criterion
+
+#### Scenario: Existing effects are audited
+- **WHEN** the user asks to audit or improve current animation code
+- **THEN** the workflow inventories the relevant effects and returns prioritized, source-linked findings with validation steps before making any change
+
+#### Scenario: Motion opportunities are requested
+- **WHEN** the user asks where animation would genuinely help
+- **THEN** the workflow identifies purposeful opportunities, explicitly names surfaces that should remain still, and does not implement without a separate implementation request
+
+#### Scenario: Motion language is unclear
+- **WHEN** the user describes an effect with imprecise language
+- **THEN** the vocabulary mode translates the intent into named states, timing relationships, easing behavior, choreography, interruption, and fallback requirements without inventing implementation scope
 
 ### Requirement: Tool availability and external claims are verified
 Focused workflows SHALL treat external directories as discovery sources and

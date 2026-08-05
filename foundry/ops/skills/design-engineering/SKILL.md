@@ -1,6 +1,6 @@
 ---
 name: design-engineering
-description: Route focused design-engineering work for inspiration research, component pattern mining, web 3D delivery, and creative browser effects. Use when a Fleet task needs attributable visual references, comparison of unfamiliar UI components, glTF or real-time 3D work, or purposeful animation, SVG, Canvas, shader, scroll, or pointer effects. This skill complements design-workflow and Impeccable; it does not replace their direction, craft, or completion gates.
+description: Route focused design-engineering work for inspiration research, component pattern mining, web 3D delivery, and creative browser effects. Use when a Fleet task needs attributable visual references or working direction probes, comparison of unfamiliar UI components, glTF or real-time 3D work, or shaping, auditing, discovering, specifying, or implementing purposeful animation, SVG, Canvas, shader, scroll, or pointer effects. This skill complements design-workflow and Impeccable; it does not replace their direction, craft, or completion gates.
 ---
 
 # Design engineering
@@ -15,7 +15,7 @@ child skill and its directly relevant references.
 | Find visual references, anti-references, or direction evidence | `design-inspiration` | `../design-inspiration/SKILL.md` |
 | Compare an unfamiliar component or interaction pattern | `component-pattern-mine` | `../component-pattern-mine/SKILL.md` |
 | Create, inspect, optimize, or integrate models, scenes, glTF, or real-time 3D | `web-3d-pipeline` | `../web-3d-pipeline/SKILL.md` |
-| Shape or build animation, SVG, Canvas, shader, pointer, or scroll effects | `creative-web-effects` | `../creative-web-effects/SKILL.md` |
+| Shape, audit, discover, specify, or build animation, SVG, Canvas, shader, pointer, or scroll effects | `creative-web-effects` | `../creative-web-effects/SKILL.md` |
 
 If a shader is part of a scene with models, cameras, or 3D interaction, route
 through `web-3d-pipeline` first and hand its rendering boundary to

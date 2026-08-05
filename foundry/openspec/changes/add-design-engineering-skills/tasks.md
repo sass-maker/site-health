@@ -23,3 +23,11 @@
 - [x] 4.2 Run the diagnostics command in fixture and real-project modes plus the focused Node tests
 - [x] 4.3 Run strict OpenSpec validation, relevant existing design-workflow tests, and `git diff --check`
 - [x] 4.4 Review the isolated diff, commit and push the branch, and open a pull request that closes GitHub issue #157
+
+## 5. DesEngs refinement
+
+- [x] 5.1 Add `shape`, `audit`, `opportunities`, and `vocabulary` modes to `creative-web-effects` with mode-specific outputs and mutation boundaries
+- [x] 5.2 Add temporary code-based comparison probes and cleanup requirements to `design-inspiration`
+- [x] 5.3 Add DesEngs to the source map as a non-authoritative discovery feed
+- [x] 5.4 Extend focused tests and rerun skill, OpenSpec, capability, design-workflow, and whitespace validation
+- [x] 5.5 Commit and push the refinement to PR #158 and confirm its required checks pass

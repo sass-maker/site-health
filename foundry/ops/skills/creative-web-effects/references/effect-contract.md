@@ -1,5 +1,52 @@
 # Creative web effect contract
 
+## Mode outputs
+
+### Shape
+
+Return the effect brief below, the chosen rendering tier, prototype risk,
+implementation boundary, fallback plan, and browser validation matrix. Write
+code only when the user requested implementation.
+
+### Audit
+
+Return:
+
+1. scope and files inspected;
+2. an inventory of effects with trigger, duration or progress model, rendering
+   tier, fallback, and lifecycle behavior;
+3. prioritized findings tied to source paths and observable impact;
+4. effects that should be removed or simplified;
+5. validation steps for each proposed correction.
+
+Do not edit source in audit mode.
+
+### Opportunities
+
+Return:
+
+1. user states or transitions where motion can improve orientation, feedback,
+   continuity, or comprehension;
+2. a purpose and cheapest sufficient tier for each opportunity;
+3. surfaces that should remain still and why;
+4. a priority order and evidence needed before implementation.
+
+Do not implement opportunities in this mode.
+
+### Vocabulary
+
+Translate the user's intent into:
+
+- named start, transition, rest, exit, interruption, and cancellation states;
+- spatial relationship and direction of travel;
+- duration relationships rather than arbitrary isolated numbers;
+- easing role: enter, exit, direct manipulation, spring, or continuous progress;
+- choreography, overlap, stagger, anticipation, and follow-through when useful;
+- input coupling, replay, reduced motion, and fallback behavior.
+
+Return an implementation-neutral motion contract. Do not choose a dependency or
+add code unless the user also requests `shape`.
+
 ## Effect brief
 
 Record before implementation:

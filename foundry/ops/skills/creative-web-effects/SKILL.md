@@ -1,17 +1,38 @@
 ---
 name: creative-web-effects
-description: Shape, implement, and validate purposeful creative browser effects using CSS animation, SVG, Canvas, WebGL shaders, scroll progress, pointer input, particles, transitions, or procedural visuals. Use when a web surface needs expressive motion or interaction beyond ordinary component animation. Requires a named communication purpose, project-native visual direction, reduced-motion and low-capability fallbacks, input safety, lifecycle cleanup, and measurable performance evidence.
+description: Shape, audit, discover, specify, implement, and validate purposeful creative browser effects using CSS animation, SVG, Canvas, WebGL shaders, scroll progress, pointer input, particles, transitions, or procedural visuals. Use when a web surface needs a new expressive effect, an audit of existing animation code, identification of genuine motion opportunities, or precise vocabulary for an unclear motion brief. Requires project-native direction, reduced-motion and low-capability fallbacks, input safety, lifecycle cleanup, and measurable performance evidence.
 ---
 
 # Creative web effects
 
 Make the effect serve the page. Spectacle is not its own success criterion.
 
-## 1. Write the effect brief
+## 1. Choose one mode
+
+Read only the mode-specific output in
+[the effect contract](references/effect-contract.md):
+
+- `shape`: define or implement a requested effect. Continue through every
+  section below; write code only when implementation is explicitly requested.
+- `audit`: inventory existing effects and return prioritized, source-linked
+  findings plus validation steps. Remain read-only unless the user separately
+  asks for fixes.
+- `opportunities`: identify where motion would improve orientation, feedback,
+  continuity, or comprehension and where the surface should stay still. Do not
+  implement.
+- `vocabulary`: translate imprecise motion intent into named states, timing
+  relationships, easing roles, choreography, interruption, and fallback
+  behavior. Do not invent implementation scope.
+
+If the request names multiple modes, run them in dependency order and keep
+their outputs separate. For example, run `audit` before `shape` when the user
+asks to review and then fix an existing effect.
+
+## 2. Establish context
 
 Read the nearest project instructions, design context, incumbent motion
 language, target surface, and real content. Read
-[the effect contract](references/effect-contract.md), then define:
+[the effect contract](references/effect-contract.md). For `shape`, define:
 
 - the communication or interaction purpose;
 - what starts, changes, completes, and interrupts the effect;
@@ -22,7 +43,11 @@ language, target surface, and real content. Read
 For meaningful visual implementation, invoke `design-workflow`. Use Impeccable
 for the direction, craft, critique, polish, and audit of the complete surface.
 
-## 2. Choose the cheapest sufficient tier
+For `audit`, `opportunities`, or `vocabulary`, produce the selected read-only
+output and stop. Do not continue into implementation mechanics unless the user
+also requested `shape`.
+
+## 3. Choose the cheapest sufficient tier
 
 Choose in order:
 
@@ -36,7 +61,7 @@ Use `web-3d-pipeline` first when the effect depends on a scene, model, camera,
 material system, or spatial 3D interaction. Do not add a motion or rendering
 library when project-native APIs are sufficient.
 
-## 3. Prototype the risk
+## 4. Prototype the risk
 
 Prototype the hardest visual or performance uncertainty before building the
 whole composition. Use representative content and target dimensions. Test the
@@ -47,7 +72,7 @@ separate, bind animation to actual state or progress, and avoid continuous work
 when the effect is idle, hidden, or offscreen. Bound canvas resolution and
 particle or shader complexity to the experience rather than raw device power.
 
-## 4. Integrate safely
+## 5. Integrate safely
 
 - Preserve reading order, selectable text, links, controls, and focus.
 - Do not make pointer movement, hover, or scroll interception the only path to
@@ -60,7 +85,7 @@ particle or shader complexity to the experience rather than raw device power.
   graphics resources on teardown.
 - Keep decorative canvases and SVGs out of the accessibility tree.
 
-## 5. Validate and simplify
+## 6. Validate and simplify
 
 Exercise the effect contract across required Fleet widths, input types,
 reduced motion, visibility changes, low-capability or fallback paths, and

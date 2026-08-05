@@ -27,6 +27,37 @@ test('design-engineering parent routes to every focused child', () => {
   assert.match(parent, /doctor\.mjs/);
 });
 
+test('DesEngs refinements keep modes and temporary probes explicit', () => {
+  const effects = readSkill('creative-web-effects');
+  const effectContract = readFileSync(
+    path.join(skillsRoot, 'creative-web-effects/references/effect-contract.md'),
+    'utf8',
+  );
+  const inspiration = readSkill('design-inspiration');
+  const inspirationContract = readFileSync(
+    path.join(skillsRoot, 'design-inspiration/references/research-contract.md'),
+    'utf8',
+  );
+  const sourceMap = readFileSync(
+    path.join(skillsRoot, 'design-engineering/references/source-map.md'),
+    'utf8',
+  );
+
+  for (const mode of ['shape', 'audit', 'opportunities', 'vocabulary']) {
+    assert.equal(effects.includes(`\`${mode}\``), true);
+  }
+  assert.match(effectContract, /Do not edit source in audit mode/);
+  assert.match(effectContract, /Do not implement opportunities in this mode/);
+  assert.match(effectContract, /implementation-neutral motion contract/);
+
+  assert.match(inspiration, /temporary comparison surface or switcher/);
+  assert.match(inspiration, /remove the comparison scaffold and rejected probes/);
+  assert.match(inspirationContract, /cleanup evidence/);
+
+  assert.match(sourceMap, /\[DesEngs\]\(https:\/\/desengs\.com\/\)/);
+  assert.match(sourceMap, /not as evidence that a resource is[\s\S]*endorsed/);
+});
+
 test('focused skills have complete metadata, references, and execution profiles', () => {
   for (const skill of ['design-engineering', ...childSkills]) {
     const skillRoot = path.join(skillsRoot, skill);

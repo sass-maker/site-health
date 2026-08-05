@@ -8,6 +8,10 @@ documentation for technical or licensing claims.
 
 - [Design Engineer Tools](https://designengineer.tools/) — category discovery;
   never treat inclusion as Fleet endorsement.
+- [DesEngs](https://desengs.com/) — recently curated design-engineering
+  resources across reading, watching, using, building, learning, and community;
+  use it to discover primary sources, not as evidence that a resource is
+  suitable or endorsed.
 
 ## Inspiration
 
