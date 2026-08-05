@@ -30,6 +30,8 @@ Regardless of which teammate you call:
 - **Explicit sandbox/permission flags** — never rely on CLI config defaults.
 - **Delegate from a clean checkout into a worktree** — don't delegate from a dirty tree.
 - **`< /dev/null` on every invocation** — prevent stdin hang.
+- **Fail closed on autonomy warnings** — confirmation or policy warnings count
+  as failures even when the teammate process exits successfully.
 - **Verify diffs and tests yourself** — the teammate's output is a draft, not a finished product.
 - **Record the run and sanitized output** through `fleet-skill-run`; the
   scorecard remains the concise routing verdict rather than the raw log store.

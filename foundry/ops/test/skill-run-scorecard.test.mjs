@@ -16,8 +16,8 @@ test('parses the curated Codex and Devin history without inventing metrics', asy
   const devin = entries.filter((entry) => entry.run.actor.id === 'devin');
 
   assert.equal(codex.length, 27);
-  assert.equal(devin.length, 8);
-  assert.equal(entries.length, 35);
+  assert.equal(devin.length, 16);
+  assert.equal(entries.length, 43);
   assert.ok(entries.every((entry) => entry.metrics.length === 0));
   assert.ok(entries.every((entry) => entry.run.source === 'backfill'));
   assert.ok(entries.every((entry) => entry.run.captureCompleteness === 'summary-only'));
