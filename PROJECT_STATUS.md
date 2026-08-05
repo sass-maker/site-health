@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — SaaS Maker's full learning article became agent-readable:**
+  Replaced the article's summary-only Markdown counterpart with the complete
+  published essay, including its methodology, limitations, implementation
+  example, sources, and canonical HTML reference. The existing public-route
+  registry continues to drive the Markdown route, sitemap, `llms-full.txt`,
+  and `/api/ai` catalog from one entry.
 - **2026-08-05 — SaaS Maker canonical homepage consolidated:** The public
   directory no longer generates or links a competing `/p/saas-maker` profile.
   Its source navigation now names and consistently links the public
