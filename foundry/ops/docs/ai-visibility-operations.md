@@ -123,6 +123,22 @@ node foundry/ops/scripts/search-console-collect.mjs
 node foundry/ops/scripts/search-console-collect.mjs --project posttrainllm
 ```
 
+Sitemap inventory has a separate preview-first reconciliation command. It uses
+the 27 canonical project hosts plus the exact ten root-domain identities,
+deduplicates overlaps, and changes Search Console only with `--apply`:
+
+```bash
+node foundry/ops/scripts/search-console-sitemap-reconcile.mjs
+node foundry/ops/scripts/search-console-sitemap-reconcile.mjs --apply
+```
+
+The apply form submits missing canonical sitemap URLs and deletes provider
+entries outside the complete desired set for the selected properties. Run the
+preview again afterward; a converged inventory has no `add:planned` or
+`remove:planned` actions. This does not request URL indexing or prove rankings.
+Astro roots that expose an index rather than `/sitemap.xml` declare that exact
+same-host URL in `foundry/ops/config/search-console.json`.
+
 The default run queries the 28 completed days ending three days ago. Accessible
 Domain properties cover their subdomains; every project query is constrained to
 its canonical HTTPS hostname. The collector retains only normalized aggregate

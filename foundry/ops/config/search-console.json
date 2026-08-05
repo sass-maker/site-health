@@ -1,6 +1,10 @@
 {
   "schema": "fleet.search-console.v1",
   "quotaProject": "significanthobbies-dev",
+  "sitemapOverrides": {
+    "aliveville.com": "https://aliveville.com/sitemap-index.xml",
+    "sarthakagrawal.dev": "https://sarthakagrawal.dev/sitemap-index.xml"
+  },
   "reportingWindowDays": 28,
   "reportingLagDays": 3,
   "searchTermLimit": 25
