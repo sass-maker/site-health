@@ -43,8 +43,11 @@ this host and must remain an explicit specialist lane.
   recipes and production archetypes without introducing another orchestration
   layer.
 - Prove the complete loop with five creative, resource-guarded local sample
-  prompts whose actual workflow proposals and generated videos remain visible
-  in History.
+  prompts whose actual workflow proposals and generated videos remain ordinary,
+  reusable entries in the generic History archive.
+- Add one resumable 30-second narrative canary that assembles five guarded LTX
+  shots with local voice, generated music, and an exact executed-workflow
+  receipt, without replacing the existing 2- to 3-minute episode contract.
 
 ## Capabilities
 

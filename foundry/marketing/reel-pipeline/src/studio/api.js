@@ -53,7 +53,7 @@ import { getExecutionAdapter, missingExecutionInputs, VIDEO_EXECUTION_SCHEMA } f
 import { executeVideoMix } from './video-mix.js';
 import { listModelProfiles, listThemePacks, resolveModelProfile, resolveThemePack } from './model-options.js';
 import { summarizeLocalVideoWorkflowRecipes } from '../local-video-workflow-recipes.js';
-import { buildStudioHistory, summarizeRecipeLibrary } from './studio-libraries.js';
+import { buildStudioHistory, inspectStudioVideo, summarizeRecipeLibrary } from './studio-libraries.js';
 import {
   freezeWorkflowProposal,
   inspectWorkflowProposal,
@@ -815,25 +815,48 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       listLocalEpisodes(options.episodeStoreOptions),
     ]);
     const ideasById = new Map(ideas.map((idea) => [idea.id, idea]));
+    const history = await buildStudioHistory(briefs, options.historyOptions);
+    const historyById = new Map(history.map((entry) => [entry.id, entry]));
     const briefVideoPaths = new Set(
       briefs
         .map((brief) => brief.media?.videoPath)
         .filter(Boolean)
         .map((videoPath) => path.resolve(videoPath)),
     );
-    const legacyRenders = renders.filter(
+    const legacyRenders = await Promise.all(renders.filter(
       (render) => !render.video || !briefVideoPaths.has(path.resolve(render.video)),
-    );
+    ).map(async (render) => {
+      if (!render.video) return render;
+      const evidence = await inspectStudioVideo(render.video, options.historyOptions);
+      return {
+        ...render,
+        video: evidence.video?.path ?? null,
+        videoUnavailableReason: evidence.reason,
+      };
+    }));
+    const viewableEpisodes = await Promise.all(episodes.map(async (episode) => {
+      const videoPath = episode.assembly?.output?.videoPath;
+      if (!videoPath) return episode;
+      const evidence = await inspectStudioVideo(videoPath, options.historyOptions);
+      return {
+        ...episode,
+        assembly: {
+          ...episode.assembly,
+          output: { ...episode.assembly.output, videoPath: evidence.video?.path ?? null },
+          videoUnavailableReason: evidence.reason,
+        },
+      };
+    }));
     return {
       status: 200,
       body: {
         data: {
           briefs: briefs.map((brief) => ({
-            ...decorateBrief(brief, options),
+            ...decorateBriefForPlayback(brief, historyById.get(brief.id), options),
             automation: brief.ideaId ? ideasById.get(brief.ideaId)?.automation ?? null : null,
           })),
           legacyRenders,
-          episodes,
+          episodes: viewableEpisodes,
         },
       },
     };
@@ -1125,6 +1148,21 @@ async function localExecutionEnvelope(brief, result) {
     quality: result.quality ?? { verdict: 'pass', basis: 'local renderer evidence' },
     evidence: { ownerManifestPath: result.ownerManifestPath ?? null },
     blockers: [],
+  };
+}
+
+function decorateBriefForPlayback(brief, historyEntry, options) {
+  const decorated = decorateBrief(brief, options);
+  if (!brief.media?.videoPath) return decorated;
+  return {
+    ...decorated,
+    media: {
+      ...decorated.media,
+      videoPath: historyEntry?.video?.path ?? null,
+      videoUnavailableReason: historyEntry
+        ? historyEntry.videoUnavailableReason
+        : 'The saved video artifact is unavailable.',
+    },
   };
 }
 

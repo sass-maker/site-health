@@ -24,6 +24,10 @@ test('workflow library exposes broad archetypes with truthful shared graph discl
   assert.ok(entries.every((entry) => entry.sharedGraphDisclosure.includes('share')));
   assert.equal(entries[0].lanes.final.workflowRecipeId, 'ltx-2.3-mlx-q4-final');
   assert.equal(entries[0].lanes.preview.workflowRecipeId, 'ltx-2b-comfy-i2v-preview');
+  assert.deepEqual(
+    [entries[0].lanes.final.generationEstimate.minimumSeconds, entries[0].lanes.final.generationEstimate.maximumSeconds],
+    [115, 122],
+  );
 });
 
 test('request routing selects a relevant archetype and never executes', () => {
@@ -34,6 +38,8 @@ test('request routing selects a relevant archetype and never executes', () => {
   assert.equal(plan.archetypeId, 'night-out-rush');
   assert.equal(plan.state, 'proposed');
   assert.equal(plan.readiness.ready, true);
+  assert.equal(plan.generationEstimate.basis, 'measured-current-48gb-mac');
+  assert.match(plan.generationEstimate.label, /this 3\.375-second shot/);
   assert.match(plan.compiledPrompt, /wild candid party moment/);
 });
 
@@ -63,6 +69,7 @@ test('bounded revision creates a new version and visible diff', () => {
   assert.equal(second.inputs.aspectRatio, '16:9');
   assert.equal(second.inputs.durationSeconds, 6);
   assert.equal(second.inputs.seed, 99);
+  assert.deepEqual([second.generationEstimate.minimumSeconds, second.generationEstimate.maximumSeconds], [28, 75]);
   assert.deepEqual(second.lastRevision.changes.map((entry) => entry.field), ['lane', 'aspect ratio', 'duration', 'seed']);
 });
 

@@ -10,6 +10,7 @@ import { promisify } from 'node:util';
 
 import { AsciiAnimationAdapter } from '../src/adapters/ascii-animation.js';
 import { HtmlCompositionAdapter } from '../src/adapters/html-composition.js';
+import { listRecipeVariants, PRODUCTION_RECIPE_IDS } from '../src/studio/production-catalog.js';
 import { normalizeVideoBrief } from '../src/video-brief.js';
 
 const execFileAsync = promisify(execFile);
@@ -282,14 +283,17 @@ async function buildConfig() {
     });
   }
   const provenCapabilityCount = new Set(items.map((item) => item.recipeId)).size;
+  const exactOptionCount = listRecipeVariants().length;
+  const totalCapabilityCount = PRODUCTION_RECIPE_IDS.length;
   return {
     schema: 'fleet.video-explore-gallery-representatives.v1', version: 1,
     coverage: {
-      exactOptionCount: 48, totalCapabilityCount: 12, provenCapabilityCount, proofCount: items.length,
+      exactOptionCount, totalCapabilityCount, provenCapabilityCount, proofCount: items.length,
       unproven: [
         { recipeId: 'grok-asset-film', reason: 'Intentionally excluded: no valid operator-approved Grok MP4 with provenance is available.' },
         { recipeId: 'guided-app-demo', reason: 'Quality-gated: the available recording showed an unavailable local state instead of a successful product flow.' },
         { recipeId: 'product-proof', reason: 'Quality-gated: the available slideshow did not demonstrate a complete, legible product interaction.' },
+        { recipeId: 'night-out-carousel', reason: 'Exact option fixture exists; no substantive owner-approved representative proof is available yet.' },
       ],
     },
     items,
@@ -316,10 +320,16 @@ function sourceEvidence(definition) {
 
 async function checkRepresentativePack() {
   const config = JSON.parse(await readFile(configPath, 'utf8'));
-  if (config.coverage.exactOptionCount !== 48 || config.coverage.totalCapabilityCount !== 12) throw new Error('representative coverage summary drifted');
+  const expectedOptionCount = listRecipeVariants().length;
+  const expectedCapabilityCount = PRODUCTION_RECIPE_IDS.length;
+  if (config.coverage.exactOptionCount !== expectedOptionCount || config.coverage.totalCapabilityCount !== expectedCapabilityCount) throw new Error('representative coverage summary drifted');
   const uniqueRecipes = new Set(config.items.map((item) => item.recipeId));
   if (uniqueRecipes.size !== config.coverage.provenCapabilityCount) throw new Error('proven capability count drifted');
   if (config.items.length !== config.coverage.proofCount) throw new Error('proof count drifted');
+  const coveredRecipes = new Set([...uniqueRecipes, ...config.coverage.unproven.map((item) => item.recipeId)]);
+  if (coveredRecipes.size !== expectedCapabilityCount || PRODUCTION_RECIPE_IDS.some((recipeId) => !coveredRecipes.has(recipeId))) {
+    throw new Error('representative capability coverage drifted');
+  }
   for (const recipeId of uniqueRecipes) {
     const primary = config.items.filter((item) => item.recipeId === recipeId && item.proofRole === 'primary');
     if (primary.length !== 1) throw new Error(`${recipeId}: exactly one primary proof is required`);

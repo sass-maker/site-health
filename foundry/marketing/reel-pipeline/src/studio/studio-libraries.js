@@ -1,11 +1,14 @@
 import { stat } from 'node:fs/promises';
+import { probeVideo } from './quality.js';
 
 export async function buildStudioHistory(briefs, options = {}) {
   const fileStat = options.fileStat ?? stat;
+  const videoProber = options.probeVideo ?? probeVideo;
   const entries = await Promise.all((briefs ?? []).map(async (brief) => {
     const videoPath = brief.media?.videoPath ?? null;
-    const video = videoPath ? await videoEvidence(videoPath, fileStat) : null;
+    const evidence = videoPath ? await inspectStudioVideo(videoPath, { fileStat, videoProber }) : { video: null, reason: null };
     const proposal = brief.workflowProposal;
+    const executedWorkflow = brief.media?.execution?.workflow;
     return {
       id: brief.id,
       title: brief.title,
@@ -15,7 +18,7 @@ export async function buildStudioHistory(briefs, options = {}) {
       lifecycle: brief.lifecycle,
       projectSlug: brief.projectSlug,
       sampleId: brief.id.startsWith('sample_') ? brief.id.slice('sample_'.length) : null,
-      workflow: proposal ? {
+      workflow: executedWorkflow ? structuredClone(executedWorkflow) : proposal ? {
         id: proposal.id,
         version: proposal.version,
         state: proposal.state,
@@ -39,7 +42,8 @@ export async function buildStudioHistory(briefs, options = {}) {
           status: phase.status,
         })),
       } : null,
-      video,
+      video: evidence.video,
+      videoUnavailableReason: evidence.reason,
       receiptPath: brief.media?.execution?.evidence?.ownerManifestPath
         ?? brief.media?.manifestPath
         ?? null,
@@ -77,12 +81,27 @@ export function summarizeRecipeLibrary(recipes, workflowRecipes = []) {
   };
 }
 
-async function videoEvidence(videoPath, fileStat) {
+export async function inspectStudioVideo(videoPath, options = {}) {
+  const fileStat = options.fileStat ?? stat;
+  const videoProber = options.videoProber ?? options.probeVideo ?? probeVideo;
   try {
     const details = await fileStat(videoPath);
-    if (!details.isFile() || details.size < 1) return null;
-    return { path: videoPath, bytes: details.size, contentType: 'video/mp4' };
+    if (!details.isFile() || details.size < 1) return { video: null, reason: 'The saved video artifact is missing or empty.' };
+    const probe = await videoProber(videoPath);
+    if (!probe?.ok) return { video: null, reason: 'The saved artifact is not a decodable video.' };
+    return {
+      video: {
+        path: videoPath,
+        bytes: details.size,
+        contentType: 'video/mp4',
+        durationSeconds: probe.durationSeconds,
+        width: probe.width,
+        height: probe.height,
+        hasAudio: probe.hasAudio,
+      },
+      reason: null,
+    };
   } catch {
-    return null;
+    return { video: null, reason: 'The saved video artifact is unavailable.' };
   }
 }

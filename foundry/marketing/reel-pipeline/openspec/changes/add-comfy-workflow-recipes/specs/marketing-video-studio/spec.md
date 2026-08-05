@@ -36,6 +36,10 @@ execution or a dead external handoff, the primary execution boundary.
 - **WHEN** at least one ready local workflow can satisfy the request
 - **THEN** Studio selects the best matching local archetype, displays its reason, phases, exact models, required inputs, estimates, and readiness, and does not generate until Play workflow is selected
 
+#### Scenario: Operator reviews generation time
+- **WHEN** Studio proposes or displays an LTX preview or final workflow
+- **THEN** it shows a bounded rough generation-time range, identifies whether the range is measured or estimated, and keeps render duration separate from requested video duration
+
 #### Scenario: Operator wants expert detail
 - **WHEN** the operator expands the workflow details
 - **THEN** Studio shows a readable phase diagram and the exact Comfy graph details for Comfy-backed phases while keeping the default view concise
@@ -47,7 +51,9 @@ execution or a dead external handoff, the primary execution boundary.
 ### Requirement: Artifact-led production history
 Marketing Studio SHALL provide a History page derived from persisted briefs and
 artifacts where each entry keeps the original prompt, frozen workflow proposal,
-execution evidence, and playable video together.
+execution evidence, and playable video together. The page SHALL derive its
+identity, count, selection, and recent-entry navigation from persisted history
+rather than a fixed experiment manifest.
 
 #### Scenario: Completed sample is opened
 - **WHEN** an operator opens a completed History entry
@@ -72,6 +78,10 @@ execution framework.
 - **WHEN** the operator selects Use workflow
 - **THEN** Studio returns to Create with that archetype as the intended production route and waits for the operator to plan and run it
 
+#### Scenario: A default recipe runtime is unavailable
+- **WHEN** a recipe's default one-click path has no compatible ready model on the current host
+- **THEN** the recipe library marks that path unavailable and names any supported supplied-asset alternative instead of labeling the recipe ready
+
 ### Requirement: Five-sample local canary
 The repository SHALL include a reproducible five-sample manifest and serial
 runner that exercise materially different creative prompts through the same
@@ -80,8 +90,18 @@ completed results.
 
 #### Scenario: Five-sample run completes
 - **WHEN** the five declared sample prompts have ready approved references and the host remains within its resource envelope
-- **THEN** the runner persists five briefs, five frozen workflows, five real playable videos, and their receipts so the History page can show the tested set
+- **THEN** the runner persists five briefs, five frozen workflows, five real playable videos, and their receipts as ordinary entries in the generic History archive
 
 #### Scenario: Sample run is resumed
 - **WHEN** a declared sample id already has a completed playable artifact
 - **THEN** the runner reuses it and continues with only the missing samples
+
+### Requirement: Longer narrative canary
+The repository SHALL include a resumable 30-second narrative canary that uses
+five serial LTX shots, original local voiceover, generated local music, and
+deterministic assembly while enforcing the same disk and RAM limits. This
+canary SHALL complement rather than weaken the 2- to 3-minute episode contract.
+
+#### Scenario: Narrative canary completes without an optional keyframe model
+- **WHEN** the pinned WAI keyframe checkpoint is absent but the installed LTX 2.3 runtime is ready
+- **THEN** the runner uses the guarded LTX text-to-video path without downloading another model, retains every shot receipt, assembles a playable 30-second final, and records the actual composite workflow in History

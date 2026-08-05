@@ -7,6 +7,7 @@ import test from 'node:test';
 import {
   describeVariantExecution,
   listExecutionAdapters,
+  missingExecutionInputs,
   validateExecutionRegistry,
 } from '../src/studio/execution-registry.js';
 import { listRecipeVariants } from '../src/studio/production-catalog.js';
@@ -66,6 +67,10 @@ test('every variant can execute its exact portable fixture without claiming a re
 });
 
 test('real execution fails on missing declared inputs and accepts an owner executor receipt', async () => {
+  assert.deepEqual(
+    missingExecutionInputs('night-out-carousel', { assetManifestPath: '/approved/images.json' }),
+    ['Source rights evidence'],
+  );
   const productBrief = {
     id: 'brief-product',
     recipeId: 'product-proof',

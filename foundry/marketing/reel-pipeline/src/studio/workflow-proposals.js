@@ -21,6 +21,7 @@ export function listWorkflowArchetypes(options = {}) {
         engine: recipe?.engine ?? null,
         graphSha256: recipe?.graphSha256 ?? null,
         readiness: recipe?.readiness ?? { ready: false, state: 'blocked', blocker: 'Workflow recipe is not registered.' },
+        generationEstimate: generationTimeEstimate(lane, archetype.defaultDurationSeconds),
       }];
     })),
     sharedGraphDisclosure: 'Creative archetypes may share this pinned renderer graph; the archetype changes production intent and exposed presets, not the installed model.',
@@ -224,6 +225,7 @@ function buildProposal(input) {
   const lane = LANES.has(input.lane) ? input.lane : 'final';
   const binding = input.archetype.lanes[lane];
   const referenceImage = optionalText(input.referenceImage);
+  const durationSeconds = boundedDuration(input.durationSeconds);
   const blockers = [];
   if (!binding.readiness.ready) blockers.push(binding.readiness.blocker);
   if (!referenceImage) blockers.push('Add a character or scene reference image before playing this workflow.');
@@ -253,12 +255,13 @@ function buildProposal(input) {
     inputs: {
       referenceImage,
       aspectRatio: ASPECT_RATIOS.has(input.aspectRatio) ? input.aspectRatio : input.archetype.defaultAspectRatio,
-      durationSeconds: boundedDuration(input.durationSeconds),
+      durationSeconds,
       seed: boundedSeed(input.seed),
       directionNotes: normalizeDirectionNotes(input.directionNotes),
     },
     phases: workflowPhases(input.archetype, binding, lane),
     readiness: { ready: blockers.length === 0, state: blockers.length ? 'needs-input' : 'ready', blocker: blockers.join(' ') || null, blockers },
+    generationEstimate: generationTimeEstimate(lane, durationSeconds),
     resourceEnvelope: structuredClone(binding.resourceEnvelope ?? { expectedDiskGb: lane === 'preview' ? 11.5 : 45, maxDiskPercent: 85, maxRamPercent: 90, serial: true }),
     sharedGraphDisclosure: input.archetype.sharedGraphDisclosure,
     planner: normalizePlanner(input.planner),
@@ -267,6 +270,25 @@ function buildProposal(input) {
     frozenAt: optionalText(input.frozenAt),
   };
   return proposal;
+}
+
+function generationTimeEstimate(lane, durationSeconds) {
+  const measured = lane === 'preview'
+    ? { sampleDurationSeconds:3.375, minimumSeconds:16, maximumSeconds:42, modelProfileId:'ltx-2b-comfy-preview' }
+    : { sampleDurationSeconds:6, minimumSeconds:205, maximumSeconds:216, modelProfileId:'ltx-2.3-mlx-q4' };
+  const ratio = durationSeconds / measured.sampleDurationSeconds;
+  const minimumSeconds = Math.max(1, Math.round(measured.minimumSeconds * ratio));
+  const maximumSeconds = Math.max(minimumSeconds, Math.round(measured.maximumSeconds * ratio));
+  const range = maximumSeconds < 90
+    ? `${minimumSeconds}–${maximumSeconds} seconds`
+    : `${(minimumSeconds / 60).toFixed(1)}–${(maximumSeconds / 60).toFixed(1)} minutes`;
+  return {
+    basis:'measured-current-48gb-mac',
+    modelProfileId:measured.modelProfileId,
+    minimumSeconds,
+    maximumSeconds,
+    label:`About ${range} for this ${durationSeconds}-second shot`,
+  };
 }
 
 function workflowPhases(archetype, binding, lane) {

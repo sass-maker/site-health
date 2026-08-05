@@ -34,6 +34,14 @@ test('production catalog covers every requested runtime with normalized comparis
   assert.equal(getProductionRecipe('threejs-scene').owner, 'Editorial');
   assert.equal(getProductionRecipe('blender-film', { blenderCapability: { ready: true } }).readiness.state, 'ready');
   assert.match(getProductionRecipe('local-voice-film').readiness.blocker, /Kokoro/i);
+  const nightOut = getProductionRecipe('night-out-carousel', { modelOptions: { rootDir: '/missing-model-root' } });
+  assert.equal(nightOut.readiness.state, 'needs-runtime');
+  assert.match(nightOut.readiness.blocker, /WAI checkpoint|approved image manifest/i);
+  const suppliedNightOut = getProductionRecipe('night-out-carousel', {
+    modelOptions: { rootDir: '/missing-model-root' },
+    brief: { executionInputs: { assetManifestPath: '/approved/images.json', rightsEvidence: 'Owned images.' } },
+  });
+  assert.equal(suppliedNightOut.readiness.state, 'ready');
 });
 
 test('recipe options are bounded, normalized, and reject unsupported values', () => {

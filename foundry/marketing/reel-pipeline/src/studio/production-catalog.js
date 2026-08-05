@@ -175,9 +175,13 @@ function readinessFor(definition, context) {
   const brief = context.brief ?? null;
   const missing = missingBriefRequirements(definition, brief);
   if (missing.length) return { state: 'needs-input', ready: false, blocker: `Add ${missing.join(', ')} before continuing.` };
-  if (brief && definition.supports?.modelProfiles) {
-    try {
-      const resolved = resolveModelProfile(brief.modelProfileId, {
+  if (definition.supports?.modelProfiles) {
+    const suppliedAssetManifest = brief?.executionInputs?.assetManifestPath;
+    if (suppliedAssetManifest && !brief.executionInputs?.rightsEvidence) {
+      return { state: 'needs-input', ready: false, blocker: 'Add source rights evidence for the approved image manifest.' };
+    }
+    if (!suppliedAssetManifest) try {
+      const resolved = resolveModelProfile(brief?.modelProfileId ?? 'auto', {
         ...(context.modelOptions ?? {}),
         generationMode: definition.supports.generationMode,
       });
@@ -185,7 +189,10 @@ function readinessFor(definition, context) {
         return { state: 'needs-runtime', ready: false, blocker: resolved.profile.readiness.blocker };
       }
     } catch (error) {
-      return { state: 'needs-runtime', ready: false, blocker: error.message };
+      const alternative = definition.id === 'night-out-carousel'
+        ? ' Install the verified WAI checkpoint for prompt-first generation or supply an approved image manifest with rights evidence.'
+        : '';
+      return { state: 'needs-runtime', ready: false, blocker: `${error.message}${alternative}` };
     }
   }
   if (definition.engine === 'html-composition') {

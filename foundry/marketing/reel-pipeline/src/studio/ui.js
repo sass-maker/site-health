@@ -1,13 +1,12 @@
 /**
  * THESIS: A living film archive where every beautiful result remains inseparable from the prompt and machinery that made it.
  * OWN-WORLD: Near-black projection room, full-height picture, restrained evidence beam, sharp system type, and film-ledgers instead of dashboard cards.
- * STORY: Watch five tested films, inspect their frozen workflows, reuse a recipe or route, then make the next one.
- * FIRST VIEWPORT: One portrait film dominates beside its prompt and production route; the remaining tests form a low filmstrip below.
+ * STORY: Revisit any saved production, inspect its prompt and workflow, then modify it or make the next one.
+ * FIRST VIEWPORT: The latest reviewable film dominates beside its prompt and production route; recent history forms a low filmstrip below.
  * FORM: Experience-first archive with operate-mode libraries; selected from the strongest authored composition, not a catalog grid.
  */
 import brandConfig from '../../config/brand-channels.json' with { type: 'json' };
 import arsenalConfig from '../../config/studio-arsenal.json' with { type: 'json' };
-import workflowSampleConfig from '../../config/studio-workflow-samples.json' with { type: 'json' };
 
 const TOOLS = arsenalConfig.tools.filter((entry) => entry.ui !== false).map((entry) => structuredClone(entry));
 const FILM_STYLES = arsenalConfig.recipes.map((entry) => [entry.id, {
@@ -27,16 +26,6 @@ const PLATFORM_SOUND_PRESETS = Object.freeze([
   { id:'levitating', artist:'Dua Lipa', title:'Levitating', videoId:'WHuBW3qKm9g', spotifyTrackId:'463CkQjx2Zk1yXoBuierM9', startSeconds:43, mood:'Bright pop' },
   { id:'blinding-lights', artist:'The Weeknd', title:'Blinding Lights', videoId:'fHI8X4OXluQ', spotifyTrackId:'0VjIjW4GlUZAMYd2vXMi3b', startSeconds:49, mood:'Neon drive' },
 ]);
-const WORKFLOW_SAMPLES = workflowSampleConfig.samples.map((sample) => ({
-  id:sample.id,
-  title:sample.title,
-  prompt:sample.prompt,
-  seed:sample.seed,
-  aspectRatio:sample.aspectRatio,
-  durationSeconds:sample.durationSeconds,
-  lane:sample.lane,
-}));
-
 export function studioPageHtml() {
   return `<!doctype html>
 <html lang="en">
@@ -656,14 +645,14 @@ export function studioPageHtml() {
   .history-route div:last-child::before { background:var(--surface); }
   .history-route strong { display:block; margin-top:4px; color:var(--text); font-size:11px; line-height:1.35; }
   .history-actions { display:flex; flex-wrap:wrap; gap:8px; padding-top:24px; }
-  .sample-filmstrip { max-width:1080px; margin:0 auto 46px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); border-bottom:1px solid var(--line); }
-  .sample-filmstrip button { position:relative; min-height:96px; padding:18px 14px 16px; border:0; border-right:1px solid var(--line); background:transparent; color:var(--muted); text-align:left; cursor:pointer; }
-  .sample-filmstrip button:last-child { border-right:0; }
-  .sample-filmstrip button:hover { background:var(--verified-wash); color:var(--text); }
-  .sample-filmstrip button[aria-current="true"] { background:#0b100f; color:var(--text); }
-  .sample-filmstrip button[aria-current="true"]::before { position:absolute; top:-1px; right:0; left:0; height:1px; background:var(--verified); content:""; }
-  .sample-filmstrip span { display:block; color:var(--dim); font-size:10px; }
-  .sample-filmstrip strong { display:block; margin-top:9px; font-size:12px; line-height:1.35; }
+  .history-filmstrip { max-width:1080px; margin:0 auto 46px; display:flex; overflow-x:auto; border-bottom:1px solid var(--line); }
+  .history-filmstrip button { position:relative; flex:1 0 154px; min-width:0; min-height:96px; padding:18px 14px 16px; border:0; border-right:1px solid var(--line); background:transparent; color:var(--muted); text-align:left; cursor:pointer; }
+  .history-filmstrip button:last-child { border-right:0; }
+  .history-filmstrip button:hover { background:var(--verified-wash); color:var(--text); }
+  .history-filmstrip button[aria-current="true"] { background:#0b100f; color:var(--text); }
+  .history-filmstrip button[aria-current="true"]::before { position:absolute; top:-1px; right:0; left:0; height:1px; background:var(--verified); content:""; }
+  .history-filmstrip span { display:block; color:var(--dim); font-size:10px; }
+  .history-filmstrip strong { display:block; margin-top:9px; font-size:12px; line-height:1.35; }
   .history-ledger { max-width:1080px; margin:0 auto; border-top:1px solid var(--line); }
   .history-ledger > summary,.history-operations > summary { min-height:62px; display:flex; align-items:center; justify-content:space-between; gap:18px; cursor:pointer; color:var(--text); font-size:13px; font-weight:720; }
   .history-ledger > summary span,.history-operations > summary span { color:var(--dim); font-size:11px; font-weight:400; }
@@ -742,8 +731,7 @@ export function studioPageHtml() {
     .history-route { grid-template-columns:1fr; gap:10px; }
     .history-route-step { min-height:0; padding:13px 0 13px 22px; }
     .history-route-step::before { top:19px; left:0; }
-    .sample-filmstrip { display:flex; overflow-x:auto; }
-    .sample-filmstrip button { flex:0 0 158px; border-bottom:1px solid var(--line); }
+    .history-filmstrip button { flex:0 0 158px; border-bottom:1px solid var(--line); }
     .history-ledger-row { grid-template-columns:1fr; gap:7px; }
     .history-ledger-row .button-row { justify-content:flex-start; }
     .library-layout { grid-template-columns:1fr; }
@@ -1307,15 +1295,15 @@ export function studioPageHtml() {
 
   <section class="view" id="view-history" role="tabpanel" aria-labelledby="tab-history" hidden>
     <header class="archive-head">
-      <p>Local film archive · five LTX 2.3 experiments</p>
-      <h2>Five films. Five routes. No mystery.</h2>
-      <div><span>Watch the artifact</span><span>Read the prompt</span><span>Inspect the route</span></div>
+      <p>Production history · every saved route and result</p>
+      <h2>Everything you made. Ready to revisit.</h2>
+      <div><span>Watch the artifact</span><span>Read the prompt</span><span>Inspect the workflow</span></div>
     </header>
     <section class="history-showcase" id="history-showcase" aria-live="polite"><div class="loading-line"></div></section>
-    <nav class="sample-filmstrip" id="sample-filmstrip" aria-label="Five tested films"></nav>
+    <nav class="history-filmstrip" id="history-filmstrip" aria-label="Recent production history"></nav>
     <details class="history-ledger" id="history-ledger"><summary>All studio history <span>Every prompt, route, and reviewable artifact</span></summary><div id="history-ledger-list"></div></details>
     <details class="history-operations" id="history-operations">
-      <summary>Production operations <span>Queues, automation lanes, blocked work, and legacy renders</span></summary>
+      <summary>Production operations <span>Queues, automation lanes, incomplete work, and legacy renders</span></summary>
       <div class="production-toolbar"><label>Search operations<input id="production-search" type="search" placeholder="Title, project, Film style"></label><button class="button" type="button" id="refresh-productions">Refresh operations</button></div>
     <section class="lane-console" aria-labelledby="lane-console-title">
       <div class="lane-console-head">
@@ -1427,7 +1415,6 @@ const TOOLS = ${JSON.stringify(TOOLS)};
 const BRANDS = ${JSON.stringify(BRANDS)};
 const PLATFORM_SOUND_PRESETS = ${JSON.stringify(PLATFORM_SOUND_PRESETS)};
 const FILM_STYLE_DEFINITIONS = new Map(${JSON.stringify(FILM_STYLES)});
-const WORKFLOW_SAMPLES = ${JSON.stringify(WORKFLOW_SAMPLES)};
 let briefs = [];
 let activeBrief = null;
 let capabilities = [];
@@ -1804,7 +1791,7 @@ function renderPlannerRecipeGroups(recipes) {
 }
 
 function renderPlannerRecipeCard(recipe) {
-  const readiness = recipe.readiness.state.replaceAll('-', ' ');
+  const readiness = recipeReadinessLabel(recipe.readiness);
   return '<button class="recipe-card" type="button" data-planner-recipe="' + escapeText(recipe.id) + '" aria-pressed="' +
     (plannerSelection.recipeId === recipe.id ? 'true' : 'false') + '">' +
     '<span class="recipe-card-head"><strong>' + escapeText(recipe.name) + '</strong><span class="state ' + escapeText(recipe.readiness.state) + '">' + escapeText(readiness) + '</span></span>' +
@@ -2785,6 +2772,7 @@ function renderWorkflowProposal() {
     ['Model', proposal.binding.modelProfileId],
     ['Lane', proposal.lane],
     ['Format', proposal.inputs.aspectRatio + ' · ' + proposal.inputs.durationSeconds + 's'],
+    ['Estimate', proposal.generationEstimate?.label || 'Host-dependent'],
     ['Seed', proposal.inputs.seed],
   ].map((entry) => '<div class="proposal-metric"><span>' + escapeText(entry[0]) + '</span><strong>' + escapeText(entry[1]) + '</strong></div>').join('');
   document.getElementById('workflow-proposal-phases').innerHTML = proposal.phases.map((phase) =>
@@ -3077,71 +3065,73 @@ async function loadHistory() {
   showcase.innerHTML = '<div class="loading-line"></div>';
   try {
     historyEntries = await api('/studio/history');
-    const sampleEntries = new Map(historyEntries.filter((entry) => entry.sampleId).map((entry) => [entry.sampleId, entry]));
-    const samples = WORKFLOW_SAMPLES.map((sample) => ({
-      ...sample,
-      entry:sampleEntries.get(sample.id) || null,
-    }));
-    const available = samples.find((sample) => sample.entry?.video) || samples.find((sample) => sample.entry) || samples[0];
-    if (!samples.some((sample) => sample.entry?.id === activeHistoryId)) activeHistoryId = available?.entry?.id || 'planned:' + available.id;
-    renderHistory(samples);
+    const available = historyEntries.find((entry) => entry.video) || historyEntries[0] || null;
+    if (!historyEntries.some((entry) => entry.id === activeHistoryId)) activeHistoryId = available?.id ?? null;
+    renderHistory();
   } catch (error) {
     showcase.innerHTML = '<div class="empty-state">Could not read film history: ' + escapeText(error.message) + '</div>';
   }
 }
 
-function renderHistory(samples) {
-  const selectedHistoryEntry = historyEntries.find((item) => item.id === activeHistoryId);
-  const activeSample = samples.find((sample) => (sample.entry?.id || 'planned:' + sample.id) === activeHistoryId)
-    || (selectedHistoryEntry ? {
-      id:selectedHistoryEntry.sampleId || selectedHistoryEntry.id,
-      title:selectedHistoryEntry.title,
-      prompt:selectedHistoryEntry.prompt,
-      seed:selectedHistoryEntry.workflow?.seed,
-      aspectRatio:selectedHistoryEntry.workflow?.aspectRatio,
-      entry:selectedHistoryEntry,
-    } : samples[0]);
-  const entry = activeSample.entry;
-  const workflow = entry?.workflow;
-  const phases = workflow?.phases?.length ? workflow.phases : [
-    { name:'Direct shot', detail:'Original prompt and reference' },
-    { name:'Condition subject', detail:'Reference image and seed' },
-    { name:'Generate', detail:'LTX 2.3 final' },
-    { name:'Review', detail:'Playable artifact evidence' },
-  ];
-  const picture = entry?.video
-    ? '<div class="history-picture"><span class="history-video-label">Local final</span><video controls playsinline preload="metadata" aria-label="Video: ' + escapeText(activeSample.title) + '" src="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '"></video></div>'
-    : '<div class="history-picture"><div class="history-picture-empty"><div><strong>Ready to run</strong><p>This test has a frozen prompt, reference, model, and seed. Its video will appear here after the serial LTX run.</p></div></div></div>';
-  const testedCount = samples.filter((sample) => sample.entry?.video).length;
-  document.getElementById('history-showcase').innerHTML = picture +
-    '<article class="history-story"><div class="history-story-topline"><span>' + escapeText(String(testedCount)) + '/5 rendered locally</span><span>·</span><span>' + escapeText(entry?.quality?.verdict || entry?.lifecycle || 'planned') + '</span></div>' +
-    '<h3>' + escapeText(activeSample.title) + '</h3>' +
-    '<div class="history-section"><strong>Prompt</strong><p class="history-prompt">' + escapeText(entry?.prompt || activeSample.prompt) + '</p></div>' +
-    '<div class="history-section"><strong>Workflow</strong><div><div class="history-workflow-meta"><span><strong>' + escapeText(workflow?.name || 'Auto-routed LTX final') + '</strong></span><span>' + escapeText(workflow?.modelProfileId || 'ltx-2.3-mlx-q4') + '</span><span>seed ' + escapeText(String(workflow?.seed || activeSample.seed)) + '</span><span>' + escapeText(workflow?.aspectRatio || activeSample.aspectRatio) + '</span></div>' +
-    '<div class="history-route">' + phases.slice(0, 4).map((phase, index) => '<div class="history-route-step"><span>0' + (index + 1) + '</span><strong>' + escapeText(phase.name) + '</strong></div>').join('') + '</div></div></div>' +
-    '<div class="history-actions">' + (entry?.video ? '<a class="button primary" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '">Open video</a>' : '') +
-    (entry?.receiptPath ? '<a class="button" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(entry.receiptPath) + '">Execution receipt</a>' : '') +
-    (entry ? '<button class="button" type="button" data-history-edit="' + escapeText(entry.id) + '">Modify in Create</button>' : '<button class="button" type="button" data-use-sample="' + escapeText(activeSample.id) + '">Use this prompt</button>') + '</div></article>';
+function renderHistory() {
+  const strip = document.getElementById('history-filmstrip');
+  const ledger = document.getElementById('history-ledger-list');
+  if (!historyEntries.length) {
+    document.getElementById('history-showcase').innerHTML = '<div class="empty-state"><strong>No production history yet.</strong><p>Create a video and its prompt, workflow, and artifact will remain together here.</p><button class="button primary" type="button" data-history-create>Make your first video</button></div>';
+    strip.innerHTML = '';
+    ledger.innerHTML = '<div class="empty-state">No saved Studio history yet.</div>';
+    return;
+  }
 
-  document.getElementById('sample-filmstrip').innerHTML = samples.map((sample, index) => {
-    const id = sample.entry?.id || 'planned:' + sample.id;
-    const status = sample.entry?.video ? 'Rendered' : sample.entry ? 'Planned' : 'Queued';
-    return '<button type="button" data-history-select="' + escapeText(id) + '" aria-current="' + String(id === activeHistoryId) + '"><span>0' + (index + 1) + ' · ' + status + '</span><strong>' + escapeText(sample.title) + '</strong></button>';
+  const entry = historyEntries.find((item) => item.id === activeHistoryId)
+    || historyEntries.find((item) => item.video)
+    || historyEntries[0];
+  activeHistoryId = entry.id;
+  const workflow = entry.workflow;
+  const phases = workflow?.phases?.length ? workflow.phases : [
+    { name:'Brief', detail:'Saved request and creative intent' },
+    { name:'Plan', detail:'Selected recipe and production route' },
+    { name:'Generate', detail:'Bound runtime and model' },
+    { name:'Review', detail:'Artifact and execution evidence' },
+  ];
+  const picture = entry.video
+    ? '<div class="history-picture"><span class="history-video-label">Reviewable video</span><video controls playsinline preload="metadata" aria-label="Video: ' + escapeText(entry.title) + '" src="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '"></video></div>'
+    : '<div class="history-picture"><div class="history-picture-empty"><div><strong>No playable video</strong><p>' + escapeText(entry.videoUnavailableReason || 'This production keeps its request and workflow here while it waits for a reviewable artifact.') + '</p></div></div></div>';
+  const entryIndex = historyEntries.findIndex((item) => item.id === entry.id);
+  document.getElementById('history-showcase').innerHTML = picture +
+    '<article class="history-story"><div class="history-story-topline"><span>Production ' + escapeText(String(entryIndex + 1)) + ' of ' + escapeText(String(historyEntries.length)) + '</span><span>·</span><span>' + escapeText(entry.quality?.verdict || entry.lifecycle || 'saved') + '</span></div>' +
+    '<h3>' + escapeText(entry.title) + '</h3>' +
+    '<div class="history-section"><strong>Prompt</strong><p class="history-prompt">' + escapeText(entry.prompt || 'No prompt was saved for this production.') + '</p></div>' +
+    '<div class="history-section"><strong>Workflow</strong><div><div class="history-workflow-meta"><span><strong>' + escapeText(workflow?.name || 'Workflow not recorded') + '</strong></span>' +
+    (workflow?.modelProfileId ? '<span>' + escapeText(workflow.modelProfileId) + '</span>' : '') +
+    (workflow?.seed != null ? '<span>seed ' + escapeText(String(workflow.seed)) + '</span>' : '') +
+    (workflow?.aspectRatio ? '<span>' + escapeText(workflow.aspectRatio) + '</span>' : '') + '</div>' +
+    '<div class="history-route">' + phases.slice(0, 4).map((phase, index) => '<div class="history-route-step"><span>0' + (index + 1) + '</span><strong>' + escapeText(phase.name) + '</strong></div>').join('') + '</div></div></div>' +
+    '<div class="history-actions">' + (entry.video ? '<a class="button primary" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '">Open video</a>' : '') +
+    (entry.receiptPath ? '<a class="button" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(entry.receiptPath) + '">Execution receipt</a>' : '') +
+    '<button class="button" type="button" data-history-edit="' + escapeText(entry.id) + '">Modify in Create</button></div></article>';
+
+  strip.innerHTML = historyEntries.slice(0, 8).map((item, index) => {
+    const status = item.video ? 'Video' : (item.lifecycle || 'Saved').replaceAll('-', ' ');
+    return '<button type="button" data-history-select="' + escapeText(item.id) + '" aria-current="' + String(item.id === activeHistoryId) + '"><span>' + String(index + 1).padStart(2, '0') + ' · ' + escapeText(status) + '</span><strong>' + escapeText(item.title) + '</strong></button>';
   }).join('');
-  document.getElementById('history-ledger-list').innerHTML = historyEntries.length ? historyEntries.map((item) =>
+  ledger.innerHTML = historyEntries.map((item) =>
     '<article class="history-ledger-row"><time datetime="' + escapeText(item.updatedAt) + '">' + escapeText(new Date(item.updatedAt).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' })) + '</time><div><h4>' + escapeText(item.title) + '</h4><p>' + escapeText(item.prompt) + '</p></div><div class="button-row">' +
     (item.video ? '<button class="button" type="button" data-history-select="' + escapeText(item.id) + '">Watch</button>' : '<span class="state">' + escapeText(item.lifecycle) + '</span>') +
-    '<button class="button" type="button" data-history-edit="' + escapeText(item.id) + '">Edit</button></div></article>').join('')
-    : '<div class="empty-state">No saved Studio history yet.</div>';
+    '<button class="button" type="button" data-history-edit="' + escapeText(item.id) + '">Edit</button></div></article>').join('');
 }
 
 document.getElementById('view-history').addEventListener('click', (event) => {
   const select = event.target.closest('[data-history-select]');
   if (select) {
     activeHistoryId = select.dataset.historySelect;
-    const sampleEntries = new Map(historyEntries.filter((entry) => entry.sampleId).map((entry) => [entry.sampleId, entry]));
-    renderHistory(WORKFLOW_SAMPLES.map((sample) => ({ ...sample, entry:sampleEntries.get(sample.id) || null })));
+    renderHistory();
     document.getElementById('history-showcase').scrollIntoView({ block:'start', behavior:'smooth' });
+    return;
+  }
+  if (event.target.closest('[data-history-create]')) {
+    activateView('create');
+    document.getElementById('request').focus();
     return;
   }
   const edit = event.target.closest('[data-history-edit]');
@@ -3151,13 +3141,6 @@ document.getElementById('view-history').addEventListener('click', (event) => {
     activateView('create');
     document.getElementById('request').focus();
     return;
-  }
-  const sampleButton = event.target.closest('[data-use-sample]');
-  if (sampleButton) {
-    const sample = WORKFLOW_SAMPLES.find((item) => item.id === sampleButton.dataset.useSample);
-    document.getElementById('request').value = sample?.prompt || '';
-    activateView('create');
-    document.getElementById('request').focus();
   }
 });
 
@@ -3178,17 +3161,32 @@ async function loadRecipeLibrary() {
 function renderRecipeLibrary() {
   const recipes = recipeLibrary.recipes || [];
   const recipe = recipes.find((item) => item.id === activeRecipeId) || recipes[0];
-  document.getElementById('recipe-library-index').innerHTML = recipes.map((item) => '<button type="button" data-recipe-select="' + escapeText(item.id) + '" aria-current="' + String(item.id === recipe?.id) + '"><strong>' + escapeText(item.name) + '</strong><span>' + escapeText(item.delivery?.label || item.runtime || 'Studio route') + '</span></button>').join('');
+  document.getElementById('recipe-library-index').innerHTML = recipes.map((item) => '<button type="button" data-recipe-select="' + escapeText(item.id) + '" aria-current="' + String(item.id === recipe?.id) + '"><strong>' + escapeText(item.name) + '</strong><span>' + escapeText(recipeReadinessLabel(item.readiness)) + '</span></button>').join('');
   if (!recipe) {
     document.getElementById('recipe-library-detail').innerHTML = '<div class="empty-state">No recipes are registered.</div>';
     return;
   }
   const controls = recipe.controls?.length ? recipe.controls.map((control) => '<span>' + escapeText(control.label) + '</span>').join('') : '<span>Prompt-directed</span>';
-  document.getElementById('recipe-library-detail').innerHTML = '<p class="library-kicker">' + escapeText(recipe.readiness?.state || 'registered') + ' · ' + escapeText(recipe.kind || 'video') + '</p><h3>' + escapeText(recipe.name) + '</h3><p class="library-description">' + escapeText(recipe.description) + '</p>' +
+  const counts = recipes.reduce((result, item) => {
+    const state = item.readiness?.state || 'unknown';
+    result[state] = (result[state] || 0) + 1;
+    return result;
+  }, {});
+  const readinessSummary = String(counts.ready || 0) + ' create here · ' + String(counts['external-step'] || 0) + ' handoffs · ' + String(counts['needs-input'] || 0) + ' optional inputs · ' + String(counts['needs-runtime'] || 0) + ' optional local setups';
+  document.getElementById('recipe-library-detail').innerHTML = '<p class="library-kicker">' + escapeText(recipeReadinessLabel(recipe.readiness)) + ' · ' + escapeText(recipe.kind || 'video') + '</p><h3>' + escapeText(recipe.name) + '</h3><p class="library-description">' + escapeText(recipe.description) + '</p>' +
     '<div class="library-facts"><div class="library-fact"><span>Runtime</span><strong>' + escapeText(recipe.runtime || 'Auto') + '</strong></div><div class="library-fact"><span>Delivery</span><strong>' + escapeText(recipe.delivery?.label || recipe.delivery?.kind || 'Studio output') + '</strong></div><div class="library-fact"><span>Variations</span><strong>' + escapeText(String(recipe.variantCount || 1)) + '</strong></div></div>' +
     '<section class="library-controls"><h4>Creative controls</h4><div class="library-control-list">' + controls + '</div></section>' +
-    (recipe.readiness?.blocker ? '<p class="library-note">Current boundary: ' + escapeText(recipe.readiness.blocker) + '</p>' : '') +
+    '<p class="library-note">Library status: ' + escapeText(readinessSummary) + '.</p>' +
+    (recipe.readiness?.blocker ? '<p class="library-note">What this option needs: ' + escapeText(recipe.readiness.blocker) + '</p>' : '') +
     '<div class="library-actions"><button class="button primary" type="button" data-use-recipe="' + escapeText(recipe.id) + '">Use this recipe</button></div>';
+}
+
+function recipeReadinessLabel(readiness) {
+  if (readiness?.state === 'ready') return 'Ready here';
+  if (readiness?.state === 'external-step') return 'Opens specialist tool';
+  if (readiness?.state === 'needs-input') return 'Bring your own media';
+  if (readiness?.state === 'needs-runtime') return 'Optional local setup';
+  return 'Registered';
 }
 
 document.getElementById('view-recipes').addEventListener('click', (event) => {
@@ -3224,10 +3222,10 @@ function renderWorkflowLibrary() {
   const finalLane = workflow.lanes?.final || {};
   const previewLane = workflow.lanes?.preview || {};
   document.getElementById('workflow-library-detail').innerHTML = '<p class="library-kicker">Version ' + escapeText(String(workflow.version)) + ' · auto-routable</p><h3>' + escapeText(workflow.name) + '</h3><p class="library-description">' + escapeText(workflow.description) + '</p>' +
-    '<div class="library-facts"><div class="library-fact"><span>Shot grammar</span><strong>' + escapeText(workflow.shotGrammar) + '</strong></div><div class="library-fact"><span>Final model</span><strong>' + escapeText(finalLane.modelProfileId || 'Unbound') + '</strong></div><div class="library-fact"><span>Engine</span><strong>' + escapeText(finalLane.engine || 'Unbound') + '</strong></div></div>' +
+    '<div class="library-facts"><div class="library-fact"><span>Shot grammar</span><strong>' + escapeText(workflow.shotGrammar) + '</strong></div><div class="library-fact"><span>Final model</span><strong>' + escapeText(finalLane.modelProfileId || 'Unbound') + '</strong></div><div class="library-fact"><span>Est. final</span><strong>' + escapeText(finalLane.generationEstimate?.label || 'Host-dependent') + '</strong></div></div>' +
     '<section class="library-controls"><h4>Recognized intent</h4><div class="library-control-list">' + (workflow.intentTags || []).map((tag) => '<span>' + escapeText(tag) + '</span>').join('') + '</div></section>' +
     '<section class="library-route"><h4>Execution route</h4><div class="history-route"><div><span>01</span><strong>Direct shot</strong></div><div><span>02</span><strong>Condition subject</strong></div><div><span>03</span><strong>' + escapeText(finalLane.modelProfileId || 'Generate') + '</strong></div><div><span>04</span><strong>Review evidence</strong></div></div></section>' +
-    '<p class="library-note">Final recipe: ' + escapeText(finalLane.workflowRecipeId || 'unbound') + ' · graph ' + escapeText(finalLane.graphSha256 ? finalLane.graphSha256.slice(0, 12) : 'not registered') + '. Preview model: ' + escapeText(previewLane.modelProfileId || 'unbound') + '. Default shot: ' + escapeText(workflow.defaultAspectRatio) + ' at ' + escapeText(String(workflow.defaultDurationSeconds)) + ' seconds. Prompt guide: ' + escapeText(workflow.promptGuide) + '</p><div class="library-actions"><button class="button primary" type="button" data-use-workflow="' + escapeText(workflow.id) + '">Use this workflow</button></div>';
+    '<p class="library-note">Final recipe: ' + escapeText(finalLane.workflowRecipeId || 'unbound') + ' · ' + escapeText(finalLane.engine || 'unbound engine') + ' · graph ' + escapeText(finalLane.graphSha256 ? finalLane.graphSha256.slice(0, 12) : 'not registered') + '. Preview model: ' + escapeText(previewLane.modelProfileId || 'unbound') + ' · ' + escapeText(previewLane.generationEstimate?.label || 'host-dependent timing') + '. Default shot: ' + escapeText(workflow.defaultAspectRatio) + ' at ' + escapeText(String(workflow.defaultDurationSeconds)) + ' seconds. Prompt guide: ' + escapeText(workflow.promptGuide) + '</p><div class="library-actions"><button class="button primary" type="button" data-use-workflow="' + escapeText(workflow.id) + '">Use this workflow</button></div>';
 }
 
 document.getElementById('view-workflows').addEventListener('click', (event) => {
@@ -3296,12 +3294,12 @@ function renderProductionList() {
       ready.map((brief) => renderVideoLibraryRow(brief, brief.id === selected.id)).join('') + '</div></section>'
     : '<div class="empty-state"><strong>No playable videos in this lane yet.</strong><br>Completed renders will appear here automatically.</div>';
   const pendingSection = pending.length
-    ? '<details class="pending-productions"><summary>Drafts and blocked plans<span>' + escapeText(String(pending.length)) +
+    ? '<details class="pending-productions"><summary>Drafts and incomplete plans<span>' + escapeText(String(pending.length)) +
       ' saved without a playable video</span></summary><div class="production-plan-list">' + pending.map(renderPendingProduction).join('') + '</div></details>'
     : '';
   const legacyItems = showLegacy ? productionData.legacyRenders.map((render) =>
       '<article class="production"><div class="production-info"><h3>' + escapeText(render.title) + '</h3><p>Legacy Studio render · ' + escapeText(render.provider || 'unknown engine') + '</p></div><div class="production-media">' +
-      (render.video ? '<video controls preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(render.video) + '"></video>' : '<div class="empty-state">No playable artifact</div>') + '</div>' +
+      (render.video ? '<video controls preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(render.video) + '"></video>' : '<div class="empty-state">' + escapeText(render.videoUnavailableReason || 'No playable artifact') + '</div>') + '</div>' +
       '</article>').join('') : '';
   const legacy = legacyItems
     ? '<details class="legacy-productions"><summary>Previous local renders · ' + escapeText(String(productionData.legacyRenders.length)) + '</summary>' + legacyItems + '</details>'
@@ -3346,7 +3344,7 @@ function renderVideoLibraryRow(brief, selected) {
 
 function renderPendingProduction(brief) {
   const lane = contentLane(brief);
-  const nextStep = brief.continuation?.blocker || 'This plan has not produced a playable artifact yet.';
+  const nextStep = brief.media?.videoUnavailableReason || brief.continuation?.blocker || 'This plan has not produced a playable artifact yet.';
   return '<article class="production-plan"><div><h3>' + escapeText(brief.title) + '</h3><p>' + escapeText(brief.summary || nextStep) + '</p>' +
     '<div class="production-meta"><span class="state ' + escapeText(brief.lifecycle) + '">' + escapeText(brief.lifecycle.replaceAll('-', ' ')) + '</span>' +
     '<span class="state">' + escapeText(laneLabel(lane)) + '</span><span class="state">' + escapeText(brief.recipe?.name || brief.kind.replaceAll('-', ' ')) + '</span></div></div>' +

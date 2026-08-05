@@ -150,12 +150,13 @@ test('studio server routes', async (t) => {
       'Revise plan',
       'Run this plan',
       "activateView('productions')",
-      'Five films. Five routes. No mystery.',
+      'Everything you made. Ready to revisit.',
+      'Est. final',
       'id="tab-recipes"',
       'id="tab-workflows"',
       'Now showing',
       'Video library',
-      'Drafts and blocked plans',
+      'Drafts and incomplete plans',
       'Open video',
       'Play music with this video',
       'Makeba',
@@ -168,6 +169,7 @@ test('studio server routes', async (t) => {
     const inlineScript = page.match(/<script>([\s\S]*)<\/script>/)?.[1];
     assert.ok(inlineScript, 'page must include its application script');
     assert.doesNotThrow(() => new Function(inlineScript), 'Video Maker application script must parse');
+    assert.doesNotMatch(page, /Five films|five LTX|WORKFLOW_SAMPLES|sample-filmstrip/);
     assert.doesNotMatch(page, /<section class="capability-picker"/);
     assert.match(page, /id="tab-tools"[^>]+hidden/);
   });

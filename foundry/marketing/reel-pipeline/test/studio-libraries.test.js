@@ -25,13 +25,17 @@ test('history keeps prompt workflow and playable video in one derived record', a
       execution: { evidence: { ownerManifestPath: '/tmp/receipt.json' } },
     },
     approval: { reviewDecision: 'pending' },
-  }], { fileStat: async () => ({ isFile: () => true, size: 2048 }) });
+  }], {
+    fileStat: async () => ({ isFile: () => true, size: 2048 }),
+    probeVideo: async () => ({ ok: true, durationSeconds: 12, width: 1080, height: 1920, hasAudio: true }),
+  });
 
   assert.equal(history.length, 1);
   assert.equal(history[0].sampleId, 'after-dark');
   assert.equal(history[0].prompt, 'A precise creative prompt.');
   assert.equal(history[0].workflow.recipeId, 'ltx-final');
   assert.equal(history[0].video.bytes, 2048);
+  assert.equal(history[0].video.durationSeconds, 12);
   assert.equal(history[0].receiptPath, '/tmp/receipt.json');
 });
 
@@ -42,6 +46,36 @@ test('history does not invent a player when the artifact is missing', async () =
   }]);
   assert.equal(history[0].video, null);
   assert.equal(history[0].workflow, null);
+});
+
+test('history prefers the executed composite workflow over an earlier proposal', async () => {
+  const executed = {
+    id:'story@1', version:1, state:'played', name:'Five-shot story cut',
+    modelProfileId:'ltx-2.3-mlx-q4', runtime:'local-story-runner', phases:[],
+  };
+  const [entry] = await buildStudioHistory([{
+    id:'story_1', title:'Story', request:'Five coherent scenes.',
+    createdAt:'2026-08-06T00:00:00.000Z', updatedAt:'2026-08-06T00:01:00.000Z',
+    lifecycle:'needs-review', workflowProposal:{ id:'older-proposal' },
+    media:{ videoPath:'/tmp/story.mp4', execution:{ workflow:executed } },
+  }], {
+    fileStat:async () => ({ isFile:() => true, size:100 }),
+    probeVideo:async () => ({ ok:true, durationSeconds:30, width:576, height:1024, hasAudio:true }),
+  });
+  assert.deepEqual(entry.workflow, executed);
+});
+
+test('history does not advertise an existing file that is not a decodable video', async () => {
+  const [entry] = await buildStudioHistory([{
+    id:'legacy_mock', title:'Old mock', request:'Mock prompt',
+    createdAt:'2026-08-06T00:00:00.000Z', updatedAt:'2026-08-06T00:01:00.000Z',
+    lifecycle:'rendered', workflowProposal:null, media:{ videoPath:'/tmp/not-really-video.mp4' },
+  }], {
+    fileStat:async () => ({ isFile:() => true, size:49 }),
+    probeVideo:async () => ({ ok:false, reason:'invalid data' }),
+  });
+  assert.equal(entry.video, null);
+  assert.equal(entry.videoUnavailableReason, 'The saved artifact is not a decodable video.');
 });
 
 test('recipe library is a bounded projection of existing recipes', () => {
