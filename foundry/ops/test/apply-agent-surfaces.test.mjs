@@ -139,7 +139,8 @@ test('writes the canonical owner identity into generated product JSON-LD', () =>
   assert.match(head, /"https:\/\/www\.linkedin\.com\/in\/sarthakagrawal927"/);
   assert.match(head, /"https:\/\/huggingface\.co\/sarthakagrawal927"/);
   assert.match(head, /"name":"SaaS Maker"/);
-  assert.match(head, /"https:\/\/github\.com\/sass-maker\/fleet-workspace"/);
+  assert.match(head, /"https:\/\/github\.com\/sass-maker"/);
+  assert.doesNotMatch(head, /github\.com\/sass-maker\/fleet-workspace/);
 });
 
 test('preserves custom runtime handlers while retaining worker wiring checks', () => {
