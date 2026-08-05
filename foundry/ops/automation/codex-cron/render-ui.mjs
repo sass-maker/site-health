@@ -236,7 +236,8 @@ writeFileSync(
             : '<div class="empty">No cron logs yet.</div>'
         }
         <div class="cmd"><code>foundry/ops/scripts/agent-bin/install-codex-cron</code></div>
-        <div class="cmd"><code>foundry/ops/scripts/agent-bin/run-codex-cron &lt;job-id&gt; --dry-run</code></div>
+        <div class="cmd"><code>run-codex-cron &lt;workspace-job&gt; --dry-run</code></div>
+        <div class="cmd"><code>run-clean-main-codex-cron &lt;clean-main-job&gt; --dry-run</code></div>
       </aside>
     </section>
   </main>

@@ -15,7 +15,7 @@ import { dirname, resolve } from 'node:path';
 import test from 'node:test';
 
 const cli = resolve(import.meta.dirname, '../host/hostctl.mjs');
-const JOB_HEADER = 'id\tenabled\tcron\tname\tcwd\tmodel\teffort\tprompt_file\tlock_minutes\tsource';
+const JOB_HEADER = 'id\tenabled\tcron\tname\tcwd\tmodel\teffort\tprompt_file\tlock_minutes\tsource\texecution_checkout';
 const SYSTEM_JOB_HEADER = 'id\tenabled\tcron\tname\tcommand';
 
 function writeExecutable(path, body = '#!/bin/sh\nexit 97\n') {
@@ -33,6 +33,7 @@ function createFixture(t, secret = 'fixture-secret-value-should-never-appear') {
   const jobsFile = resolve(checkoutRoot, 'foundry/ops/automation/codex-cron/jobs.tsv');
   const systemJobsFile = resolve(checkoutRoot, 'foundry/ops/automation/codex-cron/system-jobs.tsv');
   const codexRunner = resolve(checkoutRoot, 'foundry/ops/scripts/agent-bin/run-codex-cron');
+  const cleanMainCodexRunner = resolve(checkoutRoot, 'foundry/ops/scripts/agent-bin/run-clean-main-codex-cron');
   const systemRunner = resolve(checkoutRoot, 'foundry/ops/scripts/agent-bin/run-system-cron');
   const leaseFile = resolve(machineRoot, 'state/primary-lease.json');
   const receiptDir = resolve(machineRoot, 'receipts');
@@ -44,14 +45,16 @@ function createFixture(t, secret = 'fixture-secret-value-should-never-appear') {
   writeFileSync(
     jobsFile,
     `${JOB_HEADER}\n` +
-      `fleet-health\tyes\t0 8 * * *\t${secret}\t@fleet\tgpt-fixture\tlow\tprompts/fixture.md\t30\t${secret}\n` +
-      'disabled-job\tno\t5 8 * * *\tDisabled fixture\t@fleet\tgpt-fixture\tlow\tprompts/disabled.md\t30\tfixture\n',
+      `fleet-health\tyes\t0 8 * * *\t${secret}\t@fleet\tgpt-fixture\tlow\tprompts/fixture.md\t30\t${secret}\tworkspace\n` +
+      'geo-clean\tyes\t30 8 * * 1\tClean fixture\t@fleet\tgpt-fixture\tlow\tprompts/clean.md\t30\tfixture\tclean-main\n' +
+      'disabled-job\tno\t5 8 * * *\tDisabled fixture\t@fleet\tgpt-fixture\tlow\tprompts/disabled.md\t30\tfixture\tworkspace\n',
   );
   writeFileSync(
     systemJobsFile,
     `${SYSTEM_JOB_HEADER}\nnightly-sync\tyes\t15 2 * * *\t${secret}\t@fleet/foundry/ops/scripts/nightly-sync\n`,
   );
   writeExecutable(codexRunner);
+  writeExecutable(cleanMainCodexRunner);
   writeExecutable(systemRunner);
   for (const command of ['crontab', 'launchctl', 'systemctl']) {
     writeExecutable(resolve(fakeBin, command), `#!/bin/sh\nprintf called > '${sentinel}'\nexit 96\n`);
@@ -176,12 +179,14 @@ test('doctor, schedule rendering, and primary promotion are explicit and idempot
 
   const firstRender = fixture.run('render', { roleFile, now: start });
   assert.equal(firstRender.status, 0, firstRender.stderr);
-  assert.equal(firstRender.json.conversationalJobs, 1);
+  assert.equal(firstRender.json.conversationalJobs, 2);
   assert.equal(firstRender.json.systemJobs, 1);
   const rendered = readFileSync(fixture.scheduleOutput, 'utf8');
   assert.match(rendered, /Rendered intent only/);
   assert.match(rendered, /run-codex-cron' 'fleet-health'/);
   assert.equal(rendered.match(/run-codex-cron' 'fleet-health'/g)?.length, 1);
+  assert.match(rendered, /run-clean-main-codex-cron' 'geo-clean'/);
+  assert.equal(rendered.match(/run-clean-main-codex-cron' 'geo-clean'/g)?.length, 1);
   assert.match(rendered, /run-system-cron' 'nightly-sync'/);
   assert.doesNotMatch(rendered, /disabled-job/);
   const secondRender = fixture.run('render', { roleFile, now: '2026-07-19T10:00:01.000Z' });

@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Scheduled Codex work gained a clean-main checkout boundary:**
+  Added an explicit per-job checkout policy. Read-only audits still inspect the
+  real Fleet workspace, while the mutating weekly GEO job uses a fail-closed
+  scheduler clone that refuses dirty, non-main, ahead, or diverged state and
+  fast-forwards to exact `origin/main` before loading versioned inputs. Existing
+  per-job locks, logs, notifications, and dry-run behavior remain intact.
 - **2026-08-05 — Weekly root-search evidence became complete or no-write:**
   Bound the enabled GEO Observatory schedule to the canonical ten-root query
   contract: exactly one brand, exact-domain, category, and problem observation

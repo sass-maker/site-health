@@ -111,8 +111,15 @@ test("portable cron installer contains no checked-in user path", () => {
   assert.equal(check.status, 0, check.stderr);
   const printed = spawnSync(installer, ["--print"], { encoding: "utf8" });
   assert.equal(printed.status, 0, printed.stderr);
-  assert.match(printed.stdout, /FLEET_ROOT=/);
-  assert.match(printed.stdout, new RegExp(resolve(fleetOpsRoot, "scripts/agent-bin/run-codex-cron").replaceAll("/", "\\/")));
+  assert.match(printed.stdout, /FLEET_CRON_WORKSPACE_ROOT=/);
+  const workspaceRunner = resolve(fleetOpsRoot, "scripts/agent-bin/run-codex-cron").replaceAll("/", "\\/");
+  const cleanMainRunner = resolve(fleetOpsRoot, "scripts/agent-bin/run-clean-main-codex-cron").replaceAll("/", "\\/");
+  assert.match(printed.stdout, new RegExp(`${workspaceRunner} daily-fleet-health-sentinel`));
+  assert.match(printed.stdout, new RegExp(`${cleanMainRunner} weekly-geo-observatory`));
+  assert.doesNotMatch(printed.stdout, new RegExp(`${cleanMainRunner} daily-fleet-health-sentinel`));
+  const implicitInstall = spawnSync(installer, [], { encoding: "utf8" });
+  assert.equal(implicitInstall.status, 2);
+  assert.match(implicitInstall.stderr, /requires --workspace-root/);
 });
 
 test("weekly GEO cron is pinned to the atomic ten-root search contract", () => {
@@ -127,6 +134,7 @@ test("weekly GEO cron is pinned to the atomic ten-root search contract", () => {
 
   assert.match(weeklyJob, /\tyes\t30 8 \* \* 1\t/);
   assert.match(weeklyJob, /\tprompts\/weekly-geo-observatory\.md\t/);
+  assert.match(weeklyJob, /\tclean-main$/);
   assert.match(prompt, /root-search-queries\.json/);
   assert.match(prompt, /exactly 40\s+observations/);
   assert.match(prompt, /geo-observatory-record\.mjs --root-search/);
