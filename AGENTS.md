@@ -118,6 +118,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning sessions |
+| `design-engineering` | parent | routes to design inspiration, component pattern mining, web 3D, and creative effects |
 | `design-workflow` | standalone | Fleet preserve/overhaul design gates, review receipts, and owner feedback |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
 | `impeccable` | external standalone | underlying design craft, critique, polish, and audit engine |
