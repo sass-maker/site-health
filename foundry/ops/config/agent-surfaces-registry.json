@@ -3,7 +3,7 @@
   "products": [
     {
       "id": "fleet-workspace",
-      "name": "Fleet Workspace",
+      "name": "SaaS Maker",
       "url": "https://sassmaker.com",
       "summary": "Software as a specialized service: a living studio of focused products built for particular problems.",
       "publicDir": "foundry/apps/public/public-directory/public",
@@ -11,7 +11,7 @@
       "headFile": "foundry/apps/public/public-directory/src/layouts/Layout.astro",
       "schemaType": "WebSite",
       "sameAs": [
-        "https://github.com/sass-maker"
+        "https://github.com/sass-maker/fleet-workspace"
       ],
       "hasDynamicLlms": true,
       "skipLlmsOverwrite": true,

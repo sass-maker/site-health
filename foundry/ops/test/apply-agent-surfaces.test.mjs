@@ -41,6 +41,21 @@ function runAtRoot(projectId, fleetRoot) {
   );
 }
 
+function runJsonLdAtRoot(projectId, fleetRoot) {
+  return execFileSync(
+    process.execPath,
+    [
+      script.pathname,
+      '--jsonld',
+      '--id',
+      projectId,
+      '--fleet-root',
+      fleetRoot,
+    ],
+    { encoding: 'utf8' },
+  );
+}
+
 test('prints help without applying registered products', () => {
   const output = execFileSync(process.execPath, [script.pathname, '--help'], {
     encoding: 'utf8',
@@ -105,6 +120,26 @@ test('writes tracked search intents into the catalog and full agent brief', () =
     fullBrief,
     /\[category\] research-papers-category: semantic academic paper search/,
   );
+});
+
+test('writes the canonical owner identity into generated product JSON-LD', () => {
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const headPath = join(
+    fleetRoot,
+    'foundry/apps/public/public-directory/src/layouts/Layout.astro',
+  );
+  mkdirSync(dirname(headPath), { recursive: true });
+  writeFileSync(headPath, '<html><head></head><body></body></html>\n');
+
+  runJsonLdAtRoot('fleet-workspace', fleetRoot);
+
+  const head = readFileSync(headPath, 'utf8');
+  assert.match(head, /"@id":"https:\/\/sarthakagrawal\.dev\/#person"/);
+  assert.match(head, /"image":"https:\/\/avatars\.githubusercontent\.com\/u\/43884471\?v=4"/);
+  assert.match(head, /"https:\/\/www\.linkedin\.com\/in\/sarthakagrawal927"/);
+  assert.match(head, /"https:\/\/huggingface\.co\/sarthakagrawal927"/);
+  assert.match(head, /"name":"SaaS Maker"/);
+  assert.match(head, /"https:\/\/github\.com\/sass-maker\/fleet-workspace"/);
 });
 
 test('preserves custom runtime handlers while retaining worker wiring checks', () => {
