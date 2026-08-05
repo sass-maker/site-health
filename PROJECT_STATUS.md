@@ -62,6 +62,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Search Console sitemap inventory was reconciled:** Added a
+  preview-first, fail-closed reconciliation command over the 27 canonical
+  project hosts plus all ten root domains. The live apply retained 27 project
+  sitemaps, submitted the valid Astro sitemap indexes for Aliveville and
+  Sarthak Agrawal, and removed 14 stale or duplicate provider entries. A final
+  provider preview retained 29/29 desired sitemaps with zero reported errors or
+  warnings; Karte's canonical sitemap remains provider-pending.
+
 - **2026-08-05 — Root-domain brand identity became one validated contract:**
   Added one exact ten-domain canonical-name and alias registry, joined generated
   product JSON-LD to it by registrable domain, and aligned the independently

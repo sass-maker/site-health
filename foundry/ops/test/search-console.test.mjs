@@ -5,9 +5,114 @@ import {
   attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
+  reconcileSearchConsoleSitemaps,
   searchConsoleProviderUrl,
+  searchConsoleSitemapTargets,
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
+
+test('builds one desired sitemap set from projects and root domains', () => {
+  assert.deepEqual(
+    searchConsoleSitemapTargets(
+      [
+        { id: 'app', domains: ['app.example.com'] },
+        { id: 'root', domains: ['example.com'] },
+      ],
+      ['example.com', 'personal.dev'],
+      { 'personal.dev': 'https://personal.dev/sitemap-index.xml' },
+    ),
+    [
+      { id: 'app', domain: 'app.example.com', sitemapUrl: 'https://app.example.com/sitemap.xml' },
+      { id: 'root', domain: 'example.com', sitemapUrl: 'https://example.com/sitemap.xml' },
+      { id: 'root:personal.dev', domain: 'personal.dev', sitemapUrl: 'https://personal.dev/sitemap-index.xml' },
+    ],
+  );
+});
+
+test('rejects a sitemap override on another host', () => {
+  assert.throws(
+    () => searchConsoleSitemapTargets([], ['example.com'], {
+      'example.com': 'https://other.example/sitemap.xml',
+    }),
+    /must stay on its canonical domain/,
+  );
+});
+
+test('previews and applies exact sitemap additions and removals', async () => {
+  const requests = [];
+  const fetchImpl = async (url, options = {}) => {
+    const method = options.method ?? 'GET';
+    requests.push({ url, method });
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    if (method === 'PUT' || method === 'DELETE') return new Response(null, { status: 204 });
+    return Response.json({ sitemap: [
+      { path: 'https://app.example.com/sitemap.xml', errors: 0, warnings: 0 },
+      { path: 'https://retired.example.com/sitemap-index.xml', errors: 1, warnings: 0 },
+    ] });
+  };
+  const targets = searchConsoleSitemapTargets(
+    [{ id: 'app', domains: ['app.example.com'] }],
+    ['example.com'],
+  );
+
+  const preview = await reconcileSearchConsoleSitemaps({
+    targets,
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+  });
+  assert.deepEqual(preview.actions.map(({ action, state, sitemapUrl }) => [action, state, sitemapUrl]), [
+    ['retain', 'unchanged', 'https://app.example.com/sitemap.xml'],
+    ['add', 'planned', 'https://example.com/sitemap.xml'],
+    ['remove', 'planned', 'https://retired.example.com/sitemap-index.xml'],
+  ]);
+  assert.equal(requests.filter(({ method }) => method === 'PUT' || method === 'DELETE').length, 0);
+
+  const applied = await reconcileSearchConsoleSitemaps({
+    targets,
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+    apply: true,
+  });
+  assert.deepEqual(applied.actions.map(({ action, state }) => [action, state]), [
+    ['retain', 'unchanged'],
+    ['add', 'submitted'],
+    ['remove', 'deleted'],
+  ]);
+  assert.equal(requests.filter(({ method }) => method === 'PUT').length, 1);
+  assert.equal(requests.filter(({ method }) => method === 'DELETE').length, 1);
+});
+
+test('fails closed for unavailable properties and listing errors', async () => {
+  const fetchImpl = async (url) => {
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    return Response.json({ error: { message: 'provider unavailable' } }, { status: 503 });
+  };
+  const result = await reconcileSearchConsoleSitemaps({
+    targets: searchConsoleSitemapTargets(
+      [{ id: 'blocked', domains: ['app.example.com'] }],
+      ['missing.test'],
+    ),
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+    apply: true,
+  });
+
+  assert.deepEqual(result.actions.map(({ targetId, state }) => [targetId, state]), [
+    ['blocked', 'blocked'],
+    ['root:missing.test', 'property-unavailable'],
+  ]);
+});
 
 test('keeps Google sitemap submission automatic and bounded', async () => {
   const requests = [];
