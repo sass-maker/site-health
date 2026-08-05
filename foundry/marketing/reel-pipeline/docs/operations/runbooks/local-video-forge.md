@@ -37,12 +37,53 @@ Prerequisites:
 Install the pinned runtime and selected model files:
 
 ```bash
+bash scripts/setup-local-video-forge.sh --check
 npm run forge:setup
 npm run forge:readiness
 ```
 
-The setup command refuses an unexpected runtime checkout instead of replacing
-it. Model and engine payloads live under ignored `.reel-pipeline/` paths.
+Run the read-only preflight first. It confirms Apple Silicon, required host
+commands, pinned upstream availability, and projected storage without creating
+runtime or model files. Setup refuses projected disk use at or above 85
+percent and refuses an unexpected runtime checkout instead of replacing it.
+The full LTX 2.3 final lane, including its runtime, prompt model, and download
+safety margin, reserves 45 GiB. Model and engine payloads live under ignored `.reel-pipeline/`
+paths.
+
+## Studio workflow recipes
+
+Marketing Studio's **Coherent local film** flow wraps the existing runtimes in
+small versioned recipes. It does not add another workflow framework or expose
+the Comfy graph editor.
+
+- **LTX 2.3 final** uses the pinned MLX Local Video Forge runner for accepted
+  final and hero shots. It remains blocked until all pinned runtime and model
+  paths are present and their exact hashes match.
+- **LTX 2B preview** uses official ComfyUI core nodes for fast image-to-video
+  planning. Its real local canary passed the resource limits, but operator
+  review classified the output as preview-only.
+- **MiniMax H3 specialist** remains visible but blocked on this Mac. Native MPS
+  execution needs `aten::_int_mm`; CPU fallback completed no sampling step in
+  178 seconds and is not a practical local factory path.
+
+The UI exposes only prompt, reference image, bounded size/duration/motion,
+seed, and quality lane. Unknown nodes and arbitrary uploaded graphs fail
+closed; Comfy Manager and custom-node installers are never invoked. Every
+execution is serial, refuses projected disk use at 85 percent, interrupts at
+90 percent RAM, and returns an MP4 plus graph, model, timing, memory, and hash
+evidence.
+
+Episode mode turns one concept into an editable 20- to 60-shot manifest. It
+resolves reusable cast through the character directory, generates one shot at
+a time, reuses accepted shots by content signature, and requires every final
+shot to be accepted before deterministic FFmpeg assembly. Kokoro supplies
+fixed character voices. Final assembly accepts only owned/licensed local music
+with evidence or a selected generated cue with runtime/seed evidence;
+procedural drafts and platform playback cannot silently become final audio.
+
+Generated receipts and videos stay under `tmp/studio/` or ignored
+`.reel-pipeline/` directories. Cleanup is an explicit operator action; setup
+and generation never delete earlier experiments automatically.
 
 ## Direct mode
 

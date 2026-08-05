@@ -10,6 +10,7 @@ import { getProductionRecipe, normalizeRecipeOptions, PRODUCTION_RECIPE_IDS } fr
 import { normalizeContentOrigin } from './content-origin.js';
 import { normalizeCastInstance } from './character-directory.js';
 import { normalizeSoundtrack } from './soundtrack.js';
+import { normalizeWorkflowProposal } from './workflow-proposals.js';
 import {
   assertStageRunnable,
   invalidateWorkflowFrom,
@@ -21,6 +22,7 @@ import {
 export const MARKETING_BRIEF_SCHEMA = 'fleet.marketing-studio-brief.v1';
 export const VIDEO_KINDS = ['faceless', 'brand-reel', 'guided-app-demo', 'coherent-film', 'podcast-short', 'lyric-video'];
 export const BRIEF_LIFECYCLES = ['planned', 'producing', 'needs-review', 'ready-for-distribution', 'scheduled', 'distributed', 'failed'];
+const REVIEW_DECISIONS = ['pending', 'accepted', 'revisions-requested', 'rejected'];
 const CHANNELS = ['instagram_reels', 'youtube_shorts'];
 const ENGINES = [
   'mock', 'kokoro', 'lyric-canvas', 'blender',
@@ -34,12 +36,13 @@ export class MarketingBriefStore {
   constructor(options = {}) {
     this.filePath = path.resolve(options.filePath ?? process.env.STUDIO_BRIEFS_FILE ?? './tmp/studio/briefs.json');
     this.now = options.now ?? (() => new Date());
+    this.workflowProposalOptions = options.workflowProposalOptions ?? {};
   }
 
   async load() {
     try {
       const parsed = JSON.parse(await readFile(this.filePath, 'utf8'));
-      return Array.isArray(parsed.briefs) ? parsed.briefs.map((brief) => normalizeMarketingBrief(brief)) : [];
+      return Array.isArray(parsed.briefs) ? parsed.briefs.map((brief) => normalizeMarketingBrief(brief, { workflowProposalOptions: this.workflowProposalOptions })) : [];
     } catch (error) {
       if (error.code === 'ENOENT') return [];
       throw error;
@@ -63,7 +66,7 @@ export class MarketingBriefStore {
       revision: 1,
       createdAt: timestamp,
       updatedAt: timestamp,
-    });
+    }, { workflowProposalOptions: this.workflowProposalOptions });
     briefs.push(brief);
     await this.persist(briefs);
     return structuredClone(brief);
@@ -85,7 +88,7 @@ export class MarketingBriefStore {
     if (index === -1) throw new Error(`marketing brief not found: ${id}`);
     const current = briefs[index];
     const productionChanged = changesProductionSelection(current, patch);
-    const merged = mergeBrief(current, patch);
+    const merged = mergeBrief(current, patch, { workflowProposalOptions: this.workflowProposalOptions });
     const invalidationStage = workflowInvalidationStage(current, patch);
     if (invalidationStage && patch.workflow === undefined) {
       merged.workflow = invalidateWorkflowFrom(current.workflow, invalidationStage, { at: this.now().toISOString() });
@@ -102,7 +105,7 @@ export class MarketingBriefStore {
       revision: current.revision + 1,
       createdAt: current.createdAt,
       updatedAt: this.now().toISOString(),
-    });
+    }, { workflowProposalOptions: this.workflowProposalOptions });
     briefs[index] = updated;
     await this.persist(briefs);
     return structuredClone(updated);
@@ -215,7 +218,7 @@ export async function refineMarketingBriefDraft(brief, instruction, options = {}
   };
 }
 
-export function normalizeMarketingBrief(input = {}) {
+export function normalizeMarketingBrief(input = {}, options = {}) {
   if (input.schema !== MARKETING_BRIEF_SCHEMA) throw new Error('unsupported marketing brief schema');
   const request = requiredString(input.request, 'request');
   const recipeId = PRODUCTION_RECIPE_IDS.includes(input.recipeId) ? input.recipeId : null;
@@ -276,6 +279,11 @@ export function normalizeMarketingBrief(input = {}) {
         ? input.approval.creativeStatus
         : 'proposed',
       qualityAccepted: input.approval?.qualityAccepted === true,
+      reviewDecision: REVIEW_DECISIONS.includes(input.approval?.reviewDecision)
+        ? input.approval.reviewDecision
+        : input.approval?.qualityAccepted === true ? 'accepted' : 'pending',
+      reviewedAt: optionalString(input.approval?.reviewedAt),
+      reviewHistory: normalizeReviewHistory(input.approval?.reviewHistory),
     },
     lifecycle,
     workflow: normalizeReelWorkflow(input.workflow, {
@@ -284,6 +292,7 @@ export function normalizeMarketingBrief(input = {}) {
       request,
       at: updatedAt,
     }),
+    workflowProposal: normalizeWorkflowProposal(input.workflowProposal, options.workflowProposalOptions),
     media: normalizeMedia(input.media),
     distribution: normalizeDistribution(input.distribution),
     lastError: optionalString(input.lastError),
@@ -582,7 +591,7 @@ function inferDuration(request) {
   return match ? Number(match[1]) : 60;
 }
 
-function mergeBrief(current, patch) {
+function mergeBrief(current, patch, options = {}) {
   return {
     ...current,
     ...patch,
@@ -603,6 +612,9 @@ function mergeBrief(current, patch) {
     cast: patch.cast ?? current.cast,
     soundtrack: patch.soundtrack ?? current.soundtrack,
     workflow: patch.workflow ?? current.workflow,
+    workflowProposal: patch.workflowProposal === undefined
+      ? current.workflowProposal
+      : normalizeWorkflowProposal(patch.workflowProposal, options.workflowProposalOptions),
     media: patch.media === undefined
       ? current.media
       : patch.media === null ? null : { ...(current.media ?? {}), ...patch.media },
@@ -689,6 +701,18 @@ function normalizeMessages(messages, fallbackAt) {
     role: message.role === 'assistant' ? 'assistant' : 'operator',
     content: requiredString(message.content, 'messages.content'),
     at: message.at ? iso(message.at, 'messages.at') : fallbackAt,
+  }));
+}
+
+function normalizeReviewHistory(history) {
+  if (!Array.isArray(history)) return [];
+  return history.slice(-50).map((entry) => ({
+    decision: REVIEW_DECISIONS.includes(entry?.decision) ? entry.decision : 'pending',
+    at: iso(entry?.at, 'approval.reviewHistory.at'),
+    briefRevision: positiveInteger(entry?.briefRevision, 'approval.reviewHistory.briefRevision'),
+    artifactPath: requiredString(entry?.artifactPath, 'approval.reviewHistory.artifactPath'),
+    artifactSha256: /^[a-f0-9]{64}$/i.test(String(entry?.artifactSha256 ?? '')) ? String(entry.artifactSha256).toLowerCase() : null,
+    operator: optionalString(entry?.operator) ?? 'local-operator',
   }));
 }
 

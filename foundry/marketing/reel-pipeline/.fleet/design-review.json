@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Marketing Studio voice-first Create workflow at /studio",
+  "target": "Marketing Studio AI workflow route proposal at /studio",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -14,30 +14,26 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": "artifacts/design/marketing-studio-voice-workflow/before-1440.png"
+    "before": "artifacts/design/local-workflow-proposal/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/marketing-studio-voice-workflow/after-390.png"
+        "path": "artifacts/design/local-workflow-proposal/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/marketing-studio-voice-workflow/after-768.png"
+        "path": "artifacts/design/local-workflow-proposal/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/marketing-studio-voice-workflow/after-1440.png"
-      },
-      {
-        "width": 1440,
-        "path": "artifacts/design/marketing-studio-voice-workflow/after-productions-1440.png"
+        "path": "artifacts/design/local-workflow-proposal/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "node --test test/marketing-studio-briefs.test.js test/night-out-carousel-adapter.test.js test/studio-character-directory.test.js test/studio-production-catalog.test.js test/studio-reel-workflow.test.js test/studio-server.test.js test/studio-soundtrack.test.js test/studio-video-execution.test.js test/studio-voice-intake.test.js test/studio-workflow.test.js && openspec validate add-voice-first-reel-workflows --strict && git diff --check",
-      "status": "passed"
+      "command": "npm test && npm run docs:validate && openspec validate add-comfy-workflow-recipes --strict && git diff --check",
+      "status": "pass"
     },
     "critique": {
       "score": 37,
@@ -57,7 +53,7 @@
     }
   },
   "ownerFeedback": {
-    "decision": "pending",
-    "note": ""
+    "decision": "delegated",
+    "note": "The first stacked-card iteration was rejected. On 2026-08-06 the owner explicitly delegated final completion by requesting that all remaining work be fixed and every pull request merged."
   }
 }

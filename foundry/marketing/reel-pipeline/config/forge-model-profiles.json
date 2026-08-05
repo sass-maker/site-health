@@ -59,9 +59,9 @@
       "family": "LTX-2.3 native video",
       "version": "2.3-mlx-q4",
       "generationModes": ["text-to-video", "image-to-video"],
-      "speed": "Fastest proven native-video path on this Mac",
-      "quality": "Good general motion; prioritize speed",
-      "resourceClass": "48 GB unified-memory host profile",
+      "speed": "Slower accepted-shot final pass",
+      "quality": "Final-quality local lane and current production target",
+      "resourceClass": "48 GB unified-memory host profile; reserve 45 GB including runtime, prompt model, and safety margin",
       "nativeAudio": true,
       "license": "Profile records upstream model terms; verify per publication",
       "contentScope": "general",
@@ -84,8 +84,38 @@
       ],
       "setup": {
         "requiresConfirmation": true,
-        "expectedDiskGb": 25,
-        "status": "not-installed; previously proven on this host"
+        "expectedDiskGb": 45,
+        "status": "installed and ready; previously proven on this host"
+      }
+    },
+    {
+      "id": "ltx-2b-comfy-preview",
+      "name": "LTX 2B preview",
+      "family": "LTX distilled Comfy preview",
+      "version": "0.9.6-distilled-04-25",
+      "generationModes": ["image-to-video"],
+      "speed": "About 16–42 seconds per short preview",
+      "quality": "Planning preview only; not a final or hero lane",
+      "resourceClass": "About 11.5 GB weights; measured 79.42% peak system RAM",
+      "nativeAudio": false,
+      "license": "LTX-Video model terms; verify before publication",
+      "contentScope": "general",
+      "trust": { "tier": "established-family", "basis": "Official Lightricks LTX family, pinned model hashes, and a real local Comfy canary." },
+      "autoEligible": false,
+      "runtime": {
+        "kind": "comfy-local",
+        "revision": "dec5d9450a5290bcf63430409ea41018e67f41c3",
+        "path": ".reel-pipeline/engines/comfyui"
+      },
+      "requiredPaths": [
+        ".reel-pipeline/engines/comfyui/main.py",
+        ".reel-pipeline/engines/comfyui/models/checkpoints/ltxv-2b-0.9.6-distilled-04-25.safetensors",
+        ".reel-pipeline/engines/comfyui/models/text_encoders/t5xxl_fp8_e4m3fn_scaled.safetensors"
+      ],
+      "setup": {
+        "requiresConfirmation": true,
+        "expectedDiskGb": 11.5,
+        "status": "installed and locally qualified for preview"
       }
     },
     {
@@ -114,7 +144,7 @@
       "id": "minimax-h3-mlx-q4",
       "name": "MiniMax H3",
       "family": "MiniMax H3 Base open-weight video",
-      "version": "H3 Base MLX candidate",
+      "version": "H3 Base Comfy candidate",
       "generationModes": ["text-to-video", "image-to-video"],
       "speed": "Experimental quality lane; roughly 49–55 minutes per 5 seconds in the current preflight",
       "quality": "High-ceiling experimental",
@@ -124,12 +154,15 @@
       "contentScope": "general",
       "trust": { "tier": "first-party-open-weight", "basis": "Official MiniMax H3 Base weights under the MiniMax H3 Community License." },
       "autoEligible": false,
-      "requiredPaths": [".reel-pipeline/models/minimax-h3/READY"],
-      "forcedBlocker": "Official weights are available, but the pinned Mac runtime, quantization, and a real local canary have not passed yet.",
+      "requiredPaths": [
+        ".reel-pipeline/engines/comfyui/models/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        ".reel-pipeline/engines/comfyui/models/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
+      ],
+      "forcedBlocker": "Blocked by the runtime canary on this Mac: MPS lacks aten::_int_mm and CPU fallback completed no sampling step in 178 seconds.",
       "setup": {
         "requiresConfirmation": true,
         "expectedDiskGb": 35,
-        "status": "source-only"
+        "status": "installed but not practically runnable on this Mac"
       }
     }
   ]

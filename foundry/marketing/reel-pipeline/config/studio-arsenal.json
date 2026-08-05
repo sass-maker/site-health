@@ -257,7 +257,7 @@
       "runtime": "Registered local video model",
       "description": "Plan and render private generated-shot experiments through the exact selected local-model executor.",
       "requirements": ["ready local model"],
-      "supports": { "themePacks": true, "generationMode": "text-to-video", "modelProfiles": true },
+      "supports": { "themePacks": true, "generationMode": "image-to-video", "modelProfiles": true },
       "action": { "kind": "execute", "label": "Create local video", "href": null },
       "defaults": { "durationSeconds": 20, "qualityTier": "high", "variantCount": 2 },
       "options": [{ "id": "continuity", "label": "Continuity", "type": "select", "choices": ["strict", "balanced", "experimental"], "default": "strict" }]

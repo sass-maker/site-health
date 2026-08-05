@@ -1,14 +1,20 @@
 /**
- * THESIS: One evidence-led production loop from conversational intent to an approved Postiz draft.
- * OWN-WORLD: Reel Pipeline's near-black studio surfaces, restrained evidence green, sharp type, and staged workbench.
- * STORY: Describe the video, correct the normalized brief, create or continue, review, then hand an approved draft to Postiz.
- * FIRST VIEWPORT: The shared mast frames a compact conversational intake beside the active production brief.
- * FORM: Operate-mode production console aligned with Forge and Review; dense, staged, and explicit.
+ * THESIS: A living film archive where every beautiful result remains inseparable from the prompt and machinery that made it.
+ * OWN-WORLD: Near-black projection room, full-height picture, restrained evidence beam, sharp system type, and film-ledgers instead of dashboard cards.
+ * STORY: Watch five tested films, inspect their frozen workflows, reuse a recipe or route, then make the next one.
+ * FIRST VIEWPORT: One portrait film dominates beside its prompt and production route; the remaining tests form a low filmstrip below.
+ * FORM: Experience-first archive with operate-mode libraries; selected from the strongest authored composition, not a catalog grid.
  */
 import brandConfig from '../../config/brand-channels.json' with { type: 'json' };
 import arsenalConfig from '../../config/studio-arsenal.json' with { type: 'json' };
+import workflowSampleConfig from '../../config/studio-workflow-samples.json' with { type: 'json' };
 
 const TOOLS = arsenalConfig.tools.filter((entry) => entry.ui !== false).map((entry) => structuredClone(entry));
+const FILM_STYLES = arsenalConfig.recipes.map((entry) => [entry.id, {
+  id:entry.id,
+  name:entry.name,
+  version:entry.version ?? 1,
+}]);
 
 const BRANDS = Object.entries(brandConfig.brands ?? {}).map(([slug, brand]) => ({
   slug,
@@ -21,6 +27,15 @@ const PLATFORM_SOUND_PRESETS = Object.freeze([
   { id:'levitating', artist:'Dua Lipa', title:'Levitating', videoId:'WHuBW3qKm9g', spotifyTrackId:'463CkQjx2Zk1yXoBuierM9', startSeconds:43, mood:'Bright pop' },
   { id:'blinding-lights', artist:'The Weeknd', title:'Blinding Lights', videoId:'fHI8X4OXluQ', spotifyTrackId:'0VjIjW4GlUZAMYd2vXMi3b', startSeconds:49, mood:'Neon drive' },
 ]);
+const WORKFLOW_SAMPLES = workflowSampleConfig.samples.map((sample) => ({
+  id:sample.id,
+  title:sample.title,
+  prompt:sample.prompt,
+  seed:sample.seed,
+  aspectRatio:sample.aspectRatio,
+  durationSeconds:sample.durationSeconds,
+  lane:sample.lane,
+}));
 
 export function studioPageHtml() {
   return `<!doctype html>
@@ -28,6 +43,8 @@ export function studioPageHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Plan, generate, review, and assemble reproducible story-first videos with versioned Film styles.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230c1016'/%3E%3Cpath d='M7 16h18' stroke='%2382d9a7' stroke-width='3'/%3E%3C/svg%3E">
 <title>Video Maker — Reel Pipeline</title>
 <style>
   :root {
@@ -41,6 +58,9 @@ export function studioPageHtml() {
     --dim:#7f8995;
     --evidence:#d9e6ef;
     --verified:#82d9a7;
+    --verified-wash:rgba(130,217,167,.045);
+    --beam-mid:#536273;
+    --beam-edge:#34404d;
     --risk:#ff6b76;
     --warning:#f3c980;
     --focus:#b9dcff;
@@ -90,7 +110,6 @@ export function studioPageHtml() {
     top:16px;
     height:2px;
     background:var(--verified);
-    box-shadow:8px 0 12px rgba(130,217,167,.38);
   }
   .brand-lockup h1 { margin:0; font-size:1.04rem; letter-spacing:-.02em; }
   .brand-lockup p { margin:3px 0 0; color:var(--muted); font-size:.78rem; }
@@ -119,6 +138,8 @@ export function studioPageHtml() {
   }
   .primary-nav button:hover { color:var(--text); background:var(--surface); }
   .primary-nav button[aria-selected="true"] { color:var(--text); border-color:var(--line); background:var(--raised); }
+  .operation-status { min-height:28px; display:flex; align-items:center; justify-content:flex-end; padding:4px clamp(16px,3vw,40px); border-bottom:1px solid var(--line); background:#090c11; color:var(--dim); font-size:11px; }
+  .operation-status.busy { color:var(--evidence); }
   .shell { width:min(1440px,100%); margin:0 auto; padding:clamp(20px,3vw,42px); }
   .view[hidden] { display:none; }
   .view-head { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:24px; }
@@ -139,11 +160,13 @@ export function studioPageHtml() {
   .message.empty { max-width:100%; color:var(--muted); background:transparent; border-style:dashed; }
   .composer { display:grid; gap:10px; }
   .composer textarea { min-height:112px; }
-  .prompt-studio { max-width:920px; margin:clamp(24px,5vw,64px) auto 28px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 24px 70px rgba(0,0,0,.22); overflow:hidden; }
+  .prompt-studio { max-width:920px; margin:clamp(24px,5vw,64px) auto 28px; border:1px solid var(--line); border-radius:16px; background:var(--surface); overflow:hidden; }
   .prompt-studio .composer { gap:0; }
   .prompt-studio label[for="request"] { padding:22px 22px 0; color:var(--text); font-size:15px; font-weight:700; }
   .prompt-studio textarea { min-height:170px; padding:14px 22px 20px; border:0; border-radius:0; background:transparent; font-size:18px; line-height:1.5; }
-  .prompt-studio textarea:focus { outline:0; box-shadow:none; }
+  .prompt-studio textarea:focus { outline:0; }
+  .prompt-studio textarea:focus-visible { box-shadow:inset 0 0 0 2px var(--focus); }
+  .prompt-studio.has-proposal { display:none; }
   .voice-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 22px; border-top:1px solid var(--line); background:#0d1117; }
   .voice-controls p { margin:0; color:var(--dim); font-size:12px; }
   .voice-controls.recording p { color:var(--risk); }
@@ -161,6 +184,56 @@ export function studioPageHtml() {
   .stage-card.completed small { color:var(--verified); }
   .stage-card.failed small,.stage-card.blocked small { color:var(--risk); }
   .stage-card[disabled] { opacity:.7; }
+  .workflow-proposal { position:relative; max-width:1080px; margin:34px auto 56px; border-top:1px solid var(--beam-edge); border-bottom:1px solid var(--line); background:linear-gradient(110deg,var(--verified-wash),transparent 38%); }
+  .workflow-proposal::before { position:absolute; top:-1px; left:0; width:min(260px,32%); height:1px; background:var(--verified); content:""; }
+  .workflow-proposal[hidden] { display:none; }
+  .proposal-head { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:clamp(28px,6vw,84px); align-items:end; padding:38px 0 34px; }
+  .proposal-topline { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .proposal-kicker { margin:0; color:var(--verified); font-size:11px; font-weight:760; letter-spacing:.035em; }
+  .proposal-head h3 { max-width:18ch; margin:0; font-size:clamp(30px,4vw,48px); font-weight:760; letter-spacing:-.035em; line-height:1.02; text-wrap:balance; }
+  .proposal-reason { max-width:64ch; margin:14px 0 0; color:var(--muted); font-size:14px; line-height:1.6; }
+  .proposal-summary { display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:22px; }
+  .proposal-metric { display:flex; min-width:0; align-items:baseline; gap:7px; }
+  .proposal-metric span { color:var(--dim); font-size:11px; }
+  .proposal-metric strong { color:var(--evidence); font-size:12px; font-weight:700; overflow-wrap:anywhere; }
+  .proposal-head-actions { display:grid; justify-items:end; gap:12px; min-width:230px; }
+  .proposal-head-actions p { max-width:28ch; margin:0; color:var(--dim); font-size:11px; line-height:1.45; text-align:right; }
+  .proposal-head-actions .button-row { justify-content:flex-end; }
+  .proposal-head-actions .primary { min-width:142px; }
+  .proposal-phases { position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(18px,3vw,42px); padding:34px 0 38px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .proposal-phases::before { position:absolute; top:47px; right:calc(25% - 5px); left:5px; height:1px; background:linear-gradient(90deg,var(--verified),var(--beam-mid) 70%,var(--beam-edge)); content:""; }
+  .proposal-phase { position:relative; min-width:0; padding-top:28px; }
+  .proposal-phase::before { position:absolute; z-index:1; top:7px; left:0; width:11px; height:11px; border:3px solid var(--bg); border-radius:50%; background:var(--verified); box-shadow:0 0 0 1px var(--beam-mid); content:""; }
+  .proposal-phase:last-child::before { background:var(--surface); }
+  .proposal-phase small { color:var(--dim); font-size:10px; }
+  .proposal-phase strong { display:block; margin-top:6px; font-size:14px; }
+  .proposal-phase p { max-width:28ch; margin:7px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
+  .proposal-phase p,.proposal-model-row span { overflow-wrap:anywhere; }
+  .proposal-blocker { display:grid; gap:12px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .proposal-blocker[hidden] { display:none; }
+  .proposal-blocker p { margin:0; color:var(--risk); font-size:12px; }
+  .proposal-reference-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; max-width:720px; }
+  .proposal-reference-row input { min-width:0; }
+  .proposal-inspector { border-bottom:1px solid var(--line); }
+  .proposal-inspector > summary { min-height:56px; display:flex; align-items:center; justify-content:space-between; padding:0; cursor:pointer; color:var(--evidence); font-size:12px; font-weight:750; }
+  .proposal-inspector > summary span { color:var(--dim); font-weight:400; }
+  .proposal-inspector-body { display:grid; gap:18px; padding:4px 0 24px; }
+  .proposal-models { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 32px; }
+  .proposal-model-row { display:grid; grid-template-columns:120px minmax(0,1fr); gap:12px; color:var(--muted); font-size:12px; }
+  .proposal-model-row strong { color:var(--text); }
+  .comfy-inspection { display:grid; gap:10px; }
+  .comfy-inspection[hidden] { display:none; }
+  .comfy-node-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+  .comfy-node { padding:10px 0; border-bottom:1px solid var(--line); font-size:11px; }
+  .comfy-node strong { display:block; }
+  .comfy-node span { color:var(--dim); }
+  .comfy-json { max-height:280px; margin:0; overflow:auto; }
+  .proposal-command { display:grid; grid-template-columns:minmax(180px,.36fr) minmax(0,1fr); gap:32px; align-items:center; padding:24px 0; }
+  .proposal-command-copy strong { display:block; font-size:13px; }
+  .proposal-command-copy span { display:block; margin-top:4px; color:var(--dim); font-size:11px; line-height:1.45; }
+  .proposal-controls { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; }
+  .proposal-controls input { min-width:0; }
+  .workflow-proposal > .prompt-feedback { padding:0 0 18px; }
   .quick-settings { border-top:1px solid var(--line); background:#0b0f14; }
   .quick-settings > summary { min-height:52px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; color:var(--muted); cursor:pointer; font-weight:650; }
   .quick-settings > summary span { color:var(--dim); font-size:12px; font-weight:400; }
@@ -171,6 +244,44 @@ export function studioPageHtml() {
   .quick-model-summary { grid-column:1/-1; margin:0; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:#0d1117; color:var(--muted); font-size:12px; line-height:1.5; }
   .quick-model-summary strong { color:var(--text); }
   .quick-model-summary.blocked { border-color:rgba(255,107,118,.5); color:var(--risk); }
+  .film-contract { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; padding:12px 22px; border-top:1px solid var(--line); background:#0b0f14; }
+  .film-contract strong { display:block; font-size:12px; color:var(--text); }
+  .film-contract span { display:block; margin-top:3px; color:var(--muted); font-size:11px; overflow-wrap:anywhere; }
+  .film-contract .state { flex:0 0 auto; margin-top:1px; }
+  .film-help { padding:0 22px 12px; background:#0b0f14; }
+  .film-help summary { min-height:36px; display:flex; align-items:center; color:var(--evidence); cursor:pointer; font-size:11px; font-weight:700; }
+  .film-help p { max-width:72ch; margin:0 0 8px; color:var(--muted); font-size:12px; }
+  .local-workflow-settings { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding-top:4px; }
+  .local-workflow-settings[hidden] { display:none; }
+  .local-workflow-settings .wide { grid-column:1/-1; }
+  .local-recipe-readout { grid-column:1/-1; display:grid; gap:5px; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .local-recipe-readout strong { font-size:13px; }
+  .local-recipe-readout span { color:var(--muted); font-size:12px; overflow-wrap:anywhere; }
+  .episode-actions { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding-top:4px; }
+  .episode-workspace { max-width:920px; margin:0 auto 28px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .episode-workspace[hidden] { display:none; }
+  .episode-workspace-head { display:flex; align-items:end; justify-content:space-between; gap:18px; padding:18px 0; }
+  .episode-workspace-head h3 { margin:0; font-size:16px; }
+  .episode-workspace-head p { margin:4px 0 0; color:var(--muted); font-size:12px; }
+  .episode-workspace-controls { display:flex; align-items:end; justify-content:flex-end; gap:8px; flex-wrap:wrap; }
+  .episode-workspace-controls label { min-width:130px; }
+  .episode-more { position:relative; }
+  .episode-more > summary { list-style:none; }
+  .episode-more > summary::-webkit-details-marker { display:none; }
+  .episode-more-panel { position:absolute; z-index:3; right:0; top:calc(100% + 6px); width:min(280px,calc(100vw - 32px)); display:grid; gap:8px; padding:12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); box-shadow:0 12px 30px rgba(0,0,0,.28); }
+  .episode-shot-list { border-top:1px solid var(--line); }
+  .episode-shot { display:grid; grid-template-columns:58px minmax(0,1fr) auto; gap:14px; align-items:center; min-width:0; padding:13px 0; border-bottom:1px solid var(--line); }
+  .episode-shot:last-child { border-bottom:0; }
+  .episode-shot-list:not(.show-all) .episode-shot:nth-child(n+7) { display:none; }
+  .episode-shot-order { color:var(--dim); font-variant-numeric:tabular-nums; }
+  .episode-shot-copy { min-width:0; }
+  .episode-shot-copy strong { display:block; font-size:13px; }
+  .episode-shot-copy p { margin:3px 0 0; color:var(--muted); font-size:12px; overflow-wrap:anywhere; }
+  .episode-shot-meta { display:flex; align-items:center; justify-content:flex-end; gap:8px; flex-wrap:wrap; }
+  .episode-shot-state { color:var(--muted); font-size:11px; white-space:nowrap; }
+  .episode-shot-state.accepted { color:var(--verified); }
+  .episode-shot-state.rejected { color:var(--risk); }
+  .episode-feedback { min-height:20px; margin:12px 0; }
   .prompt-actions { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:16px 22px 18px; border-top:1px solid var(--line); }
   .prompt-actions .button-row { justify-content:flex-end; }
   .auto-note { color:var(--dim); font-size:12px; }
@@ -255,6 +366,7 @@ export function studioPageHtml() {
   .workflow span { display:block; color:var(--muted); font-size:12px; margin-top:2px; }
   .planner { margin-bottom:22px; }
   .planner-head { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .planner-head p { max-width:68ch; }
   .planner-body { display:grid; grid-template-columns:minmax(260px,.7fr) minmax(380px,1.3fr); }
   .planner-step { min-width:0; padding:20px; border-bottom:1px solid var(--line); }
   .planner-step:nth-child(odd) { border-right:1px solid var(--line); }
@@ -305,7 +417,7 @@ export function studioPageHtml() {
   .advanced-studio > p { margin:0; padding:12px 16px; border-inline:1px solid var(--line); color:var(--muted); }
   .advanced-studio .create-grid { padding-top:16px; }
   .manual-planner { max-width:920px; margin:0 auto; }
-  .manual-planner > summary { color:var(--muted); border-color:transparent; justify-content:center; font-size:12px; font-weight:600; }
+  .manual-planner > summary { min-height:44px; padding:10px 16px; color:var(--muted); border-color:transparent; justify-content:center; font-size:12px; font-weight:600; }
   .manual-planner[open] > summary { border-color:var(--line); }
   .manual-planner .planner { margin:16px 0 0; }
   .state {
@@ -345,6 +457,12 @@ export function studioPageHtml() {
   .automation-note ul { margin:4px 0 8px; padding-left:20px; }
   .automation-note li + li { margin-top:7px; }
   .production-list { display:grid; gap:32px; }
+  .production-toolbar { display:flex; align-items:end; justify-content:flex-end; gap:8px; flex-wrap:wrap; }
+  .production-toolbar label { min-width:min(260px,100%); }
+  .editorial-decision { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:center; margin-top:16px; padding:14px; border-block:1px solid var(--line); background:#0b0f14; }
+  .editorial-decision strong { display:block; font-size:13px; }
+  .editorial-decision p { margin:4px 0 0; color:var(--muted); font-size:12px; }
+  .editorial-history { color:var(--dim); font-size:11px; }
   .video-section-head {
     display:flex;
     align-items:flex-end;
@@ -510,8 +628,85 @@ export function studioPageHtml() {
   th { color:var(--muted); font-weight:600; }
   .loading-line { height:48px; border-bottom:1px solid var(--line); background:linear-gradient(90deg,var(--surface),var(--raised),var(--surface)); background-size:220% 100%; animation:loading 1.2s linear infinite; }
   @keyframes loading { to { background-position:-220% 0; } }
+  .archive-head { max-width:1080px; margin:0 auto 34px; }
+  .archive-head h2 { max-width:15ch; font-size:clamp(34px,5vw,64px); line-height:.98; letter-spacing:-.038em; text-wrap:balance; }
+  .archive-head p { max-width:58ch; margin-top:12px; font-size:15px; line-height:1.6; }
+  .archive-head > div { display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:22px; color:var(--muted); font-size:11px; }
+  .archive-head > div span { position:relative; }
+  .archive-head > div span + span::before { position:absolute; left:-12px; color:var(--verified); content:'·'; }
+  .history-showcase { position:relative; max-width:1080px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,.58fr) minmax(0,1fr); min-height:650px; border-block:1px solid var(--line); background:linear-gradient(112deg,var(--verified-wash),transparent 42%); }
+  .history-showcase::before { position:absolute; z-index:1; top:-1px; left:0; width:38%; height:1px; background:var(--verified); content:""; }
+  .history-picture { position:relative; min-width:0; display:grid; align-items:center; padding:30px clamp(24px,4vw,50px) 30px 0; }
+  .history-picture video { display:block; width:100%; max-height:590px; aspect-ratio:9/16; object-fit:contain; background:#000; box-shadow:18px 24px 54px rgba(0,0,0,.38); }
+  .history-picture-empty { min-height:520px; display:grid; place-items:center; padding:30px; border:1px solid var(--line); color:var(--muted); text-align:center; }
+  .history-video-label { position:absolute; z-index:2; top:44px; left:12px; padding:5px 7px; background:var(--text); color:var(--bg); font-size:10px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+  .history-story { min-width:0; align-self:center; padding:48px 0 44px clamp(4px,2vw,24px); }
+  .history-story-topline { display:flex; align-items:center; gap:12px; margin-bottom:18px; color:var(--verified); font-size:11px; font-weight:750; }
+  .history-story h3 { max-width:15ch; margin:0; font-size:clamp(32px,4.6vw,58px); line-height:1; letter-spacing:-.038em; text-wrap:balance; }
+  .history-section { display:grid; grid-template-columns:96px minmax(0,1fr); gap:20px; padding:22px 0; border-bottom:1px solid var(--line); }
+  .history-section:first-of-type { margin-top:24px; border-top:1px solid var(--line); }
+  .history-section > strong { color:var(--dim); font-size:11px; font-weight:650; }
+  .history-prompt { margin:0; color:var(--evidence); font-size:clamp(15px,1.65vw,19px); line-height:1.55; }
+  .history-workflow-meta { display:flex; flex-wrap:wrap; gap:7px 18px; color:var(--muted); font-size:12px; }
+  .history-workflow-meta strong { color:var(--text); }
+  .history-route { position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-top:20px; }
+  .history-route::before { position:absolute; top:5px; right:calc(25% - 4px); left:4px; height:1px; background:linear-gradient(90deg,var(--verified),var(--beam-mid),var(--beam-edge)); content:""; }
+  .history-route div { position:relative; min-width:0; padding-top:18px; color:var(--dim); font-size:10px; }
+  .history-route div::before { position:absolute; z-index:1; top:0; left:0; width:9px; height:9px; border:2px solid var(--bg); border-radius:50%; background:var(--verified); box-shadow:0 0 0 1px var(--beam-mid); content:""; }
+  .history-route div:last-child::before { background:var(--surface); }
+  .history-route strong { display:block; margin-top:4px; color:var(--text); font-size:11px; line-height:1.35; }
+  .history-actions { display:flex; flex-wrap:wrap; gap:8px; padding-top:24px; }
+  .sample-filmstrip { max-width:1080px; margin:0 auto 46px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); border-bottom:1px solid var(--line); }
+  .sample-filmstrip button { position:relative; min-height:96px; padding:18px 14px 16px; border:0; border-right:1px solid var(--line); background:transparent; color:var(--muted); text-align:left; cursor:pointer; }
+  .sample-filmstrip button:last-child { border-right:0; }
+  .sample-filmstrip button:hover { background:var(--verified-wash); color:var(--text); }
+  .sample-filmstrip button[aria-current="true"] { background:#0b100f; color:var(--text); }
+  .sample-filmstrip button[aria-current="true"]::before { position:absolute; top:-1px; right:0; left:0; height:1px; background:var(--verified); content:""; }
+  .sample-filmstrip span { display:block; color:var(--dim); font-size:10px; }
+  .sample-filmstrip strong { display:block; margin-top:9px; font-size:12px; line-height:1.35; }
+  .history-ledger { max-width:1080px; margin:0 auto; border-top:1px solid var(--line); }
+  .history-ledger > summary,.history-operations > summary { min-height:62px; display:flex; align-items:center; justify-content:space-between; gap:18px; cursor:pointer; color:var(--text); font-size:13px; font-weight:720; }
+  .history-ledger > summary span,.history-operations > summary span { color:var(--dim); font-size:11px; font-weight:400; }
+  .history-ledger-row { display:grid; grid-template-columns:140px minmax(0,1fr) auto; gap:24px; align-items:center; padding:16px 0; border-top:1px solid var(--line); }
+  .history-ledger-row time { color:var(--dim); font-size:11px; }
+  .history-ledger-row h4 { margin:0; font-size:14px; }
+  .history-ledger-row p { margin:4px 0 0; color:var(--muted); font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .history-operations { max-width:1080px; margin:24px auto 0; border-top:1px solid var(--line); }
+  .history-operations .lane-console { margin-top:0; }
+  .library-layout { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:260px minmax(0,1fr); border-block:1px solid var(--line); }
+  .library-index { min-width:0; border-right:1px solid var(--line); }
+  .library-index button { width:100%; min-height:58px; display:grid; gap:3px; padding:11px 18px 11px 0; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--muted); text-align:left; cursor:pointer; }
+  .library-index button:last-child { border-bottom:0; }
+  .library-index button:hover { color:var(--text); }
+  .library-index button[aria-current="true"] { color:var(--text); background:linear-gradient(90deg,var(--verified-wash),transparent); }
+  .library-index strong { font-size:13px; }
+  .library-index span { color:var(--dim); font-size:10px; }
+  .library-detail { position:relative; min-width:0; padding:clamp(30px,5vw,64px); }
+  .library-detail::before { position:absolute; top:-1px; left:0; width:min(220px,32%); height:1px; background:var(--verified); content:""; }
+  .library-kicker { margin:0 0 14px; color:var(--verified); font-size:11px; font-weight:760; }
+  .library-detail h3 { max-width:16ch; margin:0; font-size:clamp(34px,4.6vw,58px); line-height:1; letter-spacing:-.038em; text-wrap:balance; }
+  .library-description { max-width:62ch; margin:18px 0 0; color:var(--muted); font-size:15px; line-height:1.65; }
+  .library-facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:34px 0 0; border-block:1px solid var(--line); }
+  .library-fact { min-width:0; padding:18px 18px 18px 0; }
+  .library-fact + .library-fact { padding-left:18px; border-left:1px solid var(--line); }
+  .library-fact span { display:block; color:var(--dim); font-size:10px; }
+  .library-fact strong { display:block; margin-top:6px; font-size:13px; overflow-wrap:anywhere; }
+  .library-controls { margin-top:28px; }
+  .library-controls h4 { margin:0 0 10px; font-size:12px; }
+  .library-control-list { display:flex; flex-wrap:wrap; gap:7px; }
+  .library-control-list span { padding:6px 9px; border:1px solid var(--line); color:var(--muted); font-size:11px; }
+  .library-route { margin-top:32px; }
+  .library-route h4 { margin:0 0 14px; font-size:12px; }
+  .library-note { max-width:70ch; margin:28px 0 0; color:var(--dim); font-size:11px; line-height:1.55; }
+  .library-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:30px; }
   @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; } }
   @media (max-width:900px) {
+    .history-showcase { grid-template-columns:minmax(240px,.6fr) minmax(0,1fr); }
+    .history-picture { padding-right:24px; }
+    .history-story { padding-left:8px; }
+    .history-section { grid-template-columns:76px minmax(0,1fr); gap:14px; }
+    .library-layout { grid-template-columns:210px minmax(0,1fr); }
+    .library-detail { padding:34px; }
     .quick-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .capability-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .create-grid,.distribution-grid { grid-template-columns:1fr; }
@@ -531,28 +726,81 @@ export function studioPageHtml() {
     .planner-terminal { grid-template-columns:1fr; }
     .lane-console-head { align-items:stretch; flex-direction:column; }
     .automation-evidence { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .editorial-decision { grid-template-columns:1fr; }
   }
   @media (max-width:600px) {
+    .archive-head { padding:28px 0 22px; }
+    .archive-head h2 { max-width:11ch; font-size:clamp(38px,13vw,54px); }
+    .archive-head > div { gap:6px 17px; }
+    .archive-head > div span + span::before { left:-10px; }
+    .history-showcase { grid-template-columns:1fr; }
+    .history-picture { padding:24px 0 0; }
+    .history-picture video { width:auto; max-width:100%; height:min(62vh,560px); margin:0 auto; }
+    .history-story { padding:32px 0 8px; }
+    .history-story h3 { font-size:35px; }
+    .history-section { grid-template-columns:1fr; gap:7px; }
+    .history-route { grid-template-columns:1fr; gap:10px; }
+    .history-route-step { min-height:0; padding:13px 0 13px 22px; }
+    .history-route-step::before { top:19px; left:0; }
+    .sample-filmstrip { display:flex; overflow-x:auto; }
+    .sample-filmstrip button { flex:0 0 158px; border-bottom:1px solid var(--line); }
+    .history-ledger-row { grid-template-columns:1fr; gap:7px; }
+    .history-ledger-row .button-row { justify-content:flex-start; }
+    .library-layout { grid-template-columns:1fr; }
+    .library-index { display:flex; overflow-x:auto; border-right:0; border-bottom:1px solid var(--line); }
+    .library-index button { flex:0 0 180px; padding:12px 16px 12px 0; border-right:1px solid var(--line); border-bottom:0; }
+    .library-detail { padding:30px 0; }
+    .library-detail h3 { font-size:40px; }
+    .library-facts { grid-template-columns:1fr; }
+    .library-fact,.library-fact + .library-fact { padding:14px 0; border-left:0; border-top:1px solid var(--line); }
+    .library-fact:first-child { border-top:0; }
     .product-bar { align-items:flex-start; padding:12px 16px; }
     .brand-lockup p { display:none; }
     .utility-links { gap:10px; justify-content:flex-end; }
+    .utility-links { display:none; }
     .utility-links a { font-size:12px; }
     .primary-nav { padding:8px 10px; }
     .primary-nav button { padding:8px 9px; }
-    .shell { padding:18px 14px 28px; }
+    .shell { padding:18px 16px 28px; }
     .view-head { align-items:flex-start; flex-direction:column; gap:6px; }
+    .production-toolbar { width:100%; justify-content:stretch; }
+    .production-toolbar label { flex:1; }
     .view-head h2 { font-size:21px; }
     .prompt-studio { margin:20px 0; }
     .prompt-studio textarea { min-height:150px; font-size:16px; }
     .quick-options { grid-template-columns:1fr; }
+    .workflow-proposal { margin-top:22px; }
+    .proposal-head { grid-template-columns:1fr; gap:24px; padding:28px 0; }
+    .proposal-head h3 { max-width:12ch; font-size:34px; }
+    .proposal-head-actions { justify-items:stretch; min-width:0; }
+    .proposal-head-actions p { max-width:none; text-align:left; }
+    .proposal-head-actions .button-row { display:grid; grid-template-columns:1fr 1.35fr; }
+    .proposal-summary { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; }
+    .proposal-phases { grid-template-columns:1fr; gap:24px; padding:28px 0; }
+    .proposal-phases::before { top:39px; bottom:40px; left:5px; width:1px; height:auto; background:linear-gradient(180deg,var(--verified),var(--beam-mid) 70%,var(--beam-edge)); }
+    .proposal-phase { padding:0 0 0 32px; }
+    .proposal-phase::before { top:4px; left:0; }
+    .proposal-command { grid-template-columns:1fr; gap:14px; }
+    .proposal-reference-row,.proposal-controls { grid-template-columns:1fr; }
+    .proposal-models { grid-template-columns:1fr; }
+    .proposal-model-row { grid-template-columns:1fr; gap:3px; }
+    .comfy-node-list { grid-template-columns:1fr; }
+    .local-workflow-settings { grid-template-columns:1fr; }
+    .local-workflow-settings .wide { grid-column:auto; }
+    .episode-workspace-head { align-items:stretch; flex-direction:column; }
+    .episode-workspace-controls { justify-content:flex-start; }
+    .episode-more-panel { left:0; right:auto; }
+    .episode-shot { grid-template-columns:42px minmax(0,1fr); }
+    .episode-shot-meta { grid-column:2; justify-content:flex-start; }
     .capability-grid { grid-template-columns:1fr; }
     .prompt-actions { align-items:stretch; flex-direction:column; }
+    .film-contract { align-items:flex-start; flex-direction:column; }
     .prompt-actions .button-row { justify-content:stretch; }
     .field-grid { grid-template-columns:1fr; }
     label.wide,.checkline { grid-column:auto; }
     .brief-actions { align-items:flex-start; flex-direction:column; }
     .button-row { width:100%; }
-    .button-row .button { flex:1; text-align:center; }
+    .button-row .button { flex:1; min-width:0; text-align:center; white-space:normal; }
     .workflow { grid-template-columns:1fr; }
     .platform-audio-form,.soundtrack-custom-fields,.sync-stage,.silent-proof { grid-template-columns:1fr; }
     .soundtrack-now { align-items:flex-start; flex-direction:column; gap:3px; }
@@ -597,12 +845,15 @@ export function studioPageHtml() {
 <nav class="primary-nav" id="content-nav" aria-label="Video Maker">
   <div role="tablist" aria-label="Video Maker views">
     <button id="tab-create" type="button" role="tab" aria-selected="true" aria-controls="view-create" data-view="create">Create</button>
-    <button id="tab-productions" type="button" role="tab" aria-selected="false" aria-controls="view-productions" data-view="productions" tabindex="-1">Videos</button>
+    <button id="tab-history" type="button" role="tab" aria-selected="false" aria-controls="view-history" data-view="history" tabindex="-1">History</button>
+    <button id="tab-recipes" type="button" role="tab" aria-selected="false" aria-controls="view-recipes" data-view="recipes" tabindex="-1">Recipes</button>
+    <button id="tab-workflows" type="button" role="tab" aria-selected="false" aria-controls="view-workflows" data-view="workflows" tabindex="-1">Workflows</button>
     <button id="tab-distribute" type="button" role="tab" aria-selected="false" aria-controls="view-distribute" data-view="distribute" tabindex="-1" hidden>Distribute</button>
     <button id="tab-tools" type="button" role="tab" aria-selected="false" aria-controls="view-tools" data-view="tools" tabindex="-1" hidden>Tools</button>
   </div>
 </nav>
-<main class="shell" id="workspace" tabindex="-1">
+<div class="operation-status" id="operation-status" role="status" aria-live="polite" aria-busy="false">Studio ready</div>
+<main class="shell" id="workspace" tabindex="-1" aria-busy="false">
   <section class="view" id="view-create" role="tabpanel" aria-labelledby="tab-create">
     <div class="view-head">
       <div>
@@ -622,7 +873,7 @@ export function studioPageHtml() {
         <details class="quick-settings">
           <summary>Settings <span>Optional</span></summary>
         <div class="quick-options" aria-label="Optional video settings">
-          <label>Recipe
+          <label>Film style
             <select id="quick-recipe">
               <option value="">Auto</option>
               <option value="night-out-carousel">Night Out carousel</option>
@@ -648,17 +899,84 @@ export function studioPageHtml() {
             <select id="quick-content-scope"><option value="general">General</option><option value="mature-enabled">Mature-enabled adults</option></select>
           </label>
           <p class="quick-model-summary quick-model-setting" id="quick-model-summary" hidden></p>
+          <div class="local-workflow-settings" id="local-workflow-settings" hidden>
+            <div class="local-recipe-readout" id="local-recipe-readout" aria-live="polite"></div>
+            <label class="wide">Character reference image path
+              <input id="quick-reference-image" placeholder="/absolute/path/to/approved-character.png" autocomplete="off">
+            </label>
+            <label>Seed<input id="quick-video-seed" type="number" min="0" max="4294967295" value="2307"></label>
+            <label>Shot duration
+              <select id="quick-shot-duration"><option value="2">2 seconds</option><option value="3.375" selected>3.4 seconds</option><option value="5">5 seconds</option><option value="6">6 seconds</option></select>
+            </label>
+            <label>Episode character<select id="quick-character"><option value="">No directory character</option></select></label>
+            <label>Character voice
+              <select id="quick-character-voice"><option value="af_heart">Heart</option><option value="am_adam">Adam</option><option value="bm_george">George</option><option value="bf_emma">Emma</option></select>
+            </label>
+            <label>Episode length<select id="quick-episode-duration"><option value="120">2 minutes</option><option value="180">3 minutes</option></select></label>
+            <label>Final music file <span class="optional">(optional while planning)</span><input id="quick-episode-music" placeholder="/absolute/path/to/song.wav"></label>
+            <label class="wide">Music ownership or licence evidence <span class="optional">(required to assemble)</span><textarea id="quick-episode-music-evidence" placeholder="Recorded locally for this episode, or exact licence evidence."></textarea></label>
+            <div class="episode-actions">
+              <span class="auto-note">Episodes are editable shot plans. Nothing renders until you generate a shot.</span>
+              <div class="button-row">
+                <button class="button" type="button" id="interrupt-local-video">Stop active render</button>
+                <button class="button" type="button" id="plan-local-episode">Plan episode</button>
+              </div>
+            </div>
+          </div>
         </div>
         </details>
+        <div class="film-contract" id="quick-film-contract" aria-live="polite"></div>
+        <details class="film-help"><summary>How Film styles work</summary><p>A Film style is a fixed, versioned production contract. Studio proposes the route first; Preview uses the inspectable Comfy lane; Final uses the installed LTX 2.3 MLX lane.</p><p>Shortcut: press Command or Control + Enter to plan the workflow. Press / outside a field to return to the prompt.</p></details>
         <div class="prompt-actions">
-          <span class="auto-note">Everything else is chosen automatically.</span>
+          <span class="auto-note">We verify the Film style and local readiness before generation.</span>
           <div class="button-row">
             <button class="button" type="button" id="new-brief-button">Clear</button>
-            <button class="button primary" type="submit" id="compose-button">Make video</button>
+            <button class="button primary" type="submit" id="compose-button">Plan workflow</button>
           </div>
         </div>
         <div class="feedback prompt-feedback" id="compose-feedback" aria-live="polite"></div>
       </form>
+    </section>
+    <section class="workflow-proposal" id="workflow-proposal" hidden aria-labelledby="workflow-proposal-title">
+      <header class="proposal-head">
+        <div>
+          <div class="proposal-topline"><p class="proposal-kicker">Proposed route · nothing has run</p><span class="state" id="workflow-proposal-state">Proposed</span></div>
+          <h3 id="workflow-proposal-title">Proposed workflow</h3>
+          <p class="proposal-reason" id="workflow-proposal-reason"></p>
+          <div class="proposal-summary" id="workflow-proposal-summary"></div>
+        </div>
+        <div class="proposal-head-actions">
+          <p>The exact model, graph, prompt, and seed are frozen together when you run this version.</p>
+          <div class="button-row">
+            <button class="button" type="button" id="workflow-proposal-new">New video</button>
+            <button class="button primary" type="button" id="workflow-proposal-play">Run this plan</button>
+          </div>
+        </div>
+      </header>
+      <div class="proposal-phases" id="workflow-proposal-phases"></div>
+      <div class="proposal-blocker" id="workflow-proposal-blocker" hidden>
+        <p id="workflow-proposal-blocker-copy"></p>
+        <div class="proposal-reference-row">
+          <input id="workflow-proposal-reference" aria-label="Reference image path" placeholder="/absolute/path/to/character-or-scene.png" autocomplete="off">
+          <button class="button" type="button" id="workflow-proposal-reference-save">Use reference</button>
+        </div>
+      </div>
+      <details class="proposal-inspector" id="workflow-proposal-inspector">
+        <summary>Inspect model, runtime, and graph <span>Exact technical plan</span></summary>
+        <div class="proposal-inspector-body">
+          <div class="proposal-models" id="workflow-proposal-models"></div>
+          <button class="button" type="button" id="workflow-proposal-comfy">Inspect runtime graph</button>
+          <div class="comfy-inspection" id="workflow-proposal-comfy-result" hidden></div>
+        </div>
+      </details>
+      <div class="proposal-command">
+        <div class="proposal-command-copy"><strong>Direct the plan</strong><span>Change pacing, framing, duration, quality lane, or creative intent. Studio creates a new version before anything runs.</span></div>
+        <form class="proposal-controls" id="workflow-proposal-revise">
+          <input id="workflow-proposal-instruction" aria-label="Modify workflow" placeholder="Make it a faster landscape preview with a calmer camera">
+          <button class="button" type="submit" id="workflow-proposal-revise-button">Revise plan</button>
+        </form>
+      </div>
+      <div class="feedback prompt-feedback" id="workflow-proposal-feedback" aria-live="polite"></div>
     </section>
     <section class="workflow-progress" id="workflow-progress" hidden aria-labelledby="workflow-progress-title">
       <div class="workflow-progress-head">
@@ -668,13 +986,29 @@ export function studioPageHtml() {
       <div class="stage-rail" id="stage-rail"></div>
       <div class="feedback prompt-feedback" id="workflow-feedback" aria-live="polite"></div>
     </section>
+    <section class="episode-workspace" id="episode-workspace" hidden aria-labelledby="episode-workspace-title">
+      <div class="episode-workspace-head">
+        <div><h3 id="episode-workspace-title">Episode workflow</h3><p id="episode-workspace-summary">Plan, render, review, then assemble.</p></div>
+        <div class="episode-workspace-controls">
+          <button class="button" type="button" id="episode-generate-next">Generate next shot</button>
+          <button class="button primary" type="button" id="episode-assemble">Assemble episode</button>
+          <details class="episode-more"><summary class="button">More controls</summary><div class="episode-more-panel">
+            <label>Render phase<select id="episode-phase"><option value="preview">Fast preview</option><option value="final">LTX 2.3 final</option></select></label>
+            <button class="button" type="button" id="episode-toggle-all">Show all shots</button>
+            <button class="button" type="button" id="episode-refresh">Refresh status</button>
+          </div></details>
+        </div>
+      </div>
+      <div class="episode-shot-list" id="episode-shot-list"></div>
+      <div class="feedback episode-feedback" id="episode-feedback" aria-live="polite"></div>
+    </section>
     <details class="advanced-studio manual-planner" id="manual-planner">
       <summary>Choose the production path manually</summary>
     <section class="planner stage" id="production-planner" aria-labelledby="planner-title">
       <div class="stage-head planner-head">
         <div>
           <h3 id="planner-title">Production planner</h3>
-          <p>Project → idea → video recipe → options. Changing an earlier choice clears incompatible later choices.</p>
+          <p>Project → idea → Film style → options. Changing an earlier choice clears incompatible later choices.</p>
         </div>
         <span class="state" id="planner-state">Select a project</span>
       </div>
@@ -697,7 +1031,7 @@ export function studioPageHtml() {
           </details>
         </section>
         <section class="planner-step is-locked" id="planner-step-recipe" aria-labelledby="planner-recipe-title" aria-disabled="true">
-          <div class="step-heading"><span class="step-number">3</span><div><h3 id="planner-recipe-title" tabindex="-1">Video recipe</h3><p>Compare the actual engine, owner, spend posture, and blockers.</p></div></div>
+          <div class="step-heading"><span class="step-number">3</span><div><h3 id="planner-recipe-title" tabindex="-1">Film style</h3><p>Compare the versioned production contract, engine, spend posture, and blockers.</p></div></div>
           <div id="planner-recipes"><div class="empty-state">Choose an idea first.</div></div>
         </section>
         <section class="planner-step is-locked" id="planner-step-options" aria-labelledby="planner-options-title" aria-disabled="true">
@@ -971,14 +1305,18 @@ export function studioPageHtml() {
     </details>
   </section>
 
-  <section class="view" id="view-productions" role="tabpanel" aria-labelledby="tab-productions" hidden>
-    <div class="view-head">
-      <div>
-        <h2>Videos</h2>
-        <p>Watch finished renders first. Drafts and blocked plans stay available without crowding the library.</p>
-      </div>
-      <button class="button" type="button" id="refresh-productions">Refresh library</button>
-    </div>
+  <section class="view" id="view-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+    <header class="archive-head">
+      <p>Local film archive · five LTX 2.3 experiments</p>
+      <h2>Five films. Five routes. No mystery.</h2>
+      <div><span>Watch the artifact</span><span>Read the prompt</span><span>Inspect the route</span></div>
+    </header>
+    <section class="history-showcase" id="history-showcase" aria-live="polite"><div class="loading-line"></div></section>
+    <nav class="sample-filmstrip" id="sample-filmstrip" aria-label="Five tested films"></nav>
+    <details class="history-ledger" id="history-ledger"><summary>All studio history <span>Every prompt, route, and reviewable artifact</span></summary><div id="history-ledger-list"></div></details>
+    <details class="history-operations" id="history-operations">
+      <summary>Production operations <span>Queues, automation lanes, blocked work, and legacy renders</span></summary>
+      <div class="production-toolbar"><label>Search operations<input id="production-search" type="search" placeholder="Title, project, Film style"></label><button class="button" type="button" id="refresh-productions">Refresh operations</button></div>
     <section class="lane-console" aria-labelledby="lane-console-title">
       <div class="lane-console-head">
         <div><h3 id="lane-console-title">Content lanes</h3><p>One production queue, separated by who initiated the work. Automation status is read-only here.</p></div>
@@ -993,6 +1331,31 @@ export function studioPageHtml() {
       <div id="automation-note"></div>
     </section>
     <div id="production-list"><div class="loading-line"></div><div class="loading-line"></div></div>
+    </details>
+  </section>
+
+  <section class="view" id="view-recipes" role="tabpanel" aria-labelledby="tab-recipes" hidden>
+    <header class="archive-head">
+      <p>Recipes · what the maker creates</p>
+      <h2>Start with a recognizable result.</h2>
+      <div><span>Choose a format</span><span>Adjust the controls</span><span>Make it yours</span></div>
+    </header>
+    <div class="library-layout">
+      <nav class="library-index" id="recipe-library-index" aria-label="Recipe library"></nav>
+      <article class="library-detail" id="recipe-library-detail"><div class="loading-line"></div></article>
+    </div>
+  </section>
+
+  <section class="view" id="view-workflows" role="tabpanel" aria-labelledby="tab-workflows" hidden>
+    <header class="archive-head">
+      <p>Workflows · how the maker executes</p>
+      <h2>See the machine before it moves.</h2>
+      <div><span>Direct the shot</span><span>Bind the model</span><span>Review the evidence</span></div>
+    </header>
+    <div class="library-layout">
+      <nav class="library-index" id="workflow-library-index" aria-label="Workflow library"></nav>
+      <article class="library-detail" id="workflow-library-detail"><div class="loading-line"></div></article>
+    </div>
   </section>
 
   <section class="view" id="view-distribute" role="tabpanel" aria-labelledby="tab-distribute" hidden>
@@ -1063,6 +1426,8 @@ export function studioPageHtml() {
 const TOOLS = ${JSON.stringify(TOOLS)};
 const BRANDS = ${JSON.stringify(BRANDS)};
 const PLATFORM_SOUND_PRESETS = ${JSON.stringify(PLATFORM_SOUND_PRESETS)};
+const FILM_STYLE_DEFINITIONS = new Map(${JSON.stringify(FILM_STYLES)});
+const WORKFLOW_SAMPLES = ${JSON.stringify(WORKFLOW_SAMPLES)};
 let briefs = [];
 let activeBrief = null;
 let capabilities = [];
@@ -1075,12 +1440,22 @@ let plannerData = { projects:[], ideas:[], recipes:[], themePacks:[], modelProfi
 let plannerSelection = { projectSlug:null, ideaId:null, recipeId:null };
 let plannerReady = false;
 let plannerOptionsDirty = false;
-let productionData = { briefs:[], legacyRenders:[] };
+let productionData = { briefs:[], legacyRenders:[], episodes:[] };
 let autopilotStatus = null;
 let automationPolicies = [];
 let activeProductionLane = 'all';
+let productionSearch = '';
 let selectedProductionId = null;
+let historyEntries = [];
+let activeHistoryId = null;
+let recipeLibrary = { recipes:[], workflowRecipes:[] };
+let activeRecipeId = null;
+let workflowLibrary = [];
+let activeWorkflowId = null;
+let pendingStudioRequests = 0;
 let characters = [];
+let activeEpisode = null;
+let showAllEpisodeShots = false;
 let voiceSource = null;
 let voiceRecording = null;
 let voiceRecorder = null;
@@ -1131,6 +1506,7 @@ for (const button of document.querySelectorAll('[data-production-lane]')) {
 }
 
 function activateView(id) {
+  if (id === 'productions') id = 'history';
   for (const button of viewButtons) {
     const selected = button.dataset.view === id;
     button.setAttribute('aria-selected', selected ? 'true' : 'false');
@@ -1140,7 +1516,13 @@ function activateView(id) {
     for (const button of toolShortcutButtons) button.classList.remove('active');
   }
   for (const view of document.querySelectorAll('.view')) view.hidden = view.id !== 'view-' + id;
-  if (id === 'productions') loadProductions();
+  const url = new URL(window.location.href);
+  if (id === 'create') url.searchParams.delete('view');
+  else url.searchParams.set('view', id);
+  window.history.replaceState({}, '', url);
+  if (id === 'history') loadHistory();
+  if (id === 'recipes') loadRecipeLibrary();
+  if (id === 'workflows') loadWorkflowLibrary();
   if (id === 'distribute') renderDistribution();
 }
 
@@ -1155,6 +1537,7 @@ document.getElementById('quick-kind').addEventListener('change', renderQuickKind
 for (const id of ['quick-recipe','quick-theme','quick-model','quick-content-scope']) {
   document.getElementById(id).addEventListener('change', renderQuickModelSelection);
 }
+document.getElementById('quick-reference-image').addEventListener('input', renderQuickModelSelection);
 
 function renderQuickKindSelection() {
   const selected = value('quick-kind');
@@ -1180,7 +1563,7 @@ function fillQuickSelect(id, entries) {
 
 function quickGenerationMode() {
   if (value('quick-recipe') === 'night-out-carousel') return 'image-to-reel';
-  if (value('quick-recipe') === 'coherent-local-film') return 'text-to-video';
+  if (value('quick-recipe') === 'coherent-local-film') return 'image-to-video';
   return null;
 }
 
@@ -1197,8 +1580,8 @@ function quickModelState() {
     return { allowed:false, profile:compatible, blocker:compatible.name + ' does not support ' + generationMode + '.' };
   }
   if (!compatible.readiness.ready) return { allowed:false, profile:compatible, blocker:compatible.readiness.blocker };
-  if (value('quick-recipe') === 'coherent-local-film') {
-    return { allowed:false, profile:compatible, blocker:'This profile is ready, but coherent-film execution still continues in Forge.' };
+  if (value('quick-recipe') === 'coherent-local-film' && !value('quick-reference-image')) {
+    return { allowed:false, profile:compatible, blocker:'Add a local character reference image path.' };
   }
   return { allowed:true, profile:compatible, blocker:null };
 }
@@ -1207,8 +1590,11 @@ function renderQuickModelSelection() {
   const generationMode = quickGenerationMode();
   const visible = Boolean(generationMode);
   for (const element of document.querySelectorAll('.quick-model-setting')) element.hidden = !visible;
+  const localVisible = value('quick-recipe') === 'coherent-local-film';
+  document.getElementById('local-workflow-settings').hidden = !localVisible;
   const summary = document.getElementById('quick-model-summary');
   if (!visible) {
+    renderQuickFilmContract();
     refreshComposeAvailability();
     return;
   }
@@ -1220,7 +1606,77 @@ function renderQuickModelSelection() {
       (profile.nativeAudio ? ' · native audio' : ' · reel adds local audio') + '<br>' +
       escapeText(state.blocker || profile.license) + '<br>' + escapeText('Trust: ' + profile.trust.tier.replaceAll('-', ' ') + '. ' + profile.trust.basis)
     : escapeText(state.blocker || 'Choose a compatible local model.');
+  renderLocalRecipeReadout(profile);
+  renderQuickFilmContract(state);
   refreshComposeAvailability();
+}
+
+function renderQuickFilmContract(currentState = quickModelState()) {
+  const box = document.getElementById('quick-film-contract');
+  const recipeId = value('quick-recipe');
+  const profile = currentState.profile;
+  const recipe = workflowRecipeForProfile(profile?.id);
+  if (!recipeId) {
+    box.innerHTML = '<div><strong>Film style · Auto</strong><span>Studio resolves a runnable versioned style from the video intent before generation.</span></div><span class="state ready">preflight active</span>';
+    return;
+  }
+  const productionStyle = FILM_STYLE_DEFINITIONS.get(recipeId);
+  if (recipeId !== 'coherent-local-film') {
+    const name = productionStyle ? productionStyle.name + '@' + productionStyle.version : recipeId + '@1';
+    const detail = currentState.blocker
+      ? operatorReadinessSummary(currentState.blocker)
+      : (profile ? profile.name + ' · ' + profile.license : 'Ready through the registered local production path.');
+    box.innerHTML = '<div><strong>Film style · ' + escapeText(name) + '</strong><span>' + escapeText(detail) + '</span></div>' +
+      '<span class="state ' + (currentState.allowed ? 'ready' : 'blocked') + '">' + escapeText(currentState.allowed ? 'ready locally' : 'needs setup') + '</span>';
+    return;
+  }
+  const ready = currentState.allowed;
+  const exactStyle = recipe ? recipe.name + '@' + recipe.version : 'Exact local style not selected';
+  const detail = currentState.blocker
+    ? operatorReadinessSummary(currentState.blocker)
+    : (profile ? profile.name + ' · ' + profile.license : 'Choose an exact local model.');
+  box.innerHTML = '<div><strong>Film style · ' + escapeText(exactStyle) + '</strong><span>' + escapeText(detail) + '</span></div>' +
+    '<span class="state ' + (ready ? 'ready' : 'blocked') + '">' + escapeText(ready ? (recipe?.qualityLane === 'preview' ? 'preview only' : 'ready locally') : 'needs setup') + '</span>';
+}
+
+function operatorReadinessSummary(blocker) {
+  const message = String(blocker || '');
+  if (/reference image/i.test(message)) return 'Add an approved character reference under Settings.';
+  if (/disk|storage/i.test(message)) return 'Needs setup, but the storage guard currently prevents installation. Open Settings for technical evidence.';
+  if (/runtime canary|MPS|aten::|sampling step/i.test(message)) return 'This model failed its local runtime check. Choose the ready LTX preview lane or open Settings for technical evidence.';
+  if (/missing|not found|path/i.test(message)) return 'Needs local setup. Open Settings for the exact missing runtime evidence.';
+  return message;
+}
+
+function workflowRecipeForProfile(profileId) {
+  const recipeId = {
+    'ltx-2.3-mlx-q4':'ltx-2.3-mlx-q4-final',
+    'ltx-2b-comfy-preview':'ltx-2b-comfy-i2v-preview',
+    'minimax-h3-mlx-q4':'minimax-h3-comfy-r2v-specialist',
+  }[profileId];
+  return modelOptions.workflowRecipes?.find((entry) => entry.id === recipeId) || null;
+}
+
+function renderLocalRecipeReadout(profile) {
+  const box = document.getElementById('local-recipe-readout');
+  if (value('quick-recipe') !== 'coherent-local-film') {
+    box.innerHTML = '';
+    return;
+  }
+  const recipe = workflowRecipeForProfile(profile?.id);
+  if (!recipe) {
+    box.innerHTML = '<strong>Select an exact local model.</strong><span>Auto never falls back from a final Film style to a preview model.</span>';
+    return;
+  }
+  const state = recipe.readiness.ready ? 'Ready' : 'Blocked';
+  const detail = recipe.readiness.blocker || (
+    recipe.qualityLane === 'preview'
+      ? 'Fast planning lane. Review quality before using any shot.'
+      : 'Final-quality lane through the existing MLX Local Video Forge runtime.'
+  );
+  box.innerHTML = '<strong>Film style · ' + escapeText(recipe.name + '@' + recipe.version) + ' · ' + escapeText(state) + '</strong>' +
+    '<span>' + escapeText(recipe.qualityLane + ' · ' + recipe.resourceEnvelope.expectedDiskGb + ' GB installed footprint · serial · 85% disk / 90% RAM guards') + '</span>' +
+    '<span>' + escapeText(detail) + '</span>';
 }
 
 function refreshComposeAvailability() {
@@ -1308,7 +1764,7 @@ function renderPlannerIdeas() {
     plannerSelection.recipeId = null;
     plannerOptionsDirty = true;
     renderPlanner();
-    setFeedback('planner-feedback', 'Idea selected. Compare the available video recipes.', 'success');
+    setFeedback('planner-feedback', 'Idea selected. Compare the available Film styles.', 'success');
     focusPlannerStep('recipe');
   });
 }
@@ -1333,7 +1789,7 @@ function renderPlannerRecipes() {
     .slice(0, 4);
   const remaining = plannerData.recipes.filter((recipe) => !recommended.some((entry) => entry.id === recipe.id));
   box.innerHTML = '<section class="recommended-recipes"><h4>Common starting points</h4><div class="recipe-grid">' + recommended.map(renderPlannerRecipeCard).join('') + '</div></section>' +
-    '<details class="all-recipes"><summary>All video recipes · ' + escapeText(String(plannerData.recipes.length)) + '</summary>' + renderPlannerRecipeGroups(remaining) + '</details>';
+    '<details class="all-recipes"><summary>All Film styles · ' + escapeText(String(plannerData.recipes.length)) + '</summary>' + renderPlannerRecipeGroups(remaining) + '</details>';
   for (const button of box.querySelectorAll('[data-planner-recipe]')) button.addEventListener('click', () => choosePlannerRecipe(button.dataset.plannerRecipe));
 }
 
@@ -1367,7 +1823,7 @@ function choosePlannerRecipe(recipeId) {
   setValue('planner-variants', recipe.defaults.variantCount);
   renderRecipeOptionFields(recipe, Object.fromEntries(recipe.options.map((option) => [option.id, option.default])));
   renderPlanner();
-  setFeedback('planner-feedback', recipe.readiness.blocker || 'Recipe selected. Review the bounded options, then save the plan.', recipe.readiness.ready ? 'success' : '');
+  setFeedback('planner-feedback', recipe.readiness.blocker || 'Film style selected. Review the bounded options, then save the plan.', recipe.readiness.ready ? 'success' : '');
   focusPlannerStep('options');
 }
 
@@ -1446,10 +1902,10 @@ function renderPlannerTerminal() {
   } else if (!plannerSelection.ideaId) {
     state.textContent = 'Select an idea'; summary.textContent = 'Project selected.'; blocker.textContent = 'Choose or add an idea for this project.';
   } else if (!recipe) {
-    state.textContent = 'Select a recipe'; summary.textContent = 'Project and idea selected.'; blocker.textContent = 'Compare output, spend, runtime, and readiness before choosing.';
+    state.textContent = 'Select a Film style'; summary.textContent = 'Project and idea selected.'; blocker.textContent = 'Compare output, spend, runtime, and readiness before choosing.';
   } else if (!brief) {
     state.textContent = 'Ready to save'; summary.textContent = recipe.name + ' · ' + recipe.spend.label + ' · ' + recipe.owner;
-    blocker.textContent = recipe.readiness.blocker || 'Saving creates a planned brief; it does not run the recipe.';
+    blocker.textContent = recipe.readiness.blocker || 'Saving creates a planned brief; it does not run the Film style.';
   } else {
     state.textContent = brief.lifecycle.replaceAll('-', ' '); summary.textContent = recipe.name + ' saved as revision ' + brief.revision + '.';
     blocker.textContent = brief.actions.build.blocker || brief.actions.preview.blocker || brief.actions.post.blocker || 'All terminal actions are ready.';
@@ -1527,7 +1983,7 @@ document.getElementById('planner-idea-form').addEventListener('submit', async (e
     await loadProductionPlanner(plannerSelection.projectSlug);
     event.currentTarget.reset();
     event.currentTarget.closest('details').open = false;
-    setFeedback('planner-feedback', 'Idea saved and selected. Choose a video recipe.', 'success');
+    setFeedback('planner-feedback', 'Idea saved and selected. Choose a Film style.', 'success');
     focusPlannerStep('recipe');
   } catch (error) {
     setFeedback('planner-feedback', error.message, 'error');
@@ -1651,25 +2107,24 @@ document.getElementById('composer').addEventListener('submit', async (event) => 
   const request = requestInput.value.trim();
   if (!request) return;
   const refining = Boolean(activeBrief);
-  setBusy('compose-button', true, refining ? 'Refining brief…' : 'Creating brief…');
+  setBusy('compose-button', true, refining ? 'Updating workflow…' : 'Planning workflow…');
   setFeedback(
     'compose-feedback',
     refining
-      ? 'Applying that follow-up to safe, editable production fields…'
-      : 'Turning your request into editable production state…',
+      ? 'Applying that direction to a new inspectable workflow version…'
+      : 'Choosing a bounded recipe, exact model, and visible production steps…',
   );
   try {
     const fields = quickCreateFields();
     if (refining) {
       if (briefDirty) await saveBrief({ silent:true });
-      activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/refine', {
-        method:'POST',
-        body:JSON.stringify({ instruction:request }),
-      });
-      if (Object.keys(fields).length) {
-        activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id), {
-          method:'PATCH',
-          body:JSON.stringify(fields),
+      if (activeBrief.workflowProposal) {
+        activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow-proposal/revise', {
+          method:'POST', body:JSON.stringify({ instruction:request }),
+        });
+      } else {
+        activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/refine', {
+          method:'POST', body:JSON.stringify({ instruction:request }),
         });
       }
     } else {
@@ -1684,40 +2139,18 @@ document.getElementById('composer').addEventListener('submit', async (event) => 
       });
     }
     await loadBriefs(activeBrief.id);
-    let rendered = false;
-    if (
-      activeBrief?.capability?.state === 'ready'
-      && activeBrief?.continuation?.method === 'POST'
-      && activeBrief?.continuation?.endpoint
-    ) {
-      setBusy('compose-button', true, 'Creating video…');
-      const result = await api(activeBrief.continuation.endpoint, {
-        method:'POST',
-        body:JSON.stringify({ confirm:true }),
-      });
-      activeBrief = result.brief;
-      await loadBriefs(activeBrief.id);
-      rendered = result.executed === true;
-    }
-    const blocker = activeBrief?.capability?.blocker || activeBrief?.continuation?.blocker;
-    if (rendered) {
-      requestInput.value = '';
-      selectedProductionId = activeBrief.id;
-      activateView('productions');
-    } else {
-      document.querySelector('.quick-settings').open = true;
-    }
+    requestInput.value = '';
     setFeedback(
       'compose-feedback',
-      rendered
-        ? 'Video created. It is now open under Videos.'
-        : 'No video was generated. ' + (blocker || 'Choose a locally runnable Recipe and Model under Settings.'),
-      rendered ? 'success' : 'error',
+      activeBrief.workflowProposal
+        ? 'Workflow v' + activeBrief.workflowProposal.version + ' is ready to inspect. Nothing renders until you press Play.'
+        : 'Brief updated. Review its registered production path before execution.',
+      'success',
     );
   } catch (error) {
     setFeedback('compose-feedback', error.message, 'error');
   } finally {
-    setBusy('compose-button', false, activeBrief ? 'Update video' : 'Make video');
+    setBusy('compose-button', false, activeBrief ? 'Update workflow' : 'Plan workflow');
     refreshComposeAvailability();
   }
 });
@@ -1733,6 +2166,26 @@ function quickCreateFields() {
     fields.themePackId = value('quick-theme') || 'auto';
     fields.modelProfileId = value('quick-model') || 'auto';
     fields.contentScope = value('quick-content-scope') || 'general';
+    if (recipeId === 'coherent-local-film') {
+      const profileId = fields.modelProfileId;
+      const recipe = workflowRecipeForProfile(profileId);
+      const durationSeconds = Number(value('quick-shot-duration') || 3.375);
+      const frameCount = Math.min(97, 1 + 8 * Math.max(1, Math.round((durationSeconds * 24 - 1) / 8)));
+      fields.executionInputs = {
+        prompt:value('request'),
+        referenceImage:value('quick-reference-image'),
+        workflowRecipeId:recipe?.id || '',
+        qualityLane:recipe?.qualityLane || 'final',
+        seed:value('quick-video-seed') || '2307',
+        durationSeconds:String(durationSeconds),
+        aspectRatio:'9:16',
+        quality:'final',
+        width:'512',
+        height:'320',
+        frames:String(frameCount),
+        motionStrength:'0.25',
+      };
+    }
   }
   if (kind) {
     fields.kind = kind;
@@ -1742,12 +2195,198 @@ function quickCreateFields() {
   return fields;
 }
 
+document.getElementById('plan-local-episode').addEventListener('click', async () => {
+  const concept = value('request') || activeBrief?.summary;
+  if (!concept) {
+    setFeedback('compose-feedback', 'Describe the episode before planning it.', 'error');
+    return;
+  }
+  const selectedCharacter = characters.find((entry) => entry.id === value('quick-character'));
+  const referenceImage = value('quick-reference-image');
+  const musicPath = value('quick-episode-music');
+  const musicEvidence = value('quick-episode-music-evidence');
+  if (selectedCharacter && !referenceImage && !(selectedCharacter.references || []).length) {
+    setFeedback('compose-feedback', 'Add a reference image path for the selected episode character.', 'error');
+    return;
+  }
+  setBusy('plan-local-episode', true, 'Planning…');
+  try {
+    activeEpisode = await api('/studio/episodes', {
+      method:'POST',
+      body:JSON.stringify({
+        concept,
+        title:concept.split(/[.!?]/)[0].slice(0, 80),
+        targetDurationSeconds:Number(value('quick-episode-duration') || 120),
+        referenceImage:referenceImage || null,
+        cast:selectedCharacter ? [{
+          characterId:selectedCharacter.id,
+          characterRevision:selectedCharacter.revision,
+          voiceId:value('quick-character-voice') || 'af_heart',
+          referenceImage:referenceImage || null,
+        }] : [],
+        soundtrack:musicPath ? {
+          lane:'owned-local',
+          path:musicPath,
+          rightsPosture:musicEvidence ? 'owned' : 'unknown',
+          rightsEvidence:musicEvidence || null,
+        } : { lane:'procedural-draft', bpm:116 },
+      }),
+    });
+    showAllEpisodeShots = false;
+    renderEpisodeWorkspace();
+    setFeedback('compose-feedback', 'Episode plan saved. Review the shot list, then generate one shot at a time.', 'success');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('episode-workspace').scrollIntoView({ behavior:reducedMotion ? 'auto' : 'smooth', block:'start' });
+  } catch (error) {
+    setFeedback('compose-feedback', error.message, 'error');
+  } finally {
+    setBusy('plan-local-episode', false, 'Plan episode');
+  }
+});
+
+document.getElementById('interrupt-local-video').addEventListener('click', async () => {
+  setBusy('interrupt-local-video', true, 'Stopping…');
+  try {
+    await api('/studio/local-video/interrupt', { method:'POST', body:JSON.stringify({ confirm:true }) });
+    setFeedback('compose-feedback', 'Interrupt sent to the local Comfy queue.', 'success');
+  } catch (error) {
+    setFeedback('compose-feedback', error.message, 'error');
+  } finally {
+    setBusy('interrupt-local-video', false, 'Stop active render');
+  }
+});
+
+function renderEpisodeWorkspace() {
+  const workspace = document.getElementById('episode-workspace');
+  workspace.hidden = !activeEpisode;
+  if (!activeEpisode) return;
+  const run = activeEpisode.run || null;
+  const accepted = run?.shots?.filter((shot) => shot.reviewState === 'accepted').length || 0;
+  const completed = run?.shots?.filter((shot) => shot.videoPath).length || 0;
+  document.getElementById('episode-workspace-title').textContent = activeEpisode.title;
+  document.getElementById('episode-workspace-summary').textContent = activeEpisode.shots.length + ' shots · ' + activeEpisode.targetDurationSeconds + ' seconds · ' + completed + ' rendered · ' + accepted + ' accepted' + (run ? ' · ' + run.phase + ' phase' : '');
+  document.getElementById('episode-shot-list').classList.toggle('show-all', showAllEpisodeShots);
+  document.getElementById('episode-toggle-all').textContent = showAllEpisodeShots ? 'Show first 6' : 'Show all ' + activeEpisode.shots.length;
+  const rows = activeEpisode.shots.map((shot) => {
+    const result = run?.shots?.find((entry) => entry.id === shot.id);
+    const state = result?.reviewState || result?.status || 'pending';
+    const video = result?.videoPath
+      ? '<a class="button" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(result.videoPath) + '">Open video</a>'
+      : '';
+    const receipt = result?.receiptPath
+      ? '<a class="button" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(result.receiptPath) + '">Receipt</a>'
+      : '';
+    const review = result?.videoPath && state === 'needs-review'
+      ? '<button class="button" type="button" data-episode-action="accept" data-shot-id="' + escapeText(shot.id) + '">Accept</button><button class="button" type="button" data-episode-action="reject" data-shot-id="' + escapeText(shot.id) + '">Reject</button>'
+      : state === 'rejected' || !result?.videoPath
+        ? '<button class="button" type="button" data-episode-action="generate" data-shot-id="' + escapeText(shot.id) + '">Generate</button>'
+        : '';
+    return '<article class="episode-shot">' +
+      '<span class="episode-shot-order">' + String(shot.order).padStart(2, '0') + '</span>' +
+      '<div class="episode-shot-copy"><strong>' + escapeText(shot.id + ' · ' + shot.durationSeconds + 's') + '</strong><p>' + escapeText(shot.prompt) + '</p></div>' +
+      '<div class="episode-shot-meta"><span class="episode-shot-state ' + escapeText(state) + '">' + escapeText(state.replaceAll('-', ' ')) + '</span>' + video + receipt + review + '</div>' +
+      '</article>';
+  }).join('');
+  document.getElementById('episode-shot-list').innerHTML = rows || '<div class="empty-state">No shots have been planned.</div>';
+}
+
+async function refreshActiveEpisode() {
+  if (!activeEpisode?.id) return;
+  activeEpisode = await api('/studio/episodes/' + encodeURIComponent(activeEpisode.id));
+  renderEpisodeWorkspace();
+}
+
+async function generateEpisodeShot(shotId) {
+  if (!activeEpisode) return;
+  setFeedback('episode-feedback', 'Generating ' + shotId + ' serially. The 90% RAM guard remains active…');
+  try {
+    await api('/studio/episodes/' + encodeURIComponent(activeEpisode.id) + '/render', {
+      method:'POST',
+      body:JSON.stringify({ confirm:true, shotId, phase:value('episode-phase') }),
+    });
+    await refreshActiveEpisode();
+    setFeedback('episode-feedback', shotId + ' is ready for review.', 'success');
+  } catch (error) {
+    setFeedback('episode-feedback', error.message, 'error');
+  }
+}
+
+document.getElementById('episode-shot-list').addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-episode-action]');
+  if (!button) return;
+  const shotId = button.dataset.shotId;
+  if (button.dataset.episodeAction === 'generate') {
+    button.disabled = true;
+    await generateEpisodeShot(shotId);
+    return;
+  }
+  const reviewState = button.dataset.episodeAction === 'accept' ? 'accepted' : 'rejected';
+  try {
+    await api('/studio/episodes/' + encodeURIComponent(activeEpisode.id) + '/shots/' + encodeURIComponent(shotId) + '/review', {
+      method:'POST', body:JSON.stringify({ reviewState }),
+    });
+    await refreshActiveEpisode();
+    setFeedback('episode-feedback', shotId + ' marked ' + reviewState + '.', reviewState === 'accepted' ? 'success' : '');
+  } catch (error) {
+    setFeedback('episode-feedback', error.message, 'error');
+  }
+});
+
+document.getElementById('episode-generate-next').addEventListener('click', async () => {
+  if (!activeEpisode) return;
+  const runShots = activeEpisode.run?.phase === value('episode-phase') ? activeEpisode.run.shots : [];
+  const next = activeEpisode.shots.find((shot) => {
+    const result = runShots?.find((entry) => entry.id === shot.id);
+    return !result?.videoPath || result.reviewState === 'rejected';
+  });
+  if (!next) {
+    setFeedback('episode-feedback', 'Every shot in this phase has a render. Accept or reject the remaining review shots.', 'success');
+    return;
+  }
+  setBusy('episode-generate-next', true, 'Generating…');
+  await generateEpisodeShot(next.id);
+  setBusy('episode-generate-next', false, 'Generate next shot');
+});
+
+document.getElementById('episode-toggle-all').addEventListener('click', () => {
+  showAllEpisodeShots = !showAllEpisodeShots;
+  renderEpisodeWorkspace();
+});
+
+document.getElementById('episode-refresh').addEventListener('click', async () => {
+  setBusy('episode-refresh', true, 'Refreshing…');
+  try { await refreshActiveEpisode(); } catch (error) { setFeedback('episode-feedback', error.message, 'error'); }
+  setBusy('episode-refresh', false, 'Refresh');
+});
+
+document.getElementById('episode-assemble').addEventListener('click', async () => {
+  if (!activeEpisode) return;
+  setBusy('episode-assemble', true, 'Assembling…');
+  try {
+    const result = await api('/studio/episodes/' + encodeURIComponent(activeEpisode.id) + '/assemble', {
+      method:'POST', body:JSON.stringify({ confirm:true }),
+    });
+    const feedback = document.getElementById('episode-feedback');
+    feedback.className = 'feedback episode-feedback success';
+    feedback.innerHTML = 'Episode assembled. <a target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(result.output.videoPath) + '">Open video</a> · <a target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(result.receiptPath) + '">Open receipt</a>';
+  } catch (error) {
+    setFeedback('episode-feedback', error.message, 'error');
+  } finally {
+    setBusy('episode-assemble', false, 'Assemble episode');
+  }
+});
+
 async function loadCharacters(selectedId) {
   characters = await api('/studio/characters');
   const select = document.getElementById('character-select');
   select.innerHTML = '<option value="">' + (characters.length ? 'Choose a saved character' : 'No saved characters') + '</option>' +
     characters.map((character) => '<option value="' + escapeText(character.id) + '"' + (character.id === selectedId ? ' selected' : '') + '>' +
       escapeText(character.name) + ' · revision ' + character.revision + '</option>').join('');
+  const quick = document.getElementById('quick-character');
+  const previous = quick.value;
+  quick.innerHTML = '<option value="">No directory character</option>' +
+    characters.map((character) => '<option value="' + escapeText(character.id) + '">' + escapeText(character.name) + ' · revision ' + character.revision + '</option>').join('');
+  quick.value = characters.some((character) => character.id === previous) ? previous : '';
 }
 
 document.getElementById('save-character').addEventListener('click', async () => {
@@ -1855,6 +2494,7 @@ function collectSoundtrack() {
 document.getElementById('new-brief-button').addEventListener('click', () => {
   if (briefDirty && !window.confirm('Discard unsaved changes to this brief?')) return;
   activeBrief = null;
+  activeEpisode = null;
   voiceSource = null;
   voiceRecording = null;
   setVoiceStatus('Talk through the idea, then edit the transcript before creating.');
@@ -1863,6 +2503,15 @@ document.getElementById('new-brief-button').addEventListener('click', () => {
   for (const id of ['quick-recipe','quick-kind','quick-duration']) setValue(id, '');
   for (const id of ['quick-theme','quick-model']) setValue(id, 'auto');
   setValue('quick-content-scope', 'general');
+  setValue('quick-reference-image', '');
+  setValue('quick-video-seed', '2307');
+  setValue('quick-shot-duration', '3.375');
+  setValue('quick-character', '');
+  setValue('quick-episode-duration', '120');
+  setValue('quick-episode-music', '');
+  setValue('quick-episode-music-evidence', '');
+  document.getElementById('episode-workspace').hidden = true;
+  document.getElementById('workflow-proposal').hidden = true;
   renderQuickKindSelection();
   renderQuickModelSelection();
   document.getElementById('conversation').innerHTML = '<div class="message empty" role="listitem">Describe the next video. Nothing renders until you confirm its brief.</div>';
@@ -1891,6 +2540,10 @@ briefForm.addEventListener('submit', async (event) => {
 });
 document.getElementById('execute-button').addEventListener('click', executeActiveBrief);
 document.getElementById('refresh-productions').addEventListener('click', loadProductions);
+document.getElementById('production-search').addEventListener('input', (event) => {
+  productionSearch = event.target.value.trim().toLowerCase();
+  renderProductionList();
+});
 document.getElementById('distribution-brief').addEventListener('change', (event) => {
   activeBrief = briefs.find((brief) => brief.id === event.target.value) ?? null;
   if (activeBrief) populateBrief(activeBrief);
@@ -1936,6 +2589,9 @@ function populateBrief(brief) {
   setValue('quick-theme', brief.themePackId || 'auto');
   setValue('quick-model', brief.modelProfileId || 'auto');
   setValue('quick-content-scope', brief.contentScope || 'general');
+  setValue('quick-reference-image', brief.executionInputs?.referenceImage || '');
+  setValue('quick-video-seed', brief.executionInputs?.seed || '2307');
+  setValue('quick-shot-duration', brief.executionInputs?.durationSeconds || '3.375');
   renderQuickKindSelection();
   renderQuickModelSelection();
   setValue('brief-kind', brief.kind);
@@ -1991,6 +2647,7 @@ function populateBrief(brief) {
   renderBriefAction(brief);
   renderWorkflowList();
   renderWorkflowProgress();
+  renderWorkflowProposal();
   if (plannerReady) {
     if (brief.recipeId) restorePlannerFromBrief(brief).catch((error) => setFeedback('planner-feedback', error.message, 'error'));
     else renderPlannerTerminal();
@@ -2027,17 +2684,24 @@ function clearBriefForm() {
   for (const id of ['soundtrack-path','soundtrack-rights-evidence','soundtrack-url','soundtrack-prompt']) setValue(id, '');
   renderSoundtrackFields();
   renderWorkflowProgress();
+  renderWorkflowProposal();
   document.getElementById('save-brief-button').disabled = true;
   document.getElementById('execute-button').disabled = true;
   document.getElementById('brief-state').textContent = 'No brief selected';
 }
 
 function setComposerMode(refining) {
-  document.querySelector('label[for="request"]').textContent = refining ? 'What should we change?' : 'What should we make?';
+  document.querySelector('.prompt-studio').classList.toggle('has-proposal', Boolean(refining && activeBrief?.workflowProposal));
+  const routeActive = Boolean(refining && activeBrief?.workflowProposal);
+  document.querySelector('#view-create > .view-head h2').textContent = routeActive ? 'Your production route.' : 'Describe the video.';
+  document.querySelector('#view-create > .view-head p').textContent = routeActive
+    ? 'Review what Studio chose, inspect the exact machinery, then run this version or direct a revision.'
+    : 'Say what happens, how it should feel, and what the viewer should understand.';
+  document.querySelector('label[for="request"]').textContent = refining ? 'How should the workflow change?' : 'What should we make?';
   document.getElementById('request').placeholder = refining
     ? 'For example: make it calmer, use more animation, or shorten the ending.'
     : 'A 30-second cinematic video about a lonely astronaut finding a garden on Mars.';
-  document.getElementById('compose-button').textContent = refining ? 'Update video' : 'Make video';
+  document.getElementById('compose-button').textContent = refining ? 'Update workflow' : 'Plan workflow';
   document.getElementById('new-brief-button').textContent = refining ? 'New video' : 'Clear';
 }
 
@@ -2092,8 +2756,8 @@ function renderWorkflowList() {
 function renderWorkflowProgress() {
   const root = document.getElementById('workflow-progress');
   const workflow = activeBrief?.workflow;
-  root.hidden = !workflow;
-  if (!workflow) return;
+  root.hidden = !workflow || Boolean(activeBrief?.workflowProposal);
+  if (!workflow || activeBrief?.workflowProposal) return;
   const modeButton = document.getElementById('workflow-mode');
   modeButton.textContent = workflow.mode === 'manual' ? 'Use quick mode' : 'Use manual mode';
   modeButton.setAttribute('aria-pressed', String(workflow.mode === 'quick'));
@@ -2106,6 +2770,129 @@ function renderWorkflowProgress() {
     button.addEventListener('click', () => advanceWorkflowStage(button.dataset.workflowStage));
   }
 }
+
+function renderWorkflowProposal() {
+  const root = document.getElementById('workflow-proposal');
+  const proposal = activeBrief?.workflowProposal;
+  root.hidden = !proposal;
+  if (!proposal) return;
+  document.getElementById('workflow-proposal-title').textContent = proposal.name + ' · v' + proposal.version;
+  document.getElementById('workflow-proposal-reason').textContent = proposal.selectionReason + ' ' + proposal.description;
+  const state = document.getElementById('workflow-proposal-state');
+  state.textContent = proposal.readiness.ready ? 'Ready to run' : 'Needs input';
+  state.className = 'state ' + (proposal.readiness.ready ? 'ready' : 'needs-input');
+  document.getElementById('workflow-proposal-summary').innerHTML = [
+    ['Model', proposal.binding.modelProfileId],
+    ['Lane', proposal.lane],
+    ['Format', proposal.inputs.aspectRatio + ' · ' + proposal.inputs.durationSeconds + 's'],
+    ['Seed', proposal.inputs.seed],
+  ].map((entry) => '<div class="proposal-metric"><span>' + escapeText(entry[0]) + '</span><strong>' + escapeText(entry[1]) + '</strong></div>').join('');
+  document.getElementById('workflow-proposal-phases').innerHTML = proposal.phases.map((phase) =>
+    '<div class="proposal-phase"><small>' + escapeText(phase.owner) + '</small><strong>' +
+    escapeText(phase.name) + '</strong><p>' + escapeText(phase.detail) + '</p></div>').join('');
+  const blocker = document.getElementById('workflow-proposal-blocker');
+  blocker.hidden = proposal.readiness.ready;
+  document.getElementById('workflow-proposal-blocker-copy').textContent = proposal.readiness.blocker || '';
+  setValue('workflow-proposal-reference', proposal.inputs.referenceImage || '');
+  document.getElementById('workflow-proposal-models').innerHTML = [
+    ['Workflow recipe', proposal.binding.workflowRecipeId + ' · v' + (proposal.binding.recipeVersion || '—')],
+    ['Runtime', proposal.binding.engine || 'Unavailable'],
+    ['Model profile', proposal.binding.modelProfileId],
+    ['Resource guard', 'Disk ≤ ' + proposal.resourceEnvelope.maxDiskPercent + '% · RAM ≤ ' + proposal.resourceEnvelope.maxRamPercent + '% · serial'],
+    ['Graph scope', proposal.sharedGraphDisclosure],
+  ].map((entry) => '<div class="proposal-model-row"><strong>' + escapeText(entry[0]) + '</strong><span>' + escapeText(entry[1]) + '</span></div>').join('');
+  const play = document.getElementById('workflow-proposal-play');
+  play.disabled = !proposal.readiness.ready || proposal.state === 'playing';
+  play.textContent = proposal.state === 'playing' ? 'Rendering…' : proposal.state === 'played' ? 'Run again' : 'Run this plan';
+  document.getElementById('workflow-proposal-comfy-result').hidden = true;
+  document.getElementById('workflow-proposal-comfy-result').innerHTML = '';
+  setFeedback('workflow-proposal-feedback', proposal.lastRevision
+    ? 'Updated from v' + proposal.lastRevision.fromVersion + ': ' + proposal.lastRevision.changes.map((entry) => entry.field).join(', ') + '.'
+    : '', proposal.lastRevision ? 'success' : '');
+}
+
+async function reviseWorkflowProposal(instruction) {
+  if (!activeBrief?.workflowProposal) return;
+  const text = String(instruction || '').trim();
+  if (!text) throw new Error('Describe the workflow change.');
+  setBusy('workflow-proposal-revise-button', true, 'Updating…');
+  try {
+    activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow-proposal/revise', {
+      method:'POST', body:JSON.stringify({ instruction:text }),
+    });
+    await loadBriefs(activeBrief.id);
+    setValue('workflow-proposal-instruction', '');
+  } finally {
+    setBusy('workflow-proposal-revise-button', false, 'Revise plan');
+  }
+}
+
+document.getElementById('workflow-proposal-revise').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  try {
+    await reviseWorkflowProposal(value('workflow-proposal-instruction'));
+  } catch (error) {
+    setFeedback('workflow-proposal-feedback', error.message, 'error');
+  }
+});
+
+document.getElementById('workflow-proposal-reference-save').addEventListener('click', async () => {
+  try {
+    const reference = value('workflow-proposal-reference');
+    if (!reference.startsWith('/')) throw new Error('Use an absolute local image path.');
+    await reviseWorkflowProposal('Set reference to: ' + reference);
+  } catch (error) {
+    setFeedback('workflow-proposal-feedback', error.message, 'error');
+  }
+});
+
+document.getElementById('workflow-proposal-new').addEventListener('click', () => {
+  document.getElementById('new-brief-button').click();
+});
+
+document.getElementById('workflow-proposal-comfy').addEventListener('click', async () => {
+  if (!activeBrief?.workflowProposal) return;
+  const button = document.getElementById('workflow-proposal-comfy');
+  setBusy(button.id, true, 'Inspecting…');
+  try {
+    const inspection = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow-proposal/graph');
+    const box = document.getElementById('workflow-proposal-comfy-result');
+    box.hidden = false;
+    if (!inspection.comfy.available) {
+      box.innerHTML = '<p class="hint">' + escapeText(inspection.comfy.reason) + '</p>';
+    } else {
+      box.innerHTML = '<p class="hint">' + inspection.comfy.nodes.length + ' pinned nodes · ' + inspection.comfy.edges.length + ' connections · graph ' + escapeText(inspection.recipe.graphSha256?.slice(0, 12) || 'unhashed') + '</p>' +
+        '<div class="comfy-node-list">' + inspection.comfy.nodes.map((node) => '<div class="comfy-node"><strong>' + escapeText(node.id + ' · ' + node.type) + '</strong><span>' + escapeText(node.inputs.join(', ')) + '</span></div>').join('') + '</div>' +
+        '<details><summary>Raw Comfy API JSON</summary><pre class="comfy-json">' + escapeText(JSON.stringify(inspection.comfy.graph, null, 2)) + '</pre></details>';
+    }
+  } catch (error) {
+    setFeedback('workflow-proposal-feedback', error.message, 'error');
+  } finally {
+    setBusy(button.id, false, 'Inspect runtime graph');
+  }
+});
+
+document.getElementById('workflow-proposal-play').addEventListener('click', async () => {
+  const proposal = activeBrief?.workflowProposal;
+  if (!proposal) return;
+  setBusy('workflow-proposal-play', true, 'Rendering v' + proposal.version + '…');
+  setFeedback('workflow-proposal-feedback', 'The exact v' + proposal.version + ' plan is now frozen. Rendering one job locally…');
+  try {
+    const result = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow-proposal/play', {
+      method:'POST', body:JSON.stringify({ confirm:true, version:proposal.version }),
+    });
+    activeBrief = result.brief;
+    await loadBriefs(activeBrief.id);
+    if (result.executed) {
+      selectedProductionId = activeBrief.id;
+      activateView('productions');
+    }
+  } catch (error) {
+    setFeedback('workflow-proposal-feedback', error.message, 'error');
+  } finally {
+    setBusy('workflow-proposal-play', false, 'Run this plan');
+  }
+});
 
 document.getElementById('workflow-mode').addEventListener('click', async () => {
   if (!activeBrief?.workflow) return;
@@ -2285,6 +3072,175 @@ async function executeActiveBrief() {
   }
 }
 
+async function loadHistory() {
+  const showcase = document.getElementById('history-showcase');
+  showcase.innerHTML = '<div class="loading-line"></div>';
+  try {
+    historyEntries = await api('/studio/history');
+    const sampleEntries = new Map(historyEntries.filter((entry) => entry.sampleId).map((entry) => [entry.sampleId, entry]));
+    const samples = WORKFLOW_SAMPLES.map((sample) => ({
+      ...sample,
+      entry:sampleEntries.get(sample.id) || null,
+    }));
+    const available = samples.find((sample) => sample.entry?.video) || samples.find((sample) => sample.entry) || samples[0];
+    if (!samples.some((sample) => sample.entry?.id === activeHistoryId)) activeHistoryId = available?.entry?.id || 'planned:' + available.id;
+    renderHistory(samples);
+  } catch (error) {
+    showcase.innerHTML = '<div class="empty-state">Could not read film history: ' + escapeText(error.message) + '</div>';
+  }
+}
+
+function renderHistory(samples) {
+  const selectedHistoryEntry = historyEntries.find((item) => item.id === activeHistoryId);
+  const activeSample = samples.find((sample) => (sample.entry?.id || 'planned:' + sample.id) === activeHistoryId)
+    || (selectedHistoryEntry ? {
+      id:selectedHistoryEntry.sampleId || selectedHistoryEntry.id,
+      title:selectedHistoryEntry.title,
+      prompt:selectedHistoryEntry.prompt,
+      seed:selectedHistoryEntry.workflow?.seed,
+      aspectRatio:selectedHistoryEntry.workflow?.aspectRatio,
+      entry:selectedHistoryEntry,
+    } : samples[0]);
+  const entry = activeSample.entry;
+  const workflow = entry?.workflow;
+  const phases = workflow?.phases?.length ? workflow.phases : [
+    { name:'Direct shot', detail:'Original prompt and reference' },
+    { name:'Condition subject', detail:'Reference image and seed' },
+    { name:'Generate', detail:'LTX 2.3 final' },
+    { name:'Review', detail:'Playable artifact evidence' },
+  ];
+  const picture = entry?.video
+    ? '<div class="history-picture"><span class="history-video-label">Local final</span><video controls playsinline preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '"></video></div>'
+    : '<div class="history-picture"><div class="history-picture-empty"><div><strong>Ready to run</strong><p>This test has a frozen prompt, reference, model, and seed. Its video will appear here after the serial LTX run.</p></div></div></div>';
+  const testedCount = samples.filter((sample) => sample.entry?.video).length;
+  document.getElementById('history-showcase').innerHTML = picture +
+    '<article class="history-story"><div class="history-story-topline"><span>' + escapeText(String(testedCount)) + '/5 rendered locally</span><span>·</span><span>' + escapeText(entry?.quality?.verdict || entry?.lifecycle || 'planned') + '</span></div>' +
+    '<h3>' + escapeText(activeSample.title) + '</h3>' +
+    '<div class="history-section"><strong>Prompt</strong><p class="history-prompt">' + escapeText(entry?.prompt || activeSample.prompt) + '</p></div>' +
+    '<div class="history-section"><strong>Workflow</strong><div><div class="history-workflow-meta"><span><strong>' + escapeText(workflow?.name || 'Auto-routed LTX final') + '</strong></span><span>' + escapeText(workflow?.modelProfileId || 'ltx-2.3-mlx-q4') + '</span><span>seed ' + escapeText(String(workflow?.seed || activeSample.seed)) + '</span><span>' + escapeText(workflow?.aspectRatio || activeSample.aspectRatio) + '</span></div>' +
+    '<div class="history-route">' + phases.slice(0, 4).map((phase, index) => '<div class="history-route-step"><span>0' + (index + 1) + '</span><strong>' + escapeText(phase.name) + '</strong></div>').join('') + '</div></div></div>' +
+    '<div class="history-actions">' + (entry?.video ? '<a class="button primary" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(entry.video.path) + '">Open video</a>' : '') +
+    (entry?.receiptPath ? '<a class="button" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(entry.receiptPath) + '">Execution receipt</a>' : '') +
+    (entry ? '<button class="button" type="button" data-history-edit="' + escapeText(entry.id) + '">Modify in Create</button>' : '<button class="button" type="button" data-use-sample="' + escapeText(activeSample.id) + '">Use this prompt</button>') + '</div></article>';
+
+  document.getElementById('sample-filmstrip').innerHTML = samples.map((sample, index) => {
+    const id = sample.entry?.id || 'planned:' + sample.id;
+    const status = sample.entry?.video ? 'Rendered' : sample.entry ? 'Planned' : 'Queued';
+    return '<button type="button" data-history-select="' + escapeText(id) + '" aria-current="' + String(id === activeHistoryId) + '"><span>0' + (index + 1) + ' · ' + status + '</span><strong>' + escapeText(sample.title) + '</strong></button>';
+  }).join('');
+  document.getElementById('history-ledger-list').innerHTML = historyEntries.length ? historyEntries.map((item) =>
+    '<article class="history-ledger-row"><time datetime="' + escapeText(item.updatedAt) + '">' + escapeText(new Date(item.updatedAt).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' })) + '</time><div><h4>' + escapeText(item.title) + '</h4><p>' + escapeText(item.prompt) + '</p></div><div class="button-row">' +
+    (item.video ? '<button class="button" type="button" data-history-select="' + escapeText(item.id) + '">Watch</button>' : '<span class="state">' + escapeText(item.lifecycle) + '</span>') +
+    '<button class="button" type="button" data-history-edit="' + escapeText(item.id) + '">Edit</button></div></article>').join('')
+    : '<div class="empty-state">No saved Studio history yet.</div>';
+}
+
+document.getElementById('view-history').addEventListener('click', (event) => {
+  const select = event.target.closest('[data-history-select]');
+  if (select) {
+    activeHistoryId = select.dataset.historySelect;
+    const sampleEntries = new Map(historyEntries.filter((entry) => entry.sampleId).map((entry) => [entry.sampleId, entry]));
+    renderHistory(WORKFLOW_SAMPLES.map((sample) => ({ ...sample, entry:sampleEntries.get(sample.id) || null })));
+    document.getElementById('history-showcase').scrollIntoView({ block:'start', behavior:'smooth' });
+    return;
+  }
+  const edit = event.target.closest('[data-history-edit]');
+  if (edit) {
+    activeBrief = briefs.find((brief) => brief.id === edit.dataset.historyEdit) || null;
+    if (activeBrief) populateBrief(activeBrief);
+    activateView('create');
+    document.getElementById('request').focus();
+    return;
+  }
+  const sampleButton = event.target.closest('[data-use-sample]');
+  if (sampleButton) {
+    const sample = WORKFLOW_SAMPLES.find((item) => item.id === sampleButton.dataset.useSample);
+    document.getElementById('request').value = sample?.prompt || '';
+    activateView('create');
+    document.getElementById('request').focus();
+  }
+});
+
+document.getElementById('history-operations').addEventListener('toggle', (event) => {
+  if (event.currentTarget.open) loadProductions();
+});
+
+async function loadRecipeLibrary() {
+  try {
+    recipeLibrary = await api('/studio/recipe-library');
+    activeRecipeId = recipeLibrary.recipes.some((recipe) => recipe.id === activeRecipeId) ? activeRecipeId : recipeLibrary.recipes[0]?.id;
+    renderRecipeLibrary();
+  } catch (error) {
+    document.getElementById('recipe-library-detail').innerHTML = '<div class="empty-state">Could not read recipes: ' + escapeText(error.message) + '</div>';
+  }
+}
+
+function renderRecipeLibrary() {
+  const recipes = recipeLibrary.recipes || [];
+  const recipe = recipes.find((item) => item.id === activeRecipeId) || recipes[0];
+  document.getElementById('recipe-library-index').innerHTML = recipes.map((item) => '<button type="button" data-recipe-select="' + escapeText(item.id) + '" aria-current="' + String(item.id === recipe?.id) + '"><strong>' + escapeText(item.name) + '</strong><span>' + escapeText(item.delivery?.label || item.runtime || 'Studio route') + '</span></button>').join('');
+  if (!recipe) {
+    document.getElementById('recipe-library-detail').innerHTML = '<div class="empty-state">No recipes are registered.</div>';
+    return;
+  }
+  const controls = recipe.controls?.length ? recipe.controls.map((control) => '<span>' + escapeText(control.label) + '</span>').join('') : '<span>Prompt-directed</span>';
+  document.getElementById('recipe-library-detail').innerHTML = '<p class="library-kicker">' + escapeText(recipe.readiness?.state || 'registered') + ' · ' + escapeText(recipe.kind || 'video') + '</p><h3>' + escapeText(recipe.name) + '</h3><p class="library-description">' + escapeText(recipe.description) + '</p>' +
+    '<div class="library-facts"><div class="library-fact"><span>Runtime</span><strong>' + escapeText(recipe.runtime || 'Auto') + '</strong></div><div class="library-fact"><span>Delivery</span><strong>' + escapeText(recipe.delivery?.label || recipe.delivery?.kind || 'Studio output') + '</strong></div><div class="library-fact"><span>Variations</span><strong>' + escapeText(String(recipe.variantCount || 1)) + '</strong></div></div>' +
+    '<section class="library-controls"><h4>Creative controls</h4><div class="library-control-list">' + controls + '</div></section>' +
+    (recipe.readiness?.blocker ? '<p class="library-note">Current boundary: ' + escapeText(recipe.readiness.blocker) + '</p>' : '') +
+    '<div class="library-actions"><button class="button primary" type="button" data-use-recipe="' + escapeText(recipe.id) + '">Use this recipe</button></div>';
+}
+
+document.getElementById('view-recipes').addEventListener('click', (event) => {
+  const select = event.target.closest('[data-recipe-select]');
+  if (select) { activeRecipeId = select.dataset.recipeSelect; renderRecipeLibrary(); return; }
+  const use = event.target.closest('[data-use-recipe]');
+  if (!use) return;
+  const recipe = recipeLibrary.recipes.find((item) => item.id === use.dataset.useRecipe);
+  const quickRecipe = document.getElementById('quick-recipe');
+  if ([...quickRecipe.options].some((option) => option.value === recipe.id)) quickRecipe.value = recipe.id;
+  document.getElementById('request').value = 'Create a ' + recipe.name + '. ' + recipe.description;
+  activateView('create');
+  document.getElementById('request').focus();
+});
+
+async function loadWorkflowLibrary() {
+  try {
+    workflowLibrary = await api('/studio/workflow-library');
+    activeWorkflowId = workflowLibrary.some((workflow) => workflow.id === activeWorkflowId) ? activeWorkflowId : workflowLibrary[0]?.id;
+    renderWorkflowLibrary();
+  } catch (error) {
+    document.getElementById('workflow-library-detail').innerHTML = '<div class="empty-state">Could not read workflows: ' + escapeText(error.message) + '</div>';
+  }
+}
+
+function renderWorkflowLibrary() {
+  const workflow = workflowLibrary.find((item) => item.id === activeWorkflowId) || workflowLibrary[0];
+  document.getElementById('workflow-library-index').innerHTML = workflowLibrary.map((item) => '<button type="button" data-workflow-select="' + escapeText(item.id) + '" aria-current="' + String(item.id === workflow?.id) + '"><strong>' + escapeText(item.name) + '</strong><span>' + escapeText(item.shotGrammar) + '</span></button>').join('');
+  if (!workflow) {
+    document.getElementById('workflow-library-detail').innerHTML = '<div class="empty-state">No workflows are registered.</div>';
+    return;
+  }
+  const finalLane = workflow.lanes?.final || {};
+  const previewLane = workflow.lanes?.preview || {};
+  document.getElementById('workflow-library-detail').innerHTML = '<p class="library-kicker">Version ' + escapeText(String(workflow.version)) + ' · auto-routable</p><h3>' + escapeText(workflow.name) + '</h3><p class="library-description">' + escapeText(workflow.description) + '</p>' +
+    '<div class="library-facts"><div class="library-fact"><span>Shot grammar</span><strong>' + escapeText(workflow.shotGrammar) + '</strong></div><div class="library-fact"><span>Final model</span><strong>' + escapeText(finalLane.modelProfileId || 'Unbound') + '</strong></div><div class="library-fact"><span>Engine</span><strong>' + escapeText(finalLane.engine || 'Unbound') + '</strong></div></div>' +
+    '<section class="library-controls"><h4>Recognized intent</h4><div class="library-control-list">' + (workflow.intentTags || []).map((tag) => '<span>' + escapeText(tag) + '</span>').join('') + '</div></section>' +
+    '<section class="library-route"><h4>Execution route</h4><div class="history-route"><div><span>01</span><strong>Direct shot</strong></div><div><span>02</span><strong>Condition subject</strong></div><div><span>03</span><strong>' + escapeText(finalLane.modelProfileId || 'Generate') + '</strong></div><div><span>04</span><strong>Review evidence</strong></div></div></section>' +
+    '<p class="library-note">Final recipe: ' + escapeText(finalLane.workflowRecipeId || 'unbound') + ' · graph ' + escapeText(finalLane.graphSha256 ? finalLane.graphSha256.slice(0, 12) : 'not registered') + '. Preview model: ' + escapeText(previewLane.modelProfileId || 'unbound') + '. Default shot: ' + escapeText(workflow.defaultAspectRatio) + ' at ' + escapeText(String(workflow.defaultDurationSeconds)) + ' seconds. Prompt guide: ' + escapeText(workflow.promptGuide) + '</p><div class="library-actions"><button class="button primary" type="button" data-use-workflow="' + escapeText(workflow.id) + '">Use this workflow</button></div>';
+}
+
+document.getElementById('view-workflows').addEventListener('click', (event) => {
+  const select = event.target.closest('[data-workflow-select]');
+  if (select) { activeWorkflowId = select.dataset.workflowSelect; renderWorkflowLibrary(); return; }
+  const use = event.target.closest('[data-use-workflow]');
+  if (!use) return;
+  const workflow = workflowLibrary.find((item) => item.id === use.dataset.useWorkflow);
+  document.getElementById('request').value = 'Use the ' + workflow.name + ' workflow: ' + workflow.promptGuide + '. ';
+  activateView('create');
+  document.getElementById('request').focus();
+});
+
 async function loadProductions() {
   const box = document.getElementById('production-list');
   resetPlatformPreviewPlayers();
@@ -2311,9 +3267,14 @@ async function loadProductions() {
 function renderProductionList() {
   const box = document.getElementById('production-list');
   resetPlatformPreviewPlayers();
-  const filtered = productionData.briefs.filter((brief) => activeProductionLane === 'all' || contentLane(brief) === activeProductionLane);
+  const filtered = productionData.briefs.filter((brief) => {
+    if (activeProductionLane !== 'all' && contentLane(brief) !== activeProductionLane) return false;
+    if (!productionSearch) return true;
+    return [brief.title, brief.summary, brief.projectSlug, brief.recipe?.name, brief.recipeId]
+      .some((candidate) => String(candidate || '').toLowerCase().includes(productionSearch));
+  });
   const showLegacy = activeProductionLane === 'all' || activeProductionLane === 'operator-request';
-  if (!filtered.length && (!showLegacy || !productionData.legacyRenders.length)) {
+  if (!filtered.length && (!showLegacy || (!productionData.legacyRenders.length && !productionData.episodes.length))) {
     box.innerHTML = '<div class="empty-state"><strong>No ' + escapeText(laneLabel(activeProductionLane).toLowerCase()) + ' productions yet.</strong><br>' +
       (activeProductionLane === 'project-automation'
         ? 'Run an enabled project policy from the factory CLI or local automation endpoint; progress will appear here.'
@@ -2345,8 +3306,27 @@ function renderProductionList() {
   const legacy = legacyItems
     ? '<details class="legacy-productions"><summary>Previous local renders · ' + escapeText(String(productionData.legacyRenders.length)) + '</summary>' + legacyItems + '</details>'
     : '';
-  box.innerHTML = '<div class="production-list">' + readySection + pendingSection + legacy + '</div>';
+  const episodes = showLegacy && productionData.episodes?.length
+    ? '<section aria-labelledby="episode-productions-title"><div class="video-section-head"><div><h3 id="episode-productions-title">Episodes</h3><p>Multi-shot local work, including progress and final assemblies.</p></div><span>' + escapeText(String(productionData.episodes.length)) + '</span></div><div class="production-plan-list">' +
+      productionData.episodes.map(renderEpisodeProduction).join('') + '</div></section>'
+    : '';
+  box.innerHTML = '<div class="production-list">' + readySection + episodes + pendingSection + legacy + '</div>';
   initializePlatformPreviews();
+}
+
+function renderEpisodeProduction(episode) {
+  const run = episode.run;
+  const completed = run?.shots?.filter((shot) => shot.videoPath).length || 0;
+  const accepted = run?.shots?.filter((shot) => shot.reviewState === 'accepted').length || 0;
+  const videoPath = episode.assembly?.output?.videoPath;
+  return '<article class="production-plan"><div><h3>' + escapeText(episode.title) + '</h3><p>' +
+    escapeText(episode.targetDurationSeconds + ' seconds · ' + episode.shots.length + ' shots · ' + completed + ' rendered · ' + accepted + ' accepted' + (run ? ' · ' + run.phase + ' phase' : '')) +
+    '</p><div class="production-meta"><span class="state ' + (videoPath ? 'ready' : 'needs-review') + '">' + escapeText(videoPath ? 'assembled' : run?.status || 'planned') + '</span>' +
+    '<span class="state">local episode</span></div></div><div class="production-plan-actions">' +
+    '<button class="button" type="button" data-open-episode="' + escapeText(episode.id) + '">Open workflow</button>' +
+    (videoPath ? '<a class="button primary" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(videoPath) + '">Open video</a>' : '') +
+    (episode.assembly?.receiptPath ? '<a class="button" target="_blank" rel="noreferrer" href="/studio/render-file?path=' + encodeURIComponent(episode.assembly.receiptPath) + '">Receipt</a>' : '') +
+    '</div></article>';
 }
 
 function hasReviewArtifact(brief) {
@@ -2440,6 +3420,7 @@ function renderProduction(brief, options = {}) {
   const lane = contentLane(brief);
   const automationEvidence = lane === 'operator-request' ? '' : renderAutomationEvidence(brief);
   const workflowEvidence = renderWorkflowEvidence(brief);
+  const editorialDecision = options.featured ? renderEditorialDecision(brief) : '';
   return '<article class="production' + (platformAudio ? ' platform-audio-production' : '') + (options.featured ? ' featured' : '') + '">' +
     '<div class="production-info"><h3>' + escapeText(brief.title) + '</h3>' +
     '<p>' + (platformAudio
@@ -2454,11 +3435,33 @@ function renderProduction(brief, options = {}) {
     (quality ? '<span class="state ' + (quality.verdict === 'pass' ? 'ready' : 'needs-review') + '">quality ' + escapeText(quality.verdict) + (quality.overall ? ' · ' + quality.overall : '') + '</span>' : '') +
     (platformAudio ? '<span class="state ready">verified silent · ' + escapeText(String(platformAudio.reference?.durationSeconds || brief.durationSeconds)) + 's</span>' : '') +
     (brief.kind === 'lyric-video' ? '<span class="state">' + escapeText(String(brief.lyric?.cues?.length || 0)) + ' exact cues</span><span class="state">' + (brief.media?.blender ? 'Blender ' + escapeText(brief.media.blender.version || 'ready') : 'native lyric plates') + '</span>' : '') +
-    '</div>' + automationEvidence + workflowEvidence + lyricEvidence + '<div class="button-row" style="margin-top:14px"><button class="button" type="button" data-edit-brief="' + escapeText(brief.id) + '">Edit brief</button>' +
+    '</div>' + automationEvidence + workflowEvidence + lyricEvidence + editorialDecision + '<div class="button-row" style="margin-top:14px"><button class="button" type="button" data-edit-brief="' + escapeText(brief.id) + '">Edit brief</button>' +
     (brief.kind === 'lyric-video' && brief.media?.videoPath ? '<button class="button primary" type="button" data-review-brief="' + escapeText(brief.id) + '">Review lyric video</button>' : '') +
     (brief.continuation?.href ? '<a class="button" href="' + escapeText(brief.continuation.href) + '">' + escapeText(continuationLabel) + '</a>' : '') +
     (brief.media?.videoPath ? '<a class="button' + (options.featured ? ' primary' : '') + '" href="/studio/render-file?path=' + encodeURIComponent(brief.media.videoPath) + '" target="_blank" rel="noreferrer">Open video</a>' : '') +
     '</div>' + platformSetup + '</div><div class="production-media">' + media + '</div></article>';
+}
+
+function renderEditorialDecision(brief) {
+  const decision = brief.approval?.reviewDecision || (brief.approval?.qualityAccepted ? 'accepted' : 'pending');
+  const history = brief.approval?.reviewHistory || [];
+  const reviewedAt = brief.approval?.reviewedAt
+    ? ' · ' + new Date(brief.approval.reviewedAt).toLocaleString()
+    : '';
+  const guidance = decision === 'accepted'
+    ? 'Accepted for the next approved handoff. The artifact, evidence, and exact production contract remain attached.'
+    : decision === 'rejected'
+      ? 'Rejected. Regenerate or replace the artifact before accepting it.'
+      : decision === 'revisions-requested'
+        ? 'Revisions requested. The current artifact remains available as evidence.'
+        : 'Watch the complete artifact, inspect its evidence, then make an explicit editorial decision.';
+  return '<section class="editorial-decision" aria-label="Editorial decision"><div><strong>Editorial decision</strong><p>' + escapeText(guidance) + '</p>' +
+    '<span class="editorial-history">Current decision: ' + escapeText(decision.replaceAll('-', ' ')) + escapeText(reviewedAt) + '</span>' +
+    (history.length ? '<details><summary class="editorial-history">Decision history · ' + escapeText(String(history.length)) + '</summary><ol>' + history.slice().reverse().map((entry) =>
+      '<li class="editorial-history">' + escapeText(entry.decision.replaceAll('-', ' ') + ' · revision ' + entry.briefRevision + ' · ' + new Date(entry.at).toLocaleString() + ' · ' + (entry.artifactSha256 || 'unhashed legacy artifact')) + '</li>').join('') + '</ol></details>' : '') + '</div>' +
+    '<div class="button-row"><button class="button primary" type="button" data-review-decision="accepted" data-brief-id="' + escapeText(brief.id) + '"' + (decision === 'accepted' ? ' disabled' : '') + '>Accept</button>' +
+    '<button class="button" type="button" data-review-decision="revisions-requested" data-brief-id="' + escapeText(brief.id) + '">Revise</button>' +
+    '<button class="button danger" type="button" data-review-decision="rejected" data-brief-id="' + escapeText(brief.id) + '">Reject</button></div></section>';
 }
 
 function renderWorkflowEvidence(brief) {
@@ -2468,6 +3471,14 @@ function renderWorkflowEvidence(brief) {
     ? brief.cast.map((entry) => entry.name + ' r' + entry.characterRevision).join(', ')
     : 'No reusable cast';
   const model = brief.modelSelection?.profile?.name || brief.modelProfileId || brief.media?.provider || 'not selected';
+  const workflowRecipeId = brief.executionInputs?.workflowRecipeId || workflowRecipeForProfile(brief.modelProfileId)?.id;
+  const workflowStyle = modelOptions.workflowRecipes?.find((entry) => entry.id === workflowRecipeId);
+  const filmStyle = workflowStyle
+    ? workflowStyle.name + '@' + workflowStyle.version
+    : brief.recipe
+      ? brief.recipe.name + '@' + brief.recipe.version
+      : 'not resolved';
+  const filmStyleReadiness = workflowStyle?.readiness?.state || brief.recipe?.readiness?.state || 'unknown readiness';
   const soundtrack = brief.soundtrack?.lane === 'procedural-draft'
     ? 'procedural draft · blocks final distribution'
     : (brief.soundtrack?.lane || 'not selected').replaceAll('-', ' ');
@@ -2475,6 +3486,7 @@ function renderWorkflowEvidence(brief) {
     ? 'private review only until normal approvals and evidence pass'
     : brief.distribution?.receipt ? 'distribution receipt present' : 'not distributed';
   return '<dl class="production-evidence" aria-label="Workflow evidence">' +
+    '<div><dt>Film style</dt><dd>' + escapeText(filmStyle + ' · ' + filmStyleReadiness.replaceAll('-', ' ')) + '</dd></div>' +
     '<div><dt>Workflow</dt><dd>' + completed + ' / ' + stages.length + ' stages complete</dd></div>' +
     '<div><dt>Cast</dt><dd>' + escapeText(cast) + '</dd></div>' +
     '<div><dt>Model</dt><dd>' + escapeText(model) + '</dd></div>' +
@@ -2493,7 +3505,7 @@ function renderAutomationEvidence(brief) {
   return '<dl class="production-evidence automation-evidence" aria-label="Automation evidence">' +
     '<div><dt>Policy</dt><dd>' + escapeText((trigger.automationPolicyId || 'unknown') + ' · r' + (trigger.automationPolicyRevision || '?')) + '</dd></div>' +
     '<div><dt>Source</dt><dd>' + escapeText((source.adapter || 'unknown') + ' · ' + (source.sourceId || 'unknown') + ' · r' + (source.revision || 1)) + '</dd></div>' +
-    '<div><dt>Recipe and spend</dt><dd>' + escapeText((brief.recipe?.name || automation.selectedRecipe?.name || 'not selected') + ' · ' + spend) + '</dd></div>' +
+    '<div><dt>Film style and spend</dt><dd>' + escapeText((brief.recipe?.name || automation.selectedRecipe?.name || 'not selected') + ' · ' + spend) + '</dd></div>' +
     '<div><dt>Quality</dt><dd>' + escapeText(quality) + '</dd></div>' +
     '<div><dt>Distribution</dt><dd>' + escapeText(distribution.replaceAll('-', ' ')) + '</dd></div>' +
     '<div><dt>Attempts</dt><dd>' + escapeText(String(automation.attempts?.length || 0)) + ' / policy limit</dd></div>' +
@@ -2786,7 +3798,32 @@ function resetPlatformPreviewPlayers() {
   platformPreviewPlayers.clear();
 }
 
-document.getElementById('production-list').addEventListener('click', (event) => {
+document.getElementById('production-list').addEventListener('click', async (event) => {
+  const decisionButton = event.target.closest('[data-review-decision]');
+  if (decisionButton) {
+    const decision = decisionButton.dataset.reviewDecision;
+    const briefId = decisionButton.dataset.briefId;
+    for (const button of decisionButton.closest('.editorial-decision').querySelectorAll('button')) button.disabled = true;
+    try {
+      activeBrief = await api('/studio/briefs/' + encodeURIComponent(briefId) + '/review', {
+        method:'POST',
+        body:JSON.stringify({ decision }),
+      });
+      selectedProductionId = briefId;
+      await loadProductions();
+      if (decision === 'revisions-requested') {
+        populateBrief(activeBrief);
+        activateView('create');
+        document.getElementById('request').focus();
+        setFeedback('compose-feedback', 'Revision requested. Describe the change; the reviewed artifact remains in Videos.', 'success');
+      }
+    } catch (error) {
+      await loadProductions();
+      const selectedReview = document.querySelector('.editorial-decision p');
+      if (selectedReview) selectedReview.textContent = 'Could not save the editorial decision: ' + error.message;
+    }
+    return;
+  }
   const previewRoot = event.target.closest('[data-platform-preview]');
   if (previewRoot && event.target.closest('[data-platform-play],[data-platform-restart]')) {
     playPlatformPreview(previewRoot, Boolean(event.target.closest('[data-platform-restart]')));
@@ -2797,6 +3834,19 @@ document.getElementById('production-list').addEventListener('click', (event) => 
     selectedProductionId = watchButton.dataset.watchBrief;
     renderProductionList();
     document.querySelector('.ready-productions')?.scrollIntoView({ block:'start' });
+    return;
+  }
+  const episodeButton = event.target.closest('[data-open-episode]');
+  if (episodeButton) {
+    try {
+      activeEpisode = await api('/studio/episodes/' + encodeURIComponent(episodeButton.dataset.openEpisode));
+      showAllEpisodeShots = false;
+      renderEpisodeWorkspace();
+      activateView('create');
+      document.getElementById('episode-workspace').scrollIntoView({ block:'start' });
+    } catch (error) {
+      document.getElementById('production-list').innerHTML = '<div class="empty-state">Could not open episode: ' + escapeText(error.message) + '</div>';
+    }
     return;
   }
   const button = event.target.closest('[data-edit-brief],[data-review-brief]');
@@ -3286,17 +4336,35 @@ function activateTool(id) {
 }
 
 async function api(path, init) {
-  const response = await fetch(path, {
-    headers:{ 'content-type':'application/json', ...(init?.headers || {}) },
-    ...init,
-  });
-  const payload = await response.json();
-  if (!response.ok) {
-    const error = new Error(typeof payload.error === 'string' ? payload.error : payload.error?.message || 'Request failed');
-    error.payload = payload;
-    throw error;
+  pendingStudioRequests += 1;
+  updateOperationStatus();
+  try {
+    const response = await fetch(path, {
+      headers:{ 'content-type':'application/json', ...(init?.headers || {}) },
+      ...init,
+    });
+    const payload = await response.json();
+    if (!response.ok) {
+      const error = new Error(typeof payload.error === 'string' ? payload.error : payload.error?.message || 'Request failed');
+      error.payload = payload;
+      throw error;
+    }
+    return payload.data;
+  } finally {
+    pendingStudioRequests = Math.max(0, pendingStudioRequests - 1);
+    updateOperationStatus();
   }
-  return payload.data;
+}
+
+function updateOperationStatus() {
+  const busy = pendingStudioRequests > 0;
+  const status = document.getElementById('operation-status');
+  document.getElementById('workspace').setAttribute('aria-busy', String(busy));
+  status.setAttribute('aria-busy', String(busy));
+  status.classList.toggle('busy', busy);
+  status.textContent = busy
+    ? pendingStudioRequests + (pendingStudioRequests === 1 ? ' Studio operation in progress' : ' Studio operations in progress')
+    : 'Studio ready · updated ' + new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
 }
 
 function value(id) { return document.getElementById(id).value.trim(); }
@@ -3319,8 +4387,27 @@ function isStableHttps(value) {
   } catch { return false; }
 }
 
+document.addEventListener('keydown', (event) => {
+  const tag = event.target?.tagName?.toLowerCase();
+  const editing = ['input', 'textarea', 'select'].includes(tag) || event.target?.isContentEditable;
+  if (event.key === '/' && !editing && !event.metaKey && !event.ctrlKey && !event.altKey) {
+    event.preventDefault();
+    activateView('create');
+    document.getElementById('request').focus();
+    return;
+  }
+  if (event.key === 'Enter' && (event.metaKey || event.ctrlKey) && !document.getElementById('view-create').hidden) {
+    event.preventDefault();
+    document.getElementById('composer').requestSubmit();
+  }
+});
+
 activateTool(TOOLS[0].id);
-Promise.all([loadModelOptions(), loadCharacters(), loadBriefs('__new__')]).catch((error) => {
+const initialParams = new URLSearchParams(window.location.search);
+const initialBriefId = initialParams.get('briefId') || '__new__';
+const initialView = initialParams.get('view');
+if (['history','recipes','workflows'].includes(initialView)) activateView(initialView);
+Promise.all([loadModelOptions(), loadCharacters(), loadBriefs(initialBriefId)]).catch((error) => {
   setFeedback('compose-feedback', 'Video Maker could not load: ' + error.message, 'error');
 });
 </script>

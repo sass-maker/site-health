@@ -18,6 +18,7 @@ test('production catalog covers every requested runtime with normalized comparis
     blenderCapability: { ready: false, blocker: 'Blender unavailable for test.' },
     kokoroReady: false,
   });
+  assert.ok(recipes.every((recipe) => recipe.version === 1));
   assert.equal(recipes.length, 13);
   assert.deepEqual(recipes.map((entry) => entry.id), PRODUCTION_RECIPE_IDS);
   assert.deepEqual(PRODUCTION_SPEND_CLASSES, ['none', 'local-compute', 'external-service', 'paid-api']);
