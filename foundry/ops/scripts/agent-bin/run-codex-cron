@@ -3,7 +3,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FLEET_OPS_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-FLEET_ROOT="$(cd "$FLEET_OPS_DIR/../.." && pwd)"
+SOURCE_FLEET_ROOT="$(cd "$FLEET_OPS_DIR/../.." && pwd)"
+FLEET_ROOT="${FLEET_CRON_WORKSPACE_ROOT:-$SOURCE_FLEET_ROOT}"
 CRON_DIR="$FLEET_OPS_DIR/automation/codex-cron"
 JOBS_FILE="$CRON_DIR/jobs.tsv"
 LOG_DIR="$CRON_DIR/logs"
@@ -37,7 +38,26 @@ job_row="$(awk -F '\t' -v id="$JOB_ID" 'NR > 1 && $1 == id { print; found=1 } EN
   exit 1
 }
 
-IFS=$'\t' read -r id enabled cron_expr name cwd model effort prompt_file lock_minutes source <<<"$job_row"
+IFS=$'\t' read -r id enabled cron_expr name cwd model effort prompt_file lock_minutes source execution_checkout <<<"$job_row"
+
+case "$execution_checkout" in
+  workspace)
+    if [ "${FLEET_CRON_CLEAN_MAIN_VERIFIED:-}" = "1" ]; then
+      echo "job requires workspace execution: $JOB_ID" >&2
+      exit 1
+    fi
+    ;;
+  clean-main)
+    if [ "${FLEET_CRON_CLEAN_MAIN_VERIFIED:-}" != "1" ]; then
+      echo "job requires clean-main preflight: $JOB_ID" >&2
+      exit 1
+    fi
+    ;;
+  *)
+    echo "invalid execution checkout for $JOB_ID: $execution_checkout" >&2
+    exit 1
+    ;;
+esac
 
 if [ "$cwd" = "@fleet" ]; then
   cwd="$FLEET_ROOT"
@@ -86,6 +106,9 @@ set +e
   echo "model: $model"
   echo "effort: $effort"
   echo "source: $source"
+  if [ -n "${FLEET_CRON_SOURCE_SHA:-}" ]; then
+    echo "source_sha: $FLEET_CRON_SOURCE_SHA"
+  fi
   echo
 
   if [ "$DRY_RUN" = "--dry-run" ]; then

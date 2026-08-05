@@ -8,7 +8,7 @@ import { doctor } from '../host/foundation.mjs';
 import { PostizReadinessError, inspectPostizReadiness } from '../host/postiz/readiness.mjs';
 import { runDisposableRehearsal } from '../host/postiz/rehearsal.mjs';
 
-const JOB_HEADER = 'id\tenabled\tcron\tname\tcwd\tmodel\teffort\tprompt_file\tlock_minutes\tsource';
+const JOB_HEADER = 'id\tenabled\tcron\tname\tcwd\tmodel\teffort\tprompt_file\tlock_minutes\tsource\texecution_checkout';
 const SYSTEM_JOB_HEADER = 'id\tenabled\tcron\tname\tcommand';
 const STATE_DIRECTORIES = [
   'postiz-config',
@@ -30,12 +30,13 @@ function fixture(t) {
   const jobsFile = resolve(checkoutRoot, 'foundry/ops/automation/codex-cron/jobs.tsv');
   const systemJobsFile = resolve(checkoutRoot, 'foundry/ops/automation/codex-cron/system-jobs.tsv');
   const codexRunner = resolve(checkoutRoot, 'foundry/ops/scripts/agent-bin/run-codex-cron');
+  const cleanMainCodexRunner = resolve(checkoutRoot, 'foundry/ops/scripts/agent-bin/run-clean-main-codex-cron');
   const systemRunner = resolve(checkoutRoot, 'foundry/ops/scripts/agent-bin/run-system-cron');
 
   mkdirSync(dirname(jobsFile), { recursive: true });
   writeFileSync(jobsFile, `${JOB_HEADER}\n`);
   writeFileSync(systemJobsFile, `${SYSTEM_JOB_HEADER}\n`);
-  for (const runner of [codexRunner, systemRunner]) {
+  for (const runner of [codexRunner, cleanMainCodexRunner, systemRunner]) {
     mkdirSync(dirname(runner), { recursive: true });
     writeFileSync(runner, '#!/bin/sh\nexit 97\n');
     chmodSync(runner, 0o755);
