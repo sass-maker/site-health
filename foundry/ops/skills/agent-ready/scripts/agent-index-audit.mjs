@@ -31,6 +31,10 @@ import {
   loadRegistry,
   productOrigin as registryProductOrigin,
 } from '../../../scripts/lib/registry.mjs';
+import {
+  configuredProbeConcurrency,
+  withTransientRetries,
+} from '../../../lib/agent-probe-retry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // scripts → agent-ready → skills → ops → foundry → fleet root
@@ -44,8 +48,9 @@ const MAX_PUBLIC_ROUTES = 50_000;
 const MAX_SITEMAP_BYTES = 50 * 1024 * 1024;
 const MAX_ROUTE_PROBES = 250;
 const MAX_CATALOG_SURFACES = 1_000;
-const PROBE_CONCURRENCY = 8;
-const TRANSIENT_RETRY_DELAYS_MS = [250, 750];
+const PROBE_CONCURRENCY = configuredProbeConcurrency(
+  process.env.FLEET_AGENT_PROBE_CONCURRENCY,
+);
 
 // Answer-engine crawlers that must not be disallowed for GEO to work at all.
 const CRITICAL_AI_BOTS = ['GPTBot', 'ClaudeBot', 'OAI-SearchBot', 'PerplexityBot'];
@@ -1070,21 +1075,7 @@ function isMarkdownType(ct = '') {
 }
 
 async function probe(url, options = {}) {
-  let response = await probeOnce(url, options);
-  for (const delayMs of TRANSIENT_RETRY_DELAYS_MS) {
-    if (!isTransientProbeFailure(response)) break;
-    await wait(delayMs);
-    response = await probeOnce(url, options);
-  }
-  return response;
-}
-
-function isTransientProbeFailure(response) {
-  return response.status === 0 || response.status === 429 || response.status >= 500;
-}
-
-function wait(durationMs) {
-  return new Promise((resolveWait) => setTimeout(resolveWait, durationMs));
+  return withTransientRetries(() => probeOnce(url, options));
 }
 
 async function probeOnce(url, { accept, retainFullBody = false } = {}) {
@@ -1136,18 +1127,6 @@ async function probeOnce(url, { accept, retainFullBody = false } = {}) {
   } finally {
     clearTimeout(timer);
   }
-}
-
-function parseRetryAfterMs(value) {
-  if (!value) return 0;
-  const seconds = Number(value);
-  if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1_000;
-  const date = Date.parse(value);
-  return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0;
-}
-
-function delay(milliseconds) {
-  return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
 }
 
 function detectHtml(preview, contentType) {
