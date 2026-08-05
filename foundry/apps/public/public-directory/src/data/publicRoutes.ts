@@ -48,25 +48,27 @@ function productMarkdown(product: RegistryProduct): string {
 }
 
 function homeMarkdown(): string {
-  const products = publicCatalog.products.flatMap((product) => {
-    const links = product as typeof product & {
-      changelogUrl?: string;
-      roadmapUrl?: string;
-      repositoryUrl?: string;
-    };
-    const lines = [
-      `## ${product.name}`,
-      '',
-      product.description,
-      '',
-      `- Product: ${product.url}`,
-    ];
-    if (links.changelogUrl) lines.push(`- Changelog: ${links.changelogUrl}`);
-    if (links.roadmapUrl) lines.push(`- Roadmap: ${links.roadmapUrl}`);
-    if (links.repositoryUrl) lines.push(`- Source: ${links.repositoryUrl}`);
-    lines.push('');
-    return lines;
-  });
+  const products = publicCatalog.products
+    .filter((product) => product.id !== 'saas-maker')
+    .flatMap((product) => {
+      const links = product as typeof product & {
+        changelogUrl?: string;
+        roadmapUrl?: string;
+        repositoryUrl?: string;
+      };
+      const lines = [
+        `## ${product.name}`,
+        '',
+        product.description,
+        '',
+        `- Product: ${product.url}`,
+      ];
+      if (links.changelogUrl) lines.push(`- Changelog: ${links.changelogUrl}`);
+      if (links.roadmapUrl) lines.push(`- Roadmap: ${links.roadmapUrl}`);
+      if (links.repositoryUrl) lines.push(`- Source: ${links.repositoryUrl}`);
+      lines.push('');
+      return lines;
+    });
   const pastProjects = publicCatalog.pastProjects.flatMap((project) => [
     `## ${project.name}`,
     '',
