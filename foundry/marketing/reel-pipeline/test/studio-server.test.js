@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { copyFile, mkdtemp } from 'node:fs/promises';
+import { copyFile, mkdir, mkdtemp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -10,6 +10,7 @@ import { StudioLlm } from '../src/studio/llm.js';
 import { IdeaStore } from '../src/studio/idea-store.js';
 import { MarketingBriefStore } from '../src/studio/briefs.js';
 import { listLocalVideoWorkflowRecipes } from '../src/local-video-workflow-recipes.js';
+import modelConfig from '../config/forge-model-profiles.json' with { type: 'json' };
 
 function deterministicHtmlVideoOptions() {
   return {
@@ -27,6 +28,12 @@ function deterministicHtmlVideoOptions() {
 
 async function startServer(studioOverrides = {}) {
   const scratch = await mkdtemp(path.join(tmpdir(), 'studio-server-'));
+  const localFinal = modelConfig.profiles.find((profile) => profile.id === 'ltx-2.3-mlx-q4');
+  for (const relativePath of localFinal.requiredPaths) {
+    const target = path.join(scratch, relativePath);
+    await mkdir(path.dirname(target), { recursive: true });
+    await writeFile(target, 'fixture');
+  }
   const workflowRecipes = studioOverrides.workflowRecipes ?? listLocalVideoWorkflowRecipes({ rootDir: process.cwd() })
     .map((recipe) => ({ ...recipe, readiness: { ready: true, state: 'ready', blocker: null, missing: [], unhashed: [] } }));
   const server = createServer({
@@ -40,6 +47,7 @@ async function startServer(studioOverrides = {}) {
         workflowProposalOptions: { recipes: workflowRecipes },
       }),
       workflowRecipes,
+      modelOptions: { rootDir: scratch },
       characterStoreOptions: { filePath: path.join(scratch, 'characters.json') },
       voiceIntakeOptions: {
         artifactDir: path.join(scratch, 'voice'),

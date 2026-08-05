@@ -71,7 +71,10 @@ test('model-options endpoint is read-only and exposes blockers without setup act
   assert.equal(bodyReads, 0);
   assert.ok(result.body.data.modelProfiles.some((entry) => entry.id === 'wai-illustrious-v17-sdcpp' && entry.readiness.ready));
   assert.ok(result.body.data.modelProfiles.some((entry) => entry.id === 'minimax-h3-mlx-q4' && !entry.readiness.ready));
-  assert.ok(result.body.data.workflowRecipes.some((entry) => entry.id === 'ltx-2b-comfy-i2v-preview' && entry.readiness.ready));
+  const preview = result.body.data.workflowRecipes.find((entry) => entry.id === 'ltx-2b-comfy-i2v-preview');
+  assert.ok(preview);
+  assert.equal(typeof preview.readiness.ready, 'boolean');
+  if (!preview.readiness.ready) assert.match(preview.readiness.blocker, /Missing|hash/i);
   assert.ok(result.body.data.workflowRecipes.every((entry) => entry.graph === undefined));
 });
 

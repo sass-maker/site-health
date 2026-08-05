@@ -23,7 +23,9 @@ export async function executeCoherentLocalFilm({ brief, inputs }, options = {}) 
   const recipes = listLocalVideoWorkflowRecipes(options.recipeOptions);
   const recipe = recipes.find((entry) => entry.id === recipeId);
   if (!recipe) throw new Error(`unknown local workflow recipe: ${recipeId}`);
-  if (!recipe.readiness.ready) throw new Error(`${recipe.name} is not ready: ${recipe.readiness.blocker}`);
+  if (!recipe.readiness.ready && !options.verifyRecipeFiles) {
+    throw new Error(`${recipe.name} is not ready: ${recipe.readiness.blocker}`);
+  }
   const verified = options.verifyRecipeFiles
     ? await options.verifyRecipeFiles(recipe, options.recipeOptions)
     : await verifyRecipeWithCache(recipe, options.recipeOptions);

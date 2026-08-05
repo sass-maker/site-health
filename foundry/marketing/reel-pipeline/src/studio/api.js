@@ -237,7 +237,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       body: { data: {
         themePacks: listThemePacks(),
         modelProfiles: listModelProfiles(options.modelOptions),
-        workflowRecipes: summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions),
+        workflowRecipes: projectedWorkflowRecipes(options),
       } },
     };
   }
@@ -265,7 +265,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       body: {
         data: summarizeRecipeLibrary(
           listProductionRecipes(productionContext(options)),
-          summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions),
+          projectedWorkflowRecipes(options),
         ),
       },
     };
@@ -422,7 +422,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
           recipes: listProductionRecipes(context),
           themePacks: listThemePacks(),
           modelProfiles: listModelProfiles(options.modelOptions),
-          workflowRecipes: summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions),
+          workflowRecipes: projectedWorkflowRecipes(options),
         },
       },
     };
@@ -1165,6 +1165,11 @@ function workflowProposalOptions(options = {}) {
     recipes: options.workflowRecipes,
     now: options.now,
   };
+}
+
+function projectedWorkflowRecipes(options = {}) {
+  const recipes = options.workflowRecipes ?? summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions);
+  return recipes.map(({ graph: _graph, ...recipe }) => ({ ...structuredClone(recipe), graph: undefined }));
 }
 
 async function hashLocalFile(filePath) {
