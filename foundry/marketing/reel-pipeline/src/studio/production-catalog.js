@@ -282,6 +282,7 @@ function distributionBlockersFor(brief) {
 
 function recipe(input) {
   return {
+    version: 1,
     channels: CHANNELS,
     requirements: [],
     readiness: null,

@@ -9,6 +9,7 @@ import { createServer } from '../src/server/index.js';
 import { StudioLlm } from '../src/studio/llm.js';
 import { IdeaStore } from '../src/studio/idea-store.js';
 import { MarketingBriefStore } from '../src/studio/briefs.js';
+import { listLocalVideoWorkflowRecipes } from '../src/local-video-workflow-recipes.js';
 
 function deterministicHtmlVideoOptions() {
   return {
@@ -26,13 +27,19 @@ function deterministicHtmlVideoOptions() {
 
 async function startServer(studioOverrides = {}) {
   const scratch = await mkdtemp(path.join(tmpdir(), 'studio-server-'));
+  const workflowRecipes = studioOverrides.workflowRecipes ?? listLocalVideoWorkflowRecipes({ rootDir: process.cwd() })
+    .map((recipe) => ({ ...recipe, readiness: { ready: true, state: 'ready', blocker: null, missing: [], unhashed: [] } }));
   const server = createServer({
     reelStoreOptions: { filePath: path.join(scratch, 'reels.json') },
     lessonStoreOptions: { filePath: path.join(scratch, 'lessons.json') },
     studio: {
       llm: new StudioLlm({ apiKey: '' }),
       ideaStore: new IdeaStore({ filePath: path.join(scratch, 'ideas.json') }),
-      briefStore: new MarketingBriefStore({ filePath: path.join(scratch, 'briefs.json') }),
+      briefStore: new MarketingBriefStore({
+        filePath: path.join(scratch, 'briefs.json'),
+        workflowProposalOptions: { recipes: workflowRecipes },
+      }),
+      workflowRecipes,
       characterStoreOptions: { filePath: path.join(scratch, 'characters.json') },
       voiceIntakeOptions: {
         artifactDir: path.join(scratch, 'voice'),
@@ -60,6 +67,13 @@ async function startServer(studioOverrides = {}) {
       rendererOptions: {
         mock: { artifactDir: path.join(scratch, 'renders') },
         htmlComposition: { artifactDir: path.join(scratch, 'html-renders'), ...deterministicHtmlVideoOptions() },
+      },
+      videoRealExecutors: {
+        'coherent-local-film': async () => {
+          const videoPath = path.join(scratch, 'workflow-proposal-result.mp4');
+          await writeFile(videoPath, Buffer.from('workflow-proposal-video'));
+          return { videoPath, renderer: 'test-local-video', quality: { verdict: 'pass', basis: 'bounded test executor' } };
+        },
       },
       blenderCapability: { ready: false, executable: null, version: null, blocker: 'Blender unavailable for deterministic test.' },
       htmlCapability: { ready: true, chromePath: '/fixture/chrome', ffmpegPath: '/fixture/ffmpeg', blocker: null },
@@ -103,8 +117,15 @@ test('studio server routes', async (t) => {
     for (const marker of [
       '<h1>Video Maker</h1>',
       'Describe the video.',
-      'Everything else is chosen automatically.',
-      'Make video',
+      'We verify the Film style and local readiness before generation.',
+      'Plan workflow',
+      'Film style',
+      'How Film styles work',
+      'id="production-search"',
+      'Command or Control + Enter',
+      'id="operation-status"',
+      'Editorial decision',
+      'data-review-decision="accepted"',
       'Settings <span>Optional</span>',
       'What should we make?',
       'Faceless lesson',
@@ -116,9 +137,14 @@ test('studio server routes', async (t) => {
       'id="quick-theme"',
       'id="quick-model"',
       'Mature-enabled adults',
-      'No video was generated.',
+      'Proposed route · nothing has run',
+      'Inspect model, runtime, and graph',
+      'Revise plan',
+      'Run this plan',
       "activateView('productions')",
-      '<h2>Videos</h2>',
+      'Five films. Five routes. No mystery.',
+      'id="tab-recipes"',
+      'id="tab-workflows"',
       'Now showing',
       'Video library',
       'Drafts and blocked plans',
@@ -468,6 +494,27 @@ test('studio server routes', async (t) => {
     assert.equal(execution.brief.lifecycle, 'needs-review');
     assert.ok(execution.brief.media.videoPath);
 
+    const acceptedRes = await fetch(`${base}/studio/briefs/${created.id}/review`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ decision: 'accepted' }),
+    });
+    assert.equal(acceptedRes.status, 200);
+    const accepted = (await acceptedRes.json()).data;
+    assert.equal(accepted.approval.reviewDecision, 'accepted');
+    assert.equal(accepted.approval.reviewHistory.length, 1);
+    assert.match(accepted.approval.reviewHistory[0].artifactSha256, /^[a-f0-9]{64}$/);
+
+    const rejectedRes = await fetch(`${base}/studio/briefs/${created.id}/review`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ decision: 'rejected' }),
+    });
+    assert.equal(rejectedRes.status, 200);
+    const rejected = (await rejectedRes.json()).data;
+    assert.equal(rejected.approval.reviewDecision, 'rejected');
+    assert.deepEqual(rejected.approval.reviewHistory.map((entry) => entry.decision), ['accepted', 'rejected']);
+
     const previewRes = await fetch(`${base}/studio/platform-audio-preview`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -507,6 +554,80 @@ test('studio server routes', async (t) => {
 
     const capabilities = await fetch(`${base}/studio/capabilities?briefId=${created.id}`);
     assert.equal((await capabilities.json()).data.length, 6);
+  });
+
+  await t.test('AI workflow proposals can be inspected, revised, and only played with confirmation', async () => {
+    const libraryRes = await fetch(`${base}/studio/workflow-library`);
+    assert.equal(libraryRes.status, 200);
+    assert.equal((await libraryRes.json()).data.length, 14);
+
+    const recipeLibraryRes = await fetch(`${base}/studio/recipe-library`);
+    assert.equal(recipeLibraryRes.status, 200);
+    const recipeLibrary = (await recipeLibraryRes.json()).data;
+    assert.ok(recipeLibrary.recipes.length >= 10);
+    assert.ok(recipeLibrary.workflowRecipes.length >= 2);
+
+    const historyRes = await fetch(`${base}/studio/history`);
+    assert.equal(historyRes.status, 200);
+    const history = (await historyRes.json()).data;
+    assert.ok(Array.isArray(history));
+    assert.ok(history.every((entry) => Object.hasOwn(entry, 'prompt') && Object.hasOwn(entry, 'workflow') && Object.hasOwn(entry, 'video')));
+
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method:'POST',
+      headers:{ 'content-type':'application/json' },
+      body:JSON.stringify({
+        request:'A wild night out party montage in a neon club.',
+        fields:{ executionInputs:{ referenceImage:'/tmp/party-reference.png', aspectRatio:'16:9' } },
+      }),
+    });
+    const createdJson = await createdRes.json();
+    assert.equal(createdRes.status, 201, JSON.stringify(createdJson));
+    const created = createdJson.data;
+    assert.equal(created.workflowProposal.archetypeId, 'night-out-rush');
+    assert.equal(created.workflowProposal.inputs.aspectRatio, '16:9');
+    assert.equal(created.workflowProposal.state, 'proposed');
+    assert.equal(created.media, null);
+
+    const revisedRes = await fetch(`${base}/studio/briefs/${created.id}/workflow-proposal/revise`, {
+      method:'POST', headers:{ 'content-type':'application/json' },
+      body:JSON.stringify({ instruction:'Use a fast preview, landscape, 6 seconds, seed 99' }),
+    });
+    assert.equal(revisedRes.status, 200);
+    const revised = (await revisedRes.json()).data;
+    assert.equal(revised.workflowProposal.version, 2);
+    assert.equal(revised.workflowProposal.lane, 'preview');
+    assert.deepEqual(revised.workflowProposal.lastRevision.changes.map((entry) => entry.field), ['lane', 'duration', 'seed']);
+
+    const graphRes = await fetch(`${base}/studio/briefs/${created.id}/workflow-proposal/graph`);
+    assert.equal(graphRes.status, 200);
+    const inspection = (await graphRes.json()).data;
+    assert.equal(inspection.comfy.available, true);
+    assert.ok(inspection.comfy.nodes.length > 0);
+
+    const blockedPlay = await fetch(`${base}/studio/briefs/${created.id}/workflow-proposal/play`, {
+      method:'POST', headers:{ 'content-type':'application/json' },
+      body:JSON.stringify({ confirm:false, version:2 }),
+    });
+    assert.equal(blockedPlay.status, 400);
+    assert.match((await blockedPlay.json()).error, /confirmation/);
+
+    const finalRes = await fetch(`${base}/studio/briefs/${created.id}/workflow-proposal/revise`, {
+      method:'POST', headers:{ 'content-type':'application/json' },
+      body:JSON.stringify({ instruction:'Use final production quality' }),
+    });
+    const finalBrief = (await finalRes.json()).data;
+    assert.equal(finalBrief.workflowProposal.version, 3);
+    assert.equal(finalBrief.workflowProposal.lane, 'final');
+    const playedRes = await fetch(`${base}/studio/briefs/${created.id}/workflow-proposal/play`, {
+      method:'POST', headers:{ 'content-type':'application/json' },
+      body:JSON.stringify({ confirm:true, version:3 }),
+    });
+    const playedJson = await playedRes.json();
+    assert.equal(playedRes.status, 200, JSON.stringify(playedJson));
+    assert.equal(playedJson.data.executed, true);
+    assert.equal(playedJson.data.brief.workflowProposal.state, 'played');
+    assert.ok(playedJson.data.brief.media.videoPath);
   });
 
   await t.test('projectless prompt can create a faceless video', async () => {

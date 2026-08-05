@@ -8,18 +8,36 @@ RUNTIME_REPOSITORY="https://github.com/dgrauet/ltx-2-mlx.git"
 RUNTIME_REVISION="e1838a855bfd1640135c424c96cb27a0c0ad150e"
 MODEL_REPOSITORY="dgrauet/ltx-2.3-mlx-q4"
 MODEL_REVISION="53a6f5f39d9c074bc73e6a18ba391f40ddffaa68"
+EXPECTED_INSTALL_GIB=45
+MAX_DISK_PERCENT=85
 
 if [[ "$(uname -s)" != "Darwin" || "$(uname -m)" != "arm64" ]]; then
   echo "Local Video Forge requires Apple Silicon macOS." >&2
   exit 1
 fi
 
-for command_name in git uv ffmpeg; do
+for command_name in git uv ffmpeg curl; do
   if ! command -v "${command_name}" >/dev/null 2>&1; then
     echo "Missing required command: ${command_name}" >&2
     exit 1
   fi
 done
+
+read -r disk_used_kib disk_available_kib < <(df -Pk "${ROOT_DIR}" | awk 'NR==2 { print $3, $4 }')
+projected_percent="$(awk -v used="${disk_used_kib}" -v available="${disk_available_kib}" -v install_gib="${EXPECTED_INSTALL_GIB}" 'BEGIN { projected = used + install_gib * 1024 * 1024; printf "%.2f", projected / (used + available) * 100 }')"
+if awk -v projected="${projected_percent}" -v limit="${MAX_DISK_PERCENT}" 'BEGIN { exit !(projected >= limit) }'; then
+  echo "Refusing Local Video Forge setup: projected disk use ${projected_percent}% reaches the ${MAX_DISK_PERCENT}% limit." >&2
+  exit 1
+fi
+
+if [[ "${1:-}" == "--check" ]]; then
+  git ls-remote "${RUNTIME_REPOSITORY}" HEAD >/dev/null
+  curl -fsI "https://huggingface.co/${MODEL_REPOSITORY}/resolve/${MODEL_REVISION}/config.json" >/dev/null
+  echo "Local Video Forge install preflight passed."
+  echo "Projected disk use: ${projected_percent}% (limit: ${MAX_DISK_PERCENT}%)."
+  echo "Pinned runtime and model sources are reachable; no files were installed."
+  exit 0
+fi
 
 mkdir -p "$(dirname "${RUNTIME_DIR}")" "${MODEL_DIR}"
 

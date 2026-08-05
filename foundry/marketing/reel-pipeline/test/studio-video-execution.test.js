@@ -105,7 +105,13 @@ test('exact selected local model fails before execution instead of silently cont
     modelProfileId: 'ltx-2.3-mlx-q4',
   };
   await assert.rejects(
-    executeVideoVariant(brief, { mode: 'real' }),
+    executeVideoVariant(brief, {
+      mode: 'real',
+      inputs: {
+        prompt: 'A full-body adult hero crosses a rooftop while the camera tracks sideways.',
+        referenceImage: '/tmp/reference.png',
+      },
+    }),
     /ltx-2\.3-mlx-q4 is selected, but no registered studio-local-video executor/i,
   );
 });

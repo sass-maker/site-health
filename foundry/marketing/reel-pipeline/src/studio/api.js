@@ -36,6 +36,8 @@ import {
   submitStudioPostiz,
 } from './distribution.js';
 import { readFile, stat } from 'node:fs/promises';
+import { createReadStream } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import {
   listExploreGallery,
@@ -50,6 +52,28 @@ import { probeVoiceTranscription, saveVoiceRecording, transcribeVoiceRecording }
 import { getExecutionAdapter, missingExecutionInputs, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
 import { executeVideoMix } from './video-mix.js';
 import { listModelProfiles, listThemePacks, resolveModelProfile, resolveThemePack } from './model-options.js';
+import { summarizeLocalVideoWorkflowRecipes } from '../local-video-workflow-recipes.js';
+import { buildStudioHistory, summarizeRecipeLibrary } from './studio-libraries.js';
+import {
+  freezeWorkflowProposal,
+  inspectWorkflowProposal,
+  listWorkflowArchetypes,
+  proposeStudioWorkflow,
+  reviseStudioWorkflowProposal,
+  workflowProposalBriefPatch,
+} from './workflow-proposals.js';
+import { createLocalVideoExecutors } from './local-video-executors.js';
+import { executeCoherentLocalFilm } from './local-video-executors.js';
+import { interruptComfyLocal } from '../adapters/comfy-local.js';
+import {
+  assembleLocalEpisode,
+  createEpisodeDraft,
+  listLocalEpisodes,
+  loadLocalEpisode,
+  renderEpisodeShots,
+  saveLocalEpisode,
+  setEpisodeShotReview,
+} from '../local-video-episode.js';
 
 const FACELESS_ENGINES = new Set(['mock', 'kokoro']);
 
@@ -210,17 +234,121 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   if (method === 'GET' && tool === 'model-options') {
     return {
       status: 200,
-      body: { data: { themePacks: listThemePacks(), modelProfiles: listModelProfiles(options.modelOptions) } },
+      body: { data: {
+        themePacks: listThemePacks(),
+        modelProfiles: listModelProfiles(options.modelOptions),
+        workflowRecipes: summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions),
+      } },
     };
+  }
+  if (method === 'GET' && tool === 'workflow-library') {
+    return { status: 200, body: { data: listWorkflowArchetypes(workflowProposalOptions(options)) } };
   }
   const galleryMediaMatch = tool.match(/^explore-gallery\/([^/]+)\/media$/);
   if (method === 'GET' && galleryMediaMatch) {
     const raw = await openExploreGalleryMedia(decodeURIComponent(galleryMediaMatch[1]), options);
     return raw ? { status: 200, raw } : { status: 404, body: { error: 'gallery sample not found' } };
   }
-  const briefStore = () => options.briefStore ?? new MarketingBriefStore(options.briefStoreOptions);
+  const briefStore = () => options.briefStore ?? new MarketingBriefStore({
+    ...options.briefStoreOptions,
+    workflowProposalOptions: workflowProposalOptions(options),
+  });
   const characterStore = () => options.characterStore ?? new CharacterDirectoryStore(options.characterStoreOptions);
   await ensureProductionReadiness(options);
+
+  if (method === 'GET' && tool === 'history') {
+    return { status: 200, body: { data: await buildStudioHistory(await briefStore().list(), options.historyOptions) } };
+  }
+  if (method === 'GET' && tool === 'recipe-library') {
+    return {
+      status: 200,
+      body: {
+        data: summarizeRecipeLibrary(
+          listProductionRecipes(productionContext(options)),
+          summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions),
+        ),
+      },
+    };
+  }
+
+  if (method === 'GET' && tool === 'episodes') {
+    return { status: 200, body: { data: await listLocalEpisodes(options.episodeStoreOptions) } };
+  }
+  if (method === 'POST' && tool === 'episodes') {
+    const body = await readBody();
+    const episode = createEpisodeDraft({
+      ...body,
+      soundtrack: body?.soundtrack ?? { lane: 'procedural-draft', bpm: 116 },
+    });
+    return { status: 201, body: { data: await saveLocalEpisode(episode, options.episodeStoreOptions) } };
+  }
+  if (method === 'POST' && tool === 'local-video/interrupt') {
+    const body = await readBody();
+    if (body?.confirm !== true) throw new Error('explicit local interrupt confirmation is required');
+    return { status: 200, body: { data: await interruptComfyLocal(options.localVideoExecutionOptions?.comfy) } };
+  }
+  const episodeMatch = tool.match(/^episodes\/([^/]+)$/);
+  if (episodeMatch && method === 'GET') {
+    const episode = await loadLocalEpisode(decodeURIComponent(episodeMatch[1]), options.episodeStoreOptions);
+    return episode ? { status: 200, body: { data: episode } } : { status: 404, body: { error: 'episode not found' } };
+  }
+  if (episodeMatch && method === 'PATCH') {
+    const current = await loadLocalEpisode(decodeURIComponent(episodeMatch[1]), options.episodeStoreOptions);
+    if (!current) return { status: 404, body: { error: 'episode not found' } };
+    const body = await readBody();
+    return { status: 200, body: { data: await saveLocalEpisode({ ...current, ...body, id: current.id }, options.episodeStoreOptions) } };
+  }
+  const episodeRenderMatch = tool.match(/^episodes\/([^/]+)\/render$/);
+  if (episodeRenderMatch && method === 'POST') {
+    const body = await readBody();
+    if (body?.confirm !== true) throw new Error('explicit local episode render confirmation is required');
+    const episode = await loadLocalEpisode(decodeURIComponent(episodeRenderMatch[1]), options.episodeStoreOptions);
+    if (!episode) return { status: 404, body: { error: 'episode not found' } };
+    const run = await renderEpisodeShots(episode, {
+      outputDir: episode.episodeDir,
+      previousRun: episode.run,
+      characterStore: characterStore(),
+      phase: body.phase === 'final' ? 'final' : 'preview',
+      onlyShotIds: body.shotId ? [body.shotId] : undefined,
+      executeShot: async ({ shot, phase, recipeId, cast }) => {
+        const referenceImage = shot.referenceImage ?? cast[0]?.references?.[0]?.path;
+        return executeCoherentLocalFilm({
+          brief: { modelProfileId: phase === 'preview' ? 'ltx-2b-comfy-preview' : 'ltx-2.3-mlx-q4' },
+          inputs: {
+            workflowRecipeId: recipeId,
+            qualityLane: phase,
+            prompt: [cast.map((entry) => entry.identity).join('. '), shot.prompt].filter(Boolean).join('. '),
+            referenceImage,
+            seed: shot.seed,
+            durationSeconds: shot.durationSeconds,
+            quality: 'final',
+          },
+        }, options.localVideoExecutionOptions);
+      },
+    });
+    return { status: 200, body: { data: run } };
+  }
+  const episodeReviewMatch = tool.match(/^episodes\/([^/]+)\/shots\/([^/]+)\/review$/);
+  if (episodeReviewMatch && method === 'POST') {
+    const body = await readBody();
+    const episode = await loadLocalEpisode(decodeURIComponent(episodeReviewMatch[1]), options.episodeStoreOptions);
+    if (!episode?.run) return { status: 404, body: { error: 'episode run not found' } };
+    const receiptPath = path.join(episode.episodeDir, 'episode-run.json');
+    const run = await setEpisodeShotReview(episode.run, decodeURIComponent(episodeReviewMatch[2]), body?.reviewState, { receiptPath });
+    return { status: 200, body: { data: run } };
+  }
+  const episodeAssemblyMatch = tool.match(/^episodes\/([^/]+)\/assemble$/);
+  if (episodeAssemblyMatch && method === 'POST') {
+    const body = await readBody();
+    if (body?.confirm !== true) throw new Error('explicit local episode assembly confirmation is required');
+    const episode = await loadLocalEpisode(decodeURIComponent(episodeAssemblyMatch[1]), options.episodeStoreOptions);
+    if (!episode?.run) return { status: 404, body: { error: 'episode run not found' } };
+    const result = await assembleLocalEpisode(episode.run, {
+      outputDir: episode.episodeDir,
+      ...(options.episodeAssemblyOptions ?? {}),
+    });
+    return { status: 200, body: { data: result } };
+  }
 
   if (method === 'GET' && tool === 'voice-readiness') {
     return { status: 200, body: { data: await probeVoiceTranscription(options.voiceIntakeOptions) } };
@@ -294,6 +422,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
           recipes: listProductionRecipes(context),
           themePacks: listThemePacks(),
           modelProfiles: listModelProfiles(options.modelOptions),
+          workflowRecipes: summarizeLocalVideoWorkflowRecipes(options.workflowRecipeOptions),
         },
       },
     };
@@ -399,7 +528,15 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
     if (body?.source || body?.mode) {
       fields.workflow = { ...(fields.workflow ?? {}), ...(body?.source ? { source: body.source } : {}), mode: body?.mode ?? fields.workflow?.mode };
     }
-    const brief = await briefStore().create({ ...draft, ...fields });
+    const proposal = proposeStudioWorkflow({
+      request: draft.request,
+      lane: fields.modelProfileId === 'ltx-2b-comfy-preview' ? 'preview' : undefined,
+      referenceImage: fields.executionInputs?.referenceImage,
+      aspectRatio: fields.executionInputs?.aspectRatio,
+      durationSeconds: fields.executionInputs?.durationSeconds,
+      seed: fields.executionInputs?.seed,
+    }, workflowProposalOptions(options));
+    const brief = await briefStore().create({ ...draft, ...fields, workflowProposal: proposal });
     return { status: 201, body: { data: decorateBrief(brief, options) } };
   }
   const briefMatch = tool.match(/^briefs\/([^/]+)$/);
@@ -411,6 +548,84 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   if (briefMatch && method === 'PATCH') {
     const body = await readBody();
     const brief = await briefStore().update(decodeURIComponent(briefMatch[1]), body ?? {});
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  const proposalMatch = tool.match(/^briefs\/([^/]+)\/workflow-proposal$/);
+  if (proposalMatch && method === 'GET') {
+    const brief = await briefStore().get(decodeURIComponent(proposalMatch[1]));
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    if (!brief.workflowProposal) return { status: 404, body: { error: 'workflow proposal not found' } };
+    return { status: 200, body: { data: inspectWorkflowProposal(brief.workflowProposal, workflowProposalOptions(options)) } };
+  }
+  const proposalGraphMatch = tool.match(/^briefs\/([^/]+)\/workflow-proposal\/graph$/);
+  if (proposalGraphMatch && method === 'GET') {
+    const brief = await briefStore().get(decodeURIComponent(proposalGraphMatch[1]));
+    if (!brief) return { status: 404, body: { error: 'marketing brief not found' } };
+    if (!brief.workflowProposal) return { status: 404, body: { error: 'workflow proposal not found' } };
+    const inspection = inspectWorkflowProposal(brief.workflowProposal, workflowProposalOptions(options));
+    return { status: 200, body: { data: { proposal: inspection.proposal, recipe: inspection.recipe, comfy: inspection.comfy } } };
+  }
+  const proposalReviseMatch = tool.match(/^briefs\/([^/]+)\/workflow-proposal\/revise$/);
+  if (proposalReviseMatch && method === 'POST') {
+    const id = decodeURIComponent(proposalReviseMatch[1]);
+    const store = briefStore();
+    const current = await store.get(id);
+    if (!current) return { status: 404, body: { error: 'marketing brief not found' } };
+    if (!current.workflowProposal) throw new Error('workflow proposal not found');
+    const body = await readBody();
+    const proposal = reviseStudioWorkflowProposal(current.workflowProposal, body?.instruction, workflowProposalOptions(options));
+    const brief = await store.update(id, { workflowProposal: proposal });
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  const proposalPlayMatch = tool.match(/^briefs\/([^/]+)\/workflow-proposal\/play$/);
+  if (proposalPlayMatch && method === 'POST') {
+    const id = decodeURIComponent(proposalPlayMatch[1]);
+    const store = briefStore();
+    const current = await store.get(id);
+    if (!current) return { status: 404, body: { error: 'marketing brief not found' } };
+    if (!current.workflowProposal) throw new Error('workflow proposal not found');
+    const body = await readBody();
+    if (body?.confirm !== true) throw new Error('explicit execution confirmation is required');
+    const frozen = freezeWorkflowProposal(current.workflowProposal, body?.version, workflowProposalOptions(options));
+    const prepared = await store.update(id, workflowProposalBriefPatch(frozen, workflowProposalOptions(options)));
+    try {
+      const result = await executeMarketingBrief(id, { confirm: true, mode: 'real' }, options, store);
+      const played = await store.update(id, { workflowProposal: { ...frozen, state: result.executed ? 'played' : 'proposed' } });
+      return { status: 200, body: { data: { ...result, brief: decorateBrief(played, options) } } };
+    } catch (error) {
+      await store.update(id, { workflowProposal: { ...frozen, state: 'proposed' }, lastError: error.message });
+      throw error;
+    }
+  }
+  const reviewMatch = tool.match(/^briefs\/([^/]+)\/review$/);
+  if (reviewMatch && method === 'POST') {
+    const body = await readBody();
+    const decision = body?.decision;
+    if (!['accepted', 'revisions-requested', 'rejected'].includes(decision)) throw new Error('review decision must be accepted, revisions-requested, or rejected');
+    const id = decodeURIComponent(reviewMatch[1]);
+    const current = await briefStore().get(id);
+    if (!current) return { status: 404, body: { error: 'marketing brief not found' } };
+    const artifactPath = current.media?.videoPath || current.media?.previewPath;
+    if (!artifactPath) throw new Error('a reviewable artifact is required before recording an editorial decision');
+    const at = (options.now?.() ?? new Date()).toISOString();
+    const event = {
+      decision,
+      at,
+      briefRevision: current.revision,
+      artifactPath,
+      artifactSha256: await hashLocalFile(artifactPath),
+      operator: 'local-operator',
+    };
+    const qualityAccepted = decision === 'accepted';
+    const brief = await briefStore().update(id, {
+      lifecycle: qualityAccepted ? 'ready-for-distribution' : 'needs-review',
+      approval: {
+        qualityAccepted,
+        reviewDecision: decision,
+        reviewedAt: at,
+        reviewHistory: [...(current.approval?.reviewHistory ?? []), event],
+      },
+    });
     return { status: 200, body: { data: decorateBrief(brief, options) } };
   }
   const workflowMatch = tool.match(/^briefs\/([^/]+)\/workflow$/);
@@ -593,7 +808,12 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   }
   if (method === 'GET' && tool === 'productions') {
     const ideaStore = options.ideaStore ?? new IdeaStore(options.ideaStoreOptions);
-    const [briefs, renders, ideas] = await Promise.all([briefStore().list(), listRenders(options), ideaStore.listIdeas()]);
+    const [briefs, renders, ideas, episodes] = await Promise.all([
+      briefStore().list(),
+      listRenders(options),
+      ideaStore.listIdeas(),
+      listLocalEpisodes(options.episodeStoreOptions),
+    ]);
     const ideasById = new Map(ideas.map((idea) => [idea.id, idea]));
     const briefVideoPaths = new Set(
       briefs
@@ -613,6 +833,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
             automation: brief.ideaId ? ideasById.get(brief.ideaId)?.automation ?? null : null,
           })),
           legacyRenders,
+          episodes,
         },
       },
     };
@@ -724,7 +945,10 @@ async function executeMarketingBrief(id, body, options, store) {
         const execution = await executeVideoVariant(brief, {
           mode: 'real',
           inputs: body.inputs ?? brief.executionInputs ?? {},
-          realExecutors: options.videoRealExecutors,
+          realExecutors: {
+            ...createLocalVideoExecutors(options.localVideoExecutionOptions),
+            ...(options.videoRealExecutors ?? {}),
+          },
         });
         const updated = await store.update(id, {
           lifecycle: 'needs-review',
@@ -933,6 +1157,24 @@ function decorateBrief(brief, options) {
     actions,
     continuation,
   };
+}
+
+function workflowProposalOptions(options = {}) {
+  return {
+    recipeOptions: options.workflowRecipeOptions ?? options.localVideoExecutionOptions,
+    recipes: options.workflowRecipes,
+    now: options.now,
+  };
+}
+
+async function hashLocalFile(filePath) {
+  return new Promise((resolve, reject) => {
+    const hash = createHash('sha256');
+    const stream = createReadStream(filePath);
+    stream.on('data', (chunk) => hash.update(chunk));
+    stream.on('error', reject);
+    stream.on('end', () => resolve(hash.digest('hex')));
+  });
 }
 
 function continuationFromAction(action) {

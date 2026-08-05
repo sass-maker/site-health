@@ -31,7 +31,7 @@ test('theme and model registries validate as secret-free bounded data', () => {
   assert.equal(validateThemeRegistry(themeConfig), themeConfig);
   assert.equal(validateModelRegistry(modelConfig), modelConfig);
   assert.equal(themeConfig.themes.length, 5);
-  assert.equal(modelConfig.profiles.length, 5);
+  assert.equal(modelConfig.profiles.length, 6);
 
   const unsafe = structuredClone(modelConfig);
   unsafe.profiles[0].apiToken = 'do-not-store';
@@ -71,6 +71,8 @@ test('model-options endpoint is read-only and exposes blockers without setup act
   assert.equal(bodyReads, 0);
   assert.ok(result.body.data.modelProfiles.some((entry) => entry.id === 'wai-illustrious-v17-sdcpp' && entry.readiness.ready));
   assert.ok(result.body.data.modelProfiles.some((entry) => entry.id === 'minimax-h3-mlx-q4' && !entry.readiness.ready));
+  assert.ok(result.body.data.workflowRecipes.some((entry) => entry.id === 'ltx-2b-comfy-i2v-preview' && entry.readiness.ready));
+  assert.ok(result.body.data.workflowRecipes.every((entry) => entry.graph === undefined));
 });
 
 test('stable-diffusion.cpp adapter emits a pinned local batch and verifies every card', async () => {

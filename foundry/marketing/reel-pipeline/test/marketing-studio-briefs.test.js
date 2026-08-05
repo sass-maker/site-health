@@ -14,6 +14,7 @@ import {
 import { continuationForBrief, evaluateStudioCapability, listStudioCapabilities } from '../src/studio/capabilities.js';
 import { StudioLlm } from '../src/studio/llm.js';
 import { CharacterDirectoryStore, createCastInstance } from '../src/studio/character-directory.js';
+import { proposeStudioWorkflow } from '../src/studio/workflow-proposals.js';
 
 const offlineLlm = new StudioLlm({ apiKey: '' });
 
@@ -71,6 +72,35 @@ test('brief store persists normalized state and increments revisions', async () 
   assert.equal(updated.approval.creativeStatus, 'approved');
   assert.equal(updated.sourceEvidence.rightsStatus, 'approved');
   assert.equal((await store.list()).length, 1);
+});
+
+test('brief store persists an inspectable workflow proposal without treating it as executed media', async () => {
+  const store = await tempStore();
+  const proposal = proposeStudioWorkflow({ request: 'A full body dance in a neon club' });
+  const created = await store.create({ request: proposal.request, workflowProposal: proposal });
+  const loaded = await store.get(created.id);
+  assert.equal(loaded.workflowProposal.id, proposal.id);
+  assert.equal(loaded.workflowProposal.version, 1);
+  assert.equal(loaded.workflowProposal.archetypeId, 'full-body-performance');
+  assert.equal(loaded.workflowProposal.state, 'proposed');
+  assert.equal(loaded.media, null);
+});
+
+test('brief store retains an explicit editorial review decision', async () => {
+  const store = await tempStore();
+  const created = await store.create({ request: 'Make a reviewable short.' });
+  const reviewed = await store.update(created.id, {
+    lifecycle: 'ready-for-distribution',
+    approval: {
+      qualityAccepted: true,
+      reviewDecision: 'accepted',
+      reviewedAt: '2026-08-05T10:30:00.000Z',
+    },
+  });
+  assert.equal(reviewed.approval.qualityAccepted, true);
+  assert.equal(reviewed.approval.reviewDecision, 'accepted');
+  assert.equal(reviewed.approval.reviewedAt, '2026-08-05T10:30:00.000Z');
+  assert.equal(reviewed.lifecycle, 'ready-for-distribution');
 });
 
 test('brief stores one soundtrack lane and invalidates only sound and downstream output when it changes', async () => {
