@@ -8,7 +8,8 @@
       "origin": "https://codevetter.com",
       "queries": [
         { "qid": "codevetter-brand", "kind": "brand", "q": "CodeVetter" },
-        { "qid": "codevetter-category", "kind": "category", "q": "AI code review benchmark agent-written bugs" }
+        { "qid": "codevetter-category", "kind": "category", "q": "AI code review benchmark agent-written bugs" },
+        { "qid": "codevetter-category-local", "kind": "category", "q": "local AI code review tool", "$note": "added 2026-08-05: natural commercial intent matching CodeVetter's local-first verification surface" }
       ]
     },
     {
@@ -16,7 +17,8 @@
       "origin": "https://rolepatch.com",
       "queries": [
         { "qid": "rolepatch-brand", "kind": "brand", "q": "RolePatch" },
-        { "qid": "rolepatch-category", "kind": "category", "q": "free ATS resume checker" }
+        { "qid": "rolepatch-category", "kind": "category", "q": "free ATS resume checker" },
+        { "qid": "rolepatch-category-private", "kind": "category", "q": "private ATS resume checker no signup", "$note": "added 2026-08-05: privacy qualifier matches the product and avoids the noisiest generic ATS intent" }
       ]
     },
 
@@ -25,6 +27,7 @@
       "origin": "https://highsignal.app",
       "queries": [
         { "qid": "highsignal-brand", "kind": "brand", "q": "highsignal.app" },
+        { "qid": "highsignal-brand-name", "kind": "brand", "q": "High Signal" },
         { "qid": "highsignal-category", "kind": "category", "q": "daily brief with prediction hit rates" },
         { "qid": "highsignal-category-2", "kind": "category", "q": "daily tech finance brief with public accuracy track record", "$note": "added 2026-07-25: highsignal-category reads as sports-betting intent and returns tipster sites. Kept for history; this one targets the intended audience." }
       ]
@@ -51,7 +54,9 @@
       "id": "significanthobbies",
       "origin": "https://significanthobbies.com",
       "queries": [
-        { "qid": "sighobbies-brand", "kind": "brand", "q": "Significant Hobbies planner" }
+        { "qid": "sighobbies-brand", "kind": "brand", "q": "Significant Hobbies planner" },
+        { "qid": "sighobbies-brand-name", "kind": "brand", "q": "Significant Hobbies" },
+        { "qid": "sighobbies-category-quiz", "kind": "category", "q": "hobby quiz for adults", "$note": "added 2026-08-05: exact intent page exists at /find-your-hobby" }
       ]
     },
     {
@@ -98,6 +103,7 @@
       "origin": "https://karte.cc",
       "queries": [
         { "qid": "karte-brand", "kind": "brand", "q": "karte.cc" },
+        { "qid": "karte-brand-name", "kind": "brand", "q": "Karte" },
         { "qid": "karte-category", "kind": "category", "q": "AI link-in-bio conversational profile" }
       ]
     },
@@ -154,7 +160,25 @@
       "origin": "https://sassmaker.com",
       "queries": [
         { "qid": "fleet-workspace-brand", "kind": "brand", "q": "sassmaker.com" },
-        { "qid": "fleet-workspace-category", "kind": "category", "q": "public software studio portfolio changelogs roadmaps source links" }
+        { "qid": "fleet-workspace-brand-name", "kind": "brand", "q": "SaaS Maker" },
+        { "qid": "fleet-workspace-category", "kind": "category", "q": "public software studio portfolio changelogs roadmaps source links" },
+        { "qid": "fleet-workspace-category-studio", "kind": "category", "q": "independent AI software studio products", "$note": "added 2026-08-05: natural studio-products intent" }
+      ]
+    },
+    {
+      "id": "ai-game",
+      "origin": "https://aliveville.com",
+      "queries": [
+        { "qid": "aliveville-brand", "kind": "brand", "q": "AliveVille" },
+        { "qid": "aliveville-category", "kind": "category", "q": "persistent AI world with autonomous agents" }
+      ]
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "origin": "https://sarthakagrawal.dev",
+      "queries": [
+        { "qid": "sarthak-agrawal-brand", "kind": "brand", "q": "Sarthak Agrawal" },
+        { "qid": "sarthak-agrawal-category", "kind": "category", "q": "AI infrastructure product engineer India" }
       ]
     },
     {
