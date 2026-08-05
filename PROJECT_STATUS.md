@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Full Search Console collection became operationally bounded:**
+  Removed timeout retries from the slow URL Inspection path and allowed four
+  inspections in flight, safely below Google's per-site quota. A real 29-target
+  acceptance run completed atomically in 57 seconds with all targets measured,
+  replacing the previously serialized multi-minute no-output interval while
+  preserving aggregate Search evidence when an inspection is unavailable.
 - **2026-08-05 — Search Console collection covered the complete ten-root
   mission:** Kept the 27-project public metric portfolio unchanged while
   deriving Google Search targets from its union with the validated ten-root

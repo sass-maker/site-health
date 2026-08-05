@@ -155,6 +155,15 @@ recording them as zero. The Google Search dashboard uses the same target union,
 so historical observations for supplemental roots remain visible and future
 updates refresh them without rewriting their project IDs.
 
+URL Inspection is the slow provider call, so a portfolio run permits at most
+four inspections in flight and treats a 20-second inspection timeout as an
+explicit unavailable result without retrying that same timeout. Non-timeout
+transient failures retain one bounded retry. Search Analytics metrics still
+record when inspection is unavailable, and the ledger append remains atomic.
+Four in-flight requests stay conservative against Google's documented URL
+Inspection limits of 600 queries per minute and 2,000 per day for one site:
+<https://developers.google.com/webmaster-tools/limits>.
+
 ## Persistence and privacy
 
 The ledger stores normalized aggregates, status-only attempt receipts, cost

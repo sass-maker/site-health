@@ -1,6 +1,7 @@
 const SEARCH_CONSOLE_API = 'https://www.googleapis.com/webmasters/v3';
 const SEARCH_CONSOLE_INSPECTION_API = 'https://searchconsole.googleapis.com/v1';
 const SEARCH_CONSOLE_TIMEOUT_MS = 20_000;
+const SEARCH_CONSOLE_INSPECTION_CONCURRENCY = 4;
 
 function isoDay(date) {
   return date.toISOString().slice(0, 10);
@@ -522,7 +523,11 @@ export async function inspectSearchConsoleUrl({
       };
     } catch (error) {
       lastError = error;
-      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 500));
+      if (attempt === 0 && error?.name !== 'TimeoutError') {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      } else {
+        break;
+      }
     }
   }
   return {
@@ -562,7 +567,9 @@ export async function collectSearchConsoleOutcomes({
     fetchImpl,
   });
   const properties = siteList.siteEntry ?? [];
-  const inspectOneAtATime = createConcurrencyGate(1);
+  const inspectWithBoundedConcurrency = createConcurrencyGate(
+    SEARCH_CONSOLE_INSPECTION_CONCURRENCY,
+  );
   const collectedProjects = await mapWithConcurrency(projects, 4, async (project) => {
     const domain = project.domains?.[0];
     const selected = domain ? selectSearchConsoleProperty(domain, properties) : null;
@@ -594,7 +601,7 @@ export async function collectSearchConsoleOutcomes({
       },
     );
     const inspectedUrl = `https://${domain}/`;
-    const inspectionRequest = inspectOneAtATime(() => inspectSearchConsoleUrl({
+    const inspectionRequest = inspectWithBoundedConcurrency(() => inspectSearchConsoleUrl({
       inspectionUrl: inspectedUrl,
       siteUrl: selected.siteUrl,
       accessToken,
