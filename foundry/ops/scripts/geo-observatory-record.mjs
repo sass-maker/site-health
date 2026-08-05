@@ -19,16 +19,37 @@ import { readFileSync, writeFileSync, existsSync, appendFileSync } from 'node:fs
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+import { validateRootBrandContract } from '../lib/root-brand-contract.mjs';
+import {
+  activeObservatoryQueries,
+  mergeRootSearchQueriesIntoObservatory,
+  validateRootSearchQueryContract,
+} from '../lib/root-search-query-contract.mjs';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const FLEET_ROOT = resolve(__dirname, '../../..');
 const CONFIG_PATH = join(FLEET_ROOT, 'foundry/ops/config/geo-observatory.json');
+const ROOT_BRANDS_PATH = join(FLEET_ROOT, 'foundry/ops/config/root-brands.json');
+const ROOT_QUERIES_PATH = join(FLEET_ROOT, 'foundry/ops/config/root-search-queries.json');
+const PROJECTS_PATH = join(FLEET_ROOT, 'foundry/ops/config/projects.json');
 const LEDGER_PATH = join(FLEET_ROOT, 'foundry/ops/data/geo-observatory/ledger.jsonl');
 const REPORT_PATH = join(FLEET_ROOT, 'foundry/ops/docs/geo-observatory-latest.md');
 
 const CLASSES = new Set(['A', 'B', 'C']);
 
 function loadConfig() {
-  return JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
+  const observatory = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
+  const projects = JSON.parse(readFileSync(PROJECTS_PATH, 'utf8')).projects ?? [];
+  const brands = validateRootBrandContract(
+    JSON.parse(readFileSync(ROOT_BRANDS_PATH, 'utf8')),
+    projects,
+  );
+  const rootQueries = validateRootSearchQueryContract(
+    JSON.parse(readFileSync(ROOT_QUERIES_PATH, 'utf8')),
+    brands,
+    projects,
+  );
+  return mergeRootSearchQueriesIntoObservatory(observatory, rootQueries);
 }
 
 function loadLedger() {
@@ -57,6 +78,8 @@ export function validate(entries, cfg) {
       errors.push(`${where}: unknown qid for product`);
     } else if (query && e.query !== query.q) {
       errors.push(`${where}: query must exactly match configured text`);
+    } else if (query?.status === 'historical') {
+      errors.push(`${where}: historical query cannot receive a new observation`);
     }
     const key = `${e.product}|${e.qid}`;
     if (seen.has(key)) errors.push(`${where}: duplicate product/qid in input`);
@@ -160,7 +183,7 @@ export function generateReport(ledger, cfg) {
   lines.push(`| product | query (kind) | ${recent.join(' | ')} |`);
   lines.push(`|---|---|${recent.map(() => '---').join('|')}|`);
   for (const p of cfg.products) {
-    for (const q of p.queries) {
+    for (const q of activeObservatoryQueries(p)) {
       const m = byKey.get(`${p.id}|${q.qid}`);
       const cells = recent.map((d) => m?.get(d)?.class ?? '·');
       lines.push(`| ${p.id} | ${q.q.slice(0, 48)} (${q.kind}) | ${cells.join(' | ')} |`);
@@ -193,7 +216,7 @@ export function generateReport(ledger, cfg) {
     lines.push(`## Latest run notes (${last})`);
     lines.push('');
     const latestEntries = cfg.products.flatMap((product) =>
-      product.queries
+      activeObservatoryQueries(product)
         .map((query) => byKey.get(`${product.id}|${query.qid}`)?.get(last))
         .filter(Boolean),
     );

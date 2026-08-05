@@ -16,19 +16,29 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 | product | query (kind) | 2026-07-17 | 2026-07-25 | 2026-07-26 | 2026-07-31 |
 |---|---|---|---|---|---|
 | codevetter | CodeVetter (brand) | A | A | C | A |
-| codevetter | AI code review benchmark agent-written bugs (category) | · | C | C | C |
+| codevetter | codevetter.com (exact-domain) | · | · | · | · |
+| codevetter | AI code review for agent generated code (category) | · | · | · | · |
+| codevetter | find bugs in AI generated code before merge (problem) | · | · | · | · |
 | rolepatch | RolePatch (brand) | B | B | A | A |
-| rolepatch | free ATS resume checker (category) | · | C | C | C |
-| high-signal | highsignal.app (brand) | C | C | A | B |
-| high-signal | daily brief with prediction hit rates (category) | · | C | B | C |
+| rolepatch | rolepatch.com (exact-domain) | · | · | · | · |
+| rolepatch | AI resume tailoring tool (category) | · | · | · | · |
+| rolepatch | tailor resume to a job description (problem) | · | · | · | · |
+| high-signal | highsignal.app (exact-domain) | C | C | A | B |
 | high-signal | daily tech finance brief with public accuracy tr (category) | · | C | A | C |
-| pace | heypace (brand) | C | C | C | C |
-| pace | heypace.app (brand) | · | C | C | C |
-| pace | Mac voice agent reads your screen (category) | · | C | C | C |
+| high-signal | High Signal technology finance brief (brand) | · | · | · | · |
+| high-signal | evidence backed daily technology and markets int (problem) | · | · | · | · |
+| pace | heypace.app (exact-domain) | · | C | C | C |
 | pace | macOS AI agent that sees your screen and runs ta (category) | · | C | C | C |
+| pace | HeyPace AI assistant (brand) | · | · | · | · |
+| pace | private screen aware AI assistant for Mac (problem) | · | · | · | · |
 | posttrainllm | posttrainllm (brand) | C | C | A | A |
 | posttrainllm | fine-tune LLM specialists on Mac Apple Silicon (category) | · | C | C | C |
+| posttrainllm | posttrainllm.com (exact-domain) | · | · | · | · |
+| posttrainllm | train and evaluate a small language model locall (problem) | · | · | · | · |
 | significanthobbies | Significant Hobbies planner (brand) | C | C | A | A |
+| significanthobbies | significanthobbies.com (exact-domain) | · | · | · | · |
+| significanthobbies | meaningful hobby discovery planner (category) | · | · | · | · |
+| significanthobbies | find meaningful hobbies and plan side quests (problem) | · | · | · | · |
 | anime-list | Fullmetal Alchemist Brotherhood filter by episod (category) | · | C | C | C |
 | anime-list | anime discovery multi-field filter watchlist (category) | · | C | C | C |
 | drank | free domain rating dataset weekly (category) | · | C | C | C |
@@ -38,8 +48,10 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 | calorie | private local-first food water weight journal (category) | · | · | · | C |
 | free-ai | ai-gateway.sassmaker.com (brand) | · | · | · | A |
 | free-ai | free OpenAI-compatible API gateway free-tier mod (category) | · | · | · | C |
-| karte | karte.cc (brand) | · | · | · | C |
+| karte | karte.cc (exact-domain) | · | · | · | C |
 | karte | AI link-in-bio conversational profile (category) | · | · | · | C |
+| karte | Karte AI profile (brand) | · | · | · | · |
+| karte | create a profile people and AI agents can ask qu (problem) | · | · | · | · |
 | knowledge-base | knowledgebase.sassmaker.com (brand) | · | · | · | C |
 | knowledge-base | private knowledge base search ranked citations p (category) | · | · | · | C |
 | reader | read.significanthobbies.com (brand) | · | · | · | B |
@@ -52,8 +64,10 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 | chess | browser chess Stockfish AI move coaching (category) | · | · | · | C |
 | email-manager | mail.significanthobbies.com (brand) | · | · | · | C |
 | email-manager | local-first Gmail semantic search sender insight (category) | · | · | · | C |
-| fleet-workspace | sassmaker.com (brand) | · | · | · | B |
+| fleet-workspace | sassmaker.com (exact-domain) | · | · | · | B |
 | fleet-workspace | public software studio portfolio changelogs road (category) | · | · | · | C |
+| fleet-workspace | SaaS Maker software studio (brand) | · | · | · | · |
+| fleet-workspace | discover focused open source AI software product (problem) | · | · | · | · |
 | looptv | tv.significanthobbies.com (brand) | · | · | · | C |
 | looptv | curated YouTube lean-back random TV channel (category) | · | · | · | C |
 | chatgpt-memory-insights | chatgpt.significanthobbies.com (brand) | · | · | · | C |
@@ -69,7 +83,16 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 | starboard | starboard.codevetter.com (brand) | · | · | · | C |
 | starboard | semantic search organize GitHub starred reposito (category) | · | · | · | C |
 | india-standards | india-numbers.significanthobbies.com (brand) | · | · | · | C |
+| india-standards | india-standards.significanthobbies.com (brand) | · | · | · | · |
 | india-standards | India demographic calculator survey-weighted cor (category) | · | · | · | C |
+| ai-game | Aliveville (brand) | · | · | · | · |
+| ai-game | aliveville.com (exact-domain) | · | · | · | · |
+| ai-game | AI civilization simulation game (category) | · | · | · | · |
+| ai-game | play an evolving AI world simulation in browser (problem) | · | · | · | · |
+| sarthakagrawal-personal | Sarthak Agrawal AI infrastructure engineer (brand) | · | · | · | · |
+| sarthakagrawal-personal | sarthakagrawal.dev (exact-domain) | · | · | · | · |
+| sarthakagrawal-personal | AI infrastructure product engineer portfolio (category) | · | · | · | · |
+| sarthakagrawal-personal | engineer building AI infrastructure and develope (problem) | · | · | · | · |
 
 ## Retired (in ledger, no longer in config)
 
@@ -80,15 +103,10 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 ## Latest run notes (2026-07-31)
 
 - **codevetter / codevetter-brand** → A. Top: https://codevetter.com/, https://codevet.dev/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. CodeVetter owns the first organic result; similarly named CodeVet pages follow.
-- **codevetter / codevetter-category** → C. Top: https://arxiv.org/abs/2603.23448, https://www.qodo.ai/blog/how-we-built-a-real-world-benchmark-for-ai-code-review/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Research papers and established review vendors own the first page; CodeVetter is absent.
 - **rolepatch / rolepatch-brand** → A. Top: https://rolepatch.com/, https://www.pulumi.com/registry/packages/kubernetes%403.x/api-docs/rbac/v1alpha1/rolepatch/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. RolePatch owns the first result despite technical term collisions.
-- **rolepatch / rolepatch-category** → C. Top: https://www.atschecker.ai/, https://hireflow.net/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Dedicated ATS checker sites own the category SERP; RolePatch is absent from page one.
 - **high-signal / highsignal-brand** → B. Top: https://chrome-stats.com/d/kr.celtech.highsignal.app, https://www.appbrain.com/app/%ED%95%98%EC%9D%B4%EC%8B%9C%EA%B7%B8%EB%84%90high-signal/kr.celtech.highsignal.app — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. The origin is absent; the intended product is reachable only through a GitHub mirror amid unrelated High Signal apps.
-- **high-signal / highsignal-category** → C. Top: https://predictionbrief.io/, https://www.variantmarkets.com/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Prediction-market and sports-forecast products own this intent; High Signal is absent.
 - **high-signal / highsignal-category-2** → C. Top: https://www.dailytechfinance.com/about/, https://graysondailybrief.org/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Finance publishers and tracked-call products own the results; High Signal is absent from page one.
-- **pace / pace-brand** → C. Top: https://www.garmentory.com/sale/heypace/tops-tees, https://www.heycash.com/de-de — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. The brand query is dominated by fashion and similarly named products; Pace is absent.
 - **pace / pace-brand-exact** → C. Top: https://play.google.com/store/apps/details?hl=en_US&id=com.trainerize.grndapp, https://apps.apple.com/us/app/daypace/id6772209019 — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Even the exact-domain text does not surface the origin; unrelated app-name collisions occupy the results.
-- **pace / pace-category** → C. Top: https://verba.run/, https://app.koe.live/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Voice-first Mac competitors own the top results; Pace appears only beyond the first ten results.
 - **pace / pace-category-2** → C. Top: https://cyclop.one/, https://peepbox.ai/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Desktop automation competitors own page one; Pace is absent.
 - **posttrainllm / posttrainllm-brand** → A. Top: https://posttrainllm.com/docs/session_retrospective/, https://posttrainllm.com/docs/learn/ — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Posttrainllm owns all three leading results through its documentation.
 - **posttrainllm / posttrainllm-category** → C. Top: https://machinelearning.apple.com/research/exploring-llms-mlx-m5, https://epistates.com/blog/pmetal-llm-finetuning-apple-silicon — Corrected live WebSearch re-probe; prior same-day Bing observation was semantically invalid. Apple MLX and dedicated fine-tuning tools own the category SERP; posttrainllm is absent.

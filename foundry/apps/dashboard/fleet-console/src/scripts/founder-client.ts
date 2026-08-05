@@ -2257,10 +2257,36 @@ function searchTermsTable(row: JsonRecord) {
 function trackedTargetQueries(row: JsonRecord) {
   const queries = row.trackedQueries ?? [];
   if (queries.length === 0) return null;
+
+  function queryEvidence(query: JsonRecord) {
+    let googleLabel = "Google · Not observed";
+    let googleDetail = "No matching retained Search Console row in this reporting window";
+    if (query.searchConsole?.state === "observed") {
+      const position = new Intl.NumberFormat("en", { maximumFractionDigits: 2 })
+        .format(query.searchConsole.position);
+      googleLabel = `Google #${position}`;
+      googleDetail = `${query.searchConsole.impressions} impressions · ${query.searchConsole.clicks} clicks`;
+    }
+
+    let liveLabel = "Live search · Not observed";
+    let liveDetail = "Awaiting the next weekly observation";
+    if (query.liveSearch?.state === "observed") {
+      liveLabel = `Live search · ${SEARCH_RESULT_CLASS_LABELS[query.liveSearch.class] ?? "Unknown"}`;
+      liveDetail = formattedDay(query.liveSearch.observedAt);
+    }
+
+    return element("div", { class: "tracked-intent__result" }, [
+      element("strong", {}, [googleLabel]),
+      element("small", {}, [googleDetail]),
+      element("strong", {}, [liveLabel]),
+      element("small", {}, [liveDetail]),
+    ]);
+  }
+
   return element("div", { class: "search-detail__terms" }, [
     element("h2", {}, ["Tracked target queries"]),
     element("p", { class: "search-detail__note" }, [
-      "Live web-search checks for terms Fleet intentionally tracks; separate from Search Console impressions.",
+      "Stable target terms with separate Google Search Console and live web-search evidence.",
     ]),
     element("div", { class: "tracked-intent-list" }, queries.map((query: JsonRecord) =>
       element("article", { class: "tracked-intent" }, [
@@ -2268,10 +2294,7 @@ function trackedTargetQueries(row: JsonRecord) {
           element("span", {}, [query.kind ?? "query"]),
           element("strong", {}, [query.text]),
         ]),
-        element("div", { class: "tracked-intent__result" }, [
-          element("strong", {}, [SEARCH_RESULT_CLASS_LABELS[query.class] ?? "Not measured"]),
-          element("small", {}, [`Live web search · ${formattedDay(query.observedAt)}`]),
-        ]),
+        queryEvidence(query),
       ]))),
   ]);
 }

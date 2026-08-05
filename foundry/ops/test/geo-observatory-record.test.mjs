@@ -71,6 +71,13 @@ test('rejects rewritten queries, unverified sources, duplicates, and false A cla
   assert.ok(validate([null], config).some((error) => error.includes('observation must be an object')));
 });
 
+test('rejects new observations for historical queries', () => {
+  const historicalConfig = structuredClone(config);
+  historicalConfig.products[0].queries[0].status = 'historical';
+  assert.ok(validate([validEntry], historicalConfig).some((error) =>
+    error.includes('historical query cannot receive a new observation')));
+});
+
 test('allows a factual no-results C and rejects malformed URL evidence', () => {
   const noResults = {
     ...validEntry,

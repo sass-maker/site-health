@@ -660,8 +660,14 @@ test('projects provider-authoritative search and Cloudflare activity without con
     id: 'pace-brand',
     kind: 'brand',
     text: 'heypace.app',
-    class: 'B',
-    observedAt: '2026-07-30T12:00:00.000Z',
+    rootDomain: null,
+    collision: null,
+    liveSearch: {
+      state: 'observed',
+      class: 'B',
+      observedAt: '2026-07-30T12:00:00.000Z',
+    },
+    searchConsole: { state: 'not-observed' },
   }]);
   const marketingRow = result.outputs.ownerOutcomes.marketing.find(
     (project) => project.projectId === 'pace',

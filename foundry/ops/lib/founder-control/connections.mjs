@@ -18,6 +18,12 @@ import {
 } from '../visibility-outcome-store.mjs';
 import { visibilityProjects } from '../visibility-projects.mjs';
 import { searchConsoleProviderUrl } from '../search-console.mjs';
+import { validateRootBrandContract } from '../root-brand-contract.mjs';
+import {
+  activeObservatoryQueries,
+  mergeRootSearchQueriesIntoObservatory,
+  validateRootSearchQueryContract,
+} from '../root-search-query-contract.mjs';
 import {
   defaultSearchIndexingRequestPath,
   readSearchIndexingRequests,
@@ -322,19 +328,36 @@ function canonicalVisibilityProjectId(value) {
   return aliases[value] ?? value;
 }
 
-function searchVisibilityEvidence(fleetRoot) {
-  const config = readJson(
+function searchVisibilityEvidence(fleetRoot, projectCatalog) {
+  const baseConfig = readJson(
     resolve(fleetRoot, 'foundry/ops/config/geo-observatory.json'),
     { products: [] },
   );
+  const brandContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-brands.json'));
+  const rootQueryContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-search-queries.json'));
+  let config = baseConfig;
+  if (brandContract && rootQueryContract) {
+    const brandMap = validateRootBrandContract(
+      brandContract,
+      projectCatalog.projects ?? [],
+    );
+    const rootQueries = validateRootSearchQueryContract(
+      rootQueryContract,
+      brandMap,
+      projectCatalog.projects ?? [],
+    );
+    config = mergeRootSearchQueriesIntoObservatory(baseConfig, rootQueries);
+  }
   const configured = new Map();
   for (const product of config.products ?? []) {
     const projectId = canonicalVisibilityProjectId(product.id);
     const queries = configured.get(projectId) ?? [];
-    queries.push(...(product.queries ?? []).map((query) => ({
+    queries.push(...activeObservatoryQueries(product).map((query) => ({
       id: query.qid,
       kind: query.kind ?? 'unknown',
       text: query.q,
+      rootDomain: query.rootDomain ?? null,
+      collision: query.collision ?? null,
     })));
     configured.set(projectId, queries);
   }
@@ -1396,18 +1419,42 @@ function latestFamilySignal(project, outcome, label) {
   };
 }
 
-function latestTrackedQueries(project) {
+function normalizedSearchQuery(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('en-US');
+}
+
+function latestTrackedQueries(project, searchTerms = []) {
+  const termsByQuery = new Map();
+  for (const term of searchTerms) {
+    const key = normalizedSearchQuery(term.query);
+    const current = termsByQuery.get(key);
+    if (!current || Number(term.impressions ?? 0) > Number(current.impressions ?? 0)) {
+      termsByQuery.set(key, term);
+    }
+  }
   return (project.searchVisibility?.queries ?? [])
-    .flatMap((query) => {
+    .map((query) => {
       const latest = query.history?.at(-1);
-      if (!latest || !['A', 'B', 'C'].includes(latest.class)) return [];
-      return [{
+      const searchConsole = termsByQuery.get(normalizedSearchQuery(query.text));
+      return {
         id: query.id,
         kind: query.kind,
         text: query.text,
-        class: latest.class,
-        observedAt: latest.observedAt,
-      }];
+        rootDomain: query.rootDomain,
+        collision: query.collision,
+        liveSearch: latest && ['A', 'B', 'C'].includes(latest.class)
+          ? { state: 'observed', class: latest.class, observedAt: latest.observedAt }
+          : { state: 'not-observed' },
+        searchConsole: searchConsole
+          ? {
+              state: 'observed',
+              impressions: Number(searchConsole.impressions ?? 0),
+              clicks: Number(searchConsole.clicks ?? 0),
+              position: Number(searchConsole.position),
+              landingPage: searchConsole.landingPage ?? null,
+            }
+          : { state: 'not-observed' },
+      };
     })
     .slice(0, 12);
 }
@@ -1626,7 +1673,7 @@ function buildOwnerOutcomeProjection({
       indexInspection: outcome?.indexInspection ?? null,
       indexingRequest,
       searchChangeReceipt,
-      trackedQueries: latestTrackedQueries(project),
+      trackedQueries: latestTrackedQueries(project, searchTerms),
       provider: outcome?.provider ?? null,
       providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
         String(outcome?.scope ?? '').split(' · page:')[0],
@@ -2426,7 +2473,7 @@ export function buildFleetConnections({
   const psi = psiEvidence(home, now);
   const skills = skillEvidence(home, now);
   const designReviews = designReviewEvidence(fleetRoot, maintainedProjects);
-  const searchVisibility = searchVisibilityEvidence(fleetRoot);
+  const searchVisibility = searchVisibilityEvidence(fleetRoot, projectCatalog);
   const visibilityMetrics = visibilityMetricEvidence(home);
   const visibilityOutcomes = visibilityOutcomeEvidence(home);
   const latestIndexingRequestByProject = new Map();
