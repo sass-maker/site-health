@@ -21,6 +21,11 @@ import {
 import { dirname, join, relative as pathRelative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildTrackedSearchIntentMap } from '../lib/tracked-search-intents.mjs';
+import {
+  loadRootBrandContract,
+  rootBrandForUrl,
+} from '../lib/root-brand-contract.mjs';
+import { loadFounderProjects } from '../lib/founder-control/registry.mjs';
 import { loadRegistry, productOrigin } from './lib/registry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -41,6 +46,10 @@ const REGISTRY = join(
 const GEO_OBSERVATORY = join(
   sourceFleetRoot,
   'foundry/ops/config/geo-observatory.json',
+);
+const ROOT_BRANDS = join(
+  sourceFleetRoot,
+  'foundry/ops/config/root-brands.json',
 );
 const EDGE_TEMPLATE = join(
   sourceFleetRoot,
@@ -86,6 +95,7 @@ const jsonldEmitMode = args.includes('--jsonld-emit');
 const onlyId = args.includes('--id') ? args[args.indexOf('--id') + 1] : null;
 
 const registry = loadRegistry(REGISTRY);
+const rootBrands = loadRootBrandContract(ROOT_BRANDS, loadFounderProjects());
 const trackedSearchIntents = buildTrackedSearchIntentMap({
   products: registry.products,
   observatory: JSON.parse(readFileSync(GEO_OBSERVATORY, 'utf8')),
@@ -783,6 +793,9 @@ function buildJsonLd(product, registry) {
 
   const schemaType = product.schemaType || 'SoftwareApplication';
   const productSameAs = Array.isArray(product.sameAs) ? product.sameAs : [];
+  const rootBrand = rootBrandForUrl(origin, rootBrands);
+  const productName = rootBrand?.canonicalName ?? product.name;
+  const alternateNames = rootBrand?.alternateNames ?? [];
 
   const publisherNode = {
     '@type': 'Person',
@@ -797,7 +810,8 @@ function buildJsonLd(product, registry) {
   const appNode = {
     '@type': schemaType,
     '@id': `${origin}/#app`,
-    name: product.name,
+    name: productName,
+    ...(alternateNames.length ? { alternateName: alternateNames } : {}),
     url: origin,
     description: product.summary,
     publisher: { '@id': PUBLISHER_ID },
