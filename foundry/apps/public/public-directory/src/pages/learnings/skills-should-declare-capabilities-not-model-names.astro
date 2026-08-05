@@ -26,14 +26,10 @@ const structuredData = {
   dateModified: article.publishedAt,
   mainEntityOfPage: canonicalUrl,
   author: {
-    '@type': 'Person',
-    name: article.author,
-    url: 'https://sarthakagrawal.dev',
+    '@id': 'https://sarthakagrawal.dev/#person',
   },
   publisher: {
-    '@type': 'Person',
-    name: article.author,
-    url: 'https://sarthakagrawal.dev',
+    '@id': 'https://sarthakagrawal.dev/#person',
   },
 };
 ---
