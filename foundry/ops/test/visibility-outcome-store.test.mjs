@@ -89,6 +89,30 @@ test('retains bounded provider links and breakdowns', () => {
   );
 });
 
+test('retains paired sitemap submission evidence', () => {
+  const [normalized] = appendVisibilityOutcomeBundle(bundle([searchObservation({
+    indexInspection: {
+      inspectedUrl: 'https://heypace.app/',
+      state: 'not-indexed',
+      sitemapSubmissionState: 'submitted',
+      sitemapSubmittedAt: '2026-07-31T11:55:00.000Z',
+    },
+  })]), { allowedProjectIds: new Set(['pace']) }).observations;
+
+  assert.equal(normalized.indexInspection.sitemapSubmissionState, 'submitted');
+  assert.equal(normalized.indexInspection.sitemapSubmittedAt, '2026-07-31T11:55:00.000Z');
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([searchObservation({
+      indexInspection: {
+        inspectedUrl: 'https://heypace.app/',
+        state: 'not-indexed',
+        sitemapSubmissionState: 'submitted',
+      },
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /must include sitemapSubmissionState and sitemapSubmittedAt together/,
+  );
+});
+
 test('accepts legacy query-only evidence and rejects invalid landing pages', () => {
   const legacy = searchObservation({
     searchTerms: [
@@ -115,6 +139,25 @@ test('accepts legacy query-only evidence and rejects invalid landing pages', () 
     })]), { allowedProjectIds: new Set(['pace']) }),
     /landingPage must use HTTP or HTTPS/,
   );
+});
+
+test('retains long provider queries within the bounded ledger limit', () => {
+  const longQuery = `${'site:example.com '.repeat(30)}search intent`;
+  const [normalized] = appendVisibilityOutcomeBundle(bundle([searchObservation({
+    id: 'search-pace-long-query',
+    searchTerms: [{
+      query: longQuery,
+      impressions: 1,
+      clicks: 0,
+      ctr: 0,
+      position: 8,
+    }],
+  })]), {
+    path: join(mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-')), 'ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  }).observations;
+
+  assert.equal(normalized.searchTerms[0].query, longQuery.trim());
 });
 
 test('rejects the complete bundle before writing any partial observation', (context) => {

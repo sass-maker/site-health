@@ -55,3 +55,4 @@ Format (one table row per delegation):
 | 2026-07-25 | codex | implement | posttrainllm factory-run lifecycle | accepted-with-fixes | complete durable lifecycle and focused smokes; parent fixed terminal config overwrite ordering and added lock coverage |
 | 2026-07-25 | codex | implement | posttrainllm autocorrect foundation | accepted | bounded no-model artifacts and 12 focused tests merged cleanly; parent added frontier calibration and model gate |
 | 2026-07-25 | codex | other | posttrainllm autocorrect model research | accepted | pinned three primary-source candidates with exact revisions, resource estimates, commands, and honest MLX limitations |
+| 2026-08-05 | devin | other | ten-root search issue reconciliation | accepted-with-fixes | found eight source-merged child issues and the genuine Aliveville gap; parent corrected prompt TLD assumptions against the canonical Fleet contract and will verify before closure |

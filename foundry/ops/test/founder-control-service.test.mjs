@@ -222,6 +222,30 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
         }],
         marketing: [{
           projectId: 'site',
+          name: 'Site',
+          domain: 'site.example',
+          postCount: 2,
+          posts: [
+            {
+              id: 'post-1',
+              title: 'Launch note',
+              provider: 'youtube',
+              stage: 'publication',
+              status: 'published',
+              observedAt: '2026-07-30T09:00:00.000Z',
+              url: 'https://example.com/post-1',
+              private: 'must-not-leak',
+            },
+            {
+              id: 'post-2',
+              title: 'Unsafe link',
+              provider: 'instagram',
+              stage: 'publication',
+              status: 'recorded',
+              observedAt: 'not-a-date',
+              url: 'javascript:alert(1)',
+            },
+          ],
           visits: { value: 240, series: [{ value: 180 }] },
           pageViews: { value: 380, series: [{ value: 300 }] },
           searchReferrals: { value: 44, series: [{ value: 30 }] },
@@ -241,8 +265,14 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
             id: 'site-brand',
             kind: 'brand',
             text: 'site.example',
-            class: 'A',
-            observedAt: '2026-07-30T12:00:00.000Z',
+            rootDomain: 'site.example',
+            collision: { state: 'clear', note: 'No known collision.' },
+            liveSearch: {
+              state: 'observed',
+              class: 'A',
+              observedAt: '2026-07-30T12:00:00.000Z',
+            },
+            searchConsole: { state: 'not-observed' },
             private: 'not exposed',
           }],
           action: {
@@ -312,8 +342,14 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
     id: 'site-brand',
     kind: 'brand',
     text: 'site.example',
-    class: 'A',
-    observedAt: '2026-07-30T12:00:00.000Z',
+    rootDomain: 'site.example',
+    collision: { state: 'clear', note: 'No known collision.' },
+    liveSearch: {
+      state: 'observed',
+      class: 'A',
+      observedAt: '2026-07-30T12:00:00.000Z',
+    },
+    searchConsole: { state: 'not-observed' },
   }]);
   assert.equal(awareness.rows[0].projectId, 'core');
   assert.equal(awareness.rows[0].crawlerRequests.series.length, 1);
@@ -322,8 +358,26 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal('private' in awareness.rows[0].attempts[0], false);
   assert.equal(awareness.rows[0].citationSources.external, 1);
   assert.equal('private' in awareness.rows[0].citationSources.sources[0], false);
-  assert.equal(marketing.rows[0].visits.series.length, 1);
-  assert.equal(marketing.rows[0].pageViews.value, 380);
+  assert.equal(marketing.rows[0].postCount, 2);
+  assert.deepEqual(Object.keys(marketing.rows[0]).sort(), [
+    'domain',
+    'name',
+    'postCount',
+    'posts',
+    'projectId',
+  ]);
+  assert.deepEqual(Object.keys(marketing.rows[0].posts[0]).sort(), [
+    'id',
+    'observedAt',
+    'provider',
+    'stage',
+    'status',
+    'title',
+    'url',
+  ]);
+  assert.equal(marketing.rows[0].posts[0].url, 'https://example.com/post-1');
+  assert.equal(marketing.rows[0].posts[1].url, null);
+  assert.equal(marketing.rows[0].posts[1].observedAt, null);
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
   assert.equal(performance.rows[0].psi.value, 95);
   assert.equal('series' in performance.rows[0].psi, false);

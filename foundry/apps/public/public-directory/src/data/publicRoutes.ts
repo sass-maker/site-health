@@ -48,25 +48,27 @@ function productMarkdown(product: RegistryProduct): string {
 }
 
 function homeMarkdown(): string {
-  const products = publicCatalog.products.flatMap((product) => {
-    const links = product as typeof product & {
-      changelogUrl?: string;
-      roadmapUrl?: string;
-      repositoryUrl?: string;
-    };
-    const lines = [
-      `## ${product.name}`,
-      '',
-      product.description,
-      '',
-      `- Product: ${product.url}`,
-    ];
-    if (links.changelogUrl) lines.push(`- Changelog: ${links.changelogUrl}`);
-    if (links.roadmapUrl) lines.push(`- Roadmap: ${links.roadmapUrl}`);
-    if (links.repositoryUrl) lines.push(`- Source: ${links.repositoryUrl}`);
-    lines.push('');
-    return lines;
-  });
+  const products = publicCatalog.products
+    .filter((product) => product.id !== 'saas-maker')
+    .flatMap((product) => {
+      const links = product as typeof product & {
+        changelogUrl?: string;
+        roadmapUrl?: string;
+        repositoryUrl?: string;
+      };
+      const lines = [
+        `## ${product.name}`,
+        '',
+        product.description,
+        '',
+        `- Product: ${product.url}`,
+      ];
+      if (links.changelogUrl) lines.push(`- Changelog: ${links.changelogUrl}`);
+      if (links.roadmapUrl) lines.push(`- Roadmap: ${links.roadmapUrl}`);
+      if (links.repositoryUrl) lines.push(`- Source: ${links.repositoryUrl}`);
+      lines.push('');
+      return lines;
+    });
   const pastProjects = publicCatalog.pastProjects.flatMap((project) => [
     `## ${project.name}`,
     '',
@@ -205,20 +207,7 @@ const learningRoutes: PublicRoute[] = LEARNINGS.map((learning) => ({
   path: learning.href,
   description: learning.description,
   kind: 'article',
-  markdown: [
-    `# ${learning.title}`,
-    '',
-    learning.description,
-    '',
-    `- Published: ${learning.publishedAt}`,
-    `- Author: ${learning.author}`,
-    `- Reading time: ${learning.readingTime}`,
-    '',
-    'This Markdown surface carries the published article summary and canonical human-readable route. The full article is available at:',
-    '',
-    `${SITE_URL}${learning.href}`,
-    '',
-  ].join('\n'),
+  markdown: learning.markdown,
 }));
 
 const productRoutes: PublicRoute[] = PAGED_PRODUCTS.map((product) => ({

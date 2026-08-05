@@ -11,6 +11,7 @@ export const VISIBILITY_OUTCOME_BUNDLE_SCHEMA = 'fleet.visibility-outcome-bundle
 export const VISIBILITY_OUTCOME_SCHEMA = 'fleet.visibility-outcome.v1';
 
 const IDENTIFIER = /^[a-z0-9][a-z0-9._:-]{0,159}$/;
+const MAX_SEARCH_QUERY_LENGTH = 2_048;
 const FAMILY_CONTRACTS = {
   search: {
     provider: 'google-search-console',
@@ -157,7 +158,10 @@ function normalizeSearchTerms(searchTerms, family) {
     const path = `observation.searchTerms[${index}]`;
     assertKnownKeys(term, new Set(['query', 'landingPage', 'impressions', 'clicks', 'ctr', 'position']), path);
     const query = String(term.query ?? '').replace(/\s+/g, ' ').trim();
-    assert(query.length > 0 && query.length <= 300, `${path}.query must be 1-300 characters`);
+    assert(
+      query.length > 0 && query.length <= MAX_SEARCH_QUERY_LENGTH,
+      `${path}.query must be 1-${MAX_SEARCH_QUERY_LENGTH} characters`,
+    );
     let landingPage = null;
     if (term.landingPage !== undefined && term.landingPage !== null) {
       assert(typeof term.landingPage === 'string', `${path}.landingPage must be a URL`);
@@ -215,7 +219,8 @@ function normalizeIndexInspection(value, family) {
   assertKnownKeys(value, new Set([
     'inspectedUrl', 'state', 'verdict', 'coverageState', 'robotsTxtState',
     'indexingState', 'pageFetchState', 'lastCrawlTime', 'userCanonical',
-    'googleCanonical', 'sitemapUrls', 'failureReason',
+    'googleCanonical', 'sitemapUrls', 'sitemapSubmissionState',
+    'sitemapSubmittedAt', 'failureReason',
   ]), path);
   const states = new Set(['indexed', 'not-indexed', 'unknown', 'unavailable']);
   assert(states.has(value.state), `${path}.state is invalid`);
@@ -227,6 +232,12 @@ function normalizeIndexInspection(value, family) {
   };
   const sitemapUrls = value.sitemapUrls === undefined ? [] : value.sitemapUrls;
   assert(Array.isArray(sitemapUrls) && sitemapUrls.length <= 10, `${path}.sitemapUrls is invalid`);
+  const hasSitemapSubmissionState = value.sitemapSubmissionState !== undefined;
+  const hasSitemapSubmittedAt = value.sitemapSubmittedAt !== undefined;
+  assert(
+    hasSitemapSubmissionState === hasSitemapSubmittedAt,
+    `${path} must include sitemapSubmissionState and sitemapSubmittedAt together`,
+  );
   const normalized = {
     inspectedUrl: normalizeHttpsUrl(value.inspectedUrl, `${path}.inspectedUrl`),
     state: value.state,
@@ -241,6 +252,14 @@ function normalizeIndexInspection(value, family) {
   if (value.userCanonical !== undefined) normalized.userCanonical = normalizeHttpsUrl(value.userCanonical, `${path}.userCanonical`);
   if (value.googleCanonical !== undefined) normalized.googleCanonical = normalizeHttpsUrl(value.googleCanonical, `${path}.googleCanonical`);
   if (sitemapUrls.length > 0) normalized.sitemapUrls = [...new Set(sitemapUrls.map((url) => normalizeHttpsUrl(url, `${path}.sitemapUrls`)))];
+  if (hasSitemapSubmissionState) {
+    assert(
+      new Set(['submitted', 'already-submitted']).has(value.sitemapSubmissionState),
+      `${path}.sitemapSubmissionState is invalid`,
+    );
+    normalized.sitemapSubmissionState = value.sitemapSubmissionState;
+    normalized.sitemapSubmittedAt = normalizeTimestamp(value.sitemapSubmittedAt, `${path}.sitemapSubmittedAt`);
+  }
   return normalized;
 }
 

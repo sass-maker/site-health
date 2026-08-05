@@ -9,10 +9,12 @@ interface Props {
   eyebrow?: string;
   view?: "domains" | "search" | "ai-awareness" | "marketing" | "performance" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
   projectId?: string;
+  showProjectScope?: boolean;
+  loadFounderEvidence?: boolean;
 }
 
-const { title, description, active, eyebrow = "Founder control", view, projectId } = Astro.props;
-const filterable = !["project", "mission", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
+const { title, description, active, eyebrow = "Founder control", view, projectId, showProjectScope = true, loadFounderEvidence = true } = Astro.props;
+const filterable = showProjectScope && !["project", "mission", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
 const directoryView = ["domains", "search", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
 ---
 
@@ -27,7 +29,7 @@ const directoryView = ["domains", "search", "ai-awareness", "marketing", "perfor
     <title>{title} · Foundry</title>
     <meta name="description" content={description} />
   </head>
-  <body data-founder-view={view} data-project-id={projectId}>
+  <body data-founder-view={view} data-project-id={projectId} data-founder-evidence={String(loadFounderEvidence)}>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="shell" data-sidebar-shell>
       <FleetNav active={active} />

@@ -53,6 +53,7 @@ const JOB_HEADERS = [
   'prompt_file',
   'lock_minutes',
   'source',
+  'execution_checkout',
 ];
 const SYSTEM_JOB_HEADERS = ['id', 'enabled', 'cron', 'name', 'command'];
 const LEASE_KEYS = new Set([
@@ -188,6 +189,9 @@ function parseRegistry(path, expectedHeaders, kind) {
     if (!['yes', 'no'].includes(row.enabled) || !/^[0-9*/,-]+(?: [0-9*/,-]+){4}$/.test(row.cron)) {
       fail('SCHEDULE_REGISTRY_INVALID', `A ${kind} job schedule is invalid.`);
     }
+    if (kind === 'conversational' && !['workspace', 'clean-main'].includes(row.execution_checkout)) {
+      fail('SCHEDULE_REGISTRY_INVALID', 'A conversational job execution checkout is invalid.');
+    }
     seen.add(row.id);
     return row;
   });
@@ -212,6 +216,7 @@ export function doctor(roleFile, options = {}) {
     fileCheck('conversational-jobs', role.jobsFile),
     fileCheck('system-jobs', role.systemJobsFile),
     fileCheck('codex-runner', role.codexRunner, true),
+    fileCheck('clean-main-codex-runner', resolve(dirname(role.codexRunner), 'run-clean-main-codex-cron'), true),
     fileCheck('system-runner', role.systemRunner, true),
   ];
 
@@ -394,7 +399,12 @@ export function renderSchedule(roleFile, options = {}) {
   const lines = [
     '# Foundry designated operations host schedule',
     '# Rendered intent only. This file is not installed by hostctl.',
-    ...jobs.map((row) => `${row.cron} ${shellQuote(role.codexRunner)} ${shellQuote(row.id)} >/dev/null 2>&1`),
+    ...jobs.map((row) => {
+      const runner = row.execution_checkout === 'clean-main'
+        ? resolve(dirname(role.codexRunner), 'run-clean-main-codex-cron')
+        : role.codexRunner;
+      return `${row.cron} ${shellQuote(runner)} ${shellQuote(row.id)} >/dev/null 2>&1`;
+    }),
     ...systemJobs.map((row) => `${row.cron} ${shellQuote(role.systemRunner)} ${shellQuote(row.id)} >/dev/null 2>&1`),
     '',
   ];

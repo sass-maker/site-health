@@ -65,7 +65,7 @@ function installedIds() {
   const managed = result.stdout.match(/# BEGIN FLEET OPS CODEX CRON([\s\S]*?)# END FLEET OPS CODEX CRON/)?.[1] || "";
   const ids = new Set();
   for (const line of managed.split("\n")) {
-    const match = line.match(/run-(?:codex|system)-cron\s+([a-z0-9-]+)/);
+    const match = line.match(/run-(?:clean-main-codex|codex|system)-cron\s+([a-z0-9-]+)/);
     if (match) ids.add(match[1]);
   }
   return ids;

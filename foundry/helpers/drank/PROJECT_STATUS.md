@@ -44,6 +44,9 @@ Last updated: 2026-07-18
 
 ## Timeline
 
+- **2026-08-05** — Removed the dashboard webfont dependency from the initial
+  render path. The production build now uses the system font stack, eliminating
+  the font wait that delayed the text LCP shell.
 - **2026-07-31** — Restored the documented weekly global and Fleet DR refresh
   as a monorepo-root GitHub Action with bounded concurrency, timeout, and
   write permissions.

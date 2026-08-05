@@ -43,17 +43,34 @@ section (any class change since the previous run).
 
 ### Requirement: Scheduled execution
 
-The protocol SHALL run on a weekly schedule through the designated operations
-host's versioned agent runner; a fresh clone remains inert until explicit host
-activation, and a missed or failed run leaves the ledger unchanged (no partial
-writes).
+The protocol SHALL run on a weekly schedule through the designated operations host's versioned agent runner. The scheduled query scope SHALL be exactly the active ten-root search query contract, while a fresh clone remains inert until explicit host activation. The recorder SHALL accept one complete same-date contracted batch or leave the ledger unchanged.
+
+#### Scenario: Complete weekly root run succeeds
+
+- **GIVEN** the ten-root contract contains four active intent queries for each canonical root
+- **WHEN** the weekly observatory routine records a run
+- **THEN** the submitted batch contains exactly those 40 product/query/text tuples on one date
+- **AND** the recorder appends the complete batch before regenerating the report
+
+#### Scenario: Scheduled run is incomplete or inconsistent
+
+- **GIVEN** the weekly root observatory routine has started
+- **WHEN** a contracted query is missing, duplicated, extra, historical, text-rewritten, or dated differently from the rest
+- **THEN** the recorder exits non-zero with a precise validation error
+- **AND** the observation ledger remains unchanged
 
 #### Scenario: scheduled run fails before completion
 
-- GIVEN the weekly observatory routine starts
-- WHEN any configured query fails before the run can be recorded atomically
-- THEN the routine reports the failure and leaves the observation ledger
-  unchanged
+- **GIVEN** the weekly observatory routine starts
+- **WHEN** any contracted query fails before the run can be recorded atomically
+- **THEN** the routine reports the failure and leaves the observation ledger unchanged
+
+#### Scenario: Legacy observatory history is read
+
+- **GIVEN** the ledger contains prior broad-project and superseded-query observations
+- **WHEN** a focused weekly root batch is validated or the report is regenerated
+- **THEN** the prior records remain readable and unchanged
+- **AND** they are not required in the new weekly submission
 
 ### Requirement: Configured target queries appear with search outcomes
 
@@ -70,3 +87,19 @@ Fleet Console SHALL show each project's latest configured target-query observati
 - **WHEN** the operator expands a project without geo-observatory evidence
 - **THEN** the existing Search Console evidence remains available
 - **AND** no empty target-query section is added
+
+### Requirement: Root-domain observations follow the root query contract
+
+Weekly live-search observation SHALL use the active root-domain query identifiers for brand, exact-domain, category, and problem intent while continuing to accept historical ledger entries for superseded identifiers.
+
+#### Scenario: Weekly root observation runs
+
+- **WHEN** the observatory measures a canonical root domain
+- **THEN** it measures each active query in the root query contract
+- **AND** records the stable query identifier, result class, evidence URLs, and observation date
+
+#### Scenario: Historical observation is read
+
+- **WHEN** the ledger contains an observation for a superseded query identifier
+- **THEN** validation accepts the historical entry
+- **AND** the latest report does not present it as the active target

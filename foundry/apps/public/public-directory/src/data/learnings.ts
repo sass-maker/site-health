@@ -1,3 +1,5 @@
+import capabilitiesLearningMarkdown from './articles/skills-should-declare-capabilities-not-model-names.md?raw';
+
 export const LEARNINGS = [
   {
     slug: 'skills-should-declare-capabilities-not-model-names',
@@ -9,5 +11,6 @@ export const LEARNINGS = [
     readingTime: '7 min read',
     author: 'Sarthak Agrawal',
     href: '/learnings/skills-should-declare-capabilities-not-model-names',
+    markdown: capabilitiesLearningMarkdown,
   },
 ] as const;

@@ -268,7 +268,7 @@ foundry/packages/        ← public Feedback package
 
 ### Skill discovery (progressive disclosure)
 
-Fleet skills are exposed via 3 parents + standalones (canonical home:
+Fleet skills are exposed via 4 parents + standalones (canonical home:
 `foundry/ops/skills/` — never add skills to `~/.claude/skills`):
 
 | Skill | Type | Routes to |
@@ -283,6 +283,7 @@ Fleet skills are exposed via 3 parents + standalones (canonical home:
 | `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |
+| `design-engineering` | parent | inspiration, component pattern, web 3D, and creative-effects subskills |
 | `design-workflow` | standalone | preserve/overhaul direction, evidence, quality, and owner-acceptance gates |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
 | `impeccable` | external standalone | underlying design craft, critique, polish, and audit engine |

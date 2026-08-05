@@ -1,6 +1,7 @@
 const SEARCH_CONSOLE_API = 'https://www.googleapis.com/webmasters/v3';
 const SEARCH_CONSOLE_INSPECTION_API = 'https://searchconsole.googleapis.com/v1';
 const SEARCH_CONSOLE_TIMEOUT_MS = 20_000;
+const SEARCH_CONSOLE_INSPECTION_CONCURRENCY = 4;
 
 function isoDay(date) {
   return date.toISOString().slice(0, 10);
@@ -86,6 +87,209 @@ export function searchConsoleProviderUrl(siteUrl) {
   return `https://search.google.com/search-console/performance/search-analytics?resource_id=${encodeURIComponent(property)}`;
 }
 
+export function searchConsoleSitemapTargets(projects, rootDomains = [], sitemapOverrides = {}) {
+  const targets = [];
+  const seen = new Set();
+  for (const item of [
+    ...projects.map((project) => ({ id: project.id, domain: project.domains?.[0] })),
+    ...rootDomains.map((domain) => ({ id: `root:${domain}`, domain })),
+  ]) {
+    const domain = String(item.domain ?? '').trim().toLowerCase();
+    if (!domain || seen.has(domain)) continue;
+    const sitemapUrl = safeHttpsUrl(sitemapOverrides[domain] ?? `https://${domain}/sitemap.xml`);
+    if (!sitemapUrl) throw new Error(`Invalid Search Console sitemap domain: ${domain}`);
+    if (new URL(sitemapUrl).hostname !== domain) {
+      throw new Error(`Search Console sitemap must stay on its canonical domain: ${domain}`);
+    }
+    seen.add(domain);
+    targets.push({ id: item.id, domain, sitemapUrl });
+  }
+  return targets;
+}
+
+function sitemapBelongsToProperty(sitemapUrl, siteUrl) {
+  const url = safeHttpsUrl(sitemapUrl);
+  if (!url) return false;
+  const host = new URL(url).hostname;
+  const domain = propertyDomain(siteUrl);
+  if (domain) return host === domain || host.endsWith(`.${domain}`);
+  try {
+    return url.startsWith(new URL(siteUrl).href);
+  } catch {
+    return false;
+  }
+}
+
+export async function reconcileSearchConsoleSitemaps({
+  targets,
+  accessToken,
+  quotaProject,
+  fetchImpl = fetch,
+  apply = false,
+}) {
+  if (!accessToken) throw new Error('Search Console access token is required');
+  if (!quotaProject) throw new Error('Search Console quota project is required');
+  if (!Array.isArray(targets) || targets.length === 0) {
+    throw new Error('Search Console sitemap targets are required');
+  }
+
+  const siteList = await googleRequest('/sites', { accessToken, quotaProject, fetchImpl });
+  const properties = siteList.siteEntry ?? [];
+  const desiredByProperty = new Map();
+  const assignments = targets.map((target) => {
+    const selected = selectSearchConsoleProperty(target.domain, properties);
+    if (selected) {
+      const desired = desiredByProperty.get(selected.siteUrl) ?? new Set();
+      desired.add(target.sitemapUrl);
+      desiredByProperty.set(selected.siteUrl, desired);
+    }
+    return { ...target, selected };
+  });
+
+  const listings = await mapWithConcurrency([...desiredByProperty.keys()], 4, async (siteUrl) => {
+    try {
+      const listed = await googleRequest(`/sites/${encodeURIComponent(siteUrl)}/sitemaps`, {
+        accessToken,
+        quotaProject,
+        fetchImpl,
+      });
+      return [siteUrl, { entries: listed.sitemap ?? [] }];
+    } catch (error) {
+      return [siteUrl, {
+        entries: [],
+        error: boundedProviderText(error instanceof Error ? error.message : error),
+      }];
+    }
+  });
+  const listingsByProperty = new Map(listings);
+  const actions = [];
+
+  for (const assignment of assignments) {
+    if (!assignment.selected) {
+      actions.push({
+        targetId: assignment.id,
+        sitemapUrl: assignment.sitemapUrl,
+        action: 'add',
+        state: 'property-unavailable',
+      });
+      continue;
+    }
+    const property = assignment.selected.siteUrl;
+    const listing = listingsByProperty.get(property);
+    if (listing?.error) {
+      actions.push({
+        targetId: assignment.id,
+        property,
+        sitemapUrl: assignment.sitemapUrl,
+        action: 'add',
+        state: 'blocked',
+        reason: listing.error,
+      });
+      continue;
+    }
+    const existing = listing.entries.find((entry) => entry.path === assignment.sitemapUrl);
+    if (existing) {
+      actions.push({
+        targetId: assignment.id,
+        property,
+        sitemapUrl: assignment.sitemapUrl,
+        action: 'retain',
+        state: 'unchanged',
+        errors: Number(existing.errors ?? 0),
+        warnings: Number(existing.warnings ?? 0),
+        pending: existing.isPending === true,
+      });
+      continue;
+    }
+    if (!apply) {
+      actions.push({
+        targetId: assignment.id,
+        property,
+        sitemapUrl: assignment.sitemapUrl,
+        action: 'add',
+        state: 'planned',
+      });
+      continue;
+    }
+    try {
+      await googleRequest(
+        `/sites/${encodeURIComponent(property)}/sitemaps/${encodeURIComponent(assignment.sitemapUrl)}`,
+        { accessToken, quotaProject, fetchImpl, method: 'PUT' },
+      );
+      actions.push({
+        targetId: assignment.id,
+        property,
+        sitemapUrl: assignment.sitemapUrl,
+        action: 'add',
+        state: 'submitted',
+      });
+    } catch (error) {
+      actions.push({
+        targetId: assignment.id,
+        property,
+        sitemapUrl: assignment.sitemapUrl,
+        action: 'add',
+        state: 'blocked',
+        reason: boundedProviderText(error instanceof Error ? error.message : error),
+      });
+    }
+  }
+
+  for (const [property, desired] of desiredByProperty) {
+    const listing = listingsByProperty.get(property);
+    if (listing?.error) continue;
+    for (const entry of listing?.entries ?? []) {
+      if (desired.has(entry.path)) continue;
+      if (!sitemapBelongsToProperty(entry.path, property)) {
+        actions.push({
+          property,
+          sitemapUrl: String(entry.path ?? ''),
+          action: 'remove',
+          state: 'blocked',
+          reason: 'sitemap URL is outside the selected property boundary',
+        });
+        continue;
+      }
+      if (!apply) {
+        actions.push({
+          property,
+          sitemapUrl: entry.path,
+          action: 'remove',
+          state: 'planned',
+        });
+        continue;
+      }
+      try {
+        await googleRequest(
+          `/sites/${encodeURIComponent(property)}/sitemaps/${encodeURIComponent(entry.path)}`,
+          { accessToken, quotaProject, fetchImpl, method: 'DELETE' },
+        );
+        actions.push({
+          property,
+          sitemapUrl: entry.path,
+          action: 'remove',
+          state: 'deleted',
+        });
+      } catch (error) {
+        actions.push({
+          property,
+          sitemapUrl: entry.path,
+          action: 'remove',
+          state: 'blocked',
+          reason: boundedProviderText(error instanceof Error ? error.message : error),
+        });
+      }
+    }
+  }
+
+  return {
+    apply,
+    targetCount: targets.length,
+    propertyCount: desiredByProperty.size,
+    actions,
+  };
+}
+
 function requestBody({ startDate, endDate, pageFilter, dimensions = [], rowLimit = 1 }) {
   return {
     startDate,
@@ -141,6 +345,7 @@ export async function ensureSearchConsoleSitemaps({
   accessToken,
   quotaProject,
   fetchImpl = fetch,
+  now = new Date(),
 }) {
   if (!accessToken) throw new Error('Search Console access token is required');
   if (!quotaProject) throw new Error('Search Console quota project is required');
@@ -171,7 +376,9 @@ export async function ensureSearchConsoleSitemaps({
         quotaProject,
         fetchImpl,
       });
-      return [siteUrl, { paths: new Set((listed.sitemap ?? []).map((entry) => entry.path)) }];
+      return [siteUrl, {
+        entries: new Map((listed.sitemap ?? []).map((entry) => [entry.path, entry])),
+      }];
     } catch (error) {
       return [siteUrl, { error }];
     }
@@ -193,8 +400,18 @@ export async function ensureSearchConsoleSitemaps({
         reason: boundedProviderText(listing.error instanceof Error ? listing.error.message : listing.error),
       };
     }
-    if (listing?.paths.has(sitemapUrl)) {
-      return { projectId: project.id, domain, sitemapUrl, state: 'already-submitted' };
+    const listedSitemap = listing?.entries.get(sitemapUrl);
+    if (listedSitemap) {
+      const submittedAt = Number.isFinite(Date.parse(listedSitemap.lastSubmitted))
+        ? new Date(listedSitemap.lastSubmitted).toISOString()
+        : null;
+      return {
+        projectId: project.id,
+        domain,
+        sitemapUrl,
+        state: 'already-submitted',
+        ...(submittedAt ? { submittedAt } : {}),
+      };
     }
     if (submissionBlockedReason) {
       return { projectId: project.id, domain, sitemapUrl, state: 'blocked', reason: submissionBlockedReason };
@@ -204,7 +421,13 @@ export async function ensureSearchConsoleSitemaps({
         `/sites/${encodeURIComponent(selected.siteUrl)}/sitemaps/${encodeURIComponent(sitemapUrl)}`,
         { accessToken, quotaProject, fetchImpl, method: 'PUT' },
       );
-      return { projectId: project.id, domain, sitemapUrl, state: 'submitted' };
+      return {
+        projectId: project.id,
+        domain,
+        sitemapUrl,
+        state: 'submitted',
+        submittedAt: now.toISOString(),
+      };
     } catch (error) {
       const reason = boundedProviderText(error instanceof Error ? error.message : error);
       if (/\(403\).*insufficient authentication scopes/i.test(reason ?? '')) {
@@ -219,6 +442,33 @@ export async function ensureSearchConsoleSitemaps({
       };
     }
   });
+}
+
+const RECORDED_SITEMAP_STATES = new Set(['submitted', 'already-submitted']);
+
+export function attachSitemapSubmissionState(bundle, sitemapResults) {
+  const sitemapByProject = new Map(sitemapResults.map((result) => [result.projectId, result]));
+  return {
+    ...bundle,
+    observations: bundle.observations.map((observation) => {
+      const sitemap = sitemapByProject.get(observation.projectId);
+      if (
+        !observation.indexInspection ||
+        !sitemap?.submittedAt ||
+        !RECORDED_SITEMAP_STATES.has(sitemap.state)
+      ) {
+        return observation;
+      }
+      return {
+        ...observation,
+        indexInspection: {
+          ...observation.indexInspection,
+          sitemapSubmissionState: sitemap.state,
+          sitemapSubmittedAt: sitemap.submittedAt,
+        },
+      };
+    }),
+  };
 }
 
 function boundedProviderText(value, maximum = 300) {
@@ -273,7 +523,11 @@ export async function inspectSearchConsoleUrl({
       };
     } catch (error) {
       lastError = error;
-      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 500));
+      if (attempt === 0 && error?.name !== 'TimeoutError') {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      } else {
+        break;
+      }
     }
   }
   return {
@@ -313,7 +567,9 @@ export async function collectSearchConsoleOutcomes({
     fetchImpl,
   });
   const properties = siteList.siteEntry ?? [];
-  const inspectOneAtATime = createConcurrencyGate(1);
+  const inspectWithBoundedConcurrency = createConcurrencyGate(
+    SEARCH_CONSOLE_INSPECTION_CONCURRENCY,
+  );
   const collectedProjects = await mapWithConcurrency(projects, 4, async (project) => {
     const domain = project.domains?.[0];
     const selected = domain ? selectSearchConsoleProperty(domain, properties) : null;
@@ -345,7 +601,7 @@ export async function collectSearchConsoleOutcomes({
       },
     );
     const inspectedUrl = `https://${domain}/`;
-    const inspectionRequest = inspectOneAtATime(() => inspectSearchConsoleUrl({
+    const inspectionRequest = inspectWithBoundedConcurrency(() => inspectSearchConsoleUrl({
       inspectionUrl: inspectedUrl,
       siteUrl: selected.siteUrl,
       accessToken,

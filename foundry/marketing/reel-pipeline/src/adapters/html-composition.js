@@ -143,7 +143,16 @@ export async function renderHtmlSceneFrames(previewHtmlPath, timeline, framesDir
     for (const scene of timeline.scenes) {
       const framePath = path.join(framesDir, `scene_${String(scene.index + 1).padStart(3, '0')}.png`);
       const sampleTime = Math.min(scene.end - 0.05, scene.start + Math.max(0.1, scene.duration * 0.5));
-      await evaluate(cdp, `window.setCompositionTime(${JSON.stringify(sampleTime)})`);
+      await evaluate(cdp, `(() => {
+        window.setCompositionTime(${JSON.stringify(sampleTime)});
+        for (const node of document.querySelectorAll('.scene')) {
+          node.style.animation = 'none';
+          node.style.opacity = node.dataset.scene === ${JSON.stringify(scene.id)} ? '1' : '0';
+          node.style.transform = node.dataset.scene === ${JSON.stringify(scene.id)} ? 'none' : 'translateY(28px) scale(.985)';
+        }
+        const caption = document.getElementById('caption');
+        if (caption) caption.textContent = ${JSON.stringify(scene.caption)};
+      })()`);
       await captureScreenshotPng(cdp, framePath);
       frames.push({ path: framePath, duration: scene.duration, motion: scene.motion });
     }
@@ -222,8 +231,8 @@ export function buildHtmlComposition(brief) {
 function buildSceneTexts(brief) {
   const bodySentences = splitSentences(cleanBody(brief.body)).slice(0, 3);
   const bodyScenes = bodySentences.map((caption, index) => ({
-    kind: index === 0 ? 'setup' : 'proof',
-    title: index === 0 ? 'Why now' : `Proof ${index}`,
+    kind: index === 0 ? 'setup' : index === bodySentences.length - 1 ? 'conclusion' : 'evidence',
+    title: index === 0 ? 'The setup' : index === bodySentences.length - 1 ? 'The conclusion' : 'The evidence',
     caption,
   }));
   return [

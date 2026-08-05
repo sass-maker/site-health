@@ -16,8 +16,22 @@ import {
   defaultVisibilityOutcomePath,
   readVisibilityOutcomes,
 } from '../visibility-outcome-store.mjs';
-import { visibilityProjects } from '../visibility-projects.mjs';
+import { searchConsoleProjects, visibilityProjects } from '../visibility-projects.mjs';
 import { searchConsoleProviderUrl } from '../search-console.mjs';
+import { validateRootBrandContract } from '../root-brand-contract.mjs';
+import {
+  activeObservatoryQueries,
+  mergeRootSearchQueriesIntoObservatory,
+  validateRootSearchQueryContract,
+} from '../root-search-query-contract.mjs';
+import {
+  defaultSearchIndexingRequestPath,
+  readSearchIndexingRequests,
+} from '../search-indexing-request-store.mjs';
+import {
+  defaultSearchChangeReceiptPath,
+  readSearchChangeReceipts,
+} from '../search-change-receipt-store.mjs';
 import {
   isDomainStrengthProject,
   isPublicMetricProject,
@@ -28,6 +42,9 @@ import {
 export const CONNECTIONS_SCHEMA_VERSION = 'fleet.connections.v1';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const SITEMAP_INDEXING_GRACE_DAYS = 14;
+const SITEMAP_REMEASUREMENT_DAYS = 7;
+const SUCCESSFUL_SITEMAP_STATES = new Set(['submitted', 'already-submitted']);
 
 export const SEARCH_ACTION_SAMPLE_FLOORS = Object.freeze({
   project: 20,
@@ -39,7 +56,16 @@ function daysAfter(timestamp, days) {
   return Number.isFinite(value) ? new Date(value + days * DAY_MS).toISOString() : null;
 }
 
-export function searchAction({ observed, impressions, clicks, position, sampleFloor, inspection = null, observedAt = null }) {
+export function searchAction({
+  observed,
+  impressions,
+  clicks,
+  position,
+  sampleFloor,
+  inspection = null,
+  observedAt = null,
+  indexingRequestedAt = null,
+}) {
   if (!observed) {
     return {
       id: 'measure-search',
@@ -62,6 +88,42 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
       };
     }
     if (inspection?.state === 'not-indexed' || inspection?.state === 'unknown') {
+      const requestTime = Date.parse(indexingRequestedAt);
+      const inspectionTime = Date.parse(observedAt);
+      if (
+        Number.isFinite(requestTime) &&
+        Number.isFinite(inspectionTime) &&
+        requestTime > inspectionTime
+      ) {
+        const nextMeasurementAt = daysAfter(indexingRequestedAt, SITEMAP_REMEASUREMENT_DAYS);
+        return {
+          id: 'wait-after-indexing-request',
+          label: 'Wait, then measure',
+          stage: 'wait',
+          reason: 'Google accepted an indexing request after the latest inspection; wait for its next crawl.',
+          ...(nextMeasurementAt ? { nextMeasurementAt } : {}),
+          priority: 6,
+        };
+      }
+      const sitemapSubmittedAt = Date.parse(inspection.sitemapSubmittedAt);
+      const observationTime = Date.parse(observedAt);
+      const sitemapAge = observationTime - sitemapSubmittedAt;
+      if (
+        SUCCESSFUL_SITEMAP_STATES.has(inspection.sitemapSubmissionState) &&
+        Number.isFinite(sitemapAge) &&
+        sitemapAge >= 0 &&
+        sitemapAge <= SITEMAP_INDEXING_GRACE_DAYS * DAY_MS
+      ) {
+        const nextMeasurementAt = daysAfter(observedAt, SITEMAP_REMEASUREMENT_DAYS);
+        return {
+          id: 'wait-after-sitemap',
+          label: 'Wait, then measure',
+          stage: 'wait',
+          reason: 'Fleet submitted the sitemap; Google has not discovered the canonical homepage yet.',
+          ...(nextMeasurementAt ? { nextMeasurementAt } : {}),
+          priority: 6,
+        };
+      }
       return {
         id: 'fix-indexing',
         label: 'Fix indexing',
@@ -120,6 +182,73 @@ export function searchAction({ observed, impressions, clicks, position, sampleFl
     stage: 'change',
     reason: 'This result is visible but ranks beyond position 30.',
     priority: 4,
+  };
+}
+
+function isAuditSearchQuery(value) {
+  return /(^|\s|-)site:/i.test(String(value ?? '').trim());
+}
+
+export function projectSearchAction({
+  observed,
+  impressions,
+  clicks,
+  position,
+  inspection = null,
+  observedAt = null,
+  indexingRequestedAt = null,
+  searchTerms = [],
+  changeReceipt = null,
+}) {
+  const aggregateAction = searchAction({
+    observed,
+    impressions,
+    clicks,
+    position,
+    sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
+    inspection,
+    observedAt,
+    indexingRequestedAt,
+  });
+  if (!observed || impressions === 0) return aggregateAction;
+
+  const evidenceBackedChange = searchTerms
+    .filter((term) => !isAuditSearchQuery(term.query))
+    .filter((term) => term.action?.stage === 'change')
+    .sort((left, right) => (
+      Number(left.action.priority) - Number(right.action.priority) ||
+      Number(right.impressions) - Number(left.impressions)
+    ))[0];
+  if (evidenceBackedChange) {
+    const changedAfterObservation = (
+      changeReceipt?.actionId === evidenceBackedChange.action.id &&
+      changeReceipt?.query === evidenceBackedChange.query &&
+      Number.isFinite(Date.parse(changeReceipt?.changedAt)) &&
+      Number.isFinite(Date.parse(observedAt)) &&
+      Date.parse(changeReceipt.changedAt) > Date.parse(observedAt)
+    );
+    if (changedAfterObservation) {
+      return {
+        id: 'wait-after-search-change',
+        label: 'Wait, then measure',
+        stage: 'wait',
+        reason: `Fleet updated the landing page for “${evidenceBackedChange.query}”; wait for a new completed Search Console window.`,
+        nextMeasurementAt: daysAfter(changeReceipt.changedAt, SITEMAP_REMEASUREMENT_DAYS),
+        priority: 6,
+      };
+    }
+    return {
+      ...evidenceBackedChange.action,
+      reason: `“${evidenceBackedChange.query}” has ${evidenceBackedChange.impressions} impressions at average position ${Number(evidenceBackedChange.position).toFixed(1)}.`,
+    };
+  }
+
+  return {
+    id: 'collect-more-data',
+    label: 'Collect more data',
+    stage: 'wait',
+    reason: `No retained non-audit query meets the ${SEARCH_ACTION_SAMPLE_FLOORS.query}-impression action floor; ${impressions} aggregate impressions are not enough to prescribe a page change.`,
+    priority: 6,
   };
 }
 
@@ -199,19 +328,44 @@ function canonicalVisibilityProjectId(value) {
   return aliases[value] ?? value;
 }
 
-function searchVisibilityEvidence(fleetRoot) {
-  const config = readJson(
+function validatedRootSearchQueries(fleetRoot, projectCatalog) {
+  const brandContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-brands.json'));
+  const rootQueryContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-search-queries.json'));
+  if (!brandContract && !rootQueryContract) return new Map();
+  if (!brandContract || !rootQueryContract) {
+    throw new Error('root brand and root search query contracts must be present together');
+  }
+  const brandMap = validateRootBrandContract(
+    brandContract,
+    projectCatalog.projects ?? [],
+  );
+  return validateRootSearchQueryContract(
+    rootQueryContract,
+    brandMap,
+    projectCatalog.projects ?? [],
+  );
+}
+
+function searchVisibilityEvidence(fleetRoot, projectCatalog, rootsByDomain = null) {
+  const baseConfig = readJson(
     resolve(fleetRoot, 'foundry/ops/config/geo-observatory.json'),
     { products: [] },
   );
+  let config = baseConfig;
+  const rootQueries = rootsByDomain ?? validatedRootSearchQueries(fleetRoot, projectCatalog);
+  if (rootQueries.size > 0) {
+    config = mergeRootSearchQueriesIntoObservatory(baseConfig, rootQueries);
+  }
   const configured = new Map();
   for (const product of config.products ?? []) {
     const projectId = canonicalVisibilityProjectId(product.id);
     const queries = configured.get(projectId) ?? [];
-    queries.push(...(product.queries ?? []).map((query) => ({
+    queries.push(...activeObservatoryQueries(product).map((query) => ({
       id: query.qid,
       kind: query.kind ?? 'unknown',
       text: query.q,
+      rootDomain: query.rootDomain ?? null,
+      collision: query.collision ?? null,
     })));
     configured.set(projectId, queries);
   }
@@ -1273,18 +1427,42 @@ function latestFamilySignal(project, outcome, label) {
   };
 }
 
-function latestTrackedQueries(project) {
+function normalizedSearchQuery(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('en-US');
+}
+
+function latestTrackedQueries(project, searchTerms = []) {
+  const termsByQuery = new Map();
+  for (const term of searchTerms) {
+    const key = normalizedSearchQuery(term.query);
+    const current = termsByQuery.get(key);
+    if (!current || Number(term.impressions ?? 0) > Number(current.impressions ?? 0)) {
+      termsByQuery.set(key, term);
+    }
+  }
   return (project.searchVisibility?.queries ?? [])
-    .flatMap((query) => {
+    .map((query) => {
       const latest = query.history?.at(-1);
-      if (!latest || !['A', 'B', 'C'].includes(latest.class)) return [];
-      return [{
+      const searchConsole = termsByQuery.get(normalizedSearchQuery(query.text));
+      return {
         id: query.id,
         kind: query.kind,
         text: query.text,
-        class: latest.class,
-        observedAt: latest.observedAt,
-      }];
+        rootDomain: query.rootDomain,
+        collision: query.collision,
+        liveSearch: latest && ['A', 'B', 'C'].includes(latest.class)
+          ? { state: 'observed', class: latest.class, observedAt: latest.observedAt }
+          : { state: 'not-observed' },
+        searchConsole: searchConsole
+          ? {
+              state: 'observed',
+              impressions: Number(searchConsole.impressions ?? 0),
+              clicks: Number(searchConsole.clicks ?? 0),
+              position: Number(searchConsole.position),
+              landingPage: searchConsole.landingPage ?? null,
+            }
+          : { state: 'not-observed' },
+      };
     })
     .slice(0, 12);
 }
@@ -1313,9 +1491,17 @@ function latestOutcomeSignal(project, outcome, label) {
   };
 }
 
-function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
+function buildOwnerOutcomeProjection({
+  projectOutputs,
+  marketing,
+  latestIndexingRequestByProject,
+  latestSearchChangeByProject,
+}) {
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
+  );
+  const searchProjects = projectOutputs.filter(
+    (project) => project.metricEligibility?.searchConsole === true,
   );
   const domainProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.domainCoverage === true,
@@ -1362,10 +1548,21 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       )
       .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
     const traffic = project.webTraffic?.outcome ?? null;
+    const posts = projectOutcomes.slice(0, 20).map((item) => ({
+      id: item.id ?? null,
+      title: item.title ?? null,
+      provider: item.provider ?? null,
+      stage: item.stage ?? null,
+      status: item.status ?? 'recorded',
+      observedAt: item.observedAt ?? null,
+      url: item.url ?? null,
+    }));
     return {
       projectId: project.projectId,
       name: project.name,
       domain: project.domains[0] ?? null,
+      posts,
+      postCount: projectOutcomes.length,
       positioning: project.description ? 'ready' : 'missing',
       description: project.description,
       recommendationCount: projectRecommendations.length,
@@ -1394,21 +1591,31 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     const fieldInp = latestFamilySignal(project, field, 'Field INP');
     const fieldCls = latestFamilySignal(project, field, 'Field CLS');
     let status = 'not-measured';
+    let labPasses = false;
     if (psi && lcp) {
       status = 'needs-work';
-      if (
+      labPasses = (
         psi.value >= performanceThresholds.psiScore &&
         lcp.value <= performanceThresholds.lcpMilliseconds
-      ) {
-        status = 'fast-enough';
-      }
+      );
+      if (labPasses) status = 'fast-enough';
     }
     const fieldFails = (
       (Number.isFinite(fieldLcp?.value) && fieldLcp.value > performanceThresholds.fieldLcpMilliseconds) ||
       (Number.isFinite(fieldInp?.value) && fieldInp.value > performanceThresholds.fieldInpMilliseconds) ||
       (Number.isFinite(fieldCls?.value) && fieldCls.value > performanceThresholds.fieldCls)
     );
-    if (fieldFails) status = 'needs-work';
+    if (fieldFails) {
+      const labObservedAt = newestTimestamp([psi?.observedAt, lcp?.observedAt]);
+      const fieldObservedAt = field?.observedAt ?? null;
+      const fieldPredatesPassingLab = (
+        labPasses &&
+        Number.isFinite(Date.parse(labObservedAt)) &&
+        Number.isFinite(Date.parse(fieldObservedAt)) &&
+        Date.parse(fieldObservedAt) < Date.parse(labObservedAt)
+      );
+      status = fieldPredatesPassingLab ? 'monitoring' : 'needs-work';
+    }
     return {
       projectId: project.projectId,
       name: project.name,
@@ -1430,7 +1637,7 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     };
   });
 
-  const searchRows = publicProjects.map((project) => {
+  const searchRows = searchProjects.map((project) => {
     const outcome = project.searchVisibility?.outcome ?? null;
     const impressions = latestOutcomeSignal(project, outcome, 'Search impressions');
     const clicks = latestOutcomeSignal(project, outcome, 'Search clicks');
@@ -1438,15 +1645,6 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
     let status = 'not-measured';
     if (outcome) status = 'zero-impressions';
     if (outcome && Number(impressions?.value) > 0) status = 'observed';
-    const action = searchAction({
-      observed: Boolean(outcome),
-      impressions: Number(impressions?.value ?? 0),
-      clicks: Number(clicks?.value ?? 0),
-      position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
-      sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.project,
-      inspection: outcome?.indexInspection ?? null,
-      observedAt: outcome?.observedAt ?? null,
-    });
     const searchTerms = (outcome?.searchTerms ?? []).map((term) => ({
       ...term,
       action: searchAction({
@@ -1457,6 +1655,19 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
         sampleFloor: SEARCH_ACTION_SAMPLE_FLOORS.query,
       }),
     }));
+    const indexingRequest = latestIndexingRequestByProject.get(project.projectId) ?? null;
+    const searchChangeReceipt = latestSearchChangeByProject.get(project.projectId) ?? null;
+    const action = projectSearchAction({
+      observed: Boolean(outcome),
+      impressions: Number(impressions?.value ?? 0),
+      clicks: Number(clicks?.value ?? 0),
+      position: Number(averagePosition?.value ?? Number.POSITIVE_INFINITY),
+      inspection: outcome?.indexInspection ?? null,
+      observedAt: outcome?.observedAt ?? null,
+      indexingRequestedAt: indexingRequest?.requestedAt ?? null,
+      searchTerms,
+      changeReceipt: searchChangeReceipt,
+    });
     return {
       projectId: project.projectId,
       catalogProjectId: project.catalogProjectId,
@@ -1471,7 +1682,9 @@ function buildOwnerOutcomeProjection({ projectOutputs, marketing }) {
       observations: outcome?.observations ?? 0,
       searchTerms,
       indexInspection: outcome?.indexInspection ?? null,
-      trackedQueries: latestTrackedQueries(project),
+      indexingRequest,
+      searchChangeReceipt,
+      trackedQueries: latestTrackedQueries(project, searchTerms),
       provider: outcome?.provider ?? null,
       providerUrl: outcome?.providerUrl ?? searchConsoleProviderUrl(
         String(outcome?.scope ?? '').split(' · page:')[0],
@@ -1546,6 +1759,7 @@ function buildProjectOutputs({
   searchVisibility,
   visibilityMetrics,
   visibilityOutcomes,
+  searchConsoleProjectIds,
 }) {
   const skillProjects = new Map(skills.projects.map((project) => [project.projectId, project]));
   const workflowProjects = new Map(
@@ -1950,6 +2164,7 @@ function buildProjectOutputs({
         metricEligibility: {
           publicSite: publicMetricSite,
           domainCoverage,
+          searchConsole: searchConsoleProjectIds.has(project.id),
         },
         produced,
         skill: skill
@@ -2267,13 +2482,28 @@ export function buildFleetConnections({
     ...project,
     priority: project.priority ?? priorityByProject.get(project.id) ?? null,
   }));
+  const rootSearchQueries = validatedRootSearchQueries(fleetRoot, projectCatalog);
+  const searchProjects = searchConsoleProjects(projectCatalog, rootSearchQueries);
+  const searchConsoleProjectIds = new Set(searchProjects.map((project) => project.id));
   const drank = drankEvidence(fleetRoot, now);
   const psi = psiEvidence(home, now);
   const skills = skillEvidence(home, now);
   const designReviews = designReviewEvidence(fleetRoot, maintainedProjects);
-  const searchVisibility = searchVisibilityEvidence(fleetRoot);
+  const searchVisibility = searchVisibilityEvidence(fleetRoot, projectCatalog, rootSearchQueries);
   const visibilityMetrics = visibilityMetricEvidence(home);
   const visibilityOutcomes = visibilityOutcomeEvidence(home);
+  const latestIndexingRequestByProject = new Map();
+  for (const request of readSearchIndexingRequests({
+    path: defaultSearchIndexingRequestPath({ home }),
+  })) {
+    latestIndexingRequestByProject.set(request.projectId, request);
+  }
+  const latestSearchChangeByProject = new Map();
+  for (const receipt of readSearchChangeReceipts({
+    path: defaultSearchChangeReceiptPath({ home }),
+  })) {
+    latestSearchChangeByProject.set(receipt.projectId, receipt);
+  }
   const workflows = workflowEvidence(fleetRoot, now);
   const visibleAiProjects = marketing?.aiVisibility?.projects ?? [];
   const measuredAiProjects = visibleAiProjects.flatMap((project) => {
@@ -2299,7 +2529,10 @@ export function buildFleetConnections({
         .filter(Boolean)
         .some((domain) => drankDomains.has(domain)),
   );
-  const projectOutputProjects = [...maintainedProjects, ...retainedDrankProjects];
+  const projectOutputProjects = [...new Map(
+    [...searchProjects, ...maintainedProjects, ...retainedDrankProjects]
+      .map((project) => [project.id, project]),
+  ).values()];
 
   const componentList = [
     {
@@ -2662,8 +2895,14 @@ export function buildFleetConnections({
     searchVisibility,
     visibilityMetrics,
     visibilityOutcomes,
+    searchConsoleProjectIds,
   });
-  const ownerOutcomes = buildOwnerOutcomeProjection({ projectOutputs, marketing });
+  const ownerOutcomes = buildOwnerOutcomeProjection({
+    projectOutputs,
+    marketing,
+    latestIndexingRequestByProject,
+    latestSearchChangeByProject,
+  });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),
     missions,

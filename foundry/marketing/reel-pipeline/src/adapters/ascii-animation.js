@@ -110,6 +110,9 @@ export class AsciiAnimationAdapter {
     this.now = options.now ?? (() => new Date());
     this.keepFrames = Boolean(options.keepFrames);
     this.renderer = options.renderer ?? process.env.REEL_ASCII_RENDERER ?? 'browser';
+    this.width = options.width ?? DEFAULT_WIDTH;
+    this.height = options.height ?? DEFAULT_HEIGHT;
+    this.fps = options.fps ?? DEFAULT_FPS;
   }
 
   async createVideo(brief) {
@@ -117,29 +120,29 @@ export class AsciiAnimationAdapter {
     const dir = path.resolve(this.artifactDir, taskId);
     const framesDir = path.join(dir, 'frames');
     const durationSeconds = clampDuration(brief.durationSeconds ?? DEFAULT_DURATION);
-    const frameCount = Math.round(DEFAULT_FPS * durationSeconds);
+    const frameCount = Math.round(this.fps * durationSeconds);
     const videoPath = path.join(dir, `${stableSlug(brief.projectSlug)}-${stableSlug(brief.id)}.mp4`);
     await mkdir(framesDir, { recursive: true });
 
     const theme = buildAsciiTheme(brief);
-    const renderLog = ['style=ascii-fable', `palette=${theme.palette.id}`];
+    const renderLog = ['style=ascii-fable', `palette=${theme.palette.id}`, `sceneStyle=${theme.sceneStyle}`];
     let framePattern = path.join(framesDir, 'frame_%04d.ppm');
     try {
       if (this.renderer === 'browser') {
         framePattern = await renderAsciiBrowserFrames(brief, {
           artifactDir: dir,
           framesDir,
-          width: DEFAULT_WIDTH,
-          height: DEFAULT_HEIGHT,
+          width: this.width,
+          height: this.height,
           frameCount,
         });
         renderLog.push('renderer=browser-html');
       } else {
         framePattern = await renderAsciiFrames(brief, {
           framesDir,
-          width: DEFAULT_WIDTH,
-          height: DEFAULT_HEIGHT,
-          fps: DEFAULT_FPS,
+          width: this.width,
+          height: this.height,
+          fps: this.fps,
           frameCount,
         });
         renderLog.push('renderer=raster-fallback');
@@ -150,9 +153,9 @@ export class AsciiAnimationAdapter {
       await mkdir(framesDir, { recursive: true });
       framePattern = await renderAsciiFrames(brief, {
         framesDir,
-        width: DEFAULT_WIDTH,
-        height: DEFAULT_HEIGHT,
-        fps: DEFAULT_FPS,
+        width: this.width,
+        height: this.height,
+        fps: this.fps,
         frameCount,
       });
       renderLog.push('renderer=raster-fallback');
@@ -161,7 +164,7 @@ export class AsciiAnimationAdapter {
 
     await this.commandRunner(this.ffmpegPath, [
       '-y',
-      '-framerate', String(DEFAULT_FPS),
+      '-framerate', String(this.fps),
       '-i', framePattern,
       '-f', 'lavfi',
       '-i', asciiAudioFilter(durationSeconds),
@@ -194,9 +197,9 @@ export class AsciiAnimationAdapter {
       raw: {
         manifestPath: path.join(dir, 'manifest.json'),
         aspect: '9:16',
-        width: DEFAULT_WIDTH,
-        height: DEFAULT_HEIGHT,
-        fps: DEFAULT_FPS,
+        width: this.width,
+        height: this.height,
+        fps: this.fps,
       },
     };
 
@@ -516,6 +519,13 @@ window.renderAsciiFrame(0, 0);
 }
 
 function drawFrame(scene, frame, frameCount, theme) {
+  if (theme.sceneStyle === 'tunnel') return drawTunnelFrame(scene, frame, frameCount, theme);
+  if (theme.sceneStyle === 'terrain') return drawTerrainFrame(scene, frame, frameCount, theme);
+  if (theme.sceneStyle === 'kinetic-type') return drawKineticAsciiFrame(scene, frame, frameCount, theme);
+  return drawScaleFrame(scene, frame, frameCount, theme);
+}
+
+function drawScaleFrame(scene, frame, frameCount, theme) {
   const colors = theme.colors;
   const p = frame / Math.max(1, frameCount - 1);
   scene.background();
@@ -543,6 +553,97 @@ function drawFrame(scene, frame, frameCount, theme) {
   }
   scene.panel(2.5, 35.0, 19.0, 3.0, colors.rail);
   scene.mono(3.45, 35.85, ['SAME LAWS. DIFFERENT SCALE.'], colors.cream, 0.72);
+}
+
+function drawTunnelFrame(scene, frame, frameCount, theme) {
+  const colors = theme.colors;
+  const p = frame / Math.max(1, frameCount - 1);
+  scene.background();
+  scene.text(2.0, 2.2, 'DEPTH RUN', colors.cream, 1.9);
+  scene.mono(3.2, 5.6, ['CAMERA PUSH / GLYPH SPACE'], colors.amber, 0.66);
+  scene.box(1, 1, 22, 40, Math.floor(frame / 4) % 2);
+
+  const center = [12, 22];
+  for (let layer = 0; layer < 8; layer += 1) {
+    const depth = (layer / 8 + p) % 1;
+    const rx = 1 + depth * 10;
+    const ry = 1 + depth * 15;
+    const glyph = depth > 0.72 ? '#' : depth > 0.42 ? '*' : '.';
+    const color = depth > 0.72 ? colors.spark : depth > 0.42 ? colors.blue : colors.dim;
+    const points = [
+      [center[0], center[1] - ry],
+      [center[0] + rx, center[1]],
+      [center[0], center[1] + ry],
+      [center[0] - rx, center[1]],
+    ];
+    for (let index = 0; index < points.length; index += 1) {
+      scene.line(points[index], points[(index + 1) % points.length], glyph, color);
+    }
+  }
+
+  for (let index = 0; index < 28; index += 1) {
+    const angle = index * 2.399;
+    const radius = 2 + (((index * 0.173 + p * 1.8) % 1) * 17);
+    scene.cell(
+      Math.round(center[0] + Math.cos(angle) * radius * 0.58),
+      Math.round(center[1] + Math.sin(angle) * radius),
+      index % 5 === 0 ? '*' : '.',
+      index % 5 === 0 ? colors.amber : colors.dot,
+      0.72,
+    );
+  }
+  scene.panel(2.5, 35.0, 19.0, 3.0, colors.rail);
+  scene.mono(3.35, 35.85, ['THE FRAME MOVES THROUGH DATA.'], colors.cream, 0.66);
+}
+
+function drawTerrainFrame(scene, frame, frameCount, theme) {
+  const colors = theme.colors;
+  const p = frame / Math.max(1, frameCount - 1);
+  scene.background();
+  scene.text(2.0, 2.2, 'FIELD MAP', colors.cream, 1.9);
+  scene.mono(3.2, 5.6, ['LATERAL SCAN / TOPOGRAPHY'], colors.amber, 0.66);
+  scene.box(1, 1, 22, 40, Math.floor(frame / 6) % 2);
+
+  for (let row = 0; row < 18; row += 1) {
+    const yBase = 13 + row * 1.13;
+    const depth = row / 17;
+    for (let column = 0; column < 20; column += 1) {
+      const wave = Math.sin(column * 0.72 + row * 0.43 + p * Math.PI * 4) * (1.8 - depth * 0.9);
+      const ridge = Math.cos(column * 0.31 - p * Math.PI * 2) * 0.65;
+      const color = wave + ridge > 1.2 ? colors.spark : depth > 0.58 ? colors.green : colors.blue;
+      scene.cell(2 + column, yBase + wave + ridge, wave > 0.6 ? '*' : '.', color, 0.64 + depth * 0.18);
+    }
+  }
+
+  const scanX = 2 + Math.round(p * 19);
+  scene.line([scanX, 12], [scanX, 34], '|', colors.red);
+  scene.mono(3.1, 10.2, [`SCAN X=${String(scanX).padStart(2, '0')}`], colors.dot, 0.58);
+  scene.panel(2.5, 35.0, 19.0, 3.0, colors.rail);
+  scene.mono(3.25, 35.85, ['A LANDSCAPE MADE OF SIGNAL.'], colors.cream, 0.68);
+}
+
+function drawKineticAsciiFrame(scene, frame, frameCount, theme) {
+  const colors = theme.colors;
+  const p = frame / Math.max(1, frameCount - 1);
+  scene.background();
+  scene.box(1, 1, 22, 40, Math.floor(frame / 3) % 2);
+  const phase = Math.min(2, Math.floor(p * 3));
+  const words = ['MOVE', 'THROUGH', 'SIGNAL'];
+  const offsets = [
+    -8 + p * 18,
+    18 - p * 14,
+    -5 + p * 11,
+  ];
+  scene.text(offsets[0], 8.5, words[0], colors.red, 2.5);
+  scene.text(offsets[1], 18.0, words[1], colors.cream, 1.55);
+  scene.text(offsets[2], 27.5, words[2], colors.blue, 2.0);
+  for (let index = 0; index < 24; index += 1) {
+    const x = 2 + ((index * 5 + Math.floor(frame / 2)) % 20);
+    const y = 6 + ((index * 7 + phase * 3) % 28);
+    scene.cell(x, y, index % 4 === 0 ? '*' : '.', index % 4 === 0 ? colors.spark : colors.dim, 0.62);
+  }
+  scene.panel(2.5, 35.0, 19.0, 3.0, colors.rail);
+  scene.mono(3.2, 35.85, ['TYPE HAS VELOCITY AND WEIGHT.'], colors.cream, 0.66);
 }
 
 function drawAtom(scene, frame, theme) {
@@ -711,6 +812,9 @@ export function buildAsciiTheme(brief) {
   const science = words.some((word) => ['atom', 'molecule', 'orbit', 'space', 'scale', 'science'].includes(word));
   const palette = ASCII_PALETTES[brief.renderOptions?.palette] ?? ASCII_PALETTES.amber;
   return {
+    sceneStyle: ['scale', 'tunnel', 'terrain', 'kinetic-type'].includes(brief.renderOptions?.sceneStyle)
+      ? brief.renderOptions.sceneStyle
+      : 'scale',
     title: science ? 'ASCII SCALE' : 'ASCII SIGNAL',
     subtitle: science ? 'TINY RULES / HUGE WORLDS' : 'SMALL SIGNAL / BIG STORY',
     sequence: science ? ['ATOM', 'BOND', 'ORBIT'] : ['SIGNAL', 'LINK', 'STORY'],

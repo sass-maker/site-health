@@ -7,6 +7,7 @@ import test from 'node:test';
 
 import {
   CONNECTIONS_SCHEMA_VERSION,
+  projectSearchAction,
   SEARCH_ACTION_SAMPLE_FLOORS,
   buildFleetConnections,
   readSkillRunOutput,
@@ -45,11 +46,115 @@ test('derives conservative Search actions from explicit boundaries', () => {
     sampleFloor: floor,
     inspection: { state: 'not-indexed', coverageState: 'Crawled - currently not indexed' },
   }).id, 'fix-indexing');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-04T12:00:00.000Z',
+    indexingRequestedAt: '2026-08-05T12:00:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      coverageState: 'URL is unknown to Google',
+    },
+  }).id, 'wait-after-indexing-request');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-05T12:00:00.000Z',
+    indexingRequestedAt: '2026-08-04T12:00:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      coverageState: 'URL is unknown to Google',
+    },
+  }).id, 'fix-indexing');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-04T12:05:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      sitemapSubmissionState: 'submitted',
+      sitemapSubmittedAt: '2026-08-04T12:00:00.000Z',
+    },
+  }).id, 'wait-after-sitemap');
+  assert.equal(searchAction({
+    observed: true,
+    impressions: 0,
+    clicks: 0,
+    position: Infinity,
+    sampleFloor: floor,
+    observedAt: '2026-08-04T12:00:00.000Z',
+    inspection: {
+      state: 'not-indexed',
+      sitemapSubmissionState: 'already-submitted',
+      sitemapSubmittedAt: '2026-07-01T12:00:00.000Z',
+    },
+  }).id, 'fix-indexing');
   assert.equal(searchAction({ observed: true, impressions: 9, clicks: 0, position: 1, sampleFloor: floor }).id, 'collect-more-data');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 8, sampleFloor: floor }).id, 'improve-snippet');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 1, position: 8, sampleFloor: floor }).id, 'protect-and-expand');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 20, sampleFloor: floor }).id, 'strengthen-ranking-page');
   assert.equal(searchAction({ observed: true, impressions: 10, clicks: 0, position: 31, sampleFloor: floor }).id, 'build-search-relevance');
+});
+
+test('requires query-level evidence before prescribing a project Search change', () => {
+  const aggregate = {
+    observed: true,
+    impressions: 176,
+    clicks: 1,
+    position: 14.5,
+  };
+  assert.equal(projectSearchAction({
+    ...aggregate,
+    searchTerms: [{
+      query: 'site:sassmaker.com',
+      impressions: 40,
+      position: 12,
+      action: { id: 'strengthen-ranking-page', stage: 'change', priority: 3 },
+    }],
+  }).id, 'collect-more-data');
+  assert.equal(projectSearchAction({
+    ...aggregate,
+    searchTerms: [{
+      query: 'saas maker tools',
+      impressions: 12,
+      position: 18,
+      action: {
+        id: 'strengthen-ranking-page',
+        label: 'Strengthen ranking page',
+        stage: 'change',
+        priority: 3,
+      },
+    }],
+  }).id, 'strengthen-ranking-page');
+  assert.equal(projectSearchAction({
+    ...aggregate,
+    observedAt: '2026-08-04T12:00:00.000Z',
+    searchTerms: [{
+      query: 'saas maker tools',
+      impressions: 12,
+      position: 18,
+      action: {
+        id: 'strengthen-ranking-page',
+        label: 'Strengthen ranking page',
+        stage: 'change',
+        priority: 3,
+      },
+    }],
+    changeReceipt: {
+      actionId: 'strengthen-ranking-page',
+      query: 'saas maker tools',
+      changedAt: '2026-08-05T12:00:00.000Z',
+    },
+  }).id, 'wait-after-search-change');
 });
 
 function writeJson(path, value) {
@@ -351,6 +456,40 @@ function fixture() {
   return { root, home, skillRoot, runId: recordedSkillRun.run.runId };
 }
 
+function writeFixtureRootSearchContracts(root) {
+  const entries = [
+    { rootDomain: 'heypace.app', projectId: 'pace', name: 'Pace' },
+    { rootDomain: 'past.example', projectId: 'past', name: 'Past project' },
+    { rootDomain: 'personal.example', projectId: 'personal', name: 'Personal site' },
+  ];
+  writeJson(join(root, 'foundry/ops/config/root-brands.json'), {
+    version: 1,
+    brands: entries.map((entry) => ({
+      rootDomain: entry.rootDomain,
+      canonicalName: entry.name,
+      alternateNames: [entry.rootDomain],
+    })),
+  });
+  writeJson(join(root, 'foundry/ops/config/root-search-queries.json'), {
+    version: 1,
+    cadence: 'weekly',
+    roots: entries.map((entry) => ({
+      rootDomain: entry.rootDomain,
+      projectId: entry.projectId,
+      collision: {
+        state: 'clear',
+        note: `Fixture search identity for ${entry.rootDomain}.`,
+      },
+      queries: [
+        { id: `${entry.projectId}-brand`, kind: 'brand', text: entry.projectId === 'pace' ? entry.rootDomain : entry.name, status: 'active' },
+        { id: `${entry.projectId}-domain`, kind: 'exact-domain', text: `${entry.rootDomain} exact`, status: 'active' },
+        { id: `${entry.projectId}-category`, kind: 'category', text: `${entry.name} category`, status: 'active' },
+        { id: `${entry.projectId}-problem`, kind: 'problem', text: `${entry.name} problem`, status: 'active' },
+      ],
+    })),
+  });
+}
+
 test('reads one retained skill output with private paths removed', () => {
   const { home, runId } = fixture();
   const result = readSkillRunOutput({ home, runId });
@@ -358,6 +497,78 @@ test('reads one retained skill output with private paths removed', () => {
   assert.equal(result.outputCount, 1);
   assert.match(result.streams[0].content, /\[private path\]/);
   assert.doesNotMatch(result.streams[0].content, /\/Users\/sarthak/);
+});
+
+test('projects supplemental root Search Console evidence without expanding other metric portfolios', () => {
+  const { root, home } = fixture();
+  writeFixtureRootSearchContracts(root);
+  appendVisibilityOutcomeBundle({
+    schema: VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+    observations: [
+      {
+        id: 'search-past-2026-07-30',
+        projectId: 'past',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:past.example',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-01T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 7 },
+          { label: 'Search clicks', value: 1 },
+          { label: 'Search CTR', value: 14.29 },
+          { label: 'Search average position', value: 9 },
+        ],
+      },
+      {
+        id: 'search-personal-2026-07-30',
+        projectId: 'personal',
+        family: 'search',
+        provider: 'google-search-console',
+        scope: 'sc-domain:personal.example',
+        observedAt: '2026-07-31T12:00:00.000Z',
+        period: {
+          start: '2026-07-01T00:00:00.000Z',
+          end: '2026-07-30T23:59:59.000Z',
+        },
+        metrics: [
+          { label: 'Search impressions', value: 11 },
+          { label: 'Search clicks', value: 2 },
+          { label: 'Search CTR', value: 18.18 },
+          { label: 'Search average position', value: 5 },
+        ],
+      },
+    ],
+  }, {
+    path: join(home, '.fleet/visibility-outcomes/ledger.jsonl'),
+    allowedProjectIds: new Set(['past', 'personal']),
+  });
+
+  const result = buildFleetConnections({ fleetRoot: root, home, now });
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.search.map((row) => row.projectId).sort(),
+    ['pace', 'past-project', 'personal', 'standards'],
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.search.find((row) => row.projectId === 'past-project').impressions.value,
+    7,
+  );
+  assert.equal(
+    result.outputs.ownerOutcomes.search.find((row) => row.projectId === 'personal').impressions.value,
+    11,
+  );
+  assert.equal(result.outputs.ownerOutcomes.performance.length, 2);
+  assert.equal(
+    result.outputs.projects.filter((project) => project.metricEligibility.publicSite).length,
+    2,
+  );
+  assert.equal(
+    result.outputs.projects.filter((project) => project.metricEligibility.searchConsole).length,
+    4,
+  );
 });
 
 test('projects provider-authoritative search and Cloudflare activity without conflating AI visibility', () => {
@@ -555,8 +766,14 @@ test('projects provider-authoritative search and Cloudflare activity without con
     id: 'pace-brand',
     kind: 'brand',
     text: 'heypace.app',
-    class: 'B',
-    observedAt: '2026-07-30T12:00:00.000Z',
+    rootDomain: null,
+    collision: null,
+    liveSearch: {
+      state: 'observed',
+      class: 'B',
+      observedAt: '2026-07-30T12:00:00.000Z',
+    },
+    searchConsole: { state: 'not-observed' },
   }]);
   const marketingRow = result.outputs.ownerOutcomes.marketing.find(
     (project) => project.projectId === 'pace',
@@ -589,14 +806,28 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     now,
     marketing: {
       recommendations: [{ projectId: 'pace', title: 'Publish the comparison page.' }],
-      outcomes: [{
-        id: 'marketing-pace-1',
-        projectId: 'pace',
-        stage: 'publication',
-        status: 'published',
-        title: 'Pace launch note',
-        observedAt: '2026-07-30T08:00:00.000Z',
-      }],
+      outcomes: [
+        {
+          id: 'marketing-pace-1',
+          projectId: 'pace',
+          stage: 'publication',
+          status: 'published',
+          provider: 'youtube',
+          title: 'Pace launch note',
+          observedAt: '2026-07-30T08:00:00.000Z',
+          url: 'https://example.com/pace-launch',
+          privatePayload: 'must-not-reach-the-project-post-projection',
+        },
+        {
+          id: 'marketing-pace-older',
+          projectId: 'pace',
+          stage: 'publication',
+          status: 'published',
+          provider: 'instagram',
+          title: 'Pace first look',
+          observedAt: '2026-07-29T08:00:00.000Z',
+        },
+      ],
       aiVisibility: {
         projects: [{
           projectId: 'pace',
@@ -774,6 +1005,19 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
     result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'pace').status,
     'marketed',
   );
+  const paceMarketing = result.outputs.ownerOutcomes.marketing.find(
+    (project) => project.projectId === 'pace',
+  );
+  assert.equal(paceMarketing.postCount, 2);
+  assert.deepEqual(paceMarketing.posts.map((post) => post.id), [
+    'marketing-pace-1',
+    'marketing-pace-older',
+  ]);
+  assert.equal('privatePayload' in paceMarketing.posts[0], false);
+  assert.deepEqual(
+    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').posts,
+    [],
+  );
   assert.equal(
     result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').status,
     'never-marketed',
@@ -880,6 +1124,56 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.doesNotMatch(serialized, /Application Support/);
   assert.doesNotMatch(serialized, /history\.db/);
   assert.doesNotMatch(serialized, /runs\/2026/);
+});
+
+test('monitors an older failing field window after a newer passing lab run', () => {
+  const { root, home } = fixture();
+  appendVisibilityOutcomeBundle({
+    schema: VISIBILITY_OUTCOME_BUNDLE_SCHEMA,
+    observations: [{
+      id: 'cloudflare-vitals-pace-monitoring',
+      projectId: 'pace',
+      family: 'web-vitals',
+      provider: 'cloudflare-web-analytics',
+      scope: 'heypace.app',
+      observedAt: '2026-07-31T12:00:00.000Z',
+      period: {
+        start: '2026-07-03T00:00:00.000Z',
+        end: '2026-07-30T23:59:59.000Z',
+      },
+      metrics: [
+        { label: 'Field LCP', value: 4200 },
+        { label: 'Field INP', value: 140 },
+        { label: 'Field CLS', value: 0.04 },
+        { label: 'Field TTFB', value: 420 },
+        { label: 'RUM samples', value: 88 },
+      ],
+    }],
+  }, {
+    path: join(home, '.fleet/visibility-outcomes/ledger.jsonl'),
+    allowedProjectIds: new Set(['pace']),
+  });
+  const performanceDatabase = new DatabaseSync(join(home, '.psi-swarm/history.db'));
+  performanceDatabase.prepare(`
+    UPDATE runs
+    SET started_at = ?
+    WHERE performance_score IS NOT NULL
+  `).run(Date.parse('2026-07-31T13:00:00.000Z'));
+  performanceDatabase.close();
+
+  const result = buildFleetConnections({
+    fleetRoot: root,
+    home,
+    now: '2026-07-31T14:00:00.000Z',
+  });
+  const performance = result.outputs.ownerOutcomes.performance.find(
+    (project) => project.projectId === 'pace',
+  );
+
+  assert.equal(performance.psi.value, 96);
+  assert.ok(performance.fieldLcp, JSON.stringify(performance));
+  assert.equal(performance.fieldLcp.value, 4200);
+  assert.equal(performance.status, 'monitoring');
 });
 
 test('limits core AI awareness to provider-backed P1 outcomes', () => {

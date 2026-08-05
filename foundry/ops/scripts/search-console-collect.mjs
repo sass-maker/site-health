@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import {
+  attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
 } from '../lib/search-console.mjs';
@@ -11,11 +12,15 @@ import {
   appendVisibilityOutcomeBundle,
   defaultVisibilityOutcomePath,
 } from '../lib/visibility-outcome-store.mjs';
-import { visibilityProjects } from '../lib/visibility-projects.mjs';
+import { validateRootBrandContract } from '../lib/root-brand-contract.mjs';
+import { validateRootSearchQueryContract } from '../lib/root-search-query-contract.mjs';
+import { searchConsoleProjects } from '../lib/visibility-projects.mjs';
 
 const FLEET_ROOT = resolve(import.meta.dirname, '../../..');
 const catalog = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/projects.json'), 'utf8'));
 const config = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/search-console.json'), 'utf8'));
+const rootBrands = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/root-brands.json'), 'utf8'));
+const rootQueries = JSON.parse(readFileSync(resolve(FLEET_ROOT, 'foundry/ops/config/root-search-queries.json'), 'utf8'));
 
 function parseArgs(args) {
   const options = { projectId: null, ledgerPath: null, discoveryCycle: false };
@@ -48,13 +53,16 @@ function accessToken() {
 }
 
 const options = parseArgs(process.argv.slice(2));
-const eligible = visibilityProjects(catalog);
+const brandMap = validateRootBrandContract(rootBrands, catalog.projects ?? []);
+const rootsByDomain = validateRootSearchQueryContract(rootQueries, brandMap, catalog.projects ?? []);
+const eligible = searchConsoleProjects(catalog, rootsByDomain);
 const projects = options.projectId
   ? eligible.filter((project) => project.id === options.projectId)
   : eligible;
 if (projects.length === 0) throw new Error(`Unknown Search Console project: ${options.projectId}`);
 
 let discovery = null;
+let googleSitemaps = [];
 if (options.discoveryCycle) {
   const indexNow = spawnSync(
     process.execPath,
@@ -70,7 +78,7 @@ if (options.discoveryCycle) {
   if (!indexNowSummary || Number(indexNowSummary[4]) > 0) {
     throw new Error(`IndexNow discovery update was incomplete: ${indexNow.stdout.trim() || 'missing receipt'}`);
   }
-  const googleSitemaps = await ensureSearchConsoleSitemaps({
+  googleSitemaps = await ensureSearchConsoleSitemaps({
     projects,
     accessToken: accessToken(),
     quotaProject: config.quotaProject,
@@ -96,11 +104,14 @@ const collected = await collectSearchConsoleOutcomes({
   reportingLagDays: config.reportingLagDays,
   searchTermLimit: config.searchTermLimit,
 });
-if (collected.bundle.observations.length === 0) {
+const outcomeBundle = options.discoveryCycle
+  ? attachSitemapSubmissionState(collected.bundle, googleSitemaps)
+  : collected.bundle;
+if (outcomeBundle.observations.length === 0) {
   throw new Error('No accessible Search Console properties matched Fleet projects');
 }
 const ledgerPath = options.ledgerPath ?? defaultVisibilityOutcomePath();
-const receipt = appendVisibilityOutcomeBundle(collected.bundle, {
+const receipt = appendVisibilityOutcomeBundle(outcomeBundle, {
   path: ledgerPath,
   allowedProjectIds: new Set(eligible.map((project) => project.id)),
 });

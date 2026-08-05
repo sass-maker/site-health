@@ -47,6 +47,7 @@ count, are the source of truth.
 | `fleet-ops` | parent | fleet-audit, fleet-init, fleet-deploy-guard, fleet-workspace, cloudflare-spend-guard |
 | `call-teammate` | parent | Codex, Grok, Hermes, and optional approved teammates |
 | `site-health` | parent | agent-ready, seo-audit, content-coverage, psi-swarm, geo-observatory, public-product-smoke |
+| `design-engineering` | parent | design-inspiration, component-pattern-mine, web-3d-pipeline, creative-web-effects |
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | — |
 | `psi-swarm` | standalone | — |

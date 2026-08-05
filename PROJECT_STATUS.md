@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-02
+Last updated: 2026-08-05
 
 ## Why / What
 
@@ -61,6 +61,83 @@ CodeVetter or App Health source.
   remains empty until an ingestion owner supplies sanitized submissions.
 
 ## Timeline
+
+- **2026-08-05 — Full Search Console collection became operationally bounded:**
+  Removed timeout retries from the slow URL Inspection path and allowed four
+  inspections in flight, safely below Google's per-site quota. A real 29-target
+  acceptance run completed atomically in 57 seconds with all targets measured,
+  replacing the previously serialized multi-minute no-output interval while
+  preserving aggregate Search evidence when an inspection is unavailable.
+- **2026-08-05 — Search Console collection covered the complete ten-root
+  mission:** Kept the 27-project public metric portfolio unchanged while
+  deriving Google Search targets from its union with the validated ten-root
+  contract. The read-only collector and Google Search ledger now include
+  Aliveville and Sarthak Agrawal through their existing catalog identities,
+  retain prior observations without migration, and fail closed on conflicting
+  root ownership.
+- **2026-08-05 — Scheduled Codex work gained a clean-main checkout boundary:**
+  Added an explicit per-job checkout policy. Read-only audits still inspect the
+  real Fleet workspace, while the mutating weekly GEO job uses a fail-closed
+  scheduler clone that refuses dirty, non-main, ahead, or diverged state and
+  fast-forwards to exact `origin/main` before loading versioned inputs. Existing
+  per-job locks, logs, notifications, and dry-run behavior remain intact.
+- **2026-08-05 — Weekly root-search evidence became complete or no-write:**
+  Bound the enabled GEO Observatory schedule to the canonical ten-root query
+  contract: exactly one brand, exact-domain, category, and problem observation
+  per root on one date. The recorder now rejects missing, duplicate, extra,
+  historical, rewritten, or mixed-date batches before appending, while the
+  legacy all-project query configuration and ledger history remain readable.
+- **2026-08-05 — SaaS Maker's full learning article became agent-readable:**
+  Replaced the article's summary-only Markdown counterpart with the complete
+  published essay, including its methodology, limitations, implementation
+  example, sources, and canonical HTML reference. The existing public-route
+  registry continues to drive the Markdown route, sitemap, `llms-full.txt`,
+  and `/api/ai` catalog from one entry.
+- **2026-08-05 — SaaS Maker canonical homepage consolidated:** The public
+  directory no longer generates or links a competing `/p/saas-maker` profile.
+  Its source navigation now names and consistently links the public
+  `sass-maker` organization as the public source index; the private Fleet
+  workspace remains intentionally undisclosed.
+- **2026-08-05 — Root-domain search intent became measurable:** Added a
+  validated weekly query contract for the exact ten canonical roots, with one
+  active brand, exact-domain, category, and problem query per root. Ambiguous
+  names carry explicit collision notes, superseded queries remain historical,
+  and Fleet Console now separates factual Search Console rows from weekly live
+  web-search observations while leaving missing evidence as not observed.
+
+- **2026-08-05 — Search Console sitemap inventory was reconciled:** Added a
+  preview-first, fail-closed reconciliation command over the 27 canonical
+  project hosts plus all ten root domains. The live apply retained 27 project
+  sitemaps, submitted the valid Astro sitemap indexes for Aliveville and
+  Sarthak Agrawal, and removed 14 stale or duplicate provider entries. A final
+  provider preview retained 29/29 desired sitemaps with zero reported errors or
+  warnings; Karte's canonical sitemap remains provider-pending.
+
+- **2026-08-05 — Root-domain brand identity became one validated contract:**
+  Added one exact ten-domain canonical-name and alias registry, joined generated
+  product JSON-LD to it by registrable domain, and aligned the independently
+  owned public metadata for CodeVetter, Pace, High Signal, Karte,
+  PostTrainLLM, RolePatch, Significant Hobbies, and Sarthak Agrawal. Aliveville
+  already matched its canonical name. The change is merged but remains
+  undeployed pending the separate production gate.
+
+- **2026-08-05 — Applied Search work now enters measure mode:** Added a
+  bounded private receipt linking a project, evidence-backed query action,
+  landing page, shipped revision, and timestamp. A matching receipt newer than
+  its Search observation now becomes `Wait, then measure` until a completed
+  provider window can judge the change.
+
+- **2026-08-05 — Search changes now require query-level evidence:** Portfolio
+  averages and operator `site:` checks can no longer prescribe product edits.
+  A Google Search change action now requires a retained non-audit query that
+  meets the explicit query sample floor; otherwise the project remains in
+  bounded data collection.
+
+- **2026-08-05 — Manual indexing requests became durable Search evidence:**
+  Added a private, bounded receipt for owner-confirmed Google Search Console
+  indexing requests. A request newer than the last URL inspection now moves the
+  project from `Fix indexing` to `Wait, then measure` without changing or
+  overstating Google's reported indexing verdict.
 
 - **2026-07-31 — Search evidence became durable and fail-closed:** The
   fleet-wide homepage auditor now persists bounded SEO pass, warning, failure,
@@ -589,14 +666,20 @@ Cloudflare deployment history, not by maintaining duplicate source.
   outcome ingestion with strict normalized validation, canonical-project
   identity, private history, provider-deep-link validation, and separate
   Search, web-traffic, field-performance, crawler, and AI-referral evidence
-  without changing portfolio scores. The portfolio Google Search ledger
-  compares all 27 public projects and expands each row to expose bounded query
-  metrics and its exact Search Console property. AI Awareness keeps Cloudflare
+  without changing portfolio scores. The portfolio Google Search ledger uses
+  29 targets—the 27 public metric projects plus the two supplemental
+  catalog-backed ten-root identities—and expands each row to expose bounded
+  query metrics and its exact Search Console property. AI Awareness keeps Cloudflare
   values and exact zone links as subordinate discovery evidence beneath
   model-answer outcomes; Performance and Marketing expose their bounded
   Cloudflare values and breakdowns with one deduplicated portfolio update.
   Shared Domain properties and Cloudflare zones are isolated to each project's
   canonical HTTPS hostname.
+- Validated ten-root search query contract with stable brand, exact-domain,
+  category, and problem intents; explicit collision metadata; additive query
+  history; provider-honest per-query evidence in project Search details; and
+  one enabled weekly job that records the complete same-date 40-query batch or
+  leaves the ledger unchanged.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

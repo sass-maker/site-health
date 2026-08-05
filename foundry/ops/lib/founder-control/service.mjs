@@ -76,6 +76,58 @@ function boundedSignal(signal, { includeSeries = false } = {}) {
     : bounded;
 }
 
+function boundedText(value, maximum) {
+  if (value === null || value === undefined) return null;
+  return String(value).slice(0, maximum);
+}
+
+function publicPostUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(String(value));
+    return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function boundedTrackedQuery(query) {
+  const liveSearch = { state: query.liveSearch?.state === 'observed' ? 'observed' : 'not-observed' };
+  if (liveSearch.state === 'observed') {
+    liveSearch.class = ['A', 'B', 'C'].includes(query.liveSearch?.class)
+      ? query.liveSearch.class
+      : null;
+    liveSearch.observedAt = Number.isFinite(Date.parse(query.liveSearch?.observedAt))
+      ? query.liveSearch.observedAt
+      : null;
+  }
+
+  const searchConsole = {
+    state: query.searchConsole?.state === 'observed' ? 'observed' : 'not-observed',
+  };
+  if (searchConsole.state === 'observed') {
+    for (const key of ['impressions', 'clicks', 'position']) {
+      const value = Number(query.searchConsole?.[key]);
+      searchConsole[key] = Number.isFinite(value) ? value : null;
+    }
+  }
+
+  const collisionState = ['clear', 'ambiguous'].includes(query.collision?.state)
+    ? query.collision.state
+    : null;
+  return {
+    id: boundedText(query.id, 160),
+    kind: boundedText(query.kind, 40),
+    text: boundedText(query.text, 240),
+    rootDomain: boundedText(query.rootDomain, 240),
+    collision: collisionState
+      ? { state: collisionState, note: boundedText(query.collision?.note, 320) }
+      : null,
+    liveSearch,
+    searchConsole,
+  };
+}
+
 function outcomeProjection(connections, family) {
   const outcomes = connections.outputs?.ownerOutcomes ?? {};
   let rows = [];
@@ -138,22 +190,30 @@ function outcomeProjection(connections, family) {
       rumSamples: boundedSignal(row.rumSamples),
     }));
   } else if (family === 'marketing') {
-    rows = (outcomes.marketing ?? []).map((row) => ({
-      ...row,
-      visits: boundedSignal(row.visits, { includeSeries: true }),
-      pageViews: boundedSignal(row.pageViews, { includeSeries: true }),
-      searchReferrals: boundedSignal(row.searchReferrals, { includeSeries: true }),
-    }));
+    rows = (outcomes.marketing ?? []).map((row) => {
+      const posts = (row.posts ?? []).slice(0, 20).map((post) => ({
+        id: boundedText(post.id, 160),
+        title: boundedText(post.title, 240),
+        provider: boundedText(post.provider, 80),
+        stage: boundedText(post.stage, 60),
+        status: boundedText(post.status, 60) ?? 'recorded',
+        observedAt: Number.isFinite(Date.parse(post.observedAt)) ? post.observedAt : null,
+        url: publicPostUrl(post.url),
+      }));
+      return {
+        projectId: boundedText(row.projectId, 160),
+        name: boundedText(row.name, 160) ?? 'Unnamed project',
+        domain: boundedText(row.domain, 240),
+        postCount: Number.isFinite(Number(row.postCount))
+          ? Math.max(posts.length, Number(row.postCount))
+          : posts.length,
+        posts,
+      };
+    });
   } else if (family === 'search') {
     rows = (outcomes.search ?? []).map((row) => ({
       ...row,
-      trackedQueries: (row.trackedQueries ?? []).slice(0, 12).map((query) => ({
-        id: query.id,
-        kind: query.kind,
-        text: query.text,
-        class: query.class,
-        observedAt: query.observedAt,
-      })),
+      trackedQueries: (row.trackedQueries ?? []).slice(0, 12).map(boundedTrackedQuery),
       impressions: boundedSignal(row.impressions, { includeSeries: true }),
       clicks: boundedSignal(row.clicks, { includeSeries: true }),
       ctr: boundedSignal(row.ctr, { includeSeries: true }),

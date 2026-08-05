@@ -304,18 +304,13 @@ function frameHtml(input, backgroundData) {
   .progress span { height: 3px; flex: 1; background: rgb(255 255 255 / 24%); border-radius: 2px; }
   .progress span.on { background: #ffd37a; }
   main { position: absolute; left: 42px; right: 42px; bottom: 74px; text-align: center; }
-  .literal {
-    margin: 0 auto 18px; width: fit-content; max-width: 100%; padding: 8px 13px;
-    border-radius: 999px; background: rgb(5 10 20 / 72%); color: #b8d8ff;
-    font-size: 15px; line-height: 1.2;
-  }
   h1 {
-    margin: 0; padding: 19px 22px 22px; border-radius: 14px;
+    margin: 0; padding: 22px 24px 24px; border-radius: 14px;
     background: rgb(3 8 17 / 78%); box-shadow: 0 14px 34px rgb(0 0 0 / 38%);
     font-size: clamp(38px, 9vw, 58px); line-height: 1.02; letter-spacing: -0.025em;
     text-wrap: balance;
   }
-  footer { margin-top: 16px; color: #e2e9f4; font-size: 12px; line-height: 1.3; text-shadow: 0 2px 7px #000; }
+  footer { margin-top: 14px; color: #e2e9f4; font-size: 11px; line-height: 1.3; text-shadow: 0 2px 7px #000; }
 </style>
 </head>
 <body>
@@ -323,7 +318,6 @@ function frameHtml(input, backgroundData) {
   <div class="shade"></div>
   <div class="progress">${Array.from({ length: input.cueCount }, (_, index) => `<span class="${index < input.cueNumber ? 'on' : ''}"></span>`).join('')}</div>
   <main>
-    <p class="literal">${escapeHtml(scene.interpretation)}</p>
     <h1>${escapeHtml(input.cue.text)}</h1>
     <footer>${escapeHtml(input.attribution)}</footer>
   </main>

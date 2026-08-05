@@ -1831,9 +1831,9 @@ async function startAndPollMetricRun({
   return run;
 }
 
-function outcomeSignal(signal?: JsonRecord | null) {
+function outcomeSignal(signal?: JsonRecord | null, missing = "Not measured") {
   if (!signal || !Number.isFinite(signal.value)) {
-    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+    return element("span", { class: "outcome-missing" }, [missing]);
   }
   let detail = titleCase(signal.history ?? "baseline-only");
   if (Number.isFinite(signal.delta)) {
@@ -2257,10 +2257,36 @@ function searchTermsTable(row: JsonRecord) {
 function trackedTargetQueries(row: JsonRecord) {
   const queries = row.trackedQueries ?? [];
   if (queries.length === 0) return null;
+
+  function queryEvidence(query: JsonRecord) {
+    let googleLabel = "Google · Not observed";
+    let googleDetail = "No matching retained Search Console row in this reporting window";
+    if (query.searchConsole?.state === "observed") {
+      const position = new Intl.NumberFormat("en", { maximumFractionDigits: 2 })
+        .format(query.searchConsole.position);
+      googleLabel = `Google #${position}`;
+      googleDetail = `${query.searchConsole.impressions} impressions · ${query.searchConsole.clicks} clicks`;
+    }
+
+    let liveLabel = "Live search · Not observed";
+    let liveDetail = "Awaiting the next weekly observation";
+    if (query.liveSearch?.state === "observed") {
+      liveLabel = `Live search · ${SEARCH_RESULT_CLASS_LABELS[query.liveSearch.class] ?? "Unknown"}`;
+      liveDetail = formattedDay(query.liveSearch.observedAt);
+    }
+
+    return element("div", { class: "tracked-intent__result" }, [
+      element("strong", {}, [googleLabel]),
+      element("small", {}, [googleDetail]),
+      element("strong", {}, [liveLabel]),
+      element("small", {}, [liveDetail]),
+    ]);
+  }
+
   return element("div", { class: "search-detail__terms" }, [
     element("h2", {}, ["Tracked target queries"]),
     element("p", { class: "search-detail__note" }, [
-      "Live web-search checks for terms Fleet intentionally tracks; separate from Search Console impressions.",
+      "Stable target terms with separate Google Search Console and live web-search evidence.",
     ]),
     element("div", { class: "tracked-intent-list" }, queries.map((query: JsonRecord) =>
       element("article", { class: "tracked-intent" }, [
@@ -2268,10 +2294,7 @@ function trackedTargetQueries(row: JsonRecord) {
           element("span", {}, [query.kind ?? "query"]),
           element("strong", {}, [query.text]),
         ]),
-        element("div", { class: "tracked-intent__result" }, [
-          element("strong", {}, [SEARCH_RESULT_CLASS_LABELS[query.class] ?? "Not measured"]),
-          element("small", {}, [`Live web search · ${formattedDay(query.observedAt)}`]),
-        ]),
+        queryEvidence(query),
       ]))),
   ]);
 }
@@ -2293,6 +2316,11 @@ function searchOutcomeDetails(row: JsonRecord) {
       note = "This is a low-volume result; CTR and average position may move sharply between windows.";
     }
   }
+  const actionParts = [row.action?.label, row.action?.reason].filter(Boolean);
+  if (row.action?.nextMeasurementAt) {
+    actionParts.push(`Next measurement ${formattedDay(row.action.nextMeasurementAt)}.`);
+  }
+  const actionSummary = actionParts.join(" — ") || "Awaiting measurement";
   const history = searchObservationHistory(row);
   const searchConsoleLink = providerLink("Open Search Console", row.providerUrl);
   const content: Node[] = [
@@ -2302,6 +2330,7 @@ function searchOutcomeDetails(row: JsonRecord) {
       element("div", {}, [element("dt", {}, ["Reporting period"]), element("dd", {}, [period])]),
       element("div", {}, [element("dt", {}, ["Property scope"]), element("dd", {}, [row.scope ?? "Not measured"])]),
       element("div", {}, [element("dt", {}, ["Stored snapshots"]), element("dd", {}, [String(row.observations ?? 0)])]),
+      element("div", {}, [element("dt", {}, ["Next step"]), element("dd", {}, [actionSummary])]),
       element("div", {}, [
         element("dt", {}, ["Google index"]),
         element("dd", {}, [row.indexInspection?.coverageState ?? row.indexInspection?.failureReason ?? row.indexInspection?.state ?? "Inspection unavailable"]),
@@ -2725,6 +2754,9 @@ function performanceDiagnosis(row: JsonRecord, thresholds: JsonRecord) {
   const fieldInp = measuredSignalValue(row.fieldInp);
   const fieldCls = measuredSignalValue(row.fieldCls);
   const scope = "Lab measures the canonical page on desktop; field is host-wide p75 from real visits.";
+  if (row.status === "monitoring") {
+    return "The current lab guardrail passes, while the older Cloudflare field window still fails. Fleet is waiting for newer real-user evidence before closing this measurement. " + scope;
+  }
   const otherFailures: string[] = [];
   if (psi !== null && psi < limits.psiScore) {
     otherFailures.push(`PSI is ${metricValue(psi, "score/100")} (target ${metricValue(limits.psiScore, "score/100")})`);
@@ -2742,7 +2774,7 @@ function performanceDiagnosis(row: JsonRecord, thresholds: JsonRecord) {
 
   if (labLcp === null && fieldLcp === null) return `Lab and field LCP are not measured.${additionalDiagnosis} ${scope}`;
   if (labLcp === null) return `Only field LCP is measured, so there is no lab comparison yet.${additionalDiagnosis} ${scope}`;
-  if (fieldLcp === null) return `Only lab LCP is measured, so there is no real-user comparison yet.${additionalDiagnosis} ${scope}`;
+  if (fieldLcp === null) return `Lab LCP is measured; Cloudflare has no real-user field sample yet.${additionalDiagnosis} ${scope}`;
 
   const labPasses = labLcp <= limits.labLcp;
   const fieldPasses = fieldLcp <= limits.fieldLcp;
@@ -2761,7 +2793,7 @@ async function renderPerformance() {
     { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
     { key: "lcp", label: "Lab LCP (desktop)", description: "Sort by desktop lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
-    { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp) },
+    { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp, "No field sample") },
     { key: "observed", label: "Last observed", description: "Sort by measurement time", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
     { key: "run", label: "Run", description: "Refresh one product", sortable: false, value: (row) => row.projectId, render: performanceRunControl },
   ];
@@ -3279,25 +3311,42 @@ async function renderMarketing() {
   const rows = (payload.rows ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
   const count = document.querySelector<HTMLElement>('[data-founder-count="marketing-coverage"]');
   if (count) count.textContent = String(rows.length);
-  const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by product", value: (row) => row.name, render: (row) => projectIdentity(row) },
-    { key: "positioning", label: "Positioning", description: "Sort by positioning readiness", value: (row) => row.positioning, render: (row) => element("span", { class: "outcome-positioning" }, [row.description ?? "No public positioning recorded"]) },
-    { key: "visits", label: "Visits", description: "Sort by Cloudflare Web Analytics visits", value: (row) => row.visits?.value, render: (row) => outcomeSignal(row.visits) },
-    { key: "pageViews", label: "Page views", description: "Sort by Cloudflare Web Analytics page views", value: (row) => row.pageViews?.value, render: (row) => outcomeSignal(row.pageViews) },
-    { key: "published", label: "Last published", description: "Sort by latest publishing receipt", value: (row) => row.latestOutcome?.observedAt ? Date.parse(row.latestOutcome.observedAt) : null, render: (row) => row.latestOutcome ? formattedDay(row.latestOutcome.observedAt) : "Never" },
-    { key: "recommendations", label: "Next actions", description: "Sort by recommendation count", value: (row) => row.recommendationCount, render: (row) => String(row.recommendationCount) },
-    { key: "status", label: "Coverage", description: "Sort by marketing coverage state", value: (row) => row.status, render: (row) => state(row.status) },
-  ];
+
+  const postRow = (post: JsonRecord) => {
+    const title = post.title || "Recorded post";
+    const titleNode = post.url
+      ? element("a", { href: post.url, target: "_blank", rel: "noreferrer" }, [title])
+      : element("strong", {}, [title]);
+    const source = post.provider ? titleCase(post.provider) : "Provider not recorded";
+    const kind = post.stage ? titleCase(post.stage) : "Post";
+    return element("li", { class: "marketing-post" }, [
+      element("div", { class: "marketing-post__main" }, [
+        titleNode,
+        element("small", {}, [`${source} · ${kind} · ${formattedDay(post.observedAt)}`]),
+      ]),
+      state(post.status || "recorded"),
+    ]);
+  };
+
+  const projectRow = (row: JsonRecord) => {
+    const posts = row.posts ?? [];
+    const retained = Number(row.postCount ?? posts.length);
+    return element("article", { class: "marketing-project" }, [
+      element("header", { class: "marketing-project__header" }, [
+        projectIdentity(row),
+        element("span", { class: posts.length ? "marketing-project__count" : "marketing-project__count is-empty" }, [
+          posts.length ? `${retained} post${retained === 1 ? "" : "s"}` : "No posts yet",
+        ]),
+      ]),
+      posts.length
+        ? element("ol", { class: "marketing-posts", "aria-label": `${row.name} posts` }, posts.map(postRow))
+        : null,
+    ]);
+  };
+
   replace("marketing-coverage", rows.length
-    ? outcomeTable(rows, columns, "project", "Fleet product marketing coverage", "ascending", {
-        rowKey: (row) => row.projectId,
-        details: (row) => providerOutcomeDetails({
-          note: "Cloudflare Web Analytics shows whether distribution produced visits. Expand the breakdowns to see the pages and referrers responsible.",
-          outcomes: [{ label: "Traffic", outcome: row.traffic, linkLabel: "Open Cloudflare Traffic" }],
-          signals: [row.visits, row.pageViews, row.searchReferrals],
-        }),
-      })
-    : empty("No matching product", "The current project scope has no public marketing target."));
+    ? element("div", { class: "marketing-projects" }, [...rows].sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name)).map(projectRow))
+    : empty("No matching project", "The current project scope has no public marketing project."));
 }
 
 async function renderMission() {
@@ -3369,6 +3418,10 @@ async function renderMission() {
 async function start() {
   const view = document.body.dataset.founderView;
   if (!view) return;
+  if (document.body.dataset.founderEvidence === "false") {
+    if (connectionLabel) connectionLabel.textContent = "Local gallery";
+    return;
+  }
   const slots = document.querySelectorAll<HTMLElement>("[data-founder-slot]");
   slots.forEach((slot) => {
     slot.setAttribute("aria-busy", "true");

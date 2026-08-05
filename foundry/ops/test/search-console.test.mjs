@@ -2,11 +2,189 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
+  inspectSearchConsoleUrl,
+  reconcileSearchConsoleSitemaps,
   searchConsoleProviderUrl,
+  searchConsoleSitemapTargets,
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
+
+test('does not retry a timed-out URL inspection', async () => {
+  let requests = 0;
+  const timeout = new Error('request timed out');
+  timeout.name = 'TimeoutError';
+
+  const result = await inspectSearchConsoleUrl({
+    inspectionUrl: 'https://example.com/',
+    siteUrl: 'sc-domain:example.com',
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl: async () => {
+      requests += 1;
+      throw timeout;
+    },
+  });
+
+  assert.equal(requests, 1);
+  assert.equal(result.state, 'unavailable');
+  assert.match(result.failureReason, /timed out/);
+});
+
+test('bounds concurrent URL inspections while collecting the portfolio', async () => {
+  let activeInspections = 0;
+  let maximumActiveInspections = 0;
+  const fetchImpl = async (url, options = {}) => {
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    const body = JSON.parse(options.body);
+    if (url.includes('/urlInspection/index:inspect')) {
+      if (body.inspectionUrl === 'https://project-1.example.com/') {
+        const timeout = new Error('request timed out');
+        timeout.name = 'TimeoutError';
+        throw timeout;
+      }
+      activeInspections += 1;
+      maximumActiveInspections = Math.max(maximumActiveInspections, activeInspections);
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      activeInspections -= 1;
+      return Response.json({ inspectionResult: { indexStatusResult: {
+        verdict: 'PASS',
+        coverageState: 'Submitted and indexed',
+      } } });
+    }
+    if (body.dimensions?.includes('query')) return Response.json({ rows: [] });
+    return Response.json({ rows: [{ clicks: 0, impressions: 1, ctr: 0, position: 8 }] });
+  };
+  const projects = Array.from({ length: 8 }, (_, index) => ({
+    id: `project-${index + 1}`,
+    domains: [`project-${index + 1}.example.com`],
+  }));
+
+  const result = await collectSearchConsoleOutcomes({
+    projects,
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+    now: new Date('2026-08-05T12:00:00.000Z'),
+  });
+
+  assert.equal(result.bundle.observations.length, 8);
+  assert.equal(maximumActiveInspections, 4);
+  assert.equal(result.bundle.observations[0].indexInspection.state, 'unavailable');
+  assert.equal(
+    result.bundle.observations[0].metrics.find((metric) => metric.label === 'Search impressions').value,
+    1,
+  );
+});
+
+test('builds one desired sitemap set from projects and root domains', () => {
+  assert.deepEqual(
+    searchConsoleSitemapTargets(
+      [
+        { id: 'app', domains: ['app.example.com'] },
+        { id: 'root', domains: ['example.com'] },
+      ],
+      ['example.com', 'personal.dev'],
+      { 'personal.dev': 'https://personal.dev/sitemap-index.xml' },
+    ),
+    [
+      { id: 'app', domain: 'app.example.com', sitemapUrl: 'https://app.example.com/sitemap.xml' },
+      { id: 'root', domain: 'example.com', sitemapUrl: 'https://example.com/sitemap.xml' },
+      { id: 'root:personal.dev', domain: 'personal.dev', sitemapUrl: 'https://personal.dev/sitemap-index.xml' },
+    ],
+  );
+});
+
+test('rejects a sitemap override on another host', () => {
+  assert.throws(
+    () => searchConsoleSitemapTargets([], ['example.com'], {
+      'example.com': 'https://other.example/sitemap.xml',
+    }),
+    /must stay on its canonical domain/,
+  );
+});
+
+test('previews and applies exact sitemap additions and removals', async () => {
+  const requests = [];
+  const fetchImpl = async (url, options = {}) => {
+    const method = options.method ?? 'GET';
+    requests.push({ url, method });
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    if (method === 'PUT' || method === 'DELETE') return new Response(null, { status: 204 });
+    return Response.json({ sitemap: [
+      { path: 'https://app.example.com/sitemap.xml', errors: 0, warnings: 0 },
+      { path: 'https://retired.example.com/sitemap-index.xml', errors: 1, warnings: 0 },
+    ] });
+  };
+  const targets = searchConsoleSitemapTargets(
+    [{ id: 'app', domains: ['app.example.com'] }],
+    ['example.com'],
+  );
+
+  const preview = await reconcileSearchConsoleSitemaps({
+    targets,
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+  });
+  assert.deepEqual(preview.actions.map(({ action, state, sitemapUrl }) => [action, state, sitemapUrl]), [
+    ['retain', 'unchanged', 'https://app.example.com/sitemap.xml'],
+    ['add', 'planned', 'https://example.com/sitemap.xml'],
+    ['remove', 'planned', 'https://retired.example.com/sitemap-index.xml'],
+  ]);
+  assert.equal(requests.filter(({ method }) => method === 'PUT' || method === 'DELETE').length, 0);
+
+  const applied = await reconcileSearchConsoleSitemaps({
+    targets,
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+    apply: true,
+  });
+  assert.deepEqual(applied.actions.map(({ action, state }) => [action, state]), [
+    ['retain', 'unchanged'],
+    ['add', 'submitted'],
+    ['remove', 'deleted'],
+  ]);
+  assert.equal(requests.filter(({ method }) => method === 'PUT').length, 1);
+  assert.equal(requests.filter(({ method }) => method === 'DELETE').length, 1);
+});
+
+test('fails closed for unavailable properties and listing errors', async () => {
+  const fetchImpl = async (url) => {
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    return Response.json({ error: { message: 'provider unavailable' } }, { status: 503 });
+  };
+  const result = await reconcileSearchConsoleSitemaps({
+    targets: searchConsoleSitemapTargets(
+      [{ id: 'blocked', domains: ['app.example.com'] }],
+      ['missing.test'],
+    ),
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+    apply: true,
+  });
+
+  assert.deepEqual(result.actions.map(({ targetId, state }) => [targetId, state]), [
+    ['blocked', 'blocked'],
+    ['root:missing.test', 'property-unavailable'],
+  ]);
+});
 
 test('keeps Google sitemap submission automatic and bounded', async () => {
   const requests = [];
@@ -25,7 +203,10 @@ test('keeps Google sitemap submission automatic and bounded', async () => {
     }
     return Response.json({
       sitemap: url.includes(encodeURIComponent('sc-domain:example.com'))
-        ? [{ path: 'https://ready.example.com/sitemap.xml' }]
+        ? [{
+            path: 'https://ready.example.com/sitemap.xml',
+            lastSubmitted: '2026-08-01T12:00:00.000Z',
+          }]
         : [],
     });
   };
@@ -40,6 +221,7 @@ test('keeps Google sitemap submission automatic and bounded', async () => {
     accessToken: 'not-retained',
     quotaProject: 'quota-project',
     fetchImpl,
+    now: new Date('2026-08-04T12:00:00.000Z'),
   });
 
   assert.deepEqual(results.map((result) => [result.projectId, result.state]), [
@@ -49,6 +231,29 @@ test('keeps Google sitemap submission automatic and bounded', async () => {
     ['missing', 'property-unavailable'],
   ]);
   assert.equal(requests.filter((request) => request.method === 'PUT').length, 2);
+  assert.equal(results[0].submittedAt, '2026-08-01T12:00:00.000Z');
+  assert.equal(results[1].submittedAt, '2026-08-04T12:00:00.000Z');
+});
+
+test('attaches successful sitemap evidence to matching Search observations', () => {
+  const bundle = {
+    schema: 'fleet.visibility-outcome-bundle.v1',
+    observations: [
+      { projectId: 'ready', indexInspection: { state: 'not-indexed' } },
+      { projectId: 'blocked', indexInspection: { state: 'not-indexed' } },
+    ],
+  };
+  const attached = attachSitemapSubmissionState(bundle, [
+    { projectId: 'ready', state: 'submitted', submittedAt: '2026-08-04T12:00:00.000Z' },
+    { projectId: 'blocked', state: 'blocked' },
+  ]);
+
+  assert.deepEqual(attached.observations[0].indexInspection, {
+    state: 'not-indexed',
+    sitemapSubmissionState: 'submitted',
+    sitemapSubmittedAt: '2026-08-04T12:00:00.000Z',
+  });
+  assert.deepEqual(attached.observations[1].indexInspection, { state: 'not-indexed' });
 });
 
 test('selects the closest accessible property for a canonical domain', () => {

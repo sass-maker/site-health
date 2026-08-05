@@ -360,6 +360,28 @@ test('studio server routes', async (t) => {
     assert.equal(await media.text(), 'registered');
   });
 
+  await t.test('representative gallery serves substantive capability proofs separately from exact options', async () => {
+    const registry = await fetch(`${base}/studio/explore-gallery/representatives`);
+    assert.equal(registry.status, 200);
+    const payload = await registry.json();
+    assert.equal(payload.data.provenCapabilityCount, 9);
+    assert.equal(payload.data.proofCount, 14);
+    assert.equal(payload.data.totalCapabilityCount, 13);
+    assert.equal(payload.data.exactOptionCount, 49);
+    assert.equal(payload.data.playableCount, 14);
+    assert.deepEqual(payload.data.unproven.map((entry) => entry.recipeId), ['grok-asset-film', 'guided-app-demo', 'product-proof', 'night-out-carousel']);
+
+    const sample = payload.data.items[0];
+    const media = await fetch(`${base}${sample.mediaUrl}`, { headers: { range: 'bytes=0-9' } });
+    assert.equal(media.status, 206);
+    assert.equal(media.headers.get('accept-ranges'), 'bytes');
+    assert.equal((await media.arrayBuffer()).byteLength, 10);
+    const poster = await fetch(`${base}${sample.posterUrl}`);
+    assert.equal(poster.status, 200);
+    assert.equal(poster.headers.get('content-type'), 'image/jpeg');
+    assert.ok((await poster.arrayBuffer()).byteLength > 0);
+  });
+
   await t.test('factory plan/produce/status over the API', async () => {
     const plan = await fetch(`${base}/studio/plan`, {
       method: 'POST',
@@ -533,6 +555,24 @@ test('studio server routes', async (t) => {
     assert.equal(created.durationSeconds, 15);
     assert.equal(created.actions.build.enabled, true);
     assert.equal(created.actions.build.kind, 'execute');
+  });
+
+  await t.test('projectless prompt preserves the selected narration voice', async () => {
+    const createdRes = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        request: 'Make a friendly, poppy narrated short about protecting one creative hour.',
+        fields: {
+          recipeId: 'local-voice-film',
+          recipeOptions: { variantId: 'local-voice-film--voice-af-heart' },
+        },
+      }),
+    });
+    assert.equal(createdRes.status, 201);
+    const created = (await createdRes.json()).data;
+    assert.equal(created.recipeOptions.values.voice, 'af_heart');
+    assert.equal(created.recipeOptions.variantId, 'local-voice-film--voice-af-heart');
   });
 
   await t.test('Fleet Console can execute any exact variant as a portable fixture and seek its MP4', async () => {

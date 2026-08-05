@@ -5,7 +5,6 @@
 Keep Fleet visibility metrics evidence-backed, inventory-complete, and honest
 about the boundary between source prerequisites and externally observed
 outcomes.
-
 ## Requirements
 ### Requirement: Valid metric evidence
 
@@ -110,3 +109,51 @@ until deployment and a later observation demonstrate the outcome.
 - **THEN** the change is reported as a prerequisite improvement
 - **AND** domain authority, search rank, or AI citation improvement remains
   unclaimed until externally observed.
+
+### Requirement: Canonical root-domain brand contract
+
+Fleet SHALL maintain one validated brand record for every root domain measured
+by the Domains view. Each record SHALL declare one canonical public name and a
+bounded list of deliberate aliases, and generators SHALL copy those values
+without inventing additional spellings.
+
+#### Scenario: Root-domain coverage is complete
+
+- **WHEN** the Fleet contracts are validated
+- **THEN** every root domain measured by the Domains view has exactly one brand record
+- **AND** no extra, duplicate, or malformed root-domain record is accepted
+
+#### Scenario: Structured data is generated
+
+- **WHEN** a registered product maps to a root-domain brand record
+- **THEN** generated JSON-LD uses the canonical name as `name`
+- **AND** emits only the declared non-empty aliases as `alternateName`
+
+#### Scenario: Product metadata disagrees with the contract
+
+- **WHEN** a root product's title, primary heading, social site name, or
+  structured-data name uses an undeclared public brand
+- **THEN** the brand audit fails with the domain and conflicting value named
+- **AND** search-rank improvement is not claimed merely because the metadata is corrected
+
+### Requirement: Search Console sitemap inventory converges on canonical hosts
+
+Fleet SHALL derive the desired Google sitemap inventory from the canonical
+project hosts plus the exact root-domain brand contract and SHALL reconcile it
+through an explicit preview and apply boundary.
+
+#### Scenario: Preview names every intended provider mutation
+
+- **WHEN** the operator runs sitemap reconciliation without `--apply`
+- **THEN** missing canonical sitemaps are reported as additions
+- **AND** submitted sitemaps outside the complete desired property set are
+  reported as removals
+- **AND** no Search Console mutation occurs
+
+#### Scenario: Apply converges without broad deletion
+
+- **WHEN** the operator applies the reviewed reconciliation
+- **THEN** only the reported sitemap URLs are submitted or deleted
+- **AND** every desired sitemap remains assigned to an accessible property
+- **AND** a subsequent preview reports no additions or removals
+- **AND** the result does not claim URL indexing or search-rank improvement
