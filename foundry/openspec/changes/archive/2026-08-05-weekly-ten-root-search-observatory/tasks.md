@@ -12,7 +12,7 @@
 
 ## 3. Delivery
 
-- [ ] 3.1 Archive this OpenSpec change and update `PROJECT_STATUS.md` with durable shipped truth
+- [x] 3.1 Archive this OpenSpec change and update `PROJECT_STATUS.md` with durable shipped truth
 - [x] 3.2 Record the completed Fleet skill run if the installed recorder is available
-- [ ] 3.3 Commit, push, and open a pull request with `Closes #192`
+- [x] 3.3 Commit, push, and open a pull request with `Closes #192`
 - [x] 3.4 Confirm whether the installed weekly runner's configured checkout will contain the merged revision; do not modify local cron
