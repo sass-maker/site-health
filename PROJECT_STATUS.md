@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Search Console collection covered the complete ten-root
+  mission:** Kept the 27-project public metric portfolio unchanged while
+  deriving Google Search targets from its union with the validated ten-root
+  contract. The read-only collector and Google Search ledger now include
+  Aliveville and Sarthak Agrawal through their existing catalog identities,
+  retain prior observations without migration, and fail closed on conflicting
+  root ownership.
 - **2026-08-05 — Scheduled Codex work gained a clean-main checkout boundary:**
   Added an explicit per-job checkout policy. Read-only audits still inspect the
   real Fleet workspace, while the mutating weekly GEO job uses a fail-closed
@@ -653,9 +660,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
   outcome ingestion with strict normalized validation, canonical-project
   identity, private history, provider-deep-link validation, and separate
   Search, web-traffic, field-performance, crawler, and AI-referral evidence
-  without changing portfolio scores. The portfolio Google Search ledger
-  compares all 27 public projects and expands each row to expose bounded query
-  metrics and its exact Search Console property. AI Awareness keeps Cloudflare
+  without changing portfolio scores. The portfolio Google Search ledger uses
+  29 targets—the 27 public metric projects plus the two supplemental
+  catalog-backed ten-root identities—and expands each row to expose bounded
+  query metrics and its exact Search Console property. AI Awareness keeps Cloudflare
   values and exact zone links as subordinate discovery evidence beneath
   model-answer outcomes; Performance and Marketing expose their bounded
   Cloudflare values and breakdowns with one deduplicated portfolio update.

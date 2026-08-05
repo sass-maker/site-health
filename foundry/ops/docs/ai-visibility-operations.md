@@ -123,6 +123,14 @@ node foundry/ops/scripts/search-console-collect.mjs
 node foundry/ops/scripts/search-console-collect.mjs --project posttrainllm
 ```
 
+The default collection scope is the stable union of the 27-project public
+metric portfolio and every catalog-backed identity in the validated ten-root
+search contract. The current union is 29 targets because Aliveville
+(`ai-game`) and Sarthak Agrawal (`sarthakagrawal-personal`) remain intentionally
+outside the public metric portfolio while still belonging to the root-search
+mission. This does not reclassify either project or add it to Performance,
+Marketing, or AI metric pages. `--project` accepts the catalog project ID.
+
 Sitemap inventory has a separate preview-first reconciliation command. It uses
 the 27 canonical project hosts plus the exact ten root-domain identities,
 deduplicates overlaps, and changes Search Console only with `--apply`:
@@ -140,10 +148,12 @@ Astro roots that expose an index rather than `/sitemap.xml` declare that exact
 same-host URL in `foundry/ops/config/search-console.json`.
 
 The default run queries the 28 completed days ending three days ago. Accessible
-Domain properties cover their subdomains; every project query is constrained to
+Domain properties cover their subdomains; every target query is constrained to
 its canonical HTTPS hostname. The collector retains only normalized aggregate
 metrics in the private ledger and reports inaccessible properties instead of
-recording them as zero.
+recording them as zero. The Google Search dashboard uses the same target union,
+so historical observations for supplemental roots remain visible and future
+updates refresh them without rewriting their project IDs.
 
 ## Persistence and privacy
 

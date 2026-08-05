@@ -16,7 +16,7 @@ import {
   defaultVisibilityOutcomePath,
   readVisibilityOutcomes,
 } from '../visibility-outcome-store.mjs';
-import { visibilityProjects } from '../visibility-projects.mjs';
+import { searchConsoleProjects, visibilityProjects } from '../visibility-projects.mjs';
 import { searchConsoleProviderUrl } from '../search-console.mjs';
 import { validateRootBrandContract } from '../root-brand-contract.mjs';
 import {
@@ -328,24 +328,32 @@ function canonicalVisibilityProjectId(value) {
   return aliases[value] ?? value;
 }
 
-function searchVisibilityEvidence(fleetRoot, projectCatalog) {
+function validatedRootSearchQueries(fleetRoot, projectCatalog) {
+  const brandContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-brands.json'));
+  const rootQueryContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-search-queries.json'));
+  if (!brandContract && !rootQueryContract) return new Map();
+  if (!brandContract || !rootQueryContract) {
+    throw new Error('root brand and root search query contracts must be present together');
+  }
+  const brandMap = validateRootBrandContract(
+    brandContract,
+    projectCatalog.projects ?? [],
+  );
+  return validateRootSearchQueryContract(
+    rootQueryContract,
+    brandMap,
+    projectCatalog.projects ?? [],
+  );
+}
+
+function searchVisibilityEvidence(fleetRoot, projectCatalog, rootsByDomain = null) {
   const baseConfig = readJson(
     resolve(fleetRoot, 'foundry/ops/config/geo-observatory.json'),
     { products: [] },
   );
-  const brandContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-brands.json'));
-  const rootQueryContract = readJson(resolve(fleetRoot, 'foundry/ops/config/root-search-queries.json'));
   let config = baseConfig;
-  if (brandContract && rootQueryContract) {
-    const brandMap = validateRootBrandContract(
-      brandContract,
-      projectCatalog.projects ?? [],
-    );
-    const rootQueries = validateRootSearchQueryContract(
-      rootQueryContract,
-      brandMap,
-      projectCatalog.projects ?? [],
-    );
+  const rootQueries = rootsByDomain ?? validatedRootSearchQueries(fleetRoot, projectCatalog);
+  if (rootQueries.size > 0) {
     config = mergeRootSearchQueriesIntoObservatory(baseConfig, rootQueries);
   }
   const configured = new Map();
@@ -1492,6 +1500,9 @@ function buildOwnerOutcomeProjection({
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
   );
+  const searchProjects = projectOutputs.filter(
+    (project) => project.metricEligibility?.searchConsole === true,
+  );
   const domainProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.domainCoverage === true,
   );
@@ -1626,7 +1637,7 @@ function buildOwnerOutcomeProjection({
     };
   });
 
-  const searchRows = publicProjects.map((project) => {
+  const searchRows = searchProjects.map((project) => {
     const outcome = project.searchVisibility?.outcome ?? null;
     const impressions = latestOutcomeSignal(project, outcome, 'Search impressions');
     const clicks = latestOutcomeSignal(project, outcome, 'Search clicks');
@@ -1748,6 +1759,7 @@ function buildProjectOutputs({
   searchVisibility,
   visibilityMetrics,
   visibilityOutcomes,
+  searchConsoleProjectIds,
 }) {
   const skillProjects = new Map(skills.projects.map((project) => [project.projectId, project]));
   const workflowProjects = new Map(
@@ -2152,6 +2164,7 @@ function buildProjectOutputs({
         metricEligibility: {
           publicSite: publicMetricSite,
           domainCoverage,
+          searchConsole: searchConsoleProjectIds.has(project.id),
         },
         produced,
         skill: skill
@@ -2469,11 +2482,14 @@ export function buildFleetConnections({
     ...project,
     priority: project.priority ?? priorityByProject.get(project.id) ?? null,
   }));
+  const rootSearchQueries = validatedRootSearchQueries(fleetRoot, projectCatalog);
+  const searchProjects = searchConsoleProjects(projectCatalog, rootSearchQueries);
+  const searchConsoleProjectIds = new Set(searchProjects.map((project) => project.id));
   const drank = drankEvidence(fleetRoot, now);
   const psi = psiEvidence(home, now);
   const skills = skillEvidence(home, now);
   const designReviews = designReviewEvidence(fleetRoot, maintainedProjects);
-  const searchVisibility = searchVisibilityEvidence(fleetRoot, projectCatalog);
+  const searchVisibility = searchVisibilityEvidence(fleetRoot, projectCatalog, rootSearchQueries);
   const visibilityMetrics = visibilityMetricEvidence(home);
   const visibilityOutcomes = visibilityOutcomeEvidence(home);
   const latestIndexingRequestByProject = new Map();
@@ -2513,7 +2529,10 @@ export function buildFleetConnections({
         .filter(Boolean)
         .some((domain) => drankDomains.has(domain)),
   );
-  const projectOutputProjects = [...maintainedProjects, ...retainedDrankProjects];
+  const projectOutputProjects = [...new Map(
+    [...searchProjects, ...maintainedProjects, ...retainedDrankProjects]
+      .map((project) => [project.id, project]),
+  ).values()];
 
   const componentList = [
     {
@@ -2876,6 +2895,7 @@ export function buildFleetConnections({
     searchVisibility,
     visibilityMetrics,
     visibilityOutcomes,
+    searchConsoleProjectIds,
   });
   const ownerOutcomes = buildOwnerOutcomeProjection({
     projectOutputs,
