@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-02
+Last updated: 2026-08-05
 
 ## Why / What
 
@@ -61,6 +61,14 @@ CodeVetter or App Health source.
   remains empty until an ingestion owner supplies sanitized submissions.
 
 ## Timeline
+
+- **2026-08-05 — Root-domain brand identity became one validated contract:**
+  Added one exact ten-domain canonical-name and alias registry, joined generated
+  product JSON-LD to it by registrable domain, and aligned the independently
+  owned public metadata for CodeVetter, Pace, High Signal, Karte,
+  PostTrainLLM, RolePatch, Significant Hobbies, and Sarthak Agrawal. Aliveville
+  already matched its canonical name. The change is merged but remains
+  undeployed pending the separate production gate.
 
 - **2026-08-05 — Applied Search work now enters measure mode:** Added a
   bounded private receipt linking a project, evidence-backed query action,
