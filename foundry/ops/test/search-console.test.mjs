@@ -5,11 +5,83 @@ import {
   attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
+  inspectSearchConsoleUrl,
   reconcileSearchConsoleSitemaps,
   searchConsoleProviderUrl,
   searchConsoleSitemapTargets,
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
+
+test('does not retry a timed-out URL inspection', async () => {
+  let requests = 0;
+  const timeout = new Error('request timed out');
+  timeout.name = 'TimeoutError';
+
+  const result = await inspectSearchConsoleUrl({
+    inspectionUrl: 'https://example.com/',
+    siteUrl: 'sc-domain:example.com',
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl: async () => {
+      requests += 1;
+      throw timeout;
+    },
+  });
+
+  assert.equal(requests, 1);
+  assert.equal(result.state, 'unavailable');
+  assert.match(result.failureReason, /timed out/);
+});
+
+test('bounds concurrent URL inspections while collecting the portfolio', async () => {
+  let activeInspections = 0;
+  let maximumActiveInspections = 0;
+  const fetchImpl = async (url, options = {}) => {
+    if (url.endsWith('/sites')) {
+      return Response.json({
+        siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+      });
+    }
+    const body = JSON.parse(options.body);
+    if (url.includes('/urlInspection/index:inspect')) {
+      if (body.inspectionUrl === 'https://project-1.example.com/') {
+        const timeout = new Error('request timed out');
+        timeout.name = 'TimeoutError';
+        throw timeout;
+      }
+      activeInspections += 1;
+      maximumActiveInspections = Math.max(maximumActiveInspections, activeInspections);
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      activeInspections -= 1;
+      return Response.json({ inspectionResult: { indexStatusResult: {
+        verdict: 'PASS',
+        coverageState: 'Submitted and indexed',
+      } } });
+    }
+    if (body.dimensions?.includes('query')) return Response.json({ rows: [] });
+    return Response.json({ rows: [{ clicks: 0, impressions: 1, ctr: 0, position: 8 }] });
+  };
+  const projects = Array.from({ length: 8 }, (_, index) => ({
+    id: `project-${index + 1}`,
+    domains: [`project-${index + 1}.example.com`],
+  }));
+
+  const result = await collectSearchConsoleOutcomes({
+    projects,
+    accessToken: 'not-retained',
+    quotaProject: 'quota-project',
+    fetchImpl,
+    now: new Date('2026-08-05T12:00:00.000Z'),
+  });
+
+  assert.equal(result.bundle.observations.length, 8);
+  assert.equal(maximumActiveInspections, 4);
+  assert.equal(result.bundle.observations[0].indexInspection.state, 'unavailable');
+  assert.equal(
+    result.bundle.observations[0].metrics.find((metric) => metric.label === 'Search impressions').value,
+    1,
+  );
+});
 
 test('builds one desired sitemap set from projects and root domains', () => {
   assert.deepEqual(
