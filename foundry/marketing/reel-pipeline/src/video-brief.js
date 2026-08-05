@@ -34,6 +34,7 @@ export function normalizeVideoBrief(input) {
     marketingPostId: optionalString(input.marketingPostId ?? input.marketing_post_id),
     channel: normalizeChannel(input.channel),
     title: stringOrThrow(input.title, 'title'),
+    summary: optionalString(input.summary),
     hook: stringOrThrow(input.hook, 'hook'),
     body: stringOrThrow(input.body, 'body'),
     cta: optionalString(input.cta),
@@ -44,6 +45,7 @@ export function normalizeVideoBrief(input) {
     recordingUrl: optionalString(input.recordingUrl ?? input.recording_url),
     changelogEntryId: optionalString(input.changelogEntryId ?? input.changelog_entry_id),
     brandTone: optionalString(input.brandTone ?? input.brand_tone),
+    creativeDirection: optionalString(input.creativeDirection ?? input.creative_direction),
     proofType: normalizeProofType(input.proofType ?? input.proof_type),
     template: optionalString(input.template),
     screenshots: normalizeScreenshots(input.screenshots),
@@ -52,6 +54,14 @@ export function normalizeVideoBrief(input) {
     renderOptions: normalizeRenderOptions(input.renderOptions ?? input.render_options),
     renderMode: normalizeRenderMode(input.renderMode ?? input.render_mode),
     durationSeconds: normalizeDuration(input.durationSeconds ?? input.duration_seconds),
+    themePackId: optionalString(input.themePackId ?? input.theme_pack_id) ?? 'auto',
+    modelProfileId: optionalString(input.modelProfileId ?? input.model_profile_id) ?? 'auto',
+    modelPriorities: normalizeModelPriorities(input.modelPriorities ?? input.model_priorities),
+    contentScope: normalizeContentScope(input.contentScope ?? input.content_scope),
+    themeRightsEvidence: optionalString(input.themeRightsEvidence ?? input.theme_rights_evidence),
+    cast: normalizeCast(input.cast),
+    soundtrack: normalizeSoundtrack(input.soundtrack),
+    matureAssertions: normalizeMatureAssertions(input.matureAssertions ?? input.mature_assertions),
   };
 
   if (isReelChannel(brief.channel) && !looksLikeVideoBrief(brief.body)) {
@@ -129,6 +139,25 @@ function normalizeRenderOptions(value) {
   return entries.length ? Object.fromEntries(entries) : undefined;
 }
 
+function normalizeCast(value) {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) throw new Error('cast must be an array');
+  return value.slice(0, 24).map(normalizeCastInstance);
+}
+
+function normalizeMatureAssertions(value) {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) throw new Error('matureAssertions must be an array');
+  return value.slice(0, 24).map((entry, index) => ({
+    characterId: stringOrThrow(entry?.characterId, `matureAssertions[${index}].characterId`),
+    revision: Number(entry?.revision),
+    fictional: entry?.fictional === true,
+    age: Number(entry?.age),
+    consent: entry?.consent === 'affirmative' ? 'affirmative' : 'unknown',
+    realPersonLikeness: entry?.realPersonLikeness === true,
+  }));
+}
+
 export function briefFromMarketingPost(post) {
   return normalizeVideoBrief({
     id: `brief_${post.id}`,
@@ -174,6 +203,7 @@ function normalizeRenderMode(mode) {
     'html',
     'html-composition',
     'web-composition',
+    'night-out-carousel',
     'kokoro',
     'kokoro-compose',
     'brand-video',
@@ -192,6 +222,24 @@ function normalizeDuration(value) {
   return duration;
 }
 
+function normalizeModelPriorities(input) {
+  const value = input && typeof input === 'object' && !Array.isArray(input) ? input : {};
+  return {
+    speed: priority(value.speed ?? 3),
+    quality: priority(value.quality ?? 3),
+    nativeAudio: priority(value.nativeAudio ?? 1),
+  };
+}
+
+function priority(value) {
+  const number = Number(value);
+  return Number.isInteger(number) && number >= 1 && number <= 5 ? number : 3;
+}
+
+function normalizeContentScope(value) {
+  return value === 'mature-enabled' ? value : 'general';
+}
+
 function stringOrThrow(value, field) {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`${field} is required`);
   return value.trim();
@@ -200,3 +248,5 @@ function stringOrThrow(value, field) {
 function optionalString(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : undefined;
 }
+import { normalizeCastInstance } from './studio/character-directory.js';
+import { normalizeSoundtrack } from './studio/soundtrack.js';

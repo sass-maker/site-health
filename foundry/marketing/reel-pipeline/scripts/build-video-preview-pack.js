@@ -27,6 +27,7 @@ const FAMILY = {
   'image-slideshow': 'Image stories',
   'web-motion': 'Motion graphics',
   'ascii-story': 'Graphic experiments',
+  'night-out-carousel': 'Image stories',
   'product-proof': 'Product proof',
   'local-voice-film': 'Narrated stories',
   'grok-asset-film': 'Imported generation',
@@ -75,10 +76,11 @@ if (checkOnly) {
       if (probe.duration < 2 || probe.duration > 3) failures.push(`${item.variantId}: duration ${probe.duration}`);
     }
   }
-  if ((manifest.items ?? []).length !== 48) failures.push(`expected 48 previews, found ${(manifest.items ?? []).length}`);
+  const expectedVariants = listRecipeVariants().length;
+  if ((manifest.items ?? []).length !== expectedVariants) failures.push(`expected ${expectedVariants} previews, found ${(manifest.items ?? []).length}`);
   if (totalBytes > TOTAL_BYTE_BUDGET) failures.push(`preview pack exceeds ${TOTAL_BYTE_BUDGET} bytes`);
   if (failures.length) throw new Error(failures.join('\n'));
-  console.log(JSON.stringify({ status: 'pass', variants: 48, totalBytes }, null, 2));
+  console.log(JSON.stringify({ status: 'pass', variants: expectedVariants, totalBytes }, null, 2));
   process.exit(0);
 }
 
@@ -164,7 +166,7 @@ function fixtureSvg(variant, index) {
   ${titleLines.map((line, lineIndex) => `<text x="28" y="${430 + lineIndex * 30}" fill="${text}" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="800" letter-spacing="-.8">${escapeXml(line)}</text>`).join('')}
   ${optionLines.map((line, lineIndex) => `<text x="28" y="${510 + lineIndex * 19}" fill="${accent}" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700">${escapeXml(line)}</text>`).join('')}
   <line x1="28" y1="596" x2="332" y2="596" stroke="${accent}" opacity=".34"/>
-  <text x="28" y="618" fill="${text}" opacity=".7" font-family="Arial,Helvetica,sans-serif" font-size="10">${escapeXml(variant.runtime)} · ${index + 1}/48</text>
+  <text x="28" y="618" fill="${text}" opacity=".7" font-family="Arial,Helvetica,sans-serif" font-size="10">${escapeXml(variant.runtime)} · ${index + 1}/${variant.recipeId === 'night-out-carousel' ? variants.length : 48}</text>
 </svg>`;
 }
 
@@ -176,6 +178,7 @@ function visualFor(variant, accent, surface, text, index) {
   if (recipeId === 'image-slideshow') return imageVisual(style, accent, surface, text, shift);
   if (recipeId === 'web-motion') return webVisual(style, accent, surface, text);
   if (recipeId === 'ascii-story') return `<g fill="${accent}" font-family="Menlo,monospace" font-size="15" opacity=".9"><text x="48" y="125">+--------------------------+</text><text x="48" y="151">|  *   .   /\\    .  *     |</text><text x="48" y="177">|     __ /  \\ __          |</text><text x="48" y="203">|  . /  V /\\ V  \\   .    |</text><text x="48" y="229">|   /___ /  \\ ___\\       |</text><text x="48" y="255">|      &gt; SIGNAL_           |</text><text x="48" y="281">+--------------------------+</text></g>`;
+  if (recipeId === 'night-out-carousel') return `<g transform="rotate(-5 180 220)"><rect x="66" y="96" width="228" height="286" rx="8" fill="${text}"/><rect x="80" y="112" width="200" height="220" rx="4" fill="${accent}" opacity=".38"/><circle cx="130" cy="182" r="38" fill="${surface}"/><circle cx="215" cy="167" r="45" fill="${text}" opacity=".28"/><path d="M96 306l45-61 39 38 42-70 44 93z" fill="${surface}"/><text x="180" y="361" text-anchor="middle" fill="${surface}" font-family="Arial" font-size="18" font-weight="900">NIGHT OUT</text></g>`;
   if (recipeId === 'product-proof') return productVisual(style, accent, surface, text);
   if (recipeId === 'local-voice-film' || recipeId === 'podcast-short') return `<g><circle cx="180" cy="192" r="70" fill="${accent}" opacity=".2"/><circle cx="180" cy="185" r="35" fill="${accent}" opacity=".65"/><path d="M70 300v-35m18 35v-62m18 62v-28m18 28v-84m18 84v-48m18 48v-99m18 99v-55m18 55v-79m18 79v-39m18 39v-68m18 68v-31m18 31v-52" stroke="${accent}" stroke-width="7"/></g>`;
   if (recipeId === 'grok-asset-film') return `<g><rect x="52" y="99" width="256" height="244" rx="10" fill="${surface}" stroke="${accent}"/><path d="M72 118h22v18H72zm194 0h22v18h-22zM72 306h22v18H72zm194 0h22v18h-22z" fill="${accent}" opacity=".65"/><path d="M151 170l87 51-87 51z" fill="${accent}"/><rect x="102" y="290" width="156" height="8" fill="${text}" opacity=".35"/></g>`;

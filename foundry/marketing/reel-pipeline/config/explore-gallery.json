@@ -865,6 +865,24 @@
       "source": "fixtures/video-gallery/videos/literal-lyric-video--visualstyle-kinetic-type--useblender-true.mp4",
       "evidence": "fixtures/video-gallery/manifest.json",
       "sha256": "3f20ebf74f236b28a5f8f81747260b44d9147b2fae923f801091a4703b7f4354"
+    },
+    {
+      "id": "fixture-night-out-carousel--default",
+      "title": "Night Out carousel",
+      "family": "Image stories",
+      "description": "Bouncy themed-image party carousel. A deterministic preview of this exact option.",
+      "engine": "Fleet fixture renderer",
+      "renderer": "ffmpeg-svg-fixture@1",
+      "intendedRuntime": "Chrome + FFmpeg",
+      "sourcePosture": "fixture",
+      "executionMode": "fixture",
+      "qualityTier": "showcase",
+      "spend": "Local compute",
+      "variantId": "night-out-carousel--default",
+      "prompt": "Create a concise vertical story using Night Out carousel. Make the central idea visually literal and readable.",
+      "source": "fixtures/video-gallery/videos/night-out-carousel--default.mp4",
+      "evidence": "fixtures/video-gallery/manifest.json",
+      "sha256": "c34844ea5a0b6b9aa9d0fbb8d85b2718b9539a57f919a2785f4d67b2fa3e367b"
     }
   ]
 }

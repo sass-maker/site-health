@@ -5,6 +5,7 @@ import { loadAutomationPolicies } from './automation-policy.js';
 import { listStudioCapabilities } from './capabilities.js';
 import { describeVariantExecution } from './execution-registry.js';
 import { listProductionProjects, listProductionRecipes, PRODUCTION_SPEND_CLASSES } from './production-catalog.js';
+import { listModelProfiles, listThemePacks } from './model-options.js';
 
 export const STUDIO_ARSENAL_SCHEMA = 'fleet.studio-arsenal.v1';
 export const STUDIO_ARSENAL_SNAPSHOT_SCHEMA = 'fleet.studio-arsenal-snapshot.v1';
@@ -50,6 +51,8 @@ export async function buildStudioArsenal(options = {}) {
     capabilities: workflows,
     recipes,
     variants,
+    themePacks: listThemePacks(),
+    modelProfiles: listModelProfiles(options.modelOptions),
     engines: describeEngines(manifest, allRecipes, options.recipeContext ?? {}),
     automations,
     summary: {
@@ -59,6 +62,8 @@ export async function buildStudioArsenal(options = {}) {
       recipes: recipes.length,
       totalRecipes: manifest.recipes.length,
       variants: variants.length,
+      themePacks: listThemePacks().length,
+      modelProfiles: listModelProfiles(options.modelOptions).length,
       engines: renderModesConfig.modes.length + manifest.specializedRuntimes.length,
       automations: automations.length,
     },

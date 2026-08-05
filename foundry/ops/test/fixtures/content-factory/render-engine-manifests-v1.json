@@ -29,6 +29,12 @@
     },
     { "mode": "kokoro", "provider": "kokoro", "file": "kokoro.mp4", "content": "kokoro-video" },
     {
+      "mode": "night-out-carousel",
+      "provider": "night-out-carousel",
+      "file": "night-out.mp4",
+      "content": "night-out-video"
+    },
+    {
       "mode": "brand-video",
       "provider": "brand-video-local",
       "file": "brand-video.mp4",

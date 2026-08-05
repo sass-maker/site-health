@@ -26,6 +26,21 @@
       }
     },
     {
+      "id": "night-out-carousel",
+      "provider": "night-out-carousel",
+      "surface": "faceless-workflow",
+      "category": "local-asset",
+      "description": "Builds a bouncy themed-image Night Out reel with an original procedural funk bed.",
+      "requires": [
+        "approved fleet.night-out-assets.v1 manifest",
+        "Chrome",
+        "ffmpeg"
+      ],
+      "smoke": {
+        "type": "renderFixture"
+      }
+    },
+    {
       "id": "ascii",
       "aliases": [
         "ascii-animation",

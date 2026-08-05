@@ -8,6 +8,15 @@ import { getExecutionAdapter } from './execution-registry.js';
 import { resolveStudioLlm } from './llm.js';
 import { getProductionRecipe, normalizeRecipeOptions, PRODUCTION_RECIPE_IDS } from './production-catalog.js';
 import { normalizeContentOrigin } from './content-origin.js';
+import { normalizeCastInstance } from './character-directory.js';
+import { normalizeSoundtrack } from './soundtrack.js';
+import {
+  assertStageRunnable,
+  invalidateWorkflowFrom,
+  normalizeReelWorkflow,
+  setWorkflowMode as setReelWorkflowMode,
+  updateWorkflowStage as updateReelWorkflowStage,
+} from './reel-workflow.js';
 
 export const MARKETING_BRIEF_SCHEMA = 'fleet.marketing-studio-brief.v1';
 export const VIDEO_KINDS = ['faceless', 'brand-reel', 'guided-app-demo', 'coherent-film', 'podcast-short', 'lyric-video'];
@@ -19,6 +28,7 @@ const ENGINES = [
 ];
 const RIGHTS_STATES = ['unknown', 'approved', 'rejected'];
 const CREATIVE_STATES = ['proposed', 'approved', 'rejected'];
+const CONTENT_SCOPES = ['general', 'mature-enabled'];
 
 export class MarketingBriefStore {
   constructor(options = {}) {
@@ -76,6 +86,10 @@ export class MarketingBriefStore {
     const current = briefs[index];
     const productionChanged = changesProductionSelection(current, patch);
     const merged = mergeBrief(current, patch);
+    const invalidationStage = workflowInvalidationStage(current, patch);
+    if (invalidationStage && patch.workflow === undefined) {
+      merged.workflow = invalidateWorkflowFrom(current.workflow, invalidationStage, { at: this.now().toISOString() });
+    }
     if (productionChanged) {
       merged.media = null;
       merged.distribution = null;
@@ -92,6 +106,29 @@ export class MarketingBriefStore {
     briefs[index] = updated;
     await this.persist(briefs);
     return structuredClone(updated);
+  }
+
+  async updateWorkflowStage(id, stageId, patch = {}) {
+    const current = await this.get(id);
+    if (!current) throw new Error(`marketing brief not found: ${id}`);
+    const registered = current.workflow.stages.find((stage) => stage.id === stageId);
+    if (!registered) throw new Error(`unknown workflow stage: ${stageId}`);
+    const guardedPatch = { ...patch, actionId: patch.actionId ?? registered.actionId };
+    if (['running', 'completed'].includes(guardedPatch.status)) {
+      assertStageRunnable(current.workflow, stageId, guardedPatch.actionId);
+    }
+    const workflow = updateReelWorkflowStage(current.workflow, stageId, guardedPatch, { at: this.now().toISOString() });
+    return this.update(id, { workflow });
+  }
+
+  async setWorkflowMode(id, mode, options = {}) {
+    const current = await this.get(id);
+    if (!current) throw new Error(`marketing brief not found: ${id}`);
+    const workflow = setReelWorkflowMode(current.workflow, mode, {
+      paused: options.paused,
+      at: this.now().toISOString(),
+    });
+    return this.update(id, { workflow });
   }
 }
 
@@ -210,6 +247,13 @@ export function normalizeMarketingBrief(input = {}) {
     recipeId,
     recipeOptions,
     executionInputs,
+    themePackId: optionalString(input.themePackId) ?? 'auto',
+    modelProfileId: optionalString(input.modelProfileId) ?? 'auto',
+    modelPriorities: normalizeModelPriorities(input.modelPriorities),
+    contentScope: CONTENT_SCOPES.includes(input.contentScope) ? input.contentScope : 'general',
+    cast: normalizeCast(input.cast),
+    soundtrack: normalizeSoundtrack(input.soundtrack),
+    themeRightsEvidence: optionalString(input.themeRightsEvidence),
     channel,
     durationSeconds: recipeOptions?.durationSeconds ?? duration(input.durationSeconds ?? inferDuration(request)),
     engine: recipe?.engine ?? (ENGINES.includes(input.engine) ? input.engine : kind === 'lyric-video' ? 'lyric-canvas' : 'mock'),
@@ -234,6 +278,12 @@ export function normalizeMarketingBrief(input = {}) {
       qualityAccepted: input.approval?.qualityAccepted === true,
     },
     lifecycle,
+    workflow: normalizeReelWorkflow(input.workflow, {
+      briefId: input.id,
+      briefRevision: input.revision,
+      request,
+      at: updatedAt,
+    }),
     media: normalizeMedia(input.media),
     distribution: normalizeDistribution(input.distribution),
     lastError: optionalString(input.lastError),
@@ -550,6 +600,9 @@ function mergeBrief(current, patch) {
       },
     generation: current.generation,
     origin: current.origin,
+    cast: patch.cast ?? current.cast,
+    soundtrack: patch.soundtrack ?? current.soundtrack,
+    workflow: patch.workflow ?? current.workflow,
     media: patch.media === undefined
       ? current.media
       : patch.media === null ? null : { ...(current.media ?? {}), ...patch.media },
@@ -560,6 +613,15 @@ function mergeBrief(current, patch) {
   };
 }
 
+function workflowInvalidationStage(current, patch) {
+  if (patch.workflow !== undefined) return null;
+  if (patch.cast !== undefined && JSON.stringify(patch.cast) !== JSON.stringify(current.cast)) return 'cast';
+  if (patch.soundtrack !== undefined && JSON.stringify(patch.soundtrack) !== JSON.stringify(current.soundtrack)) return 'sound';
+  if (changesProductionSelection(current, patch)) return 'generation';
+  const planningFields = ['request', 'kind', 'projectSlug', 'channel', 'durationSeconds', 'title', 'hook', 'summary', 'cta', 'creativeDirection'];
+  return planningFields.some((field) => patch[field] !== undefined && patch[field] !== current[field]) ? 'scenes' : null;
+}
+
 function changesProductionSelection(current, patch) {
   if (patch.kind !== undefined && patch.kind !== current.kind) return true;
   if (patch.projectSlug !== undefined && patch.projectSlug !== current.projectSlug) return true;
@@ -567,7 +629,38 @@ function changesProductionSelection(current, patch) {
   if (patch.recipeId !== undefined && patch.recipeId !== current.recipeId) return true;
   if (patch.recipeOptions !== undefined && JSON.stringify(patch.recipeOptions) !== JSON.stringify(current.recipeOptions)) return true;
   if (patch.executionInputs !== undefined && JSON.stringify(patch.executionInputs) !== JSON.stringify(current.executionInputs)) return true;
+  if (patch.themePackId !== undefined && patch.themePackId !== current.themePackId) return true;
+  if (patch.modelProfileId !== undefined && patch.modelProfileId !== current.modelProfileId) return true;
+  if (patch.modelPriorities !== undefined && JSON.stringify(patch.modelPriorities) !== JSON.stringify(current.modelPriorities)) return true;
+  if (patch.contentScope !== undefined && patch.contentScope !== current.contentScope) return true;
+  if (patch.themeRightsEvidence !== undefined && patch.themeRightsEvidence !== current.themeRightsEvidence) return true;
   return false;
+}
+
+function normalizeModelPriorities(input) {
+  const value = input && typeof input === 'object' && !Array.isArray(input) ? input : {};
+  return {
+    speed: boundedPriority(value.speed ?? 3),
+    quality: boundedPriority(value.quality ?? 3),
+    nativeAudio: boundedPriority(value.nativeAudio ?? 1),
+  };
+}
+
+function normalizeCast(input) {
+  if (input == null) return [];
+  if (!Array.isArray(input)) throw new Error('cast must be an array');
+  const ids = new Set();
+  return input.slice(0, 24).map((entry) => {
+    const cast = normalizeCastInstance(entry);
+    if (ids.has(cast.id)) throw new Error(`duplicate cast instance: ${cast.id}`);
+    ids.add(cast.id);
+    return cast;
+  });
+}
+
+function boundedPriority(value) {
+  const number = Number(value);
+  return Number.isInteger(number) && number >= 1 && number <= 5 ? number : 3;
 }
 
 function normalizeExecutionInputs(recipeId, input) {

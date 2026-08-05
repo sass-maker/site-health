@@ -18,7 +18,7 @@ test('production catalog covers every requested runtime with normalized comparis
     blenderCapability: { ready: false, blocker: 'Blender unavailable for test.' },
     kokoroReady: false,
   });
-  assert.equal(recipes.length, 12);
+  assert.equal(recipes.length, 13);
   assert.deepEqual(recipes.map((entry) => entry.id), PRODUCTION_RECIPE_IDS);
   assert.deepEqual(PRODUCTION_SPEND_CLASSES, ['none', 'local-compute', 'external-service', 'paid-api']);
   for (const recipe of recipes) {
@@ -62,8 +62,8 @@ test('recipe catalog expands all bounded combinations into stable selectable var
     kokoroReady: true,
   };
   const variants = listRecipeVariants(context);
-  assert.equal(variants.length, 48);
-  assert.equal(new Set(variants.map((variant) => variant.id)).size, 48);
+  assert.equal(variants.length, 49);
+  assert.equal(new Set(variants.map((variant) => variant.id)).size, 49);
   assert.ok(variants.every((variant) => variant.selectable));
   assert.deepEqual(
     variants.filter((variant) => variant.recipeId === 'blender-film').map((variant) => variant.id),
@@ -85,6 +85,7 @@ test('recipe catalog expands all bounded combinations into stable selectable var
   assert.equal(grok.delivery.kind, 'final-video');
   assert.ok(variants.filter((variant) => variant.autoEligible).every((variant) => variant.delivery.kind === 'final-video'));
   assert.ok(variants.filter((variant) => variant.delivery.kind === 'continuation').every((variant) => !variant.autoEligible));
+  assert.equal(variants.find((variant) => variant.recipeId === 'night-out-carousel').id, 'night-out-carousel--default');
 });
 
 test('stable variant ids select finite values while duration and free-form input stay separate', () => {
@@ -135,6 +136,25 @@ test('terminal actions distinguish local build, external continuation, preview, 
   });
   assert.equal(grok.build.enabled, false);
   assert.match(grok.build.blocker, /approved local Grok MP4/i);
+
+  const experiment = productionActions({
+    id: 'brief-private-film', recipeId: 'image-slideshow',
+    sourceEvidence: {}, approval: {}, media: null,
+  }, { htmlCapability: { ready: true, blocker: null } });
+  assert.equal(experiment.build.kind, 'execute');
+  assert.equal(experiment.build.enabled, true);
+  assert.doesNotMatch(experiment.build.blocker || '', /Fleet brand|source rights/i);
+  assert.equal(experiment.post.enabled, false);
+  assert.match(experiment.post.blocker, /Fleet brand|approved source rights/i);
+
+  const unavailableModel = productionActions({
+    id: 'brief-private-h3', recipeId: 'coherent-local-film',
+    modelProfileId: 'minimax-h3-mlx-q4', sourceEvidence: {}, approval: {}, media: null,
+  });
+  assert.equal(unavailableModel.build.kind, 'blocked');
+  assert.equal(unavailableModel.build.enabled, false);
+  assert.match(unavailableModel.build.blocker, /runtime|canary/i);
+  assert.doesNotMatch(unavailableModel.build.blocker, /Fleet brand|source rights/i);
 });
 
 test('project catalog is sourced from Fleet brand configuration', () => {

@@ -9,6 +9,10 @@ const ADAPTERS = {
   'image-slideshow': adapter('studio-html', 'Marketing Studio'),
   'web-motion': adapter('studio-html', 'Marketing Studio'),
   'ascii-story': adapter('studio-ascii', 'Marketing Studio'),
+  'night-out-carousel': adapter('studio-night-out', 'Marketing Studio', [
+    field('assetManifestPath', 'Approved image manifest path', TEXT, 'Optional fleet.night-out-assets.v1 JSON beneath an approved local artifact root.', false),
+    field('rightsEvidence', 'Source rights evidence', TEXTAREA, 'Required for provided assets; generated named-IP concepts remain private until commercial rights evidence is supplied.', false),
+  ]),
   'product-proof': adapter('brand-reel', 'Brand Reel', [
     field('canonicalUrl', 'Product URL', TEXT, 'Public HTTPS page used as product evidence.'),
   ]),
@@ -23,10 +27,7 @@ const ADAPTERS = {
     field('capturePath', 'Approved capture path', TEXT, 'Local screen recording beneath an approved artifact root.'),
     field('rightsEvidence', 'Capture rights evidence', TEXTAREA, 'Operator-supplied evidence for the capture and presenter.'),
   ]),
-  'coherent-local-film': adapter('forge-coherent-film', 'Forge', [
-    field('approvedManifestPath', 'Approved film manifest path', TEXT, 'Owner-reviewed Forge manifest beneath an approved artifact root.'),
-    field('rightsEvidence', 'Source rights evidence', TEXTAREA, 'Evidence covering every source asset in the manifest.'),
-  ]),
+  'coherent-local-film': adapter('studio-local-video', 'Marketing Studio'),
   'podcast-short': adapter('editorial-podcast', 'Editorial', [
     field('editManifestPath', 'Approved edit manifest path', TEXT, 'fleet.podcast-edit.v1 manifest beneath an approved artifact root.'),
     field('rightsEvidence', 'Source rights evidence', TEXTAREA, 'Evidence covering the source recording and excerpt.'),
@@ -52,7 +53,8 @@ export function getExecutionAdapter(recipeId) {
 
 export function describeVariantExecution(variant) {
   const adapterDefinition = getExecutionAdapter(variant.recipeId);
-  const realReady = variant.executionReady === true;
+  const requiredInputs = adapterDefinition.inputs.filter((input) => input.required);
+  const realReady = variant.executionReady === true && requiredInputs.length === 0;
   return {
     ...variant,
     execution: {
@@ -63,7 +65,11 @@ export function describeVariantExecution(variant) {
       real: {
         ready: realReady,
         label: 'Make real video',
-        blocker: realReady ? null : variant.readiness.blocker ?? `${variant.runtime} requires real production inputs.`,
+        blocker: realReady
+          ? null
+          : requiredInputs.length
+            ? `Add ${requiredInputs.map((input) => input.label).join(', ')} before real execution.`
+            : variant.readiness.blocker ?? `${variant.runtime} requires real production inputs.`,
       },
       inputs: adapterDefinition.inputs,
       ownerReviewHref: variant.action?.href ?? null,
@@ -99,6 +105,6 @@ function adapter(id, owner, inputs = []) {
   return { id, owner, inputs };
 }
 
-function field(id, label, type, help) {
-  return { id, label, type, help, required: true };
+function field(id, label, type, help, required = true) {
+  return { id, label, type, help, required };
 }

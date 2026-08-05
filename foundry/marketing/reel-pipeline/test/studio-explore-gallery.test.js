@@ -72,11 +72,11 @@ test('gallery registry preserves unavailable samples and rejects unsafe definiti
 test('checked-in gallery is complete, playable, hash-valid, and portable', async () => {
   const gallery = await listExploreGallery();
   assert.equal(gallery.version, 2);
-  assert.equal(gallery.count, 48);
-  assert.equal(gallery.playableCount, 48);
-  assert.equal(new Set(gallery.items.map((item) => item.variantId)).size, 48);
+  assert.equal(gallery.count, 49);
+  assert.equal(gallery.playableCount, 49);
+  assert.equal(new Set(gallery.items.map((item) => item.variantId)).size, 49);
   assert.ok(gallery.items.every((item) => item.sourcePosture === 'fixture' && item.executionMode === 'fixture'));
   const validation = await validateExploreGalleryMedia();
-  assert.equal(validation.variants, 48);
+  assert.equal(validation.variants, 49);
   assert.ok(validation.totalBytes > 0 && validation.totalBytes < 8 * 1024 * 1024);
 });

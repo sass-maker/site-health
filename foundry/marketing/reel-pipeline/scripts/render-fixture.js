@@ -10,6 +10,14 @@ const mode = flags.mode ?? 'mock';
 const records = JSON.parse(await readFile(fixturePath, 'utf8'));
 const source = Array.isArray(records) ? records[0] : records;
 if (!source) throw new Error(`render fixture is empty: ${fixturePath}`);
+const modeInput = mode === 'night-out-carousel'
+  ? {
+      renderOptions: {
+        assetManifestPath: 'test/fixtures/night-out-render-mode-assets.json',
+        rightsEvidence: 'Repository-owned design evidence approved for the local render-mode smoke.',
+      },
+    }
+  : {};
 
 const job = await createDraftVideo({
   id: source.id,
@@ -20,12 +28,17 @@ const job = await createDraftVideo({
   body: source.body,
   cta: source.cta,
   renderMode: mode,
+  ...modeInput,
 }, {
   mode,
   mock: { artifactDir: './tmp/render-mode-smoke/artifacts' },
   grokVideo: { artifactDir: './tmp/render-mode-smoke/artifacts' },
   asciiAnimation: { artifactDir: './tmp/render-mode-smoke/artifacts' },
   htmlComposition: { artifactDir: './tmp/render-mode-smoke/artifacts' },
+  nightOutCarousel: {
+    artifactDir: './tmp/render-mode-smoke/artifacts',
+    assetRoots: ['./test/fixtures', './artifacts'],
+  },
   storeOptions: { dir: './tmp/render-mode-smoke/jobs' },
 });
 

@@ -13,6 +13,7 @@ import {
 } from '../src/studio/briefs.js';
 import { continuationForBrief, evaluateStudioCapability, listStudioCapabilities } from '../src/studio/capabilities.js';
 import { StudioLlm } from '../src/studio/llm.js';
+import { CharacterDirectoryStore, createCastInstance } from '../src/studio/character-directory.js';
 
 const offlineLlm = new StudioLlm({ apiKey: '' });
 
@@ -21,7 +22,7 @@ async function tempStore() {
   let tick = 0;
   return new MarketingBriefStore({
     filePath: path.join(dir, 'briefs.json'),
-    now: () => new Date(`2026-07-31T12:00:0${tick++}Z`),
+    now: () => new Date(Date.parse('2026-07-31T12:00:00Z') + tick++ * 1000),
   });
 }
 
@@ -58,6 +59,10 @@ test('brief store persists normalized state and increments revisions', async () 
   assert.equal(created.schema, MARKETING_BRIEF_SCHEMA);
   assert.equal(created.revision, 1);
   assert.equal(created.lifecycle, 'planned');
+  assert.equal(created.workflow.briefId, created.id);
+  assert.equal(created.workflow.stages.length, 8);
+  assert.equal(created.workflow.stages.find((stage) => stage.id === 'cast').status, 'ready');
+  assert.equal(created.soundtrack.lane, 'procedural-draft');
   const updated = await store.update(created.id, {
     approval: { creativeStatus: 'approved' },
     sourceEvidence: { rightsStatus: 'approved' },
@@ -66,6 +71,70 @@ test('brief store persists normalized state and increments revisions', async () 
   assert.equal(updated.approval.creativeStatus, 'approved');
   assert.equal(updated.sourceEvidence.rightsStatus, 'approved');
   assert.equal((await store.list()).length, 1);
+});
+
+test('brief stores one soundtrack lane and invalidates only sound and downstream output when it changes', async () => {
+  const store = await tempStore();
+  let brief = await store.create({ request: 'Make a fictional adult party reel.' });
+  for (const stageId of ['cast', 'scenes', 'generation', 'edit', 'sound']) {
+    brief = await store.updateWorkflowStage(brief.id, stageId, { status: 'completed', output: { stageId } });
+  }
+  const updated = await store.update(brief.id, {
+    soundtrack: {
+      lane: 'platform-sound',
+      platformSound: { provider: 'instagram', url: 'https://www.instagram.com/reels/audio/123' },
+    },
+  });
+  assert.equal(updated.soundtrack.lane, 'platform-sound');
+  assert.equal(updated.workflow.stages.find((stage) => stage.id === 'edit').status, 'completed');
+  assert.equal(updated.workflow.stages.find((stage) => stage.id === 'sound').status, 'ready');
+  assert.equal(updated.workflow.stages.find((stage) => stage.id === 'export').status, 'stale');
+});
+
+test('brief store persists stage progress and invalidates downstream stages after planning edits', async () => {
+  const store = await tempStore();
+  let brief = await store.create({ request: 'Make a fictional adult rooftop reel.' });
+  brief = await store.updateWorkflowStage(brief.id, 'cast', {
+    status: 'completed',
+    output: { castIds: ['character-rhea'] },
+  });
+  brief = await store.updateWorkflowStage(brief.id, 'scenes', {
+    status: 'completed',
+    output: { count: 4 },
+  });
+  assert.equal(brief.workflow.stages.find((stage) => stage.id === 'generation').status, 'ready');
+  const revised = await store.update(brief.id, { creativeDirection: 'Move the party to a neon arcade.' });
+  assert.equal(revised.workflow.stages.find((stage) => stage.id === 'scenes').status, 'ready');
+  assert.equal(revised.workflow.stages.find((stage) => stage.id === 'generation').status, 'stale');
+  assert.equal(revised.workflow.stages.find((stage) => stage.id === 'brief').status, 'completed');
+});
+
+test('brief store changes quick and paused state on the existing workflow record', async () => {
+  const store = await tempStore();
+  const brief = await store.create({ request: 'Make a quick night-out reel.' });
+  const quick = await store.setWorkflowMode(brief.id, 'quick', { paused: true });
+  assert.equal(quick.workflow.mode, 'quick');
+  assert.equal(quick.workflow.paused, true);
+});
+
+test('brief stores immutable cast snapshots and invalidates scene outputs when cast changes', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'marketing-studio-cast-'));
+  const directory = new CharacterDirectoryStore({
+    filePath: path.join(root, 'characters.json'),
+    now: () => new Date('2026-08-05T12:00:00Z'),
+  });
+  const character = await directory.create({
+    name: 'Rhea', fictional: true, age: 28, adultConfirmed: true, consentPosture: 'affirmative',
+    sourcePosture: 'original', likenessPosture: 'fictional',
+  });
+  const store = await tempStore();
+  let brief = await store.create({ request: 'Make a mature fictional-adult reel.' });
+  brief = await store.updateWorkflowStage(brief.id, 'cast', { status: 'completed', output: { count: 0 } });
+  brief = await store.updateWorkflowStage(brief.id, 'scenes', { status: 'completed', output: { count: 4 } });
+  const updated = await store.update(brief.id, { cast: [createCastInstance(character)] });
+  assert.equal(updated.cast[0].sourceSnapshot.name, 'Rhea');
+  assert.equal(updated.workflow.stages.find((stage) => stage.id === 'cast').status, 'ready');
+  assert.equal(updated.workflow.stages.find((stage) => stage.id === 'scenes').status, 'stale');
 });
 
 test('brief store preserves optional production selections and clears artifacts when the recipe changes', async () => {
@@ -92,6 +161,25 @@ test('brief store preserves optional production selections and clears artifacts 
   });
   assert.equal(changed.media, null);
   assert.equal(changed.lifecycle, 'planned');
+});
+
+test('brief store persists theme, model, priority, and mature fictional-adult selections', async () => {
+  const store = await tempStore();
+  const created = await store.create({
+    request: 'Make an original anime night out reel.',
+    recipeId: 'night-out-carousel',
+    recipeOptions: {},
+    themePackId: 'original-anime',
+    modelProfileId: 'wai-illustrious-v17-sdcpp',
+    modelPriorities: { speed: 5, quality: 4, nativeAudio: 1 },
+    contentScope: 'mature-enabled',
+  });
+  assert.equal(created.themePackId, 'original-anime');
+  assert.equal(created.modelProfileId, 'wai-illustrious-v17-sdcpp');
+  assert.deepEqual(created.modelPriorities, { speed: 5, quality: 4, nativeAudio: 1 });
+  assert.equal(created.contentScope, 'mature-enabled');
+  assert.equal(created.engine, 'night-out-carousel');
+  assert.equal(created.durationSeconds, 13);
 });
 
 test('follow-up instructions refine safe fields and preserve approval boundaries', async () => {
@@ -188,6 +276,17 @@ test('capability registry reports all six owners and actionable readiness', asyn
   assert.match(guided.blocker, /source URL/);
   const continuation = continuationForBrief(brief);
   assert.equal(continuation.endpoint, `/studio/briefs/${brief.id}/execute`);
+});
+
+test('coherent film experimentation does not require publishing evidence', () => {
+  const capability = evaluateStudioCapability('coherent-film', {
+    id: 'private-film-experiment',
+    kind: 'coherent-film',
+    creativeDirection: 'A quiet rain-soaked dance filmed as one continuous movement.',
+    sourceEvidence: { rightsStatus: 'unknown' },
+  });
+  assert.equal(capability.state, 'external-step');
+  assert.doesNotMatch(capability.blocker, /Fleet brand|source rights/i);
 });
 
 test('lyric video classification and capability fail closed on timed lyrics and separate rights', async () => {

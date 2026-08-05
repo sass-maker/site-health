@@ -15,6 +15,13 @@ const BRANDS = Object.entries(brandConfig.brands ?? {}).map(([slug, brand]) => (
   name: brand.name,
 }));
 
+const PLATFORM_SOUND_PRESETS = Object.freeze([
+  { id:'makeba', artist:'Jain', title:'Makeba', videoId:'ryG4CSQ_aJE', spotifyTrackId:'2QfTXwdNLdx7qEJFqiN12r', startSeconds:38, mood:'Playful bounce' },
+  { id:'one-kiss', artist:'Calvin Harris & Dua Lipa', title:'One Kiss', videoId:'h8P-d0RV2Mk', spotifyTrackId:'7ef4DlsgrMEH11cDZd32M6', startSeconds:46, mood:'Late-night house' },
+  { id:'levitating', artist:'Dua Lipa', title:'Levitating', videoId:'WHuBW3qKm9g', spotifyTrackId:'463CkQjx2Zk1yXoBuierM9', startSeconds:43, mood:'Bright pop' },
+  { id:'blinding-lights', artist:'The Weeknd', title:'Blinding Lights', videoId:'fHI8X4OXluQ', spotifyTrackId:'0VjIjW4GlUZAMYd2vXMi3b', startSeconds:49, mood:'Neon drive' },
+]);
+
 export function studioPageHtml() {
   return `<!doctype html>
 <html lang="en">
@@ -53,7 +60,7 @@ export function studioPageHtml() {
   button, a, input, textarea, select { outline:none; }
   :focus-visible { box-shadow:0 0 0 3px rgba(185,220,255,.34); }
   a { color:var(--evidence); }
-  .skip-link { position:absolute; left:12px; top:-50px; z-index:20; background:var(--text); color:var(--bg); padding:8px 12px; }
+  .skip-link { position:absolute; left:12px; top:-50px; z-index:20; min-height:44px; display:inline-flex; align-items:center; background:var(--text); color:var(--bg); padding:8px 12px; }
   .skip-link:focus { top:12px; }
   .product-bar {
     min-height:72px;
@@ -137,6 +144,23 @@ export function studioPageHtml() {
   .prompt-studio label[for="request"] { padding:22px 22px 0; color:var(--text); font-size:15px; font-weight:700; }
   .prompt-studio textarea { min-height:170px; padding:14px 22px 20px; border:0; border-radius:0; background:transparent; font-size:18px; line-height:1.5; }
   .prompt-studio textarea:focus { outline:0; box-shadow:none; }
+  .voice-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 22px; border-top:1px solid var(--line); background:#0d1117; }
+  .voice-controls p { margin:0; color:var(--dim); font-size:12px; }
+  .voice-controls.recording p { color:var(--risk); }
+  .workflow-progress { max-width:920px; margin:0 auto 22px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); overflow:hidden; }
+  .workflow-progress[hidden] { display:none; }
+  .workflow-progress-head { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 16px; border-bottom:1px solid var(--line); }
+  .workflow-progress-head h3 { margin:0; font-size:14px; }
+  .workflow-progress-head p { margin:3px 0 0; color:var(--dim); font-size:11px; }
+  .stage-rail { display:grid; grid-template-columns:repeat(8,minmax(90px,1fr)); overflow-x:auto; }
+  .stage-card { min-height:96px; display:grid; align-content:space-between; gap:8px; padding:12px; border:0; border-right:1px solid var(--line); background:transparent; color:var(--text); text-align:left; }
+  .stage-card:last-child { border-right:0; }
+  .stage-card strong { font-size:12px; }
+  .stage-card small { color:var(--dim); font-size:10px; text-transform:uppercase; }
+  .stage-card.ready { background:#101b18; cursor:pointer; }
+  .stage-card.completed small { color:var(--verified); }
+  .stage-card.failed small,.stage-card.blocked small { color:var(--risk); }
+  .stage-card[disabled] { opacity:.7; }
   .quick-settings { border-top:1px solid var(--line); background:#0b0f14; }
   .quick-settings > summary { min-height:52px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; color:var(--muted); cursor:pointer; font-weight:650; }
   .quick-settings > summary span { color:var(--dim); font-size:12px; font-weight:400; }
@@ -144,6 +168,9 @@ export function studioPageHtml() {
   .quick-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:0 22px 18px; }
   .quick-options label { min-width:0; }
   .quick-options select { min-height:44px; }
+  .quick-model-summary { grid-column:1/-1; margin:0; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:#0d1117; color:var(--muted); font-size:12px; line-height:1.5; }
+  .quick-model-summary strong { color:var(--text); }
+  .quick-model-summary.blocked { border-color:rgba(255,107,118,.5); color:var(--risk); }
   .prompt-actions { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:16px 22px 18px; border-top:1px solid var(--line); }
   .prompt-actions .button-row { justify-content:flex-end; }
   .auto-note { color:var(--dim); font-size:12px; }
@@ -182,6 +209,11 @@ export function studioPageHtml() {
   .brief-group:last-of-type { border-bottom:1px solid var(--line); }
   .brief-group summary { color:var(--text); font-weight:600; cursor:pointer; }
   .brief-group[open] summary { margin-bottom:10px; }
+  .directory-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:end; grid-column:1/-1; }
+  .cast-list { grid-column:1/-1; display:grid; gap:7px; }
+  .cast-chip { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 11px; border:1px solid var(--line); border-radius:9px; background:#0d1117; color:var(--muted); font-size:12px; }
+  .cast-chip strong { color:var(--text); }
+  .conditional-fields[hidden] { display:none; }
   label { display:grid; gap:5px; color:var(--muted); font-size:12px; }
   label.wide { grid-column:1/-1; }
   input, textarea, select {
@@ -312,7 +344,32 @@ export function studioPageHtml() {
   .automation-note summary { min-height:40px; display:flex; align-items:center; color:var(--warning); cursor:pointer; font-weight:650; }
   .automation-note ul { margin:4px 0 8px; padding-left:20px; }
   .automation-note li + li { margin-top:7px; }
-  .production-list { border-top:1px solid var(--line); }
+  .production-list { display:grid; gap:32px; }
+  .video-section-head {
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:12px;
+  }
+  .video-section-head h3 { margin:0; font-size:16px; letter-spacing:-.015em; }
+  .video-section-head p { margin:4px 0 0; color:var(--muted); font-size:12px; }
+  .video-section-head span { color:var(--dim); font-size:12px; white-space:nowrap; }
+  .ready-productions { border-top:1px solid var(--line); }
+  .video-library-index { border-top:1px solid var(--line); }
+  .video-library-row {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:20px;
+    align-items:center;
+    min-height:72px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .video-library-row[aria-current="true"] { background:#0b100f; }
+  .video-library-row h4 { margin:0; font-size:14px; }
+  .video-library-row p { margin:3px 0 0; color:var(--dim); font-size:11px; }
+  .video-library-row-meta { display:flex; align-items:center; justify-content:flex-end; gap:8px; flex-wrap:wrap; }
   .production {
     display:grid;
     grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);
@@ -320,6 +377,14 @@ export function studioPageHtml() {
     padding:20px 0;
     border-bottom:1px solid var(--line);
   }
+  .production.featured {
+    grid-template-columns:minmax(300px,.72fr) minmax(360px,1.28fr);
+    gap:clamp(24px,4vw,56px);
+    padding:28px 0 32px;
+  }
+  .production.featured h3 { font-size:clamp(22px,2.6vw,36px); line-height:1.08; letter-spacing:-.03em; }
+  .production-info { min-width:0; align-self:center; }
+  .production-media { min-width:0; display:grid; place-items:center; }
   .production h3 { margin:0 0 5px; font-size:16px; }
   .production p { margin:4px 0; color:var(--muted); }
   .production-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
@@ -339,8 +404,10 @@ export function studioPageHtml() {
   .automation-evidence { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .automation-evidence .recovery { grid-column:1/-1; padding-top:8px; border-top:1px solid var(--line); }
   .automation-evidence .recovery dd { color:var(--evidence); }
-  .production video { width:100%; max-height:360px; background:#000; border-radius:10px; }
-  .production iframe,.production > img { width:100%; min-height:360px; max-height:520px; border:0; border-radius:10px; background:#090c11; object-fit:contain; }
+  .production video { display:block; width:100%; max-height:360px; background:#000; border-radius:12px; }
+  .production.featured video { width:auto; max-width:100%; max-height:580px; box-shadow:0 22px 54px rgba(0,0,0,.34); }
+  .production iframe,.production-media > img { width:100%; min-height:360px; max-height:520px; border:0; border-radius:10px; background:#090c11; object-fit:contain; }
+  .production.featured iframe,.production.featured .production-media > img { min-height:480px; }
   .production.platform-audio-production { grid-template-columns:minmax(280px,.7fr) minmax(0,1.3fr); }
   .platform-audio-production > div:first-child { align-self:start; }
   .platform-audio-setup { margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
@@ -348,6 +415,14 @@ export function studioPageHtml() {
   .platform-audio-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:8px 0 4px; }
   .platform-audio-form label { color:var(--muted); font-size:12px; }
   .platform-audio-form .wide { grid-column:1/-1; }
+  .soundtrack-preset-note { margin:0; color:var(--dim); font-size:12px; }
+  .soundtrack-custom { grid-column:1/-1; padding:0 0 2px; }
+  .soundtrack-custom > summary { min-height:44px; display:flex; align-items:center; color:var(--muted); cursor:pointer; font-size:12px; }
+  .soundtrack-custom[open] > summary { color:var(--text); }
+  .soundtrack-custom-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:4px 0 8px; }
+  .soundtrack-now { grid-column:1/-1; display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+  .soundtrack-now span { color:var(--dim); font-size:11px; }
+  .soundtrack-now strong { color:var(--text); text-align:right; }
   .platform-audio-review { display:grid; gap:12px; }
   .sync-stage { display:grid; grid-template-columns:minmax(220px,.7fr) minmax(320px,1.3fr); grid-template-areas:"visual controls" "visual guidance" "visual source" "visual proof" "visual handoff"; column-gap:18px; row-gap:12px; align-items:start; }
   .sync-visual { grid-area:visual; }
@@ -374,6 +449,32 @@ export function studioPageHtml() {
   .legacy-productions > summary { display:flex; align-items:center; min-height:52px; color:var(--muted); cursor:pointer; font-weight:600; }
   .legacy-productions[open] > summary { border-bottom:1px solid var(--line); }
   .legacy-productions .production:last-child { border-bottom:0; }
+  .pending-productions { border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .pending-productions > summary {
+    min-height:68px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    color:var(--text);
+    cursor:pointer;
+    font-weight:700;
+  }
+  .pending-productions > summary span { color:var(--dim); font-size:12px; font-weight:400; }
+  .pending-productions[open] > summary { border-bottom:1px solid var(--line); }
+  .production-plan {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:18px;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .production-plan:last-child { border-bottom:0; }
+  .production-plan h3 { margin:0; font-size:14px; }
+  .production-plan p { margin:4px 0 0; max-width:78ch; color:var(--muted); font-size:12px; }
+  .production-plan .production-meta { margin-top:8px; }
+  .production-plan-actions { display:flex; align-items:center; justify-content:flex-end; gap:8px; flex-wrap:wrap; }
   .empty-state { border:1px dashed #374352; border-radius:var(--radius); padding:28px; color:var(--muted); }
   .distribution-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,.72fr); gap:20px; }
   .evidence-list { list-style:none; padding:0; margin:0; }
@@ -414,8 +515,13 @@ export function studioPageHtml() {
     .quick-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .capability-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .create-grid,.distribution-grid { grid-template-columns:1fr; }
-    .production { grid-template-columns:1fr; }
+    .production,.production.featured { grid-template-columns:1fr; }
+    .production.featured { gap:20px; }
     .production.platform-audio-production { grid-template-columns:1fr; }
+    .production-plan { grid-template-columns:1fr; }
+    .production-plan-actions { justify-content:flex-start; }
+    .video-library-row { grid-template-columns:1fr; gap:10px; padding:14px 0; }
+    .video-library-row-meta { justify-content:flex-start; }
     .tools-layout { grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); }
     .tool-nav { display:flex; align-items:center; gap:4px; overflow-x:auto; border-right:0; border-bottom:1px solid var(--line); }
     .tool-nav button { flex:0 0 auto; width:auto; white-space:nowrap; }
@@ -448,7 +554,9 @@ export function studioPageHtml() {
     .button-row { width:100%; }
     .button-row .button { flex:1; text-align:center; }
     .workflow { grid-template-columns:1fr; }
-    .platform-audio-form,.sync-stage,.silent-proof { grid-template-columns:1fr; }
+    .platform-audio-form,.soundtrack-custom-fields,.sync-stage,.silent-proof { grid-template-columns:1fr; }
+    .soundtrack-now { align-items:flex-start; flex-direction:column; gap:3px; }
+    .soundtrack-now strong { text-align:left; }
     .sync-stage { grid-template-areas:none; }
     .sync-controls,.sync-guidance,.sync-source,.sync-visual,.silent-proof,.platform-handoff { grid-area:auto; }
     .state { justify-self:start; }
@@ -460,11 +568,12 @@ export function studioPageHtml() {
     .choice-grid,.recipe-grid,.recipe-option-fields { grid-template-columns:1fr; }
     .recipe-card { min-height:0; }
     .planner-terminal { padding:14px; }
-    .lane-ledger { grid-template-columns:1fr; }
-    .lane-ledger > div { padding:12px 0; }
-    .lane-ledger > div + div { padding-left:0; border-left:0; border-top:1px solid var(--line); }
+    .lane-ledger { display:none; }
     .lane-switcher { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
     .lane-switcher button { width:100%; }
+    .lane-switcher button::after { content:" · " attr(data-count); color:var(--dim); }
+    .video-section-head { align-items:flex-start; flex-direction:column; gap:4px; }
+    .pending-productions > summary { align-items:flex-start; flex-direction:column; justify-content:center; gap:2px; }
     .automation-evidence { grid-template-columns:1fr; }
     table { display:block; overflow-x:auto; }
   }
@@ -506,9 +615,20 @@ export function studioPageHtml() {
       <form class="composer" id="composer">
         <label for="request" id="prompt-title">What should we make?</label>
         <textarea id="request" required placeholder="A 30-second cinematic video about a lonely astronaut finding a garden on Mars."></textarea>
+        <div class="voice-controls" id="voice-controls">
+          <p id="voice-status">Talk through the idea, then edit the transcript before creating.</p>
+          <button class="button" type="button" id="voice-button">Talk</button>
+        </div>
         <details class="quick-settings">
           <summary>Settings <span>Optional</span></summary>
         <div class="quick-options" aria-label="Optional video settings">
+          <label>Recipe
+            <select id="quick-recipe">
+              <option value="">Auto</option>
+              <option value="night-out-carousel">Night Out carousel</option>
+              <option value="coherent-local-film">Coherent local film</option>
+            </select>
+          </label>
           <label>Video type
             <select id="quick-kind">
               <option value="">Auto</option>
@@ -522,6 +642,12 @@ export function studioPageHtml() {
           <label>Duration
             <select id="quick-duration"><option value="">Auto</option><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="45">45 seconds</option><option value="60">60 seconds</option></select>
           </label>
+          <label class="quick-model-setting" hidden>Theme<select id="quick-theme"></select></label>
+          <label class="quick-model-setting" hidden>Model<select id="quick-model"></select></label>
+          <label class="quick-model-setting" hidden>Content scope
+            <select id="quick-content-scope"><option value="general">General</option><option value="mature-enabled">Mature-enabled adults</option></select>
+          </label>
+          <p class="quick-model-summary quick-model-setting" id="quick-model-summary" hidden></p>
         </div>
         </details>
         <div class="prompt-actions">
@@ -534,7 +660,15 @@ export function studioPageHtml() {
         <div class="feedback prompt-feedback" id="compose-feedback" aria-live="polite"></div>
       </form>
     </section>
-    <details class="advanced-studio manual-planner" id="manual-planner" hidden>
+    <section class="workflow-progress" id="workflow-progress" hidden aria-labelledby="workflow-progress-title">
+      <div class="workflow-progress-head">
+        <div><h3 id="workflow-progress-title">Production workflow</h3><p>Eight fixed steps. Prompts cannot add executable actions.</p></div>
+        <button class="button" type="button" id="workflow-mode">Use quick mode</button>
+      </div>
+      <div class="stage-rail" id="stage-rail"></div>
+      <div class="feedback prompt-feedback" id="workflow-feedback" aria-live="polite"></div>
+    </section>
+    <details class="advanced-studio manual-planner" id="manual-planner">
       <summary>Choose the production path manually</summary>
     <section class="planner stage" id="production-planner" aria-labelledby="planner-title">
       <div class="stage-head planner-head">
@@ -749,6 +883,54 @@ export function studioPageHtml() {
               </div>
             </details>
             <details class="brief-group">
+              <summary>Characters</summary>
+              <div class="field-grid">
+                <div class="directory-row">
+                  <label>Character directory<select id="character-select"><option value="">No saved characters</option></select></label>
+                  <button class="button" type="button" id="add-character-to-cast">Add to cast</button>
+                </div>
+                <div class="cast-list" id="cast-list"><span class="hint">No characters in this reel.</span></div>
+                <details class="inline-create wide">
+                  <summary>Create a reusable fictional character</summary>
+                  <div class="field-grid">
+                    <label>Name<input id="character-name" placeholder="Mira"></label>
+                    <label>Age<input id="character-age" type="number" min="25" max="120" value="25"></label>
+                    <label class="wide">Appearance<textarea id="character-appearance" placeholder="silver bob, amber eyes, athletic build"></textarea></label>
+                    <label class="wide">Prompt anchors<textarea id="character-tokens" placeholder="distinctive cheekbones, cinematic rim light"></textarea></label>
+                    <label class="checkline"><input id="character-adult" type="checkbox" checked> Fictional adult, age confirmed</label>
+                    <label class="checkline"><input id="character-consent" type="checkbox" checked> Affirmative consent posture</label>
+                    <div class="button-row wide"><button class="button" type="button" id="save-character">Save character</button></div>
+                  </div>
+                </details>
+              </div>
+            </details>
+            <details class="brief-group">
+              <summary>Soundtrack and mix</summary>
+              <div class="field-grid">
+                <label>Music lane<select id="soundtrack-lane"><option value="procedural-draft">Procedural draft</option><option value="owned-local">Owned / licensed local audio</option><option value="platform-sound">Add in platform</option><option value="generated">Generated locally</option></select></label>
+                <label>Music gain (dB)<input id="soundtrack-gain" type="number" min="-60" max="12" step="0.5" value="-8"></label>
+                <label>Fade in (seconds)<input id="soundtrack-fade-in" type="number" min="0" max="30" step="0.1" value="0.2"></label>
+                <label>Fade out (seconds)<input id="soundtrack-fade-out" type="number" min="0" max="30" step="0.1" value="0.5"></label>
+                <label class="checkline"><input id="soundtrack-loop" type="checkbox" checked> Loop music to fit</label>
+                <label class="checkline"><input id="soundtrack-duck" type="checkbox"> Duck under narration</label>
+                <div class="field-grid wide conditional-fields" id="soundtrack-owned-fields" hidden>
+                  <label class="wide">Approved local audio path<input id="soundtrack-path" placeholder="./artifacts/music/track.wav"></label>
+                  <label>Rights posture<select id="soundtrack-rights"><option value="unknown">Unknown</option><option value="owned">Owned</option><option value="licensed">Licensed</option></select></label>
+                  <label>Rights evidence<input id="soundtrack-rights-evidence" placeholder="Licence or ownership record"></label>
+                </div>
+                <div class="field-grid wide conditional-fields" id="soundtrack-platform-fields" hidden>
+                  <label>Platform<select id="soundtrack-provider"><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="youtube">YouTube</option><option value="spotify">Spotify</option></select></label>
+                  <label>Official sound URL<input id="soundtrack-url" type="url" placeholder="https://…"></label>
+                </div>
+                <div class="field-grid wide conditional-fields" id="soundtrack-generated-fields" hidden>
+                  <label class="wide">Music prompt<textarea id="soundtrack-prompt" placeholder="funky disco-house instrumental, elastic bass, bright brass stabs"></textarea></label>
+                  <label>BPM<input id="soundtrack-bpm" type="number" min="40" max="240" value="118"></label>
+                  <label>Variations<input id="soundtrack-variations" type="number" min="1" max="4" value="2"></label>
+                </div>
+              </div>
+              <p class="hint" id="soundtrack-boundary">Procedural music is a draft fallback, not final-quality audio.</p>
+            </details>
+            <details class="brief-group">
               <summary>Evidence and distribution</summary>
               <div class="field-grid">
                 <label>Source rights
@@ -792,10 +974,10 @@ export function studioPageHtml() {
   <section class="view" id="view-productions" role="tabpanel" aria-labelledby="tab-productions" hidden>
     <div class="view-head">
       <div>
-        <h2>Productions</h2>
-        <p>Saved intent, render evidence, quality state, and the authoritative next decision.</p>
+        <h2>Videos</h2>
+        <p>Watch finished renders first. Drafts and blocked plans stay available without crowding the library.</p>
       </div>
-      <button class="button" type="button" id="refresh-productions">Refresh</button>
+      <button class="button" type="button" id="refresh-productions">Refresh library</button>
     </div>
     <section class="lane-console" aria-labelledby="lane-console-title">
       <div class="lane-console-head">
@@ -880,6 +1062,7 @@ export function studioPageHtml() {
 <script>
 const TOOLS = ${JSON.stringify(TOOLS)};
 const BRANDS = ${JSON.stringify(BRANDS)};
+const PLATFORM_SOUND_PRESETS = ${JSON.stringify(PLATFORM_SOUND_PRESETS)};
 let briefs = [];
 let activeBrief = null;
 let capabilities = [];
@@ -887,7 +1070,8 @@ let blenderReadiness = null;
 let postizReadiness = null;
 let showAllWorkflows = false;
 let briefDirty = false;
-let plannerData = { projects:[], ideas:[], recipes:[] };
+let modelOptions = { themePacks:[], modelProfiles:[] };
+let plannerData = { projects:[], ideas:[], recipes:[], themePacks:[], modelProfiles:[] };
 let plannerSelection = { projectSlug:null, ideaId:null, recipeId:null };
 let plannerReady = false;
 let plannerOptionsDirty = false;
@@ -895,6 +1079,13 @@ let productionData = { briefs:[], legacyRenders:[] };
 let autopilotStatus = null;
 let automationPolicies = [];
 let activeProductionLane = 'all';
+let selectedProductionId = null;
+let characters = [];
+let voiceSource = null;
+let voiceRecording = null;
+let voiceRecorder = null;
+let voiceStream = null;
+let voiceChunks = [];
 const platformPreviewPlayers = new Map();
 let youtubeApiPromise = null;
 let spotifyApiPromise = null;
@@ -961,12 +1152,83 @@ for (const brand of BRANDS) {
 }
 
 document.getElementById('quick-kind').addEventListener('change', renderQuickKindSelection);
+for (const id of ['quick-recipe','quick-theme','quick-model','quick-content-scope']) {
+  document.getElementById(id).addEventListener('change', renderQuickModelSelection);
+}
 
 function renderQuickKindSelection() {
   const selected = value('quick-kind');
   for (const choice of document.querySelectorAll('[data-quick-kind]')) {
     choice.setAttribute('aria-pressed', String(choice.dataset.quickKind === selected));
   }
+}
+
+async function loadModelOptions() {
+  modelOptions = await api('/studio/model-options');
+  fillQuickSelect('quick-theme', modelOptions.themePacks);
+  fillQuickSelect('quick-model', modelOptions.modelProfiles);
+  renderQuickModelSelection();
+  return modelOptions;
+}
+
+function fillQuickSelect(id, entries) {
+  const select = document.getElementById(id);
+  const previous = select.value || 'auto';
+  select.innerHTML = entries.map((entry) => '<option value="' + escapeText(entry.id) + '">' + escapeText(entry.name) + '</option>').join('');
+  setValue(id, entries.some((entry) => entry.id === previous) ? previous : 'auto');
+}
+
+function quickGenerationMode() {
+  if (value('quick-recipe') === 'night-out-carousel') return 'image-to-reel';
+  if (value('quick-recipe') === 'coherent-local-film') return 'text-to-video';
+  return null;
+}
+
+function quickModelState() {
+  const generationMode = quickGenerationMode();
+  if (!generationMode) return { allowed:true, profile:null, blocker:null };
+  const requested = modelOptions.modelProfiles.find((entry) => entry.id === (value('quick-model') || 'auto'));
+  if (!requested) return { allowed:false, profile:null, blocker:'Model options are still loading.' };
+  const compatible = requested.id === 'auto'
+    ? modelOptions.modelProfiles.find((entry) => entry.id !== 'auto' && entry.autoEligible === true && entry.generationModes.includes(generationMode) && entry.readiness.ready)
+    : requested;
+  if (!compatible) return { allowed:false, profile:requested, blocker:'Auto found no ready ' + generationMode + ' model on this Mac.' };
+  if (!compatible.generationModes.includes(generationMode)) {
+    return { allowed:false, profile:compatible, blocker:compatible.name + ' does not support ' + generationMode + '.' };
+  }
+  if (!compatible.readiness.ready) return { allowed:false, profile:compatible, blocker:compatible.readiness.blocker };
+  if (value('quick-recipe') === 'coherent-local-film') {
+    return { allowed:false, profile:compatible, blocker:'This profile is ready, but coherent-film execution still continues in Forge.' };
+  }
+  return { allowed:true, profile:compatible, blocker:null };
+}
+
+function renderQuickModelSelection() {
+  const generationMode = quickGenerationMode();
+  const visible = Boolean(generationMode);
+  for (const element of document.querySelectorAll('.quick-model-setting')) element.hidden = !visible;
+  const summary = document.getElementById('quick-model-summary');
+  if (!visible) {
+    refreshComposeAvailability();
+    return;
+  }
+  const state = quickModelState();
+  const profile = state.profile;
+  summary.classList.toggle('blocked', !state.allowed);
+  summary.innerHTML = profile
+    ? '<strong>' + escapeText(profile.name) + '</strong> · ' + escapeText(profile.speed) + ' · ' + escapeText(profile.quality) + ' · ' + escapeText(profile.resourceClass) +
+      (profile.nativeAudio ? ' · native audio' : ' · reel adds local audio') + '<br>' +
+      escapeText(state.blocker || profile.license) + '<br>' + escapeText('Trust: ' + profile.trust.tier.replaceAll('-', ' ') + '. ' + profile.trust.basis)
+    : escapeText(state.blocker || 'Choose a compatible local model.');
+  refreshComposeAvailability();
+}
+
+function refreshComposeAvailability() {
+  const button = document.getElementById('compose-button');
+  if (button.dataset.busy === 'true') return;
+  const state = quickModelState();
+  button.disabled = !state.allowed;
+  button.title = state.blocker || '';
 }
 
 async function loadProductionPlanner(projectSlug) {
@@ -1311,6 +1573,78 @@ document.getElementById('planner-post').addEventListener('click', () => {
   renderDistribution();
 });
 
+document.getElementById('voice-button').addEventListener('click', async () => {
+  if (voiceRecorder?.state === 'recording') {
+    voiceRecorder.stop();
+    return;
+  }
+  if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
+    setVoiceStatus('Voice recording is not supported in this browser.', 'error');
+    return;
+  }
+  try {
+    voiceStream = await navigator.mediaDevices.getUserMedia({ audio:true });
+    voiceChunks = [];
+    voiceRecorder = new MediaRecorder(voiceStream);
+    voiceRecorder.addEventListener('dataavailable', (event) => { if (event.data.size) voiceChunks.push(event.data); });
+    voiceRecorder.addEventListener('stop', submitVoiceRecording, { once:true });
+    voiceRecorder.start();
+    document.getElementById('voice-controls').classList.add('recording');
+    document.getElementById('voice-button').textContent = 'Stop';
+    setVoiceStatus('Recording locally… press Stop when the idea is complete.');
+  } catch (error) {
+    setVoiceStatus('Microphone unavailable: ' + error.message, 'error');
+  }
+});
+
+async function submitVoiceRecording() {
+  const mimeType = voiceRecorder?.mimeType || voiceChunks[0]?.type || 'audio/webm';
+  const blob = new Blob(voiceChunks, { type:mimeType });
+  voiceStream?.getTracks().forEach((track) => track.stop());
+  voiceStream = null;
+  document.getElementById('voice-controls').classList.remove('recording');
+  document.getElementById('voice-button').textContent = 'Talk';
+  setVoiceStatus('Saving and checking the local transcription runtime…');
+  try {
+    const audioBase64 = await blobToBase64(blob);
+    const result = await api('/studio/voice-intake', {
+      method:'POST',
+      body:JSON.stringify({ audioBase64, mimeType }),
+    });
+    voiceRecording = result.recording;
+    voiceSource = {
+      kind:'voice', transcript:result.transcript, recordingPath:result.recording.recordingPath,
+      transcription:result.evidence,
+    };
+    document.getElementById('request').value = result.transcript;
+    setVoiceStatus('Transcript ready. Edit it above before creating.', 'success');
+  } catch (error) {
+    voiceRecording = error.payload?.data?.recording ?? null;
+    voiceSource = null;
+    setVoiceStatus(
+      voiceRecording
+        ? 'Recording saved locally. No transcription model is ready, so type or paste the request.'
+        : error.message,
+      voiceRecording ? '' : 'error',
+    );
+  }
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => resolve(String(reader.result).split(',')[1] || ''));
+    reader.addEventListener('error', () => reject(reader.error));
+    reader.readAsDataURL(blob);
+  });
+}
+
+function setVoiceStatus(message, state) {
+  const status = document.getElementById('voice-status');
+  status.textContent = message;
+  status.style.color = state === 'error' ? 'var(--risk)' : state === 'success' ? 'var(--verified)' : '';
+}
+
 document.getElementById('composer').addEventListener('submit', async (event) => {
   event.preventDefault();
   const requestInput = document.getElementById('request');
@@ -1339,9 +1673,14 @@ document.getElementById('composer').addEventListener('submit', async (event) => 
         });
       }
     } else {
+      const source = voiceSource
+        ? { ...voiceSource, transcript:request }
+        : voiceRecording
+          ? { kind:'voice', transcript:request, recordingPath:voiceRecording.recordingPath, transcription:{ provider:null, localOnly:true, status:'typed-fallback' } }
+          : null;
       activeBrief = await api('/studio/briefs', {
         method:'POST',
-        body:JSON.stringify({ request, fields }),
+        body:JSON.stringify({ request, fields, source, mode:'quick' }),
       });
     }
     await loadBriefs(activeBrief.id);
@@ -1360,43 +1699,172 @@ document.getElementById('composer').addEventListener('submit', async (event) => 
       await loadBriefs(activeBrief.id);
       rendered = result.executed === true;
     }
-    requestInput.value = '';
     const blocker = activeBrief?.capability?.blocker || activeBrief?.continuation?.blocker;
+    if (rendered) {
+      requestInput.value = '';
+      selectedProductionId = activeBrief.id;
+      activateView('productions');
+    } else {
+      document.querySelector('.quick-settings').open = true;
+    }
     setFeedback(
       'compose-feedback',
       rendered
-        ? 'Video created. Open Videos to watch it.'
-        : refining
-          ? blocker ? 'Video updated. ' + blocker : 'Video updated.'
-          : blocker ? 'Video saved. ' + blocker : 'Video saved.',
-      'success',
+        ? 'Video created. It is now open under Videos.'
+        : 'No video was generated. ' + (blocker || 'Choose a locally runnable Recipe and Model under Settings.'),
+      rendered ? 'success' : 'error',
     );
   } catch (error) {
     setFeedback('compose-feedback', error.message, 'error');
   } finally {
     setBusy('compose-button', false, activeBrief ? 'Update video' : 'Make video');
+    refreshComposeAvailability();
   }
 });
 
 function quickCreateFields() {
   const fields = {};
+  const recipeId = value('quick-recipe');
   const kind = value('quick-kind');
   const duration = value('quick-duration');
+  if (recipeId) {
+    fields.recipeId = recipeId;
+    fields.recipeOptions = duration ? { durationSeconds:Number(duration) } : {};
+    fields.themePackId = value('quick-theme') || 'auto';
+    fields.modelProfileId = value('quick-model') || 'auto';
+    fields.contentScope = value('quick-content-scope') || 'general';
+  }
   if (kind) {
     fields.kind = kind;
     if (kind === 'lyric-video') fields.engine = 'lyric-canvas';
   }
-  if (duration) fields.durationSeconds = Number(duration);
+  if (duration && !recipeId) fields.durationSeconds = Number(duration);
   return fields;
+}
+
+async function loadCharacters(selectedId) {
+  characters = await api('/studio/characters');
+  const select = document.getElementById('character-select');
+  select.innerHTML = '<option value="">' + (characters.length ? 'Choose a saved character' : 'No saved characters') + '</option>' +
+    characters.map((character) => '<option value="' + escapeText(character.id) + '"' + (character.id === selectedId ? ' selected' : '') + '>' +
+      escapeText(character.name) + ' · revision ' + character.revision + '</option>').join('');
+}
+
+document.getElementById('save-character').addEventListener('click', async () => {
+  setBusy('save-character', true, 'Saving…');
+  try {
+    const character = await api('/studio/characters', {
+      method:'POST',
+      body:JSON.stringify({
+        name:value('character-name'),
+        age:Number(value('character-age')),
+        adultConfirmed:document.getElementById('character-adult').checked,
+        consentPosture:document.getElementById('character-consent').checked ? 'affirmative' : 'unknown',
+        fictional:true,
+        sourcePosture:'original',
+        likenessPosture:'fictional',
+        appearance:{ description:value('character-appearance') },
+        promptTokens:value('character-tokens').split(',').map((entry) => entry.trim()).filter(Boolean),
+        references:[], wardrobe:[], palette:[], negativeConstraints:[],
+      }),
+    });
+    await loadCharacters(character.id);
+    setValue('character-name', '');
+    setValue('character-appearance', '');
+    setValue('character-tokens', '');
+    setFeedback('brief-feedback', character.name + ' saved to the character directory.', 'success');
+  } catch (error) {
+    setFeedback('brief-feedback', error.message, 'error');
+  } finally {
+    setBusy('save-character', false, 'Save character');
+  }
+});
+
+document.getElementById('add-character-to-cast').addEventListener('click', () => {
+  if (!activeBrief) return setFeedback('brief-feedback', 'Create a brief before adding cast.', 'error');
+  const character = characters.find((entry) => entry.id === value('character-select'));
+  if (!character) return;
+  if (activeBrief.cast?.some((entry) => entry.characterId === character.id)) return;
+  activeBrief = { ...activeBrief, cast:[...(activeBrief.cast ?? []), castInstance(character)] };
+  renderCast();
+  markBriefDirty();
+});
+
+function castInstance(character) {
+  return {
+    schema:'fleet.cast-instance.v1', id:'cast_' + character.id, characterId:character.id,
+    characterRevision:character.revision, name:character.name, role:character.role,
+    wardrobe:character.wardrobe ?? [], expression:null, continuityNotes:character.continuityNotes,
+    sourceSnapshot:structuredClone(character),
+  };
+}
+
+function renderCast() {
+  const box = document.getElementById('cast-list');
+  const cast = activeBrief?.cast ?? [];
+  box.innerHTML = cast.length ? cast.map((entry, index) =>
+    '<div class="cast-chip"><span><strong>' + escapeText(entry.name) + '</strong> · character revision ' + entry.characterRevision + '</span>' +
+    '<button class="copy" type="button" data-remove-cast="' + index + '">Remove</button></div>').join('') :
+    '<span class="hint">No characters in this reel. Mature-enabled generation requires an explicitly adult fictional cast.</span>';
+  for (const button of box.querySelectorAll('[data-remove-cast]')) button.addEventListener('click', () => {
+    activeBrief = { ...activeBrief, cast:activeBrief.cast.filter((_, index) => index !== Number(button.dataset.removeCast)) };
+    renderCast();
+    markBriefDirty();
+  });
+}
+
+document.getElementById('soundtrack-lane').addEventListener('change', () => { renderSoundtrackFields(); markBriefDirty(); });
+
+function renderSoundtrackFields() {
+  const lane = value('soundtrack-lane');
+  document.getElementById('soundtrack-owned-fields').hidden = lane !== 'owned-local';
+  document.getElementById('soundtrack-platform-fields').hidden = lane !== 'platform-sound';
+  document.getElementById('soundtrack-generated-fields').hidden = lane !== 'generated';
+  document.getElementById('soundtrack-boundary').textContent = {
+    'procedural-draft':'Procedural music is a draft fallback, not final-quality audio.',
+    'owned-local':'Only approved local audio with ownership or licence evidence can be mixed.',
+    'platform-sound':'Studio exports a silent master; add the referenced sound in the official platform.',
+    generated:'Generated music runs only after its named local runtime and model pass preflight.',
+  }[lane];
+}
+
+function collectSoundtrack() {
+  const lane = value('soundtrack-lane');
+  const soundtrack = {
+    lane,
+    mix:{
+      trimStartSeconds:0, offsetSeconds:0, loop:document.getElementById('soundtrack-loop').checked,
+      fadeInSeconds:Number(value('soundtrack-fade-in')), fadeOutSeconds:Number(value('soundtrack-fade-out')),
+      gainDb:Number(value('soundtrack-gain')),
+      ducking:{ enabled:document.getElementById('soundtrack-duck').checked },
+    },
+  };
+  if (lane === 'owned-local') soundtrack.ownedLocal = {
+    path:value('soundtrack-path'), rightsPosture:value('soundtrack-rights'), rightsEvidence:value('soundtrack-rights-evidence') || null,
+  };
+  if (lane === 'platform-sound') soundtrack.platformSound = {
+    provider:value('soundtrack-provider'), url:value('soundtrack-url'), startSeconds:0,
+  };
+  if (lane === 'generated') soundtrack.generated = {
+    runtimeId:'ace-step-native', prompt:value('soundtrack-prompt'), durationSeconds:Number(value('brief-duration')),
+    instrumental:true, bpm:Number(value('soundtrack-bpm')), variationCount:Number(value('soundtrack-variations')),
+  };
+  return soundtrack;
 }
 
 document.getElementById('new-brief-button').addEventListener('click', () => {
   if (briefDirty && !window.confirm('Discard unsaved changes to this brief?')) return;
   activeBrief = null;
+  voiceSource = null;
+  voiceRecording = null;
+  setVoiceStatus('Talk through the idea, then edit the transcript before creating.');
   showAllWorkflows = false;
   document.getElementById('request').value = '';
-  for (const id of ['quick-kind','quick-duration']) setValue(id, '');
+  for (const id of ['quick-recipe','quick-kind','quick-duration']) setValue(id, '');
+  for (const id of ['quick-theme','quick-model']) setValue(id, 'auto');
+  setValue('quick-content-scope', 'general');
   renderQuickKindSelection();
+  renderQuickModelSelection();
   document.getElementById('conversation').innerHTML = '<div class="message empty" role="listitem">Describe the next video. Nothing renders until you confirm its brief.</div>';
   setFeedback('compose-feedback', '');
   setFeedback('brief-feedback', '');
@@ -1462,9 +1930,14 @@ async function loadCapabilities() {
 function populateBrief(brief) {
   activeBrief = brief;
   setComposerMode(true);
+  setValue('quick-recipe', brief.recipeId || '');
   setValue('quick-kind', brief.kind || '');
   setValue('quick-duration', [15,30,45,60].includes(brief.durationSeconds) ? brief.durationSeconds : '');
+  setValue('quick-theme', brief.themePackId || 'auto');
+  setValue('quick-model', brief.modelProfileId || 'auto');
+  setValue('quick-content-scope', brief.contentScope || 'general');
   renderQuickKindSelection();
+  renderQuickModelSelection();
   setValue('brief-kind', brief.kind);
   setValue('brief-project', brief.projectSlug || '');
   setValue('brief-channel', brief.channel);
@@ -1496,11 +1969,28 @@ function populateBrief(brief) {
   toggleLyricFields(brief.kind);
   document.getElementById('brief-creative-approved').checked = brief.approval?.creativeStatus === 'approved';
   document.getElementById('brief-quality-accepted').checked = brief.approval?.qualityAccepted === true;
+  renderCast();
+  setValue('soundtrack-lane', brief.soundtrack?.lane || 'procedural-draft');
+  setValue('soundtrack-gain', brief.soundtrack?.mix?.gainDb ?? -8);
+  setValue('soundtrack-fade-in', brief.soundtrack?.mix?.fadeInSeconds ?? 0.2);
+  setValue('soundtrack-fade-out', brief.soundtrack?.mix?.fadeOutSeconds ?? 0.5);
+  document.getElementById('soundtrack-loop').checked = brief.soundtrack?.mix?.loop !== false;
+  document.getElementById('soundtrack-duck').checked = brief.soundtrack?.mix?.ducking?.enabled === true;
+  setValue('soundtrack-path', brief.soundtrack?.ownedLocal?.path || '');
+  setValue('soundtrack-rights', brief.soundtrack?.ownedLocal?.rightsPosture || 'unknown');
+  setValue('soundtrack-rights-evidence', brief.soundtrack?.ownedLocal?.rightsEvidence || '');
+  setValue('soundtrack-provider', brief.soundtrack?.platformSound?.provider || 'instagram');
+  setValue('soundtrack-url', brief.soundtrack?.platformSound?.url || '');
+  setValue('soundtrack-prompt', brief.soundtrack?.generated?.prompt || '');
+  setValue('soundtrack-bpm', brief.soundtrack?.generated?.controls?.bpm ?? 118);
+  setValue('soundtrack-variations', brief.soundtrack?.generated?.variationCount ?? 2);
+  renderSoundtrackFields();
   briefDirty = false;
   document.getElementById('save-brief-button').disabled = true;
   renderConversation(brief);
   renderBriefAction(brief);
   renderWorkflowList();
+  renderWorkflowProgress();
   if (plannerReady) {
     if (brief.recipeId) restorePlannerFromBrief(brief).catch((error) => setFeedback('planner-feedback', error.message, 'error'));
     else renderPlannerTerminal();
@@ -1527,6 +2017,16 @@ function clearBriefForm() {
   toggleLyricFields('faceless');
   document.getElementById('brief-creative-approved').checked = false;
   document.getElementById('brief-quality-accepted').checked = false;
+  renderCast();
+  setValue('soundtrack-lane', 'procedural-draft');
+  setValue('soundtrack-gain', -8);
+  setValue('soundtrack-fade-in', 0.2);
+  setValue('soundtrack-fade-out', 0.5);
+  document.getElementById('soundtrack-loop').checked = true;
+  document.getElementById('soundtrack-duck').checked = false;
+  for (const id of ['soundtrack-path','soundtrack-rights-evidence','soundtrack-url','soundtrack-prompt']) setValue(id, '');
+  renderSoundtrackFields();
+  renderWorkflowProgress();
   document.getElementById('save-brief-button').disabled = true;
   document.getElementById('execute-button').disabled = true;
   document.getElementById('brief-state').textContent = 'No brief selected';
@@ -1589,6 +2089,78 @@ function renderWorkflowList() {
   }
 }
 
+function renderWorkflowProgress() {
+  const root = document.getElementById('workflow-progress');
+  const workflow = activeBrief?.workflow;
+  root.hidden = !workflow;
+  if (!workflow) return;
+  const modeButton = document.getElementById('workflow-mode');
+  modeButton.textContent = workflow.mode === 'manual' ? 'Use quick mode' : 'Use manual mode';
+  modeButton.setAttribute('aria-pressed', String(workflow.mode === 'quick'));
+  const rail = document.getElementById('stage-rail');
+  rail.innerHTML = workflow.stages.map((stage) =>
+    '<button class="stage-card ' + escapeText(stage.status) + '" type="button" data-workflow-stage="' + escapeText(stage.id) + '"' +
+    (stage.status === 'ready' ? '' : ' disabled') + '><strong>' + escapeText(stage.label) + '</strong><small>' +
+    escapeText(stage.status) + '</small></button>').join('');
+  for (const button of rail.querySelectorAll('[data-workflow-stage]:not([disabled])')) {
+    button.addEventListener('click', () => advanceWorkflowStage(button.dataset.workflowStage));
+  }
+}
+
+document.getElementById('workflow-mode').addEventListener('click', async () => {
+  if (!activeBrief?.workflow) return;
+  const mode = activeBrief.workflow.mode === 'manual' ? 'quick' : 'manual';
+  try {
+    activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow', {
+      method:'PATCH', body:JSON.stringify({ mode, paused:false }),
+    });
+    await loadBriefs(activeBrief.id);
+    setFeedback('workflow-feedback', mode === 'quick'
+      ? 'Quick mode selected. Create may advance runnable production actions automatically.'
+      : 'Manual mode selected. Confirm each ready stage explicitly.', 'success');
+  } catch (error) {
+    setFeedback('workflow-feedback', error.message, 'error');
+  }
+});
+
+async function advanceWorkflowStage(stageId) {
+  const stage = activeBrief?.workflow?.stages.find((entry) => entry.id === stageId);
+  if (!stage || stage.status !== 'ready') return;
+  setFeedback('workflow-feedback', 'Running ' + stage.label.toLowerCase() + '…');
+  try {
+    if (briefDirty) await saveBrief({ silent:true });
+    let output = { confirmedBy:'operator', briefRevision:activeBrief.revision };
+    let evidence = { actionId:stage.actionId, owner:activeBrief.recipe?.owner ?? activeBrief.capability?.owner ?? 'Marketing Studio', localOnly:true };
+    if (stageId === 'cast') {
+      if (activeBrief.contentScope === 'mature-enabled' && !activeBrief.cast?.length) {
+        throw new Error('Add an explicitly adult fictional character before confirming a mature cast.');
+      }
+      output = { cast:activeBrief.cast ?? [] };
+    }
+    if (stageId === 'scenes') output = { direction:activeBrief.creativeDirection, summary:activeBrief.summary };
+    if (stageId === 'generation') {
+      const result = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/execute', {
+        method:'POST', body:JSON.stringify({ confirm:true }),
+      });
+      if (result.executed !== true || !result.brief?.media) throw new Error(result.blocker || 'The selected runtime did not produce a reviewable artifact.');
+      activeBrief = result.brief;
+      output = { media:activeBrief.media };
+      evidence = { actionId:stage.actionId, owner:activeBrief.recipe?.owner ?? activeBrief.capability?.owner ?? 'Marketing Studio', modelProfileId:activeBrief.modelProfileId, localOnly:true };
+    }
+    activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow/' + encodeURIComponent(stageId), {
+      method:'POST', body:JSON.stringify({ actionId:stage.actionId, status:'completed', output, evidence }),
+    });
+    await loadBriefs(activeBrief.id);
+    setFeedback('workflow-feedback', stage.label + ' completed. The next registered step is ready.', 'success');
+    if (stageId === 'generation') {
+      selectedProductionId = activeBrief.id;
+      activateView('productions');
+    }
+  } catch (error) {
+    setFeedback('workflow-feedback', error.message, 'error');
+  }
+}
+
 function collectBriefPatch() {
   const kind = value('brief-kind');
   return {
@@ -1601,11 +2173,16 @@ function collectBriefPatch() {
       channel:value('brief-channel'),
       durationSeconds:Number(value('brief-duration')),
     } : undefined,
+    themePackId:activeBrief?.recipeId ? value('quick-theme') || 'auto' : undefined,
+    modelProfileId:activeBrief?.recipeId ? value('quick-model') || 'auto' : undefined,
+    contentScope:activeBrief?.recipeId ? value('quick-content-scope') || 'general' : undefined,
     engine:value('brief-engine'),
     title:value('brief-name'),
     hook:value('brief-hook'),
     summary:value('brief-summary'),
     creativeDirection:value('brief-direction') || null,
+    cast:activeBrief?.cast ?? [],
+    soundtrack:collectSoundtrack(),
     cta:value('brief-cta') || null,
     sourceEvidence:{
       canonicalUrl:value('brief-source-url') || null,
@@ -1745,21 +2322,67 @@ function renderProductionList() {
           : 'Start in Create or choose another content lane.') + '</div>';
     return;
   }
-  const current = filtered.map(renderProduction).join('');
+  const ready = filtered.filter(hasReviewArtifact);
+  const pending = filtered.filter((brief) => !hasReviewArtifact(brief));
+  const selected = ready.find((brief) => brief.id === selectedProductionId)
+    || ready.find((brief) => brief.id === activeBrief?.id)
+    || ready[0];
+  selectedProductionId = selected?.id || null;
+  const readySection = selected
+    ? '<section aria-labelledby="ready-videos-title"><div class="video-section-head"><div><h3 id="ready-videos-title">Now showing</h3><p>Watch the selected render, then move through the compact library below.</p></div><span>' +
+      escapeText(String(ready.length)) + (ready.length === 1 ? ' playable video' : ' playable videos') + '</span></div><div class="ready-productions">' +
+      renderProduction(selected, { featured:true }) + '</div><div class="video-section-head"><div><h3>Video library</h3><p>Choose any completed artifact without loading every player at once.</p></div></div><div class="video-library-index">' +
+      ready.map((brief) => renderVideoLibraryRow(brief, brief.id === selected.id)).join('') + '</div></section>'
+    : '<div class="empty-state"><strong>No playable videos in this lane yet.</strong><br>Completed renders will appear here automatically.</div>';
+  const pendingSection = pending.length
+    ? '<details class="pending-productions"><summary>Drafts and blocked plans<span>' + escapeText(String(pending.length)) +
+      ' saved without a playable video</span></summary><div class="production-plan-list">' + pending.map(renderPendingProduction).join('') + '</div></details>'
+    : '';
   const legacyItems = showLegacy ? productionData.legacyRenders.map((render) =>
-      '<article class="production"><div><h3>' + escapeText(render.title) + '</h3><p>Legacy Studio render · ' + escapeText(render.provider || 'unknown engine') + '</p></div>' +
-      (render.video ? '<video controls preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(render.video) + '"></video>' : '<div class="empty-state">No playable artifact</div>') +
+      '<article class="production"><div class="production-info"><h3>' + escapeText(render.title) + '</h3><p>Legacy Studio render · ' + escapeText(render.provider || 'unknown engine') + '</p></div><div class="production-media">' +
+      (render.video ? '<video controls preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(render.video) + '"></video>' : '<div class="empty-state">No playable artifact</div>') + '</div>' +
       '</article>').join('') : '';
   const legacy = legacyItems
     ? '<details class="legacy-productions"><summary>Previous local renders · ' + escapeText(String(productionData.legacyRenders.length)) + '</summary>' + legacyItems + '</details>'
     : '';
-  box.innerHTML = '<div class="production-list">' + current + legacy + '</div>';
+  box.innerHTML = '<div class="production-list">' + readySection + pendingSection + legacy + '</div>';
   initializePlatformPreviews();
+}
+
+function hasReviewArtifact(brief) {
+  return Boolean(brief.media?.videoPath || brief.media?.platformAudio || (brief.media?.previewPath && brief.media?.previewType));
+}
+
+function renderVideoLibraryRow(brief, selected) {
+  const quality = brief.media?.quality;
+  const runtime = brief.recipe?.runtime || brief.recipe?.name || brief.kind.replaceAll('-', ' ');
+  return '<article class="video-library-row" aria-current="' + String(selected) + '"><div><h4>' + escapeText(brief.title) + '</h4><p>' +
+    escapeText(runtime) + ' · ' + escapeText(String(brief.durationSeconds)) + ' seconds · ' + escapeText(brief.channel.replaceAll('_', ' ')) + '</p></div>' +
+    '<div class="video-library-row-meta"><span class="state ' + (quality?.verdict === 'pass' ? 'ready' : 'needs-review') + '">' +
+    escapeText(quality?.verdict === 'pass' ? 'quality passed' : brief.lifecycle.replaceAll('-', ' ')) + '</span>' +
+    '<button class="button" type="button" data-watch-brief="' + escapeText(brief.id) + '"' + (selected ? ' disabled' : '') + '>' +
+    (selected ? 'Now showing' : 'Watch') + '</button></div></article>';
+}
+
+function renderPendingProduction(brief) {
+  const lane = contentLane(brief);
+  const nextStep = brief.continuation?.blocker || 'This plan has not produced a playable artifact yet.';
+  return '<article class="production-plan"><div><h3>' + escapeText(brief.title) + '</h3><p>' + escapeText(brief.summary || nextStep) + '</p>' +
+    '<div class="production-meta"><span class="state ' + escapeText(brief.lifecycle) + '">' + escapeText(brief.lifecycle.replaceAll('-', ' ')) + '</span>' +
+    '<span class="state">' + escapeText(laneLabel(lane)) + '</span><span class="state">' + escapeText(brief.recipe?.name || brief.kind.replaceAll('-', ' ')) + '</span></div></div>' +
+    '<div class="production-plan-actions"><button class="button" type="button" data-edit-brief="' + escapeText(brief.id) + '">Edit brief</button>' +
+    (brief.continuation?.href ? '<a class="button" href="' + escapeText(brief.continuation.href) + '">' + escapeText(brief.continuation.label) + '</a>' : '') +
+    '</div></article>';
 }
 
 function renderLaneConsole() {
   const counts = { 'project-automation':0, 'operator-request':0, 'personal-automation':0 };
   for (const brief of productionData.briefs) counts[contentLane(brief)] += 1;
+  for (const button of document.querySelectorAll('[data-production-lane]')) {
+    button.dataset.count = String(button.dataset.productionLane === 'all'
+      ? productionData.briefs.length
+      : counts[button.dataset.productionLane] || 0);
+  }
   const rows = [
     ['project-automation', 'Project Autopilot', 'Scheduled and event-driven work governed by project policies.'],
     ['operator-request', 'Ask Me', 'Productions created from an operator request or planning session.'],
@@ -1781,13 +2404,13 @@ function renderLaneConsole() {
     '</ul><p>' + escapeText(policySummary) + '</p></details>';
 }
 
-function renderProduction(brief) {
+function renderProduction(brief, options = {}) {
   const quality = brief.media?.quality;
   const platformAudio = brief.media?.platformAudio;
   const media = platformAudio
     ? renderPlatformAudioReview(brief, platformAudio)
     : brief.media?.videoPath
-    ? '<video controls preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(brief.media.videoPath) + '"></video>'
+    ? '<video controls playsinline preload="metadata" aria-label="' + escapeText(brief.title) + ' video" src="/studio/render-file?path=' + encodeURIComponent(brief.media.videoPath) + '#t=0.1"></video>'
     : brief.media?.previewType === 'html' && brief.media?.previewPath
     ? '<iframe title="' + escapeText(brief.title) + ' composition preview" src="/studio/render-file?path=' + encodeURIComponent(brief.media.previewPath) + '"></iframe>'
     : brief.media?.previewType === 'image' && brief.media?.previewPath
@@ -1802,7 +2425,7 @@ function renderProduction(brief) {
       '<div style="grid-column:1/-1"><dt>Attribution</dt><dd>' + escapeText(brief.lyric?.attribution || 'missing') + '</dd></div>' +
       '</dl>'
     : '';
-  const platformSetup = brief.media?.videoPath && !platformAudio ? renderPlatformAudioSetup(brief) : '';
+  const platformSetup = brief.media?.videoPath ? renderPlatformAudioSetup(brief, { open: options.featured }) : '';
   const channelLabel = brief.channel === 'youtube_shorts'
     ? 'YouTube Shorts'
     : brief.channel === 'instagram_reels'
@@ -1816,23 +2439,48 @@ function renderProduction(brief) {
     : brief.continuation?.label;
   const lane = contentLane(brief);
   const automationEvidence = lane === 'operator-request' ? '' : renderAutomationEvidence(brief);
-  return '<article class="production' + (platformAudio ? ' platform-audio-production' : '') + '">' +
-    '<div><h3>' + escapeText(brief.title) + '</h3>' +
+  const workflowEvidence = renderWorkflowEvidence(brief);
+  return '<article class="production' + (platformAudio ? ' platform-audio-production' : '') + (options.featured ? ' featured' : '') + '">' +
+    '<div class="production-info"><h3>' + escapeText(brief.title) + '</h3>' +
     '<p>' + (platformAudio
       ? 'AI animation · ' + escapeText(channelLabel)
       : escapeText(brief.recipe?.name || brief.kind.replaceAll('-', ' ')) + ' · ' + escapeText(brief.projectSlug || 'brand not selected') + ' · ' + escapeText(brief.channel.replaceAll('_', ' '))) + '</p>' +
     '<p>' + summary + '</p>' +
     '<div class="production-meta"><span class="state ' + escapeText(brief.lifecycle) + '">' + escapeText(brief.lifecycle.replaceAll('-', ' ')) + '</span>' +
     '<span class="state">' + escapeText(laneLabel(lane)) + '</span>' +
+    (brief.contentScope === 'mature-enabled' ? '<span class="state needs-review">private mature review</span>' : '') +
     (!platformAudio ? '<span class="state">' + escapeText(brief.recipe?.owner || brief.continuation?.owner || 'Studio') + ' owns next step</span>' : '') +
     (brief.recipe ? '<span class="state">' + escapeText(brief.recipe.spend.label) + '</span><span class="state">' + escapeText(brief.recipe.runtime) + '</span>' : '') +
     (quality ? '<span class="state ' + (quality.verdict === 'pass' ? 'ready' : 'needs-review') + '">quality ' + escapeText(quality.verdict) + (quality.overall ? ' · ' + quality.overall : '') + '</span>' : '') +
     (platformAudio ? '<span class="state ready">verified silent · ' + escapeText(String(platformAudio.reference?.durationSeconds || brief.durationSeconds)) + 's</span>' : '') +
     (brief.kind === 'lyric-video' ? '<span class="state">' + escapeText(String(brief.lyric?.cues?.length || 0)) + ' exact cues</span><span class="state">' + (brief.media?.blender ? 'Blender ' + escapeText(brief.media.blender.version || 'ready') : 'native lyric plates') + '</span>' : '') +
-    '</div>' + automationEvidence + lyricEvidence + '<div class="button-row" style="margin-top:14px"><button class="button" type="button" data-edit-brief="' + escapeText(brief.id) + '">Edit brief</button>' +
+    '</div>' + automationEvidence + workflowEvidence + lyricEvidence + '<div class="button-row" style="margin-top:14px"><button class="button" type="button" data-edit-brief="' + escapeText(brief.id) + '">Edit brief</button>' +
     (brief.kind === 'lyric-video' && brief.media?.videoPath ? '<button class="button primary" type="button" data-review-brief="' + escapeText(brief.id) + '">Review lyric video</button>' : '') +
     (brief.continuation?.href ? '<a class="button" href="' + escapeText(brief.continuation.href) + '">' + escapeText(continuationLabel) + '</a>' : '') +
-    '</div>' + platformSetup + '</div>' + media + '</article>';
+    (brief.media?.videoPath ? '<a class="button' + (options.featured ? ' primary' : '') + '" href="/studio/render-file?path=' + encodeURIComponent(brief.media.videoPath) + '" target="_blank" rel="noreferrer">Open video</a>' : '') +
+    '</div>' + platformSetup + '</div><div class="production-media">' + media + '</div></article>';
+}
+
+function renderWorkflowEvidence(brief) {
+  const stages = brief.workflow?.stages ?? [];
+  const completed = stages.filter((stage) => stage.status === 'completed').length;
+  const cast = brief.cast?.length
+    ? brief.cast.map((entry) => entry.name + ' r' + entry.characterRevision).join(', ')
+    : 'No reusable cast';
+  const model = brief.modelSelection?.profile?.name || brief.modelProfileId || brief.media?.provider || 'not selected';
+  const soundtrack = brief.soundtrack?.lane === 'procedural-draft'
+    ? 'procedural draft · blocks final distribution'
+    : (brief.soundtrack?.lane || 'not selected').replaceAll('-', ' ');
+  const distribution = brief.contentScope === 'mature-enabled'
+    ? 'private review only until normal approvals and evidence pass'
+    : brief.distribution?.receipt ? 'distribution receipt present' : 'not distributed';
+  return '<dl class="production-evidence" aria-label="Workflow evidence">' +
+    '<div><dt>Workflow</dt><dd>' + completed + ' / ' + stages.length + ' stages complete</dd></div>' +
+    '<div><dt>Cast</dt><dd>' + escapeText(cast) + '</dd></div>' +
+    '<div><dt>Model</dt><dd>' + escapeText(model) + '</dd></div>' +
+    '<div><dt>Soundtrack</dt><dd>' + escapeText(soundtrack) + '</dd></div>' +
+    '<div style="grid-column:1/-1"><dt>Distribution</dt><dd>' + escapeText(distribution) + '</dd></div>' +
+    '</dl>';
 }
 
 function renderAutomationEvidence(brief) {
@@ -1866,18 +2514,35 @@ function laneLabel(lane) {
   }[lane] || 'Ask Me';
 }
 
-function renderPlatformAudioSetup(brief) {
-  return '<details class="platform-audio-setup"><summary>Preview with an official platform sound</summary>' +
+function renderPlatformAudioSetup(brief, options = {}) {
+  const reference = brief.media?.platformAudio?.reference || {};
+  const selectedPreset = PLATFORM_SOUND_PRESETS.find((preset) => preset.videoId === reference.videoId) || (!reference.videoId ? PLATFORM_SOUND_PRESETS[0] : null);
+  const defaults = selectedPreset
+    ? { ...selectedPreset, startSeconds:Number(reference.startSeconds ?? selectedPreset.startSeconds) }
+    : {
+        id:'custom',
+        artist:reference.artist || '',
+        title:reference.title || '',
+        videoId:reference.videoId || '',
+        startSeconds:Number(reference.startSeconds || 0),
+      };
+  const optionsHtml = PLATFORM_SOUND_PRESETS.map((preset) => '<option value="' + preset.id + '"' + (preset.id === defaults.id ? ' selected' : '') + '>' + escapeText(preset.title + ' — ' + preset.artist + ' · ' + preset.mood) + '</option>').join('') +
+    '<option value="custom"' + (defaults.id === 'custom' ? ' selected' : '') + '>Use another YouTube song…</option>';
+  return '<details class="platform-audio-setup"' + (options.open ? ' open' : '') + '><summary>' + (reference.videoId ? 'Change soundtrack' : 'Play music with this video') + '</summary>' +
     '<form class="platform-audio-form" data-platform-audio-form data-brief-id="' + escapeText(brief.id) + '">' +
-    '<label>Artist<input name="artist" required placeholder="Shakira"></label>' +
-    '<label>Track title<input name="title" required placeholder="Whenever, Wherever"></label>' +
-    '<label>YouTube video ID<input name="videoId" required minlength="11" maxlength="11" placeholder="weRHyjj34ZE"></label>' +
-    '<label>Spotify track ID <span class="optional">(recommended for local playback)</span><input name="spotifyTrackId" minlength="22" maxlength="22" placeholder="2N7vjHuOfnyF5eUzv5brZ0"></label>' +
-    '<label>Excerpt start (seconds)<input name="startSeconds" required type="number" min="0" max="21600" step=".1" value="0"></label>' +
+    '<label class="wide">Soundtrack<select name="soundtrackPreset" data-soundtrack-preset>' + optionsHtml + '</select></label>' +
+    '<p class="soundtrack-preset-note wide">Recognizable songs stream in the official Spotify player; YouTube remains the sound reference for final attachment.</p>' +
+    '<details class="soundtrack-custom"' + (defaults.id === 'custom' ? ' open' : '') + '><summary>Use or edit a YouTube song</summary><div class="soundtrack-custom-fields">' +
+    '<label>Artist<input name="artist" required value="' + escapeText(defaults.artist) + '" placeholder="Artist"></label>' +
+    '<label>Track title<input name="title" required value="' + escapeText(defaults.title) + '" placeholder="Track title"></label>' +
+    '<label class="wide">YouTube URL<input name="youtubeUrl" type="url" required value="' + escapeText(defaults.videoId ? 'https://www.youtube.com/watch?v=' + defaults.videoId : '') + '" placeholder="https://www.youtube.com/watch?v=..."></label>' +
+    '<label>Spotify track ID <span class="optional">(optional playback)</span><input name="spotifyTrackId" minlength="22" maxlength="22" value="' + escapeText(defaults.spotifyTrackId || reference.spotifyTrackId || '') + '" placeholder="22-character track ID"></label>' +
+    '</div></details>' +
+    '<label>Song start (seconds)<input name="startSeconds" required type="number" min="0" max="21600" step=".1" value="' + escapeText(String(defaults.startSeconds)) + '"></label>' +
     '<label>Preview duration<input name="durationSeconds" required type="number" min="5" max="60" step="1" value="30"></label>' +
     '<label>Attach sound in<select name="targetPlatform"><option value="youtube_shorts"' + (brief.channel === 'youtube_shorts' ? ' selected' : '') + '>YouTube Shorts</option><option value="instagram_reels"' + (brief.channel === 'instagram_reels' ? ' selected' : '') + '>Instagram Reels</option><option value="tiktok">TikTok</option></select></label>' +
-    '<p class="hint wide">The song streams through an official Spotify embed when supplied, with YouTube retained as the final sound reference. The generated upload master contains no audio stream.</p>' +
-    '<div class="button-row wide"><button class="button primary" type="submit">Build synchronized preview</button></div>' +
+    '<p class="hint wide">The song and video play together here. The generated upload master stays silent so you can attach the official sound in Shorts, Reels, or TikTok.</p>' +
+    '<div class="button-row wide"><button class="button primary" type="submit">Play song with video</button></div>' +
     '<div class="feedback wide" aria-live="polite"></div></form></details>';
 }
 
@@ -1886,11 +2551,15 @@ function renderPlatformAudioReview(brief, preview) {
   const receipt = preview.receiptPath ? 'verified receipt' : 'missing receipt';
   const silentMasterPath = preview.silentMasterPath || brief.media?.videoPath;
   const reviewProvider = reference.reviewProvider || (reference.spotifyTrackId ? 'spotify' : 'youtube');
+  const syncGuidance = reviewProvider === 'spotify'
+    ? 'Spotify previews the selected sound. Confirm final timing in the destination platform.'
+    : 'YouTube streams the selected sound for synchronized review. Export stays silent.';
   const previewId = 'platform-' + brief.id.replace(/[^A-Za-z0-9_-]/g, '-');
   return '<section class="platform-audio-review" data-platform-preview data-preview-id="' + escapeText(previewId) + '" data-review-provider="' + escapeText(reviewProvider) + '" data-video-id="' + escapeText(reference.videoId || '') + '" data-spotify-track-id="' + escapeText(reference.spotifyTrackId || '') + '" data-start-seconds="' + escapeText(String(reference.startSeconds || 0)) + '" data-duration-seconds="' + escapeText(String(reference.durationSeconds || brief.durationSeconds)) + '">' +
     '<div class="sync-stage">' +
+    '<div class="soundtrack-now"><span>Playing alongside this video</span><strong>' + escapeText(reference.title || 'Selected song') + ' — ' + escapeText(reference.artist || 'Unknown artist') + '</strong></div>' +
     '<div class="sync-controls"><button class="button primary" type="button" data-platform-play aria-pressed="false">Play synchronized preview</button><button class="button" type="button" data-platform-restart>Restart</button><span class="sync-status" data-sync-status aria-live="polite">Loading the official player…</span></div>' +
-    '<p class="sync-guidance">Spotify previews the feel. YouTube Shorts sets final timing.</p>' +
+    '<p class="sync-guidance">' + syncGuidance + '</p>' +
     '<div class="sync-source"><span>Official sound source</span><div class="' + (reviewProvider === 'spotify' ? 'spotify-player' : 'youtube-player') + '" ' + (reviewProvider === 'spotify' ? 'data-spotify-player' : 'data-youtube-player') + ' id="' + escapeText(previewId) + '-' + escapeText(reviewProvider) + '"></div></div>' +
     '<div class="sync-visual"><span>Silent upload master</span><video muted playsinline preload="metadata" src="/studio/render-file?path=' + encodeURIComponent(silentMasterPath) + '"></video></div>' +
     '<div class="silent-proof"><div><span>Export</span><strong>No audio stream</strong></div><div><span>Evidence</span><strong>' + (preview.receiptPath ? '<a href="/studio/render-file?path=' + encodeURIComponent(preview.receiptPath) + '" target="_blank" rel="noreferrer">' + escapeText(receipt) + ' →</a>' : escapeText(receipt)) + '</strong></div><div><span>Preview start</span><strong>' + formatSeconds(reference.startSeconds || 0) + ' · ' + escapeText(String(reference.durationSeconds || brief.durationSeconds)) + 's</strong></div></div>' +
@@ -2123,6 +2792,13 @@ document.getElementById('production-list').addEventListener('click', (event) => 
     playPlatformPreview(previewRoot, Boolean(event.target.closest('[data-platform-restart]')));
     return;
   }
+  const watchButton = event.target.closest('[data-watch-brief]');
+  if (watchButton) {
+    selectedProductionId = watchButton.dataset.watchBrief;
+    renderProductionList();
+    document.querySelector('.ready-productions')?.scrollIntoView({ block:'start' });
+    return;
+  }
   const button = event.target.closest('[data-edit-brief],[data-review-brief]');
   if (!button) return;
   const briefId = button.dataset.editBrief || button.dataset.reviewBrief;
@@ -2138,6 +2814,25 @@ document.getElementById('production-list').addEventListener('click', (event) => 
       setFeedback('brief-feedback', 'Review the playable artifact and retained rights evidence, then explicitly accept quality or revise the brief.');
     }
   }
+});
+
+document.getElementById('production-list').addEventListener('change', (event) => {
+  const select = event.target.closest('[data-soundtrack-preset]');
+  if (!select) return;
+  const form = select.closest('[data-platform-audio-form]');
+  const customFields = form.querySelector('.soundtrack-custom');
+  const preset = PLATFORM_SOUND_PRESETS.find((entry) => entry.id === select.value);
+  if (!preset) {
+    customFields.open = true;
+    form.querySelector('[name="youtubeUrl"]').focus();
+    return;
+  }
+  form.querySelector('[name="artist"]').value = preset.artist;
+  form.querySelector('[name="title"]').value = preset.title;
+  form.querySelector('[name="youtubeUrl"]').value = 'https://www.youtube.com/watch?v=' + preset.videoId;
+  form.querySelector('[name="spotifyTrackId"]').value = preset.spotifyTrackId;
+  form.querySelector('[name="startSeconds"]').value = String(preset.startSeconds);
+  customFields.open = false;
 });
 
 document.getElementById('production-list').addEventListener('submit', async (event) => {
@@ -2158,7 +2853,7 @@ document.getElementById('production-list').addEventListener('submit', async (eve
         confirm:true,
         reference:{
           provider:'youtube',
-          videoId:String(fields.get('videoId') || '').trim(),
+          youtubeUrl:String(fields.get('youtubeUrl') || '').trim(),
           spotifyTrackId:String(fields.get('spotifyTrackId') || '').trim() || null,
           artist:String(fields.get('artist') || '').trim(),
           title:String(fields.get('title') || '').trim(),
@@ -2175,7 +2870,7 @@ document.getElementById('production-list').addEventListener('submit', async (eve
     feedback.className = 'feedback error wide';
   } finally {
     button.disabled = false;
-    button.textContent = 'Build synchronized preview';
+    button.textContent = 'Play song with video';
   }
 });
 
@@ -2596,7 +3291,11 @@ async function api(path, init) {
     ...init,
   });
   const payload = await response.json();
-  if (!response.ok) throw new Error(typeof payload.error === 'string' ? payload.error : payload.error?.message || 'Request failed');
+  if (!response.ok) {
+    const error = new Error(typeof payload.error === 'string' ? payload.error : payload.error?.message || 'Request failed');
+    error.payload = payload;
+    throw error;
+  }
   return payload.data;
 }
 
@@ -2609,6 +3308,7 @@ function setFeedback(id, message, state) {
 }
 function setBusy(id, busy, label) {
   const button = document.getElementById(id);
+  button.dataset.busy = busy ? 'true' : 'false';
   button.disabled = busy;
   button.textContent = label;
 }
@@ -2620,7 +3320,7 @@ function isStableHttps(value) {
 }
 
 activateTool(TOOLS[0].id);
-loadBriefs('__new__').catch((error) => {
+Promise.all([loadModelOptions(), loadCharacters(), loadBriefs('__new__')]).catch((error) => {
   setFeedback('compose-feedback', 'Video Maker could not load: ' + error.message, 'error');
 });
 </script>

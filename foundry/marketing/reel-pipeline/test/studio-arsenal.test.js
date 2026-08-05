@@ -31,7 +31,7 @@ test('canonical arsenal validates every tool, workflow, recipe, owner, spend cla
   });
   assert.equal(manifest.schema, 'fleet.studio-arsenal.v1');
   assert.equal(manifest.capabilities.length, 6);
-  assert.equal(manifest.recipes.length, 12);
+  assert.equal(manifest.recipes.length, 13);
   assert.equal(manifest.tools.length, 17);
   assert.ok(manifest.specializedRuntimes.some((entry) => entry.id === 'lyric-canvas'));
 });

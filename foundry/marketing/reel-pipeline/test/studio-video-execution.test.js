@@ -13,10 +13,10 @@ import { listRecipeVariants } from '../src/studio/production-catalog.js';
 import { validateVideoArsenalCompleteness } from '../src/studio/video-arsenal-contract.js';
 import { executeVideoVariant } from '../src/studio/video-execution.js';
 
-test('execution registry covers every recipe and decorates all 48 variants', () => {
+test('execution registry covers every recipe and decorates all 49 variants', () => {
   const variants = listRecipeVariants();
-  assert.deepEqual(validateExecutionRegistry({ variants }), { recipes: 12, variants: 48, adapters: 12 });
-  assert.equal(listExecutionAdapters().length, 12);
+  assert.deepEqual(validateExecutionRegistry({ variants }), { recipes: 13, variants: 49, adapters: 13 });
+  assert.equal(listExecutionAdapters().length, 13);
   const decorated = variants.map(describeVariantExecution);
   assert.ok(decorated.every((variant) => variant.execution.fixture.ready));
   assert.ok(decorated.every((variant) => variant.execution.adapter && variant.execution.owner));
@@ -25,10 +25,10 @@ test('execution registry covers every recipe and decorates all 48 variants', () 
 
 test('complete arsenal contract fails closed on null, duplicate, unknown, and stale identifiers', () => {
   assert.deepEqual(validateVideoArsenalCompleteness(), {
-    variants: 48,
-    recipes: 12,
-    adapters: 12,
-    galleryItems: 48,
+    variants: 49,
+    recipes: 13,
+    adapters: 13,
+    galleryItems: 49,
   });
   const variants = listRecipeVariants();
   assert.throws(
@@ -95,4 +95,17 @@ test('real execution fails on missing declared inputs and accepts an owner execu
   assert.equal(result.mode, 'real');
   assert.equal(result.owner, 'Brand Reel');
   assert.equal(result.evidence.ownerManifestPath, path.join(root, 'manifest.json'));
+});
+
+test('exact selected local model fails before execution instead of silently continuing in Forge', async () => {
+  const brief = {
+    id: 'brief-local-ltx',
+    recipeId: 'coherent-local-film',
+    recipeOptions: { variantId: 'coherent-local-film--continuity-strict' },
+    modelProfileId: 'ltx-2.3-mlx-q4',
+  };
+  await assert.rejects(
+    executeVideoVariant(brief, { mode: 'real' }),
+    /ltx-2\.3-mlx-q4 is selected, but no registered studio-local-video executor/i,
+  );
 });

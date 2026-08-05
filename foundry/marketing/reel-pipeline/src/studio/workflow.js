@@ -23,11 +23,15 @@ export function scriptToBrief(script, options = {}) {
     engine = 'mock',
     voiceRotation = false,
     hook,
+    summary,
     cta,
     creativeDirection,
     recordingUrl,
     literalScenes,
     renderOptions,
+    cast,
+    soundtrack,
+    matureAssertions,
   } = options;
 
   const body = [
@@ -51,6 +55,8 @@ export function scriptToBrief(script, options = {}) {
     projectSlug,
     channel,
     title: script.topic,
+    summary,
+    creativeDirection,
     hook: hook ?? script.hook,
     body,
     cta,
@@ -59,6 +65,9 @@ export function scriptToBrief(script, options = {}) {
     recordingUrl,
     literalScenes,
     renderOptions,
+    cast,
+    soundtrack,
+    matureAssertions,
   });
 
   const baseVoice = script.voice ?? DEFAULT_VOICE;
@@ -91,6 +100,9 @@ export async function runFacelessWorkflow({
   recordingUrl,
   literalScenes,
   renderOptions,
+  cast,
+  soundtrack,
+  matureAssertions,
   outputDir = './tmp/studio/faceless',
   postHandoff = false,
   ideaId,
@@ -121,11 +133,15 @@ export async function runFacelessWorkflow({
     engine,
     voiceRotation,
     hook,
+    summary:niche,
     cta,
     creativeDirection,
     recordingUrl,
     literalScenes,
     renderOptions,
+    cast,
+    soundtrack,
+    matureAssertions,
   });
   const [titles, tags] = await Promise.all([
     generateTitles({ topic, llm }),

@@ -39,6 +39,13 @@ test('scriptToBrief produces a valid brief with a single voice by default', asyn
   assert.equal(new Set(voicePlan.scenes.map((scene) => scene.voice)).size, 1);
 });
 
+test('short-form scripts preserve a selected reel duration', async () => {
+  const script = await generateScript({ topic: 'night out carousel', durationSeconds: 13, llm: offlineLlm });
+  const { brief } = scriptToBrief(script, { engine: 'night-out-carousel' });
+  assert.equal(script.targetDurationSeconds, 13);
+  assert.equal(brief.durationSeconds, 13);
+});
+
 test('voice rotation requires explicit opt-in', async () => {
   const script = await generateScript({ topic: 'meal prep basics', durationSeconds: 60, llm: offlineLlm });
   const { voicePlan } = scriptToBrief(script, { engine: 'mock', voiceRotation: true });
