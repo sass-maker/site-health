@@ -4,6 +4,7 @@
  *
  * Usage:
  *   node foundry/ops/scripts/geo-observatory-record.mjs <observations.json>
+ *   node foundry/ops/scripts/geo-observatory-record.mjs --root-search <observations.json>
  *   node foundry/ops/scripts/geo-observatory-record.mjs --report-only
  *
  * observations.json: array of entries:
@@ -37,7 +38,7 @@ const REPORT_PATH = join(FLEET_ROOT, 'foundry/ops/docs/geo-observatory-latest.md
 
 const CLASSES = new Set(['A', 'B', 'C']);
 
-function loadConfig() {
+function loadContracts() {
   const observatory = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
   const projects = JSON.parse(readFileSync(PROJECTS_PATH, 'utf8')).projects ?? [];
   const brands = validateRootBrandContract(
@@ -49,7 +50,10 @@ function loadConfig() {
     brands,
     projects,
   );
-  return mergeRootSearchQueriesIntoObservatory(observatory, rootQueries);
+  return {
+    config: mergeRootSearchQueriesIntoObservatory(observatory, rootQueries),
+    rootQueries,
+  };
 }
 
 function loadLedger() {
@@ -134,6 +138,53 @@ export function validate(entries, cfg) {
       errors.push(`${where}: notes must provide a factual explanation`);
     }
   });
+  return errors;
+}
+
+export function validateRootSearchRun(entries, cfg, rootsByDomain) {
+  const errors = validate(entries, cfg);
+  const expected = new Map();
+  for (const root of rootsByDomain.values()) {
+    for (const query of root.activeQueries) {
+      expected.set(`${root.projectId}|${query.id}`, {
+        product: root.projectId,
+        qid: query.id,
+        query: query.text,
+      });
+    }
+  }
+
+  if (entries.length !== expected.size) {
+    errors.push(`root search run must contain exactly ${expected.size} observations; received ${entries.length}`);
+  }
+
+  const submitted = new Map();
+  const dates = new Set();
+  for (const entry of entries) {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue;
+    const key = `${entry.product}|${entry.qid}`;
+    if (!expected.has(key)) {
+      errors.push(`unexpected root search observation: ${key}`);
+      continue;
+    }
+    submitted.set(key, (submitted.get(key) ?? 0) + 1);
+    if (typeof entry.date === 'string') dates.add(entry.date);
+  }
+
+  for (const [key, observation] of expected) {
+    const count = submitted.get(key) ?? 0;
+    if (count === 0) errors.push(`missing root search observation: ${key}`);
+    if (count > 1) errors.push(`duplicate root search observation: ${key}`);
+    const entry = entries.find((candidate) =>
+      candidate?.product === observation.product && candidate?.qid === observation.qid);
+    if (entry && entry.query !== observation.query) {
+      errors.push(`root search query text mismatch: ${key}`);
+    }
+  }
+
+  if (dates.size !== 1) {
+    errors.push(`root search run must use one observation date; received ${dates.size}`);
+  }
   return errors;
 }
 
@@ -230,10 +281,15 @@ export function generateReport(ledger, cfg) {
 }
 
 function main() {
-  const cfg = loadConfig();
-  const arg = process.argv[2];
+  const { config: cfg, rootQueries } = loadContracts();
+  const args = process.argv.slice(2);
+  const rootSearchMode = args[0] === '--root-search';
+  const arg = rootSearchMode ? args[1] : args[0];
   if (!arg) {
-    console.error('Usage: geo-observatory-record.mjs <observations.json> | --report-only');
+    console.error(
+      'Usage: geo-observatory-record.mjs <observations.json> | ' +
+      '--root-search <observations.json> | --report-only',
+    );
     process.exit(2);
   }
 
@@ -243,7 +299,9 @@ function main() {
       console.error('observations file must be a non-empty JSON array');
       process.exit(2);
     }
-    const errors = validate(entries, cfg);
+    const errors = rootSearchMode
+      ? validateRootSearchRun(entries, cfg, rootQueries)
+      : validate(entries, cfg);
     if (errors.length) {
       console.error(`Rejected — ${errors.length} invalid entr${errors.length === 1 ? 'y' : 'ies'}:`);
       for (const e of errors) console.error(`  - ${e}`);

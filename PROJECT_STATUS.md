@@ -62,6 +62,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-05 — Weekly root-search evidence became complete or no-write:**
+  Bound the enabled GEO Observatory schedule to the canonical ten-root query
+  contract: exactly one brand, exact-domain, category, and problem observation
+  per root on one date. The recorder now rejects missing, duplicate, extra,
+  historical, rewritten, or mixed-date batches before appending, while the
+  legacy all-project query configuration and ledger history remain readable.
 - **2026-08-05 — SaaS Maker's full learning article became agent-readable:**
   Replaced the article's summary-only Markdown counterpart with the complete
   published essay, including its methodology, limitations, implementation
@@ -651,7 +657,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   canonical HTTPS hostname.
 - Validated ten-root search query contract with stable brand, exact-domain,
   category, and problem intents; explicit collision metadata; additive query
-  history; and provider-honest per-query evidence in project Search details.
+  history; provider-honest per-query evidence in project Search details; and
+  one enabled weekly job that records the complete same-date 40-query batch or
+  leaves the ledger unchanged.
 - Owner-facing Marketing → AI Visibility view covering visibility,
   recommendation, rank, citations, competitor share, coverage, trend,
   freshness, and observed cost without exposing provider-owned raw responses.

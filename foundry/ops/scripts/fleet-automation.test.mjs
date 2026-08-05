@@ -114,3 +114,22 @@ test("portable cron installer contains no checked-in user path", () => {
   assert.match(printed.stdout, /FLEET_ROOT=/);
   assert.match(printed.stdout, new RegExp(resolve(fleetOpsRoot, "scripts/agent-bin/run-codex-cron").replaceAll("/", "\\/")));
 });
+
+test("weekly GEO cron is pinned to the atomic ten-root search contract", () => {
+  const jobs = readFileSync(resolve(fleetOpsRoot, "automation/codex-cron/jobs.tsv"), "utf8");
+  const weeklyJob = jobs.split("\n").find((line) => line.startsWith("weekly-geo-observatory\t"));
+  const prompt = readFileSync(
+    resolve(fleetOpsRoot, "automation/codex-cron/prompts/weekly-geo-observatory.md"),
+    "utf8",
+  );
+  const policies = JSON.parse(readFileSync(resolve(fleetOpsRoot, "automation/job-policies.json"), "utf8"));
+  const policy = policies.jobs.find((entry) => entry.id === "weekly-geo-observatory");
+
+  assert.match(weeklyJob, /\tyes\t30 8 \* \* 1\t/);
+  assert.match(weeklyJob, /\tprompts\/weekly-geo-observatory\.md\t/);
+  assert.match(prompt, /root-search-queries\.json/);
+  assert.match(prompt, /exactly 40\s+observations/);
+  assert.match(prompt, /geo-observatory-record\.mjs --root-search/);
+  assert.match(policy.bounds, /exactly 10 roots x 4 intents/);
+  assert.match(policy.idempotency, /all 40 active contracted queries/);
+});
