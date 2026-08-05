@@ -17,11 +17,15 @@ classify coarsely, record honestly.
 
 ## Protocol
 
-1. **Load config**: `foundry/ops/config/geo-observatory.json` plus the active
-   root-domain queries in `foundry/ops/config/root-search-queries.json`. Never
-   rephrase an existing query (`qid` history breaks); to track something new,
-   ADD a query with a new qid and retain the old one as historical.
-2. **Probe**: for each product's queries, run live web search (WebSearch
+1. **Load config**: choose the scope named by the caller.
+   - **Scheduled weekly scope**: load only the active queries in
+     `foundry/ops/config/root-search-queries.json`. This is the canonical ten
+     roots × four intents contract; do not add the legacy all-project queries.
+   - **Explicit broad/manual scope**: load
+     `foundry/ops/config/geo-observatory.json` plus the root contract.
+   Never rephrase an existing query (`qid` history breaks); to track something
+   new, ADD a query with a new qid and retain the old one as historical.
+2. **Probe**: for each query in the selected scope, run live web search (WebSearch
    tool). Look at the top ~10 organic results. Use the configured query
    verbatim and record `query` with that exact text plus
    `"source": "web-search"`. Never substitute a scraper, cached SERP, generic
@@ -42,10 +46,15 @@ classify coarsely, record honestly.
    query returned no organic results.
 4. **Record**: write all entries to a temp JSON file
    (`[{date, product, qid, query, source: "web-search", class, top: [urls],
-   notes}]`, date = today YYYY-MM-DD), then:
+   notes}]`, date = today YYYY-MM-DD). For the scheduled weekly scope, require
+   exactly 40 entries on the same date, then run:
+   `node foundry/ops/scripts/geo-observatory-record.mjs --root-search <file>`
+   For an explicitly requested broad/manual scope, run:
    `node foundry/ops/scripts/geo-observatory-record.mjs <file>`
    The script validates (unknown product/qid/class → rejected, nothing
-   written) and regenerates `foundry/ops/docs/geo-observatory-latest.md`.
+   written). Root mode additionally rejects missing, duplicate, extra,
+   historical, rewritten, or mixed-date entries. A valid batch regenerates
+   `foundry/ops/docs/geo-observatory-latest.md`.
 5. **Commit + push** the ledger + report from the fleet root:
    `git add foundry/ops/data/geo-observatory foundry/ops/docs/geo-observatory-latest.md`
    with message `geo-observatory: <date> run (<n> observations)`.

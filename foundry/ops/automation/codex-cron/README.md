@@ -7,8 +7,12 @@ deterministic jobs that do not need a model, including the nightly learning
 source sync.
 
 The weekly GEO Observatory is a bounded conversational job because comparable
-SERP classification requires live web search and coarse judgment. It writes
-only its validated ledger/report pair and uses no paid search API.
+SERP classification requires live web search and coarse judgment. Its workload
+comes only from the active canonical ten-root search contract: ten roots ×
+brand, exact-domain, category, and problem intent. The recorder accepts the
+complete same-date 40-observation batch or writes nothing. It preserves the
+legacy all-project ledger history, writes only the validated ledger/report
+pair, and uses no paid search API.
 
 The weekly Spend Guard is checked in as `enabled=no`. It remains inert even
 when the managed cron block is installed. Its read-only prompt and deterministic
