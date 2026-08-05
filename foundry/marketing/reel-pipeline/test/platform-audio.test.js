@@ -10,6 +10,7 @@ import {
   createPlatformAudioPreview,
   normalizePlatformAudioReference,
   probeMedia,
+  youtubeVideoIdFromUrl,
 } from '../src/platform-audio.js';
 
 const execFileAsync = promisify(execFile);
@@ -43,6 +44,37 @@ test('platform audio reference accepts a bounded YouTube embed and rejects direc
   assert.throws(
     () => normalizePlatformAudioReference({ ...reference, spotifyTrackId: 'not-a-track' }),
     /22-character Spotify track identifier/i,
+  );
+});
+
+test('platform audio reference accepts normal official YouTube URLs', () => {
+  for (const youtubeUrl of [
+    'https://www.youtube.com/watch?v=weRHyjj34ZE',
+    'https://youtu.be/weRHyjj34ZE?t=47',
+    'https://www.youtube.com/shorts/weRHyjj34ZE',
+    'https://music.youtube.com/watch?v=weRHyjj34ZE&list=example',
+  ]) {
+    assert.equal(youtubeVideoIdFromUrl(youtubeUrl), 'weRHyjj34ZE');
+    const normalized = normalizePlatformAudioReference({
+      ...reference,
+      videoId: undefined,
+      spotifyTrackId: undefined,
+      youtubeUrl,
+    });
+    assert.equal(normalized.videoId, 'weRHyjj34ZE');
+    assert.equal(normalized.youtubeUrl, 'https://www.youtube.com/watch?v=weRHyjj34ZE');
+    assert.equal(normalized.reviewProvider, 'youtube');
+  }
+});
+
+test('platform audio reference rejects non-YouTube URLs and conflicting identifiers', () => {
+  assert.throws(
+    () => normalizePlatformAudioReference({ ...reference, videoId: undefined, youtubeUrl: 'https://example.test/watch?v=weRHyjj34ZE' }),
+    /hosted by YouTube/i,
+  );
+  assert.throws(
+    () => normalizePlatformAudioReference({ ...reference, youtubeUrl: 'https://youtu.be/dQw4w9WgXcQ' }),
+    /does not match/i,
   );
 });
 

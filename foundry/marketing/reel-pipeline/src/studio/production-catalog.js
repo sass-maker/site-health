@@ -1,6 +1,8 @@
 import arsenalConfig from '../../config/studio-arsenal.json' with { type: 'json' };
 import { POST_READY_VOICE_CATALOG } from '../post-ready/voices.js';
 import brandConfig from '../../config/brand-channels.json' with { type: 'json' };
+import { resolveModelProfile, resolveThemePack } from './model-options.js';
+import { soundtrackDistributionBlockers } from './soundtrack.js';
 
 const CHANNELS = [...arsenalConfig.channels];
 const QUALITY_TIERS = [...arsenalConfig.qualityTiers];
@@ -173,6 +175,19 @@ function readinessFor(definition, context) {
   const brief = context.brief ?? null;
   const missing = missingBriefRequirements(definition, brief);
   if (missing.length) return { state: 'needs-input', ready: false, blocker: `Add ${missing.join(', ')} before continuing.` };
+  if (brief && definition.supports?.modelProfiles) {
+    try {
+      const resolved = resolveModelProfile(brief.modelProfileId, {
+        ...(context.modelOptions ?? {}),
+        generationMode: definition.supports.generationMode,
+      });
+      if (!resolved.profile.readiness.ready) {
+        return { state: 'needs-runtime', ready: false, blocker: resolved.profile.readiness.blocker };
+      }
+    } catch (error) {
+      return { state: 'needs-runtime', ready: false, blocker: error.message };
+    }
+  }
   if (definition.engine === 'html-composition') {
     const capability = context.htmlCapability;
     if (!capability?.ready) return {
@@ -254,6 +269,9 @@ function distributionBlockersFor(brief) {
   if (!brief.sourceEvidence?.claim) missing.push('a source-backed claim');
   if (!brief.sourceEvidence?.destinationUrl) missing.push('a destination URL');
   if (brief.sourceEvidence?.rightsStatus !== 'approved') missing.push('approved source rights');
+  const theme = brief.recipeId ? resolveThemePack(brief.themePackId, brief.request) : null;
+  if (theme?.commercialRightsRequired && !brief.themeRightsEvidence) missing.push(`commercial rights evidence for ${theme.name}`);
+  missing.push(...soundtrackDistributionBlockers(brief.soundtrack));
   if (brief.approval?.creativeStatus !== 'approved') missing.push('creative approval');
   if (!(brief.media?.quality?.verdict === 'pass' || brief.approval?.qualityAccepted === true)) missing.push('accepted quality evidence');
   if (!brief.cta) missing.push('a call to action');

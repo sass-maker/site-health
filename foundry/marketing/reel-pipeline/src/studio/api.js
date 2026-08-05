@@ -45,8 +45,11 @@ import {
   openRepresentativeExploreGalleryPoster,
 } from './explore-gallery.js';
 import { executeVideoVariant } from './video-execution.js';
-import { getExecutionAdapter, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
+import { CharacterDirectoryStore, validateMatureCast, validateMatureConcept } from './character-directory.js';
+import { probeVoiceTranscription, saveVoiceRecording, transcribeVoiceRecording } from './voice-intake.js';
+import { getExecutionAdapter, missingExecutionInputs, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
 import { executeVideoMix } from './video-mix.js';
+import { listModelProfiles, listThemePacks, resolveModelProfile, resolveThemePack } from './model-options.js';
 
 const FACELESS_ENGINES = new Set(['mock', 'kokoro']);
 
@@ -154,7 +157,19 @@ export async function listRenders(options) {
   return renders;
 }
 
-const FILE_TYPES = { '.mp4': 'video/mp4', '.png': 'image/png', '.html': 'text/html; charset=utf-8', '.md': 'text/plain; charset=utf-8', '.json': 'application/json' };
+const FILE_TYPES = {
+  '.mp4': 'video/mp4',
+  '.mp3': 'audio/mpeg',
+  '.wav': 'audio/wav',
+  '.m4a': 'audio/mp4',
+  '.aac': 'audio/aac',
+  '.flac': 'audio/flac',
+  '.ogg': 'audio/ogg',
+  '.png': 'image/png',
+  '.html': 'text/html; charset=utf-8',
+  '.md': 'text/plain; charset=utf-8',
+  '.json': 'application/json',
+};
 
 async function serveRenderFile(rawPath, options) {
   const resolved = path.resolve(String(rawPath ?? ''));
@@ -192,13 +207,47 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
     const raw = await openRepresentativeExploreGalleryPoster(decodeURIComponent(representativePosterMatch[1]), options);
     return raw ? { status: 200, raw } : { status: 404, body: { error: 'representative gallery poster not found' } };
   }
+  if (method === 'GET' && tool === 'model-options') {
+    return {
+      status: 200,
+      body: { data: { themePacks: listThemePacks(), modelProfiles: listModelProfiles(options.modelOptions) } },
+    };
+  }
   const galleryMediaMatch = tool.match(/^explore-gallery\/([^/]+)\/media$/);
   if (method === 'GET' && galleryMediaMatch) {
     const raw = await openExploreGalleryMedia(decodeURIComponent(galleryMediaMatch[1]), options);
     return raw ? { status: 200, raw } : { status: 404, body: { error: 'gallery sample not found' } };
   }
   const briefStore = () => options.briefStore ?? new MarketingBriefStore(options.briefStoreOptions);
+  const characterStore = () => options.characterStore ?? new CharacterDirectoryStore(options.characterStoreOptions);
   await ensureProductionReadiness(options);
+
+  if (method === 'GET' && tool === 'voice-readiness') {
+    return { status: 200, body: { data: await probeVoiceTranscription(options.voiceIntakeOptions) } };
+  }
+  if (method === 'POST' && tool === 'voice-intake') {
+    const body = await readBody();
+    const voiceOptions = options.voiceIntakeOptions ?? {};
+    const recording = await saveVoiceRecording(body, voiceOptions);
+    const readiness = await probeVoiceTranscription(voiceOptions);
+    if (!readiness.ready) {
+      return { status: 409, body: { error: readiness.blocker, data: { recording, readiness } } };
+    }
+    const transcription = await transcribeVoiceRecording(recording, { ...voiceOptions, readiness });
+    return { status: 201, body: { data: transcription } };
+  }
+  if (method === 'GET' && tool === 'characters') {
+    return { status: 200, body: { data: await characterStore().list() } };
+  }
+  if (method === 'POST' && tool === 'characters') {
+    const body = await readBody();
+    return { status: 201, body: { data: await characterStore().create(body ?? {}) } };
+  }
+  const characterMatch = tool.match(/^characters\/([^/]+)$/);
+  if (characterMatch && method === 'PATCH') {
+    const body = await readBody();
+    return { status: 200, body: { data: await characterStore().update(decodeURIComponent(characterMatch[1]), body ?? {}) } };
+  }
 
   if (method === 'GET' && tool === 'arsenal') {
     const brief = query.briefId ? await briefStore().get(query.briefId) : null;
@@ -214,6 +263,7 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       automationPolicyOptions: options.automationPolicyOptions,
       recipeContext,
       capabilityOptions: capabilityOptions(options),
+      modelOptions: options.modelOptions,
     });
     return { status: 200, body: { data } };
   }
@@ -242,6 +292,8 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
           projects: listProductionProjects(),
           ideas: query.projectSlug ? await store.listIdeas({ projectSlug: query.projectSlug, lane: 'operator-request' }) : [],
           recipes: listProductionRecipes(context),
+          themePacks: listThemePacks(),
+          modelProfiles: listModelProfiles(options.modelOptions),
         },
       },
     };
@@ -312,6 +364,11 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
       ideaId: idea.id,
       recipeId: recipe.id,
       recipeOptions,
+      themePackId: body?.themePackId ?? 'auto',
+      modelProfileId: body?.modelProfileId ?? 'auto',
+      modelPriorities: body?.modelPriorities,
+      contentScope: body?.contentScope,
+      themeRightsEvidence: body?.themeRightsEvidence,
       kind: recipe.kind,
       engine: recipe.engine,
       channel: recipeOptions.channel,
@@ -338,7 +395,11 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
     const draft = body?.request
       ? await generateMarketingBriefDraft(body.request, { llm: options.llm, now: options.now })
       : body;
-    const brief = await briefStore().create({ ...draft, ...(body?.fields ?? {}) });
+    const fields = { ...(body?.fields ?? {}) };
+    if (body?.source || body?.mode) {
+      fields.workflow = { ...(fields.workflow ?? {}), ...(body?.source ? { source: body.source } : {}), mode: body?.mode ?? fields.workflow?.mode };
+    }
+    const brief = await briefStore().create({ ...draft, ...fields });
     return { status: 201, body: { data: decorateBrief(brief, options) } };
   }
   const briefMatch = tool.match(/^briefs\/([^/]+)$/);
@@ -350,6 +411,29 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   if (briefMatch && method === 'PATCH') {
     const body = await readBody();
     const brief = await briefStore().update(decodeURIComponent(briefMatch[1]), body ?? {});
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  const workflowMatch = tool.match(/^briefs\/([^/]+)\/workflow$/);
+  if (workflowMatch && method === 'PATCH') {
+    const body = await readBody();
+    const brief = await briefStore().setWorkflowMode(
+      decodeURIComponent(workflowMatch[1]),
+      body?.mode,
+      { paused: body?.paused },
+    );
+    return { status: 200, body: { data: decorateBrief(brief, options) } };
+  }
+  const workflowStageMatch = tool.match(/^briefs\/([^/]+)\/workflow\/([^/]+)$/);
+  if (workflowStageMatch && method === 'POST') {
+    const body = await readBody();
+    if (typeof body?.actionId !== 'string' || !body.actionId.trim()) throw new Error('registered workflow actionId is required');
+    const allowed = ['actionId', 'status', 'output', 'evidence', 'blockers', 'error', 'invalidateDownstream'];
+    const patch = Object.fromEntries(allowed.filter((key) => body?.[key] !== undefined).map((key) => [key, body[key]]));
+    const brief = await briefStore().updateWorkflowStage(
+      decodeURIComponent(workflowStageMatch[1]),
+      decodeURIComponent(workflowStageMatch[2]),
+      patch,
+    );
     return { status: 200, body: { data: decorateBrief(brief, options) } };
   }
   const refineMatch = tool.match(/^briefs\/([^/]+)\/refine$/);
@@ -632,8 +716,11 @@ async function executeMarketingBrief(id, body, options, store) {
   if (brief.recipeId) {
     const actions = productionActions(brief, productionContext(options));
     if (!actions.build.enabled) throw new Error(actions.build.blocker ?? 'video recipe is not ready');
-    if (actions.build.kind === 'continue') {
-      if (body.mode === 'real') {
+    const directRecipeExecution = body.mode !== 'fixture'
+      && (actions.build.kind === 'continue'
+        ? body.mode === 'real'
+        : !['faceless', 'lyric-video'].includes(brief.kind));
+    if (directRecipeExecution) {
         const execution = await executeVideoVariant(brief, {
           mode: 'real',
           inputs: body.inputs ?? brief.executionInputs ?? {},
@@ -653,7 +740,8 @@ async function executeMarketingBrief(id, body, options, store) {
           },
         });
         return { brief: decorateBrief(updated, options), production: execution, executed: true };
-      }
+    }
+    if (actions.build.kind === 'continue') {
       return { brief: decorateBrief(brief, options), continuation: actions.build, executed: false };
     }
   }
@@ -709,6 +797,16 @@ async function executeMarketingBrief(id, body, options, store) {
       });
       return { brief: decorateBrief(updated, options), production: execution ?? render, executed: true };
     }
+    const realInputs = { ...(brief.executionInputs ?? {}), ...(body.inputs ?? {}) };
+    if (brief.recipeId) {
+      const missing = missingExecutionInputs(brief.recipeId, realInputs);
+      if (missing.length) throw new Error(`Add ${missing.join(', ')} before real execution.`);
+    }
+    let matureAssertions = null;
+    if (brief.contentScope === 'mature-enabled') {
+      validateMatureConcept([brief.request, brief.summary, brief.creativeDirection].filter(Boolean).join('\n'));
+      matureAssertions = validateMatureCast(brief.cast ?? []).assertions;
+    }
     const summary = await runFacelessWorkflow({
       topic: brief.title,
       niche: brief.summary,
@@ -721,7 +819,19 @@ async function executeMarketingBrief(id, body, options, store) {
       cta: brief.cta,
       creativeDirection: brief.creativeDirection,
       voice: brief.recipeOptions?.values?.voice,
-      renderOptions: brief.recipeOptions?.values,
+      renderOptions: {
+        ...(brief.recipeOptions?.values ?? {}),
+        ...realInputs,
+        themePackId: brief.themePackId,
+        modelProfileId: brief.modelProfileId,
+        contentScope: brief.contentScope,
+        ...((brief.themeRightsEvidence ?? realInputs.rightsEvidence)
+          ? { rightsEvidence: brief.themeRightsEvidence ?? realInputs.rightsEvidence }
+          : {}),
+      },
+      cast: brief.cast,
+      soundtrack: brief.soundtrack,
+      matureAssertions,
       ideaId: brief.ideaId ?? undefined,
       recordingUrl: brief.recipeOptions?.values?.approvedAssetPath || undefined,
       literalScenes: brief.engine === 'blender' ? [{
@@ -798,8 +908,26 @@ function decorateBrief(brief, options) {
   const capability = evaluateStudioCapability(brief.kind, brief, capabilityOptions(options));
   const actions = productionActions(brief, productionContext(options));
   const continuation = brief.recipeId ? continuationFromAction(actions.build) : continuationForBrief(brief, capabilityOptions(options));
+  const theme = brief.recipeId ? resolveThemePack(brief.themePackId, brief.request) : null;
+  let modelSelection = null;
+  if (brief.recipeId === 'night-out-carousel') {
+    try {
+      const resolved = resolveModelProfile(brief.modelProfileId, { ...(options.modelOptions ?? {}), generationMode: 'image-to-reel' });
+      modelSelection = {
+        requestedProfileId: brief.modelProfileId,
+        profile: resolved.profile,
+        selectionMode: resolved.selectionMode,
+        reason: resolved.reason,
+      };
+    } catch (error) {
+      const requested = listModelProfiles(options.modelOptions).find((entry) => entry.id === brief.modelProfileId);
+      modelSelection = { requestedProfileId: brief.modelProfileId, profile: requested ?? null, selectionMode: brief.modelProfileId === 'auto' ? 'auto' : 'explicit', reason: null, blocker: error.message };
+    }
+  }
   return {
     ...brief,
+    theme,
+    modelSelection,
     capability,
     recipe: brief.recipeId ? getProductionRecipe(brief.recipeId, { ...productionContext(options), brief }) : null,
     actions,
@@ -835,6 +963,7 @@ function productionContext(options) {
     htmlCapability: options.htmlCapability ?? null,
     kokoroReady: kokoroCapability.ready,
     kokoroBlocker: kokoroCapability.blocker,
+    modelOptions: options.modelOptions,
   };
 }
 

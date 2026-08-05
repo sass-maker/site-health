@@ -2,8 +2,8 @@
   "schema": "fleet.video-explore-gallery-representatives.v1",
   "version": 1,
   "coverage": {
-    "exactOptionCount": 48,
-    "totalCapabilityCount": 12,
+    "exactOptionCount": 49,
+    "totalCapabilityCount": 13,
     "provenCapabilityCount": 9,
     "proofCount": 14,
     "unproven": [
@@ -18,6 +18,10 @@
       {
         "recipeId": "product-proof",
         "reason": "Quality-gated: the available slideshow did not demonstrate a complete, legible product interaction."
+      },
+      {
+        "recipeId": "night-out-carousel",
+        "reason": "Exact option fixture exists; no substantive owner-approved representative proof is available yet."
       }
     ]
   },

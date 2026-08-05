@@ -76,8 +76,8 @@
       "id": "coherent-film",
       "name": "Coherent film",
       "owner": "Forge",
-      "description": "Compose approved evidence and generated shots through a versioned Film style.",
-      "required": ["projectSlug", "creativeDirection", "sourceEvidence.rightsStatus"],
+      "description": "Experiment with generated shots through a versioned Film style; publication evidence is checked later.",
+      "required": ["creativeDirection"],
       "action": { "kind": "continue", "label": "Continue in Forge", "href": "https://reels.sassmaker.com/forge" }
     },
     {
@@ -250,14 +250,15 @@
       "group": "Generative and 3D",
       "kind": "coherent-film",
       "engine": "ltx",
-      "delivery": "continuation",
+      "delivery": "final-video",
       "outputStyle": "Coherent generated film",
-      "owner": "Forge",
+      "owner": "Marketing Studio",
       "spend": "local-compute",
-      "runtime": "Forge local model",
-      "description": "Plan and render generated shots through the versioned local-model Forge workflow.",
-      "requirements": ["approved source rights", "ready local model"],
-      "action": { "kind": "continue", "label": "Continue in Forge", "href": "https://reels.sassmaker.com/forge" },
+      "runtime": "Registered local video model",
+      "description": "Plan and render private generated-shot experiments through the exact selected local-model executor.",
+      "requirements": ["ready local model"],
+      "supports": { "themePacks": true, "generationMode": "text-to-video", "modelProfiles": true },
+      "action": { "kind": "execute", "label": "Create local video", "href": null },
       "defaults": { "durationSeconds": 20, "qualityTier": "high", "variantCount": 2 },
       "options": [{ "id": "continuity", "label": "Continuity", "type": "select", "choices": ["strict", "balanced", "experimental"], "default": "strict" }]
     },
@@ -297,6 +298,23 @@
         { "id": "visualStyle", "label": "Visual style", "type": "select", "choices": ["literal-cinematic", "kinetic-type"], "default": "literal-cinematic" },
         { "id": "useBlender", "label": "Generate Blender plates", "type": "boolean", "default": false }
       ]
+    },
+    {
+      "id": "night-out-carousel",
+      "name": "Night Out carousel",
+      "group": "Fast local",
+      "kind": "faceless",
+      "engine": "night-out-carousel",
+      "delivery": "final-video",
+      "outputStyle": "Bouncy themed-image party carousel",
+      "owner": "Marketing Studio",
+      "spend": "local-compute",
+      "runtime": "WAI image generation + Chrome + FFmpeg",
+      "description": "Prompt four local themed party cards, then bounce through them over an original funk bed. Approved image manifests remain supported.",
+      "requirements": [],
+      "supports": { "themePacks": true, "generationMode": "image-to-reel", "modelProfiles": true },
+      "defaults": { "durationSeconds": 13, "qualityTier": "high", "variantCount": 1 },
+      "options": []
     }
   ],
   "tools": [

@@ -33,6 +33,11 @@ async function startServer(studioOverrides = {}) {
       llm: new StudioLlm({ apiKey: '' }),
       ideaStore: new IdeaStore({ filePath: path.join(scratch, 'ideas.json') }),
       briefStore: new MarketingBriefStore({ filePath: path.join(scratch, 'briefs.json') }),
+      characterStoreOptions: { filePath: path.join(scratch, 'characters.json') },
+      voiceIntakeOptions: {
+        artifactDir: path.join(scratch, 'voice'),
+        commandRunner: async () => { throw new Error('runtime missing'); },
+      },
       facelessOutputDir: path.join(scratch, 'faceless'),
       artifactRoots: [scratch],
       galleryRoot: scratch,
@@ -107,9 +112,28 @@ test('studio server routes', async (t) => {
       'Guided app demo',
       'Coherent film',
       'Lyric video',
+      'Night Out carousel',
+      'id="quick-theme"',
+      'id="quick-model"',
+      'Mature-enabled adults',
+      'No video was generated.',
+      "activateView('productions')",
+      '<h2>Videos</h2>',
+      'Now showing',
+      'Video library',
+      'Drafts and blocked plans',
+      'Open video',
+      'Play music with this video',
+      'Makeba',
+      'One Kiss',
+      'Levitating',
+      'Blinding Lights',
     ]) {
       assert.ok(page.includes(marker), `page missing Video Maker control: ${marker}`);
     }
+    const inlineScript = page.match(/<script>([\s\S]*)<\/script>/)?.[1];
+    assert.ok(inlineScript, 'page must include its application script');
+    assert.doesNotThrow(() => new Function(inlineScript), 'Video Maker application script must parse');
     assert.doesNotMatch(page, /<section class="capability-picker"/);
     assert.match(page, /id="tab-tools"[^>]+hidden/);
   });
@@ -124,6 +148,60 @@ test('studio server routes', async (t) => {
     const payload = await res.json();
     assert.equal(payload.data.source, 'template');
     assert.ok(payload.data.data.titles.length >= 5);
+  });
+
+  await t.test('voice intake preserves recordings when no local transcriber is ready', async () => {
+    const readiness = await fetch(`${base}/studio/voice-readiness`);
+    assert.equal(readiness.status, 200);
+    assert.equal((await readiness.json()).data.ready, false);
+    const response = await fetch(`${base}/studio/voice-intake`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ audioBase64: Buffer.from('local-voice-fixture').toString('base64'), mimeType: 'audio/webm' }),
+    });
+    assert.equal(response.status, 409);
+    const payload = await response.json();
+    assert.match(payload.error, /recording is preserved/i);
+    assert.ok(payload.data.recording.recordingPath.startsWith(path.join(scratch, 'voice')));
+  });
+
+  await t.test('character directory and fixed workflow actions round trip', async () => {
+    const characterResponse = await fetch(`${base}/studio/characters`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        name: 'Mira', age: 28, adultConfirmed: true, consentPosture: 'affirmative', fictional: true,
+        sourcePosture: 'original', likenessPosture: 'fictional', appearance: { hair: 'silver bob' },
+      }),
+    });
+    assert.equal(characterResponse.status, 201);
+    const character = (await characterResponse.json()).data;
+    const directory = await fetch(`${base}/studio/characters`);
+    assert.ok((await directory.json()).data.some((entry) => entry.id === character.id));
+
+    const briefResponse = await fetch(`${base}/studio/briefs`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ request: 'A fictional adults-only fashion film.', mode: 'quick' }),
+    });
+    const brief = (await briefResponse.json()).data;
+    assert.equal(brief.workflow.mode, 'quick');
+    assert.equal(brief.workflow.stages.find((stage) => stage.id === 'cast').status, 'ready');
+
+    const wrongAction = await fetch(`${base}/studio/briefs/${brief.id}/workflow/cast`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ actionId: 'prompt.invented.action', status: 'completed' }),
+    });
+    assert.equal(wrongAction.status, 400);
+    assert.match((await wrongAction.json()).error, /only permits registered action/);
+
+    const completed = await fetch(`${base}/studio/briefs/${brief.id}/workflow/cast`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ actionId: 'studio.cast.confirm', status: 'completed', output: { cast: [] } }),
+    });
+    assert.equal(completed.status, 200);
+    const updated = (await completed.json()).data;
+    assert.equal(updated.workflow.stages.find((stage) => stage.id === 'scenes').status, 'ready');
   });
 
   await t.test('invalid input returns 400 naming the field', async () => {
@@ -253,6 +331,13 @@ test('studio server routes', async (t) => {
     assert.equal(ranged.headers.get('content-range'), 'bytes 5-9/16');
     assert.equal(await ranged.text(), 'video');
 
+    const audio = path.join(scratch, 'canary.mp3');
+    await writeFile(audio, 'fake audio bytes');
+    const playableAudio = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(audio)}`);
+    assert.equal(playableAudio.status, 200);
+    assert.equal(playableAudio.headers.get('content-type'), 'audio/mpeg');
+    assert.equal(playableAudio.headers.get('accept-ranges'), 'bytes');
+
     const outside = await fetch(`${base}/studio/render-file?path=${encodeURIComponent('/etc/hosts')}`);
     assert.equal(outside.status, 403);
     const sneaky = await fetch(`${base}/studio/render-file?path=${encodeURIComponent(path.join(scratch, '..', '..', 'etc', 'hosts'))}`);
@@ -281,10 +366,10 @@ test('studio server routes', async (t) => {
     const payload = await registry.json();
     assert.equal(payload.data.provenCapabilityCount, 9);
     assert.equal(payload.data.proofCount, 14);
-    assert.equal(payload.data.totalCapabilityCount, 12);
-    assert.equal(payload.data.exactOptionCount, 48);
+    assert.equal(payload.data.totalCapabilityCount, 13);
+    assert.equal(payload.data.exactOptionCount, 49);
     assert.equal(payload.data.playableCount, 14);
-    assert.deepEqual(payload.data.unproven.map((entry) => entry.recipeId), ['grok-asset-film', 'guided-app-demo', 'product-proof']);
+    assert.deepEqual(payload.data.unproven.map((entry) => entry.recipeId), ['grok-asset-film', 'guided-app-demo', 'product-proof', 'night-out-carousel']);
 
     const sample = payload.data.items[0];
     const media = await fetch(`${base}${sample.mediaUrl}`, { headers: { range: 'bytes=0-9' } });
@@ -391,8 +476,7 @@ test('studio server routes', async (t) => {
         confirm: true,
         reference: {
           provider: 'youtube',
-          videoId: 'weRHyjj34ZE',
-          spotifyTrackId: '2N7vjHuOfnyF5eUzv5brZ0',
+          youtubeUrl: 'https://www.youtube.com/watch?v=weRHyjj34ZE',
           artist: 'Shakira',
           title: 'Whenever, Wherever',
           startSeconds: 47,
@@ -406,7 +490,8 @@ test('studio server routes', async (t) => {
     const previewPayload = previewJson.data;
     assert.equal(previewPayload.downloadedAudio, false);
     assert.equal(previewPayload.preview.reference.videoId, 'weRHyjj34ZE');
-    assert.equal(previewPayload.preview.reference.reviewProvider, 'spotify');
+    assert.equal(previewPayload.preview.reference.youtubeUrl, 'https://www.youtube.com/watch?v=weRHyjj34ZE');
+    assert.equal(previewPayload.preview.reference.reviewProvider, 'youtube');
     assert.equal(previewPayload.preview.ready, true);
     assert.equal(previewPayload.brief.media.platformAudio.receiptPath, previewPayload.preview.receiptPath);
 

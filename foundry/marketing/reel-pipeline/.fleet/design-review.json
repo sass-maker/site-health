@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Marketing Studio creation-only prompt and capability picker at /studio",
+  "target": "Marketing Studio voice-first Create workflow at /studio",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -12,31 +12,35 @@
   "direction": {
     "references": [],
     "probes": [],
-    "selected": "prompt-first-video-maker-with-visible-capability-choices",
+    "selected": "existing-design",
     "approval": "not-required",
-    "before": "artifacts/design/marketing-studio-agent-arsenal/after-1440.png"
+    "before": "artifacts/design/marketing-studio-voice-workflow/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/marketing-studio-video-maker/after-390.png"
+        "path": "artifacts/design/marketing-studio-voice-workflow/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/marketing-studio-video-maker/after-768.png"
+        "path": "artifacts/design/marketing-studio-voice-workflow/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/marketing-studio-video-maker/after-1440.png"
+        "path": "artifacts/design/marketing-studio-voice-workflow/after-1440.png"
+      },
+      {
+        "width": 1440,
+        "path": "artifacts/design/marketing-studio-voice-workflow/after-productions-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm test",
-      "status": "pass"
+      "command": "node --test test/marketing-studio-briefs.test.js test/night-out-carousel-adapter.test.js test/studio-character-directory.test.js test/studio-production-catalog.test.js test/studio-reel-workflow.test.js test/studio-server.test.js test/studio-soundtrack.test.js test/studio-video-execution.test.js test/studio-voice-intake.test.js test/studio-workflow.test.js && openspec validate add-voice-first-reel-workflows --strict && git diff --check",
+      "status": "passed"
     },
     "critique": {
-      "score": 38,
+      "score": 37,
       "maximum": 40
     },
     "audit": {
@@ -53,7 +57,7 @@
     }
   },
   "ownerFeedback": {
-    "decision": "delegated",
-    "note": "Owner explicitly directed a creation-only UI with one prompt and selectable video options, and told the agent to ignore project and posting workflow in this pass."
+    "decision": "pending",
+    "note": ""
   }
 }

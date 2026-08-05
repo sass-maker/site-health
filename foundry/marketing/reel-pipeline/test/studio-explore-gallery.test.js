@@ -102,9 +102,9 @@ test('gallery registry preserves unavailable samples and rejects unsafe definiti
 test('checked-in gallery is complete, playable, hash-valid, and portable', async () => {
   const gallery = await listExploreGallery();
   assert.equal(gallery.version, 2);
-  assert.equal(gallery.count, 48);
-  assert.equal(gallery.playableCount, 48);
-  assert.equal(new Set(gallery.items.map((item) => item.variantId)).size, 48);
+  assert.equal(gallery.count, 49);
+  assert.equal(gallery.playableCount, 49);
+  assert.equal(new Set(gallery.items.map((item) => item.variantId)).size, 49);
   const blenderProofs = gallery.items.filter((item) => item.variantId.startsWith('blender-film--'));
   const videoModelProofs = gallery.items.filter((item) => item.variantId.startsWith('coherent-local-film--'));
   const remainingFixtures = gallery.items.filter((item) => !blenderProofs.includes(item) && !videoModelProofs.includes(item));
@@ -118,7 +118,7 @@ test('checked-in gallery is complete, playable, hash-valid, and portable', async
     && item.renderer === 'ltx-2.3-mlx-q4'));
   assert.ok(remainingFixtures.every((item) => item.sourcePosture === 'fixture' && item.executionMode === 'fixture'));
   const validation = await validateExploreGalleryMedia();
-  assert.equal(validation.variants, 48);
+  assert.equal(validation.variants, 49);
   assert.ok(validation.totalBytes > 0 && validation.totalBytes < 8 * 1024 * 1024);
 });
 
@@ -158,12 +158,12 @@ test('representative registry requires substantive proof and compatible coverage
 
 test('checked-in representative gallery is honest, playable, and hash-valid', async () => {
   const gallery = await listRepresentativeExploreGallery();
-  assert.equal(gallery.totalCapabilityCount, 12);
+  assert.equal(gallery.totalCapabilityCount, 13);
   assert.equal(gallery.provenCapabilityCount, 9);
   assert.equal(gallery.proofCount, 14);
   assert.equal(gallery.playableCount, 14);
-  assert.equal(gallery.exactOptionCount, 48);
-  assert.deepEqual(gallery.unproven.map((entry) => entry.recipeId), ['grok-asset-film', 'guided-app-demo', 'product-proof']);
+  assert.equal(gallery.exactOptionCount, 49);
+  assert.deepEqual(gallery.unproven.map((entry) => entry.recipeId), ['grok-asset-film', 'guided-app-demo', 'product-proof', 'night-out-carousel']);
   assert.ok(gallery.items.every((item) => item.durationSeconds >= 6 && item.durationSeconds <= 15));
   assert.ok(gallery.items.every((item) => item.sourcePosture !== 'fixture' && item.executionMode === 'real'));
   assert.ok(gallery.items.every((item) => ['primary', 'range'].includes(item.proofRole)));

@@ -31,7 +31,10 @@ export async function executeVideoVariant(brief, options = {}) {
   if (missing.length) throw new Error(`Add ${missing.join(', ')} before real execution.`);
   const executor = options.realExecutors?.[brief.recipeId];
   if (typeof executor !== 'function') {
-    throw new Error(`${brief.recipeId} real adapter is registered but ${adapter.owner} is not ready for this request.`);
+    const selected = brief.modelProfileId && brief.modelProfileId !== 'auto'
+      ? `${brief.modelProfileId} is selected, but`
+      : `${brief.recipeId} is selected, but`;
+    throw new Error(`${selected} no registered ${adapter.id} executor can run this request locally.`);
   }
   const result = await executor({ brief, variant: normalized, inputs: realInputs, adapter });
   if (!result?.videoPath) throw new Error(`${adapter.id} returned no playable video`);
@@ -58,6 +61,7 @@ function completedEnvelope({ brief, normalized, adapter, mode, media, ownerManif
     variantId: normalized.variantId,
     adapter: adapter.id,
     owner: adapter.owner,
+    modelProfileId: brief.modelProfileId ?? null,
     artifact: {
       videoPath: media.path,
       bytes: media.size ?? null,

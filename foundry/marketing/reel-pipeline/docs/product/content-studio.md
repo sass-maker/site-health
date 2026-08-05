@@ -109,7 +109,7 @@ specialized runtimes:
 
 | Video kind | Runtime owner | Studio action |
 | --- | --- | --- |
-| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock or Kokoro |
+| Faceless lesson | Marketing Studio | Render the confirmed brief locally with mock, Kokoro, or a registered local recipe such as Night Out |
 | Brand reel | Anonymous Brand Reel | Continue to `/` with the public canonical website source prefilled |
 | Guided app demo | Forge | Continue to the authenticated Forge host with the brief id, project, workflow kind, and public source prefilled after source rights are approved |
 | Coherent film | Forge | Continue to the authenticated Forge host with safe project/source context and complete Film-style inputs there |
@@ -120,6 +120,54 @@ Continuation states are explicit: `ready`, `needs-input`, `external-step`, or
 when its actual runtime lives elsewhere. Continuation URLs carry only the
 Studio brief id and safe public metadata; unpublished creative copy, approvals,
 credentials, and private media never enter the URL.
+
+### Night Out carousel
+
+`night-out-carousel--default` is a local final-video recipe in the existing
+maker. The prompt-first path resolves a theme and a compatible ready model,
+generates four cards with the pinned WAI Illustrious v17 checkpoint through
+`stable-diffusion.cpp`, then renders a reveal hook, a bouncy carousel, an end
+prompt, and an original procedural funk bed. The older approved-manifest path
+remains available when the operator wants to provide exact images.
+
+The optional Theme, Model, and Content scope controls appear only for eligible
+recipes. Auto selects only a compatible, locally ready profile explicitly
+approved for Auto; obscure community checkpoints require an explicit operator
+selection even when their files are present. Registry reads, selection, brief
+saves, and render requests never install or download a runtime. Unproven Wan
+Remix and MiniMax H3 profiles remain visible with their exact blocker. The model profile, checkpoint hash,
+runtime revision, sampling settings, theme posture, and content scope are saved
+in the render receipt.
+
+`general` excludes nudity and explicit content. `mature-enabled` permits prompts
+for fictional consenting adults age 25 or older while retaining hard negative
+constraints for minors, uncertain age, non-consensual content, and real-person
+likeness. Named-IP themes are private concepts unless separate commercial-rights
+evidence is supplied; distribution continues to fail closed without it.
+
+The manifest uses `fleet.night-out-assets.v1`:
+
+```json
+{
+  "schema": "fleet.night-out-assets.v1",
+  "theme": { "id": "party-worlds", "label": "Party worlds" },
+  "sourcePosture": "original",
+  "rightsEvidence": "Operator review note",
+  "images": [
+    { "id": "scene-1", "label": "First stop", "path": "assets/01.png" },
+    { "id": "scene-2", "label": "Second stop", "path": "assets/02.png" },
+    { "id": "scene-3", "label": "Third stop", "path": "assets/03.png" },
+    { "id": "scene-4", "label": "Final stop", "path": "assets/04.png" }
+  ]
+}
+```
+
+For the approved-manifest path, relative image paths resolve from the manifest directory. The renderer rejects
+remote URLs, unsupported image types, paths outside configured local roots,
+fewer than four or more than eight images, and missing rights evidence before
+Chrome or FFmpeg starts. Every real render writes image hashes, source posture,
+rights evidence, frame timing, audio provenance, and a review-required state to
+`fleet.night-out-render.v1`; publication remains behind the normal Postiz gates.
 
 ## Postiz boundary
 

@@ -17,7 +17,14 @@ export function normalizePlatformAudioReference(input = {}) {
     throw new Error('platform audio reference cannot contain a direct media URL or local audio path');
   }
   if (input.provider !== 'youtube') throw new Error('platform audio provider must be youtube');
-  const videoId = requiredString(input.videoId, 'platformAudio.videoId');
+  const suppliedVideoId = optionalString(input.videoId);
+  const suppliedYouTubeUrl = optionalString(input.youtubeUrl);
+  const urlVideoId = suppliedYouTubeUrl ? youtubeVideoIdFromUrl(suppliedYouTubeUrl) : null;
+  if (suppliedVideoId && urlVideoId && suppliedVideoId !== urlVideoId) {
+    throw new Error('platformAudio.videoId does not match platformAudio.youtubeUrl');
+  }
+  const videoId = suppliedVideoId || urlVideoId;
+  if (!videoId) throw new Error('platformAudio.youtubeUrl or platformAudio.videoId is required');
   if (!YOUTUBE_ID.test(videoId)) throw new Error('platformAudio.videoId must be an 11-character YouTube video identifier');
   const artist = requiredString(input.artist, 'platformAudio.artist');
   const title = requiredString(input.title, 'platformAudio.title');
@@ -32,6 +39,7 @@ export function normalizePlatformAudioReference(input = {}) {
     schema: 'fleet.platform-audio-reference.v1',
     provider: 'youtube',
     videoId,
+    youtubeUrl: `https://www.youtube.com/watch?v=${videoId}`,
     artist,
     title,
     spotifyTrackId,
@@ -46,6 +54,39 @@ export function normalizePlatformAudioReference(input = {}) {
       : `https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1&playsinline=1`,
     playbackBoundary: 'Official platform stream for local review only; no audio is downloaded, cached, or exported.',
   };
+}
+
+export function youtubeVideoIdFromUrl(value) {
+  let parsed;
+  try {
+    parsed = new URL(requiredString(value, 'platformAudio.youtubeUrl'));
+  } catch {
+    throw new Error('platformAudio.youtubeUrl must be a valid official YouTube URL');
+  }
+  if (parsed.protocol !== 'https:') {
+    throw new Error('platformAudio.youtubeUrl must use HTTPS');
+  }
+
+  const hostname = parsed.hostname.toLowerCase();
+  let videoId = null;
+  if (hostname === 'youtu.be' || hostname.endsWith('.youtu.be')) {
+    videoId = parsed.pathname.split('/').filter(Boolean)[0] || null;
+  } else if (
+    hostname === 'youtube.com' || hostname.endsWith('.youtube.com') ||
+    hostname === 'youtube-nocookie.com' || hostname.endsWith('.youtube-nocookie.com')
+  ) {
+    const segments = parsed.pathname.split('/').filter(Boolean);
+    videoId = parsed.pathname === '/watch'
+      ? parsed.searchParams.get('v')
+      : (['shorts', 'embed', 'live'].includes(segments[0]) ? segments[1] : null);
+  } else {
+    throw new Error('platformAudio.youtubeUrl must be hosted by YouTube');
+  }
+
+  if (!videoId || !YOUTUBE_ID.test(videoId)) {
+    throw new Error('platformAudio.youtubeUrl must identify a YouTube video');
+  }
+  return videoId;
 }
 
 export async function createPlatformAudioPreview(input, options = {}) {
