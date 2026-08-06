@@ -36,6 +36,9 @@
   },
   "aiVisibility": {
     "version": 1,
+    "ownershipPolicy": {
+      "categoryOwner": "canonical-origin"
+    },
     "scheduleIntent": {
       "enabled": false,
       "cadence": "weekly",
@@ -71,7 +74,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Compare local-first voice automation tools for macOS, including privacy, price, and action-taking."
+                "text": "Compare local-first voice automation tools for macOS, including privacy, price, and action-taking.",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://heypace.app/compared"
+                }
               }
             ]
           }
@@ -188,7 +195,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Compare beginner-friendly small-model fine-tuning tools by hardware needs, privacy, and reproducibility."
+                "text": "Compare beginner-friendly small-model fine-tuning tools by hardware needs, privacy, and reproducibility.",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://posttrainllm.com/docs/learn/competitive-landscape"
+                }
               }
             ]
           }
@@ -500,7 +511,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Which AI gateways route across free-tier model providers with health-aware fallback and one compatible API?"
+                "text": "Which AI gateways route across free-tier model providers with health-aware fallback and one compatible API?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://ai-gateway.sassmaker.com/faq"
+                }
               }
             ]
           }
@@ -550,7 +565,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Which performance tools report p50, p75, p90, and p99 Web Vitals across realistic device and network presets?"
+                "text": "Which performance tools report p50, p75, p90, and p99 Web Vitals across realistic device and network presets?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://performance.sassmaker.com/compare/"
+                }
               }
             ]
           }
@@ -800,7 +819,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Compare free browser chess analysis tools for playing, move explanations, and configurable coaching."
+                "text": "Compare free browser chess analysis tools for playing, move explanations, and configurable coaching.",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://chess.significanthobbies.com/faq"
+                }
               }
             ]
           }
@@ -1100,7 +1123,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Which job-application tools combine resume tailoring, role research, fit scoring, and interview preparation?"
+                "text": "Which job-application tools combine resume tailoring, role research, fit scoring, and interview preparation?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://rolepatch.com/faq"
+                }
               }
             ]
           }
@@ -1150,7 +1177,11 @@
               },
               {
                 "id": "comparison",
-                "text": "Compare AI-enhanced link-in-bio platforms by chat, profile modes, public identity, and discoverability."
+                "text": "Compare AI-enhanced link-in-bio platforms by chat, profile modes, public identity, and discoverability.",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://karte.cc/ai-link-in-bio"
+                }
               }
             ]
           }

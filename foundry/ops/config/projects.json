@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-07-30",
+    "updated": "2026-08-07",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -29,7 +29,8 @@
       "repositoryVisibility": "public | private | unknown",
       "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
-      "public": "sanitized public listing metadata; listing is maintained | past | hidden"
+      "public": "sanitized public listing metadata; listing is maintained | past | hidden",
+      "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
     },
     "absorbedCheckouts": {
       "aliveville": "ai-game",
@@ -1400,6 +1401,305 @@
         "maturity": "public-ready",
         "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio"
       }
+    }
+  ],
+  "geoIdentities": [
+    {
+      "id": "codevetter",
+      "name": "CodeVetter",
+      "aliases": [],
+      "origin": "https://codevetter.com",
+      "source": { "state": "public", "url": "https://github.com/Codevetter/codevetter" },
+      "docs": { "state": "public", "url": "https://codevetter.com/docs/" },
+      "officialProfiles": ["https://github.com/Codevetter/codevetter"],
+      "availability": { "primary": "direct-download", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "pace",
+      "name": "HeyPace",
+      "aliases": ["Pace"],
+      "origin": "https://heypace.app",
+      "source": { "state": "public", "url": "https://github.com/HeyPace/pace" },
+      "docs": { "state": "public", "url": "https://heypace.app/docs/" },
+      "officialProfiles": ["https://github.com/HeyPace/pace"],
+      "availability": { "primary": "direct-download", "appStore": "not-applicable" },
+      "pricing": { "state": "published", "url": "https://heypace.app" }
+    },
+    {
+      "id": "posttrainllm",
+      "name": "PostTrainLLM",
+      "aliases": [],
+      "origin": "https://posttrainllm.com",
+      "source": { "state": "public", "url": "https://github.com/PostTrainLLM/posttrainllm" },
+      "docs": { "state": "public", "url": "https://posttrainllm.com/docs/" },
+      "officialProfiles": ["https://github.com/PostTrainLLM/posttrainllm"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "fleet-workspace",
+      "name": "SaaS Maker",
+      "aliases": ["Fleet Workspace"],
+      "origin": "https://sassmaker.com",
+      "source": { "state": "internal", "path": "foundry/ops" },
+      "docs": { "state": "public", "url": "https://sassmaker.com/learnings" },
+      "officialProfiles": ["https://github.com/sass-maker"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
+    },
+    {
+      "id": "drank",
+      "name": "Drank",
+      "aliases": [],
+      "origin": "https://domains.sassmaker.com",
+      "source": { "state": "internal", "path": "foundry/helpers/drank" },
+      "docs": { "state": "landing-only", "url": "https://domains.sassmaker.com" },
+      "officialProfiles": ["https://github.com/sass-maker"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
+    },
+    {
+      "id": "email-manager",
+      "name": "Email Manager",
+      "aliases": [],
+      "origin": "https://mail.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/email-manager" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/email-manager#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/email-manager"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "aliases": ["ChatGPT Memory Insights"],
+      "origin": "https://chatgpt.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/chatgpt-memory-insights"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "free-ai",
+      "name": "Free AI",
+      "aliases": ["AI Gateway"],
+      "origin": "https://ai-gateway.sassmaker.com",
+      "source": { "state": "public", "url": "https://github.com/sass-maker/free-ai" },
+      "docs": { "state": "public", "url": "https://ai-gateway.sassmaker.com/about/" },
+      "officialProfiles": ["https://github.com/sass-maker/free-ai"],
+      "availability": { "primary": "api", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "psi-swarm",
+      "name": "PSI Swarm",
+      "aliases": ["psi-swarm"],
+      "origin": "https://performance.sassmaker.com",
+      "source": { "state": "internal", "path": "foundry/helpers/psi-swarm" },
+      "docs": { "state": "landing-only", "url": "https://performance.sassmaker.com" },
+      "officialProfiles": ["https://github.com/sass-maker"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
+    },
+    {
+      "id": "high-signal",
+      "name": "High Signal",
+      "aliases": [],
+      "origin": "https://highsignal.app",
+      "source": { "state": "public", "url": "https://github.com/High-Signal-App/high-signal" },
+      "docs": { "state": "public", "url": "https://highsignal.app/api-docs" },
+      "officialProfiles": ["https://github.com/High-Signal-App/high-signal"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "research-papers",
+      "name": "Research Papers",
+      "aliases": ["researchPapers"],
+      "origin": "https://papers.highsignal.app",
+      "source": { "state": "public", "url": "https://github.com/High-Signal-App/research-papers" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/High-Signal-App/research-papers#readme" },
+      "officialProfiles": ["https://github.com/High-Signal-App/research-papers"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
+      "aliases": ["Knowledgebase"],
+      "origin": "https://knowledgebase.sassmaker.com",
+      "source": { "state": "public", "url": "https://github.com/sass-maker/knowledge-base" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/sass-maker/knowledge-base#readme" },
+      "officialProfiles": ["https://github.com/sass-maker/knowledge-base"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "significanthobbies",
+      "name": "Significant Hobbies",
+      "aliases": [],
+      "origin": "https://significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/significanthobbies" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/significanthobbies#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/significanthobbies"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "india-standards",
+      "name": "India Standards",
+      "aliases": [],
+      "origin": "https://india-standards.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/india-standards" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/india-standards#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/india-standards"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "anime-list",
+      "name": "Anime List",
+      "aliases": ["Anime List by Significant Hobbies", "MAL Explorer", "Shelf"],
+      "origin": "https://anime.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/anime-list" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/anime-list#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/anime-list"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "chess",
+      "name": "Chess Coach",
+      "aliases": ["Chess"],
+      "origin": "https://chess.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/chess" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/chess#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/chess"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "looptv",
+      "name": "LoopTV",
+      "aliases": [],
+      "origin": "https://tv.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/looptv" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/looptv#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/looptv"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "reader",
+      "name": "Reader",
+      "aliases": [],
+      "origin": "https://read.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/reader" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/reader#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/reader"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "swe-interview-prep",
+      "name": "SWE Interview Prep",
+      "aliases": [],
+      "origin": "https://learn.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/swe-interview-prep" },
+      "docs": { "state": "public", "url": "https://learn.significanthobbies.com" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/swe-interview-prep"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "aliases": [],
+      "origin": "https://calorie.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/calorie" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/calorie#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/calorie"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "aliases": [],
+      "origin": "https://setline.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/setline" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/setline#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/setline"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "rolepatch",
+      "name": "RolePatch",
+      "aliases": [],
+      "origin": "https://rolepatch.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/rolepatch" },
+      "docs": { "state": "public", "url": "https://rolepatch.com/blog" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/rolepatch"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "karte",
+      "name": "Karte",
+      "aliases": [],
+      "origin": "https://karte.cc",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/karte" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/karte#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/karte"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "free", "url": "https://karte.cc" }
+    },
+    {
+      "id": "starboard",
+      "name": "Starboard",
+      "aliases": [],
+      "origin": "https://starboard.codevetter.com",
+      "source": { "state": "public", "url": "https://github.com/Codevetter/starboard" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Codevetter/starboard#readme" },
+      "officialProfiles": ["https://github.com/Codevetter/starboard"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "app-health",
+      "name": "App Health",
+      "aliases": [],
+      "origin": "https://health.sassmaker.com",
+      "source": { "state": "public", "url": "https://github.com/sass-maker/app-health" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/sass-maker/app-health#readme" },
+      "officialProfiles": ["https://github.com/sass-maker/app-health"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "motion",
+      "name": "Motion",
+      "aliases": [],
+      "origin": "https://motion.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/motion" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/motion#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/motion"],
+      "availability": { "primary": "internal-only", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "name": "What It Takes to Win",
+      "aliases": [],
+      "origin": "https://paths.significanthobbies.com",
+      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win#readme" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/what-it-takes-to-win"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
     }
   ]
 }

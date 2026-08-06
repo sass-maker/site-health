@@ -10,15 +10,17 @@ import {
   buildMarketingProjection,
   renderInternalCatalog,
   renderReadmePortfolio,
+  validateGeoIdentityContract,
   validateProjectCatalog,
 } from '../lib/project-catalog.mjs';
 
-const [catalog, automation, marketing, sites, toolbox] = await Promise.all([
+const [catalog, automation, marketing, sites, toolbox, agentRegistry] = await Promise.all([
   readJson(new URL('../config/projects.json', import.meta.url)),
   readJson(new URL('../config/automation-registry.json', import.meta.url)),
   readJson(new URL('../config/marketing-program.json', import.meta.url)),
   readJson(new URL('../config/project-sites.json', import.meta.url)),
   readJson(new URL('../config/significant-hobbies-toolbox.json', import.meta.url)),
+  readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
 ]);
 
 test('real catalog validates with every authored overlay reference', () => {
@@ -28,9 +30,60 @@ test('real catalog validates with every authored overlay reference', () => {
       marketingProgram: marketing,
       siteRegistry: sites,
       toolboxRegistry: toolbox,
+      agentRegistry,
       reconcile: false,
     }),
     { projectCount: 41 },
+  );
+});
+
+test('GEO identity contract covers every maintained visibility product', () => {
+  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 27 });
+});
+
+test('GEO identity contract rejects missing, conflicting, and inaccessible source declarations', () => {
+  const missing = structuredClone(catalog);
+  missing.geoIdentities = missing.geoIdentities.filter((identity) => identity.id !== 'pace');
+  assert.throws(
+    () => validateGeoIdentityContract(missing, agentRegistry),
+    /geo identities missing: pace/,
+  );
+
+  const conflictingName = structuredClone(catalog);
+  conflictingName.geoIdentities.find((identity) => identity.id === 'anime-list').name = 'Shelf';
+  assert.throws(
+    () => validateGeoIdentityContract(conflictingName, agentRegistry),
+    /anime-list: geo name Shelf != Anime List/,
+  );
+
+  const publicPrivateSource = structuredClone(catalog);
+  const fleetIdentity = publicPrivateSource.geoIdentities.find(
+    (identity) => identity.id === 'fleet-workspace',
+  );
+  fleetIdentity.source = {
+    state: 'public',
+    url: 'https://github.com/sass-maker/fleet-workspace',
+  };
+  assert.throws(
+    () => validateGeoIdentityContract(publicPrivateSource, agentRegistry),
+    /fleet-workspace: public geo source requires repositoryVisibility public/,
+  );
+});
+
+test('GEO identity contract rejects agent identity and profile drift', () => {
+  const driftedAgentRegistry = structuredClone(agentRegistry);
+  const pace = driftedAgentRegistry.products.find((product) => product.id === 'pace');
+  pace.name = 'Pace';
+  assert.throws(
+    () => validateGeoIdentityContract(catalog, driftedAgentRegistry),
+    /pace: agent name Pace != canonical HeyPace/,
+  );
+
+  pace.name = 'HeyPace';
+  pace.sameAs = ['https://example.com/pace'];
+  assert.throws(
+    () => validateGeoIdentityContract(catalog, driftedAgentRegistry),
+    /pace: agent sameAs does not match canonical officialProfiles/,
   );
 });
 

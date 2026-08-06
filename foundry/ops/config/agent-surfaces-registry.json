@@ -98,6 +98,11 @@
           "title": "Tools",
           "url": "https://rolepatch.com/tools",
           "description": "Public tools"
+        },
+        {
+          "title": "FAQ",
+          "url": "https://rolepatch.com/faq",
+          "description": "Product workflow and evidence-backed alternative questions"
         }
       ],
       "indexMd": "# RolePatch\n\nAI-powered resume tailoring and job-application assistant.\n\n## What it is\n\n- Score resume fit against a job description\n- Rewrite bullets for the role\n- Cover letters, company research, STAR prep\n\n## Who it's for\n\nJob seekers who want reviewed, role-specific application materials — not generic AI fluff.\n\n## Agent entrypoints\n\n- https://rolepatch.com/llms.txt\n- https://rolepatch.com/api/ai\n- https://rolepatch.com/index.md\n\nDashboard routes require auth and are not agent-indexed.\n"
@@ -158,6 +163,11 @@
           "title": "Home",
           "url": "https://karte.cc/",
           "description": "Product landing"
+        },
+        {
+          "title": "AI link in bio",
+          "url": "https://karte.cc/ai-link-in-bio",
+          "description": "Evidence-backed guide to conversational public profiles"
         },
         {
           "title": "Skill",
@@ -305,7 +315,7 @@
     },
     {
       "id": "research-papers",
-      "name": "researchPapers",
+      "name": "Research Papers",
       "url": "https://papers.highsignal.app",
       "summary": "Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).",
       "publicDir": "research-papers/web/public",
@@ -322,7 +332,7 @@
           "description": "Search and analytics"
         }
       ],
-      "indexMd": "# researchPapers\n\n~488k papers with semantic search, analytics, and paid answers demo.\n\n## What it is\n\n- High-citation OpenAlex Computer Science corpus\n- Semantic search and analytics\n- RAG-style Q&A paths\n\n## Agent entrypoints\n\n- https://papers.highsignal.app/llms.txt\n- https://papers.highsignal.app/api/ai\n- https://papers.highsignal.app/index.md\n\nDo not invent paper claims — cite corpus results.\n"
+      "indexMd": "# Research Papers\n\n~488k papers with semantic search, analytics, and paid answers demo.\n\n## What it is\n\n- High-citation OpenAlex Computer Science corpus\n- Semantic search and analytics\n- RAG-style Q&A paths\n\n## Agent entrypoints\n\n- https://papers.highsignal.app/llms.txt\n- https://papers.highsignal.app/api/ai\n- https://papers.highsignal.app/index.md\n\nDo not invent paper claims — cite corpus results.\n"
     },
     {
       "id": "posttrainllm",
@@ -357,6 +367,11 @@
           "title": "Devlog",
           "url": "https://posttrainllm.com/devlog.html",
           "description": "Build log"
+        },
+        {
+          "title": "Fine-tuning competitive landscape",
+          "url": "https://posttrainllm.com/docs/learn/competitive-landscape",
+          "description": "Source-backed comparison of local, cloud, and Mac-focused fine-tuning tools"
         }
       ],
       "indexMd": "# PostTrainLLM\n\nMac-local LLM factory + runtime (MLX) and WebGPU playground.\n\n## What it is\n\n- Local post-training workflows on Mac\n- Specialist model factory narrative\n- Browser playground surfaces\n\n## Agent entrypoints\n\n- https://posttrainllm.com/llms.txt\n- https://posttrainllm.com/api/ai\n- https://posttrainllm.com/index.md\n"
@@ -364,7 +379,7 @@
     {
       "id": "pace",
       "spotlight": true,
-      "name": "Pace",
+      "name": "HeyPace",
       "url": "https://heypace.app",
       "summary": "On-device Mac voice agent that reads your screen and acts with local context.",
       "publicDir": "pace/website/public",
@@ -391,15 +406,25 @@
           "title": "Home",
           "url": "https://heypace.app/",
           "description": "Product landing"
+        },
+        {
+          "title": "Private Mac voice assistant",
+          "url": "https://heypace.app/private-voice-assistant-mac",
+          "description": "Category guide with privacy and system boundaries"
+        },
+        {
+          "title": "Mac AI agent comparison",
+          "url": "https://heypace.app/compared",
+          "description": "Evidence-backed comparison across screen access, inference, actions, and licensing"
         }
       ],
-      "indexMd": "# Pace\n\nOn-device Mac voice agent that reads your screen.\n\n## What it is\n\n- Local/on-device voice agent for macOS\n- Screen-aware assistance\n\n## Agent entrypoints\n\n- https://heypace.app/llms.txt\n- https://heypace.app/api/ai\n- https://heypace.app/index.md\n",
+      "indexMd": "# HeyPace\n\nOn-device Mac voice agent that reads your screen.\n\n## What it is\n\n- Local/on-device voice agent for macOS\n- Screen-aware assistance\n\n## Agent entrypoints\n\n- https://heypace.app/llms.txt\n- https://heypace.app/api/ai\n- https://heypace.app/index.md\n",
       "marketingOrigin": "https://heypace.app",
       "indexNowOrigin": "https://heypace.app"
     },
     {
       "id": "drank",
-      "name": "DRank",
+      "name": "Drank",
       "url": "https://domains.sassmaker.com",
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
       "publicDir": "foundry/helpers/drank/public",
@@ -437,7 +462,7 @@
           "markdown": "# DRank changelog\n\nVerified milestones for the browser-local Domain Rating tracker.\n\n## July 13, 2026 — Evidence-bounded DR Advisor\n\nDRank added an explicit explanation action grounded only in the selected domain's observed rating and bounded trend context. Advice remains optional and browser-local.\n\n## July 2, 2026 — Static application resilience\n\nThe Next.js application gained route and global error boundaries, and unused Web Vitals code was removed.\n\n## Weekly dataset refresh\n\nThe shared public Domain Rating dataset is refreshed by a scheduled GitHub workflow. Personal lists and history are not part of that shared pipeline.\n"
         }
       ],
-      "indexMd": "# DRank\n\nBrowser-local Domain Rating history for public examples and private operator lists.\n\n## Agent entrypoints\n\n- https://domains.sassmaker.com/llms.txt\n- https://domains.sassmaker.com/api/ai\n- https://domains.sassmaker.com/index.md\n"
+      "indexMd": "# Drank\n\nBrowser-local Domain Rating history for public examples and private operator lists.\n\n## Agent entrypoints\n\n- https://domains.sassmaker.com/llms.txt\n- https://domains.sassmaker.com/api/ai\n- https://domains.sassmaker.com/index.md\n"
     },
     {
       "id": "looptv",
@@ -478,7 +503,7 @@
     },
     {
       "id": "anime-list",
-      "name": "MAL Explorer",
+      "name": "Anime List",
       "url": "https://anime.significanthobbies.com",
       "summary": "Anime and manga discovery with multi-axis filtering and watchlists.",
       "publicDir": "anime-list/public",
@@ -503,7 +528,7 @@
           "description": "Discovery UI (SPA)"
         }
       ],
-      "indexMd": "# MAL Explorer\n\nAnime/manga discovery with multi-axis filtering and watchlists.\n\n## Note for agents\n\nThe UI is a client SPA. Prefer this markdown and `/api/ai` over scraping HTML shells.\n\n## Agent entrypoints\n\n- https://anime.significanthobbies.com/llms.txt\n- https://anime.significanthobbies.com/api/ai\n- https://anime.significanthobbies.com/index.md\n"
+      "indexMd": "# Anime List\n\nAnime/manga discovery with multi-axis filtering and watchlists.\n\n## Note for agents\n\nThe UI is a client SPA. Prefer this markdown and `/api/ai` over scraping HTML shells.\n\n## Agent entrypoints\n\n- https://anime.significanthobbies.com/llms.txt\n- https://anime.significanthobbies.com/api/ai\n- https://anime.significanthobbies.com/index.md\n"
     },
     {
       "id": "chess",
@@ -612,7 +637,7 @@
     },
     {
       "id": "free-ai",
-      "name": "AI Gateway",
+      "name": "Free AI",
       "url": "https://ai-gateway.sassmaker.com",
       "summary": "OpenAI-compatible LLM gateway fronting free-tier models across multiple providers.",
       "publicDir": "free-ai/site/public",
@@ -636,9 +661,14 @@
           "title": "Models",
           "url": "https://ai-gateway.sassmaker.com/v1/models",
           "description": "OpenAI-compatible models list"
+        },
+        {
+          "title": "FAQ",
+          "url": "https://ai-gateway.sassmaker.com/faq",
+          "description": "Free-gateway, provider-routing, fallback, and alternative questions"
         }
       ],
-      "indexMd": "# AI Gateway (free-ai)\n\nOpenAI-compatible gateway over free-tier models across providers.\n\n## API\n\n- Base: https://ai-gateway.sassmaker.com\n- `GET /health`\n- `GET /v1/models`\n- Chat completions require API key (`GATEWAY_API_KEY`)\n\n## Agent entrypoints\n\n- https://ai-gateway.sassmaker.com/llms.txt\n- https://ai-gateway.sassmaker.com/api/ai\n- https://ai-gateway.sassmaker.com/index.md\n"
+      "indexMd": "# Free AI\n\nFree AI is an OpenAI-compatible gateway over free-tier models across providers.\n\n## API\n\n- Base: https://ai-gateway.sassmaker.com\n- `GET /health`\n- `GET /v1/models`\n- Chat completions require API key (`GATEWAY_API_KEY`)\n\n## Agent entrypoints\n\n- https://ai-gateway.sassmaker.com/llms.txt\n- https://ai-gateway.sassmaker.com/api/ai\n- https://ai-gateway.sassmaker.com/index.md\n"
     },
     {
       "id": "swe-interview-prep",
@@ -664,7 +694,7 @@
     },
     {
       "id": "psi-swarm",
-      "name": "psi-swarm",
+      "name": "PSI Swarm",
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
       "publicDir": "foundry/helpers/psi-swarm/web/public",
@@ -675,6 +705,9 @@
         "robots.txt"
       ],
       "stack": "astro-static",
+      "sameAs": [
+        "https://github.com/sass-maker"
+      ],
       "generateSitemap": true,
       "productLinks": [
         {
@@ -682,7 +715,7 @@
           "url": "https://performance.sassmaker.com/",
           "description": "Run repeated Lighthouse audits from the local-first controller",
           "md": "https://performance.sassmaker.com/index.md",
-          "markdown": "# psi-swarm\n\npsi-swarm is a local-first performance tracker that runs Lighthouse repeatedly across realistic device and network presets. It reports p50, p75, p90, and p99 Web Vitals instead of treating one noisy run as truth.\n\n## What the controller does\n\n- Starts swarms against a URL through the local psi-swarm agent\n- Shows distributional Lighthouse and Core Web Vitals evidence\n- Keeps run history and compute on the operator's machine\n- Supports comparisons, watchlists, and project-level history\n\nThe deployed site is a static controller and demo. It does not run remote audits, collect telemetry, or require an account.\n"
+          "markdown": "# PSI Swarm\n\nPSI Swarm is a local-first performance tracker that runs Lighthouse repeatedly across realistic device and network presets. It reports p50, p75, p90, and p99 Web Vitals instead of treating one noisy run as truth.\n\n## What the controller does\n\n- Starts swarms against a URL through the local PSI Swarm agent\n- Shows distributional Lighthouse and Core Web Vitals evidence\n- Keeps run history and compute on the operator's machine\n- Supports comparisons, watchlists, and project-level history\n\nThe deployed site is a static controller and demo. It does not run remote audits, collect telemetry, or require an account.\n"
         },
         {
           "title": "Projects",
@@ -720,7 +753,7 @@
           "markdown": "# psi-swarm changelog\n\nVerified milestones for the local-first distributional Lighthouse tracker.\n\n## July 3, 2026 — Complete local web workflow\n\nThe `psi-swarm web` command starts the local agent and opens the browser controller. Operators can run, compare, and inspect swarms while compute and history remain local.\n\n## July 2, 2026 — Guarded manual releases\n\nThe repository deploy command verifies the intended workflow and build before a human-triggered production release.\n\n## June 26, 2026 — Privacy-safe public demo\n\nThe deployed controller stopped probing localhost unless the visitor is on localhost or explicitly supplies agent intent.\n\n## June 13, 2026 — v0.4.0 evidence workflows\n\nLocal regression watchlists, a static demo gallery, and saved trace insights shipped together.\n"
         }
       ],
-      "indexMd": "# psi-swarm\n\nDistributional Lighthouse performance audits for the fleet.\n\n## Agent entrypoints\n\n- https://performance.sassmaker.com/llms.txt\n- https://performance.sassmaker.com/api/ai\n- https://performance.sassmaker.com/index.md\n"
+      "indexMd": "# PSI Swarm\n\nDistributional Lighthouse performance audits for the fleet.\n\n## Agent entrypoints\n\n- https://performance.sassmaker.com/llms.txt\n- https://performance.sassmaker.com/api/ai\n- https://performance.sassmaker.com/index.md\n"
     },
     {
       "id": "knowledge-base",

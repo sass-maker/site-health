@@ -20,6 +20,9 @@
     "generate:openspec-inventory": "node foundry/ops/scripts/generate-openspec-inventory.mjs",
     "check:public": "node foundry/ops/scripts/generate-public-products.mjs --check && node foundry/ops/scripts/sync-public-workflows-manifest.mjs --check && pnpm --prefix foundry/apps/public/public-directory run check",
     "check:registry": "node foundry/ops/scripts/generate-project-surfaces.mjs --check && node foundry/ops/scripts/validate-automation-registry.mjs && node foundry/ops/scripts/validate-marketing-program.mjs && node foundry/ops/scripts/check-retired-marketing-boundaries.mjs && node foundry/ops/scripts/check-independent-product-boundaries.mjs",
+    "check:geo-links": "node foundry/ops/scripts/geo-identity-links.mjs",
+    "report:prompt-ownership": "node foundry/ops/scripts/prompt-ownership.mjs",
+    "prepare:prompt-coverage": "node foundry/ops/scripts/prompt-coverage-manifests.mjs",
     "test:fleet": "pnpm run check:components && pnpm run check:actions && node --test foundry/ops/test/*.test.mjs"
   },
   "engines": {

@@ -1241,6 +1241,20 @@ test('limits core AI awareness to provider-backed P1 outcomes', () => {
   });
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].questions.length, 1);
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].attempts.length, 1);
+  assert.deepEqual(result.outputs.ownerOutcomes.aiCoverage, {
+    total: 1,
+    observedCount: 1,
+    unobservedCount: 0,
+    observed: [{
+      projectId: 'pace',
+      name: 'Pace',
+      observed: true,
+      observations: 1,
+      observedAt: '2026-07-30T09:10:00.000Z',
+      evidenceMode: 'provider-observation',
+    }],
+    unobserved: [],
+  });
 });
 
 test('isolates absent machine evidence without hiding implemented contracts', () => {
@@ -1269,6 +1283,13 @@ test('isolates absent machine evidence without hiding implemented contracts', ()
   assert.equal(result.outputs.summary.capturedOutputs, 0);
   assert.equal(result.outputs.feedback.total, 0);
   assert.deepEqual(result.outputs.feedback.submissions, []);
+  assert.deepEqual(result.outputs.ownerOutcomes.aiCoverage, {
+    total: 0,
+    observedCount: 0,
+    unobservedCount: 0,
+    observed: [],
+    unobserved: [],
+  });
   assert.equal(result.outputs.projects.every((project) => project.skill === null), true);
 });
 
