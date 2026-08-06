@@ -29,5 +29,5 @@
 
 - [x] 5.1 Run focused unit/config tests, strict OpenSpec validation, catalog validation, and diff checks.
 - [x] 5.2 Run fresh read-only agent, homepage, and external-link audits and retain their skill outputs.
-- [ ] 5.3 Update durable Fleet status only for shipped source truth, commit and push the isolated branch, and open a PR that closes issue 208.
+- [x] 5.3 Update durable Fleet status only for shipped source truth, commit and push the isolated branch, and open a PR that closes issue 208.
 - [x] 5.4 Leave provider capture, approved content publication, and production deployment as explicit blockers unless their separate gates are satisfied.
