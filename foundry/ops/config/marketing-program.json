@@ -53,12 +53,12 @@
         ],
         "competitors": [
           {
-            "name": "Raycast",
-            "url": "https://raycast.com"
+            "name": "Dottie",
+            "url": "https://www.dottie.ai"
           },
           {
-            "name": "Wispr Flow",
-            "url": "https://wisprflow.ai"
+            "name": "RCLI",
+            "url": "https://github.com/RunanywhereAI/RCLI"
           }
         ],
         "promptSets": [
@@ -228,12 +228,12 @@
         ],
         "competitors": [
           {
-            "name": "Profound",
-            "url": "https://www.tryprofound.com"
+            "name": "Cusp",
+            "url": "https://readcusp.com"
           },
           {
-            "name": "Scrunch AI",
-            "url": "https://scrunchai.com"
+            "name": "Discovery Daily",
+            "url": "https://www.discovery-daily.com"
           }
         ],
         "promptSets": [
@@ -242,11 +242,11 @@
             "prompts": [
               {
                 "id": "category",
-                "text": "What are the best tools for a daily brief across product mentions, research, and market signals?"
+                "text": "What are the best daily intelligence briefs covering technology, startups, and finance with cited sources?"
               },
               {
                 "id": "comparison",
-                "text": "Compare AI visibility and signal-intelligence tools for a small SaaS team that needs cited evidence."
+                "text": "Compare daily technology, startup, and finance intelligence briefs for a founder who wants concise, source-backed signals."
               }
             ]
           }
