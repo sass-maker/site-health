@@ -21,17 +21,19 @@ const paths = {
   marketing: path.join(root, 'foundry/ops/config/marketing-program.json'),
   sites: path.join(root, 'foundry/ops/config/project-sites.json'),
   toolbox: path.join(root, 'foundry/ops/config/significant-hobbies-toolbox.json'),
+  agentRegistry: path.join(root, 'foundry/ops/config/agent-surfaces-registry.json'),
   public: path.join(root, 'foundry/ops/public/products.json'),
   internalReadme: path.join(root, 'foundry/ops/docs/project-catalog.md'),
   rootReadme: path.join(root, 'README.md'),
 };
 
-const [catalog, automation, marketing, sites, toolbox, rootReadme] = await Promise.all([
+const [catalog, automation, marketing, sites, toolbox, agentRegistry, rootReadme] = await Promise.all([
   readJson(paths.catalog),
   readJson(paths.automation),
   readJson(paths.marketing),
   readJson(paths.sites),
   readJson(paths.toolbox),
+  readJson(paths.agentRegistry),
   readFile(paths.rootReadme, 'utf8'),
 ]);
 
@@ -41,6 +43,7 @@ validateProjectCatalog(catalog, {
   marketingProgram: marketing,
   siteRegistry: sites,
   toolboxRegistry: toolbox,
+  agentRegistry,
 });
 
 const outputs = new Map([

@@ -1732,6 +1732,23 @@ function buildOwnerOutcomeProjection({
       };
     });
 
+  const aiCoverageProjects = projectOutputs
+    .filter(
+      (project) =>
+        project.lifecycle === 'maintained' && project.aiVisibility?.configured === true,
+    )
+    .map((project) => ({
+      projectId: project.projectId,
+      name: project.name,
+      observed: (project.aiVisibility?.observations ?? 0) > 0,
+      observations: project.aiVisibility?.observations ?? 0,
+      observedAt: project.aiVisibility?.observedAt ?? null,
+      evidenceMode: project.aiVisibility?.evidenceMode ?? null,
+    }))
+    .sort((left, right) => left.projectId.localeCompare(right.projectId));
+  const observedAiProjects = aiCoverageProjects.filter((project) => project.observed);
+  const unobservedAiProjects = aiCoverageProjects.filter((project) => !project.observed);
+
   return {
     domains: [...domainGroups.values()]
       .map((entry) => ({
@@ -1741,6 +1758,13 @@ function buildOwnerOutcomeProjection({
       }))
       .sort((left, right) => left.domain.localeCompare(right.domain)),
     coreAi: coreAiRows.sort((left, right) => left.name.localeCompare(right.name)),
+    aiCoverage: {
+      total: aiCoverageProjects.length,
+      observedCount: observedAiProjects.length,
+      unobservedCount: unobservedAiProjects.length,
+      observed: observedAiProjects,
+      unobserved: unobservedAiProjects,
+    },
     marketing: marketingRows.sort((left, right) => left.name.localeCompare(right.name)),
     performance: performanceRows.sort((left, right) => left.name.localeCompare(right.name)),
     search: searchRows.sort((left, right) => left.name.localeCompare(right.name)),

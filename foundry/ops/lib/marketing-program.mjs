@@ -117,6 +117,14 @@ function validateAiVisibility(config, marketingSlugs) {
   }
   const schedule = config.scheduleIntent;
   if (
+    config.ownershipPolicy != null &&
+    config.ownershipPolicy.categoryOwner !== 'canonical-origin'
+  ) {
+    throw new MarketingProgramError(
+      'aiVisibility.ownershipPolicy.categoryOwner must be canonical-origin',
+    );
+  }
+  if (
     !schedule ||
     typeof schedule.enabled !== 'boolean' ||
     !schedule.cadence ||
@@ -154,6 +162,7 @@ function validateAiVisibility(config, marketingSlugs) {
           throw new MarketingProgramError(`${project.slug}.aiVisibility prompt is invalid or duplicated`);
         }
         promptIds.add(`${set.id}/${prompt.id}`);
+        validateOwnedPage(prompt.ownedPage, `${project.slug}.${set.id}/${prompt.id}`);
       }
     }
     const personaIds = new Set();
@@ -190,6 +199,25 @@ function validateAiVisibility(config, marketingSlugs) {
     if (largestSet * project.personas.length * policy.allowedProviderIds.length > budget.maxCalls) {
       throw new MarketingProgramError(`${project.slug}.aiVisibility matrix exceeds its run budget`);
     }
+  }
+}
+
+function validateOwnedPage(ownedPage, label) {
+  if (ownedPage == null) return;
+  if (!['published', 'approval-pending', 'missing'].includes(ownedPage.state)) {
+    throw new MarketingProgramError(`${label}.ownedPage.state is invalid`);
+  }
+  if (ownedPage.state === 'published' && !absoluteHttpUrl(ownedPage.url)) {
+    throw new MarketingProgramError(`${label}.ownedPage.url must be an absolute HTTP(S) URL`);
+  }
+  if (
+    ownedPage.state === 'approval-pending' &&
+    !/^[a-f0-9]{64}$/u.test(ownedPage.manifestHash ?? '')
+  ) {
+    throw new MarketingProgramError(`${label}.ownedPage.manifestHash is invalid`);
+  }
+  if (ownedPage.state === 'missing' && ownedPage.url != null) {
+    throw new MarketingProgramError(`${label}.ownedPage cannot declare a URL while missing`);
   }
 }
 

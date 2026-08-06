@@ -1,10 +1,17 @@
 import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
+import { visibilityProjects } from './visibility-projects.mjs';
+
 const ATTENTION = new Set(['my-work', 'toolbox', 'foundry', 'ignored']);
 const LIFECYCLE = new Set(['maintained', 'local-only', 'past', 'non-product']);
 const VISIBILITY = new Set(['public', 'private', 'unknown']);
 const PUBLIC_LISTING = new Set(['maintained', 'past', 'hidden']);
+const GEO_SOURCE_STATE = new Set(['public', 'internal']);
+const GEO_DOCS_STATE = new Set(['public', 'repository-readme', 'landing-only']);
+const GEO_PRIMARY_AVAILABILITY = new Set(['web', 'api', 'direct-download', 'internal-only']);
+const GEO_APP_STORE_STATE = new Set(['not-applicable', 'listed']);
+const GEO_PRICING_STATE = new Set(['free', 'published', 'not-declared', 'not-applicable']);
 const RESERVED_OVERLAY_IDS = new Set(['wifi-watch']);
 const STANDALONE_PRODUCT_REPOS = new Map([
   ['india-standards', 'india-standards'],
@@ -17,6 +24,7 @@ export function validateProjectCatalog(catalog, {
   marketingProgram,
   siteRegistry,
   toolboxRegistry,
+  agentRegistry,
   reconcile = true,
 } = {}) {
   const errors = [];
@@ -89,6 +97,7 @@ export function validateProjectCatalog(catalog, {
   validateOverlay('marketing-program', marketingProgram?.projects, (entry) => entry.slug, identities, errors);
   validateOverlay('project-sites', Object.keys(siteRegistry?.projects ?? {}), (entry) => entry, identities, errors);
   validateOverlay('significant-hobbies-toolbox', toolboxRegistry?.products, (entry) => entry.id, identities, errors);
+  validateGeoIdentityContract(catalog, agentRegistry, errors);
 
   if (reconcile && fleetRoot) {
     const active = discoverGitDirectories(fleetRoot);
@@ -127,6 +136,156 @@ export function validateProjectCatalog(catalog, {
     throw new Error(`Project catalog invalid:\n- ${errors.join('\n- ')}`);
   }
   return { projectCount: ids.size };
+}
+
+export function validateGeoIdentityContract(catalog, agentRegistry, inheritedErrors = null) {
+  const errors = inheritedErrors ?? [];
+  const maintained = visibilityProjects(catalog);
+  const projectsById = new Map(maintained.map((project) => [project.id, project]));
+  const identities = catalog.geoIdentities ?? [];
+  const identitiesById = new Map();
+
+  for (const identity of identities) {
+    if (!identity?.id) {
+      errors.push('geo identity missing id');
+      continue;
+    }
+    if (identitiesById.has(identity.id)) {
+      errors.push(`${identity.id}: duplicate geo identity`);
+      continue;
+    }
+    identitiesById.set(identity.id, identity);
+  }
+
+  const missing = maintained
+    .filter((project) => !identitiesById.has(project.id))
+    .map((project) => project.id);
+  const extra = [...identitiesById.keys()].filter((id) => !projectsById.has(id));
+  if (missing.length) errors.push(`geo identities missing: ${missing.join(', ')}`);
+  if (extra.length) errors.push(`geo identities extra: ${extra.join(', ')}`);
+
+  const agentById = new Map((agentRegistry?.products ?? []).map((product) => [product.id, product]));
+  for (const [id, identity] of identitiesById) {
+    const project = projectsById.get(id);
+    if (!project) continue;
+    const expectedName = project.public?.name ?? project.name;
+    const expectedOrigin = `https://${project.domains[0]}`;
+    if (identity.name !== expectedName) {
+      errors.push(`${id}: geo name ${identity.name ?? 'missing'} != ${expectedName}`);
+    }
+    if (normalizeUrl(identity.origin) !== normalizeUrl(expectedOrigin)) {
+      errors.push(`${id}: geo origin ${identity.origin ?? 'missing'} != ${expectedOrigin}`);
+    }
+    validateAliases(id, identity, errors);
+    validateGeoSource(id, identity.source, project, errors);
+    validateGeoDocs(id, identity.docs, errors);
+    validateHttpsList(id, 'officialProfiles', identity.officialProfiles, errors);
+
+    if (!GEO_PRIMARY_AVAILABILITY.has(identity.availability?.primary)) {
+      errors.push(`${id}: invalid primary availability ${identity.availability?.primary}`);
+    }
+    if (!GEO_APP_STORE_STATE.has(identity.availability?.appStore)) {
+      errors.push(`${id}: invalid App Store state ${identity.availability?.appStore}`);
+    }
+    if (identity.availability?.appStore === 'listed' && !isHttpsUrl(identity.availability?.appStoreUrl)) {
+      errors.push(`${id}: listed App Store availability requires appStoreUrl`);
+    }
+    if (!GEO_PRICING_STATE.has(identity.pricing?.state)) {
+      errors.push(`${id}: invalid pricing state ${identity.pricing?.state}`);
+    }
+    if (['free', 'published'].includes(identity.pricing?.state) && !isHttpsUrl(identity.pricing?.url)) {
+      errors.push(`${id}: ${identity.pricing?.state} pricing requires a public URL`);
+    }
+
+    const agent = agentById.get(id);
+    if (!agentRegistry || !agent) continue;
+    if (agent.name !== identity.name) {
+      errors.push(`${id}: agent name ${agent.name ?? 'missing'} != canonical ${identity.name}`);
+    }
+    if (normalizeUrl(agent.url) !== normalizeUrl(identity.origin)) {
+      errors.push(`${id}: agent URL ${agent.url ?? 'missing'} != canonical ${identity.origin}`);
+    }
+    if (!sameStringList(agent.sameAs ?? [], identity.officialProfiles ?? [])) {
+      errors.push(`${id}: agent sameAs does not match canonical officialProfiles`);
+    }
+  }
+
+  if (inheritedErrors == null && errors.length) {
+    throw new Error(`GEO identity contract invalid:\n- ${errors.join('\n- ')}`);
+  }
+  return { projectCount: maintained.length };
+}
+
+function validateAliases(id, identity, errors) {
+  if (!Array.isArray(identity.aliases)) {
+    errors.push(`${id}: geo aliases must be an array`);
+    return;
+  }
+  const normalized = identity.aliases.map(normalize);
+  if (normalized.some((alias) => !alias)) errors.push(`${id}: geo aliases cannot be empty`);
+  if (new Set(normalized).size !== normalized.length) errors.push(`${id}: duplicate geo alias`);
+  if (normalized.includes(normalize(identity.name))) errors.push(`${id}: canonical name repeated as alias`);
+}
+
+function validateGeoSource(id, source, project, errors) {
+  if (!GEO_SOURCE_STATE.has(source?.state)) {
+    errors.push(`${id}: invalid geo source state ${source?.state}`);
+    return;
+  }
+  if (source.state === 'public') {
+    if (!isCanonicalGithubRepository(source.url)) {
+      errors.push(`${id}: public geo source requires a canonical GitHub repository URL`);
+    }
+    if (project.repositoryVisibility !== 'public') {
+      errors.push(`${id}: public geo source requires repositoryVisibility public`);
+    }
+    if (source.url !== project.public?.repositoryUrl) {
+      errors.push(`${id}: geo source ${source.url ?? 'missing'} != public repository ${project.public?.repositoryUrl ?? 'missing'}`);
+    }
+    if (source.path) errors.push(`${id}: public geo source must not expose an internal path`);
+    return;
+  }
+  if (!source.path || normalizePath(source.path) !== normalizePath(project.repo)) {
+    errors.push(`${id}: internal geo source path ${source.path ?? 'missing'} != ${project.repo ?? 'missing'}`);
+  }
+  if (source.url) errors.push(`${id}: internal geo source must not declare a public URL`);
+}
+
+function validateGeoDocs(id, docs, errors) {
+  if (!GEO_DOCS_STATE.has(docs?.state)) {
+    errors.push(`${id}: invalid geo docs state ${docs?.state}`);
+    return;
+  }
+  if (!isHttpsUrl(docs.url)) errors.push(`${id}: geo docs require a public HTTPS URL`);
+}
+
+function validateHttpsList(id, field, values, errors) {
+  if (!Array.isArray(values) || values.length === 0) {
+    errors.push(`${id}: ${field} must contain at least one URL`);
+    return;
+  }
+  if (values.some((value) => !isHttpsUrl(value))) errors.push(`${id}: ${field} must contain only HTTPS URLs`);
+  if (new Set(values).size !== values.length) errors.push(`${id}: ${field} contains duplicates`);
+}
+
+function isHttpsUrl(value) {
+  try {
+    return new URL(value).protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+function isCanonicalGithubRepository(value) {
+  return /^https:\/\/github\.com\/[^/]+\/[^/#]+$/.test(String(value ?? ''));
+}
+
+function normalizeUrl(value) {
+  return String(value ?? '').replace(/\/+$/, '');
+}
+
+function sameStringList(left, right) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
 }
 
 export function buildAutomationProjection(catalog, registry) {
