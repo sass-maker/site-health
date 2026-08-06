@@ -37,6 +37,16 @@ Check semantics, state coverage, source license, package weight, and framework
 compatibility independently. A polished demo is not proof of production
 fitness.
 
+## Evidence interfaces
+
+- [Vercel design.md](https://vercel.com/design.md) — a detailed first-party
+  report-design workflow; adapt its reader, evidence, and decision discipline,
+  not its brand shell, assets, CSS API, tokens, or house style.
+
+Verify factual and accessibility guidance independently when applying it to a
+different product. The owning project's content and design authority remain
+the contract.
+
 ## Web 3D
 
 - [Blender](https://www.blender.org/) — authoring and offline processing.

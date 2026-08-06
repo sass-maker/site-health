@@ -15,6 +15,7 @@ const childSkills = [
   'component-pattern-mine',
   'web-3d-pipeline',
   'creative-web-effects',
+  'evidence-interface-design',
 ];
 
 test('design-engineering parent routes to every focused child', () => {
@@ -56,6 +57,29 @@ test('DesEngs refinements keep modes and temporary probes explicit', () => {
 
   assert.match(sourceMap, /\[DesEngs\]\(https:\/\/desengs\.com\/\)/);
   assert.match(sourceMap, /not as evidence that a resource is[\s\S]*endorsed/);
+});
+
+test('evidence interfaces preserve meaning and support decision and audit paths', () => {
+  const skill = readSkill('evidence-interface-design');
+  const contract = readFileSync(
+    path.join(skillsRoot, 'evidence-interface-design/references/evidence-contract.md'),
+    'utf8',
+  );
+  const sourceMap = readFileSync(
+    path.join(skillsRoot, 'design-engineering/references/source-map.md'),
+    'utf8',
+  );
+  const designWorkflow = readSkill('design-workflow');
+
+  assert.match(skill, /observation, derivation,[\s\S]*projection,[\s\S]*recommendation/);
+  assert.match(skill, /fast path[\s\S]*audit path/);
+  assert.match(skill, /one primary evidence home/);
+  assert.match(contract, /Calculate from full-precision state/);
+  assert.match(contract, /last valid result/);
+  assert.match(contract, /semantic table or text alternative/);
+  assert.match(sourceMap, /\[Vercel design\.md\]\(https:\/\/vercel\.com\/design\.md\)/);
+  assert.match(sourceMap, /not its brand shell, assets, CSS API, tokens, or house style/);
+  assert.match(designWorkflow, /evidence-heavy interfaces/);
 });
 
 test('focused skills have complete metadata, references, and execution profiles', () => {

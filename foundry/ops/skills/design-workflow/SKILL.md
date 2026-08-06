@@ -42,10 +42,11 @@ relative Fleet root.
 - Preserve: use the tracked system and before evidence as the contract.
 - Overhaul: record reference names, probe ids/paths, selected probe, and
   `approved` or `delegated` in `.fleet/design-review.json` before code.
-- For reference research, unfamiliar components, web 3D, or creative browser
-  effects, route through `../design-engineering/SKILL.md` and load only its
-  matching child skill. Treat the child output as evidence and implementation
-  guidance; this skill remains the completion authority.
+- For reference research, unfamiliar components, web 3D, creative browser
+  effects, or evidence-heavy interfaces, route through
+  `../design-engineering/SKILL.md` and load only its matching child skill. Treat
+  the child output as evidence and implementation guidance;
+  this skill remains the completion authority.
 - Do not copy another system's brand styling, tokens, assets, proprietary code,
   or whole visual language. Record material references and anti-patterns when
   they influence a direction; project `PRODUCT.md`, `DESIGN.md`, and existing
