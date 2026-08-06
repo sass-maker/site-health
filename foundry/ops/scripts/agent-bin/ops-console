@@ -111,7 +111,7 @@ publish_runtime() {
   cp -R "$APP_DIR/dist" "$RUNTIME_DIR/dist"
   mkdir -p "$RUNTIME_DIR/lib/founder-control"
   cp -R "$FLEET_OPS_DIR/lib/founder-control/." "$RUNTIME_DIR/lib/founder-control/"
-  cp "$FLEET_OPS_DIR/lib/marketing-program.mjs" "$RUNTIME_DIR/lib/marketing-program.mjs"
+  cp "$FLEET_OPS_DIR"/lib/*.mjs "$RUNTIME_DIR/lib/"
   mkdir -p "$RUNTIME_DIR/config"
   cp "$FLEET_OPS_DIR/config/projects.json" "$RUNTIME_DIR/config/projects.json"
   cp "$FLEET_OPS_DIR/config/automation-registry.json" "$RUNTIME_DIR/config/automation-registry.json"
