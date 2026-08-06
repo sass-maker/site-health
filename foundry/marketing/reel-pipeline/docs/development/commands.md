@@ -96,6 +96,7 @@ publishing is intentionally rejected.
 | Command | Purpose |
 | --- | --- |
 | `npm run studio -- <tool>` | Content studio tools |
+| `npm run studio:story-sample` | Resume the guarded five-shot, 30-second LTX story canary and retain it in History |
 | `npm run faceless -- --topic "..."` | Topic-to-video workflow |
 | `npm run factory -- <command>` | Local backlog-to-artifact conveyor |
 | `npm run factory -- arsenal [filters]` | Read-only machine inventory of projects, tools, workflows, recipes, engines, policies, readiness, guardrails, and next actions |
@@ -115,6 +116,47 @@ publishing is intentionally rejected.
 
 Add `--reduced-motion` to `forge:coherent` to render the same manifest with
 fixed source frames and direct scene changes.
+
+### Studio story canary
+
+The story canary requires the supported local Studio server, the existing LTX
+2.3 runtime, Kokoro, and an already-installed ACE-Step OpenRouter server. It
+preflights those dependencies before starting an expensive video render and
+refuses to cross the repository's 85 percent disk or 90 percent RAM ceilings.
+WAI Illustrious keyframes are optional; the command does not download that
+checkpoint when it is absent.
+
+Start Studio in one terminal:
+
+```bash
+npm run dev
+```
+
+If the generated score is not already cached, start the installed ACE-Step
+runtime in another terminal:
+
+```bash
+cd .reel-pipeline/engines/ace-step-1.5
+uv run --no-sync acestep-openrouter --port 18001
+```
+
+Then resume or run the canary from the repository root:
+
+```bash
+npm run forge:readiness
+npm run studio:story-sample
+```
+
+Use `-- --base-url <url> --ace-url <url>` for non-default local ports. Outputs,
+shot receipts, and the final MP4 remain under ignored `.reel-pipeline/` and
+`tmp/` paths; the completed brief appears in Studio History.
+
+On the current 48 GB generation Mac, the retained LTX receipts measured 205 to
+216 seconds for each six-second final shot. The first complete 30-second canary
+therefore takes roughly 20 to 25 minutes including generated music, voice, and
+assembly; a fully cached resume takes a few seconds. A two- to three-minute
+episode with the same shot density is roughly 75 to 115 minutes before rerolls,
+or more realistically two to four hours when selected shots need another pass.
 
 ## Worker and watcher
 

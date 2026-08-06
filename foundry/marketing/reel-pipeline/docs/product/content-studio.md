@@ -1,6 +1,6 @@
-# Marketing Studio
+# Video Maker
 
-Marketing Studio is Reel Pipeline's unified operator surface for turning a
+Video Maker is Reel Pipeline's standalone product surface for turning a
 natural-language request or standing automation policy into an editable video
 brief, routing that brief to the real production workflow, reviewing the
 result, and preparing an evidence-gated Postiz draft or exact future schedule.
@@ -30,25 +30,29 @@ For the topic→video→post workflow that consumes these tools, see
 
 ## Operator workflow
 
-The primary operator entry is Fleet Console's existing Marketing dashboard at
-`http://localhost:4321/marketing`. Start Reel Pipeline with `npm run dev` so the
-dashboard can use its local generation service on port 4317. The standalone
-`/studio` route is retained only for diagnostics. Mashup remains a CLI-only
-editorial capability and is intentionally absent from every web UI.
+The primary operator entry is Reel Pipeline's `/studio` route. Start Reel
+Pipeline with `npm run dev`, then open the Studio URL printed by the server
+(port 4317 by default). Fleet Console may link into this product, but it is not
+the owner of the creation experience. Mashup remains a CLI-only editorial
+capability and is intentionally absent from every web UI.
 
 1. **Create** — the **Ask Me** lane. Describe a video in plain language, then keep refining the same
    brief with follow-ups such as “make it 30 seconds,” “switch to Instagram,”
    or “turn this into an app demo.” Every turn updates visible normalized
    `fleet.marketing-studio-brief.v1` fields. Nothing renders until the operator
    chooses the named action.
-2. **Productions** — filter the shared queue by **Project Autopilot**, **Ask
-   Me**, or **Personal Automations**. Inspect saved intent, source and policy
-   revision, recipe/spend choice, playable local artifacts, quality evidence,
-   distribution state, and the authoritative recovery action.
-3. **Distribute** — prove source, claim, destination, rights, creative
+2. **History** — revisit every saved production with its original prompt,
+   executed workflow, reviewable artifact, receipt, and a route back to Create.
+   The shared production queue and automation lanes remain available under
+   **Production operations**.
+3. **Recipes** — browse bounded result formats from the existing recipe
+   registry and use one as a starting point in Create.
+4. **Workflows** — inspect the registered production archetypes and their
+   models, steps, readiness, and constraints before reusing them.
+5. **Distribute** — prove source, claim, destination, rights, creative
    approval, quality, render, and stable public media before creating an
    unscheduled Postiz draft.
-4. **Tools** — use every pre-existing Content Studio form, ideas manager, and
+6. **Tools** — use every pre-existing Content Studio form, ideas manager, and
    legacy render view without changing their API routes.
 
 Briefs persist to ignored local state at `tmp/studio/briefs.json` by default.

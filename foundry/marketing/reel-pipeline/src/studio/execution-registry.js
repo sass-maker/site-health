@@ -109,9 +109,13 @@ export function validateExecutionRegistry(options = {}) {
 }
 
 export function missingExecutionInputs(recipeId, input = {}) {
-  return getExecutionAdapter(recipeId).inputs
+  const missing = getExecutionAdapter(recipeId).inputs
     .filter((definition) => definition.required && !String(input[definition.id] ?? '').trim())
     .map((definition) => definition.label);
+  if (recipeId === 'night-out-carousel' && String(input.assetManifestPath ?? '').trim() && !String(input.rightsEvidence ?? '').trim()) {
+    missing.push('Source rights evidence');
+  }
+  return missing;
 }
 
 function adapter(id, owner, inputs = []) {

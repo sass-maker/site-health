@@ -133,9 +133,12 @@ The same guard wraps ACE-Step and final assembly where relevant.
 History reads the existing Marketing Brief store and decorates each entry with
 its original request, persisted workflow proposal, execution receipt, and
 playable artifact URL. It does not copy prompts, workflows, or videos into a
-new database. Recipes and Workflows are read-only projections of the existing
-production catalog and workflow-archetype library; choosing one returns to
-Create with a bounded starting instruction.
+new database or privilege a fixed experiment set in the information
+architecture. The most recent entries form a bounded, scrollable filmstrip and
+the complete archive remains available in the ledger. Recipes and Workflows are
+read-only projections of the existing production catalog and
+workflow-archetype library; choosing one returns to Create with a bounded
+starting instruction.
 
 ```mermaid
 flowchart LR
@@ -155,7 +158,23 @@ flowchart LR
 The five-sample canary uses a checked-in manifest of creative prompts and
 approved local reference paths. A runner submits them serially through the
 same proposal and execution boundary as the UI, resumes already completed
-sample ids, and relies on the 85 percent disk and 90 percent RAM guards.
+sample ids, and relies on the 85 percent disk and 90 percent RAM guards. Its
+entries carry no special History-page layout or status once persisted.
+
+A separate 30-second story canary proves multi-shot pacing before committing to
+the much more expensive 2- to 3-minute episode render. It resumes completed
+shots, prefers WAI-generated keyframes when that optional checkpoint is already
+installed, otherwise uses the installed LTX 2.3 text-to-video path without a
+download, then assembles original Kokoro voice, ACE-Step music, and the five
+shots with FFmpeg. The retained executed-workflow record overrides an earlier
+single-shot proposal in History so the visible route describes what actually
+produced the final artifact.
+
+Workflow proposals and library entries expose a bounded estimate derived from
+the retained local measurements: 205 to 216 seconds per six-second LTX 2.3
+final shot and 16 to 42 seconds per short LTX 2B preview. The estimate is
+display metadata only; it never changes the graph, queue order, resource guard,
+or execution decision.
 
 ## Risks / Trade-offs
 

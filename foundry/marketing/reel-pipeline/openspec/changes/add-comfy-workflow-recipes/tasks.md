@@ -54,5 +54,7 @@
 - [x] 8.1 Add read-only API projections for production History, recipe catalog, and workflow-archetype library without adding a parallel ledger
 - [x] 8.2 Add History, Recipes, and Workflows navigation and artifact-led responsive surfaces with prompt, workflow, video, readiness, and reuse actions
 - [x] 8.3 Add a versioned five-sample prompt manifest and resumable serial local runner using the existing 85 percent disk and 90 percent RAM guards
-- [ ] 8.4 Run the five samples and retain the real briefs, frozen workflows, videos, and receipts in History
+- [x] 8.4 Run the five samples and retain the real briefs, frozen workflows, videos, and receipts in History
 - [x] 8.5 Add focused API/UI/runner tests, browser evidence at 390/768/1440, Impeccable critique/polish/audit, full validation, and owner review
+- [x] 8.6 Add and run a resumable 30-second five-shot story canary with local voice, generated music, exact composite workflow evidence, and no optional-model download
+- [x] 8.7 Make recipe readiness reflect the actual default model path and show measured generation-time ranges in workflow proposals and the workflow library

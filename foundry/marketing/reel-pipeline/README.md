@@ -2,11 +2,14 @@
 
 > Canonical source: `foundry/marketing/reel-pipeline/` in
 > [`sass-maker/fleet-workspace`](https://github.com/sass-maker/fleet-workspace).
-> The former standalone repository is historical only.
+> The former standalone repository is historical only; the product itself has
+> a standalone boundary while its canonical source remains in the Fleet
+> monorepo.
 
-Fleet's editorial and media-generation service. It turns owned or licensed
-source archives, approved podcast edits, and source-backed briefs into
-reviewable vertical-video artifacts and receipts.
+A local-first video-creation product. Its primary loop is request → inspectable
+workflow → explicit generation → playable result → reusable history. It also
+turns owned or licensed source archives, approved podcast edits, and
+source-backed briefs into reviewable vertical-video artifacts and receipts.
 
 Reel Pipeline does **not** own social accounts, scheduling, publishing, or
 provider analytics. Approved packages are handed to Postiz as drafts; a human

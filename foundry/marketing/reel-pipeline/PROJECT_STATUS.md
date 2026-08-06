@@ -1,13 +1,15 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-08-01
+Last updated: 2026-08-06
 
 ## Why / What
 
-Reel Pipeline is Fleet's media-generation and source-editorial service. It
-accepts approved, source-backed briefs or podcast edit decisions, renders
-reviewable media, records artifact provenance, and creates evidence-gated draft
-or future-schedule handoffs for Postiz.
+Reel Pipeline is a standalone, local-first video-creation product whose source
+is maintained inside the Fleet monorepo. Its primary product loop turns a
+plain-language request into an inspectable workflow, explicit generation,
+browser-playable result, reusable history entry, and optional evidence-gated
+Postiz handoff. It also accepts approved source-backed briefs and podcast edit
+decisions, renders reviewable media, and records artifact provenance.
 
 It deliberately does not own social credentials, durable calendar execution,
 rescheduling, cancellation, publishing state, or provider analytics. Postiz
@@ -34,8 +36,18 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-06:** established Reel Pipeline as a standalone product boundary,
+  with `/studio` as its product surface rather than a diagnostics-only view.
+  Tightened playback truth so History and Productions advertise an MP4 only
+  after media probing confirms a decodable video stream; missing and legacy
+  mock artifacts remain inspectable without a broken player.
+- **2026-08-06:** made Marketing Studio's production archive generic and
+  data-driven, keeping every saved prompt, executed workflow, receipt, and
+  playable artifact together. Added registry-backed Recipes and Workflows
+  libraries plus reproducible guarded sample workflows, including a five-shot
+  30-second LTX story canary with original Kokoro voice and ACE-Step music.
 - **2026-08-01:** completed the Fleet Console Marketing video arsenal boundary:
-  all 48 stable variants now have compact rights-safe vertical MP4 fixtures,
+  all 49 stable variants now have compact rights-safe vertical MP4 fixtures,
   exact prompt presets, byte-range playback, fixture/real execution envelopes,
   registered owner adapters, and fail-closed completeness checks. Added ordered
   two-to-three-style gallery mixes with deterministic local FFmpeg composition
@@ -95,8 +107,9 @@ owns that downstream lifecycle.
 
 ## Products
 
-- Anonymous brand-reel generator.
-- Internal Marketing Studio and faceless/lesson workflows.
+- Standalone local-first Video Maker (`/studio`) with Create, History, Recipes,
+  and Workflows.
+- Anonymous brand-reel generator and faceless/lesson workflows.
 - Worker/R2 production reel renderer.
 - Content-package renderer and Postiz draft or future-schedule handoff.
 - Source-backed podcast planning, approval, and multi-clip rendering.
@@ -126,7 +139,7 @@ owns that downstream lifecycle.
   bounded manifests, factory startup, disabled auto-execution, run-directory
   path controls, versioned provenance, artifact hashes, and eight distinct
   local 3D scene languages.
-- A secret-free, byte-range-capable Explore Gallery registry with 48 exact,
+- A secret-free, byte-range-capable Explore Gallery registry with 49 exact,
   portable, hash-validated rights-safe MP4 previews; style-family filtering;
   exact preset handoff; and ordered two-to-three-style mixes rendered locally
   with component provenance.
@@ -134,11 +147,12 @@ owns that downstream lifecycle.
   registries for all 12 recipes and 48 variants, normalized local and owner
   receipts, contextual blockers, and catalog/gallery/preset completeness that
   fails closed on missing, duplicate, null, unknown, or stale identifiers.
-- Unified Create, Productions, Distribute, and Tools operator views with
-  explicit execution, local artifact playback, quality state, specialized
-  runtime continuations, safe public-field prefill for Brand Reel and Forge,
-  deduplicated brief-owned artifacts, and the complete legacy Content Studio
-  toolset.
+- Unified Create, History, Recipes, Workflows, Distribute, and Tools operator
+  views with explicit execution, prompt-to-artifact traceability, registry-backed
+  reusable starting points, exact executed composite-workflow evidence,
+  specialized runtime continuations, safe public-field prefill for Brand Reel
+  and Forge, deduplicated brief-owned artifacts, and the complete legacy Content
+  Studio toolset.
 - Fail-closed Studio-to-Postiz preparation requiring source, claim,
   destination, rights, creative approval, quality evidence, render evidence,
   and a stable public media URL; draft and scheduled submissions preserve the

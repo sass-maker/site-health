@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Marketing Studio AI workflow route proposal at /studio",
+  "target": "Marketing Studio History, Recipes, and Workflows at /studio",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -12,27 +12,27 @@
   "direction": {
     "references": [],
     "probes": [],
-    "selected": "existing-design",
+    "selected": "film-archive-evidence-beam",
     "approval": "not-required",
-    "before": "artifacts/design/local-workflow-proposal/before-1440.png"
+    "before": "artifacts/design/studio-libraries/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/local-workflow-proposal/after-390.png"
+        "path": "artifacts/design/studio-libraries/after-history-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/local-workflow-proposal/after-768.png"
+        "path": "artifacts/design/studio-libraries/after-history-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/local-workflow-proposal/after-1440.png"
+        "path": "artifacts/design/studio-libraries/after-history-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm test && npm run docs:validate && openspec validate add-comfy-workflow-recipes --strict && git diff --check",
+      "command": "npm test && npm run smoke:studio && npm run gallery:check && npm run gallery:representatives:check && npm run docs:validate && openspec validate add-comfy-workflow-recipes --strict && git diff --check",
       "status": "pass"
     },
     "critique": {
@@ -53,7 +53,7 @@
     }
   },
   "ownerFeedback": {
-    "decision": "delegated",
-    "note": "The first stacked-card iteration was rejected. On 2026-08-06 the owner explicitly delegated final completion by requesting that all remaining work be fixed and every pull request merged."
+    "decision": "keep",
+    "note": "On 2026-08-06 the owner accepted the current direction as fine to live with for now and asked to focus on push readiness."
   }
 }

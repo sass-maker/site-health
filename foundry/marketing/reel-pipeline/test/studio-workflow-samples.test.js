@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import sampleConfig from '../config/studio-workflow-samples.json' with { type: 'json' };
+import storyConfig from '../config/studio-story-sample.json' with { type: 'json' };
 import { listWorkflowSamples, runWorkflowSamples, validateWorkflowSamples } from '../src/studio/workflow-samples.js';
 
 test('five creative workflow samples are stable and bounded', () => {
@@ -11,6 +12,13 @@ test('five creative workflow samples are stable and bounded', () => {
   assert.equal(new Set(samples.map((sample) => sample.seed)).size, 5);
   assert.ok(samples.every((sample) => sample.briefId.startsWith('sample_')));
   assert.ok(samples.every((sample) => sample.referenceImage.startsWith('/repo/')));
+});
+
+test('longer story sample stays on the same five-shot workflow boundary', () => {
+  const config = validateWorkflowSamples(storyConfig);
+  assert.equal(config.sampleSetId, 'last-train-to-elsewhere');
+  assert.equal(config.samples.reduce((total, sample) => total + sample.durationSeconds, 0), 30);
+  assert.ok(config.samples.every((sample) => sample.imagePrompt && !/party|karaoke/i.test(sample.prompt)));
 });
 
 test('sample runner plans through the shared brief boundary and never executes in plan-only mode', async () => {
@@ -38,6 +46,7 @@ test('sample runner plans through the shared brief boundary and never executes i
   });
   assert.equal(result.results[0].status, 'planned');
   assert.equal(requests.length, 2);
+  assert.equal(requests[0].url, 'http://127.0.0.1:4317/studio/briefs');
   assert.match(requests[1].url, /\/studio\/briefs$/);
   assert.equal(JSON.parse(requests[1].init.body).fields.id, `sample_${sample.id}`);
 });

@@ -20,7 +20,7 @@ export function listWorkflowSamples(options = {}) {
 
 export async function runWorkflowSamples(options = {}) {
   const fetchImpl = options.fetchImpl ?? localLongRequest;
-  const baseUrl = String(options.baseUrl ?? 'http://127.0.0.1:4319').replace(/\/$/, '');
+  const baseUrl = String(options.baseUrl ?? 'http://127.0.0.1:4317').replace(/\/$/, '');
   const samples = listWorkflowSamples(options);
   const only = options.only ? new Set(options.only) : null;
   const current = await requestJson(fetchImpl, `${baseUrl}/studio/briefs`);

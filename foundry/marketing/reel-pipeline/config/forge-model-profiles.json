@@ -59,7 +59,7 @@
       "family": "LTX-2.3 native video",
       "version": "2.3-mlx-q4",
       "generationModes": ["text-to-video", "image-to-video"],
-      "speed": "Slower accepted-shot final pass",
+      "speed": "Measured about 3.5 minutes per 6-second final shot on this 48 GB Mac",
       "quality": "Final-quality local lane and current production target",
       "resourceClass": "48 GB unified-memory host profile; reserve 45 GB including runtime, prompt model, and safety margin",
       "nativeAudio": true,
