@@ -61,6 +61,22 @@ test('canonical identities and historical aliases resolve uniquely', () => {
   assert.equal(resolve('CodeVetter'), 'codevetter');
 });
 
+test('focus-product awareness targets match the products buyers actually compare', () => {
+  const result = validateMarketingProgram(registry);
+  const pace = result.aiVisibility.projects.find((project) => project.slug === 'pace');
+  const highSignal = result.aiVisibility.projects.find((project) => project.slug === 'high-signal');
+
+  assert.deepEqual(pace.competitors.map((competitor) => competitor.name), ['Dottie', 'RCLI']);
+  assert.deepEqual(
+    highSignal.competitors.map((competitor) => competitor.name),
+    ['Cusp', 'Discovery Daily'],
+  );
+  assert.match(highSignal.promptSets[0].prompts[0].text, /technology, startups, and finance/);
+  for (const prompt of highSignal.promptSets[0].prompts) {
+    assert.doesNotMatch(prompt.text, /AI visibility|product mentions/);
+  }
+});
+
 test('ambiguous aliases and focus drift fail validation', () => {
   const ambiguous = structuredClone(registry);
   ambiguous.projects.find((project) => project.slug === 'pace').aliases.push('linkchat');
