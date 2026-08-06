@@ -1,6 +1,6 @@
 ---
 name: design-engineering
-description: Route focused design-engineering work for inspiration research, component pattern mining, web 3D delivery, and creative browser effects. Use when a Fleet task needs attributable visual references or working direction probes, comparison of unfamiliar UI components, glTF or real-time 3D work, or shaping, auditing, discovering, specifying, or implementing purposeful animation, SVG, Canvas, shader, scroll, or pointer effects. This skill complements design-workflow and Impeccable; it does not replace their direction, craft, or completion gates.
+description: Route focused design-engineering work for inspiration research, component pattern mining, web 3D delivery, creative browser effects, and evidence-heavy interfaces. Use when a Fleet task needs attributable visual references or working direction probes, comparison of unfamiliar UI components, glTF or real-time 3D work, purposeful animation or graphics, or trustworthy reports, benchmarks, comparisons, dashboards, calculators, and decision pages. This skill complements design-workflow and Impeccable; it does not replace their direction, craft, or completion gates.
 ---
 
 # Design engineering
@@ -16,6 +16,7 @@ child skill and its directly relevant references.
 | Compare an unfamiliar component or interaction pattern | `component-pattern-mine` | `../component-pattern-mine/SKILL.md` |
 | Create, inspect, optimize, or integrate models, scenes, glTF, or real-time 3D | `web-3d-pipeline` | `../web-3d-pipeline/SKILL.md` |
 | Shape, audit, discover, specify, or build animation, SVG, Canvas, shader, pointer, or scroll effects | `creative-web-effects` | `../creative-web-effects/SKILL.md` |
+| Shape, audit, specify, or build an evidence-heavy report, benchmark, comparison, dashboard, calculator, or decision page | `evidence-interface-design` | `../evidence-interface-design/SKILL.md` |
 
 If a shader is part of a scene with models, cameras, or 3D interaction, route
 through `web-3d-pipeline` first and hand its rendering boundary to
