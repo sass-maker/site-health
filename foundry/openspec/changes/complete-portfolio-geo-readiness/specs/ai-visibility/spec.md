@@ -29,4 +29,3 @@ generic ChatGPT or Claude consumer-product measurement.
 - **WHEN** a response was captured by Codex CLI, Claude Code, or another approved client
 - **THEN** the retained provenance identifies that client, provider, and model
 - **AND** UI copy does not broaden the claim beyond the captured surface
-

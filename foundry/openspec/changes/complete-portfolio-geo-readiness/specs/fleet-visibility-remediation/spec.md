@@ -17,4 +17,3 @@ when reporting GEO remediation.
 - **WHEN** a production deployment is independently verified and a later comparable observation records the outcome
 - **THEN** Fleet may move the project into externally-observed state
 - **AND** it retains the source revision, deployment evidence, and observation timestamp
-

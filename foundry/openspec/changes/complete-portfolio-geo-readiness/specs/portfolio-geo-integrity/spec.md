@@ -70,4 +70,3 @@ A product SHALL NOT be labeled GEO-ready from technical crawler access alone.
 - **THEN** technical readiness is reported as passing
 - **AND** provider visibility remains unobserved
 - **AND** the combined GEO state is not reported as ready
-
