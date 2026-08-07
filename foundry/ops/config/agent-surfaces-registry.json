@@ -419,6 +419,16 @@
           "title": "Advanced LLM training",
           "url": "https://posttrainllm.com/docs/learn/advanced-llm-training",
           "description": "Category guide for local and browser-side small-model fine-tuning"
+        },
+        {
+          "title": "How to train your own LLM",
+          "url": "https://posttrainllm.com/how-to-train-your-own-llm",
+          "description": "Honest guide: post-training vs pre-training for specialist models"
+        },
+        {
+          "title": "Fine-tune LLM on Mac",
+          "url": "https://posttrainllm.com/fine-tune-llm-on-mac",
+          "description": "Mac-local fine-tuning workflow"
         }
       ],
       "indexMd": "# PostTrainLLM\n\nMac-local LLM factory + runtime (MLX) and WebGPU playground.\n\n## What it is\n\n- Local post-training workflows on Mac\n- Specialist model factory narrative\n- Browser playground surfaces\n\n## Agent entrypoints\n\n- https://posttrainllm.com/llms.txt\n- https://posttrainllm.com/api/ai\n- https://posttrainllm.com/index.md\n"
