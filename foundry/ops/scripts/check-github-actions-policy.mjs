@@ -47,7 +47,11 @@ for (const file of workflowFiles) {
   if (concurrency.length === 0) {
     errors.push(`${file}: top-level concurrency is required`);
   } else {
-    if (!concurrency.some((line) => line.includes('github.workflow'))) {
+    // Reusable workflow callers cannot use ${{ github.workflow }} in concurrency
+    // groups — it causes "workflow file issue" parse failures. Allow a static
+    // string for any workflow that contains a `uses:` job reference.
+    const isReusableCaller = lines.some((line) => /^\s+uses:\s+.*@/.test(line));
+    if (!isReusableCaller && !concurrency.some((line) => line.includes('github.workflow'))) {
       errors.push(`${file}: concurrency group must include github.workflow`);
     }
     if (!concurrency.some((line) => line.trimStart().startsWith('cancel-in-progress:'))) {
