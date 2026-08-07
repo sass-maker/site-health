@@ -1,0 +1,15 @@
+name: Test Reusable 3
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  reusable:
+    uses: sass-maker/workflows/.github/workflows/workflow-policy-ci.yml@main
