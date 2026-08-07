@@ -70,7 +70,11 @@
             "prompts": [
               {
                 "id": "category",
-                "text": "What are the best private Mac voice assistants that can understand the screen and take actions?"
+                "text": "What are the best private Mac voice assistants that can understand the screen and take actions?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://heypace.app/private-voice-assistant-mac"
+                }
               },
               {
                 "id": "comparison",
@@ -132,11 +136,19 @@
             "prompts": [
               {
                 "id": "category",
-                "text": "What are the best private AI code review tools for reviewing a repository locally?"
+                "text": "What are the best private AI code review tools for reviewing a repository locally?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://codevetter.com/coding-agent-verification"
+                }
               },
               {
                 "id": "comparison",
-                "text": "Compare desktop and pull-request AI code reviewers on privacy, evidence quality, and workflow."
+                "text": "Compare desktop and pull-request AI code reviewers on privacy, evidence quality, and workflow.",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://codevetter.com/ai-code-review-vs-verification"
+                }
               }
             ]
           }
@@ -191,7 +203,11 @@
             "prompts": [
               {
                 "id": "category",
-                "text": "What are the best ways to fine-tune a small language model locally or in a browser?"
+                "text": "What are the best ways to fine-tune a small language model locally or in a browser?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://posttrainllm.com/docs/learn/advanced-llm-training"
+                }
               },
               {
                 "id": "comparison",
@@ -253,7 +269,11 @@
             "prompts": [
               {
                 "id": "category",
-                "text": "What are the best daily intelligence briefs covering technology, startups, and finance with cited sources?"
+                "text": "What are the best daily intelligence briefs covering technology, startups, and finance with cited sources?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://highsignal.app/daily-intelligence-brief"
+                }
               },
               {
                 "id": "comparison",

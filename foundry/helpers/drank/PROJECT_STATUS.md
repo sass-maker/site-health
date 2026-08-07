@@ -17,9 +17,9 @@ Last updated: 2026-07-18
 
 ### External
 
-- **Ahrefs free public API:** Domain Rating endpoint proxied via `/api/dr`; ~750ms between bulk refreshes; no API keys.
-- **GitHub Actions:** weekly global DR update cron.
-- **Cloudflare Pages:** deploy target (static export via `output: 'export'`, served from `out/`; `/api/dr` runs as a Pages Function).
+- **Ahrefs free public API:** Domain Rating endpoint proxied via `/api/dr`; ~750ms between bulk refreshes; free/unit-free but needs `AHREFS_API_KEY` from 2026-08-10.
+- **GitHub Actions:** weekly global DR update cron (passes `AHREFS_API_KEY` via `secrets: inherit`).
+- **Cloudflare Pages:** deploy target (static export via `output: 'export'`, served from `out/`; `/api/dr` runs as a Pages Function with optional `AHREFS_API_KEY` binding).
 
 ### Internal (fleet)
 
@@ -40,10 +40,13 @@ Last updated: 2026-07-18
 
 **Deploy:** Cloudflare Pages — `pnpm deploy` (builds then `wrangler pages deploy out --project-name=drank`); CI auto-deploys on push to `main` via `CLOUDFLARE_API_TOKEN`.
 
-**Env files:** None required. No secrets.
+**Env files:** none required for local static UI. Production Pages Function and weekly DR cron need `AHREFS_API_KEY` (free Ahrefs account key; not a paid API plan) from 2026-08-10.
 
 ## Timeline
 
+- **2026-08-07** — Wired optional `AHREFS_API_KEY` into `/api/dr`, the weekly
+  global/Fleet DR update script, and the reusable workflow `secrets: inherit`
+  path so free DR lookups keep working after Ahrefs' 2026-08-10 auth change.
 - **2026-08-05** — Removed the dashboard webfont dependency from the initial
   render path. The production build now uses the system font stack, eliminating
   the font wait that delayed the text LCP shell.
