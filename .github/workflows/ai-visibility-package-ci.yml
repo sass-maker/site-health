@@ -13,6 +13,7 @@ on:
       - ".github/workflows/ai-visibility-package-ci.yml"
   workflow_dispatch:
 
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -21,21 +22,5 @@ permissions:
   contents: read
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    defaults:
-      run:
-        working-directory: foundry/helpers/ai-visibility
-    steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v6
-        with:
-          version: 10.33.2
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-          cache: pnpm
-          cache-dependency-path: foundry/helpers/ai-visibility/pnpm-lock.yaml
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm check
+  reusable:
+    uses: sass-maker/workflows/.github/workflows/ai-visibility-package-ci.yml@main
