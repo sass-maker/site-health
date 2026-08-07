@@ -265,10 +265,10 @@ Do **not** submit all four products to the same generic directory in one batch.
 | PT1 | raullenchai/awesome-mlx | PostTrainLLM | submitted | 2026-08-07 | https://github.com/raullenchai/awesome-mlx/pull/22 | PR open |
 | PT2 | akdeb/awesome-mlx | PostTrainLLM | submitted | 2026-08-07 | https://github.com/akdeb/awesome-mlx/pull/1 | PR open |
 | PT4 | rafska/awesome-local-llm | PostTrainLLM | submitted | 2026-08-07 | https://github.com/rafska/awesome-local-llm/pull/170 | PR open |
-| PT7 | mlx discussions #654 | PostTrainLLM | todo | | | |
-| PA1 | awesome-mac | Pace | todo | | | |
+| PT7 | mlx discussions #654 | PostTrainLLM | submitted | 2026-08-07 | https://github.com/ml-explore/mlx/discussions/654#discussioncomment-17937083 | Community projects comment |
+| PA1 | awesome-mac | Pace | submitted | 2026-08-07 | https://github.com/jaywcjlove/awesome-mac/pull/2514 | AI Tools section |
 | PA4 | Show HN | Pace | blocked | | | Need sharp demo story |
-| CV1 | code-review awesome list | CodeVetter | todo | | | Pick maintained list first |
+| CV1 | kodustech/awesome-ai-code-review | CodeVetter | submitted | 2026-08-07 | https://github.com/kodustech/awesome-ai-code-review/pull/36 | Plus tauri awesome #840 |
 | CV4 | Show HN | CodeVetter | blocked | | | Lead with benchmark honesty |
 | HS0 | Digg tech 3a488ugi (Schema ARC-AGI-3) | High Signal | drafted | 2026-08-07 | https://digg.com/tech/3a488ugi | Owner target; paste draft after login |
 | HS1 | Indie Hackers tip | High Signal | todo | | | |
@@ -285,10 +285,11 @@ Do **not** submit all four products to the same generic directory in one batch.
 - Buy links / PBNs / profile farms  
 - Re-submit after reject without material product change  
 
-## Suggested next agent steps (when you say go)
+## Suggested next agent steps
 
-1. Open **PT1 + PT2 + PT4** GitHub PRs with the draft above.  
-2. Post **PT7** community comment.  
-3. Open **PA1** only after confirming the right section in awesome-mac.  
-4. Draft **CV** awesome PR after identifying one maintained code-review tools list.  
-5. Update the ledger when each lands.
+Agent-submittable list PRs and the MLX community comment are in. Remaining:
+
+1. Wait for maintainer acceptance on open list PRs (not re-blast).  
+2. Human: set Cloudflare Pages `AHREFS_API_KEY` on drank before **2026-08-10**.  
+3. Human: Digg/HN/Show HN only with a real product win.  
+4. Remeasure GSC CTR 2–4 weeks after title deploys.  
