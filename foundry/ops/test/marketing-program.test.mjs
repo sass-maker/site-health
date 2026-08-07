@@ -29,7 +29,8 @@ test('registry covers or explicitly excludes every catalog project and has the e
   const result = validateMarketingProgram(registry, {
     catalogSlugs: [...catalogSlugs, 'fleet-ops', 'wifi-watch'],
   });
-  assert.deepEqual(result.focusSet, ['pace', 'codevetter', 'posttrainllm', 'high-signal']);
+  // Owner priority order: core three first, High Signal tertiary.
+  assert.deepEqual(result.focusSet, ['codevetter', 'posttrainllm', 'pace', 'high-signal']);
   assert.equal(result.projects.length, 28);
   assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
   assert.equal(result.aiVisibility.scheduleIntent.enabled, false);

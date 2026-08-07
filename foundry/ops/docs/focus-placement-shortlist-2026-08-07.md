@@ -18,10 +18,10 @@ Legitimate distribution only. **Not** a bulk-directory or programmatic spam map.
 
 | Priority | Product | Why |
 | --- | --- | --- |
-| P0 | **PostTrainLLM** | Highest GSC volume (~1.2k impr / ~3 clicks); train-intent pages now live |
-| P1 | **Pace** | Comparison set already ranks for competitor names |
-| P1 | **CodeVetter** | Position ~8 with zero clicks; needs proof + list presence |
-| P2 | **High Signal** | Low search volume; quality placements only (not volume) |
+| P0 | **CodeVetter** | Core product; ~pos 8 / 0 clicks — proof + CTR first |
+| P0 | **PostTrainLLM** | Highest GSC volume (~1.2k impr / ~3 clicks); train-intent live |
+| P0 | **Pace (HeyPace)** | Comparison pages rank for competitors; homepage CTR next |
+| P2 | **High Signal** | Lower priority than the three; Digg-shaped SEO only when capacity |
 
 ---
 
