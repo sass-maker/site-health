@@ -22,7 +22,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: fleet-sync-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:

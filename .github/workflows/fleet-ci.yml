@@ -35,7 +35,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: fleet-ci-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:

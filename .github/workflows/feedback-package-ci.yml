@@ -15,7 +15,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: feedback-package-ci-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:

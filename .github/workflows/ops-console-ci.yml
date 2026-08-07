@@ -15,7 +15,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ops-console-ci-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:

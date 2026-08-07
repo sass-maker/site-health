@@ -14,7 +14,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: perf-sweep-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:

@@ -5,7 +5,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: cloudflare-resilience-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:

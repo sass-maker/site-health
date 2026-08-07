@@ -7,7 +7,7 @@ on:
 
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: update-global-dr-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
