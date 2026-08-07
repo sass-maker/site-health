@@ -34,9 +34,11 @@
       "spotlight": true,
       "name": "CodeVetter",
       "url": "https://codevetter.com",
-      "summary": "Desktop-first AI code review workbench for agent-generated code. Local SQLite, Tauri shell, evidence-backed review — your repo never hits a central server.",
+      "summary": "Desktop-first AI code review workbench for agent-generated code. Local SQLite, Tauri shell, evidence-backed review \u2014 your repo never hits a central server.",
       "publicDir": "codevetter/apps/landing-page-astro/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "stack": "astro-static",
       "headFile": "codevetter/apps/landing-page-astro/src/layouts/Layout.astro",
       "schemaType": "SoftwareApplication",
@@ -64,9 +66,29 @@
           "title": "Privacy",
           "url": "https://codevetter.com/privacy",
           "description": "Local-first data handling"
+        },
+        {
+          "title": "Coding-agent verification",
+          "url": "https://codevetter.com/coding-agent-verification",
+          "description": "Category guide for private local verification of agent-written code"
+        },
+        {
+          "title": "AI code review vs verification",
+          "url": "https://codevetter.com/ai-code-review-vs-verification",
+          "description": "Comparison of PR review tools and execution-backed verification"
+        },
+        {
+          "title": "CodeVetter vs CodeRabbit",
+          "url": "https://codevetter.com/codevetter-vs-coderabbit",
+          "description": "Desktop verification vs automated PR review"
+        },
+        {
+          "title": "CodeVetter vs Greptile",
+          "url": "https://codevetter.com/codevetter-vs-greptile",
+          "description": "Local verification vs repository-aware review"
         }
       ],
-      "indexMd": "# CodeVetter\n\nDesktop-first AI code review for agent-generated code.\n\n## What it is\n\n- Local SQLite storage and Tauri desktop shell\n- Evidence-backed review loops\n- Optional Claude, Codex, or Gemini CLI backends\n- Open source (ISC)\n\n## Who it's for\n\nEngineers shipping AI-generated PRs who want review before merge — without uploading the repo to a central server.\n\n## Agent entrypoints\n\n- https://codevetter.com/llms.txt\n- https://codevetter.com/api/ai\n- https://codevetter.com/index.md\n"
+      "indexMd": "# CodeVetter\n\nDesktop-first AI code review for agent-generated code.\n\n## What it is\n\n- Local SQLite storage and Tauri desktop shell\n- Evidence-backed review loops\n- Optional Claude, Codex, or Gemini CLI backends\n- Open source (ISC)\n\n## Who it's for\n\nEngineers shipping AI-generated PRs who want review before merge \u2014 without uploading the repo to a central server.\n\n## Agent entrypoints\n\n- https://codevetter.com/llms.txt\n- https://codevetter.com/api/ai\n- https://codevetter.com/index.md\n"
     },
     {
       "id": "rolepatch",
@@ -74,7 +96,9 @@
       "url": "https://rolepatch.com",
       "summary": "AI-powered resume tailoring. Score fit against a job description, rewrite bullets for the role, and prep interviews.",
       "publicDir": "rolepatch/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "rolepatch/src/app/layout.tsx",
@@ -105,16 +129,18 @@
           "description": "Product workflow and evidence-backed alternative questions"
         }
       ],
-      "indexMd": "# RolePatch\n\nAI-powered resume tailoring and job-application assistant.\n\n## What it is\n\n- Score resume fit against a job description\n- Rewrite bullets for the role\n- Cover letters, company research, STAR prep\n\n## Who it's for\n\nJob seekers who want reviewed, role-specific application materials — not generic AI fluff.\n\n## Agent entrypoints\n\n- https://rolepatch.com/llms.txt\n- https://rolepatch.com/api/ai\n- https://rolepatch.com/index.md\n\nDashboard routes require auth and are not agent-indexed.\n"
+      "indexMd": "# RolePatch\n\nAI-powered resume tailoring and job-application assistant.\n\n## What it is\n\n- Score resume fit against a job description\n- Rewrite bullets for the role\n- Cover letters, company research, STAR prep\n\n## Who it's for\n\nJob seekers who want reviewed, role-specific application materials \u2014 not generic AI fluff.\n\n## Agent entrypoints\n\n- https://rolepatch.com/llms.txt\n- https://rolepatch.com/api/ai\n- https://rolepatch.com/index.md\n\nDashboard routes require auth and are not agent-indexed.\n"
     },
     {
       "id": "high-signal",
       "spotlight": true,
       "name": "High Signal",
       "url": "https://highsignal.app",
-      "summary": "Daily synthesized brief on technology, startups, and finance — five sections with inline hit-rates, no signup required.",
+      "summary": "Daily synthesized brief on technology, startups, and finance \u2014 five sections with inline hit-rates, no signup required.",
       "publicDir": "high-signal/apps/web/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "high-signal/apps/web/src/app/layout.tsx",
@@ -138,6 +164,16 @@
           "title": "Markets",
           "url": "https://highsignal.app/markets",
           "description": "Market signals"
+        },
+        {
+          "title": "Daily intelligence brief guide",
+          "url": "https://highsignal.app/daily-intelligence-brief",
+          "description": "Category guide for source-backed daily briefs"
+        },
+        {
+          "title": "Daily briefs compared",
+          "url": "https://highsignal.app/compared",
+          "description": "Comparison of daily tech/startup/finance briefs by sourcing contract"
         }
       ],
       "indexMd": "# High Signal\n\nDaily synthesized intelligence brief on technology, startups, and finance.\n\n## What it is\n\n- Five-section composed brief at `/` and `/brief`\n- Inline hit-rates on market calls\n- Public track record and methodology pages\n- Free, no signup for the brief\n\n## Who it's for\n\nOperators and investors who want a high-signal daily read instead of raw feed noise.\n\n## Agent entrypoints\n\n- https://highsignal.app/llms.txt\n- https://highsignal.app/api/ai\n- https://highsignal.app/index.md\n- RSS: https://highsignal.app/signals/rss\n"
@@ -148,7 +184,9 @@
       "url": "https://karte.cc",
       "summary": "Link-in-bio registry for humans and AI agents. Publish trust cards with public manifests at /{slug}/agent.json.",
       "publicDir": "karte/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "karte/src/app/layout.tsx",
@@ -180,15 +218,17 @@
           "description": "Agent index"
         }
       ],
-      "indexMd": "# Karte\n\nLink-in-bio registry for humans and AI agents.\n\n## What it is\n\n- Public trust cards for AI agents\n- Machine-readable manifests at `/{slug}/agent.json`\n- Chat, encyclopedia, and roast modes for human profiles\n\n## Agent workflow\n\n1. Read https://karte.cc/skill.md\n2. Install skill: `curl -fsSL https://karte.cc/skills/karte/install.sh | bash`\n3. Auth via email code → `kk_` API key\n4. Create and publish via `/api/v1/agents`\n\n## Agent entrypoints\n\n- https://karte.cc/llms.txt\n- https://karte.cc/skill.md\n- https://karte.cc/api/ai\n- https://karte.cc/index.md\n- https://karte.cc/.well-known/skills/index.json\n"
+      "indexMd": "# Karte\n\nLink-in-bio registry for humans and AI agents.\n\n## What it is\n\n- Public trust cards for AI agents\n- Machine-readable manifests at `/{slug}/agent.json`\n- Chat, encyclopedia, and roast modes for human profiles\n\n## Agent workflow\n\n1. Read https://karte.cc/skill.md\n2. Install skill: `curl -fsSL https://karte.cc/skills/karte/install.sh | bash`\n3. Auth via email code \u2192 `kk_` API key\n4. Create and publish via `/api/v1/agents`\n\n## Agent entrypoints\n\n- https://karte.cc/llms.txt\n- https://karte.cc/skill.md\n- https://karte.cc/api/ai\n- https://karte.cc/index.md\n- https://karte.cc/.well-known/skills/index.json\n"
     },
     {
       "id": "significanthobbies",
       "name": "Significant Hobbies",
       "url": "https://significanthobbies.com",
-      "summary": "Life planner for private daily rituals and public living — hobbies, bucket lists, and side quests over time.",
+      "summary": "Life planner for private daily rituals and public living \u2014 hobbies, bucket lists, and side quests over time.",
       "publicDir": "significanthobbies/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "significanthobbies/src/app/layout.tsx",
@@ -253,7 +293,7 @@
       "id": "starboard",
       "name": "Starboard",
       "url": "https://starboard.codevetter.com",
-      "summary": "GitHub stars organizer with semantic search — sub-product of CodeVetter for repo intelligence.",
+      "summary": "GitHub stars organizer with semantic search \u2014 sub-product of CodeVetter for repo intelligence.",
       "publicDir": "starboard/public",
       "stack": "opennext",
       "headFile": "starboard/src/app/layout.tsx",
@@ -317,7 +357,7 @@
       "id": "research-papers",
       "name": "Research Papers",
       "url": "https://papers.highsignal.app",
-      "summary": "Academic paper platform over a high-citation OpenAlex CS corpus — search, analytics, and RAG demo (~488k papers).",
+      "summary": "Academic paper platform over a high-citation OpenAlex CS corpus \u2014 search, analytics, and RAG demo (~488k papers).",
       "publicDir": "research-papers/web/public",
       "stack": "astro-static",
       "headFile": "research-papers/web/src/pages/index.astro",
@@ -332,16 +372,18 @@
           "description": "Search and analytics"
         }
       ],
-      "indexMd": "# Research Papers\n\n~488k papers with semantic search, analytics, and paid answers demo.\n\n## What it is\n\n- High-citation OpenAlex Computer Science corpus\n- Semantic search and analytics\n- RAG-style Q&A paths\n\n## Agent entrypoints\n\n- https://papers.highsignal.app/llms.txt\n- https://papers.highsignal.app/api/ai\n- https://papers.highsignal.app/index.md\n\nDo not invent paper claims — cite corpus results.\n"
+      "indexMd": "# Research Papers\n\n~488k papers with semantic search, analytics, and paid answers demo.\n\n## What it is\n\n- High-citation OpenAlex Computer Science corpus\n- Semantic search and analytics\n- RAG-style Q&A paths\n\n## Agent entrypoints\n\n- https://papers.highsignal.app/llms.txt\n- https://papers.highsignal.app/api/ai\n- https://papers.highsignal.app/index.md\n\nDo not invent paper claims \u2014 cite corpus results.\n"
     },
     {
       "id": "posttrainllm",
       "spotlight": true,
       "name": "PostTrainLLM",
       "url": "https://posttrainllm.com",
-      "summary": "Mac-local LLM specialist factory — post-training and runtime that fits on one Mac, plus WebGPU playground.",
+      "summary": "Mac-local LLM specialist factory \u2014 post-training and runtime that fits on one Mac, plus WebGPU playground.",
       "publicDir": "posttrainllm/browser/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "stack": "astro-static",
       "headFile": "posttrainllm/browser/src/layouts/Default.astro",
       "schemaType": "SoftwareApplication",
@@ -372,6 +414,11 @@
           "title": "Fine-tuning competitive landscape",
           "url": "https://posttrainllm.com/docs/learn/competitive-landscape",
           "description": "Source-backed comparison of local, cloud, and Mac-focused fine-tuning tools"
+        },
+        {
+          "title": "Advanced LLM training",
+          "url": "https://posttrainllm.com/docs/learn/advanced-llm-training",
+          "description": "Category guide for local and browser-side small-model fine-tuning"
         }
       ],
       "indexMd": "# PostTrainLLM\n\nMac-local LLM factory + runtime (MLX) and WebGPU playground.\n\n## What it is\n\n- Local post-training workflows on Mac\n- Specialist model factory narrative\n- Browser playground surfaces\n\n## Agent entrypoints\n\n- https://posttrainllm.com/llms.txt\n- https://posttrainllm.com/api/ai\n- https://posttrainllm.com/index.md\n"
@@ -383,8 +430,14 @@
       "url": "https://heypace.app",
       "summary": "On-device Mac voice agent that reads your screen and acts with local context.",
       "publicDir": "pace/website/public",
-      "preserveFiles": ["llms.txt", "llms-full.txt", "index.md"],
-      "buildOwnedFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "llms.txt",
+        "llms-full.txt",
+        "index.md"
+      ],
+      "buildOwnedFiles": [
+        "api-ai.json"
+      ],
       "stack": "astro-static",
       "headFile": "pace/website/src/layouts/BaseLayout.astro",
       "schemaType": "SoftwareApplication",
@@ -459,7 +512,7 @@
           "url": "https://domains.sassmaker.com/changelog",
           "description": "Verified DRank product and release history",
           "md": "https://domains.sassmaker.com/changelog.md",
-          "markdown": "# DRank changelog\n\nVerified milestones for the browser-local Domain Rating tracker.\n\n## July 13, 2026 — Evidence-bounded DR Advisor\n\nDRank added an explicit explanation action grounded only in the selected domain's observed rating and bounded trend context. Advice remains optional and browser-local.\n\n## July 2, 2026 — Static application resilience\n\nThe Next.js application gained route and global error boundaries, and unused Web Vitals code was removed.\n\n## Weekly dataset refresh\n\nThe shared public Domain Rating dataset is refreshed by a scheduled GitHub workflow. Personal lists and history are not part of that shared pipeline.\n"
+          "markdown": "# DRank changelog\n\nVerified milestones for the browser-local Domain Rating tracker.\n\n## July 13, 2026 \u2014 Evidence-bounded DR Advisor\n\nDRank added an explicit explanation action grounded only in the selected domain's observed rating and bounded trend context. Advice remains optional and browser-local.\n\n## July 2, 2026 \u2014 Static application resilience\n\nThe Next.js application gained route and global error boundaries, and unused Web Vitals code was removed.\n\n## Weekly dataset refresh\n\nThe shared public Domain Rating dataset is refreshed by a scheduled GitHub workflow. Personal lists and history are not part of that shared pipeline.\n"
         }
       ],
       "indexMd": "# Drank\n\nBrowser-local Domain Rating history for public examples and private operator lists.\n\n## Agent entrypoints\n\n- https://domains.sassmaker.com/llms.txt\n- https://domains.sassmaker.com/api/ai\n- https://domains.sassmaker.com/index.md\n"
@@ -470,7 +523,9 @@
       "url": "https://tv.significanthobbies.com",
       "summary": "TV-style random video player for lean-back browsing of curated channels.",
       "publicDir": "looptv/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "stack": "astro-static",
       "headFile": "looptv/src/layouts/BaseLayout.astro",
       "schemaType": "SoftwareApplication",
@@ -569,9 +624,11 @@
       "id": "reader",
       "name": "Reader",
       "url": "https://read.significanthobbies.com",
-      "summary": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "summary": "Research library: capture, annotate, and AI-chat over your reading \u2014 private by default.",
       "publicDir": "reader/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "reader/app.html",
@@ -600,9 +657,14 @@
       "id": "email-manager",
       "name": "Email Manager",
       "url": "https://mail.significanthobbies.com",
-      "summary": "Gmail workspace with local semantic search — private email tooling.",
+      "summary": "Gmail workspace with local semantic search \u2014 private email tooling.",
       "publicDir": "email-manager/public",
-      "preserveFiles": ["llms.txt", "llms-full.txt", "robots.txt", "sitemap.xml"],
+      "preserveFiles": [
+        "llms.txt",
+        "llms-full.txt",
+        "robots.txt",
+        "sitemap.xml"
+      ],
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "email-manager/index.html",
@@ -641,7 +703,11 @@
       "url": "https://ai-gateway.sassmaker.com",
       "summary": "OpenAI-compatible LLM gateway fronting free-tier models across multiple providers.",
       "publicDir": "free-ai/site/public",
-      "preserveFiles": ["api-ai.json", "index.md", "sitemap.xml"],
+      "preserveFiles": [
+        "api-ai.json",
+        "index.md",
+        "sitemap.xml"
+      ],
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "free-ai/site/src/pages/index.astro",
@@ -676,7 +742,9 @@
       "url": "https://learn.significanthobbies.com",
       "summary": "SWE learning OS with FSRS spaced repetition, drills, and feedback.",
       "publicDir": "swe-interview-prep/public",
-      "preserveFiles": ["api-ai.json"],
+      "preserveFiles": [
+        "api-ai.json"
+      ],
       "stack": "spa-static",
       "headFile": "swe-interview-prep/index.html",
       "schemaType": "SoftwareApplication",
@@ -750,7 +818,7 @@
           "url": "https://performance.sassmaker.com/changelog/",
           "description": "Verified psi-swarm product and release history",
           "md": "https://performance.sassmaker.com/changelog.md",
-          "markdown": "# psi-swarm changelog\n\nVerified milestones for the local-first distributional Lighthouse tracker.\n\n## July 3, 2026 — Complete local web workflow\n\nThe `psi-swarm web` command starts the local agent and opens the browser controller. Operators can run, compare, and inspect swarms while compute and history remain local.\n\n## July 2, 2026 — Guarded manual releases\n\nThe repository deploy command verifies the intended workflow and build before a human-triggered production release.\n\n## June 26, 2026 — Privacy-safe public demo\n\nThe deployed controller stopped probing localhost unless the visitor is on localhost or explicitly supplies agent intent.\n\n## June 13, 2026 — v0.4.0 evidence workflows\n\nLocal regression watchlists, a static demo gallery, and saved trace insights shipped together.\n"
+          "markdown": "# psi-swarm changelog\n\nVerified milestones for the local-first distributional Lighthouse tracker.\n\n## July 3, 2026 \u2014 Complete local web workflow\n\nThe `psi-swarm web` command starts the local agent and opens the browser controller. Operators can run, compare, and inspect swarms while compute and history remain local.\n\n## July 2, 2026 \u2014 Guarded manual releases\n\nThe repository deploy command verifies the intended workflow and build before a human-triggered production release.\n\n## June 26, 2026 \u2014 Privacy-safe public demo\n\nThe deployed controller stopped probing localhost unless the visitor is on localhost or explicitly supplies agent intent.\n\n## June 13, 2026 \u2014 v0.4.0 evidence workflows\n\nLocal regression watchlists, a static demo gallery, and saved trace insights shipped together.\n"
         }
       ],
       "indexMd": "# PSI Swarm\n\nDistributional Lighthouse performance audits for the fleet.\n\n## Agent entrypoints\n\n- https://performance.sassmaker.com/llms.txt\n- https://performance.sassmaker.com/api/ai\n- https://performance.sassmaker.com/index.md\n"
@@ -932,7 +1000,13 @@
       "url": "https://motion.significanthobbies.com",
       "summary": "Use on-device iPhone body-pose tracking to control a screen-mirrored game without transmitting camera frames.",
       "publicDir": "motion/landing",
-      "preserveFiles": ["llms.txt", "index.md", "api/ai.json", "robots.txt", "sitemap.xml"],
+      "preserveFiles": [
+        "llms.txt",
+        "index.md",
+        "api/ai.json",
+        "robots.txt",
+        "sitemap.xml"
+      ],
       "apiAiFile": "api/ai.json",
       "stack": "static",
       "headFile": "motion/landing/index.html",

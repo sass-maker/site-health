@@ -14,8 +14,10 @@ test('prepares one complete fail-closed manifest for every unmapped prompt', () 
     agentRegistry: load('../config/agent-surfaces-registry.json'),
     createdAt: '2026-08-07T00:00:00.000Z',
   });
-  assert.equal(manifests.length, 20);
-  assert.equal(new Set(manifests.map((entry) => entry.projectId)).size, 20);
+  // One comparison prompt remains unmapped per non-focus product. Focus-set
+  // buyer prompts are published with owned pages in marketing-program.json.
+  assert.equal(manifests.length, 18);
+  assert.equal(new Set(manifests.map((entry) => entry.projectId)).size, 18);
   for (const { manifest, manifestHash } of manifests) {
     assert.match(manifestHash, /^[a-f0-9]{64}$/u);
     assert.equal(manifest.items[0].execution.mode, 'blocked');
