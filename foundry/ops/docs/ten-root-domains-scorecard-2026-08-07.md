@@ -127,3 +127,17 @@ High Signal is **not** the priority path for “all 10 good.”
 | 2026-08-07 | A/B | Core three CTR titles; RolePatch resume ATS; personal hub; IndexNow |
 | 2026-08-07 | C | Karte/Aliveville/SH/SaaS Maker homepage SEO; CodeVetter awesome PR; PostTrainLLM /learn links |
 | 2026-08-07 | D | DR remeasured (still single-digit); CF Pages AHREFS still blocked (token 10000) |
+
+| 2026-08-07 | C+/D | SaaS Maker title deployed live; HS Digg-SEO merged; Aliveville category PR; list PRs (antranapp, janhq, msb-msb, awesome-mac); MLX #654 comment; IndexNow force all roots; GSC recollect; RolePatch ATS title live after redeploy |
+| 2026-08-07 | Live titles | codevetter, posttrainllm, heypace.app, rolepatch home, karte, SH, aliveville home, sassmaker (product studio), personal projects hub — all verified |
+
+
+### Live as of evening 2026-08-07
+
+Agent-side technical + CTR ships for the ten roots are largely **deployed**. Remaining “not good yet” is T2–T5 (demand/CTR/authority), not missing titles.
+
+**Still human / time-gated**
+- CF Pages `AHREFS_API_KEY` on drank before 2026-08-10
+- Maintainer acceptance of open awesome-list PRs
+- GSC CTR remeasure in 2–4 weeks
+- Digg/HN/Show HN only with real product wins
