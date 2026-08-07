@@ -1,0 +1,8 @@
+name: Test Reusable
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: sass-maker/workflows/.github/workflows/workflow-policy-ci.yml@main
