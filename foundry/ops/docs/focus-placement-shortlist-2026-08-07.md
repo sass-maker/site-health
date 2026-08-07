@@ -170,6 +170,16 @@ Repo: https://github.com/Codevetter/codevetter
 - https://highsignal.app/compared  
 - https://highsignal.app/track-record  
 - https://highsignal.app/methodology  
+- https://highsignal.app/agent-eval (agent evidence lens)  
+- https://highsignal.app/agent-eval/sample  
+
+### Primary target (owner-designated)
+
+| # | Venue | Why it fits | Action | Link target |
+| --- | --- | --- | --- | --- |
+| **HS0** | **[Digg tech: Schema / ARC-AGI-3 harness](https://digg.com/tech/3a488ugi)** | Thread is about **public-set 99% agent-harness scores** and skepticism about what the score actually measures—the same “evidence vs headline” problem High Signal is built for | **Manual Digg comment** (login required; bots get Vercel 429). Lead with the public-vs-private / harness-vs-weights distinction; one soft product link max | methodology + track-record + agent-eval |
+
+**Story context (for comment accuracy):** Impossible Research’s **Schema** harness claims ~99% RHAE on the **ARC-AGI-3 public** set (frontier models + process/harness, not weight changes). Digg framing notes critics: the score applies to the public set. Primary writeup: https://schema-harness.github.io/ · HN discussion also exists.
 
 | # | Venue | Why it fits | Action | Link target |
 | --- | --- | --- | --- | --- |
@@ -182,7 +192,38 @@ Repo: https://github.com/Codevetter/codevetter
 | HS7 | awesome “startup tools” lists (high bar) | Discovery | PR only if product is clearly useful free | site |
 | HS8 | LinkedIn founder posts | Audience | Human voice + one brief sample | brief |
 
-### Draft — tip / pitch
+### Draft — Digg comment for https://digg.com/tech/3a488ugi (ready to paste)
+
+Use this **as a human comment** on Digg after logging in. Do not bulk-post elsewhere unchanged.
+
+```text
+The interesting part of Schema isn’t “model got smarter overnight” — it’s that a
+harness (write the game as a program, test against history, replan) can dominate
+a public set while the private/held-out story stays the real question. Digg’s
+note that the 99% is public-set only is the right skepticism.
+
+That same gap shows up every day in product marketing: a score without the
+scoring contract is a headline, not evidence. I run High Signal with a hard
+publish rule — ≥2 independent sources or the claim doesn’t ship — and a public
+track record for matured calls:
+
+• how we refuse single-source claims: https://highsignal.app/methodology
+• hit/miss ledger: https://highsignal.app/track-record
+• agent/evidence lens (what’s measured vs missing): https://highsignal.app/agent-eval
+
+Curious how people here weigh public-set harness wins vs private-set permanence.
+```
+
+**Shorter variant (if Digg rate-limits long comments):**
+
+```text
+Public-set 99% with a clever harness is still a contract question: what was
+held out, and does the score survive private set? I care about that gap enough
+to publish a daily brief with ≥2 sources or no claim, plus a public hit/miss
+ledger: https://highsignal.app/track-record · method: https://highsignal.app/methodology
+```
+
+### Draft — tip / pitch (generic)
 
 ```text
 High Signal is a free daily tech/startup/finance brief with a hard rule:
@@ -229,6 +270,7 @@ Do **not** submit all four products to the same generic directory in one batch.
 | PA4 | Show HN | Pace | blocked | | | Need sharp demo story |
 | CV1 | code-review awesome list | CodeVetter | todo | | | Pick maintained list first |
 | CV4 | Show HN | CodeVetter | blocked | | | Lead with benchmark honesty |
+| HS0 | Digg tech 3a488ugi (Schema ARC-AGI-3) | High Signal | drafted | 2026-08-07 | https://digg.com/tech/3a488ugi | Owner target; paste draft after login |
 | HS1 | Indie Hackers tip | High Signal | todo | | | |
 | HS3 | HN | High Signal | blocked | | | Wait for a real brief win |
 
