@@ -118,3 +118,12 @@ High Signal is **not** the priority path for “all 10 good.”
 5. Remeasure GSC all 10 after deploys  
 
 **Done criteria for “all 10 in a good place”:** every root passes T1–T4; T5 for at least the P0 three and portfolio hubs.
+
+
+## Wave execution log
+
+| Date | Wave | Actions |
+| --- | --- | --- |
+| 2026-08-07 | A/B | Core three CTR titles; RolePatch resume ATS; personal hub; IndexNow |
+| 2026-08-07 | C | Karte/Aliveville/SH/SaaS Maker homepage SEO; CodeVetter awesome PR; PostTrainLLM /learn links |
+| 2026-08-07 | D | DR remeasured (still single-digit); CF Pages AHREFS still blocked (token 10000) |
