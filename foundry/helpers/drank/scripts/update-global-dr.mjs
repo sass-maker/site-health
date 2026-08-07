@@ -3,7 +3,9 @@
  * GitHub Action script to update shared historical Domain Rating data
  * for the global example sites.
  *
- * Fetches from Ahrefs free public endpoint (no key required).
+ * Fetches from Ahrefs' free public domain-rating-free endpoint. Free and
+ * unit-free, but requires an API key from 2026-08-10 (AHREFS_API_KEY env var):
+ * https://docs.ahrefs.com/en/api/reference/public/get-domain-rating-free
  * Appends weekly-ish snapshots to data/global-dr.json
  *
  * Run locally: node scripts/update-global-dr.mjs
@@ -41,6 +43,9 @@ async function fetchDR(domain) {
       headers: {
         'User-Agent': 'drank-global-update/1.0 (+github-actions)',
         Accept: 'application/json',
+        ...(process.env.AHREFS_API_KEY
+          ? { Authorization: `Bearer ${process.env.AHREFS_API_KEY}` }
+          : {}),
       },
     });
     if (!res.ok) {

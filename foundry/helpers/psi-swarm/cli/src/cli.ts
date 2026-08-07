@@ -6,7 +6,14 @@ import boxen from 'boxen';
 import Table from 'cli-table3';
 import { PRESETS, PRESET_GROUPS, TRAFFIC_PROFILES, resolvePresets, type Preset } from './presets.js';
 import { fetchCrux, type CruxRecord } from './crux.js';
-import { fetchDomainRating, type DomainRatingResult } from './ahrefs.js';
+import {
+  fetchDomainRating,
+  fetchAhrefsCrawlerIps,
+  fetchAhrefsCrawlerIpRanges,
+  fetchAhrefsTopDomains,
+  isAhrefsCrawlerIp,
+  type DomainRatingResult,
+} from './ahrefs.js';
 import { SwarmRunner, type RunResult, type RunResultWithArtifact } from './runner.js';
 import { HistoryDB } from './db.js';
 import { renderSwarmReport } from './report.js';
@@ -667,6 +674,69 @@ program
       t.push([r.url, String(r.count), new Date(r.last).toLocaleString()]);
     }
     console.log(t.toString());
+  });
+
+const ahrefsCommand = program
+  .command('ahrefs')
+  .description("Ahrefs public-API helpers (crawler IPs, top domains) beyond the per-run Domain Rating lookup");
+
+ahrefsCommand
+  .command('crawlers')
+  .description("Fetch Ahrefs' published AhrefsBot IPs/ranges, or check an IP against them")
+  .option('--refresh', 'Bypass the 24h cache and refetch from Ahrefs')
+  .option('--check <ip>', 'Check whether an IP address matches a known AhrefsBot IP/range')
+  .action(async (opts) => {
+    const db = new HistoryDB();
+    try {
+      const spinner = ora('Fetching Ahrefs crawler IPs...').start();
+      const [ips, ranges] = await Promise.all([
+        fetchAhrefsCrawlerIps({ force: opts.refresh, db }),
+        fetchAhrefsCrawlerIpRanges({ force: opts.refresh, db }),
+      ]);
+      spinner.succeed(`${ips.length} IPs, ${ranges.length} ranges`);
+
+      if (opts.check) {
+        const match = isAhrefsCrawlerIp(opts.check, ips, ranges);
+        console.log(
+          match
+            ? chalk.green(`${opts.check} matches a published AhrefsBot IP/range.`)
+            : chalk.red(`${opts.check} does NOT match any published AhrefsBot IP/range.`),
+        );
+        return;
+      }
+
+      const t = new Table({ head: [chalk.bold('Type'), chalk.bold('Value')], style: { head: [], border: ['gray'] } });
+      for (const ip of ips) t.push(['IP', ip]);
+      for (const range of ranges) t.push(['Range', range]);
+      console.log(t.toString());
+    } catch (err) {
+      console.error(chalk.red(`Failed to fetch Ahrefs crawler list: ${(err as Error).message}`));
+      process.exitCode = 1;
+    } finally {
+      db.close();
+    }
+  });
+
+ahrefsCommand
+  .command('top-domains')
+  .description('List a slice of Ahrefs\u2019 top-1M-domains-by-Domain-Rating leaderboard (needs AHREFS_API_KEY)')
+  .option('--from <n>', 'Rank position to start from', '1')
+  .option('--to <n>', 'Rank position to end at (max 250k per request)', '20')
+  .action(async (opts) => {
+    try {
+      const spinner = ora('Fetching Ahrefs top domains...').start();
+      const rows = await fetchAhrefsTopDomains({ from: Number(opts.from), to: Number(opts.to) });
+      spinner.succeed(`${rows.length} domains`);
+      const t = new Table({
+        head: [chalk.bold('Rank'), chalk.bold('Domain'), chalk.bold('DR')],
+        style: { head: [], border: ['gray'] },
+      });
+      for (const row of rows) t.push([String(row.rank), row.domain, row.domainRating.toFixed(1)]);
+      console.log(t.toString());
+    } catch (err) {
+      console.error(chalk.red(`Failed to fetch Ahrefs top domains: ${(err as Error).message}`));
+      process.exitCode = 1;
+    }
   });
 
 program

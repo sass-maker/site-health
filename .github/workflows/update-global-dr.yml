@@ -16,3 +16,4 @@ permissions:
 jobs:
   reusable:
     uses: sass-maker/workflows/.github/workflows/update-global-dr.yml@main
+    secrets: inherit
