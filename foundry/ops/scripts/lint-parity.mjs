@@ -52,12 +52,16 @@ export const classifyProject = async ({
   const checkout = projectCheckout(workspaceRoot, project);
   const relativeCheckout = project.sourcePath ?? project.repo ?? null;
 
-  if (!activeTiers.has(project.tier)) {
+  if (!activeTiers.has(project.tier) || project.lifecycle === 'past') {
+    const reason =
+      project.lifecycle === 'past'
+        ? 'lifecycle past is outside active adoption'
+        : `tier ${project.tier} is outside active adoption`;
     return {
       configPath: null,
       id: project.id,
       linter: 'not-inspected',
-      reason: `tier ${project.tier} is outside active adoption`,
+      reason,
       repositoryPath: relativeCheckout,
       status: 'excluded',
       tier: project.tier,
