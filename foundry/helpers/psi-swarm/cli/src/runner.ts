@@ -15,6 +15,19 @@ export interface MetricSet {
   performance_score?: number;
 }
 
+/**
+ * A Lighthouse run is only a valid product performance observation if it has at
+ * least one numeric metric. Auth walls (Cloudflare Access 401), error pages,
+ * and blank redirects can complete without throwing but yield no performance
+ * data — without this guard the report counts them as "ok".
+ */
+export function hasValidMetrics(metrics: MetricSet | undefined): boolean {
+  if (!metrics) return false;
+  return Object.values(metrics).some(
+    (v) => typeof v === 'number' && Number.isFinite(v),
+  );
+}
+
 export interface RunResult {
   preset: Preset;
   startedAt: number;
@@ -74,6 +87,9 @@ export async function runOnce(
     );
     if (!result) throw new Error('Lighthouse returned no result');
     const lhr = result.lhr;
+    if (lhr.runtimeError) {
+      throw new Error(`Lighthouse runtime error: ${lhr.runtimeError.code} — ${lhr.runtimeError.message}`);
+    }
     const audits = lhr.audits;
     const numeric = (id: string): number | undefined => {
       const a = audits[id];
@@ -94,6 +110,16 @@ export async function runOnce(
           ? lhr.categories.performance.score * 100
           : undefined,
     };
+    // Reject non-page and empty measurements: a Lighthouse run that completes
+    // without error but yields no performance metrics (e.g. a Cloudflare Access
+    // 401 page, a redirect to an auth wall, or a blank/error document) is not a
+    // valid product performance observation. Without this guard, the report
+    // counts these as "ok" and the Console retains a misleading score.
+    if (!hasValidMetrics(metrics)) {
+      throw new Error(
+        `No performance metrics in Lighthouse result — likely a non-page response (auth wall, error page, or redirect). Final URL: ${lhr.finalDisplayedUrl ?? lhr.finalUrl ?? url}`,
+      );
+    }
     const out: RunResultWithArtifact = {
       preset,
       startedAt,

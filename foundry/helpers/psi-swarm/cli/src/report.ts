@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import Table from 'cli-table3';
 import boxen from 'boxen';
 import type { RunResult } from './runner.js';
+import { hasValidMetrics } from './runner.js';
 import { computeStats, type Stats } from './stats.js';
 import { diagnosePreset, rankOpportunities, formatAggregatedAudit, type Diagnosis } from './diagnose.js';
 import type { CruxRecord } from './crux.js';
@@ -187,7 +188,7 @@ export function renderSwarmReport(
   elapsedMs: number,
   renderOpts: RenderOptions = {},
 ): string {
-  const okResults = results.filter((r) => !r.error);
+  const okResults = results.filter((r) => !r.error && hasValidMetrics(r.metrics));
   const errors = results.length - okResults.length;
   const byPreset = new Map<string, RunResult[]>();
   for (const r of okResults) {
