@@ -309,10 +309,16 @@ export function studioPageHtml() {
   .brief-group:last-of-type { border-bottom:1px solid var(--line); }
   .brief-group summary { color:var(--text); font-weight:600; cursor:pointer; }
   .brief-group[open] summary { margin-bottom:10px; }
-  .directory-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:end; grid-column:1/-1; }
+  .directory-row { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1fr) auto; gap:8px; align-items:end; grid-column:1/-1; }
   .cast-list { grid-column:1/-1; display:grid; gap:7px; }
-  .cast-chip { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 11px; border:1px solid var(--line); border-radius:9px; background:#0d1117; color:var(--muted); font-size:12px; }
-  .cast-chip strong { color:var(--text); }
+  .cast-card { display:grid; gap:10px; padding:11px; border:1px solid var(--line); border-radius:9px; background:#0d1117; color:var(--muted); font-size:12px; }
+  .cast-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .cast-card-head strong { color:var(--text); }
+  .cast-status { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+  .cast-status span { padding:3px 6px; border:1px solid var(--line); border-radius:999px; color:var(--dim); font-size:10px; }
+  .cast-status .ready { color:var(--verified); border-color:rgba(94,211,142,.38); }
+  .cast-status .blocked { color:var(--risk); border-color:rgba(255,107,118,.42); }
+  .cast-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
   .conditional-fields[hidden] { display:none; }
   label { display:grid; gap:5px; color:var(--muted); font-size:12px; }
   label.wide { grid-column:1/-1; }
@@ -785,6 +791,7 @@ export function studioPageHtml() {
     .film-contract { align-items:flex-start; flex-direction:column; }
     .prompt-actions .button-row { justify-content:stretch; }
     .field-grid { grid-template-columns:1fr; }
+    .directory-row,.cast-fields { grid-template-columns:1fr; }
     label.wide,.checkline { grid-column:auto; }
     .brief-actions { align-items:flex-start; flex-direction:column; }
     .button-row { width:100%; }
@@ -1208,6 +1215,7 @@ export function studioPageHtml() {
               <summary>Characters</summary>
               <div class="field-grid">
                 <div class="directory-row">
+                  <label>Search directory<input id="character-search" type="search" placeholder="Name, role, source"></label>
                   <label>Character directory<select id="character-select"><option value="">No saved characters</option></select></label>
                   <button class="button" type="button" id="add-character-to-cast">Add to cast</button>
                 </div>
@@ -1231,10 +1239,14 @@ export function studioPageHtml() {
               <div class="field-grid">
                 <label>Music lane<select id="soundtrack-lane"><option value="procedural-draft">Procedural draft</option><option value="owned-local">Owned / licensed local audio</option><option value="platform-sound">Add in platform</option><option value="generated">Generated locally</option></select></label>
                 <label>Music gain (dB)<input id="soundtrack-gain" type="number" min="-60" max="12" step="0.5" value="-8"></label>
+                <label>Trim start (seconds)<input id="soundtrack-trim-start" type="number" min="0" max="86400" step="0.1" value="0"></label>
+                <label>Timeline offset (seconds)<input id="soundtrack-offset" type="number" min="0" max="600" step="0.1" value="0"></label>
                 <label>Fade in (seconds)<input id="soundtrack-fade-in" type="number" min="0" max="30" step="0.1" value="0.2"></label>
                 <label>Fade out (seconds)<input id="soundtrack-fade-out" type="number" min="0" max="30" step="0.1" value="0.5"></label>
                 <label class="checkline"><input id="soundtrack-loop" type="checkbox" checked> Loop music to fit</label>
                 <label class="checkline"><input id="soundtrack-duck" type="checkbox"> Duck under narration</label>
+                <label>Ducking threshold<input id="soundtrack-duck-threshold" type="number" min="0.001" max="1" step="0.001" value="0.08"></label>
+                <label>Ducking ratio<input id="soundtrack-duck-ratio" type="number" min="1" max="30" step="0.5" value="8"></label>
                 <div class="field-grid wide conditional-fields" id="soundtrack-owned-fields" hidden>
                   <label class="wide">Approved local audio path<input id="soundtrack-path" placeholder="./artifacts/music/track.wav"></label>
                   <label>Rights posture<select id="soundtrack-rights"><option value="unknown">Unknown</option><option value="owned">Owned</option><option value="licensed">Licensed</option></select></label>
@@ -1243,11 +1255,17 @@ export function studioPageHtml() {
                 <div class="field-grid wide conditional-fields" id="soundtrack-platform-fields" hidden>
                   <label>Platform<select id="soundtrack-provider"><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="youtube">YouTube</option><option value="spotify">Spotify</option></select></label>
                   <label>Official sound URL<input id="soundtrack-url" type="url" placeholder="https://…"></label>
+                  <label>Start at (seconds)<input id="soundtrack-platform-start" type="number" min="0" max="86400" step="0.1" value="0"></label>
                 </div>
                 <div class="field-grid wide conditional-fields" id="soundtrack-generated-fields" hidden>
                   <label class="wide">Music prompt<textarea id="soundtrack-prompt" placeholder="funky disco-house instrumental, elastic bass, bright brass stabs"></textarea></label>
                   <label>BPM<input id="soundtrack-bpm" type="number" min="40" max="240" value="118"></label>
+                  <label>Key<input id="soundtrack-key" placeholder="A minor"></label>
+                  <label>Meter<input id="soundtrack-meter" placeholder="4/4"></label>
+                  <label>Reference audio path<input id="soundtrack-reference-audio" placeholder="./artifacts/music/reference.wav"></label>
                   <label>Variations<input id="soundtrack-variations" type="number" min="1" max="4" value="2"></label>
+                  <label>Selected variation<select id="soundtrack-selected-variation"><option value="">Generate or select a variation</option></select></label>
+                  <label class="checkline"><input id="soundtrack-instrumental" type="checkbox" checked> Instrumental</label>
                 </div>
               </div>
               <p class="hint" id="soundtrack-boundary">Procedural music is a draft fallback, not final-quality audio.</p>
@@ -2365,16 +2383,26 @@ document.getElementById('episode-assemble').addEventListener('click', async () =
 
 async function loadCharacters(selectedId) {
   characters = await api('/studio/characters');
-  const select = document.getElementById('character-select');
-  select.innerHTML = '<option value="">' + (characters.length ? 'Choose a saved character' : 'No saved characters') + '</option>' +
-    characters.map((character) => '<option value="' + escapeText(character.id) + '"' + (character.id === selectedId ? ' selected' : '') + '>' +
-      escapeText(character.name) + ' · revision ' + character.revision + '</option>').join('');
+  renderCharacterOptions(selectedId);
   const quick = document.getElementById('quick-character');
   const previous = quick.value;
   quick.innerHTML = '<option value="">No directory character</option>' +
     characters.map((character) => '<option value="' + escapeText(character.id) + '">' + escapeText(character.name) + ' · revision ' + character.revision + '</option>').join('');
   quick.value = characters.some((character) => character.id === previous) ? previous : '';
 }
+
+function renderCharacterOptions(selectedId) {
+  const select = document.getElementById('character-select');
+  const query = value('character-search').toLowerCase();
+  const visible = characters.filter((character) => [
+    character.name, character.role, character.sourcePosture, character.likenessPosture,
+  ].filter(Boolean).join(' ').toLowerCase().includes(query));
+  select.innerHTML = '<option value="">' + (characters.length ? 'Choose a saved character' : 'No saved characters') + '</option>' +
+    visible.map((character) => '<option value="' + escapeText(character.id) + '"' + (character.id === selectedId ? ' selected' : '') + '>' +
+      escapeText(character.name) + ' · revision ' + character.revision + '</option>').join('');
+}
+
+document.getElementById('character-search').addEventListener('input', () => renderCharacterOptions(value('character-select')));
 
 document.getElementById('save-character').addEventListener('click', async () => {
   setBusy('save-character', true, 'Saving…');
@@ -2428,16 +2456,41 @@ function castInstance(character) {
 function renderCast() {
   const box = document.getElementById('cast-list');
   const cast = activeBrief?.cast ?? [];
-  box.innerHTML = cast.length ? cast.map((entry, index) =>
-    '<div class="cast-chip"><span><strong>' + escapeText(entry.name) + '</strong> · character revision ' + entry.characterRevision + '</span>' +
-    '<button class="copy" type="button" data-remove-cast="' + index + '">Remove</button></div>').join('') :
+  box.innerHTML = cast.length ? cast.map((entry, index) => {
+    const source = entry.sourceSnapshot || {};
+    const matureReady = source.fictional && source.likenessPosture === 'fictional' && source.adultConfirmed && Number(source.age) >= 25 && source.consentPosture === 'affirmative';
+    return '<div class="cast-card"><div class="cast-card-head"><div><strong>' + escapeText(entry.name) + '</strong><div class="cast-status">' +
+      '<span>' + escapeText(source.sourcePosture || 'unknown source') + '</span><span>' + escapeText(source.likenessPosture || 'unknown likeness') + '</span>' +
+      '<span class="' + (matureReady ? 'ready' : 'blocked') + '">' + (matureReady ? 'mature ready' : 'general only') + '</span></div></div>' +
+      '<button class="copy" type="button" data-remove-cast="' + index + '">Remove</button></div>' +
+      '<div class="cast-fields"><label>Workflow role<input data-cast-index="' + index + '" data-cast-field="role" value="' + escapeText(entry.role || '') + '"></label>' +
+      '<label>Expression<input data-cast-index="' + index + '" data-cast-field="expression" value="' + escapeText(entry.expression || '') + '"></label>' +
+      '<label>Wardrobe<input data-cast-index="' + index + '" data-cast-field="wardrobe" value="' + escapeText((entry.wardrobe || []).join(', ')) + '"></label>' +
+      '<label>Continuity notes<input data-cast-index="' + index + '" data-cast-field="continuityNotes" value="' + escapeText(entry.continuityNotes || '') + '"></label></div></div>';
+  }).join('') :
     '<span class="hint">No characters in this reel. Mature-enabled generation requires an explicitly adult fictional cast.</span>';
-  for (const button of box.querySelectorAll('[data-remove-cast]')) button.addEventListener('click', () => {
-    activeBrief = { ...activeBrief, cast:activeBrief.cast.filter((_, index) => index !== Number(button.dataset.removeCast)) };
-    renderCast();
-    markBriefDirty();
-  });
 }
+
+document.getElementById('cast-list').addEventListener('click', (event) => {
+  const button = event.target.closest('[data-remove-cast]');
+  if (!button || !activeBrief) return;
+  activeBrief = { ...activeBrief, cast:activeBrief.cast.filter((_, index) => index !== Number(button.dataset.removeCast)) };
+  renderCast();
+  markBriefDirty();
+});
+
+document.getElementById('cast-list').addEventListener('input', (event) => {
+  const input = event.target.closest('[data-cast-field]');
+  if (!input || !activeBrief) return;
+  const index = Number(input.dataset.castIndex);
+  const field = input.dataset.castField;
+  const cast = activeBrief.cast.map((entry, entryIndex) => entryIndex === index ? {
+    ...entry,
+    [field]:field === 'wardrobe' ? input.value.split(',').map((value) => value.trim()).filter(Boolean) : input.value || null,
+  } : entry);
+  activeBrief = { ...activeBrief, cast };
+  markBriefDirty();
+});
 
 document.getElementById('soundtrack-lane').addEventListener('change', () => { renderSoundtrackFields(); markBriefDirty(); });
 
@@ -2446,12 +2499,20 @@ function renderSoundtrackFields() {
   document.getElementById('soundtrack-owned-fields').hidden = lane !== 'owned-local';
   document.getElementById('soundtrack-platform-fields').hidden = lane !== 'platform-sound';
   document.getElementById('soundtrack-generated-fields').hidden = lane !== 'generated';
-  document.getElementById('soundtrack-boundary').textContent = {
+  const generated = activeBrief?.soundtrack?.generated;
+  const variationSelect = document.getElementById('soundtrack-selected-variation');
+  variationSelect.innerHTML = '<option value="">Generate or select a variation</option>' + (generated?.variations ?? []).map((variation) =>
+    '<option value="' + escapeText(variation.id) + '">' + escapeText(variation.id) + (variation.seed == null ? '' : ' · seed ' + variation.seed) + '</option>').join('');
+  variationSelect.value = generated?.selectedVariationId || '';
+  const boundary = {
     'procedural-draft':'Procedural music is a draft fallback, not final-quality audio.',
     'owned-local':'Only approved local audio with ownership or licence evidence can be mixed.',
     'platform-sound':'Studio exports a silent master; add the referenced sound in the official platform.',
     generated:'Generated music runs only after its named local runtime and model pass preflight.',
   }[lane];
+  document.getElementById('soundtrack-boundary').textContent = lane === 'generated' && activeBrief?.soundtrackState?.blocker
+    ? activeBrief.soundtrackState.blocker
+    : boundary;
 }
 
 function collectSoundtrack() {
@@ -2459,21 +2520,30 @@ function collectSoundtrack() {
   const soundtrack = {
     lane,
     mix:{
-      trimStartSeconds:0, offsetSeconds:0, loop:document.getElementById('soundtrack-loop').checked,
+      trimStartSeconds:Number(value('soundtrack-trim-start')), offsetSeconds:Number(value('soundtrack-offset')), loop:document.getElementById('soundtrack-loop').checked,
       fadeInSeconds:Number(value('soundtrack-fade-in')), fadeOutSeconds:Number(value('soundtrack-fade-out')),
       gainDb:Number(value('soundtrack-gain')),
-      ducking:{ enabled:document.getElementById('soundtrack-duck').checked },
+      ducking:{
+        enabled:document.getElementById('soundtrack-duck').checked,
+        threshold:Number(value('soundtrack-duck-threshold')),
+        ratio:Number(value('soundtrack-duck-ratio')),
+      },
     },
   };
   if (lane === 'owned-local') soundtrack.ownedLocal = {
     path:value('soundtrack-path'), rightsPosture:value('soundtrack-rights'), rightsEvidence:value('soundtrack-rights-evidence') || null,
   };
   if (lane === 'platform-sound') soundtrack.platformSound = {
-    provider:value('soundtrack-provider'), url:value('soundtrack-url'), startSeconds:0,
+    provider:value('soundtrack-provider'), url:value('soundtrack-url'), startSeconds:Number(value('soundtrack-platform-start')),
   };
   if (lane === 'generated') soundtrack.generated = {
     runtimeId:'ace-step-native', prompt:value('soundtrack-prompt'), durationSeconds:Number(value('brief-duration')),
-    instrumental:true, bpm:Number(value('soundtrack-bpm')), variationCount:Number(value('soundtrack-variations')),
+    instrumental:document.getElementById('soundtrack-instrumental').checked,
+    bpm:Number(value('soundtrack-bpm')), key:value('soundtrack-key') || null, meter:value('soundtrack-meter') || null,
+    referenceAudioPath:value('soundtrack-reference-audio') || null,
+    variationCount:Number(value('soundtrack-variations')),
+    selectedVariationId:value('soundtrack-selected-variation') || null,
+    variations:activeBrief?.soundtrack?.generated?.variations ?? [],
   };
   return soundtrack;
 }
@@ -2569,6 +2639,7 @@ async function loadCapabilities() {
 
 function populateBrief(brief) {
   activeBrief = brief;
+  document.getElementById('advanced-brief').hidden = false;
   setComposerMode(true);
   setValue('quick-recipe', brief.recipeId || '');
   setValue('quick-kind', brief.kind || '');
@@ -2615,18 +2686,27 @@ function populateBrief(brief) {
   renderCast();
   setValue('soundtrack-lane', brief.soundtrack?.lane || 'procedural-draft');
   setValue('soundtrack-gain', brief.soundtrack?.mix?.gainDb ?? -8);
+  setValue('soundtrack-trim-start', brief.soundtrack?.mix?.trimStartSeconds ?? 0);
+  setValue('soundtrack-offset', brief.soundtrack?.mix?.offsetSeconds ?? 0);
   setValue('soundtrack-fade-in', brief.soundtrack?.mix?.fadeInSeconds ?? 0.2);
   setValue('soundtrack-fade-out', brief.soundtrack?.mix?.fadeOutSeconds ?? 0.5);
   document.getElementById('soundtrack-loop').checked = brief.soundtrack?.mix?.loop !== false;
   document.getElementById('soundtrack-duck').checked = brief.soundtrack?.mix?.ducking?.enabled === true;
+  setValue('soundtrack-duck-threshold', brief.soundtrack?.mix?.ducking?.threshold ?? 0.08);
+  setValue('soundtrack-duck-ratio', brief.soundtrack?.mix?.ducking?.ratio ?? 8);
   setValue('soundtrack-path', brief.soundtrack?.ownedLocal?.path || '');
   setValue('soundtrack-rights', brief.soundtrack?.ownedLocal?.rightsPosture || 'unknown');
   setValue('soundtrack-rights-evidence', brief.soundtrack?.ownedLocal?.rightsEvidence || '');
   setValue('soundtrack-provider', brief.soundtrack?.platformSound?.provider || 'instagram');
   setValue('soundtrack-url', brief.soundtrack?.platformSound?.url || '');
+  setValue('soundtrack-platform-start', brief.soundtrack?.platformSound?.startSeconds ?? 0);
   setValue('soundtrack-prompt', brief.soundtrack?.generated?.prompt || '');
   setValue('soundtrack-bpm', brief.soundtrack?.generated?.controls?.bpm ?? 118);
+  setValue('soundtrack-key', brief.soundtrack?.generated?.controls?.key || '');
+  setValue('soundtrack-meter', brief.soundtrack?.generated?.controls?.meter || '');
+  setValue('soundtrack-reference-audio', brief.soundtrack?.generated?.controls?.referenceAudioPath || '');
   setValue('soundtrack-variations', brief.soundtrack?.generated?.variationCount ?? 2);
+  document.getElementById('soundtrack-instrumental').checked = brief.soundtrack?.generated?.instrumental !== false;
   renderSoundtrackFields();
   briefDirty = false;
   document.getElementById('save-brief-button').disabled = true;
@@ -2643,6 +2723,7 @@ function populateBrief(brief) {
 
 function clearBriefForm() {
   briefDirty = false;
+  document.getElementById('advanced-brief').hidden = true;
   setComposerMode(false);
   for (const id of ['brief-project','brief-name','brief-hook','brief-summary','brief-direction','brief-cta','brief-source-url','brief-claim','brief-destination','brief-public-url','lyric-audio-path','lyric-timed-text','lyric-rights-evidence','lyric-rights-url','lyric-attribution']) setValue(id, '');
   setValue('brief-kind', 'faceless');
@@ -2664,11 +2745,17 @@ function clearBriefForm() {
   renderCast();
   setValue('soundtrack-lane', 'procedural-draft');
   setValue('soundtrack-gain', -8);
+  setValue('soundtrack-trim-start', 0);
+  setValue('soundtrack-offset', 0);
   setValue('soundtrack-fade-in', 0.2);
   setValue('soundtrack-fade-out', 0.5);
   document.getElementById('soundtrack-loop').checked = true;
   document.getElementById('soundtrack-duck').checked = false;
-  for (const id of ['soundtrack-path','soundtrack-rights-evidence','soundtrack-url','soundtrack-prompt']) setValue(id, '');
+  setValue('soundtrack-duck-threshold', 0.08);
+  setValue('soundtrack-duck-ratio', 8);
+  setValue('soundtrack-platform-start', 0);
+  document.getElementById('soundtrack-instrumental').checked = true;
+  for (const id of ['soundtrack-path','soundtrack-rights-evidence','soundtrack-url','soundtrack-prompt','soundtrack-key','soundtrack-meter','soundtrack-reference-audio']) setValue(id, '');
   renderSoundtrackFields();
   renderWorkflowProgress();
   renderWorkflowProposal();
@@ -2743,16 +2830,17 @@ function renderWorkflowList() {
 function renderWorkflowProgress() {
   const root = document.getElementById('workflow-progress');
   const workflow = activeBrief?.workflow;
-  root.hidden = !workflow || Boolean(activeBrief?.workflowProposal);
-  if (!workflow || activeBrief?.workflowProposal) return;
+  root.hidden = !workflow;
+  if (!workflow) return;
   const modeButton = document.getElementById('workflow-mode');
   modeButton.textContent = workflow.mode === 'manual' ? 'Use quick mode' : 'Use manual mode';
   modeButton.setAttribute('aria-pressed', String(workflow.mode === 'quick'));
   const rail = document.getElementById('stage-rail');
   rail.innerHTML = workflow.stages.map((stage) =>
     '<button class="stage-card ' + escapeText(stage.status) + '" type="button" data-workflow-stage="' + escapeText(stage.id) + '"' +
-    (stage.status === 'ready' ? '' : ' disabled') + '><strong>' + escapeText(stage.label) + '</strong><small>' +
-    escapeText(stage.status) + '</small></button>').join('');
+    (['ready','failed','blocked'].includes(stage.status) ? '' : ' disabled') + '><strong>' + escapeText(stage.label) + '</strong><small>' +
+    escapeText(stage.status) + '</small>' + ((stage.blockers?.[0] || stage.error)
+      ? '<span>' + escapeText(stage.blockers?.[0] || stage.error) + '</span>' : '') + '</button>').join('');
   for (const button of rail.querySelectorAll('[data-workflow-stage]:not([disabled])')) {
     button.addEventListener('click', () => advanceWorkflowStage(button.dataset.workflowStage));
   }
@@ -2900,34 +2988,24 @@ document.getElementById('workflow-mode').addEventListener('click', async () => {
 
 async function advanceWorkflowStage(stageId) {
   const stage = activeBrief?.workflow?.stages.find((entry) => entry.id === stageId);
-  if (!stage || stage.status !== 'ready') return;
+  if (!stage || !['ready','failed','blocked'].includes(stage.status)) return;
   setFeedback('workflow-feedback', 'Running ' + stage.label.toLowerCase() + '…');
   try {
     if (briefDirty) await saveBrief({ silent:true });
-    let output = { confirmedBy:'operator', briefRevision:activeBrief.revision };
-    let evidence = { actionId:stage.actionId, owner:activeBrief.recipe?.owner ?? activeBrief.capability?.owner ?? 'Marketing Studio', localOnly:true };
-    if (stageId === 'cast') {
-      if (activeBrief.contentScope === 'mature-enabled' && !activeBrief.cast?.length) {
-        throw new Error('Add an explicitly adult fictional character before confirming a mature cast.');
-      }
-      output = { cast:activeBrief.cast ?? [] };
-    }
-    if (stageId === 'scenes') output = { direction:activeBrief.creativeDirection, summary:activeBrief.summary };
-    if (stageId === 'generation') {
-      const result = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/execute', {
-        method:'POST', body:JSON.stringify({ confirm:true }),
-      });
-      if (result.executed !== true || !result.brief?.media) throw new Error(result.blocker || 'The selected runtime did not produce a reviewable artifact.');
-      activeBrief = result.brief;
-      output = { media:activeBrief.media };
-      evidence = { actionId:stage.actionId, owner:activeBrief.recipe?.owner ?? activeBrief.capability?.owner ?? 'Marketing Studio', modelProfileId:activeBrief.modelProfileId, localOnly:true };
-    }
     activeBrief = await api('/studio/briefs/' + encodeURIComponent(activeBrief.id) + '/workflow/' + encodeURIComponent(stageId), {
-      method:'POST', body:JSON.stringify({ actionId:stage.actionId, status:'completed', output, evidence }),
+      method:'POST',
+      body:JSON.stringify({
+        actionId:stage.actionId,
+        operation:stage.status === 'ready' ? 'run' : 'retry',
+        confirmGeneration:stageId === 'generation',
+      }),
     });
+    const run = activeBrief.workflowRun;
     await loadBriefs(activeBrief.id);
-    setFeedback('workflow-feedback', stage.label + ' completed. The next registered step is ready.', 'success');
-    if (stageId === 'generation') {
+    if (run?.error) setFeedback('workflow-feedback', run.error, 'error');
+    else if (run?.blocker) setFeedback('workflow-feedback', run.blocker);
+    else setFeedback('workflow-feedback', run?.executed?.map((id) => id.replaceAll('-', ' ')).join(', ') + ' completed.', 'success');
+    if (activeBrief.media?.videoPath) {
       selectedProductionId = activeBrief.id;
       activateView('productions');
     }

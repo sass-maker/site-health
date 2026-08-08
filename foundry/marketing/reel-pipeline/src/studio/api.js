@@ -47,8 +47,15 @@ import {
   openRepresentativeExploreGalleryPoster,
 } from './explore-gallery.js';
 import { executeVideoVariant } from './video-execution.js';
-import { CharacterDirectoryStore, validateMatureCast, validateMatureConcept } from './character-directory.js';
+import {
+  CharacterDirectoryStore,
+  compileCastPrompt,
+  validateMatureCast,
+  validateMatureConcept,
+} from './character-directory.js';
 import { probeVoiceTranscription, saveVoiceRecording, transcribeVoiceRecording } from './voice-intake.js';
+import { soundtrackReadiness } from './soundtrack.js';
+import { runRegisteredWorkflowStage } from './workflow-runner.js';
 import { getExecutionAdapter, missingExecutionInputs, VIDEO_EXECUTION_SCHEMA } from './execution-registry.js';
 import { executeVideoMix } from './video-mix.js';
 import { listModelProfiles, listThemePacks, resolveModelProfile, resolveThemePack } from './model-options.js';
@@ -642,14 +649,41 @@ export async function handleStudioRequest(method, pathname, readBody, options = 
   if (workflowStageMatch && method === 'POST') {
     const body = await readBody();
     if (typeof body?.actionId !== 'string' || !body.actionId.trim()) throw new Error('registered workflow actionId is required');
-    const allowed = ['actionId', 'status', 'output', 'evidence', 'blockers', 'error', 'invalidateDownstream'];
-    const patch = Object.fromEntries(allowed.filter((key) => body?.[key] !== undefined).map((key) => [key, body[key]]));
-    const brief = await briefStore().updateWorkflowStage(
-      decodeURIComponent(workflowStageMatch[1]),
-      decodeURIComponent(workflowStageMatch[2]),
-      patch,
-    );
-    return { status: 200, body: { data: decorateBrief(brief, options) } };
+    if (!['run', 'retry'].includes(body?.operation)) throw new Error('workflow operation must be run or retry');
+    const id = decodeURIComponent(workflowStageMatch[1]);
+    const stageId = decodeURIComponent(workflowStageMatch[2]);
+    const store = briefStore();
+    const current = await store.get(id);
+    if (!current) return { status: 404, body: { error: 'marketing brief not found' } };
+    const result = await runRegisteredWorkflowStage({
+      store,
+      briefId: id,
+      stageId,
+      actionId: body.actionId,
+      actions: workflowStageActions(options, store),
+      retry: body.operation === 'retry',
+      quick: current.workflow.mode === 'quick',
+      context: {
+        now: options.now,
+        confirmGeneration: body.confirmGeneration === true,
+        executionMode: body.executionMode,
+        inputs: body.inputs,
+      },
+    });
+    return {
+      status: 200,
+      body: {
+        data: {
+          ...decorateBrief(result.brief, options),
+          workflowRun: {
+            executed: result.executed,
+            paused: result.paused,
+            blocker: result.blocker ?? null,
+            error: result.error ?? null,
+          },
+        },
+      },
+    };
   }
   const refineMatch = tool.match(/^briefs\/([^/]+)\/refine$/);
   if (refineMatch && method === 'POST') {
@@ -1124,6 +1158,136 @@ async function executeMarketingBrief(id, body, options, store) {
   }
 }
 
+function workflowStageActions(options, store) {
+  const owner = (brief) => brief.recipeId
+    ? getProductionRecipe(brief.recipeId, { ...productionContext(options), brief }).owner
+    : evaluateStudioCapability(brief.kind, brief, capabilityOptions(options)).owner;
+  const defaults = {
+    'studio.cast.confirm': {
+      readiness: ({ brief }) => readinessResult(() => {
+        if (brief.contentScope === 'mature-enabled') validateMatureCast(brief.cast);
+      }),
+      run: async ({ brief, stage }) => ({
+        output: {
+          cast: brief.cast,
+          compiled: await compileCastPrompt(brief.cast),
+        },
+        evidence: stageEvidence(stage, owner(brief), { castRevisions: brief.cast.map((entry) => ({
+          characterId: entry.characterId,
+          revision: entry.characterRevision,
+        })) }),
+      }),
+    },
+    'studio.scenes.plan': {
+      run: async ({ brief, stage }) => ({
+        output: {
+          summary: brief.summary,
+          creativeDirection: brief.creativeDirection,
+          cast: await compileCastPrompt(brief.cast),
+        },
+        evidence: stageEvidence(stage, owner(brief), { briefRevision: brief.revision }),
+      }),
+    },
+    'studio.video.generate': {
+      readiness: ({ brief, context }) => {
+        if (context.confirmGeneration !== true) {
+          return { ready: false, blockers: ['Confirm the selected local generation action before it runs.'] };
+        }
+        if (brief.recipeId) {
+          const action = productionActions(brief, productionContext(options)).build;
+          return action.enabled
+            ? { ready: true, blockers: [] }
+            : { ready: false, blockers: [action.blocker ?? 'The selected recipe is not ready.'] };
+        }
+        const capability = evaluateStudioCapability(brief.kind, brief, capabilityOptions(options));
+        return capability.state === 'ready'
+          ? { ready: true, blockers: [] }
+          : { ready: false, blockers: [capability.blocker ?? 'The selected workflow is not locally executable.'] };
+      },
+      run: async ({ brief, stage, context }) => {
+        const result = await executeMarketingBrief(brief.id, {
+          confirm: true,
+          mode: context.executionMode === 'fixture' ? 'fixture' : 'real',
+          inputs: context.inputs,
+        }, options, store);
+        if (result.executed !== true || !result.brief?.media) {
+          throw new Error(result.continuation?.blocker ?? 'The selected runtime did not produce a reviewable artifact.');
+        }
+        return {
+          output: { media: result.brief.media },
+          evidence: stageEvidence(stage, owner(result.brief), {
+            modelProfileId: result.brief.modelProfileId,
+            execution: result.production,
+          }),
+        };
+      },
+    },
+    'studio.edit.confirm': {
+      readiness: ({ brief }) => brief.media?.videoPath
+        ? { ready: true, blockers: [] }
+        : { ready: false, blockers: ['Generate a reviewable video before confirming the edit.'] },
+      run: async ({ brief, stage }) => ({
+        output: { videoPath: brief.media.videoPath, quality: brief.media.quality },
+        evidence: stageEvidence(stage, owner(brief), { briefRevision: brief.revision }),
+      }),
+    },
+    'studio.sound.confirm': {
+      readiness: ({ brief }) => {
+        const result = soundtrackReadiness(brief.soundtrack, {
+          generatedRuntime: options.generatedMusicRuntime,
+        });
+        return result.ready
+          ? { ready: true, blockers: [] }
+          : { ready: false, blockers: [result.blocker] };
+      },
+      run: async ({ brief, stage }) => ({
+        output: { soundtrack: brief.soundtrack },
+        evidence: stageEvidence(stage, owner(brief), {
+          lane: brief.soundtrack.lane,
+          mix: brief.soundtrack.mix,
+        }),
+      }),
+    },
+    'studio.video.export': {
+      readiness: ({ brief }) => brief.media?.videoPath
+        ? { ready: true, blockers: [] }
+        : { ready: false, blockers: ['A generated video is required before export.'] },
+      run: async ({ brief, stage }) => ({
+        output: { videoPath: brief.media.videoPath, publicUrl: brief.media.publicUrl },
+        evidence: stageEvidence(stage, owner(brief), { quality: brief.media.quality }),
+      }),
+    },
+    'studio.review.confirm': {
+      readiness: ({ brief }) => brief.approval?.reviewDecision === 'accepted'
+        ? { ready: true, blockers: [] }
+        : { ready: false, blockers: ['Accept the generated artifact in Productions before completing review.'] },
+      run: async ({ brief, stage }) => ({
+        output: { decision: brief.approval.reviewDecision, reviewedAt: brief.approval.reviewedAt },
+        evidence: stageEvidence(stage, 'local-operator', { quality: brief.media?.quality }),
+      }),
+    },
+  };
+  return { ...defaults, ...(options.workflowStageActions ?? {}) };
+}
+
+function readinessResult(check) {
+  try {
+    check();
+    return { ready: true, blockers: [] };
+  } catch (error) {
+    return { ready: false, blockers: [error.message] };
+  }
+}
+
+function stageEvidence(stage, owner, extra = {}) {
+  return {
+    actionId: stage.actionId,
+    owner: owner ?? 'Marketing Studio',
+    localOnly: true,
+    ...structuredClone(extra),
+  };
+}
+
 async function localExecutionEnvelope(brief, result) {
   if (!brief.recipeId || !result.videoPath) return null;
   const adapter = getExecutionAdapter(brief.recipeId);
@@ -1190,6 +1354,9 @@ function decorateBrief(brief, options) {
     ...brief,
     theme,
     modelSelection,
+    soundtrackState: soundtrackReadiness(brief.soundtrack, {
+      generatedRuntime: options.generatedMusicRuntime,
+    }),
     capability,
     recipe: brief.recipeId ? getProductionRecipe(brief.recipeId, { ...productionContext(options), brief }) : null,
     actions,

@@ -117,7 +117,9 @@ export class MarketingBriefStore {
     const registered = current.workflow.stages.find((stage) => stage.id === stageId);
     if (!registered) throw new Error(`unknown workflow stage: ${stageId}`);
     const guardedPatch = { ...patch, actionId: patch.actionId ?? registered.actionId };
-    if (['running', 'completed'].includes(guardedPatch.status)) {
+    if (guardedPatch.status === 'running' || (
+      guardedPatch.status === 'completed' && registered.status !== 'running'
+    )) {
       assertStageRunnable(current.workflow, stageId, guardedPatch.actionId);
     }
     const workflow = updateReelWorkflowStage(current.workflow, stageId, guardedPatch, { at: this.now().toISOString() });

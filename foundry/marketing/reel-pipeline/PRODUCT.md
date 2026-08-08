@@ -58,12 +58,19 @@ production studio with excellent editorial judgment, not an AI-effects demo.
 
 - Story chooses the tools.
 - Prompts provide intent; versioned Film styles preserve production judgment.
+- Voice and typed intake compile to the same visible eight-stage workflow;
+  operators can run or retry one stage, pause quick progression, and inspect
+  retained checkpoints without bypassing readiness checks.
+- Reusable characters, workflow-specific cast continuity, and soundtrack
+  transforms stay editable before generation and remain part of the evidence.
 - App-demo capture is a guided workflow; its selected Film style preserves the
   composition, synchronization, provenance, and delivery rules.
 - One dominant visual idea per moment.
 - Real product evidence outranks generated approximation.
 - Generated motion creates atmosphere and transition, never product claims.
 - Every publishable asset carries provenance and license posture.
+- Generated music remains unavailable until its pinned local canary has passed
+  a human listening review; the product must show that blocker explicitly.
 
 ## Accessibility & Inclusion
 

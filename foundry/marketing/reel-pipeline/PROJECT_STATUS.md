@@ -36,6 +36,13 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-09:** completed the safely shippable voice-first Studio workflow:
+  Talk and Type now compile to the same persisted eight-stage graph with
+  manual/quick execution, pause, retry, checkpoints, and downstream
+  invalidation. Added searchable reusable cast controls, explicit soundtrack
+  source and mix controls, mature/private readiness boundaries, and responsive
+  browser evidence. The generated-music adapter remains intentionally blocked
+  pending human listening review of its local ACE-Step canary.
 - **2026-08-09:** finalized the product boundary between Video Maker and
   Mashup. Fleet Console Marketing and `/studio` expose the prompt-first Video
   Maker; the incorporated podcast editor remains an operator CLI with no
@@ -131,6 +138,15 @@ owns that downstream lifecycle.
 - A focused prompt-first Video Maker browser surface with recipe-derived format
   selection and truthful continuations; Mashup remains CLI-only under the
   incorporated editorial runtime.
+- Voice-first and typed brief intake feeding one persisted eight-stage
+  workflow with manual or quick progression, readiness rechecks, pause/retry,
+  reusable checkpoints, and transitive invalidation after upstream edits.
+- Searchable reusable characters and workflow-specific cast overrides with
+  source, likeness, mature-readiness, wardrobe, expression, and continuity
+  evidence.
+- Explicit procedural-draft, owned-local, platform-reference, and generated
+  soundtrack lanes with retained mix transforms and fail-closed runtime,
+  variation-selection, commercial-audio, and rights blockers.
 - Versioned secret-free automation policies, source-revision idempotency,
   bounded retries, dry-run and execute commands, lane-aware Studio status, and
   Project Autopilot / Ask Me / Personal Automations production grouping.

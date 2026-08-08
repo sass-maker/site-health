@@ -53,6 +53,27 @@ test('generated music fails closed until its runtime supports every requested co
   }).ready, true);
 });
 
+test('generated variations require an explicit valid selection before final use', () => {
+  const variations = [
+    { id: 'warm', audioPath: '/tmp/warm.wav', seed: 11, evidence: { runtime: 'fixture' } },
+    { id: 'bright', audioPath: '/tmp/bright.wav', seed: 12, evidence: { runtime: 'fixture' } },
+  ];
+  const selected = normalizeSoundtrack({
+    lane: 'generated',
+    generated: {
+      prompt: 'instrumental bed',
+      variations,
+      selectedVariationId: 'bright',
+    },
+  });
+  assert.equal(selected.generated.variationCount, 2);
+  assert.equal(selected.generated.selectedVariationId, 'bright');
+  assert.throws(() => normalizeSoundtrack({
+    lane: 'generated',
+    generated: { prompt: 'instrumental bed', variations, selectedVariationId: 'missing' },
+  }), /selected soundtrack variation is unavailable/);
+});
+
 test('mix controls preserve trim, offset, loop, fades, gain, and narration ducking', () => {
   const soundtrack = normalizeSoundtrack({
     lane: 'procedural-draft',

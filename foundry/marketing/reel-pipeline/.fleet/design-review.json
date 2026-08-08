@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "reel-pipeline",
-  "target": "Marketing Studio History, Recipes, and Workflows at /studio",
+  "target": "Voice-first editable workflow, cast, and soundtrack at /studio",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -12,27 +12,27 @@
   "direction": {
     "references": [],
     "probes": [],
-    "selected": "film-archive-evidence-beam",
+    "selected": "evidence-beam editable production console",
     "approval": "not-required",
-    "before": "artifacts/design/studio-libraries/before-1440.png"
+    "before": "artifacts/design/local-workflow-proposal/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/studio-libraries/after-history-390.png"
+        "path": "artifacts/design/voice-first-workflow/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/studio-libraries/after-history-768.png"
+        "path": "artifacts/design/voice-first-workflow/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/studio-libraries/after-history-1440.png"
+        "path": "artifacts/design/voice-first-workflow/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "npm test && npm run smoke:studio && npm run gallery:check && npm run gallery:representatives:check && npm run docs:validate && openspec validate add-comfy-workflow-recipes --strict && git diff --check",
+      "command": "npm test && npm run smoke:studio && npm run gallery:check && npm run gallery:representatives:check && npm run docs:validate && openspec validate add-voice-first-reel-workflows --strict && git diff --check",
       "status": "pass"
     },
     "critique": {
@@ -49,11 +49,12 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": []
+      "findings": [],
+      "note": "The required one-pass detector returned no findings for src/studio/ui.js. Visual critique was completed in-thread because sub-agent delegation was disabled for this run."
     }
   },
   "ownerFeedback": {
-    "decision": "keep",
-    "note": "On 2026-08-06 the owner accepted the current direction as fine to live with for now and asked to focus on push readiness."
+    "decision": "delegated",
+    "note": "On 2026-08-09 the owner delegated completion and shipping of all non-blocking Fleet issues to Codex."
   }
 }

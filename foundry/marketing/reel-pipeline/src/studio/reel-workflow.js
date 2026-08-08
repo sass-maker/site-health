@@ -175,7 +175,10 @@ function invalidateDependents(stages, completedId, at) {
   return stages.map((entry) => dependsTransitively(entry.id, completedId)
     ? {
         ...entry,
-        status: 'stale', output: null, evidence: null, error: null, blockers: [],
+        status: entry.status === 'pending' && entry.output == null && entry.evidence == null
+          ? 'pending'
+          : 'stale',
+        output: null, evidence: null, error: null, blockers: [],
         revision: entry.revision + 1, updatedAt: at,
       }
     : entry);
