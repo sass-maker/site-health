@@ -1,5 +1,5 @@
 # drank — PROJECT STATUS
-Last updated: 2026-07-18
+Last updated: 2026-08-09
 
 ## Why / What
 
@@ -28,7 +28,7 @@ Last updated: 2026-07-18
 
 ### Stack & commands
 
-**Stack:** Next.js 16 App Router + React 19 + TypeScript + Tailwind v4 + Recharts + framer-motion; versioned localStorage (v2). No database, no auth.
+**Stack:** Next.js 16 App Router + React 19 + TypeScript + Tailwind v4 + Recharts + framer-motion; versioned localStorage (v2). Biome resolves the pinned Ultracite framework presets through Fleet's shared lint baseline. No database, no auth.
 
 | Command | Purpose |
 |---------|---------|
@@ -44,6 +44,11 @@ Last updated: 2026-07-18
 
 ## Timeline
 
+- **2026-08-09** — Adopted Fleet's shared Ultracite-backed Biome baseline as
+  the bounded first pilot. The existing check now resolves pinned React,
+  Next.js, and Vitest presets while retaining the documented Fleet exceptions;
+  generated generic lint guidance remains separate from product-owned
+  `AGENTS.md` instructions.
 - **2026-08-07** — Wired optional `AHREFS_API_KEY` into `/api/dr`, the weekly
   global/Fleet DR update script, and the reusable workflow `secrets: inherit`
   path so free DR lookups keep working after Ahrefs' 2026-08-10 auth change.
