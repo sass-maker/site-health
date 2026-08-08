@@ -3379,6 +3379,140 @@ async function renderMarketing() {
     : empty("No matching project", "The current project scope has no public marketing project."));
 }
 
+const GROWTH_MODE_ORDER: Record<string, number> = {
+  focus: 0,
+  maintain: 1,
+  observe: 2,
+};
+
+function growthSearchSummary(row: JsonRecord) {
+  if (!Number.isFinite(row.search?.impressions?.value)) {
+    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+  }
+  const impressionCount = Number(row.search.impressions.value);
+  const clickCount = Number(row.search?.clicks?.value);
+  const impressions = compactNumber(impressionCount);
+  const clicks = Number.isFinite(clickCount)
+    ? compactNumber(clickCount)
+    : "—";
+  const position = Number.isFinite(row.search?.averagePosition?.value)
+    ? new Intl.NumberFormat("en", { maximumFractionDigits: 1 }).format(row.search.averagePosition.value)
+    : "—";
+  return element("span", { class: "outcome-signal growth-summary" }, [
+    element("strong", {}, [`${impressions} ${impressionCount === 1 ? "impression" : "impressions"}`]),
+    element("small", {}, [`${clicks} ${clickCount === 1 ? "click" : "clicks"} · position ${position}`]),
+  ]);
+}
+
+function growthTrafficSummary(row: JsonRecord) {
+  if (!Number.isFinite(row.traffic?.visits?.value)) {
+    return element("span", { class: "outcome-missing" }, ["Not measured"]);
+  }
+  const visitCount = Number(row.traffic.visits.value);
+  const visits = compactNumber(visitCount);
+  const referrals = Number.isFinite(row.traffic?.searchReferrals?.value)
+    ? compactNumber(Number(row.traffic.searchReferrals.value))
+    : "—";
+  return element("span", { class: "outcome-signal growth-summary" }, [
+    element("strong", {}, [`${visits} ${visitCount === 1 ? "visit" : "visits"}`]),
+    element("small", {}, [`${referrals} from search`]),
+  ]);
+}
+
+function growthTarget(row: JsonRecord) {
+  if (!row.target) return element("span", { class: "outcome-missing" }, ["No focus target"]);
+  const destination = new URL(row.target.destination);
+  return element("span", { class: "outcome-signal growth-target" }, [
+    element("strong", {}, [row.target.query]),
+    element("small", {}, [destination.pathname === "/" ? "Homepage" : destination.pathname]),
+  ]);
+}
+
+function growthNext(row: JsonRecord) {
+  const detail = row.next?.nextMeasurementAt
+    ? `Measure ${formattedDay(row.next.nextMeasurementAt)}`
+    : titleCase(row.next?.stage ?? "measure");
+  return element("span", { class: "outcome-signal growth-summary" }, [
+    element("strong", {}, [row.next?.label ?? "Measure now"]),
+    element("small", {}, [detail]),
+  ]);
+}
+
+function growthDetails(row: JsonRecord) {
+  const providerLinks = [
+    providerLink("Open Search Console", row.search?.providerUrl),
+    providerLink("Open Cloudflare", row.traffic?.providerUrl),
+  ].filter(Boolean) as Node[];
+  const target = row.target
+    ? element("a", { href: row.target.destination, target: "_blank", rel: "noreferrer" }, [row.target.destination])
+    : "No focus target";
+  const intervention = row.intervention
+    ? `${row.intervention.query ?? row.intervention.actionId} · ${formattedDay(row.intervention.changedAt)}`
+    : "No recorded search change";
+  const latestPost = row.marketing?.latest;
+  const marketing = latestPost
+    ? `${latestPost.title} · ${formattedDay(latestPost.observedAt)}`
+    : "No recorded post";
+  const submissions = Number(row.links?.acknowledgedSubmissions ?? 0);
+  const linkEvidence = Number(row.links?.verifiedCount ?? 0) > 0
+    ? `${row.links.verifiedCount} exact external link${row.links.verifiedCount === 1 ? "" : "s"} verified`
+    : "No exact external link verified";
+  const period = row.search?.period?.start && row.search?.period?.end
+    ? `${searchReportingDay(row.search.period.start)} – ${searchReportingDay(row.search.period.end)}`
+    : "Not measured";
+  const facts = element("dl", { class: "search-detail__facts growth-detail__facts" }, [
+    element("div", {}, [element("dt", {}, ["Mode"]), element("dd", {}, [titleCase(row.mode)])]),
+    element("div", {}, [element("dt", {}, ["Target query"]), element("dd", {}, [row.target?.query ?? "No focus target"])]),
+    element("div", {}, [element("dt", {}, ["Landing page"]), element("dd", {}, [target])]),
+    element("div", {}, [element("dt", {}, ["Latest change"]), element("dd", {}, [intervention])]),
+    element("div", {}, [element("dt", {}, ["Search window"]), element("dd", {}, [period])]),
+    element("div", {}, [element("dt", {}, ["Latest marketing"]), element("dd", {}, [marketing])]),
+    element("div", {}, [element("dt", {}, ["Submission attempts"]), element("dd", {}, [submissions ? `${submissions} acknowledged; not backlinks` : "None recorded"])]),
+    element("div", {}, [element("dt", {}, ["Verified links"]), element("dd", {}, [linkEvidence])]),
+    element("div", {}, [element("dt", {}, ["Commercial outcomes"]), element("dd", {}, ["Conversions and revenue not connected"])]),
+    element("div", {}, [element("dt", {}, ["Next step"]), element("dd", {}, [row.next?.reason ?? "Measure the next evidence window."])]),
+  ]);
+  const content: Node[] = [
+    element("p", { class: "search-detail__note" }, [
+      `${row.attribution?.causality ?? "Causality is not inferred."} Search and traffic remain provider-owned observations.`,
+    ]),
+  ];
+  if (providerLinks.length > 0) content.push(element("div", { class: "provider-links" }, providerLinks));
+  content.push(facts);
+  if (row.links?.verified?.length) {
+    content.push(element("div", { class: "growth-detail__links" }, [
+      element("h3", {}, ["Verified external links"]),
+      element("ul", {}, row.links.verified.map((link: JsonRecord) => element("li", {}, [
+        element("a", { href: link.sourceUrl, target: "_blank", rel: "noreferrer" }, [new URL(link.sourceUrl).host]),
+        ` → ${new URL(link.destinationUrl).pathname}`,
+      ]))),
+    ]));
+  }
+  return element("div", { class: "search-detail growth-detail" }, content);
+}
+
+async function renderGrowth() {
+  const payload = await api("/v1/outcomes/growth");
+  updateOutcomeTime(payload.generatedAt);
+  const rows = payload.rows ?? [];
+  const columns: OutcomeColumn[] = [
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row) },
+    { key: "mode", label: "Mode", description: "Sort by growth allocation", value: (row) => GROWTH_MODE_ORDER[row.mode] ?? 3, render: (row) => state(row.mode) },
+    { key: "target", label: "Target", description: "Sort by target query", value: (row) => row.target?.query, render: growthTarget },
+    { key: "search", label: "Search", description: "Sort by Search impressions", value: (row) => row.search?.impressions?.value, render: growthSearchSummary },
+    { key: "traffic", label: "Traffic", description: "Sort by visits", value: (row) => row.traffic?.visits?.value, render: growthTrafficSummary },
+    { key: "next", label: "Next", description: "Sort by next-step priority", value: (row) => row.next?.priority, render: growthNext },
+    { key: "observed", label: "Last observed", description: "Sort by latest evidence", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+  ];
+  replace("growth", rows.length
+    ? outcomeTable(rows, columns, "mode", "Growth program by project", "ascending", {
+        details: growthDetails,
+        rowKey: (row) => row.projectId,
+        className: "outcome-table-wrap--growth",
+      })
+    : empty("No growth evidence", "No maintained public projects are available to allocate."));
+}
+
 async function renderMission() {
   const missionId = new URLSearchParams(location.search).get("id");
   const host = document.querySelector<HTMLElement>("[data-mission]");
@@ -3480,6 +3614,7 @@ async function start() {
       bindPortfolioRefresh("cloudflare");
       await renderMarketing();
     }
+    if (view === "growth") await renderGrowth();
     if (view === "performance") {
       bindPortfolioRefresh("psi");
       bindPortfolioRefresh("cloudflare");

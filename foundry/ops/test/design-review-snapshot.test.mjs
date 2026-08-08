@@ -159,6 +159,38 @@ function snapshotFixture() {
     join(fleetRoot, 'foundry/ops/config/design-workflow.json'),
     policy(),
   );
+  writeJson(
+    join(fleetRoot, 'foundry/ops/config/marketing-program.json'),
+    {
+      focusSet: [],
+      projects: [
+        { slug: 'pace', mode: 'evergreen' },
+        { slug: 'missing-review', mode: 'private' },
+      ],
+    },
+  );
+  writeJson(
+    join(fleetRoot, 'foundry/ops/config/growth-program.json'),
+    {
+      $schema: 'fleet.growth-program.v1',
+      version: 1,
+      modeMapping: {
+        focus: 'focus',
+        evergreen: 'maintain',
+        infrastructure: 'maintain',
+        private: 'observe',
+      },
+      focusProjects: [],
+      verifiedLinks: [],
+      attribution: {
+        search: 'fixture',
+        traffic: 'fixture',
+        conversions: 'not-connected',
+        revenue: 'not-connected',
+        causality: 'not-inferred',
+      },
+    },
+  );
   writeReceipt(join(projectWorkspaceRoot, 'pace'));
   return { fleetRoot, projectWorkspaceRoot };
 }

@@ -1,0 +1,40 @@
+{
+  "$schema": "fleet.growth-program.v1",
+  "version": 1,
+  "modeMapping": {
+    "focus": "focus",
+    "evergreen": "maintain",
+    "infrastructure": "maintain",
+    "private": "observe"
+  },
+  "focusProjects": [
+    {
+      "projectId": "codevetter",
+      "targetQueryId": "codevetter-category-2",
+      "destination": "https://codevetter.com/"
+    },
+    {
+      "projectId": "pace",
+      "targetQueryId": "pace-category-2",
+      "destination": "https://heypace.app/"
+    },
+    {
+      "projectId": "posttrainllm",
+      "targetQueryId": "posttrainllm-category",
+      "destination": "https://posttrainllm.com/"
+    },
+    {
+      "projectId": "high-signal",
+      "targetQueryId": "highsignal-category-2",
+      "destination": "https://highsignal.app/track-record"
+    }
+  ],
+  "verifiedLinks": [],
+  "attribution": {
+    "search": "Google Search Console",
+    "traffic": "Cloudflare Web Analytics",
+    "conversions": "Product-owned outcome receipt required",
+    "revenue": "Product-owned outcome receipt required",
+    "causality": "Not inferred from temporal proximity"
+  }
+}

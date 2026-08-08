@@ -219,6 +219,86 @@ function outcomeProjection(connections, family) {
       ctr: boundedSignal(row.ctr, { includeSeries: true }),
       averagePosition: boundedSignal(row.averagePosition, { includeSeries: true }),
     }));
+  } else if (family === 'growth') {
+    rows = (outcomes.growth ?? []).map((row) => ({
+      projectId: boundedText(row.projectId, 160),
+      name: boundedText(row.name, 160) ?? 'Unnamed project',
+      domain: boundedText(row.domain, 240),
+      mode: ['focus', 'maintain', 'observe'].includes(row.mode) ? row.mode : 'observe',
+      target: row.target ? {
+        queryId: boundedText(row.target.queryId, 160),
+        query: boundedText(row.target.query, 500),
+        destination: publicPostUrl(row.target.destination),
+      } : null,
+      intervention: row.intervention ? {
+        actionId: boundedText(row.intervention.actionId, 160),
+        query: boundedText(row.intervention.query, 500),
+        landingPage: publicPostUrl(row.intervention.landingPage),
+        revision: boundedText(row.intervention.revision, 40),
+        changedAt: Number.isFinite(Date.parse(row.intervention.changedAt)) ? row.intervention.changedAt : null,
+      } : null,
+      search: {
+        status: boundedText(row.search?.status, 80) ?? 'not-measured',
+        impressions: boundedSignal(row.search?.impressions),
+        clicks: boundedSignal(row.search?.clicks),
+        averagePosition: boundedSignal(row.search?.averagePosition),
+        observedAt: Number.isFinite(Date.parse(row.search?.observedAt)) ? row.search.observedAt : null,
+        period: row.search?.period ? {
+          start: boundedText(row.search.period.start, 40),
+          end: boundedText(row.search.period.end, 40),
+        } : null,
+        providerUrl: publicPostUrl(row.search?.providerUrl),
+      },
+      traffic: {
+        visits: boundedSignal(row.traffic?.visits),
+        pageViews: boundedSignal(row.traffic?.pageViews),
+        searchReferrals: boundedSignal(row.traffic?.searchReferrals),
+        observedAt: Number.isFinite(Date.parse(row.traffic?.observedAt)) ? row.traffic.observedAt : null,
+        providerUrl: publicPostUrl(row.traffic?.providerUrl),
+      },
+      marketing: {
+        status: boundedText(row.marketing?.status, 80) ?? 'never-marketed',
+        postCount: Math.max(0, Number(row.marketing?.postCount ?? 0)),
+        latest: row.marketing?.latest ? {
+          title: boundedText(row.marketing.latest.title, 240),
+          provider: boundedText(row.marketing.latest.provider, 80),
+          status: boundedText(row.marketing.latest.status, 80) ?? 'recorded',
+          observedAt: Number.isFinite(Date.parse(row.marketing.latest.observedAt)) ? row.marketing.latest.observedAt : null,
+          url: publicPostUrl(row.marketing.latest.url),
+        } : null,
+      },
+      links: {
+        acknowledgedSubmissions: Math.max(0, Number(row.links?.acknowledgedSubmissions ?? 0)),
+        submissionObservedAt: Number.isFinite(Date.parse(row.links?.submissionObservedAt)) ? row.links.submissionObservedAt : null,
+        evidenceClass: boundedText(row.links?.evidenceClass, 80) ?? 'not-recorded',
+        verifiedCount: Math.max(0, Number(row.links?.verifiedCount ?? 0)),
+        earnedStatus: row.links?.earnedStatus === 'verified' ? 'verified' : 'not-measured',
+        verified: (row.links?.verified ?? []).slice(0, 20).map((link) => ({
+          sourceUrl: publicPostUrl(link.sourceUrl),
+          destinationUrl: publicPostUrl(link.destinationUrl),
+          observedAt: Number.isFinite(Date.parse(link.observedAt)) ? link.observedAt : null,
+          kind: boundedText(link.kind, 80) ?? 'editorial',
+        })),
+      },
+      commercial: {
+        conversions: { status: 'not-connected', owner: boundedText(row.commercial?.conversions?.owner, 240) },
+        revenue: { status: 'not-connected', owner: boundedText(row.commercial?.revenue?.owner, 240) },
+      },
+      attribution: {
+        search: boundedText(row.attribution?.search, 120),
+        traffic: boundedText(row.attribution?.traffic, 120),
+        causality: boundedText(row.attribution?.causality, 240),
+      },
+      next: {
+        id: boundedText(row.next?.id, 160),
+        label: boundedText(row.next?.label, 160) ?? 'Measure now',
+        stage: boundedText(row.next?.stage, 80) ?? 'measure',
+        reason: boundedText(row.next?.reason, 500),
+        priority: Number.isFinite(Number(row.next?.priority)) ? Number(row.next.priority) : 7,
+        nextMeasurementAt: Number.isFinite(Date.parse(row.next?.nextMeasurementAt)) ? row.next.nextMeasurementAt : null,
+      },
+      observedAt: Number.isFinite(Date.parse(row.observedAt)) ? row.observedAt : null,
+    }));
   } else {
     return null;
   }
@@ -390,7 +470,7 @@ export function createFounderControlHandler({
         );
       }
       const outcomeMatch = url.pathname.match(
-        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing)$/,
+        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing|growth)$/,
       );
       if (method === 'GET' && outcomeMatch) {
         return json(

@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "fleet-console",
-  "target": "Quality-gated representative proofs at /marketing/explore-gallery",
+  "target": "Growth operating ledger",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,25 +14,25 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": "artifacts/design/fleet-console-marketing-explore-gallery/after-1440.png"
+    "before": "artifacts/design/growth-operating-ledger/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/fleet-console-marketing-gallery-quality/after-390.png"
+        "path": "artifacts/design/growth-operating-ledger/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/fleet-console-marketing-gallery-quality/after-768.png"
+        "path": "artifacts/design/growth-operating-ledger/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/fleet-console-marketing-gallery-quality/after-1440.png"
+        "path": "artifacts/design/growth-operating-ledger/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "PUBLIC_REEL_PIPELINE_ORIGIN=http://127.0.0.1:4318 npm run build",
+      "command": "pnpm --prefix foundry/apps/dashboard/fleet-console run build",
       "status": "pass"
     },
     "critique": {
@@ -40,7 +40,7 @@
       "maximum": 40
     },
     "audit": {
-      "score": 18,
+      "score": 19,
       "maximum": 20
     },
     "unresolved": {
@@ -49,14 +49,22 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": [
-        "Advisory: the HTML composition renderer uses Inter.",
-        "Advisory: the lyric compositor uses Inter."
-      ]
+      "findings": []
+    },
+    "browserReview": {
+      "tool": "Browser",
+      "viewports": [
+        390,
+        768,
+        1440
+      ],
+      "horizontalOverflow": false,
+      "consoleErrors": 0,
+      "note": "The live growth ledger was inspected with current evidence at all required widths. It exposes 28 canonical projects, keeps focus projects first, confines the 768px table to an explicitly labeled internal scroller, switches to structural cards at 390px, and has keyboard-operable sorting and detail disclosure with no page overflow or console errors."
     }
   },
   "ownerFeedback": {
-    "decision": "pending",
-    "note": "Independent critique found no unresolved P0 or P1 after lab proofs were visibly separated from showcase proofs; owner keep feedback is still required."
+    "decision": "delegated",
+    "note": "Owner explicitly delegated final judgment by asking Codex to resolve all non-blocking Fleet issues, push the work, and keep going."
   }
 }

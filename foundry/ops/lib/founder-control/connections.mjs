@@ -32,6 +32,7 @@ import {
   defaultSearchChangeReceiptPath,
   readSearchChangeReceipts,
 } from '../search-change-receipt-store.mjs';
+import { loadGrowthProgram } from '../growth-program.mjs';
 import {
   isDomainStrengthProject,
   isPublicMetricProject,
@@ -1494,6 +1495,7 @@ function latestOutcomeSignal(project, outcome, label) {
 function buildOwnerOutcomeProjection({
   projectOutputs,
   marketing,
+  growthProgram,
   latestIndexingRequestByProject,
   latestSearchChangeByProject,
 }) {
@@ -1695,6 +1697,107 @@ function buildOwnerOutcomeProjection({
     };
   });
 
+  const projectById = new Map(projectOutputs.map((project) => [project.projectId, project]));
+  const searchById = new Map(searchRows.map((row) => [row.projectId, row]));
+  const marketingById = new Map(marketingRows.map((row) => [row.projectId, row]));
+  const growthModeOrder = new Map([
+    ['focus', 0],
+    ['maintain', 1],
+    ['observe', 2],
+  ]);
+  const growthRows = growthProgram.allocations.map((allocation) => {
+    const project = projectById.get(allocation.projectId);
+    const search = searchById.get(allocation.projectId) ?? null;
+    const market = marketingById.get(allocation.projectId) ?? null;
+    const change = search?.searchChangeReceipt ?? null;
+    const latestPost = market?.posts?.[0] ?? null;
+    const trafficObservedAt = market?.traffic?.observedAt ?? null;
+    return {
+      projectId: allocation.projectId,
+      name: project?.name ?? allocation.projectId,
+      domain: project?.domains?.[0] ?? null,
+      mode: allocation.mode,
+      target: allocation.target,
+      intervention: change ? {
+        actionId: change.actionId,
+        query: change.query,
+        landingPage: change.landingPage,
+        revision: change.revision,
+        changedAt: change.changedAt,
+      } : null,
+      search: search ? {
+        status: search.status,
+        impressions: search.impressions,
+        clicks: search.clicks,
+        averagePosition: search.averagePosition,
+        observedAt: search.observedAt,
+        period: search.period,
+        providerUrl: search.providerUrl,
+      } : {
+        status: 'not-measured',
+        impressions: null,
+        clicks: null,
+        averagePosition: null,
+        observedAt: null,
+        period: null,
+        providerUrl: null,
+      },
+      traffic: {
+        visits: market?.visits ?? null,
+        pageViews: market?.pageViews ?? null,
+        searchReferrals: market?.searchReferrals ?? null,
+        observedAt: trafficObservedAt,
+        providerUrl: market?.traffic?.providerUrl ?? null,
+      },
+      marketing: {
+        status: market?.status ?? 'never-marketed',
+        postCount: market?.postCount ?? 0,
+        latest: latestPost ? {
+          title: latestPost.title ?? null,
+          provider: latestPost.provider ?? null,
+          status: latestPost.status ?? 'recorded',
+          observedAt: latestPost.observedAt ?? null,
+          url: latestPost.url ?? null,
+        } : null,
+      },
+      links: {
+        acknowledgedSubmissions: allocation.directoryAttempts?.acknowledgedSubmissions ?? 0,
+        submissionObservedAt: allocation.directoryAttempts?.observedAt ?? null,
+        evidenceClass: allocation.directoryAttempts?.evidenceClass ?? 'not-recorded',
+        verifiedCount: allocation.verifiedLinks.length,
+        verified: allocation.verifiedLinks,
+        earnedStatus: allocation.verifiedLinks.length > 0 ? 'verified' : 'not-measured',
+      },
+      commercial: {
+        conversions: { status: 'not-connected', owner: growthProgram.attribution.conversions },
+        revenue: { status: 'not-connected', owner: growthProgram.attribution.revenue },
+      },
+      attribution: {
+        search: growthProgram.attribution.search,
+        traffic: growthProgram.attribution.traffic,
+        causality: growthProgram.attribution.causality,
+      },
+      next: search?.action ?? {
+        id: 'measure-search',
+        label: 'Measure now',
+        stage: 'measure',
+        reason: 'No completed Google Search observation is available.',
+        priority: 7,
+      },
+      observedAt: newestTimestamp([
+        search?.observedAt,
+        trafficObservedAt,
+        latestPost?.observedAt,
+        change?.changedAt,
+        allocation.directoryAttempts?.observedAt,
+        ...allocation.verifiedLinks.map((link) => link.observedAt),
+      ]),
+    };
+  }).sort((left, right) => {
+    const modeDifference = growthModeOrder.get(left.mode) - growthModeOrder.get(right.mode);
+    return modeDifference || left.name.localeCompare(right.name);
+  });
+
   const coreAiRows = publicProjects
     .filter((project) => project.priority === 'P1' && project.lifecycle === 'maintained')
     .map((project) => {
@@ -1768,6 +1871,7 @@ function buildOwnerOutcomeProjection({
     marketing: marketingRows.sort((left, right) => left.name.localeCompare(right.name)),
     performance: performanceRows.sort((left, right) => left.name.localeCompare(right.name)),
     search: searchRows.sort((left, right) => left.name.localeCompare(right.name)),
+    growth: growthRows,
     performanceThresholds,
   };
 }
@@ -2507,6 +2611,15 @@ export function buildFleetConnections({
     priority: project.priority ?? priorityByProject.get(project.id) ?? null,
   }));
   const rootSearchQueries = validatedRootSearchQueries(fleetRoot, projectCatalog);
+  const growthProgram = loadGrowthProgram({
+    fleetRoot,
+    projectCatalog,
+    marketingProgram: readJson(
+      resolve(fleetRoot, 'foundry/ops/config/marketing-program.json'),
+      { focusSet: [], projects: [] },
+    ),
+    rootSearchQueries,
+  });
   const searchProjects = searchConsoleProjects(projectCatalog, rootSearchQueries);
   const searchConsoleProjectIds = new Set(searchProjects.map((project) => project.id));
   const drank = drankEvidence(fleetRoot, now);
@@ -2924,6 +3037,7 @@ export function buildFleetConnections({
   const ownerOutcomes = buildOwnerOutcomeProjection({
     projectOutputs,
     marketing,
+    growthProgram,
     latestIndexingRequestByProject,
     latestSearchChangeByProject,
   });

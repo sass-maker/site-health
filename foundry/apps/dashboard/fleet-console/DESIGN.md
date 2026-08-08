@@ -39,9 +39,10 @@ immutable identifiers and source revisions.
 - A persistent, collapsible left sidebar groups Domains, Google Search, AI
   Awareness, and Performance under a visible Metrics heading; repository
   taxonomy does not appear in primary navigation.
-- Projects, Marketing, and Feedback remain standalone tabs below Metrics. Their
-  selected project scope follows the operator between views in the URL. The four
-  portfolio-wide Metrics views do not expose a project filter.
+- Growth and Marketing share a visible Growth navigation group below Metrics;
+  Projects and Feedback remain standalone tabs. Project scope follows the
+  operator only between views that support it. The four Metrics views and the
+  portfolio-wide Growth ledger do not expose a project filter.
 - Domains answers whether every owned registrable root is becoming stronger.
   Google Search shows every canonical public metric project, keeps native Search
   Console units in a sortable ledger, and reveals reporting scope, terms, and
@@ -49,8 +50,11 @@ immutable identifiers and source revisions.
   AI Awareness is limited to maintained P1 products and leads with
   provider-backed model outcomes. Expanded project evidence separates
   project-owned citations from independent sources and keeps Cloudflare crawl
-  and referral activity in a subordinate discovery layer. Marketing shows
-  coverage for every maintained product, while
+  and referral activity in a subordinate discovery layer. Growth connects
+  explicit allocation, canonical targets, shipped interventions, native Search
+  and traffic evidence, link posture, and the next measurement without
+  inferring causality. Marketing shows coverage for every maintained product,
+  while
   Performance treats PSI and LCP as a pass/fail guardrail for every maintained
   public product. Projects remains the canonical secondary directory with
   explicit website, changelog, source, and project-detail destinations.

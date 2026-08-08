@@ -292,6 +292,87 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
           ctr: { value: 6.67, series: [{ value: 5 }] },
           averagePosition: { value: 14.2, series: [{ value: 16 }] },
         }],
+        growth: [{
+          projectId: 'site',
+          name: 'Site',
+          domain: 'site.example',
+          mode: 'focus',
+          target: {
+            queryId: 'site-category',
+            query: 'private fixture query',
+            destination: 'https://site.example/compare',
+          },
+          intervention: {
+            actionId: 'strengthen-ranking-page',
+            query: 'private fixture query',
+            landingPage: 'javascript:alert(1)',
+            revision: 'abc123',
+            changedAt: '2026-07-30T08:00:00.000Z',
+          },
+          search: {
+            status: 'measured',
+            impressions: { value: 120, series: [{ value: 100 }] },
+            clicks: { value: 8, series: [{ value: 6 }] },
+            averagePosition: { value: 14.2, series: [{ value: 16 }] },
+            observedAt: '2026-07-30T09:00:00.000Z',
+            period: {
+              start: '2026-07-01T00:00:00.000Z',
+              end: '2026-07-30T23:59:59.000Z',
+            },
+            providerUrl: 'https://search.google.com/search-console/',
+          },
+          traffic: {
+            visits: { value: 240, series: [{ value: 180 }] },
+            pageViews: { value: 380, series: [{ value: 300 }] },
+            searchReferrals: { value: 44, series: [{ value: 30 }] },
+            observedAt: '2026-07-30T09:00:00.000Z',
+            providerUrl: 'https://dash.cloudflare.com/account/zone/analytics/traffic',
+          },
+          marketing: {
+            status: 'marketed',
+            postCount: 1,
+            latest: {
+              title: 'Launch note',
+              provider: 'youtube',
+              status: 'published',
+              observedAt: '2026-07-30T09:00:00.000Z',
+              url: 'javascript:alert(1)',
+            },
+          },
+          links: {
+            acknowledgedSubmissions: 2,
+            submissionObservedAt: '2026-07-30T09:00:00.000Z',
+            evidenceClass: 'submission-acknowledgement',
+            verifiedCount: 1,
+            earnedStatus: 'verified',
+            verified: [{
+              sourceUrl: 'https://review.example/site',
+              destinationUrl: 'https://site.example/',
+              observedAt: '2026-07-30T09:00:00.000Z',
+              kind: 'editorial',
+              private: 'must-not-leak',
+            }],
+          },
+          commercial: {
+            conversions: { status: 'not-connected', owner: 'Product receipt' },
+            revenue: { status: 'not-connected', owner: 'Product receipt' },
+          },
+          attribution: {
+            search: 'Google Search Console',
+            traffic: 'Cloudflare Web Analytics',
+            causality: 'Not inferred',
+          },
+          next: {
+            id: 'wait-indexed',
+            label: 'Wait, then measure',
+            stage: 'wait',
+            reason: 'The latest change needs another observation window.',
+            priority: 6,
+            nextMeasurementAt: '2026-08-06T09:00:00.000Z',
+          },
+          observedAt: '2026-07-30T09:00:00.000Z',
+          private: 'must-not-leak',
+        }],
         performanceThresholds: {
           psiScore: 90,
           lcpMilliseconds: 2500,
@@ -327,6 +408,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   const awareness = await (await fetch(`${base}/v1/outcomes/ai-awareness`)).json();
   const performance = await (await fetch(`${base}/v1/outcomes/performance`)).json();
   const marketing = await (await fetch(`${base}/v1/outcomes/marketing`)).json();
+  const growth = await (await fetch(`${base}/v1/outcomes/growth`)).json();
   const connections = await (await fetch(`${base}/v1/connections`)).json();
 
   assert.equal(builds, 1);
@@ -378,6 +460,16 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal(marketing.rows[0].posts[0].url, 'https://example.com/post-1');
   assert.equal(marketing.rows[0].posts[1].url, null);
   assert.equal(marketing.rows[0].posts[1].observedAt, null);
+  assert.equal(growth.family, 'growth');
+  assert.equal(growth.rows[0].target.destination, 'https://site.example/compare');
+  assert.equal(growth.rows[0].intervention.landingPage, null);
+  assert.equal(growth.rows[0].marketing.latest.url, null);
+  assert.equal(growth.rows[0].search.impressions.series, undefined);
+  assert.equal(growth.rows[0].search.period.start, '2026-07-01T00:00:00.000Z');
+  assert.equal(growth.rows[0].links.verified[0].sourceUrl, 'https://review.example/site');
+  assert.equal('private' in growth.rows[0], false);
+  assert.equal('private' in growth.rows[0].links.verified[0], false);
+  assert.equal(growth.rows[0].commercial.revenue.status, 'not-connected');
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
   assert.equal(performance.rows[0].psi.value, 95);
   assert.equal('series' in performance.rows[0].psi, false);
