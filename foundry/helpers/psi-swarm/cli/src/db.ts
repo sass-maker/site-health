@@ -294,8 +294,13 @@ export class HistoryDB {
 
   /**
    * For each tracked URL, return aggregate stats useful for a fleet dashboard:
-   * total runs, last run time, plus median LCP/CLS/perf-score over the last `windowDays`
-   * for both mobile-mid and desktop presets.
+   * total runs, last run time, plus p75 LCP/CLS and p50 perf-score over the last
+   * `windowDays` for both mobile-mid and desktop presets.
+   *
+   * Outcomes are batch-aware: runs are grouped by tag (swarm batch), p75 is
+   * computed within each batch, and the latest batch's p75 is the projected
+   * outcome. This prevents the Console from oscillating on individual-sample
+   * noise. Runs without a tag are treated as single-sample batches.
    */
   projects(windowDays = 30): Array<{
     url: string;
@@ -313,7 +318,7 @@ export class HistoryDB {
       .all() as { url: string; count: number; last: number }[];
 
     const stmt = this.db.prepare(
-      `SELECT lcp, cls, performance_score FROM runs
+      `SELECT lcp, cls, performance_score, tag, started_at FROM runs
        WHERE url = ? AND preset = ? AND started_at >= ? AND error IS NULL
        ORDER BY started_at DESC LIMIT 200`,
     );
@@ -329,23 +334,47 @@ export class HistoryDB {
       return xs[lo] * (1 - w) + xs[hi] * w;
     };
 
+    interface BatchRow { lcp: number | null; cls: number | null; performance_score: number | null; tag: string | null; started_at: number }
+
+    // Group rows by batch tag (null tag = each run is its own batch), compute
+    // p75/p50 within each batch, then pick the latest batch's aggregate.
+    function latestBatchPercentile(rows: BatchRow[], metric: 'lcp' | 'cls' | 'performance_score', p: number): number | undefined {
+      if (rows.length === 0) return undefined;
+      const batches = new Map<string, BatchRow[]>();
+      for (const r of rows) {
+        const key = r.tag ?? `__untagged_${r.started_at}`;
+        const arr = batches.get(key) ?? [];
+        arr.push(r);
+        batches.set(key, arr);
+      }
+      // Find the latest batch by max started_at.
+      let latestKey: string | null = null;
+      let latestStartedAt = -1;
+      for (const [key, batch] of batches) {
+        const batchMax = Math.max(...batch.map((r) => r.started_at));
+        if (batchMax > latestStartedAt) {
+          latestStartedAt = batchMax;
+          latestKey = key;
+        }
+      }
+      if (!latestKey) return undefined;
+      const batch = batches.get(latestKey)!;
+      const vals = batch.map((r) => r[metric]).filter((v): v is number => typeof v === 'number' && Number.isFinite(v));
+      return percentile(vals, p);
+    }
+
     return urls.map((u) => {
-      const mobile = stmt.all(u.url, 'mobile-mid', cutoff) as Array<{ lcp: number | null; cls: number | null; performance_score: number | null }>;
-      const desktop = stmt.all(u.url, 'desktop', cutoff) as Array<{ lcp: number | null; cls: number | null; performance_score: number | null }>;
-      const mlcp = mobile.map((r) => r.lcp).filter((v): v is number => typeof v === 'number');
-      const dlcp = desktop.map((r) => r.lcp).filter((v): v is number => typeof v === 'number');
-      const mscore = mobile.map((r) => r.performance_score).filter((v): v is number => typeof v === 'number');
-      const dscore = desktop.map((r) => r.performance_score).filter((v): v is number => typeof v === 'number');
-      const allCls = [...mobile, ...desktop].map((r) => r.cls).filter((v): v is number => typeof v === 'number');
+      const mobile = stmt.all(u.url, 'mobile-mid', cutoff) as BatchRow[];
+      const desktop = stmt.all(u.url, 'desktop', cutoff) as BatchRow[];
       return {
         url: u.url,
         totalRuns: u.count,
         lastRunAt: u.last,
-        mobileLcpP75: percentile(mlcp, 75),
-        desktopLcpP75: percentile(dlcp, 75),
-        mobilePerfScoreP50: percentile(mscore, 50),
-        desktopPerfScoreP50: percentile(dscore, 50),
-        cls: percentile(allCls, 75),
+        mobileLcpP75: latestBatchPercentile(mobile, 'lcp', 75),
+        desktopLcpP75: latestBatchPercentile(desktop, 'lcp', 75),
+        mobilePerfScoreP50: latestBatchPercentile(mobile, 'performance_score', 50),
+        desktopPerfScoreP50: latestBatchPercentile(desktop, 'performance_score', 50),
+        cls: latestBatchPercentile([...mobile, ...desktop], 'cls', 75),
       };
     });
   }
