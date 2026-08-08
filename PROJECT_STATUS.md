@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-05
+Last updated: 2026-08-07
 
 ## Why / What
 
@@ -553,6 +553,7 @@ CodeVetter or App Health source.
 | Marketing | Reel Pipeline | `foundry/marketing/reel-pipeline/` | Node/Rust/Python orchestration, Editorial, rendering, and distribution contracts |
 | Marketing | Content Factory | `foundry/marketing/content-factory/` | Reel Pipeline-owned content rendering/package scripts |
 | Packages | Feedback | `foundry/packages/feedback/` | Public client package with caller-owned callback or ingestion URL |
+| Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
 | Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
 | Fleet Console | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit/` | Experimental local-only mobile client; future undecided |
 | Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
@@ -689,6 +690,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
   docs, typecheck, and web-build verification; no deployment was performed.
 - Sanitized automation evidence adapters and machine-readable coverage reports;
   technical coverage remains outside the primary owner-facing navigation.
+- `@saas-maker/ai-chat-footer` React package with inline SVG icons for
+  Claude, ChatGPT, Gemini, Perplexity, and Grok, pre-filled prompt templates,
+  provider filtering, light/dark/auto themes, CSS custom property overrides, and
+  accessible markup. No backend, analytics, cookies, or third-party scripts.
 
 ## Work queue
 
