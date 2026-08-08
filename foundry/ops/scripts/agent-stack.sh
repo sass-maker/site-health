@@ -7,6 +7,7 @@ FOUNDRY_ROOT="$(cd "$FLEET_OPS_DIR/.." && pwd)"
 FLEET_ROOT="$(cd "$FOUNDRY_ROOT/.." && pwd)"
 LEGACY_FLEET_OPS_DIR="$FLEET_ROOT/fleet-ops"
 EXPOSED_FLEET_SKILLS=(
+  analyze-storage
   daily-learning
   design-engineering
   design-workflow

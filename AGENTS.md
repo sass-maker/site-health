@@ -114,6 +114,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `spec-driven` | standalone | OpenSpec workflow |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), content-coverage (search-intent pages), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
+| `analyze-storage` | standalone | read-only disk analysis with ignored workspace-local JSON and static HTML reports; never deletes or moves data |
 | `token-budget` | standalone | Codex context/token audit |
 | `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |

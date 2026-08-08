@@ -279,6 +279,7 @@ Fleet skills are exposed via 4 parents + standalones (canonical home:
 | `name-domains` | standalone | — |
 | `spec-driven` | standalone | OpenSpec workflow for new features |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
+| `analyze-storage` | standalone | read-only disk analysis with ignored workspace-local JSON and static HTML reports; no cleanup execution |
 | `token-budget` | standalone | Codex context/token audit |
 | `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |

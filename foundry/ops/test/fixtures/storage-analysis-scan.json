@@ -1,0 +1,50 @@
+{
+  "schema": "fleet.storage-scan.v1",
+  "generatedAt": "2026-08-09T00:00:00+00:00",
+  "elapsedSeconds": 1.25,
+  "scanRoot": "/fixture",
+  "system": {
+    "diskTotalBytes": 107374182400,
+    "diskUsedBytes": 64424509440,
+    "diskFreeBytes": 42949672960,
+    "machine": "fixture",
+    "platform": "fixture"
+  },
+  "skippedSymlinks": [
+    "/fixture/link"
+  ],
+  "entries": [
+    {
+      "error": null,
+      "group": "caches",
+      "name": "browser",
+      "path": "/fixture/Library/Caches/browser",
+      "readable": true,
+      "sizeBytes": 1048576
+    },
+    {
+      "error": null,
+      "group": "downloads",
+      "name": "archive.zip",
+      "path": "/fixture/Downloads/archive.zip",
+      "readable": true,
+      "sizeBytes": 2097152
+    },
+    {
+      "error": null,
+      "group": "app-support",
+      "name": "chat",
+      "path": "/fixture/Library/Application Support/chat",
+      "readable": true,
+      "sizeBytes": 3145728
+    },
+    {
+      "error": "permission denied",
+      "group": "containers",
+      "name": "private",
+      "path": "/fixture/Library/Containers/private",
+      "readable": false,
+      "sizeBytes": null
+    }
+  ]
+}

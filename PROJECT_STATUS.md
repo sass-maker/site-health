@@ -64,6 +64,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — Storage analysis became workspace-local and read-only:** Added
+  a dependency-free Fleet skill that measures a bounded scan root without
+  following symlinks, classifies findings into explicit safety tiers, and
+  writes deterministic JSON plus static HTML only under the ignored
+  `.fleet-local/reports/storage/` boundary. It exposes no deletion, Trash,
+  cache-clearing, permission, settings, or server action.
 - **2026-08-09 — Fleet lint standardization gained a bounded pilot:** Added an
   exact development-only Ultracite dependency to Drank, a Foundry-owned Biome
   base, a deterministic staged agent-context generator, and a read-only
@@ -615,6 +621,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Bounded public-product browser smoke workflow with canonical manifest,
   production-safe interaction policy, and machine-readable repair handoff.
 - Shared fleet and teammate skills with local agent discovery.
+- Workspace-local, read-only storage analysis with conservative safety tiers,
+  deterministic JSON and static HTML reports, symlink avoidance, and no
+  mutation or cleanup controls.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
 - Responsive Fleet Console with a collapsible sidebar that groups Domains,

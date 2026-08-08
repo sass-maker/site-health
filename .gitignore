@@ -21,6 +21,8 @@
 
 # Local/system noise at the Fleet root.
 .DS_Store
+__pycache__/
+*.pyc
 .env*
 .omx/
 .wrangler/
