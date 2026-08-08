@@ -5,17 +5,17 @@ import "../styles/founder.css";
 interface Props {
   title: string;
   description: string;
-  active: "domains" | "search" | "ai-awareness" | "market" | "performance" | "project-statuses" | "feedback" | "metrics";
+  active: "domains" | "search" | "ai-awareness" | "performance" | "growth" | "market" | "project-statuses" | "feedback" | "metrics";
   eyebrow?: string;
-  view?: "domains" | "search" | "ai-awareness" | "marketing" | "performance" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
+  view?: "domains" | "search" | "ai-awareness" | "marketing" | "performance" | "growth" | "project-statuses" | "project" | "metrics" | "feedback" | "mission";
   projectId?: string;
   showProjectScope?: boolean;
   loadFounderEvidence?: boolean;
 }
 
 const { title, description, active, eyebrow = "Founder control", view, projectId, showProjectScope = true, loadFounderEvidence = true } = Astro.props;
-const filterable = showProjectScope && !["project", "mission", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
-const directoryView = ["domains", "search", "ai-awareness", "marketing", "performance", "project-statuses"].includes(view ?? "");
+const filterable = showProjectScope && !["project", "mission", "domains", "search", "ai-awareness", "performance", "growth"].includes(view ?? "");
+const directoryView = ["domains", "search", "ai-awareness", "marketing", "performance", "growth", "project-statuses"].includes(view ?? "");
 ---
 
 <!doctype html>

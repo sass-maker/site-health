@@ -64,6 +64,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — Growth became a first-class owner operating view:** Added a
+  versioned growth program that covers every maintained public project, validates
+  its focus and destination contracts against canonical Fleet registries, and
+  projects existing Search, Cloudflare, Marketing, change-receipt, and link
+  evidence into a dense Fleet Console ledger. Missing attribution, conversion,
+  revenue, and earned-link evidence stays explicit; no production deployment or
+  new collection path was added.
 - **2026-08-09 — Missing-root lint entries gained ecosystem truth:** Classified
   Fleet Ops, Knowledge Base, Pace, PostTrainLLM, and Research Papers as
   deliberate divergences based on their durable component, nested-workspace,
@@ -633,8 +640,12 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
 - Responsive Fleet Console with a collapsible sidebar that groups Domains,
-  Google Search, AI Awareness, and Performance under Metrics while keeping
-  Projects, Marketing, and Feedback standalone. Project-owned views retain one
+  Google Search, AI Awareness, and Performance under Metrics, Growth and
+  Marketing under their own operating group, and Projects plus Feedback as
+  standalone views. The Growth ledger covers every maintained public project,
+  sorts focus work first, and separates source-owned activity from observed
+  outcomes while keeping missing conversion, revenue, earned-link, and causal
+  attribution evidence explicit. Project-owned views retain one
   URL-persisted 27-project scope, while the four portfolio-wide Metrics views
   have no redundant project filter. Domains includes compact pointer- and
   keyboard-inspectable D-Rank history; bounded prewarmed outcome endpoints keep

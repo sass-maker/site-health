@@ -224,6 +224,7 @@ function fixture() {
       },
     ],
   });
+  writeFixtureGrowthContracts(root);
   writeJson(join(root, 'foundry/ops/config/geo-observatory.json'), {
     products: [{
       id: 'pace',
@@ -487,6 +488,40 @@ function writeFixtureRootSearchContracts(root) {
         { id: `${entry.projectId}-problem`, kind: 'problem', text: `${entry.name} problem`, status: 'active' },
       ],
     })),
+  });
+  writeFixtureGrowthContracts(root, { focus: true });
+}
+
+function writeFixtureGrowthContracts(root, { focus = false } = {}) {
+  writeJson(join(root, 'foundry/ops/config/marketing-program.json'), {
+    focusSet: focus ? ['pace'] : [],
+    projects: [
+      { slug: 'pace', mode: focus ? 'focus' : 'private' },
+      { slug: 'standards', mode: 'private' },
+    ],
+  });
+  writeJson(join(root, 'foundry/ops/config/growth-program.json'), {
+    $schema: 'fleet.growth-program.v1',
+    version: 1,
+    modeMapping: {
+      focus: 'focus',
+      evergreen: 'maintain',
+      infrastructure: 'maintain',
+      private: 'observe',
+    },
+    focusProjects: focus ? [{
+      projectId: 'pace',
+      targetQueryId: 'pace-category',
+      destination: 'https://heypace.app/',
+    }] : [],
+    verifiedLinks: [],
+    attribution: {
+      search: 'Google Search Console',
+      traffic: 'Cloudflare Web Analytics',
+      conversions: 'Product-owned outcome receipt required',
+      revenue: 'Product-owned outcome receipt required',
+      causality: 'Not inferred from temporal proximity',
+    },
   });
 }
 
@@ -798,6 +833,38 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(awarenessRow.discovery.crawler.breakdowns[0].values[0].label, 'GPTBot');
 });
 
+test('projects every public project into a focus-first growth ledger', () => {
+  const { root, home } = fixture();
+  writeFixtureRootSearchContracts(root);
+
+  const result = buildFleetConnections({ fleetRoot: root, home, now });
+  const growth = result.outputs.ownerOutcomes.growth;
+
+  assert.deepEqual(growth.map((row) => row.projectId), ['pace', 'standards']);
+  assert.equal(growth[0].mode, 'focus');
+  assert.deepEqual(growth[0].target, {
+    projectId: 'pace',
+    queryId: 'pace-category',
+    query: 'Pace category',
+    destination: 'https://heypace.app/',
+  });
+  assert.equal(growth[1].mode, 'observe');
+  assert.equal(growth[1].target, null);
+  assert.equal(growth[0].links.earnedStatus, 'not-measured');
+  assert.equal(growth[0].links.acknowledgedSubmissions, 0);
+  assert.deepEqual(growth[0].commercial, {
+    conversions: {
+      status: 'not-connected',
+      owner: 'Product-owned outcome receipt required',
+    },
+    revenue: {
+      status: 'not-connected',
+      owner: 'Product-owned outcome receipt required',
+    },
+  });
+  assert.equal(growth[0].attribution.causality, 'Not inferred from temporal proximity');
+});
+
 test('builds one honest six-bucket projection from readable Fleet evidence', () => {
   const { root, home } = fixture();
   const result = buildFleetConnections({
@@ -1021,6 +1088,11 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(
     result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').status,
     'never-marketed',
+  );
+  assert.equal(result.outputs.ownerOutcomes.growth.length, 2);
+  assert.equal(
+    result.outputs.ownerOutcomes.growth.find((project) => project.projectId === 'pace').mode,
+    'observe',
   );
   assert.equal(
     result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'pace').status,
