@@ -28,5 +28,5 @@
 
 ## 5. Review handoff
 
-- [ ] 5.1 Commit and push the isolated branch and open a pull request that closes issue 211.
+- [x] 5.1 Commit and push the isolated branch and open a pull request that closes issue 211.
 - [x] 5.2 Leave production deployment pending separate explicit approval.
