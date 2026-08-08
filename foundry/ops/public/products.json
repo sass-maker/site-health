@@ -314,19 +314,19 @@
       "pillarId": "build"
     },
     {
-      "id": "personal-website",
+      "id": "sarthakagrawal-personal",
       "name": "Sarthak Agrawal",
-      "description": "Personal portfolio and the concise front door to active work.",
+      "description": "Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.",
       "url": "https://sarthakagrawal.dev",
-      "tier": "non-product",
+      "tier": "secondary",
       "category": "personal",
       "priority": "P1",
       "spotlight": false,
-      "maturity": "public-ready",
+      "maturity": "maintained",
       "changelogUrl": "https://sarthakagrawal.dev/changelog",
       "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio",
       "roadmapUrl": "https://github.com/sarthakagrawal927/portfolio/issues",
-      "pillarId": "market"
+      "pillarId": "personal"
     },
     {
       "id": "setline",

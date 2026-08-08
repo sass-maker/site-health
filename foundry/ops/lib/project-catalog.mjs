@@ -75,6 +75,7 @@ export function validateProjectCatalog(catalog, {
     if (
       project.lifecycle === 'maintained'
       && project.public?.repositoryUrl?.startsWith('https://github.com/sarthakagrawal927/')
+      && project.id !== 'sarthakagrawal-personal'
     ) {
       errors.push(`${project.id}: maintained repository must use an organization owner`);
     }

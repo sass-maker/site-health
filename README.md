@@ -90,7 +90,7 @@ CodeVetter, HeyPace, PostTrainLLM, High Signal
 
 ### Toolbox — 21
 
-Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, What It Takes to Win, Personal website
+Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, What It Takes to Win, Sarthak Agrawal
 
 ### Foundry — 3
 

@@ -38,7 +38,7 @@ test('real catalog validates with every authored overlay reference', () => {
 });
 
 test('GEO identity contract covers every maintained visibility product', () => {
-  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 27 });
+  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 28 });
 });
 
 test('GEO identity contract rejects missing, conflicting, and inaccessible source declarations', () => {

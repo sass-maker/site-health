@@ -37,7 +37,7 @@ Generated from 41 internal project identities.
 | App Health | maintained | `app-health` | maintained | https://health.sassmaker.com |
 | Motion | maintained | `motion` | maintained | https://motion.significanthobbies.com |
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
-| Personal website | non-product | `—` | maintained | https://sarthakagrawal.dev |
+| Sarthak Agrawal | maintained | `—` | maintained | https://sarthakagrawal.dev |
 
 ## Foundry + Helpers — 3
 

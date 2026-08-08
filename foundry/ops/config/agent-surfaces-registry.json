@@ -1095,6 +1095,50 @@
       ],
       "generateSitemap": true,
       "indexMd": "# India Standards\n\nEvidence-bounded demographic standards calculator using aggregate Indian survey data.\n\n## Current data boundary\n\n- PLFS-backed preview with aggregate-only serving tables\n- Explicit central estimate, 95% uncertainty range, and range tightness\n- Height remains unavailable until the NFHS source and usage gates pass\n- The product does not predict dating success, compatibility, or individual outcomes\n\n## Agent entrypoints\n\n- https://india-standards.significanthobbies.com/llms.txt\n- https://india-standards.significanthobbies.com/api/ai\n- https://india-standards.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "url": "https://sarthakagrawal.dev",
+      "summary": "Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer. Shipped products, case studies, and technical writing.",
+      "publicDir": "sarthakagrawal-portfolio/public",
+      "stack": "astro-static",
+      "schemaType": "ProfilePage",
+      "sameAs": [
+        "https://github.com/sarthakagrawal927/portfolio",
+        "https://www.linkedin.com/in/sarthakagrawal927",
+        "https://x.com/sarthakcodes",
+        "https://huggingface.co/sarthakagrawal927"
+      ],
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://sarthakagrawal.dev/",
+          "description": "Portfolio, selected work, and contact"
+        },
+        {
+          "title": "Projects",
+          "url": "https://sarthakagrawal.dev/projects",
+          "description": "Full project archive"
+        },
+        {
+          "title": "About",
+          "url": "https://sarthakagrawal.dev/about",
+          "description": "Background, stack, and availability"
+        },
+        {
+          "title": "Résumé",
+          "url": "https://sarthakagrawal.dev/resume",
+          "description": "On-site résumé and PDF download"
+        },
+        {
+          "title": "Writing",
+          "url": "https://sarthakagrawal.dev/blog",
+          "description": "Devlog and technical posts"
+        }
+      ],
+      "indexMd": "# Sarthak Agrawal\n\nAI infrastructure and product engineer. Portfolio, shipped products, and technical writing.\n\n## Spotlight products\n\n- [CodeVetter](https://codevetter.com): Desktop-first AI code review for agent-generated diffs\n- [PostTrainLLM](https://posttrainllm.com): Post-training and small-language-model learning workspace\n- [HeyPace](https://heypace.app): Local-only macOS voice agent\n- [High Signal](https://highsignal.app): Evidence-first signal log for AI infrastructure, markets, and domain intelligence\n- [SaaS Maker](https://sassmaker.com): Broader directory and operating layer for the full product fleet\n\n## Agent entrypoints\n\n- https://sarthakagrawal.dev/llms.txt\n- https://sarthakagrawal.dev/api/ai\n- https://sarthakagrawal.dev/index.md\n"
     }
   ]
 }

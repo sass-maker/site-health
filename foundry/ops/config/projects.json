@@ -35,10 +35,13 @@
     "absorbedCheckouts": {
       "aliveville": "ai-game",
       "drank": "drank",
+      "fleet-workspace": "fleet-workspace",
       "mashup": "fleet-workspace",
+      "reddit-insights": "fleet-workspace",
       "reel-pipeline": "fleet-workspace",
       "saas-maker": "fleet-workspace",
-      "tinygpt": "posttrainllm"
+      "tinygpt": "posttrainllm",
+      "workflows-repo": "fleet-workspace"
     },
     "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
     "openGaps": [
@@ -1369,36 +1372,38 @@
     {
       "id": "sarthakagrawal-personal",
       "aliases": [
-        "personal-website"
+        "personal-website",
+        "sarthakagrawal.dev",
+        "sarthakagrawal927"
       ],
       "authModel": "public-persistent",
       "family": "personal",
-      "tier": "non-product",
+      "tier": "secondary",
       "repo": null,
       "deployKind": "pages",
       "cfProject": "sarthakagrawal",
       "domains": [
         "sarthakagrawal.dev"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
-      "notes": "personal site, not a fleet product",
-      "name": "Personal website",
-      "attention": "toolbox",
-      "lifecycle": "non-product",
+      "notes": "personal portfolio site for Sarthak Agrawal",
+      "name": "Sarthak Agrawal",
+      "lifecycle": "maintained",
       "repositoryVisibility": "public",
+      "attention": "toolbox",
       "metrics": {
         "domainCoverage": true
       },
       "public": {
         "listing": "maintained",
-        "id": "personal-website",
+        "id": "sarthakagrawal-personal",
         "name": "Sarthak Agrawal",
-        "description": "Personal portfolio and the concise front door to active work.",
+        "description": "Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.",
         "category": "personal",
-        "pillarId": "market",
+        "pillarId": "personal",
         "spotlight": false,
-        "maturity": "public-ready",
+        "maturity": "maintained",
         "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio"
       }
     }
@@ -1700,6 +1705,22 @@
       "officialProfiles": ["https://github.com/Significant-Hobbies/what-it-takes-to-win"],
       "availability": { "primary": "web", "appStore": "not-applicable" },
       "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "aliases": ["sarthakagrawal.dev", "sarthakagrawal927"],
+      "origin": "https://sarthakagrawal.dev",
+      "source": { "state": "public", "url": "https://github.com/sarthakagrawal927/portfolio" },
+      "docs": { "state": "repository-readme", "url": "https://github.com/sarthakagrawal927/portfolio#readme" },
+      "officialProfiles": [
+        "https://github.com/sarthakagrawal927/portfolio",
+        "https://www.linkedin.com/in/sarthakagrawal927",
+        "https://x.com/sarthakcodes",
+        "https://huggingface.co/sarthakagrawal927"
+      ],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
     }
   ]
 }

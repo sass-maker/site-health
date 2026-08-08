@@ -6,16 +6,39 @@
       "@type": "Person",
       "@id": "https://sarthakagrawal.dev/#person",
       "name": "Sarthak Agrawal",
+      "jobTitle": "AI Infrastructure & Product Engineer",
       "url": "https://sarthakagrawal.dev",
+      "image": "https://avatars.githubusercontent.com/u/43884471?v=4",
       "sameAs": [
         "https://sarthakagrawal.dev",
-        "https://github.com/sarthakagrawal927"
-      ]
+        "https://www.linkedin.com/in/sarthakagrawal927",
+        "https://github.com/sarthakagrawal927",
+        "https://x.com/sarthakcodes",
+        "https://huggingface.co/sarthakagrawal927"
+      ],
+      "knowsAbout": [
+        "AI infrastructure",
+        "Local-first software",
+        "Post-training language models",
+        "AI code review",
+        "Cloudflare Workers",
+        "TypeScript",
+        "Rust"
+      ],
+      "affiliation": {
+        "@type": "Organization",
+        "@id": "https://sassmaker.com/#app",
+        "name": "SaaS Maker",
+        "url": "https://sassmaker.com"
+      }
     },
     {
       "@type": "SoftwareApplication",
       "@id": "https://karte.cc/#app",
       "name": "Karte",
+      "alternateName": [
+        "Karte.cc"
+      ],
       "url": "https://karte.cc",
       "description": "Link-in-bio registry for humans and AI agents. Publish trust cards with public manifests at /{slug}/agent.json.",
       "publisher": {

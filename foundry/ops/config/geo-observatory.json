@@ -221,6 +221,15 @@
         { "qid": "india-standards-brand-canonical", "kind": "brand", "q": "india-standards.significanthobbies.com" },
         { "qid": "india-standards-category", "kind": "category", "q": "India demographic calculator survey-weighted correlated filters" }
       ]
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "origin": "https://sarthakagrawal.dev",
+      "queries": [
+        { "qid": "sarthak-agrawal-brand", "kind": "brand", "q": "Sarthak Agrawal AI infrastructure engineer" },
+        { "qid": "sarthak-agrawal-exact-domain", "kind": "brand", "q": "sarthakagrawal.dev" },
+        { "qid": "sarthak-agrawal-category", "kind": "category", "q": "AI infrastructure product engineer portfolio" }
+      ]
     }
   ]
 }

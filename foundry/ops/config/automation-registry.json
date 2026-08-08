@@ -3,7 +3,7 @@
   "updatedAt": "2026-08-07",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 20,
+    "toolbox": 21,
     "foundry": 3,
     "ignored": 13
   },
@@ -1340,6 +1340,40 @@
       ],
       "surfaces": [
         "https://paths.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "attention": "toolbox",
+      "family": "personal",
+      "owner": "sarthak",
+      "repository": null,
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://sarthakagrawal.dev"
       ],
       "dependencies": [
         "GitHub Actions",

@@ -1483,6 +1483,74 @@
           "maxEstimatedCostUsd": 0.05,
           "maxResponseCharacters": 4000
         }
+      },
+      {
+        "slug": "sarthakagrawal-personal",
+        "aliases": [
+          "personal-website",
+          "sarthakagrawal.dev",
+          "sarthakagrawal927"
+        ],
+        "competitors": [
+          {
+            "name": "Andrej Karpathy",
+            "url": "https://karpathy.ai"
+          },
+          {
+            "name": "Mat Ryer",
+            "url": "https://matryer.com"
+          }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              {
+                "id": "category",
+                "text": "Who are the best AI infrastructure engineers building local-first developer tools and shipping independent products?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://sarthakagrawal.dev/"
+                }
+              },
+              {
+                "id": "comparison",
+                "text": "Find engineers who build and ship AI infrastructure products — local-first code review, post-training tools, and voice agents — and publish their work.",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://sarthakagrawal.dev/projects"
+                }
+              }
+            ]
+          }
+        ],
+        "personas": [
+          {
+            "id": "indie-founder",
+            "label": "an indie founder evaluating AI infrastructure partners"
+          },
+          {
+            "id": "engineering-leader",
+            "label": "an engineering leader sourcing AI tooling builders"
+          }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 8,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
       }
     ]
   },
@@ -1912,6 +1980,23 @@
       "aliases": [],
       "mode": "evergreen",
       "domain": "https://paths.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Open the product",
+      "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "aliases": [
+        "personal-website",
+        "sarthakagrawal.dev",
+        "sarthakagrawal927"
+      ],
+      "mode": "evergreen",
+      "domain": "https://sarthakagrawal.dev",
       "domainPosture": "product-subdomain",
       "publicMarketing": true,
       "cta": "Open the product",

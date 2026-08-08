@@ -31,7 +31,7 @@ test('registry covers or explicitly excludes every catalog project and has the e
   });
   // Owner priority order: core three first, High Signal tertiary.
   assert.deepEqual(result.focusSet, ['codevetter', 'posttrainllm', 'pace', 'high-signal']);
-  assert.equal(result.projects.length, 28);
+  assert.equal(result.projects.length, 29);
   assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
   assert.equal(result.aiVisibility.scheduleIntent.enabled, false);
   assert.deepEqual(
@@ -50,7 +50,7 @@ test('registry covers or explicitly excludes every catalog project and has the e
     assert.equal(project.promptSets[0].prompts.length, 2);
     for (const prompt of project.promptSets[0].prompts) promptTexts.add(prompt.text);
   }
-  assert.equal(promptTexts.size, 54);
+  assert.equal(promptTexts.size, 56);
 });
 
 test('canonical identities and historical aliases resolve uniquely', () => {

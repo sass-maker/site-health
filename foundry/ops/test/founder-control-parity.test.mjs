@@ -148,7 +148,7 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
       entry.attention !== 'ignored' &&
       entry.category !== 'helper',
   );
-  assert.equal(directoryProjects.length, 25);
+  assert.equal(directoryProjects.length, 26);
   for (const entry of directoryProjects) {
     assert.equal(
       entry.repositoryUrl,
