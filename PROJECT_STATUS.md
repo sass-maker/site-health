@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-07
+Last updated: 2026-08-09
 
 ## Why / What
 
@@ -62,6 +62,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — FleetWorkspace gained a verified-transition runtime:** Added a
+  dependency-free internal Node.js component that records attributable,
+  append-only JSONL events, persists predictions before GitHub writes, observes
+  the resulting issue state, and distinguishes a verified transition from a
+  deliberately reproduced duplicate side effect. Deterministic tests and a
+  retained readable experiment timeline cover the bounded day-one workflow;
+  no deployment or production automation was added.
 - **2026-08-05 — Full Search Console collection became operationally bounded:**
   Removed timeout retries from the slow URL Inspection path and allowed four
   inspections in flight, safely below Google's per-site quota. A real 29-target
@@ -652,6 +659,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
   deploy commands for the three Cloudflare surfaces.
 - Local-first founder control with an append-only mission/evidence ledger,
   owner decisions, outcome learning, daily briefs, and an owner-first console.
+- Dependency-free internal FleetWorkspace verified-transition runtime with an
+  attributable append-only JSONL event store, durable pre-action predictions,
+  post-action GitHub observation, goal evidence, duplicate-side-effect
+  localization, readable replay, and deterministic tests.
 - Framework-independent `@saas-maker/ai-visibility` package with deterministic
   citation, mention, recommendation, rank, sentiment, competitor, provider,
   budget, cache, and provenance contracts.

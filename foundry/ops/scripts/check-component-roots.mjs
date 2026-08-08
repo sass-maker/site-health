@@ -73,6 +73,12 @@ const components = [
     required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm run build',
   },
+  {
+    id: 'fleetworkspace-runtime',
+    root: 'foundry/apps/internal/fleetworkspace-runtime',
+    required: ['package.json', 'PROJECT.md', 'pnpm-lock.yaml'],
+    nativeCheck: 'pnpm check',
+  },
 ];
 
 for (const retiredRoot of retiredRoots) {
