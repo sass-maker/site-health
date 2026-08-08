@@ -1,6 +1,6 @@
 # Reel Pipeline — Project Status
 
-Last updated: 2026-08-06
+Last updated: 2026-08-09
 
 ## Why / What
 
@@ -36,6 +36,11 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-09:** shipped policy-bounded Studio autopilot lanes for High Signal
+  daily briefs, Significant Hobbies weekly posts, and major maintained-project
+  changelogs. Runs reuse source revisions and prior receipts, stop on explicit
+  spend, rights, runtime, or distribution blockers, and can prepare Postiz
+  drafts or exact future schedules only when the standing policy covers them.
 - **2026-08-06:** established Reel Pipeline as a standalone product boundary,
   with `/studio` as its product surface rather than a diagnostics-only view.
   Tightened playback truth so History and Productions advertise an MP4 only
@@ -119,6 +124,9 @@ owns that downstream lifecycle.
 
 ## Features (shipped)
 
+- Versioned secret-free automation policies, source-revision idempotency,
+  bounded retries, dry-run and execute commands, lane-aware Studio status, and
+  Project Autopilot / Ask Me / Personal Automations production grouping.
 - VideoBrief validation and provider-neutral render adapters.
 - Content Factory manifests with hashes and provenance.
 - Local render modes: mock, HTML composition, ASCII, Blender, Grok local asset,
