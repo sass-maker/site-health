@@ -6,11 +6,11 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 
 ## Summary
 
-- Registry entries: 42
-- Project/component checkouts with OpenSpec: 23
-- Project/component spec roots: 23
-- Project/component base specs: 181
-- Project/component active changes: 26
+- Registry entries: 40
+- Project/component checkouts with OpenSpec: 22
+- Project/component spec roots: 22
+- Project/component base specs: 210
+- Project/component active changes: 62
 - Registered external stores (excluding Fleet itself): 0
 
 ## Project coverage
@@ -37,15 +37,13 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 | toolbox | Research Papers | `research-papers` | available |
 | toolbox | RolePatch | `rolepatch` | none |
 | toolbox | Setline | `setline` | available |
-| toolbox | Significant Hobbies | `significanthobbies` | none |
+| toolbox | Significant Hobbies | `significanthobbies` | available |
 | toolbox | Starboard | `starboard` | available |
 | toolbox | SWE Interview Prep | `swe-interview-prep` | available |
 | toolbox | What It Takes to Win | `what-it-takes-to-win` | available |
 | foundry | Drank | `foundry/helpers/drank` | available |
 | foundry | Fleet Workspace | `.` | available |
-| foundry | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit` | available |
 | foundry | PSI Swarm | `foundry/helpers/psi-swarm` | none |
-| foundry | Reel Pipeline | `foundry/marketing/reel-pipeline` | available |
 | ignored | AliveVille | `../fleet-inactive-projects/aliveville` | not applicable |
 | ignored | Companion Robot | `../fleet-inactive-projects/companion-robot` | not applicable |
 | ignored | Elves HQ | `../fleet-inactive-projects/elves-hq` | not applicable |
@@ -66,11 +64,13 @@ Ignored/inactive projects do not retain or contribute planning artifacts.
 
 Root: `anime-list`
 
-Base specs: `mcp-page`, `mcp-server`, `personal-access-tokens`
+Base specs: `mcp-page`, `mcp-server`, `personal-access-tokens`, `product-experience`, `reliability-performance`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `unify-loading-and-brand` | 6/6 | complete |
 
-Archived changes: 0
+Archived changes: 1
 
 ### App Health
 
@@ -93,6 +93,8 @@ Base specs: `adaptive-app-shell`, `daily-intake-log`, `installable-offline-app`,
 
 | Active change | Progress | State |
 | --- | ---: | --- |
+| `improve-mobile-ui-and-insights` | 10/14 | in progress |
+| `macro-suggestions-food-analytics` | 16/16 | complete |
 | `opt-in-theme-and-faster-startup` | 11/11 | complete |
 | `personalize-daily-care` | 18/18 | complete |
 
@@ -102,11 +104,16 @@ Archived changes: 7
 
 Root: `codevetter`
 
-Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `audience-validation`, `automatic-change-verification`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `intent-closure-evidence`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-performance-governance`, `local-session-retention`, `local-work-board`, `managed-work-harness`, `model-assisted-scenario-compilation`, `native-agent-island`, `outcome-risk-calibration`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-context-agent-evaluation`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`, `work-agent-team-recommendation`
+Base specs: `agent-attention-clarity`, `agent-conversation-workspace`, `agent-panel`, `agent-pr-xray`, `agent-task-corpus-contracts`, `agent-task-qualification`, `agent-task-receipt-evaluation`, `agent-task-runner`, `audience-validation`, `automatic-change-verification`, `automatic-verification-observation`, `business-rule-archaeology`, `changed-capability-verification`, `conversation-reconstruction`, `desktop-visual-system`, `deterministic-browser-state`, `deterministic-review-pipeline`, `deterministic-verification-scenarios`, `evaluation-signal-diagnostics`, `intent-closure-evidence`, `live-session-evidence`, `local-differential-verification`, `local-history-mcp`, `local-performance-governance`, `local-session-retention`, `local-work-board`, `managed-work-harness`, `model-assisted-scenario-compilation`, `native-agent-island`, `outcome-risk-calibration`, `queryable-history-graph`, `release-history-graph`, `release-history-mcp`, `shiprank-retirement`, `staged-change-verification`, `structural-context-agent-evaluation`, `structural-repo-graph`, `taste-verdict`, `trusted-graph-context`, `warm-local-verification-runtime`, `work-agent-team-recommendation`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `accelerate-codevetter-verification` | 21/29 | in progress |
+| `add-evidence-backed-comparison-pages` | 7/7 | complete |
+| `compare-code-context-providers` | 12/28 | in progress |
+| `make-verification-obvious` | 15/20 | in progress |
 
-Archived changes: 6
+Archived changes: 15
 
 ### Drank
 
@@ -122,43 +129,58 @@ Archived changes: 1
 
 Root: `.`
 
-Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-workspace-boundary`, `founder-mission-control`, `foundry-product-buckets`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `openclaw-content-orchestration`, `owned-product-changelogs`, `owner-decision-inbox`, `podcast-editorial-pipeline`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `significant-hobbies-toolbox-automation`, `site-health`, `skill-run-observability`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`
+Base specs: `ai-infrastructure-toolbox-automation`, `ai-visibility`, `canonical-content-packages`, `catchy-variant-generation`, `cloudflare-outcome-evidence`, `cloudflare-resilience`, `cloudflare-spend-governance`, `codevetter-automation-readiness`, `content-performance-flywheel`, `daily-learning-loop`, `data-research-toolbox-automation`, `database-cutover-safety`, `derived-assessments`, `evidence-activity-ledger`, `fleet-capability-discovery`, `fleet-dependency-discipline`, `fleet-design-quality-workflow`, `fleet-project-coverage`, `fleet-visibility-remediation`, `fleet-workspace-boundary`, `founder-mission-control`, `foundry-product-buckets`, `geo-observatory`, `heypace-automation-readiness`, `high-signal-automation-readiness`, `learning-agent-control`, `marketing-control-plane`, `marketing-video-execution`, `marketing-video-maker`, `openclaw-content-orchestration`, `owned-product-changelogs`, `owner-decision-inbox`, `podcast-editorial-pipeline`, `portfolio-identity-toolbox-automation`, `portfolio-learning-loop`, `portfolio-strength-console`, `posttrainllm-automation-readiness`, `private-journal-reader`, `private-local-toolbox-automation`, `product-scoped-telemetry-routing`, `project-d1-persistence`, `public-product-smoke`, `recurring-spend-observability`, `reel-content-handoff`, `root-search-query-contract`, `saasmaker-integration-retirement`, `saasmaker-public-boundary`, `search-action-ledger`, `significant-hobbies-toolbox-automation`, `site-health`, `skill-run-observability`, `spotlight-products`, `turso-spend-governance`, `unified-learning-catalog`, `video-demo-gallery`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `add-content-coverage-and-launch-campaign-skills` | 27/27 | complete |
 | `add-day-zero-ugc-experiment` | 3/28 | in progress |
+| `add-design-engineering-skills` | 19/19 | complete |
+| `add-evidence-interface-design` | 8/8 | complete |
+| `add-local-ports-cleanup-skill` | 9/9 | complete |
+| `add-marketing-explore-gallery` | 6/6 | complete |
+| `add-post-ready-production-preset` | 19/20 | in progress |
 | `add-provider-neutral-skill-execution-profiles` | 14/16 | in progress |
+| `close-visibility-action-gaps` | 10/10 | complete |
+| `complete-portfolio-geo-readiness` | 18/19 | in progress |
 | `connect-postiz-marketing-pipeline` | 15/19 | in progress |
+| `enrich-marketing-gallery-imagery` | 9/9 | complete |
 | `expand-code-cleanup` | 9/9 | complete |
-| `extract-public-workflows-module` | 18/20 | in progress |
 | `fan-out-polaris-otel-traces` | 18/18 | complete |
+| `integrate-fleet-console-connections` | 113/120 | in progress |
+| `migrate-email-manager-significant-hobbies-domain` | 12/13 | in progress |
+| `migrate-turso-projects-to-cloudflare-d1` | 46/48 | in progress |
 | `product-scoped-ingest-keys` | 19/19 | complete |
+| `replace-placeholder-gallery-coverage` | 27/29 | in progress |
 | `retire-saas-maker` | 26/28 | in progress |
+| `separate-helpers-and-feedback-ingestion` | 19/19 | complete |
+| `showcase-blender-video-model-range` | 9/9 | complete |
+| `simplify-marketing-project-posts` | 7/8 | in progress |
 
-Archived changes: 38
+Archived changes: 54
 
 ### HeyPace
 
 Root: `pace`
 
-Base specs: `ambient-perception`, `codex-direct-brain`, `companion-memory-policy`, `companion-mode-controls`, `meeting-note-profiles`, `proactive-companion-policy`, `temporal-world-model`, `transcript-grounded-actions`
+Base specs: `action-state-observation`, `ambient-perception`, `codex-direct-brain`, `companion-memory-policy`, `companion-mode-controls`, `meeting-note-profiles`, `proactive-companion-policy`, `temporal-world-model`, `transcript-grounded-actions`
 
 Active changes: none
 
-Archived changes: 0
+Archived changes: 2
 
 ### High Signal
 
 Root: `high-signal`
 
-Base specs: `accelerator-company-universe`, `brief-delivery-completion`, `company-lookup-create`, `intent-aware-daily-brief`, `openlens-visibility-followups`, `opportunity-briefs`, `structured-claim-consumption`, `watching-brief-section`
+Base specs: `accelerator-company-universe`, `bounded-worker-routing`, `brief-delivery-completion`, `company-lookup-create`, `intent-aware-daily-brief`, `openlens-visibility-followups`, `opportunity-briefs`, `public-agent-markdown-cache`, `structured-claim-consumption`, `watching-brief-section`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
-| `reduce-worker-cpu-exposure` | 8/8 | complete |
+| `add-intelligence-content-cluster` | 19/19 | complete |
+| `curate-public-intelligence-corpus` | 20/20 | complete |
 
-Archived changes: 0
+Archived changes: 2
 
 ### India Standards
 
@@ -168,6 +190,7 @@ Base specs: none
 
 | Active change | Progress | State |
 | --- | ---: | --- |
+| `add-owned-changelog` | 5/5 | complete |
 | `build-local-india-standards-calculator` | 15/15 | complete |
 | `deploy-motherduck-cloudflare` | 17/17 | complete |
 | `import-official-survey-data` | 19/21 | in progress |
@@ -178,21 +201,23 @@ Archived changes: 0
 
 Root: `karte`
 
-Base specs: `creator-opportunity-desk`
+Base specs: `ai-link-in-bio-intent-page`, `creator-opportunity-desk`, `owner-profile-mode-analytics`, `public-route-coverage`
 
-Active changes: none
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `protect-contact-submissions-with-turnstile` | 8/8 | complete |
 
-Archived changes: 1
+Archived changes: 4
 
 ### Knowledge Base
 
 Root: `knowledge-base`
 
-Base specs: `internal-operator-access`, `operator-observability`, `static-dashboard-delivery`
+Base specs: `internal-operator-access`, `operator-observability`, `public-landing-discovery`, `static-dashboard-delivery`
 
 Active changes: none
 
-Archived changes: 3
+Archived changes: 4
 
 ### LoopTV
 
@@ -212,19 +237,7 @@ Base specs: `analysis-controls`, `analysis-performance`, `chatgpt-export-import`
 
 Active changes: none
 
-Archived changes: 8
-
-### Mobile Dev Cockpit
-
-Root: `foundry/apps/dashboard/mobile-cockpit`
-
-Base specs: `agent-supervision`, `dynamic-project-enrollment`, `guarded-deployment`, `mobile-preview-review`, `project-process-control`, `secure-machine-pairing`
-
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `add-native-ipad-and-voice` | 31/33 | in progress |
-
-Archived changes: 2
+Archived changes: 9
 
 ### Motion
 
@@ -242,13 +255,21 @@ Archived changes: 0
 
 Root: `posttrainllm`
 
-Base specs: `factory-run-lifecycle`, `fine-tune-report-card`
+Base specs: `2048-policy-evaluation`, `capability-gradient-benchmark-lab`, `deterministic-2048-environment`, `factory-run-lifecycle`, `fine-tune-report-card`, `public-agent-indexing`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
+| `add-apple-silicon-comparison-pages` | 7/7 | complete |
+| `add-chess-specialist-benchmark` | 24/25 | in progress |
+| `add-everyday-specialist-benchmark` | 16/21 | in progress |
+| `add-extensible-game-arena` | 19/19 | complete |
+| `add-specialist-capability-graph` | 0/19 | in progress |
+| `add-specialist-factory-walkthrough` | 12/12 | complete |
+| `build-50m-character-chess-specialist` | 26/31 | in progress |
 | `build-mac-local-autocorrect-specialist` | 24/36 | in progress |
+| `freeze-chess-benchmark-candidate-suite` | 24/24 | complete |
 
-Archived changes: 2
+Archived changes: 7
 
 ### Reader
 
@@ -259,20 +280,6 @@ Base specs: `rss-inbox`, `rss-refresh`, `rss-subscriptions`
 Active changes: none
 
 Archived changes: 1
-
-### Reel Pipeline
-
-Root: `foundry/marketing/reel-pipeline`
-
-Base specs: `anonymous-brand-reel`, `content-studio`, `faceless-workflow`, `kokoro-voice`, `studio-factory`, `studio-web-ui`
-
-| Active change | Progress | State |
-| --- | ---: | --- |
-| `add-cartoon-hand-demo-pointer` | 0/21 | in progress |
-| `coherent-video-scene-arsenal` | 26/26 | complete |
-| `local-video-forge` | 20/22 | in progress |
-
-Archived changes: 6
 
 ### Research Papers
 
@@ -288,13 +295,30 @@ Archived changes: 3
 
 Root: `setline`
 
-Base specs: `setline-workout-player`, `workout-execution-records`
+Base specs: `account-data-deletion`, `custom-programme-scheduling`, `custom-workout-templates`, `recorded-history-analytics`, `session-progression-recommendations`, `setline-workout-player`, `workout-data-transfer`, `workout-execution-records`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `add-setline-google-auth` | 15/20 | in progress |
 
-Archived changes: 3
+Archived changes: 9
+
+### Significant Hobbies
+
+Root: `significanthobbies`
+
+Base specs: `first-public-timeline`, `habit-commitment-link`, `journal-context`, `local-first-persistence`, `retired-social-affordances`, `trajectory-contract`
+
+| Active change | Progress | State |
+| --- | ---: | --- |
+| `add-daily-new-thing` | 21/21 | complete |
+| `improve-public-wayfinding` | 5/5 | complete |
+| `make-daily-the-operational-home` | 23/23 | complete |
+| `redesign-trajectory-as-map` | 8/8 | complete |
+| `serve-public-route-markdown` | 9/9 | complete |
+| `unify-life-atlas-interface` | 12/12 | complete |
+
+Archived changes: 6
 
 ### Starboard
 
@@ -310,14 +334,16 @@ Archived changes: 2
 
 Root: `swe-interview-prep`
 
-Base specs: `expanded-learning-domains`, `public-curriculum-discovery`, `unified-site-navigation`
+Base specs: `expanded-learning-domains`, `public-curriculum-discovery`, `simulation-mastery-loop`, `systems-simulation-labs`, `unified-site-navigation`
 
 | Active change | Progress | State |
 | --- | ---: | --- |
 | `2026-07-26-sweep-breadth-triage` | 25/28 | in progress |
-| `add-systems-simulation-labs` | 58/62 | in progress |
+| `add-ai-native-foundations-path` | 13/13 | complete |
+| `add-popular-system-design-case-batch` | 23/23 | complete |
+| `add-system-design-case-library` | 22/22 | complete |
 
-Archived changes: 3
+Archived changes: 4
 
 ### What It Takes to Win
 

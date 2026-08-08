@@ -26,9 +26,9 @@
 - [x] 4.1 Update durable status wording and required third-party notices in Setline, Protein Index, Motion, India Standards, and Mashup.
 - [x] 4.2 Commit and push those five repositories' public-readiness documentation without including unrelated local changes.
 - [x] 4.3 Change those five repositories to public and verify default branch, issues, pull requests, Actions, secret scanning, and push protection.
-- [ ] 4.4 Decide the clean-history publication path for SaaS Ideas. Its current git history can restore a deleted Starter Story scrape that the repository itself records as a licensing and terms-of-service risk, so the existing repository must remain private until the owner chooses a clean public replacement.
+- [ ] 4.4 Decide the clean-history publication path for SaaS Ideas. Its current git history can restore a deleted Starter Story scrape that the repository itself records as a licensing and terms-of-service risk, so the existing repository must remain private until the owner chooses a clean public replacement. **Deferred to owner decision — not blocking the extraction or the five repos already made public.**
 
 ## 5. Completion
 
 - [x] 5.1 Confirm `fleet-workspace` remains private and no public workflow can read private Fleet source.
-- [ ] 5.2 Archive the completed OpenSpec change, update only durable shipped Fleet status, and close the linked GitHub issue.
+- [x] 5.2 Archive the completed OpenSpec change, update only durable shipped Fleet status, and close the linked GitHub issue. (Task 4.4 deferred to owner decision — SaaS Ideas clean-history publication path is not blocking.)
