@@ -2784,13 +2784,43 @@ function performanceDiagnosis(row: JsonRecord, thresholds: JsonRecord) {
   return `Field LCP needs work while the canonical lab result passes. Check slower routes and real-user conditions first.${additionalDiagnosis} ${scope}`;
 }
 
+function performanceGuardrailBadge(row: JsonRecord, thresholds: JsonRecord) {
+  const status = String(row.status ?? "unknown");
+  if (status === "passing" || status === "monitoring") return state(status);
+  if (status === "not-measured") return state(status);
+
+  const limits = {
+    psiScore: finiteNumber(thresholds.psiScore, DEFAULT_PERFORMANCE_THRESHOLDS.psiScore),
+    labLcp: finiteNumber(thresholds.lcpMilliseconds, DEFAULT_PERFORMANCE_THRESHOLDS.lcpMilliseconds),
+    fieldLcp: finiteNumber(thresholds.fieldLcpMilliseconds, DEFAULT_PERFORMANCE_THRESHOLDS.fieldLcpMilliseconds),
+    fieldInp: finiteNumber(thresholds.fieldInpMilliseconds, DEFAULT_PERFORMANCE_THRESHOLDS.fieldInpMilliseconds),
+    fieldCls: finiteNumber(thresholds.fieldCls, DEFAULT_PERFORMANCE_THRESHOLDS.fieldCls),
+  };
+  const labLcp = measuredSignalValue(row.lcp);
+  const fieldLcp = measuredSignalValue(row.fieldLcp);
+  const psi = measuredSignalValue(row.psi);
+  const fieldInp = measuredSignalValue(row.fieldInp);
+  const fieldCls = measuredSignalValue(row.fieldCls);
+  const failed: string[] = [];
+  if (psi !== null && psi < limits.psiScore) failed.push("PSI");
+  if (labLcp !== null && labLcp > limits.labLcp) failed.push("Lab LCP");
+  if (fieldLcp !== null && fieldLcp > limits.fieldLcp) failed.push("Field LCP");
+  if (fieldInp !== null && fieldInp > limits.fieldInp) failed.push("INP");
+  if (fieldCls !== null && fieldCls > limits.fieldCls) failed.push("CLS");
+  if (failed.length === 0) return state(status);
+  return element("span", { class: `state needs-work`, title: `${failed.join(", ")} guardrail${failed.length > 1 ? "s" : ""} failed` }, [
+    `${failed.join(", ")} fail${failed.length > 1 ? "" : "s"}`,
+  ]);
+}
+
 async function renderPerformance() {
   const payload = await api("/v1/outcomes/performance");
   updateOutcomeTime(payload.generatedAt);
   const rows = payload.rows ?? [];
+  const thresholds = payload.thresholds ?? {};
   const columns: OutcomeColumn[] = [
     { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentityWithProvider(row, "performance", "Cloudflare", row.providerUrl) },
-    { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => state(row.status) },
+    { key: "status", label: "Guardrail", description: "Sort by guardrail state", value: (row) => row.status, render: (row) => performanceGuardrailBadge(row, thresholds) },
     { key: "psi", label: "PSI", description: "Sort by PageSpeed performance score", value: (row) => row.psi?.value, render: (row) => outcomeSignal(row.psi) },
     { key: "lcp", label: "Lab LCP (desktop)", description: "Sort by desktop lab Largest Contentful Paint", value: (row) => row.lcp?.value, render: (row) => outcomeSignal(row.lcp) },
     { key: "fieldLcp", label: "Field LCP (p75)", description: "Sort by real-user p75 Largest Contentful Paint", value: (row) => row.fieldLcp?.value, render: (row) => outcomeSignal(row.fieldLcp, "No field sample") },
