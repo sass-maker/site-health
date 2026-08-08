@@ -1,7 +1,9 @@
 {
   "$schema": "fleet.lint-parity-config.v1",
   "deliberateDivergences": {
+    "app-health": "Keep the passing flat ESLint and Prettier setup: it covers the mixed TypeScript workspace while the independent Go SDK remains governed by gofmt, go test, and go vet.",
     "chess": "Biome uses preset none with formatting disabled; preserve until an owner-specific migration reviews the generated chess surface.",
-    "karte": "Biome keeps a custom ruleset and lineWidth 80; preserve until an owner-specific migration reviews its current style contract."
+    "karte": "Biome keeps a custom ruleset and lineWidth 80; preserve until an owner-specific migration reviews its current style contract.",
+    "setline": "Keep the passing framework-owned Next.js ESLint configuration so its Core Web Vitals and TypeScript rules remain coupled to the current Next.js and Vinext stack."
   }
 }
