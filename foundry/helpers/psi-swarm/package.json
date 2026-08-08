@@ -35,7 +35,9 @@
   "author": "Sarthak Agrawal",
   "license": "MIT",
   "devDependencies": {
+    "@biomejs/biome": "2.5.5",
     "astro": "5.18.2",
-    "blume": "1.0.4"
+    "blume": "1.0.4",
+    "ultracite": "7.10.2"
   }
 }

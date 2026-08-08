@@ -337,7 +337,7 @@ function ProjectCard({ proj, client, expanded, onToggle, expandedPages, onToggle
       {expanded && (
         <div className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
           {proj.pages.map((pg) => (
-            <PageRowComp key={pg.url} pg={pg} expanded={expandedPages.has(pg.url)} onToggle={() => onTogglePage(pg.url)} history={historyByUrl.get(pg.url) ?? []} running={runningUrl === pg.url} onRun={() => onRunPage(pg.url)} />
+            <PageRowComp key={pg.url} pg={pg} client={client} expanded={expandedPages.has(pg.url)} onToggle={() => onTogglePage(pg.url)} history={historyByUrl.get(pg.url) ?? []} running={runningUrl === pg.url} onRun={() => onRunPage(pg.url)} />
           ))}
           <div className="px-5 py-3 flex gap-2 border-t border-[var(--color-border)]">
             <input type="text" placeholder="Add page — /about or full URL" value={pageInput} onChange={(e) => setPageInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && onAddPage()} className="flex-1 bg-[var(--color-panel)] border border-[var(--color-border)] rounded px-3 py-1.5 font-mono text-xs focus:outline-none focus:border-[var(--color-cyan)]" />
@@ -377,7 +377,7 @@ function DrCell({ value, cfPlatform, checked }: { value: number | undefined; cfP
   );
 }
 
-function PageRowComp({ pg, expanded, onToggle, history, running, onRun }: { pg: PageRow; expanded: boolean; onToggle: () => void; history: HistoryRow[]; running: boolean; onRun: () => void }) {
+function PageRowComp({ pg, client, expanded, onToggle, history, running, onRun }: { pg: PageRow; client: AgentClient; expanded: boolean; onToggle: () => void; history: HistoryRow[]; running: boolean; onRun: () => void }) {
   const desktopRuns = history.filter((r) => r.preset === 'desktop' && typeof r.lcp === 'number');
   const mobileRuns = history.filter((r) => r.preset === 'mobile-mid' && typeof r.lcp === 'number');
   const desktopLcps = desktopRuns.map((r) => r.lcp as number).reverse();

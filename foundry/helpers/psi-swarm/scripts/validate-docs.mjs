@@ -13,8 +13,8 @@
 // covers those when needed. Run this via `pnpm docs:check`.
 //
 // Exit code is non-zero if any problem is found, so it works as a CI gate.
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');

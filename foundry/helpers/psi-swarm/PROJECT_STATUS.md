@@ -1,6 +1,6 @@
 # Project Status
 
-Last updated: 2026-07-31 (v0.4.0)
+Last updated: 2026-08-09 (v0.4.0)
 
 ## Why / What
 
@@ -33,7 +33,8 @@ External:
   `web` devDependency).
 - CLI UX: `commander`, `ink` + React 19, `chalk`, `boxen`, `cli-table3`, `ora`.
 - Web app: Astro 5 + React 19 + Tailwind v4 (`@tailwindcss/vite`), static build.
-- Tooling: pnpm workspaces (`pnpm@10.33.2`), TypeScript 5.7, tsx.
+- Tooling: pnpm workspaces (`pnpm@10.33.2`), TypeScript 5.7, tsx, and the
+  Fleet Ultracite/Biome lint contract.
 
 Internal (fleet):
 - **SaaS Maker auth hub** — CLI device-flow helper (`connect` / `whoami`)
@@ -44,6 +45,10 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-08-09** — Adopted the Fleet Ultracite/Biome lint contract with zero
+  findings across 59 applicable files. The migration also fixed report-link
+  generation in project page rows by passing the existing agent client through
+  the component boundary.
 - **2026-07-31** — Completed the public social-search metadata contract with a
   real 1200×630 product preview plus Open Graph and Twitter image metadata on
   every public route. The production homepage audit now has a source-side fix
@@ -158,6 +163,8 @@ Web controller & sharing:
   intent (no failed `127.0.0.1` requests on the deployed site).
 
 Fleet & tooling:
+- Fleet Ultracite/Biome lint contract covers the CLI, web app, tests, and
+  scripts with zero findings across 59 applicable files.
 - SaaS Maker auth hub: CLI device-flow `connect` / `whoami` for fleet Cockpit
   token storage.
 - Optional AI reasoning via local-ai or any OpenAI-compatible backend.
