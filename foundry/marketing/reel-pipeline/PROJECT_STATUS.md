@@ -36,6 +36,10 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-09:** finalized the product boundary between Video Maker and
+  Mashup. Fleet Console Marketing and `/studio` expose the prompt-first Video
+  Maker; the incorporated podcast editor remains an operator CLI with no
+  Mashup navigation, page, or browser API.
 - **2026-08-09:** shipped policy-bounded Studio autopilot lanes for High Signal
   daily briefs, Significant Hobbies weekly posts, and major maintained-project
   changelogs. Runs reuse source revisions and prior receipts, stop on explicit
@@ -124,6 +128,9 @@ owns that downstream lifecycle.
 
 ## Features (shipped)
 
+- A focused prompt-first Video Maker browser surface with recipe-derived format
+  selection and truthful continuations; Mashup remains CLI-only under the
+  incorporated editorial runtime.
 - Versioned secret-free automation policies, source-revision idempotency,
   bounded retries, dry-run and execute commands, lane-aware Studio status, and
   Project Autopilot / Ask Me / Personal Automations production grouping.

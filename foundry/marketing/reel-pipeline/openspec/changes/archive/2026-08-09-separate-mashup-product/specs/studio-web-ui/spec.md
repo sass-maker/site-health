@@ -1,6 +1,6 @@
 ## MODIFIED Requirements
 
-### Requirement: Studio page
+### Requirement: Studio page served by the control server
 The control server SHALL serve the general **Video Maker** at `GET /studio` without a build step or external assets. Fleet Console's `/marketing` surface SHALL contain one prompt, one creation action, optional recipe-based production settings behind progressive disclosure, and finished-video playback. Mashup, internal Studio tools, production planning, and distribution controls SHALL NOT appear as browser choices; existing Studio programmatic APIs MAY remain available.
 
 #### Scenario: Page loads
@@ -23,16 +23,16 @@ The control server SHALL serve the general **Video Maker** at `GET /studio` with
 - **WHEN** a recipe needs setup or additional evidence
 - **THEN** the UI explains the blocker before submission and does not save another dead-end request
 
-#### Scenario: Selected recipe continues elsewhere
+#### Scenario: Specialized surface is available
 - **WHEN** the selected ready recipe is owned by another existing execution surface
 - **THEN** the saved brief presents the real labeled continuation instead of claiming a local render
 
-#### Scenario: Existing tool remains callable
+#### Scenario: Existing tool remains usable
 - **WHEN** an agent calls a stable `/studio/:tool` endpoint after the UI is simplified
 - **THEN** the existing tool behavior remains available without being promoted as an operator product
 
-#### Scenario: Specialized video inputs are required
-- **WHEN** the prompt selects a video workflow that needs source, rights, or runtime-specific evidence
+#### Scenario: Lyric workflow is selected
+- **WHEN** the prompt selects a lyric-video workflow that needs source, rights, or runtime-specific evidence
 - **THEN** Video Maker records the request and exposes the missing requirements without adding Mashup to its form
 
 #### Scenario: Mashup stays CLI-only
