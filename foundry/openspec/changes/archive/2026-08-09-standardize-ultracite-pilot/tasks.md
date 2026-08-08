@@ -1,7 +1,7 @@
 ## 1. Dependency and Baseline
 
 - [x] 1.1 Run the read-only code-cleanup and outdated checks for Fleet Workspace and the `drank` pilot, recording any pre-existing failures.
-- [x] 1.2 Add exact `ultracite@7.10.2` as a root development dependency with pnpm and review the manifest and lockfile delta.
+- [x] 1.2 Add exact `ultracite@7.10.2` as a Drank development dependency with pnpm and review the manifest and lockfile delta.
 - [x] 1.3 Add the Foundry-owned Biome base extending the upstream core preset with documented Fleet overrides.
 
 ## 2. Pilot Adoption

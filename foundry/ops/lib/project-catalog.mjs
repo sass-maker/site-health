@@ -300,7 +300,11 @@ export function buildAutomationProjection(catalog, registry) {
   const entries = catalog.projects.flatMap((project) => {
     if (project.tier === 'non-product') return [];
     const existing = existingByProject.get(project.id);
-    const repository = project.repo ?? (project.sourcePath ? path.basename(project.sourcePath) : null);
+    const repository = project.repo ?? (
+      project.attention === 'ignored' && project.sourcePath
+        ? path.basename(project.sourcePath)
+        : project.sourcePath ?? null
+    );
     const base = existing ?? defaultAutomationEntry(project, repository);
     return [{
       ...base,

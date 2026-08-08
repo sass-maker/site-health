@@ -92,6 +92,11 @@ test('generated projections add Calorie and remain deterministic', () => {
   const marketingProjection = buildMarketingProjection(catalog, marketing);
 
   assert.equal(automationProjection.entries.some((entry) => entry.id === 'calorie'), true);
+  assert.equal(
+    automationProjection.entries.find((entry) => entry.id === 'sarthakagrawal-personal')
+      ?.repository,
+    '../portfolio',
+  );
   assert.equal(marketingProjection.projects.some((entry) => entry.slug === 'calorie'), true);
   assert.equal(renderInternalCatalog(catalog), renderInternalCatalog(catalog));
   assert.equal(renderReadmePortfolio(catalog), renderReadmePortfolio(catalog));

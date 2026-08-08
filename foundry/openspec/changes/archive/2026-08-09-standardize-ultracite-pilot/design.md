@@ -22,11 +22,11 @@ Ultracite 7.10.2 is the current public MIT-licensed release observed during plan
 
 ## Decisions
 
-### Put the Ultracite development dependency at the Fleet Workspace root
+### Keep the Ultracite development dependency in the independently installed pilot
 
-The canonical preset and generator are Foundry tooling, so the root manifest and lockfile will pin the exact Ultracite version. Config resolution can then walk from both the Foundry template and the in-repo pilot to the root `node_modules` package. Adding the package separately to every product would duplicate versions and lockfile churn before the pilot proves value.
+The Drank component has an independent CI install boundary, so its manifest and lockfile pin the exact Ultracite version used by both the pilot config and the Foundry generator. The generator locates that same pilot-local binary explicitly, keeping the shared output deterministic without requiring an uninstalled workspace-root package.
 
-Alternative considered: install Ultracite only in `drank`. That makes the Foundry template unable to resolve its own package export reliably from sibling paths and incorrectly assigns shared-tool ownership to the pilot.
+Alternative considered: pin Ultracite at the Fleet Workspace root. Independent component CI installs do not install root development dependencies, so the Drank config could not resolve the published presets in that environment.
 
 ### Extend published presets instead of running the initializer in place
 
@@ -60,10 +60,10 @@ Passing the pilot creates repository-scoped follow-up issues grouped by linter f
 
 ## Migration Plan
 
-1. Add and review the exact development dependency at the workspace root.
+1. Add and review the exact development dependency in the Drank pilot.
 2. Add the shared base, parity/context scripts, fixtures, and focused tests.
 3. Switch only `drank` to the shared base and regenerate the managed context artifact.
 4. Run the pilot check, parity checks, root component checks, dependency guard, and strict OpenSpec validation.
 5. Create bounded follow-up issues for non-pilot repositories, then archive this change after its PR merges.
 
-Rollback is a normal revert of the root dev dependency, shared tooling files, and `drank` config/context reference. No runtime data or production state is involved.
+Rollback is a normal revert of the pilot dev dependency, shared tooling files, and `drank` config/context reference. No runtime data or production state is involved.

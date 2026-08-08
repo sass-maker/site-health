@@ -33,7 +33,15 @@ export const contextsMatch = (tracked, generated) =>
 
 const generateContext = async (target) => {
   const stagePath = await mkdtemp(path.join(tmpdir(), `fleet-ultracite-${target.id}-`));
-  const cliPath = path.join(workspaceRoot, 'node_modules', '.bin', 'ultracite');
+  const cliPath = path.join(
+    workspaceRoot,
+    'foundry',
+    'helpers',
+    'drank',
+    'node_modules',
+    '.bin',
+    'ultracite'
+  );
 
   try {
     await writeFile(

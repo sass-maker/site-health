@@ -31,8 +31,8 @@ CodeVetter or App Health source.
 - Cloudflare for deployed product surfaces and provider-native runtime evidence.
 - Postiz for approved marketing scheduling/distribution.
 - PostHog and product-native analytics where selected by each product.
-- Ultracite 7.10.2 as an exact, development-only source for the shared Biome
-  preset and generated lint guidance; Fleet tracks the root pnpm lockfile.
+- Ultracite 7.10.2 as an exact, development-only dependency of the independently
+  installed Drank pilot; the shared generator invokes that pinned pilot binary.
 - The designated operations machine for explicitly enabled cron and
   machine-only automation; fresh clones remain inert.
 
@@ -65,9 +65,9 @@ CodeVetter or App Health source.
 ## Timeline
 
 - **2026-08-09 — Fleet lint standardization gained a bounded pilot:** Added an
-  exact development-only Ultracite dependency, a Foundry-owned Biome base, a
-  deterministic staged agent-context generator, and a read-only registry
-  parity report. Drank is the first in-repo pilot and passes its native check,
+  exact development-only Ultracite dependency to Drank, a Foundry-owned Biome
+  base, a deterministic staged agent-context generator, and a read-only
+  registry parity report. Drank is the first in-repo pilot and passes its native check,
   production build, and docs check after small explicit conditional-render
   fixes. The report preserves known Chess and Karte divergences and excludes
   inactive lifecycle tiers; no independent repository or deployment changed.
@@ -639,7 +639,7 @@ Cloudflare deployment history, not by maintaining duplicate source.
   doctor/rebuild tooling.
 - Read-only Fleet capability catalog with ranked human/agent discovery,
   generated context, stable JSON/dense output, and catalog integrity checks.
-- Shared Ultracite-backed Biome baseline with an exact root tool pin, one
+- Shared Ultracite-backed Biome baseline with an exact pilot-local tool pin, one
   passing Drank pilot, staged generated lint guidance that preserves
   project-owned `AGENTS.md`, and deterministic registry-driven parity output
   for aligned, divergent, unmanaged, missing, unavailable, and excluded
