@@ -133,7 +133,7 @@ export async function deriveTraceInsights(
     byPreset.set(r.preset.name, arr);
   }
 
-  let baselineByPreset = new Map<string, RunResultWithArtifact[]>();
+  const baselineByPreset = new Map<string, RunResultWithArtifact[]>();
   if (opts.baselineTag) {
     const baseRows = db.runsByTag(url, opts.baselineTag);
     for (const row of baseRows) {

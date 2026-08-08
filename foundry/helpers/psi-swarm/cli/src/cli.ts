@@ -119,7 +119,7 @@ program
       process.exit(1);
     }
 
-    let traceInsights;
+    let traceInsights: Awaited<ReturnType<typeof deriveTraceInsights>> | undefined;
     if (opts.save !== false) {
       const db = new HistoryDB();
       for (const r of results) {
