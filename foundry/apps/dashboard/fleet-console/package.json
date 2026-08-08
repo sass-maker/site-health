@@ -9,15 +9,20 @@
     "preview": "astro preview --host 127.0.0.1 --allowed-hosts fleet.sassmaker.com"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "astro": "^5.12.0",
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.2.0",
     "typescript": "^5.8.3"
   },
-  "devDependencies": {},
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "svgo": "^4.0.2",
+      "fast-uri": "^3.1.5",
+      "js-yaml": "^4.3.1",
+      "sharp": "^0.35.0"
+    }
   }
 }
