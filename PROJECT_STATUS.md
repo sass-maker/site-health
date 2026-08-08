@@ -64,6 +64,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — Missing-root lint entries gained ecosystem truth:** Classified
+  Fleet Ops, Knowledge Base, Pace, PostTrainLLM, and Research Papers as
+  deliberate divergences based on their durable component, nested-workspace,
+  Swift/Xcode, mixed-language factory, or Python/Ruff boundaries. Applicable
+  JavaScript products remain visible for independent migration; no repository
+  source, deploy, secret, or production configuration changed.
 - **2026-08-09 — Storage analysis became workspace-local and read-only:** Added
   a dependency-free Fleet skill that measures a bounded scan root without
   following symlinks, classifies findings into explicit safety tiers, and
@@ -652,7 +658,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
   passing Drank pilot, staged generated lint guidance that preserves
   project-owned `AGENTS.md`, and deterministic registry-driven parity output
   for aligned, divergent, unmanaged, missing, unavailable, and excluded
-  projects.
+  projects, including evidence-backed native and non-root ecosystem
+  divergences.
 - Bounded marketing registry, dry-run, attribution, and quiet-experiment
   contracts.
 - Draft-only Postiz adapter, sanitized marketing lifecycle snapshots, retired
