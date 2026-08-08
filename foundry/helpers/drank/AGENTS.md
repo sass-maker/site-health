@@ -37,6 +37,14 @@ Product: <https://domains.sassmaker.com>. Full product context:
 | `pnpm docs:check` | Docs link check + Blume build |
 | `pnpm docs:build` | Blume build → `docs-site/dist/` |
 
+## Generated lint guidance
+
+Ultracite-generated lint guidance lives in [ULTRACITE.md](ULTRACITE.md). This
+file remains authoritative when project commands, product ownership, safety,
+or release rules differ from generic generated guidance. Regenerate from the
+Fleet Workspace root with `pnpm generate:lint-context` and verify drift with
+`pnpm check:lint-context`.
+
 ## Critical constraints
 
 - **Local-first thesis**: no server-side storage of user data, no accounts.

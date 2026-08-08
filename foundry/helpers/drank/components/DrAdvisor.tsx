@@ -145,14 +145,14 @@ export function DrAdvisor({ request }: { request: DrAdvisorRequest }) {
         </div>
       </div>
 
-      {error && (
+      {error ? (
         <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-950/20 p-3 text-sm text-amber-200">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>{error} DR tracking and history are still available.</span>
         </div>
-      )}
+      ) : null}
 
-      {advice && (
+      {advice ? (
         <div className="mt-5 space-y-4">
           <div>
             <div className="text-[10px] uppercase tracking-widest text-emerald-300/70">
@@ -176,14 +176,14 @@ export function DrAdvisor({ request }: { request: DrAdvisorRequest }) {
               </li>
             ))}
           </ol>
-          {generatedAt && (
+          {generatedAt ? (
             <div className="text-[10px] text-white/35">
               {isCached ? 'Loaded from this browser' : 'Generated now'} ·{' '}
               {new Date(generatedAt).toLocaleString()}
             </div>
-          )}
+          ) : null}
         </div>
-      )}
+      ) : null}
     </section>
   );
 }

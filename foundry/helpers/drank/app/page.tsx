@@ -780,11 +780,11 @@ export default function Drank() {
                           <div className="flex items-center gap-3 min-w-0">
                             <img src={getFaviconUrl(p.domain)} className="h-4 w-4 rounded" />
                             <span className="font-mono truncate">{p.domain}</span>
-                            {p.note && (
+                            {p.note ? (
                               <span className="text-white/40 text-xs truncate max-w-[140px]">
                                 “{p.note}”
                               </span>
-                            )}
+                            ) : null}
                           </div>
                           <div className="flex items-center gap-3 text-xs">
                             {actualRank ? (
@@ -823,7 +823,7 @@ export default function Drank() {
                       className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs hover:border-emerald-800 flex items-center gap-2"
                     >
                       {n.domain}
-                      {n.note && <span className="text-white/40">— {n.note}</span>}
+                      {n.note ? <span className="text-white/40">— {n.note}</span> : null}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -1056,7 +1056,7 @@ export default function Drank() {
 
       {/* ==================== DETAIL MODAL (more beautiful) ==================== */}
       <AnimatePresence>
-        {selected && (
+        {selected ? (
           <div
             className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4"
             onClick={closeSelectedDomain}
@@ -1121,7 +1121,7 @@ export default function Drank() {
                   </div>
                 )}
 
-                {selectedAdvisorRequest && <DrAdvisor request={selectedAdvisorRequest} />}
+                {selectedAdvisorRequest ? <DrAdvisor request={selectedAdvisorRequest} /> : null}
 
                 {/* History list */}
                 <div className="mt-6">
@@ -1217,7 +1217,7 @@ export default function Drank() {
                   >
                     Close
                   </button>
-                  {selected?.isCustom && (
+                  {selected?.isCustom ? (
                     <button
                       onClick={() => refreshDomain(selected.domain)}
                       disabled={updating.has(selected.domain)}
@@ -1225,17 +1225,17 @@ export default function Drank() {
                     >
                       Refresh now
                     </button>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </motion.div>
           </div>
-        )}
+        ) : null}
       </AnimatePresence>
 
       {/* ==================== SETTINGS / PREFERENCES (the "cron" controls) ==================== */}
       <AnimatePresence>
-        {showSettings && (
+        {showSettings ? (
           <div
             className="fixed inset-0 z-[80] flex items-start justify-center bg-black/70 pt-16"
             onClick={() => setShowSettings(false)}
@@ -1336,7 +1336,7 @@ export default function Drank() {
               </div>
             </motion.div>
           </div>
-        )}
+        ) : null}
       </AnimatePresence>
 
       {/* Beautiful toasts */}

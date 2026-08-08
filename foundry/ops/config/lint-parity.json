@@ -1,0 +1,7 @@
+{
+  "$schema": "fleet.lint-parity-config.v1",
+  "deliberateDivergences": {
+    "chess": "Biome uses preset none with formatting disabled; preserve until an owner-specific migration reviews the generated chess surface.",
+    "karte": "Biome keeps a custom ruleset and lineWidth 80; preserve until an owner-specific migration reviews its current style contract."
+  }
+}

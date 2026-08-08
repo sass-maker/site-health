@@ -120,7 +120,7 @@ export function TurnstileWidget({
         data-sitekey={siteKey}
         data-action={action}
       />
-      {error && <p className="mt-2 text-xs text-amber-200">{error}</p>}
+      {error ? <p className="mt-2 text-xs text-amber-200">{error}</p> : null}
     </div>
   );
 }
