@@ -1,4 +1,5 @@
 import publicCatalog from '../../../../../../ops/public/products.json';
+import tokenWorld from '../../data/tokenWorld.json';
 import { PACKAGE_URL } from '../../data/links';
 import { LEARNINGS } from '../../data/learnings';
 import { markdownPath, PUBLIC_ROUTES, publicRouteUrl } from '../../data/publicRoutes';
@@ -33,6 +34,11 @@ export function GET() {
           },
         ],
         auth: { public: true, notes: 'Private Fleet controls are intentionally excluded.' },
+        tokenImpact: {
+          name: 'Tokens Spent for the World',
+          metric: 'Verified provider-reported model tokens from contributing products',
+          ...tokenWorld,
+        },
         products: publicCatalog.products,
         pastProjects: publicCatalog.pastProjects,
         learnings: LEARNINGS.map((learning) => ({

@@ -70,6 +70,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-10 — SaaS Maker published its verified token-world ledger:** Added
+  a static “TOKENS SPENT FOR THE WORLD” chapter backed by CodeVetter's
+  authoritative lifetime usage, a procedural Three.js globe, explicit snapshot
+  recency, privacy-safe regional pulse support, and guarded daily seed tooling.
+  The surface retains reduced-motion, no-script, and missing-WebGL fallbacks
+  without restoring a SaaS Maker runtime service.
 - **2026-08-09 — Scheduled work adopted an explicit public/manual boundary:**
   Public, credential-free checks remain in `sass-maker/workflows` on standard
   GitHub-hosted runners. Private Fleet evidence, authenticated provider work,
@@ -644,6 +650,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
   on the product domain, public roadmaps resolve to GitHub Issues, public source
   links resolve to canonical repositories, and private repository links remain
   omitted.
+- SaaS Maker verified token-world ledger with a CodeVetter-backed cumulative
+  baseline, authoritative daily snapshots, procedural Three.js globe, explicit
+  recency, and privacy-safe coarse pulse disclosure.
 - Product-owned responsive changelog surfaces for all 26 maintained product
   websites, seeded only from verified shipped milestones.
 - Git, deployment, Cloudflare resilience, performance, SEO, AI-indexing, and

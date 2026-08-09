@@ -1,0 +1,329 @@
+---
+import tokenWorld from '../data/tokenWorld.json';
+
+const number = new Intl.NumberFormat('en-US');
+const snapshotLabel = new Intl.DateTimeFormat('en', {
+  day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'
+}).format(new Date(`${tokenWorld.snapshotDate}T00:00:00Z`));
+const updatedLabel = new Intl.DateTimeFormat('en', {
+  day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+  timeZone: 'UTC', timeZoneName: 'short', hour12: false,
+}).format(new Date(tokenWorld.lastUpdatedAt));
+---
+
+<section
+  class="token-world"
+  id="token-world"
+  aria-labelledby="token-world-title"
+  data-token-world
+  data-current={tokenWorld.lifetimeTokens}
+  data-pulses={JSON.stringify(tokenWorld.pulses)}
+  data-has-geography={tokenWorld.countriesServed > 0 ? 'true' : 'false'}
+>
+  <header class="token-world-head">
+    <p class="studio-kicker">A cumulative studio measure</p>
+    <h2 id="token-world-title">TOKENS SPENT <br />FOR THE WORLD</h2>
+    <p class="token-world-summary">
+      Model tokens used while building and serving SaaS Maker products—counted
+      from verified product records, never estimated.
+    </p>
+    <p class="token-world-definition">
+      A transparent computation ledger, not a proxy for people reached or social impact.
+    </p>
+  </header>
+
+  <div class="token-world-stage">
+    <div class="token-world-fallback" aria-hidden="true"></div>
+    <canvas class="token-world-canvas" aria-hidden="true"></canvas>
+    <div class="token-world-counter" aria-live="off">
+      <strong data-token-counter>{number.format(tokenWorld.lifetimeTokens)}</strong>
+      <span>tokens spent for the world</span>
+    </div>
+  </div>
+
+  <p class="token-world-orbit-label">
+    <span>VERIFIED SNAPSHOT · {snapshotLabel.toUpperCase()}</span>
+    <span>LAST UPDATED AT · {updatedLabel.toUpperCase()}</span>
+  </p>
+
+  <dl class="token-world-measures" aria-label="Verified token impact measures">
+    <div>
+      <dt>Latest day</dt>
+      <dd>{number.format(tokenWorld.todayTokens)}</dd>
+      <small>{snapshotLabel}</small>
+    </div>
+    <div>
+      <dt>Projects used</dt>
+      <dd>Worldwide</dd>
+      <small>Across borders and time zones</small>
+    </div>
+    <div>
+      <dt>Projects contributing</dt>
+      <dd>{number.format(tokenWorld.projectsContributing)}</dd>
+      <small>CodeVetter starts the count</small>
+    </div>
+  </dl>
+
+  <div class="token-world-foot">
+    <p>{tokenWorld.coverage}</p>
+    {tokenWorld.pulses.length > 0 ? (
+      <ul class="token-world-pulses" aria-label="Latest verified regional activity">
+        {tokenWorld.pulses.map((pulse) => (
+          <li>
+            <button type="button" data-pulse-country={pulse.country} aria-pressed="false">
+              <strong>{pulse.project}</strong>
+              <span>{pulse.locality ?? pulse.country} · {number.format(pulse.tokens)} tokens</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="token-world-empty">Projects used worldwide.</p>
+    )}
+  </div>
+</section>
+
+<script>
+  import * as THREE from 'three';
+
+  const COUNTRY_POINTS = {
+    IN: [79, 22], JP: [138, 36], US: [-98, 39], GB: [-2, 54], DE: [10, 51],
+    FR: [2, 47], BR: [-52, -10], AU: [134, -25], SG: [104, 1], CA: [-107, 56],
+  };
+
+  document.querySelectorAll('[data-token-world]').forEach((section) => {
+    const canvas = section.querySelector('canvas');
+    const counter = section.querySelector('[data-token-counter]');
+    if (!(canvas instanceof HTMLCanvasElement) || !(counter instanceof HTMLElement)) return;
+
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+      || navigator.connection?.saveData === true;
+    const current = Number(section.dataset.current || 0);
+    const pulses = JSON.parse(section.dataset.pulses || '[]');
+    const formatter = new Intl.NumberFormat('en-US');
+    let active = false;
+    let frame = 0;
+    let selectedPulse = -1;
+    let renderer;
+
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+    } catch {
+      section.dataset.webgl = 'unavailable';
+      return;
+    }
+
+    section.dataset.webgl = 'ready';
+    renderer.setClearColor(0x000000, 0);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 20);
+    camera.position.set(0, 0.05, 5.7);
+    const world = new THREE.Group();
+    world.position.y = 0;
+    world.rotation.y = -0.45;
+    world.rotation.x = -0.08;
+    scene.add(world);
+
+    const starPositions = [];
+    for (let index = 0; index < 180; index += 1) {
+      const angle = index * 2.399963;
+      const radius = 2.1 + ((index * 47) % 100) / 36;
+      starPositions.push(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.72 + 0.3, -1.8 - (index % 7) * 0.08);
+    }
+    const starGeometry = new THREE.BufferGeometry();
+    starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
+    scene.add(new THREE.Points(
+      starGeometry,
+      new THREE.PointsMaterial({ color: 0x8ea5d2, size: 0.012, transparent: true, opacity: 0.38, depthWrite: false }),
+    ));
+
+    const ocean = new THREE.Mesh(
+      new THREE.SphereGeometry(1.5, 64, 40),
+      new THREE.MeshPhysicalMaterial({
+        color: 0x07101d,
+        emissive: 0x071938,
+        emissiveIntensity: 0.55,
+        metalness: 0.12,
+        roughness: 0.68,
+        transparent: true,
+        opacity: 0.96,
+      }),
+    );
+    world.add(ocean);
+
+    const wire = new THREE.Mesh(
+      new THREE.SphereGeometry(1.508, 32, 18),
+      new THREE.MeshBasicMaterial({ color: 0x90a3c9, wireframe: true, transparent: true, opacity: 0.055 }),
+    );
+    world.add(wire);
+
+    const landPositions = [];
+    for (let lat = -58; lat <= 76; lat += 2.35) {
+      for (let lon = -180; lon < 180; lon += 2.35) {
+        if (!isLand(lon, lat)) continue;
+        const point = globePoint(lon, lat, 1.525);
+        landPositions.push(point.x, point.y, point.z);
+      }
+    }
+    const landGeometry = new THREE.BufferGeometry();
+    landGeometry.setAttribute('position', new THREE.Float32BufferAttribute(landPositions, 3));
+    const land = new THREE.Points(
+      landGeometry,
+      new THREE.PointsMaterial({ color: 0xdde7fb, size: 0.022, transparent: true, opacity: 0.88, sizeAttenuation: true }),
+    );
+    world.add(land);
+
+    const atmosphere = new THREE.Mesh(
+      new THREE.SphereGeometry(1.68, 64, 40),
+      new THREE.ShaderMaterial({
+        transparent: true,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        vertexShader: `varying vec3 vNormal; varying vec3 vView; void main(){ vNormal=normalize(normalMatrix*normal); vec4 mv=modelViewMatrix*vec4(position,1.0); vView=normalize(-mv.xyz); gl_Position=projectionMatrix*mv; }`,
+        fragmentShader: `varying vec3 vNormal; varying vec3 vView; void main(){ float rim=pow(1.0-max(dot(vNormal,vView),0.0),3.2); gl_FragColor=vec4(0.16,0.36,0.86,rim*0.42); }`,
+      }),
+    );
+    world.add(atmosphere);
+
+    const halo = new THREE.Mesh(
+      new THREE.RingGeometry(1.68, 1.7, 128),
+      new THREE.MeshBasicMaterial({ color: 0x617fc5, transparent: true, opacity: 0.11, side: THREE.DoubleSide }),
+    );
+    halo.position.z = -0.08;
+    scene.add(halo);
+
+    scene.add(new THREE.AmbientLight(0x7897d6, 1.35));
+    const key = new THREE.DirectionalLight(0xe8efff, 2.8);
+    key.position.set(-3, 3, 5);
+    scene.add(key);
+    const blueRim = new THREE.PointLight(0x1746a2, 18, 12);
+    blueRim.position.set(3, -1, -2);
+    scene.add(blueRim);
+
+    const pulseMeshes = pulses.flatMap((pulse, index) => {
+      const coordinates = COUNTRY_POINTS[pulse.country];
+      if (!coordinates) return [];
+      const position = globePoint(coordinates[0], coordinates[1], 1.565);
+      const normal = position.clone().normalize();
+      const group = new THREE.Group();
+      group.position.copy(position);
+      group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
+      const core = new THREE.Mesh(
+        new THREE.SphereGeometry(0.035, 16, 12),
+        new THREE.MeshBasicMaterial({ color: 0xf2b345 }),
+      );
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(0.055, 0.073, 36),
+        new THREE.MeshBasicMaterial({ color: 0xf2b345, transparent: true, opacity: 0.9, side: THREE.DoubleSide, depthWrite: false }),
+      );
+      group.add(core, ring);
+      group.userData = { index, ring };
+      world.add(group);
+      return [group];
+    });
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.6));
+      renderer.setSize(Math.max(1, rect.width), Math.max(1, rect.height), false);
+      camera.aspect = rect.width / Math.max(1, rect.height);
+      camera.updateProjectionMatrix();
+      draw(performance.now());
+    };
+
+    const draw = (time) => {
+      pulseMeshes.forEach((group, index) => {
+        const phase = reduced ? 0.5 : ((time / 1500) + index * 0.27) % 1;
+        const selected = selectedPulse === index;
+        const scale = selected ? 2.8 : 1 + phase * 2.2;
+        group.userData.ring.scale.setScalar(scale);
+        group.userData.ring.material.opacity = selected ? 1 : 0.82 - phase * 0.66;
+      });
+
+      renderer.render(scene, camera);
+
+      if (active && !reduced && !document.hidden) {
+        world.rotation.y += 0.00105;
+        frame = requestAnimationFrame(draw);
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      active = entry.isIntersecting;
+      cancelAnimationFrame(frame);
+      if (active) {
+        counter.textContent = formatter.format(current);
+        draw(performance.now());
+      }
+    }, { threshold: 0.15 });
+
+    const visibility = () => {
+      cancelAnimationFrame(frame);
+      if (active && !document.hidden) draw(performance.now());
+    };
+    const contextLost = (event) => {
+      event.preventDefault();
+      cancelAnimationFrame(frame);
+      section.dataset.webgl = 'unavailable';
+    };
+    const contextRestored = () => {
+      section.dataset.webgl = 'ready';
+      resize();
+    };
+    const resizeObserver = new ResizeObserver(resize);
+    section.querySelectorAll('[data-pulse-country]').forEach((button, index) => {
+      button.addEventListener('click', () => {
+        selectedPulse = selectedPulse === index ? -1 : index;
+        section.querySelectorAll('[data-pulse-country]').forEach((candidate, candidateIndex) => {
+          candidate.setAttribute('aria-pressed', String(candidateIndex === selectedPulse));
+        });
+        draw(performance.now());
+      });
+    });
+    observer.observe(section);
+    resizeObserver.observe(canvas);
+    document.addEventListener('visibilitychange', visibility);
+    canvas.addEventListener('webglcontextlost', contextLost);
+    canvas.addEventListener('webglcontextrestored', contextRestored);
+    resize();
+
+    document.addEventListener('astro:before-swap', () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      resizeObserver.disconnect();
+      document.removeEventListener('visibilitychange', visibility);
+      canvas.removeEventListener('webglcontextlost', contextLost);
+      canvas.removeEventListener('webglcontextrestored', contextRestored);
+      scene.traverse((object) => {
+        object.geometry?.dispose?.();
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.filter(Boolean).forEach((material) => material.dispose?.());
+      });
+      renderer.dispose();
+    }, { once: true });
+  });
+
+  function globePoint(lon, lat, radius) {
+    const lambda = lon * Math.PI / 180;
+    const phi = lat * Math.PI / 180;
+    const cosPhi = Math.cos(phi);
+    return new THREE.Vector3(
+      radius * cosPhi * Math.sin(lambda),
+      radius * Math.sin(phi),
+      radius * cosPhi * Math.cos(lambda),
+    );
+  }
+
+  function isLand(lon, lat) {
+    const ellipses = [
+      [-102, 48, 34, 25], [-82, 18, 18, 20], [-61, -17, 18, 31],
+      [18, 7, 22, 33], [18, 52, 19, 13], [68, 48, 54, 22],
+      [105, 15, 32, 18], [135, -25, 18, 13], [-42, 72, 13, 9],
+    ];
+    return ellipses.some(([x, y, rx, ry]) => ((lon - x) / rx) ** 2 + ((lat - y) / ry) ** 2 < 1)
+      && !(lon > 8 && lon < 45 && lat > 16 && lat < 31);
+  }
+</script>
