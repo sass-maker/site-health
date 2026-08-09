@@ -1,11 +1,10 @@
-# Reel Pipeline Editorial
+# Mashup
 
-> Canonical source: `foundry/marketing/reel-pipeline/editorial/`.
+> Canonical source: `foundry/helpers/mashup/`.
 >
-> This is the incorporated Mashup editorial runtime. The Python package and
-> compatibility CLI remain named `mashup` during parity migration, but Reel
-> Pipeline is the owning product. The former standalone checkout is a temporary
-> fallback and must not receive new product behavior once parity is green.
+> Mashup independently owns podcast/archive planning, resumable analysis,
+> approval, and rendering. Reel Pipeline may consume a completed media receipt,
+> but it does not import or execute this runtime.
 
 ## Mashup editorial planner
 

@@ -6,9 +6,9 @@ reviewable media artifacts and receipts.
 ## System boundary
 
 ```text
-source archive / source project / approved content package
+ source media / source project / approved content package
                   ↓
- podcast edit / VideoBrief / package contract
+ Mashup media receipt / VideoBrief / package contract
                   ↓
     render adapter → artifact manifest → quality/review
                   ↓
@@ -22,21 +22,18 @@ source archive / source project / approved content package
 Reel Pipeline owns the middle generation stages. Source projects own claims and
 approval. Postiz owns social accounts and the publication lifecycle.
 
-## Podcast editorial flow
+## External Mashup media flow
 
 ```text
-owned/licensed archive
-  → editorial/ Python runtime
-  → fleet.podcast-edit.v1
-  → src/podcast-edit.js
+independent Mashup helper
+  → completed MP4 + fleet.mashup-media-receipt.v1
   → src/adapters/podcast-edit.js
-  → editorial multi-clip renderer
-  → hashed MP4/captions receipt
+  → hash, approval, provenance, and approved-root verification
+  → ordinary Reel Pipeline source media
 ```
 
-This path preserves the complete source EDL rather than flattening it into a
-VideoBrief body. The Python runtime is an implementation module of Reel
-Pipeline, not a separate product.
+Mashup owns its EDL, SQLite state, models, planning, and renderer. Reel Pipeline
+does not require Mashup's source tree and never reads its mutable state.
 
 ## Worker production flow
 
@@ -72,9 +69,7 @@ Native provider publishing is rejected by `src/distribution.js`.
 | Module | Role |
 | --- | --- |
 | `src/video-brief.js` / `reel/src/brief.rs` | Validate normalized render input |
-| `editorial/src/mashup/*` | Source-aware transcription, planning, EDL editing, and multi-clip rendering |
-| `src/podcast-edit.js` | Validate the canonical source-backed podcast edit |
-| `src/adapters/podcast-edit.js` | Verify source bytes and render approved podcast edits |
+| `src/adapters/podcast-edit.js` | Verify a finished external Mashup artifact and receipt without invoking Mashup |
 | `src/pipeline.js` | Node render orchestration for local/browser/package surfaces |
 | `reel/src/watcher.rs` | Poll approved Worker reels and invoke render-pro |
 | `src/adapters/*` | Render-engine adapters |

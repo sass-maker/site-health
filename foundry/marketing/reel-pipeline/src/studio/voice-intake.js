@@ -1,11 +1,6 @@
-import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
-import os from 'node:os';
+import { mkdir, realpath, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { promisify } from 'node:util';
-
-const execFileAsync = promisify(execFile);
 const MAX_RECORDING_BYTES = 25 * 1024 * 1024;
 const MIME_EXTENSIONS = new Map([
   ['audio/webm', '.webm'],
@@ -42,42 +37,16 @@ export async function saveVoiceRecording(input = {}, options = {}) {
 }
 
 export async function probeVoiceTranscription(options = {}) {
-  const providers = [];
-  const commandRunner = options.commandRunner ?? defaultCommandRunner;
-  const uvBinary = await commandPath('uv', commandRunner);
-  const whisperKitModel = options.whisperKitModelPath ? path.resolve(options.whisperKitModelPath) : null;
-  const whisperKitBinary = await commandPath('whisperkit-cli', commandRunner);
-  if (uvBinary && whisperKitBinary && whisperKitModel && await exists(whisperKitModel)) {
-    providers.push({ id: 'whisperkit', ready: true, binary: whisperKitBinary, runnerBinary: uvBinary, modelPath: whisperKitModel });
+  const provider = options.provider ?? null;
+  if (provider?.id && provider?.modelPath && await exists(path.resolve(provider.modelPath))) {
+    return { ready: true, provider: structuredClone(provider), providers: [structuredClone(provider)], blocker: null };
   }
-
-  const mlxModelPath = path.resolve(options.mlxModelPath ?? path.join(
-    os.homedir(), '.cache/huggingface/hub/models--mlx-community--whisper-small.en-mlx',
-  ));
-  let mlxPackageReady = options.mlxPackageReady === true;
-  if (!mlxPackageReady && uvBinary) {
-    try {
-      await commandRunner(uvBinary, [
-        'run', '--project', path.resolve(options.editorialDir ?? './editorial'), '--no-sync',
-        'python', '-c', 'import mlx_whisper',
-      ], { timeout: 20_000 });
-      mlxPackageReady = true;
-    } catch {
-      mlxPackageReady = false;
-    }
-  }
-  if (uvBinary && mlxPackageReady && await exists(mlxModelPath)) {
-    providers.push({ id: 'mlx-whisper', ready: true, binary: uvBinary, runnerBinary: uvBinary, modelPath: mlxModelPath });
-  }
-
-  return providers.length
-    ? { ready: true, provider: providers[0], providers, blocker: null }
-    : {
-        ready: false,
-        provider: null,
-        providers: [],
-        blocker: 'No fully local transcription runtime and model are ready. The recording is preserved; type the request or preflight WhisperKit/MLX Whisper separately.',
-      };
+  return {
+    ready: false,
+    provider: null,
+    providers: [],
+    blocker: 'No Reel-owned local transcription provider is configured. The recording is preserved; type the request or configure an injected local provider.',
+  };
 }
 
 export async function transcribeVoiceRecording(recording, options = {}) {
@@ -95,24 +64,7 @@ export async function transcribeVoiceRecording(recording, options = {}) {
     const result = await options.providerRunner({ recordingPath: resolved, provider: readiness.provider });
     return normalizeTranscriptionResult(result, recording, readiness.provider);
   }
-  const outPath = `${resolved}.srt`;
-  const provider = readiness.provider;
-  const backend = provider.id === 'whisperkit' ? 'whisperkit' : 'mlx';
-  const modelArgument = provider.id === 'whisperkit' ? '' : provider.modelPath;
-  const whisperKitArgument = provider.id === 'whisperkit' ? provider.modelPath : '';
-  const python = [
-    'from pathlib import Path',
-    'import sys',
-    'from mashup.ingest.transcribe import transcribe',
-    'transcribe(Path(sys.argv[1]), Path(sys.argv[2]), model=sys.argv[3] or "mlx-community/whisper-small.en-mlx", backend=sys.argv[4], whisperkit_model=sys.argv[5] or None)',
-  ].join('; ');
-  await (options.commandRunner ?? defaultCommandRunner)(provider.runnerBinary ?? provider.binary, [
-    'run', '--project', path.resolve(options.editorialDir ?? './editorial'), '--no-sync',
-    'python', '-c', python, resolved, outPath, modelArgument, backend, whisperKitArgument,
-  ], { timeout: options.timeoutMs ?? 10 * 60_000 });
-  const srt = await readFile(outPath, 'utf8');
-  const cues = parseSrt(srt);
-  return normalizeTranscriptionResult({ transcript: cues.map((cue) => cue.text).join(' '), cues, srtPath: outPath }, recording, provider);
+  throw new Error('configured transcription provider has no Reel-owned runner');
 }
 
 export function parseSrt(value) {
@@ -141,15 +93,6 @@ function normalizeTranscriptionResult(input = {}, recording, provider) {
   };
 }
 
-async function commandPath(command, runner) {
-  try {
-    const result = await runner('which', [command], { timeout: 5_000 });
-    return String(result.stdout ?? '').trim() || null;
-  } catch {
-    return null;
-  }
-}
-
 async function exists(candidate) {
   try {
     const info = await stat(candidate);
@@ -157,10 +100,6 @@ async function exists(candidate) {
   } catch {
     return false;
   }
-}
-
-async function defaultCommandRunner(binary, args, options = {}) {
-  return execFileAsync(binary, args, { timeout: options.timeout ?? 60_000, maxBuffer: 4 * 1024 * 1024 });
 }
 
 function requiredString(value, field) {

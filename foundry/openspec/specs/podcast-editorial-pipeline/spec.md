@@ -4,13 +4,13 @@
 TBD - created by archiving change consolidate-mashup-into-reel-pipeline. Update Purpose after archive.
 ## Requirements
 ### Requirement: Canonical editorial runtime
-Reel Pipeline SHALL contain the Mashup editorial planner as a nested Python
-runtime while preserving its CLI, SQLite-backed resumable stages, scoring
-behavior, and local loopback editor.
+Mashup SHALL own the podcast editorial planner as an independently runnable
+helper while preserving its CLI, SQLite-backed resumable stages, scoring
+behavior, local loopback editor, and multi-clip rendering.
 
-#### Scenario: Run the consolidated planner
-- **WHEN** an operator invokes the Reel Pipeline editorial command
-- **THEN** the nested Python runtime runs without requiring the standalone Mashup checkout
+#### Scenario: Run the independent planner
+- **WHEN** an operator invokes the Mashup editorial command
+- **THEN** the runtime runs without requiring the Reel Pipeline source tree
 
 ### Requirement: Versioned podcast edit contract
 The system SHALL export and normalize a `fleet.podcast-edit.v1` document that
@@ -86,26 +86,16 @@ ASCII visual intent.
 - **WHEN** an edit contains existing filmed or photographic media
 - **THEN** the asset includes a human-readable source title and provenance URL or ownership evidence
 
-### Requirement: Approved edits render through Reel Pipeline
-Reel Pipeline SHALL render an approved podcast edit through its nested
-multi-clip editorial renderer while preserving original audio, source
-headings, watermark identity, captions, and interval-bound visual credits, and
-SHALL emit an artifact receipt with input and output hashes.
+### Requirement: Approved edits render through Mashup
+Mashup SHALL render an approved podcast edit through its owned multi-clip
+renderer while preserving original audio, source headings, watermark identity,
+captions, and interval-bound visual credits, and SHALL emit an artifact receipt
+with input and output hashes.
 
 #### Scenario: Convert an approved edit
 - **WHEN** an operator converts an approved `fleet.podcast-edit.v1` document
-- **THEN** the adapter emits a playable artifact and receipt that retain the original source audio and every visible source credit
+- **THEN** Mashup emits a playable artifact and receipt that retain the original source audio and every visible source credit
 
 #### Scenario: Convert an unapproved edit
 - **WHEN** an operator attempts to convert an edit whose approval is not approved
 - **THEN** conversion fails without rendering an artifact
-
-### Requirement: Standalone retirement requires parity
-The standalone Mashup product SHALL remain available until the consolidated
-runtime passes its scoped tests, contract parity check, and one real
-source-backed short render.
-
-#### Scenario: Consolidated tests are incomplete
-- **WHEN** any parity requirement remains unproven
-- **THEN** the standalone checkout is not deleted, archived, or marked retired
-
