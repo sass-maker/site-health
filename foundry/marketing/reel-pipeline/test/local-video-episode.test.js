@@ -89,6 +89,46 @@ test('resume reuses accepted matching shots and rerenders only changed shots', a
   assert.equal(accepted.shots[1].reviewState, 'accepted');
 });
 
+test('reference image bytes invalidate accepted shot reuse', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'episode-reference-'));
+  const referenceImage = path.join(root, 'environment.png');
+  await writeFile(referenceImage, 'reference-v1');
+  const episode = createEpisodeDraft({
+    id: 'reference-change',
+    concept: 'An empty observatory wakes during a storm.',
+    targetDurationSeconds: 120,
+    cast: [],
+    referenceImage,
+  });
+  const render = async ({ shot }) => {
+    const videoPath = path.join(root, `${shot.id}.mp4`);
+    await writeFile(videoPath, shot.prompt);
+    return { videoPath };
+  };
+  const first = await renderEpisodeShots(episode, {
+    outputDir: root,
+    resolvedCast: [],
+    executeShot: render,
+  });
+  const previousRun = {
+    ...first,
+    shots: first.shots.map((shot) => ({ ...shot, reviewState: 'accepted' })),
+  };
+  await writeFile(referenceImage, 'reference-v2');
+  let rerenders = 0;
+  const second = await renderEpisodeShots(episode, {
+    outputDir: root,
+    resolvedCast: [],
+    previousRun,
+    executeShot: async (input) => {
+      rerenders += 1;
+      return render(input);
+    },
+  });
+  assert.equal(rerenders, episode.shots.length);
+  assert.notEqual(second.shots[0].inputSignature, first.shots[0].inputSignature);
+});
+
 test('assembly requires accepted shots and real music evidence, then records deterministic assets', async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'episode-assembly-'));
   const video = path.join(root, 'shot.mp4');

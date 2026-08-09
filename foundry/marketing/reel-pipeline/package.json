@@ -49,6 +49,7 @@
     "smoke:postiz": "node --test test/postiz-client.test.js test/postiz-contract.test.js test/distribution.test.js test/social-readiness.test.js",
     "studio": "node scripts/studio.js",
     "studio:story-sample": "node scripts/render-studio-story-sample.js",
+    "studio:episode-sample": "node scripts/render-studio-episode-sample.js",
     "faceless": "node scripts/faceless.js",
     "factory": "node scripts/factory.js",
     "significant-content": "node scripts/significant-content.js",
