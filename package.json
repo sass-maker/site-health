@@ -27,7 +27,7 @@
     "generate:lint-context": "node foundry/ops/scripts/sync-ultracite-context.mjs",
     "check:lint-context": "node foundry/ops/scripts/sync-ultracite-context.mjs --check",
     "report:lint-parity": "node foundry/ops/scripts/lint-parity.mjs",
-    "test:fleet": "pnpm run check:components && pnpm run check:actions && node --test foundry/ops/test/*.test.mjs"
+    "test:fleet": "pnpm run check:components && pnpm run check:actions && node --disable-warning=ExperimentalWarning --test foundry/ops/test/*.test.mjs"
   },
   "engines": {
     "node": ">=22"

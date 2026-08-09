@@ -21,6 +21,8 @@ const components = {
       [
         'pnpm',
         [
+          '--allow-build=esbuild',
+          '--allow-build=workerd',
           'dlx',
           'wrangler@4.120.0',
           'pages',
