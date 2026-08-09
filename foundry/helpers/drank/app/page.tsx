@@ -44,12 +44,10 @@ import { DrAdvisor } from '@/components/DrAdvisor';
 import globalSitesStatic from '@/data/global-sites.json';
 import globalDrDataStatic from '@/data/global-dr.json';
 
-// Configurable raw GitHub URL for fresh data after Action runs (no redeploy needed on Vercel)
-const GLOBAL_DATA_BASE =
-  process.env.NEXT_PUBLIC_GLOBAL_DATA_BASE ||
-  'https://raw.githubusercontent.com/sass-maker/fleet-workspace/main/foundry/helpers/drank/data';
+// The default same-origin copy is published with the static Pages export. A
+// public external data origin can still be supplied explicitly when needed.
+const GLOBAL_DATA_BASE = process.env.NEXT_PUBLIC_GLOBAL_DATA_BASE || '/data';
 const GLOBAL_DR_URL = `${GLOBAL_DATA_BASE}/global-dr.json`;
-const GLOBAL_SITES_URL = `${GLOBAL_DATA_BASE}/global-sites.json`;
 
 // Build initial global domains from static (will be overwritten by fresh fetch on client)
 const GLOBAL_DOMAINS: TrackedDomain[] = (globalSitesStatic as string[]).map((domain: string) => {
@@ -126,40 +124,30 @@ export default function Drank() {
     return () => clearTimeout(t);
   }, []);
 
-  // Fetch fresher shared data from raw GitHub so that weekly Action updates are visible
-  // without needing a new Vercel deployment every time.
+  // Refresh observations from the public static export. The domain list stays
+  // build-pinned so a private repository URL is never fetched by browsers.
   useEffect(() => {
     let cancelled = false;
 
     (async () => {
       try {
-        const [drRes, sitesRes] = await Promise.allSettled([
-          fetch(GLOBAL_DR_URL, { cache: 'no-store' }),
-          fetch(GLOBAL_SITES_URL, { cache: 'no-store' }),
-        ]);
+        const drResponse = await fetch(GLOBAL_DR_URL, { cache: 'no-store' });
+        if (cancelled || !drResponse.ok) return;
 
-        if (cancelled) return;
-
-        const drResponse = drRes.status === 'fulfilled' ? drRes.value : null;
-        const sitesResponse = sitesRes.status === 'fulfilled' ? sitesRes.value : null;
-
-        const canUseDr = !!drResponse?.ok;
-        const canUseSites = !!sitesResponse?.ok;
-        if (!canUseDr && !canUseSites) return;
-
-        const freshDr = canUseDr ? await drResponse.json() : globalDrDataStatic;
-        const freshSites = canUseSites ? await sitesResponse.json() : globalSitesStatic;
+        const freshDr = await drResponse.json();
 
         const domainsObj = freshDr.domains || {};
-        const freshDomains: TrackedDomain[] = (freshSites as string[]).map((domain: string) => {
-          const hist = domainsObj[domain]?.history || [];
-          return {
-            domain,
-            history: hist,
-            lastChecked: hist.length > 0 ? hist[hist.length - 1].ts : null,
-            isCustom: false,
-          };
-        });
+        const freshDomains: TrackedDomain[] = (globalSitesStatic as string[]).map(
+          (domain: string) => {
+            const hist = domainsObj[domain]?.history || [];
+            return {
+              domain,
+              history: hist,
+              lastChecked: hist.length > 0 ? hist[hist.length - 1].ts : null,
+              isCustom: false,
+            };
+          }
+        );
 
         setLiveGlobalDomains(freshDomains);
         setLiveCommunityNoms(freshDr.communityNominations || []);

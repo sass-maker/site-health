@@ -44,6 +44,12 @@ Last updated: 2026-08-09
 
 ## Timeline
 
+- **2026-08-09** — Passed the maintenance release smoke for add, refresh, and
+  JSON export against the production static build. Removed the invalid App
+  Router ICO that made the Next.js development route fail, and switched the
+  default observation refresh from an unreachable private-repository raw URL
+  to the published same-origin data copy. Production deployment remains a
+  separate manual action.
 - **2026-08-09** — Adopted Fleet's shared Ultracite-backed Biome baseline as
   the bounded first pilot. The existing check now resolves pinned React,
   Next.js, and Vitest presets while retaining the documented Fleet exceptions;
@@ -75,7 +81,9 @@ Last updated: 2026-08-09
 - **Standalone dashboard:** single-page app (`app/page.tsx`); deploys to Cloudflare Pages (static export). Also runs locally at http://localhost:3000.
 - **Changelog:** `/changelog` keeps verified product history on the product
   domain; planned work remains in Fleet Workspace GitHub Issues.
-- **Shared data pipeline:** `data/global-dr.json` + `data/global-sites.json` — ~45 global example sites; fetchable from raw GitHub JSON at runtime.
+- **Shared data pipeline:** `data/global-dr.json` + `data/global-sites.json` —
+  ~45 global example sites; the static export publishes current observations
+  at `/data/global-dr.json` while the site list remains build-pinned.
 - **High Signal lens:** https://highsignal.app/domains — consumes global DR history + community nominations; full interactive experience (personal predictions, local tracking, detailed history) remains in drank standalone.
 
 ## Features (shipped)
@@ -93,7 +101,8 @@ Last updated: 2026-08-09
 - All personal domains, history, predictions, settings in browser `localStorage` (v2 schema via `lib/useTrackedDomains.ts`).
 - Global example sites (~45) load from `data/global-dr.json` — identical for all users, updated weekly by GitHub Action.
 - Client calls `/api/dr?target=` → Cloudflare Pages Function (`functions/api/dr.ts`) proxies Ahrefs free endpoint with friendly User-Agent (CORS bypass).
-- Global data also fetchable from raw GitHub JSON at runtime (no redeploy needed for DR updates).
+- The browser refreshes global observations from the same-origin
+  `/data/global-dr.json`; it never probes the private Fleet repository.
 - No auth, no server storage of user data.
 
 ### Global & social
