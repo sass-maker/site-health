@@ -11,7 +11,7 @@ Last updated: 2026-08-09
 
 **IN scope:** Single-page dashboard (`app/page.tsx`), `/api/dr` and `/api/advisor` Pages Functions, global JSON pipeline, High Signal integration.
 
-**OUT of scope:** Production deploy (straightforward but not blocking local use), server-side personal domain storage without explicit opt-in.
+**OUT of scope:** Server-side personal domain storage without explicit opt-in.
 
 ## Dependencies
 
@@ -44,6 +44,10 @@ Last updated: 2026-08-09
 
 ## Timeline
 
+- **2026-08-09** — Released the tested dashboard to the `drank` Cloudflare
+  Pages project, verified the public surface, and pinned Next.js output tracing
+  to the component root so monorepo and component lockfiles no longer produce a
+  misleading build warning.
 - **2026-08-09** — Passed the maintenance release smoke for add, refresh, and
   JSON export against the production static build. Removed the invalid App
   Router ICO that made the Next.js development route fail, and switched the
