@@ -8,7 +8,7 @@
     "required": ["REEL_INTERNAL_TOKEN"]
   },
   "routes": [
-    { "pattern": "reels.sassmaker.com/*", "zone_name": "sassmaker.com" }
+    { "pattern": "reels.sassmaker.com", "custom_domain": true }
   ],
   "r2_buckets": [
     {
