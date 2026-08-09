@@ -4,8 +4,21 @@ Also follow the shared Fleet instructions at `../../../AGENTS.md`.
 
 ## Purpose
 
-This repository generates media. It does not own social scheduling or
-publishing. Postiz is the only social review/schedule/publish surface.
+This repository generates and packages media. Its agent interface may ask
+Postiz to draft, schedule, or publish only through an explicit configured
+channel policy; Postiz remains the provider and credential owner.
+
+## Agent interface
+
+- Discover registered recipes, adapters, projects, execution modes, and
+  channel policies through `npm run agent` with a `manifest` request.
+- Send one `fleet.video-agent-operation.v1` JSON object on stdin or with
+  `--request`; stdout is one result envelope.
+- Validate first. Real execution fails closed when registered inputs are
+  missing. Fixture output never substitutes for real output.
+- Publication requires a configured `draft_only`, `approval_required`, or
+  `autonomous` channel policy. Never infer a destination or bypass Postiz.
+- Commands, source code, executables, and arbitrary plugins are rejected.
 
 ## Verify
 
@@ -22,7 +35,8 @@ live prerequisites.
 ## Constraints
 
 - Preserve source-package claims and approval evidence.
-- Default to local/draft generation; never publish from this repository.
+- Default to local/draft generation; publish only when a configured channel
+  policy and the requested operation authorize it.
 - Do not add direct social-provider adapters or credential stores.
 - Keep engine integrations behind VideoBrief/content-package contracts.
 - Do not advance git submodules on `main` without a focused canary.

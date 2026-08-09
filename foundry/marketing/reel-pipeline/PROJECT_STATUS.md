@@ -13,7 +13,8 @@ decisions, renders reviewable media, and records artifact provenance.
 
 It deliberately does not own social credentials, durable calendar execution,
 rescheduling, cancellation, publishing state, or provider analytics. Postiz
-owns that downstream lifecycle.
+owns that downstream lifecycle. Its machine interface may request a provider
+write only through an explicit per-channel policy.
 
 ## Dependencies
 
@@ -36,6 +37,10 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-09:** shipped the strict `reel-agent` capability, execution,
+  packaging, and policy-gated publication contract over the live recipe and
+  adapter registries. Added `draft_only`, `approval_required`, and
+  `autonomous` channel modes without moving credentials out of Postiz.
 - **2026-08-09:** separated Mashup into `foundry/helpers/mashup`. Reel Pipeline
   no longer imports, starts, configures, or owns its Python runtime and instead
   verifies approved finished media through a versioned receipt. Voice intake
@@ -146,6 +151,9 @@ owns that downstream lifecycle.
 
 ## Features (shipped)
 
+- Machine-readable agent manifest covering all 13 recipes, 49 registered
+  variants, 13 execution adapters, readiness blockers, and configured channel
+  policies, with strict validation and arbitrary-execution rejection.
 - A focused prompt-first Video Maker browser surface with recipe-derived format
   selection and truthful continuations; Mashup is an independent helper.
 - Voice-first and typed brief intake feeding one persisted eight-stage

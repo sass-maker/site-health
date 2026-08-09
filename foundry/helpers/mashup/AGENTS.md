@@ -18,6 +18,17 @@ uv run ruff format --check .
 cd web && pnpm install && pnpm check && pnpm build
 ```
 
+## Agent interface
+
+- Discover capabilities with a `manifest` request to `uv run mashup agent`.
+- Send one `fleet.video-agent-operation.v1` JSON object on stdin or with
+  `--request`; stdout is one result envelope and progress remains structured.
+- Use `validateOnly: true` before mutation or rendering. Render requires an
+  approved `fleet.podcast-edit.v1`; finished artifacts use an operation-linked
+  `fleet.mashup-media-receipt.v1`.
+- The interface rejects unknown fields, commands, code, executables, and
+  plugins. Mashup never publishes media.
+
 ## Boundaries
 
 - This directory is the canonical home of the independent Mashup helper.

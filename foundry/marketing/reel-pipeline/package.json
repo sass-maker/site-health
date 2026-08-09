@@ -48,6 +48,7 @@
     "smoke:significant-content": "node scripts/smoke-significant-content.js",
     "smoke:postiz": "node --test test/postiz-client.test.js test/postiz-contract.test.js test/distribution.test.js test/social-readiness.test.js",
     "studio": "node scripts/studio.js",
+    "agent": "node scripts/reel-agent.js",
     "studio:story-sample": "node scripts/render-studio-story-sample.js",
     "studio:episode-sample": "node scripts/render-studio-episode-sample.js",
     "faceless": "node scripts/faceless.js",

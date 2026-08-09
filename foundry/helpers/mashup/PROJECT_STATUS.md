@@ -24,6 +24,9 @@ approval, provenance, and multi-clip rendering.
 
 ## Timeline
 
+- **2026-08-09:** added the strict non-interactive `mashup agent` contract for
+  capability discovery, resumable stages, approved renders, and
+  operation-linked finished-media receipts.
 - **2026-08-09:** extracted Mashup from Reel Pipeline into an independently
   owned helper with a finished-media receipt boundary.
 
@@ -38,6 +41,8 @@ approval, provenance, and multi-clip rendering.
 - Strict `fleet.podcast-edit.v1` editorial contract.
 - Source-rights, provenance, source-hash, and non-repetition validation.
 - Versioned finished-media receipts for decoupled downstream consumption.
+- Machine-readable agent manifest and operations with strict input decoding,
+  stable errors, structured progress, approval gates, and no arbitrary code.
 
 ## Work queue
 
