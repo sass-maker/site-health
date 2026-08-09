@@ -24,8 +24,10 @@ SSH tunnel, or permanent process on the hosted machine.
 
 ## Phase 0
 
-Install and launch LTX Desktop once for manual model validation. The automated
-path is pinned separately and uses `ltx-2-mlx` with the LTX-2.3 int4 model.
+LTX Desktop is optional evaluation software, not a readiness gate. Its current
+local-generation flow requires a supported CUDA host and does not run on this
+Apple Silicon generation Mac. The maintained automated path uses the pinned
+`ltx-2-mlx` runtime with the LTX-2.3 int4 model.
 
 Prerequisites:
 
