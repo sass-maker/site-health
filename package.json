@@ -17,6 +17,7 @@
     "check:projects": "node foundry/ops/scripts/generate-project-surfaces.mjs --check",
     "report:sitemaps": "node foundry/ops/scripts/fleet-sitemap-report.mjs",
     "report:metric-90": "node foundry/ops/scripts/metric-90-report.mjs",
+    "report:ahrefs-site-audit": "node foundry/ops/scripts/ahrefs-site-audit-health.mjs",
     "generate:openspec-inventory": "node foundry/ops/scripts/generate-openspec-inventory.mjs",
     "check:public": "node foundry/ops/scripts/generate-public-products.mjs --check && node foundry/ops/scripts/sync-public-workflows-manifest.mjs --check && pnpm --prefix foundry/apps/public/public-directory run check",
     "check:registry": "node foundry/ops/scripts/generate-project-surfaces.mjs --check && node foundry/ops/scripts/validate-automation-registry.mjs && node foundry/ops/scripts/validate-marketing-program.mjs && node foundry/ops/scripts/check-retired-marketing-boundaries.mjs && node foundry/ops/scripts/check-independent-product-boundaries.mjs",
