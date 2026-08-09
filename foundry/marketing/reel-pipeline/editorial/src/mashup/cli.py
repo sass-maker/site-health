@@ -122,7 +122,7 @@ def ingest(
 ) -> None:
     """Ingest media + subtitles and split into segments."""
     cfg = _config(workdir, require_key=False)
-    counts = pipeline.ingest(input_dir, cfg, allow_transcribe=transcribe)
+    counts = pipeline.ingest(input_dir, cfg, allow_transcribe=transcribe, progress=_notice)
     _show_counts(counts)
 
 
