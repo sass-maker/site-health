@@ -19,9 +19,10 @@ const components = {
     commands: [
       ['pnpm', ['run', 'build']],
       [
-        'npx',
+        'pnpm',
         [
-          'wrangler',
+          'dlx',
+          'wrangler@4.120.0',
           'pages',
           'deploy',
           'out',
