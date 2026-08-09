@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "astro": "5.12.0",
+    "three": "0.185.1",
     "typescript": "5.8.3"
   },
-  "devDependencies": {},
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",

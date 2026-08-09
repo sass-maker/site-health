@@ -1,4 +1,5 @@
 import publicCatalog from '../../../../../ops/public/products.json';
+import tokenWorld from './tokenWorld.json';
 import { CHANGELOG } from './changelog';
 import { LEARNINGS } from './learnings';
 import { PAGED_PRODUCTS, type RegistryProduct } from './registry';
@@ -83,6 +84,16 @@ function homeMarkdown(): string {
     '# SaaS Maker',
     '',
     'Software as a specialized service: a living studio of focused products, generated from Fleet’s privacy-checked public projection.',
+    '',
+    '# Tokens Spent for the World',
+    '',
+    `${tokenWorld.lifetimeTokens.toLocaleString('en-US')} verified model tokens across ${tokenWorld.projectsContributing} contributing project as of ${tokenWorld.snapshotDate}.`,
+    '',
+    `- Latest seeded day: ${tokenWorld.todayTokens.toLocaleString('en-US')} tokens`,
+    `- Last updated at: ${tokenWorld.lastUpdatedAt}`,
+    '- Projects used: Worldwide',
+    `- Projects contributing: ${tokenWorld.projectsContributing}`,
+    `- Coverage: ${tokenWorld.coverage}`,
     '',
     '# Learnings',
     '',
