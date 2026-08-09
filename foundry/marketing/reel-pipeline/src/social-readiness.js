@@ -6,61 +6,66 @@ import brandConfig from '../config/brand-channels.json' with { type: 'json' };
 const PROVIDER_FOR_CHANNEL = { youtube_shorts: 'youtube', instagram_reels: 'instagram' };
 
 export function checkSocialReadiness(options = {}) {
-  const configPath = path.resolve(options.configPath ?? process.env.POSTIZ_INTEGRATIONS_CONFIG ?? 'config/postiz-integrations.json');
-  const templatePath = path.resolve(options.templatePath ?? 'config/postiz-integrations.example.json');
+  const configPath = path.resolve(options.configPath ?? process.env.INTERNAL_VIDEO_CHANNELS_CONFIG ?? 'config/internal-video-channels.json');
+  const templatePath = path.resolve(options.templatePath ?? 'config/internal-video-channels.example.json');
   const env = options.env ?? process.env;
   const installed = existsSync(configPath);
-  const raw = JSON.parse(readFileSync(installed ? configPath : templatePath, 'utf8'));
-  const integrations = raw?.integrations ?? {};
+  const raw = options.rawConfig ?? JSON.parse(readFileSync(installed ? configPath : templatePath, 'utf8'));
+  const configured = Array.isArray(raw?.channels) ? raw.channels : [];
   const accounts = [];
 
   for (const [brandSlug, brand] of Object.entries(brandConfig.brands)) {
     for (const channel of brand.channels) {
       const accountSlug = brand.accountMappings?.[channel] ?? null;
-      const mapping = accountSlug ? integrations[accountSlug] : null;
-      const expectedProvider = PROVIDER_FOR_CHANNEL[channel];
-      const providerMatches = Boolean(mapping?.provider === expectedProvider);
+      const declaration = configured.find((entry) => entry.brand === brandSlug && entry.channel === channel);
+      const credentialVariables = Object.values(declaration?.credentialEnv ?? {});
+      const missingCredentialVariables = credentialVariables.filter((name) => !env[name]);
+      const accountMatches = Boolean(declaration?.accountSlug === accountSlug);
       accounts.push({
         brand: brandSlug,
         channel,
-        platform: expectedProvider,
+        platform: PROVIDER_FOR_CHANNEL[channel],
         accountSlug,
         routeConfigured: Boolean(accountSlug),
-        accountDeclared: Boolean(mapping?.integrationId),
-        integrationIdConfigured: Boolean(mapping?.integrationId),
-        providerMatches,
-        ready: Boolean(accountSlug && mapping?.integrationId && providerMatches && env.POSTIZ_API_KEY),
+        accountDeclared: Boolean(declaration),
+        accountMatches,
+        credentialVariables,
+        credentialsPresent: credentialVariables.length > 0 && missingCredentialVariables.length === 0,
+        missingCredentialVariables,
+        ready: Boolean(accountSlug && declaration && accountMatches && credentialVariables.length > 0 && missingCredentialVariables.length === 0),
       });
     }
   }
 
+  const missingCredentialVariables = [...new Set(accounts.flatMap((entry) => entry.missingCredentialVariables))].sort();
   const infrastructure = {
-    postizAccess: Boolean(env.POSTIZ_API_KEY),
+    channelConfig: installed || Boolean(options.rawConfig),
     artifactBucket: true,
     artifactBaseUrl: true,
-    kokoro: options.kokoroReady ?? existsSync(path.resolve('tools/kokoro')),
     ffmpeg: options.ffmpegReady ?? commandExists('ffmpeg', options.pathEnv ?? env.PATH),
   };
+  const totalAccounts = accounts.length;
+  const connectedAccounts = accounts.filter((entry) => entry.ready).length;
   const summary = {
-    totalAccounts: accounts.length,
-    routedAccounts: accounts.filter((entry) => entry.routeConfigured && entry.accountDeclared && entry.providerMatches).length,
-    connectedAccounts: accounts.filter((entry) => entry.ready).length,
-    missingCredentialVariables: env.POSTIZ_API_KEY ? [] : ['POSTIZ_API_KEY'],
+    totalAccounts,
+    routedAccounts: accounts.filter((entry) => entry.routeConfigured && entry.accountDeclared && entry.accountMatches).length,
+    connectedAccounts,
+    missingCredentialVariables,
     infrastructureReady: Object.values(infrastructure).every(Boolean),
   };
   return {
-    schema: 'reel-pipeline.social-readiness.v2',
+    schema: 'reel-pipeline.social-readiness.v3',
     generatedAt: new Date().toISOString(),
-    provider: 'postiz',
+    provider: 'fleet-internal',
     configPath,
     configInstalled: installed,
     activeChannels: ['instagram_reels', 'youtube_shorts'],
     accounts,
     infrastructure,
-    summary: { ...summary, readyForLivePosting: summary.connectedAccounts === summary.totalAccounts && summary.infrastructureReady },
+    summary: { ...summary, readyForLivePosting: connectedAccounts === totalAccounts && summary.infrastructureReady },
   };
 }
 
 function commandExists(command, pathEnv = '') {
-  return String(pathEnv).split(path.delimiter).some((dir) => existsSync(path.join(dir, command)));
+  return String(pathEnv).split(path.delimiter).some((directory) => existsSync(path.join(directory, command)));
 }

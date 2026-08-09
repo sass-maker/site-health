@@ -8,7 +8,9 @@ Lifecycle ownership is intentionally split:
 
 - Studio plans, validates, edits, estimates, renders, selects, and exports one source video.
 - Mashup ingests creator-owned archives and produces approved editorial media receipts.
-- Reel Pipeline executes registered video recipes, packages finished media, and is the only product allowed to publish through configured channels.
+- Reel Pipeline executes registered video recipes, packages finished media,
+  and is the only product allowed to publish through Fleet-owned adapters for
+  configured channels.
 
 No request accepts shell commands, source code, executable paths, or arbitrary
 plugins. Publication additionally requires a channel entry whose mode is

@@ -4,9 +4,9 @@ Also follow the shared Fleet instructions at `../../../AGENTS.md`.
 
 ## Purpose
 
-This repository generates and packages media. Its agent interface may ask
-Postiz to draft, schedule, or publish only through an explicit configured
-channel policy; Postiz remains the provider and credential owner.
+This repository generates, packages, and publishes media through Fleet-owned
+YouTube and Instagram adapters. Its agent interface may publish only through
+an explicit configured channel policy; credentials remain environment-owned.
 
 ## Agent interface
 
@@ -17,7 +17,8 @@ channel policy; Postiz remains the provider and credential owner.
 - Validate first. Real execution fails closed when registered inputs are
   missing. Fixture output never substitutes for real output.
 - Publication requires a configured `draft_only`, `approval_required`, or
-  `autonomous` channel policy. Never infer a destination or bypass Postiz.
+  `autonomous` channel policy. Never infer a destination or bypass the
+  provider-specific preflight.
 - Commands, source code, executables, and arbitrary plugins are rejected.
 
 ## Verify
@@ -25,7 +26,7 @@ channel policy; Postiz remains the provider and credential owner.
 ```bash
 npm test
 npm run smoke:render-modes
-npm run smoke:postiz
+node --test test/reel-agent.test.js test/internal-publisher.test.js
 npm run docs:validate
 ```
 
