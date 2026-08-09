@@ -36,6 +36,13 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-09:** reconciled the inherited Mashup maintenance bundle without
+  reopening a standalone product. Mixed-source renders now choose the modal
+  source format with maximum-quality tie-breaking, archive ingestion reports
+  and skips isolated unreadable files, and the unused local media directory was
+  removed. Kinetic Type is the selected optional visual direction; the old
+  corpus, matched-pair, five-condition, and cross-archive research program is
+  retired under the source-faithful CLI boundary.
 - **2026-08-09:** completed the safely shippable voice-first Studio workflow:
   Talk and Type now compile to the same persisted eight-stage graph with
   manual/quick execution, pause, retry, checkpoints, and downstream
@@ -212,6 +219,9 @@ owns that downstream lifecycle.
 - Nested podcast editorial runtime with resumable transcription, enrichment,
   and embedding state, independently surfaced scoring terms, and an
   operational editor.
+- Robust heterogeneous-source ingestion that reports isolated unreadable
+  files, fails when no source is usable, and prevents the first low-resolution
+  source from determining the complete render format.
 - Strict `fleet.podcast-edit.v1` normalization, source-rights and source-hash
   checks, approval gating, exact EDL preservation, multi-source rendering, and
   deterministic render receipts.

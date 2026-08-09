@@ -58,6 +58,11 @@ target (seven minutes by default in the experiment commands), and approved
 multi-clip edits longer than 60 seconds use the same podcast-edit contract and
 render adapter.
 
+Archive ingestion reports and skips an unreadable source when other sources
+remain usable, but still fails if the complete archive is unreadable. Mixed
+video sources choose the modal output format with a maximum-quality tie-break,
+so a low-resolution first file cannot silently downscale the whole edit.
+
 ## Duplicate-content policy
 
 - The planner cannot select two editorial bits that share an underlying member
