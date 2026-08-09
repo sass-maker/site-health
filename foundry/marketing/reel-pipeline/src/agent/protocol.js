@@ -4,7 +4,11 @@ export const VIDEO_AGENT_SCHEMA = 'fleet.video-agent-operation.v1';
 export const VIDEO_AGENT_MANIFEST_SCHEMA = 'fleet.video-agent-manifest.v1';
 
 const ROOT_FIELDS = new Set(['schema', 'product', 'operation', 'operationId', 'idempotencyKey', 'validateOnly', 'input']);
-const FORBIDDEN_FIELDS = new Set(['command', 'shell', 'script', 'sourceCode', 'code', 'plugin', 'executable']);
+// `script` is valid authored video copy inside a content package. Executable
+// inputs remain impossible because every operation strictly validates its
+// top-level fields and these explicit execution-shaped keys are rejected at
+// every depth.
+const FORBIDDEN_FIELDS = new Set(['command', 'shell', 'sourceCode', 'code', 'plugin', 'executable']);
 
 export class AgentOperationError extends Error {
   constructor(code, message, options = {}) {

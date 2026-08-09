@@ -2,7 +2,10 @@ import { getBrandProfile, normalizeContentPackage } from './content-package.js';
 
 export const DISTRIBUTION_REQUEST_SCHEMA = 'fleet.distribution-request.v1';
 export const DISTRIBUTION_RECEIPT_SCHEMA = 'fleet.distribution-receipt.v1';
-const PROVIDERS = new Set(['manual', 'postiz']);
+// `postiz` remains decodable for old persisted project files. New agent and
+// Studio operations must use `internal`; no capability manifest advertises the
+// legacy adapter.
+const PROVIDERS = new Set(['manual', 'internal', 'postiz']);
 
 export function buildDistributionRequest(contentInput, mediaReceipt, options = {}) {
   const contentPackage = normalizeContentPackage(contentInput);
@@ -88,8 +91,13 @@ export async function executeDistribution(contentInput, mediaReceipt, requestInp
   }, options.now);
 
   if (!request.accountSlug) throw new Error(`no ${request.channel} account mapping configured for ${request.brand}`);
+  if (request.provider === 'internal') {
+    if (!options.internalProvider) throw new Error('Fleet internal publishing is not configured for this channel');
+    const result = await options.internalProvider.post(toMarketingPost(contentPackage, mediaReceipt, request));
+    return distributionReceipt(request, result, options.now);
+  }
   if (request.provider === 'postiz') {
-    if (!options.postizProvider) throw new Error('Postiz is not configured; connect the account and provide a Postiz adapter');
+    if (!options.postizProvider) throw new Error('legacy Postiz adapter is not configured');
     const result = await options.postizProvider.post(toMarketingPost(contentPackage, mediaReceipt, request));
     return distributionReceipt(request, result, options.now);
   }

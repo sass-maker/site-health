@@ -11,11 +11,11 @@ workflow → explicit generation → playable result → reusable history. It al
 turns owned or licensed source archives, approved podcast edits, and
 source-backed briefs into reviewable vertical-video artifacts and receipts.
 
-Reel Pipeline does **not** own social credentials or provider analytics.
-Postiz owns those integrations and the durable publishing lifecycle. The
-agent command can package and request a draft, schedule, or publication only
-for a channel listed in the local policy manifest as `draft_only`,
-`approval_required`, or `autonomous`.
+Reel Pipeline owns provider-neutral distribution contracts and Fleet's native
+YouTube and Instagram publishing adapters. Credentials remain outside the
+repository and are referenced only by environment-variable name. The agent
+can package, schedule, or publish only for a channel listed in the local policy
+manifest as `draft_only`, `approval_required`, or `autonomous`.
 
 ## Start here
 
@@ -44,7 +44,7 @@ Useful checks:
 
 ```bash
 npm run smoke:render-modes
-npm run smoke:postiz
+node --test test/reel-agent.test.js test/internal-publisher.test.js
 npm run ready:local
 npm run docs:validate
 ```
@@ -56,7 +56,7 @@ owned/licensed source archive or approved source package
         ↓
 Reel Pipeline: plan/edit → validate → render → review artifact → media receipt
         ↓
-Postiz: draft → human review → schedule → publish → provider metrics
+Fleet publisher → configured YouTube/Instagram channel → provider receipt
 ```
 
 Podcast/archive editorial work belongs to the independent

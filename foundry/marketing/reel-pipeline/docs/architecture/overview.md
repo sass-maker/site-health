@@ -14,13 +14,13 @@ reviewable media artifacts and receipts.
                   ↓
              media receipt
                   ↓
-       Postiz draft adapter (no schedule)
+ Fleet-owned channel publisher
                   ↓
- Postiz review → schedule → publish → provider metrics
+ YouTube / Instagram → provider receipt
 ```
 
-Reel Pipeline owns the middle generation stages. Source projects own claims and
-approval. Postiz owns social accounts and the publication lifecycle.
+Reel Pipeline owns generation and the provider-neutral distribution boundary.
+Source projects own claims and approval. Provider credentials remain external.
 
 ## External Mashup media flow
 
@@ -50,19 +50,19 @@ Cloudflare Worker + R2
 The Rust layer handles polling and safe process orchestration. Node and external
 tools continue to perform media work.
 
-## Package/Postiz flow
+## Package/publication flow
 
 ```text
 approved fleet.content-package.v1
   → renderer
   → fleet.artifact-manifest.v1
   → fleet.media-receipt.v1
-  → src/postiz-client.js
-  → Postiz draft
+  → src/internal-publisher.js
+  → registered YouTube or Instagram adapter
 ```
 
-The Postiz adapter requires an explicit project/channel integration mapping.
-Native provider publishing is rejected by `src/distribution.js`.
+The internal publisher requires an explicit brand/channel/account mapping and
+resolves credential values only from named environment variables.
 
 ## Core modules
 
@@ -75,14 +75,16 @@ Native provider publishing is rejected by `src/distribution.js`.
 | `src/adapters/*` | Render-engine adapters |
 | `src/artifact-publisher.js` | Local/R2 artifact publication |
 | `foundry/marketing/content-factory/src/manifest.js` | Artifact manifest and provenance contract |
-| `src/postiz-client.js` | Upload media and create draft-only Postiz requests |
-| `src/distribution.js` | Allow only manual or Postiz handoff |
+| `src/internal-publisher.js` | Route configured channels to owned provider adapters |
+| `src/publishers/*` | YouTube and Instagram preflight and publication |
+| `src/distribution.js` | Validate manual or internal distribution requests |
 
 ## Safety properties
 
 - Credentials remain external and are never stored in integration maps.
 - A completed render must have a verifiable artifact manifest.
 - Source approval and artifact review are separate evidence stages.
-- Postiz requests are drafts; this repository does not set schedules.
-- Direct YouTube/Instagram adapters and token-refresh jobs are absent.
+- Agents cannot infer accounts or channels; policy and channel configuration
+  must agree before a provider write.
+- Provider failures are classified and returned without exposing credentials.
 - Live Rust render/watch paths default to dry-run unless `--execute` is used.

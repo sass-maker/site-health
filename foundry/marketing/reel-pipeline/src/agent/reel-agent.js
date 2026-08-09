@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { buildDistributionRequest, executeDistribution, normalizeDistributionRequest } from '../distribution.js';
-import { PostizClient } from '../postiz-client.js';
+import { InternalChannelPublisher } from '../internal-publisher.js';
 import { checkSocialReadiness } from '../social-readiness.js';
 import { listExecutionAdapters, missingExecutionInputs, validateExecutionRegistry } from '../studio/execution-registry.js';
 import { listProductionProjects, listRecipeVariants, normalizeRecipeOptions } from '../studio/production-catalog.js';
@@ -129,6 +129,7 @@ async function publishDistribution(request, options) {
   const policies = loadChannelPolicies(request.input.channelPolicyPath ?? options.channelPolicyPath, options.channelPolicies);
   const policy = policies.channels.find((entry) => entry.brand === distribution.brand && entry.channel === distribution.channel);
   if (!policy) throw new AgentOperationError('CHANNEL_NOT_CONFIGURED', `no agent channel policy for ${distribution.brand}/${distribution.channel}`);
+  if (policy.provider !== distribution.provider) throw new AgentOperationError('CHANNEL_PROVIDER_MISMATCH', `configured provider for ${distribution.brand}/${distribution.channel} is ${policy.provider}`);
   if (request.validateOnly) return operationSuccess(request, { ready: policy.mode !== 'draft_only', policy, distribution }, { sideEffect: 'plan' });
   if (policy.mode === 'draft_only' && distribution.provider !== 'manual') {
     throw new AgentOperationError('CHANNEL_DRAFT_ONLY', 'channel policy permits local preparation only');
@@ -139,8 +140,8 @@ async function publishDistribution(request, options) {
   if (policy.mode === 'autonomous' && distribution.approval.status !== 'approved') {
     distribution.approval = { status: 'approved', approvedAt: new Date().toISOString(), approvedBy: 'configured-agent-policy' };
   }
-  const postizProvider = options.postizProvider ?? createPostizProvider(options);
-  const receipt = await executeDistribution(request.input.contentPackage, request.input.mediaReceipt, distribution, { postizProvider });
+  const internalProvider = options.internalProvider ?? createInternalProvider(options);
+  const receipt = await executeDistribution(request.input.contentPackage, request.input.mediaReceipt, distribution, { internalProvider });
   return operationSuccess(request, { policy, receipt }, { sideEffect: 'external' });
 }
 
@@ -163,20 +164,19 @@ function validatePolicies(input) {
     throw new AgentOperationError('CHANNEL_CONFIG_INVALID', 'channel policy config must use fleet.video-agent-channels.v1');
   }
   const channels = input.channels.map((entry, index) => {
-    if (!entry?.brand || !entry.channel || !['draft_only', 'approval_required', 'autonomous'].includes(entry.mode)) {
+    if (!entry?.brand || !entry.channel || !['manual', 'internal'].includes(entry.provider ?? 'internal') || !['draft_only', 'approval_required', 'autonomous'].includes(entry.mode)) {
       throw new AgentOperationError('CHANNEL_CONFIG_INVALID', `channels[${index}] requires brand, channel, and valid mode`);
     }
-    return { brand: entry.brand, channel: entry.channel, provider: entry.provider ?? 'postiz', mode: entry.mode };
+    return { brand: entry.brand, channel: entry.channel, provider: entry.provider ?? 'internal', mode: entry.mode };
   });
   return { schema: input.schema, channels };
 }
 
-function createPostizProvider(options) {
-  if (!process.env.POSTIZ_API_KEY) return undefined;
-  const configPath = path.resolve(options.postizConfigPath ?? process.env.POSTIZ_INTEGRATIONS_CONFIG ?? 'config/postiz-integrations.json');
+function createInternalProvider(options) {
+  const configPath = path.resolve(options.internalChannelConfigPath ?? process.env.INTERNAL_VIDEO_CHANNELS_CONFIG ?? 'config/internal-video-channels.json');
   if (!existsSync(configPath)) return undefined;
   const config = JSON.parse(readFileSync(configPath, 'utf8'));
-  return new PostizClient({ integrations: config.integrations ?? {} });
+  return new InternalChannelPublisher(config);
 }
 
 function classifyExecutionError(error) {

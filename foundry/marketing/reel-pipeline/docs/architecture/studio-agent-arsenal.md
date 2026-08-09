@@ -35,7 +35,7 @@ The snapshot contains:
 - general render modes and specialized Forge, Editorial, Three.js, LTX, and
   lyric-compositor runtimes;
 - enabled automation policies and the recipes each policy may select;
-- the valid discovery, plan, execution, review, and Postiz operations;
+- the valid discovery, plan, execution, review, and publication operations;
 - hard safety guardrails.
 
 `config/studio-arsenal.json` is the canonical decision manifest for workflows,
@@ -48,12 +48,12 @@ without duplicating volatile readiness or policy state.
 ## Agent operating boundary
 
 Discovery is always read-only. It does not create ideas or briefs, render
-media, upload artifacts, inspect credentials, or contact Postiz.
+media, upload artifacts, inspect credentials, or contact a provider.
 
 The intended state progression is:
 
 ```text
-discover → plan → execute or continue → review → prepare → Postiz draft/schedule
+discover → plan → execute or continue → review → prepare → configured channel
 ```
 
 - `discover` has no side effect and requires no confirmation.
@@ -63,9 +63,9 @@ discover → plan → execute or continue → review → prepare → Postiz draf
 - `review` reads artifacts and evidence without approving them.
 - `prepare` remains blocked until source, rights, quality, artifact, and stable
   media evidence passes.
-- Postiz draft or exact future scheduling is a network write and requires
-  confirmation. Immediate publication and direct provider calls remain
-  prohibited.
+- Scheduling or publication is a network write and requires either explicit
+  approval or a versioned autonomous channel policy. Agents call the internal
+  publisher contract rather than provider APIs directly.
 
 An agent must use stable ids from the snapshot and must not infer readiness
 from a tool name. `ready: null` means the engine has not been probed; it is not

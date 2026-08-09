@@ -5,10 +5,10 @@ import path from 'node:path';
 import { checkSocialReadiness } from '../src/social-readiness.js';
 
 const flags = parseFlags(process.argv.slice(2));
-const configPath = path.resolve(flags.config ?? process.env.POSTIZ_INTEGRATIONS_CONFIG ?? 'config/postiz-integrations.json');
+const configPath = path.resolve(flags.config ?? process.env.INTERNAL_VIDEO_CHANNELS_CONFIG ?? 'config/internal-video-channels.json');
 if (flags.install) {
   await mkdir(path.dirname(configPath), { recursive: true });
-  throw new Error('create config/postiz-integrations.json from the example after connecting accounts in Postiz');
+  throw new Error('create config/internal-video-channels.json from the example after configuring provider credentials outside git');
 }
 const report = checkSocialReadiness({ configPath });
 const out = path.resolve(flags.out ?? 'tmp/social-readiness/report.json');
