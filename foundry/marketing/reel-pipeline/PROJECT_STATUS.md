@@ -8,19 +8,19 @@ Reel Pipeline is a standalone, local-first video-creation product whose source
 is maintained inside the Fleet monorepo. Its primary product loop turns a
 plain-language request into an inspectable workflow, explicit generation,
 browser-playable result, reusable history entry, and optional evidence-gated
-Postiz handoff. It also accepts approved source-backed briefs and podcast edit
+provider publication. It also accepts approved source-backed briefs and podcast edit
 decisions, renders reviewable media, and records artifact provenance.
 
-It deliberately does not own social credentials, durable calendar execution,
-rescheduling, cancellation, publishing state, or provider analytics. Postiz
-owns that downstream lifecycle.
+It owns provider-neutral distribution contracts and native YouTube and
+Instagram adapters, but not credential values or provider truth. Its machine
+interface may request a write only through an explicit per-channel policy.
 
 ## Dependencies
 
 ### External
 
 - Cloudflare Worker and R2 for production artifact intake/storage.
-- Postiz for draft review, scheduling, publishing, integrations, and metrics.
+- YouTube Data API and Instagram Graph API for configured publication.
 - FFmpeg/Chromium and optional local render engines, including Blender 5.2, on
   generation hosts.
 - Optional Kokoro, Grok/Imagine local assets, and Blender adapters.
@@ -36,6 +36,14 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-10:** restored the accepted internal-publishing architecture for
+  agent operations: configured channels route through Fleet-owned YouTube and
+  Instagram adapters, while credential values stay outside manifests and
+  results. Postiz is not an agent capability.
+- **2026-08-09:** shipped the strict `reel-agent` capability, execution,
+  packaging, and policy-gated publication contract over the live recipe and
+  adapter registries. Added `draft_only`, `approval_required`, and
+  `autonomous` channel modes without exposing credentials to the agent.
 - **2026-08-09:** separated Mashup into `foundry/helpers/mashup`. Reel Pipeline
   no longer imports, starts, configures, or owns its Python runtime and instead
   verifies approved finished media through a versioned receipt. Voice intake
@@ -146,6 +154,9 @@ owns that downstream lifecycle.
 
 ## Features (shipped)
 
+- Machine-readable agent manifest covering all 13 recipes, 49 registered
+  variants, 13 execution adapters, readiness blockers, and configured channel
+  policies, with strict validation and arbitrary-execution rejection.
 - A focused prompt-first Video Maker browser surface with recipe-derived format
   selection and truthful continuations; Mashup is an independent helper.
 - Voice-first and typed brief intake feeding one persisted eight-stage

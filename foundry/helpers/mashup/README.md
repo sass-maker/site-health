@@ -13,6 +13,12 @@ using only clips that already exist. Point it at a folder of recordings plus a
 one-line brief and it emits several alternative cuts as editable EDL JSON and
 rendered MP4.
 
+Agents use the same pipeline through `uv run mashup agent`. Send a strict
+`fleet.video-agent-operation.v1` request and start with `manifest`; rendering
+still requires an approved editorial contract, and every generated media
+receipt links back to the normalized operation identity. Mashup produces media
+but never chooses or writes to a publishing channel.
+
 ## The thesis
 
 The bet is that **ordering is the hard part**. Semantic search over an archive
