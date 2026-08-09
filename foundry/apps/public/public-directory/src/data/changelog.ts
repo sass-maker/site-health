@@ -8,6 +8,18 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-10',
+    label: 'August 10, 2026',
+    title: 'Tokens spent for the world became a public ledger',
+    summary:
+      'SaaS Maker now publishes verified aggregate model usage from its products as a cumulative studio measure.',
+    changes: [
+      'Seeded the ledger with CodeVetter’s authoritative lifetime and latest-day token records.',
+      'Added a procedural Three.js globe, exact UTC recency, and privacy-safe regional pulse support.',
+      'Kept the verified metrics readable with reduced motion, no script, or unavailable WebGL.',
+    ],
+  },
+  {
     date: '2026-07-29',
     label: 'July 29, 2026',
     title: 'Product history moved onto the products',

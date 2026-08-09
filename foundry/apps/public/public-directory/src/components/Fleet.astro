@@ -8,10 +8,13 @@ const latestLearning = LEARNINGS[0];
   <header class="studio-index-head">
     <p class="studio-kicker">The maintained catalog</p>
     <h2 id="catalog-title">{PROJECT_COUNT} products.<br />One accountable maker.</h2>
-    <p>
-      Each product keeps its own domain, roadmap, changelog, and release
-      boundary. Nothing here is a concept render.
-    </p>
+    <div class="studio-index-context">
+      <p>
+        Each product keeps its own domain, roadmap, changelog, and release
+        boundary. Nothing here is a concept render.
+      </p>
+      <a href="#latest-learning">Skip to latest learning <span aria-hidden="true">↓</span></a>
+    </div>
   </header>
 
   <div class="catalog-wall">
@@ -33,17 +36,25 @@ const latestLearning = LEARNINGS[0];
         </section>
       ))}
     </div>
+  </div>
 
-    <aside class="learning-pane" aria-labelledby="learning-title">
+  <article class="learning-ledger" id="latest-learning" aria-labelledby="learning-title">
+    <header class="learning-ledger-meta">
       <p class="studio-kicker">Latest learning</p>
+      <div>
+        <time datetime={latestLearning.publishedAt}>{latestLearning.publishedLabel}</time>
+        <span>{latestLearning.readingTime}</span>
+      </div>
+    </header>
+    <div class="learning-ledger-story">
       <h3 id="learning-title">{latestLearning.title}</h3>
       <p>{latestLearning.description}</p>
       <a href={latestLearning.href}>
-        Read the note · {latestLearning.readingTime}
+        Read the learning
         <span aria-hidden="true">→</span>
       </a>
-    </aside>
-  </div>
+    </div>
+  </article>
 
   <section class="archive-wall" id="past-projects" aria-labelledby="archive-title">
     <header>

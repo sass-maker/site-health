@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "public-directory",
-  "target": "TOKENS SPENT FOR THE WORLD homepage chapter",
+  "target": "SaaS Maker catalog and learning chapter",
   "mode": "preserve",
   "register": "brand",
   "context": {
@@ -14,21 +14,21 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/token-world/before-1440.png"
+    "before": ".fleet/evidence/homepage-refresh/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/token-world/after-390.png"
+        "path": ".fleet/evidence/homepage-refresh/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/token-world/after-768.png"
+        "path": ".fleet/evidence/homepage-refresh/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/token-world/after-1440.png"
+        "path": ".fleet/evidence/homepage-refresh/after-1440.png"
       }
     ],
     "projectCheck": {
@@ -36,11 +36,11 @@
       "status": "pass"
     },
     "critique": {
-      "score": 35,
+      "score": 34,
       "maximum": 40
     },
     "audit": {
-      "score": 16,
+      "score": 18,
       "maximum": 20
     },
     "unresolved": {
@@ -50,11 +50,11 @@
     "detector": {
       "posture": "advisory",
       "findings": [],
-      "note": "Three.js revision detector returned [] (exit 0). Browser checks at 390, 768, and 1440 found WebGL ready, no console errors or horizontal overflow, DPR capped at 1.6, exact verified values, a static reduced-motion state, and semantic no-script/missing-WebGL fallbacks. Finish review passed with no P0/P1."
+      "note": "The final target components produced zero detector findings. The required repository-wide trailing-dot scan reported 27 findings, all outside the target or an intentional single-font DESIGN.md decision. Browser checks found zero P0/P1, zero horizontal overflow at 390/768/1440, semantic structure, a 44px skip link, reduced-motion behavior, and the Three scene requested exactly once at the 420px preload boundary."
     }
   },
   "ownerFeedback": {
     "decision": "keep",
-    "note": "Owner approved release on 2026-08-10 and plans to iterate later."
+    "note": "Owner approved the refreshed learning chapter and lazy globe implementation on 2026-08-10."
   }
 }
