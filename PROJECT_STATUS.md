@@ -31,6 +31,9 @@ CodeVetter or App Health source.
 - Cloudflare for deployed product surfaces and provider-native runtime evidence.
 - Postiz for approved marketing scheduling/distribution.
 - PostHog and product-native analytics where selected by each product.
+- Ahrefs for optional authenticated Site Audit project-health observations;
+  missing or unentitled access fails closed without affecting Domain Rating,
+  Fleet on-page checks, or PageSpeed evidence.
 - Ultracite 7.10.2 as an exact, development-only dependency of the independently
   installed Drank pilot; the shared generator invokes that pinned pilot binary.
 - The designated operations machine for explicitly enabled cron and
@@ -64,6 +67,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — Ahrefs Site Audit health became metric-safe:** Added a
+  dependency-free collector for the ten canonical roots with runtime-only
+  authentication, exact project and crawl states, JSON plus workspace-local
+  Markdown reporting, and fixture-backed 200/401/403/missing/stale/partial
+  coverage. Health Score remains separate from Domain Rating, Fleet SEO checks,
+  and PageSpeed.
 - **2026-08-09 — Growth became a first-class owner operating view:** Added a
   versioned growth program that covers every maintained public project, validates
   its focus and destination contracts against canonical Fleet registries, and
@@ -604,6 +613,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
+- Secret-safe Ahrefs Site Audit project-health collection and reporting across
+  the canonical ten roots, preserving null and zero semantics and failing
+  closed on authorization, missing projects, incomplete or stale crawls,
+  duplicate targets, malformed responses, and partial coverage.
 - Project-owned Cloudflare D1 persistence and audited cutover receipts for
   Anime List, Karte, Open Historia, Reader, Significant Hobbies, Starboard,
   SWE Interview Prep, and TrueHire, with no remaining Turso databases.
