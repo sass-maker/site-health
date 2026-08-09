@@ -60,6 +60,7 @@ const components = {
   'reel-pipeline': {
     root: 'foundry/marketing/reel-pipeline',
     workflow: 'reel-pipeline-ci.yml',
+    tagWorker: true,
     paths: [
       'foundry/marketing/reel-pipeline',
       'foundry/marketing/content-factory',
@@ -189,8 +190,11 @@ verifyComponentCi(slug);
 
 const componentRoot = join(fleetRoot, component.root);
 for (const [command, args] of component.commands) {
-  console.log(`Running ${command} ${args.join(' ')} in ${component.root}`);
-  const result = spawnSync(command, args, {
+  const commandArgs = component.tagWorker
+    ? [...args, '--tag', run('git', ['rev-parse', 'HEAD'])]
+    : args;
+  console.log(`Running ${command} ${commandArgs.join(' ')} in ${component.root}`);
+  const result = spawnSync(command, commandArgs, {
     cwd: componentRoot,
     env: process.env,
     stdio: 'inherit',
