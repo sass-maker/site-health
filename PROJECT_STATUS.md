@@ -67,6 +67,7 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — Deploy health stopped treating local-only checkouts as release failures:** Scoped CI and deploy-entrypoint gates to live, deployable projects in the canonical Fleet catalog while preserving Cloudflare parity for every live Pages and Worker target. Absorbed historical checkouts and uncatalogued local native proofs now report as outside deploy scope instead of manufacturing failures.
 - **2026-08-09 — Ahrefs Site Audit health became metric-safe:** Added a
   dependency-free collector for the ten canonical roots with runtime-only
   authentication, exact project and crawl states, JSON plus workspace-local
