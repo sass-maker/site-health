@@ -1,143 +1,59 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import {
-  mkdtemp,
-  mkdir,
-  readFile,
-  writeFile,
-} from 'node:fs/promises';
+import { mkdtemp, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
-import { renderPodcastEdit } from '../src/adapters/podcast-edit.js';
+import { inspectMashupMedia, normalizeMashupMediaReceipt } from '../src/adapters/podcast-edit.js';
 
-const FIXTURE = path.resolve('test/fixtures/approved-podcast-edit.json');
-
-async function preparedEdit() {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'podcast-edit-'));
-  const mediaDir = path.join(root, 'fixtures', 'podcast');
-  await mkdir(mediaDir, { recursive: true });
-  const sourcePath = path.join(mediaDir, '01-believe-in-something.mp3');
-  const sourceBytes = Buffer.from('source-audio-fixture');
-  await writeFile(sourcePath, sourceBytes);
-  const input = JSON.parse(await readFile(FIXTURE, 'utf8'));
-  input.sources[0].sha256 = createHash('sha256').update(sourceBytes).digest('hex');
-  return { input, root, sourcePath };
+function receiptFor(videoPath, bytes) {
+  return {
+    schema: 'fleet.mashup-media-receipt.v1',
+    artifactId: 'owned-podcast-short',
+    generatedAt: '2026-08-09T00:00:00Z',
+    approval: { status: 'approved', approvedBy: 'operator' },
+    recipe: { id: 'mashup-editorial@1' },
+    runtime: { revision: 'mashup@0.1.0' },
+    modelRevisions: {},
+    sources: [{ id: 'episode-1', sourceUrl: 'https://example.com/episode-1', license: 'creator-owned' }],
+    output: {
+      video: { path: videoPath, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') },
+      captions: null,
+      durationSeconds: 30,
+      width: 1080,
+      height: 1920,
+    },
+    validation: { artifactHashVerified: true, approvalVerified: true, provenanceVerified: true },
+  };
 }
 
-test('renders an approved edit through the nested editorial command and writes a receipt', async () => {
-  const { input, root, sourcePath } = await preparedEdit();
-  const calls = [];
-  const result = await renderPodcastEdit({
-    input,
-    manifestPath: path.join(root, 'podcast-edit.json'),
-    repoRoot: root,
-    editorialRoot: path.join(root, 'editorial'),
-    outputRoot: path.join(root, 'runs'),
-    now: () => new Date('2026-07-29T12:00:00.000Z'),
-    runCommand: async (command, args, options) => {
-      calls.push({ command, args, options });
-      const outputIndex = args.indexOf('--output');
-      await writeFile(args[outputIndex + 1], Buffer.from('rendered-mp4'));
-      await writeFile(args[outputIndex + 1].replace(/\.mp4$/, '.srt'), '1\n00:00:00,000 --> 00:00:01,000\nSource speech\n');
-    },
-  });
+test('ingests verified finished Mashup media without invoking Mashup', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'mashup-media-'));
+  const video = path.join(root, 'result.mp4');
+  const receiptPath = path.join(root, 'receipt.json');
+  const bytes = Buffer.from('fixture-video');
+  await writeFile(video, bytes);
+  await writeFile(receiptPath, JSON.stringify(receiptFor(video, bytes)));
 
-  assert.equal(calls.length, 1);
-  assert.equal(calls[0].command, 'uv');
-  assert.ok(calls[0].args.includes('--source-label'));
-  assert.ok(calls[0].args.includes('--watermark'));
-  assert.ok(calls[0].args.includes('ZEROPOD'));
-  assert.equal(result.receipt.schema, 'reel-pipeline.podcast-render-receipt.v1');
-  assert.equal(result.receipt.input.sources[0].path, sourcePath);
-  assert.equal(result.receipt.output.video.sha256.length, 64);
-  assert.equal(result.receipt.output.captions.sha256.length, 64);
-
-  const materializedEdl = JSON.parse(await readFile(result.paths.edl, 'utf8'));
-  assert.equal(materializedEdl.clips[0].source_path, sourcePath);
-  assert.equal(materializedEdl.clips[0].render_start, 3396.238);
+  const result = await inspectMashupMedia({ receiptPath, approvedRoots: [root] });
+  assert.equal(result.sourceType, 'external-mashup-media');
+  assert.equal(result.mediaPath, await realpath(video));
+  assert.equal(result.receipt.artifactId, 'owned-podcast-short');
 });
 
-test('refuses an unapproved podcast edit before invoking the renderer', async () => {
-  const { input, root } = await preparedEdit();
-  input.approval = { status: 'proposed', approvedAt: null, approvedBy: null };
-  let invoked = false;
+test('rejects an unapproved or hash-mismatched receipt', async () => {
+  const bytes = Buffer.from('fixture-video');
+  const receipt = receiptFor('/tmp/result.mp4', bytes);
+  receipt.approval.status = 'proposed';
+  assert.throws(() => normalizeMashupMediaReceipt(receipt), /approved/);
 
-  await assert.rejects(
-    renderPodcastEdit({
-      input,
-      manifestPath: path.join(root, 'podcast-edit.json'),
-      repoRoot: root,
-      outputRoot: path.join(root, 'runs'),
-      runCommand: async () => {
-        invoked = true;
-      },
-    }),
-    /must be approved/,
-  );
-  assert.equal(invoked, false);
-});
-
-test('fails closed when source bytes do not match provenance', async () => {
-  const { input, root } = await preparedEdit();
-  input.sources[0].sha256 = 'b'.repeat(64);
-
-  await assert.rejects(
-    renderPodcastEdit({
-      input,
-      manifestPath: path.join(root, 'podcast-edit.json'),
-      repoRoot: root,
-      outputRoot: path.join(root, 'runs'),
-      runCommand: async () => {},
-    }),
-    /hash does not match provenance/,
-  );
-});
-
-test('keeps long-form multi-clip edits on the same approved render path', async () => {
-  const { input, root } = await preparedEdit();
-  const template = input.editorial.clips[0];
-  input.editorial.target_duration = 420;
-  input.editorial.clips = [
-    {
-      ...structuredClone(template),
-      index: 0,
-      segment_id: 'long-1',
-      segment_ids: ['long-1'],
-      start: 0,
-      end: 210,
-      render_start: 0,
-      render_end: 210,
-    },
-    {
-      ...structuredClone(template),
-      index: 1,
-      segment_id: 'long-2',
-      segment_ids: ['long-2'],
-      start: 210,
-      end: 420,
-      render_start: 210,
-      render_end: 420,
-    },
-  ];
-
-  let renderedEdl;
-  const result = await renderPodcastEdit({
-    input,
-    manifestPath: path.join(root, 'podcast-edit.json'),
-    repoRoot: root,
-    editorialRoot: path.join(root, 'editorial'),
-    outputRoot: path.join(root, 'runs'),
-    runCommand: async (_command, args) => {
-      const edlIndex = args.indexOf('render') + 1;
-      renderedEdl = JSON.parse(await readFile(args[edlIndex], 'utf8'));
-      const outputIndex = args.indexOf('--output');
-      await writeFile(args[outputIndex + 1], Buffer.from('long-form-mp4'));
-    },
-  });
-
-  assert.equal(renderedEdl.target_duration, 420);
-  assert.equal(renderedEdl.clips.length, 2);
-  assert.equal(result.receipt.output.video.bytes, 13);
+  const root = await mkdtemp(path.join(os.tmpdir(), 'mashup-media-'));
+  const video = path.join(root, 'result.mp4');
+  const receiptPath = path.join(root, 'receipt.json');
+  await writeFile(video, bytes);
+  const mismatched = receiptFor(video, bytes);
+  mismatched.output.video.sha256 = '0'.repeat(64);
+  await writeFile(receiptPath, JSON.stringify(mismatched));
+  await assert.rejects(inspectMashupMedia({ receiptPath, approvedRoots: [root] }), /hash does not match/);
 });

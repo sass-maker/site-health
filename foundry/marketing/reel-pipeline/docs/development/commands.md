@@ -16,8 +16,6 @@ commands.
 | `npm run ready:target` | Target-host acceptance; requires prepared live services |
 | `npm run docs:validate` | Documentation structure and link validation |
 | `npm run docs:build` | Build the Blume documentation site |
-| `npm run editorial:test` | Nested podcast editorial Python suite |
-| `npm run editorial:check` | Nested podcast editorial Ruff checks |
 
 ## Render
 
@@ -28,7 +26,7 @@ commands.
 | `npm run render:fixture -- --mode <mode>` | Direct local VideoBrief fixture render |
 | `npm run render:html -- --brief <file>` | Export HTML composition artifacts |
 | `npm run render:package -- --file <package>` | Render an approved content package |
-| `npm run render:podcast-edit -- --file <podcast-edit>` | Render an approved `fleet.podcast-edit.v1` document |
+| `npm run inspect:mashup-media -- --receipt <receipt>` | Verify a completed external Mashup artifact and receipt without rendering |
 | `npm run render:post-ready -- --brief <brief.json>` | Produce one review-gated 9:16 master with narration, music, motion, captions, provenance, and one-frame-per-second evidence |
 | `npm run probe:engines` | Inspect renderer prerequisites without rendering |
 
@@ -69,14 +67,13 @@ pass an explicit review document with `--review <review.json>`. It must approve
 voice, music, animation, captions, pacing, and transitions and contain no
 critical issue. The command never uploads or publishes the result.
 
-## Podcast editorial
+## External Mashup media
 
 | Command | Purpose |
 | --- | --- |
-| `npm run editorial -- --help` | Run the incorporated Mashup compatibility CLI |
-| `npm run editorial -- export-podcast-edit <edl> --output <file> --provenance <file>` | Wrap an EDL in the canonical podcast-edit contract |
-| `npm run editorial:test` | Run Python editorial tests |
-| `npm run editorial:check` | Run editorial lint and format checks |
+Mashup owns podcast/archive planning and rendering under
+`foundry/helpers/mashup`. Reel Pipeline accepts only its completed media and
+`fleet.mashup-media-receipt.v1`; it has no Mashup execution command.
 
 ## Source packages and Postiz
 

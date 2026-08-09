@@ -1,8 +1,8 @@
-"""Versioned handoff from the editorial planner to Reel Pipeline.
+"""Versioned approved-edit contract owned by Mashup.
 
 The planner's EDL remains the internal document edited by people and consumed
 by the Python renderer. ``fleet.podcast-edit.v1`` wraps that EDL with the
-approval and rights evidence Reel Pipeline needs before it can render.
+approval and rights evidence Mashup requires before it can render.
 """
 
 from __future__ import annotations
@@ -87,7 +87,7 @@ def export_podcast_edit(
     approved_by: str | None = None,
     watermark_text: str = "MASHUP",
 ) -> dict:
-    """Wrap an EDL in the canonical Reel Pipeline editorial contract."""
+    """Wrap an EDL in Mashup's canonical approved editorial contract."""
     edit_id = edit_id.strip()
     if not edit_id:
         raise ValueError("edit_id is required")

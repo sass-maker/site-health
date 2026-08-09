@@ -24,8 +24,8 @@ owns that downstream lifecycle.
 - FFmpeg/Chromium and optional local render engines, including Blender 5.2, on
   generation hosts.
 - Optional Kokoro, Grok/Imagine local assets, and Blender adapters.
-- Python 3.11+, uv, FFmpeg, and optional local transcription engines for the
-  nested podcast editorial runtime.
+- Optional finished media from the independent Mashup helper, accepted only
+  through a verified `fleet.mashup-media-receipt.v1` handoff.
 
 ### Fleet
 
@@ -36,6 +36,10 @@ owns that downstream lifecycle.
 
 ## Timeline
 
+- **2026-08-09:** separated Mashup into `foundry/helpers/mashup`. Reel Pipeline
+  no longer imports, starts, configures, or owns its Python runtime and instead
+  verifies approved finished media through a versioned receipt. Voice intake
+  also stopped borrowing Mashup transcription internals.
 - **2026-08-09:** reconciled the inherited Mashup maintenance bundle without
   reopening a standalone product. Mixed-source renders now choose the modal
   source format with maximum-quality tie-breaking, archive ingestion reports
@@ -135,7 +139,7 @@ owns that downstream lifecycle.
 - Anonymous brand-reel generator and faceless/lesson workflows.
 - Worker/R2 production reel renderer.
 - Content-package renderer and Postiz draft or future-schedule handoff.
-- Source-backed podcast planning, approval, and multi-clip rendering.
+- Verified ingestion of approved, finished Mashup media.
 - Rights-gated literal lyric-video production with optional Blender scenes.
 - Fleet Console Marketing execution API with exact gallery previews and
   deterministic ordered style mixes.
@@ -143,8 +147,7 @@ owns that downstream lifecycle.
 ## Features (shipped)
 
 - A focused prompt-first Video Maker browser surface with recipe-derived format
-  selection and truthful continuations; Mashup remains CLI-only under the
-  incorporated editorial runtime.
+  selection and truthful continuations; Mashup is an independent helper.
 - Voice-first and typed brief intake feeding one persisted eight-stage
   workflow with manual or quick progression, readiness rechecks, pause/retry,
   reusable checkpoints, and transitive invalidation after upstream edits.
@@ -216,19 +219,11 @@ owns that downstream lifecycle.
   approve workflow, genuine same-session presenter synchronization, a
   versioned Film style, and deterministic 720×1280 preview / 1080×1920 final
   encoding on the Mac.
-- Nested podcast editorial runtime with resumable transcription, enrichment,
-  and embedding state, independently surfaced scoring terms, and an
-  operational editor.
+- External Mashup media inspection with approved-root, schema, approval, size,
+  SHA-256, provenance, and rights validation and no runtime source dependency.
 - Robust heterogeneous-source ingestion that reports isolated unreadable
   files, fails when no source is usable, and prevents the first low-resolution
   source from determining the complete render format.
-- Strict `fleet.podcast-edit.v1` normalization, source-rights and source-hash
-  checks, approval gating, exact EDL preservation, multi-source rendering, and
-  deterministic render receipts.
-- Hard rejection of repeated editorial member IDs and overlapping source-audio
-  intervals, with snapped boundary handles de-overlapped before export.
-- Separate duration modes: a bounded 30–60 second short selector and the
-  standard multi-clip planner/render contract for targets above 60 seconds.
 
 ## Work queue
 

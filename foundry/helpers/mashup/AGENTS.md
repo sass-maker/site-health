@@ -1,7 +1,6 @@
-# Reel Pipeline editorial agent instructions
+# Mashup helper agent instructions
 
-Also follow the Reel Pipeline instructions at `../AGENTS.md` and the shared
-Fleet instructions at `../../../../AGENTS.md`.
+Also follow the shared Fleet instructions at `../../../AGENTS.md`.
 
 ## Runtime
 
@@ -13,7 +12,7 @@ Fleet instructions at `../../../../AGENTS.md`.
 
 ```bash
 uv sync
-uv run pytest -q
+uv run python -m pytest -q
 uv run ruff check .
 uv run ruff format --check .
 cd web && pnpm install && pnpm check && pnpm build
@@ -21,9 +20,9 @@ cd web && pnpm install && pnpm check && pnpm build
 
 ## Boundaries
 
-- This directory is the canonical home of the former standalone Mashup
-  product. Keep `mashup` as the Python package and compatibility CLI while the
-  migration is active.
+- This directory is the canonical home of the independent Mashup helper.
+- Keep Reel Pipeline integration at the finished-media receipt boundary. Do
+  not import Reel Pipeline modules, read its state, or depend on its paths.
 - Only creator-owned, appropriately licensed, or public-domain filmed and
   photographic media may enter an edit. Preserve provenance.
 - Procedural non-photoreal motion, typography, diagrams, shaders, and ASCII are
@@ -34,5 +33,5 @@ cd web && pnpm install && pnpm check && pnpm build
 - Keep all eight score terms separate and surfaced in every exported edit.
 - Do not copy or commit `archive/`, `.mashup/`, `output/`, model payloads,
   credentials, or generated artifacts.
-- The standalone checkout remains a parity fallback until Reel Pipeline status
-  explicitly records retirement.
+- Existing operator workdirs remain external data. Never move or delete them
+  automatically when source ownership changes.

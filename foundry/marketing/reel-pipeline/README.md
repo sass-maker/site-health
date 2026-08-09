@@ -52,10 +52,10 @@ Reel Pipeline: plan/edit → validate → render → review artifact → media r
 Postiz: draft → human review → schedule → publish → provider metrics
 ```
 
-The incorporated Python editorial runtime lives under [`editorial/`](editorial/)
-and retains the `mashup` compatibility CLI while consolidation parity is
-proven. New editorial behavior belongs there, not in the former standalone
-checkout.
+Podcast/archive editorial work belongs to the independent
+[`Mashup`](../../helpers/mashup/) helper. Reel Pipeline never imports or starts
+that runtime; it can only inspect a finished artifact through a verified
+`fleet.mashup-media-receipt.v1` handoff.
 
 The production Worker/R2 render flow remains:
 

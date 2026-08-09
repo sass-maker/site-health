@@ -41,9 +41,9 @@ const ADAPTERS = {
     field('frames', 'Preview frames', TEXT, 'Optional LTX 2B frame count.', false),
     field('motionStrength', 'Motion strength', TEXT, 'Optional LTX 2B reference strength from 0.1 to 0.6.', false),
   ]),
-  'podcast-short': adapter('editorial-podcast', 'Editorial', [
-    field('editManifestPath', 'Approved edit manifest path', TEXT, 'fleet.podcast-edit.v1 manifest beneath an approved artifact root.'),
-    field('rightsEvidence', 'Source rights evidence', TEXTAREA, 'Evidence covering the source recording and excerpt.'),
+  'podcast-short': adapter('external-mashup-media', 'External source', [
+    field('receiptPath', 'Mashup media receipt', TEXT, 'fleet.mashup-media-receipt.v1 JSON beside a completed local artifact.'),
+    field('rightsEvidence', 'Source rights evidence', TEXTAREA, 'Evidence covering the supplied finished recording and excerpt.'),
   ]),
   'literal-lyric-video': adapter('studio-lyric', 'Marketing Studio', [
     field('audioPath', 'Cleared local audio path', TEXT, 'Local recording beneath an approved artifact root.'),

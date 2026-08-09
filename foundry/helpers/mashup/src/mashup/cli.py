@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Annotated
 
@@ -11,6 +12,7 @@ from rich.table import Table
 
 from mashup import pipeline
 from mashup.config import ConfigError, load_config
+from mashup.media_receipt import build_media_receipt, save_media_receipt
 from mashup.models import EDL
 from mashup.ordertest import DEFAULT_SHUFFLES
 from mashup.pipeline import DEFAULT_POOL
@@ -386,7 +388,7 @@ def export_podcast_edit_cmd(
     approved_by: Annotated[str | None, typer.Option("--approved-by")] = None,
     watermark_text: Annotated[str, typer.Option("--watermark-text")] = "MASHUP",
 ) -> None:
-    """Export a source-backed EDL for Reel Pipeline rendering."""
+    """Export a source-backed EDL for Mashup approval and rendering."""
     edl = load_edl(edl_path)
     try:
         payload = export_podcast_edit(
@@ -441,6 +443,34 @@ def render_cmd(
         workdir=cfg.workdir,
         progress=_status("render"),
     )
+    console.print(f"[green]{output}[/green]")
+
+
+@app.command(name="media-receipt")
+def media_receipt_cmd(
+    podcast_edit_path: Annotated[Path, typer.Argument(help="Approved fleet.podcast-edit.v1 JSON")],
+    video: Annotated[Path, typer.Option("--video", help="Completed local MP4")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Receipt JSON destination")],
+    duration: Annotated[float, typer.Option("--duration", help="Artifact duration in seconds")],
+    width: Annotated[int, typer.Option("--width")],
+    height: Annotated[int, typer.Option("--height")],
+    captions: Annotated[Path | None, typer.Option("--captions")] = None,
+) -> None:
+    """Create the independent finished-media handoff without reading Mashup state."""
+    try:
+        payload = json.loads(podcast_edit_path.read_text(encoding="utf-8"))
+        receipt = build_media_receipt(
+            payload,
+            video_path=video,
+            captions_path=captions,
+            duration_seconds=duration,
+            width=width,
+            height=height,
+        )
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        err.print(f"[red]{exc}[/red]")
+        raise typer.Exit(2) from exc
+    save_media_receipt(receipt, output)
     console.print(f"[green]{output}[/green]")
 
 

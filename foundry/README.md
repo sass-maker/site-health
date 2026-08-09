@@ -6,7 +6,7 @@ Foundry is the canonical home for all Fleet-owned source.
 
 | Bucket | Canonical components | Responsibility |
 |---|---|---|
-| Helpers | `helpers/ai-visibility/`, `helpers/drank/`, `helpers/psi-swarm/` | Focused domain, performance, and visibility systems |
+| Helpers | `helpers/ai-visibility/`, `helpers/drank/`, `helpers/mashup/`, `helpers/psi-swarm/` | Focused domain, editorial, performance, and visibility systems |
 | Skills | `ops/skills/`, `ops/teammates/skills/` | Agent-operated Fleet capabilities |
 | Public apps | `apps/public/public-directory/` | Public SaaS Maker directory and landing surface |
 | Marketing | `marketing/reel-pipeline/`, `marketing/content-factory/` | Editorial, rendering, distribution, campaign, and outcome pipeline |

@@ -13,15 +13,15 @@ generation/review tools.
 | Content studio | Internal creators | `npm run studio` or `/studio` |
 | Faceless workflow | Internal creators | `npm run faceless` |
 | Lesson pipeline | Internal creators | `npm run lesson:render` |
-| Podcast editorial | Internal creators | `npm run editorial` and `npm run render:podcast-edit` |
+| External podcast media | Internal creators | `npm run inspect:mashup-media -- --receipt <path>` |
 | Artifact Worker | Render hosts/integrators | Worker/R2 API |
 | Postiz handoff | Marketing operator | `npm run distribution -- --provider postiz` |
 
 ## Ownership
 
 - Source projects own product facts and content approval.
-- Reel Pipeline owns source-aware editorial planning, rendering, quality
-  evidence, manifests, and receipts.
+- Mashup owns podcast/archive editorial planning and rendering. Reel Pipeline
+  owns its native video workflows and verifies external media receipts.
 - Postiz owns social connections, review, scheduling, publishing, and provider
   metrics.
 
