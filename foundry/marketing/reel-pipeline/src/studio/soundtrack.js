@@ -89,6 +89,11 @@ function normalizePlatformSound(input = {}) {
 
 function normalizeGenerated(input = {}) {
   const durationSeconds = boundedNumber(input.durationSeconds ?? 15, 1, 600, 'soundtrack.generated.durationSeconds');
+  const variations = normalizeVariations(input.variations);
+  const selectedVariationId = optionalString(input.selectedVariationId);
+  if (selectedVariationId && !variations.some((variation) => variation.id === selectedVariationId)) {
+    throw new Error(`selected soundtrack variation is unavailable: ${selectedVariationId}`);
+  }
   return {
     runtimeId: optionalString(input.runtimeId) ?? 'ace-step-native',
     prompt: requiredString(input.prompt, 'soundtrack.generated.prompt'),
@@ -105,8 +110,8 @@ function normalizeGenerated(input = {}) {
         : null,
     },
     variationCount: boundedInteger(input.variationCount ?? 2, 1, 4, 'soundtrack.generated.variationCount'),
-    selectedVariationId: optionalString(input.selectedVariationId),
-    variations: normalizeVariations(input.variations),
+    selectedVariationId,
+    variations,
   };
 }
 

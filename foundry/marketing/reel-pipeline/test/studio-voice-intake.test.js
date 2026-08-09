@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
+import { access, mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -50,6 +50,18 @@ test('voice transcription uses an injected local provider and preserves recordin
   assert.equal(result.evidence.provider, 'mlx-whisper');
   assert.equal(result.evidence.localOnly, true);
   assert.equal(result.recording.recordingPath, recordingPath);
+});
+
+test('a failed local transcription leaves the captured recording available for retry', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'voice-transcribe-failure-'));
+  const recordingPath = path.join(root, 'voice.webm');
+  await writeFile(recordingPath, 'voice');
+  await assert.rejects(() => transcribeVoiceRecording({ recordingPath }, {
+    artifactRoots: [root],
+    readiness: { ready: true, provider: { id: 'mlx-whisper', modelPath: path.join(root, 'model') } },
+    providerRunner: async () => { throw new Error('local model stopped'); },
+  }), /local model stopped/);
+  await access(recordingPath);
 });
 
 test('SRT parsing returns editable transcript cues', () => {

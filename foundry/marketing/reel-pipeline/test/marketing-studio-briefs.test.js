@@ -15,6 +15,7 @@ import { continuationForBrief, evaluateStudioCapability, listStudioCapabilities 
 import { StudioLlm } from '../src/studio/llm.js';
 import { CharacterDirectoryStore, createCastInstance } from '../src/studio/character-directory.js';
 import { proposeStudioWorkflow } from '../src/studio/workflow-proposals.js';
+import { productionActions } from '../src/studio/production-catalog.js';
 
 const offlineLlm = new StudioLlm({ apiKey: '' });
 
@@ -317,6 +318,26 @@ test('coherent film experimentation does not require publishing evidence', () =>
   });
   assert.equal(capability.state, 'external-step');
   assert.doesNotMatch(capability.blocker, /Fleet brand|source rights/i);
+});
+
+test('private execution, artifact review, and distribution keep separate readiness gates', () => {
+  const brief = {
+    id: 'private-mature-proof',
+    kind: 'faceless',
+    title: 'Private proof',
+    contentScope: 'mature-enabled',
+    creativeDirection: 'Two fictional consenting adults age 28 in a private cinematic scene.',
+    sourceEvidence: { rightsStatus: 'unknown' },
+    approval: { creativeStatus: 'proposed', qualityAccepted: false },
+    soundtrack: { lane: 'procedural-draft' },
+    media: { videoPath: '/tmp/private-proof.mp4', quality: { verdict: 'pass' } },
+  };
+  assert.equal(evaluateStudioCapability('faceless', brief).state, 'ready');
+  const actions = productionActions(brief);
+  assert.equal(actions.preview.enabled, true);
+  assert.equal(actions.post.enabled, false);
+  assert.match(actions.post.blocker, /Fleet brand/);
+  assert.match(actions.post.blocker, /source rights/);
 });
 
 test('lyric video classification and capability fail closed on timed lyrics and separate rights', async () => {

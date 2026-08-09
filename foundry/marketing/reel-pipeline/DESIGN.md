@@ -69,6 +69,26 @@ cinematic presentation.
 - The console never exposes draggable layers, a freeform timeline, or social
   publishing controls.
 
+## Video Maker Workflow
+
+The `/studio` Create surface keeps the current dense, restrained console
+language while making production state directly editable.
+
+- Talk and Type are equivalent intake paths; captured audio remains available
+  when local transcription cannot run.
+- The fixed eight-stage rail is always visible for saved briefs. Status uses
+  labels and action text as well as color, and every runnable stage supports
+  keyboard activation.
+- Cast cards expose source posture, likeness eligibility, mature readiness,
+  and per-workflow role, expression, wardrobe, and continuity overrides.
+- The soundtrack editor separates procedural drafts, owned local audio,
+  platform references, and generated variations. Trim, offset, loop, fades,
+  gain, ducking, musical controls, selection, runtime readiness, and rights
+  blockers remain explicit.
+- Advanced controls progressively appear only after a brief is saved; the
+  primary Create path remains legible at 390, 768, and 1440 pixels without
+  horizontal page scrolling.
+
 ## Film Skills
 
 A Film style is a versioned design system for one class of video. Its internal

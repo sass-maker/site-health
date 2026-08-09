@@ -83,3 +83,19 @@ test('mature cast requires fictional adults age 25 or older with affirmative con
   });
   assert.throws(() => validateMatureCast([createCastInstance(ambiguous)]), /age of 25 or older/);
 });
+
+test('named fictional IP stays available for private general work without becoming a real-person likeness', async () => {
+  const { store } = await setup();
+  const character = await store.create({
+    name: 'Named fictional detective',
+    fictional: true,
+    sourcePosture: 'named-ip',
+    likenessPosture: 'fictional',
+    appearance: { coat: 'distinctive illustrated trench coat' },
+  });
+  const cast = createCastInstance(character, { wardrobe: ['private study outfit'] });
+  const compiled = await compileCastPrompt([cast]);
+  assert.equal(cast.sourceSnapshot.sourcePosture, 'named-ip');
+  assert.equal(cast.sourceSnapshot.likenessPosture, 'fictional');
+  assert.match(compiled[0].identity, /private study outfit/);
+});

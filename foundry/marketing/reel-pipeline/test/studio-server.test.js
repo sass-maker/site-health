@@ -226,18 +226,20 @@ test('studio server routes', async (t) => {
 
     const wrongAction = await fetch(`${base}/studio/briefs/${brief.id}/workflow/cast`, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ actionId: 'prompt.invented.action', status: 'completed' }),
+      body: JSON.stringify({ actionId: 'prompt.invented.action', operation: 'run' }),
     });
     assert.equal(wrongAction.status, 400);
     assert.match((await wrongAction.json()).error, /only permits registered action/);
 
     const completed = await fetch(`${base}/studio/briefs/${brief.id}/workflow/cast`, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ actionId: 'studio.cast.confirm', status: 'completed', output: { cast: [] } }),
+      body: JSON.stringify({ actionId: 'studio.cast.confirm', operation: 'run' }),
     });
     assert.equal(completed.status, 200);
     const updated = (await completed.json()).data;
-    assert.equal(updated.workflow.stages.find((stage) => stage.id === 'scenes').status, 'ready');
+    assert.deepEqual(updated.workflowRun.executed, ['cast', 'scenes']);
+    assert.equal(updated.workflow.stages.find((stage) => stage.id === 'generation').status, 'blocked');
+    assert.equal(updated.workflow.paused, true);
   });
 
   await t.test('invalid input returns 400 naming the field', async () => {
