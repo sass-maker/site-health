@@ -27,7 +27,9 @@ CodeVetter or App Health source.
 
 ### External
 
-- GitHub for source, pull requests, Actions, and repository-native work.
+- GitHub for source, pull requests, Actions, and repository-native work. Public,
+  credential-free scheduled checks run in `sass-maker/workflows` on standard
+  GitHub-hosted runners.
 - Cloudflare for deployed product surfaces and provider-native runtime evidence.
 - Postiz for approved marketing scheduling/distribution.
 - PostHog and product-native analytics where selected by each product.
@@ -36,8 +38,9 @@ CodeVetter or App Health source.
   Fleet on-page checks, or PageSpeed evidence.
 - Ultracite 7.10.2 as an exact, development-only dependency of the independently
   installed Drank pilot; the shared generator invokes that pinned pilot binary.
-- The designated operations machine for explicitly enabled cron and
-  machine-only automation; fresh clones remain inert.
+- Private Fleet evidence, authenticated providers, agent runs, Apple-native
+  proof, and operator workflows remain manual. The optional host tooling stays
+  inert; Fleet has no designated-host or macOS crontab cutover.
 
 ### Internal
 
@@ -67,6 +70,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-09 — Scheduled work adopted an explicit public/manual boundary:**
+  Public, credential-free checks remain in `sass-maker/workflows` on standard
+  GitHub-hosted runners. Private Fleet evidence, authenticated provider work,
+  agent runs, Apple-native proof, and operator actions remain manual; the
+  designated-host and macOS crontab cutover were retired without weakening the
+  workflows repository's credential and private-source boundaries.
 - **2026-08-09 — Deploy health stopped treating local-only checkouts as release failures:** Scoped CI and deploy-entrypoint gates to live, deployable projects in the canonical Fleet catalog while preserving Cloudflare parity for every live Pages and Worker target. Absorbed historical checkouts and uncatalogued local native proofs now report as outside deploy scope instead of manufacturing failures.
 - **2026-08-09 — Ahrefs Site Audit health became metric-safe:** Added a
   dependency-free collector for the ten canonical roots with runtime-only
