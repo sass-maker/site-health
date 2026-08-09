@@ -127,6 +127,7 @@ export function episodeShotSignature(shot, resolvedCast, options = {}) {
   return deterministicHash({
     shot,
     cast,
+    referenceImageSha256: options.referenceImageSha256 ?? null,
     phase: options.phase ?? 'final',
     recipeId: options.phase === 'preview' ? shot.previewRecipeId : shot.finalRecipeId,
   });
@@ -155,7 +156,13 @@ export async function renderEpisodeShots(episode, options = {}) {
   const executeShot = options.executeShot;
   if (typeof executeShot !== 'function') throw new Error('episode executeShot adapter is required');
   for (const shot of normalized.shots) {
-    const inputSignature = episodeShotSignature(shot, resolvedCast, { phase });
+    const referenceImageSha256 = shot.referenceImage
+      ? await sha256File(shot.referenceImage)
+      : null;
+    const inputSignature = episodeShotSignature(shot, resolvedCast, {
+      phase,
+      referenceImageSha256,
+    });
     const existing = previous?.shots?.find((entry) => entry.id === shot.id && entry.inputSignature === inputSignature);
     if (options.onlyShotIds?.length && !options.onlyShotIds.includes(shot.id)) {
       run.shots.push(existing ? { ...existing, reused: true } : {

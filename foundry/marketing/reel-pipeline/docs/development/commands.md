@@ -158,6 +158,39 @@ assembly; a fully cached resume takes a few seconds. A two- to three-minute
 episode with the same shot density is roughly 75 to 115 minutes before rerolls,
 or more realistically two to four hours when selected shots need another pass.
 
+### Studio episode canary
+
+The two-minute episode proof uses the same installed LTX 2.3 runtime without
+downloading models. It renders 20 six-second shots serially, resumes completed
+shots, creates an original local score, and stops at explicit shot and final
+review gates. Outputs stay under ignored `.reel-pipeline/` storage.
+
+```bash
+npm run forge:readiness
+npm run studio:episode-sample
+# Review the printed shot contact sheet.
+npm run studio:episode-sample -- --reject-shots
+# Or, only when every shot passes review:
+npm run studio:episode-sample -- --accept-shots
+# Review the assembled MP4 and final contact sheet.
+npm run studio:episode-sample -- --accept-final
+```
+
+The review flags record explicit acceptance or rejection; they do not bypass
+the 85 percent disk ceiling, 90 percent RAM interruption, video probing, or the
+accepted-shot assembly gate. Rejection writes a local review receipt with the
+quality findings and keeps final assembly blocked. The checked-in Mara
+reference image has owned-generation provenance and a pinned hash; reference
+shots pass that image to LTX while the input signature and per-shot receipt
+prevent a changed prompt or reference contract from reusing stale media.
+
+The recipe remains a canary, not an auto-eligible production path. Four bounded
+local LTX 2.3 MLX Q4 attempts were rejected during the 2026-08-09 review: the
+model drifted across characters and styles, generated pseudo-text, and—in the
+dual-anchor attempt—replaced the middle of a clean observatory shot with a
+labeled diagram before returning to the reference at the final frame. Keep the
+explicit review gates in place until a complete episode passes visual review.
+
 ## Worker and watcher
 
 | Command | Purpose |
