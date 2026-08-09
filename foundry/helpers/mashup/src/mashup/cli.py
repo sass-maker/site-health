@@ -11,6 +11,8 @@ from rich.console import Console
 from rich.table import Table
 
 from mashup import pipeline
+from mashup.agent import failure as agent_failure
+from mashup.agent import read_agent_request, run_agent
 from mashup.config import ConfigError, load_config
 from mashup.media_receipt import build_media_receipt, save_media_receipt
 from mashup.models import EDL
@@ -112,6 +114,23 @@ def _summarise(edl: EDL) -> None:
 
 
 # ---- stages -------------------------------------------------------------
+
+
+@app.command(name="agent")
+def agent_cmd(
+    request: Annotated[
+        Path | None, typer.Option("--request", help="JSON request file; defaults to stdin")
+    ] = None,
+) -> None:
+    """Execute one strict machine-readable agent operation."""
+    raw = None
+    try:
+        raw = read_agent_request(request)
+        result = run_agent(raw)
+        print(json.dumps(result, sort_keys=True, separators=(",", ":")))
+    except Exception as exc:  # protocol boundary normalizes every failure
+        print(json.dumps(agent_failure(raw, exc), sort_keys=True, separators=(",", ":")))
+        raise typer.Exit(1) from exc
 
 
 @app.command()

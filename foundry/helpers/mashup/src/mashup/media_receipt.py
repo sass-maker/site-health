@@ -46,6 +46,7 @@ def build_media_receipt(
     runtime_revision: str = "mashup@0.1.0",
     model_revisions: dict[str, str] | None = None,
     generated_at: str | None = None,
+    operation: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if podcast_edit.get("schema") != "fleet.podcast-edit.v1":
         raise ValueError("expected fleet.podcast-edit.v1 input")
@@ -86,8 +87,33 @@ def build_media_receipt(
             "approvalVerified": True,
             "provenanceVerified": True,
         },
+        "operation": operation,
     }
     return receipt
+
+
+def validate_media_receipt(receipt: dict[str, Any]) -> None:
+    if receipt.get("schema") != MEDIA_RECEIPT_SCHEMA:
+        raise ValueError("unsupported Mashup media receipt schema")
+    output = receipt.get("output")
+    video = output.get("video") if isinstance(output, dict) else None
+    if not isinstance(video, dict) or not all(
+        video.get(field) for field in ("path", "bytes", "sha256")
+    ):
+        raise ValueError("Mashup media receipt requires a complete video artifact")
+    operation = receipt.get("operation")
+    if operation is not None:
+        if (
+            not isinstance(operation, dict)
+            or operation.get("schema") != "fleet.video-agent-operation.v1"
+        ):
+            raise ValueError("invalid Mashup agent operation linkage")
+        if (
+            operation.get("state") != "completed"
+            or not operation.get("id")
+            or not operation.get("requestHash")
+        ):
+            raise ValueError("Mashup agent operation linkage must identify a completed request")
 
 
 def save_media_receipt(receipt: dict[str, Any], path: Path) -> None:
