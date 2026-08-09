@@ -30,7 +30,11 @@ test('deploy health honors registry local-only state and structured mixed target
   const mashup = join(root, 'mashup');
   const materia = join(root, 'materia');
   const knowledge = join(root, 'knowledge-base');
+  const workflows = join(root, 'workflows-repo');
+  const uncatalogued = join(root, 'local-native-poc');
   const sha = await initRepo(knowledge);
+  await initRepo(workflows);
+  await initRepo(uncatalogued);
   await mkdir(join(knowledge, '.github/workflows'), { recursive: true });
   await writeFile(join(knowledge, '.github/workflows/ci.yml'), 'name: CI\n');
   await writeFile(
@@ -60,6 +64,11 @@ exit 1
   await chmod(wrangler, 0o755);
   await mkdir(join(root, 'foundry/ops/config'), { recursive: true });
   await writeFile(join(root, 'foundry/ops/config/projects.json'), JSON.stringify({
+    _meta: {
+      absorbedCheckouts: {
+        'workflows-repo': 'fleet-workspace',
+      },
+    },
     projects: [
       { id: 'mashup', repo: 'mashup', deployKind: 'none', status: 'undeployed' },
       {
@@ -98,6 +107,10 @@ exit 1
   assert.equal(standards.status, 0, standards.stdout + standards.stderr);
   assert.match(standards.stdout, /mashup is local-only; deploy standard not required/);
   assert.doesNotMatch(standards.stdout, /mashup has no deploy entrypoint/);
+  assert.match(standards.stdout, /workflows-repo is outside canonical deploy scope; deploy standard not required/);
+  assert.match(standards.stdout, /local-native-poc is outside canonical deploy scope; deploy standard not required/);
+  assert.doesNotMatch(standards.stdout, /workflows-repo has no deploy entrypoint/);
+  assert.doesNotMatch(standards.stdout, /local-native-poc has no deploy entrypoint/);
 
   await initRepo(materia);
   await writeFile(join(materia, 'README.md'), 'retired fixture\n');

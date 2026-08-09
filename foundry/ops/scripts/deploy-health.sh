@@ -162,6 +162,24 @@ is_local_only_project() {
   return 1
 }
 
+is_canonical_deploy_project() {
+  local repo="$1"
+  local relative_repo
+
+  [[ -f "$TARGETS_FILE" ]] || return 1
+  relative_repo="${repo#"$ROOT"/}"
+
+  jq -e --arg repo "$relative_repo" '
+    any(.projects[]?;
+      (.repo == $repo or .sourcePath == $repo)
+      and .status == "live"
+      and .tier != "out-of-fleet"
+      and .tier != "non-product"
+      and (.deployKind == "pages" or .deployKind == "worker" or .deployKind == "worker+pages")
+    )
+  ' "$TARGETS_FILE" >/dev/null 2>&1
+}
+
 package_has_deploy_script() {
   local package_json="$1"
 
@@ -309,6 +327,11 @@ check_github_actions() {
       continue
     fi
 
+    if ! is_canonical_deploy_project "$repo"; then
+      record "OK" "$repo is outside canonical deploy scope; GitHub Actions not required"
+      continue
+    fi
+
     slug="$(github_slug_for_repo "$repo" || true)"
 
     if [[ -z "$slug" ]]; then
@@ -424,6 +447,11 @@ check_project_standards() {
 
     if is_local_only_project "$repo"; then
       record "OK" "$repo is local-only; deploy standard not required"
+      continue
+    fi
+
+    if ! is_canonical_deploy_project "$repo"; then
+      record "OK" "$repo is outside canonical deploy scope; deploy standard not required"
       continue
     fi
 
