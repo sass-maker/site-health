@@ -80,7 +80,7 @@
 
 ## 11. Complete separately approved external setup
 
-- [ ] 11.1 With explicit approval, apply required Calorie/Setline migrations and deploy only the affected reviewed app changes through their manual release paths.
+- [x] 11.1 With explicit approval, apply required Calorie/Setline migrations and deploy only the affected reviewed app changes through their manual release paths.
 - [ ] 11.2 As explicit operator actions, issue dedicated Reader, Anime List, Calorie, and Setline read credentials and inject them through the existing secret boundary.
 - [ ] 11.3 Create/select and diagnose eight OpenAI tunnel profiles, associating each with the intended ChatGPT workspace.
 - [ ] 11.4 Add connections one at a time in ChatGPT developer mode and run retained positive, follow-up, degraded, unsupported, privacy, cross-app, and mutation evaluations.
