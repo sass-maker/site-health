@@ -3,7 +3,7 @@
   "updatedAt": "2026-08-09",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 21,
+    "toolbox": 23,
     "foundry": 3,
     "ignored": 13
   },
@@ -1179,6 +1179,82 @@
       ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest build/release findings; page only privacy, security, or data risk",
+      "exceptions": []
+    },
+    {
+      "id": "agent-office",
+      "name": "Office OS",
+      "attention": "toolbox",
+      "family": "agent-office",
+      "owner": "sarthak",
+      "repository": "agent-office",
+      "runtimes": [
+        "public-web",
+        "desktop"
+      ],
+      "surfaces": [
+        "https://office-os.pages.dev"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "Apple distribution"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors",
+        "release"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors",
+        "release"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest build and release-readiness findings; page only privacy, security, or production failure",
+      "exceptions": []
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "attention": "toolbox",
+      "family": "local-ai-video-studio",
+      "owner": "sarthak",
+      "repository": "local-ai-video-studio",
+      "runtimes": [
+        "public-web",
+        "desktop"
+      ],
+      "surfaces": [
+        "https://local-ai-video-studio.pages.dev"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "Apple distribution"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors",
+        "release"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors",
+        "release"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest build and release-readiness findings; page only privacy, security, or production failure",
       "exceptions": []
     },
     {
