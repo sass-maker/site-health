@@ -33,6 +33,18 @@ Fleet quality bar:
   justified, scoped, and recorded as a GitHub issue with the smallest next
   action.
 - Treat repeated issues as fleet standards work. If the same drift appears across multiple projects, add or update a reusable check, template, or standard instead of fixing only one repo.
+- Apply the [Fleet Code Health Standard](fleet-code-health-standard.md) to every
+  maintained project. Keep policy coverage, discovered configuration, and
+  executed results separate; never collapse them into an aggregate quality or
+  “AI slop” score. Classify each capability as `pass`, `fail`, `warning`,
+  `unavailable`, `not-applicable`, or `excluded`, and record accepted debt with
+  an owner, issue, rationale, and review date.
+- Establish or update the central policy before adoption, then work through the
+  canonical focus → active → secondary sequence one project at a time. Do not
+  inspect excluded lifecycle tiers, and do not advance until the current
+  project is green or every residual finding has a valid repository-owned
+  baseline or follow-up. Use an isolated worktree whenever the primary checkout
+  has unrelated or active work.
 - Keep maintained repositories out of Sarthak's personal GitHub namespace.
   Focus products use dedicated product organizations; shared commercial and
   operational tools use `sass-maker`; maintained personal utilities use

@@ -216,7 +216,7 @@ function changedFiles(repository, base, head) {
   return stableSort(new Set([...changed, ...untracked]));
 }
 
-function summarizeReports(repositories, skipped = []) {
+function summarizeReports(repositories, skipped = [], excluded = []) {
   const findings = repositories.flatMap((repository) => repository.findings);
   const errors = repositories.flatMap((repository) => repository.errors);
   const directChanges = findings.reduce(
@@ -230,6 +230,7 @@ function summarizeReports(repositories, skipped = []) {
     changedFiles: findings.length,
     directChanges,
     skipped: skipped.length,
+    excluded: excluded.length,
     errors: errors.length,
     requiresReview: findings.length > 0 || errors.length > 0,
   };
@@ -347,6 +348,7 @@ export function discoverFleetRepositories(fleetRoot = defaultFleetRoot()) {
 
   const candidates = new Map();
   const skipped = [];
+  const excluded = [];
   addRepositoryCandidate(
     candidates,
     path.join(resolvedFleetRoot, 'foundry'),
@@ -355,7 +357,20 @@ export function discoverFleetRepositories(fleetRoot = defaultFleetRoot()) {
   );
 
   for (const project of registry.projects) {
-    if (!INCLUDED_FLEET_TIERS.has(project.tier)) continue;
+    if (
+      project.lifecycle !== 'maintained'
+      || !INCLUDED_FLEET_TIERS.has(project.tier)
+    ) {
+      excluded.push({
+        projectId: project.id,
+        lifecycle: project.lifecycle || null,
+        tier: project.tier || null,
+        reason: project.lifecycle !== 'maintained'
+          ? `lifecycle ${project.lifecycle || 'unspecified'} is outside maintained enforcement`
+          : `tier ${project.tier || 'unspecified'} is outside maintained enforcement`,
+      });
+      continue;
+    }
     const source = project.sourcePath || project.repo;
     if (!source) continue;
     addRepositoryCandidate(
@@ -375,6 +390,7 @@ export function discoverFleetRepositories(fleetRoot = defaultFleetRoot()) {
     skipped: skipped.sort((left, right) => (
       `${left.projectId}:${left.path}`.localeCompare(`${right.projectId}:${right.path}`)
     )),
+    excluded: excluded.sort((left, right) => left.projectId.localeCompare(right.projectId)),
   };
 }
 
@@ -388,7 +404,11 @@ export function checkFleet(options = {}) {
       head: options.head,
     })
   ));
-  const summary = summarizeReports(repositories, discovery.skipped);
+  const summary = summarizeReports(
+    repositories,
+    discovery.skipped,
+    discovery.excluded,
+  );
 
   return {
     schemaVersion: SCHEMA_VERSION,
@@ -401,6 +421,7 @@ export function checkFleet(options = {}) {
     summary,
     repositories,
     skipped: discovery.skipped,
+    excluded: discovery.excluded,
   };
 }
 
@@ -417,6 +438,7 @@ function checkReport(options = {}) {
     summary,
     repositories: [repository],
     skipped: [],
+    excluded: [],
   };
 }
 
@@ -1538,6 +1560,12 @@ function printGuardReport(report) {
     console.log(`  Skipped registered checkouts: ${report.skipped.length}`);
     for (const skipped of report.skipped) {
       console.log(`    - ${skipped.projectId}: ${skipped.reason} (${skipped.path})`);
+    }
+  }
+  if (report.excluded?.length > 0) {
+    console.log(`  Excluded catalog identities: ${report.excluded.length}`);
+    for (const excluded of report.excluded) {
+      console.log(`    - ${excluded.projectId}: ${excluded.reason}`);
     }
   }
 }

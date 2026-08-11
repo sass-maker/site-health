@@ -139,6 +139,12 @@ Use repo-local scripts before manual fleet inspection:
 
 - Prefer less code. Remove dead, duplicated, shelved, or unused paths before
   adding abstractions.
+- Fleet code-health decisions follow
+  `foundry/ops/docs/fleet-code-health-standard.md`. Use
+  `npm run report:code-health` for the deterministic inventory and
+  `npm run check:code-health` for policy/profile validation. Adopt the standard
+  one maintained project at a time in focus → active → secondary order; do not
+  advance past unresolved findings without a valid repository-owned baseline.
 - Keep docs, code, tests, and plans in sync.
 - Treat repeated drift across projects as fleet-standards work.
 - Be conservative with rate limiters; stale or unused limiter config is usually

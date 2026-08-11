@@ -1,0 +1,199 @@
+{
+  "$schema": "fleet.code-health-policy.v1",
+  "targets": {
+    "cognitiveComplexity": 20,
+    "changedLineCoveragePercent": 80,
+    "newProjectLineCoveragePercent": 80,
+    "newProjectFunctionCoveragePercent": 80,
+    "newProjectStatementCoveragePercent": 80,
+    "newProjectBranchCoveragePercent": 70,
+    "newDependencyCycles": 0,
+    "criticalVulnerabilities": 0,
+    "highVulnerabilities": 0,
+    "duplicationRegressionPercent": 0
+  },
+  "capabilities": [
+    "format",
+    "lint",
+    "types",
+    "tests",
+    "unused",
+    "complexity",
+    "duplication",
+    "coverage",
+    "dependency-risk",
+    "cycles",
+    "suppressions",
+    "repository-hygiene"
+  ],
+  "profiles": {
+    "javascript-typescript": {
+      "required": [
+        "format",
+        "lint",
+        "types",
+        "tests",
+        "unused",
+        "complexity",
+        "duplication",
+        "coverage",
+        "dependency-risk",
+        "cycles",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    },
+    "python": {
+      "required": [
+        "format",
+        "lint",
+        "types",
+        "tests",
+        "unused",
+        "complexity",
+        "duplication",
+        "coverage",
+        "dependency-risk",
+        "cycles",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    },
+    "rust": {
+      "required": [
+        "format",
+        "lint",
+        "types",
+        "tests",
+        "unused",
+        "complexity",
+        "duplication",
+        "coverage",
+        "dependency-risk",
+        "cycles",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    },
+    "go": {
+      "required": [
+        "format",
+        "lint",
+        "types",
+        "tests",
+        "unused",
+        "complexity",
+        "duplication",
+        "coverage",
+        "dependency-risk",
+        "cycles",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    },
+    "swift-native": {
+      "required": [
+        "format",
+        "lint",
+        "types",
+        "tests",
+        "unused",
+        "complexity",
+        "duplication",
+        "coverage",
+        "dependency-risk",
+        "cycles",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    },
+    "mixed": {
+      "required": [
+        "format",
+        "lint",
+        "types",
+        "tests",
+        "unused",
+        "complexity",
+        "duplication",
+        "coverage",
+        "dependency-risk",
+        "cycles",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    },
+    "content-config": {
+      "required": [
+        "format",
+        "lint",
+        "tests",
+        "dependency-risk",
+        "suppressions",
+        "repository-hygiene"
+      ],
+      "advisory": []
+    }
+  },
+  "projects": {
+    "agent-office": { "profile": "swift-native" },
+    "anime-list": { "profile": "javascript-typescript" },
+    "app-health": { "profile": "mixed" },
+    "calorie": { "profile": "javascript-typescript" },
+    "chatgpt-memory-insights": { "profile": "javascript-typescript" },
+    "chess": { "profile": "javascript-typescript" },
+    "codevetter": { "profile": "mixed" },
+    "drank": { "profile": "javascript-typescript" },
+    "email-manager": { "profile": "javascript-typescript" },
+    "fleet-workspace": {
+      "profile": "mixed",
+      "evidenceRoot": "../.."
+    },
+    "free-ai": { "profile": "javascript-typescript" },
+    "high-signal": { "profile": "mixed" },
+    "india-standards": { "profile": "javascript-typescript" },
+    "karte": { "profile": "javascript-typescript" },
+    "knowledge-base": { "profile": "mixed" },
+    "local-ai-video-studio": { "profile": "swift-native" },
+    "looptv": { "profile": "javascript-typescript" },
+    "motion": { "profile": "javascript-typescript" },
+    "pace": { "profile": "swift-native" },
+    "posttrainllm": { "profile": "mixed" },
+    "psi-swarm": { "profile": "javascript-typescript" },
+    "reader": { "profile": "javascript-typescript" },
+    "research-papers": { "profile": "mixed" },
+    "rolepatch": { "profile": "javascript-typescript" },
+    "sarthakagrawal-personal": { "profile": "javascript-typescript" },
+    "setline": { "profile": "javascript-typescript" },
+    "significanthobbies": { "profile": "javascript-typescript" },
+    "starboard": { "profile": "javascript-typescript" },
+    "swe-interview-prep": { "profile": "javascript-typescript" },
+    "what-it-takes-to-win": { "profile": "javascript-typescript" }
+  },
+  "exceptions": [],
+  "trendMetrics": [
+    "complexity-max",
+    "complexity-p95",
+    "complexity-violations",
+    "duplication-percent",
+    "unused-files",
+    "unused-exports",
+    "unused-types",
+    "unused-dependencies",
+    "line-coverage-percent",
+    "branch-coverage-percent",
+    "dependency-cycles",
+    "suppression-count",
+    "test-duration-ms",
+    "flaky-test-count",
+    "source-lines",
+    "generated-lines",
+    "hotspot-count"
+  ]
+}
