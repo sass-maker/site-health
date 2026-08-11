@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-09
+Last updated: 2026-08-11
 
 ## Why / What
 
@@ -70,6 +70,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-11 — Existing UI skills gained focused task routing:** Expanded the
+  Fleet design-engineering, design-workflow, and design-inspiration contracts
+  for nine recurring UI jobs, reusing current Impeccable and imagegen
+  capabilities while keeping Tailwind cleanup and semantic image-to-markup
+  guidance bounded inside the existing parent. No skill or dependency was
+  added.
 - **2026-08-10 — SaaS Maker published its verified token-world ledger:** Added
   a static “TOKENS SPENT FOR THE WORLD” chapter backed by CodeVetter's
   authoritative lifetime usage, a procedural Three.js globe, explicit snapshot
@@ -720,7 +726,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Fleet-owned design workflow over pinned Impeccable with project-specific
   context, preserve/overhaul lanes, reference and direction gates,
   machine-checkable multi-viewport review receipts, score/severity/project
-  checks, and durable owner feedback.
+  checks, and durable owner feedback. Existing design skills route new UI,
+  direction sets, brand boards, component extraction, Tailwind class cleanup,
+  dark-mode UI and raster variants, responsive adaptation, and semantic markup
+  reconstruction through the smallest current Fleet, Impeccable, or imagegen
+  workflow without adding parallel skill payloads.
 - Fleet-owned four-product spotlight contract with direct portfolio and
   personal/six-organization profile synchronization, canonical repository
   ownership checks, and explicit creator-attribution markers.

@@ -1,5 +1,12 @@
 import assert from 'node:assert/strict';
-import { chmodSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  chmodSync,
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { mkdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -17,6 +24,15 @@ const childSkills = [
   'creative-web-effects',
   'evidence-interface-design',
 ];
+const intentionallyInlineJobs = [
+  'brand-direction',
+  'componentize-ui',
+  'canonicalize-tailwind',
+  'dark-mode-ui',
+  'dark-mode-image',
+  'responsive-ui',
+  'markup-from-image',
+];
 
 test('design-engineering parent routes to every focused child', () => {
   const parent = readSkill('design-engineering');
@@ -26,6 +42,50 @@ test('design-engineering parent routes to every focused child', () => {
   assert.match(parent, /design-workflow/);
   assert.match(parent, /Impeccable/);
   assert.match(parent, /doctor\.mjs/);
+});
+
+test('existing skills cover the nine focused UI jobs without new skill payloads', () => {
+  const parent = readSkill('design-engineering');
+  const workflow = readSkill('design-workflow');
+  const inspiration = readSkill('design-inspiration');
+  const inspirationContract = readFileSync(
+    path.join(skillsRoot, 'design-inspiration/references/research-contract.md'),
+    'utf8',
+  );
+
+  for (const route of [
+    'Shape or build new UI',
+    'Generate or compare multiple design directions',
+    'Create a compact visual brand direction',
+    'Extract repeated UI into reusable components or tokens',
+    'Sort, deduplicate, or resolve Tailwind classes',
+    'Add or repair dark-mode UI',
+    'Adapt a raster asset for dark mode',
+    'Adapt UI across phone, tablet, and desktop',
+    'Reconstruct semantic markup from a screenshot, mockup, or wireframe',
+  ]) {
+    assert.match(parent, new RegExp(route));
+  }
+  assert.match(parent, /Do not add a formatter or dependency/);
+  assert.match(parent, /Do not add CSS, utility classes,[\s\S]*invented copy/);
+
+  for (const command of ['shape', 'extract', 'colorize', 'adapt']) {
+    assert.match(workflow, new RegExp(`\\$impeccable ${command}`));
+  }
+  assert.match(workflow, /installed imagegen skill/);
+  assert.match(workflow, /Do not[\s\S]*blanket CSS filter/);
+
+  assert.match(inspiration, /Direction set/);
+  assert.match(inspiration, /Brand board/);
+  assert.match(inspiration, /Use Impeccable `live` only to compare variants of one selected element/);
+  assert.match(inspiration, /installed imagegen skill/);
+  assert.match(inspirationContract, /two represented product contexts/);
+  assert.match(inspirationContract, /Do not reproduce a named brand/);
+  assert.match(inspirationContract, /north star, not an implementation screenshot/);
+
+  for (const skill of intentionallyInlineJobs) {
+    assert.equal(existsSync(path.join(skillsRoot, skill)), false);
+  }
 });
 
 test('DesEngs refinements keep modes and temporary probes explicit', () => {
@@ -169,6 +229,9 @@ test('Fleet exposes only the parent and keeps design-workflow authoritative', ()
 
   assert.match(exposedBlock, /design-engineering/);
   for (const child of childSkills) assert.doesNotMatch(exposedBlock, new RegExp(child));
+  for (const skill of intentionallyInlineJobs) {
+    assert.doesNotMatch(exposedBlock, new RegExp(skill));
+  }
   assert.match(designWorkflow, /\.\.\/design-engineering\/SKILL\.md/);
   assert.match(designWorkflow, /this skill remains the completion authority/);
 });

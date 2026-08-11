@@ -1,6 +1,6 @@
 ---
 name: design-workflow
-description: Use for meaningful Fleet frontend work that creates or changes visual language, layout, navigation, interaction patterns, responsive behavior, multi-state components, landing pages, dashboards, app shells, or substantial UI polish. Classifies preserve versus overhaul, wraps Impeccable, and requires direction alignment, browser evidence, objective quality gates, and owner feedback. Skip for copy-only edits, invisible refactors, and trivial CSS corrections.
+description: Use for meaningful Fleet frontend work that creates or changes visual language, layout, navigation, interaction patterns, responsive behavior, theming, reusable components, landing pages, dashboards, app shells, or substantial UI polish. Covers new UI, component extraction, dark mode, and device adaptation by routing to Impeccable and imagegen while preserving direction alignment, browser evidence, quality gates, and owner feedback. Skip copy-only edits, invisible refactors, and trivial CSS corrections.
 ---
 
 # Fleet design workflow
@@ -53,9 +53,27 @@ relative Fleet root.
   components remain authoritative.
 - Use real product content and assets. Do not substitute a component-gallery
   aesthetic for project identity.
-- Invoke the relevant Impeccable commands for the task. For a new surface,
-  prefer `$impeccable craft`; for bounded improvement, use the narrow command
-  that matches the issue.
+- Invoke the narrowest Impeccable workflow that owns the job:
+  - new UI: use `$impeccable shape` when the brief is unresolved, then follow
+    Impeccable's ordinary new-work route after confirmation;
+  - reusable components or tokens: use `$impeccable extract`, preserve rendered
+    behavior and public APIs, migrate every caller, and run focused checks;
+  - dark mode: use `$impeccable colorize`, define semantic roles for surfaces,
+    text, actions, focus, borders, status, overlays, and every interaction state,
+    and compose rather than mechanically invert the light theme;
+  - phone, tablet, or desktop adaptation: use `$impeccable adapt`, choose
+    content-driven breakpoints, preserve core capability, and validate reflow,
+    navigation, forms, tables, text size, touch targets, overflow, and input
+    methods.
+- For a raster asset that needs a dark-mode counterpart, first load the
+  installed imagegen skill and require the source image to be attached or
+  locally available. Retain the original, create a distinct variant, preserve
+  dimensions, composition, important content, softness, fades, transparency,
+  and interface purpose, and inspect it on its intended dark surface. Do not
+  substitute a blanket CSS filter.
+- For multiple directions or a visual brand board, route through
+  `../design-inspiration/SKILL.md`; research, probes, or generated boards are
+  direction evidence, not owner approval.
 
 ## 3. Review
 
