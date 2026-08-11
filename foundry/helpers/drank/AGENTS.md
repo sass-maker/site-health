@@ -31,8 +31,10 @@ Product: <https://domains.sassmaker.com>. Full product context:
 | `pnpm dev` | Dev server → http://localhost:3000 |
 | `pnpm build` | Production build (`next build --webpack` → `out/`) |
 | `pnpm lint` / `pnpm check` | Biome check |
+| `pnpm typecheck` | Strict TypeScript check |
+| `pnpm test` / `pnpm test:coverage` | Vitest, with enforced coverage floors in the coverage form |
+| `pnpm quality` | Complete Fleet code-health gate |
 | `pnpm size` | size-limit on `out/` bundles |
-| `pnpm vitest run` | Run tests (no bare `pnpm test` script) |
 | `pnpm deploy` | Build + `wrangler pages deploy out --project-name=drank` |
 | `pnpm docs:check` | Docs link check + Blume build |
 | `pnpm docs:build` | Blume build → `docs-site/dist/` |

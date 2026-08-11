@@ -180,6 +180,31 @@ export function useTrackedDomains(): UseTrackedDomainsReturn {
     );
   };
 
+  const refreshDomains = async (targets: TrackedDomain[]) => {
+    for (let i = 0; i < targets.length; i++) {
+      const target = targets[i];
+      setUpdating((current) => new Set(current).add(target.domain));
+
+      const result = await fetchDomainRating(target.domain);
+
+      setUpdating((current) => {
+        const next = new Set(current);
+        next.delete(target.domain);
+        return next;
+      });
+
+      if ('error' in result) {
+        showToast(`${target.domain}: ${result.error}`, 'error');
+      } else {
+        applyNewPoint(target.domain, result.dr, result.fetchedAt);
+      }
+
+      if (i < targets.length - 1) {
+        await new Promise((resolveDelay) => setTimeout(resolveDelay, REFRESH_DELAY_MS));
+      }
+    }
+  };
+
   const refreshDomain = useCallback(
     async (domain: string) => {
       setUpdating((u) => new Set(u).add(domain));
@@ -253,32 +278,7 @@ export function useTrackedDomains(): UseTrackedDomainsReturn {
     );
 
     const sorted = [...domains]; // current order is fine
-
-    for (let i = 0; i < sorted.length; i++) {
-      const d = sorted[i];
-      setUpdating((u) => new Set(u).add(d.domain));
-
-      // eslint-disable-next-line no-await-in-loop
-      const result = await fetchDomainRating(d.domain);
-
-      setUpdating((u) => {
-        const next = new Set(u);
-        next.delete(d.domain);
-        return next;
-      });
-
-      if ('error' in result) {
-        showToast(`${d.domain}: ${result.error}`, 'error');
-      } else {
-        applyNewPoint(d.domain, result.dr, result.fetchedAt);
-      }
-
-      // Pace requests
-      if (i < sorted.length - 1) {
-        // eslint-disable-next-line no-await-in-loop
-        await new Promise((r) => setTimeout(r, REFRESH_DELAY_MS));
-      }
-    }
+    await refreshDomains(sorted);
 
     const now = Date.now();
     setLastGlobalRefresh(now);
@@ -346,30 +346,7 @@ export function useTrackedDomains(): UseTrackedDomainsReturn {
     showToast(`Auto-refreshing ${customDomains.length} of your sites...`, 'info');
 
     try {
-      for (let i = 0; i < customDomains.length; i++) {
-        const d = customDomains[i];
-        setUpdating((u) => new Set(u).add(d.domain));
-
-        // eslint-disable-next-line no-await-in-loop
-        const result = await fetchDomainRating(d.domain);
-
-        setUpdating((u) => {
-          const next = new Set(u);
-          next.delete(d.domain);
-          return next;
-        });
-
-        if ('error' in result) {
-          showToast(`${d.domain}: ${result.error}`, 'error');
-        } else {
-          applyNewPoint(d.domain, result.dr, result.fetchedAt);
-        }
-
-        if (i < customDomains.length - 1) {
-          // eslint-disable-next-line no-await-in-loop
-          await new Promise((r) => setTimeout(r, REFRESH_DELAY_MS));
-        }
-      }
+      await refreshDomains(customDomains);
 
       const ts = Date.now();
       setLastAutoRefresh(ts);

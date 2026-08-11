@@ -21,26 +21,25 @@ pnpm dev          # http://localhost:3000
 | `pnpm start` | Production server (rarely used; we deploy static `out/`) |
 | `pnpm lint` | Biome check (`biome check .`) |
 | `pnpm check` | Same as `lint` |
+| `pnpm typecheck` | Strict TypeScript check (`tsc --noEmit`) |
 | `pnpm format` | Biome format --write |
 | `pnpm format:check` | Biome format (check only) |
 | `pnpm size` | size-limit on `out/` bundles |
+| `pnpm test` | Vitest unit tests |
 | `pnpm test:coverage` | Vitest with v8 coverage |
+| `pnpm quality` | Full Fleet code-health gate |
 | `pnpm deploy` | Build + `wrangler pages deploy out --project-name=drank` |
 | `pnpm docs:check` | Docs link check + Blume build (see below) |
 | `pnpm docs:build` | Blume build → `docs-site/dist/` |
 
-> Tests: there is no bare `pnpm test` script. Run vitest directly:
-> `pnpm vitest run` (or `pnpm vitest` for watch).
-
 ## Testing
 
 - Vitest is configured (`vitest.config.ts`) with v8 coverage and thresholds
-  (lines 20%, functions 25%).
+  (lines 55%, branches 50%, functions 55%, statements 50%).
 - Existing tests: `lib/utils.test.ts`, `lib/dr-advisor.test.ts`,
   `functions/api/advisor.test.ts`.
-- Coverage is intentionally light; manual smoke covers add / refresh /
-  export flows. When adding logic with parseable contracts (like the
-  advisor), add focused unit tests.
+- Coverage remains below Fleet's target and is ratcheted through the code-health
+  gate while browser-local add / refresh / export flows gain focused tests.
 
 ## Lint / format
 
@@ -67,25 +66,23 @@ pnpm dev          # http://localhost:3000
 
 ## Type checking
 
-- `tsconfig.json` is strict. There is no dedicated `typecheck` script; the
-  production build runs `tsc` as part of `next build`.
+- `tsconfig.json` is strict. `pnpm typecheck` runs `tsc --noEmit`; the
+  production build also runs TypeScript validation.
 
 ## Pre-commit checklist
 
-1. `pnpm lint` passes.
+1. `pnpm quality` passes.
 2. `pnpm build` passes (catches type errors + static-export issues).
 3. `pnpm size` passes (bundle within limits).
-4. `pnpm vitest run` passes (if you touched tested code).
-5. `pnpm docs:check` passes (if you touched `docs/` or root `*.md`).
+4. `pnpm docs:check` passes (if you touched `docs/` or root `*.md`).
 
 ## CI
 
-`.github/workflows/ci.yml` runs on push to `main`/`master` and on PRs:
+The root `.github/workflows/drank-ci.yml` runs on relevant pushes and pull requests:
 
-- `test` job: install, lint, build, size (`pnpm run size`).
-- `deploy` job (push to `main` only, `needs: test`): install, build, then
-  `npx wrangler pages deploy out` using `CLOUDFLARE_API_TOKEN` from repo
-  secrets. See the [deploy runbook](../operations/runbooks/deploy.md).
+- reusable application job: install, lint, production build, and bundle size;
+- local code-health job: format, lint, types, tests and coverage, unused code,
+  complexity, duplication, cycles, and exact dependency-risk enforcement;
 - `docs` job: `scripts/check_docs_links.py` (internal-link check) + Blume
   build in `docs-site/` — the same gate as `pnpm docs:check`.
 

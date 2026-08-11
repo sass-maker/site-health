@@ -30,7 +30,7 @@ const baselines = {
   },
   duplication: {
     duplicatedLines: 231,
-    percentage: 0.5768078306032761,
+    percentage: 0.576721426074799,
     clones: 20,
   },
   unused: {

@@ -213,6 +213,36 @@
       "reviewDate": "2026-11-10"
     },
     {
+      "id": "drank-legacy-complexity",
+      "projectId": "drank",
+      "capability": "complexity",
+      "accepted": "6 legacy threshold violations across 294 functions and 2,912 NLOC, maximum CCN 41 and maximum function length 1,186",
+      "reason": "Drank now blocks complexity regressions while its large dashboard and refresh paths are reduced incrementally; Biome separately enforces cognitive complexity at 20.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/322",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "drank-legacy-coverage",
+      "projectId": "drank",
+      "capability": "coverage",
+      "accepted": "56.53% lines, 53.38% branches, 57.89% functions, and 52.71% statements across 29 passing tests",
+      "reason": "The current test surface is regression-gated above its measured baseline while browser-local state and dashboard behavior gain focused tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/322",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "drank-blume-image-size-advisories",
+      "projectId": "drank",
+      "capability": "dependency-risk",
+      "accepted": "2 unfixable high advisories in image-size 2.0.2 (GHSA-w3rx-r6r6-pgpr and GHSA-5p2g-fcmc-qvqq)",
+      "reason": "The vulnerable parser is transitive through the development-only Blume documentation toolchain, has no patched release, and is not used by the production application; every other critical/high advisory is rejected.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/322",
+      "reviewDate": "2026-11-10"
+    },
+    {
       "id": "fleet-workspace-reviewed-exports",
       "projectId": "fleet-workspace",
       "capability": "unused",

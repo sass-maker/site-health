@@ -112,7 +112,13 @@ for (const relativePath of trackedFiles) {
   }
 
   const absolutePath = path.join(root, relativePath);
-  const stats = await lstat(absolutePath);
+  let stats;
+  try {
+    stats = await lstat(absolutePath);
+  } catch (error) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') continue;
+    throw error;
+  }
   if (!stats.isFile() && !stats.isSymbolicLink()) continue;
   const content = stats.isSymbolicLink()
     ? await readlink(absolutePath)

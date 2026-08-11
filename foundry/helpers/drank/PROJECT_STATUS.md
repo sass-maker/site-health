@@ -37,6 +37,7 @@ Last updated: 2026-08-09
 | `pnpm build` | Production build (`next build --webpack` → `out/`) |
 | `pnpm start` | Production server (rarely used; we deploy static `out/`) |
 | `pnpm lint` / `pnpm check` | Biome check (`biome check .`; no ESLint) |
+| `pnpm quality` | Complete Fleet code-health gate |
 
 **Deploy:** Cloudflare Pages — `pnpm deploy` (builds then `wrangler pages deploy out --project-name=drank`); CI auto-deploys on push to `main` via `CLOUDFLARE_API_TOKEN`.
 
@@ -44,6 +45,11 @@ Last updated: 2026-08-09
 
 ## Timeline
 
+- **2026-08-12** — Adopted Fleet's measurable code-health gate across format,
+  lint, types, tests and coverage, unused code, complexity, duplication, cycles,
+  and dependency risk. Removed the duplicate batch-refresh implementation and
+  redundant root Blume boundary; remaining exact legacy baselines are tracked
+  in GitHub issue #322.
 - **2026-08-09** — Released the tested dashboard to the `drank` Cloudflare
   Pages project, verified the public surface, and pinned Next.js output tracing
   to the component root so monorepo and component lockfiles no longer produce a
