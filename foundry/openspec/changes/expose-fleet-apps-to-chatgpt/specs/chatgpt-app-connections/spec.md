@@ -15,16 +15,16 @@ The system SHALL present Reader, Starboard, High Signal, Calorie, Anime List by 
 - **WHEN** an MCP client initializes any connection
 - **THEN** the server returns a stable application-specific name, version, instructions, and tool catalog
 
-### Requirement: Private personal transport
-The system SHALL support private/local connections through outbound-only Secure MCP Tunnel profiles backed by local stdio or approved Streamable HTTP MCP servers, without requiring new public inbound MCP endpoints.
+### Requirement: Private hosted transport
+The system SHALL expose owner-scoped connections through fixed Streamable HTTP routes protected by Auth0 OAuth. Each accepted access token MUST have the exact standard hosted issuer, exact route URL audience, allowlisted owner subject, valid one-hour-or-shorter lifetime, and matching product-read scope.
 
 #### Scenario: Connection is healthy
-- **WHEN** the matching profile is running, associated with the user's ChatGPT workspace, and ready
-- **THEN** ChatGPT can discover and invoke that connection
+- **WHEN** the gateway is running, the route is registered in ChatGPT, and Auth0 completes authorization-code PKCE consent through CIMD
+- **THEN** ChatGPT can discover and invoke only that connection with an audience-bound access token
 
-#### Scenario: Tunnel is unavailable
-- **WHEN** a matching private profile is stopped or unhealthy
-- **THEN** calls fail without falling back to a public unauthenticated or broader-privilege endpoint
+#### Scenario: OAuth is missing or invalid
+- **WHEN** a private route receives no token or a token with a mismatched issuer, audience, subject, lifetime, or scope
+- **THEN** the call fails without falling back to a public unauthenticated or broader-privilege endpoint
 
 ### Requirement: Strictly read-only focused tools
 Every connection SHALL expose one focused tool per recognizable retrieval goal, with an action-oriented name, human-readable title, usage description, explicit input schema, explicit structured output schema, and accurate MCP safety annotations. Every tool MUST advertise `readOnlyHint: true` and `destructiveHint: false`, and no tool may mutate application or provider state.
@@ -46,7 +46,7 @@ Every connection SHALL expose one focused tool per recognizable retrieval goal, 
 - **THEN** no tool treats those values as transport instructions
 
 ### Requirement: Least-privilege owner authentication
-Owner-scoped connections SHALL use dedicated, revocable, hashed read credentials that resolve exactly one user and authorize only the advertised read operations. The system MUST NOT use Cloudflare account tokens, database administration tokens, browser session cookies, provider credentials, or another credential with write authority.
+Owner-scoped connections SHALL require both an owner-only Auth0 access token and a dedicated, revocable, hashed upstream read credential that resolves exactly one user and authorizes only the advertised read operations. The system MUST NOT use Cloudflare account tokens, database administration tokens, browser session cookies, provider credentials, or another credential with write authority.
 
 #### Scenario: Existing owner credential is used
 - **WHEN** Reader or Anime List calls an owner tool with a valid dedicated `rdr_*` or `anime_list_*` credential
@@ -151,19 +151,15 @@ The Significant Hobbies connection SHALL expose only public hobby/experience cor
 - **THEN** no available tool broadens the request into a session, database, or device-local read
 
 ### Requirement: Research Papers retrieval workflows
-The Research Papers connection SHALL support paper search/detail, similar papers, hot papers, sleepers, and curated reading paths. It MUST NOT invoke RAG/paid-answer POST routes, ingest or enrichment jobs, raw ClickHouse queries, PDF redistribution, or operator controls.
+The hosted Research Papers connection SHALL support hot papers, sleepers, and curated reading paths backed by approved public exports. It MUST NOT expose the operator-local corpus, paper detail/similarity search, RAG/paid-answer POST routes, ingest or enrichment jobs, raw ClickHouse queries, PDF redistribution, or operator controls.
 
-#### Scenario: Search the local corpus
-- **WHEN** the operator-local FastAPI service is healthy and the user submits a bounded query
-- **THEN** the connection returns matching paper metadata, stable paper identifiers, canonical source links, relevant scores/provenance, and continuation state with `retrievalMode: "local-corpus"`
+#### Scenario: Read a public export
+- **WHEN** the user requests hot papers, sleepers, or a supported reading path
+- **THEN** the connection returns a bounded result with stable identifiers, canonical source links, scores/provenance, the exact public-export retrieval mode, and export freshness
 
-#### Scenario: Static fallback supports the request
-- **WHEN** the local corpus is unavailable and an approved public static export supports the requested hot, sleeper, or reading-path operation
-- **THEN** the connection returns that bounded result with the exact fallback mode and export freshness labeled
-
-#### Scenario: Static fallback cannot support the request
-- **WHEN** full-corpus search, detail, or similarity is requested while the local corpus is unavailable
-- **THEN** the tool returns `unsupported_in_current_mode` and does not fabricate a partial corpus answer
+#### Scenario: Local corpus data is requested
+- **WHEN** full-corpus search, detail, similarity, RAG, or PDF data is requested
+- **THEN** no hosted tool can address that data or fabricate a partial corpus answer
 
 ### Requirement: Setline owner retrieval workflows
 The Setline connection SHALL let the owner retrieve programme/template structure, bounded workout history, one historical session, and recorded-history progress. It SHALL preserve exercise/set order and authored, adjusted, recorded, and calculated distinctions. It MUST NOT start or alter sessions, complete or defer sets, accept progression recommendations, import/export/replace state, sync writes, delete accounts, or act as a coach.
@@ -237,7 +233,7 @@ Each connection SHALL have deterministic contract tests and retained evaluations
 - **THEN** ChatGPT does not select a tool that broadens the request
 
 ### Requirement: Manual activation and publication boundary
-Issue creation, dependency approval, credential-model approval, migration application, token issuance, tunnel association, ChatGPT installation, production deployment, and public plugin submission SHALL remain explicit operator actions. The implementation SHALL NOT automatically start tunnels, deploy apps, apply migrations, create credentials, create public MCP endpoints, or submit a plugin.
+Issue creation, dependency approval, credential-model approval, migration application, token issuance, Auth0 activation, ChatGPT installation, production deployment, and public plugin submission SHALL remain explicit operator actions. The implementation SHALL NOT automatically deploy apps, apply migrations, create credentials, enable paid authentication features, or submit a plugin.
 
 #### Scenario: Local implementation is complete
 - **WHEN** code and local tests pass but external setup has not been approved or completed
@@ -245,4 +241,4 @@ Issue creation, dependency approval, credential-model approval, migration applic
 
 #### Scenario: Public distribution is requested later
 - **WHEN** the owner chooses to distribute a connection beyond personal developer mode
-- **THEN** a separate reviewed change covers public HTTPS, OAuth 2.1 for private data, privacy disclosures, packaging, and OpenAI submission requirements
+- **THEN** a separate reviewed change covers privacy disclosures, packaging, multi-user authorization, and OpenAI submission requirements
