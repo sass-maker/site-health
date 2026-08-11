@@ -7,12 +7,14 @@ on:
       - "foundry/helpers/chatgpt-connections/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/chatgpt-connections-ci.yml"
+      - ".github/workflows/chatgpt-connections-monitor.yml"
   pull_request:
     branches: [main]
     paths:
       - "foundry/helpers/chatgpt-connections/**"
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/chatgpt-connections-ci.yml"
+      - ".github/workflows/chatgpt-connections-monitor.yml"
   workflow_dispatch:
 
 concurrency:

@@ -10,6 +10,12 @@ const workflowFiles = readdirSync(workflowRoot)
   .filter((file) => file.endsWith('.yml') || file.endsWith('.yaml'))
   .sort();
 
+// Credential-free availability checks may run daily when explicitly reviewed.
+// Keep this filename allowlist narrow so product/build automation stays weekly.
+const frequentScheduleAllowlist = new Set([
+  'chatgpt-connections-monitor.yml',
+]);
+
 const errors = [];
 
 function nestedBlock(lines, header, indent) {
@@ -74,7 +80,7 @@ for (const file of workflowFiles) {
       errors.push(`${file}: invalid cron expression`);
       continue;
     }
-    if (fields[2] === '*' && fields[4] === '*') {
+    if (fields[2] === '*' && fields[4] === '*' && !frequentScheduleAllowlist.has(file)) {
       errors.push(`${file}: scheduled workflows must run weekly or less often`);
     }
   }
