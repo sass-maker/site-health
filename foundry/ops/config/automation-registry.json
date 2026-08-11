@@ -4,7 +4,7 @@
   "attentionCounts": {
     "my-work": 4,
     "toolbox": 21,
-    "foundry": 4,
+    "foundry": 3,
     "ignored": 13
   },
   "defaults": {
@@ -240,32 +240,6 @@
       ],
       "actionPolicy": "factory-safe",
       "alertPolicy": "page scheduler, data, security, or cost risk; digest routine domain findings",
-      "exceptions": []
-    },
-    {
-      "id": "chatgpt-connections",
-      "name": "ChatGPT Connections",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/helpers/chatgpt-connections",
-      "runtimes": [
-        "public-web"
-      ],
-      "surfaces": [],
-      "dependencies": [
-        "local toolchain"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "local-checks"
-      ],
-      "contracts": [
-        "build",
-        "errors"
-      ],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest validation findings",
       "exceptions": []
     },
     {

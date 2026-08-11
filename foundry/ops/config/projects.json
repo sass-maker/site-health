@@ -249,27 +249,6 @@
       }
     },
     {
-      "id": "chatgpt-connections",
-      "authModel": "public-personalized",
-      "family": "fleet-workspace",
-      "tier": "active",
-      "repo": "foundry/helpers/chatgpt-connections",
-      "deployKind": "worker",
-      "cfProject": "fleet-chatgpt-connections",
-      "domains": [],
-      "inRegistry": true,
-      "status": "undeployed",
-      "notes": "Shared read-only MCP gateway. Public product routes are anonymous; personal product routes require owner-only OAuth through Cloudflare Access.",
-      "name": "ChatGPT Connections",
-      "attention": "foundry",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
-      "public": {
-        "listing": "hidden"
-      }
-    },
-    {
       "id": "email-manager",
       "authModel": "required-user",
       "family": "email-manager",

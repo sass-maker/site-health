@@ -92,9 +92,9 @@ CodeVetter, HeyPace, PostTrainLLM, High Signal
 
 Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, What It Takes to Win, Sarthak Agrawal
 
-### Foundry — 4
+### Foundry — 3
 
-Fleet Workspace, Drank, ChatGPT Connections, PSI Swarm
+Fleet Workspace, Drank, PSI Swarm
 
 ### Past / inactive — 13
 
