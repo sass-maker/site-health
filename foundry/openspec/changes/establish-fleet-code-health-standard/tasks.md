@@ -30,4 +30,4 @@
 
 - [x] 5.1 Update Fleet agent guidance and `PROJECT_STATUS.md` with the shipped code-health capability and current evidence boundary.
 - [ ] 5.2 Archive the OpenSpec change so the new and modified requirements become main specifications.
-- [ ] 5.3 Commit and push the isolated branch and open a pull request linked with `Closes #310`, without deploying or changing production configuration.
+- [x] 5.3 Commit and push the isolated branch and open a pull request linked with `Closes #310`, without deploying or changing production configuration.
