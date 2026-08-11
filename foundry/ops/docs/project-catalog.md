@@ -2,7 +2,7 @@
 
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 
-Generated from 41 internal project identities.
+Generated from 42 internal project identities.
 
 ## My Work — 4
 
@@ -39,12 +39,13 @@ Generated from 41 internal project identities.
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Sarthak Agrawal | maintained | `../portfolio` | maintained | https://sarthakagrawal.dev |
 
-## Foundry + Helpers — 3
+## Foundry + Helpers — 4
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
 | Fleet Workspace | maintained | `foundry/ops` | maintained | https://sassmaker.com |
 | Drank | maintained | `foundry/helpers/drank` | maintained | https://domains.sassmaker.com |
+| ChatGPT Connections | maintained | `foundry/helpers/chatgpt-connections` | hidden | — |
 | PSI Swarm | maintained | `foundry/helpers/psi-swarm` | maintained | https://performance.sassmaker.com |
 
 ## Past / inactive — 13

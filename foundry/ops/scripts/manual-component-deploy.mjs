@@ -34,6 +34,17 @@ const components = {
       ],
     ],
   },
+  'chatgpt-connections': {
+    root: 'foundry/helpers/chatgpt-connections',
+    workflow: 'chatgpt-connections-ci.yml',
+    tagWorker: true,
+    paths: [
+      'foundry/helpers/chatgpt-connections',
+      'foundry/ops/scripts/manual-component-deploy.mjs',
+      '.github/workflows/chatgpt-connections-ci.yml',
+    ],
+    commands: [['pnpm', ['exec', 'wrangler', 'deploy']]],
+  },
   'psi-swarm': {
     root: 'foundry/helpers/psi-swarm',
     workflow: 'psi-swarm-ci.yml',

@@ -41,11 +41,12 @@
 
 ## 6. Deploy and connect eligible Cloudflare routes
 
-- [ ] 6.1 Run the Fleet deployment guard and verify the exact reviewed commit, OAuth/state bindings, product-secret names without values, owner Access policy, rollback path, and Cloudflare project ownership.
-- [ ] 6.2 Deploy the shared Worker through the manual path with the exact 40-character Git SHA tag and verify 100% production traffic on that tagged version.
-- [ ] 6.3 Run anonymous status-only production MCP probes for Starboard, High Signal, Significant Hobbies public, and Research Papers public exports.
-- [ ] 6.4 Run OAuth-authenticated status-only production MCP probes for Reader, Calorie, and Anime List without retaining record bodies; keep Setline pending until a real owner sign-in permits safe token issuance.
-- [ ] 6.5 Create each ready hosted route as an independent ChatGPT web developer-mode app, complete OAuth linking where required, scan tools, and preserve independent enablement and revocation.
+- [x] 6.1 Register the helper as one Fleet Worker surface, add path-scoped CI, and make the manual deploy command fail closed on clean/synced `main`, component-current green CI, and an exact 40-character Git SHA tag.
+- [ ] 6.2 Run the Fleet deployment guard and verify the exact reviewed commit, OAuth/state bindings, product-secret names without values, owner Access policy, rollback path, and Cloudflare project ownership.
+- [ ] 6.3 Deploy the shared Worker through the manual path with the exact 40-character Git SHA tag and verify 100% production traffic on that tagged version.
+- [ ] 6.4 Run anonymous status-only production MCP probes for Starboard, High Signal, Significant Hobbies public, and Research Papers public exports.
+- [ ] 6.5 Run OAuth-authenticated status-only production MCP probes for Reader, Calorie, and Anime List without retaining record bodies; keep Setline pending until a real owner sign-in permits safe token issuance.
+- [ ] 6.6 Create each ready hosted route as an independent ChatGPT web developer-mode app, complete OAuth linking where required, scan tools, and preserve independent enablement and revocation.
 
 ## 7. Evaluate and record acceptance
 

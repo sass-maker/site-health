@@ -13,6 +13,7 @@ const checks = [
     ['--check', 'scripts/render-content-package.js'],
   ],
   ['drank', 'foundry/helpers/drank', 'pnpm', ['check']],
+  ['chatgpt-connections', 'foundry/helpers/chatgpt-connections', 'pnpm', ['check']],
   ['feedback', 'foundry/packages/feedback', 'pnpm', ['check']],
   ['ai-visibility', 'foundry/helpers/ai-visibility', 'pnpm', ['check']],
   ['public-directory', 'foundry/apps/public/public-directory', 'npm', ['run', 'check']],
