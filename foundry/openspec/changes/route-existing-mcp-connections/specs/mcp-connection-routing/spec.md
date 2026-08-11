@@ -49,14 +49,15 @@ linking, or a new private data projection for an otherwise ineligible product.
 
 ### Requirement: Personal hosted connections use owner-only MCP OAuth
 Hosted personal connections SHALL authenticate ChatGPT web through an MCP OAuth
-2.1 flow backed by an approved Cloudflare Access identity. The gateway SHALL
-validate the OAuth issuer, audience/resource, expiry, and product read scope on
-every request. ChatGPT MUST NOT receive, store, or submit an application's
-dedicated read credential.
+2.1 flow backed by WorkOS AuthKit on its free hosted-domain tier. The Cloudflare
+gateway SHALL act only as the MCP resource server and SHALL validate the WorkOS
+JWT signature, issuer, exact route audience/resource, expiry, allowlisted owner
+user ID, and product read permission or scope on every request. ChatGPT MUST NOT
+receive, store, or submit an application's dedicated read credential.
 
 #### Scenario: Approved owner completes OAuth
-- **WHEN** the allowlisted owner authenticates through Cloudflare Access and grants one product's read scope to ChatGPT
-- **THEN** the gateway issues a scoped MCP token and uses only that product's Cloudflare-stored read credential for upstream calls
+- **WHEN** the allowlisted owner authenticates through WorkOS AuthKit and grants one product's read permission plus offline access to ChatGPT
+- **THEN** WorkOS issues an audience-bound MCP token and the gateway uses only that product's Cloudflare-stored read credential for upstream calls
 
 #### Scenario: OAuth token is missing, invalid, expired, or revoked
 - **WHEN** a personal MCP request has no valid OAuth token for the exact resource and product read scope
@@ -65,6 +66,14 @@ dedicated read credential.
 #### Scenario: Unapproved identity attempts authorization
 - **WHEN** any identity other than the explicitly allowlisted owner reaches the authorization flow
 - **THEN** no MCP grant or application credential is issued and no private tool can be called
+
+#### Scenario: Token targets another product route
+- **WHEN** a valid WorkOS token is presented to a private route whose exact Resource Indicator does not match the token audience
+- **THEN** the route rejects the token without invoking either product upstream
+
+#### Scenario: WorkOS would require a paid feature
+- **WHEN** activation would exceed the free AuthKit allowance or require a custom domain, enterprise SSO, Directory Sync, Cross App Access, or another paid feature
+- **THEN** activation remains blocked until the owner gives new explicit approval for the non-zero cost
 
 #### Scenario: Concurrent private product calls execute
 - **WHEN** OAuth-authorized requests for different private products execute concurrently
