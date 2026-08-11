@@ -13,15 +13,15 @@ substitute another transport class when the selected source is unavailable.
 
 #### Scenario: Local personal data is enabled
 - **WHEN** the operator enables CodeVetter for a repository through its existing local consent boundary
-- **THEN** the ChatGPT/Codex host launches CodeVetter's installed STDIO MCP against that repository's local query-only data
+- **THEN** Codex launches CodeVetter's installed STDIO MCP against that repository's local query-only data
 
 #### Scenario: Hosted personal data is enabled
-- **WHEN** the operator enables an eligible cloud-backed personal connection with its dedicated read credential
-- **THEN** the MCP client calls the product-scoped Cloudflare HTTPS MCP route and receives only data owned by the resolved application account
+- **WHEN** the operator links an eligible cloud-backed personal connection through ChatGPT web's OAuth flow
+- **THEN** ChatGPT calls the product-scoped Cloudflare HTTPS MCP route and receives only data owned by the approved Fleet owner
 
 #### Scenario: Hosted public data is enabled
 - **WHEN** the operator enables an eligible public connection
-- **THEN** the MCP client calls the product-scoped Cloudflare HTTPS MCP route without gaining access to an authenticated or unpublished source
+- **THEN** ChatGPT web calls the product-scoped Cloudflare HTTPS MCP route without gaining access to an authenticated or unpublished source
 
 #### Scenario: Selected transport is unavailable
 - **WHEN** a local process, hosted route, or owning application is unavailable
@@ -30,9 +30,10 @@ substitute another transport class when the selected source is unavailable.
 ### Requirement: Only existing data boundaries are eligible
 Phase-one activation SHALL include only products that already have a tested
 local MCP boundary, an app-owned MCP endpoint, or an existing cloud API/static
-export covered by the read-only adapter tests. It MUST NOT create cloud sync,
-account storage, or a new private data projection for an otherwise ineligible
-product.
+export covered by the read-only adapter tests. OAuth grant/state storage MAY be
+added solely to authorize ChatGPT web to existing eligible projections. It MUST
+NOT create cloud sync, general application account storage, multi-user product
+linking, or a new private data projection for an otherwise ineligible product.
 
 #### Scenario: Device-only product is considered
 - **WHEN** Indulge or another product stores its records only on a device and has no approved cloud data boundary
@@ -44,25 +45,34 @@ product.
 
 #### Scenario: Existing native MCP is considered
 - **WHEN** Anime List is activated
-- **THEN** clients use its app-owned Streamable HTTP MCP rather than a duplicate shared implementation
+- **THEN** the OAuth gateway forwards only authorized MCP traffic to its app-owned Streamable HTTP implementation rather than duplicating its tools
 
-### Requirement: Personal hosted connections preserve app-owned authentication
-Hosted personal connections SHALL accept a caller-supplied dedicated read
-credential and apply it only to the matching product request. The hosted MCP
-runtime MUST NOT embed owner credentials, persist bearer values, share a
-credential across products, or use browser cookies and administrator tokens.
+### Requirement: Personal hosted connections use owner-only MCP OAuth
+Hosted personal connections SHALL authenticate ChatGPT web through an MCP OAuth
+2.1 flow backed by an approved Cloudflare Access identity. The gateway SHALL
+validate the OAuth issuer, audience/resource, expiry, and product read scope on
+every request. ChatGPT MUST NOT receive, store, or submit an application's
+dedicated read credential.
 
-#### Scenario: Valid owner credential is supplied
-- **WHEN** the MCP request carries a valid dedicated Reader, Calorie, Anime List, or Setline read credential
-- **THEN** the owning application resolves exactly one account and returns only that account's bounded projection
+#### Scenario: Approved owner completes OAuth
+- **WHEN** the allowlisted owner authenticates through Cloudflare Access and grants one product's read scope to ChatGPT
+- **THEN** the gateway issues a scoped MCP token and uses only that product's Cloudflare-stored read credential for upstream calls
 
-#### Scenario: Credential is missing, invalid, or revoked
-- **WHEN** a personal MCP request has no valid dedicated credential
-- **THEN** the request fails closed without invoking an anonymous owner fallback or disclosing another account's existence
+#### Scenario: OAuth token is missing, invalid, expired, or revoked
+- **WHEN** a personal MCP request has no valid OAuth token for the exact resource and product read scope
+- **THEN** the request fails closed with the required OAuth challenge without invoking the product API or disclosing owner data
 
-#### Scenario: Concurrent owners call the hosted runtime
-- **WHEN** two requests with different product or owner credentials execute concurrently
-- **THEN** credentials and results remain isolated to their individual requests
+#### Scenario: Unapproved identity attempts authorization
+- **WHEN** any identity other than the explicitly allowlisted owner reaches the authorization flow
+- **THEN** no MCP grant or application credential is issued and no private tool can be called
+
+#### Scenario: Concurrent private product calls execute
+- **WHEN** OAuth-authorized requests for different private products execute concurrently
+- **THEN** OAuth context, upstream application credentials, and results remain isolated to their individual products and requests
+
+#### Scenario: Application credential is revoked
+- **WHEN** a product's dedicated read credential is revoked at the owning application
+- **THEN** that product fails closed even if an older MCP OAuth grant still exists
 
 ### Requirement: Public hosted connections remain public-only
 Hosted public connections SHALL call only previously approved anonymous APIs or
@@ -87,7 +97,7 @@ disable path even when hosted routes share one Cloudflare deployment.
 - **THEN** it discovers only that product's server instructions, tools, schemas, and safety annotations
 
 #### Scenario: One product is disabled
-- **WHEN** the operator removes one client connection or revokes its owner credential
+- **WHEN** the operator disables one ChatGPT app, revokes its OAuth grant, or revokes its application read credential
 - **THEN** other product connections remain available and unchanged
 
 ### Requirement: Existing read-only and privacy proofs remain authoritative
@@ -116,6 +126,10 @@ residual limitation separately for every connection.
 #### Scenario: Backend exists but hosted transport is absent
 - **WHEN** an application's read API passes but its Cloudflare MCP route has not been deployed
 - **THEN** the connection is reported as source-ready and transport-pending rather than active
+
+#### Scenario: Private route lacks ChatGPT-compatible OAuth
+- **WHEN** a private product endpoint accepts only an application PAT or browser session
+- **THEN** it is reported as source-ready and ChatGPT-authentication-pending rather than registered as a ChatGPT app
 
 #### Scenario: Setline has no owner account
 - **WHEN** Setline's cloud database has no real owner row
