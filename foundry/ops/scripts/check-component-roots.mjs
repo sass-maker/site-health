@@ -38,6 +38,12 @@ const components = [
     nativeCheck: 'pnpm check',
   },
   {
+    id: 'chatgpt-connections',
+    root: 'foundry/helpers/chatgpt-connections',
+    required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml', 'wrangler.jsonc'],
+    nativeCheck: 'pnpm check',
+  },
+  {
     id: 'feedback',
     root: 'foundry/packages/feedback',
     required: ['package.json', 'README.md', 'pnpm-lock.yaml'],
