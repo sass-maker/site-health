@@ -401,6 +401,76 @@
       "owner": "Sarthak",
       "issue": "https://github.com/PostTrainLLM/posttrainllm/issues/104",
       "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "high-signal-legacy-complexity",
+      "projectId": "high-signal",
+      "capability": "complexity",
+      "accepted": "123 legacy threshold violations across 3,259 production functions and 43,545 function NLOC, maximum CCN 56, maximum function length 923, and maximum 11 parameters",
+      "reason": "High Signal blocks complexity regressions while its ingestion pipeline, API routes, and generated-feed orchestration are split behind focused regression tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "high-signal-legacy-duplication",
+      "projectId": "high-signal",
+      "capability": "duplication",
+      "accepted": "122 exact clone groups and 1,615 duplicated lines (2.6326%) across 254 production source files",
+      "reason": "Protocol adapters, feed builders, and ingestion sources contain measured similarities; clone count, duplicated lines, and percentage are regression-gated while genuinely shared behavior is consolidated.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "high-signal-scoped-coverage",
+      "projectId": "high-signal",
+      "capability": "coverage",
+      "accepted": "API 34.60% lines, 25.93% branches, 34.33% functions, and 33.33% statements across 264 tests; ingest 55.67% aggregate coverage across 325 tests; parked Lab has no automated coverage",
+      "reason": "API and ingest coverage are held above their measured floors while high-risk route families gain focused tests; the parked local Lab remains statically checked and audited but must gain tests before reactivation.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "high-signal-python-format-debt",
+      "projectId": "high-signal",
+      "capability": "format",
+      "accepted": "68 Python source files outside the Ruff format baseline",
+      "reason": "The existing ingest and Lab sources are regression-gated by file count so formatting can land in bounded module batches without a risky whole-Python rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "high-signal-reviewed-exports",
+      "projectId": "high-signal",
+      "capability": "unused",
+      "accepted": "23 Knip export findings and 30 type findings with zero unused files, dependencies, unlisted dependencies, binaries, or high-confidence Vulture findings",
+      "reason": "Next, Worker route, and compatibility boundaries prevent static proof for every public symbol; reviewed export and type counts are regression-gated while each boundary is verified before removal.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "high-signal-transitive-high-advisories",
+      "projectId": "high-signal",
+      "capability": "dependency-risk",
+      "accepted": "39 pinned high transitive JavaScript advisories with zero critical advisories; 17 findings are on production dependency paths and 22 are tooling or documentation paths",
+      "reason": "Direct Next and Hono vulnerabilities were patched during adoption; remaining exact advisory IDs are rejected if they expand and require compatible transitive, Astro-major, or currently unavailable image-size fixes.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "high-signal-justified-suppressions",
+      "projectId": "high-signal",
+      "capability": "suppressions",
+      "accepted": "52 justified inline suppression directives",
+      "reason": "The directives cover explicit framework, parser, optional-import, and external-error boundaries; the exact count is regression-gated and one unused-argument suppression was removed during adoption.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
+      "reviewDate": "2026-11-12"
     }
   ],
   "trendMetrics": [
