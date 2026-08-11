@@ -22,7 +22,7 @@
 - [x] 4.1 Run the code-health inventory against every maintained local project and retain explicit numeric observations through the Fleet skill-run boundary.
 - [x] 4.2 Derive and publish the sequential focus → active → secondary project order from the canonical catalog, preserving owner overrides.
 - [ ] 4.3 Fix small behavior-preserving Fleet-owned quality-coverage gaps found by the inventory and rerun the smallest relevant checks.
-- [ ] 4.4 Complete the first independent project pass in an isolated clean worktree when needed, verify its native checks, and classify or track every residual finding before advancing.
+- [x] 4.4 Complete the first independent project pass in an isolated clean worktree when needed, verify its native checks, and classify or track every residual finding before advancing.
 - [ ] 4.5 Continue the same one-project-at-a-time loop until every maintained project has a current verified result or valid repository-owned baseline/follow-up.
 - [ ] 4.6 Confirm no past, parked, out-of-fleet, or non-product checkout was modified by the adoption pass.
 
