@@ -88,9 +88,9 @@ human view is [`foundry/ops/docs/project-catalog.md`](foundry/ops/docs/project-c
 
 CodeVetter, HeyPace, PostTrainLLM, High Signal
 
-### Toolbox — 21
+### Toolbox — 23
 
-Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, What It Takes to Win, Sarthak Agrawal
+Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, Office OS, Local AI Video Studio, What It Takes to Win, Sarthak Agrawal
 
 ### Foundry — 3
 

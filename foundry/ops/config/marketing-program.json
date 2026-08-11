@@ -1975,6 +1975,34 @@
       "channels": []
     },
     {
+      "slug": "agent-office",
+      "name": "Office OS",
+      "aliases": [
+        "office-os"
+      ],
+      "mode": "private",
+      "domain": "https://office-os.pages.dev",
+      "domainPosture": "informational-only",
+      "publicMarketing": false,
+      "cta": "Review release status",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "aliases": [],
+      "mode": "private",
+      "domain": "https://local-ai-video-studio.pages.dev",
+      "domainPosture": "informational-only",
+      "publicMarketing": false,
+      "cta": "Review release status",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
       "slug": "what-it-takes-to-win",
       "name": "What It Takes to Win",
       "aliases": [],

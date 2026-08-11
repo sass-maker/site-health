@@ -2,7 +2,7 @@
 
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 
-Generated from 41 internal project identities.
+Generated from 43 internal project identities.
 
 ## My Work — 4
 
@@ -13,7 +13,7 @@ Generated from 41 internal project identities.
 | PostTrainLLM | maintained | `posttrainllm` | maintained | https://posttrainllm.com |
 | High Signal | maintained | `high-signal` | maintained | https://highsignal.app |
 
-## Toolbox — 21
+## Toolbox — 23
 
 | Project | Lifecycle | Repository | Public listing | Live surface |
 | --- | --- | --- | --- | --- |
@@ -36,6 +36,8 @@ Generated from 41 internal project identities.
 | Starboard | maintained | `starboard` | maintained | https://starboard.codevetter.com |
 | App Health | maintained | `app-health` | maintained | https://health.sassmaker.com |
 | Motion | maintained | `motion` | maintained | https://motion.significanthobbies.com |
+| Office OS | maintained | `agent-office` | hidden | https://office-os.pages.dev |
+| Local AI Video Studio | maintained | `local-ai-video-studio` | hidden | https://local-ai-video-studio.pages.dev |
 | What It Takes to Win | maintained | `what-it-takes-to-win` | maintained | https://paths.significanthobbies.com |
 | Sarthak Agrawal | maintained | `../portfolio` | maintained | https://sarthakagrawal.dev |
 
