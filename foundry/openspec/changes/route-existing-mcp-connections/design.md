@@ -169,6 +169,13 @@ status-only probe. Hosted connections are then added one at a time as ChatGPT
 web developer-mode apps. CodeVetter is separately added to Codex only after its
 existing in-app repository consent is enabled.
 
+A credential-free activation verifier checks the public WorkOS discovery and
+JWKS contract before deployment and the gateway discovery plus exact protected
+resource documents afterward. It must report owner allowlisting, WorkOS
+Resource Indicator registration, paid-feature settings, authorization-code
+exchange, refresh rotation, and revocation as separate manual/live gates because
+none is proven by public metadata alone.
+
 ## Risks / Trade-offs
 
 - **Shared Worker outage affects several hosted connections** → Keep tool

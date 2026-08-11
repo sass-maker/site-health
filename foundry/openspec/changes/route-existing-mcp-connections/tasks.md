@@ -40,12 +40,12 @@
 - [x] 5.1 Add Worker-runtime tests for initialize, tools/list, tool calls, invalid protocol input, unsupported routes, timeouts, and bounded responses on the shared transport.
 - [x] 5.2 Add concurrency tests proving OAuth contexts, product-secret selection, and results cannot leak across private requests or products.
 - [x] 5.3 Re-run mutation-absence, arbitrary-transport rejection, annotations, output-schema, pagination, redaction, degraded-mode, and upstream-validation tests across every hosted route.
-- [ ] 5.4 Run WorkOS OAuth discovery, CIMD/DCR, PKCE, audience, owner-allowlist, permission, refresh, and revocation tests; then run the shared helper check, strict OpenSpec validation, Cloudflare local-worker smoke tests, and MCP Inspector against local CodeVetter and every hosted ChatGPT route.
+- [ ] 5.4 Run the credential-free WorkOS/gateway activation verifier plus live OAuth discovery, CIMD/DCR, PKCE, audience, owner-allowlist, permission, refresh, and revocation tests; then run the shared helper check, strict OpenSpec validation, Cloudflare local-worker smoke tests, and MCP Inspector against local CodeVetter and every hosted ChatGPT route.
 
 ## 6. Deploy and connect eligible Cloudflare routes
 
 - [x] 6.1 Register the helper as one Fleet Worker surface, add path-scoped CI, and make the manual deploy command fail closed on clean/synced `main`, component-current green CI, and an exact 40-character Git SHA tag.
-- [ ] 6.2 Run the Fleet deployment guard and verify the exact reviewed commit, WorkOS hosted-domain issuer, owner user ID allowlist, CIMD/DCR settings, exact Resource Indicators, free-tier cost gate, product-secret names without values, rollback path, and Cloudflare project ownership.
+- [ ] 6.2 Run the Fleet deployment guard and pre-deployment activation verifier; verify the exact reviewed commit, WorkOS hosted-domain issuer, owner user ID allowlist, CIMD/DCR settings, exact Resource Indicators, free-tier cost gate, product-secret names without values, rollback path, and Cloudflare project ownership.
 - [ ] 6.3 Deploy the shared Worker through the manual path with the exact 40-character Git SHA tag and verify 100% production traffic on that tagged version.
 - [ ] 6.4 Run anonymous status-only production MCP probes for Starboard, High Signal, Significant Hobbies public, and Research Papers public exports.
 - [ ] 6.5 Run OAuth-authenticated status-only production MCP probes for Reader, Calorie, and Anime List without retaining record bodies; keep Setline pending until a real owner sign-in permits safe token issuance.
