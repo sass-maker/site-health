@@ -191,6 +191,16 @@
       "owner": "Sarthak",
       "issue": "https://github.com/HeyPace/pace/issues/154",
       "reviewDate": "2026-11-11"
+    },
+    {
+      "id": "pace-xcode-coverage-runner",
+      "projectId": "pace",
+      "capability": "coverage",
+      "accepted": "32.9327% Pace.app line coverage across 1,674 instrumented passing tests",
+      "reason": "Xcode 27 beta coverage instrumentation crashes before two ScreenWatchJournal test bodies execute; the same complete 1,676-test suite passes without instrumentation.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/HeyPace/pace/issues/154",
+      "reviewDate": "2026-11-11"
     }
   ],
   "trendMetrics": [
