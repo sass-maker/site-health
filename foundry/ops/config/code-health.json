@@ -203,6 +203,26 @@
       "reviewDate": "2026-11-11"
     },
     {
+      "id": "fleet-workspace-legacy-complexity",
+      "projectId": "fleet-workspace",
+      "capability": "complexity",
+      "accepted": "104 legacy threshold violations, maximum CCN 68 and maximum function length 2,342",
+      "reason": "Fleet Ops now blocks regressions while the largest operational scripts and service boundaries are reduced incrementally.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/320",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "fleet-workspace-reviewed-exports",
+      "projectId": "fleet-workspace",
+      "capability": "unused",
+      "accepted": "88 Knip export findings with zero unused files, dependencies, types, unlisted dependencies, binaries, or high-confidence Vulture findings",
+      "reason": "Fleet Ops includes installed and copied runtime module boundaries that static entry-point discovery cannot prove; the reviewed export count is regression-gated pending boundary-specific cleanup.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/320",
+      "reviewDate": "2026-11-10"
+    },
+    {
       "id": "posttrainllm-legacy-complexity",
       "projectId": "posttrainllm",
       "capability": "complexity",

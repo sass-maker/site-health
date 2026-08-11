@@ -189,4 +189,3 @@ Adoption order:
 Independent repository changes use repository-owned issues, branches, checks,
 and pull requests. A Fleet-wide report does not authorize automatic cleanup or
 mass rewrites.
-

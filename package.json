@@ -29,6 +29,18 @@
     "report:lint-parity": "node foundry/ops/scripts/lint-parity.mjs",
     "report:code-health": "node foundry/ops/scripts/code-health.mjs",
     "check:code-health": "node foundry/ops/scripts/code-health.mjs --validate",
+    "format:check": "pnpm --dir foundry/ops run format:check",
+    "lint": "pnpm --dir foundry/ops run lint",
+    "typecheck": "pnpm --dir foundry/ops run typecheck",
+    "test": "pnpm run test:fleet",
+    "test:coverage": "pnpm --dir foundry/ops run test:coverage",
+    "knip:strict": "pnpm --dir foundry/ops run knip:strict",
+    "quality:unused": "pnpm --dir foundry/ops run quality:unused",
+    "quality:complexity": "pnpm --dir foundry/ops run quality:complexity",
+    "quality:duplication": "pnpm --dir foundry/ops run quality:duplication",
+    "quality:cycles": "pnpm --dir foundry/ops run quality:cycles",
+    "quality:dependencies": "pnpm --dir foundry/ops run quality:dependencies",
+    "quality": "pnpm --dir foundry/ops run quality",
     "test:fleet": "pnpm run check:components && pnpm run check:actions && pnpm run check:code-health && node --disable-warning=ExperimentalWarning --test foundry/ops/test/*.test.mjs"
   },
   "engines": {
