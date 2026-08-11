@@ -33,7 +33,7 @@ test('real catalog validates with every authored overlay reference', () => {
       agentRegistry,
       reconcile: false,
     }),
-    { projectCount: 41 },
+    { projectCount: 43 },
   );
 });
 

@@ -82,7 +82,7 @@
 
 - [x] 11.1 With explicit approval, apply required Calorie/Setline migrations and deploy only the affected reviewed app changes through their manual release paths.
 - [ ] 11.2 As explicit operator actions, issue dedicated Reader, Anime List, Calorie, and Setline read credentials and inject them through the existing secret boundary.
-- [ ] 11.3 Configure the free Auth0 tenant with CIMD, resource-parameter compatibility, four exact API audiences/read permissions, default third-party user grants, and the verified owner allowlist; keep DCR, custom domains, and paid features disabled.
-- [ ] 11.4 Deploy the shared Worker from clean, green `main` with the exact Git SHA tag, then verify OAuth metadata, anonymous routes, and fail-closed private routes without retaining private bodies.
+- [x] 11.3 Configure the free Auth0 tenant with CIMD, resource-parameter compatibility, four exact API audiences/read permissions, default third-party user grants, and the verified owner allowlist; keep DCR, custom domains, and paid features disabled.
+- [x] 11.4 Deploy the shared Worker from clean, green `main` with the exact Git SHA tag, then verify OAuth metadata, anonymous routes, and fail-closed private routes without retaining private bodies.
 - [ ] 11.5 Add connections one at a time in ChatGPT developer mode and run retained positive, follow-up, degraded, unsupported, privacy, cross-app, and mutation evaluations.
 - [ ] 11.6 Record acceptance and residual limits; do not publish plugins, deploy unrelated apps, enable paid authentication features, or broaden private data without a separate approved change.

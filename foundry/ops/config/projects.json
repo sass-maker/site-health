@@ -30,6 +30,7 @@
       "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden",
+      "readyToBeShared": "true only after the public support and trusted release-artifact gates pass",
       "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
     },
     "absorbedCheckouts": {
@@ -67,7 +68,9 @@
         "research-papers",
         "knowledge-base",
         "starboard",
-        "motion"
+        "motion",
+        "agent-office",
+        "local-ai-video-studio"
       ],
       "P3": [
         "email-manager",
@@ -1165,6 +1168,67 @@
         "spotlight": false,
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/motion"
+      }
+    },
+    {
+      "id": "agent-office",
+      "aliases": [
+        "office-os"
+      ],
+      "authModel": "public-persistent",
+      "family": "agent-office",
+      "tier": "active",
+      "repo": "agent-office",
+      "deployKind": "pages",
+      "cfProject": "office-os",
+      "domains": [
+        "office-os.pages.dev"
+      ],
+      "app": "swift",
+      "inRegistry": false,
+      "status": "live",
+      "readyToBeShared": false,
+      "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
+      "name": "Office OS",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/agent-office",
+      "metrics": {
+        "publicSite": false,
+        "domainCoverage": false
+      },
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "local-ai-video-studio",
+      "authModel": "public-persistent",
+      "family": "local-ai-video-studio",
+      "tier": "active",
+      "repo": "local-ai-video-studio",
+      "deployKind": "pages",
+      "cfProject": "local-ai-video-studio",
+      "domains": [
+        "local-ai-video-studio.pages.dev"
+      ],
+      "app": "swift",
+      "inRegistry": false,
+      "status": "live",
+      "readyToBeShared": false,
+      "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
+      "name": "Local AI Video Studio",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/local-ai-video-studio",
+      "metrics": {
+        "publicSite": false,
+        "domainCoverage": false
+      },
+      "public": {
+        "listing": "hidden"
       }
     },
     {
