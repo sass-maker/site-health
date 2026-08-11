@@ -243,6 +243,36 @@
       "reviewDate": "2026-11-10"
     },
     {
+      "id": "email-manager-legacy-complexity",
+      "projectId": "email-manager",
+      "capability": "complexity",
+      "accepted": "16 legacy threshold violations across 413 functions and 4,593 NLOC, maximum CCN 36, maximum function length 294, and maximum 11 parameters",
+      "reason": "Email Manager now blocks complexity regressions while its inbox synchronization, Gmail integration, and application paths are reduced incrementally.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/email-manager/issues/32",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "email-manager-legacy-coverage",
+      "projectId": "email-manager",
+      "capability": "coverage",
+      "accepted": "36.75% lines, 35.69% branches, 31.36% functions, and 35.45% statements across 49 passing tests",
+      "reason": "The current test surface is regression-gated above its measured baseline while inbox synchronization, Gmail integration, auth, analytics, and API timing gain focused tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/email-manager/issues/32",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "email-manager-framework-and-docs-advisories",
+      "projectId": "email-manager",
+      "capability": "dependency-risk",
+      "accepted": "4 high advisories: Astro GHSA-2pvr-wf23-7pc7 and GHSA-8hv8-536x-4wqp; image-size GHSA-5p2g-fcmc-qvqq and GHSA-w3rx-r6r6-pgpr",
+      "reason": "The Astro fixes require a scoped major migration of the static landing build; image-size is transitive through the development-only Blume documentation toolchain and has no patched release. Every other critical or high advisory is rejected.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/email-manager/issues/32",
+      "reviewDate": "2026-11-10"
+    },
+    {
       "id": "fleet-workspace-reviewed-exports",
       "projectId": "fleet-workspace",
       "capability": "unused",
