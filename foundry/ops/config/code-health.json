@@ -471,6 +471,36 @@
       "owner": "Sarthak",
       "issue": "https://github.com/High-Signal-App/high-signal/issues/104",
       "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "app-health-legacy-complexity",
+      "projectId": "app-health",
+      "capability": "complexity",
+      "accepted": "7 legacy threshold violations across 370 production functions and 4,159 function NLOC, maximum CCN 53, maximum function length 264, and maximum 7 parameters",
+      "reason": "App Health blocks complexity regressions while its Worker routing, OTLP parsing, dashboard, and SDK client paths are reduced behind focused regression tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/app-health/issues/39",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "app-health-legacy-duplication",
+      "projectId": "app-health",
+      "capability": "duplication",
+      "accepted": "5 exact clone groups and 75 duplicated lines (1.0256%) across 40 TypeScript, JavaScript, TSX, and Go production source files",
+      "reason": "Protocol and SDK similarities are measured across both languages; clone count, duplicated lines, and percentage are regression-gated while only stable shared behavior is consolidated.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/app-health/issues/39",
+      "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "app-health-dashboard-function-coverage",
+      "projectId": "app-health",
+      "capability": "coverage",
+      "accepted": "Dashboard 88.89% lines, 87.54% branches, 70.17% functions, and 88.89% statements across 18 passing tests; Worker, contracts, Node SDK, and Go SDK meet their applicable Fleet floors",
+      "reason": "Every executable surface now has a non-regression floor; dashboard function coverage remains below 80% while interaction and error-boundary tests are added without line-only assertions.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/app-health/issues/39",
+      "reviewDate": "2026-11-12"
     }
   ],
   "trendMetrics": [
