@@ -27,6 +27,7 @@ jobs:
 
   code-health:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: foundry/helpers/psi-swarm
