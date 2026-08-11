@@ -14,8 +14,6 @@ on:
       - "foundry/ops/scripts/manual-component-deploy.mjs"
       - ".github/workflows/psi-swarm-ci.yml"
   workflow_dispatch:
-
-
 concurrency:
   group: psi-swarm-ci-${{ github.ref }}
   cancel-in-progress: true
@@ -26,3 +24,27 @@ permissions:
 jobs:
   reusable:
     uses: sass-maker/workflows/.github/workflows/psi-swarm-ci.yml@main
+
+  code-health:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: foundry/helpers/psi-swarm
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: foundry/helpers/psi-swarm/pnpm-lock.yaml
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - run: pnpm install --frozen-lockfile
+      - run: pip install lizard==1.23.0
+      - run: pnpm run quality

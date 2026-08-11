@@ -34,8 +34,8 @@ const server = createServer((request, response) => {
   setTimeout(() => {
     document.querySelector('.hero').style.opacity = '1';
   }, 800);
-</script>`,
-      ),
+</script>`
+      )
     );
     return;
   }

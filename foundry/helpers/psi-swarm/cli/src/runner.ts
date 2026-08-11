@@ -23,9 +23,7 @@ export interface MetricSet {
  */
 export function hasValidMetrics(metrics: MetricSet | undefined): boolean {
   if (!metrics) return false;
-  return Object.values(metrics).some(
-    (v) => typeof v === 'number' && Number.isFinite(v),
-  );
+  return Object.values(metrics).some((v) => typeof v === 'number' && Number.isFinite(v));
 }
 
 export interface RunResult {
@@ -47,22 +45,17 @@ export interface RunResultWithArtifact extends RunResult {
   finalUrl?: string;
 }
 
-const CHROME_FLAGS = [
-  '--headless=new',
-  '--disable-gpu',
-  '--no-sandbox',
-  '--disable-dev-shm-usage',
-];
+const CHROME_FLAGS = ['--headless=new', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage'];
 
 interface RunOnceOptions {
   captureScripts?: boolean;
   captureAudits?: boolean;
 }
 
-export async function runOnce(
+async function runOnce(
   url: string,
   preset: Preset,
-  opts: RunOnceOptions = {},
+  opts: RunOnceOptions = {}
 ): Promise<RunResultWithArtifact> {
   const startedAt = Date.now();
   let chrome: LaunchedChrome | undefined;
@@ -83,12 +76,14 @@ export async function runOnce(
           throttling: preset.throttling,
           screenEmulation: preset.screenEmulation,
         },
-      },
+      }
     );
     if (!result) throw new Error('Lighthouse returned no result');
     const lhr = result.lhr;
     if (lhr.runtimeError) {
-      throw new Error(`Lighthouse runtime error: ${lhr.runtimeError.code} — ${lhr.runtimeError.message}`);
+      throw new Error(
+        `Lighthouse runtime error: ${lhr.runtimeError.code} — ${lhr.runtimeError.message}`
+      );
     }
     const audits = lhr.audits;
     const numeric = (id: string): number | undefined => {
@@ -99,8 +94,7 @@ export async function runOnce(
       lcp: numeric('largest-contentful-paint'),
       cls: numeric('cumulative-layout-shift'),
       inp:
-        numeric('interaction-to-next-paint') ??
-        numeric('experimental-interaction-to-next-paint'),
+        numeric('interaction-to-next-paint') ?? numeric('experimental-interaction-to-next-paint'),
       tbt: numeric('total-blocking-time'),
       fcp: numeric('first-contentful-paint'),
       ttfb: numeric('server-response-time'),
@@ -117,7 +111,7 @@ export async function runOnce(
     // counts these as "ok" and the Console retains a misleading score.
     if (!hasValidMetrics(metrics)) {
       throw new Error(
-        `No performance metrics in Lighthouse result — likely a non-page response (auth wall, error page, or redirect). Final URL: ${lhr.finalDisplayedUrl ?? lhr.finalUrl ?? url}`,
+        `No performance metrics in Lighthouse result — likely a non-page response (auth wall, error page, or redirect). Final URL: ${lhr.finalDisplayedUrl ?? lhr.finalUrl ?? url}`
       );
     }
     const out: RunResultWithArtifact = {
@@ -130,13 +124,15 @@ export async function runOnce(
     if (opts.captureScripts) {
       // Lighthouse Scripts artifact contains the bundled JS source for every script
       // on the page. Perfect for framework route detection — works even on auth-gated SPAs.
-      const artifacts = (result as unknown as {
-        artifacts?: { Scripts?: { url?: string; content?: string }[] };
-      }).artifacts;
+      const artifacts = (
+        result as unknown as {
+          artifacts?: { Scripts?: { url?: string; content?: string }[] };
+        }
+      ).artifacts;
       if (Array.isArray(artifacts?.Scripts)) {
-        out.scripts = artifacts.Scripts
-          .filter((s) => typeof s.content === 'string' && typeof s.url === 'string')
-          .map((s) => ({ url: s.url!, content: s.content! }));
+        out.scripts = artifacts.Scripts.filter(
+          (s) => typeof s.content === 'string' && typeof s.url === 'string'
+        ).map((s) => ({ url: s.url!, content: s.content! }));
       }
     }
     if (opts.captureAudits) {
@@ -158,7 +154,15 @@ export async function runOnce(
 export type RunnerEvent =
   | { type: 'start'; total: number; presets: Preset[]; parallel: number }
   | { type: 'run-start'; preset: Preset; presetIndex: number; runIndex: number }
-  | { type: 'run-complete'; result: RunResultWithArtifact; preset: Preset; presetIndex: number; runIndex: number; done: number; total: number }
+  | {
+      type: 'run-complete';
+      result: RunResultWithArtifact;
+      preset: Preset;
+      presetIndex: number;
+      runIndex: number;
+      done: number;
+      total: number;
+    }
   | { type: 'preset-complete'; preset: Preset; results: RunResultWithArtifact[] }
   | { type: 'all-complete'; elapsedMs: number; results: RunResultWithArtifact[] };
 
@@ -186,7 +190,10 @@ export class SwarmRunner extends EventEmitter {
     const allResults: RunResultWithArtifact[] = [];
     let done = 0;
 
-    const runPreset = async (preset: Preset, presetIndex: number): Promise<RunResultWithArtifact[]> => {
+    const runPreset = async (
+      preset: Preset,
+      presetIndex: number
+    ): Promise<RunResultWithArtifact[]> => {
       const presetResults: RunResultWithArtifact[] = [];
       // Only capture scripts on the first successful run per preset — saves memory (bundles can be MB).
       let scriptsCaptured = false;
@@ -246,10 +253,4 @@ export class SwarmRunner extends EventEmitter {
     } satisfies RunnerEvent);
     return allResults;
   }
-}
-
-// Back-compat plain function for any callers that just want results.
-export async function runSwarm(opts: SwarmOptions): Promise<RunResultWithArtifact[]> {
-  const runner = new SwarmRunner();
-  return runner.run(opts);
 }

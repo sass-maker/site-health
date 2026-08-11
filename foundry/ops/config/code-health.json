@@ -323,6 +323,36 @@
       "reviewDate": "2026-11-10"
     },
     {
+      "id": "psi-swarm-legacy-complexity",
+      "projectId": "psi-swarm",
+      "capability": "complexity",
+      "accepted": "22 legacy threshold violations across 487 functions and 6,001 NLOC, maximum CCN 58, maximum function length 416, and maximum 14 parameters",
+      "reason": "PSI Swarm now blocks complexity regressions while its trace comparison, domain-rating persistence, CLI action, and dashboard paths are split incrementally.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/332",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "psi-swarm-legacy-duplication",
+      "projectId": "psi-swarm",
+      "capability": "duplication",
+      "accepted": "10 exact clone groups and 123 duplicated lines (1.6875%) across 28 production source files",
+      "reason": "The current clone count, duplicated lines, and percentage are regression-gated while repeated report and interface paths are consolidated behind tested behavior.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/332",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "psi-swarm-scoped-cli-coverage",
+      "projectId": "psi-swarm",
+      "capability": "coverage",
+      "accepted": "67.95% lines, 78.64% branches, and 46.59% functions across CLI modules exercised by 20 passing tests",
+      "reason": "Node's native coverage gate measures loaded CLI modules; unexercised CLI entry paths and the web application remain outside the aggregate until focused tests load them.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/fleet-workspace/issues/332",
+      "reviewDate": "2026-11-10"
+    },
+    {
       "id": "fleet-workspace-reviewed-exports",
       "projectId": "fleet-workspace",
       "capability": "unused",

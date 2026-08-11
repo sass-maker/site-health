@@ -7,13 +7,10 @@ import { fileURLToPath } from 'node:url';
 import { HistoryDB } from '../src/db.js';
 import type { LcpPhase } from '../src/audits.js';
 import type { RunResultWithArtifact } from '../src/runner.js';
-import {
-  deriveTraceInsights,
-  resolveTraceInsightAdapter,
-} from '../src/trace-insight.js';
+import { deriveTraceInsights, resolveTraceInsightAdapter } from '../src/trace-insight.js';
 
 const adapterPath = fileURLToPath(
-  new URL('./fixtures/chrome-devtools-trace-insight.mjs', import.meta.url),
+  new URL('./fixtures/chrome-devtools-trace-insight.mjs', import.meta.url)
 );
 
 const preset = {
@@ -24,11 +21,7 @@ const preset = {
   screenEmulation: {} as never,
 };
 
-function result(
-  lcp: number,
-  ttfb: number,
-  phases: LcpPhase[],
-): RunResultWithArtifact {
+function result(lcp: number, ttfb: number, phases: LcpPhase[]): RunResultWithArtifact {
   return {
     preset,
     startedAt: Date.now(),
@@ -108,15 +101,10 @@ test('external trace-insight adapter matches Chrome DevTools regression oracles'
       });
 
       const artifactPath = `/tmp/${regression.url.split('/').pop() || 'control'}.json`;
-      const insights = await deriveTraceInsights(
-        db,
-        regression.url,
-        [regression.result],
-        {
-          adapter,
-          artifactPaths: new Map([[preset.name, artifactPath]]),
-        },
-      );
+      const insights = await deriveTraceInsights(db, regression.url, [regression.result], {
+        adapter,
+        artifactPaths: new Map([[preset.name, artifactPath]]),
+      });
 
       assert.equal(insights.length, 1);
       assert.equal(insights[0].adapter, adapter.name);

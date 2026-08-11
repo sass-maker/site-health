@@ -1,4 +1,4 @@
-import { defineConfig } from "blume";
+import { defineConfig } from 'blume';
 
 // Blume presentation config for the psi-swarm docs knowledge system.
 //
@@ -13,33 +13,33 @@ import { defineConfig } from "blume";
 // would point at the wrong path. Add `github` here only if the docs are
 // split into their own repo.
 export default defineConfig({
-  title: "psi-swarm docs",
+  title: 'psi-swarm docs',
   description:
-    "Local-first distributional Lighthouse performance tracker — product, architecture, development, and operations knowledge.",
+    'Local-first distributional Lighthouse performance tracker — product, architecture, development, and operations knowledge.',
 
   content: {
-    root: "docs",
+    root: 'docs',
   },
 
   theme: {
     // Match the product UI, which accents on cyan.
-    accent: "cyan",
-    radius: "md",
-    mode: "system",
+    accent: 'cyan',
+    radius: 'md',
+    mode: 'system',
   },
 
   // Local search index — no external service, fits the local-first ethos.
   search: {
-    provider: "orama",
+    provider: 'orama',
   },
 
   navigation: {
     tabs: [
-      { label: "Product", path: "/product", icon: "rocket" },
-      { label: "Architecture", path: "/architecture", icon: "layers" },
-      { label: "Development", path: "/development", icon: "code" },
-      { label: "Operations", path: "/operations", icon: "server" },
-      { label: "Knowledge", path: "/knowledge", icon: "book-open" },
+      { label: 'Product', path: '/product', icon: 'rocket' },
+      { label: 'Architecture', path: '/architecture', icon: 'layers' },
+      { label: 'Development', path: '/development', icon: 'code' },
+      { label: 'Operations', path: '/operations', icon: 'server' },
+      { label: 'Knowledge', path: '/knowledge', icon: 'book-open' },
     ],
     // STATUS.md and PROJECT_STATUS.md live at the repo root (outside the
     // docs/ content root) so they aren't Blume pages; they're linked from
@@ -69,7 +69,7 @@ export default defineConfig({
   },
 
   deployment: {
-    output: "static",
+    output: 'static',
     // site: "https://docs.psi-swarm.example" // set when published
   },
 });
