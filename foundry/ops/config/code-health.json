@@ -273,6 +273,56 @@
       "reviewDate": "2026-11-10"
     },
     {
+      "id": "free-ai-legacy-complexity",
+      "projectId": "free-ai",
+      "capability": "complexity",
+      "accepted": "28 legacy threshold violations across 484 functions and 6,429 NLOC, maximum CCN 34, maximum function length 448, and maximum 4 parameters",
+      "reason": "Free AI blocks complexity regressions while ADR-003 keeps the monolithic route layer intact until focused route-group coverage makes each extraction safe.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/free-ai/issues/53",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "free-ai-legacy-duplication",
+      "projectId": "free-ai",
+      "capability": "duplication",
+      "accepted": "28 exact clone groups and 454 duplicated lines (3.3471%) across 69 production source files",
+      "reason": "Provider protocol adapters and the ADR-003 monolith contain measured similarities; clone count, duplicated lines, and percentage are all regression-gated while tested common behavior is consolidated incrementally.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/free-ai/issues/53",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "free-ai-scoped-core-coverage",
+      "projectId": "free-ai",
+      "capability": "coverage",
+      "accepted": "95% lines, 89.08% branches, 99.19% functions, and 94.6% statements across 12 explicitly gated core modules and 241 passing tests",
+      "reason": "The ADR-003 monolithic route layer remains outside the core-module gate until covered route groups can be extracted; every listed core module is held to aggregate 80/80/80/70 floors.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/free-ai/issues/53",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "free-ai-blume-image-size-advisories",
+      "projectId": "free-ai",
+      "capability": "dependency-risk",
+      "accepted": "2 unfixable high advisories in image-size (GHSA-5p2g-fcmc-qvqq and GHSA-w3rx-r6r6-pgpr)",
+      "reason": "The vulnerable parser is transitive through the development-only Blume documentation toolchain, has no patched release, and is not used by the production gateway; every other critical or high advisory is rejected.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/free-ai/issues/53",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "free-ai-justified-suppressions",
+      "projectId": "free-ai",
+      "capability": "suppressions",
+      "accepted": "2 justified inline suppression directives",
+      "reason": "One directive preserves the generated agent payload format and one retains Worker stream failure logging; the exact count is regression-gated.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/free-ai/issues/53",
+      "reviewDate": "2026-11-10"
+    },
+    {
       "id": "fleet-workspace-reviewed-exports",
       "projectId": "fleet-workspace",
       "capability": "unused",
