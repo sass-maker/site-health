@@ -134,6 +134,21 @@ test('discovers JavaScript and language-native capability evidence', async (t) =
   }
 });
 
+test('discovers repository-native complexity and cycle quality scripts', async (t) => {
+  const root = fixtureRoot(t);
+  write(path.join(root, '.git'), 'gitdir: fixture\n');
+  write(path.join(root, 'package.json'), JSON.stringify({
+    scripts: {
+      'quality:complexity': 'node scripts/check-complexity.mjs',
+      'quality:cycles': 'node scripts/check-cycles.mjs',
+    },
+  }));
+
+  const evidence = await discoverCodeHealthCapabilities({ repositoryRoot: root });
+  assert.deepEqual(evidence.complexity, ['package.json package scripts']);
+  assert.deepEqual(evidence.cycles, ['package.json package scripts']);
+});
+
 test('classifies pass, unavailable, not-applicable, excluded, and explicit equivalents', async (t) => {
   const root = fixtureRoot(t);
   mkdirSync(path.join(root, 'healthy'), { recursive: true });
@@ -255,4 +270,3 @@ test('parses project filtering and rejects unknown options', () => {
   );
   assert.throws(() => parseCodeHealthArgs(['--write']), /Unknown option/u);
 });
-

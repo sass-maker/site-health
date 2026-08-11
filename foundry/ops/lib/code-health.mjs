@@ -430,14 +430,20 @@ function packageEvidence(relativePath, content, evidence) {
     || typeof scripts['knip:strict'] === 'string'
     || Object.hasOwn(dependencies, 'knip')
   ) recordEvidence(evidence, 'unused', source);
-  if (/noExcessiveCognitiveComplexity|max-complexity|cognitive.?complexity|ruff.+C90/u.test(command)) {
+  if (
+    typeof scripts['quality:complexity'] === 'string'
+    || /noExcessiveCognitiveComplexity|max-complexity|cognitive.?complexity|ruff.+C90/u.test(command)
+  ) {
     recordEvidence(evidence, 'complexity', source);
   }
   if (/\bjscpd\b|sonar/u.test(`${command}\n${packages}`)) recordEvidence(evidence, 'duplication', source);
   if (typeof scripts['test:coverage'] === 'string' || /(?:--coverage|\bc8\b|\bnyc\b|llvm-cov|pytest-cov|go\s+test.+-cover|xccov)/u.test(command)) {
     recordEvidence(evidence, 'coverage', source);
   }
-  if (/\bmadge\b|dependency-cruiser|\bdpdm\b|circular-dependency/u.test(`${command}\n${packages}`)) {
+  if (
+    typeof scripts['quality:cycles'] === 'string'
+    || /\bmadge\b|dependency-cruiser|\bdpdm\b|circular-dependency/u.test(`${command}\n${packages}`)
+  ) {
     recordEvidence(evidence, 'cycles', source);
   }
   recordEvidence(evidence, 'dependency-risk', `${relativePath} dependency manifest`);

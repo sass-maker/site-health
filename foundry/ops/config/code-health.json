@@ -201,6 +201,46 @@
       "owner": "Sarthak",
       "issue": "https://github.com/HeyPace/pace/issues/154",
       "reviewDate": "2026-11-11"
+    },
+    {
+      "id": "posttrainllm-legacy-complexity",
+      "projectId": "posttrainllm",
+      "capability": "complexity",
+      "accepted": "308 legacy threshold violations, maximum CCN 113 and maximum function length 796",
+      "reason": "The mixed research codebase now blocks regressions while the largest training, evaluation, and conversion paths are reduced incrementally.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/PostTrainLLM/posttrainllm/issues/104",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "posttrainllm-legacy-coverage",
+      "projectId": "posttrainllm",
+      "capability": "coverage",
+      "accepted": "Browser 72.06% lines, Python 29% lines, and Swift production 32.3540% lines",
+      "reason": "Each executable surface now has a non-regression floor; changed and newly added production code remains subject to the Fleet 80% target.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/PostTrainLLM/posttrainllm/issues/104",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "posttrainllm-legacy-unused-code",
+      "projectId": "posttrainllm",
+      "capability": "unused",
+      "accepted": "14 Knip export/type findings and 2 high-confidence Vulture findings",
+      "reason": "The findings are explicitly counted and regression-gated while research entry points are verified before removal.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/PostTrainLLM/posttrainllm/issues/104",
+      "reviewDate": "2026-11-10"
+    },
+    {
+      "id": "posttrainllm-transitive-high-advisories",
+      "projectId": "posttrainllm",
+      "capability": "dependency-risk",
+      "accepted": "14 high transitive JavaScript advisories (3 browser, 11 docs), with zero critical advisories",
+      "reason": "The affected packages are transitive through current Astro and Blume lines; exact IDs are pinned in the repository gate until compatible upgrades are available.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/PostTrainLLM/posttrainllm/issues/104",
+      "reviewDate": "2026-11-10"
     }
   ],
   "trendMetrics": [
