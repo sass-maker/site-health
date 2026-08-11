@@ -23,9 +23,10 @@ sync for device-only products.
   Reader, Calorie, Setline, Starboard, High Signal, Significant Hobbies public,
   and Research Papers public-export adapters.
 - Authenticate private hosted ChatGPT connections with MCP OAuth 2.1 backed by
-  Cloudflare Access. ChatGPT receives only scoped OAuth tokens; the gateway
-  resolves the approved owner and uses product-specific read credentials from
-  Cloudflare's secret boundary when calling existing application APIs.
+  WorkOS AuthKit. ChatGPT receives only scoped OAuth tokens; the gateway
+  validates the approved WorkOS owner and uses product-specific read
+  credentials from Cloudflare's secret boundary when calling existing
+  application APIs.
 - Keep public tools anonymous, bounded, cache-compatible, and restricted to
   their existing published APIs or approved static exports.
 - Preserve one independently enableable connection and tool catalog per
@@ -62,10 +63,13 @@ None.
   Research Papers retain their existing application APIs and privacy
   projections. Product changes are allowed only when a proven protocol or
   deployment requirement cannot be satisfied by the shared transport.
-- Cloudflare Worker OAuth state/configuration, Access policy, product read-token
-  secrets, ChatGPT developer-mode app metadata, and the shared MCP runtime are
-  affected. Any new production dependency or secret/config change remains
-  subject to Fleet's dependency and deployment gates.
+- WorkOS AuthKit configuration, owner identity, per-route resource indicators,
+  product read-token secrets, ChatGPT developer-mode app metadata, and the
+  shared Cloudflare MCP runtime are affected. AuthKit must remain on its free
+  hosted-domain tier: no custom domain, enterprise SSO, Directory Sync, or
+  another paid add-on may be enabled. Any new production dependency or
+  secret/config change remains subject to Fleet's dependency and deployment
+  gates.
 - The completed `expose-fleet-apps-to-chatgpt` change remains historical
   implementation evidence; this change supersedes only its pending external
   tunnel activation plan.

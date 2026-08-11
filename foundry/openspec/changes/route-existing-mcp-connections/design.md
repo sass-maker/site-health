@@ -53,7 +53,9 @@ flowchart LR
     C[Codex on local host]
     W[ChatGPT web]
     C -->|STDIO| CV[CodeVetter local MCP]
-    W -->|OAuth 2.1| O[Cloudflare owner-only OAuth gateway]
+    W -->|OAuth 2.1 sign-in and consent| A[WorkOS AuthKit]
+    A -->|Audience-bound access token| W
+    W -->|Bearer token + HTTPS MCP| O[Cloudflare private MCP routes]
     W -->|HTTPS anonymous| HU[Cloudflare public MCP routes]
     O --> HP[Private product MCP routes]
     HP -->|server-side product read token| OA[Existing owner-scoped app APIs]
@@ -88,22 +90,33 @@ timeouts, retries, and sanitization.
 A shared deployment reuses the implementation already validated across seven
 adapters and avoids adding MCP dependencies to every product. Product-scoped
 routes preserve independent ChatGPT app configuration and can be disabled in
-the registry. Public MCP handling remains stateless and request-scoped. Private
-routes add only the OAuth provider's authorization state and grants; tool
-execution itself remains request-scoped.
+the registry. Public MCP handling remains stateless and request-scoped. WorkOS
+owns OAuth client registration, authorization state, consent, access tokens,
+refresh tokens, and revocation; private tool execution in the Worker remains
+request-scoped.
 
 Anime List keeps its native endpoint as the fixed upstream implementation. The
 gateway authorizes ChatGPT, injects the dedicated Anime PAT from a Worker
 secret, and proxies only the native MCP route. It does not become a general HTTP
 proxy and does not duplicate Anime's tools.
 
-### 4. Protect private hosted tools with Cloudflare Access-backed MCP OAuth
+### 4. Protect private hosted tools with WorkOS AuthKit-backed MCP OAuth
 
-The Cloudflare Workers OAuth Provider implements the MCP OAuth boundary.
-Cloudflare Access is the upstream identity system and allows only the approved
-owner identity. ChatGPT uses authorization-code + PKCE and receives scoped MCP
-access/refresh tokens for one product resource. The Worker validates the grant,
-resource, scope, expiry, and owner identity before each private request.
+WorkOS AuthKit is the OAuth authorization server and the Cloudflare Worker is
+the MCP resource server. WorkOS Connect provides authorization-server metadata,
+authorization-code + PKCE, Client ID Metadata Document support, Dynamic Client
+Registration compatibility, consent, `offline_access` refresh tokens, and
+revocation. Fleet uses the hosted `*.authkit.app` domain and does not enable a
+custom domain, enterprise SSO, Directory Sync, Cross App Access, or another
+paid add-on.
+
+Every private MCP route is registered as an exact WorkOS Resource Indicator.
+The Worker publishes protected-resource metadata naming the WorkOS issuer and
+uses the WorkOS JWKS to validate each bearer JWT's signature, issuer, exact
+route audience, expiry, allowlisted WorkOS user ID in `sub`, and required
+product-read permission or scope before invoking a tool. Email is not an
+authorization key. ChatGPT requests `offline_access` so the connection can
+refresh without a daily owner sign-in.
 
 Existing Reader, Calorie, Setline, and Anime List read credentials live only as
 product-specific Worker secrets. After OAuth authorization, the Worker injects
@@ -111,15 +124,17 @@ the matching credential into that request's fixed upstream call. It never puts
 an application PAT into ChatGPT, OAuth tokens, logs, cookies, cache keys,
 responses, or another product route.
 
-The OAuth provider may persist only authorization state, registered client
-metadata, grants, and refresh/access-token material required by the protocol.
-It is not a general Fleet account database. General multi-user application
-linking is deferred; an identity other than the allowlisted owner fails closed.
+WorkOS may persist only the user identity and OAuth state, registered client
+metadata, consent, grants, and token material required by AuthKit and Connect.
+It is not a Fleet data warehouse or general application account database.
+General multi-user application linking is deferred; an identity other than the
+allowlisted WorkOS owner user ID fails closed.
 
 Direct product-PAT authentication from ChatGPT was rejected because OpenAI's
-hosted client cannot present custom API keys. A custom authorization server was
-rejected in favor of Cloudflare's maintained OAuth provider and Access identity
-boundary.
+hosted client cannot present custom API keys. The custom Cloudflare
+Access-to-OAuth bridge and Worker-owned OAuth token store are superseded because
+WorkOS provides the protocol edge cases, client registration, refresh-token
+handling, consent, and revocation as a managed authorization server.
 
 ### 5. Public routes carry no credential and use only approved sources
 
@@ -141,9 +156,10 @@ server/transport boundary for HTTPS tool calls. No request may reuse another
 request's authorization, upstream credential, or result state.
 
 Cloudflare compatibility and dependency decisions must be proven before
-manifest changes. Prefer the already-installed MCP SDK's web-standard
-transport when it supports the Workers runtime; otherwise use the smallest
-official Cloudflare MCP runtime justified by a `code-cleanup` dependency gate.
+manifest changes. Prefer standards-based Web Crypto/JWKS verification and the
+already-installed MCP SDK's web-standard transport when they support the
+Workers runtime; otherwise use the smallest justified runtime dependency after
+a `code-cleanup` dependency gate and explicit approval.
 
 ### 7. Activation proceeds from protocol proof to production registration
 
@@ -158,10 +174,17 @@ existing in-app repository consent is enabled.
 - **Shared Worker outage affects several hosted connections** → Keep tool
   execution stateless, preserve STDIO diagnostic rollback, use per-route health
   evidence, and make product scopes/credentials independently revocable.
-- **OAuth grants and product tokens become security-critical Cloudflare state**
-  → Use Cloudflare's maintained provider, Access owner allowlisting, protocol
-  metadata, PKCE, short-lived access tokens, refresh-token rotation/revocation,
-  secret bindings, and secret-safe logs.
+- **WorkOS grants and product tokens become security-critical state** → Use
+  WorkOS's hosted authorization server for PKCE, consent, short-lived access
+  tokens, refresh-token rotation, and revocation; validate JWKS, issuer, exact
+  audience, expiry, owner `sub`, and permission at the Worker; retain only
+  product credentials in matching Cloudflare secret bindings.
+- **A future WorkOS setting could create spend** → Production activation
+  requires a written cost check: AuthKit below one million monthly active users,
+  hosted WorkOS domain, and no SSO, Directory Sync, custom domain, Cross App
+  Access, or other paid feature. Billing information may be present only because
+  WorkOS requires it to unlock production; any non-zero charge blocks
+  activation and requires new owner approval.
 - **A compromised OAuth route could reach owner data** → Verify issuer,
   resource/audience, scope, expiry, and owner identity on every private request;
   bind each route to one upstream token and never accept caller-controlled
@@ -185,9 +208,12 @@ existing in-app repository consent is enabled.
 4. Run the dependency/Workers compatibility gate, add the shared Streamable
    HTTP transport and fixed product route registry, and preserve public routes
    as anonymous.
-5. Add the Cloudflare Access-backed OAuth provider, protected-resource and
-   authorization-server metadata, product scopes, refresh/revocation handling,
-   and server-side product credential bindings for private routes.
+5. Replace the custom Cloudflare Access OAuth bridge with WorkOS AuthKit:
+   publish protected-resource metadata, proxy legacy authorization-server
+   discovery only where client compatibility requires it, register exact route
+   Resource Indicators, validate WorkOS JWTs and owner identity, require product
+   read permissions plus `offline_access`, and keep product credentials in
+   server-side Cloudflare bindings.
 6. Test OAuth discovery/linking, owner allowlisting, public routes, private
    credential isolation, response bounds, mutation absence, and secret-safe
    logs locally.
@@ -195,8 +221,8 @@ existing in-app repository consent is enabled.
    status-only production probes, then create one ChatGPT web developer-mode
    app per ready hosted product and execute the retained evaluations.
 
-Rollback disables the affected ChatGPT app or OAuth grant and rolls the shared
+Rollback disables the affected ChatGPT app or WorkOS grant and rolls the shared
 Worker back through Cloudflare's version controls. App-owned credentials and
-OAuth grants can be revoked independently. CodeVetter rollback removes its
+WorkOS grants can be revoked independently. CodeVetter rollback removes its
 Codex entry and uses CodeVetter's existing Disable action; no local repository
 or user data is deleted.
