@@ -163,7 +163,12 @@
     "local-ai-video-studio": { "profile": "swift-native" },
     "looptv": { "profile": "javascript-typescript" },
     "motion": { "profile": "javascript-typescript" },
-    "pace": { "profile": "swift-native" },
+    "pace": {
+      "profile": "swift-native",
+      "equivalents": {
+        "cycles": "The required isolated Xcode build resolves the SwiftPM and target dependency graph; Swift source files do not import one another."
+      }
+    },
     "posttrainllm": { "profile": "mixed" },
     "psi-swarm": { "profile": "javascript-typescript" },
     "reader": { "profile": "javascript-typescript" },
@@ -176,7 +181,18 @@
     "swe-interview-prep": { "profile": "javascript-typescript" },
     "what-it-takes-to-win": { "profile": "javascript-typescript" }
   },
-  "exceptions": [],
+  "exceptions": [
+    {
+      "id": "pace-swift-complexity-analyzer",
+      "projectId": "pace",
+      "capability": "complexity",
+      "accepted": "No repository-native Swift cognitive-complexity analyzer is configured",
+      "reason": "Pace needs a pinned Swift-native analyzer before Fleet can enforce the changed-function complexity threshold without inventing a lexical proxy.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/HeyPace/pace/issues/154",
+      "reviewDate": "2026-11-11"
+    }
+  ],
   "trendMetrics": [
     "complexity-max",
     "complexity-p95",
