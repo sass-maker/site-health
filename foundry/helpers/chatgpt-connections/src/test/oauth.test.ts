@@ -14,13 +14,14 @@ import {
   auth0Issuer,
   authorizeOAuthRequest,
   handleOAuthMetadataRequest,
+  type HostedWorkerEnv,
   verifyAuth0AccessToken,
 } from "../oauth.js";
 import worker from "../worker-entry.js";
 
 const issuer = "https://fleet-test.us.auth0.com/";
 const ownerId = "google-oauth2|owner123456";
-const resource = "https://mcp.example/reader/mcp";
+const resource = "https://mcp.significanthobbies.com/reader/mcp";
 const scope = "reader.read";
 const route = hostedRoute("/reader/mcp")!;
 const env = {
@@ -78,13 +79,15 @@ test("Auth0 issuer accepts only the free hosted Auth0 tenant domain", () => {
   }
 });
 
-test("Auth0 JWT verification binds issuer, route audience, owner, lifetime, and permission", async () => {
+test("federated Auth0 verification binds issuer, audience, Google subject, lifetime, and permission", async () => {
   const fixture = await signingFixture();
   const validToken = await fixture.token();
-  const request = new Request(resource, { headers: { Authorization: `Bearer ${validToken}` } });
+  const request = new Request("https://reader-mcp.significanthobbies.com/reader/mcp", {
+    headers: { Authorization: `Bearer ${validToken}` },
+  });
   const grant = await verifyAuth0AccessToken(validToken, request, route, env, fixture.getKey);
   assert.deepEqual(grant, {
-    ownerId,
+    subject: ownerId,
     product: "reader",
     resource,
     scope,
@@ -94,7 +97,7 @@ test("Auth0 JWT verification binds issuer, route audience, owner, lifetime, and 
   for (const overrides of [
     { audience: "https://mcp.example/calorie/mcp" },
     { issuer: "https://other.us.auth0.com/" },
-    { subject: "google-oauth2|other123456" },
+    { subject: "auth0|not-google" },
     { permissions: ["calorie.read"] },
     { expiresAt: now - 120 },
     { expiresAt: now + 7_200 },
@@ -103,6 +106,35 @@ test("Auth0 JWT verification binds issuer, route audience, owner, lifetime, and 
       verifyAuth0AccessToken(await fixture.token(overrides), request, route, env, fixture.getKey),
     );
   }
+
+  const otherGoogle = await verifyAuth0AccessToken(
+    await fixture.token({ subject: "google-oauth2|other123456" }),
+    request,
+    route,
+    env,
+    fixture.getKey,
+  );
+  assert.equal(otherGoogle.subject, "google-oauth2|other123456");
+});
+
+test("the deferred Setline route remains owner-only", async () => {
+  const fixture = await signingFixture();
+  const setlineRoute = hostedRoute("/setline/mcp")!;
+  const setlineResource = "https://mcp.example/setline/mcp";
+  const request = new Request(setlineResource);
+  const overrides = { audience: setlineResource, permissions: ["setline.read"] };
+  await assert.doesNotReject(
+    verifyAuth0AccessToken(await fixture.token(overrides), request, setlineRoute, env, fixture.getKey),
+  );
+  await assert.rejects(
+    verifyAuth0AccessToken(
+      await fixture.token({ ...overrides, subject: "google-oauth2|other123456" }),
+      request,
+      setlineRoute,
+      env,
+      fixture.getKey,
+    ),
+  );
 });
 
 test("authorization classification never accepts malformed or cross-product bearer tokens", async () => {
@@ -120,8 +152,9 @@ test("authorization classification never accepts malformed or cross-product bear
     env,
     fixture.getKey,
   );
+  const authorizedToken = await fixture.token();
   const authorized = await authorizeOAuthRequest(
-    new Request(resource, { headers: { Authorization: `Bearer ${await fixture.token()}` } }),
+    new Request(resource, { headers: { Authorization: `Bearer ${authorizedToken}` } }),
     route,
     env,
     fixture.getKey,
@@ -130,6 +163,10 @@ test("authorization classification never accepts malformed or cross-product bear
   assert.equal(malformed.status, "invalid");
   assert.equal(crossProduct.status, "invalid");
   assert.equal(authorized.status, "authorized");
+  if (authorized.status === "authorized") {
+    assert.equal(authorized.accessToken, authorizedToken);
+    assert.equal(authorized.grant.subject, ownerId);
+  }
 });
 
 function authorizationServerMetadata(): Record<string, unknown> {
@@ -220,4 +257,30 @@ test("Worker entrypoint invokes the runtime fetch with its global receiver", asy
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("OpenAI verification challenges are isolated by branded plugin hostname", async () => {
+  const challengeEnv = {
+    ...env,
+    OPENAI_CHALLENGE_READER: "reader-review-token",
+    OPENAI_CHALLENGE_CALORIE: "calorie-review-token",
+  };
+  const reader = await worker.fetch(
+    new Request("https://reader-mcp.significanthobbies.com/.well-known/openai-apps-challenge"),
+    challengeEnv as HostedWorkerEnv,
+  );
+  const calorie = await worker.fetch(
+    new Request("https://calorie-mcp.significanthobbies.com/.well-known/openai-apps-challenge"),
+    challengeEnv as HostedWorkerEnv,
+  );
+  const absent = await worker.fetch(
+    new Request("https://anime-mcp.significanthobbies.com/.well-known/openai-apps-challenge"),
+    challengeEnv as HostedWorkerEnv,
+  );
+
+  assert.equal(reader.status, 200);
+  assert.equal(await reader.text(), "reader-review-token");
+  assert.equal(await calorie.text(), "calorie-review-token");
+  assert.equal(absent.status, 404);
+  assert.equal(reader.headers.get("cache-control"), "no-store");
 });

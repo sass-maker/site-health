@@ -3,6 +3,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import {
   HOSTED_ROUTES,
   hostedRoute,
+  oauthResource,
   type HostedRouteDefinition,
 } from "./hosted.js";
 import type { HostedWorkerEnv, OAuthGrantProps } from "./oauth.js";
@@ -11,6 +12,7 @@ import { buildServerForApp, type ToolSecurityScheme } from "./server.js";
 const MAX_MCP_REQUEST_BYTES = 256_000;
 const MAX_MCP_RESPONSE_BYTES = 1_000_000;
 const MAX_PRODUCT_TOKEN_BYTES = 2_048;
+const MAX_FEDERATED_TOKEN_BYTES = 20_000;
 const NATIVE_TIMEOUT_MS = 10_000;
 const ALLOWED_ORIGINS = new Set(["https://chatgpt.com", "https://chat.openai.com"]);
 const LOCAL_ORIGIN = /^https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?$/;
@@ -20,7 +22,7 @@ class ResponseTooLargeError extends Error {}
 
 interface HostedRequestAuthorization {
   grant: OAuthGrantProps;
-  productToken: string | undefined;
+  upstreamToken: string | undefined;
 }
 
 function jsonRpcError(status: number, code: number, message: string, headers?: HeadersInit): Response {
@@ -225,8 +227,8 @@ function authorizationMatches(
   const { grant } = authorization;
   return grant.product === route.id &&
     grant.scope === route.scope &&
-    grant.resource === exactResource(request) &&
-    typeof grant.ownerId === "string" && grant.ownerId.length > 0 && grant.ownerId.length <= 512;
+    grant.resource === oauthResource(route, exactResource(request)) &&
+    typeof grant.subject === "string" && grant.subject.length > 0 && grant.subject.length <= 512;
 }
 
 function oauthChallenge(request: Request, route: HostedRouteDefinition): Response {
@@ -238,9 +240,13 @@ function oauthChallenge(request: Request, route: HostedRouteDefinition): Respons
   });
 }
 
-function validProductToken(route: HostedRouteDefinition, value: string | undefined): boolean {
-  if (!value || value.length > MAX_PRODUCT_TOKEN_BYTES) return false;
-  if (route.kind === "native") return value.startsWith("anime_list_");
+function validUpstreamToken(route: HostedRouteDefinition, value: string | undefined): boolean {
+  if (!value) return false;
+  if (route.authMode === "federated") {
+    return value.length <= MAX_FEDERATED_TOKEN_BYTES &&
+      /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/u.test(value);
+  }
+  if (value.length > MAX_PRODUCT_TOKEN_BYTES) return false;
   return !route.app.tokenPrefix || value.startsWith(route.app.tokenPrefix);
 }
 
@@ -255,6 +261,7 @@ async function handleAdapter(
     fetchImpl,
     readProcessEnvironment: false,
     securitySchemes: securitySchemes(route),
+    validateTokenPrefix: route.authMode !== "federated",
     ...(token ? { token } : {}),
   });
   const transport = new WebStandardStreamableHTTPServerTransport({ enableJsonResponse: true });
@@ -301,7 +308,7 @@ export async function handleHostedRequest(
   const url = new URL(request.url);
   if (url.pathname === "/health" && request.method === "GET") return healthResponse();
 
-  const route = hostedRoute(url.pathname);
+  const route = hostedRoute(url.pathname, url.hostname);
   if (!route) return withProtocolHeaders(jsonRpcError(404, -32001, "Unknown MCP route."), request);
   if (request.headers.has("origin") && !allowedOrigin(request)) {
     return withProtocolHeaders(jsonRpcError(403, -32000, "Origin is not allowed."), request, route);
@@ -332,12 +339,12 @@ export async function handleHostedRequest(
     }
   } else if (!authorizationMatches(request, route, authorization)) {
     return withProtocolHeaders(oauthChallenge(request, route), request, route);
-  } else if (!validProductToken(route, authorization.productToken)) {
+  } else if (!validUpstreamToken(route, authorization.upstreamToken)) {
     return withProtocolHeaders(productUnavailable(), request, route);
   }
 
   try {
-    const token = route.audience === "personal" ? authorization!.productToken : undefined;
+    const token = route.audience === "personal" ? authorization!.upstreamToken! : undefined;
     const response = route.kind === "native"
       ? await handleNative(request, route, fetchImpl, token!)
       : await handleAdapter(request, route, fetchImpl, token);
@@ -373,10 +380,7 @@ export async function handleHostedRequest(
 
 export function productToken(env: HostedWorkerEnv, route: HostedRouteDefinition): string | undefined {
   switch (route.tokenSecret) {
-    case "READER_MCP_TOKEN": return env.READER_MCP_TOKEN;
-    case "CALORIE_MCP_TOKEN": return env.CALORIE_MCP_TOKEN;
     case "SETLINE_MCP_TOKEN": return env.SETLINE_MCP_TOKEN;
-    case "ANIME_LIST_MCP_TOKEN": return env.ANIME_LIST_MCP_TOKEN;
     default: return "";
   }
 }
