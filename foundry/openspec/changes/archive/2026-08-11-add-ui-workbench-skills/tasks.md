@@ -23,4 +23,4 @@
 - [x] 4.2 Run the focused design-engineering Node tests and capability-catalog validation
 - [x] 4.3 Run strict OpenSpec validation, `git diff --check`, and an isolated diff review
 - [x] 4.4 Update `PROJECT_STATUS.md` with shipped tooling truth, archive the completed OpenSpec change, and rerun strict validation
-- [ ] 4.5 Commit and push the isolated branch, then open a pull request with `Closes #<issue>` and no deployment
+- [x] 4.5 Commit and push the isolated branch, then open a pull request with `Closes #<issue>` and no deployment
