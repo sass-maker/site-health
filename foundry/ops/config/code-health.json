@@ -203,6 +203,66 @@
   },
   "exceptions": [
     {
+      "id": "reader-lint-warning-baseline",
+      "projectId": "reader",
+      "capability": "lint",
+      "accepted": "0 errors and 39 established Biome warnings across 190 checked app, Worker, landing, extension, configuration, and test files",
+      "reason": "The warning count is now regression-gated so Astro-template diagnostics, array-key findings, hook dependencies, and reviewed HTML insertion boundaries can be resolved in tested, behavior-neutral batches.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/reader/issues/42",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "reader-whole-library-coverage",
+      "projectId": "reader",
+      "capability": "coverage",
+      "accepted": "93 passing app and Worker tests cover 37.07% of lines, 28.21% of branches, 35.28% of functions, and 34.88% of statements across the complete src/lib denominator; 20 extension tests pass outside the root V8 denominator",
+      "reason": "Honest 37/28/35/34 floors block regressions while database adapters, AI/auth paths, analytics, timing, storage, and browser-local modules gain hermetic coverage; extension coverage must be added without weakening its existing test gate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/reader/issues/42",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "reader-legacy-complexity",
+      "projectId": "reader",
+      "capability": "complexity",
+      "accepted": "37 legacy threshold violations across 1,410 functions and 14,672 function NLOC, maximum CCN 68, maximum function length 606, and maximum 11 parameters",
+      "reason": "Reader now blocks complexity regressions while article persistence, Worker routes, board orchestration, reading UI, and extension paths are decomposed only behind representative database, route, and interaction tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/reader/issues/42",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "reader-legacy-duplication",
+      "projectId": "reader",
+      "capability": "duplication",
+      "accepted": "37 exact clone groups and 493 duplicated lines (2.0832%) across 148 app, Worker, landing, extension, and configuration files",
+      "reason": "Related API, database, reader, board, and extension surfaces contain measured similarities; clone count and duplicated lines cannot increase while only stable shared behavior is consolidated behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/reader/issues/42",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "reader-astro-five-advisories",
+      "projectId": "reader",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 2 high Astro 5 advisories in the static landing workspace: GHSA-8hv8-536x-4wqp and GHSA-2pvr-wf23-7pc7; the audit also reports 5 moderate and 3 low advisories",
+      "reason": "The two high fixes require a separately reviewed Astro major migration. The landing workspace prerenders static pages without an Astro server runtime; every unaccepted critical or high advisory is rejected by the repository gate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/reader/issues/42",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "reader-justified-suppressions",
+      "projectId": "reader",
+      "capability": "suppressions",
+      "accepted": "5 source and test markers: 1 generated agent payload format marker, 3 lint boundary directives, and 1 conditional mobile Playwright skip",
+      "reason": "The exact marker count is regression-gated while generated surfaces, sanitized content insertion, board effects, and viewport-specific test behavior gain safer native representations.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/reader/issues/42",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "looptv-whole-library-coverage",
       "projectId": "looptv",
       "capability": "coverage",
