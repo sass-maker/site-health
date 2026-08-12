@@ -373,6 +373,66 @@
       "reviewDate": "2026-09-12"
     },
     {
+      "id": "karte-whole-library-coverage",
+      "projectId": "karte",
+      "capability": "coverage",
+      "accepted": "94 Vitest tests cover 10.15% of lines, 8.72% of branches, 13.39% of functions, and 9.34% of statements across the complete src/lib production denominator",
+      "reason": "The previous 80/70 thresholds were aspirational and did not pass. Honest floors now reject regression while authentication, chat, storage, import, and route logic gain tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/karte/issues/66",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "karte-legacy-complexity",
+      "projectId": "karte",
+      "capability": "complexity",
+      "accepted": "92 legacy threshold violations across 1,715 TypeScript, JavaScript, and Astro functions and 25,692 function NLOC, maximum CCN 53, function length 449, and 15 parameters",
+      "reason": "The app, Worker routing, content generation, dashboard, email Worker, and landing code are regression-gated while decomposition proceeds behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/karte/issues/66",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "karte-legacy-duplication",
+      "projectId": "karte",
+      "capability": "duplication",
+      "accepted": "98 exact clone groups and 2,207 duplicated lines (4.6200%) across 289 app, Worker, email, Astro, script, and configuration files",
+      "reason": "Parallel profile modes, APIs, dashboard forms, and generated surfaces contain measured similarities; all three duplication measures cannot increase.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/karte/issues/66",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "karte-unused-and-suppressions",
+      "projectId": "karte",
+      "capability": "unused",
+      "accepted": "One unused public-route helper export and one dynamic jscpd development-tool finding; zero unused files, types, dependencies, unlisted imports, unresolved imports, or cycles",
+      "reason": "Both accepted findings are count-gated while the broad legacy Knip ignore map is reduced separately without breaking framework and generated entrypoints.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/karte/issues/66",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "karte-seven-markers",
+      "projectId": "karte",
+      "capability": "suppressions",
+      "accepted": "Seven authored markers for React lifecycle dependencies, hydration, image boundaries, and a documented headless-import limitation",
+      "reason": "The marker count is regression-gated while each framework or provider limitation is resolved with representative tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/karte/issues/66",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "karte-twenty-advisories",
+      "projectId": "karte",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 20 accepted high advisory IDs across 25 path findings; 19 moderate and 6 low findings also remain",
+      "reason": "Production and broad upgrades require owner approval; every new critical/high ID or additional accepted-ID path fails the repository gate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/karte/issues/66",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "reader-lint-warning-baseline",
       "projectId": "reader",
       "capability": "lint",
