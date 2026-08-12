@@ -736,6 +736,96 @@
       "owner": "Sarthak",
       "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
       "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-format-debt",
+      "projectId": "research-papers",
+      "capability": "format",
+      "accepted": "31 Python files and 41 web files differ from the enabled Ruff and Biome formatters",
+      "reason": "Both counts are regression-gated so the mixed operator and public-web surfaces can be formatted in bounded behavior-neutral batches rather than a broad rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-lint-debt",
+      "projectId": "research-papers",
+      "capability": "lint",
+      "accepted": "143 Ruff findings, including 135 line-length findings and zero undefined names; 22 Biome errors and 83 warnings",
+      "reason": "The exact findings are regression-gated while operator scripts and dormant web components are corrected in focused, tested batches; undefined Python names remain forbidden.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-python-type-debt",
+      "projectId": "research-papers",
+      "capability": "types",
+      "accepted": "88 Python ty diagnostics, 84 major; zero Astro type errors",
+      "reason": "Python diagnostics are regression-gated while legacy database-row and operator-pipeline types are made explicit; the public Astro surface must remain type-clean.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-coverage-boundary",
+      "projectId": "research-papers",
+      "capability": "coverage",
+      "accepted": "542 of 3,703 Python lines covered (14.6368%) across 55 passing hermetic Python tests, plus 3 passing Pages health tests",
+      "reason": "The full Python package denominator is retained and regression-gated while operator ingestion, enrichment, CLI, and ClickHouse paths gain hermetic coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-unused-web-surface",
+      "projectId": "research-papers",
+      "capability": "unused",
+      "accepted": "Zero high-confidence Vulture findings; 13 disconnected web files, 2 dependencies used only by them, 10 unnecessary exports, and 3 unnecessary types",
+      "reason": "Knip findings are regression-gated while formerly removed dashboard diagnostics are verified before file and production-dependency deletion; new high-confidence Python waste remains forbidden.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-legacy-complexity",
+      "projectId": "research-papers",
+      "capability": "complexity",
+      "accepted": "22 legacy threshold violations across 696 Python, JavaScript, and TypeScript functions and 10,312 function NLOC, maximum CCN 77, maximum function length 385, and maximum 11 parameters",
+      "reason": "Cross-language Lizard metrics now block regressions while the seed, export, ingestion, and search paths are decomposed behind the hermetic suite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-legacy-duplication",
+      "projectId": "research-papers",
+      "capability": "duplication",
+      "accepted": "12 exact clone groups and 122 duplicated lines (0.913926%) across 64 Python, JavaScript, and TypeScript production source files",
+      "reason": "Cross-language production clones are regression-gated while shared behavior is consolidated only where an abstraction preserves distinct operator and public runtime boundaries.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-dependency-advisories",
+      "projectId": "research-papers",
+      "capability": "dependency-risk",
+      "accepted": "22 exact Python advisory IDs and 10 exact high web advisory IDs; zero web critical advisories",
+      "reason": "Exact advisory allowlists reject new risk while production framework, ML, image, crypto, and API upgrades are reviewed separately against the static Pages and operator-only execution boundaries.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "research-papers-inline-suppressions",
+      "projectId": "research-papers",
+      "capability": "suppressions",
+      "accepted": "31 inline Ruff, type-checker, and coverage suppression directives",
+      "reason": "The directive count is regression-gated while broad-exception operator paths and legacy type boundaries are narrowed through focused fixes.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
     }
   ],
   "trendMetrics": [
