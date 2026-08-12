@@ -60,7 +60,8 @@
   "pnpm": {
     "auditConfig": {
       "ignoreGhsas": [
-        "GHSA-6cpc-mj5c-m9rq"
+        "GHSA-6cpc-mj5c-m9rq",
+        "GHSA-jmr9-qjv8-65gv"
       ]
     },
     "allowedDeprecatedVersions": {

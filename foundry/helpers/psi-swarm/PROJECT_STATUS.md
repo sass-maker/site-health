@@ -1,6 +1,6 @@
 # Project Status
 
-Last updated: 2026-08-09 (v0.4.0)
+Last updated: 2026-08-13 (v0.4.0)
 
 ## Why / What
 
@@ -45,6 +45,10 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-08-13** — Added a first-class Quick check to the local browser
+  controller: two serial desktop audits produce honestly labeled directional
+  medians, while Full swarm remains the five-run mobile-and-desktop confidence
+  path and Custom swarm preserves expert controls.
 - **2026-08-09** — Adopted the Fleet Ultracite/Biome lint contract with zero
   findings across 59 applicable files. The migration also fixed report-link
   generation in project page rows by passing the existing agent client through
@@ -157,6 +161,8 @@ History & analysis (SQLite):
 
 Web controller & sharing:
 - Astro + React + Tailwind local browser UI for the `serve` agent (CORS/SSE).
+- Quick, Full, and Custom run paths: Quick produces a directional two-run
+  desktop result, then offers direct confirmation with the full PSI swarm.
 - **Shareable demo gallery (PRD shipped):** static fixtures + `/gallery` route
   — works without the local agent.
 - Agent auto-probe only fires on localhost or explicit `?agent=`/`?token=`
