@@ -473,6 +473,56 @@
       "reviewDate": "2026-09-12"
     },
     {
+      "id": "what-it-takes-to-win-library-coverage",
+      "projectId": "what-it-takes-to-win",
+      "capability": "coverage",
+      "accepted": "7 native Node tests cover 100% of lines, 94.51% of branches, and 98.67% of functions across the complete src/lib product-logic denominator; data-build, discovery, clarity, tier, reliability, Astro page, and research-script paths remain enforced by deterministic audits and the 5,551-page production build rather than line coverage",
+      "reason": "The extracted scoring, provenance, comparison, and coverage logic exceeds the new-project targets and is regression-gated. Inline Astro browser behavior and operator scripts still need coverage instrumentation that can execute safely without mutating the published 2,770-person dataset or manufacturing meaningless import-only tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "what-it-takes-to-win-astro-hints",
+      "projectId": "what-it-takes-to-win",
+      "capability": "types",
+      "accepted": "Astro check reports 0 errors, 0 warnings, and 42 hints across 14 files, primarily implicit client-script parameter types plus two unused bindings",
+      "reason": "The exact hint count is regression-gated while browser-script types and unused bindings are resolved in behavior-preserving batches behind the production build and audits.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "what-it-takes-to-win-legacy-complexity",
+      "projectId": "what-it-takes-to-win",
+      "capability": "complexity",
+      "accepted": "18 legacy threshold violations across 217 TypeScript, JavaScript, and Astro functions and 2,734 function NLOC, maximum CCN 53, maximum function length 205, and maximum 4 parameters",
+      "reason": "Dataset construction, discovery generation, audits, comparison paths, and visualization pages are regression-gated while large functions are decomposed only behind deterministic dataset and rendered-output evidence.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "what-it-takes-to-win-legacy-duplication",
+      "projectId": "what-it-takes-to-win",
+      "capability": "duplication",
+      "accepted": "23 exact clone groups and 295 duplicated lines (1.5765%) across 47 Astro, TypeScript, JavaScript, Python, CSS, Markdown, and configuration production files; published data and tests are excluded",
+      "reason": "Related page narratives, audit contracts, research utilities, and visualization structures contain measured similarities; clone count, duplicated lines, and percentage cannot increase while only stable behavior is consolidated.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "what-it-takes-to-win-four-advisories",
+      "projectId": "what-it-takes-to-win",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 4 accepted high advisory IDs across 4 paths inherited through Astro, Wrangler, and Astro Check: GHSA-2v37-7h3g-55p8, GHSA-4cwx-7wf7-3272, GHSA-5p4m-2wfm-xmqj, and GHSA-7p8r-x3mc-p8w7; the audit also reports 5 moderate advisories",
+      "reason": "The repository is a static build without a server runtime, but production and broad dependency upgrades require explicit owner approval. The gate rejects every unaccepted critical or high advisory ID and any additional vulnerable path.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "reader-lint-warning-baseline",
       "projectId": "reader",
       "capability": "lint",
