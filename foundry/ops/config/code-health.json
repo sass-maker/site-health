@@ -833,6 +833,56 @@
       "reviewDate": "2026-09-12"
     },
     {
+      "id": "india-standards-format-boundary",
+      "projectId": "india-standards",
+      "capability": "format",
+      "accepted": "25 of 29 established JavaScript and TypeScript production/test files predate the active Biome formatter; every changed source file must pass the formatter",
+      "reason": "Changed-source enforcement prevents new drift while the compact but data-sensitive application and ETL paths are formatted in bounded behavior-neutral batches instead of one broad rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/india-standards/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "india-standards-coverage-boundary",
+      "projectId": "india-standards",
+      "capability": "coverage",
+      "accepted": "32 passing hermetic tests cover 95.84% of lines, 78.28% of branches, and 93.02% of functions across loaded production modules; UI components, the estimate route, Worker runtime, and data-operation entrypoints are outside the current denominator",
+      "reason": "The loaded-module denominator and floors are explicit while browser, route, Worker, and data-operation paths gain hermetic coverage without accessing authorized microdata or inflating the current aggregate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/india-standards/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "india-standards-legacy-complexity",
+      "projectId": "india-standards",
+      "capability": "complexity",
+      "accepted": "5 legacy threshold violations across 160 JavaScript and TypeScript functions and 2,192 function NLOC, maximum CCN 41, maximum function length 356, and maximum 10 parameters",
+      "reason": "Cross-surface Lizard metrics now block regressions while estimation, survey-variance, and UI orchestration paths are decomposed only behind representative statistical and product tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/india-standards/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "india-standards-legacy-duplication",
+      "projectId": "india-standards",
+      "capability": "duplication",
+      "accepted": "4 exact clone groups and 49 duplicated lines (0.703012912482066%) across 22 JavaScript, TypeScript, and CSS production source files",
+      "reason": "Production clone groups and lines are regression-gated while shared behavior is consolidated only where it preserves distinct UI, hosted-parity, and local-data-operation boundaries.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/india-standards/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "india-standards-inline-suppressions",
+      "projectId": "india-standards",
+      "capability": "suppressions",
+      "accepted": "1 justified Biome format suppression on the generated public agent-surface payload",
+      "reason": "The exact directive count is regression-gated while generated payload ownership remains explicit and new lint, type, coverage, or test suppressions require review.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/india-standards/issues/20",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "significanthobbies-format-boundary",
       "projectId": "significanthobbies",
       "capability": "format",
