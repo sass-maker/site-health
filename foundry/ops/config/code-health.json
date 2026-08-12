@@ -433,6 +433,46 @@
       "reviewDate": "2026-09-12"
     },
     {
+      "id": "starboard-library-database-coverage",
+      "projectId": "starboard",
+      "capability": "coverage",
+      "accepted": "202 Vitest tests cover 61.64% of lines, 53.52% of branches, 64.82% of functions, and 60.52% of statements across the complete src/lib and src/db production denominator; 18 Playwright tests cover public app and Astro landing journeys outside the V8 denominator",
+      "reason": "The previous 100% result measured only four selected files. Honest 61/53/64/60 floors now reject regression while authentication, database, GitHub, sync, AI metadata, and search paths gain focused tests; UI and route behavior remains enforced by the production-accurate Playwright suite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Codevetter/starboard/issues/78",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "starboard-legacy-complexity",
+      "projectId": "starboard",
+      "capability": "complexity",
+      "accepted": "35 legacy threshold violations across 803 TypeScript, JavaScript, and Astro functions and 11,803 function NLOC, maximum CCN 56, maximum function length 430, and maximum 17 parameters",
+      "reason": "Catalog, discovery, recommendation, seed, enrichment, conversion, and landing paths are regression-gated while large functions are decomposed only behind representative unit, integration, and browser coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Codevetter/starboard/issues/78",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "starboard-legacy-duplication",
+      "projectId": "starboard",
+      "capability": "duplication",
+      "accepted": "35 exact clone groups and 542 duplicated lines (2.7771%) across 148 app, database, script, Astro, and configuration production files",
+      "reason": "Related public and authenticated discovery, tool, repository, database, and operator flows contain measured similarities; clone count, duplicated lines, and percentage cannot increase while only stable behavior is consolidated.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Codevetter/starboard/issues/78",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "starboard-eight-image-markers",
+      "projectId": "starboard",
+      "capability": "suppressions",
+      "accepted": "8 reviewed source markers preserving direct external repository and avatar image rendering across cards, lists, catalog updates, and repository detail surfaces",
+      "reason": "The authored marker count is regression-gated while each external image boundary is migrated only when Next image host policy, sizing, and browser behavior remain equivalent.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Codevetter/starboard/issues/78",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "reader-lint-warning-baseline",
       "projectId": "reader",
       "capability": "lint",
