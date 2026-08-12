@@ -28,7 +28,7 @@
 - [x] 5.1 Extend exact-catalog, read-only annotation, mutation-absence, arbitrary-transport, credential rejection, concurrency, and cross-host isolation tests across all routes.
 - [x] 5.2 Extend the production monitor and submission evaluation manifests for the six new public routes without weakening existing seven-route coverage.
 - [x] 5.3 Run the helper check, strict OpenSpec validation, Worker dry-run bundle, and bounded live source probes; retain only contract/status evidence.
-- [ ] 5.4 Review the complete diff, preserve unrelated work, commit, push, and open a PR with `Closes #333`; do not deploy or submit plugins.
+- [x] 5.4 Review the complete diff, preserve unrelated work, commit, push, and open a PR with `Closes #333`; do not deploy or submit plugins.
 
 ## 6. Complete separately approved external activation
 
