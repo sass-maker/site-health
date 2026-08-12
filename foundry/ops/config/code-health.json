@@ -671,7 +671,7 @@
       "id": "local-ai-video-studio-coverage-boundary",
       "projectId": "local-ai-video-studio",
       "capability": "coverage",
-      "accepted": "StudioCore and MediaEngine portable floors of 82% lines, 76% functions, and 69% regions across 43 passing Swift Testing tests; StudioAgentSupport, StudioAgent, and StudioApp are not represented in the emitted report",
+      "accepted": "StudioCore and MediaEngine portable floors of 85% lines, 78% functions, and 70% regions across 43 passing Swift Testing tests; StudioAgentSupport, StudioAgent, and StudioApp are not represented in the emitted report",
       "reason": "The domain and media libraries have real non-regression coverage; direct agent executable and SwiftUI coverage remains explicit follow-up rather than being hidden inside test-source totals.",
       "owner": "Sarthak",
       "issue": "https://github.com/sass-maker/local-ai-video-studio/issues/16",
