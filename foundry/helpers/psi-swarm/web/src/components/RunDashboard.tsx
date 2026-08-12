@@ -23,7 +23,22 @@ interface PresetState {
 }
 
 interface RunSummary {
-  byPreset: Record<string, Record<string, { p50: number; p75: number; p90: number; p99: number; min: number; max: number; stddev: number; n: number } | null>>;
+  byPreset: Record<
+    string,
+    Record<
+      string,
+      {
+        p50: number;
+        p75: number;
+        p90: number;
+        p99: number;
+        min: number;
+        max: number;
+        stddev: number;
+        n: number;
+      } | null
+    >
+  >;
 }
 
 interface Suggestion {
@@ -32,8 +47,22 @@ interface Suggestion {
   text: string;
 }
 
-const METRIC_SPECS: { key: keyof RunMetrics; label: string; unit: 'ms' | 'index' | 'score'; good?: number; poor?: number; higherIsBetter?: boolean }[] = [
-  { key: 'performance_score', label: 'Perf Score', unit: 'score', good: 90, poor: 50, higherIsBetter: true },
+const METRIC_SPECS: {
+  key: keyof RunMetrics;
+  label: string;
+  unit: 'ms' | 'index' | 'score';
+  good?: number;
+  poor?: number;
+  higherIsBetter?: boolean;
+}[] = [
+  {
+    key: 'performance_score',
+    label: 'Perf Score',
+    unit: 'score',
+    good: 90,
+    poor: 50,
+    higherIsBetter: true,
+  },
   { key: 'lcp', label: 'LCP', unit: 'ms', good: 2500, poor: 4000 },
   { key: 'inp', label: 'INP', unit: 'ms', good: 200, poor: 500 },
   { key: 'cls', label: 'CLS', unit: 'index', good: 0.1, poor: 0.25 },
@@ -100,7 +129,9 @@ export default function RunDashboard() {
   const [reasonStatus, setReasonStatus] = useState<'idle' | 'streaming' | 'done' | 'error'>('idle');
   const [reasonModel, setReasonModel] = useState<string | undefined>();
   const [reasonBackendUsed, setReasonBackendUsed] = useState<'openai' | 'local-ai' | undefined>();
-  const [reasonBackendPref, setReasonBackendPref] = useState<'auto' | 'openai' | 'local-ai'>('auto');
+  const [reasonBackendPref, setReasonBackendPref] = useState<'auto' | 'openai' | 'local-ai'>(
+    'auto'
+  );
   const [reasonError, setReasonError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const runUnsubRef = useRef<(() => void) | null>(null);
@@ -193,7 +224,8 @@ export default function RunDashboard() {
 
       const unsubscribe = client.subscribe(id, (e: RunnerEvent) => handleEvent(e));
       runUnsubRef.current = unsubscribe;
-      void client.waitForRunCompletion(id)
+      void client
+        .waitForRunCompletion(id)
         .then(() => completeRun())
         .catch((err) => setError((err as Error).message));
     } catch (err) {
@@ -277,7 +309,7 @@ export default function RunDashboard() {
           setReasonError(e.message);
         }
       },
-      { backend: reasonBackendPref },
+      { backend: reasonBackendPref }
     );
   };
 
@@ -348,7 +380,11 @@ export default function RunDashboard() {
       )}
 
       {view === 'done' && suggestions && (
-        <SuggestionsView links={suggestions} sources={suggestionSources} onPick={(u) => setUrl(u)} />
+        <SuggestionsView
+          links={suggestions}
+          sources={suggestionSources}
+          onPick={(u) => setUrl(u)}
+        />
       )}
 
       {error && <ErrorBanner error={error} />}
@@ -381,7 +417,8 @@ psi-swarm serve --origin http://localhost:4321`}
         </code>
       </pre>
       <p className="text-[var(--color-dim)] text-xs break-words">
-        Compute happens on your machine. The browser is just the UI. {error ? `Last error: ${error}` : ''}
+        Compute happens on your machine. The browser is just the UI.{' '}
+        {error ? `Last error: ${error}` : ''}
       </p>
       <button
         onClick={onRetry}
@@ -402,7 +439,8 @@ function ConnectedBadge({ baseUrl, health }: { baseUrl: string; health: HealthRe
         <span className="font-mono">{baseUrl}</span>
         <span className="text-[var(--color-dim)]">·</span>
         <span className="font-mono text-[var(--color-dim)]">
-          {health.machine.cores} cores · {health.machine.totalMemGB.toFixed(1)} GB · max {health.machine.recommendedParallel}× parallel
+          {health.machine.cores} cores · {health.machine.totalMemGB.toFixed(1)} GB · max{' '}
+          {health.machine.recommendedParallel}× parallel
         </span>
       </div>
       <span className="text-[var(--color-dim)] font-mono text-xs">v{health.version}</span>
@@ -411,11 +449,16 @@ function ConnectedBadge({ baseUrl, health }: { baseUrl: string; health: HealthRe
 }
 
 interface RunFormProps {
-  url: string; setUrl: (v: string) => void;
-  runs: number; setRuns: (v: number) => void;
-  presetGroup: string; setPresetGroup: (v: string) => void;
-  parallelMode: '1' | 'auto'; setParallelMode: (v: '1' | 'auto') => void;
-  tag: string; setTag: (v: string) => void;
+  url: string;
+  setUrl: (v: string) => void;
+  runs: number;
+  setRuns: (v: number) => void;
+  presetGroup: string;
+  setPresetGroup: (v: string) => void;
+  parallelMode: '1' | 'auto';
+  setParallelMode: (v: '1' | 'auto') => void;
+  tag: string;
+  setTag: (v: string) => void;
   presetsData: PresetsResponse;
   onStart: () => void;
   showWarnIfParallel: boolean;
@@ -477,7 +520,9 @@ function RunForm(props: RunFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm text-[var(--color-dim)] mb-1.5">Tag (optional, for comparing later)</label>
+        <label className="block text-sm text-[var(--color-dim)] mb-1.5">
+          Tag (optional, for comparing later)
+        </label>
         <input
           value={props.tag}
           onChange={(e) => props.setTag(e.target.value)}
@@ -506,7 +551,14 @@ interface LiveProgressProps {
   finished: boolean;
 }
 
-function LiveProgress({ presets, total, totalDone, elapsedMs, etaMs, finished }: LiveProgressProps) {
+function LiveProgress({
+  presets,
+  total,
+  totalDone,
+  elapsedMs,
+  etaMs,
+  finished,
+}: LiveProgressProps) {
   return (
     <div className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg p-6 space-y-3">
       <div className="flex items-baseline justify-between">
@@ -524,7 +576,9 @@ function LiveProgress({ presets, total, totalDone, elapsedMs, etaMs, finished }:
           const pct = (p.done / p.total) * 100;
           return (
             <div key={p.name} className="grid grid-cols-[140px_1fr_90px_140px] gap-3 items-center">
-              <div className={`text-sm font-mono ${p.active ? 'text-[var(--color-cyan)]' : 'text-[var(--color-text)]'}`}>
+              <div
+                className={`text-sm font-mono ${p.active ? 'text-[var(--color-cyan)]' : 'text-[var(--color-text)]'}`}
+              >
                 {p.active ? '●' : ' '} {p.name}
               </div>
               <div className="h-2 bg-[var(--color-bg)] border border-[var(--color-border)] rounded overflow-hidden">
@@ -548,20 +602,31 @@ function LiveProgress({ presets, total, totalDone, elapsedMs, etaMs, finished }:
   );
 }
 
-function ResultsView({ aggregate, presetStates }: { aggregate: RunSummary; presetStates: PresetState[] }) {
+function ResultsView({
+  aggregate,
+  presetStates,
+}: {
+  aggregate: RunSummary;
+  presetStates: PresetState[];
+}) {
   return (
     <div className="space-y-6">
       {presetStates.map((p) => {
         const stats = aggregate.byPreset[p.name];
         if (!stats) return null;
         return (
-          <div key={p.name} className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg overflow-hidden">
+          <div
+            key={p.name}
+            className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg overflow-hidden"
+          >
             <div className="px-5 py-3 border-b border-[var(--color-border)] flex items-baseline justify-between">
               <div>
                 <span className="font-semibold">{p.name}</span>
                 <span className="text-[var(--color-dim)] text-sm ml-3">{p.label}</span>
               </div>
-              <span className="text-[var(--color-dim)] text-xs font-mono">n = {p.done - p.failed}</span>
+              <span className="text-[var(--color-dim)] text-xs font-mono">
+                n = {p.done - p.failed}
+              </span>
             </div>
             <table className="w-full text-sm">
               <thead>
@@ -580,7 +645,8 @@ function ResultsView({ aggregate, presetStates }: { aggregate: RunSummary; prese
                 {METRIC_SPECS.map((spec) => {
                   const s = stats[spec.key];
                   if (!s) return null;
-                  const cls = (v: number) => `text-right py-1.5 px-3 font-mono ${colorClass(v, spec)}`;
+                  const cls = (v: number) =>
+                    `text-right py-1.5 px-3 font-mono ${colorClass(v, spec)}`;
                   return (
                     <tr key={spec.key} className="border-t border-[var(--color-border)]">
                       <td className="py-1.5 px-4 font-medium">{spec.label}</td>
@@ -588,9 +654,15 @@ function ResultsView({ aggregate, presetStates }: { aggregate: RunSummary; prese
                       <td className={cls(s.p75)}>{fmt(s.p75, spec.unit)}</td>
                       <td className={cls(s.p90)}>{fmt(s.p90, spec.unit)}</td>
                       <td className={cls(s.p99)}>{fmt(s.p99, spec.unit)}</td>
-                      <td className="text-right py-1.5 px-3 font-mono text-[var(--color-dim)]">{fmt(s.min, spec.unit)}</td>
-                      <td className="text-right py-1.5 px-3 font-mono text-[var(--color-dim)]">{fmt(s.max, spec.unit)}</td>
-                      <td className="text-right py-1.5 px-3 font-mono text-[var(--color-dim)]">{fmt(s.stddev, spec.unit)}</td>
+                      <td className="text-right py-1.5 px-3 font-mono text-[var(--color-dim)]">
+                        {fmt(s.min, spec.unit)}
+                      </td>
+                      <td className="text-right py-1.5 px-3 font-mono text-[var(--color-dim)]">
+                        {fmt(s.max, spec.unit)}
+                      </td>
+                      <td className="text-right py-1.5 px-3 font-mono text-[var(--color-dim)]">
+                        {fmt(s.stddev, spec.unit)}
+                      </td>
                     </tr>
                   );
                 })}
@@ -603,11 +675,20 @@ function ResultsView({ aggregate, presetStates }: { aggregate: RunSummary; prese
   );
 }
 
-function SuggestionsView({ links, sources, onPick }: { links: Suggestion[]; sources: string[]; onPick: (u: string) => void }) {
+function SuggestionsView({
+  links,
+  sources,
+  onPick,
+}: {
+  links: Suggestion[];
+  sources: string[];
+  onPick: (u: string) => void;
+}) {
   if (links.length === 0) {
     return (
       <div className="text-sm text-[var(--color-dim)] italic px-2">
-        No related pages found via static HTML, sitemap, or framework routes. Likely an auth-gated SPA.
+        No related pages found via static HTML, sitemap, or framework routes. Likely an auth-gated
+        SPA.
       </div>
     );
   }
@@ -615,11 +696,16 @@ function SuggestionsView({ links, sources, onPick }: { links: Suggestion[]; sour
     <div className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg overflow-hidden">
       <div className="px-5 py-3 border-b border-[var(--color-border)]">
         <span className="font-semibold">Other pages you might want to test</span>
-        <span className="text-[var(--color-dim)] text-xs ml-3 font-mono">sources: {sources.join(', ')}</span>
+        <span className="text-[var(--color-dim)] text-xs ml-3 font-mono">
+          sources: {sources.join(', ')}
+        </span>
       </div>
       <ul className="divide-y divide-[var(--color-border)]">
         {links.map((l) => (
-          <li key={l.url} className="px-5 py-2.5 flex items-center justify-between hover:bg-[var(--color-bg)] transition">
+          <li
+            key={l.url}
+            className="px-5 py-2.5 flex items-center justify-between hover:bg-[var(--color-bg)] transition"
+          >
             <div className="flex flex-col">
               <span className="font-mono text-sm">{l.path}</span>
               {l.text && <span className="text-xs text-[var(--color-dim)]">{l.text}</span>}
@@ -657,7 +743,17 @@ interface WhyPanelProps {
   onAskReason: () => void;
 }
 
-function WhyPanel({ diagnosis, reasonStatus, reasonText, reasonModel, reasonBackendUsed, reasonBackendPref, setReasonBackendPref, reasonError, onAskReason }: WhyPanelProps) {
+function WhyPanel({
+  diagnosis,
+  reasonStatus,
+  reasonText,
+  reasonModel,
+  reasonBackendUsed,
+  reasonBackendPref,
+  setReasonBackendPref,
+  reasonError,
+  onAskReason,
+}: WhyPanelProps) {
   const presets = Object.entries(diagnosis.byPreset);
   return (
     <div className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg overflow-hidden">
@@ -668,7 +764,9 @@ function WhyPanel({ diagnosis, reasonStatus, reasonText, reasonModel, reasonBack
             <>
               <select
                 value={reasonBackendPref}
-                onChange={(e) => setReasonBackendPref(e.target.value as 'auto' | 'openai' | 'local-ai')}
+                onChange={(e) =>
+                  setReasonBackendPref(e.target.value as 'auto' | 'openai' | 'local-ai')
+                }
                 className="text-xs bg-[var(--color-bg)] border border-[var(--color-border)] rounded px-2 py-1 text-[var(--color-dim)] focus:outline-none focus:border-[var(--color-cyan)]"
                 title="LLM backend"
               >
@@ -702,12 +800,16 @@ function WhyPanel({ diagnosis, reasonStatus, reasonText, reasonModel, reasonBack
       {(reasonText || reasonStatus !== 'idle') && (
         <div className="px-5 py-4 border-b border-[var(--color-border)] bg-[var(--color-bg)]">
           {reasonStatus === 'error' && reasonError && (
-            <div className="text-[var(--color-poor)] text-sm font-mono">Reasoning failed: {reasonError}</div>
+            <div className="text-[var(--color-poor)] text-sm font-mono">
+              Reasoning failed: {reasonError}
+            </div>
           )}
           {reasonText && (
             <p className="text-sm leading-relaxed whitespace-pre-wrap">
               {reasonText}
-              {reasonStatus === 'streaming' && <span className="inline-block w-2 h-4 bg-[var(--color-cyan)] ml-0.5 align-middle animate-pulse" />}
+              {reasonStatus === 'streaming' && (
+                <span className="inline-block w-2 h-4 bg-[var(--color-cyan)] ml-0.5 align-middle animate-pulse" />
+              )}
             </p>
           )}
         </div>
@@ -729,17 +831,25 @@ function PresetWhy({ name, data }: { name: string; data: DiagnosisResponse['byPr
       <div className="flex items-baseline justify-between">
         <div>
           <span className="font-semibold">{name}</span>
-          <span className="text-[var(--color-dim)] text-xs ml-3 font-mono">n = {diagnosis.okRuns}</span>
+          <span className="text-[var(--color-dim)] text-xs ml-3 font-mono">
+            n = {diagnosis.okRuns}
+          </span>
         </div>
-        {diagnosis.presetLabel && <span className="text-xs text-[var(--color-dim)]">{diagnosis.presetLabel}</span>}
+        {diagnosis.presetLabel && (
+          <span className="text-xs text-[var(--color-dim)]">{diagnosis.presetLabel}</span>
+        )}
       </div>
 
       {diagnosis.lcpElement && (
         <div className="text-sm">
           <span className="text-[var(--color-dim)]">LCP element: </span>
-          <span className="font-mono text-[var(--color-warn)]">{diagnosis.lcpElement.nodeLabel ?? diagnosis.lcpElement.selector ?? '(unknown)'}</span>
+          <span className="font-mono text-[var(--color-warn)]">
+            {diagnosis.lcpElement.nodeLabel ?? diagnosis.lcpElement.selector ?? '(unknown)'}
+          </span>
           {diagnosis.lcpElement.snippet && (
-            <div className="ml-4 text-xs text-[var(--color-dim)] font-mono mt-0.5 truncate">{diagnosis.lcpElement.snippet}</div>
+            <div className="ml-4 text-xs text-[var(--color-dim)] font-mono mt-0.5 truncate">
+              {diagnosis.lcpElement.snippet}
+            </div>
           )}
         </div>
       )}
@@ -749,10 +859,19 @@ function PresetWhy({ name, data }: { name: string; data: DiagnosisResponse['byPr
           <span className="text-[var(--color-dim)]">LCP phases:</span>
           {diagnosis.lcpPhases.map((p) => {
             const pct = parseInt(p.percent, 10);
-            const color = pct >= 40 ? 'text-[var(--color-poor)]' : pct >= 25 ? 'text-[var(--color-warn)]' : 'text-[var(--color-dim)]';
+            const color =
+              pct >= 40
+                ? 'text-[var(--color-poor)]'
+                : pct >= 25
+                  ? 'text-[var(--color-warn)]'
+                  : 'text-[var(--color-dim)]';
             return (
               <span key={p.phase} className={`font-mono text-xs ${color}`}>
-                {p.phase} {p.percent} ({p.medianMs >= 1000 ? `${(p.medianMs / 1000).toFixed(1)}s` : `${Math.round(p.medianMs)}ms`})
+                {p.phase} {p.percent} (
+                {p.medianMs >= 1000
+                  ? `${(p.medianMs / 1000).toFixed(1)}s`
+                  : `${Math.round(p.medianMs)}ms`}
+                )
               </span>
             );
           })}
@@ -772,10 +891,14 @@ function PresetWhy({ name, data }: { name: string; data: DiagnosisResponse['byPr
             {topOpportunities.map((op, i) => (
               <tr key={i} className="border-t border-[var(--color-border)]">
                 <td className="py-1.5 pr-3 font-medium">{op.label}</td>
-                <td className="py-1.5 pr-3 font-mono text-xs text-[var(--color-warn)]">{op.savings || op.display || '—'}</td>
+                <td className="py-1.5 pr-3 font-mono text-xs text-[var(--color-warn)]">
+                  {op.savings || op.display || '—'}
+                </td>
                 <td className="py-1.5 font-mono text-xs text-[var(--color-dim)] truncate max-w-[420px]">
                   {op.topItems[0]?.label ?? '—'}
-                  {op.topItems[0]?.detail && <span className="ml-1 text-[var(--color-dim)]">({op.topItems[0].detail})</span>}
+                  {op.topItems[0]?.detail && (
+                    <span className="ml-1 text-[var(--color-dim)]">({op.topItems[0].detail})</span>
+                  )}
                 </td>
               </tr>
             ))}

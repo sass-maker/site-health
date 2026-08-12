@@ -11,7 +11,12 @@ import { profileMachine, resolveParallelism } from './machine.js';
 import { discover, rank, type DiscoveredLink } from './discover.js';
 import { detectFrameworkRoutes } from './routes.js';
 import { computeStats } from './stats.js';
-import { diagnosePreset, rankOpportunities, formatAggregatedAudit, type Diagnosis } from './diagnose.js';
+import {
+  diagnosePreset,
+  rankOpportunities,
+  formatAggregatedAudit,
+  type Diagnosis,
+} from './diagnose.js';
 import { streamReasoning, probeLocalAi, type ReasonBackend } from './reason.js';
 import { domainRatingsForOrigins } from './ahrefs.js';
 import { isCloudflarePlatformHost, hostnameFromUrl } from './domain.js';
@@ -55,7 +60,12 @@ const META_URL_RE = /<meta\s+name=["']psi-url["']\s+content=["']([^"']+)["']/i;
 const META_GENERATED_RE = /<meta\s+name=["']psi-generated["']\s+content=["']([^"']+)["']/i;
 const TITLE_URL_RE = /<title>psi-swarm report\s*·\s*([^<]+)<\/title>/i;
 
-interface ReportEntry { path: string; mtime: number; url: string; generatedAt?: string; }
+interface ReportEntry {
+  path: string;
+  mtime: number;
+  url: string;
+  generatedAt?: string;
+}
 let reportRegistry: Map<string, ReportEntry[]> | null = null;
 let reportRegistryBuiltAt = 0;
 const REPORT_REGISTRY_TTL_MS = 30_000;
@@ -74,7 +84,11 @@ function buildReportRegistry(): Map<string, ReportEntry[]> {
   for (const dir of REPORT_DIRS) {
     if (!existsSync(dir)) continue;
     let names: string[];
-    try { names = readdirSync(dir); } catch { continue; }
+    try {
+      names = readdirSync(dir);
+    } catch {
+      continue;
+    }
     for (const f of names) {
       if (!f.endsWith('.html')) continue;
       const path = join(dir, f);
@@ -87,14 +101,20 @@ function buildReportRegistry(): Map<string, ReportEntry[]> {
         // Prefer explicit meta, fall back to the title's "psi-swarm report · <url>" pattern.
         const metaMatch = head.match(META_URL_RE);
         const titleMatch = !metaMatch ? head.match(TITLE_URL_RE) : null;
-        const url = metaMatch ? decodeHtmlEntities(metaMatch[1]) : titleMatch ? decodeHtmlEntities(titleMatch[1].trim()) : null;
+        const url = metaMatch
+          ? decodeHtmlEntities(metaMatch[1])
+          : titleMatch
+            ? decodeHtmlEntities(titleMatch[1].trim())
+            : null;
         if (!url) continue;
         const genMatch = head.match(META_GENERATED_RE);
         const generatedAt = genMatch ? genMatch[1] : undefined;
         const arr = registry.get(url) ?? [];
         arr.push({ path, mtime: stat.mtimeMs, url, generatedAt });
         registry.set(url, arr);
-      } catch { /* skip */ }
+      } catch {
+        /* skip */
+      }
     }
   }
   for (const entries of registry.values()) entries.sort((a, b) => b.mtime - a.mtime);
@@ -187,9 +207,11 @@ function startRun(record: RunRecord): void {
           });
         }
         const artifactPaths = exportSwarmArtifacts(record.url, results, { tag: record.tag });
-        void deriveTraceInsights(db, record.url, results, { tag: record.tag, artifactPaths }).catch(() => {
-          /* optional insight path */
-        });
+        void deriveTraceInsights(db, record.url, results, { tag: record.tag, artifactPaths }).catch(
+          () => {
+            /* optional insight path */
+          }
+        );
         db.close();
       } catch {
         /* don't fail the run on persistence error */
@@ -204,7 +226,11 @@ function startRun(record: RunRecord): void {
       record.finishedAt = Date.now();
       // Runner won't have emitted all-complete on error path, so send one synthetic
       // signal so connected clients can move out of "running" state.
-      broadcast(record, { type: 'all-complete', elapsedMs: 0, results: record.results } as RunnerEvent);
+      broadcast(record, {
+        type: 'all-complete',
+        elapsedMs: 0,
+        results: record.results,
+      } as RunnerEvent);
       closeSubscribers(record);
     });
 }
@@ -231,7 +257,10 @@ function closeSubscribers(record: RunRecord): void {
   record.subscribers.clear();
 }
 
-async function suggestionsFor(url: string, scripts: { url: string; content: string }[] | undefined): Promise<{
+async function suggestionsFor(
+  url: string,
+  scripts: { url: string; content: string }[] | undefined
+): Promise<{
   links: DiscoveredLink[];
   sources: string[];
 }> {
@@ -267,7 +296,10 @@ export interface ServeOptions {
   token?: string;
 }
 
-export function createAgentServer(opts: ServeOptions): { listen: () => Promise<void>; close: () => Promise<void> } {
+export function createAgentServer(opts: ServeOptions): {
+  listen: () => Promise<void>;
+  close: () => Promise<void>;
+} {
   const checkAuth = (req: IncomingMessage, url: NodeURL): boolean => {
     if (!opts.token) return true;
     const q = url.searchParams.get('token');
@@ -287,7 +319,9 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
   const domainRatingScheduler = createDomainRatingScheduler({
     isIdle,
     onRefresh: ({ domains, refreshedAt }) => {
-      console.log(`[psi-swarm] Ahrefs DR refreshed for ${domains} custom domain(s) · ${new Date(refreshedAt).toISOString()}`);
+      console.log(
+        `[psi-swarm] Ahrefs DR refreshed for ${domains} custom domain(s) · ${new Date(refreshedAt).toISOString()}`
+      );
     },
     onError: (err) => {
       console.warn(`[psi-swarm] Ahrefs DR refresh failed: ${err.message}`);
@@ -319,18 +353,13 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
           res,
           200,
           { status: 'ok', version: VERSION, machine: profileMachine() },
-          opts.origin,
+          opts.origin
         );
       }
 
       // GET /api/presets
       if (req.method === 'GET' && url.pathname === '/api/presets') {
-        return send(
-          res,
-          200,
-          { presets: PRESETS, groups: PRESET_GROUPS },
-          opts.origin,
-        );
+        return send(res, 200, { presets: PRESETS, groups: PRESET_GROUPS }, opts.origin);
       }
 
       // POST /api/run
@@ -389,7 +418,7 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
             error: record.errorMessage,
             results: record.results.map((r) => ({ ...r, scripts: undefined })),
           },
-          opts.origin,
+          opts.origin
         );
       }
 
@@ -465,41 +494,51 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
           const registry = getReportRegistry();
           const origins = Array.from(byOrigin.keys());
           const dbRatings = domainRatingsForOrigins(origins, db);
-          const projects = Array.from(byOrigin.entries()).map(([origin, pages]) => {
-            // Attach per-page report info from the registry.
-            const enrichedPages = pages.map((p) => {
-              const entries = registry.get(p.url) ?? [];
+          const projects = Array.from(byOrigin.entries())
+            .map(([origin, pages]) => {
+              // Attach per-page report info from the registry.
+              const enrichedPages = pages
+                .map((p) => {
+                  const entries = registry.get(p.url) ?? [];
+                  return {
+                    ...p,
+                    reportCount: entries.length,
+                    latestReportAt: entries[0]?.mtime,
+                  };
+                })
+                .sort((a, b) => a.path.localeCompare(b.path));
+              const totalRuns = enrichedPages.reduce((s, p) => s + p.totalRuns, 0);
+              const lastRunAt = enrichedPages.reduce((s, p) => Math.max(s, p.lastRunAt), 0);
+              const allMobile = enrichedPages
+                .map((p) => p.mobileLcpP75)
+                .filter((v): v is number => typeof v === 'number');
+              const allDesktop = enrichedPages
+                .map((p) => p.desktopLcpP75)
+                .filter((v): v is number => typeof v === 'number');
+              const allCls = enrichedPages
+                .map((p) => p.cls)
+                .filter((v): v is number => typeof v === 'number');
+              const host = hostnameFromUrl(origin);
+              const cfPlatform = host ? isCloudflarePlatformHost(host) : false;
+              const dr = host ? dbRatings.get(host) : undefined;
               return {
-                ...p,
-                reportCount: entries.length,
-                latestReportAt: entries[0]?.mtime,
+                origin,
+                totalRuns,
+                lastRunAt,
+                pageCount: enrichedPages.length,
+                worstMobileLcp: allMobile.length > 0 ? Math.max(...allMobile) : undefined,
+                worstDesktopLcp: allDesktop.length > 0 ? Math.max(...allDesktop) : undefined,
+                worstCls: allCls.length > 0 ? Math.max(...allCls) : undefined,
+                isCloudflarePlatform: cfPlatform,
+                // dr.rating === null is the "checked, Ahrefs has no rating" sentinel —
+                // expose no rating, but keep fetchedAt so the UI can show '—' vs pending.
+                domainRating: dr?.rating ?? undefined,
+                domainRatingDomain: dr?.domain,
+                domainRatingFetchedAt: dr?.fetchedAt,
+                pages: enrichedPages,
               };
-            }).sort((a, b) => a.path.localeCompare(b.path));
-            const totalRuns = enrichedPages.reduce((s, p) => s + p.totalRuns, 0);
-            const lastRunAt = enrichedPages.reduce((s, p) => Math.max(s, p.lastRunAt), 0);
-            const allMobile = enrichedPages.map((p) => p.mobileLcpP75).filter((v): v is number => typeof v === 'number');
-            const allDesktop = enrichedPages.map((p) => p.desktopLcpP75).filter((v): v is number => typeof v === 'number');
-            const allCls = enrichedPages.map((p) => p.cls).filter((v): v is number => typeof v === 'number');
-            const host = hostnameFromUrl(origin);
-            const cfPlatform = host ? isCloudflarePlatformHost(host) : false;
-            const dr = host ? dbRatings.get(host) : undefined;
-            return {
-              origin,
-              totalRuns,
-              lastRunAt,
-              pageCount: enrichedPages.length,
-              worstMobileLcp: allMobile.length > 0 ? Math.max(...allMobile) : undefined,
-              worstDesktopLcp: allDesktop.length > 0 ? Math.max(...allDesktop) : undefined,
-              worstCls: allCls.length > 0 ? Math.max(...allCls) : undefined,
-              isCloudflarePlatform: cfPlatform,
-              // dr.rating === null is the "checked, Ahrefs has no rating" sentinel —
-              // expose no rating, but keep fetchedAt so the UI can show '—' vs pending.
-              domainRating: dr?.rating ?? undefined,
-              domainRatingDomain: dr?.domain,
-              domainRatingFetchedAt: dr?.fetchedAt,
-              pages: enrichedPages,
-            };
-          }).sort((a, b) => b.lastRunAt - a.lastRunAt);
+            })
+            .sort((a, b) => b.lastRunAt - a.lastRunAt);
           return send(res, 200, { projects }, opts.origin);
         } finally {
           db.close();
@@ -545,7 +584,7 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
             count: entries.length,
             entries: entries.map((e) => ({ mtime: e.mtime, generatedAt: e.generatedAt })),
           },
-          opts.origin,
+          opts.origin
         );
       }
 
@@ -588,7 +627,12 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
         const baselineTag = url.searchParams.get('baseline');
         const candidateTag = url.searchParams.get('candidate');
         if (!u || !baselineTag || !candidateTag) {
-          return send(res, 400, { error: 'url, baseline, and candidate query params required' }, opts.origin);
+          return send(
+            res,
+            400,
+            { error: 'url, baseline, and candidate query params required' },
+            opts.origin
+          );
         }
         const pctKey = (url.searchParams.get('pct') ?? 'p75').toLowerCase();
         if (!['p50', 'p75', 'p90', 'p99'].includes(pctKey)) {
@@ -598,7 +642,16 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
         try {
           const baseRows = db.runsByTag(u, baselineTag);
           const candRows = db.runsByTag(u, candidateTag);
-          const metricKeys = ['lcp', 'cls', 'inp', 'tbt', 'fcp', 'ttfb', 'si', 'performance_score'] as const;
+          const metricKeys = [
+            'lcp',
+            'cls',
+            'inp',
+            'tbt',
+            'fcp',
+            'ttfb',
+            'si',
+            'performance_score',
+          ] as const;
           const metrics = metricKeys.map((key) => {
             const baseVals = baseRows
               .filter((r) => !r.error)
@@ -624,7 +677,7 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
               candidateCount: candRows.filter((r) => !r.error).length,
               metrics,
             },
-            opts.origin,
+            opts.origin
           );
         } finally {
           db.close();
@@ -651,9 +704,18 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
           arr.push(r);
           byPreset.set(r.preset.name, arr);
         }
-        const out: Record<string, { diagnosis: Diagnosis; topOpportunities: ReturnType<typeof formatAggregatedAudit>[] }> = {};
+        const out: Record<
+          string,
+          { diagnosis: Diagnosis; topOpportunities: ReturnType<typeof formatAggregatedAudit>[] }
+        > = {};
         for (const [name, rs] of byPreset) {
-          const d = diagnosePreset(record.url, name, rs, rs[0].preset.label, rs[0].preset.formFactor);
+          const d = diagnosePreset(
+            record.url,
+            name,
+            rs,
+            rs[0].preset.label,
+            rs[0].preset.formFactor
+          );
           const ranked = rankOpportunities(d, 8);
           out[name] = { diagnosis: d, topOpportunities: ranked.map(formatAggregatedAudit) };
         }
@@ -685,7 +747,7 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
                 error:
                   'OPENAI_API_KEY not set on the agent and local-ai not reachable. Either start local-ai (github.com/sarthakagrawal927/local-ai) on :3456, or restart `psi-swarm serve` with OPENAI_API_KEY=... (and optional OPENAI_BASE_URL).',
               },
-              opts.origin,
+              opts.origin
             );
           }
         }
@@ -699,7 +761,9 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
         }
         const diagnoses: Diagnosis[] = [];
         for (const [name, rs] of byPreset) {
-          diagnoses.push(diagnosePreset(record.url, name, rs, rs[0].preset.label, rs[0].preset.formFactor));
+          diagnoses.push(
+            diagnosePreset(record.url, name, rs, rs[0].preset.label, rs[0].preset.formFactor)
+          );
         }
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/event-stream');
@@ -717,9 +781,13 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
               res.write(`data: ${JSON.stringify({ type: 'chunk', text: chunk })}\n\n`);
             },
           });
-          res.write(`data: ${JSON.stringify({ type: 'done', modelUsed: result.modelUsed, durationMs: result.durationMs })}\n\n`);
+          res.write(
+            `data: ${JSON.stringify({ type: 'done', modelUsed: result.modelUsed, durationMs: result.durationMs })}\n\n`
+          );
         } catch (err) {
-          res.write(`data: ${JSON.stringify({ type: 'error', message: (err as Error).message })}\n\n`);
+          res.write(
+            `data: ${JSON.stringify({ type: 'error', message: (err as Error).message })}\n\n`
+          );
         }
         res.end();
         return;
@@ -732,12 +800,23 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
         const record = runs.get(id);
         if (!record) return send(res, 404, { error: 'run not found' }, opts.origin);
         const byPreset: Record<string, Record<string, ReturnType<typeof computeStats>>> = {};
-        const metricKeys = ['lcp', 'cls', 'inp', 'tbt', 'fcp', 'ttfb', 'si', 'performance_score'] as const;
+        const metricKeys = [
+          'lcp',
+          'cls',
+          'inp',
+          'tbt',
+          'fcp',
+          'ttfb',
+          'si',
+          'performance_score',
+        ] as const;
         for (const name of record.presetNames) {
           byPreset[name] = {};
           const rs = record.results.filter((r) => r.preset.name === name && !r.error);
           for (const m of metricKeys) {
-            const vals = rs.map((r) => r.metrics?.[m]).filter((v): v is number => typeof v === 'number');
+            const vals = rs
+              .map((r) => r.metrics?.[m])
+              .filter((v): v is number => typeof v === 'number');
             byPreset[name][m] = computeStats(vals);
           }
         }
@@ -760,7 +839,7 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
               summary: summarizeWatchlist(queue),
               refreshedAt: refreshedAt ? Number(refreshedAt) : null,
             },
-            opts.origin,
+            opts.origin
           );
         } finally {
           db.close();
@@ -794,7 +873,12 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
         const removed = db.removeWatchlist(target);
         const queue = evaluateWatchlist(db);
         db.close();
-        return send(res, 200, { ok: removed, queue, summary: summarizeWatchlist(queue) }, opts.origin);
+        return send(
+          res,
+          200,
+          { ok: removed, queue, summary: summarizeWatchlist(queue) },
+          opts.origin
+        );
       }
 
       // POST /api/watchlist/refresh
@@ -804,7 +888,12 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
         db.setMeta('watchlist_refreshed_at', String(refreshedAt));
         const queue = evaluateWatchlist(db, refreshedAt);
         db.close();
-        return send(res, 200, { refreshedAt, queue, summary: summarizeWatchlist(queue) }, opts.origin);
+        return send(
+          res,
+          200,
+          { refreshedAt, queue, summary: summarizeWatchlist(queue) },
+          opts.origin
+        );
       }
 
       // GET /api/insights?url=
@@ -832,7 +921,7 @@ export function createAgentServer(opts: ServeOptions): { listen: () => Promise<v
               createdAt: row.created_at,
             })),
           },
-          opts.origin,
+          opts.origin
         );
       }
 

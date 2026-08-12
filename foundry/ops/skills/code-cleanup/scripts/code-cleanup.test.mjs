@@ -210,23 +210,33 @@ test('Fleet scan uses active registry tiers and deduplicates git roots', (t) => 
       projects: [
         {
           id: 'fleet-workspace',
+          lifecycle: 'maintained',
           tier: 'active',
           repo: 'foundry/ops',
         },
         {
           id: 'drank',
+          lifecycle: 'maintained',
           tier: 'active',
           repo: 'foundry/helpers/drank',
         },
         {
           id: 'missing-active',
+          lifecycle: 'maintained',
           tier: 'secondary',
           repo: 'missing-active',
         },
         {
           id: 'missing-parked',
+          lifecycle: 'past',
           tier: 'parked',
           repo: 'missing-parked',
+        },
+        {
+          id: 'past-active',
+          lifecycle: 'past',
+          tier: 'active',
+          repo: 'past-active',
         },
       ],
     }),
@@ -248,6 +258,11 @@ test('Fleet scan uses active registry tiers and deduplicates git roots', (t) => 
   assert.deepEqual(report.skipped.map((item) => item.projectId), [
     'missing-active',
   ]);
+  assert.deepEqual(report.excluded.map((item) => item.projectId), [
+    'missing-parked',
+    'past-active',
+  ]);
+  assert.equal(report.summary.excluded, 2);
 });
 
 test('validates exact npm versions and normalizes Bundlephobia evidence', async () => {

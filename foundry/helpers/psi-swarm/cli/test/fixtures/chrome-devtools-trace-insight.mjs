@@ -4,9 +4,7 @@ function median(values) {
   if (values.length === 0) return undefined;
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2 === 0
-    ? (sorted[middle - 1] + sorted[middle]) / 2
-    : sorted[middle];
+  return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
 }
 
 function medianPhase(results, phase) {
@@ -15,7 +13,7 @@ function medianPhase(results, phase) {
       .filter((audit) => audit.id === 'largest-contentful-paint-element')
       .flatMap((audit) => audit.lcpPhases ?? [])
       .filter((entry) => entry.phase === phase)
-      .map((entry) => entry.timingMs),
+      .map((entry) => entry.timingMs)
   );
   return median(timings);
 }
@@ -24,9 +22,7 @@ const adapter = {
   name: 'chrome-devtools-mcp-validation',
   async diagnose({ results, artifactPath }) {
     const ttfbMs = median(
-      results
-        .map((result) => result.metrics?.ttfb)
-        .filter((value) => typeof value === 'number'),
+      results.map((result) => result.metrics?.ttfb).filter((value) => typeof value === 'number')
     );
     const renderDelayMs = medianPhase(results, 'Render Delay');
 
@@ -40,10 +36,7 @@ const adapter = {
       };
     }
 
-    if (
-      renderDelayMs !== undefined &&
-      renderDelayMs > DOCUMENT_LATENCY_THRESHOLD_MS
-    ) {
+    if (renderDelayMs !== undefined && renderDelayMs > DOCUMENT_LATENCY_THRESHOLD_MS) {
       return {
         bottleneckPhase: 'Render Delay',
         summary: `LCPBreakdown regression: ${Math.round(renderDelayMs)}ms render delay`,

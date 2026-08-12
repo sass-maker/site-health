@@ -1,0 +1,32 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "automation/**/*.{js,mjs}",
+    "host/**/*.{js,mjs}",
+    "lib/agent-surfaces/agent-edge.template.mjs",
+    "lib/agent-surfaces/adapters/*.mjs",
+    "scripts/**/*.{js,mjs}",
+    "skills/**/scripts/**/*.{js,mjs}",
+    "test/**/*.test.{js,mjs}"
+  ],
+  "project": [
+    "automation/**/*.{js,mjs}",
+    "host/**/*.{js,mjs}",
+    "lib/**/*.{js,mjs}",
+    "scripts/**/*.{js,mjs}",
+    "skills/**/scripts/**/*.{js,mjs}",
+    "test/**/*.{js,mjs}"
+  ],
+  "ignore": ["test/fixtures/**"],
+  "ignoreBinaries": [
+    "crontab",
+    "gcloud",
+    "lizard",
+    "openspec",
+    "pycycle",
+    "ruff",
+    "sqlite3",
+    "tsx",
+    "vulture"
+  ]
+}

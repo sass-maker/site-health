@@ -7,7 +7,7 @@ const AHREFS_CRAWLER_IPS_ENDPOINT = 'https://api.ahrefs.com/v3/public/crawler-ip
 const AHREFS_CRAWLER_IP_RANGES_ENDPOINT = 'https://api.ahrefs.com/v3/public/crawler-ip-ranges';
 export const DOMAIN_RATING_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 // AhrefsBot's crawling infrastructure changes rarely; refresh daily at most.
-export const CRAWLER_IPS_TTL_MS = 24 * 60 * 60 * 1000;
+const CRAWLER_IPS_TTL_MS = 24 * 60 * 60 * 1000;
 
 export interface DomainRatingResult {
   domain: string;
@@ -80,7 +80,7 @@ function ahrefsAuthHeaders(): Record<string, string> {
  */
 export async function fetchDomainRating(
   target: string,
-  opts: { force?: boolean; db?: HistoryDB } = {},
+  opts: { force?: boolean; db?: HistoryDB } = {}
 ): Promise<DomainRatingResult | null> {
   if (!shouldFetchDomainRating(target)) return null;
 
@@ -90,19 +90,20 @@ export async function fetchDomainRating(
   if (!opts.force) {
     const cached = readMemoryCache(domain) ?? readStored(opts.db, domain);
     // A fresh sentinel (rating null) means "Ahrefs has no rating" — don't refetch.
-    if (cached) return cached.rating === null ? null : { domain: cached.domain, rating: cached.rating, fetchedAt: cached.fetchedAt };
+    if (cached)
+      return cached.rating === null
+        ? null
+        : { domain: cached.domain, rating: cached.rating, fetchedAt: cached.fetchedAt };
   }
 
-  const res = await fetch(
-    `${AHREFS_ENDPOINT}?target=${encodeURIComponent(domain)}&output=json`,
-    {
-      headers: {
-        'user-agent': 'Mozilla/5.0 (compatible; psi-swarm/0.2; +https://github.com/sarthakagrawal927/psi-swarm)',
-        ...ahrefsAuthHeaders(),
-      },
-      signal: AbortSignal.timeout(10_000),
+  const res = await fetch(`${AHREFS_ENDPOINT}?target=${encodeURIComponent(domain)}&output=json`, {
+    headers: {
+      'user-agent':
+        'Mozilla/5.0 (compatible; psi-swarm/0.2; +https://github.com/sarthakagrawal927/psi-swarm)',
+      ...ahrefsAuthHeaders(),
     },
-  );
+    signal: AbortSignal.timeout(10_000),
+  });
 
   if (!res.ok) {
     const txt = await res.text();
@@ -131,14 +132,16 @@ export interface FetchDomainRatingsResult {
 /** Batch-fetch DR for multiple origins with modest concurrency. */
 export async function fetchDomainRatings(
   targets: string[],
-  opts: { concurrency?: number; force?: boolean; db?: HistoryDB } = {},
+  opts: { concurrency?: number; force?: boolean; db?: HistoryDB } = {}
 ): Promise<FetchDomainRatingsResult> {
   const concurrency = opts.concurrency ?? 4;
-  const eligible = [...new Set(
-    targets
-      .map((t) => hostnameFromUrl(t))
-      .filter((d): d is string => !!d && shouldFetchDomainRating(`https://${d}/`)),
-  )];
+  const eligible = [
+    ...new Set(
+      targets
+        .map((t) => hostnameFromUrl(t))
+        .filter((d): d is string => !!d && shouldFetchDomainRating(`https://${d}/`))
+    ),
+  ];
 
   const out = new Map<string, DomainRatingResult>();
   let resolved = 0;
@@ -177,27 +180,32 @@ export interface TopDomainEntry {
  * generated from a free Ahrefs account). Up to 250k rows per request.
  * https://docs.ahrefs.com/en/api/reference/public/get-domain-rating-top-domains
  */
-export async function fetchAhrefsTopDomains(opts: {
-  from?: number;
-  to?: number;
-} = {}): Promise<TopDomainEntry[]> {
+export async function fetchAhrefsTopDomains(
+  opts: { from?: number; to?: number } = {}
+): Promise<TopDomainEntry[]> {
   const key = process.env.AHREFS_API_KEY;
   if (!key) throw new Error('AHREFS_API_KEY is required for domain-rating-top-domains');
 
   const from = opts.from ?? 1;
   const to = opts.to ?? 100;
-  const res = await fetch(
-    `${AHREFS_TOP_DOMAINS_ENDPOINT}?from=${from}&to=${to}&output=json`,
-    { headers: { Authorization: `Bearer ${key}`, accept: 'application/json' }, signal: AbortSignal.timeout(15_000) },
-  );
+  const res = await fetch(`${AHREFS_TOP_DOMAINS_ENDPOINT}?from=${from}&to=${to}&output=json`, {
+    headers: { Authorization: `Bearer ${key}`, accept: 'application/json' },
+    signal: AbortSignal.timeout(15_000),
+  });
   if (!res.ok) {
     const txt = await res.text();
     throw new Error(`Ahrefs HTTP ${res.status}: ${txt.slice(0, 200)}`);
   }
-  const data = (await res.json()) as { domains?: Array<{ domain?: string; domain_rating?: number; rank?: number }> };
+  const data = (await res.json()) as {
+    domains?: Array<{ domain?: string; domain_rating?: number; rank?: number }>;
+  };
   return (data.domains ?? [])
-    .filter((d): d is { domain: string; domain_rating: number; rank: number } =>
-      typeof d.domain === 'string' && typeof d.domain_rating === 'number' && typeof d.rank === 'number')
+    .filter(
+      (d): d is { domain: string; domain_rating: number; rank: number } =>
+        typeof d.domain === 'string' &&
+        typeof d.domain_rating === 'number' &&
+        typeof d.rank === 'number'
+    )
     .map((d) => ({ domain: d.domain, domainRating: d.domain_rating, rank: d.rank }));
 }
 
@@ -207,7 +215,7 @@ export async function fetchAhrefsTopDomains(opts: {
  */
 export function domainRatingsForOrigins(
   origins: string[],
-  db: HistoryDB,
+  db: HistoryDB
 ): Map<string, StoredDomainRating> {
   const stored = db.domainRatings();
   const out = new Map<string, StoredDomainRating>();
@@ -245,10 +253,14 @@ function writeCachedList(db: HistoryDB | undefined, key: string, values: string[
   db?.setMeta(key, JSON.stringify({ values, fetchedAt: Date.now() } satisfies CachedList));
 }
 
-async function fetchAhrefsList(url: string, mapper: (data: unknown) => string[]): Promise<string[]> {
+async function fetchAhrefsList(
+  url: string,
+  mapper: (data: unknown) => string[]
+): Promise<string[]> {
   const res = await fetch(`${url}?output=json`, {
     headers: {
-      'user-agent': 'Mozilla/5.0 (compatible; psi-swarm/0.2; +https://github.com/sarthakagrawal927/psi-swarm)',
+      'user-agent':
+        'Mozilla/5.0 (compatible; psi-swarm/0.2; +https://github.com/sarthakagrawal927/psi-swarm)',
       accept: 'application/json',
     },
     signal: AbortSignal.timeout(10_000),
@@ -266,10 +278,9 @@ async function fetchAhrefsList(url: string, mapper: (data: unknown) => string[])
  * changes rarely. Use this to confirm a hit claiming to be AhrefsBot is
  * really Ahrefs' crawler before allowlisting it in a firewall or WAF rule.
  */
-export async function fetchAhrefsCrawlerIps(opts: {
-  force?: boolean;
-  db?: HistoryDB;
-} = {}): Promise<string[]> {
+export async function fetchAhrefsCrawlerIps(
+  opts: { force?: boolean; db?: HistoryDB } = {}
+): Promise<string[]> {
   if (!opts.force) {
     const cached = readCachedList(opts.db, CRAWLER_IPS_META_KEY);
     if (cached) return cached.values;
@@ -283,10 +294,9 @@ export async function fetchAhrefsCrawlerIps(opts: {
 }
 
 /** Same as {@link fetchAhrefsCrawlerIps} but for published CIDR ranges. */
-export async function fetchAhrefsCrawlerIpRanges(opts: {
-  force?: boolean;
-  db?: HistoryDB;
-} = {}): Promise<string[]> {
+export async function fetchAhrefsCrawlerIpRanges(
+  opts: { force?: boolean; db?: HistoryDB } = {}
+): Promise<string[]> {
   if (!opts.force) {
     const cached = readCachedList(opts.db, CRAWLER_RANGES_META_KEY);
     if (cached) return cached.values;
@@ -318,7 +328,13 @@ function isIpv4InCidr(ip: string, cidr: string): boolean {
   const prefix = prefixRaw === undefined ? 32 : Number(prefixRaw);
   const ipInt = ipv4ToInt(ip);
   const baseInt = ipv4ToInt(base);
-  if (ipInt === null || baseInt === null || !Number.isInteger(prefix) || prefix < 0 || prefix > 32) {
+  if (
+    ipInt === null ||
+    baseInt === null ||
+    !Number.isInteger(prefix) ||
+    prefix < 0 ||
+    prefix > 32
+  ) {
     return false;
   }
   if (prefix === 0) return true;

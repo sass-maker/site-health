@@ -1,0 +1,30 @@
+{
+  "name": "@fleet/ops-quality",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format:check": "node scripts/native-code-health.mjs format",
+    "lint": "node scripts/native-code-health.mjs lint",
+    "typecheck": "node scripts/native-code-health.mjs lint",
+    "test": "cd ../.. && node --disable-warning=ExperimentalWarning --test foundry/ops/test/*.test.mjs",
+    "test:coverage": "cd ../.. && node --disable-warning=ExperimentalWarning --test --experimental-test-coverage --test-coverage-include='foundry/ops/lib/**/*.mjs' --test-coverage-lines=90 --test-coverage-branches=72 --test-coverage-functions=94 foundry/ops/test/*.test.mjs",
+    "knip": "node scripts/native-code-health.mjs unused",
+    "knip:strict": "node scripts/native-code-health.mjs unused",
+    "quality:unused": "node scripts/native-code-health.mjs unused",
+    "quality:complexity": "node scripts/native-code-health.mjs complexity",
+    "quality:duplication": "node scripts/native-code-health.mjs duplication",
+    "quality:cycles": "node scripts/native-code-health.mjs cycles",
+    "quality:dependencies": "node scripts/native-code-health.mjs dependencies",
+    "quality": "pnpm run format:check && pnpm run lint && pnpm run quality:unused && pnpm run quality:complexity && pnpm run quality:duplication && pnpm run quality:cycles && pnpm run quality:dependencies",
+    "check": "pnpm run quality && pnpm run test:coverage"
+  },
+  "devDependencies": {
+    "jscpd": "5.0.14",
+    "knip": "6.32.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.33.2"
+}

@@ -42,7 +42,9 @@ export interface ReasonOptions {
   onChunk?: (chunk: string) => void;
 }
 
-function compactMetrics(results: RunResultWithArtifact[]): Record<string, Record<string, number | null>> {
+function compactMetrics(
+  results: RunResultWithArtifact[]
+): Record<string, Record<string, number | null>> {
   const out: Record<string, Record<string, number | null>> = {};
   const byPreset = new Map<string, RunResultWithArtifact[]>();
   for (const r of results) {
@@ -106,11 +108,15 @@ function compactDiagnosis(d: Diagnosis): Record<string, unknown> {
   };
 }
 
-export function buildReasoningPayload(
+function buildReasoningPayload(
   url: string,
   results: RunResultWithArtifact[],
-  diagnoses: Diagnosis[],
-): { url: string; metrics: Record<string, Record<string, number | null>>; perPresetDiagnosis: Record<string, unknown> } {
+  diagnoses: Diagnosis[]
+): {
+  url: string;
+  metrics: Record<string, Record<string, number | null>>;
+  perPresetDiagnosis: Record<string, unknown>;
+} {
   const perPreset: Record<string, unknown> = {};
   for (const d of diagnoses) perPreset[d.preset] = compactDiagnosis(d);
   return { url, metrics: compactMetrics(results), perPresetDiagnosis: perPreset };
@@ -132,7 +138,7 @@ export async function streamReasoning(
   url: string,
   results: RunResultWithArtifact[],
   diagnoses: Diagnosis[],
-  opts: ReasonOptions = {},
+  opts: ReasonOptions = {}
 ): Promise<ReasonResult> {
   const backend: ReasonBackend = opts.backend ?? 'openai';
   const payload = buildReasoningPayload(url, results, diagnoses);
@@ -159,18 +165,29 @@ function parseExtraJson(raw: string | undefined): Record<string, unknown> | unde
   }
 }
 
-async function streamOpenAi(userMessage: string, opts: ReasonOptions, startedAt: number): Promise<ReasonResult> {
+async function streamOpenAi(
+  userMessage: string,
+  opts: ReasonOptions,
+  startedAt: number
+): Promise<ReasonResult> {
   const apiKey = opts.apiKey ?? process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error(
-      'Missing OPENAI_API_KEY env var. Set it to a key from any OpenAI-compatible provider (OpenAI, OpenRouter, Groq, your own gateway). Or use --reason-backend local-ai.',
+      'Missing OPENAI_API_KEY env var. Set it to a key from any OpenAI-compatible provider (OpenAI, OpenRouter, Groq, your own gateway). Or use --reason-backend local-ai.'
     );
   }
   // Base URL convention: include /v1, e.g. https://api.openai.com/v1
-  const baseUrl = (opts.baseUrl ?? process.env.OPENAI_BASE_URL ?? DEFAULT_OPENAI_BASE).replace(/\/$/, '');
-  const model = normalizeModelSpec(opts.model) ?? normalizeModelSpec(process.env.OPENAI_MODEL) ?? 'gpt-4o-mini';
+  const baseUrl = (opts.baseUrl ?? process.env.OPENAI_BASE_URL ?? DEFAULT_OPENAI_BASE).replace(
+    /\/$/,
+    ''
+  );
+  const model =
+    normalizeModelSpec(opts.model) ?? normalizeModelSpec(process.env.OPENAI_MODEL) ?? 'gpt-4o-mini';
   const extraBody = { ...parseExtraJson(process.env.OPENAI_EXTRA_BODY), ...(opts.extraBody ?? {}) };
-  const extraHeaders = { ...parseExtraJson(process.env.OPENAI_EXTRA_HEADERS), ...(opts.extraHeaders ?? {}) } as Record<string, string>;
+  const extraHeaders = {
+    ...parseExtraJson(process.env.OPENAI_EXTRA_HEADERS),
+    ...(opts.extraHeaders ?? {}),
+  } as Record<string, string>;
 
   const body = JSON.stringify({
     model,
@@ -193,7 +210,9 @@ async function streamOpenAi(userMessage: string, opts: ReasonOptions, startedAt:
   });
   if (!res.ok) {
     const txt = await res.text();
-    throw new Error(`OpenAI-compatible endpoint at ${baseUrl} returned HTTP ${res.status}: ${txt.slice(0, 400)}`);
+    throw new Error(
+      `OpenAI-compatible endpoint at ${baseUrl} returned HTTP ${res.status}: ${txt.slice(0, 400)}`
+    );
   }
   if (!res.body) throw new Error('endpoint returned no body');
 
@@ -230,7 +249,11 @@ async function streamOpenAi(userMessage: string, opts: ReasonOptions, startedAt:
   return { text: acc.trim(), modelUsed, durationMs: Date.now() - startedAt };
 }
 
-async function streamLocalAi(userMessage: string, opts: ReasonOptions, startedAt: number): Promise<ReasonResult> {
+async function streamLocalAi(
+  userMessage: string,
+  opts: ReasonOptions,
+  startedAt: number
+): Promise<ReasonResult> {
   const baseUrl = opts.localAiUrl ?? process.env.LOCAL_AI_URL ?? DEFAULT_LOCAL_AI;
   const provider = opts.localAiProvider ?? 'claude';
   const model = opts.model && opts.model !== 'auto' ? opts.model : undefined;
@@ -280,7 +303,11 @@ async function streamLocalAi(userMessage: string, opts: ReasonOptions, startedAt
       }
     }
   }
-  return { text: acc.trim(), modelUsed: `local-ai:${provider}`, durationMs: Date.now() - startedAt };
+  return {
+    text: acc.trim(),
+    modelUsed: `local-ai:${provider}`,
+    durationMs: Date.now() - startedAt,
+  };
 }
 
 export async function probeLocalAi(baseUrl: string = DEFAULT_LOCAL_AI): Promise<boolean> {
