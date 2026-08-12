@@ -45,6 +45,10 @@ Internal (fleet):
 
 ## Timeline
 
+- **2026-08-13** — Replaced the disconnected controller's broken npm command
+  with a verified four-step local-agent setup: supported prerequisites, the
+  compatible public v0.4.0 source, copyable commands, and a CORS origin derived
+  from the current controller page.
 - **2026-08-13** — Added a first-class Quick check to the local browser
   controller: two serial desktop audits produce honestly labeled directional
   medians, while Full swarm remains the five-run mobile-and-desktop confidence
@@ -161,6 +165,9 @@ History & analysis (SQLite):
 
 Web controller & sharing:
 - Astro + React + Tailwind local browser UI for the `serve` agent (CORS/SSE).
+- Disconnected controller state guides users through the verified public
+  local-agent install and generates the correct allowed origin for the current
+  page.
 - Quick, Full, and Custom run paths: Quick produces a directional two-run
   desktop result, then offers direct confirmation with the full PSI swarm.
 - **Shareable demo gallery (PRD shipped):** static fixtures + `/gallery` route
