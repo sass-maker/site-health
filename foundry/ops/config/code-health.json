@@ -886,8 +886,8 @@
       "id": "significanthobbies-coverage-boundary",
       "projectId": "significanthobbies",
       "capability": "coverage",
-      "accepted": "482 passing Vitest tests cover 524/525 scoped core web lines (99.8%); 9 native unit tests and 4 UI tests cover 2,649/4,188 production Swift lines (63.2521%); server actions and the broader web UI are outside the current unit denominator",
-      "reason": "Both real denominators are retained and regression-gated while server actions, UI flows, and native presentation paths gain focused coverage without masking the current selective web scope.",
+      "accepted": "482 passing Vitest tests cover 524/525 scoped core web lines (99.8%); 9 native unit tests and 4 UI tests cover 2,649/4,188 production Swift lines (63.2521%) on local Xcode 27 beta and 2,658/4,205 lines (63.2105%) on GitHub Xcode 16.4, with a portable 63.20% floor; server actions and the broader web UI are outside the current unit denominator",
+      "reason": "Both real denominators and the small cross-Xcode coverage-model drift are retained and regression-gated while server actions, UI flows, and native presentation paths gain focused coverage without masking the current selective web scope.",
       "owner": "Sarthak",
       "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
       "reviewDate": "2026-09-12"
