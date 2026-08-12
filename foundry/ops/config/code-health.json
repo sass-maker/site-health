@@ -162,7 +162,12 @@
     "knowledge-base": { "profile": "mixed" },
     "local-ai-video-studio": { "profile": "swift-native" },
     "looptv": { "profile": "javascript-typescript" },
-    "motion": { "profile": "javascript-typescript" },
+    "motion": {
+      "profile": "mixed",
+      "equivalents": {
+        "cycles": "Knip enforces TypeScript import cycles; the required isolated Xcode workspace build resolves the Swift target and CocoaPods dependency graph."
+      }
+    },
     "pace": {
       "profile": "swift-native",
       "equivalents": {
@@ -501,6 +506,76 @@
       "owner": "Sarthak",
       "issue": "https://github.com/sass-maker/app-health/issues/39",
       "reviewDate": "2026-11-12"
+    },
+    {
+      "id": "motion-format-debt",
+      "projectId": "motion",
+      "capability": "format",
+      "accepted": "19 TypeScript files and 4,553 Swift diagnostics outside their formatter baselines",
+      "reason": "Both format-debt counts are regression-gated so existing application and native sources can be formatted in bounded behavior-neutral batches instead of a broad baseline rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "motion-swift-tests",
+      "projectId": "motion",
+      "capability": "tests",
+      "accepted": "11 passing TypeScript tests and an unsigned iOS Simulator build; no Swift test target",
+      "reason": "Protocol, controller, and readiness behavior now have focused tests, while an iOS test target and camera/ReplayKit device verification remain explicit follow-up rather than a fabricated hosted test pass.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "motion-swift-unused-code",
+      "projectId": "motion",
+      "capability": "unused",
+      "accepted": "Zero Knip findings and 68 Periphery findings after retaining Objective-C, Codable, and SwiftUI runtime boundaries",
+      "reason": "The TypeScript SDK boundary is clean; Swift findings are regression-gated while runtime-wired camera, protocol, recording, and parked-v2 declarations are verified before removal.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "motion-legacy-complexity",
+      "projectId": "motion",
+      "capability": "complexity",
+      "accepted": "6 legacy threshold violations across 479 TypeScript and Swift functions and 5,213 function NLOC, maximum CCN 22, maximum function length 189, and maximum 7 parameters",
+      "reason": "Cross-language Lizard metrics now block regressions while the relay route, skeleton renderer, and native pose/export paths are reduced behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "motion-legacy-duplication",
+      "projectId": "motion",
+      "capability": "duplication",
+      "accepted": "7 exact clone groups and 102 duplicated lines (0.8814%) across 46 TypeScript, JavaScript, and Swift production source files",
+      "reason": "Cross-language production clones are measured and regression-gated while shared behavior is consolidated only where it preserves the public SDK and Swift protocol mirror.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "motion-full-source-coverage",
+      "projectId": "motion",
+      "capability": "coverage",
+      "accepted": "Full TypeScript production scope at 6.40% lines, 10.06% branches, 7.01% functions, and 6.49% statements; Swift coverage unavailable without a test target",
+      "reason": "The baseline deliberately includes untested games, SDK, app, and relay sources and blocks regression while meaningful behavior tests and an iOS test target are added.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "motion-partykit-transitive-advisories",
+      "projectId": "motion",
+      "capability": "dependency-risk",
+      "accepted": "3 pinned high Undici advisories and zero critical advisories, all confined to PartyKit's development-only Miniflare dependency path",
+      "reason": "Direct Vite and Nanoid findings were patched during adoption; the latest PartyKit release still pins the vulnerable Miniflare generation, so exact advisory IDs are accepted only until a compatible upstream update is available.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
     }
   ],
   "trendMetrics": [
