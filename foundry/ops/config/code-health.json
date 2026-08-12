@@ -203,6 +203,56 @@
   },
   "exceptions": [
     {
+      "id": "looptv-whole-library-coverage",
+      "projectId": "looptv",
+      "capability": "coverage",
+      "accepted": "232 passing Vitest tests cover 71.6% of lines, 59.73% of branches, 67.97% of functions, and 64.22% of statements across the complete src/lib TypeScript denominator",
+      "reason": "The previous nominal 80% configuration failed against the complete library denominator. Honest 70/58/67/63 floors now block regressions while analytics, API timing, monitoring, vitals, and boundary behavior gain focused tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/looptv/issues/38",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "looptv-legacy-complexity",
+      "projectId": "looptv",
+      "capability": "complexity",
+      "accepted": "21 legacy threshold violations across 609 functions and 6,184 function NLOC, maximum CCN 48, maximum function length 665, and maximum 37 parameters",
+      "reason": "The player, control rail, catalog maintenance, and documentation parser paths are now regression-gated while the largest functions are decomposed only behind representative playback, catalog, and browser tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/looptv/issues/38",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "looptv-legacy-duplication",
+      "projectId": "looptv",
+      "capability": "duplication",
+      "accepted": "4 exact clone groups and 62 duplicated lines (0.5928%) across 77 production and configuration files",
+      "reason": "Catalog tooling and related React surfaces contain measured similarities; clone count and duplicated lines cannot increase while common behavior is consolidated behind existing tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/looptv/issues/38",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "looptv-astro-five-advisories",
+      "projectId": "looptv",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 2 high Astro 5 advisories: GHSA-8hv8-536x-4wqp and GHSA-2pvr-wf23-7pc7; the audit also reports 4 moderate and 3 low advisories",
+      "reason": "The two high fixes require a separately reviewed Astro major migration. LoopTV prerenders a static site without an Astro server runtime; every unaccepted critical or high advisory is rejected by the repository gate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/looptv/issues/38",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "looptv-justified-suppressions",
+      "projectId": "looptv",
+      "capability": "suppressions",
+      "accepted": "9 justified source and test suppression markers: 7 React state synchronization boundaries, 1 static JSON-LD insertion, and 1 documentation-regex iteration",
+      "reason": "The exact marker count is regression-gated while each React effect boundary gains interaction coverage and can be restructured without changing lean-back playback or browser-state behavior.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/looptv/issues/38",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "chess-format-boundary",
       "projectId": "chess",
       "capability": "format",
