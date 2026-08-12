@@ -8,9 +8,8 @@ private, device-only, or mutation-oriented surfaces into misleading apps.
 
 ## What Changes
 
-- Add independently enableable, public, read-only MCP connections for
-  PostTrainLLM, SWE Interview Prep, What It Takes to Win, SaaS Maker, Drank,
-  and LoopTV.
+- Add independently enableable, public, read-only MCP connections for SWE
+  Interview Prep, SaaS Maker, and Drank.
 - Read each product live from its existing public JSON contract through fixed
   allowlisted HTTPS operations on the centralized Cloudflare gateway.
 - Preserve product-specific identities, tool catalogs, branded hostnames,
@@ -21,8 +20,10 @@ private, device-only, or mutation-oriented surfaces into misleading apps.
 - Keep Setline's already-prepared private route separate and deferred until its
   real account boundary is usable; do not replace that requirement with an
   owner fallback.
+- Record LoopTV, PostTrainLLM, and What It Takes to Win as **not needed for
+  now**; their technically eligible sources do not currently justify release.
 - Do not deploy, publish, create new product storage, add private-data
-  projections, or modify the six source products in this change.
+  projections, or modify the three source products in this change.
 
 ## Capabilities
 
@@ -41,11 +42,9 @@ None.
 - Extends `foundry/helpers/chatgpt-connections/` app definitions, hosted route
   registry, monitoring/evaluation fixtures, operator documentation, and OpenAI
   listing packages.
-- Reads existing public contracts at `posttrainllm.com`,
-  `learn.significanthobbies.com`, `paths.significanthobbies.com`, and
-  `sassmaker.com`, plus Drank's fixed public Domain Rating route and LoopTV's
-  catalog summary; those products require no source, deployment, credential,
-  or data-model change.
+- Reads existing public contracts at `learn.significanthobbies.com` and
+  `sassmaker.com`, plus Drank's fixed public Domain Rating route; those products
+  require no source, deployment, credential, or data-model change.
 - Adds no production dependency and no secret. Deployment and ChatGPT portal
   activation remain separate explicit operations.
 - Tracked by Fleet Workspace issue #333.

@@ -20,26 +20,13 @@ system, browser session, service credential, or mutation.
 - **WHEN** a product is static-only, device-only, browser-local, mutation-oriented, session-only, or service-key-only
 - **THEN** it remains deferred with a recorded reason and no synthetic connector
 
-### Requirement: Six additional public products are independently queryable
-The system SHALL expose independent public connections for PostTrainLLM, SWE
-Interview Prep, What It Takes to Win, SaaS Maker, Drank, and LoopTV.
+### Requirement: Three additional public products are independently queryable
+The system SHALL expose independent public connections for SWE Interview Prep,
+SaaS Maker, and Drank.
 
 #### Scenario: One additional connection is enabled
-- **WHEN** an MCP client initializes any one of the six routes
+- **WHEN** an MCP client initializes any one of the three routes
 - **THEN** it receives only that product's identity and read-only tool catalog
-
-### Requirement: PostTrainLLM exposes published model evidence
-The PostTrainLLM connection SHALL support bounded model and leaderboard reads
-from its published leaderboard and gallery contracts, preserving stable model
-identifiers, benchmark evidence, provenance, and freshness when available.
-
-#### Scenario: User searches published models
-- **WHEN** the user supplies optional text or benchmark filters
-- **THEN** the connection returns matching published models within the requested bound
-
-#### Scenario: User requests one model
-- **WHEN** the user supplies a stable model identifier from a previous result
-- **THEN** the connection returns that model's published metadata and evidence or a stable not-found error
 
 ### Requirement: SWE Interview Prep exposes the public curriculum
 The SWE Interview Prep connection SHALL support bounded discovery of public
@@ -53,19 +40,6 @@ curriculum contracts.
 #### Scenario: User requests a system-design case
 - **WHEN** the user supplies a stable case identifier
 - **THEN** the connection returns the published prompt, pattern, critical path, linked concepts, and practice or guide URL
-
-### Requirement: What It Takes to Win exposes public research records
-The What It Takes to Win connection SHALL support bounded search and detail
-over the published research index without returning unpublished research
-artifacts or accepting arbitrary dataset paths.
-
-#### Scenario: User searches people or milestones
-- **WHEN** the user supplies optional text and category filters
-- **THEN** the connection returns bounded public matches with stable person identifiers
-
-#### Scenario: User requests one public record
-- **WHEN** the user supplies a stable person identifier from search
-- **THEN** the connection returns the corresponding published index record or a stable not-found error
 
 ### Requirement: SaaS Maker exposes the privacy-checked public portfolio
 The SaaS Maker connection SHALL support bounded product, surface, and learning
@@ -88,15 +62,6 @@ upstream provider credential or arbitrary provider access.
 #### Scenario: User requests a Domain Rating
 - **WHEN** the user supplies a valid public hostname
 - **THEN** the connection returns the normalized hostname, current rating, retrieval time, and Drank provenance
-
-### Requirement: LoopTV exposes public catalog status
-The LoopTV connection SHALL expose the published catalog summary including
-freshness, refresh coverage, total video count, and station counts without
-forwarding the oversized full video catalog.
-
-#### Scenario: User requests catalog status
-- **WHEN** the user asks about LoopTV catalog freshness, coverage, size, or station counts
-- **THEN** the connection returns the bounded public catalog summary with provenance
 
 ### Requirement: Additional connections remain strictly read-only and isolated
 Every additional route MUST accept only fixed GET reads, MUST advertise

@@ -6,22 +6,18 @@ GET adapters; private routes use product-scoped Auth0 resources. The gateway
 already enforces request and response bounds, explicit tool schemas, mutation
 absence, hostname isolation, redaction, and daily production monitoring.
 
-Six additional maintained non-iOS products already publish useful structured
+Three additional maintained non-iOS products already publish useful structured
 JSON on their live hosts:
 
-- PostTrainLLM: `/data/leaderboard.json` and `/gallery/manifest.json`.
 - SWE Interview Prep: `/curriculum/catalog.json` and
   `/system-design/catalog.json`.
-- What It Takes to Win: `/data/search-index.json`.
 - SaaS Maker: `/api/ai`, backed by its privacy-checked public projection.
 - Drank: `/api/dr?target=<domain>`, a fixed product-owned public lookup that
   keeps its provider credential server-side.
-- LoopTV: `/catalog-summary.json`, a bounded 834-byte aggregate over its
-  otherwise oversized public catalog.
 
-The source payloads range from roughly 6 KB to 14 MB. The existing generic
-read client caps an upstream response at 1 MB, so the 14 MB people dataset is
-not suitable; the 782 KB search index is the approved boundary.
+PostTrainLLM, What It Takes to Win, and LoopTV also have technically eligible
+sources, but the owner has classified their MCP connections as **not needed
+for now** based on current user value.
 
 ## Goals / Non-Goals
 
@@ -41,7 +37,7 @@ not suitable; the 782 KB search index is the approved boundary.
 - Free AI generation, India Standards estimates, job application actions, or
   any write/generation operation.
 - Exposing full private Fleet configuration through SaaS Maker.
-- Deploying or submitting the six plugins during this implementation change.
+- Deploying or submitting the three plugins during this implementation change.
 
 ## Decisions
 
@@ -51,31 +47,28 @@ not suitable; the 782 KB search index is the approved boundary.
 flowchart LR
     C[ChatGPT] --> H[Branded product hostname]
     H --> G[Central Fleet MCP gateway]
-    G --> P[PostTrainLLM public JSON]
     G --> S[SWE Prep public JSON]
-    G --> W[What It Takes to Win index]
     G --> F[SaaS Maker public catalog]
     G --> D[Drank Domain Rating lookup]
-    G --> L[LoopTV catalog summary]
 ```
 
 Each route has its own hostname, server identity, tool catalog, listing, and
 monitor cases, but reuses the gateway's protocol and safety code. Separate
-Workers would add six release units without improving data or auth isolation;
+Workers would add three release units without improving data or auth isolation;
 internal Service Binding splits remain available if a future adapter needs an
 independent runtime.
 
 ### 2. Add public adapter definitions, not product-owned MCP implementations
 
-All six sources are public product-owned JSON and need no caller credential.
-The gateway will add six `AppDefinition` entries and six public
+All three sources are public product-owned JSON and need no caller credential.
+The gateway will add three `AppDefinition` entries and three public
 hosted routes. It will continue to use only fixed `GET` operations with no
 caller-controlled origin, path, method, headers, or body.
 
 Alternatives rejected:
 
-- Creating MCP servers in all six repositories would duplicate protocol and
-  safety logic and require six product releases.
+- Creating MCP servers in all three repositories would duplicate protocol and
+  safety logic and require three product releases.
 - Copying JSON into Worker assets would violate daily real-time source access
   and introduce synchronization drift.
 
@@ -86,25 +79,18 @@ will name its exact collection keys and use local bounded filtering where the
 source exposes a whole public catalog. Detail tools select by stable identifier
 from the approved source collection. No adapter forwards a raw payload.
 
-PostTrainLLM uses `entries` for leaderboard evidence and `models` for gallery
-detail. SWE Prep exposes `tracks`, `concepts`, `roadmaps`, and
-`systemDesignCases`; the system-design detail source exposes `cases`. What It
-Takes to Win uses the public search-index array, not its 14 MB full dataset.
-SaaS Maker uses `products`, `surfaces`, and `learnings` from `/api/ai`.
+SWE Prep exposes `tracks`, `concepts`, `roadmaps`, and `systemDesignCases`;
+the system-design detail source exposes `cases`. SaaS Maker uses `products`,
+`surfaces`, and `learnings` from `/api/ai`.
 
 ### 4. Keep exact small tool catalogs
 
-- PostTrainLLM: `search_published_models`, `get_published_model`,
-  `list_model_benchmarks`.
 - SWE Interview Prep: `search_curriculum`, `get_curriculum_item`,
   `list_learning_roadmaps`, `search_system_design_cases`,
   `get_system_design_case`.
-- What It Takes to Win: `search_people_and_milestones`,
-  `get_person_research_record`, `list_research_categories`.
 - SaaS Maker: `search_public_products`, `get_public_product`,
   `list_public_surfaces`, `list_public_learnings`.
 - Drank: `get_domain_rating`.
-- LoopTV: `get_catalog_summary`.
 
 The catalogs map to recognizable user goals rather than reproducing every JSON
 field as a tool.
@@ -140,7 +126,7 @@ and agent-index surfaces rather than receiving empty MCP wrappers.
 ## Migration Plan
 
 1. Retain the full eligibility inventory and add fixture-backed app contracts.
-2. Add six anonymous hosted routes, branded host mappings, listing assets, and
+2. Add three anonymous hosted routes, branded host mappings, listing assets, and
    challenge-secret names without values.
 3. Extend exact-catalog, isolation, monitor, and public submission evaluations.
 4. Run the helper check, strict OpenSpec validation, dry-run Worker bundle, and
