@@ -1,11 +1,12 @@
 # Public Product Smoke — Fleet
 
-Generated: 2026-07-29T17:54:05Z
+Generated: 2026-08-11T15:20:06Z
 
-Scope: 31 live Fleet products, including retired-but-live Protein Index by
-explicit owner request. Excluded by Fleet policy: TrueHire, Open Historia, the
-personal website, API-only origins, duplicate domains, and private operational
-consoles.
+Scope: the 31-product Fleet audit from 2026-07-29 plus targeted post-deployment
+spot checks for Office OS and Local AI Video Studio on 2026-08-11. The older
+product evidence was retained rather than represented as newly tested.
+Excluded by Fleet policy: TrueHire, Open Historia, the personal website,
+API-only origins, duplicate domains, and private operational consoles.
 
 Method: at most six distinct surfaces per product, with one safe meaningful
 interaction per surface where possible. The audit did not sign in or out,
@@ -278,15 +279,34 @@ purchase, upload private data, trigger production jobs, or probe rate limits.
 - Filtering `construction daily report` reduced the live catalog from 140
   records to the expected single matching row.
 
+### Office OS
+
+- **Surfaces tested:** 2
+- Canonical landing and release-status navigation worked as a guest at
+  `https://office-os.pages.dev/`.
+- The page had no console errors or binary links. Public `release.json`
+  reported version `0.1.0 (1)`, arm64, `preparing`, and all four trust gates
+  false, matching the intended fail-closed distribution posture.
+
+### Local AI Video Studio
+
+- **Surfaces tested:** 2
+- Canonical landing and release-status navigation worked as a guest at
+  `https://local-ai-video-studio.pages.dev/`; both real native product images
+  loaded at their expected dimensions.
+- The page had no console errors or binary links. Public `release.json`
+  reported version `0.1.0 (1)`, arm64, `preparing`, and all four trust gates
+  false, matching the intended fail-closed distribution posture.
+
 ## Summary
 
 | Verdict | Count |
 |---|---:|
 | Fail | 4 |
 | Degraded | 5 |
-| Pass | 14 |
+| Pass | 16 |
 | Not verified | 8 |
-| **Total** | **31** |
+| **Total** | **33** |
 
 Only one blocking rate-limit event occurred: CodeVetter Cloudflare 1015 during
 ordinary navigation. No product was load-tested or probed for thresholds.

@@ -1,102 +1,72 @@
-import OAuthProvider from "@cloudflare/workers-oauth-provider";
-
+import { hostedRoute, openAiChallengeSecret } from "./hosted.js";
 import {
-  PRIVATE_HOSTED_PATHS,
-  PRIVATE_HOSTED_SCOPES,
-  hostedRoute,
-} from "./hosted.js";
-import {
-  handleOAuthDefaultRequest,
+  authorizeOAuthRequest,
+  handleOAuthMetadataRequest,
   type HostedWorkerEnv,
-  type OAuthGrantProps,
 } from "./oauth.js";
 import { handleHostedRequest, productToken } from "./worker.js";
 
-const privateApiHandler = {
-  async fetch(request: Request, env: HostedWorkerEnv, ctx: ExecutionContext): Promise<Response> {
-    const route = hostedRoute(new URL(request.url).pathname);
-    const grant = (ctx as ExecutionContext & { props?: OAuthGrantProps }).props;
-    if (!route || route.audience !== "personal" || !grant) {
-      return Response.json(
-        { jsonrpc: "2.0", error: { code: -32000, message: "OAuth authorization is required." }, id: null },
-        { status: 401, headers: { "Cache-Control": "no-store" } },
-      );
-    }
-    return handleHostedRequest(request, fetch, {
-      grant,
-      productToken: productToken(env, route),
-    });
-  },
-} satisfies ExportedHandler<HostedWorkerEnv>;
-
-const defaultHandler = {
-  async fetch(request: Request, env: HostedWorkerEnv): Promise<Response> {
-    const oauth = await handleOAuthDefaultRequest(request, env);
-    return oauth ?? handleHostedRequest(request);
-  },
-} satisfies ExportedHandler<HostedWorkerEnv>;
-
-const oauthProvider = new OAuthProvider<HostedWorkerEnv>({
-  apiRoute: [...PRIVATE_HOSTED_PATHS],
-  apiHandler: privateApiHandler,
-  defaultHandler,
-  authorizeEndpoint: "/oauth/authorize",
-  tokenEndpoint: "/oauth/token",
-  clientIdMetadataDocumentEnabled: true,
-  scopesSupported: [...PRIVATE_HOSTED_SCOPES],
-  resourceMetadata: {
-    scopes_supported: [...PRIVATE_HOSTED_SCOPES],
-    bearer_methods_supported: ["header"],
-    resource_name: "Fleet read-only personal application data",
-  },
-  accessTokenTTL: 3_600,
-  refreshTokenTTL: 2_592_000,
-  allowImplicitFlow: false,
-  allowPlainPKCE: false,
-  allowTokenExchangeGrant: false,
-  onError(error) {
-    console.warn(JSON.stringify({
-      message: "oauth_provider_rejected_request",
-      code: error.code,
-      status: error.status,
-      category: error.internal?.category,
-    }));
-  },
-});
-
-function routeForProtectedMetadata(pathname: string) {
-  const prefix = "/.well-known/oauth-protected-resource/";
-  if (!pathname.startsWith(prefix)) return undefined;
-  const route = hostedRoute(`/${pathname.slice(prefix.length)}`);
-  return route?.audience === "personal" ? route : undefined;
+function authorizationUnavailable(): Response {
+  return Response.json(
+    {
+      jsonrpc: "2.0",
+      error: { code: -32000, message: "OAuth authorization is temporarily unavailable." },
+      id: null,
+    },
+    {
+      status: 503,
+      headers: {
+        "Cache-Control": "no-store",
+        "Content-Type": "application/json",
+        "Retry-After": "30",
+        "X-Content-Type-Options": "nosniff",
+      },
+    },
+  );
 }
 
-async function narrowProductScope(response: Response, request: Request): Promise<Response> {
-  const path = new URL(request.url).pathname;
-  const route = hostedRoute(path) ?? routeForProtectedMetadata(path);
-  if (!route || route.audience !== "personal" || !route.scope) return response;
-  const headers = new Headers(response.headers);
-  const challenge = headers.get("WWW-Authenticate");
-  if (challenge) {
-    headers.set(
-      "WWW-Authenticate",
-      /scope="[^"]*"/u.test(challenge)
-        ? challenge.replace(/scope="[^"]*"/u, `scope="${route.scope}"`)
-        : `${challenge}, scope="${route.scope}"`,
-    );
+function openAiChallenge(request: Request, env: HostedWorkerEnv): Response | undefined {
+  const url = new URL(request.url);
+  if (url.pathname !== "/.well-known/openai-apps-challenge" || request.method !== "GET") {
+    return undefined;
   }
-  if (!routeForProtectedMetadata(path) || !headers.get("content-type")?.includes("application/json")) {
-    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+  const secret = openAiChallengeSecret(url.hostname);
+  const token = secret ? env[secret] : undefined;
+  if (!token || token.length > 4_096 || /[\r\n\0]/u.test(token)) {
+    return new Response("Not Found", { status: 404 });
   }
-  const payload = await response.json() as Record<string, unknown>;
-  payload.scopes_supported = [route.scope];
-  headers.delete("Content-Length");
-  headers.set("Cache-Control", "no-store");
-  return Response.json(payload, { status: response.status, headers });
+  return new Response(token, {
+    headers: {
+      "Cache-Control": "no-store",
+      "Content-Type": "text/plain; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+    },
+  });
 }
 
 export default {
-  async fetch(request: Request, env: HostedWorkerEnv, ctx: ExecutionContext): Promise<Response> {
-    return narrowProductScope(await oauthProvider.fetch(request, env, ctx), request);
+  async fetch(request: Request, env: HostedWorkerEnv): Promise<Response> {
+    const fetchImpl: typeof fetch = (input, init) => globalThis.fetch(input, init);
+    const challenge = openAiChallenge(request, env);
+    if (challenge) return challenge;
+    const metadata = await handleOAuthMetadataRequest(request, env, fetchImpl);
+    if (metadata) return metadata;
+
+    const url = new URL(request.url);
+    const route = hostedRoute(url.pathname, url.hostname);
+    if (!route || route.audience === "public") return handleHostedRequest(request, fetchImpl);
+
+    const authorization = await authorizeOAuthRequest(request, route, env);
+    if (authorization.status === "unavailable" || authorization.status === "misconfigured") {
+      return authorizationUnavailable();
+    }
+    if (authorization.status !== "authorized") return handleHostedRequest(request, fetchImpl);
+
+    return handleHostedRequest(request, fetchImpl, {
+      grant: authorization.grant,
+      upstreamToken: route.authMode === "federated"
+        ? authorization.accessToken
+        : productToken(env, route),
+    });
   },
 } satisfies ExportedHandler<HostedWorkerEnv>;

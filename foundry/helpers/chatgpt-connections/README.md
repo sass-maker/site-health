@@ -6,62 +6,84 @@ Fleet routes read-only data according to its existing storage boundary:
   repository-scoped STDIO sidecar.
 - Cloud-backed products are independent ChatGPT web apps backed by fixed
   Streamable HTTP routes on one Cloudflare Worker.
-- Private hosted routes use owner-only OAuth 2.1 through Cloudflare Access.
-  ChatGPT receives an MCP access token, never an application's PAT.
+- Private hosted routes use Auth0 as the OAuth 2.1 authorization
+  server. ChatGPT receives an audience-bound MCP access token, and that same
+  token is verified again by the product API before its subject is mapped to a
+  product account. Shared application PATs are never used for these routes.
 - Public hosted routes are anonymous and can read only approved public APIs or
   exports.
+
+[`docs/api-parity.md`](docs/api-parity.md) defines the exact parity guarantee:
+complete parity with each approved MCP/read contract, not with every product
+API. Excluded writes, administrative surfaces, and private fields remain
+deliberately unavailable.
 
 Secure MCP Tunnel is not required for this phase. Indulge and other device-only
 products remain deferred until they have an approved cloud data boundary.
 
 ## Hosted routes
 
-The production origin is assigned only after the manual deployment gate. Each
-path is registered as a separate ChatGPT developer-mode app.
+The compatibility workers.dev origin remains active. Public submissions use a
+different branded hostname for every plugin so OpenAI can verify and retain one
+independent domain challenge per submission.
 
-| Product | Path | ChatGPT auth | Upstream boundary |
+| Product | Production MCP URL | ChatGPT auth | Upstream boundary |
 | --- | --- | --- | --- |
-| Reader | `/reader/mcp` | OAuth, `reader.read` | Existing owner read API using `READER_MCP_TOKEN` in the Worker |
-| Calorie | `/calorie/mcp` | OAuth, `calorie.read` | Existing owner nutrition API using `CALORIE_MCP_TOKEN` |
-| Setline | `/setline/mcp` | OAuth, `setline.read` | Existing owner training API using `SETLINE_MCP_TOKEN`; activation waits for a real owner sign-in |
-| Anime List | `/anime-list/mcp` | OAuth, `anime-list.read` | Fixed proxy to `https://anime.significanthobbies.com/api/mcp` using `ANIME_LIST_MCP_TOKEN` |
-| Starboard | `/starboard/mcp` | None | Approved anonymous product APIs |
-| High Signal | `/high-signal/mcp` | None | Published signal, brief, and track-record data |
-| Significant Hobbies | `/significant-hobbies/mcp` | None | Public hobby, experience, and PUBLIC-timeline projections only |
-| Research Papers | `/research-papers/mcp` | None | Approved public hot, sleeper, and reading-path exports only |
+| Reader | `https://reader-mcp.significanthobbies.com/reader/mcp` | OAuth, `reader.read` | Reader verifies the caller token and resolves its Auth0 subject to that user's account |
+| Calorie | `https://calorie-mcp.significanthobbies.com/calorie/mcp` | OAuth, `calorie.read` | Calorie verifies the caller token and resolves its Auth0 subject to that user's account |
+| My Anime List | `https://anime-mcp.significanthobbies.com/anime-list/mcp` | OAuth, `anime-list.read` | Full native read catalog plus user-scoped watchlists |
+| Anime List | `https://catalog-anime-mcp.significanthobbies.com/anime-list-public/mcp` | None | Prepared anonymous proxy exposing only six public catalog/discovery tools |
+| Starboard | `https://starboard-mcp.codevetter.com/starboard/mcp` | None | Approved anonymous product APIs |
+| High Signal | `https://mcp.highsignal.app/high-signal/mcp` | None | Published signal, brief, and track-record data |
+| Significant Hobbies | `https://hobbies-mcp.significanthobbies.com/significant-hobbies/mcp` | None | Public hobby, experience, and PUBLIC-timeline projections only |
+| Research Papers | `https://papers-mcp.highsignal.app/research-papers/mcp` | None | Approved public hot, sleeper, and reading-path exports only |
+| SWE Interview Prep | `https://learn-mcp.significanthobbies.com/swe-interview-prep/mcp` | None | Published curriculum and system-design catalogs |
+| SaaS Maker | `https://mcp.sassmaker.com/saas-maker/mcp` | None | Privacy-checked public `/api/ai` portfolio projection |
+| Drank | `https://domains-mcp.sassmaker.com/drank/mcp` | None | Live rating for one validated public hostname |
+
+Setline remains available only on the compatibility endpoint and is not one of
+the eleven listing packages. It retains the existing owner-only token bridge
+until its separate account boundary is ready.
 
 Research Papers' local corpus search, detail, similarity, RAG, PDFs, and ingest
 are not hosted. Significant Hobbies private records are not hosted.
 
 ## OAuth and secret boundary
 
-`@cloudflare/workers-oauth-provider` owns MCP client metadata, authorization
-codes, scoped access/refresh tokens, rotation, revocation, resource audiences,
-and discovery. Its dedicated `OAUTH_KV` namespace may store only protocol state
-and grants. Product or general user records do not belong there.
+Auth0 owns MCP client registration, authorization codes, consent,
+access/refresh tokens, rotation, and revocation. The Worker is an OAuth
+resource server: it publishes route-specific protected-resource metadata,
+proxies Auth0 authorization-server discovery for older clients, validates
+Auth0 JWTs with `jose` against Auth0's remote JWKS, and forwards only a verified
+Reader, Calorie, or Anime List caller token to that matching product.
 
-Cloudflare Access is the upstream identity provider. The authorization handler
-requires exact issuer and Access client audience, a valid signature and time
-window, matching nonce, and the allowlisted `OWNER_EMAIL`. The grant is bound to
-one exact route and one product read scope. The protected handler then selects
-one matching Worker secret by a fixed switch. OAuth bearer values, Access
-tokens, product tokens, cookies, and private response bodies are not logged or
-cached.
+Every federated private request must have the exact Auth0 issuer, the route's
+fixed canonical product resource in `aud`, an RS256 signature, a lifetime no
+longer than one hour, a supported federated subject, and the route's single
+read permission. Protected-resource metadata on each distinct public hostname
+advertises that canonical resource. The product repeats the checks and maps the
+subject to its own account; a missing account returns 403 without an owner
+fallback. OAuth bearer values and private response bodies are not logged or
+cached. No OAuth KV, product PAT, Auth0 Management API token, client secret,
+cookie key, or owner email is needed by the gateway for those three products.
 
-Required Worker secret names (values stay outside git):
+The Auth0 environment is cost-gated: use its standard hosted `*.auth0.com`
+tenant domain, stay within the free plan, and do not enable a custom domain or
+another paid feature. The Worker rejects custom issuers. Client registration
+uses Auth0 Client ID Metadata Documents (CIMD); open dynamic client
+registration stays disabled. No payment card is required for this setup, and
+any non-zero charge requires new owner approval.
 
-- `ACCESS_AUTHORIZATION_URL`
-- `ACCESS_CLIENT_ID`
-- `ACCESS_CLIENT_SECRET`
-- `ACCESS_ISSUER`
-- `ACCESS_JWKS_URL`
-- `ACCESS_TOKEN_URL`
-- `COOKIE_ENCRYPTION_KEY`
-- `OWNER_EMAIL`
-- `READER_MCP_TOKEN`
-- `CALORIE_MCP_TOKEN`
+Required Worker binding names (values stay outside git):
+
 - `SETLINE_MCP_TOKEN`
-- `ANIME_LIST_MCP_TOKEN`
+- `AUTH0_ISSUER`
+- `AUTH0_OWNER_USER_ID`
+
+After the OpenAI portal generates domain challenges, add the matching optional
+`OPENAI_CHALLENGE_*` secret named in
+[`docs/listings/plugins.json`](docs/listings/plugins.json). Each branded host
+returns only its own plaintext token and otherwise fails closed with 404.
 
 ## Local CodeVetter
 
@@ -80,18 +102,32 @@ and every other hosted product must not be added to Codex.
 | Product | Source | Protocol | Auth/config | Client |
 | --- | --- | --- | --- | --- |
 | CodeVetter | Sidecar/database verified | STDIO implementation ready | In-app repository consent pending | Codex registration pending |
-| Reader | Owner API ready | Worker route and tests ready | Live Access app and Worker secrets pending | ChatGPT app pending |
-| Calorie | Owner API ready | Worker route and tests ready | Live Access app and Worker secrets pending | ChatGPT app pending |
-| Setline | API projection ready | Worker route and tests ready | Owner account/token plus live Access config pending | ChatGPT app pending |
-| Anime List | Native production MCP verified | Fixed OAuth proxy and tests ready | Live Access app and Worker secret pending | ChatGPT app pending |
-| Starboard | Public API ready | Anonymous Worker route and tests ready | No auth | Deployment and ChatGPT app pending |
-| High Signal | Public surface ready | Anonymous Worker route and tests ready | No auth | Deployment and ChatGPT app pending |
-| Significant Hobbies | Public projection ready | Anonymous Worker route and tests ready | No auth | Deployment and ChatGPT app pending |
-| Research Papers | Public exports ready | Export-only Worker route and tests ready | No auth | Deployment and ChatGPT app pending |
+| Reader | Federated account API and tests live | Branded gateway route live | Canonical Auth0 API/grant verified | OpenAI portal draft/submission pending |
+| Calorie | Federated account API and tests live | Branded gateway route live | Canonical Auth0 API/grant verified | OpenAI portal draft/submission pending |
+| Setline | API projection ready | Live Worker route; OAuth metadata verified | Auth0 API/grant ready; owner account/token pending, route fails closed | ChatGPT app deferred |
+| My Anime List | Federated native MCP and tests live | Branded token-forwarding proxy live | Canonical Auth0 API/grant verified | OpenAI portal draft/submission pending |
+| Anime List | Public native catalog live | Six-tool anonymous proxy implemented; not deployed | No auth | Activation pending |
+| Starboard | Public API live | Anonymous branded route live | No auth | OpenAI portal draft/submission pending |
+| High Signal | Public surface live | Anonymous branded route live | No auth | OpenAI portal draft/submission pending |
+| Significant Hobbies | Hobbies, experiences, and public timelines live | Anonymous branded route live | No auth | OpenAI portal draft/submission pending |
+| Research Papers | Public exports live | Export-only branded route live | No auth | OpenAI portal draft/submission pending |
+| SWE Interview Prep | Public catalogs live | Gateway route implemented; not deployed | No auth | Activation pending |
+| SaaS Maker | Public agent projection live | Gateway route implemented; not deployed | No auth | Activation pending |
+| Drank | Public validated lookup live | Gateway route implemented; not deployed | No auth | Activation pending |
 
-The OAuth KV namespace exists, but the Worker, Access for SaaS OIDC app,
-production secrets, deployment, and ChatGPT web registrations do not yet exist.
-The implementation must not be reported as active until those gates pass.
+No OAuth KV is required. The existing workers.dev gateway remains active. The
+three federated product releases and seven branded custom domains are live from
+reviewed, green `main` revisions. Credential-free OAuth activation and
+representative public live calls pass. OpenAI portal drafts, per-draft domain
+challenge secrets, reviewer-account fixtures, retained ChatGPT evaluations,
+review, and publication remain; Setline is not part of this publication.
+
+The four prepared routes—public Anime List, SWE Interview Prep, SaaS Maker, and
+Drank—are intentionally not deployed by this change. Their domains, production
+monitoring claims, OpenAI drafts, and challenge secrets remain activation work.
+LoopTV, PostTrainLLM, and What It Takes to Win are explicitly **not needed for
+now** and are outside the release surface. The full eligibility review is in
+[`docs/non-ios-eligibility.md`](docs/non-ios-eligibility.md).
 
 ## Development and verification
 
@@ -100,7 +136,34 @@ pnpm install --frozen-lockfile
 pnpm check
 pnpm exec wrangler deploy --dry-run
 pnpm exec wrangler dev
+pnpm verify:activation -- --issuer https://tenant.us.auth0.com/
 ```
+
+The credential-free activation verifier checks Auth0 authorization-server
+metadata, CIMD compatibility, PKCE S256, refresh/offline scopes, and an
+RS256 signing key. After the gateway exists, add its origin to verify the
+compatibility proxy plus every exact private protected-resource document:
+
+```bash
+pnpm verify:activation -- \
+  --issuer https://tenant.us.auth0.com/ \
+  --gateway https://mcp.example.com
+```
+
+For the public plugin topology, verify each private plugin on its distinct
+branded hostname (Setline remains excluded until it is published):
+
+```bash
+pnpm verify:activation -- \
+  --issuer https://tenant.us.auth0.com/ \
+  --branded
+```
+
+The JSON receipt always lists the gates it cannot prove from public metadata:
+the owner allowlist, registered Auth0 API audiences, paid-feature
+settings, a real authorization-code/PKCE exchange, refresh rotation, and grant
+revocation. Those remain manual or live-token activation evidence; a passing
+metadata receipt is not full OAuth acceptance.
 
 Production deployment is intentionally available only as `pnpm run deploy`. That
 command requires a clean, synced `main`, a successful path-scoped
@@ -118,17 +181,73 @@ pnpm start:reader
 Generated binding types come from `wrangler types`; rerun
 `pnpm types:worker` after changing `wrangler.jsonc`.
 
+## Production monitoring
+
+`pnpm monitor:production` runs the credential-free production contract suite.
+Once the prepared routes are activated, it verifies all eleven health and
+hostname-isolation boundaries; public MCP
+initialization, read-only tool catalogs, representative bounded reads, and
+mutation rejection. Collection tools additionally verify non-overlapping
+first, middle, and terminal pages with one stable exact total and valid
+continuation state. Private routes verify OAuth challenges and metadata. The JSON
+receipt retains only status codes, protocol/schema fields, server/tool names,
+item counts, scopes, resource identifiers, and timestamps. It never retains
+bearers or source record bodies.
+
+Manual authenticated acceptance can pass short-lived bearer headers through
+`runProductionMonitor({ personalAuthorizations })`. When supplied, Reader,
+Calorie, and Anime List each receive the same three-page pagination check; the
+headers and source records are never copied into the receipt. Scheduled CI
+remains credential-free.
+
+GitHub Actions runs the same suite daily at 03:17 UTC and on manual dispatch.
+The redacted receipt is retained for 30 days even when a check fails:
+
+```bash
+pnpm monitor:production -- --output production-monitor-receipt.json
+```
+
+## Submission evaluations
+
+`pnpm eval:submission:public` executes the five positive and three negative
+listing cases for each anonymous plugin against its live branded MCP endpoint.
+The receipt contains only case numbers, tool names, result shapes, item counts,
+status codes, and pass/fail state; it never retains prompts, arguments, source
+records, upstream failures, or credentials.
+
+```bash
+pnpm eval:submission:public -- --output public-submission-evals.json
+```
+
+With all eight anonymous listings active, this protocol suite proves 64 public
+server cases. It deliberately reports
+`private_authenticated_evaluations` and `chatgpt_model_behavior` as manual
+gates: the three OAuth plugins still require owner and non-owner browser sign-in,
+and all eleven prompt-level packages must still be exercised in ChatGPT before
+submission.
+
 ## Activation and revocation
 
-1. Create an owner-only Cloudflare Access for SaaS OIDC app with the Worker
-   callback `/oauth/callback` and record its endpoints as Worker secrets.
-2. Add product secrets without exposing their values, run the Fleet deployment
-   guard, and deploy the exact reviewed Git SHA through the manual path.
-3. Verify product-scoped OAuth discovery/consent/revocation and anonymous
-   production probes without retaining private bodies.
-4. Add one ChatGPT developer-mode app per ready hosted route. OAuth routes use
-   OAuth; public routes use No Authentication.
-5. Enable CodeVetter repositories in its own UI and register only those
+1. In the free Auth0 tenant, enable CIMD and the resource-parameter
+   compatibility profile, create one API for each exact canonical private resource
+   with one matching read permission, add a default third-party user grant,
+   request `offline_access`, and keep open dynamic client registration
+   disabled. Set each API access-token lifetime to one hour or less.
+2. Confirm Auth0 metadata advertises CIMD, PKCE S256, refresh tokens, and
+   `offline_access`. Record the standard hosted issuer
+   and Setline owner user ID as Worker bindings without exposing their values.
+   Run the pre-deployment activation verifier and retain only its
+   credential-free JSON result.
+3. Deploy the three product verifiers first, then run the Fleet deployment and
+   zero-cost guards and deploy the exact reviewed gateway Git SHA through the
+   manual path.
+4. Verify product-scoped OAuth discovery, consent, refresh/revocation, product
+   account isolation, and anonymous production probes without retaining private
+   bodies. Re-run the activation verifier against each branded private origin.
+5. Create one OpenAI Universal MCP draft per listing package. Private routes use
+   OAuth; public routes use no authentication. Put each portal-generated domain
+   token in only its matching `OPENAI_CHALLENGE_*` Worker secret.
+6. Enable CodeVetter repositories in its own UI and register only those
    generated configs in Codex.
 
 Disabling one ChatGPT app, revoking one OAuth grant, or revoking one product

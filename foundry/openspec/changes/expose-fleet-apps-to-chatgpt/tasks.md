@@ -73,7 +73,7 @@
 
 ## 10. Document and validate local readiness
 
-- [x] 10.1 Add an operator matrix covering each connection's source, credential, command, tunnel profile, doctor command, tool catalog, privacy boundary, degraded mode, and revocation path.
+- [x] 10.1 Add an operator matrix covering each connection's source, credential, route, doctor command, tool catalog, privacy boundary, degraded mode, and revocation path.
 - [x] 10.2 Document dedicated Reader/Anime List token use and the separately gated Calorie/Setline token issuance without recording values.
 - [x] 10.3 Run affected native app checks, shared helper checks, strict OpenSpec validation, and the smallest relevant Fleet root checks.
 - [x] 10.4 Report local completion as implementation-ready until all explicit external actions are approved and complete.
@@ -82,6 +82,7 @@
 
 - [x] 11.1 With explicit approval, apply required Calorie/Setline migrations and deploy only the affected reviewed app changes through their manual release paths.
 - [ ] 11.2 As explicit operator actions, issue dedicated Reader, Anime List, Calorie, and Setline read credentials and inject them through the existing secret boundary.
-- [ ] 11.3 Create/select and diagnose eight OpenAI tunnel profiles, associating each with the intended ChatGPT workspace.
-- [ ] 11.4 Add connections one at a time in ChatGPT developer mode and run retained positive, follow-up, degraded, unsupported, privacy, cross-app, and mutation evaluations.
-- [ ] 11.5 Record acceptance and residual limits; do not publish plugins, expose new public MCP endpoints, deploy other apps, or broaden private data without a separate approved change.
+- [x] 11.3 Configure the free Auth0 tenant with CIMD, resource-parameter compatibility, four exact API audiences/read permissions, default third-party user grants, and the verified owner allowlist; keep DCR, custom domains, and paid features disabled.
+- [x] 11.4 Deploy the shared Worker from clean, green `main` with the exact Git SHA tag, then verify OAuth metadata, anonymous routes, and fail-closed private routes without retaining private bodies.
+- [ ] 11.5 Add connections one at a time in ChatGPT developer mode and run retained positive, follow-up, degraded, unsupported, privacy, cross-app, and mutation evaluations.
+- [ ] 11.6 Record acceptance and residual limits; do not publish plugins, deploy unrelated apps, enable paid authentication features, or broaden private data without a separate approved change.

@@ -1,79 +1,51 @@
-import type {
-  AuthorizationError,
-  AuthRequest,
-  ClientInfo,
-  OAuthHelpers,
-} from "@cloudflare/workers-oauth-provider";
+import {
+  createRemoteJWKSet,
+  errors as joseErrors,
+  jwtVerify,
+  type JWTPayload,
+  type JWTVerifyGetKey,
+} from "jose";
 
-import { hostedRoute, type HostedRouteDefinition } from "./hosted.js";
+import {
+  hostedRoute,
+  oauthResource,
+  type OpenAIChallengeSecret,
+  type HostedRouteDefinition,
+} from "./hosted.js";
 
-const FLOW_TTL_SECONDS = 600;
-const MAX_FORM_BYTES = 16_384;
-const MAX_TOKEN_RESPONSE_BYTES = 32_768;
-const MAX_JWKS_BYTES = 65_536;
-const CLOCK_SKEW_SECONDS = 60;
-const ACCESS_FETCH_TIMEOUT_MS = 5_000;
-const CSRF_COOKIE = "__Host-fleet_mcp_csrf";
+const MAX_AUTHORIZATION_BYTES = 20_000;
+const MAX_METADATA_BYTES = 65_536;
+const METADATA_FETCH_TIMEOUT_MS = 5_000;
+const CLOCK_TOLERANCE_SECONDS = 60;
+const MAX_ACCESS_TOKEN_LIFETIME_SECONDS = 3_600;
+const AUTHORIZATION_SERVER_METADATA_PATH = "/.well-known/oauth-authorization-server";
+const PROTECTED_RESOURCE_METADATA_PREFIX = "/.well-known/oauth-protected-resource";
 
 export interface OAuthGrantProps {
-  ownerId: string;
+  subject: string;
   product: string;
   resource: string;
   scope: string;
 }
 
-export interface HostedWorkerEnv {
-  OAUTH_KV: KVNamespace;
-  OAUTH_PROVIDER: OAuthHelpers;
-  ACCESS_AUTHORIZATION_URL: string;
-  ACCESS_CLIENT_ID: string;
-  ACCESS_CLIENT_SECRET: string;
-  ACCESS_ISSUER: string;
-  ACCESS_JWKS_URL: string;
-  ACCESS_TOKEN_URL: string;
-  COOKIE_ENCRYPTION_KEY: string;
-  OWNER_EMAIL: string;
-  READER_MCP_TOKEN: string;
-  CALORIE_MCP_TOKEN: string;
-  SETLINE_MCP_TOKEN: string;
-  ANIME_LIST_MCP_TOKEN: string;
+export type HostedWorkerEnv = Env & Partial<Record<OpenAIChallengeSecret, string>>;
+
+export type OAuthAuthorizationResult =
+  | { status: "authorized"; accessToken: string; grant: OAuthGrantProps }
+  | { status: "missing" | "invalid" }
+  | { status: "unavailable" | "misconfigured" };
+
+interface Auth0AccessClaims extends JWTPayload {
+  permissions?: unknown;
+  scope?: unknown;
+  scopes?: unknown;
 }
 
-interface StoredConsent {
-  oauthRequest: AuthRequest;
-}
-
-interface StoredAccessState extends StoredConsent {
-  codeVerifier: string;
-  nonce: string;
-}
-
-interface AccessClaims {
-  aud: string | string[];
-  email: string;
-  email_verified?: boolean;
-  exp: number;
-  iat?: number;
-  iss: string;
-  nbf?: number;
-  nonce: string;
-  sub: string;
-}
-
-class AuthFlowError extends Error {
-  constructor(
-    readonly code: string,
-    readonly status = 400,
-  ) {
-    super(code);
-    this.name = "AuthFlowError";
+class Auth0ConfigurationError extends Error {
+  constructor() {
+    super("auth0_configuration_invalid");
+    this.name = "Auth0ConfigurationError";
   }
-}
-
-function isAuthorizationError(error: unknown): error is AuthorizationError {
-  if (!(error instanceof Error) || error.name !== "AuthorizationError") return false;
-  const candidate = error as Error & { code?: unknown; description?: unknown };
-  return typeof candidate.code === "string" && typeof candidate.description === "string";
 }
 
 function noStoreHeaders(extra: HeadersInit = {}): Headers {
@@ -85,247 +57,221 @@ function noStoreHeaders(extra: HeadersInit = {}): Headers {
   return headers;
 }
 
-function oauthError(error: AuthFlowError): Response {
-  return Response.json(
-    { error: error.code, error_description: "The authorization request could not be completed." },
-    { status: error.status, headers: noStoreHeaders() },
-  );
+function isLocalHttp(url: URL): boolean {
+  return url.protocol === "http:" && (url.hostname === "127.0.0.1" || url.hostname === "localhost");
 }
 
-function escapeHtml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function exactResource(request: Request): string {
+  const url = new URL(request.url);
+  if ((url.protocol !== "https:" && !isLocalHttp(url)) || url.username || url.password || url.hash) {
+    throw new Auth0ConfigurationError();
+  }
+  return `${url.origin}${url.pathname}`;
 }
 
-function requestOrigin(request: Request): string {
-  return new URL(request.url).origin;
-}
-
-function secureUrl(value: string): URL {
+export function auth0Issuer(env: Pick<HostedWorkerEnv, "AUTH0_ISSUER">): string {
   let url: URL;
   try {
-    url = new URL(value);
+    url = new URL(env.AUTH0_ISSUER);
   } catch {
-    throw new AuthFlowError("server_error", 500);
-  }
-  if (url.protocol !== "https:" || url.username || url.password || url.hash) {
-    throw new AuthFlowError("server_error", 500);
-  }
-  return url;
-}
-
-function assertAccessConfig(env: HostedWorkerEnv): void {
-  secureUrl(env.ACCESS_AUTHORIZATION_URL);
-  secureUrl(env.ACCESS_ISSUER);
-  secureUrl(env.ACCESS_JWKS_URL);
-  secureUrl(env.ACCESS_TOKEN_URL);
-  if (
-    !env.ACCESS_CLIENT_ID.trim() || env.ACCESS_CLIENT_ID.length > 512 ||
-    env.ACCESS_CLIENT_SECRET.length < 8 || env.ACCESS_CLIENT_SECRET.length > 4_096 ||
-    !env.OWNER_EMAIL.trim() || env.OWNER_EMAIL.length > 320 || !env.OWNER_EMAIL.includes("@") ||
-    env.COOKIE_ENCRYPTION_KEY.length < 32
-  ) {
-    throw new AuthFlowError("server_error", 500);
-  }
-}
-
-function oneResource(oauthRequest: AuthRequest): string {
-  const resources = Array.isArray(oauthRequest.resource)
-    ? oauthRequest.resource
-    : oauthRequest.resource
-      ? [oauthRequest.resource]
-      : [];
-  if (resources.length !== 1) throw new AuthFlowError("invalid_target");
-  return resources[0]!;
-}
-
-export function privateRouteForAuthorization(
-  request: Request,
-  oauthRequest: AuthRequest,
-): { resource: string; route: HostedRouteDefinition } {
-  const resource = oneResource(oauthRequest);
-  let parsed: URL;
-  try {
-    parsed = new URL(resource);
-  } catch {
-    throw new AuthFlowError("invalid_target");
-  }
-  const local = parsed.hostname === "127.0.0.1" || parsed.hostname === "localhost";
-  if ((parsed.protocol !== "https:" && !(local && parsed.protocol === "http:")) ||
-      parsed.origin !== requestOrigin(request) || parsed.search || parsed.hash) {
-    throw new AuthFlowError("invalid_target");
-  }
-  const route = hostedRoute(parsed.pathname);
-  if (!route || route.audience !== "personal" || !route.scope) {
-    throw new AuthFlowError("invalid_target");
+    throw new Auth0ConfigurationError();
   }
   if (
-    oauthRequest.scope.length !== 1 ||
-    oauthRequest.scope[0] !== route.scope
+    url.protocol !== "https:" ||
+    url.username ||
+    url.password ||
+    url.port ||
+    url.pathname !== "/" ||
+    url.search ||
+    url.hash ||
+    !url.hostname.endsWith(".auth0.com")
   ) {
-    throw new AuthFlowError("invalid_scope");
+    throw new Auth0ConfigurationError();
   }
-  return { resource: parsed.href, route };
+  return url.href;
 }
 
-function cookieValue(request: Request, name: string): string | undefined {
-  for (const item of (request.headers.get("cookie") ?? "").split(";")) {
-    const [key, ...rest] = item.trim().split("=");
-    if (key === name) return rest.join("=");
+function ownerUserId(env: Pick<HostedWorkerEnv, "AUTH0_OWNER_USER_ID">): string {
+  const value = env.AUTH0_OWNER_USER_ID.trim();
+  if (!/^[A-Za-z0-9._|:@+-]{3,256}$/u.test(value)) throw new Auth0ConfigurationError();
+  return value;
+}
+
+function auth0JwksUrl(issuer: string): URL {
+  return new URL("/.well-known/jwks.json", issuer);
+}
+
+let cachedIssuer: string | undefined;
+let cachedRemoteJwks: JWTVerifyGetKey | undefined;
+
+function remoteJwks(issuer: string): JWTVerifyGetKey {
+  if (cachedIssuer !== issuer || !cachedRemoteJwks) {
+    cachedIssuer = issuer;
+    cachedRemoteJwks = createRemoteJWKSet(auth0JwksUrl(issuer), {
+      cacheMaxAge: 300_000,
+      cooldownDuration: 30_000,
+      timeoutDuration: METADATA_FETCH_TIMEOUT_MS,
+    });
   }
-  return undefined;
+  return cachedRemoteJwks;
 }
 
-function csrfCookie(value: string, maxAge: number): string {
-  return `${CSRF_COOKIE}=${value}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=${maxAge}`;
+function bearerToken(request: Request): string | undefined | null {
+  const value = request.headers.get("authorization");
+  if (value === null) return undefined;
+  if (value.length > MAX_AUTHORIZATION_BYTES) return null;
+  const match = /^Bearer ([A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$/u.exec(value);
+  return match?.[1] ?? null;
 }
 
-function randomBase64Url(bytes = 32): string {
-  const value = crypto.getRandomValues(new Uint8Array(bytes));
-  let binary = "";
-  for (const byte of value) binary += String.fromCharCode(byte);
-  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/u, "");
+function stringClaims(value: unknown): string[] {
+  if (typeof value === "string") return value.split(/\s+/u).filter(Boolean);
+  if (Array.isArray(value) && value.every((item) => typeof item === "string")) return value;
+  return [];
 }
 
-async function sha256Base64Url(value: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-  let binary = "";
-  for (const byte of new Uint8Array(digest)) binary += String.fromCharCode(byte);
-  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/u, "");
+function grantedPermissions(payload: Auth0AccessClaims): Set<string> {
+  return new Set([
+    ...stringClaims(payload.scope),
+    ...stringClaims(payload.scopes),
+    ...stringClaims(payload.permissions),
+  ]);
 }
 
-async function hmac(value: string, secret: string): Promise<string> {
-  if (secret.length < 32) throw new AuthFlowError("server_error", 500);
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
-  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(value));
-  return [...new Uint8Array(signature)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
-}
-
-async function verifyHmac(value: string, signature: string, secret: string): Promise<boolean> {
-  if (!/^[a-f0-9]{64}$/iu.test(signature) || secret.length < 32) return false;
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["verify"],
-  );
-  const bytes = new Uint8Array(signature.match(/.{2}/gu)!.map((item) => Number.parseInt(item, 16)));
-  return crypto.subtle.verify("HMAC", key, bytes, new TextEncoder().encode(value));
-}
-
-async function signedState(secret: string): Promise<{ id: string; token: string }> {
-  const id = crypto.randomUUID();
-  return { id, token: `${id}.${await hmac(id, secret)}` };
-}
-
-async function stateId(token: string, secret: string): Promise<string> {
-  const separator = token.lastIndexOf(".");
-  if (separator < 1) throw new AuthFlowError("invalid_request");
-  const id = token.slice(0, separator);
-  const signature = token.slice(separator + 1);
-  if (!/^[a-f0-9-]{36}$/iu.test(id) || !(await verifyHmac(id, signature, secret))) {
-    throw new AuthFlowError("invalid_request");
-  }
-  return id;
-}
-
-async function storedJson<T>(kv: KVNamespace, key: string): Promise<T> {
-  const value = await kv.get(key, { type: "json" });
-  if (!value || typeof value !== "object") throw new AuthFlowError("invalid_request");
-  return value as T;
-}
-
-function consentPage(
-  request: Request,
-  client: ClientInfo,
+function validAuth0Claims(
+  payload: Auth0AccessClaims,
   route: HostedRouteDefinition,
-  requestId: string,
-  csrf: string,
-): Response {
-  const name = escapeHtml(client.clientName?.trim() || "ChatGPT");
-  const product = escapeHtml(route.id);
-  const scope = escapeHtml(route.scope!);
-  const html = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>Authorize ${product}</title><style>
-body{font:16px/1.5 system-ui,sans-serif;max-width:38rem;margin:4rem auto;padding:0 1rem;color:#18181b}
-main{border:1px solid #d4d4d8;border-radius:12px;padding:1.5rem}button{font:inherit;padding:.7rem 1rem;border:0;border-radius:8px;background:#18181b;color:white}
-code{background:#f4f4f5;padding:.15rem .35rem;border-radius:4px}</style></head><body><main>
-<h1>Authorize ${product}</h1><p><strong>${name}</strong> is requesting read-only access to this product.</p>
-<p>Permission: <code>${scope}</code>. No product API token will be shared with the client.</p>
-<form method="post" action="${escapeHtml(new URL(request.url).pathname)}">
-<input type="hidden" name="request_id" value="${escapeHtml(requestId)}">
-<input type="hidden" name="csrf_token" value="${escapeHtml(csrf)}">
-<button type="submit">Continue with Cloudflare Access</button></form></main></body></html>`;
-  return new Response(html, {
-    headers: noStoreHeaders({
-      "Content-Type": "text/html; charset=utf-8",
-      "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
-      "Set-Cookie": csrfCookie(csrf, FLOW_TTL_SECONDS),
-      "X-Frame-Options": "DENY",
-    }),
+  expectedOwnerId: string | undefined,
+  expectedScope: string,
+): payload is Auth0AccessClaims & { exp: number; iat: number; sub: string } {
+  const validSubject = route.authMode === "owner-token"
+    ? payload.sub === expectedOwnerId
+    : typeof payload.sub === "string" && /^google-oauth2\|[A-Za-z0-9._-]{3,256}$/u.test(payload.sub);
+  return typeof payload.sub === "string" &&
+    validSubject &&
+    typeof payload.exp === "number" &&
+    typeof payload.iat === "number" &&
+    payload.exp > payload.iat &&
+    payload.exp - payload.iat <= MAX_ACCESS_TOKEN_LIFETIME_SECONDS + CLOCK_TOLERANCE_SECONDS &&
+    grantedPermissions(payload).has(expectedScope);
+}
+
+export async function verifyAuth0AccessToken(
+  token: string,
+  request: Request,
+  route: HostedRouteDefinition,
+  env: Pick<HostedWorkerEnv, "AUTH0_ISSUER" | "AUTH0_OWNER_USER_ID">,
+  getKey?: JWTVerifyGetKey,
+): Promise<OAuthGrantProps> {
+  if (route.audience !== "personal" || !route.scope) throw new Auth0ConfigurationError();
+  const issuer = auth0Issuer(env);
+  const resource = oauthResource(route, exactResource(request));
+  const { payload } = await jwtVerify<Auth0AccessClaims>(token, getKey ?? remoteJwks(issuer), {
+    algorithms: ["RS256"],
+    audience: resource,
+    clockTolerance: CLOCK_TOLERANCE_SECONDS,
+    issuer,
+    requiredClaims: ["iss", "aud", "sub", "exp", "iat"],
   });
+  const expectedOwnerId = route.authMode === "owner-token" ? ownerUserId(env) : undefined;
+  if (!validAuth0Claims(payload, route, expectedOwnerId, route.scope)) {
+    throw new joseErrors.JWTClaimValidationFailed("required Auth0 claims are invalid", payload, "sub");
+  }
+  return {
+    subject: payload.sub,
+    product: route.id,
+    resource,
+    scope: route.scope,
+  };
 }
 
-async function beginAuthorization(request: Request, env: HostedWorkerEnv): Promise<Response> {
-  let oauthRequest: AuthRequest;
+function isJwksUnavailable(error: unknown): boolean {
+  return error instanceof joseErrors.JWKSTimeout ||
+    error instanceof TypeError ||
+    (error instanceof DOMException && error.name === "TimeoutError");
+}
+
+export async function authorizeOAuthRequest(
+  request: Request,
+  route: HostedRouteDefinition,
+  env: Pick<HostedWorkerEnv, "AUTH0_ISSUER" | "AUTH0_OWNER_USER_ID">,
+  getKey?: JWTVerifyGetKey,
+): Promise<OAuthAuthorizationResult> {
+  const token = bearerToken(request);
+  if (token === undefined) return { status: "missing" };
+  if (token === null) return { status: "invalid" };
   try {
-    oauthRequest = await env.OAUTH_PROVIDER.parseAuthRequest(request);
+    return {
+      status: "authorized",
+      accessToken: token,
+      grant: await verifyAuth0AccessToken(token, request, route, env, getKey),
+    };
   } catch (error) {
-    if (!isAuthorizationError(error)) throw error;
-    if (!error.redirectUri) throw new AuthFlowError(error.code);
-    const redirect = new URL(error.redirectUri);
-    redirect.searchParams.set("error", error.code);
-    redirect.searchParams.set("error_description", error.description);
-    if (error.state) redirect.searchParams.set("state", error.state);
-    if (error.issuer) redirect.searchParams.set("iss", error.issuer);
-    return new Response(null, { status: 302, headers: noStoreHeaders({ Location: redirect.href }) });
+    if (error instanceof Auth0ConfigurationError) {
+      console.error(JSON.stringify({ message: "auth0_auth_misconfigured", path: new URL(request.url).pathname }));
+      return { status: "misconfigured" };
+    }
+    if (isJwksUnavailable(error)) {
+      console.error(JSON.stringify({
+        message: "auth0_jwks_unavailable",
+        errorType: error instanceof Error ? error.name : "UnknownError",
+        path: new URL(request.url).pathname,
+      }));
+      return { status: "unavailable" };
+    }
+    console.warn(JSON.stringify({
+      message: "auth0_token_rejected",
+      code: error instanceof joseErrors.JOSEError ? error.code : "unknown",
+      path: new URL(request.url).pathname,
+    }));
+    return { status: "invalid" };
   }
-  const { route } = privateRouteForAuthorization(request, oauthRequest);
-  const client = await env.OAUTH_PROVIDER.lookupClient(oauthRequest.clientId);
-  if (!client) throw new AuthFlowError("unauthorized_client");
-  const requestId = crypto.randomUUID();
-  await env.OAUTH_KV.put(
-    `fleet:consent:${requestId}`,
-    JSON.stringify({ oauthRequest } satisfies StoredConsent),
-    { expirationTtl: FLOW_TTL_SECONDS },
-  );
-  const csrf = randomBase64Url();
-  return consentPage(request, client, route, requestId, csrf);
 }
 
-async function readBodyLimited(
-  body: ReadableStream<Uint8Array> | null,
-  declaredLength: number,
-  limit: number,
-): Promise<Uint8Array> {
-  if (Number.isFinite(declaredLength) && declaredLength > limit) {
-    throw new AuthFlowError("invalid_request", 413);
+function protectedMetadataRoute(pathname: string, hostname: string): HostedRouteDefinition | undefined {
+  if (!pathname.startsWith(`${PROTECTED_RESOURCE_METADATA_PREFIX}/`)) return undefined;
+  const route = hostedRoute(pathname.slice(PROTECTED_RESOURCE_METADATA_PREFIX.length), hostname);
+  return route?.audience === "personal" ? route : undefined;
+}
+
+function protectedResourceMetadata(
+  request: Request,
+  route: HostedRouteDefinition,
+  issuer: string,
+): Response {
+  const requestUrl = new URL(request.url);
+  const routePath = protectedMetadataRoute(requestUrl.pathname, requestUrl.hostname);
+  if (routePath !== route || route.audience !== "personal" || !route.scope) {
+    return Response.json({ error: "not_found" }, { status: 404, headers: noStoreHeaders() });
   }
-  if (!body) return new Uint8Array();
-  const reader = body.getReader();
+  const url = new URL(request.url);
+  const routeUrl = `${url.origin}${url.pathname.slice(PROTECTED_RESOURCE_METADATA_PREFIX.length)}`;
+  return Response.json({
+    resource: oauthResource(route, routeUrl),
+    authorization_servers: [issuer],
+    bearer_methods_supported: ["header"],
+    scopes_supported: [route.scope],
+    resource_name: `${route.id} read-only MCP`,
+  }, { headers: noStoreHeaders() });
+}
+
+async function readBodyLimited(response: Response): Promise<string> {
+  const declaredLength = Number(response.headers.get("content-length") ?? "0");
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_METADATA_BYTES) throw new Error("metadata_too_large");
+  const reader = response.body?.getReader();
   const chunks: Uint8Array[] = [];
   let total = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > limit) {
-      await reader.cancel();
-      throw new AuthFlowError("invalid_request", 413);
+  if (reader) {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > MAX_METADATA_BYTES) {
+        await reader.cancel();
+        throw new Error("metadata_too_large");
+      }
+      chunks.push(value);
     }
-    chunks.push(value);
   }
   const bytes = new Uint8Array(total);
   let offset = 0;
@@ -333,280 +279,100 @@ async function readBodyLimited(
     bytes.set(chunk, offset);
     offset += chunk.byteLength;
   }
-  return bytes;
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
 }
 
-async function parseBoundedForm(request: Request): Promise<URLSearchParams> {
-  if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/x-www-form-urlencoded")) {
-    throw new AuthFlowError("invalid_request", 415);
-  }
-  const length = Number(request.headers.get("content-length") ?? "0");
-  const bytes = await readBodyLimited(request.body, length, MAX_FORM_BYTES);
-  let text: string;
+function sameIssuerEndpoint(value: unknown, issuer: string): boolean {
+  if (typeof value !== "string") return false;
   try {
-    text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    const url = new URL(value);
+    return url.protocol === "https:" &&
+      url.origin === new URL(issuer).origin &&
+      !url.username &&
+      !url.password &&
+      !url.search &&
+      !url.hash;
   } catch {
-    throw new AuthFlowError("invalid_request");
-  }
-  return new URLSearchParams(text);
-}
-
-async function continueToAccess(request: Request, env: HostedWorkerEnv): Promise<Response> {
-  assertAccessConfig(env);
-  const form = await parseBoundedForm(request);
-  const csrf = form.get("csrf_token");
-  const requestId = form.get("request_id");
-  if (typeof csrf !== "string" || typeof requestId !== "string" ||
-      csrf !== cookieValue(request, CSRF_COOKIE) || !/^[a-f0-9-]{36}$/iu.test(requestId)) {
-    throw new AuthFlowError("invalid_request");
-  }
-  const consent = await storedJson<StoredConsent>(env.OAUTH_KV, `fleet:consent:${requestId}`);
-  await env.OAUTH_KV.delete(`fleet:consent:${requestId}`);
-  privateRouteForAuthorization(request, consent.oauthRequest);
-
-  const codeVerifier = randomBase64Url();
-  const nonce = randomBase64Url();
-  const state = await signedState(env.COOKIE_ENCRYPTION_KEY);
-  await env.OAUTH_KV.put(
-    `fleet:access-state:${state.id}`,
-    JSON.stringify({ oauthRequest: consent.oauthRequest, codeVerifier, nonce } satisfies StoredAccessState),
-    { expirationTtl: FLOW_TTL_SECONDS },
-  );
-  const upstream = secureUrl(env.ACCESS_AUTHORIZATION_URL);
-  upstream.searchParams.set("client_id", env.ACCESS_CLIENT_ID);
-  upstream.searchParams.set("redirect_uri", new URL("/oauth/callback", request.url).href);
-  upstream.searchParams.set("response_type", "code");
-  upstream.searchParams.set("scope", "openid email profile");
-  upstream.searchParams.set("state", state.token);
-  upstream.searchParams.set("nonce", nonce);
-  upstream.searchParams.set("code_challenge", await sha256Base64Url(codeVerifier));
-  upstream.searchParams.set("code_challenge_method", "S256");
-  return new Response(null, {
-    status: 302,
-    headers: noStoreHeaders({
-      Location: upstream.href,
-      "Set-Cookie": csrfCookie("", 0),
-    }),
-  });
-}
-
-async function boundedText(response: Response, limit: number): Promise<string> {
-  const length = Number(response.headers.get("content-length") ?? "0");
-  let bytes: Uint8Array;
-  try {
-    bytes = await readBodyLimited(response.body, length, limit);
-  } catch {
-    throw new AuthFlowError("server_error", 502);
-  }
-  try {
-    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
-  } catch {
-    throw new AuthFlowError("server_error", 502);
+    return false;
   }
 }
 
-function fromBase64Url(value: string): Uint8Array<ArrayBuffer> {
-  if (!/^[A-Za-z0-9_-]+$/u.test(value)) throw new AuthFlowError("access_identity_invalid", 403);
-  const normalized = value.replaceAll("-", "+").replaceAll("_", "/");
-  const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "="));
-  const bytes = new Uint8Array(new ArrayBuffer(binary.length));
-  for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
-  return bytes;
+function hasStrings(value: unknown, required: readonly string[]): boolean {
+  return Array.isArray(value) &&
+    value.every((item) => typeof item === "string") &&
+    required.every((item) => value.includes(item));
 }
 
-function parseJwtJson(value: string): Record<string, unknown> {
-  const bytes = fromBase64Url(value);
-  if (bytes.byteLength > 8_192) throw new AuthFlowError("access_identity_invalid", 403);
-  try {
-    const parsed = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error();
-    return parsed as Record<string, unknown>;
-  } catch {
-    throw new AuthFlowError("access_identity_invalid", 403);
-  }
+export function validAuthorizationServerMetadata(metadata: Record<string, unknown>, issuer: string): boolean {
+  return metadata.issuer === issuer &&
+    sameIssuerEndpoint(metadata.authorization_endpoint, issuer) &&
+    sameIssuerEndpoint(metadata.token_endpoint, issuer) &&
+    sameIssuerEndpoint(metadata.registration_endpoint, issuer) &&
+    sameIssuerEndpoint(metadata.jwks_uri, issuer) &&
+    metadata.client_id_metadata_document_supported === true &&
+    hasStrings(metadata.token_endpoint_auth_methods_supported, ["none"]) &&
+    hasStrings(metadata.code_challenge_methods_supported, ["S256"]) &&
+    hasStrings(metadata.grant_types_supported, ["authorization_code", "refresh_token"]) &&
+    hasStrings(metadata.scopes_supported, ["offline_access"]);
 }
 
-function stringArray(value: unknown): string[] {
-  if (typeof value === "string") return [value];
-  if (Array.isArray(value) && value.every((item) => typeof item === "string")) return value;
-  return [];
-}
-
-export async function verifyAccessIdToken(
-  token: string,
-  expectedNonce: string,
-  env: Pick<HostedWorkerEnv, "ACCESS_CLIENT_ID" | "ACCESS_ISSUER" | "ACCESS_JWKS_URL" | "OWNER_EMAIL">,
-  fetchImpl: typeof fetch = fetch,
-): Promise<AccessClaims> {
-  const parts = token.split(".");
-  if (parts.length !== 3 || token.length > 16_384) throw new AuthFlowError("access_identity_invalid", 403);
-  const header = parseJwtJson(parts[0]!);
-  const claims = parseJwtJson(parts[1]!);
-  const kid = header.kid;
-  if (
-    header.alg !== "RS256" ||
-    (header.typ !== undefined && header.typ !== "JWT") ||
-    typeof kid !== "string" || kid.length > 256
-  ) {
-    throw new AuthFlowError("access_identity_invalid", 403);
-  }
-  const ownerEmail = env.OWNER_EMAIL.trim().toLowerCase();
-  const jwksUrl = secureUrl(env.ACCESS_JWKS_URL);
-  if (!env.ACCESS_CLIENT_ID.trim() || !ownerEmail || !ownerEmail.includes("@")) {
-    throw new AuthFlowError("server_error", 500);
-  }
-  secureUrl(env.ACCESS_ISSUER);
-  const jwksResponse = await fetchImpl(jwksUrl, {
-    headers: { Accept: "application/json" },
-    signal: AbortSignal.timeout(ACCESS_FETCH_TIMEOUT_MS),
-  });
-  if (!jwksResponse.ok) throw new AuthFlowError("access_identity_unavailable", 502);
-  const jwksText = await boundedText(jwksResponse, MAX_JWKS_BYTES);
-  let keys: Array<JsonWebKey & { alg?: string; kid?: string }>;
-  try {
-    const body = JSON.parse(jwksText) as {
-      keys?: Array<JsonWebKey & { alg?: string; kid?: string }>;
-    };
-    keys = Array.isArray(body.keys) ? body.keys : [];
-  } catch {
-    throw new AuthFlowError("access_identity_unavailable", 502);
-  }
-  const jwk = keys.find((key) =>
-    key.kid === kid &&
-    key.kty === "RSA" &&
-    (!key.alg || key.alg === "RS256") &&
-    (!key.use || key.use === "sig") &&
-    (!key.key_ops || key.key_ops.includes("verify")),
-  );
-  if (!jwk) throw new AuthFlowError("access_identity_invalid", 403);
-  const key = await crypto.subtle.importKey(
-    "jwk",
-    jwk,
-    { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
-    false,
-    ["verify"],
-  );
-  const valid = await crypto.subtle.verify(
-    "RSASSA-PKCS1-v1_5",
-    key,
-    fromBase64Url(parts[2]!),
-    new TextEncoder().encode(`${parts[0]}.${parts[1]}`),
-  );
-  if (!valid) throw new AuthFlowError("access_identity_invalid", 403);
-
-  const now = Math.floor(Date.now() / 1000);
-  const aud = stringArray(claims.aud);
-  if (
-    claims.iss !== env.ACCESS_ISSUER ||
-    !aud.includes(env.ACCESS_CLIENT_ID) ||
-    typeof claims.exp !== "number" || claims.exp <= now - CLOCK_SKEW_SECONDS ||
-    (claims.nbf !== undefined && typeof claims.nbf !== "number") ||
-    (typeof claims.nbf === "number" && claims.nbf > now + CLOCK_SKEW_SECONDS) ||
-    (claims.iat !== undefined && typeof claims.iat !== "number") ||
-    (typeof claims.iat === "number" && claims.iat > now + CLOCK_SKEW_SECONDS) ||
-    claims.nonce !== expectedNonce ||
-    typeof claims.sub !== "string" || !claims.sub || claims.sub.length > 512 ||
-    typeof claims.email !== "string" ||
-    claims.email.toLowerCase() !== ownerEmail ||
-    (claims.email_verified !== undefined && claims.email_verified !== true)
-  ) {
-    throw new AuthFlowError("access_identity_invalid", 403);
-  }
-  return claims as unknown as AccessClaims;
-}
-
-async function exchangeAccessCode(
-  request: Request,
-  env: HostedWorkerEnv,
-  state: StoredAccessState,
-  fetchImpl: typeof fetch,
-): Promise<string> {
-  const code = new URL(request.url).searchParams.get("code");
-  if (!code || code.length > 4_096) throw new AuthFlowError("invalid_request");
-  const tokenUrl = secureUrl(env.ACCESS_TOKEN_URL);
-  const response = await fetchImpl(tokenUrl, {
-    method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: env.ACCESS_CLIENT_ID,
-      client_secret: env.ACCESS_CLIENT_SECRET,
-      code,
-      code_verifier: state.codeVerifier,
-      grant_type: "authorization_code",
-      redirect_uri: new URL("/oauth/callback", request.url).href,
-    }),
-    signal: AbortSignal.timeout(ACCESS_FETCH_TIMEOUT_MS),
-  });
-  if (!response.ok) throw new AuthFlowError("access_identity_invalid", 403);
-  let body: Record<string, unknown>;
-  try {
-    body = JSON.parse(await boundedText(response, MAX_TOKEN_RESPONSE_BYTES)) as Record<string, unknown>;
-  } catch (error) {
-    if (error instanceof AuthFlowError) throw error;
-    throw new AuthFlowError("access_identity_invalid", 403);
-  }
-  if (typeof body.id_token !== "string") throw new AuthFlowError("access_identity_invalid", 403);
-  return body.id_token;
-}
-
-async function finishAuthorization(
-  request: Request,
-  env: HostedWorkerEnv,
+async function proxyAuthorizationServerMetadata(
+  issuer: string,
   fetchImpl: typeof fetch,
 ): Promise<Response> {
-  assertAccessConfig(env);
-  const url = new URL(request.url);
-  if (url.searchParams.has("error")) throw new AuthFlowError("access_denied", 403);
-  const token = url.searchParams.get("state");
-  if (!token) throw new AuthFlowError("invalid_request");
-  const id = await stateId(token, env.COOKIE_ENCRYPTION_KEY);
-  const key = `fleet:access-state:${id}`;
-  const state = await storedJson<StoredAccessState>(env.OAUTH_KV, key);
-  await env.OAUTH_KV.delete(key);
-  const { resource, route } = privateRouteForAuthorization(request, state.oauthRequest);
-  const idToken = await exchangeAccessCode(request, env, state, fetchImpl);
-  const owner = await verifyAccessIdToken(idToken, state.nonce, env, fetchImpl);
-  const { redirectTo } = await env.OAUTH_PROVIDER.completeAuthorization({
-    request: state.oauthRequest,
-    userId: `access-${encodeURIComponent(owner.sub)}`,
-    metadata: { product: route.id },
-    scope: [route.scope!],
-    props: {
-      ownerId: owner.sub,
-      product: route.id,
-      resource,
-      scope: route.scope!,
-    } satisfies OAuthGrantProps,
-  });
-  return new Response(null, { status: 302, headers: noStoreHeaders({ Location: redirectTo }) });
+  try {
+    const upstream = await fetchImpl(new URL(AUTHORIZATION_SERVER_METADATA_PATH, issuer), {
+      headers: { Accept: "application/json" },
+      redirect: "manual",
+      signal: AbortSignal.timeout(METADATA_FETCH_TIMEOUT_MS),
+    });
+    if (!upstream.ok) throw new Error("metadata_unavailable");
+    const parsed: unknown = JSON.parse(await readBodyLimited(upstream));
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("metadata_invalid");
+    const metadata = parsed as Record<string, unknown>;
+    if (!validAuthorizationServerMetadata(metadata, issuer)) throw new Error("metadata_invalid");
+    return Response.json(metadata, { headers: noStoreHeaders() });
+  } catch (error) {
+    console.error(JSON.stringify({
+      message: "auth0_metadata_unavailable",
+      errorType: error instanceof Error ? error.name : "UnknownError",
+      errorMessage: error instanceof Error ? error.message.slice(0, 256) : undefined,
+    }));
+    return Response.json(
+      { error: "authorization_server_unavailable" },
+      { status: 503, headers: noStoreHeaders({ "Retry-After": "30" }) },
+    );
+  }
 }
 
-export async function handleOAuthDefaultRequest(
+export async function handleOAuthMetadataRequest(
   request: Request,
-  env: HostedWorkerEnv,
+  env: Pick<HostedWorkerEnv, "AUTH0_ISSUER">,
   fetchImpl: typeof fetch = fetch,
 ): Promise<Response | undefined> {
-  const { pathname } = new URL(request.url);
-  try {
-    if (pathname === "/oauth/authorize" && request.method === "GET") {
-      return await beginAuthorization(request, env);
-    }
-    if (pathname === "/oauth/authorize" && request.method === "POST") {
-      return await continueToAccess(request, env);
-    }
-    if (pathname === "/oauth/callback" && request.method === "GET") {
-      return await finishAuthorization(request, env, fetchImpl);
-    }
-    if (pathname.startsWith("/oauth/")) throw new AuthFlowError("invalid_request", 404);
+  const pathname = new URL(request.url).pathname;
+  if (pathname !== AUTHORIZATION_SERVER_METADATA_PATH && !pathname.startsWith(`${PROTECTED_RESOURCE_METADATA_PREFIX}/`)) {
     return undefined;
-  } catch (error) {
-    if (error instanceof AuthFlowError) return oauthError(error);
-    console.error(JSON.stringify({
-      message: "oauth_flow_failed",
-      errorType: error instanceof Error ? error.name : "UnknownError",
-      method: request.method,
-      path: pathname,
-    }));
-    return oauthError(new AuthFlowError("server_error", 500));
   }
+  if (request.method !== "GET") {
+    return Response.json(
+      { error: "method_not_allowed" },
+      { status: 405, headers: noStoreHeaders({ Allow: "GET" }) },
+    );
+  }
+  let issuer: string;
+  try {
+    issuer = auth0Issuer(env);
+  } catch {
+    return Response.json(
+      { error: "authorization_server_unavailable" },
+      { status: 503, headers: noStoreHeaders({ "Retry-After": "30" }) },
+    );
+  }
+  if (pathname === AUTHORIZATION_SERVER_METADATA_PATH) {
+    return proxyAuthorizationServerMetadata(issuer, fetchImpl);
+  }
+  const route = protectedMetadataRoute(pathname, new URL(request.url).hostname);
+  if (!route) return Response.json({ error: "not_found" }, { status: 404, headers: noStoreHeaders() });
+  return protectedResourceMetadata(request, route, issuer);
 }

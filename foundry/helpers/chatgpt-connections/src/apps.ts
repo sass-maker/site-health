@@ -17,7 +17,10 @@ export type AppId =
   | "calorie"
   | "significant-hobbies"
   | "research-papers"
-  | "setline";
+  | "setline"
+  | "swe-interview-prep"
+  | "saas-maker"
+  | "drank";
 
 export interface ToolDefinition {
   title: string;
@@ -26,6 +29,12 @@ export interface ToolDefinition {
   operation: string;
   mode: string;
   collectionKeys?: readonly string[];
+  mergeCollections?: boolean;
+  collectionKeyByArgument?: {
+    argument: string;
+    values: Readonly<Record<string, string>>;
+  };
+  requireCollection?: boolean;
   detail?: boolean;
   localQuery?: boolean;
   detailCollectionKeys?: readonly string[];
@@ -66,6 +75,28 @@ const stableId = z.string().trim().min(1).max(200).regex(/^[A-Za-z0-9._:@/-]+$/)
 const slug = z.string().trim().min(1).max(160).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const timezone = z.string().trim().min(1).max(100).default("UTC");
+const publicHostname = z.string().trim().min(3).max(253).transform((value, context) => {
+  const candidate = value.includes("://") ? value : `https://${value}`;
+  try {
+    const url = new URL(candidate);
+    const hostname = url.hostname.toLocaleLowerCase().replace(/^www\./u, "");
+    const labels = hostname.split(".");
+    const validDnsName = labels.length >= 2 && labels.every((label) =>
+      /^(?!-)[a-z0-9-]{1,63}(?<!-)$/u.test(label)
+    );
+    const ipv4 = labels.length === 4 && labels.every((label) => /^\d{1,3}$/u.test(label));
+    if (url.protocol !== "https:" || url.username || url.password || url.port ||
+      !validDnsName || ipv4 || hostname.includes(":") ||
+      hostname === "localhost" || hostname.endsWith(".local")) {
+      context.addIssue({ code: "custom", message: "Enter a public domain hostname." });
+      return z.NEVER;
+    }
+    return hostname;
+  } catch {
+    context.addIssue({ code: "custom", message: "Enter a valid public domain hostname." });
+    return z.NEVER;
+  }
+});
 
 function queryPath(path: string, values: Record<string, unknown>): string {
   const params = new URLSearchParams();
@@ -75,6 +106,25 @@ function queryPath(path: string, values: Record<string, unknown>): string {
   }
   const query = params.toString();
   return query ? `${path}?${query}` : path;
+}
+
+function calorieHistoryPath(args: Record<string, unknown>): string {
+  const start = typeof args.start === "string" ? Date.parse(`${args.start}T00:00:00Z`) : Number.NaN;
+  const end = typeof args.end === "string" ? Date.parse(`${args.end}T00:00:00Z`) : Number.NaN;
+  const inclusiveDays = Math.round((end - start) / 86_400_000) + 1;
+  if (!Number.isFinite(inclusiveDays) || inclusiveDays < 1 || inclusiveDays > 366) {
+    throw new ConnectionError(
+      "invalid_input",
+      "Nutrition history must use a valid inclusive range of 366 days or fewer.",
+    );
+  }
+  return queryPath("/api/mcp/history", {
+    start: args.start,
+    end: args.end,
+    timezone: args.timezone,
+    limit: args.limit,
+    offset: args.offset,
+  });
 }
 
 function readLimit(args: Record<string, unknown>): number {
@@ -98,6 +148,19 @@ function findCollection(payload: unknown, keys: readonly string[]): unknown[] {
     if (Array.isArray(value)) return value;
   }
   return [];
+}
+
+function findCollections(payload: unknown, keys: readonly string[]): unknown[] {
+  if (Array.isArray(payload)) return payload;
+  return keys.flatMap((key) => {
+    const value = objectValue(payload, key);
+    return Array.isArray(value) ? value : [];
+  });
+}
+
+function hasCollection(payload: unknown, keys: readonly string[]): boolean {
+  if (Array.isArray(payload)) return true;
+  return keys.some((key) => Array.isArray(objectValue(payload, key)));
 }
 
 function explicitTotal(payload: unknown): number | undefined {
@@ -150,6 +213,16 @@ function textMatches(item: unknown, query: string): boolean {
   return JSON.stringify(item).toLocaleLowerCase().includes(query.toLocaleLowerCase());
 }
 
+function toolCollectionKeys(tool: ToolDefinition, args: Record<string, unknown>): readonly string[] {
+  const defaultKeys = tool.collectionKeys ?? ["items"];
+  if (!tool.collectionKeyByArgument) return defaultKeys;
+  const selected = args[tool.collectionKeyByArgument.argument];
+  const key = selected === undefined
+    ? undefined
+    : tool.collectionKeyByArgument.values[String(selected)];
+  return key ? [key] : defaultKeys;
+}
+
 export function normalizeToolResult(options: {
   app: AppDefinition;
   toolName: string;
@@ -183,7 +256,17 @@ export function normalizeToolResult(options: {
       payload;
     if (tool.detailCollectionKeys && tool.detailArgument && tool.detailFields) {
       const expected = String(args[tool.detailArgument]);
-      candidate = findCollection(payload, tool.detailCollectionKeys).find((item) =>
+      const collectionKeys = toolCollectionKeys(
+        { ...tool, collectionKeys: tool.detailCollectionKeys },
+        args,
+      );
+      const collection = tool.mergeCollections
+        ? findCollections(payload, collectionKeys)
+        : findCollection(payload, collectionKeys);
+      if (tool.requireCollection && !hasCollection(payload, collectionKeys)) {
+        throw new ConnectionError("invalid_upstream_response", "Application response is missing its public collection.");
+      }
+      candidate = collection.find((item) =>
         tool.detailFields!.some((field) => String(objectValue(item, field)) === expected),
       );
       if (candidate === undefined) {
@@ -195,14 +278,24 @@ export function normalizeToolResult(options: {
 
   const offset = readOffset(args);
   const limit = readLimit(args);
-  let source = findCollection(payload, tool.collectionKeys ?? ["items"]);
+  const collectionKeys = toolCollectionKeys(tool, args);
+  if (tool.requireCollection && !hasCollection(payload, collectionKeys)) {
+    throw new ConnectionError("invalid_upstream_response", "Application response is missing its public collection.");
+  }
+  let source = tool.mergeCollections
+    ? findCollections(payload, collectionKeys)
+    : findCollection(payload, collectionKeys);
   const query = typeof args.q === "string" ? args.q.trim() : "";
   if (tool.localQuery && query) source = source.filter((item) => textMatches(item, query));
   for (const [argument, fields] of Object.entries(tool.localFilters ?? {})) {
     const expected = args[argument];
     if (expected === undefined || expected === null || expected === "") continue;
     source = source.filter((item) =>
-      fields.some((field) => String(objectValue(item, field)) === String(expected)),
+      fields.some((field) => {
+        const value = objectValue(item, field);
+        return String(value) === String(expected) ||
+          (value !== undefined && JSON.stringify(value).toLocaleLowerCase().includes(String(expected).toLocaleLowerCase()));
+      }),
     );
   }
 
@@ -338,6 +431,7 @@ const starboard: AppDefinition = {
       operation: "discover",
       mode: "public-api",
       collectionKeys: ["repos", "items"],
+      localQuery: true,
     },
     get_repository: {
       title: "Get public repository",
@@ -448,14 +542,7 @@ const calorie: AppDefinition = {
     },
     history: {
       auth: true,
-      path: (a) =>
-        queryPath("/api/mcp/history", {
-          start: a.start,
-          end: a.end,
-          timezone: a.timezone,
-          limit: a.limit,
-          offset: a.offset,
-        }),
+      path: calorieHistoryPath,
     },
     foods: {
       auth: true,
@@ -483,7 +570,8 @@ const calorie: AppDefinition = {
     },
     get_nutrition_history: {
       title: "Get nutrition history",
-      description: "Retrieve bounded owner nutrition history for an inclusive date range.",
+      description:
+        "Retrieve bounded owner nutrition history for an inclusive date range of at most 366 days. Follow nextOffset until null to enumerate the requested range.",
       inputSchema: {
         start: date,
         end: date,
@@ -809,6 +897,194 @@ const setline: AppDefinition = {
   },
 };
 
+const curriculumKinds = {
+  track: "tracks",
+  concept: "concepts",
+  roadmap: "roadmaps",
+  "system-design-case": "systemDesignCases",
+} as const;
+
+const sweInterviewPrep: AppDefinition = {
+  id: "swe-interview-prep",
+  name: "SWE Interview Prep",
+  serverName: "swe-interview-prep-public-readonly",
+  baseUrl: "https://learn.significanthobbies.com",
+  baseUrlEnv: "SWE_INTERVIEW_PREP_API_URL",
+  instructions:
+    "Read-only access to the public SWE Interview Prep curriculum. Never change progress, notes, reviews, plans, chats, code, or account data.",
+  operations: {
+    curriculum: { path: () => "/curriculum/catalog.json", mode: "public-static" },
+    cases: { path: () => "/system-design/catalog.json", mode: "public-static" },
+  },
+  tools: {
+    search_curriculum: {
+      title: "Search curriculum",
+      description: "Search public tracks, concepts, roadmaps, and system-design cases.",
+      inputSchema: {
+        q: optionalQuery,
+        kind: z.enum(["track", "concept", "roadmap", "system-design-case"]).optional(),
+        difficulty: z.string().trim().max(80).optional(),
+        limit: commonLimitInput,
+        offset: commonOffsetInput,
+      },
+      operation: "curriculum",
+      mode: "public-static",
+      collectionKeys: Object.values(curriculumKinds),
+      mergeCollections: true,
+      collectionKeyByArgument: { argument: "kind", values: curriculumKinds },
+      requireCollection: true,
+      localQuery: true,
+      localFilters: { difficulty: ["difficulty"] },
+    },
+    get_curriculum_item: {
+      title: "Get curriculum item",
+      description: "Retrieve one public curriculum item by kind and stable identifier.",
+      inputSchema: {
+        kind: z.enum(["track", "concept", "roadmap", "system-design-case"]),
+        id: stableId,
+      },
+      operation: "curriculum",
+      mode: "public-static",
+      detail: true,
+      detailCollectionKeys: Object.values(curriculumKinds),
+      collectionKeyByArgument: { argument: "kind", values: curriculumKinds },
+      detailArgument: "id",
+      detailFields: ["id"],
+      requireCollection: true,
+    },
+    list_learning_roadmaps: {
+      title: "List learning roadmaps",
+      description: "List public learning roadmaps with optional text filtering.",
+      inputSchema: { q: optionalQuery, limit: commonLimitInput, offset: commonOffsetInput },
+      operation: "curriculum",
+      mode: "public-static",
+      collectionKeys: ["roadmaps"],
+      requireCollection: true,
+      localQuery: true,
+    },
+    search_system_design_cases: {
+      title: "Search system-design cases",
+      description: "Search public system-design cases by text, category, or difficulty.",
+      inputSchema: {
+        q: optionalQuery,
+        category: z.string().trim().max(100).optional(),
+        difficulty: z.string().trim().max(80).optional(),
+        limit: commonLimitInput,
+        offset: commonOffsetInput,
+      },
+      operation: "cases",
+      mode: "public-static",
+      collectionKeys: ["cases"],
+      requireCollection: true,
+      localQuery: true,
+      localFilters: { category: ["category"], difficulty: ["difficulty"] },
+    },
+    get_system_design_case: {
+      title: "Get system-design case",
+      description: "Retrieve one public system-design case by its stable identifier.",
+      inputSchema: { id: stableId },
+      operation: "cases",
+      mode: "public-static",
+      detail: true,
+      detailCollectionKeys: ["cases"],
+      detailArgument: "id",
+      detailFields: ["id"],
+      requireCollection: true,
+    },
+  },
+};
+
+const saasMaker: AppDefinition = {
+  id: "saas-maker",
+  name: "SaaS Maker",
+  serverName: "saas-maker-public-readonly",
+  baseUrl: "https://sassmaker.com",
+  baseUrlEnv: "SAAS_MAKER_API_URL",
+  instructions:
+    "Read-only access to SaaS Maker's privacy-checked public portfolio catalog. Never expose private Fleet configuration, operations, credentials, or owner-only data.",
+  operations: {
+    catalog: { path: () => "/api/ai", mode: "public-agent-catalog" },
+  },
+  tools: {
+    search_public_products: {
+      title: "Search public products",
+      description: "Search privacy-checked public SaaS Maker product records.",
+      inputSchema: {
+        q: optionalQuery,
+        priority: z.enum(["P1", "P2", "P3"]).optional(),
+        tier: z.string().trim().max(40).optional(),
+        category: z.string().trim().max(80).optional(),
+        maturity: z.string().trim().max(80).optional(),
+        limit: commonLimitInput,
+        offset: commonOffsetInput,
+      },
+      operation: "catalog",
+      mode: "public-agent-catalog",
+      collectionKeys: ["products"],
+      requireCollection: true,
+      localQuery: true,
+      localFilters: {
+        priority: ["priority"], tier: ["tier"], category: ["category"], maturity: ["maturity"],
+      },
+    },
+    get_public_product: {
+      title: "Get public product",
+      description: "Retrieve one privacy-checked public product by stable identifier.",
+      inputSchema: { id: stableId },
+      operation: "catalog",
+      mode: "public-agent-catalog",
+      detail: true,
+      detailCollectionKeys: ["products"],
+      detailArgument: "id",
+      detailFields: ["id"],
+      requireCollection: true,
+    },
+    list_public_surfaces: {
+      title: "List public surfaces",
+      description: "List SaaS Maker's public agent-readable surfaces.",
+      inputSchema: { q: optionalQuery, limit: commonLimitInput, offset: commonOffsetInput },
+      operation: "catalog",
+      mode: "public-agent-catalog",
+      collectionKeys: ["surfaces"],
+      requireCollection: true,
+      localQuery: true,
+    },
+    list_public_learnings: {
+      title: "List public learnings",
+      description: "List published SaaS Maker learning articles.",
+      inputSchema: { q: optionalQuery, limit: commonLimitInput, offset: commonOffsetInput },
+      operation: "catalog",
+      mode: "public-agent-catalog",
+      collectionKeys: ["learnings"],
+      requireCollection: true,
+      localQuery: true,
+    },
+  },
+};
+
+const drank: AppDefinition = {
+  id: "drank",
+  name: "Drank",
+  serverName: "drank-public-readonly",
+  baseUrl: "https://domains.sassmaker.com",
+  baseUrlEnv: "DRANK_API_URL",
+  instructions:
+    "Read-only public Domain Rating lookup through Drank. Never expose provider credentials, query private domains, retain history, or accept arbitrary provider operations.",
+  operations: {
+    rating: { path: (a) => queryPath("/api/dr", { target: a.domain }), mode: "public-live" },
+  },
+  tools: {
+    get_domain_rating: {
+      title: "Get Domain Rating",
+      description: "Retrieve the current public Domain Rating for one validated public hostname.",
+      inputSchema: { domain: publicHostname },
+      operation: "rating",
+      mode: "public-live",
+      detail: true,
+    },
+  },
+};
+
 export const APP_DEFINITIONS: Record<AppId, AppDefinition> = {
   reader,
   starboard,
@@ -817,4 +1093,7 @@ export const APP_DEFINITIONS: Record<AppId, AppDefinition> = {
   "significant-hobbies": significantHobbies,
   "research-papers": researchPapers,
   setline,
+  "swe-interview-prep": sweInterviewPrep,
+  "saas-maker": saasMaker,
+  drank,
 };

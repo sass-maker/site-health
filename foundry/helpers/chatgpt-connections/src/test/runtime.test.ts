@@ -18,6 +18,8 @@ test("all shared connections expose only fixed relative GET operations", () => {
         slug: "safe-slug",
         q: "query",
         url: "https://github.com/openai/openai-node",
+        start: "2026-08-01",
+        end: "2026-08-07",
         limit: 10,
         offset: 0,
       });
@@ -31,6 +33,22 @@ test("all shared connections expose only fixed relative GET operations", () => {
 test("Starboard repository reads cannot populate the application cache", () => {
   const path = APP_DEFINITIONS.starboard.operations.repository!.path({ id: 123 });
   assert.equal(path, "/api/repos/123?catalogOnly=1");
+});
+
+test("Starboard repository search filters unmatched upstream fallbacks locally", () => {
+  assert.equal(APP_DEFINITIONS.starboard.tools.search_repositories?.localQuery, true);
+});
+
+test("Calorie nutrition history rejects ranges wider than 366 inclusive days", () => {
+  const historyPath = APP_DEFINITIONS.calorie.operations.history!.path;
+  assert.equal(
+    historyPath({ start: "2025-01-01", end: "2026-01-01", timezone: "UTC", limit: 30, offset: 0 }),
+    "/api/mcp/history?start=2025-01-01&end=2026-01-01&timezone=UTC&limit=30&offset=0",
+  );
+  assert.throws(
+    () => historyPath({ start: "2025-01-01", end: "2026-01-02", timezone: "UTC" }),
+    (error: unknown) => error instanceof ConnectionError && error.code === "invalid_input",
+  );
 });
 
 test("read client rejects arbitrary origins and non-HTTPS remote bases", async () => {
@@ -51,11 +69,12 @@ test("read client rejects arbitrary origins and non-HTTPS remote bases", async (
 });
 
 test("read client uses GET, applies bounded retry, and never exposes its token", async () => {
-  const calls: Array<{ method: string | undefined; authorization: string | null }> = [];
+  const calls: Array<{ method: string | undefined; authorization: string | null; redirect: RequestRedirect | undefined }> = [];
   const fetchImpl: typeof fetch = async (_input, init) => {
     calls.push({
       method: init?.method,
       authorization: new Headers(init?.headers).get("authorization"),
+      redirect: init?.redirect,
     });
     if (calls.length === 1) return Response.json({ error: "temporary" }, { status: 503 });
     return Response.json({ items: [{ id: "one", title: "Safe" }] });
@@ -74,6 +93,7 @@ test("read client uses GET, applies bounded retry, and never exposes its token",
   assert.deepEqual(payload, { items: [{ id: "one", title: "Safe" }] });
   assert.equal(calls.length, 2);
   assert.deepEqual(calls.map((call) => call.method), ["GET", "GET"]);
+  assert.equal(calls.every((call) => call.redirect === "manual"), true);
   assert.equal(calls.every((call) => call.authorization === "Bearer rdr_example-token"), true);
   assert.equal(JSON.stringify(payload).includes("rdr_example-token"), false);
 });
@@ -237,7 +257,14 @@ test("tool schemas cannot accept arbitrary transport instructions", () => {
       }
     }
     for (const operation of Object.values(app.operations)) {
-      const path = operation.path({ id: "safe", slug: "safe", limit: 10, offset: 0 });
+      const path = operation.path({
+        id: "safe",
+        slug: "safe",
+        start: "2026-08-01",
+        end: "2026-08-07",
+        limit: 10,
+        offset: 0,
+      });
       assert.doesNotMatch(path, forbiddenRoutes, `${app.id}:${path}`);
     }
   }
@@ -281,6 +308,40 @@ test("public operation routes stay on their verified anonymous surfaces", () => 
     offset: 0,
   });
   assert.equal(new URL(readerSearch, "https://reader.example").searchParams.get("projectId"), "owner_default");
+  assert.equal(APP_DEFINITIONS["swe-interview-prep"].operations.curriculum!.path({}), "/curriculum/catalog.json");
+  assert.equal(APP_DEFINITIONS["saas-maker"].operations.catalog!.path({}), "/api/ai");
+  const normalizedDomain = APP_DEFINITIONS.drank.tools.get_domain_rating!.inputSchema.domain!.parse("https://Example.com/path");
+  assert.equal(APP_DEFINITIONS.drank.operations.rating!.path({ domain: normalizedDomain }), "/api/dr?target=example.com");
+  assert.throws(() => APP_DEFINITIONS.drank.tools.get_domain_rating!.inputSchema.domain!.parse("127.0.0.1"));
+  assert.throws(() => APP_DEFINITIONS.drank.tools.get_domain_rating!.inputSchema.domain!.parse("http://example.com"));
+  assert.throws(() => APP_DEFINITIONS.drank.tools.get_domain_rating!.inputSchema.domain!.parse("[::1]"));
+});
+
+test("new public catalogs normalize only their approved collections", () => {
+  const curriculum = normalizeToolResult({
+    app: APP_DEFINITIONS["swe-interview-prep"],
+    toolName: "search_curriculum",
+    tool: APP_DEFINITIONS["swe-interview-prep"].tools.search_curriculum!,
+    payload: { concepts: [{ id: "load-balancing" }], tracks: [{ id: "backend" }], roadmaps: [] },
+    args: { kind: "concept", limit: 10, offset: 0 },
+    sourceUrl: "https://learn.significanthobbies.com/curriculum/catalog.json",
+  });
+  assert.deepEqual(curriculum.items?.map(({ id }) => id), ["load-balancing"]);
+
+});
+
+test("new public catalog tools fail closed when their required collection disappears", () => {
+  assert.throws(
+    () => normalizeToolResult({
+      app: APP_DEFINITIONS["swe-interview-prep"],
+      toolName: "search_curriculum",
+      tool: APP_DEFINITIONS["swe-interview-prep"].tools.search_curriculum!,
+      payload: { unexpected: [] },
+      args: {},
+      sourceUrl: "https://learn.significanthobbies.com/curriculum/catalog.json",
+    }),
+    /missing its public collection/i,
+  );
 });
 
 for (const appId of Object.keys(APP_DEFINITIONS) as AppId[]) {

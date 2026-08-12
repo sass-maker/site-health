@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { HOSTED_ROUTES, type HostedRouteDefinition } from "../hosted.js";
+import { HOSTED_ROUTES, oauthResource, type HostedRouteDefinition } from "../hosted.js";
 import type { OAuthGrantProps } from "../oauth.js";
 import { handleHostedRequest } from "../worker.js";
 
@@ -47,14 +47,9 @@ async function json(response: Response): Promise<Record<string, unknown>> {
   return (await response.json()) as Record<string, unknown>;
 }
 
-function productToken(route: HostedRouteDefinition): string {
-  switch (route.id) {
-    case "reader": return "rdr_worker-secret";
-    case "calorie": return "calorie_read_worker-secret";
-    case "setline": return "setline_read_worker-secret";
-    case "anime-list": return "anime_list_worker-secret";
-    default: throw new Error("public routes do not have product tokens");
-  }
+function upstreamToken(route: HostedRouteDefinition): string {
+  if (route.id === "setline") return "setline_read_worker-secret";
+  return `${route.id.replaceAll("-", "")}Header.oauthPayload.oauthSignature`;
 }
 
 function authorizationFor(path: string, overrides: Partial<OAuthGrantProps> = {}) {
@@ -62,18 +57,18 @@ function authorizationFor(path: string, overrides: Partial<OAuthGrantProps> = {}
   assert.equal(route.audience, "personal");
   return {
     grant: {
-      ownerId: "owner-subject",
+      subject: "google-oauth2|owner-subject",
       product: route.id,
-      resource: `https://mcp.example${path}`,
+      resource: oauthResource(route, `https://mcp.example${path}`),
       scope: route.scope!,
       ...overrides,
     },
-    productToken: productToken(route),
+    upstreamToken: upstreamToken(route),
   };
 }
 
 async function nativeMcpResponse(request: Request): Promise<Response> {
-  const message = await request.clone().json() as { id?: number; method?: string };
+  const message = await request.clone().json() as { id?: number; method?: string; params?: { name?: string } };
   if (message.method === "initialize") {
     return Response.json({
       jsonrpc: "2.0",
@@ -85,18 +80,32 @@ async function nativeMcpResponse(request: Request): Promise<Response> {
       },
     });
   }
+  if (message.method === "tools/call") {
+    return Response.json({
+      jsonrpc: "2.0",
+      id: message.id,
+      result: {
+        structuredContent: { schemaVersion: "1", ok: true, tool: message.params?.name, items: [{ mal_id: 1 }] },
+      },
+    });
+  }
+  const publicTools = [
+    "search_anime", "search_manga", "get_anime_detail", "get_manga_detail",
+    "get_anime_stats", "get_random_anime",
+  ];
+  const personalTools = [
+    "list_watchlist", "list_manga_watchlist", "list_watchlist_tags", "get_watchlist_enriched",
+  ];
   return Response.json({
     jsonrpc: "2.0",
     id: message.id,
     result: {
-      tools: [
-        {
-          name: "list_watchlist",
-          description: "Read the owner's watchlist.",
+      tools: [...publicTools, ...personalTools].map((name) => ({
+          name,
+          description: "Read Anime List data.",
           inputSchema: { type: "object", properties: {} },
           annotations: { readOnlyHint: true, destructiveHint: false },
-        },
-      ],
+        })),
     },
   });
 }
@@ -115,10 +124,14 @@ test("hosted route registry is fixed and public Research Papers exposes only exp
     "/calorie/mcp",
     "/setline/mcp",
     "/anime-list/mcp",
+    "/anime-list-public/mcp",
     "/starboard/mcp",
     "/high-signal/mcp",
     "/significant-hobbies/mcp",
     "/research-papers/mcp",
+    "/swe-interview-prep/mcp",
+    "/saas-maker/mcp",
+    "/drank/mcp",
   ]);
   const papers = HOSTED_ROUTES["/research-papers/mcp"]!;
   assert.equal(papers.kind, "adapter");
@@ -210,7 +223,25 @@ test("OAuth grants are bound to one exact product, scope, and resource", async (
   assert.deepEqual([wrongProduct.status, wrongScope.status, wrongResource.status], [401, 401, 401]);
 });
 
-test("private product secrets remain isolated under concurrent OAuth calls", async () => {
+test("an unavailable owner-token product credential fails closed before upstream", async () => {
+  let called = false;
+  const response = await handleHostedRequest(
+    requestFor("/setline/mcp", initializeRequest()),
+    async () => {
+      called = true;
+      return Response.json({ items: [] });
+    },
+    { ...authorizationFor("/setline/mcp"), upstreamToken: undefined },
+  );
+
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get("cache-control"), "no-store");
+  assert.equal(response.headers.get("retry-after"), "300");
+  assert.equal(called, false);
+  assert.match(JSON.stringify(await json(response)), /temporarily unavailable/u);
+});
+
+test("private OAuth tokens remain isolated under concurrent calls and propagate end to end", async () => {
   const seen: Array<{ authorization: string | null; url: string }> = [];
   const fetchImpl: typeof fetch = async (input, init) => {
     const authorization = new Headers(init?.headers).get("authorization");
@@ -218,7 +249,7 @@ test("private product secrets remain isolated under concurrent OAuth calls", asy
     seen.push({ authorization, url });
     await Promise.resolve();
     return Response.json({
-      items: [{ title: authorization?.startsWith("Bearer rdr_") ? "reader-result" : "calorie-result" }],
+      items: [{ title: authorization?.includes("readerHeader") ? "reader-result" : "calorie-result" }],
     });
   };
   const readerCall = {
@@ -243,18 +274,18 @@ test("private product secrets remain isolated under concurrent OAuth calls", asy
   ]);
   const bodies = [JSON.stringify(await json(reader)), JSON.stringify(await json(calorie))];
   assert.deepEqual(new Set(seen.map((item) => item.authorization)), new Set([
-    "Bearer rdr_worker-secret",
-    "Bearer calorie_read_worker-secret",
+    "Bearer readerHeader.oauthPayload.oauthSignature",
+    "Bearer calorieHeader.oauthPayload.oauthSignature",
   ]));
   assert.equal(bodies[0]!.includes("reader-result"), true);
   assert.equal(bodies[0]!.includes("calorie-result"), false);
   assert.equal(bodies[1]!.includes("calorie-result"), true);
   assert.equal(bodies[1]!.includes("reader-result"), false);
-  assert.equal(bodies.some((body) => body.includes("worker-secret") || body.includes("oauth-")), false);
+  assert.equal(bodies.some((body) => body.includes("oauthPayload") || body.includes("oauth-")), false);
 });
 
-test("Anime List proxy fixes the upstream URL and replaces the OAuth bearer with its Worker secret", async () => {
-  const calls: Array<{ url: string; authorization: string | null; method: string }> = [];
+test("Anime List proxy fixes the upstream URL and forwards the verified OAuth bearer", async () => {
+  const calls: Array<{ url: string; authorization: string | null; method: string; redirect: RequestRedirect }> = [];
   const response = await handleHostedRequest(
     requestFor("/anime-list/mcp", initializeRequest(), { authorization: "Bearer oauth-chatgpt" }),
     async (input, init) => {
@@ -263,6 +294,7 @@ test("Anime List proxy fixes the upstream URL and replaces the OAuth bearer with
         url: request.url,
         authorization: request.headers.get("authorization"),
         method: request.method,
+        redirect: request.redirect,
       });
       return nativeMcpResponse(request);
     },
@@ -271,10 +303,129 @@ test("Anime List proxy fixes the upstream URL and replaces the OAuth bearer with
   assert.equal(response.status, 200);
   assert.deepEqual(calls, [{
     url: "https://anime.significanthobbies.com/api/mcp",
-    authorization: "Bearer anime_list_worker-secret",
+    authorization: "Bearer animelistHeader.oauthPayload.oauthSignature",
     method: "POST",
+    redirect: "manual",
   }]);
   assert.equal(JSON.stringify(await json(response)).includes("oauth-chatgpt"), false);
+});
+
+test("public Anime List exposes only catalog tools and rejects personal calls before upstream", async () => {
+  const listed = await handleHostedRequest(
+    requestFor("/anime-list-public/mcp", { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }),
+    routeFetch,
+  );
+  assert.equal(listed.status, 200);
+  const listedPayload = await json(listed);
+  const tools = ((listedPayload.result as Record<string, unknown>).tools as Array<Record<string, unknown>>);
+  assert.deepEqual(tools.map(({ name }) => name), [
+    "search_anime", "search_manga", "get_anime_detail", "get_manga_detail",
+    "get_anime_stats", "get_random_anime",
+  ]);
+  assert.equal(tools.every((tool) => JSON.stringify(tool.securitySchemes) === JSON.stringify([{ type: "noauth" }])), true);
+
+  let forwarded = false;
+  const rejected = await handleHostedRequest(
+    requestFor("/anime-list-public/mcp", {
+      jsonrpc: "2.0", id: 3, method: "tools/call", params: { name: "list_watchlist", arguments: {} },
+    }),
+    async () => {
+      forwarded = true;
+      return Response.json({});
+    },
+  );
+  assert.equal(rejected.status, 200);
+  assert.equal(forwarded, false);
+  assert.equal(((await json(rejected)).result as Record<string, unknown>).isError, true);
+
+  const methodRejected = await handleHostedRequest(
+    requestFor("/anime-list-public/mcp", { jsonrpc: "2.0", id: 5, method: "resources/list", params: {} }),
+    async () => {
+      forwarded = true;
+      return Response.json({});
+    },
+  );
+  assert.equal(methodRejected.status, 200);
+  assert.equal(forwarded, false);
+  assert.equal((await json(methodRejected)).error instanceof Object, true);
+});
+
+test("public Anime List fails closed if its native catalog cannot be filtered", async () => {
+  const response = await handleHostedRequest(
+    requestFor("/anime-list-public/mcp", { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }),
+    async () => new Response("event: message\ndata: {}\n\n", {
+      headers: { "Content-Type": "text/event-stream" },
+    }),
+  );
+  assert.equal(response.status, 502);
+  assert.match(JSON.stringify(await json(response)), /cannot be safely filtered/u);
+});
+
+test("public Anime List forwards catalog calls anonymously and uses its own identity", async () => {
+  const calls: Array<{ authorization: string | null; method: string | undefined }> = [];
+  const initialized = await handleHostedRequest(
+    requestFor("/anime-list-public/mcp", initializeRequest()),
+    async (input, init) => {
+      const request = input instanceof Request ? input : new Request(input, init);
+      calls.push({
+        authorization: request.headers.get("authorization"),
+        method: (await request.clone().json() as { method?: string }).method,
+      });
+      return nativeMcpResponse(request);
+    },
+  );
+  const initializedPayload = await json(initialized);
+  const serverInfo = ((initializedPayload.result as Record<string, unknown>).serverInfo as Record<string, unknown>);
+  assert.equal(serverInfo.name, "anime-list-public-by-significant-hobbies");
+
+  await handleHostedRequest(
+    requestFor("/anime-list-public/mcp", {
+      jsonrpc: "2.0", id: 4, method: "tools/call", params: { name: "search_anime", arguments: { pagesize: 1 } },
+    }),
+    async (input, init) => {
+      const request = input instanceof Request ? input : new Request(input, init);
+      calls.push({
+        authorization: request.headers.get("authorization"),
+        method: (await request.clone().json() as { method?: string }).method,
+      });
+      return nativeMcpResponse(request);
+    },
+  );
+  assert.deepEqual(calls, [
+    { authorization: null, method: "initialize" },
+    { authorization: null, method: "tools/call" },
+  ]);
+});
+
+test("branded hosts expose only their assigned plugin routes", async () => {
+  const allowed = await handleHostedRequest(
+    new Request("https://mcp.highsignal.app/high-signal/mcp", {
+      method: "POST",
+      headers: { Accept: "application/json, text/event-stream", "Content-Type": "application/json" },
+      body: JSON.stringify(initializeRequest()),
+    }),
+  );
+  const isolated = await handleHostedRequest(
+    new Request("https://mcp.highsignal.app/starboard/mcp", {
+      method: "POST",
+      headers: { Accept: "application/json, text/event-stream", "Content-Type": "application/json" },
+      body: JSON.stringify(initializeRequest()),
+    }),
+  );
+  assert.equal(allowed.status, 200);
+  assert.equal(isolated.status, 404);
+});
+
+test("Anime List proxy rejects upstream redirects without forwarding them", async () => {
+  const response = await handleHostedRequest(
+    requestFor("/anime-list/mcp", initializeRequest()),
+    async () => new Response(null, { status: 302, headers: { Location: "https://elsewhere.example/" } }),
+    authorizationFor("/anime-list/mcp"),
+  );
+
+  assert.equal(response.status, 502);
+  assert.equal(response.headers.has("location"), false);
+  assert.match(JSON.stringify(await json(response)), /redirects are not allowed/u);
 });
 
 test("public routes reject credentials and use anonymous upstream reads", async () => {

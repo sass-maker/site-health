@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T17:54:05Z",
+  "generatedAt": "2026-08-11T15:20:06Z",
   "exclusions": [
     "truehire",
     "open-historia",
@@ -7,14 +7,15 @@
   ],
   "notes": [
     "Protein Index was included by explicit owner request despite retired/reactivation-only registry notes.",
-    "No sign-in, sign-out, purchase, submission, save, upload, credential entry, production mutation, or load testing was performed."
+    "No sign-in, sign-out, purchase, submission, save, upload, credential entry, production mutation, or load testing was performed.",
+    "Office OS and Local AI Video Studio were added through targeted post-deployment spot checks on 2026-08-11; older product evidence was retained from the 2026-07-29 Fleet audit."
   ],
   "summary": {
     "fail": 4,
     "degraded": 5,
-    "pass": 14,
+    "pass": 16,
     "not_verified": 8,
-    "total": 31
+    "total": 33
   },
   "products": [
     {
@@ -537,6 +538,40 @@
       "abuseProtectionPosture": "unknown",
       "rateLimitEvidence": [],
       "findings": []
+    },
+    {
+      "project": "agent-office",
+      "repo": "agent-office",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "not-applicable-static",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "evidence": [
+        "https://office-os.pages.dev/ returned 200",
+        "Release navigation worked",
+        "No console errors or binary links",
+        "release.json remained fail-closed for 0.1.0 (1) arm64"
+      ]
+    },
+    {
+      "project": "local-ai-video-studio",
+      "repo": "local-ai-video-studio",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "not-applicable-static",
+      "rateLimitEvidence": [],
+      "findings": [],
+      "evidence": [
+        "https://local-ai-video-studio.pages.dev/ returned 200",
+        "Release navigation worked and both native product images loaded",
+        "No console errors or binary links",
+        "release.json remained fail-closed for 0.1.0 (1) arm64"
+      ]
     }
   ]
 }

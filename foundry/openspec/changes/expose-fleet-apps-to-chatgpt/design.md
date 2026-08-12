@@ -10,7 +10,7 @@ The selected Fleet applications have different useful read boundaries:
 - Research Papers has an operator-local FastAPI/ClickHouse corpus and a public static Pages build. ClickHouse must not become a production dependency, and the paid-answer POST path must not be invoked by this read connection.
 - Setline exposes one authenticated whole-state endpoint behind a Better Auth session. A robust connection needs narrower owner-scoped reads and must preserve authored order, recorded/calculated provenance, and the product's no-coaching boundary.
 
-OpenAI supports Streamable HTTP and stdio MCP servers and private connections through Secure MCP Tunnel. Public plugin distribution would require a separate public HTTPS, privacy, packaging, and OAuth review. This change is limited to personal developer-mode connections.
+OpenAI supports remote Streamable HTTP MCP servers with OAuth or no authentication. Public plugin distribution would require separate privacy, packaging, and review work. This change is limited to personal developer-mode connections backed by a Fleet-owned Cloudflare Worker.
 
 ## Goals / Non-Goals
 
@@ -31,29 +31,28 @@ OpenAI supports Streamable HTTP and stdio MCP servers and private connections th
 
 ## Decisions
 
-### 1. Eight connections, two implementation shapes
+### 1. Eight connections, one hosted transport
 
-Create a shared Fleet-owned package at `foundry/helpers/chatgpt-connections/` for Reader, Starboard, High Signal, Calorie, Significant Hobbies, Research Papers, and Setline. Each app gets its own server identity, tool registry, configuration, and tunnel profile. Shared code is limited to protocol-safe mechanics and does not collapse application schemas into a generic query tool.
+Create a shared Fleet-owned package at `foundry/helpers/chatgpt-connections/`. Each app gets its own fixed Streamable HTTP path, server identity, tool registry, configuration, authentication policy, and ChatGPT registration. Shared code is limited to protocol-safe mechanics and does not collapse application schemas into a generic query tool.
 
-Anime List retains its existing app-owned Streamable HTTP MCP endpoint. The change hardens that implementation in place and connects it through its own profile. Duplicating its ten tools in the shared helper would create two contracts and invite drift.
+Anime List retains its existing app-owned Streamable HTTP MCP endpoint. The shared gateway is a fixed authenticated proxy to that one contract, so it does not duplicate the ten tools or invite schema drift.
 
 Alternative considered: one “Fleet apps” server. Rejected because a mixed multi-domain catalog harms tool selection, couples credentials, and prevents independent enablement or revocation.
 
-### 2. Secure MCP Tunnel is the personal transport boundary
+### 2. Hosted OAuth is the personal transport boundary
 
-The seven shared entrypoints use stdio. Secure MCP Tunnel carries their MCP traffic outbound to ChatGPT. Anime List's profile relays its native Streamable HTTP endpoint and supplies the existing PAT only within the local/tunnel credential boundary when owner watchlist access is enabled.
+One Cloudflare Worker exposes eight fixed remote MCP paths. Reader, Calorie, Setline, and Anime List require an Auth0 access token whose issuer, exact route audience, owner subject, lifetime, and product read scope all match. The Worker then selects only that product's upstream token. Starboard, High Signal, Significant Hobbies, and Research Papers are anonymous public projections and reject credentials.
 
 ```mermaid
 flowchart LR
-    C[ChatGPT developer mode] --> T[Eight app-scoped connections]
-    T --> L[Seven stdio adapters via Secure MCP Tunnel]
-    T --> A[Anime List native Streamable HTTP MCP]
-    L --> P[Fixed public or owner-scoped read APIs]
-    L --> R[Research Papers local FastAPI or approved static fallback]
-    A --> AC[Anime/manga catalog and owner watchlists]
+    C[ChatGPT developer mode] --> W[Cloudflare Worker]
+    W --> O[Four Auth0 owner-only routes]
+    W --> P[Four anonymous public routes]
+    O --> R[Fixed owner-scoped read APIs]
+    P --> E[Approved public APIs and exports]
 ```
 
-No private server accepts new public ingress. Stopping one profile disables only that connection. Public distribution is a separate change.
+The gateway accepts public ingress but private data stays behind standards-based OAuth and exact per-route resource indicators. Removing one ChatGPT registration, revoking one Auth0 grant, or revoking one product token disables only that connection. Public distribution is a separate change.
 
 ### 3. Tool catalogs are task-shaped
 
@@ -65,7 +64,7 @@ No private server accepts new public ingress. Stopping one profile disables only
 | Calorie | `get_daily_nutrition`, `get_nutrition_history`, `search_saved_foods`, `list_goal_cycles` | Owner nutrition/water/food data via new read-only token; no medication or weight fields |
 | Anime List | Existing `search_anime`, `search_manga`, anime/manga detail, stats/random, and four watchlist tools | Public catalog; owner watchlists via existing PAT |
 | Significant Hobbies | `search_hobbies`, `search_experiences`, `get_experience`, `search_public_timelines`, `get_public_timeline` | Public corpus and explicitly PUBLIC timelines only |
-| Research Papers | `search_research_papers`, `get_research_paper`, `find_similar_papers`, `list_hot_papers`, `list_sleepers`, `get_reading_path` | Local corpus with explicit public-static fallback; no RAG spend or jobs |
+| Research Papers | `list_hot_papers`, `list_sleepers`, `get_reading_path` | Approved public static exports only; no local corpus, RAG spend, PDFs, or jobs |
 | Setline | `get_training_programme`, `list_workout_templates`, `list_workout_history`, `get_workout_session`, `get_progress_summary` | Owner state via new read-only token; bundled plan may be public |
 
 Names describe user goals rather than routes. Search/list tools use typed filters, small defaults, hard maximums, and explicit continuation state. Detail tools accept stable identifiers returned by list/search tools. No generic `query_app`, URL fetcher, GraphQL, SQL, or mode-heavy admin tool is exposed.
@@ -85,7 +84,7 @@ Read-only means no application or provider state changes, not merely use of the 
 - Anime List reuses a dedicated revocable `anime_list_*` PAT and never accepts its browser cookie for MCP.
 - Calorie and Setline gain separate hashed, shown-once, revocable read-only tokens that resolve exactly one owner. Their MCP adapters cannot use Better Auth session cookies because those sessions also authorize writes.
 - Starboard, High Signal, and Significant Hobbies use anonymous public contracts only.
-- Research Papers authenticates no public data; its full-corpus source remains reachable only from the operator-local process through the private tunnel.
+- Research Papers authenticates no public data; its full-corpus source remains local and is not reachable through the hosted gateway.
 
 Calorie and Setline token schemas/routes, if approved during apply, are additive and app-owned. Migration generation, remote application, token issuance, and production deployment are explicit later gates. Tokens never appear as tool inputs, outputs, logs, snapshots, or retained receipts.
 
@@ -95,7 +94,7 @@ The MCP boundary does not blindly forward application response bodies:
 
 - Calorie projects daily/history data to nutrition, water, food, and goal-cycle fields. Medication routines/check-ins and weight records are excluded at the source boundary. Weight is disabled for the initial connection; adding it later requires a separate privacy decision.
 - Significant Hobbies queries only corpus data and records whose visibility is exactly `PUBLIC`; it never treats signed-out local storage as public.
-- Research Papers returns metadata, abstracts where already permitted, citations, scores, and source links; it never returns PDFs, credentials, operator logs, or raw ClickHouse access.
+- Research Papers returns approved export metadata, citations, scores, and source links; it never returns full-corpus search/detail/similarity, PDFs, credentials, operator logs, or raw ClickHouse access.
 - Setline retains authored/adjusted/recorded/calculated provenance and order, but omits auth/account records and active write intents.
 - Reader returns only the requested owner record and bounded organization context.
 
@@ -105,7 +104,7 @@ Every adapter validates upstream data into a versioned internal result before cr
 
 Default collection size is 10 and maximum is 50 unless the source has a lower safe bound. Text fields and aggregate payload size are bounded before MCP output. Truncation preserves identifiers and canonical URLs for follow-up.
 
-Research Papers reports `retrievalMode: "local-corpus"` or the exact static fallback mode. Static fallback supports only the tools backed by approved exports; full-corpus or similar-paper requests fail explicitly when the local service is unavailable.
+Research Papers reports the exact public-export retrieval mode. Only tools backed by approved exports are hosted; full-corpus search, detail, and similarity tools are absent.
 
 ### 8. Timeouts, retries, failures, and degraded modes are deterministic
 
@@ -155,11 +154,11 @@ Tests use fixtures and no production credentials. Manual owner-data smoke tests 
 2. Build the shared helper, schemas, fixtures, and public adapters without changing product routes.
 3. Harden Anime List's native MCP contract and run its existing MCP/PAT tests.
 4. Add only the proven bounded public-read route changes in Starboard, High Signal, Significant Hobbies, and Research Papers.
-5. Add and locally validate Calorie and Setline read-token models and narrow read projections. Do not apply remote migrations or deploy.
+5. Add and locally validate Calorie and Setline read-token models and narrow read projections.
 6. Run native checks and MCP Inspector for all eight connections.
-7. After explicit operator approval, apply any required migrations, deploy affected app changes, issue dedicated tokens, configure eight tunnel profiles, and add connections one at a time in ChatGPT developer mode.
+7. After explicit operator approval, apply required migrations, deploy affected app changes, issue dedicated tokens, configure Auth0 APIs/CIMD, deploy the SHA-tagged gateway, and add connections one at a time in ChatGPT developer mode.
 
-Rollback is per connection: stop/remove its tunnel profile and revoke its dedicated token where applicable. Any app route deployment follows that app's normal rollback. No connection depends on deleting user data or rolling back a destructive migration.
+Rollback is per connection: remove its ChatGPT registration and revoke its Auth0 grant or dedicated product token where applicable. Any app route deployment follows that app's normal rollback. No connection depends on deleting user data or rolling back a destructive migration.
 
 ## Resolved During Apply
 

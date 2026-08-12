@@ -3,6 +3,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import {
   HOSTED_ROUTES,
   hostedRoute,
+  oauthResource,
   type HostedRouteDefinition,
 } from "./hosted.js";
 import type { HostedWorkerEnv, OAuthGrantProps } from "./oauth.js";
@@ -11,6 +12,7 @@ import { buildServerForApp, type ToolSecurityScheme } from "./server.js";
 const MAX_MCP_REQUEST_BYTES = 256_000;
 const MAX_MCP_RESPONSE_BYTES = 1_000_000;
 const MAX_PRODUCT_TOKEN_BYTES = 2_048;
+const MAX_FEDERATED_TOKEN_BYTES = 20_000;
 const NATIVE_TIMEOUT_MS = 10_000;
 const ALLOWED_ORIGINS = new Set(["https://chatgpt.com", "https://chat.openai.com"]);
 const LOCAL_ORIGIN = /^https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?$/;
@@ -20,13 +22,22 @@ class ResponseTooLargeError extends Error {}
 
 interface HostedRequestAuthorization {
   grant: OAuthGrantProps;
-  productToken: string;
+  upstreamToken: string | undefined;
 }
 
 function jsonRpcError(status: number, code: number, message: string, headers?: HeadersInit): Response {
   return Response.json(
     { jsonrpc: "2.0", error: { code, message }, id: null },
     { status, headers: { "Content-Type": "application/json", ...headers } },
+  );
+}
+
+function productUnavailable(): Response {
+  return jsonRpcError(
+    503,
+    -32000,
+    "This product connection is temporarily unavailable.",
+    { "Retry-After": "300" },
   );
 }
 
@@ -216,8 +227,8 @@ function authorizationMatches(
   const { grant } = authorization;
   return grant.product === route.id &&
     grant.scope === route.scope &&
-    grant.resource === exactResource(request) &&
-    typeof grant.ownerId === "string" && grant.ownerId.length > 0 && grant.ownerId.length <= 512;
+    grant.resource === oauthResource(route, exactResource(request)) &&
+    typeof grant.subject === "string" && grant.subject.length > 0 && grant.subject.length <= 512;
 }
 
 function oauthChallenge(request: Request, route: HostedRouteDefinition): Response {
@@ -229,9 +240,14 @@ function oauthChallenge(request: Request, route: HostedRouteDefinition): Respons
   });
 }
 
-function validProductToken(route: HostedRouteDefinition, value: string): boolean {
-  if (!value || value.length > MAX_PRODUCT_TOKEN_BYTES) return false;
-  if (route.kind === "native") return value.startsWith("anime_list_");
+function validUpstreamToken(route: HostedRouteDefinition, value: string | undefined): boolean {
+  if (!value) return false;
+  if (route.authMode === "federated") {
+    return value.length <= MAX_FEDERATED_TOKEN_BYTES &&
+      /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/u.test(value);
+  }
+  if (route.kind !== "adapter") return false;
+  if (value.length > MAX_PRODUCT_TOKEN_BYTES) return false;
   return !route.app.tokenPrefix || value.startsWith(route.app.tokenPrefix);
 }
 
@@ -246,6 +262,7 @@ async function handleAdapter(
     fetchImpl,
     readProcessEnvironment: false,
     securitySchemes: securitySchemes(route),
+    validateTokenPrefix: route.authMode !== "federated",
     ...(token ? { token } : {}),
   });
   const transport = new WebStandardStreamableHTTPServerTransport({ enableJsonResponse: true });
@@ -257,15 +274,42 @@ async function handleNative(
   request: Request,
   route: Extract<HostedRouteDefinition, { kind: "native" }>,
   fetchImpl: typeof fetch,
-  token: string,
+  token?: string,
 ): Promise<Response> {
   const safeRequest = await boundedRequest(request);
   const body = await safeRequest.arrayBuffer();
+  let message: { id?: number | string; method?: string; params?: { name?: string } };
+  try {
+    message = JSON.parse(new TextDecoder().decode(body)) as typeof message;
+  } catch {
+    return jsonRpcError(400, -32700, "Invalid JSON-RPC payload.");
+  }
+  const allowlist = route.allowedTools ? new Set(route.allowedTools) : undefined;
+  const allowedPublicNativeMethods = new Set([
+    "initialize",
+    "notifications/initialized",
+    "ping",
+    "tools/list",
+    "tools/call",
+  ]);
+  if (allowlist && !allowedPublicNativeMethods.has(message.method ?? "")) {
+    return jsonRpcError(200, -32601, "Method is not available on this connection.");
+  }
+  if (allowlist && message.method === "tools/call" && !allowlist.has(message.params?.name ?? "")) {
+    return Response.json({
+      jsonrpc: "2.0",
+      id: message.id ?? null,
+      result: {
+        isError: true,
+        content: [{ type: "text", text: "Tool is not available on this connection." }],
+      },
+    });
+  }
   const headers = new Headers({
     Accept: "application/json, text/event-stream",
-    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   });
+  if (token) headers.set("Authorization", `Bearer ${token}`);
   for (const name of ["Mcp-Protocol-Version", "Mcp-Session-Id", "Last-Event-ID"]) {
     const value = request.headers.get(name);
     if (value && value.length <= 256) headers.set(name, value);
@@ -274,10 +318,42 @@ async function handleNative(
     method: "POST",
     headers,
     body,
-    redirect: "error",
+    redirect: "manual",
     signal: AbortSignal.timeout(NATIVE_TIMEOUT_MS),
   });
-  return advertiseSecuritySchemes(await boundedResponse(response), route);
+  if (response.status >= 300 && response.status < 400) {
+    await response.body?.cancel();
+    return jsonRpcError(502, -32603, "Upstream MCP redirects are not allowed.");
+  }
+  let bounded = await boundedResponse(response);
+  const responseIsJson = bounded.headers.get("content-type")?.toLowerCase().includes("application/json") === true;
+  if (allowlist && !responseIsJson) {
+    await bounded.body?.cancel();
+    return jsonRpcError(502, -32603, "Upstream MCP response cannot be safely filtered.");
+  }
+  if (responseIsJson) {
+    const payload = await bounded.clone().json() as Record<string, unknown>;
+    const result = payload.result && typeof payload.result === "object" && !Array.isArray(payload.result)
+      ? payload.result as Record<string, unknown>
+      : undefined;
+    if (result && message.method === "initialize") {
+      const serverInfo = result.serverInfo && typeof result.serverInfo === "object" && !Array.isArray(result.serverInfo)
+        ? result.serverInfo as Record<string, unknown>
+        : {};
+      serverInfo.name = route.serverName;
+      result.serverInfo = serverInfo;
+    }
+    if (result && allowlist && message.method === "tools/list" && Array.isArray(result.tools)) {
+      result.tools = result.tools.filter((tool) =>
+        tool && typeof tool === "object" && !Array.isArray(tool) &&
+        allowlist.has(String((tool as Record<string, unknown>).name ?? ""))
+      );
+    }
+    const responseHeaders = new Headers(bounded.headers);
+    responseHeaders.delete("Content-Length");
+    bounded = Response.json(payload, { status: bounded.status, headers: responseHeaders });
+  }
+  return advertiseSecuritySchemes(bounded, route);
 }
 
 export async function handleHostedRequest(
@@ -288,7 +364,7 @@ export async function handleHostedRequest(
   const url = new URL(request.url);
   if (url.pathname === "/health" && request.method === "GET") return healthResponse();
 
-  const route = hostedRoute(url.pathname);
+  const route = hostedRoute(url.pathname, url.hostname);
   if (!route) return withProtocolHeaders(jsonRpcError(404, -32001, "Unknown MCP route."), request);
   if (request.headers.has("origin") && !allowedOrigin(request)) {
     return withProtocolHeaders(jsonRpcError(403, -32000, "Origin is not allowed."), request, route);
@@ -317,15 +393,16 @@ export async function handleHostedRequest(
         route,
       );
     }
-  } else if (!authorizationMatches(request, route, authorization) ||
-      !validProductToken(route, authorization.productToken)) {
+  } else if (!authorizationMatches(request, route, authorization)) {
     return withProtocolHeaders(oauthChallenge(request, route), request, route);
+  } else if (!validUpstreamToken(route, authorization.upstreamToken)) {
+    return withProtocolHeaders(productUnavailable(), request, route);
   }
 
   try {
-    const token = route.audience === "personal" ? authorization!.productToken : undefined;
+    const token = route.audience === "personal" ? authorization!.upstreamToken! : undefined;
     const response = route.kind === "native"
-      ? await handleNative(request, route, fetchImpl, token!)
+      ? await handleNative(request, route, fetchImpl, token)
       : await handleAdapter(request, route, fetchImpl, token);
     return withProtocolHeaders(response, request, route);
   } catch (error) {
@@ -357,12 +434,9 @@ export async function handleHostedRequest(
   }
 }
 
-export function productToken(env: HostedWorkerEnv, route: HostedRouteDefinition): string {
+export function productToken(env: HostedWorkerEnv, route: HostedRouteDefinition): string | undefined {
   switch (route.tokenSecret) {
-    case "READER_MCP_TOKEN": return env.READER_MCP_TOKEN;
-    case "CALORIE_MCP_TOKEN": return env.CALORIE_MCP_TOKEN;
     case "SETLINE_MCP_TOKEN": return env.SETLINE_MCP_TOKEN;
-    case "ANIME_LIST_MCP_TOKEN": return env.ANIME_LIST_MCP_TOKEN;
     default: return "";
   }
 }
