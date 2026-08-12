@@ -313,6 +313,66 @@
       "reviewDate": "2026-09-12"
     },
     {
+      "id": "rolepatch-whole-library-coverage",
+      "projectId": "rolepatch",
+      "capability": "coverage",
+      "accepted": "438 Vitest tests cover 55.64% of lines, 47.37% of branches, 63.35% of functions, and 53.42% of statements across the complete src/lib production denominator",
+      "reason": "All production library and server-action files stay in the denominator with integer regression floors while currently untested authentication, browser automation, import, and server-action paths gain focused tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/rolepatch/issues/50",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "rolepatch-legacy-complexity",
+      "projectId": "rolepatch",
+      "capability": "complexity",
+      "accepted": "81 legacy threshold violations across 1,592 TypeScript, JavaScript, and Astro functions and 19,876 function NLOC, maximum CCN 49, maximum function length 615, and maximum 9 parameters",
+      "reason": "Large application, browser-assistance, ingestion, landing, and operational flows are regression-gated while decomposition proceeds only behind representative tests and build evidence.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/rolepatch/issues/50",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "rolepatch-legacy-duplication",
+      "projectId": "rolepatch",
+      "capability": "duplication",
+      "accepted": "47 exact clone groups and 750 duplicated lines (2.1454%) across 190 Next, Worker, extension, Astro, script, and configuration production files",
+      "reason": "Parallel guest/signed-in, route/action, ATS-provider, and extension flows contain measured similarities; clone count, duplicated lines, and percentage cannot increase while only stable shared behavior is consolidated.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/rolepatch/issues/50",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "rolepatch-reviewed-unused-exceptions",
+      "projectId": "rolepatch",
+      "capability": "unused",
+      "accepted": "0 unused files, types, dev dependencies, unlisted dependencies, or unresolved imports; 1 test-contract export (trackEvent) and 1 unused production dependency (@fontsource-variable/geist) are explicitly accepted by exact identity",
+      "reason": "Six dead exports were removed or made private. The analytics export is asserted by a privacy contract test, while changing the Astro production dependency manifest requires explicit owner approval; every other Knip finding is rejected.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/rolepatch/issues/50",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "rolepatch-justified-suppressions",
+      "projectId": "rolepatch",
+      "capability": "suppressions",
+      "accepted": "13 reviewed source and test markers covering React hydration/effect boundaries, Cloudflare Puppeteer runtime typing gaps, and narrow legacy any types",
+      "reason": "The exact source/test marker count is regression-gated while framework typing and lifecycle boundaries are resolved without weakening global lint or type settings.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/rolepatch/issues/50",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "rolepatch-twenty-one-advisories",
+      "projectId": "rolepatch",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 21 distinct accepted high advisory IDs across 29 audit path findings inherited through the current Next, Astro, Blume, Cloudflare, browser-automation, and build dependency graph; the audit also reports 31 moderate and 8 low findings",
+      "reason": "Production and broad dependency upgrades require explicit owner approval. The repository gate rejects every unaccepted critical or high advisory ID and any additional vulnerable path for an accepted ID.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/rolepatch/issues/50",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "reader-lint-warning-baseline",
       "projectId": "reader",
       "capability": "lint",
