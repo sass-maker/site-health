@@ -203,6 +203,56 @@
   },
   "exceptions": [
     {
+      "id": "anime-list-whole-source-coverage",
+      "projectId": "anime-list",
+      "capability": "coverage",
+      "accepted": "132 passing Vitest tests cover 30.17% of lines, 24.48% of branches, 24.15% of functions, and 29.17% of statements across the complete configured lib and src production denominator; 5 additional import-preparation tests pass outside V8",
+      "reason": "The previous nominal 80% configuration always failed against the complete source denominator. Honest 30/24/24/29 floors now block regressions while Worker routes, stores, browser instrumentation, scripts, and D1 adapters gain hermetic coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/anime-list/issues/65",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "anime-list-legacy-complexity",
+      "projectId": "anime-list",
+      "capability": "complexity",
+      "accepted": "31 legacy threshold violations across 1,250 JavaScript and TypeScript functions and 12,686 function NLOC, maximum CCN 55, maximum function length 683, and maximum 8 parameters",
+      "reason": "The large Worker, catalog, filter, statistics, and UI orchestration paths are now regression-gated while the highest-risk functions are decomposed only behind representative route, D1, and browser tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/anime-list/issues/65",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "anime-list-legacy-duplication",
+      "projectId": "anime-list",
+      "capability": "duplication",
+      "accepted": "51 exact clone groups and 859 duplicated lines (4.169093379926228%) across 139 JavaScript, TypeScript, and CSS production source files",
+      "reason": "Anime and manga surfaces, D1 paths, filters, and operational scripts contain measured similarities; clone groups and duplicated lines cannot increase while common behavior is consolidated behind existing tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/anime-list/issues/65",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "anime-list-reviewed-low-moderate-advisories",
+      "projectId": "anime-list",
+      "capability": "dependency-risk",
+      "accepted": "0 critical, 0 high, 6 moderate, and 2 low advisories: four direct Hono advisories, one PostHog DOMPurify advisory, and three development-only shadcn dependency-chain advisories",
+      "reason": "Critical and high advisories are rejected. Updating direct production Hono and PostHog packages remains a separately reviewed dependency change; the shadcn-only chains do not ship in the application bundle, and every advisory identifier is recorded in the project issue.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/anime-list/issues/65",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "anime-list-generated-agent-markers",
+      "projectId": "anime-list",
+      "capability": "suppressions",
+      "accepted": "2 markers in the generated agent-edge payload: 1 Biome format suppression and 1 regeneration TODO",
+      "reason": "The exact marker count is regression-gated until the public agent-surface generator owns the MCP addition and can regenerate the payload without either hand-maintained marker.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/anime-list/issues/65",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "pace-swift-complexity-analyzer",
       "projectId": "pace",
       "capability": "complexity",
