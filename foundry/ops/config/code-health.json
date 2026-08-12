@@ -203,6 +203,46 @@
   },
   "exceptions": [
     {
+      "id": "chess-format-boundary",
+      "projectId": "chess",
+      "capability": "format",
+      "accepted": "14 of 18 established JavaScript and TypeScript source, config, and test files predate the enabled Biome formatter; every changed source file must pass the formatter",
+      "reason": "Changed-source enforcement prevents new drift while Stockfish integration, game-state, evaluation, clock, and UI files are formatted in bounded behavior-neutral batches instead of one broad rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chess/issues/27",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chess-loaded-module-browser-coverage",
+      "projectId": "chess",
+      "capability": "coverage",
+      "accepted": "A managed Chromium proof exercises the board, AI settings, and changelog and covers 197,126 of 256,419 transformed source bytes (76.88%) across all 15 loaded application modules",
+      "reason": "The browser-native Stockfish application has no unit-test runner; a 76.5% loaded-module byte floor now blocks regressions while a hermetic legal-move and evaluation journey raises the result above the Fleet 80% target.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chess/issues/27",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chess-reviewed-low-dev-advisories",
+      "projectId": "chess",
+      "capability": "dependency-risk",
+      "accepted": "0 critical, 0 high, 0 moderate, and 2 low development-toolchain advisories: Blume provider utility GHSA-866g-f22w-33x8 and Vite/tsx esbuild GHSA-g7r4-m6w7-qqqr",
+      "reason": "Critical, high, and moderate advisories are rejected. The two low advisories are confined to local documentation/build tooling and remain tracked until compatible patched direct tool versions are reviewed.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chess/issues/27",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chess-orientation-effect-suppression",
+      "projectId": "chess",
+      "capability": "suppressions",
+      "accepted": "1 existing React-hook exhaustive-dependencies suppression on the intentionally orientation-only computer-move effect",
+      "reason": "The exact marker count is regression-gated until a legal-move and evaluation browser proof makes the effect boundary safe to restructure without duplicate computer moves.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chess/issues/27",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "anime-list-whole-source-coverage",
       "projectId": "anime-list",
       "capability": "coverage",
