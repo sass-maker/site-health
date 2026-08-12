@@ -191,7 +191,12 @@
     "rolepatch": { "profile": "javascript-typescript" },
     "sarthakagrawal-personal": { "profile": "javascript-typescript" },
     "setline": { "profile": "javascript-typescript" },
-    "significanthobbies": { "profile": "javascript-typescript" },
+    "significanthobbies": {
+      "profile": "mixed",
+      "equivalents": {
+        "cycles": "Knip enforces TypeScript import cycles; the required isolated Xcode build resolves the Swift target and source dependency graph."
+      }
+    },
     "starboard": { "profile": "javascript-typescript" },
     "swe-interview-prep": { "profile": "javascript-typescript" },
     "what-it-takes-to-win": { "profile": "javascript-typescript" }
@@ -825,6 +830,86 @@
       "reason": "The directive count is regression-gated while broad-exception operator paths and legacy type boundaries are narrowed through focused fixes.",
       "owner": "Sarthak",
       "issue": "https://github.com/High-Signal-App/research-papers/issues/29",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-format-boundary",
+      "projectId": "significanthobbies",
+      "capability": "format",
+      "accepted": "Biome check-only formatting is clean; 184 Swift format/lint diagnostics are regression-gated; 11 Astro files are type-clean but outside the current check-only formatter",
+      "reason": "The mixed web/native repository needs a pinned Astro formatter and bounded Swift formatting batches before every source language can start at zero without a broad conflict-prone rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-native-lint-debt",
+      "projectId": "significanthobbies",
+      "capability": "lint",
+      "accepted": "Biome and Astro diagnostics are clean; 184 Swift format/lint diagnostics are regression-gated under the checked-in four-space policy",
+      "reason": "The native source predates a formatter policy and is also active in isolated feature worktrees, so mechanical cleanup remains a bounded follow-up while new diagnostics are forbidden.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-native-unused-equivalent",
+      "projectId": "significanthobbies",
+      "capability": "unused",
+      "accepted": "Knip reports zero unused files, exports, types, dependencies, unlisted or unresolved imports; Xcode compilation catches local Swift unused values, but no pinned Swift declaration-level dead-code analyzer is configured",
+      "reason": "The adoption removed 14 disconnected files and all remaining Knip findings; a pinned Swift-native declaration analyzer is still needed before native unused coverage is complete.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-legacy-complexity",
+      "projectId": "significanthobbies",
+      "capability": "complexity",
+      "accepted": "85 legacy threshold violations across 2,046 TypeScript, JavaScript, and Swift functions and 24,567 function NLOC, maximum CCN 46, maximum function length 741, and maximum 12 parameters",
+      "reason": "Cross-language Lizard metrics now block regression while large onboarding, content, action, and native presentation paths are decomposed only behind existing unit, UI, and end-to-end coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-legacy-duplication",
+      "projectId": "significanthobbies",
+      "capability": "duplication",
+      "accepted": "52 exact clone groups and 945 duplicated lines (1.6015863331299574%) across 299 TypeScript, JavaScript, Swift, and supporting production source files",
+      "reason": "Cross-language clones are regression-gated while repeated editorial layouts and product/native behavior are consolidated only where a shared abstraction preserves current output.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-coverage-boundary",
+      "projectId": "significanthobbies",
+      "capability": "coverage",
+      "accepted": "482 passing Vitest tests cover 524/525 scoped core web lines (99.8%); 9 native unit tests and 4 UI tests cover 2,649/4,188 production Swift lines (63.2521%); server actions and the broader web UI are outside the current unit denominator",
+      "reason": "Both real denominators are retained and regression-gated while server actions, UI flows, and native presentation paths gain focused coverage without masking the current selective web scope.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-dependency-advisories",
+      "projectId": "significanthobbies",
+      "capability": "dependency-risk",
+      "accepted": "Zero critical and 21 exact distinct high advisory IDs across the pnpm workspace",
+      "reason": "The exact advisory allowlist rejects new severe risk while production framework and transitive build-tool upgrades are reviewed separately under the repository dependency policy.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "significanthobbies-inline-suppressions",
+      "projectId": "significanthobbies",
+      "capability": "suppressions",
+      "accepted": "11 justified lint and test-skip markers",
+      "reason": "The directive count is regression-gated while environment-gated authenticated tests and narrowly documented browser/framework compatibility exceptions are reduced through focused fixes.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
       "reviewDate": "2026-09-12"
     }
   ],
