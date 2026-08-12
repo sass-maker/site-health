@@ -142,7 +142,12 @@
     }
   },
   "projects": {
-    "agent-office": { "profile": "swift-native" },
+    "agent-office": {
+      "profile": "swift-native",
+      "equivalents": {
+        "cycles": "The required isolated SwiftPM build resolves the target and source dependency graph; Swift source files do not import one another."
+      }
+    },
     "anime-list": { "profile": "javascript-typescript" },
     "app-health": { "profile": "mixed" },
     "calorie": { "profile": "javascript-typescript" },
@@ -575,6 +580,56 @@
       "reason": "Direct Vite and Nanoid findings were patched during adoption; the latest PartyKit release still pins the vulnerable Miniflare generation, so exact advisory IDs are accepted only until a compatible upstream update is available.",
       "owner": "Sarthak",
       "issue": "https://github.com/Significant-Hobbies/motion/issues/26",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "agent-office-format-debt",
+      "projectId": "agent-office",
+      "capability": "format",
+      "accepted": "17,660 Swift format diagnostics across production and test sources",
+      "reason": "The full diagnostic count is regression-gated so the native app can be formatted in bounded behavior-neutral batches instead of a broad rewrite across active product work.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/agent-office/issues/21",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "agent-office-unused-code",
+      "projectId": "agent-office",
+      "capability": "unused",
+      "accepted": "59 Periphery findings after retaining public SwiftPM library boundaries",
+      "reason": "Findings are regression-gated while SwiftUI state, runtime entrypoints, and superseded editorial UI paths are verified before removal.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/agent-office/issues/21",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "agent-office-legacy-complexity",
+      "projectId": "agent-office",
+      "capability": "complexity",
+      "accepted": "42 legacy threshold violations across 505 Swift production functions and 10,625 function NLOC, maximum CCN 25, maximum function length 356, and maximum 28 parameters",
+      "reason": "Cross-target Lizard metrics now block regressions while the largest state, persistence, and SwiftUI composition paths are reduced behind the existing native tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/agent-office/issues/21",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "agent-office-legacy-duplication",
+      "projectId": "agent-office",
+      "capability": "duplication",
+      "accepted": "15 exact clone groups and 158 duplicated lines (0.9917%) across 30 Swift production source files",
+      "reason": "Production clones are regression-gated while shared behavior is consolidated only where an abstraction preserves the product's distinct employee, execution, and permission boundaries.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/agent-office/issues/21",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "agent-office-coverage-boundary",
+      "projectId": "agent-office",
+      "capability": "coverage",
+      "accepted": "AgentOfficeCore floors of 83% lines, 69% functions, and 66% regions across 63 passing XCTest tests; the executable SwiftUI target has no direct coverage",
+      "reason": "The reusable domain and execution core has real non-regression coverage; direct app-target and UI coverage remains explicit follow-up rather than being hidden inside test-source totals.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/agent-office/issues/21",
       "reviewDate": "2026-09-12"
     }
   ],
