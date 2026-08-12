@@ -263,6 +263,56 @@
       "reviewDate": "2026-09-12"
     },
     {
+      "id": "swe-interview-prep-whole-source-coverage",
+      "projectId": "swe-interview-prep",
+      "capability": "coverage",
+      "accepted": "374 passing Vitest tests cover 28% of lines, 24.84% of branches, 25.83% of functions, and 27.63% of statements across 6,795 production lines in src, api, handlers, shared, and functions",
+      "reason": "The former selective denominator hid most UI and handler code. Honest 28/24/25/27 floors now block regressions while browser surfaces, legacy API handlers, and production Pages Functions gain focused tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/61",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "swe-interview-prep-legacy-complexity",
+      "projectId": "swe-interview-prep",
+      "capability": "complexity",
+      "accepted": "86 legacy threshold violations across 2,059 functions and 23,819 function NLOC, maximum CCN 59, maximum function length 768, and maximum 10 parameters",
+      "reason": "Learning surfaces, Systems Lab, content generation, and API paths are regression-gated while the largest functions are decomposed only behind representative behavior and browser coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/61",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "swe-interview-prep-legacy-duplication",
+      "projectId": "swe-interview-prep",
+      "capability": "duplication",
+      "accepted": "37 exact clone groups and 472 duplicated lines (0.9158%) across 240 production and configuration files",
+      "reason": "Related learning, API, and content-generation surfaces contain measured similarities; clone count and duplicated lines cannot increase while only stable shared behavior is consolidated behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/61",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "swe-interview-prep-transitive-advisories",
+      "projectId": "swe-interview-prep",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 5 exact high transitive advisories: GHSA-28wg-ghj8-5hjv, GHSA-2v37-7h3g-55p8, GHSA-v9p9-hfj2-hcw8, GHSA-vrm6-8vpv-qv8q, and GHSA-vxpw-j846-p89q; the audit also reports 49 moderate and 16 low advisories",
+      "reason": "NanoID 4 is carried by Excalidraw's Mermaid path and Undici 5 by the development-only Vercel Node adapter; their fixes require separately reviewed transitive major changes. Every unaccepted critical or high advisory is rejected by the repository gate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/61",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "swe-interview-prep-justified-suppressions",
+      "projectId": "swe-interview-prep",
+      "capability": "suppressions",
+      "accepted": "8 source and test markers: 5 narrow lint directives, 1 implementation TODO, and 2 conditional Playwright skips",
+      "reason": "The exact marker count is regression-gated while hook, promise, dynamic-code, template-bootstrap, and environment-dependent browser boundaries gain safer native representations.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/61",
+      "reviewDate": "2026-09-12"
+    },
+    {
       "id": "looptv-whole-library-coverage",
       "projectId": "looptv",
       "capability": "coverage",
