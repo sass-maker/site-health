@@ -19,12 +19,10 @@ const REPRESENTATIVE_CALLS: Readonly<Record<string, RepresentativeCall>> = Objec
   "high-signal": { name: "search_signals", arguments: { q: "AI", limit: 1, offset: 0 } },
   "significant-hobbies": { name: "search_hobbies", arguments: { q: "astronomy", limit: 1, offset: 0 } },
   "research-papers": { name: "list_hot_papers", arguments: { limit: 1, offset: 0 } },
-  posttrainllm: { name: "search_published_models", arguments: { limit: 1, offset: 0 } },
+  "anime-list-public": { name: "search_anime", arguments: { pagesize: 1, offset: 0 } },
   "swe-interview-prep": { name: "search_curriculum", arguments: { q: "systems", limit: 1, offset: 0 } },
-  "what-it-takes-to-win": { name: "search_people_and_milestones", arguments: { q: "Microsoft", limit: 1, offset: 0 } },
   "saas-maker": { name: "search_public_products", arguments: { q: "CodeVetter", limit: 1, offset: 0 } },
   drank: { name: "get_domain_rating", arguments: { domain: "example.com" } },
-  looptv: { name: "get_catalog_summary", arguments: {} },
 });
 
 type MonitorEvidence = Record<string, boolean | number | string | string[]>;
@@ -68,6 +66,18 @@ function stringArray(value: unknown): string[] | undefined {
   return Array.isArray(value) && value.every((item) => typeof item === "string")
     ? value
     : undefined;
+}
+
+function structuredItemCount(content: Record<string, unknown>): number {
+  if (Array.isArray(content.items)) return content.items.length;
+  if (content.item && typeof content.item === "object" && !Array.isArray(content.item)) return 1;
+  if (Array.isArray(content.data)) return content.data.length;
+  if (!content.data || typeof content.data !== "object" || Array.isArray(content.data)) return 0;
+  const data = content.data as Record<string, unknown>;
+  for (const key of ["items", "filteredList", "results"] as const) {
+    if (Array.isArray(data[key])) return data[key].length;
+  }
+  return 1;
 }
 
 function noStore(response: Response): boolean {
@@ -264,7 +274,7 @@ async function representativeCallCheck(
   if (content.schemaVersion !== "1" || content.ok !== true || content.tool !== call.name) {
     throw new MonitorError("tool_call_contract_invalid");
   }
-  const items = Array.isArray(content.items) ? content.items.length : content.item ? 1 : 0;
+  const items = structuredItemCount(content);
   if (items > 1) throw new MonitorError("tool_call_unbounded");
   return {
     httpStatus: response.status,
@@ -387,11 +397,11 @@ async function monitorRoute(
   ];
   if (route.audience === "public") {
     const representative = REPRESENTATIVE_CALLS[route.id];
-    if (!representative || route.kind !== "adapter") throw new MonitorError("representative_call_missing");
+    if (!representative) throw new MonitorError("representative_call_missing");
     checks.push(
       executeCheck("initialize", route.id, () => initializeCheck(fetchImpl, mcpUrl)),
       executeCheck("tools-readonly", route.id, () =>
-        toolsCheck(fetchImpl, mcpUrl, Object.keys(route.app.tools))),
+        toolsCheck(fetchImpl, mcpUrl, route.kind === "adapter" ? Object.keys(route.app.tools) : [...(route.allowedTools ?? [])])),
       executeCheck("representative-read", route.id, () => representativeCallCheck(fetchImpl, mcpUrl, representative)),
       executeCheck("mutation-absence", route.id, () => mutationAbsenceCheck(fetchImpl, mcpUrl, route.id)),
     );
@@ -411,7 +421,7 @@ export async function runProductionMonitor(
   const fetchImpl = options.fetchImpl ?? fetch;
   const issuer = options.issuer ?? PRODUCTION_AUTH0_ISSUER;
   const entries = publishedRoutes(options.includePrepared);
-  const expectedRouteCount = options.includePrepared ? 13 : 7;
+  const expectedRouteCount = options.includePrepared ? 11 : 7;
   if (entries.length !== expectedRouteCount) throw new MonitorError("published_route_count_invalid");
   const nested = await Promise.all(entries.map((entry, index) => {
     const wrongPath = entries[(index + 1) % entries.length]?.path;

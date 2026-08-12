@@ -70,7 +70,7 @@ const productionFetch: typeof fetch = async (input, init) => {
       result: {
         protocolVersion,
         capabilities: { tools: {} },
-        serverInfo: { name: route.app.serverName, version: "0.1.0" },
+        serverInfo: { name: route.kind === "adapter" ? route.app.serverName : route.serverName, version: "0.1.0" },
       },
     });
   }
@@ -79,7 +79,7 @@ const productionFetch: typeof fetch = async (input, init) => {
       jsonrpc: "2.0",
       id: message.id,
       result: {
-        tools: Object.keys(route.app.tools).map((name) => ({
+        tools: (route.kind === "adapter" ? Object.keys(route.app.tools) : [...(route.allowedTools ?? [])]).map((name) => ({
           name,
           annotations: { readOnlyHint: true, destructiveHint: false },
           securitySchemes: [{ type: "noauth" }],
@@ -104,7 +104,9 @@ const productionFetch: typeof fetch = async (input, init) => {
         schemaVersion: "1",
         ok: true,
         tool: name,
-        items: [{ password: "must-never-enter-receipt" }],
+        ...(route.id === "anime-list-public"
+          ? { data: { filteredList: [{ password: "must-never-enter-receipt" }] } }
+          : { items: [{ password: "must-never-enter-receipt" }] }),
         truncated: false,
       },
     },
@@ -118,14 +120,14 @@ test("production monitor retains only redacted contract evidence", async () => {
     now: () => new Date("2026-08-12T00:00:00.000Z"),
   });
   assert.equal(receipt.ok, true);
-  assert.deepEqual(receipt.summary, { passed: 75, failed: 0, total: 75 });
+  assert.deepEqual(receipt.summary, { passed: 63, failed: 0, total: 63 });
   assert.equal(receipt.checkedAt, "2026-08-12T00:00:00.000Z");
   const serialized = JSON.stringify(receipt);
   assert.equal(serialized.includes("must-never-enter-receipt"), false);
   assert.equal(serialized.includes("password"), false);
-  assert.equal(receipt.checks.filter(({ id }) => id === "representative-read").length, 10);
+  assert.equal(receipt.checks.filter(({ id }) => id === "representative-read").length, 8);
   assert.equal(receipt.checks.filter(({ id }) => id === "oauth-resource").length, 3);
-  assert.equal(receipt.checks.filter(({ id }) => id === "host-isolation").length, 13);
+  assert.equal(receipt.checks.filter(({ id }) => id === "host-isolation").length, 11);
 });
 
 test("production monitor excludes prepared routes until activation", async () => {
