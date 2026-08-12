@@ -195,7 +195,12 @@
     "research-papers": { "profile": "mixed" },
     "rolepatch": { "profile": "javascript-typescript" },
     "sarthakagrawal-personal": { "profile": "javascript-typescript" },
-    "setline": { "profile": "javascript-typescript" },
+    "setline": {
+      "profile": "mixed",
+      "equivalents": {
+        "cycles": "Knip enforces TypeScript import cycles; the required Xcode test and Release builds resolve the Swift target and source dependency graph."
+      }
+    },
     "significanthobbies": {
       "profile": "mixed",
       "equivalents": {
@@ -255,6 +260,56 @@
       "reason": "The marker count is regression-gated while the calendar grid keeps its established keyboard and accessibility behavior.",
       "owner": "Sarthak",
       "issue": "https://github.com/Significant-Hobbies/calorie/issues/30",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "setline-native-unused-equivalent",
+      "projectId": "setline",
+      "capability": "unused",
+      "accepted": "Knip reports zero unused files, exports, types, dependencies, unlisted or unresolved imports across the web and Worker surface; Xcode compilation catches local Swift unused values, but no pinned Swift declaration-level dead-code analyzer is configured",
+      "reason": "The adoption removed unused public exports and zeroed every Knip category. A pinned Swift-native declaration analyzer is still needed before native unused coverage is complete.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/setline/issues/28",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "setline-web-native-coverage",
+      "projectId": "setline",
+      "capability": "coverage",
+      "accepted": "60 web and Worker tests cover 3,544/10,739 production lines and statements (33.00%), 632/839 branches (75.32%), and 109/163 functions (66.87%); 10 native unit tests and 4 UI tests cover 3,245/4,962 production Swift lines (65.3970%) with a portable 65.30% floor",
+      "reason": "Both complete denominators are regression-gated while the large workout player, authoring surfaces, Worker routes, browser persistence, and native presentation code gain focused coverage without hiding untested files.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/setline/issues/28",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "setline-legacy-complexity",
+      "projectId": "setline",
+      "capability": "complexity",
+      "accepted": "24 legacy threshold violations across 470 TypeScript, JavaScript, and Swift functions and 6,176 function NLOC, maximum CCN 52, maximum function length 528, and maximum 14 parameters",
+      "reason": "The workout player, programme data, Worker routing, persistence adapters, and native presentation code are regression-gated while large functions are decomposed only behind representative coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/setline/issues/28",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "setline-legacy-duplication",
+      "projectId": "setline",
+      "capability": "duplication",
+      "accepted": "6 exact clone groups and 56 duplicated lines (0.3225%) across 39 TypeScript, JavaScript, Swift, CSS, and configuration production files",
+      "reason": "Related web authoring, Worker state, and native mutation flows contain measured similarities; clone count and duplicated lines cannot increase while only stable shared behavior is consolidated behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/setline/issues/28",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "setline-sixteen-advisories",
+      "projectId": "setline",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 16 distinct accepted high advisory IDs across 19 audit path findings inherited through Next, React Server Components, Vinext, ESLint, and C8; the audit also reports 3 moderate and 1 low advisories",
+      "reason": "Conservative development-tool updates removed 10 critical/high path findings. Remaining production-package changes require explicit owner approval, and every unaccepted critical or high advisory ID is rejected by the repository gate.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/setline/issues/28",
       "reviewDate": "2026-09-12"
     },
     {
