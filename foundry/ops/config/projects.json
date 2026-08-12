@@ -197,8 +197,22 @@
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "foundry/ops",
-      "deployKind": "pages",
-      "cfProject": "saas-maker-home",
+      "deployKind": "worker+pages",
+      "cfProject": "saas-maker-home, fleet-chatgpt-connections",
+      "deployTargets": [
+        {
+          "id": "public-directory",
+          "kind": "pages",
+          "name": "saas-maker-home",
+          "sourcePath": "foundry/apps/public/public-directory"
+        },
+        {
+          "id": "chatgpt-connections",
+          "kind": "worker",
+          "name": "fleet-chatgpt-connections",
+          "sourcePath": "foundry/helpers/chatgpt-connections"
+        }
+      ],
       "domains": [
         "sassmaker.com",
         "fleet.sassmaker.com"
