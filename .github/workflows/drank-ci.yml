@@ -26,3 +26,26 @@ permissions:
 jobs:
   reusable:
     uses: sass-maker/workflows/.github/workflows/drank-ci.yml@main
+
+  code-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: foundry/helpers/drank
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: foundry/helpers/drank/pnpm-lock.yaml
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: pnpm install --frozen-lockfile
+      - run: pip install lizard==1.23.0
+      - run: pnpm run quality

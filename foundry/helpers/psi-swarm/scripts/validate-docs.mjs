@@ -83,7 +83,9 @@ function validateFile(file) {
   const raw = readFileSync(file, 'utf8');
   const fm = parseFrontmatter(raw);
   if (!fm) {
-    errors.push(`${rel}: missing YAML frontmatter (expected ---\\ntitle: ...\\ndescription: ...\\n---)`);
+    errors.push(
+      `${rel}: missing YAML frontmatter (expected ---\\ntitle: ...\\ndescription: ...\\n---)`
+    );
   } else {
     for (const key of requiredFrontmatter) {
       if (!fm[key]) {
@@ -116,7 +118,9 @@ function validateFile(file) {
     const resolved = resolve(dirname(file), pathPart);
 
     if (!existsSync(resolved)) {
-      errors.push(`${rel}: broken link \`${target}\` — resolved path does not exist: ${relative(repoRoot, resolved) || '.'}`);
+      errors.push(
+        `${rel}: broken link \`${target}\` — resolved path does not exist: ${relative(repoRoot, resolved) || '.'}`
+      );
       continue;
     }
 
@@ -143,7 +147,9 @@ function validateFile(file) {
         }
       }
       if (!found) {
-        warnings.push(`${rel}: link \`${target}\` — anchor #${anchor} not found in ${relative(repoRoot, resolved)}`);
+        warnings.push(
+          `${rel}: link \`${target}\` — anchor #${anchor} not found in ${relative(repoRoot, resolved)}`
+        );
       }
     }
   }

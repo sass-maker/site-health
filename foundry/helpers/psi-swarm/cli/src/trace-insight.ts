@@ -42,23 +42,26 @@ function dominantPhase(results: RunResultWithArtifact[]): string | undefined {
 
 function buildComparisonNotes(
   results: RunResultWithArtifact[],
-  baselineResults?: RunResultWithArtifact[],
+  baselineResults?: RunResultWithArtifact[]
 ): string | undefined {
   if (!baselineResults || baselineResults.length === 0) return undefined;
-  const curLcp = computeStats(results.map((r) => r.metrics?.lcp).filter((v): v is number => typeof v === 'number'));
+  const curLcp = computeStats(
+    results.map((r) => r.metrics?.lcp).filter((v): v is number => typeof v === 'number')
+  );
   const baseLcp = computeStats(
-    baselineResults.map((r) => r.metrics?.lcp).filter((v): v is number => typeof v === 'number'),
+    baselineResults.map((r) => r.metrics?.lcp).filter((v): v is number => typeof v === 'number')
   );
   if (!curLcp || !baseLcp) return undefined;
   const delta = curLcp.p75 - baseLcp.p75;
   const pct = baseLcp.p75 === 0 ? 0 : (delta / baseLcp.p75) * 100;
   const sign = delta > 0 ? '+' : '';
-  const direction = delta > 200 || pct > 10 ? 'regressed' : delta < -200 || pct < -10 ? 'improved' : 'stable';
+  const direction =
+    delta > 200 || pct > 10 ? 'regressed' : delta < -200 || pct < -10 ? 'improved' : 'stable';
   return `LCP p75 ${direction}: ${sign}${Math.round(delta)}ms (${sign}${pct.toFixed(1)}%) vs baseline tag`;
 }
 
 /** Deterministic local adapter — no network, uses captured Lighthouse audits. */
-export const builtinTraceInsightAdapter: TraceInsightAdapter = {
+const builtinTraceInsightAdapter: TraceInsightAdapter = {
   name: 'builtin',
   async diagnose({ url, preset, results, artifactPath, baselineResults }) {
     const ok = results.filter((r) => !r.error);
@@ -68,7 +71,9 @@ export const builtinTraceInsightAdapter: TraceInsightAdapter = {
       return f.savings ? `${f.label} (${f.savings})` : f.label;
     });
     const bottleneckPhase = dominantPhase(ok);
-    const lcpStats = computeStats(ok.map((r) => r.metrics?.lcp).filter((v): v is number => typeof v === 'number'));
+    const lcpStats = computeStats(
+      ok.map((r) => r.metrics?.lcp).filter((v): v is number => typeof v === 'number')
+    );
     const parts: string[] = [];
     if (lcpStats) {
       parts.push(`LCP p75 ${Math.round(lcpStats.p75)}ms across ${ok.length} runs`);
@@ -122,7 +127,7 @@ export async function deriveTraceInsights(
     artifactPaths?: Map<string, string>;
     baselineTag?: string;
     adapter?: TraceInsightAdapter;
-  } = {},
+  } = {}
 ): Promise<TraceInsightRecord[]> {
   const adapter = opts.adapter ?? (await resolveTraceInsightAdapter());
   const byPreset = new Map<string, RunResultWithArtifact[]>();
@@ -199,15 +204,4 @@ export async function deriveTraceInsights(
     });
   }
   return out;
-}
-
-export function formatTraceInsightBlock(insights: TraceInsightRecord[]): string {
-  if (insights.length === 0) return '';
-  const lines: string[] = [];
-  lines.push('Trace insight');
-  for (const i of insights) {
-    lines.push(`  ${i.preset}: ${i.summary}`);
-    if (i.comparisonNotes) lines.push(`    ${i.comparisonNotes}`);
-  }
-  return lines.join('\n');
 }

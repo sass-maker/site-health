@@ -38,6 +38,7 @@ Root scripts (from `package.json`):
 | `pnpm run dev:cli` | Run the CLI from source via `tsx` (no rebuild needed). |
 | `pnpm run build:cli` | `tsc` build the CLI into `cli/dist`. |
 | `pnpm run build:web` | Astro build the web app into `web/dist`. |
+| `pnpm quality` | Run formatting, lint, builds, coverage, unused-code, complexity, duplication, cycle, dependency-risk, suppression, and docs checks. |
 | `pnpm run install:skill` | Install the Claude/Codex skill into `~/.claude/skills/`. |
 | `pnpm deploy` | Guarded manual web redeploy — see [operations](../operations/deploy.md). |
 
@@ -81,13 +82,15 @@ Rules:
 
 ## Checks
 
-There are **no root test or lint scripts**. The CLI and web packages have
-their own (the CLI has none today — see [testing](./testing.md)). The
-relevant checks for a docs change are:
+There are **no generic root `test` or `lint` scripts**. Package-owned tests
+remain in their packages, while `pnpm quality` provides the root orchestration
+used by CI. See [testing](./testing.md). The relevant checks for a docs change
+are:
 
 - `pnpm docs:check` — markdown validation + internal link integrity.
 - `pnpm run build:cli` / `pnpm run build:web` — type-check by side effect
   when touching code.
+- `pnpm quality` — the complete merge gate for code-health changes.
 
 ## Repo layout
 

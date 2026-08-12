@@ -76,6 +76,13 @@ CodeVetter or App Health source.
   capabilities while keeping Tailwind cleanup and semantic image-to-markup
   guidance bounded inside the existing parent. No skill or dependency was
   added.
+- **2026-08-11 — Fleet code health became explicit and sequential:** Added a
+  dependency-free policy validator and deterministic inventory spanning every
+  maintained project, with ecosystem profiles, blocking capability targets,
+  time-bounded baselines, lifecycle-safe exclusion, and focus → active →
+  secondary adoption. The initial configuration inventory classified 30 local
+  maintained projects and kept all 13 excluded identities uninspected; it is a
+  coverage map, not an aggregate quality or “AI slop” score.
 - **2026-08-10 — SaaS Maker published its verified token-world ledger:** Added
   a static “TOKENS SPENT FOR THE WORLD” chapter backed by CodeVetter's
   authoritative lifetime usage, a procedural Three.js globe, explicit snapshot
@@ -635,6 +642,12 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
+- Fleet-wide code-health standard, validated project/profile overlay, and
+  deterministic human/JSON inventory for formatting, lint, types, tests,
+  unused code, complexity, duplication, coverage, dependency risk, cycles,
+  suppressions, and repository hygiene. Explicit unavailable and accepted-debt
+  states prevent missing evidence from appearing green, while sequential
+  lifecycle-safe adoption keeps excluded projects out of inspection.
 - Secret-safe Ahrefs Site Audit project-health collection and reporting across
   the canonical ten roots, preserving null and zero semantics and failing
   closed on authorization, missing projects, incomplete or stale crawls,
