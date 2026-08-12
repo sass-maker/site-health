@@ -11,7 +11,7 @@ const projection = JSON.parse(
 test('public workflows manifest contains only stable public probe fields', () => {
   const manifest = buildPublicWorkflowsManifest(projection);
   assert.equal(manifest.schemaVersion, 1);
-  assert.equal(manifest.sites.length, 27);
+  assert.equal(manifest.sites.length, 28);
   for (const site of manifest.sites) {
     assert.deepEqual(Object.keys(site), ['id', 'url', 'probePath']);
     assert.match(site.url, /^https:\/\//);

@@ -100,6 +100,11 @@ function expectedPageNames(projects) {
   return new Set(projects
     .filter((project) => project.deployKind?.includes('pages'))
     .flatMap((project) => {
+      if (Array.isArray(project.deployTargets)) {
+        return project.deployTargets
+          .filter((target) => target.kind === 'pages')
+          .map((target) => target.name);
+      }
       if (Array.isArray(project.cfPages)) return project.cfPages;
       const value = String(project.cfProject ?? '');
       const names = project.deployKind === 'pages' ? value.split(/\s*,\s*/) : [value.split(/\s*\+\s*/)[0]];

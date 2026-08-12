@@ -55,11 +55,7 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
           publicSite: project.metrics?.publicSite === true,
           domainCoverage: project.metrics?.domainCoverage === true,
         },
-        priority:
-          project.priority ??
-          (registry._meta?.priorities
-            ? Object.entries(registry._meta.priorities).find(([, ids]) => ids.includes(project.id))?.[0] ?? null
-            : null),
+        priority: project.portfolio?.priority ?? null,
         status: project.status,
         repo: project.repo,
         sourcePath: project.sourcePath ?? null,

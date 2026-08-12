@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync } from 'node:fs';
+import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -21,6 +21,9 @@ import { FounderControlStore } from '../lib/founder-control/store.mjs';
 const now = '2026-07-25T08:00:00.000Z';
 const owner = { type: 'owner', id: 'founder', label: 'Founder' };
 const automation = { type: 'automation', id: 'foundry', label: 'Foundry' };
+const catalog = JSON.parse(
+  readFileSync(new URL('../config/projects.json', import.meta.url), 'utf8'),
+);
 
 test('covers intake, current work, owner request, timeline, schedules, and daily summary locally', () => {
   const projects = [{ id: 'codevetter', name: 'CodeVetter', attention: 'focus' }];
@@ -140,7 +143,7 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
   );
   assert.equal(
     projects.find((entry) => entry.id === 'mashup').repositoryUrl,
-    'https://github.com/sarthakagrawal927/mashup',
+    'https://github.com/sass-maker/fleet-workspace',
   );
   const directoryProjects = projects.filter(
     (entry) =>
@@ -148,7 +151,20 @@ test('passes the canonical proof, learning, approval, ranking, and local-first o
       entry.attention !== 'ignored' &&
       entry.category !== 'helper',
   );
-  assert.equal(directoryProjects.length, 28);
+  const canonicalDirectoryProjectIds = catalog.projects
+    .filter(
+      (entry) =>
+        entry.status !== 'orphan' &&
+        entry.lifecycle !== 'non-product' &&
+        entry.attention !== 'ignored' &&
+        entry.public?.category !== 'helper',
+    )
+    .map((entry) => entry.id)
+    .sort();
+  assert.deepEqual(
+    directoryProjects.map((entry) => entry.id).sort(),
+    canonicalDirectoryProjectIds,
+  );
   for (const entry of directoryProjects) {
     assert.equal(
       entry.repositoryUrl,

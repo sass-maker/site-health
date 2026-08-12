@@ -11,7 +11,7 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-test("generated attention counts and membership match the canonical project catalog", async () => {
+test("generated priority and kind membership cover the canonical project catalog exactly once", async () => {
   const [registryText, catalogText, generatedCatalog, readme] = await Promise.all([
     readFile(registryUrl, "utf8"),
     readFile(catalogUrl, "utf8"),
@@ -20,31 +20,29 @@ test("generated attention counts and membership match the canonical project cata
   ]);
   const registry = JSON.parse(registryText);
   const catalog = JSON.parse(catalogText);
-  const tiers = [
-    ["my-work", "My Work"],
-    ["toolbox", "Toolbox"],
-    ["foundry", "Foundry + Helpers"],
-    ["ignored", "Past / inactive"]
-  ];
+  const priorities = ["P1", "P2", "P4"];
+  const kinds = ["product", "platform", "experiment"];
 
-  for (const [attention, label] of tiers) {
-    const projects = catalog.projects.filter(
-      (project) => project.attention === attention
-        && !(attention === "ignored" && project.tier === "non-product")
-    );
-    const automationProjects = projects.filter((project) => project.tier !== "non-product");
-    const automationCount = registry.entries.filter((entry) => entry.attention === attention).length;
-    assert.equal(registry.attentionCounts[attention], automationCount);
-    assert.equal(automationCount, automationProjects.length);
-    assert.match(generatedCatalog, new RegExp(`^## ${escapeRegExp(label)} — ${projects.length}$`, "m"));
-    const readmeLabel = label === "Foundry + Helpers" ? "Foundry" : label;
-    assert.match(readme, new RegExp(`^### ${escapeRegExp(readmeLabel)} — ${projects.length}$`, "m"));
+  for (const priority of priorities) {
+    const projects = catalog.projects.filter((project) => project.portfolio.priority === priority);
+    assert.match(generatedCatalog, new RegExp(`^## ${priority} — ${projects.length}$`, "m"));
+    assert.match(readme, new RegExp(`^### ${priority} — ${projects.length}$`, "m"));
     for (const project of projects) {
-      assert.match(generatedCatalog, new RegExp(`\\| ${escapeRegExp(project.name)} \\|`));
+      assert.equal(
+        [...generatedCatalog.matchAll(new RegExp(`\\| ${escapeRegExp(project.name)} \\|`, "g"))].length,
+        1,
+      );
     }
   }
 
-  assert.match(readme, /Calorie/);
-  assert.match(readme, /Mashup/);
-  assert.match(readme, /Forecast Lab/);
+  for (const project of catalog.projects) {
+    assert.ok(kinds.includes(project.portfolio.kind));
+    assert.equal(typeof project.portfolio.deployed, "boolean");
+    assert.equal(typeof project.portfolio.readyToBeShared, "boolean");
+  }
+
+  for (const attention of ["my-work", "toolbox", "foundry", "ignored"]) {
+    const automationCount = registry.entries.filter((entry) => entry.attention === attention).length;
+    assert.equal(registry.attentionCounts[attention], automationCount);
+  }
 });

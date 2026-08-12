@@ -31,7 +31,14 @@ test('registry covers or explicitly excludes every catalog project and has the e
   });
   // Owner priority order: core three first, High Signal tertiary.
   assert.deepEqual(result.focusSet, ['codevetter', 'posttrainllm', 'pace', 'high-signal']);
-  assert.equal(result.projects.length, 31);
+  const resolve = createProjectResolver(result);
+  const resolvedCatalogSlugs = new Set(catalogSlugs.map((slug) => resolve(slug)));
+  const nonCatalogSlugs = result.projects
+    .map((project) => project.slug)
+    .filter((slug) => !resolvedCatalogSlugs.has(slug))
+    .sort();
+  assert.deepEqual(nonCatalogSlugs, ['wifi-watch']);
+  assert.equal(result.projects.length, resolvedCatalogSlugs.size + nonCatalogSlugs.length);
   assert.deepEqual(result.projects.filter((project) => project.contentBase).map((project) => project.slug).sort(), ['high-signal', 'karte', 'rolepatch', 'significanthobbies', 'swe-interview-prep']);
   assert.equal(result.aiVisibility.scheduleIntent.enabled, false);
   assert.deepEqual(

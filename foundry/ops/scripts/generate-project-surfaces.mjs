@@ -12,6 +12,14 @@ import {
   replaceGeneratedSection,
   validateProjectCatalog,
 } from '../lib/project-catalog.mjs';
+import {
+  renderSeoGeoPublishing,
+  validateSeoGeoPublishing,
+} from '../lib/seo-geo-publishing.mjs';
+import {
+  buildSeoGeoDestinations,
+  renderSeoGeoDestinations,
+} from '../lib/seo-geo-destinations.mjs';
 
 const root = path.resolve(import.meta.dirname, '../../..');
 const check = process.argv.includes('--check');
@@ -22,18 +30,28 @@ const paths = {
   sites: path.join(root, 'foundry/ops/config/project-sites.json'),
   toolbox: path.join(root, 'foundry/ops/config/significant-hobbies-toolbox.json'),
   agentRegistry: path.join(root, 'foundry/ops/config/agent-surfaces-registry.json'),
+  seoGeoPublishing: path.join(root, 'foundry/ops/config/seo-geo-publishing.json'),
+  seoGeoDestinationSupplements: path.join(root, 'foundry/ops/config/seo-geo-destination-supplements.json'),
+  directorySubmissions: path.join(root, 'foundry/ops/config/directory-submissions/directories.json'),
+  directoryResearchProbe: path.join(root, 'foundry/ops/config/directory-submissions/research-probe.json'),
   public: path.join(root, 'foundry/ops/public/products.json'),
   internalReadme: path.join(root, 'foundry/ops/docs/project-catalog.md'),
+  seoGeoPublishingGuide: path.join(root, 'foundry/ops/docs/seo-geo-external-publishing.md'),
+  seoGeoDestinationGuide: path.join(root, 'foundry/ops/docs/seo-geo-destinations.md'),
   rootReadme: path.join(root, 'README.md'),
 };
 
-const [catalog, automation, marketing, sites, toolbox, agentRegistry, rootReadme] = await Promise.all([
+const [catalog, automation, marketing, sites, toolbox, agentRegistry, seoGeoPublishing, seoGeoDestinationSupplements, directorySubmissions, directoryResearchProbe, rootReadme] = await Promise.all([
   readJson(paths.catalog),
   readJson(paths.automation),
   readJson(paths.marketing),
   readJson(paths.sites),
   readJson(paths.toolbox),
   readJson(paths.agentRegistry),
+  readJson(paths.seoGeoPublishing),
+  readJson(paths.seoGeoDestinationSupplements),
+  readJson(paths.directorySubmissions),
+  readJson(paths.directoryResearchProbe),
   readFile(paths.rootReadme, 'utf8'),
 ]);
 
@@ -45,12 +63,21 @@ validateProjectCatalog(catalog, {
   toolboxRegistry: toolbox,
   agentRegistry,
 });
+validateSeoGeoPublishing(seoGeoPublishing, catalog);
+const seoGeoDestinations = buildSeoGeoDestinations({
+  program: seoGeoPublishing,
+  directories: directorySubmissions,
+  probe: directoryResearchProbe,
+  supplements: seoGeoDestinationSupplements,
+});
 
 const outputs = new Map([
   [paths.automation, json(buildAutomationProjection(catalog, automation))],
   [paths.marketing, json(buildMarketingProjection(catalog, marketing))],
   [paths.public, json(buildPublicProducts(catalog))],
   [paths.internalReadme, renderInternalCatalog(catalog)],
+  [paths.seoGeoPublishingGuide, renderSeoGeoPublishing(seoGeoPublishing, catalog)],
+  [paths.seoGeoDestinationGuide, renderSeoGeoDestinations(seoGeoDestinations)],
   [paths.rootReadme, replaceGeneratedSection(rootReadme, renderReadmePortfolio(catalog))],
 ]);
 

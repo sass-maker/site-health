@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-11
+Last updated: 2026-08-14
 
 ## Why / What
 
@@ -70,6 +70,15 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-14 — Portfolio classification and external publishing became one
+  validated program:** Reconciled the completed staged work into the canonical
+  catalog, replacing duplicate priority arrays with per-project product,
+  platform, or experiment classifications across 47 identities. Added a
+  deterministic tiered SEO/GEO publishing registry and destination inventory,
+  registered the private undeployed Field Track MVP, and prevented linked Git
+  worktrees from being mistaken for independent products. Generated views,
+  focused tests, and strict OpenSpec validation pass; no external publication,
+  deployment, or release was performed.
 - **2026-08-14 — Portfolio discovery gained a shared backend-free strip:**
   Added `@saas-maker/portfolio-project-strip` with a generated first-paint
   catalog, optional cached public revalidation, current-project filtering,
@@ -682,9 +691,15 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Public, commit-pinned workflow module with an exact-schema public site
   manifest, bounded availability and HTTP latency evidence, least-privilege
   standard-runner jobs, and no private Fleet checkout path.
-- Canonical 43-identity project/domain/deploy/lifecycle catalog with active and
-  inactive checkout reconciliation, generated internal inventory views, and a
-  privacy-gated SaaS Maker projection for maintained and past public work.
+- Canonical 47-identity project/domain/deploy/lifecycle catalog with per-project
+  priority, kind, operating status, deployment, and dated sharing-readiness
+  evidence; active and inactive checkout reconciliation; linked-worktree
+  exclusion; generated internal inventory views; and a privacy-gated SaaS Maker
+  projection for maintained and past public work.
+- Deterministic tiered external SEO/GEO publishing program covering every P1,
+  every P2, and each eligible active P4 identity, with explicit channel
+  execution/content boundaries, prerequisites, exclusions, maintained and
+  research-only destination inventories, and fail-closed generated guides.
 - Deterministic maintained-product evidence links: each public changelog stays
   on the product domain, public roadmaps resolve to GitHub Issues, public source
   links resolve to canonical repositories, and private repository links remain

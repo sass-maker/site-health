@@ -176,13 +176,11 @@ function fixture() {
     mkdirSync(join(root, path), { recursive: true });
   }
   writeJson(join(root, 'foundry/ops/config/projects.json'), {
-    _meta: {
-      updated: '2026-07-30',
-      priorities: { P1: ['pace'], P2: [], P3: ['standards'] },
-    },
+    _meta: { updated: '2026-07-30' },
     projects: [
       {
         id: 'pace',
+        portfolio: { kind: 'product', priority: 'P1', status: 'active', deployed: true, readyToBeShared: true },
         name: 'Pace',
         repo: 'pace',
         lifecycle: 'maintained',
@@ -197,6 +195,7 @@ function fixture() {
       },
       {
         id: 'past',
+        portfolio: { kind: 'product', priority: 'P4', status: 'archived', deployed: true, readyToBeShared: false },
         name: 'Past project',
         lifecycle: 'past',
         tier: 'past',
@@ -206,6 +205,7 @@ function fixture() {
       },
       {
         id: 'personal',
+        portfolio: { kind: 'product', priority: 'P4', status: 'active', deployed: false, readyToBeShared: false },
         name: 'Personal site',
         lifecycle: 'non-product',
         tier: 'non-product',
@@ -215,6 +215,7 @@ function fixture() {
       },
       {
         id: 'standards',
+        portfolio: { kind: 'product', priority: 'P2', status: 'active', deployed: true, readyToBeShared: false },
         name: 'Standards',
         lifecycle: 'maintained',
         tier: 'secondary',

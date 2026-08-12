@@ -29,6 +29,24 @@ Fleet quality bar:
 - Planned, deferred, blocked, bug, cleanup, and follow-up work belongs in GitHub Issues. Use `deferred` and `blocked` labels when those distinctions matter; use a product label for multiple products sharing one repository. Do not duplicate open work in `PROJECT_STATUS.md`, `STATUS.md`, OpenSpec task lists after archive, plan documents, or another task database.
 - When work lands, close the issue and update the project root `PROJECT_STATUS.md` only with changed durable product truth: shipped features, timeline, products, or dependencies. Do not copy issue history into the status file or create extra completion notes, handoff docs, or status ledgers for ordinary PR closure.
 - Each fleet product may also maintain `docs/PROJECT_RECOMMENDATION_CONTEXT.md` as the Starboard-facing companion to `PROJECT_STATUS.md`. Read it before recommendation, stack, dependency, or product-context work, and update it when product scope, major runtime surfaces, entrypoints, dependencies, testing signals, or recommendation guidance changes. Do not churn it for tiny edits that do not affect how Starboard should understand or recommend repositories for the project.
+- Fleet membership, owner priority, lifecycle, deployment method, deployed
+  targets, and cloud resources are authored only in
+  `foundry/ops/config/projects.json`; the generated operator view is
+  `foundry/ops/docs/project-catalog.md`. Include maintained, local-only, past,
+  parked, out-of-fleet, and non-product identities. A provider resource must be
+  assigned to one project or remain explicit in
+  `infrastructure.unownedResources` until ownership is proven.
+- Update the catalog in the same task whenever a repository, deployment,
+  domain, release channel, Cloudflare/Turso resource, lifecycle, attention
+  class, or owner priority changes. P1 is reserved for CodeVetter, Pace,
+  PostTrainLLM, and Office OS; P4 is for owner-finished or archived work, while
+  P2 is the eligible active-work pool. Select immediate P2 work from open
+  GitHub Issues and name at most five P2 projects per work cycle; never create a
+  replacement tier or task tracker. New active identities start at P2 until the
+  owner decides otherwise. Keep kind, active/archive status, deployed,
+  ready-to-share, and dated readiness-reason fields explicit. Run
+  `npm run generate:projects` after edits and `npm run check:projects` before
+  handoff.
 - Do not normalize tech debt. Any intentional shortcut must be named,
   justified, scoped, and recorded as a GitHub issue with the smallest next
   action.

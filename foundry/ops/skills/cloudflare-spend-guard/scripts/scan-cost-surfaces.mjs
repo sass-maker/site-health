@@ -365,6 +365,10 @@ export function scanFleetCostSurfaces({ fleetRoot = DEFAULT_FLEET_ROOT, projectI
   if (projectId && selected.length === 0) throw new Error(`Unknown Fleet project: ${projectId}`);
 
   const projects = selected.map((project) => {
+    const infrastructure = manifest.infrastructure?.projects?.[project.id] ?? {
+      deployments: [],
+      resources: [],
+    };
     const repoPath = project.repo ? resolve(root, project.repo) : null;
     const warnings = [];
     let configs = [];
@@ -389,12 +393,17 @@ export function scanFleetCostSurfaces({ fleetRoot = DEFAULT_FLEET_ROOT, projectI
       sourceFiles: ['projects.json'],
       identifiers: [resource.name],
     }));
+    const declaredInfrastructureSurfaces = infrastructure.resources.map((resource) => ({
+      product: resource.provider === 'turso' ? 'turso' : resource.kind,
+      sourceFiles: ['projects.json'],
+      identifiers: [resource.name],
+    }));
 
     return {
       id: project.id,
       family: project.family ?? project.id,
       tier: project.tier ?? 'unknown',
-      priority: project.priority ?? null,
+      priority: project.portfolio?.priority ?? null,
       status: project.status ?? 'unknown',
       repo: project.repo ?? null,
       deployKind: project.deployKind ?? 'unknown',
@@ -404,12 +413,14 @@ export function scanFleetCostSurfaces({ fleetRoot = DEFAULT_FLEET_ROOT, projectI
         d1Databases: [...(project.d1Databases ?? [])].sort(),
         tursoDatabases: [...(project.tursoDatabases ?? [])].sort(),
         databaseResources,
+        deployments: infrastructure.deployments,
+        cloudResources: infrastructure.resources,
         domains: [...(project.domains ?? [])].sort(),
       },
       costSurfaces: mergeSurfaces(
         configs,
         declaredProducts(project.deployKind, files),
-        [tursoSurface, ...declaredDatabaseSurfaces],
+        [tursoSurface, ...declaredDatabaseSurfaces, ...declaredInfrastructureSurfaces],
       ),
       configs: configs.map((config) => ({
         path: config.path,

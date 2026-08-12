@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-09",
+  "updatedAt": "2026-08-11",
   "attentionCounts": {
     "my-work": 4,
-    "toolbox": 23,
-    "foundry": 3,
+    "toolbox": 25,
+    "foundry": 5,
     "ignored": 13
   },
   "defaults": {
@@ -1106,23 +1106,28 @@
     {
       "id": "mashup",
       "name": "Mashup",
-      "attention": "ignored",
+      "attention": "foundry",
       "family": "mashup",
-      "owner": "none",
-      "repository": "mashup",
-      "runtimes": [],
+      "owner": "foundry",
+      "repository": "foundry/helpers/mashup",
+      "runtimes": [
+        "local-tool"
+      ],
       "surfaces": [],
-      "dependencies": [],
-      "evidenceSources": [],
-      "contracts": [],
-      "actionPolicy": "excluded",
-      "alertPolicy": "none",
-      "exceptions": [
-        {
-          "contract": "all",
-          "reason": "Absorbed into Reel Pipeline; explicit reactivation as a standalone product is forbidden"
-        }
-      ]
+      "dependencies": [
+        "local toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
     },
     {
       "id": "saas-ideas",
@@ -1179,82 +1184,6 @@
       ],
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest build/release findings; page only privacy, security, or data risk",
-      "exceptions": []
-    },
-    {
-      "id": "agent-office",
-      "name": "Office OS",
-      "attention": "toolbox",
-      "family": "agent-office",
-      "owner": "sarthak",
-      "repository": "agent-office",
-      "runtimes": [
-        "public-web",
-        "desktop"
-      ],
-      "surfaces": [
-        "https://office-os.pages.dev"
-      ],
-      "dependencies": [
-        "GitHub Actions",
-        "Cloudflare Pages",
-        "Apple distribution"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "fleet-deploy",
-        "live-smoke",
-        "indexing",
-        "errors",
-        "release"
-      ],
-      "contracts": [
-        "build",
-        "live",
-        "indexing",
-        "errors",
-        "release"
-      ],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest build and release-readiness findings; page only privacy, security, or production failure",
-      "exceptions": []
-    },
-    {
-      "id": "local-ai-video-studio",
-      "name": "Local AI Video Studio",
-      "attention": "toolbox",
-      "family": "local-ai-video-studio",
-      "owner": "sarthak",
-      "repository": "local-ai-video-studio",
-      "runtimes": [
-        "public-web",
-        "desktop"
-      ],
-      "surfaces": [
-        "https://local-ai-video-studio.pages.dev"
-      ],
-      "dependencies": [
-        "GitHub Actions",
-        "Cloudflare Pages",
-        "Apple distribution"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "fleet-deploy",
-        "live-smoke",
-        "indexing",
-        "errors",
-        "release"
-      ],
-      "contracts": [
-        "build",
-        "live",
-        "indexing",
-        "errors",
-        "release"
-      ],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest build and release-readiness findings; page only privacy, security, or production failure",
       "exceptions": []
     },
     {
@@ -1471,6 +1400,171 @@
       "actionPolicy": "quiet-maintenance",
       "alertPolicy": "digest validation findings",
       "exceptions": []
+    },
+    {
+      "id": "agent-office",
+      "name": "Office OS",
+      "attention": "toolbox",
+      "family": "agent-office",
+      "owner": "sarthak",
+      "repository": "agent-office",
+      "runtimes": [
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "local toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "indulge",
+      "name": "Indulge",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "induldge",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "attention": "toolbox",
+      "family": "local-ai-video-studio",
+      "owner": "sarthak",
+      "repository": "local-ai-video-studio",
+      "runtimes": [
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "local toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "field-track",
+      "name": "Field Track",
+      "attention": "toolbox",
+      "family": "field-track",
+      "owner": "sarthak",
+      "repository": "field-track",
+      "runtimes": [
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "local toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "reddit-insights",
+      "name": "Reddit Insights",
+      "attention": "foundry",
+      "family": "high-signal",
+      "owner": "foundry",
+      "repository": "reddit-insights",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://reddit-insights.highsignal.app"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "verified-bases",
+      "name": "Verified Bases",
+      "attention": "ignored",
+      "family": "verified-bases",
+      "owner": "none",
+      "repository": null,
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Inactive; explicit reactivation required"
+        }
+      ]
     }
   ]
 }
