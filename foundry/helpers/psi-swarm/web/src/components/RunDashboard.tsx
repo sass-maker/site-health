@@ -8,6 +8,7 @@ import {
   type RunnerEvent,
   type DiagnosisResponse,
 } from '../lib/agent.js';
+import { DisconnectedPanel } from './DisconnectedPanel.js';
 import { auditUrlError, RunForm, type RunPlan } from './RunForm.js';
 
 type View = 'connecting' | 'disconnected' | 'form' | 'running' | 'done';
@@ -427,36 +428,6 @@ function ConnectingPanel() {
   return (
     <div className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg p-5 text-center sm:p-8">
       <p className="text-[var(--color-dim)]">Looking for a local psi-swarm agent…</p>
-    </div>
-  );
-}
-
-function DisconnectedPanel({ onRetry, error }: { onRetry: () => void; error: string | null }) {
-  return (
-    <div className="min-w-0 border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg p-5 space-y-4 sm:p-8">
-      <h2 className="text-xl font-semibold">No local agent running</h2>
-      <p className="text-[var(--color-dim)] text-sm">
-        psi-swarm runs Lighthouse on your machine. Start the local agent in a terminal:
-      </p>
-      <pre className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded p-3 text-xs whitespace-pre-wrap break-words sm:text-sm">
-        <code className="text-[var(--color-cyan)] whitespace-inherit">
-          {`# install
-npm install -g psi-swarm
-
-# run the agent (in any terminal)
-psi-swarm serve --origin http://localhost:4321`}
-        </code>
-      </pre>
-      <p className="text-[var(--color-dim)] text-xs break-words">
-        Compute happens on your machine. The browser is just the UI.{' '}
-        {error ? `Last error: ${error}` : ''}
-      </p>
-      <button
-        onClick={onRetry}
-        className="min-h-11 w-full px-4 py-2 bg-[var(--color-cyan)] text-black rounded font-medium hover:opacity-90 transition sm:w-auto"
-      >
-        Connect to local agent
-      </button>
     </div>
   );
 }
