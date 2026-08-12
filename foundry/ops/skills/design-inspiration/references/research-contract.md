@@ -36,13 +36,32 @@ Return:
 2. **References** — two or three entries with source, lesson, and avoid note.
 3. **Anti-reference** — at least one named pattern or example and why.
 4. **Direction principles** — three to five project-native rules.
-5. **Probe brief** — only when probes are requested; define materially distinct
+5. **Direction set** — only when multiple concepts are requested; define two or
+   three materially distinct concepts using the same content and evaluation
+   scenario, with differences deeper than palette swaps.
+6. **Probe brief** — only when probes are requested; define materially distinct
    static or code probes without prescribing a screenshot trace.
-6. **Decision needed** — owner selection, delegated choice, or no decision for
+7. **Brand board** — only when a visual brand artifact is requested; include
+   the board path, identity thesis, verified type guidance, semantic color roles,
+   two represented product contexts, and anti-copying constraints.
+8. **Decision needed** — owner selection, delegated choice, or no decision for
    research-only work.
 
 Do not use a direction-probe slot to store a source screenshot. Do not claim a
 reference is current, free, open source, or licensable without live evidence.
+
+## Brand-board contract
+
+Generate a board only after the text direction is coherent. Keep it compact and
+legible: two realistic product contexts, typography guidance, semantic color
+roles, and only the imagery or texture language needed to communicate the
+identity. Use representative content and verified font availability or license
+evidence. Do not reproduce a named brand, source screenshot, protected asset,
+marketing claim, or proprietary visual system.
+
+Record the generated artifact separately from reference sources. Treat it as a
+north star, not an implementation screenshot, and require the normal owner
+selection or delegation before an overhaul proceeds.
 
 ## Code-probe lifecycle
 

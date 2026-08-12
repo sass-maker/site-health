@@ -1,4 +1,4 @@
 interface:
   display_name: "Design Engineering"
-  short_description: "Route design research, 3D, effects, and evidence"
-  default_prompt: "Use $design-engineering to choose and run the right focused workflow for this design-engineering task."
+  short_description: "Route UI design, transformations, 3D, and evidence"
+  default_prompt: "Use $design-engineering to route this UI or design-engineering job through the smallest existing Fleet workflow."

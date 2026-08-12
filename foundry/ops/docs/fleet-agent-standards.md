@@ -296,7 +296,7 @@ Fleet skills are exposed via 4 parents + standalones (canonical home:
 | `local-ports-cleanup` | standalone | safety-first local port and development-process cleanup through `ports` |
 | `mobile-task-control` | standalone | durable chat-requested task control |
 | `daily-learning` | standalone | private adaptive learning-session links |
-| `design-engineering` | parent | inspiration, component pattern, web 3D, creative-effects, and evidence-interface subskills |
+| `design-engineering` | parent | existing UI design/transformation routes plus inspiration, component pattern, web 3D, creative-effects, and evidence-interface subskills |
 | `design-workflow` | standalone | preserve/overhaul direction, evidence, quality, and owner-acceptance gates |
 | `cloudflare-spend-guard` | fleet-ops subskill | read-only Cloudflare/Turso spend, quota, necessity, and optimization |
 | `impeccable` | external standalone | underlying design craft, critique, polish, and audit engine |
