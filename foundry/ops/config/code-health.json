@@ -165,7 +165,12 @@
     "india-standards": { "profile": "javascript-typescript" },
     "karte": { "profile": "javascript-typescript" },
     "knowledge-base": { "profile": "mixed" },
-    "local-ai-video-studio": { "profile": "swift-native" },
+    "local-ai-video-studio": {
+      "profile": "swift-native",
+      "equivalents": {
+        "cycles": "The required isolated SwiftPM build resolves the target and source dependency graph; Swift source files do not import one another."
+      }
+    },
     "looptv": { "profile": "javascript-typescript" },
     "motion": {
       "profile": "mixed",
@@ -630,6 +635,46 @@
       "reason": "The reusable domain and execution core has real non-regression coverage; direct app-target and UI coverage remains explicit follow-up rather than being hidden inside test-source totals.",
       "owner": "Sarthak",
       "issue": "https://github.com/sass-maker/agent-office/issues/21",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "local-ai-video-studio-format-debt",
+      "projectId": "local-ai-video-studio",
+      "capability": "format",
+      "accepted": "4,882 Swift format diagnostics across production and test sources",
+      "reason": "The full diagnostic count is regression-gated so the app can be formatted in bounded behavior-neutral batches instead of a broad rewrite across native rendering and active product work.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/local-ai-video-studio/issues/16",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "local-ai-video-studio-legacy-complexity",
+      "projectId": "local-ai-video-studio",
+      "capability": "complexity",
+      "accepted": "5 legacy threshold violations across 187 Swift production functions and 1,965 function NLOC, maximum CCN 26, maximum function length 90, and maximum 12 parameters",
+      "reason": "Cross-target Lizard metrics now block regressions while the effect compiler, renderer, and registry paths are reduced behind the existing native tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/local-ai-video-studio/issues/16",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "local-ai-video-studio-legacy-duplication",
+      "projectId": "local-ai-video-studio",
+      "capability": "duplication",
+      "accepted": "3 exact clone groups and 27 duplicated lines (0.6300%) across 18 Swift production source files",
+      "reason": "Production clones are regression-gated while shared effect and rendering behavior is consolidated only where an abstraction preserves clear native boundaries.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/local-ai-video-studio/issues/16",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "local-ai-video-studio-coverage-boundary",
+      "projectId": "local-ai-video-studio",
+      "capability": "coverage",
+      "accepted": "StudioCore and MediaEngine floors of 85% lines, 78% functions, and 71% regions across 43 passing Swift Testing tests; StudioAgentSupport, StudioAgent, and StudioApp are not represented in the emitted report",
+      "reason": "The domain and media libraries have real non-regression coverage; direct agent executable and SwiftUI coverage remains explicit follow-up rather than being hidden inside test-source totals.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sass-maker/local-ai-video-studio/issues/16",
       "reviewDate": "2026-09-12"
     }
   ],
