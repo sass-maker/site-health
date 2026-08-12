@@ -1531,6 +1531,46 @@
       "owner": "Sarthak",
       "issue": "https://github.com/Significant-Hobbies/significanthobbies/issues/89",
       "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "sarthakagrawal-personal-format-debt",
+      "projectId": "sarthakagrawal-personal",
+      "capability": "format",
+      "accepted": "31 existing Astro, TypeScript, JavaScript, CSS, and configuration files differ from the enabled Biome formatter; the exact file count is regression-gated",
+      "reason": "The repository adopted Ultracite with formatting disabled before this standard. Enabling and rewriting every source file in the same cleanup would create a broad review-hostile diff, so new formatter drift is forbidden while the legacy files are normalized in bounded batches.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sarthakagrawal927/portfolio/issues/23",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "sarthakagrawal-personal-library-coverage",
+      "projectId": "sarthakagrawal-personal",
+      "capability": "coverage",
+      "accepted": "9 native Node tests cover 100% of lines, branches, and functions across the complete src/lib/github-core.ts GitHub normalization, deduplication, ranking, and curated-group denominator; Astro pages, React UI, and build-time network orchestration remain outside line coverage",
+      "reason": "The extracted data-selection logic is behavior-tested and regression-gated while static Astro rendering and hydrated browser interactions still need a practical coverage harness beyond build, type, lint, contract, and generated-agent-surface evidence.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sarthakagrawal927/portfolio/issues/23",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "sarthakagrawal-personal-legacy-complexity",
+      "projectId": "sarthakagrawal-personal",
+      "capability": "complexity",
+      "accepted": "1 legacy threshold violation across 43 TypeScript, JavaScript, and Astro functions and 368 function NLOC, with maximum CCN 13, maximum function length 163, and maximum 2 parameters",
+      "reason": "The remaining violation is the long but low-branching command-palette component. Its exact count and maxima are regression-gated while decomposition waits for focused browser behavior coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sarthakagrawal927/portfolio/issues/23",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "sarthakagrawal-personal-astro-advisories",
+      "projectId": "sarthakagrawal-personal",
+      "capability": "dependency-risk",
+      "accepted": "0 critical and 13 exact distinct high advisory IDs across 8 high-severity package findings inherited through Astro 5 and its build-time toolchain",
+      "reason": "Removing the severe framework advisories requires an Astro major upgrade and associated integration review. The static site has no server runtime, and the checked-in allowlist rejects every new critical or high advisory ID and any increase in high package findings.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/sarthakagrawal927/portfolio/issues/23",
+      "reviewDate": "2026-09-12"
     }
   ],
   "trendMetrics": [
