@@ -150,7 +150,12 @@
     },
     "anime-list": { "profile": "javascript-typescript" },
     "app-health": { "profile": "mixed" },
-    "calorie": { "profile": "javascript-typescript" },
+    "calorie": {
+      "profile": "mixed",
+      "equivalents": {
+        "cycles": "Knip enforces TypeScript import cycles; the required Xcode test and Release builds resolve the Swift target and source dependency graph."
+      }
+    },
     "chatgpt-memory-insights": { "profile": "javascript-typescript" },
     "chess": { "profile": "javascript-typescript" },
     "codevetter": { "profile": "mixed" },
@@ -202,6 +207,56 @@
     "what-it-takes-to-win": { "profile": "javascript-typescript" }
   },
   "exceptions": [
+    {
+      "id": "calorie-native-unused-equivalent",
+      "projectId": "calorie",
+      "capability": "unused",
+      "accepted": "Knip reports zero unused files, exports, types, dependencies, unlisted or unresolved imports; Xcode compilation catches local Swift unused values, but no pinned Swift declaration-level dead-code analyzer is configured",
+      "reason": "The adoption removed every Knip finding and duplicate web alias. A pinned Swift-native declaration analyzer is still needed before native unused coverage is complete.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/calorie/issues/30",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "calorie-web-native-coverage",
+      "projectId": "calorie",
+      "capability": "coverage",
+      "accepted": "148 Vitest tests cover 22.34% of lines, 17.07% of branches, 22.78% of functions, and 21.69% of statements across 3,451 web and Worker production lines; 16 native unit tests and 3 UI tests cover 3,053/5,612 production Swift lines (54.4013%) with a portable 54.30% floor",
+      "reason": "Both complete denominators are regression-gated while large web pages, Worker routes, browser persistence, and native presentation code gain focused coverage without hiding currently untested surfaces.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/calorie/issues/30",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "calorie-legacy-complexity",
+      "projectId": "calorie",
+      "capability": "complexity",
+      "accepted": "32 legacy threshold violations across 1,185 TypeScript, JavaScript, and Swift functions and 11,637 function NLOC, maximum CCN 98, maximum function length 616, and maximum 19 parameters",
+      "reason": "Web pages, Worker routing, persistence adapters, and native presentation code are regression-gated while the largest functions are decomposed only behind representative web and simulator coverage.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/calorie/issues/30",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "calorie-legacy-duplication",
+      "projectId": "calorie",
+      "capability": "duplication",
+      "accepted": "18 exact clone groups and 234 duplicated lines (0.9952%) across 81 TypeScript, JavaScript, Swift, and configuration files",
+      "reason": "Parallel local, demo, cloud, web, and native flows contain measured similarities; clone count and duplicated lines cannot increase while only stable behavior is consolidated behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/calorie/issues/30",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "calorie-justified-suppression",
+      "projectId": "calorie",
+      "capability": "suppressions",
+      "accepted": "1 reviewed source suppression for a non-focusable ARIA grid row; the generated agent payload format marker is excluded from the authored-source denominator",
+      "reason": "The marker count is regression-gated while the calendar grid keeps its established keyboard and accessibility behavior.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/calorie/issues/30",
+      "reviewDate": "2026-09-12"
+    },
     {
       "id": "reader-lint-warning-baseline",
       "projectId": "reader",
