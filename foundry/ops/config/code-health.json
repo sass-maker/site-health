@@ -676,6 +676,66 @@
       "owner": "Sarthak",
       "issue": "https://github.com/sass-maker/local-ai-video-studio/issues/16",
       "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chatgpt-memory-insights-format-debt",
+      "projectId": "chatgpt-memory-insights",
+      "capability": "format",
+      "accepted": "26 source files differ from the explicitly enabled Biome formatter",
+      "reason": "The file count is regression-gated so active browser analysis and presentation code can be formatted in bounded behavior-neutral batches instead of a broad rewrite.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chatgpt-memory-insights-lint-suppressions",
+      "projectId": "chatgpt-memory-insights",
+      "capability": "suppressions",
+      "accepted": "27 Biome lint rules disabled in the shared Ultracite compatibility configuration and zero inline suppression directives",
+      "reason": "The compatibility rule count is regression-gated while each rule is enabled through focused fixes; new inline bypasses remain forbidden.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chatgpt-memory-insights-legacy-complexity",
+      "projectId": "chatgpt-memory-insights",
+      "capability": "complexity",
+      "accepted": "15 legacy threshold violations across 570 TypeScript and JavaScript functions and 4,389 function NLOC, maximum CCN 34, maximum function length 262, and maximum 6 parameters",
+      "reason": "Cross-source Lizard metrics now block regressions while the large semantic, analysis, and browser orchestration paths are reduced behind tests.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chatgpt-memory-insights-legacy-duplication",
+      "projectId": "chatgpt-memory-insights",
+      "capability": "duplication",
+      "accepted": "4 exact clone groups and 57 duplicated lines (0.7324%) across 17 production source files",
+      "reason": "Production clones are regression-gated while shared analysis behavior is consolidated only where an abstraction preserves explicit evidence and worker boundaries.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chatgpt-memory-insights-coverage-boundary",
+      "projectId": "chatgpt-memory-insights",
+      "capability": "coverage",
+      "accepted": "Floors of 54% lines, 52% statements, 54% functions, and 45% branches across 41 passing tests; browser entrypoints, workers, and Astro UI are outside the current unit report",
+      "reason": "The unit-tested analysis core has real non-regression coverage; browser-worker and UI execution coverage remains explicit follow-up rather than being hidden from the denominator.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
+      "reviewDate": "2026-09-12"
+    },
+    {
+      "id": "chatgpt-memory-insights-build-tool-advisories",
+      "projectId": "chatgpt-memory-insights",
+      "capability": "dependency-risk",
+      "accepted": "0 critical, 4 high, and 4 moderate advisories, all confined to Astro static-build, checking, Tailwind/Vite, or Wrangler/Miniflare dependency paths",
+      "reason": "The exact eight advisory IDs are enforced locally while safe production dependency updates are reviewed separately; the deployed product is static and these packages do not execute in the browser runtime.",
+      "owner": "Sarthak",
+      "issue": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/12",
+      "reviewDate": "2026-09-12"
     }
   ],
   "trendMetrics": [
