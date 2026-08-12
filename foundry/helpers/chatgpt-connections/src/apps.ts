@@ -108,6 +108,25 @@ function queryPath(path: string, values: Record<string, unknown>): string {
   return query ? `${path}?${query}` : path;
 }
 
+function calorieHistoryPath(args: Record<string, unknown>): string {
+  const start = typeof args.start === "string" ? Date.parse(`${args.start}T00:00:00Z`) : Number.NaN;
+  const end = typeof args.end === "string" ? Date.parse(`${args.end}T00:00:00Z`) : Number.NaN;
+  const inclusiveDays = Math.round((end - start) / 86_400_000) + 1;
+  if (!Number.isFinite(inclusiveDays) || inclusiveDays < 1 || inclusiveDays > 366) {
+    throw new ConnectionError(
+      "invalid_input",
+      "Nutrition history must use a valid inclusive range of 366 days or fewer.",
+    );
+  }
+  return queryPath("/api/mcp/history", {
+    start: args.start,
+    end: args.end,
+    timezone: args.timezone,
+    limit: args.limit,
+    offset: args.offset,
+  });
+}
+
 function readLimit(args: Record<string, unknown>): number {
   const value = typeof args.limit === "number" ? args.limit : DEFAULT_COLLECTION_LIMIT;
   return Math.min(Math.max(value, 1), MAX_COLLECTION_LIMIT);
@@ -523,14 +542,7 @@ const calorie: AppDefinition = {
     },
     history: {
       auth: true,
-      path: (a) =>
-        queryPath("/api/mcp/history", {
-          start: a.start,
-          end: a.end,
-          timezone: a.timezone,
-          limit: a.limit,
-          offset: a.offset,
-        }),
+      path: calorieHistoryPath,
     },
     foods: {
       auth: true,
@@ -558,7 +570,8 @@ const calorie: AppDefinition = {
     },
     get_nutrition_history: {
       title: "Get nutrition history",
-      description: "Retrieve bounded owner nutrition history for an inclusive date range.",
+      description:
+        "Retrieve bounded owner nutrition history for an inclusive date range of at most 366 days. Follow nextOffset until null to enumerate the requested range.",
       inputSchema: {
         start: date,
         end: date,

@@ -187,10 +187,18 @@ Generated binding types come from `wrangler types`; rerun
 Once the prepared routes are activated, it verifies all eleven health and
 hostname-isolation boundaries; public MCP
 initialization, read-only tool catalogs, representative bounded reads, and
-mutation rejection; plus private OAuth challenges and metadata. The JSON
+mutation rejection. Collection tools additionally verify non-overlapping
+first, middle, and terminal pages with one stable exact total and valid
+continuation state. Private routes verify OAuth challenges and metadata. The JSON
 receipt retains only status codes, protocol/schema fields, server/tool names,
 item counts, scopes, resource identifiers, and timestamps. It never retains
 bearers or source record bodies.
+
+Manual authenticated acceptance can pass short-lived bearer headers through
+`runProductionMonitor({ personalAuthorizations })`. When supplied, Reader,
+Calorie, and Anime List each receive the same three-page pagination check; the
+headers and source records are never copied into the receipt. Scheduled CI
+remains credential-free.
 
 GitHub Actions runs the same suite daily at 03:17 UTC and on manual dispatch.
 The redacted receipt is retained for 30 days even when a check fails:

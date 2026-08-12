@@ -18,6 +18,8 @@ test("all shared connections expose only fixed relative GET operations", () => {
         slug: "safe-slug",
         q: "query",
         url: "https://github.com/openai/openai-node",
+        start: "2026-08-01",
+        end: "2026-08-07",
         limit: 10,
         offset: 0,
       });
@@ -35,6 +37,18 @@ test("Starboard repository reads cannot populate the application cache", () => {
 
 test("Starboard repository search filters unmatched upstream fallbacks locally", () => {
   assert.equal(APP_DEFINITIONS.starboard.tools.search_repositories?.localQuery, true);
+});
+
+test("Calorie nutrition history rejects ranges wider than 366 inclusive days", () => {
+  const historyPath = APP_DEFINITIONS.calorie.operations.history!.path;
+  assert.equal(
+    historyPath({ start: "2025-01-01", end: "2026-01-01", timezone: "UTC", limit: 30, offset: 0 }),
+    "/api/mcp/history?start=2025-01-01&end=2026-01-01&timezone=UTC&limit=30&offset=0",
+  );
+  assert.throws(
+    () => historyPath({ start: "2025-01-01", end: "2026-01-02", timezone: "UTC" }),
+    (error: unknown) => error instanceof ConnectionError && error.code === "invalid_input",
+  );
 });
 
 test("read client rejects arbitrary origins and non-HTTPS remote bases", async () => {
@@ -243,7 +257,14 @@ test("tool schemas cannot accept arbitrary transport instructions", () => {
       }
     }
     for (const operation of Object.values(app.operations)) {
-      const path = operation.path({ id: "safe", slug: "safe", limit: 10, offset: 0 });
+      const path = operation.path({
+        id: "safe",
+        slug: "safe",
+        start: "2026-08-01",
+        end: "2026-08-07",
+        limit: 10,
+        offset: 0,
+      });
       assert.doesNotMatch(path, forbiddenRoutes, `${app.id}:${path}`);
     }
   }
