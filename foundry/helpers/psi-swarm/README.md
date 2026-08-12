@@ -57,7 +57,23 @@ That's it. Beautiful Ink-driven progress UI in the terminal, percentile tables, 
 
 ### Web UI flavour
 
-Same CLI, but driven from a browser:
+The deployed controller at <https://performance.sassmaker.com> guides first-time
+users through the public local-agent setup. It requires Node 22 LTS, Git, and
+Chrome, then uses the compatible public v0.4.0 source:
+
+```bash
+git clone --depth 1 https://github.com/sarthakagrawal927/psi-swarm.git
+cd psi-swarm
+corepack pnpm install --frozen-lockfile
+corepack pnpm run build:cli
+corepack pnpm run cli serve --origin https://performance.sassmaker.com
+```
+
+Keep that terminal open, return to the controller, and select **Connect to local
+agent**. The controller derives `--origin` from the current page, so preview and
+local controller URLs receive their own correct command.
+
+Fleet contributors can instead run the current source and local web app:
 
 ```bash
 pnpm run serve                  # in one terminal: starts the local agent

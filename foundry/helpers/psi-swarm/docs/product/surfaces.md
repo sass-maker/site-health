@@ -70,6 +70,11 @@ remembered past connection. See
 [ADR: local-first](../architecture/decisions/local-first-no-cloud-execution.md)
 for why this matters.
 
+When no agent is available, the home route presents a numbered setup flow for
+Node 22, Git, Chrome, the compatible public v0.4.0 agent source, and the final
+connection action. Its start command derives the CORS `--origin` value from the
+current controller URL rather than assuming localhost.
+
 The home dashboard uses progressive evidence levels. **Quick check** gets a
 new user to a directional desktop result with two serial audits. **Full swarm**
 runs five audits for both PSI presets and remains the confidence path. Existing

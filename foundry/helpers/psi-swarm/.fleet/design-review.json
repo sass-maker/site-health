@@ -2,7 +2,7 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "psi-swarm",
-  "target": "Run dashboard quick-check activation",
+  "target": "Disconnected local-agent setup",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,29 +14,29 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": ".fleet/evidence/quick-check/before-1440.png"
+    "before": ".fleet/evidence/disconnected-setup/before-1440.png"
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": ".fleet/evidence/quick-check/after-390.png"
+        "path": ".fleet/evidence/disconnected-setup/after-390.png"
       },
       {
         "width": 768,
-        "path": ".fleet/evidence/quick-check/after-768.png"
+        "path": ".fleet/evidence/disconnected-setup/after-768.png"
       },
       {
         "width": 1440,
-        "path": ".fleet/evidence/quick-check/after-1440.png"
+        "path": ".fleet/evidence/disconnected-setup/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "pnpm run build:web",
+      "command": "mise exec node@22.23.1 -- pnpm run quality",
       "status": "pass"
     },
     "critique": {
-      "score": 32,
+      "score": 33,
       "maximum": 40
     },
     "audit": {
@@ -54,6 +54,6 @@
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner direction: ‘Steal what you want to improve us.’ Preserve-mode implementation kept psi-swarm’s visual identity and evidence model while delegating activation-flow judgment."
+    "note": "Owner asked to fix the failed command and make the web steps more proper, delegating preserve-mode implementation judgment for this disconnected setup path."
   }
 }
