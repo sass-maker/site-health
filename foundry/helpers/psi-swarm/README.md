@@ -67,6 +67,14 @@ pnpm run web                    # in another terminal: starts the Astro dev serv
 
 The browser auto-detects the local agent. **Compute always happens on your machine** — the page is just the controller.
 
+The run dashboard offers three evidence levels:
+
+- **Quick check** — two serial desktop audits for a directional result in about a minute.
+- **Full swarm** — five serial mobile and desktop audits for reliable percentiles.
+- **Custom swarm** — expand the advanced controls to choose runs, presets, parallelism, and a comparison tag.
+
+Quick checks are labeled directional and finish with a **Confirm with full swarm** action. They are an activation path, not a replacement for distributional evidence.
+
 ### Reasoning about *why* your numbers are what they are
 
 After every swarm, psi-swarm can stream an LLM-generated explanation grounded in the actual audit data — which `<img>` is the LCP, what % of LCP is render delay vs load time, the top 3 opportunities ranked by savings. Two backends, your choice:

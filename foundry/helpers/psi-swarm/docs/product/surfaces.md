@@ -57,7 +57,7 @@ agent over CORS + SSE. Pages in `web/src/pages/`:
 
 | Route | Component | Notes |
 | --- | --- | --- |
-| `/` | `RunDashboard.tsx` | Run a swarm from the browser; live progress via SSE. |
+| `/` | `RunDashboard.tsx` | Quick two-run desktop check, full five-run PSI swarm, or custom run; live progress via SSE. |
 | `/projects/` | `ProjectsView.tsx` | Fleet dashboard backed by local SQLite history, grouped by URL origin. |
 | `/compare/` | `CompareView.tsx` | Before/after comparison of tagged swarms. |
 | `/watchlist/` | `WatchlistView.tsx` | Regression watchlist queue (requires `serve`). |
@@ -69,6 +69,13 @@ probes; probing only happens on explicit `?agent=` / `?token=` intent or a
 remembered past connection. See
 [ADR: local-first](../architecture/decisions/local-first-no-cloud-execution.md)
 for why this matters.
+
+The home dashboard uses progressive evidence levels. **Quick check** gets a
+new user to a directional desktop result with two serial audits. **Full swarm**
+runs five audits for both PSI presets and remains the confidence path. Existing
+run count, preset, parallelism, and tag controls remain available under
+**Custom swarm**. A completed quick check links directly to the full swarm for
+the same URL.
 
 ## Agent HTTP API
 
