@@ -18,4 +18,4 @@
 
 ## 4. Prepare review
 
-- [ ] 4.1 Review the diff, commit, push, and open a draft PR with `Closes #335` and an explicit no-deploy/no-portal note.
+- [x] 4.1 Review the diff, commit, push, and open draft PR #336 with `Closes #335` and an explicit no-deploy/no-portal note.
