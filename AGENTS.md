@@ -63,9 +63,15 @@ GitHub is the only operational tracker:
 - A merged pull request plus a closed issue is done.
 
 Create an issue before starting independently shippable work and use
-`Closes #<issue>` in the pull request body. Planned, deferred, blocked, bug,
-cleanup, and follow-up work belongs in issues, not `PROJECT_STATUS.md`,
-`STATUS.md`, plan documents, or another task database. When work ships, close
+`Closes #<issue>` in the pull request body. Immediately after creating any
+issue, add its original URL to the private priority Project by running
+`node foundry/ops/scripts/github-priority-queue.mjs --owner
+sarthakagrawal927 --project 3 --author sarthakagrawal927 --apply` from the
+Fleet root. Leave Priority and Reasoning complexity unset until the issue body
+and state have been reviewed; then place it intentionally in its band.
+Planned, deferred, blocked, bug, cleanup, and follow-up work belongs in issues,
+not `PROJECT_STATUS.md`, `STATUS.md`, plan documents, or another task database.
+When work ships, close
 the issue and update `PROJECT_STATUS.md` only with the completed product truth:
 the timeline, products, dependencies, and shipped features affected by the
 change. Do not copy closed issue histories into the status file.
