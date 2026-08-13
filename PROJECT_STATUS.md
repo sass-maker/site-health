@@ -70,6 +70,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-14 — Cross-organization personal work queue became reproducible:**
+  Added a dependency-free, dry-run-by-default GitHub synchronizer over original
+  authored issues, preserving manual rank and project-local Priority, Status,
+  and intelligence-only Reasoning complexity. Live dry-run, repeated apply,
+  cross-organization, and close/reopen canaries verified idempotence and the
+  private `is:open` Queue boundary without copying issue content or storing a
+  credential.
 - **2026-08-11 — Existing UI skills gained focused task routing:** Expanded the
   Fleet design-engineering, design-workflow, and design-inspiration contracts
   for nine recurring UI jobs, reusing current Impeccable and imagegen
@@ -642,6 +649,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
 
 ## Features (shipped)
 
+- Private GitHub-native personal queue across accessible organizations, with
+  manual insertion inside Priority bands, Finish → Market → Measure review,
+  intelligence-only Reasoning complexity, and an authenticated idempotent sync
+  command that adds missing original issues without rewriting queue metadata.
 - Fleet-wide code-health standard, validated project/profile overlay, and
   deterministic human/JSON inventory for formatting, lint, types, tests,
   unused code, complexity, duplication, coverage, dependency risk, cycles,
