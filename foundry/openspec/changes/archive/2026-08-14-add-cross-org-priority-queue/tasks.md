@@ -29,5 +29,5 @@
 
 - [x] 4.1 Document the Project URL, inclusion query, manual-order rule, sync command, authentication scope, and observed cross-organization limitations in Fleet operations documentation.
 - [x] 4.2 Run the smallest focused test first, then the relevant Foundry check and strict OpenSpec validation; record failures or skipped validation. (9 focused tests and strict change validation pass.)
-- [ ] 4.3 Update the OpenSpec tasks, archive the completed change, refresh the OpenSpec inventory, and update `PROJECT_STATUS.md` with only the verified shipped capability.
-- [ ] 4.4 Link the implementation pull request with `Closes #353`; do not deploy, migrate issues, or alter production configuration.
+- [x] 4.3 Update the OpenSpec tasks, archive the completed change, refresh the OpenSpec inventory, and update `PROJECT_STATUS.md` with only the verified shipped capability.
+- [x] 4.4 Link the implementation pull request with `Closes #353`; do not deploy, migrate issues, or alter production configuration. (PR #355.)
