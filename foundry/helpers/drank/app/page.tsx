@@ -36,7 +36,8 @@ import {
   formatNextAuto,
   computeGainersLosers,
 } from '@/lib/utils';
-import type { TrackedDomain } from '@/lib/types';
+import type { Toast, TrackedDomain } from '@/lib/types';
+import type { DrAdvisorRequest } from '@/lib/dr-advisor';
 import { DrAdvisor } from '@/components/DrAdvisor';
 
 // Shared global example sites + historical DR data (maintained via GitHub Action + JSON)
@@ -62,6 +63,397 @@ const GLOBAL_DOMAINS: TrackedDomain[] = (globalSitesStatic as string[]).map((dom
 });
 
 const COMMUNITY_NOMINATIONS: any[] = (globalDrDataStatic as any).communityNominations || [];
+
+function isInputFocused(): boolean {
+  return document.activeElement?.tagName === 'INPUT';
+}
+
+function createKeyboardHandler(opts: {
+  showSettings: boolean;
+  selectedDomain: string | null;
+  closeSelectedDomain: () => void;
+  toggleSettings: () => void;
+  addInputRef: React.RefObject<HTMLInputElement | null>;
+}): (e: KeyboardEvent) => void {
+  return (e: KeyboardEvent) => {
+    if (!isInputFocused() && !opts.showSettings) {
+      if (e.key === '/') {
+        e.preventDefault();
+        document.getElementById('search-input')?.focus();
+      }
+      if (e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        opts.addInputRef.current?.focus();
+      }
+    }
+    if (e.key === 'Escape') {
+      if (opts.selectedDomain) opts.closeSelectedDomain();
+      else if (opts.showSettings) opts.toggleSettings();
+    }
+    if (e.key.toLowerCase() === 's' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      opts.toggleSettings();
+    }
+  };
+}
+
+function ToastStack({
+  toasts,
+  dismissToast,
+}: {
+  toasts: Toast[];
+  dismissToast: (id: number) => void;
+}) {
+  return (
+    <div className="fixed bottom-6 right-6 z-[90] flex flex-col gap-2">
+      <AnimatePresence>
+        {toasts.map((t) => (
+          <motion.div
+            key={t.id}
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4 }}
+            className={`flex max-w-[340px] items-start gap-3 rounded-2xl border px-4 py-3 text-sm shadow-2xl backdrop-blur ${
+              t.type === 'error'
+                ? 'border-red-500/30 bg-red-950/80 text-red-200'
+                : t.type === 'success'
+                  ? 'border-emerald-500/30 bg-emerald-950/70 text-emerald-200'
+                  : 'border-white/10 bg-zinc-900/95 text-white'
+            }`}
+          >
+            <div className="flex-1 pt-px">{t.message}</div>
+            <button onClick={() => dismissToast(t.id)} className="text-white/40 hover:text-white">
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function SettingsPanel(props: {
+  showSettings: boolean;
+  onClose: () => void;
+  autoRefreshEnabled: boolean;
+  toggleAutoRefresh: (enabled: boolean) => void;
+  lastAutoRefresh: number | null;
+  nextAutoLabel: string;
+  runAutoRefreshNow: () => Promise<void>;
+  onImportClick: () => void;
+  onExport: () => void;
+  onClearAll: () => void;
+  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
+}) {
+  const {
+    showSettings,
+    onClose,
+    autoRefreshEnabled,
+    toggleAutoRefresh,
+    lastAutoRefresh,
+    nextAutoLabel,
+    runAutoRefreshNow,
+    onImportClick,
+    onExport,
+    onClearAll,
+    onFileChange,
+    fileInputRef,
+  } = props;
+  return (
+    <AnimatePresence>
+      {showSettings ? (
+        <div
+          className="fixed inset-0 z-[80] flex items-start justify-center bg-black/70 pt-16"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="w-full max-w-lg rounded-3xl border border-white/10 bg-zinc-950 p-7"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between">
+              <div className="font-semibold text-xl tracking-tight">Preferences</div>
+              <button onClick={onClose}>
+                <X className="h-5 w-5 text-white/50" />
+              </button>
+            </div>
+
+            <div className="mt-6 space-y-6 text-sm">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <div className="font-medium">Weekly auto-refresh</div>
+                    <div className="text-xs text-white/50 mt-0.5">
+                      Only runs for sites you explicitly added (not the popular seed list).
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => toggleAutoRefresh(!autoRefreshEnabled)}
+                    className={`relative h-7 w-12 rounded-full transition ${autoRefreshEnabled ? 'bg-emerald-500' : 'bg-white/20'}`}
+                  >
+                    <div
+                      className={`absolute top-0.5 h-6 w-6 rounded-full bg-white transition ${autoRefreshEnabled ? 'left-[26px]' : 'left-0.5'}`}
+                    />
+                  </button>
+                </div>
+                <div className="rounded-2xl bg-white/5 p-4 text-xs leading-relaxed text-white/70">
+                  When the dashboard is open (or you return to the tab), if it’s been more than 7
+                  days since the last auto run, drank will quietly refresh only your custom sites.
+                  This is the closest thing to a “cron” while keeping 100% of your data in
+                  localStorage.
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 p-4 text-xs">
+                <div className="text-white/60">Last auto-refresh</div>
+                <div className="mt-1 text-white">
+                  {lastAutoRefresh
+                    ? formatDate(lastAutoRefresh)
+                    : 'Never (will run on next visit if enabled)'}
+                </div>
+                <div className="mt-3 text-white/60">Next expected</div>
+                <div className="mt-1 text-emerald-400">{nextAutoLabel}</div>
+              </div>
+
+              <div>
+                <button
+                  onClick={async () => {
+                    await runAutoRefreshNow();
+                  }}
+                  className="w-full rounded-2xl bg-white/10 py-3 text-sm font-medium hover:bg-white/15 active:bg-white/10"
+                >
+                  Run weekly refresh for my sites now
+                </button>
+              </div>
+
+              <div className="flex gap-2 pt-2">
+                <button
+                  onClick={onImportClick}
+                  className="flex-1 rounded-2xl border border-white/10 py-2.5 text-xs"
+                >
+                  Import JSON
+                </button>
+                <button
+                  onClick={onExport}
+                  className="flex-1 rounded-2xl border border-white/10 py-2.5 text-xs"
+                >
+                  Export JSON
+                </button>
+                <button
+                  onClick={onClearAll}
+                  className="flex-1 rounded-2xl border border-red-900/60 py-2.5 text-xs text-red-400"
+                >
+                  Clear everything
+                </button>
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="application/json"
+                className="hidden"
+                onChange={onFileChange}
+              />
+            </div>
+
+            <div className="mt-8 text-center text-[10px] text-white/40">
+              All data and settings are stored only in your browser.
+            </div>
+          </motion.div>
+        </div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+function DomainDetailModal(props: {
+  selected: TrackedDomain | null;
+  onClose: () => void;
+  advisorRequest: DrAdvisorRequest | null;
+  updating: Set<string>;
+  onRefresh: (domain: string) => Promise<void>;
+  onRemove: (domain: string) => void;
+}) {
+  const { selected, onClose, advisorRequest, updating, onRefresh, onRemove } = props;
+  return (
+    <AnimatePresence>
+      {selected ? (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: 4 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.18 }}
+            className="max-h-[92vh] w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-center justify-between border-b border-white/10 px-7 py-5">
+              <div className="flex items-center gap-4">
+                <img src={getFaviconUrl(selected.domain)} className="h-8 w-8 rounded-lg" alt="" />
+                <div>
+                  <div className="font-mono text-lg text-white">{selected.domain}</div>
+                  <div className="text-xs text-white/50">
+                    {selected.isCustom ? 'Your site • auto-refreshes weekly' : 'Popular site'}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                {(() => {
+                  const dr = getCurrentDR(selected);
+                  return (
+                    <div
+                      className={`text-right text-6xl font-semibold tabular-nums tracking-[-2.5px] ${getDRColor(dr).text}`}
+                    >
+                      {dr != null ? dr.toFixed(1) : '—'}
+                    </div>
+                  );
+                })()}
+                <button
+                  onClick={onClose}
+                  className="rounded-full p-2 text-white/60 hover:bg-white/10"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="max-h-[72vh] overflow-y-auto p-7">
+              {/* Chart */}
+              {selected.history.length >= 2 ? (
+                <div className="h-80 w-full rounded-2xl border border-white/10 bg-zinc-900/60 p-4">
+                  <Suspense
+                    fallback={
+                      <div className="h-full animate-pulse rounded-xl bg-zinc-800/40" aria-hidden />
+                    }
+                  >
+                    <DrHistoryChart history={selected.history} />
+                  </Suspense>
+                </div>
+              ) : (
+                <div className="flex h-60 items-center justify-center rounded-2xl border border-dashed border-white/10 text-center text-sm text-white/50">
+                  Keep refreshing this domain over time to build a full history.
+                </div>
+              )}
+
+              {advisorRequest ? <DrAdvisor request={advisorRequest} /> : null}
+
+              {/* History list */}
+              <div className="mt-6">
+                <div className="mb-3 flex items-center justify-between text-xs uppercase tracking-widest text-white/50">
+                  <div>HISTORY • {selected.history.length} POINTS</div>
+                  <button
+                    onClick={() => onRefresh(selected.domain)}
+                    disabled={updating.has(selected.domain)}
+                    className="flex items-center gap-1.5 rounded-xl border border-white/10 px-3 py-1 text-[11px] normal-case hover:bg-white/5"
+                  >
+                    <RefreshCw
+                      className={`h-3 w-3 ${updating.has(selected.domain) ? 'animate-spin' : ''}`}
+                    />{' '}
+                    REFRESH NOW
+                  </button>
+                </div>
+
+                <div className="max-h-[220px] overflow-auto rounded-2xl border border-white/10 bg-zinc-900/40 text-sm">
+                  <table className="w-full">
+                    <thead className="sticky top-0 bg-zinc-950/90 text-xs text-white/50">
+                      <tr>
+                        <th className="px-5 py-3 text-left font-normal">DATE</th>
+                        <th className="px-5 py-3 text-left font-normal">DR</th>
+                        <th className="px-5 py-3 text-left font-normal">CHANGE</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/10">
+                      {[...selected.history].reverse().map((p, i, arr) => {
+                        const prev = arr[i + 1];
+                        const delta = prev ? p.dr - prev.dr : null;
+                        return (
+                          <tr key={p.ts}>
+                            <td className="px-5 py-2.5 text-white/70 tabular-nums">
+                              {formatDate(p.ts)}
+                            </td>
+                            <td className="px-5 py-2.5 font-medium tabular-nums text-white">
+                              {p.dr.toFixed(1)}
+                            </td>
+                            <td className="px-5 py-2.5">
+                              {delta === null ? (
+                                <span className="text-white/40">—</span>
+                              ) : (
+                                <span
+                                  className={
+                                    delta > 0
+                                      ? 'text-emerald-400'
+                                      : delta < 0
+                                        ? 'text-red-400'
+                                        : 'text-white/40'
+                                  }
+                                >
+                                  {delta > 0 ? '+' : ''}
+                                  {delta.toFixed(1)}
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                      {selected.history.length === 0 && (
+                        <tr>
+                          <td colSpan={3} className="px-5 py-8 text-center text-white/50">
+                            No measurements recorded yet.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between border-t border-white/10 bg-zinc-900/70 px-7 py-4">
+              {selected?.isCustom ? (
+                <button
+                  onClick={() => {
+                    if (confirm(`Remove ${selected.domain}?`)) onRemove(selected.domain);
+                  }}
+                  className="text-sm text-red-400/80 hover:text-red-400 flex items-center gap-2"
+                >
+                  <Trash2 className="h-4 w-4" /> Remove this domain
+                </button>
+              ) : (
+                <div className="text-xs text-emerald-400/70">
+                  This is a shared global example (updated by GitHub Action)
+                </div>
+              )}
+
+              <div className="flex gap-2">
+                <button
+                  onClick={onClose}
+                  className="rounded-2xl border border-white/10 px-6 py-2 text-sm hover:bg-white/5"
+                >
+                  Close
+                </button>
+                {selected?.isCustom ? (
+                  <button
+                    onClick={() => onRefresh(selected.domain)}
+                    disabled={updating.has(selected.domain)}
+                    className="rounded-2xl bg-white px-6 py-2 text-sm font-medium text-zinc-950 disabled:opacity-60"
+                  >
+                    Refresh now
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
 
 export default function Drank() {
   const {
@@ -251,28 +643,13 @@ export default function Drank() {
 
   // Keyboard shortcuts
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && !showSettings) {
-        e.preventDefault();
-        document.getElementById('search-input')?.focus();
-      }
-      if (
-        e.key.toLowerCase() === 'a' &&
-        document.activeElement?.tagName !== 'INPUT' &&
-        !showSettings
-      ) {
-        e.preventDefault();
-        addInputRef.current?.focus();
-      }
-      if (e.key === 'Escape') {
-        if (selectedDomain) closeSelectedDomain();
-        else if (showSettings) setShowSettings(false);
-      }
-      if (e.key.toLowerCase() === 's' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setShowSettings((v) => !v);
-      }
-    };
+    const onKey = createKeyboardHandler({
+      showSettings,
+      selectedDomain,
+      closeSelectedDomain,
+      toggleSettings: () => setShowSettings((v) => !v),
+      addInputRef,
+    });
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [selectedDomain, showSettings, closeSelectedDomain]);
@@ -1043,315 +1420,33 @@ export default function Drank() {
       </div>
 
       {/* ==================== DETAIL MODAL (more beautiful) ==================== */}
-      <AnimatePresence>
-        {selected ? (
-          <div
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4"
-            onClick={closeSelectedDomain}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: 4 }}
-              transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.18 }}
-              className="max-h-[92vh] w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal header */}
-              <div className="flex items-center justify-between border-b border-white/10 px-7 py-5">
-                <div className="flex items-center gap-4">
-                  <img src={getFaviconUrl(selected.domain)} className="h-8 w-8 rounded-lg" alt="" />
-                  <div>
-                    <div className="font-mono text-lg text-white">{selected.domain}</div>
-                    <div className="text-xs text-white/50">
-                      {selected.isCustom ? 'Your site • auto-refreshes weekly' : 'Popular site'}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  {(() => {
-                    const dr = getCurrentDR(selected);
-                    return (
-                      <div
-                        className={`text-right text-6xl font-semibold tabular-nums tracking-[-2.5px] ${getDRColor(dr).text}`}
-                      >
-                        {dr != null ? dr.toFixed(1) : '—'}
-                      </div>
-                    );
-                  })()}
-                  <button
-                    onClick={closeSelectedDomain}
-                    className="rounded-full p-2 text-white/60 hover:bg-white/10"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="max-h-[72vh] overflow-y-auto p-7">
-                {/* Chart */}
-                {selected.history.length >= 2 ? (
-                  <div className="h-80 w-full rounded-2xl border border-white/10 bg-zinc-900/60 p-4">
-                    <Suspense
-                      fallback={
-                        <div
-                          className="h-full animate-pulse rounded-xl bg-zinc-800/40"
-                          aria-hidden
-                        />
-                      }
-                    >
-                      <DrHistoryChart history={selected.history} />
-                    </Suspense>
-                  </div>
-                ) : (
-                  <div className="flex h-60 items-center justify-center rounded-2xl border border-dashed border-white/10 text-center text-sm text-white/50">
-                    Keep refreshing this domain over time to build a full history.
-                  </div>
-                )}
-
-                {selectedAdvisorRequest ? <DrAdvisor request={selectedAdvisorRequest} /> : null}
-
-                {/* History list */}
-                <div className="mt-6">
-                  <div className="mb-3 flex items-center justify-between text-xs uppercase tracking-widest text-white/50">
-                    <div>HISTORY • {selected.history.length} POINTS</div>
-                    <button
-                      onClick={() => refreshDomain(selected.domain)}
-                      disabled={updating.has(selected.domain)}
-                      className="flex items-center gap-1.5 rounded-xl border border-white/10 px-3 py-1 text-[11px] normal-case hover:bg-white/5"
-                    >
-                      <RefreshCw
-                        className={`h-3 w-3 ${updating.has(selected.domain) ? 'animate-spin' : ''}`}
-                      />{' '}
-                      REFRESH NOW
-                    </button>
-                  </div>
-
-                  <div className="max-h-[220px] overflow-auto rounded-2xl border border-white/10 bg-zinc-900/40 text-sm">
-                    <table className="w-full">
-                      <thead className="sticky top-0 bg-zinc-950/90 text-xs text-white/50">
-                        <tr>
-                          <th className="px-5 py-3 text-left font-normal">DATE</th>
-                          <th className="px-5 py-3 text-left font-normal">DR</th>
-                          <th className="px-5 py-3 text-left font-normal">CHANGE</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-white/10">
-                        {[...selected.history].reverse().map((p, i, arr) => {
-                          const prev = arr[i + 1];
-                          const delta = prev ? p.dr - prev.dr : null;
-                          return (
-                            <tr key={p.ts}>
-                              <td className="px-5 py-2.5 text-white/70 tabular-nums">
-                                {formatDate(p.ts)}
-                              </td>
-                              <td className="px-5 py-2.5 font-medium tabular-nums text-white">
-                                {p.dr.toFixed(1)}
-                              </td>
-                              <td className="px-5 py-2.5">
-                                {delta === null ? (
-                                  <span className="text-white/40">—</span>
-                                ) : (
-                                  <span
-                                    className={
-                                      delta > 0
-                                        ? 'text-emerald-400'
-                                        : delta < 0
-                                          ? 'text-red-400'
-                                          : 'text-white/40'
-                                    }
-                                  >
-                                    {delta > 0 ? '+' : ''}
-                                    {delta.toFixed(1)}
-                                  </span>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
-                        {selected.history.length === 0 && (
-                          <tr>
-                            <td colSpan={3} className="px-5 py-8 text-center text-white/50">
-                              No measurements recorded yet.
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between border-t border-white/10 bg-zinc-900/70 px-7 py-4">
-                {selected?.isCustom ? (
-                  <button
-                    onClick={() => {
-                      if (confirm(`Remove ${selected.domain}?`)) removeDomain(selected.domain);
-                    }}
-                    className="text-sm text-red-400/80 hover:text-red-400 flex items-center gap-2"
-                  >
-                    <Trash2 className="h-4 w-4" /> Remove this domain
-                  </button>
-                ) : (
-                  <div className="text-xs text-emerald-400/70">
-                    This is a shared global example (updated by GitHub Action)
-                  </div>
-                )}
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={closeSelectedDomain}
-                    className="rounded-2xl border border-white/10 px-6 py-2 text-sm hover:bg-white/5"
-                  >
-                    Close
-                  </button>
-                  {selected?.isCustom ? (
-                    <button
-                      onClick={() => refreshDomain(selected.domain)}
-                      disabled={updating.has(selected.domain)}
-                      className="rounded-2xl bg-white px-6 py-2 text-sm font-medium text-zinc-950 disabled:opacity-60"
-                    >
-                      Refresh now
-                    </button>
-                  ) : null}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        ) : null}
-      </AnimatePresence>
+      <DomainDetailModal
+        selected={selected}
+        onClose={closeSelectedDomain}
+        advisorRequest={selectedAdvisorRequest}
+        updating={updating}
+        onRefresh={refreshDomain}
+        onRemove={removeDomain}
+      />
 
       {/* ==================== SETTINGS / PREFERENCES (the "cron" controls) ==================== */}
-      <AnimatePresence>
-        {showSettings ? (
-          <div
-            className="fixed inset-0 z-[80] flex items-start justify-center bg-black/70 pt-16"
-            onClick={() => setShowSettings(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              className="w-full max-w-lg rounded-3xl border border-white/10 bg-zinc-950 p-7"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between">
-                <div className="font-semibold text-xl tracking-tight">Preferences</div>
-                <button onClick={() => setShowSettings(false)}>
-                  <X className="h-5 w-5 text-white/50" />
-                </button>
-              </div>
-
-              <div className="mt-6 space-y-6 text-sm">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div>
-                      <div className="font-medium">Weekly auto-refresh</div>
-                      <div className="text-xs text-white/50 mt-0.5">
-                        Only runs for sites you explicitly added (not the popular seed list).
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => toggleAutoRefresh(!autoRefreshEnabled)}
-                      className={`relative h-7 w-12 rounded-full transition ${autoRefreshEnabled ? 'bg-emerald-500' : 'bg-white/20'}`}
-                    >
-                      <div
-                        className={`absolute top-0.5 h-6 w-6 rounded-full bg-white transition ${autoRefreshEnabled ? 'left-[26px]' : 'left-0.5'}`}
-                      />
-                    </button>
-                  </div>
-                  <div className="rounded-2xl bg-white/5 p-4 text-xs leading-relaxed text-white/70">
-                    When the dashboard is open (or you return to the tab), if it’s been more than 7
-                    days since the last auto run, drank will quietly refresh only your custom sites.
-                    This is the closest thing to a “cron” while keeping 100% of your data in
-                    localStorage.
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 p-4 text-xs">
-                  <div className="text-white/60">Last auto-refresh</div>
-                  <div className="mt-1 text-white">
-                    {lastAutoRefresh
-                      ? formatDate(lastAutoRefresh)
-                      : 'Never (will run on next visit if enabled)'}
-                  </div>
-                  <div className="mt-3 text-white/60">Next expected</div>
-                  <div className="mt-1 text-emerald-400">{nextAutoLabel}</div>
-                </div>
-
-                <div>
-                  <button
-                    onClick={async () => {
-                      await runAutoRefreshNow();
-                    }}
-                    className="w-full rounded-2xl bg-white/10 py-3 text-sm font-medium hover:bg-white/15 active:bg-white/10"
-                  >
-                    Run weekly refresh for my sites now
-                  </button>
-                </div>
-
-                <div className="flex gap-2 pt-2">
-                  <button
-                    onClick={handleImportClick}
-                    className="flex-1 rounded-2xl border border-white/10 py-2.5 text-xs"
-                  >
-                    Import JSON
-                  </button>
-                  <button
-                    onClick={exportData}
-                    className="flex-1 rounded-2xl border border-white/10 py-2.5 text-xs"
-                  >
-                    Export JSON
-                  </button>
-                  <button
-                    onClick={clearAll}
-                    className="flex-1 rounded-2xl border border-red-900/60 py-2.5 text-xs text-red-400"
-                  >
-                    Clear everything
-                  </button>
-                </div>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="application/json"
-                  className="hidden"
-                  onChange={handleFileChange}
-                />
-              </div>
-
-              <div className="mt-8 text-center text-[10px] text-white/40">
-                All data and settings are stored only in your browser.
-              </div>
-            </motion.div>
-          </div>
-        ) : null}
-      </AnimatePresence>
+      <SettingsPanel
+        showSettings={showSettings}
+        onClose={() => setShowSettings(false)}
+        autoRefreshEnabled={autoRefreshEnabled}
+        toggleAutoRefresh={toggleAutoRefresh}
+        lastAutoRefresh={lastAutoRefresh}
+        nextAutoLabel={nextAutoLabel}
+        runAutoRefreshNow={runAutoRefreshNow}
+        onImportClick={handleImportClick}
+        onExport={exportData}
+        onClearAll={clearAll}
+        onFileChange={handleFileChange}
+        fileInputRef={fileInputRef}
+      />
 
       {/* Beautiful toasts */}
-      <div className="fixed bottom-6 right-6 z-[90] flex flex-col gap-2">
-        <AnimatePresence>
-          {toasts.map((t) => (
-            <motion.div
-              key={t.id}
-              initial={{ opacity: 0, y: 8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 4 }}
-              className={`flex max-w-[340px] items-start gap-3 rounded-2xl border px-4 py-3 text-sm shadow-2xl backdrop-blur ${
-                t.type === 'error'
-                  ? 'border-red-500/30 bg-red-950/80 text-red-200'
-                  : t.type === 'success'
-                    ? 'border-emerald-500/30 bg-emerald-950/70 text-emerald-200'
-                    : 'border-white/10 bg-zinc-900/95 text-white'
-              }`}
-            >
-              <div className="flex-1 pt-px">{t.message}</div>
-              <button onClick={() => dismissToast(t.id)} className="text-white/40 hover:text-white">
-                <X className="h-3.5 w-3.5" />
-              </button>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+      <ToastStack toasts={toasts} dismissToast={dismissToast} />
     </div>
   );
 }

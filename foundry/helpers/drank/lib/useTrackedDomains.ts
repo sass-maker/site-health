@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  calculateStats,
   exportState,
   fetchDomainRating,
   importState,
@@ -559,20 +560,7 @@ export function useTrackedDomains(): UseTrackedDomainsReturn {
     return sortDomains(result, sortMode);
   }, [domains, search, sortMode]);
 
-  const stats = useMemo(() => {
-    const withDR = domains
-      .map((d) => (d.history.length > 0 ? d.history[d.history.length - 1].dr : null))
-      .filter((n): n is number => n !== null);
-
-    return {
-      count: domains.length,
-      avg: withDR.length
-        ? Number((withDR.reduce((a, b) => a + b, 0) / withDR.length).toFixed(1))
-        : null,
-      max: withDR.length ? Math.max(...withDR) : null,
-      totalMeasurements: domains.reduce((sum, d) => sum + d.history.length, 0),
-    };
-  }, [domains]);
+  const stats = useMemo(() => calculateStats(domains), [domains]);
 
   // Final clean return (auto fields included)
   return {
