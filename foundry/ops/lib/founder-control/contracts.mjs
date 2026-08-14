@@ -1,11 +1,11 @@
 import { randomUUID } from 'node:crypto';
 
-export const EVENT_SCHEMA_VERSION = 1;
-export const MAX_EVENT_BYTES = 16 * 1024;
-export const MAX_EVIDENCE_POINTERS = 20;
-export const MAX_STRING_LENGTH = 2_000;
+const EVENT_SCHEMA_VERSION = 1;
+const MAX_EVENT_BYTES = 16 * 1024;
+const MAX_EVIDENCE_POINTERS = 20;
+const MAX_STRING_LENGTH = 2_000;
 
-export const EVENT_TYPES = new Set([
+const EVENT_TYPES = new Set([
   'project.registered',
   'objective.created',
   'mission.drafted',
@@ -35,10 +35,10 @@ export const EVENT_TYPES = new Set([
   'event.corrected',
 ]);
 
-export const ACTOR_TYPES = new Set(['owner', 'agent', 'automation', 'provider']);
-export const VISIBILITY_CLASSES = new Set(['private', 'aggregate-public']);
-export const EVIDENCE_STATES = new Set(['verified', 'unverified', 'stale', 'unavailable']);
-export const DECISION_RESPONSES = new Set(['approve', 'reject', 'clarify', 'defer', 'acknowledge']);
+const ACTOR_TYPES = new Set(['owner', 'agent', 'automation', 'provider']);
+const VISIBILITY_CLASSES = new Set(['private', 'aggregate-public']);
+const EVIDENCE_STATES = new Set(['verified', 'unverified', 'stale', 'unavailable']);
+const DECISION_RESPONSES = new Set(['approve', 'reject', 'clarify', 'defer', 'acknowledge']);
 
 const identifierPattern = /^[a-zA-Z0-9][a-zA-Z0-9._:/-]{0,159}$/;
 const unsafeKeyPattern =

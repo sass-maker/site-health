@@ -14,26 +14,26 @@ import {
   sep,
 } from 'node:path';
 
-export const CATALOG_SCHEMA_VERSION = 2;
-export const EXECUTION_PROFILE_SCHEMA = 'fleet.skill-execution-profile.v1';
+const CATALOG_SCHEMA_VERSION = 2;
+const EXECUTION_PROFILE_SCHEMA = 'fleet.skill-execution-profile.v1';
 export const CAPABILITY_TYPES = Object.freeze([
   'skill',
   'script',
   'template',
   'doc',
 ]);
-export const INTELLIGENCE_LEVELS = Object.freeze([
+const INTELLIGENCE_LEVELS = Object.freeze([
   'economy',
   'balanced',
   'frontier',
 ]);
-export const REASONING_LEVELS = Object.freeze([
+const REASONING_LEVELS = Object.freeze([
   'low',
   'medium',
   'high',
   'very_high',
 ]);
-export const DEGRADATION_POLICIES = Object.freeze([
+const DEGRADATION_POLICIES = Object.freeze([
   'allow',
   'ask',
   'deny',
@@ -460,7 +460,7 @@ export function buildCatalog(opsRoot = resolve(import.meta.dirname, '..')) {
   };
 }
 
-export function publicItem(item) {
+function publicItem(item) {
   const value = {
     id: item.id,
     type: item.type,
@@ -478,7 +478,7 @@ export function listCapabilities(catalog, { type } = {}) {
     .map(publicItem);
 }
 
-export function normalizeText(value = '') {
+function normalizeText(value = '') {
   return value
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')

@@ -22,6 +22,7 @@ function json(response, status, body) {
     'cache-control': 'no-store',
   });
   response.end(encoded);
+  return true;
 }
 
 function safeEqual(left, right) {
@@ -416,72 +417,221 @@ export function createFounderControlHandler({
     return connectionCache.payload;
   };
   if (prewarmConnections) rebuildConnections();
+  const handleEarlyRoutes = (url, method, response) => {
+    if (method === 'GET' && url.pathname === '/health') {
+      return json(response, 200, { ok: true, service: 'founder-control', database: 'available' });
+    }
+    const skillRunOutputMatch = url.pathname.match(/^\/v1\/skill-runs\/([^/]+)\/output$/);
+    if (method === 'GET' && skillRunOutputMatch) {
+      return json(
+        response,
+        200,
+        skillRunOutputProvider({ runId: decodeURIComponent(skillRunOutputMatch[1]) }),
+      );
+    }
+    const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
+    if (method === 'GET' && metricRunMatch) {
+      const run = resolvedMetricRunController.get(decodeURIComponent(metricRunMatch[1]));
+      if (run && run.state !== 'running' && !completedMetricRuns.has(run.runId)) {
+        completedMetricRuns.add(run.runId);
+        connectionCache = null;
+      }
+      return run
+        ? json(response, 200, run)
+        : json(response, 404, { error: 'metric run not found' });
+    }
+    return false;
+  };
+  const handleProjectionReadRoutes = (url, projections, response) => {
+    if (url.pathname === '/v1/home') return json(response, 200, projections.home);
+    if (url.pathname === '/v1/missions') return json(response, 200, projections.missions);
+    if (url.pathname.startsWith('/v1/missions/')) {
+      const missionId = decodeURIComponent(url.pathname.slice('/v1/missions/'.length));
+      const mission = findMission(projections, missionId);
+      return mission ? json(response, 200, mission) : json(response, 404, { error: 'mission not found' });
+    }
+    if (url.pathname === '/v1/decisions') return json(response, 200, projections.decisions);
+    if (url.pathname === '/v1/activity') return json(response, 200, projections.activity);
+    if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
+    if (url.pathname === '/v1/schedules') return json(response, 200, projections.schedules);
+    if (url.pathname === '/v1/daily-brief') {
+      return json(response, 200, buildDailyBrief(projections));
+    }
+    if (url.pathname === '/v1/notifications') {
+      return json(response, 200, buildOwnerNotifications(projections, { now: now() }));
+    }
+    if (url.pathname === '/v1/marketing') {
+      return json(
+        response,
+        200,
+        buildMarketingProjection(projections, visibilityPortfolio, visibilityScheduleActivation),
+      );
+    }
+    const outcomeMatch = url.pathname.match(
+      /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing|growth)$/,
+    );
+    if (outcomeMatch) {
+      return json(
+        response,
+        200,
+        outcomeProjection(cachedConnections(projections), outcomeMatch[1]),
+      );
+    }
+    if (url.pathname === '/v1/connections') {
+      return json(response, 200, cachedConnections(projections));
+    }
+    return false;
+  };
+  const handleMissionDraftMutations = async (url, method, request, response) => {
+    if (method === 'POST' && url.pathname === '/v1/metric-runs') {
+      const body = await readBody(request);
+      return json(response, 202, resolvedMetricRunController.start({
+        family: String(body.family ?? ''),
+        projectId: String(body.projectId ?? ''),
+        scope: String(body.scope ?? 'project'),
+      }));
+    }
+    if (method === 'POST' && url.pathname === '/v1/missions/draft') {
+      const body = await readBody(request);
+      const drafted = draftMission(body, { projects: store.projects, now: now() });
+      const mission = store.append(drafted.event);
+      if (drafted.decision) store.append(drafted.decision);
+      if (body.readOnly === true) {
+        store.append({
+          type: 'mission.accepted',
+          actor: { type: 'owner', id: 'founder', label: 'Founder' },
+          missionId: mission.event.missionId,
+          projectId: mission.event.projectId,
+          idempotencyKey: `${mission.event.idempotencyKey}/read-only-accepted`,
+          payload: { reason: 'Explicitly read-only mission' },
+        });
+      }
+      return json(response, 201, findMission(projectionFor(store), mission.event.missionId));
+    }
+    return false;
+  };
+  const handleMissionTransitionMutations = async (url, method, projections, request, response) => {
+    const acceptanceMatch = url.pathname.match(/^\/v1\/missions\/(.+)\/accept$/);
+    if (method === 'POST' && acceptanceMatch) {
+      const missionId = decodeURIComponent(acceptanceMatch[1]);
+      const mission = findMission(projections, missionId);
+      if (!mission) return json(response, 404, { error: 'mission not found' });
+      store.append({
+        type: 'mission.accepted',
+        actor: { type: 'owner', id: 'founder', label: 'Founder' },
+        missionId,
+        ...(mission.projectId ? { projectId: mission.projectId } : {}),
+        idempotencyKey: `mission-accept/${missionId}`,
+        payload: { reason: 'Accepted through Founder control' },
+        occurredAt: now(),
+      });
+      return json(response, 200, findMission(projectionFor(store), missionId));
+    }
+    const transitionMatch = url.pathname.match(
+      /^\/v1\/missions\/(.+)\/(start|progress|block|await-verification|complete|cancel)$/,
+    );
+    if (method === 'POST' && transitionMatch) {
+      const missionId = decodeURIComponent(transitionMatch[1]);
+      const action = transitionMatch[2];
+      const mission = findMission(projections, missionId);
+      if (!mission) return json(response, 404, { error: 'mission not found' });
+      const body = await readBody(request);
+      const eventSuffix = {
+        start: 'started',
+        progress: 'progressed',
+        block: 'blocked',
+        'await-verification': 'awaiting-verification',
+        complete: 'completed',
+        cancel: 'cancelled',
+      }[action];
+      const occurredAt = now();
+      store.append({
+        type: `mission.${eventSuffix}`,
+        actor: body.actor ?? { type: 'automation', id: 'foundry-control', label: 'Foundry control' },
+        missionId,
+        ...(mission.projectId ? { projectId: mission.projectId } : {}),
+        idempotencyKey: body.idempotencyKey ?? `mission-${eventSuffix}/${missionId}/${occurredAt}`,
+        occurredAt,
+        payload: transitionPayload(eventSuffix, body),
+        evidence: body.evidence ?? [],
+      });
+      return json(response, 200, findMission(projectionFor(store), missionId));
+    }
+    return false;
+  };
+  const handleDecisionMutations = async (url, method, projections, request, response) => {
+    const decisionMatch = url.pathname.match(/^\/v1\/decisions\/(.+)\/respond$/);
+    if (method === 'POST' && decisionMatch) {
+      const decisionId = decodeURIComponent(decisionMatch[1]);
+      const decision = projections.decisions.find((item) => item.id === decisionId);
+      if (!decision) return json(response, 404, { error: 'decision not found' });
+      const body = await readBody(request);
+      store.append({
+        type: body.response === 'reject' ? 'decision.rejected' : 'decision.resolved',
+        actor: { type: 'owner', id: 'founder', label: 'Founder' },
+        ...(decision.missionId ? { missionId: decision.missionId } : {}),
+        ...(decision.projectId ? { projectId: decision.projectId } : {}),
+        idempotencyKey: `decision-response/${decisionId}/${body.response}`,
+        occurredAt: now(),
+        payload: {
+          decisionId,
+          ...(body.response === 'reject' ? {} : { response: body.response }),
+          scope: decision.scope,
+          ...(body.rationale ? { rationale: String(body.rationale) } : {}),
+        },
+      });
+      return json(response, 200, projectionFor(store).decisions.find((item) => item.id === decisionId));
+    }
+    const recommendationMatch = url.pathname.match(/^\/v1\/recommendations\/(.+)\/(accept|reject|snooze|refine)$/);
+    if (method === 'POST' && recommendationMatch) {
+      const [, encodedId, action] = recommendationMatch;
+      const recommendationId = decodeURIComponent(encodedId);
+      const item = projections.recommendations.find((recommendation) => recommendation.id === recommendationId);
+      if (!item) return json(response, 404, { error: 'recommendation not found' });
+      const body = await readBody(request);
+      const suffix = action === 'accept' ? 'accepted' : action === 'reject' ? 'rejected' : action === 'snooze' ? 'snoozed' : 'refined';
+      store.append({
+        type: `recommendation.${suffix}`,
+        actor: { type: 'owner', id: 'founder', label: 'Founder' },
+        ...(item.projectId ? { projectId: item.projectId } : {}),
+        ...(item.missionId ? { missionId: item.missionId } : {}),
+        idempotencyKey: `recommendation-${action}/${recommendationId}/${body.until ?? 'now'}`,
+        occurredAt: now(),
+        payload: {
+          recommendationId,
+          ...(action === 'snooze' ? { until: body.until } : {}),
+          ...(action === 'refine' ? { changes: body.changes ?? {} } : {}),
+        },
+      });
+      let mission = null;
+      if (action === 'accept') {
+        const drafted = draftMission(
+          {
+            title: item.title,
+            outcome: item.rationale,
+            projectId: item.projectId,
+          },
+          { projects: store.projects, now: now() },
+        );
+        mission = store.append(drafted.event).event;
+      }
+      return json(response, 200, { recommendation: recommendationId, action, missionId: mission?.missionId ?? null });
+    }
+    if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
+      const rebuilt = projectionFor(store);
+      rebuildConnections(rebuilt);
+      return json(response, 200, rebuilt);
+    }
+    return false;
+  };
   return async function founderControlHandler(request, response) {
     try {
       const url = new URL(request.url, 'http://foundry.local');
       const method = request.method ?? 'GET';
-      if (method === 'GET' && url.pathname === '/health') {
-        return json(response, 200, { ok: true, service: 'founder-control', database: 'available' });
-      }
-
-      const skillRunOutputMatch = url.pathname.match(/^\/v1\/skill-runs\/([^/]+)\/output$/);
-      if (method === 'GET' && skillRunOutputMatch) {
-        return json(
-          response,
-          200,
-          skillRunOutputProvider({ runId: decodeURIComponent(skillRunOutputMatch[1]) }),
-        );
-      }
-      const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
-      if (method === 'GET' && metricRunMatch) {
-        const run = resolvedMetricRunController.get(decodeURIComponent(metricRunMatch[1]));
-        if (run && run.state !== 'running' && !completedMetricRuns.has(run.runId)) {
-          completedMetricRuns.add(run.runId);
-          connectionCache = null;
-        }
-        return run
-          ? json(response, 200, run)
-          : json(response, 404, { error: 'metric run not found' });
-      }
+      if (handleEarlyRoutes(url, method, response)) return;
 
       const projections = projectionFor(store);
-      if (method === 'GET' && url.pathname === '/v1/home') return json(response, 200, projections.home);
-      if (method === 'GET' && url.pathname === '/v1/missions') return json(response, 200, projections.missions);
-      if (method === 'GET' && url.pathname.startsWith('/v1/missions/')) {
-        const missionId = decodeURIComponent(url.pathname.slice('/v1/missions/'.length));
-        const mission = findMission(projections, missionId);
-        return mission ? json(response, 200, mission) : json(response, 404, { error: 'mission not found' });
-      }
-      if (method === 'GET' && url.pathname === '/v1/decisions') return json(response, 200, projections.decisions);
-      if (method === 'GET' && url.pathname === '/v1/activity') return json(response, 200, projections.activity);
-      if (method === 'GET' && url.pathname === '/v1/projects') return json(response, 200, projections.projects);
-      if (method === 'GET' && url.pathname === '/v1/schedules') return json(response, 200, projections.schedules);
-      if (method === 'GET' && url.pathname === '/v1/daily-brief') {
-        return json(response, 200, buildDailyBrief(projections));
-      }
-      if (method === 'GET' && url.pathname === '/v1/notifications') {
-        return json(response, 200, buildOwnerNotifications(projections, { now: now() }));
-      }
-      if (method === 'GET' && url.pathname === '/v1/marketing') {
-        return json(
-          response,
-          200,
-          buildMarketingProjection(projections, visibilityPortfolio, visibilityScheduleActivation),
-        );
-      }
-      const outcomeMatch = url.pathname.match(
-        /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing|growth)$/,
-      );
-      if (method === 'GET' && outcomeMatch) {
-        return json(
-          response,
-          200,
-          outcomeProjection(cachedConnections(projections), outcomeMatch[1]),
-        );
-      }
-      if (method === 'GET' && url.pathname === '/v1/connections') {
-        return json(response, 200, cachedConnections(projections));
-      }
+      if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
 
       if (
         method !== 'GET' &&
@@ -495,145 +645,9 @@ export function createFounderControlHandler({
         return json(response, 401, { error: 'owner authentication required' });
       }
 
-      if (method === 'POST' && url.pathname === '/v1/metric-runs') {
-        const body = await readBody(request);
-        return json(response, 202, resolvedMetricRunController.start({
-          family: String(body.family ?? ''),
-          projectId: String(body.projectId ?? ''),
-          scope: String(body.scope ?? 'project'),
-        }));
-      }
-
-      if (method === 'POST' && url.pathname === '/v1/missions/draft') {
-        const body = await readBody(request);
-        const drafted = draftMission(body, { projects: store.projects, now: now() });
-        const mission = store.append(drafted.event);
-        if (drafted.decision) store.append(drafted.decision);
-        if (body.readOnly === true) {
-          store.append({
-            type: 'mission.accepted',
-            actor: { type: 'owner', id: 'founder', label: 'Founder' },
-            missionId: mission.event.missionId,
-            projectId: mission.event.projectId,
-            idempotencyKey: `${mission.event.idempotencyKey}/read-only-accepted`,
-            payload: { reason: 'Explicitly read-only mission' },
-          });
-        }
-        return json(response, 201, findMission(projectionFor(store), mission.event.missionId));
-      }
-
-      const acceptanceMatch = url.pathname.match(/^\/v1\/missions\/(.+)\/accept$/);
-      if (method === 'POST' && acceptanceMatch) {
-        const missionId = decodeURIComponent(acceptanceMatch[1]);
-        const mission = findMission(projections, missionId);
-        if (!mission) return json(response, 404, { error: 'mission not found' });
-        store.append({
-          type: 'mission.accepted',
-          actor: { type: 'owner', id: 'founder', label: 'Founder' },
-          missionId,
-          ...(mission.projectId ? { projectId: mission.projectId } : {}),
-          idempotencyKey: `mission-accept/${missionId}`,
-          payload: { reason: 'Accepted through Founder control' },
-          occurredAt: now(),
-        });
-        return json(response, 200, findMission(projectionFor(store), missionId));
-      }
-
-      const transitionMatch = url.pathname.match(
-        /^\/v1\/missions\/(.+)\/(start|progress|block|await-verification|complete|cancel)$/,
-      );
-      if (method === 'POST' && transitionMatch) {
-        const missionId = decodeURIComponent(transitionMatch[1]);
-        const action = transitionMatch[2];
-        const mission = findMission(projections, missionId);
-        if (!mission) return json(response, 404, { error: 'mission not found' });
-        const body = await readBody(request);
-        const eventSuffix = {
-          start: 'started',
-          progress: 'progressed',
-          block: 'blocked',
-          'await-verification': 'awaiting-verification',
-          complete: 'completed',
-          cancel: 'cancelled',
-        }[action];
-        const occurredAt = now();
-        store.append({
-          type: `mission.${eventSuffix}`,
-          actor: body.actor ?? { type: 'automation', id: 'foundry-control', label: 'Foundry control' },
-          missionId,
-          ...(mission.projectId ? { projectId: mission.projectId } : {}),
-          idempotencyKey: body.idempotencyKey ?? `mission-${eventSuffix}/${missionId}/${occurredAt}`,
-          occurredAt,
-          payload: transitionPayload(eventSuffix, body),
-          evidence: body.evidence ?? [],
-        });
-        return json(response, 200, findMission(projectionFor(store), missionId));
-      }
-
-      const decisionMatch = url.pathname.match(/^\/v1\/decisions\/(.+)\/respond$/);
-      if (method === 'POST' && decisionMatch) {
-        const decisionId = decodeURIComponent(decisionMatch[1]);
-        const decision = projections.decisions.find((item) => item.id === decisionId);
-        if (!decision) return json(response, 404, { error: 'decision not found' });
-        const body = await readBody(request);
-        store.append({
-          type: body.response === 'reject' ? 'decision.rejected' : 'decision.resolved',
-          actor: { type: 'owner', id: 'founder', label: 'Founder' },
-          ...(decision.missionId ? { missionId: decision.missionId } : {}),
-          ...(decision.projectId ? { projectId: decision.projectId } : {}),
-          idempotencyKey: `decision-response/${decisionId}/${body.response}`,
-          occurredAt: now(),
-          payload: {
-            decisionId,
-            ...(body.response === 'reject' ? {} : { response: body.response }),
-            scope: decision.scope,
-            ...(body.rationale ? { rationale: String(body.rationale) } : {}),
-          },
-        });
-        return json(response, 200, projectionFor(store).decisions.find((item) => item.id === decisionId));
-      }
-
-      const recommendationMatch = url.pathname.match(/^\/v1\/recommendations\/(.+)\/(accept|reject|snooze|refine)$/);
-      if (method === 'POST' && recommendationMatch) {
-        const [, encodedId, action] = recommendationMatch;
-        const recommendationId = decodeURIComponent(encodedId);
-        const item = projections.recommendations.find((recommendation) => recommendation.id === recommendationId);
-        if (!item) return json(response, 404, { error: 'recommendation not found' });
-        const body = await readBody(request);
-        const suffix = action === 'accept' ? 'accepted' : action === 'reject' ? 'rejected' : action === 'snooze' ? 'snoozed' : 'refined';
-        store.append({
-          type: `recommendation.${suffix}`,
-          actor: { type: 'owner', id: 'founder', label: 'Founder' },
-          ...(item.projectId ? { projectId: item.projectId } : {}),
-          ...(item.missionId ? { missionId: item.missionId } : {}),
-          idempotencyKey: `recommendation-${action}/${recommendationId}/${body.until ?? 'now'}`,
-          occurredAt: now(),
-          payload: {
-            recommendationId,
-            ...(action === 'snooze' ? { until: body.until } : {}),
-            ...(action === 'refine' ? { changes: body.changes ?? {} } : {}),
-          },
-        });
-        let mission = null;
-        if (action === 'accept') {
-          const drafted = draftMission(
-            {
-              title: item.title,
-              outcome: item.rationale,
-              projectId: item.projectId,
-            },
-            { projects: store.projects, now: now() },
-          );
-          mission = store.append(drafted.event).event;
-        }
-        return json(response, 200, { recommendation: recommendationId, action, missionId: mission?.missionId ?? null });
-      }
-
-      if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
-        const rebuilt = projectionFor(store);
-        rebuildConnections(rebuilt);
-        return json(response, 200, rebuilt);
-      }
+      if (await handleMissionDraftMutations(url, method, request, response)) return;
+      if (await handleMissionTransitionMutations(url, method, projections, request, response)) return;
+      if (await handleDecisionMutations(url, method, projections, request, response)) return;
       return json(response, 404, { error: 'route not found' });
     } catch (error) {
       return json(response, error.statusCode ?? (error.code ? 422 : 500), {

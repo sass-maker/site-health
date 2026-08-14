@@ -47,23 +47,23 @@ export function cloudflareEvidence(input) {
   return evidencePointer('cloudflare', input);
 }
 
-export function postizEvidence(input) {
+function postizEvidence(input) {
   return evidencePointer('postiz', input);
 }
 
-export function drankEvidence(input) {
+function drankEvidence(input) {
   return evidencePointer('drank', input);
 }
 
-export function psiSwarmEvidence(input) {
+function psiSwarmEvidence(input) {
   return evidencePointer('psi-swarm', input);
 }
 
-export function codeVetterEvidence(input) {
+function codeVetterEvidence(input) {
   return evidencePointer('codevetter', input);
 }
 
-export function appHealthEvidence(input) {
+function appHealthEvidence(input) {
   return evidencePointer('app-health', input);
 }
 

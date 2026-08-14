@@ -25,13 +25,13 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // lib/toolbox-automation → lib → ops → foundry → fleet root
 const FLEET_ROOT = resolve(__dirname, '../../../..');
-export const REGISTRY_PATH = join(
+const REGISTRY_PATH = join(
   FLEET_ROOT,
   'foundry/ops/config/significant-hobbies-toolbox.json'
 );
 
-export const SCHEMA = 'fleet.significant-hobbies-toolbox.v1';
-export const RUNTIMES = new Set([
+const SCHEMA = 'fleet.significant-hobbies-toolbox.v1';
+const RUNTIMES = new Set([
   'opennext-worker',
   'spa-hono-worker',
   'spa-hono-pages',
@@ -39,7 +39,7 @@ export const RUNTIMES = new Set([
   'next-static-pages',
   'spa-static-pages',
 ]);
-export const DEPLOY_KINDS = new Set(['pages', 'worker', 'worker+pages', 'none']);
+const DEPLOY_KINDS = new Set(['pages', 'worker', 'worker+pages', 'none']);
 export const CADENCES = new Set([
   'daily',
   'weekly',
@@ -49,7 +49,7 @@ export const CADENCES = new Set([
   'yearly',
   'on-demand',
 ]);
-export const REQUIRED_EVIDENCE_SOURCES = [
+const REQUIRED_EVIDENCE_SOURCES = [
   'build',
   'live',
   'indexing',
