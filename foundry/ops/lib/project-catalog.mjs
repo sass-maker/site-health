@@ -187,52 +187,65 @@ export function validateGeoIdentityContract(catalog, agentRegistry, inheritedErr
   for (const [id, identity] of identitiesById) {
     const project = projectsById.get(id);
     if (!project) continue;
-    const expectedName = project.public?.name ?? project.name;
-    const expectedOrigin = `https://${project.domains[0]}`;
-    if (identity.name !== expectedName) {
-      errors.push(`${id}: geo name ${identity.name ?? 'missing'} != ${expectedName}`);
-    }
-    if (normalizeUrl(identity.origin) !== normalizeUrl(expectedOrigin)) {
-      errors.push(`${id}: geo origin ${identity.origin ?? 'missing'} != ${expectedOrigin}`);
-    }
-    validateAliases(id, identity, errors);
-    validateGeoSource(id, identity.source, project, errors);
-    validateGeoDocs(id, identity.docs, errors);
-    validateHttpsList(id, 'officialProfiles', identity.officialProfiles, errors);
-
-    if (!GEO_PRIMARY_AVAILABILITY.has(identity.availability?.primary)) {
-      errors.push(`${id}: invalid primary availability ${identity.availability?.primary}`);
-    }
-    if (!GEO_APP_STORE_STATE.has(identity.availability?.appStore)) {
-      errors.push(`${id}: invalid App Store state ${identity.availability?.appStore}`);
-    }
-    if (identity.availability?.appStore === 'listed' && !isHttpsUrl(identity.availability?.appStoreUrl)) {
-      errors.push(`${id}: listed App Store availability requires appStoreUrl`);
-    }
-    if (!GEO_PRICING_STATE.has(identity.pricing?.state)) {
-      errors.push(`${id}: invalid pricing state ${identity.pricing?.state}`);
-    }
-    if (['free', 'published'].includes(identity.pricing?.state) && !isHttpsUrl(identity.pricing?.url)) {
-      errors.push(`${id}: ${identity.pricing?.state} pricing requires a public URL`);
-    }
-
-    const agent = agentById.get(id);
-    if (!agentRegistry || !agent) continue;
-    if (agent.name !== identity.name) {
-      errors.push(`${id}: agent name ${agent.name ?? 'missing'} != canonical ${identity.name}`);
-    }
-    if (normalizeUrl(agent.url) !== normalizeUrl(identity.origin)) {
-      errors.push(`${id}: agent URL ${agent.url ?? 'missing'} != canonical ${identity.origin}`);
-    }
-    if (!sameStringList(agent.sameAs ?? [], identity.officialProfiles ?? [])) {
-      errors.push(`${id}: agent sameAs does not match canonical officialProfiles`);
-    }
+    validateGeoIdentity(id, identity, project, errors);
+    if (agentRegistry) validateAgentGeoIdentity(id, identity, agentById.get(id), errors);
   }
 
   if (inheritedErrors == null && errors.length) {
     throw new Error(`GEO identity contract invalid:\n- ${errors.join('\n- ')}`);
   }
   return { projectCount: maintained.length };
+}
+
+function validateGeoIdentity(id, identity, project, errors) {
+  const expectedName = project.public?.name ?? project.name;
+  const expectedOrigin = `https://${project.domains[0]}`;
+  if (identity.name !== expectedName) {
+    errors.push(`${id}: geo name ${identity.name ?? 'missing'} != ${expectedName}`);
+  }
+  if (normalizeUrl(identity.origin) !== normalizeUrl(expectedOrigin)) {
+    errors.push(`${id}: geo origin ${identity.origin ?? 'missing'} != ${expectedOrigin}`);
+  }
+  validateAliases(id, identity, errors);
+  validateGeoSource(id, identity.source, project, errors);
+  validateGeoDocs(id, identity.docs, errors);
+  validateHttpsList(id, 'officialProfiles', identity.officialProfiles, errors);
+  validateGeoAvailability(id, identity.availability, errors);
+  validateGeoPricing(id, identity.pricing, errors);
+}
+
+function validateGeoAvailability(id, availability, errors) {
+  if (!GEO_PRIMARY_AVAILABILITY.has(availability?.primary)) {
+    errors.push(`${id}: invalid primary availability ${availability?.primary}`);
+  }
+  if (!GEO_APP_STORE_STATE.has(availability?.appStore)) {
+    errors.push(`${id}: invalid App Store state ${availability?.appStore}`);
+  }
+  if (availability?.appStore === 'listed' && !isHttpsUrl(availability?.appStoreUrl)) {
+    errors.push(`${id}: listed App Store availability requires appStoreUrl`);
+  }
+}
+
+function validateGeoPricing(id, pricing, errors) {
+  if (!GEO_PRICING_STATE.has(pricing?.state)) {
+    errors.push(`${id}: invalid pricing state ${pricing?.state}`);
+  }
+  if (['free', 'published'].includes(pricing?.state) && !isHttpsUrl(pricing?.url)) {
+    errors.push(`${id}: ${pricing?.state} pricing requires a public URL`);
+  }
+}
+
+function validateAgentGeoIdentity(id, identity, agent, errors) {
+  if (!agent) return;
+  if (agent.name !== identity.name) {
+    errors.push(`${id}: agent name ${agent.name ?? 'missing'} != canonical ${identity.name}`);
+  }
+  if (normalizeUrl(agent.url) !== normalizeUrl(identity.origin)) {
+    errors.push(`${id}: agent URL ${agent.url ?? 'missing'} != canonical ${identity.origin}`);
+  }
+  if (!sameStringList(agent.sameAs ?? [], identity.officialProfiles ?? [])) {
+    errors.push(`${id}: agent sameAs does not match canonical officialProfiles`);
+  }
 }
 
 function validateAliases(id, identity, errors) {
