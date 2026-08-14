@@ -33,13 +33,9 @@
       }
     },
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebSite",
       "@id": "https://setline.significanthobbies.com/#app",
-      "name": "Significant Hobbies",
-      "alternateName": [
-        "SignificantHobbies",
-        "significanthobbies.com"
-      ],
+      "name": "Setline",
       "url": "https://setline.significanthobbies.com",
       "description": "Mobile-first execution layer for following a structured workout programme precisely.",
       "publisher": {

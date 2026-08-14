@@ -34,15 +34,15 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://read.significanthobbies.com/#app",
-      "name": "Reader",
-      "url": "https://read.significanthobbies.com",
-      "description": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "@id": "https://local-ai-video-studio.sassmaker.com/#app",
+      "name": "Local AI Video Studio",
+      "url": "https://local-ai-video-studio.sassmaker.com",
+      "description": "A local-first Mac studio for comparing reproducible video-effect variants before export.",
       "publisher": {
         "@id": "https://sarthakagrawal.dev/#person"
       },
       "sameAs": [
-        "https://github.com/Significant-Hobbies/reader"
+        "https://github.com/sass-maker/local-ai-video-studio"
       ]
     }
   ]

@@ -33,13 +33,9 @@
       }
     },
     {
-      "@type": "WebApplication",
+      "@type": "WebSite",
       "@id": "https://india-standards.significanthobbies.com/#app",
-      "name": "Significant Hobbies",
-      "alternateName": [
-        "SignificantHobbies",
-        "significanthobbies.com"
-      ],
+      "name": "India Standards",
       "url": "https://india-standards.significanthobbies.com",
       "description": "Evidence-bounded demographic standards calculator using aggregate Indian survey data.",
       "publisher": {
