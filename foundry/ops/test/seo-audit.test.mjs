@@ -13,12 +13,29 @@ const auditScript = resolve(
   'foundry/ops/skills/seo-audit/scripts/seo-audit.sh',
 );
 
+async function serveFixture(t, html) {
+  const server = createServer((_request, response) => {
+    response.setHeader('content-type', 'text/html; charset=utf-8');
+    response.end(html);
+  });
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  t.after(
+    () =>
+      new Promise((resolveClose, rejectClose) => {
+        server.close((error) => (error ? rejectClose(error) : resolveClose()));
+      }),
+  );
+
+  const address = server.address();
+  assert.equal(typeof address, 'object');
+  return `http://127.0.0.1:${address.port}/`;
+}
+
 test('SEO audit parses multiline tags and attribute order without false failures', async (t) => {
   const description =
     'A complete product description that is deliberately long enough for the SEO audit metadata floor.';
-  const server = createServer((_request, response) => {
-    response.setHeader('content-type', 'text/html; charset=utf-8');
-    response.end(`<!doctype html>
+  const url = await serveFixture(t, `<!doctype html>
       <html lang="en">
         <head>
           <title>A complete multiline metadata fixture</title>
@@ -47,19 +64,6 @@ test('SEO audit parses multiline tags and attribute order without false failures
           <p>Visible fixture copy.</p>
         </body>
       </html>`);
-  });
-  server.listen(0, '127.0.0.1');
-  await once(server, 'listening');
-  t.after(
-    () =>
-      new Promise((resolveClose, rejectClose) => {
-        server.close((error) => (error ? rejectClose(error) : resolveClose()));
-      }),
-  );
-
-  const address = server.address();
-  assert.equal(typeof address, 'object');
-  const url = `http://127.0.0.1:${address.port}/`;
   const { stdout } = await execFileAsync('bash', [auditScript, url], {
     cwd: fleetRoot,
   });
@@ -74,6 +78,46 @@ test('SEO audit parses multiline tags and attribute order without false failures
   assert.match(stdout, /hreflang\s+PASS\s+none declared/);
   assert.match(stdout, /1 warnings/);
   assert.match(stdout, /all critical checks passed/);
+});
+
+test('SEO audit rejects application markup without rating or review evidence', async (t) => {
+  const url = await serveFixture(t, `<!doctype html>
+    <html lang="en">
+      <head>
+        <title>Application rich result fixture</title>
+        <script type="application/ld+json">
+          {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Fixture app","offers":{"@type":"Offer","price":"0"}}
+        </script>
+      </head>
+      <body><h1>Fixture app</h1></body>
+    </html>`);
+
+  await assert.rejects(
+    execFileAsync('bash', [auditScript, url], { cwd: fleetRoot }),
+    (error) => {
+      assert.match(error.stdout, /json-ld\s+FAIL\s+1 application nodes lack aggregateRating or review/);
+      return true;
+    },
+  );
+});
+
+test('SEO audit rejects malformed JSON-LD', async (t) => {
+  const url = await serveFixture(t, `<!doctype html>
+    <html lang="en">
+      <head>
+        <title>Malformed structured data fixture</title>
+        <script type="application/ld+json">{"@type":"WebSite",}</script>
+      </head>
+      <body><h1>Fixture site</h1></body>
+    </html>`);
+
+  await assert.rejects(
+    execFileAsync('bash', [auditScript, url], { cwd: fleetRoot }),
+    (error) => {
+      assert.match(error.stdout, /json-ld\s+FAIL\s+1 of 1 blocks contain invalid JSON/);
+      return true;
+    },
+  );
 });
 
 test('SEO audit fails when the page cannot be fetched', async () => {

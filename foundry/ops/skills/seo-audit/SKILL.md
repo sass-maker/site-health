@@ -84,7 +84,7 @@ bash foundry/ops/skills/seo-audit/scripts/seo-audit.sh https://vaultwealth.com/ 
 | **og:image** | Open Graph image | Present, valid URL |
 | **twitter:card** | Twitter card type | Present (`summary` or `summary_large_image`) |
 | **hreflang** | Alternate language tags | Present on multi-language sites; bidirectional; has `x-default` |
-| **json-ld** | Structured data blocks | At least one valid JSON-LD block |
+| **json-ld** | Structured data blocks | At least one valid JSON-LD block; application rich-result markup includes `aggregateRating` or `review` |
 | **h1** | Primary heading | Exactly one `<h1>`, non-empty text |
 | **h2** | Section headings | Present (not zero); no skipped levels (no `<h4>` without `<h3>`) |
 | **img-alt** | Image accessibility | All `<img>` tags have non-empty `alt` |

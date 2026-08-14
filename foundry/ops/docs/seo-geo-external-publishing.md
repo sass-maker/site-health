@@ -116,7 +116,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 ### Office OS — Preparation only
 
-**Canonical:** [https://office-os.pages.dev](https://office-os.pages.dev)
+**Canonical:** [https://office-os.sassmaker.com](https://office-os.sassmaker.com)
 
 **Narrative:** A persistent office environment for coordinating agents and durable work.
 
@@ -408,7 +408,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 ### Local AI Video Studio — Preparation only
 
-**Canonical:** [https://local-ai-video-studio.pages.dev](https://local-ai-video-studio.pages.dev)
+**Canonical:** [https://local-ai-video-studio.sassmaker.com](https://local-ai-video-studio.sassmaker.com)
 
 **Narrative:** A local AI video studio for model-assisted media workflows.
 

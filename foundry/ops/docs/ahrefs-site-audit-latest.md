@@ -1,6 +1,6 @@
 # Ahrefs Site Audit health — canonical roots
 
-Generated 2026-08-09T05:23:52.675Z.
+Generated 2026-08-14T12:06:41.936Z.
 
 **Status: blocked — missing-api-key.**
 
