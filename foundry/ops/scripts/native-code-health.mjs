@@ -243,7 +243,7 @@ function checkComplexity() {
     .map((line) => ({ line, ccn: Number(line.match(/^\d+,(\d+),/u)?.[1] ?? 0) }))
     .filter((row) => row.ccn > 15)
     .sort((left, right) => right.ccn - left.ccn)
-    .slice(0, 10)
+    .slice(0, 40)
     .map((row) => row.line);
   if (worstRows.length > 0) {
     console.log(`Highest-complexity functions:\n${worstRows.join('\n')}`);
