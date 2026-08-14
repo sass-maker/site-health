@@ -40,7 +40,7 @@ Root scripts (from `package.json`):
 | `pnpm run build:web` | Astro build the web app into `web/dist`. |
 | `pnpm quality` | Run formatting, lint, builds, coverage, unused-code, complexity, duplication, cycle, dependency-risk, suppression, and docs checks. |
 | `pnpm run install:skill` | Install the Claude/Codex skill into `~/.claude/skills/`. |
-| `pnpm deploy` | Guarded manual web redeploy — see [operations](../operations/deploy.md). |
+| `pnpm run deploy` | Guarded manual web redeploy — see [operations](../operations/deploy.md). Use `pnpm run deploy`, not `pnpm deploy` (which invokes pnpm's built-in workspace deploy command). |
 
 ### Typical dev loop
 

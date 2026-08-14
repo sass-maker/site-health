@@ -44,9 +44,13 @@ The action's own wrangler install fails inside this pnpm monorepo
 `web/node_modules` and skips the on-the-fly install. Same pattern as
 anime-list's deploy.
 
-## Guarded manual redeploy (`pnpm deploy`)
+## Guarded manual redeploy (`pnpm run deploy`)
 
-`scripts/manual-deploy.mjs` is a guardrail around dispatching the deploy
+> Use `pnpm run deploy`, not `pnpm deploy`. With current pnpm, `pnpm deploy`
+> invokes pnpm's built-in workspace deploy command and exits with
+> `ERR_PNPM_NOTHING_TO_DEPLOY` instead of running the package script.
+
+`scripts/manual-component-deploy.mjs` is a guardrail around dispatching the deploy
 workflow. The root script runs it as
 `manual-deploy.mjs deploy.yml deploy.yml` — i.e. it passes `deploy.yml` as
 **both** the workflow to dispatch and the green-gate workflow. It refuses to
