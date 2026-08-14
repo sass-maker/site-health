@@ -126,7 +126,7 @@ test('record does not infer metrics from prose and exec preserves a child failur
   assert.equal(listed[0].exitCode, 7);
 });
 
-test('teammate scorecard backfill is exactly 27 Codex and 16 Devin and idempotent', async () => {
+test('teammate scorecard backfill is exactly 27 Codex and 19 Devin and idempotent', async () => {
   const root = await mkdtemp(resolve(tmpdir(), 'fleet-skill-run-backfill-'));
   const first = run(root, [
     'backfill-teammates',
@@ -136,10 +136,10 @@ test('teammate scorecard backfill is exactly 27 Codex and 16 Devin and idempoten
   assert.equal(first.status, 0, first.stderr);
   assert.deepEqual(JSON.parse(first.stdout), {
     source: scorecard,
-    total: 43,
-    created: 43,
+    total: 46,
+    created: 46,
     duplicates: 0,
-    byActor: { codex: 27, devin: 16 },
+    byActor: { codex: 27, devin: 19 },
     metricsCreated: 0,
   });
 
@@ -150,14 +150,14 @@ test('teammate scorecard backfill is exactly 27 Codex and 16 Devin and idempoten
   ]);
   assert.equal(second.status, 0, second.stderr);
   assert.equal(JSON.parse(second.stdout).created, 0);
-  assert.equal(JSON.parse(second.stdout).duplicates, 43);
+  assert.equal(JSON.parse(second.stdout).duplicates, 46);
 
   const status = JSON.parse(run(root, ['status', '--json']).stdout);
-  assert.equal(status.runCount, 43);
+  assert.equal(status.runCount, 46);
   assert.equal(status.metricCount, 0);
 
   const prune = JSON.parse(run(root, ['prune', '--before', '2030-01-01', '--json']).stdout);
   assert.equal(prune.dryRun, true);
-  assert.equal(prune.candidateCount, 43);
+  assert.equal(prune.candidateCount, 46);
   assert.equal(prune.deletedCount, 0);
 });
