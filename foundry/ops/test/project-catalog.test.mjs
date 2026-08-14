@@ -125,7 +125,14 @@ test('generated catalog separates P4 status and exposes dated readiness evidence
   assert.match(rendered, /### Finished \(active\) — 11/);
   assert.match(rendered, /### Archived — 13/);
   assert.match(rendered, /\| Readiness evidence \|/);
-  assert.match(rendered, /Runtime posture is not verified live\. \(verified 2026-08-11\)/);
+  assert.match(
+    rendered,
+    /The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk\. \(verified 2026-08-14\)/,
+  );
+  assert.match(
+    rendered,
+    /The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved\. \(verified 2026-08-14\)/,
+  );
 });
 
 test('checkout reconciliation fails closed until active and inactive repos are cataloged', () => {
