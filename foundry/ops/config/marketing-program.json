@@ -1768,7 +1768,7 @@
       "mode": "private",
       "domain": "https://india-standards.significanthobbies.com",
       "domainPosture": "product-subdomain",
-      "publicMarketing": false,
+      "publicMarketing": true,
       "cta": "Use the project privately",
       "cadence": "none",
       "contentBase": null,
@@ -1962,6 +1962,19 @@
       "channels": []
     },
     {
+      "slug": "mashup",
+      "name": "Mashup",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
       "slug": "motion",
       "name": "Motion",
       "aliases": [],
@@ -1970,34 +1983,6 @@
       "domainPosture": "product-subdomain",
       "publicMarketing": true,
       "cta": "Explore the Motion experiment",
-      "cadence": "none",
-      "contentBase": null,
-      "channels": []
-    },
-    {
-      "slug": "agent-office",
-      "name": "Office OS",
-      "aliases": [
-        "office-os"
-      ],
-      "mode": "private",
-      "domain": "https://office-os.pages.dev",
-      "domainPosture": "informational-only",
-      "publicMarketing": false,
-      "cta": "Review release status",
-      "cadence": "none",
-      "contentBase": null,
-      "channels": []
-    },
-    {
-      "slug": "local-ai-video-studio",
-      "name": "Local AI Video Studio",
-      "aliases": [],
-      "mode": "private",
-      "domain": "https://local-ai-video-studio.pages.dev",
-      "domainPosture": "informational-only",
-      "publicMarketing": false,
-      "cta": "Review release status",
       "cadence": "none",
       "contentBase": null,
       "channels": []
@@ -2029,6 +2014,73 @@
       "publicMarketing": true,
       "cta": "Open the product",
       "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "agent-office",
+      "name": "Office OS",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "indulge",
+      "name": "Indulge",
+      "aliases": [
+        "induldge"
+      ],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "field-track",
+      "name": "Field Track",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "reddit-insights",
+      "name": "Reddit Insights",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
       "contentBase": null,
       "channels": []
     },

@@ -78,31 +78,31 @@ The module runs only from public inputs. Private Fleet CI and provider inventory
 remain in this repository.
 
 <!-- project-catalog:start -->
-## Portfolio attention
+## Portfolio classification
 
 This is a generated summary of the private Fleet project catalog. The complete
 machine-readable source is `foundry/ops/config/projects.json`; the generated
 human view is [`foundry/ops/docs/project-catalog.md`](foundry/ops/docs/project-catalog.md).
+Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/README.md).
 
-### My Work — 4
+### P1 — 4
 
-CodeVetter, HeyPace, PostTrainLLM, High Signal
+- product: CodeVetter, HeyPace, PostTrainLLM, Office OS
 
-### Toolbox — 23
+### P2 — 19
 
-Email Manager, Memory Map, Free AI, Research Papers, Knowledge Base, Significant Hobbies, India Standards, Anime List, Chess, LoopTV, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, Office OS, Local AI Video Studio, What It Takes to Win, Sarthak Agrawal
+- product: Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track
+- platform: Fleet Workspace, Knowledge Base
+- experiment: Mashup, Local AI Video Studio
 
-### Foundry — 3
+### P4 — 24
 
-Fleet Workspace, Drank, PSI Swarm
+- product: Drank, Email Manager, India Standards, Anime List, LoopTV, SaaS Ideas, What It Takes to Win, Sarthak Agrawal
+- platform: Free AI, PSI Swarm
+- experiment: EverythingRated, Materia, Chess, AliveVille, Protein Index, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables, Reddit Insights, Verified Bases
 
-### Past / inactive — 13
-
-EverythingRated, Materia, AliveVille, Protein Index, Mashup, SaaS Ideas, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables
-
-Past projects are preserved without becoming maintenance obligations. Public
-repositories may appear in the separate Past projects section on SaaS Maker;
-private repositories never enter external output.
+Priority, kind, status, deployment, and sharing readiness are independent.
+Past projects remain preserved without becoming maintenance obligations.
 <!-- project-catalog:end -->
 
 ## Work Tracking

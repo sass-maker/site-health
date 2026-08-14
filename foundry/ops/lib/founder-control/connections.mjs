@@ -2600,15 +2600,9 @@ export function buildFleetConnections({
     resolve(fleetRoot, 'foundry/ops/config/projects.json'),
     { projects: [] },
   );
-  const priorityByProject = new Map();
-  for (const priority of ['P1', 'P2', 'P3']) {
-    for (const projectId of projectCatalog._meta?.priorities?.[priority] ?? []) {
-      priorityByProject.set(projectId, priority);
-    }
-  }
   const maintainedProjects = visibilityProjects(projectCatalog).map((project) => ({
     ...project,
-    priority: project.priority ?? priorityByProject.get(project.id) ?? null,
+    priority: project.portfolio?.priority ?? null,
   }));
   const rootSearchQueries = validatedRootSearchQueries(fleetRoot, projectCatalog);
   const growthProgram = loadGrowthProgram({

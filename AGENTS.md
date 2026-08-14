@@ -76,6 +76,31 @@ the issue and update `PROJECT_STATUS.md` only with the completed product truth:
 the timeline, products, dependencies, and shipped features affected by the
 change. Do not copy closed issue histories into the status file.
 
+## Fleet Inventory
+
+`foundry/ops/config/projects.json` is the only portfolio, priority, deployment,
+and cloud-resource source of truth. Its generated human view is
+`foundry/ops/docs/project-catalog.md`.
+
+- Add every active, local-only, parked, past, out-of-fleet, and non-product
+  identity. Never hide a checkout under another project merely to pass checks.
+- Whenever a deployment, domain, release channel, Cloudflare/Turso resource,
+  lifecycle, attention class, or owner priority changes, update the catalog's
+  project and infrastructure rows in the same task.
+- Every provider object must be owned by one project or remain explicit under
+  `infrastructure.unownedResources`; never silently drop an unknown resource.
+- P1 is reserved for CodeVetter, Pace, PostTrainLLM, and Office OS. P2 is the
+  eligible active-work pool. Choose immediate P2 work only from open GitHub
+  Issues and name at most five P2 projects in one work cycle; do not create a
+  replacement tier or task tracker. P4 is for owner-finished or archived work;
+  new active identities start at P2 until Sarthak decides otherwise. Every
+  identity requires an explicit product/platform/experiment kind,
+  active/archive status, deployed and ready-to-share values, plus a dated
+  sharing-readiness reason supported by live public evidence or a named blocker.
+- Run `npm run generate:projects` after edits and `npm run check:projects`
+  before handoff. The check fails on missing checkouts, priorities,
+  infrastructure rows, Cloudflare coverage classes, or stale generated views.
+
 ## Feature Work
 
 Use the `spec-driven` skill before non-trivial new fleet features: new surfaces,

@@ -60,6 +60,14 @@ Reads each project's `PROJECT_STATUS.md` for durable current/shipped truth and
 GitHub Issues/pull requests for operational state. `STATUS.md` is legacy and
 must not be treated as a second queue.
 
+Start with `npm run check:projects`. The canonical catalog must include every
+active and inactive checkout, a complete per-project P1/P2/P4/kind/status/deployed/
+ready-to-share classification with dated readiness reasons, and one
+infrastructure row per project. Treat P2 as an issue-driven active pool and
+name at most five P2 projects in a current work cycle. Report any unowned
+provider resources or non-provider-complete Cloudflare coverage before product
+status.
+
 ```bash
 # Product truth
 head -40 PROJECT_STATUS.md
@@ -122,6 +130,7 @@ cd ~/Desktop/fleet
 ./foundry/ops/scripts/git-health.sh --all --no-fetch
 ./foundry/ops/scripts/deploy-health.sh
 node foundry/ops/scripts/cloudflare-resilience-audit.mjs
+npm run check:projects
 ```
 
 Writes to:

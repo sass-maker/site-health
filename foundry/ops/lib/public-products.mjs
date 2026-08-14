@@ -42,7 +42,7 @@ export function buildPublicProducts(catalog) {
         url,
         tier: project.tier === 'focus' ? 'core' : project.tier,
         category: metadata.category,
-        priority: priorityFor(catalog._meta.priorities, project.id),
+        priority: project.portfolio.priority,
         spotlight: metadata.spotlight ?? false,
         maturity: metadata.maturity,
         changelogUrl: `${url}/changelog`,
@@ -162,11 +162,4 @@ function assertShape(value, allowed, required) {
 function assertUnique(values, label) {
   const ids = values.map((value) => value.id);
   if (new Set(ids).size !== ids.length) throw new Error(`${label} ids must be unique`);
-}
-
-function priorityFor(priorities, projectId) {
-  for (const priority of ['P1', 'P2', 'P3']) {
-    if (priorities?.[priority]?.includes(projectId)) return priority;
-  }
-  return 'P3';
 }

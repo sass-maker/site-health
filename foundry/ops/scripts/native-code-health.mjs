@@ -237,6 +237,17 @@ function checkComplexity() {
     `Complexity: ${observed.functions} functions, ${observed.nloc} NLOC, ${observed.warnings} violations; ` +
       `max CCN ${observed.maxCcn}, max length ${observed.maxLength}.`,
   );
+  const worstRows = result.stdout
+    .trim()
+    .split('\n')
+    .map((line) => ({ line, ccn: Number(line.match(/^\d+,(\d+),/u)?.[1] ?? 0) }))
+    .filter((row) => row.ccn > 15)
+    .sort((left, right) => right.ccn - left.ccn)
+    .slice(0, 40)
+    .map((row) => row.line);
+  if (worstRows.length > 0) {
+    console.log(`Highest-complexity functions:\n${worstRows.join('\n')}`);
+  }
   failRegressions('Complexity', observed, baselines.complexity);
 }
 
