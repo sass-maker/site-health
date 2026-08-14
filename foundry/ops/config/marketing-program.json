@@ -1551,6 +1551,169 @@
           "maxEstimatedCostUsd": 0.05,
           "maxResponseCharacters": 4000
         }
+      },
+      {
+        "slug": "agent-office",
+        "aliases": [
+          "Office OS",
+          "Agent Office"
+        ],
+        "competitors": [
+          {
+            "name": "Linear",
+            "url": "https://linear.app"
+          }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              {
+                "id": "category",
+                "text": "What private tools help a founder coordinate projects and operational work from one desktop workspace?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://office-os.sassmaker.com/"
+                }
+              },
+              {
+                "id": "comparison",
+                "text": "Compare local-first founder operating systems by project visibility, privacy, and workflow coordination."
+              }
+            ]
+          }
+        ],
+        "personas": [
+          {
+            "id": "indie-founder",
+            "label": "an indie founder coordinating several products"
+          }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 4,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
+        "slug": "local-ai-video-studio",
+        "aliases": [
+          "Local Video Studio"
+        ],
+        "competitors": [
+          {
+            "name": "DaVinci Resolve",
+            "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+          }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              {
+                "id": "category",
+                "text": "What local-first Mac tools can generate and compare reproducible AI video-effect variants?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://local-ai-video-studio.sassmaker.com/"
+                }
+              },
+              {
+                "id": "comparison",
+                "text": "Compare private video-effect tools by offline processing, reproducibility, variant comparison, and export control."
+              }
+            ]
+          }
+        ],
+        "personas": [
+          {
+            "id": "video-creator",
+            "label": "a privacy-conscious video creator on macOS"
+          }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 4,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
+        "slug": "reddit-insights",
+        "aliases": [
+          "Research Subreddit"
+        ],
+        "competitors": [
+          {
+            "name": "GummySearch",
+            "url": "https://gummysearch.com"
+          }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              {
+                "id": "category",
+                "text": "What tools provide source-linked trend reports for Reddit communities without claiming platform-wide coverage?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://reddit-insights.highsignal.app/"
+                }
+              },
+              {
+                "id": "comparison",
+                "text": "Compare Reddit research tools by source transparency, historical coverage, and evidence-bounded claims."
+              }
+            ]
+          }
+        ],
+        "personas": [
+          {
+            "id": "community-researcher",
+            "label": "a researcher studying online communities"
+          }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 4,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
       }
     ]
   },
@@ -2022,10 +2185,10 @@
       "name": "Office OS",
       "aliases": [],
       "mode": "private",
-      "domain": null,
-      "domainPosture": "local-only",
-      "publicMarketing": false,
-      "cta": "Use the project privately",
+      "domain": "https://office-os.sassmaker.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Explore the Office OS workspace",
       "cadence": "none",
       "contentBase": null,
       "channels": []
@@ -2050,10 +2213,10 @@
       "name": "Local AI Video Studio",
       "aliases": [],
       "mode": "private",
-      "domain": null,
-      "domainPosture": "local-only",
-      "publicMarketing": false,
-      "cta": "Use the project privately",
+      "domain": "https://local-ai-video-studio.sassmaker.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Explore the local video studio",
       "cadence": "none",
       "contentBase": null,
       "channels": []
@@ -2075,12 +2238,12 @@
       "slug": "reddit-insights",
       "name": "Reddit Insights",
       "aliases": [],
-      "mode": "private",
-      "domain": null,
-      "domainPosture": "local-only",
-      "publicMarketing": false,
-      "cta": "Use the project privately",
-      "cadence": "none",
+      "mode": "evergreen",
+      "domain": "https://reddit-insights.highsignal.app",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Explore the research observatory",
+      "cadence": "quarterly",
       "contentBase": null,
       "channels": []
     },

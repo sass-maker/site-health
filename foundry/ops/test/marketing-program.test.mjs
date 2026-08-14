@@ -57,7 +57,7 @@ test('registry covers or explicitly excludes every catalog project and has the e
     assert.equal(project.promptSets[0].prompts.length, 2);
     for (const prompt of project.promptSets[0].prompts) promptTexts.add(prompt.text);
   }
-  assert.equal(promptTexts.size, 56);
+  assert.equal(promptTexts.size, 62);
 });
 
 test('canonical identities and historical aliases resolve uniquely', () => {

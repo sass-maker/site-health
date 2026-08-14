@@ -52,7 +52,7 @@ test('Fleet Workflows remains covered as a Fleet Workspace extension', () => {
 });
 
 test('GEO identity contract covers every maintained visibility product', () => {
-  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 28 });
+  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 31 });
 });
 
 test('GEO identity contract rejects missing, conflicting, and inaccessible source declarations', () => {
