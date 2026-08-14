@@ -162,19 +162,7 @@ export function validateGeoIdentityContract(catalog, agentRegistry, inheritedErr
   const maintained = visibilityProjects(catalog);
   const projectsById = new Map(maintained.map((project) => [project.id, project]));
   const identities = catalog.geoIdentities ?? [];
-  const identitiesById = new Map();
-
-  for (const identity of identities) {
-    if (!identity?.id) {
-      errors.push('geo identity missing id');
-      continue;
-    }
-    if (identitiesById.has(identity.id)) {
-      errors.push(`${identity.id}: duplicate geo identity`);
-      continue;
-    }
-    identitiesById.set(identity.id, identity);
-  }
+  const identitiesById = indexGeoIdentities(identities, errors);
 
   const missing = maintained
     .filter((project) => !identitiesById.has(project.id))
@@ -195,6 +183,20 @@ export function validateGeoIdentityContract(catalog, agentRegistry, inheritedErr
     throw new Error(`GEO identity contract invalid:\n- ${errors.join('\n- ')}`);
   }
   return { projectCount: maintained.length };
+}
+
+function indexGeoIdentities(identities, errors) {
+  const identitiesById = new Map();
+  for (const identity of identities) {
+    if (!identity?.id) {
+      errors.push('geo identity missing id');
+    } else if (identitiesById.has(identity.id)) {
+      errors.push(`${identity.id}: duplicate geo identity`);
+    } else {
+      identitiesById.set(identity.id, identity);
+    }
+  }
+  return identitiesById;
 }
 
 function validateGeoIdentity(id, identity, project, errors) {
@@ -437,50 +439,7 @@ export function renderInternalCatalog(catalog) {
     '',
   ];
   for (const priority of PORTFOLIO_PRIORITIES) {
-    const priorityProjects = catalog.projects.filter(
-      (project) => project.portfolio.priority === priority,
-    );
-    lines.push(`## ${priority} — ${priorityProjects.length}`, '');
-    if (priorityProjects.length === 0) {
-      lines.push('No projects assigned.', '');
-      continue;
-    }
-    const statusGroups = priority === 'P4'
-      ? [
-          ['active', 'Finished (active)'],
-          ['archived', 'Archived'],
-        ]
-      : [[null, null]];
-    for (const [status, statusTitle] of statusGroups) {
-      const statusProjects = status
-        ? priorityProjects.filter((project) => project.portfolio.status === status)
-        : priorityProjects;
-      if (statusProjects.length === 0) continue;
-      if (statusTitle) lines.push(`### ${statusTitle} — ${statusProjects.length}`, '');
-      for (const [kind, title] of kinds) {
-        const projects = statusProjects.filter((project) => project.portfolio.kind === kind);
-        if (projects.length === 0) continue;
-        lines.push(`${statusTitle ? '####' : '###'} ${title} — ${projects.length}`, '');
-        lines.push('| Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |');
-        lines.push('| --- | --- | ---: | ---: | --- | --- | --- | --- | --- |');
-        for (const project of projects) {
-          const repository = project.sourcePath ?? project.repo ?? '—';
-          const infrastructure = catalog.infrastructure.projects[project.id];
-          lines.push(`| ${[
-            project.name,
-            project.portfolio.status,
-            renderBoolean(project.portfolio.deployed),
-            renderBoolean(project.portfolio.readyToBeShared),
-            renderSharingReadiness(project.portfolio.sharingReadiness),
-            `\`${repository}\``,
-            renderDeployments(infrastructure.deployments),
-            renderResources(infrastructure.resources),
-            infrastructure.updatedAt,
-          ].join(' | ')} |`);
-        }
-        lines.push('');
-      }
-    }
+    lines.push(...renderPriorityProjects(catalog, priority, kinds));
   }
   if ((catalog.infrastructure.unownedResources ?? []).length > 0) {
     lines.push('## Unowned provider resources', '');
@@ -494,6 +453,53 @@ export function renderInternalCatalog(catalog) {
     lines.push('');
   }
   return `${lines.join('\n')}\n`;
+}
+
+function renderPriorityProjects(catalog, priority, kinds) {
+  const priorityProjects = catalog.projects.filter(
+    (project) => project.portfolio.priority === priority,
+  );
+  const lines = [`## ${priority} — ${priorityProjects.length}`, ''];
+  if (priorityProjects.length === 0) return [...lines, 'No projects assigned.', ''];
+  const statusGroups = priority === 'P4'
+    ? [
+        ['active', 'Finished (active)'],
+        ['archived', 'Archived'],
+      ]
+    : [[null, null]];
+  for (const [status, statusTitle] of statusGroups) {
+    const statusProjects = status
+      ? priorityProjects.filter((project) => project.portfolio.status === status)
+      : priorityProjects;
+    if (statusProjects.length === 0) continue;
+    if (statusTitle) lines.push(`### ${statusTitle} — ${statusProjects.length}`, '');
+    for (const [kind, title] of kinds) {
+      const projects = statusProjects.filter((project) => project.portfolio.kind === kind);
+      if (projects.length === 0) continue;
+      lines.push(`${statusTitle ? '####' : '###'} ${title} — ${projects.length}`, '');
+      lines.push('| Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |');
+      lines.push('| --- | --- | ---: | ---: | --- | --- | --- | --- | --- |');
+      for (const project of projects) lines.push(renderProjectCatalogRow(catalog, project));
+      lines.push('');
+    }
+  }
+  return lines;
+}
+
+function renderProjectCatalogRow(catalog, project) {
+  const repository = project.sourcePath ?? project.repo ?? '—';
+  const infrastructure = catalog.infrastructure.projects[project.id];
+  return `| ${[
+    project.name,
+    project.portfolio.status,
+    renderBoolean(project.portfolio.deployed),
+    renderBoolean(project.portfolio.readyToBeShared),
+    renderSharingReadiness(project.portfolio.sharingReadiness),
+    `\`${repository}\``,
+    renderDeployments(infrastructure.deployments),
+    renderResources(infrastructure.resources),
+    infrastructure.updatedAt,
+  ].join(' | ')} |`;
 }
 
 function validatePortfolioClassification(project, errors) {
