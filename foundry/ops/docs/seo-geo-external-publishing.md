@@ -325,7 +325,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A verified live profile, public agent manifest, and safe end-to-end conversation demo.
 
-**Catalog blocker:** Runtime posture is not verified live. (verified 2026-08-11)
+**Catalog blocker:** The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk. (verified 2026-08-14)
 
 **Before publishing:**
 
@@ -394,11 +394,13 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 ### Indulge — Preparation only
 
+**Canonical:** [https://indulge.significanthobbies.com](https://indulge.significanthobbies.com)
+
 **Narrative:** A consumer product whose public distribution surface has not yet been approved.
 
 **Source asset:** An approved public listing, screenshots, privacy disclosures, and a complete product walkthrough.
 
-**Catalog blocker:** No maintained public listing is currently approved. (verified 2026-08-11)
+**Catalog blocker:** The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved. (verified 2026-08-14)
 
 **Before publishing:**
 

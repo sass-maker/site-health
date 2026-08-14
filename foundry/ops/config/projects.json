@@ -1184,8 +1184,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Runtime posture is not verified live."
+          "verifiedAt": "2026-08-14",
+          "reason": "The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk."
         }
       },
       "authModel": "public-persistent",
@@ -1208,8 +1208,8 @@
         "karte.cc"
       ],
       "inRegistry": true,
-      "status": "unverified",
-      "notes": "Canonical domain remains karte.cc, but DNS did not resolve during the 2026-07-30 URL audit. Name collision risk (PLAID KARTE).",
+      "status": "live",
+      "notes": "The canonical karte.cc runtime and all 30 sitemap URLs were verified live on 2026-08-14. Name collision risk (PLAID KARTE) remains the sharing blocker.",
       "name": "Karte",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1913,8 +1913,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "No maintained public listing is currently approved."
+          "verifiedAt": "2026-08-14",
+          "reason": "The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved."
         }
       },
       "aliases": [
@@ -1926,10 +1926,12 @@
       "repo": "induldge",
       "deployKind": "pages",
       "cfProject": "indulge",
-      "domains": [],
-      "inRegistry": false,
+      "domains": [
+        "indulge.significanthobbies.com"
+      ],
+      "inRegistry": true,
       "status": "live",
-      "notes": "The local checkout retains the historical induldge spelling. The public trust site is live at indulge.pages.dev; native App Store distribution is not yet live.",
+      "notes": "The local checkout retains the historical induldge spelling. The public trust site is live at indulge.significanthobbies.com with indulge.pages.dev retained as the provider origin; native App Store distribution is not yet live.",
       "name": "Indulge",
       "attention": "toolbox",
       "lifecycle": "maintained",
