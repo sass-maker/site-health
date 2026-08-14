@@ -70,6 +70,14 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-14 — Portfolio discovery gained a shared backend-free strip:**
+  Added `@saas-maker/portfolio-project-strip` with a generated first-paint
+  catalog, optional cached public revalidation, current-project filtering,
+  light/dark/auto themes, explicit and preference-based motion controls, and a
+  safe static `/projects.json` projection from the canonical registry. Package
+  checks, a zero-vulnerability lockfile audit, strict OpenSpec validation, and
+  the preserve-lane design gate passed; package publication and product rollout
+  remain separate explicit actions.
 - **2026-08-14 — Cross-organization personal work queue became reproducible:**
   Added a dependency-free, dry-run-by-default GitHub synchronizer over original
   authored issues, preserving manual rank and project-local Priority, Status,
@@ -634,6 +642,7 @@ CodeVetter or App Health source.
 | Marketing | Content Factory | `foundry/marketing/content-factory/` | Reel Pipeline-owned content rendering/package scripts |
 | Packages | Feedback | `foundry/packages/feedback/` | Public client package with caller-owned callback or ingestion URL |
 | Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
+| Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | Backend-free React discovery rail with bundled catalog and optional static revalidation |
 | Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
 | Fleet Console | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit/` | Experimental local-only mobile client; future undecided |
 | Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
@@ -812,6 +821,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
   Claude, ChatGPT, Gemini, Perplexity, and Grok, pre-filled prompt templates,
   provider filtering, light/dark/auto themes, CSS custom property overrides, and
   accessible markup. No backend, analytics, cookies, or third-party scripts.
+- `@saas-maker/portfolio-project-strip` React package with a generated
+  canonical-registry projection, cached public `/projects.json` revalidation,
+  current-project filtering, theme tokens, semantic links, accessible duplicate
+  suppression, static short lists, and explicit plus reduced-motion controls.
+  No backend, credentials, analytics, storage, or automatic publication.
 
 ## Work queue
 
