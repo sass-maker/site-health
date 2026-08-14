@@ -105,7 +105,7 @@ A file in `public/llms.txt` is worthless if the SPA catch-all returns HTML 200.
 Every public product homepage ships a `@graph` JSON-LD block with:
 
 1. **Organization** — fleet publisher (SaaS Maker / Foundry), `sameAs` → hub URL + GitHub repo
-2. **SoftwareApplication** or **WebSite** — the product node with `name`, `url`, `description`, `publisher` ref, and optional `applicationCategory` / `offers`
+2. **WebSite** by default, or an eligible application type — the product node with `name`, `url`, `description`, `publisher` ref, and optional `applicationCategory` / `offers`
 
 The block is generated from `agent-surfaces-registry.json` by
 `apply-agent-surfaces.mjs --jsonld` and injected into each product's head file
@@ -117,10 +117,14 @@ The block is generated from `agent-surfaces-registry.json` by
 | Field | Required | Purpose |
 |---|---|---|
 | `headFile` | yes (text-injectable) | Path to the head file (layout, index.html) |
-| `schemaType` | yes | `SoftwareApplication` or `WebSite` |
+| `schemaType` | yes | Prefer `WebSite`; application types require real `aggregateRating` or `review` evidence |
 | `sameAs` | recommended | Array of canonical URLs (GitHub repo, etc.) |
 | `applicationCategory` | optional | e.g. `DeveloperApplication`, `EntertainmentApplication` |
 | `offers` | optional | Schema.org Offer object (price, currency, availability) |
+| `searchUrlTemplate` | optional | Real search URL template for `WebSite` markup, including `{search_term_string}` |
+
+`WebSite` entries only emit a `SearchAction` when `searchUrlTemplate` is set.
+Do not advertise a site-search action for products that do not provide one.
 
 ### Injection modes
 

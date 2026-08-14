@@ -463,7 +463,10 @@ function applyProduct(product) {
   // Astro/static: _redirects for /api/ai → api-ai.json when no worker
   if (
     patchConfig &&
-    (product.stack === 'astro-static' || product.stack === 'next-static' || product.stack === 'spa-static') &&
+    (product.stack === 'astro-static' ||
+      product.stack === 'next-static' ||
+      product.stack === 'spa-static' ||
+      product.stack === 'static-html') &&
     !product.worker
   ) {
     const redirects = join(targetPublic, '_redirects');
@@ -795,7 +798,7 @@ function rel(p) {
 
 /**
  * Build a per-product JSON-LD @graph with the owner's publisher identity
- * and a SoftwareApplication or WebSite node. Uses the shared productOrigin
+ * and a WebSite or eligible application node. Uses the shared productOrigin
  * preference chain from lib/registry.mjs.
  *
  * @param {object} product - registry product entry
@@ -806,11 +809,13 @@ function buildJsonLd(product, registry) {
   const origin = productOrigin(product);
   if (!origin) throw new Error(`Product ${product.id} has no url`);
 
-  const schemaType = product.schemaType || 'SoftwareApplication';
+  const schemaType = product.schemaType || 'WebSite';
   const productSameAs = Array.isArray(product.sameAs) ? product.sameAs : [];
   const rootBrand = rootBrandForUrl(origin, rootBrands);
-  const productName = rootBrand?.canonicalName ?? product.name;
-  const alternateNames = rootBrand?.alternateNames ?? [];
+  const originHostname = new URL(origin).hostname.replace(/^www\./, '');
+  const usesRootBrandIdentity = rootBrand?.rootDomain === originHostname;
+  const productName = usesRootBrandIdentity ? rootBrand.canonicalName : product.name;
+  const alternateNames = usesRootBrandIdentity ? rootBrand.alternateNames : [];
 
   const publisherNode = {
     '@type': 'Person',
@@ -841,10 +846,11 @@ function buildJsonLd(product, registry) {
   if (product.offers) {
     appNode.offers = product.offers;
   }
-  if (schemaType === 'WebSite' && product.url) {
+  const searchUrlTemplate = String(product.searchUrlTemplate ?? '').trim();
+  if (schemaType === 'WebSite' && searchUrlTemplate) {
     appNode.potentialAction = {
       '@type': 'SearchAction',
-      target: `${origin}/?q={search_term_string}`,
+      target: searchUrlTemplate,
       'query-input': 'required name=search_term_string',
     };
   }

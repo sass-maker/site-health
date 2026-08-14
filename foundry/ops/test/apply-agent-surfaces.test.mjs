@@ -41,6 +41,14 @@ function runAtRoot(projectId, fleetRoot) {
   );
 }
 
+function runWithConfigAtRoot(projectId, fleetRoot) {
+  return execFileSync(
+    process.execPath,
+    [script.pathname, '--id', projectId, '--fleet-root', fleetRoot],
+    { encoding: 'utf8' },
+  );
+}
+
 function runJsonLdAtRoot(projectId, fleetRoot) {
   return execFileSync(
     process.execPath,
@@ -142,6 +150,47 @@ test('writes the canonical owner identity into generated product JSON-LD', () =>
   assert.match(head, /"alternateName":\["SassMaker","sassmaker\.com"\]/);
   assert.match(head, /"https:\/\/github\.com\/sass-maker"/);
   assert.doesNotMatch(head, /github\.com\/sass-maker\/fleet-workspace/);
+});
+
+test('does not advertise site search when a website has no search template', () => {
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const headPath = join(
+    fleetRoot,
+    'codevetter/apps/landing-page-astro/src/layouts/Layout.astro',
+  );
+  mkdirSync(dirname(headPath), { recursive: true });
+  writeFileSync(headPath, '<html><head></head><body></body></html>\n');
+
+  runJsonLdAtRoot('codevetter', fleetRoot);
+
+  const head = readFileSync(headPath, 'utf8');
+  assert.match(head, /"@type":"WebSite"/);
+  assert.doesNotMatch(head, /SearchAction/);
+  assert.doesNotMatch(head, /search_term_string/);
+});
+
+test('keeps a subdomain product name instead of inheriting the root brand', () => {
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const headPath = join(fleetRoot, 'agent-office/site/index.html');
+  mkdirSync(dirname(headPath), { recursive: true });
+  writeFileSync(headPath, '<html><head></head><body></body></html>\n');
+
+  runJsonLdAtRoot('agent-office', fleetRoot);
+
+  const head = readFileSync(headPath, 'utf8');
+  assert.match(head, /"name":"Office OS"/);
+  assert.doesNotMatch(head, /"alternateName":\["SassMaker"/);
+});
+
+test('writes the API alias for dependency-free static HTML sites', () => {
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
+  const publicDir = join(fleetRoot, 'local-ai-video-studio/site');
+  mkdirSync(publicDir, { recursive: true });
+  writeFileSync(join(publicDir, 'index.html'), '<html><head></head><body></body></html>\n');
+
+  runWithConfigAtRoot('local-ai-video-studio', fleetRoot);
+
+  assert.equal(readFileSync(join(publicDir, '_redirects'), 'utf8'), '/api/ai /api-ai.json 200\n');
 });
 
 test('preserves custom runtime handlers while retaining worker wiring checks', () => {

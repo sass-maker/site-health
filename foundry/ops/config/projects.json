@@ -1885,10 +1885,10 @@
       "deployKind": "pages",
       "cfProject": "office-os",
       "domains": [
-        "office-os.pages.dev"
+        "office-os.sassmaker.com"
       ],
       "app": "swift",
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
       "name": "Office OS",
@@ -1897,8 +1897,8 @@
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/agent-office",
       "metrics": {
-        "publicSite": false,
-        "domainCoverage": false
+        "publicSite": true,
+        "domainCoverage": true
       },
       "public": {
         "listing": "hidden"
@@ -1959,10 +1959,10 @@
       "deployKind": "pages",
       "cfProject": "local-ai-video-studio",
       "domains": [
-        "local-ai-video-studio.pages.dev"
+        "local-ai-video-studio.sassmaker.com"
       ],
       "app": "swift",
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
       "name": "Local AI Video Studio",
@@ -1971,8 +1971,8 @@
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/local-ai-video-studio",
       "metrics": {
-        "publicSite": false,
-        "domainCoverage": false
+        "publicSite": true,
+        "domainCoverage": true
       },
       "public": {
         "listing": "hidden"
@@ -2038,7 +2038,7 @@
       "domains": [
         "reddit-insights.highsignal.app"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.",
       "name": "Reddit Insights",
@@ -2046,6 +2046,10 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/High-Signal-App/research-subreddit",
+      "metrics": {
+        "publicSite": true,
+        "domainCoverage": true
+      },
       "public": {
         "listing": "hidden"
       }
@@ -2580,6 +2584,17 @@
   },
   "geoIdentities": [
     {
+      "id": "agent-office",
+      "name": "Office OS",
+      "aliases": ["Agent Office"],
+      "origin": "https://office-os.sassmaker.com",
+      "source": { "state": "internal", "path": "agent-office" },
+      "docs": { "state": "landing-only", "url": "https://office-os.sassmaker.com" },
+      "officialProfiles": ["https://github.com/sass-maker/agent-office"],
+      "availability": { "primary": "internal-only", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
+    },
+    {
       "id": "codevetter",
       "name": "CodeVetter",
       "aliases": [],
@@ -2690,6 +2705,17 @@
       "pricing": { "state": "not-declared" }
     },
     {
+      "id": "reddit-insights",
+      "name": "Reddit Insights",
+      "aliases": ["Research Subreddit"],
+      "origin": "https://reddit-insights.highsignal.app",
+      "source": { "state": "internal", "path": "reddit-insights" },
+      "docs": { "state": "landing-only", "url": "https://reddit-insights.highsignal.app" },
+      "officialProfiles": ["https://github.com/High-Signal-App/research-subreddit"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-declared" }
+    },
+    {
       "id": "research-papers",
       "name": "Research Papers",
       "aliases": ["researchPapers"],
@@ -2710,6 +2736,17 @@
       "officialProfiles": ["https://github.com/sass-maker/knowledge-base"],
       "availability": { "primary": "web", "appStore": "not-applicable" },
       "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "aliases": [],
+      "origin": "https://local-ai-video-studio.sassmaker.com",
+      "source": { "state": "internal", "path": "local-ai-video-studio" },
+      "docs": { "state": "landing-only", "url": "https://local-ai-video-studio.sassmaker.com" },
+      "officialProfiles": ["https://github.com/sass-maker/local-ai-video-studio"],
+      "availability": { "primary": "internal-only", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
     },
     {
       "id": "significanthobbies",

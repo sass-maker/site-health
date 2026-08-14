@@ -41,16 +41,10 @@
       ],
       "stack": "astro-static",
       "headFile": "codevetter/apps/landing-page-astro/src/layouts/Layout.astro",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Codevetter/codevetter"
       ],
-      "applicationCategory": "DeveloperApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
       "productLinks": [
         {
           "title": "Home",
@@ -91,6 +85,71 @@
       "indexMd": "# CodeVetter\n\nDesktop-first AI code review for agent-generated code.\n\n## What it is\n\n- Local SQLite storage and Tauri desktop shell\n- Evidence-backed review loops\n- Optional Claude, Codex, or Gemini CLI backends\n- Open source (ISC)\n\n## Who it's for\n\nEngineers shipping AI-generated PRs who want review before merge \u2014 without uploading the repo to a central server.\n\n## Agent entrypoints\n\n- https://codevetter.com/llms.txt\n- https://codevetter.com/api/ai\n- https://codevetter.com/index.md\n"
     },
     {
+      "id": "agent-office",
+      "spotlight": true,
+      "name": "Office OS",
+      "url": "https://office-os.sassmaker.com",
+      "summary": "Local-first Mac workplace for named AI employees with bounded responsibilities, inspectable work, and owner supervision.",
+      "publicDir": "agent-office/site",
+      "generateSitemap": true,
+      "stack": "static-html",
+      "headFile": "agent-office/site/index.html",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/sass-maker/agent-office"
+      ],
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://office-os.sassmaker.com/",
+          "description": "Product overview and workday"
+        },
+        {
+          "title": "System",
+          "url": "https://office-os.sassmaker.com/#system",
+          "description": "Local-first system boundary"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://office-os.sassmaker.com/#privacy",
+          "description": "Data and external-request policy"
+        }
+      ],
+      "indexMd": "# Office OS\n\nA local-first Mac workplace for named AI employees.\n\n## What it is\n\n- Durable employees with bounded responsibilities\n- Inspectable local work and artifacts\n- Explicit owner supervision and permissions\n\n## Agent entrypoints\n\n- https://office-os.sassmaker.com/llms.txt\n- https://office-os.sassmaker.com/api/ai\n- https://office-os.sassmaker.com/index.md\n"
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "url": "https://local-ai-video-studio.sassmaker.com",
+      "summary": "A local-first Mac studio for comparing reproducible video-effect variants before export.",
+      "publicDir": "local-ai-video-studio/site",
+      "generateSitemap": true,
+      "stack": "static-html",
+      "headFile": "local-ai-video-studio/site/index.html",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/sass-maker/local-ai-video-studio"
+      ],
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://local-ai-video-studio.sassmaker.com/",
+          "description": "Product workflow and release status"
+        },
+        {
+          "title": "System",
+          "url": "https://local-ai-video-studio.sassmaker.com/#system",
+          "description": "Local processing and validation boundary"
+        },
+        {
+          "title": "Release",
+          "url": "https://local-ai-video-studio.sassmaker.com/#release",
+          "description": "Distribution readiness and system requirements"
+        }
+      ],
+      "indexMd": "# Local AI Video Studio\n\nA local-first Mac studio for comparing reproducible video-effect variants.\n\n## Product boundary\n\n- Media processing stays local and offline-capable\n- Editing intent becomes a validated, versioned effect graph\n- Two to five reproducible variants can be compared before export\n- Public download distribution is not yet open\n\n## Agent entrypoints\n\n- https://local-ai-video-studio.sassmaker.com/llms.txt\n- https://local-ai-video-studio.sassmaker.com/api/ai\n- https://local-ai-video-studio.sassmaker.com/index.md\n"
+    },
+    {
       "id": "rolepatch",
       "name": "RolePatch",
       "url": "https://rolepatch.com",
@@ -102,7 +161,7 @@
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "rolepatch/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/rolepatch"
       ],
@@ -144,7 +203,7 @@
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "high-signal/apps/web/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/High-Signal-App/high-signal"
       ],
@@ -179,6 +238,34 @@
       "indexMd": "# High Signal\n\nDaily synthesized intelligence brief on technology, startups, and finance.\n\n## What it is\n\n- Five-section composed brief at `/` and `/brief`\n- Inline hit-rates on market calls\n- Public track record and methodology pages\n- Free, no signup for the brief\n\n## Who it's for\n\nOperators and investors who want a high-signal daily read instead of raw feed noise.\n\n## Agent entrypoints\n\n- https://highsignal.app/llms.txt\n- https://highsignal.app/api/ai\n- https://highsignal.app/index.md\n- RSS: https://highsignal.app/signals/rss\n"
     },
     {
+      "id": "reddit-insights",
+      "name": "Reddit Insights",
+      "url": "https://reddit-insights.highsignal.app",
+      "summary": "Evidence-bounded research views over collected Reddit community activity.",
+      "publicDir": "reddit-insights/dist",
+      "preserveFiles": [
+        "api/ai.json",
+        "index.md",
+        "llms-full.txt",
+        "llms.txt",
+        "robots.txt",
+        "sitemap.xml"
+      ],
+      "stack": "static-generated",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/High-Signal-App/research-subreddit"
+      ],
+      "productLinks": [
+        {
+          "title": "Community research",
+          "url": "https://reddit-insights.highsignal.app/",
+          "description": "Static evidence views for collected Reddit communities"
+        }
+      ],
+      "indexMd": "# Reddit Insights\n\nEvidence-bounded research views over collected Reddit community activity.\n\n## Public boundary\n\n- Static community reports expose topic history and source-linked attention patterns\n- Collection coverage is disclosed and never presented as platform-wide completeness\n- Findings are research observations, not causal claims\n\n## Agent entrypoints\n\n- https://reddit-insights.highsignal.app/llms.txt\n- https://reddit-insights.highsignal.app/api/ai\n- https://reddit-insights.highsignal.app/index.md\n"
+    },
+    {
       "id": "karte",
       "name": "Karte",
       "url": "https://karte.cc",
@@ -190,7 +277,7 @@
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "karte/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/karte"
       ],
@@ -232,7 +319,7 @@
       "preserveAgentEdge": true,
       "stack": "opennext",
       "headFile": "significanthobbies/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/significanthobbies"
       ],
@@ -261,7 +348,7 @@
       "publicDir": "calorie/public",
       "stack": "vite-worker",
       "headFile": "calorie/index.html",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/calorie"
       ],
@@ -297,7 +384,7 @@
       "publicDir": "starboard/public",
       "stack": "opennext",
       "headFile": "starboard/src/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Codevetter/starboard"
       ],
@@ -386,16 +473,10 @@
       ],
       "stack": "astro-static",
       "headFile": "posttrainllm/browser/src/layouts/Default.astro",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/PostTrainLLM/posttrainllm"
       ],
-      "applicationCategory": "DeveloperApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
       "altPublicDirs": [
         "posttrainllm/public"
       ],
@@ -450,17 +531,10 @@
       ],
       "stack": "astro-static",
       "headFile": "pace/website/src/layouts/BaseLayout.astro",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/HeyPace/pace"
       ],
-      "applicationCategory": "UtilitiesApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "29.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
       "altPublicDirs": [
         "pace/public"
       ],
@@ -498,7 +572,7 @@
       ],
       "stack": "next-static",
       "headFile": "foundry/helpers/drank/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/sass-maker"
       ],
@@ -538,7 +612,7 @@
       ],
       "stack": "astro-static",
       "headFile": "looptv/src/layouts/BaseLayout.astro",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/looptv"
       ],
@@ -578,12 +652,6 @@
       "sameAs": [
         "https://github.com/Significant-Hobbies/anime-list"
       ],
-      "applicationCategory": "EntertainmentApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
       "worker": "anime-list/src/worker.ts",
       "wrangler": "anime-list/wrangler.toml",
       "productLinks": [
@@ -603,7 +671,7 @@
       "publicDir": "chess/public",
       "stack": "spa-static",
       "headFile": "chess/index.html",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/chess"
       ],
@@ -642,7 +710,7 @@
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "reader/app.html",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/reader"
       ],
@@ -678,7 +746,7 @@
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "email-manager/index.html",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/email-manager"
       ],
@@ -721,11 +789,10 @@
       "preserveAgentEdge": true,
       "stack": "spa-hono",
       "headFile": "free-ai/site/src/pages/index.astro",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/sass-maker/free-ai"
       ],
-      "applicationCategory": "DeveloperApplication",
       "worker": "free-ai/src/index.ts",
       "productLinks": [
         {
@@ -757,7 +824,7 @@
       ],
       "stack": "spa-static",
       "headFile": "swe-interview-prep/index.html",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/swe-interview-prep"
       ],
@@ -783,6 +850,7 @@
         "robots.txt"
       ],
       "stack": "astro-static",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/sass-maker"
       ],
@@ -849,8 +917,7 @@
       ],
       "stack": "astro-static",
       "headFile": "knowledge-base/landing-astro/src/layouts/Layout.astro",
-      "schemaType": "SoftwareApplication",
-      "applicationCategory": "DeveloperApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/sass-maker/knowledge-base"
       ],
@@ -886,8 +953,7 @@
       ],
       "stack": "vite-worker",
       "headFile": "app-health/apps/web/index.html",
-      "schemaType": "SoftwareApplication",
-      "applicationCategory": "DeveloperApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/sass-maker/app-health"
       ],
@@ -926,7 +992,7 @@
       ],
       "stack": "astro-static",
       "headFile": "chatgpt-memory-insights/src/pages/index.astro",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
       ],
@@ -971,7 +1037,7 @@
       ],
       "stack": "vinext-worker",
       "headFile": "setline/app/layout.tsx",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/setline"
       ],
@@ -1020,7 +1086,7 @@
       "apiAiFile": "api/ai.json",
       "stack": "static",
       "headFile": "motion/landing/index.html",
-      "schemaType": "SoftwareApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/motion"
       ],
@@ -1075,7 +1141,7 @@
       ],
       "stack": "opennext",
       "headFile": "india-standards/app/layout.tsx",
-      "schemaType": "WebApplication",
+      "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/india-standards"
       ],

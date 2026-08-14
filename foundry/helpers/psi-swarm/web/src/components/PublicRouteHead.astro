@@ -10,7 +10,7 @@ const meta = PUBLIC_ROUTE_META[route];
 const origin = 'https://performance.sassmaker.com';
 const canonical = new URL(meta.path, origin).toString();
 const socialImage = `${origin}/apple-touch-icon.png`;
-const schema: Record<string, unknown> = {
+const schema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   name: meta.title,
@@ -22,17 +22,6 @@ const schema: Record<string, unknown> = {
     url: origin,
   },
 };
-
-if (route === 'home') {
-  schema['@type'] = 'SoftwareApplication';
-  schema.applicationCategory = 'DeveloperApplication';
-  schema.operatingSystem = 'macOS, Linux, Windows';
-  schema.offers = {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  };
-}
 ---
 
 <title>{meta.title}</title>

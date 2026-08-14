@@ -190,19 +190,70 @@ audit_page() {
   fi
 
   # --- JSON-LD ---
-  local jsonld_count
-  jsonld_count=$(printf '%s' "$html" | perl -0777 -ne '
-    my $count = 0;
-    while (/<script\b([^>]*)>/gis) {
-      $count++ if $1 =~ /\btype\s*=\s*(["'\''])application\/ld\+json\1/i;
+  local jsonld_analysis jsonld_count jsonld_invalid_count jsonld_ineligible_apps jsonld_types
+  jsonld_analysis=$(printf '%s' "$html" | node --input-type=module -e '
+    import { readFileSync } from "node:fs";
+
+    const html = readFileSync(0, "utf8");
+    const scripts = [];
+    const scriptPattern = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
+    let match;
+    while ((match = scriptPattern.exec(html)) !== null) {
+      const attributes = match[1];
+      const isJsonLd = /\btype\s*=\s*(?:"application\/ld\+json"|'"'"'application\/ld\+json'"'"'|application\/ld\+json)(?:\s|$)/i.test(attributes);
+      if (isJsonLd) scripts.push(match[2].trim());
     }
-    print $count;
+
+    let invalid = 0;
+    let ineligibleApps = 0;
+    const types = new Set();
+    const applicationTypes = new Set(["SoftwareApplication", "WebApplication", "MobileApplication"]);
+
+    function inspect(value) {
+      if (Array.isArray(value)) {
+        for (const item of value) inspect(item);
+        return;
+      }
+      if (!value || typeof value !== "object") return;
+
+      const nodeTypes = Array.isArray(value["@type"])
+        ? value["@type"]
+        : value["@type"]
+          ? [value["@type"]]
+          : [];
+      for (const type of nodeTypes) types.add(String(type));
+      if (
+        nodeTypes.some((type) => applicationTypes.has(String(type))) &&
+        !value.aggregateRating &&
+        !value.review
+      ) {
+        ineligibleApps += 1;
+      }
+
+      for (const child of Object.values(value)) inspect(child);
+    }
+
+    for (const script of scripts) {
+      try {
+        inspect(JSON.parse(script));
+      } catch {
+        invalid += 1;
+      }
+    }
+
+    process.stdout.write([scripts.length, invalid, ineligibleApps, [...types].sort().join(",")].join("\t"));
   ')
+  IFS=$'\t' read -r jsonld_count jsonld_invalid_count jsonld_ineligible_apps jsonld_types <<< "$jsonld_analysis"
+  jsonld_count=${jsonld_count:-0}
+  jsonld_invalid_count=${jsonld_invalid_count:-0}
+  jsonld_ineligible_apps=${jsonld_ineligible_apps:-0}
   if [[ $jsonld_count -eq 0 ]]; then
     echo "  json-ld            FAIL   no structured data"; ((FAIL++))
+  elif [[ $jsonld_invalid_count -gt 0 ]]; then
+    echo "  json-ld            FAIL   $jsonld_invalid_count of $jsonld_count blocks contain invalid JSON"; ((FAIL++))
+  elif [[ $jsonld_ineligible_apps -gt 0 ]]; then
+    echo "  json-ld            FAIL   $jsonld_ineligible_apps application nodes lack aggregateRating or review"; ((FAIL++))
   else
-    local jsonld_types
-    jsonld_types=$(echo "$html" | grep -oiE '"@type"[^,]*' | sed 's/"@type"//' | tr -d ' "' | sort -u | tr '\n' ',' | sed 's/,$//')
     echo "  json-ld            PASS   $jsonld_count blocks ($jsonld_types)"; ((PASS++))
   fi
 
