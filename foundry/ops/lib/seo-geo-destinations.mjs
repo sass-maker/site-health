@@ -125,15 +125,28 @@ function core(entry, program) {
 }
 
 function collectLongTail(value, bucket = null, output = []) {
-  if (Array.isArray(value)) {
-    for (const entry of value) collectLongTail(entry, bucket, output);
-    return output;
+  const pending = [{ value, bucket }];
+  while (pending.length > 0) {
+    const current = pending.pop();
+    if (Array.isArray(current.value)) {
+      for (const entry of current.value.toReversed()) {
+        pending.push({ value: entry, bucket: current.bucket });
+      }
+      continue;
+    }
+    if (!current.value || typeof current.value !== 'object') continue;
+    if (typeof current.value.id === 'string' && https(current.value.url || current.value.final)) {
+      output.push({
+        id: current.value.id,
+        name: current.value.title || current.value.id,
+        submitUrl: current.value.url || current.value.final,
+        observedBucket: current.bucket,
+      });
+    }
+    for (const [key, child] of Object.entries(current.value).toReversed()) {
+      if (key !== 'id') pending.push({ value: child, bucket: current.bucket || key });
+    }
   }
-  if (!value || typeof value !== 'object') return output;
-  if (typeof value.id === 'string' && https(value.url || value.final)) {
-    output.push({ id: value.id, name: value.title || value.id, submitUrl: value.url || value.final, observedBucket: bucket });
-  }
-  for (const [key, child] of Object.entries(value)) if (key !== 'id') collectLongTail(child, bucket || key, output);
   return output;
 }
 
