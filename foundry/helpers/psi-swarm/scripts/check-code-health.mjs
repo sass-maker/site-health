@@ -68,7 +68,7 @@ function checkComplexity() {
     maxParams: Math.max(...rows.map((row) => row[3])),
   };
   // Debt: https://github.com/sass-maker/fleet-workspace/issues/332
-  const baseline = { violations: 22, maxCcn: 58, maxLength: 416, maxParams: 14 };
+  const baseline = { violations: 21, maxCcn: 37, maxLength: 406, maxParams: 14 };
   console.log(
     `Complexity: ${observed.functions} functions, ${observed.nloc} NLOC, ` +
       `${observed.violations} violations; max CCN ${observed.maxCcn}, ` +
@@ -103,7 +103,7 @@ function checkDuplication() {
   const observed = JSON.parse(readFileSync(join(outputDirectory, 'jscpd-report.json'), 'utf8'))
     .statistics.total;
   // Debt: https://github.com/sass-maker/fleet-workspace/issues/332
-  const baseline = { clones: 10, duplicatedLines: 123, percentage: 1.6874742763067636 };
+  const baseline = { clones: 7, duplicatedLines: 73, percentage: 1.0006854009595614 };
   console.log(
     `Duplication: ${observed.duplicatedLines}/${observed.lines} lines ` +
       `(${observed.percentage.toFixed(4)}%), ${observed.clones} groups across ` +

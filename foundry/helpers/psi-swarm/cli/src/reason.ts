@@ -165,6 +165,26 @@ function parseExtraJson(raw: string | undefined): Record<string, unknown> | unde
   }
 }
 
+async function* sseDataLines(res: Response): AsyncGenerator<string> {
+  const reader = res.body!.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    let idx: number;
+    while ((idx = buffer.indexOf('\n')) >= 0) {
+      const line = buffer.slice(0, idx).trim();
+      buffer = buffer.slice(idx + 1);
+      if (!line.startsWith('data:')) continue;
+      const data = line.slice(5).trim();
+      if (data === '[DONE]' || !data) continue;
+      yield data;
+    }
+  }
+}
+
 async function streamOpenAi(
   userMessage: string,
   opts: ReasonOptions,
@@ -218,31 +238,17 @@ async function streamOpenAi(
 
   let acc = '';
   let modelUsed: string | undefined;
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = '';
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    let idx: number;
-    while ((idx = buffer.indexOf('\n')) >= 0) {
-      const line = buffer.slice(0, idx).trim();
-      buffer = buffer.slice(idx + 1);
-      if (!line.startsWith('data:')) continue;
-      const data = line.slice(5).trim();
-      if (data === '[DONE]') continue;
-      try {
-        const parsed = JSON.parse(data);
-        modelUsed = parsed.model ?? modelUsed;
-        const delta = parsed.choices?.[0]?.delta?.content as string | undefined;
-        if (delta) {
-          acc += delta;
-          opts.onChunk?.(delta);
-        }
-      } catch {
-        /* skip malformed chunk */
+  for await (const data of sseDataLines(res)) {
+    try {
+      const parsed = JSON.parse(data);
+      modelUsed = parsed.model ?? modelUsed;
+      const delta = parsed.choices?.[0]?.delta?.content as string | undefined;
+      if (delta) {
+        acc += delta;
+        opts.onChunk?.(delta);
       }
+    } catch {
+      /* skip malformed chunk */
     }
   }
 
@@ -277,30 +283,16 @@ async function streamLocalAi(
   if (!res.body) throw new Error('local-ai returned no body');
 
   let acc = '';
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = '';
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    let idx: number;
-    while ((idx = buffer.indexOf('\n')) >= 0) {
-      const line = buffer.slice(0, idx).trim();
-      buffer = buffer.slice(idx + 1);
-      if (!line.startsWith('data:')) continue;
-      const data = line.slice(5).trim();
-      if (data === '[DONE]' || !data) continue;
-      try {
-        const parsed = JSON.parse(data);
-        const chunk = (parsed.text as string | undefined) ?? (parsed.delta as string | undefined);
-        if (chunk) {
-          acc += chunk;
-          opts.onChunk?.(chunk);
-        }
-      } catch {
-        /* skip */
+  for await (const data of sseDataLines(res)) {
+    try {
+      const parsed = JSON.parse(data);
+      const chunk = (parsed.text as string | undefined) ?? (parsed.delta as string | undefined);
+      if (chunk) {
+        acc += chunk;
+        opts.onChunk?.(chunk);
       }
+    } catch {
+      /* skip */
     }
   }
   return {
