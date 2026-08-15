@@ -34,15 +34,19 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://read.significanthobbies.com/#app",
-      "name": "Reader",
-      "url": "https://read.significanthobbies.com",
-      "description": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "@id": "https://sassmaker.com/#app",
+      "name": "SaaS Maker",
+      "alternateName": [
+        "SassMaker",
+        "sassmaker.com"
+      ],
+      "url": "https://sassmaker.com",
+      "description": "Software as a specialized service: a living studio of focused products built for particular problems.",
       "publisher": {
         "@id": "https://sarthakagrawal.dev/#person"
       },
       "sameAs": [
-        "https://github.com/Significant-Hobbies/reader"
+        "https://github.com/sass-maker"
       ]
     }
   ]

@@ -41,8 +41,9 @@ pinned via `packageManager`.
   `.github/workflows/deploy.yml` remains manual. See
   [docs/operations/deploy.md](./docs/operations/deploy.md).
 - **Deploy is manual.** `main` should stay releasable/green but is not an
-  automatic production trigger. Use `pnpm deploy` (guarded) — see
-  [docs/operations/deploy.md](./docs/operations/deploy.md).
+  automatic production trigger. Use `pnpm run deploy` (guarded) — see
+  [docs/operations/deploy.md](./docs/operations/deploy.md). Do not use
+  `pnpm deploy`, which invokes pnpm's built-in workspace deploy command.
 - **Local-first.** The deployed site is a static Astro build — no SSR, no
   Workers, no runtime secrets. Don't add server-side compute.
 - Keep `SKILL.md` aligned with helper-owned commands and paths; do not copy its

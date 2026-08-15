@@ -34,15 +34,15 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://read.significanthobbies.com/#app",
-      "name": "Reader",
-      "url": "https://read.significanthobbies.com",
-      "description": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "@id": "https://motion.significanthobbies.com/#app",
+      "name": "Motion",
+      "url": "https://motion.significanthobbies.com",
+      "description": "Use on-device iPhone body-pose tracking to control a screen-mirrored game without transmitting camera frames.",
       "publisher": {
         "@id": "https://sarthakagrawal.dev/#person"
       },
       "sameAs": [
-        "https://github.com/Significant-Hobbies/reader"
+        "https://github.com/Significant-Hobbies/motion"
       ]
     }
   ]

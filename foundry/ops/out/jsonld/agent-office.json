@@ -34,15 +34,15 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://read.significanthobbies.com/#app",
-      "name": "Reader",
-      "url": "https://read.significanthobbies.com",
-      "description": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "@id": "https://office-os.sassmaker.com/#app",
+      "name": "Office OS",
+      "url": "https://office-os.sassmaker.com",
+      "description": "Local-first Mac workplace for named AI employees with bounded responsibilities, inspectable work, and owner supervision.",
       "publisher": {
         "@id": "https://sarthakagrawal.dev/#person"
       },
       "sameAs": [
-        "https://github.com/Significant-Hobbies/reader"
+        "https://github.com/sass-maker/agent-office"
       ]
     }
   ]

@@ -33,13 +33,9 @@
       }
     },
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebSite",
       "@id": "https://starboard.codevetter.com/#app",
-      "name": "CodeVetter",
-      "alternateName": [
-        "Code Vetter",
-        "codevetter.com"
-      ],
+      "name": "Starboard",
       "url": "https://starboard.codevetter.com",
       "description": "GitHub stars organizer with semantic search — sub-product of CodeVetter for repo intelligence.",
       "publisher": {

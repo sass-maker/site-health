@@ -34,15 +34,15 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://read.significanthobbies.com/#app",
-      "name": "Reader",
-      "url": "https://read.significanthobbies.com",
-      "description": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "@id": "https://health.sassmaker.com/#app",
+      "name": "App Health",
+      "url": "https://health.sassmaker.com",
+      "description": "Privacy-first endpoint health for Node, Go, Cloudflare, and OpenTelemetry services.",
       "publisher": {
         "@id": "https://sarthakagrawal.dev/#person"
       },
       "sameAs": [
-        "https://github.com/Significant-Hobbies/reader"
+        "https://github.com/sass-maker/app-health"
       ]
     }
   ]

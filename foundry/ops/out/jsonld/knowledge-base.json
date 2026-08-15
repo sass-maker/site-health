@@ -34,15 +34,15 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://read.significanthobbies.com/#app",
-      "name": "Reader",
-      "url": "https://read.significanthobbies.com",
-      "description": "Research library: capture, annotate, and AI-chat over your reading — private by default.",
+      "@id": "https://knowledgebase.sassmaker.com/#app",
+      "name": "Knowledge Base",
+      "url": "https://knowledgebase.sassmaker.com",
+      "description": "Cited search + grounded answers over private, specialized document collections (RAG).",
       "publisher": {
         "@id": "https://sarthakagrawal.dev/#person"
       },
       "sameAs": [
-        "https://github.com/Significant-Hobbies/reader"
+        "https://github.com/sass-maker/knowledge-base"
       ]
     }
   ]

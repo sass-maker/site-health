@@ -12,13 +12,17 @@ production by hand.
 ## Preferred: the guardrail
 
 ```bash
-pnpm deploy
+pnpm run deploy
 ```
 
-`scripts/manual-deploy.mjs` checks branch, clean tree, sync with origin,
-`gh` auth, and a green `ci.yml` on the current HEAD, then dispatches
+> Use `pnpm run deploy`, not `pnpm deploy`. With current pnpm, `pnpm deploy`
+> invokes pnpm's built-in workspace deploy command and exits with
+> `ERR_PNPM_NOTHING_TO_DEPLOY` instead of running the package script.
+
+`scripts/manual-component-deploy.mjs` checks branch, clean tree, sync with
+origin, `gh` auth, and a green `ci.yml` on the current HEAD, then dispatches
 `deploy.yml`. See [deploy](../deploy.md) for the full gate list and the
-**missing `ci.yml` gap** — if `pnpm deploy` fails at the CI-green check,
+**missing `ci.yml` gap** — if `pnpm run deploy` fails at the CI-green check,
 that's why.
 
 ## Fallback: dispatch the workflow directly

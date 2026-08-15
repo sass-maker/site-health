@@ -102,8 +102,9 @@ Internal (fleet):
   (PRs #11–#14).
 - **2026-06-28** — repo transferred to `sarthak-fleet` org (unblocking CF org
   secrets); README npm→pnpm fixes + AGENTS.md (PR #17).
-- **2026-07-02** — guarded manual deploy command (`pnpm deploy` →
-  `scripts/manual-deploy.mjs`).
+- **2026-07-02** — guarded manual deploy command (`pnpm run deploy` →
+  `scripts/manual-component-deploy.mjs`). Use `pnpm run deploy`, not
+  `pnpm deploy`, which invokes pnpm's built-in workspace deploy command.
 
 ## Products
 
@@ -124,7 +125,8 @@ Internal (fleet):
   **manual dispatch only** (not push) — `main` stays releasable but is not an
   automatic production trigger. The action runs from `workingDirectory: web`
   with the locally pinned wrangler (the action's own install fails inside this
-  pnpm monorepo). Repo-local guarded deploy: `pnpm deploy`.
+  pnpm monorepo). Repo-local guarded deploy: `pnpm run deploy`
+  (`pnpm deploy` invokes pnpm's built-in workspace deploy command).
   `.github/workflows/psi-swarm-ci.yml` runs the CLI regression suite, CLI/web
   builds, and docs checks for helper changes; `.github/workflows/docs.yml`
   separately validates docs paths and builds the Blume site.
