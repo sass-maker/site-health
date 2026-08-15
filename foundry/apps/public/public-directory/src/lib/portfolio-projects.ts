@@ -5,7 +5,9 @@ interface RegistryProject {
   name: string;
   lifecycle: string;
   tier?: 'focus' | 'active' | 'secondary' | 'parked';
-  priority?: 'P1' | 'P2' | 'P3' | 'P4';
+  portfolio?: {
+    priority?: 'P1' | 'P2' | 'P4';
+  };
   domains?: string[];
   public?: {
     listing?: string;
@@ -25,13 +27,13 @@ export const portfolioProjects = (projectRegistry.projects as RegistryProject[])
       project.public?.listing === 'maintained' &&
       project.domains?.[0]
   )
-  .map(({ id, name, tier, priority, domains, public: publicMetadata }) => ({
+  .map(({ id, name, tier, portfolio, domains, public: publicMetadata }) => ({
     id,
     name: publicMetadata?.name ?? name,
     url: `https://${domains?.[0]}`,
     description: publicMetadata?.description,
     tier,
-    priority,
+    priority: portfolio?.priority,
     category: publicMetadata?.category,
     maturity: publicMetadata?.maturity,
     spotlight: publicMetadata?.spotlight,
