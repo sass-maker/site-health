@@ -71,14 +71,16 @@ ordering, owner exclusions, and honest evidence tracking.
   recording for accreditation outcomes, separate from campaign execution
   receipts.
 
-### Modified Capabilities
+### Modified Behavior
 
 - `launch-campaign-execution`: The skill's channel-eligibility step changes
   from "treat the directory registry as seed evidence only; recheck every
   campaign" to "load accredited platforms from the state file; reverify only
   seeds whose state is not `accredited` or whose `verifiedAt` is stale." The
   requirement "Channel eligibility uses accreditation state" replaces the
-  prior per-campaign re-verification behavior.
+  prior per-campaign re-verification behavior, which lived only in
+  `launch-campaign/SKILL.md` and had no capability spec; this change creates
+  that spec with the new requirement.
 
 ## Impact
 

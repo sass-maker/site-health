@@ -24,11 +24,11 @@ export const ACCREDITATION_STATES = [
   'blocked',
 ];
 
-export const OUTCOMES = ['confirmed', 'indeterminate'];
-export const DEFAULT_STALENESS_DAYS = 30;
+const OUTCOMES = ['confirmed', 'indeterminate'];
+const DEFAULT_STALENESS_DAYS = 30;
 export const TRANSITION_HISTORY_LIMIT = 10;
-export const EVIDENCE_REQUIRED_STATES = new Set(['live', 'detected', 'indexable']);
-export const PROTECTED_PLATFORM_IDS = PROTECTED_CHANNELS.map((channel) => channel.id);
+const EVIDENCE_REQUIRED_STATES = new Set(['live', 'detected', 'indexable']);
+const PROTECTED_PLATFORM_IDS = PROTECTED_CHANNELS.map((channel) => channel.id);
 export const ACCREDITATION_STATE_PATH = resolve(
   DIRECTORY_SUBMISSIONS_DIR,
   'accreditation-state.json',
@@ -91,7 +91,7 @@ export function validateEvidence(evidence, toState) {
   return { ok: issues.length === 0, issues, evidence: normalized };
 }
 
-export function canTransition(fromState, toState) {
+function canTransition(fromState, toState) {
   if (!STATE_SET.has(fromState)) return { ok: false, reason: `unknown current state: ${fromState}` };
   if (!STATE_SET.has(toState)) return { ok: false, reason: `unknown target state: ${toState}` };
   const allowed = ALLOWED_TRANSITIONS.get(fromState) ?? [];

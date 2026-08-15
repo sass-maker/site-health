@@ -1,6 +1,6 @@
 import { isStale } from './accreditation-state.mjs';
 
-export const ARTIFACT_TYPES = ['article', 'product', 'major-feature'];
+const ARTIFACT_TYPES = ['article', 'product', 'major-feature'];
 
 const ARTIFACT_TYPE_SET = new Set(ARTIFACT_TYPES);
 const MATCHABLE_STATES = new Set(['accredited', 'seed']);
