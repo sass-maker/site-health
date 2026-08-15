@@ -124,6 +124,7 @@ export default function RunDashboard() {
   const [startedAt, setStartedAt] = useState<number>(0);
   const [now, setNow] = useState<number>(Date.now());
   const [finished, setFinished] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
   const [aggregate, setAggregate] = useState<RunSummary | null>(null);
   const [diagnosis, setDiagnosis] = useState<DiagnosisResponse | null>(null);
   const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null);
@@ -211,6 +212,7 @@ export default function RunDashboard() {
     setStartedAt(Date.now());
     setNow(Date.now());
     setFinished(false);
+    setCancelling(false);
     setAggregate(null);
     setDiagnosis(null);
     setSuggestions(null);
@@ -283,6 +285,9 @@ export default function RunDashboard() {
       setTotalDone(e.done);
     } else if (e.type === 'all-complete') {
       setFinished(true);
+    } else if (e.type === 'cancelled') {
+      setFinished(true);
+      setCancelling(false);
     }
   };
 
@@ -302,6 +307,17 @@ export default function RunDashboard() {
     runUnsubRef.current?.();
     runUnsubRef.current = null;
     setView('done');
+  };
+
+  const stopRun = async () => {
+    if (!client || !runId || cancelling) return;
+    setCancelling(true);
+    try {
+      await client.cancelRun(runId);
+    } catch (err) {
+      setCancelling(false);
+      setError(`Failed to cancel run: ${(err as Error).message}`);
+    }
   };
 
   const startReasoning = () => {
@@ -376,6 +392,8 @@ export default function RunDashboard() {
           etaMs={etaMs}
           finished={finished}
           plan={activeRunPlan}
+          cancelling={cancelling}
+          onStop={stopRun}
         />
       )}
 
@@ -458,10 +476,12 @@ interface LiveProgressProps {
   etaMs: number;
   finished: boolean;
   plan: RunPlan | null;
+  cancelling: boolean;
+  onStop: () => void;
 }
 
 function LiveProgress(props: LiveProgressProps) {
-  const { presets, total, totalDone, elapsedMs, etaMs, finished, plan } = props;
+  const { presets, total, totalDone, elapsedMs, etaMs, finished, plan, cancelling, onStop } = props;
   const failed = presets.reduce((sum, preset) => sum + preset.failed, 0);
   return (
     <div className="border border-[var(--color-border)] bg-[var(--color-panel)] rounded-lg p-5 space-y-4 sm:p-6">
@@ -474,7 +494,9 @@ function LiveProgress(props: LiveProgressProps) {
         <div>
           <h2 className="text-lg font-semibold">
             {finished
-              ? `${plan?.label ?? 'Run'} complete`
+              ? cancelling
+                ? `${plan?.label ?? 'Run'} cancelled`
+                : `${plan?.label ?? 'Run'} complete`
               : `Running ${plan?.label.toLowerCase() ?? 'swarm'}`}
           </h2>
           <p className="mt-1 text-xs text-[var(--color-dim)]">
@@ -483,10 +505,22 @@ function LiveProgress(props: LiveProgressProps) {
               : `${plan?.runs ?? 0} runs per preset · ${plan?.presets ?? 'custom'} coverage`}
           </p>
         </div>
-        <div className="text-sm font-mono text-[var(--color-dim)] sm:text-right">
-          {totalDone}/{total} · {(elapsedMs / 1000).toFixed(1)}s
-          {!finished && totalDone > 0 && ` · ETA ${(etaMs / 1000).toFixed(0)}s`}
-          {failed > 0 && <span className="text-[var(--color-poor)]"> · {failed} failed</span>}
+        <div className="flex items-center gap-3">
+          <div className="text-sm font-mono text-[var(--color-dim)] sm:text-right">
+            {totalDone}/{total} · {(elapsedMs / 1000).toFixed(1)}s
+            {!finished && totalDone > 0 && ` · ETA ${(etaMs / 1000).toFixed(0)}s`}
+            {failed > 0 && <span className="text-[var(--color-poor)]"> · {failed} failed</span>}
+          </div>
+          {!finished && (
+            <button
+              type="button"
+              onClick={onStop}
+              disabled={cancelling}
+              className="shrink-0 rounded border border-[var(--color-poor)] px-3 py-1 text-xs font-semibold text-[var(--color-poor)] transition-colors hover:bg-[var(--color-poor)] hover:text-[var(--color-panel)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+            >
+              {cancelling ? 'Stopping…' : 'Stop'}
+            </button>
+          )}
         </div>
       </div>
       <div className="space-y-2">
