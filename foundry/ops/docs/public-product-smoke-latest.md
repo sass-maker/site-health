@@ -13,6 +13,20 @@ interaction per surface where possible. The audit did not sign in or out,
 create accounts, enter credentials, submit messages or forms, save user state,
 purchase, upload private data, trigger production jobs, or probe rate limits.
 
+## Targeted follow-up — portfolio project strip
+
+Generated: 2026-08-15
+
+The shared project strip was checked after deployment on all 28 maintained
+public roots selected by the canonical Fleet registry. Every root returned 200,
+loaded the current strip, identified its own source project, and rendered
+outbound destinations with `ref=<source-project-id>`. Representative browser
+checks on SaaS Maker, Email Manager, Motion, RolePatch, and Starboard also
+confirmed a 44px link target, no visible author or pause controls, working
+hover/focus descriptions, and static touch/reduced-motion behavior. Result:
+**28/28 pass, with no strip-specific findings.** This is a focused component
+smoke test and does not replace the broader product verdicts below.
+
 ## Customer-visible failures
 
 ### CodeVetter

@@ -18,12 +18,12 @@
 
 - [x] 3.1 Regenerate byte-identical local loader copies for every strict-CSP
   consumer and run each repository's smallest relevant check.
-- [ ] 3.2 Merge and deploy the shared loader and strict-CSP consumers from clean
+- [x] 3.2 Merge and deploy the shared loader and strict-CSP consumers from clean
   current `main` without database migrations.
-- [ ] 3.3 Smoke-test every maintained public domain plus representative
+- [x] 3.3 Smoke-test every maintained public domain plus representative
   `ref=<current-project-id>` links.
 
 ## 4. Closeout
 
-- [ ] 4.1 Archive the OpenSpec change, update shipped project truth, close the
+- [x] 4.1 Archive the OpenSpec change, update shipped project truth, close the
   GitHub issue, and record the completed Fleet design-workflow receipt.

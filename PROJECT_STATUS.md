@@ -75,10 +75,15 @@ CodeVetter or App Health source.
   universal project-strip loader from SaaS Maker, then replaced existing
   portfolio footer promotions across all 28 maintained public landing pages.
   The bundled first-paint catalog keeps rendering off the network path while
-  background revalidation, project exclusion, priority, descriptions,
-  accessible tooltips, new-tab links, and reduced-motion behavior stay driven
-  by the canonical Fleet catalog. All product changes merged with native checks
-  and their production domains were smoke-tested after deployment.
+  cached background revalidation, project exclusion, priority, descriptions,
+  accessible hover/focus tooltips, new-tab links, source-project `ref`
+  attribution, and reduced-motion behavior stay driven by the canonical Fleet
+  catalog. The visible surface is now only the compact link rail: the author
+  label remains accessible to assistive technology, while the visible author
+  and pause controls were removed. The complete registry now holds 48
+  identities and projects 28 maintained public destinations. All product
+  changes merged with native checks and all 28 production domains passed the
+  focused post-deployment strip smoke test.
 - **2026-08-14 — Portfolio classification and external publishing became one
   validated program:** Reconciled the completed staged work into the canonical
   catalog, replacing duplicate priority arrays with per-project product,
@@ -848,10 +853,12 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - `@saas-maker/portfolio-project-strip` React package plus universal loader,
   deployed across all 28 maintained public landing pages with a generated
   canonical-registry first-paint catalog, cached public `/projects.json`
-  revalidation, current-project filtering, descriptions, priority, theme
-  tokens, semantic new-tab links, accessible duplicate suppression and
-  tooltips, static short lists, and explicit plus reduced-motion controls. No
-  backend, credentials, analytics, or browser storage.
+  revalidation, current-project filtering, source-project `ref` attribution,
+  descriptions, priority, theme tokens, semantic new-tab links, accessible
+  duplicate suppression and hover/focus tooltips, and static touch and
+  reduced-motion modes. The visible surface contains only links and separators;
+  its author label is assistive-technology-only and there is no visible pause
+  control. No backend, credentials, analytics, or browser storage.
 
 ## Work queue
 
