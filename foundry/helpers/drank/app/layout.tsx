@@ -68,11 +68,7 @@ export default function RootLayout({
           </div>
         </div>
         <MonitoringProvider>{children}</MonitoringProvider>
-        <script
-          src="https://sassmaker.com/project-strip.js"
-          data-project="drank"
-          defer
-        />
+        <script src="https://sassmaker.com/project-strip.js" data-project="drank" defer />
       </body>
     </html>
   );
