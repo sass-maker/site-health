@@ -13,8 +13,8 @@ function fixtureProjects() {
 
 function mockExec(results) {
   const calls = [];
-  const execImpl = (command) => {
-    calls.push(command);
+  const execImpl = (args) => {
+    calls.push(args);
     const result = results.shift();
     if (result instanceof Error) throw result;
     return result;

@@ -5,12 +5,15 @@ export const DEFAULT_POSTHOG_PROJECT_ID = 110635;
 const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'returned'];
 
 /**
- * Collect read-only PostHog Insights aggregates grouped by project_id property.
+ * Collect read-only PostHog aggregate user-metrics grouped by project_id property.
+ *
+ * Uses the PostHog Query API (/api/projects/:id/query/) with TrendsQuery — the
+ * legacy /insights/trend/ endpoint is deprecated and returns 403.
  *
  * The collector uses a PostHog personal API key (POSTHOG_PERSONAL_API_KEY) with
- * read-only access to the Insights API. It never writes events, never reads
- * raw event payloads, and never stores PII — only aggregate counts per
- * project_id are emitted as visibility outcome observations.
+ * read-only access. It never writes events, never reads raw event payloads,
+ * and never stores PII — only aggregate counts per project_id are emitted as
+ * visibility outcome observations.
  *
  * @param {object} options
  * @param {Array} options.projects - Canonical Fleet projects with PostHog instrumentation.
@@ -44,10 +47,6 @@ export async function collectPosthogOutcomes({
     start: startDate.toISOString(),
     end: endDate.toISOString(),
   };
-
-  const projectIds = (projects ?? [])
-    .map((project) => project.id)
-    .filter(Boolean);
 
   const observations = [];
   const unavailable = [];
@@ -113,19 +112,19 @@ async function queryProjectMetrics({
 }) {
   const dateFrom = startDate.toISOString().slice(0, 10);
   const dateTo = endDate.toISOString().slice(0, 10);
-  const propertyFilter = JSON.stringify([
+  const propertyFilter = [
     {
       key: 'project_id',
       operator: 'exact',
       value: [projectIdProperty],
       type: 'event',
     },
-  ]);
+  ];
 
   const metrics = [];
 
   // Visitors: unique users who triggered page_view
-  const visitors = await queryInsights({
+  const visitors = await queryTrend({
     fetchImpl,
     personalApiKey,
     posthogProjectId,
@@ -133,12 +132,12 @@ async function queryProjectMetrics({
     dateTo,
     event: 'page_view',
     propertyFilter,
-    aggregation: 'unique_user_count',
+    math: 'dau',
   });
   if (visitors > 0) metrics.push({ label: 'Visitors', value: visitors });
 
-  // Identified users: unique users across all 5 events with identified distinct_id
-  const identifiedUsers = await queryInsights({
+  // Identified users: unique users across all 5 events
+  const identifiedUsers = await queryTrend({
     fetchImpl,
     personalApiKey,
     posthogProjectId,
@@ -146,12 +145,12 @@ async function queryProjectMetrics({
     dateTo,
     event: null,
     propertyFilter,
-    aggregation: 'unique_user_count',
+    math: 'dau',
   });
   if (identifiedUsers > 0) metrics.push({ label: 'Identified users', value: identifiedUsers });
 
   // Signup count
-  const signups = await queryInsights({
+  const signups = await queryTrend({
     fetchImpl,
     personalApiKey,
     posthogProjectId,
@@ -159,12 +158,12 @@ async function queryProjectMetrics({
     dateTo,
     event: 'signup',
     propertyFilter,
-    aggregation: 'total_event_count',
+    math: 'total',
   });
   if (signups > 0) metrics.push({ label: 'Accounts', value: signups });
 
   // Activation rate: activated / signup (as percent)
-  const activated = await queryInsights({
+  const activated = await queryTrend({
     fetchImpl,
     personalApiKey,
     posthogProjectId,
@@ -172,7 +171,7 @@ async function queryProjectMetrics({
     dateTo,
     event: 'activated',
     propertyFilter,
-    aggregation: 'unique_user_count',
+    math: 'dau',
   });
   if (signups > 0 && activated > 0) {
     metrics.push({
@@ -182,7 +181,7 @@ async function queryProjectMetrics({
   }
 
   // Core actions count
-  const coreActions = await queryInsights({
+  const coreActions = await queryTrend({
     fetchImpl,
     personalApiKey,
     posthogProjectId,
@@ -190,12 +189,12 @@ async function queryProjectMetrics({
     dateTo,
     event: 'core_action',
     propertyFilter,
-    aggregation: 'total_event_count',
+    math: 'total',
   });
   if (coreActions > 0) metrics.push({ label: 'Core actions', value: coreActions });
 
   // D7 retention: users who returned after 7+ days
-  const returned = await queryInsights({
+  const returned = await queryTrend({
     fetchImpl,
     personalApiKey,
     posthogProjectId,
@@ -203,7 +202,7 @@ async function queryProjectMetrics({
     dateTo,
     event: 'returned',
     propertyFilter,
-    aggregation: 'unique_user_count',
+    math: 'dau',
   });
   if (signups > 0 && returned > 0) {
     metrics.push({
@@ -215,7 +214,13 @@ async function queryProjectMetrics({
   return metrics;
 }
 
-async function queryInsights({
+/**
+ * Query the PostHog Query API (/api/projects/:id/query/) with a TrendsQuery.
+ * The legacy /insights/trend/ endpoint is deprecated and returns 403.
+ *
+ * Response shape: { results: [{ data: [number, ...], labels: [date, ...] }, ...] }
+ */
+async function queryTrend({
   fetchImpl,
   personalApiKey,
   posthogProjectId,
@@ -223,23 +228,26 @@ async function queryInsights({
   dateTo,
   event,
   propertyFilter,
-  aggregation,
+  math,
 }) {
   const events = event ? [event] : EVENT_TAXONOMY;
   const body = {
-    events: events.map((eventName) => ({
-      id: eventName,
-      math: aggregation,
-      name: eventName,
-      properties: [],
-    })),
-    date_from: dateFrom,
-    date_to: dateTo,
-    properties: JSON.parse(propertyFilter),
-    interval: 'day',
+    query: {
+      kind: 'TrendsQuery',
+      series: events.map((eventName) => ({
+        event: eventName,
+        math,
+      })),
+      dateRange: {
+        date_from: dateFrom,
+        date_to: dateTo,
+      },
+      properties: propertyFilter,
+      interval: 'day',
+    },
   };
 
-  const response = await fetchImpl(`${POSTHOG_API}/api/projects/${posthogProjectId}/insights/trend`, {
+  const response = await fetchImpl(`${POSTHOG_API}/api/projects/${posthogProjectId}/query/`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${personalApiKey}`,

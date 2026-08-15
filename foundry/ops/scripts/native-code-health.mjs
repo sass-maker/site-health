@@ -29,8 +29,8 @@ const baselines = {
     maxLength: 2396,
   },
   duplication: {
-    duplicatedLines: 323,
-    percentage: 0.7706255666364461,
+    duplicatedLines: 326,
+    percentage: 0.7775975574849727,
     clones: 26,
   },
   unused: {
