@@ -58,7 +58,25 @@ const FAMILY_CONTRACTS = {
       'RUM samples': { unit: 'samples', direction: 'higher-is-better' },
     },
   },
+  'user-metrics': {
+    providers: ['posthog-insights', 'd1-aggregate'],
+    metrics: {
+      'Visitors': { unit: 'visitors', direction: 'higher-is-better' },
+      'Identified users': { unit: 'users', direction: 'higher-is-better' },
+      'Accounts': { unit: 'accounts', direction: 'higher-is-better' },
+      'New accounts': { unit: 'accounts', direction: 'higher-is-better' },
+      'Activation rate': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
+      'D1 retention': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
+      'D7 retention': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
+      'Core actions': { unit: 'actions', direction: 'higher-is-better' },
+    },
+  },
 };
+
+function allowedProviders(contract) {
+  if (Array.isArray(contract.providers)) return new Set(contract.providers);
+  return new Set([contract.provider]);
+}
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -279,7 +297,8 @@ function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   }
   const contract = FAMILY_CONTRACTS[observation.family];
   assert(contract, `unsupported visibility outcome family: ${observation.family}`);
-  assert(observation.provider === contract.provider, `${observation.family} requires provider ${contract.provider}`);
+  const providers = allowedProviders(contract);
+  assert(providers.has(observation.provider), `${observation.family} requires one of: ${[...providers].join(', ')}`);
   assert(
     typeof observation.scope === 'string' && observation.scope.length > 0 && observation.scope.length <= 300,
     'observation.scope must be 1-300 characters',

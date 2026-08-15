@@ -300,6 +300,27 @@ function outcomeProjection(connections, family) {
       },
       observedAt: Number.isFinite(Date.parse(row.observedAt)) ? row.observedAt : null,
     }));
+  } else if (family === 'user-metrics') {
+    rows = (outcomes.userMetrics ?? []).map((row) => ({
+      projectId: boundedText(row.projectId, 160),
+      name: boundedText(row.name, 160) ?? 'Unnamed project',
+      domain: boundedText(row.domain, 240),
+      status: row.status === 'observed' ? 'observed' : 'not-measured',
+      visitors: boundedSignal(row.visitors),
+      identifiedUsers: boundedSignal(row.identifiedUsers),
+      accounts: boundedSignal(row.accounts),
+      newAccounts: boundedSignal(row.newAccounts),
+      activationRate: boundedSignal(row.activationRate),
+      d1Retention: boundedSignal(row.d1Retention),
+      d7Retention: boundedSignal(row.d7Retention),
+      coreActions: boundedSignal(row.coreActions),
+      provider: boundedText(row.provider, 80),
+      observedAt: Number.isFinite(Date.parse(row.observedAt)) ? row.observedAt : null,
+      period: row.period ? {
+        start: boundedText(row.period.start, 40),
+        end: boundedText(row.period.end, 40),
+      } : null,
+    }));
   } else {
     return null;
   }
@@ -468,7 +489,7 @@ export function createFounderControlHandler({
       );
     }
     const outcomeMatch = url.pathname.match(
-      /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing|growth)$/,
+      /^\/v1\/outcomes\/(domains|search|ai-awareness|performance|marketing|growth|user-metrics)$/,
     );
     if (outcomeMatch) {
       return json(

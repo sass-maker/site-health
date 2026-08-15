@@ -3513,6 +3513,47 @@ async function renderGrowth() {
     : empty("No growth evidence", "No maintained public projects are available to allocate."));
 }
 
+async function renderProductAnalytics() {
+  const payload = await api("/v1/outcomes/user-metrics");
+  updateOutcomeTime(payload.generatedAt);
+  const rows = payload.rows ?? [];
+  const count = document.querySelector<HTMLElement>('[data-founder-count="product-analytics"]');
+  if (count) count.textContent = String(rows.length);
+  const stateLabel = document.querySelector<HTMLElement>("[data-user-metrics-state]");
+  if (stateLabel) {
+    const observed = rows.filter((row: JsonRecord) => row.status === "observed").length;
+    stateLabel.className = `state ${observed > 0 ? "ok" : "none"}`;
+    stateLabel.textContent = observed > 0 ? `${observed} product${observed === 1 ? "" : "s"} observed` : "Not measured";
+  }
+  const columns: OutcomeColumn[] = [
+    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row) },
+    { key: "visitors", label: "Visitors", description: "Sort by visitors", value: (row) => row.visitors?.value, render: (row) => metricCell(row.visitors) },
+    { key: "identified", label: "Identified", description: "Sort by identified users", value: (row) => row.identifiedUsers?.value, render: (row) => metricCell(row.identifiedUsers) },
+    { key: "accounts", label: "Accounts", description: "Sort by total accounts", value: (row) => row.accounts?.value, render: (row) => metricCell(row.accounts) },
+    { key: "newAccounts", label: "New", description: "Sort by new accounts", value: (row) => row.newAccounts?.value, render: (row) => metricCell(row.newAccounts) },
+    { key: "activation", label: "Activation", description: "Sort by activation rate", value: (row) => row.activationRate?.value, render: (row) => metricCell(row.activationRate, "%") },
+    { key: "d7", label: "D7 retention", description: "Sort by D7 retention", value: (row) => row.d7Retention?.value, render: (row) => metricCell(row.d7Retention, "%") },
+    { key: "coreActions", label: "Core actions", description: "Sort by core actions", value: (row) => row.coreActions?.value, render: (row) => metricCell(row.coreActions) },
+    { key: "provider", label: "Source", description: "Sort by provider", value: (row) => row.provider, render: (row) => element("span", { class: "provider-label" }, [row.provider ?? "—"]) },
+    { key: "observed", label: "Last observed", description: "Sort by latest evidence", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
+  ];
+  replace("product-analytics", rows.length
+    ? outcomeTable(rows, columns, "project", "User metrics by product", "ascending", {
+        rowKey: (row) => row.projectId,
+        className: "outcome-table-wrap--user-metrics",
+      })
+    : empty("No user metrics", "Run the PostHog or D1 collector to start measuring product usage."));
+}
+
+function metricCell(signal: JsonRecord | null, suffix = ""): HTMLElement {
+  if (!signal || signal.value === null || signal.value === undefined) {
+    return element("span", { class: "metric metric--none" }, ["—"]);
+  }
+  const value = Number(signal.value);
+  const display = Number.isFinite(value) ? (suffix === "%" ? value.toFixed(1) + "%" : String(value)) : "—";
+  return element("span", { class: "metric" }, [display]);
+}
+
 async function renderMission() {
   const missionId = new URLSearchParams(location.search).get("id");
   const host = document.querySelector<HTMLElement>("[data-mission]");
@@ -3615,6 +3656,7 @@ async function start() {
       await renderMarketing();
     }
     if (view === "growth") await renderGrowth();
+    if (view === "product-analytics") await renderProductAnalytics();
     if (view === "performance") {
       bindPortfolioRefresh("psi");
       bindPortfolioRefresh("cloudflare");

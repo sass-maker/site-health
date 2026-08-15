@@ -2,7 +2,7 @@
 import "../styles/founder.css";
 
 interface Props {
-  active: "domains" | "search" | "ai-awareness" | "performance" | "growth" | "market" | "project-statuses" | "feedback" | "metrics";
+  active: "domains" | "search" | "ai-awareness" | "performance" | "growth" | "market" | "project-statuses" | "feedback" | "metrics" | "product-analytics";
 }
 
 const { active } = Astro.props;
@@ -11,6 +11,7 @@ const links = [
   { id: "search", href: "/search", label: "Google Search", icon: "M11 4a7 7 0 105.2 11.7L21 20.5 M8 11h6 M11 8v6" },
   { id: "ai-awareness", href: "/ai-awareness", label: "AI awareness", icon: "M12 3v3 M12 18v3 M3 12h3 M18 12h3 M5.6 5.6l2.1 2.1 M16.3 16.3l2.1 2.1 M18.4 5.6l-2.1 2.1 M7.7 16.3l-2.1 2.1 M9 12a3 3 0 106 0 3 3 0 00-6 0z" },
   { id: "performance", href: "/performance", label: "Performance", icon: "M4 17a8 8 0 1116 0 M12 17l4-5 M7 17h10" },
+  { id: "product-analytics", href: "/product-analytics", label: "Product analytics", icon: "M4 19V9 M12 19V5 M20 19v-6" },
 ] as const;
 const growthLinks = [
   { id: "growth", href: "/growth", label: "Growth", icon: "M4 18l5-5 4 3 7-9 M15 7h5v5" },
