@@ -53,6 +53,14 @@ Examples:
   node foundry/ops/scripts/fleet-capabilities.mjs context "site health" --dense
   node foundry/ops/scripts/fleet-capabilities.mjs doctor --json`;
 
+function readOptionValue(argv, index, errorMessage) {
+  const value = argv[index + 1];
+  if (!value || value.startsWith('--')) {
+    throw usageError(errorMessage);
+  }
+  return [value, index + 1];
+}
+
 function parseArguments(argv) {
   const options = {
     json: false,
@@ -69,21 +77,11 @@ function parseArguments(argv) {
     } else if (argument === '--dense') {
       options.dense = true;
     } else if (argument === '--type') {
-      const value = argv[index + 1];
-      if (!value || value.startsWith('--')) {
-        throw usageError('Expected a capability type after --type.');
-      }
-      options.type = value;
-      index += 1;
+      [options.type, index] = readOptionValue(argv, index, 'Expected a capability type after --type.');
     } else if (argument.startsWith('--type=')) {
       options.type = argument.slice('--type='.length);
     } else if (argument === '--runtime') {
-      const value = argv[index + 1];
-      if (!value || value.startsWith('--')) {
-        throw usageError('Expected intelligence:reasoning after --runtime.');
-      }
-      options.runtime = value;
-      index += 1;
+      [options.runtime, index] = readOptionValue(argv, index, 'Expected intelligence:reasoning after --runtime.');
     } else if (argument.startsWith('--runtime=')) {
       options.runtime = argument.slice('--runtime='.length);
     } else if (argument === '--help' || argument === '-h') {

@@ -29,7 +29,7 @@ function lineNumber(content, index) {
   return content.slice(0, index).split("\n").length;
 }
 
-export function isIndependentProduct(project) {
+function isIndependentProduct(project) {
   return (
     project.lifecycle === "maintained" &&
     typeof project.repo === "string" &&

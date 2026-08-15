@@ -77,7 +77,7 @@ function validateMetric(id, metric) {
   }
 }
 
-export class QuietExperimentError extends Error {
+class QuietExperimentError extends Error {
   constructor(message) {
     super(message);
     this.name = 'QuietExperimentError';

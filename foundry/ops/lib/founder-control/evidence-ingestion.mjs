@@ -49,7 +49,7 @@ function evidencePointer(receipt) {
   };
 }
 
-export function appendCurrentEvidence(store, receipt, { actorId = 'current-evidence-backfill' } = {}) {
+function appendCurrentEvidence(store, receipt, { actorId = 'current-evidence-backfill' } = {}) {
   assertSafeReceiptShape(receipt);
   if (!store.getMissionState(receipt.missionId)) {
     throw new Error(`cannot attach evidence to unknown mission ${receipt.missionId}`);

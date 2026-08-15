@@ -32,7 +32,7 @@ export const STATUS = Object.freeze({
   PASS_WITH_CHILD_FAILURES: 'pass-with-child-failures',
 });
 
-export const PRIVATE_PAYLOAD_KEYS = new Set([
+const PRIVATE_PAYLOAD_KEYS = new Set([
   'article-bodies',
   'pdf-content',
   'annotations',

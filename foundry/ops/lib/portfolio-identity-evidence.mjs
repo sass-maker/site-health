@@ -105,7 +105,7 @@ function validatePromotionPolicy(policy) {
   }
 }
 
-export class PortfolioIdentityEvidenceError extends Error {
+class PortfolioIdentityEvidenceError extends Error {
   constructor(message) {
     super(message);
     this.name = 'PortfolioIdentityEvidenceError';

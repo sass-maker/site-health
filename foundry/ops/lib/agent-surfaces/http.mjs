@@ -1,5 +1,5 @@
 /** Paths that must never fall through to an SPA HTML shell. */
-export const AGENT_PATHS = new Set([
+const AGENT_PATHS = new Set([
   '/llms.txt',
   '/llms-full.txt',
   '/api/ai',

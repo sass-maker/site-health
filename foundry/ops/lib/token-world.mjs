@@ -59,7 +59,7 @@ export function buildTokenWorldProjection(seed, previous = null, options = {}) {
   };
 }
 
-export function validateSeed(seed) {
+function validateSeed(seed) {
   if (!seed || typeof seed !== 'object' || Array.isArray(seed)) throw new Error('seed must be an object');
   rejectForbiddenKeys(seed);
   expectExactKeys(seed, [
@@ -107,7 +107,7 @@ export function validateSeed(seed) {
   }
 }
 
-export function validateProjection(projection) {
+function validateProjection(projection) {
   if (!projection || typeof projection !== 'object') throw new Error('projection must be an object');
   for (const key of ['previousLifetimeTokens', 'lifetimeTokens', 'todayTokens', 'countriesServed', 'projectsContributing']) {
     expectCount(projection[key], key);

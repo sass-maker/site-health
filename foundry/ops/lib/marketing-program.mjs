@@ -233,7 +233,7 @@ function normalizeIdentity(value) {
   return String(value ?? '').trim().toLowerCase().replaceAll('_', '-');
 }
 
-export class MarketingProgramError extends Error {
+class MarketingProgramError extends Error {
   constructor(message) {
     super(message);
     this.name = 'MarketingProgramError';

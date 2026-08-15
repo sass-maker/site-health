@@ -31,7 +31,7 @@ export function scoreRecommendation(input, { now = new Date().toISOString() } = 
   return Math.round(score * 100);
 }
 
-export function isRecommendationEligible(input) {
+function isRecommendationEligible(input) {
   if (!['ignored', 'out-of-fleet'].includes(input.attention)) return true;
   return ['security', 'cost', 'data-loss', 'reactivation'].includes(input.risk);
 }

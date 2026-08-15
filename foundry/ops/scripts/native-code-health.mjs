@@ -21,7 +21,7 @@ const ignoredGlobs = [
 
 const baselines = {
   complexity: {
-    warnings: 103,
+    warnings: 97,
     maxNloc: 2334,
     maxCcn: 63,
     maxTokens: 3972,
@@ -30,12 +30,12 @@ const baselines = {
   },
   duplication: {
     duplicatedLines: 231,
-    percentage: 0.5603939739453191,
+    percentage: 0.5604211649967248,
     clones: 20,
   },
   unused: {
     files: 0,
-    exports: 54,
+    exports: 1,
     types: 0,
     dependencies: 0,
     unlisted: 0,

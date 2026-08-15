@@ -1,7 +1,7 @@
 import { open, stat } from 'node:fs/promises';
 import { basename, resolve } from 'node:path';
 
-export const CODEX_HOOK_LIMITS = Object.freeze({
+const CODEX_HOOK_LIMITS = Object.freeze({
   transcriptBytes: 2 * 1024 * 1024,
   transcriptLines: 4_000,
   transcriptLineBytes: 256 * 1024,

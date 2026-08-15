@@ -359,27 +359,29 @@ async function backfillCommand(store, args) {
   ));
 }
 
+const COMMANDS = {
+  exec: execCommand,
+  record: recordCommand,
+  list: listCommand,
+  show: showCommand,
+  output: outputCommand,
+  metrics: metricsCommand,
+  status: statusCommand,
+  doctor: doctorCommand,
+  rebuild: rebuildCommand,
+  prune: pruneCommand,
+  'backfill-teammates': backfillCommand,
+};
+
 async function main() {
   if (!command || command === 'help' || command === '--help' || command === '-h') {
     process.stdout.write(usage());
     return;
   }
 
-  const store = newStore();
-  switch (command) {
-    case 'exec': await execCommand(store, argv); break;
-    case 'record': await recordCommand(store, argv); break;
-    case 'list': await listCommand(store, argv); break;
-    case 'show': await showCommand(store, argv); break;
-    case 'output': await outputCommand(store, argv); break;
-    case 'metrics': await metricsCommand(store, argv); break;
-    case 'status': await statusCommand(store, argv); break;
-    case 'doctor': await doctorCommand(store, argv); break;
-    case 'rebuild': await rebuildCommand(store, argv); break;
-    case 'prune': await pruneCommand(store, argv); break;
-    case 'backfill-teammates': await backfillCommand(store, argv); break;
-    default: throw new Error(`unknown command: ${command}`);
-  }
+  const handler = COMMANDS[command];
+  if (!handler) throw new Error(`unknown command: ${command}`);
+  await handler(newStore(), argv);
 }
 
 main().catch((error) => {

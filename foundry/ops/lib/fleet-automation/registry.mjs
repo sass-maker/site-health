@@ -3,8 +3,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const moduleDir = dirname(fileURLToPath(import.meta.url));
-export const fleetRoot = resolve(moduleDir, "../../../..");
-export const registryPath = resolve(fleetRoot, "foundry/ops/config/automation-registry.json");
+const fleetRoot = resolve(moduleDir, "../../../..");
+const registryPath = resolve(fleetRoot, "foundry/ops/config/automation-registry.json");
 
 const attentionClasses = new Set(["my-work", "toolbox", "foundry", "ignored"]);
 const runtimeTypes = new Set([
