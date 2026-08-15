@@ -2167,11 +2167,11 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-16",
-          "reason": "Built 2026-08-16. macOS, iOS and watchOS targets build; iOS and watchOS sign for device with CloudKit entitlements. Landing, support and privacy pages built but not deployed, so there is no public URL yet; macOS signing awaits registering the owner's Mac in the developer account."
+          "reason": "Landing, support and privacy pages deployed 2026-08-16 and serving on anchor-landing-ejy.pages.dev. Not ready to share: the apps themselves are unreleased, the anchor.significanthobbies.com custom domain is not attached yet, and macOS signing awaits registering the owner's Mac."
         }
       },
       "name": "Anchor",
@@ -2182,13 +2182,13 @@
       "lifecycle": "local-only",
       "repo": "anchor",
       "repositoryVisibility": "private",
-      "deployKind": "none",
-      "cfProject": null,
+      "deployKind": "pages",
+      "cfProject": "anchor-landing",
       "domains": [],
       "inRegistry": false,
-      "status": "undeployed",
+      "status": "live",
       "app": "swift",
-      "notes": "Local-first focus timer for macOS, iOS and watchOS. SwiftData + CloudKit storage, on-device FoundationModels tagging, hand-written xlsx export and a stdio MCP server. Astro landing/support/privacy pages exist in landing/ and are intended for a Pages project at anchor.significanthobbies.com, but neither has been created — recorded as undeployed until they are.",
+      "notes": "Local-first focus timer for macOS, iOS and watchOS. SwiftData + CloudKit storage, on-device FoundationModels tagging, hand-written xlsx export and a stdio MCP server. Landing/support/privacy pages are live on Cloudflare Pages project anchor-landing; the anchor.significanthobbies.com custom domain still needs attaching, which is why domains is empty and the pages already canonicalise to that host.",
       "public": {
         "listing": "hidden",
         "id": "anchor",
@@ -2214,9 +2214,9 @@
         {
           "kind": "pages",
           "state": "provider-complete",
-          "observed": 26,
-          "tracked": 27,
-          "evidence": "Wrangler account list; 26 live plus one deleted historical target."
+          "observed": 27,
+          "tracked": 28,
+          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing) plus one deleted historical target."
         },
         {
           "kind": "worker",
@@ -3646,9 +3646,17 @@
       },
       "anchor": {
         "updatedAt": "2026-08-16",
-        "deployments": [],
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "anchor-landing",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
         "resources": [],
-        "notes": "No provider resources. The apps are local Apple binaries; the landing Pages project (anchor-landing, per landing/wrangler.toml) has not been created."
+        "notes": "Static landing only — no D1, KV, R2 or Workers. The Apple apps are local binaries with no provider resources."
       }
     },
     "unownedResources": [
