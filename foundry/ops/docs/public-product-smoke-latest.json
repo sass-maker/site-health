@@ -573,5 +573,29 @@
         "release.json remained fail-closed for 0.1.0 (1) arm64"
       ]
     }
+  ],
+  "targetedChecks": [
+    {
+      "generatedAt": "2026-08-15",
+      "scope": "portfolio-project-strip",
+      "sourceOfTruth": "foundry/ops/config/projects.json",
+      "expected": 28,
+      "passed": 28,
+      "failed": 0,
+      "assertions": [
+        "root returned HTTP 200",
+        "current strip loader marker was present",
+        "current source project id was present",
+        "outbound links use ref=<source-project-id>"
+      ],
+      "browserSample": [
+        "fleet-workspace",
+        "email-manager",
+        "motion",
+        "rolepatch",
+        "starboard"
+      ],
+      "findings": []
+    }
   ]
 }
