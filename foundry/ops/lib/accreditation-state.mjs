@@ -59,17 +59,32 @@ function isRecord(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
+const OPTIONAL_EVIDENCE_FIELDS = [
+  'formDetected',
+  'captchaDetected',
+  'signinRequired',
+  'paymentRequired',
+  'screenshotPath',
+];
+
+function urlOrNull(value) {
+  return presentString(value) ? value : null;
+}
+
+function integerOrNull(value) {
+  return Number.isInteger(value) ? value : null;
+}
+
 function normalizeEvidence(input = {}) {
   const evidence = isRecord(input) ? input : {};
+  const optional = Object.fromEntries(
+    OPTIONAL_EVIDENCE_FIELDS.map((field) => [field, evidence[field] ?? null]),
+  );
   return {
-    liveUrl: typeof evidence.liveUrl === 'string' && evidence.liveUrl ? evidence.liveUrl : null,
-    httpStatus: Number.isInteger(evidence.httpStatus) ? evidence.httpStatus : null,
-    finalStatus: Number.isInteger(evidence.finalStatus) ? evidence.finalStatus : null,
-    formDetected: evidence.formDetected ?? null,
-    captchaDetected: evidence.captchaDetected ?? null,
-    signinRequired: evidence.signinRequired ?? null,
-    paymentRequired: evidence.paymentRequired ?? null,
-    screenshotPath: evidence.screenshotPath ?? null,
+    liveUrl: urlOrNull(evidence.liveUrl),
+    httpStatus: integerOrNull(evidence.httpStatus),
+    finalStatus: integerOrNull(evidence.finalStatus),
+    ...optional,
   };
 }
 
