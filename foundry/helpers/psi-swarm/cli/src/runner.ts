@@ -52,105 +52,6 @@ interface RunOnceOptions {
   captureAudits?: boolean;
 }
 
-async function runOnce(
-  url: string,
-  preset: Preset,
-  opts: RunOnceOptions = {}
-): Promise<RunResultWithArtifact> {
-  const startedAt = Date.now();
-  let chrome: LaunchedChrome | undefined;
-  try {
-    chrome = await launch({ chromeFlags: CHROME_FLAGS });
-    const result = await lighthouse(
-      url,
-      {
-        port: chrome.port,
-        logLevel: 'silent',
-        output: 'json',
-      },
-      {
-        extends: 'lighthouse:default',
-        settings: {
-          onlyCategories: ['performance'],
-          formFactor: preset.formFactor,
-          throttling: preset.throttling,
-          screenEmulation: preset.screenEmulation,
-        },
-      }
-    );
-    if (!result) throw new Error('Lighthouse returned no result');
-    const lhr = result.lhr;
-    if (lhr.runtimeError) {
-      throw new Error(
-        `Lighthouse runtime error: ${lhr.runtimeError.code} — ${lhr.runtimeError.message}`
-      );
-    }
-    const audits = lhr.audits;
-    const numeric = (id: string): number | undefined => {
-      const a = audits[id];
-      return typeof a?.numericValue === 'number' ? a.numericValue : undefined;
-    };
-    const metrics: MetricSet = {
-      lcp: numeric('largest-contentful-paint'),
-      cls: numeric('cumulative-layout-shift'),
-      inp:
-        numeric('interaction-to-next-paint') ?? numeric('experimental-interaction-to-next-paint'),
-      tbt: numeric('total-blocking-time'),
-      fcp: numeric('first-contentful-paint'),
-      ttfb: numeric('server-response-time'),
-      si: numeric('speed-index'),
-      performance_score:
-        typeof lhr.categories.performance?.score === 'number'
-          ? lhr.categories.performance.score * 100
-          : undefined,
-    };
-    // Reject non-page and empty measurements: a Lighthouse run that completes
-    // without error but yields no performance metrics (e.g. a Cloudflare Access
-    // 401 page, a redirect to an auth wall, or a blank/error document) is not a
-    // valid product performance observation. Without this guard, the report
-    // counts these as "ok" and the Console retains a misleading score.
-    if (!hasValidMetrics(metrics)) {
-      throw new Error(
-        `No performance metrics in Lighthouse result — likely a non-page response (auth wall, error page, or redirect). Final URL: ${lhr.finalDisplayedUrl ?? lhr.finalUrl ?? url}`
-      );
-    }
-    const out: RunResultWithArtifact = {
-      preset,
-      startedAt,
-      finishedAt: Date.now(),
-      metrics,
-      finalUrl: lhr.finalDisplayedUrl ?? lhr.finalUrl,
-    };
-    if (opts.captureScripts) {
-      // Lighthouse Scripts artifact contains the bundled JS source for every script
-      // on the page. Perfect for framework route detection — works even on auth-gated SPAs.
-      const artifacts = (
-        result as unknown as {
-          artifacts?: { Scripts?: { url?: string; content?: string }[] };
-        }
-      ).artifacts;
-      if (Array.isArray(artifacts?.Scripts)) {
-        out.scripts = artifacts.Scripts.filter(
-          (s) => typeof s.content === 'string' && typeof s.url === 'string'
-        ).map((s) => ({ url: s.url!, content: s.content! }));
-      }
-    }
-    if (opts.captureAudits) {
-      out.audits = captureAuditsFromLhr(audits as Parameters<typeof captureAuditsFromLhr>[0]);
-    }
-    return out;
-  } catch (err) {
-    return {
-      preset,
-      startedAt,
-      finishedAt: Date.now(),
-      error: err instanceof Error ? err.message : String(err),
-    };
-  } finally {
-    await chrome?.kill();
-  }
-}
-
 export type RunnerEvent =
   | { type: 'start'; total: number; presets: Preset[]; parallel: number }
   | { type: 'run-start'; preset: Preset; presetIndex: number; runIndex: number }
@@ -164,7 +65,8 @@ export type RunnerEvent =
       total: number;
     }
   | { type: 'preset-complete'; preset: Preset; results: RunResultWithArtifact[] }
-  | { type: 'all-complete'; elapsedMs: number; results: RunResultWithArtifact[] };
+  | { type: 'all-complete'; elapsedMs: number; results: RunResultWithArtifact[] }
+  | { type: 'cancelled'; results: RunResultWithArtifact[] };
 
 export interface SwarmOptions {
   url: string;
@@ -176,6 +78,138 @@ export interface SwarmOptions {
 }
 
 export class SwarmRunner extends EventEmitter {
+  private cancelled = false;
+  private activeChromes = new Set<LaunchedChrome>();
+
+  /**
+   * Cancel an in-progress swarm. Sets the cancellation flag so the run loop
+   * stops scheduling new audits, then kills every currently-active Chrome
+   * child process so in-flight Lighthouse runs terminate promptly.
+   */
+  cancel(): void {
+    if (this.cancelled) return;
+    this.cancelled = true;
+    for (const chrome of this.activeChromes) {
+      try {
+        void chrome.kill();
+      } catch {
+        /* best-effort */
+      }
+    }
+    this.activeChromes.clear();
+  }
+
+  get isCancelled(): boolean {
+    return this.cancelled;
+  }
+
+  private async runOnce(
+    url: string,
+    preset: Preset,
+    opts: RunOnceOptions = {}
+  ): Promise<RunResultWithArtifact> {
+    const startedAt = Date.now();
+    let chrome: LaunchedChrome | undefined;
+    try {
+      chrome = await launch({ chromeFlags: CHROME_FLAGS });
+      this.activeChromes.add(chrome);
+      // If cancel() fired while Chrome was launching, kill it immediately.
+      if (this.cancelled) {
+        throw new Error('Swarm cancelled');
+      }
+      const result = await lighthouse(
+        url,
+        {
+          port: chrome.port,
+          logLevel: 'silent',
+          output: 'json',
+        },
+        {
+          extends: 'lighthouse:default',
+          settings: {
+            onlyCategories: ['performance'],
+            formFactor: preset.formFactor,
+            throttling: preset.throttling,
+            screenEmulation: preset.screenEmulation,
+          },
+        }
+      );
+      if (!result) throw new Error('Lighthouse returned no result');
+      const lhr = result.lhr;
+      if (lhr.runtimeError) {
+        throw new Error(
+          `Lighthouse runtime error: ${lhr.runtimeError.code} — ${lhr.runtimeError.message}`
+        );
+      }
+      const audits = lhr.audits;
+      const numeric = (id: string): number | undefined => {
+        const a = audits[id];
+        return typeof a?.numericValue === 'number' ? a.numericValue : undefined;
+      };
+      const metrics: MetricSet = {
+        lcp: numeric('largest-contentful-paint'),
+        cls: numeric('cumulative-layout-shift'),
+        inp:
+          numeric('interaction-to-next-paint') ?? numeric('experimental-interaction-to-next-paint'),
+        tbt: numeric('total-blocking-time'),
+        fcp: numeric('first-contentful-paint'),
+        ttfb: numeric('server-response-time'),
+        si: numeric('speed-index'),
+        performance_score:
+          typeof lhr.categories.performance?.score === 'number'
+            ? lhr.categories.performance.score * 100
+            : undefined,
+      };
+      // Reject non-page and empty measurements: a Lighthouse run that completes
+      // without error but yields no performance metrics (e.g. a Cloudflare Access
+      // 401 page, a redirect to an auth wall, or a blank/error document) is not a
+      // valid product performance observation. Without this guard, the report
+      // counts these as "ok" and the Console retains a misleading score.
+      if (!hasValidMetrics(metrics)) {
+        throw new Error(
+          `No performance metrics in Lighthouse result — likely a non-page response (auth wall, error page, or redirect). Final URL: ${lhr.finalDisplayedUrl ?? lhr.finalUrl ?? url}`
+        );
+      }
+      const out: RunResultWithArtifact = {
+        preset,
+        startedAt,
+        finishedAt: Date.now(),
+        metrics,
+        finalUrl: lhr.finalDisplayedUrl ?? lhr.finalUrl,
+      };
+      if (opts.captureScripts) {
+        // Lighthouse Scripts artifact contains the bundled JS source for every script
+        // on the page. Perfect for framework route detection — works even on auth-gated SPAs.
+        const artifacts = (
+          result as unknown as {
+            artifacts?: { Scripts?: { url?: string; content?: string }[] };
+          }
+        ).artifacts;
+        if (Array.isArray(artifacts?.Scripts)) {
+          out.scripts = artifacts.Scripts.filter(
+            (s) => typeof s.content === 'string' && typeof s.url === 'string'
+          ).map((s) => ({ url: s.url!, content: s.content! }));
+        }
+      }
+      if (opts.captureAudits) {
+        out.audits = captureAuditsFromLhr(audits as Parameters<typeof captureAuditsFromLhr>[0]);
+      }
+      return out;
+    } catch (err) {
+      return {
+        preset,
+        startedAt,
+        finishedAt: Date.now(),
+        error: err instanceof Error ? err.message : String(err),
+      };
+    } finally {
+      if (chrome) {
+        this.activeChromes.delete(chrome);
+        await chrome.kill();
+      }
+    }
+  }
+
   async run(opts: SwarmOptions): Promise<RunResultWithArtifact[]> {
     const parallel = Math.max(1, Math.min(opts.parallel ?? 1, opts.presets.length));
     const total = opts.presets.length * opts.runs;
@@ -198,13 +232,14 @@ export class SwarmRunner extends EventEmitter {
       // Only capture scripts on the first successful run per preset — saves memory (bundles can be MB).
       let scriptsCaptured = false;
       for (let i = 0; i < opts.runs; i++) {
+        if (this.cancelled) break;
         this.emit('event', {
           type: 'run-start',
           preset,
           presetIndex,
           runIndex: i,
         } satisfies RunnerEvent);
-        const r = await runOnce(opts.url, preset, {
+        const r = await this.runOnce(opts.url, preset, {
           captureScripts: opts.captureScripts && !scriptsCaptured,
           captureAudits: opts.captureAudits,
         });
@@ -236,6 +271,7 @@ export class SwarmRunner extends EventEmitter {
     let cursor = 0;
     const next = async (): Promise<void> => {
       while (cursor < queue.length) {
+        if (this.cancelled) break;
         const job = queue[cursor++];
         await runPreset(job.preset, job.presetIndex);
       }
@@ -244,6 +280,16 @@ export class SwarmRunner extends EventEmitter {
       workers.push(next());
     }
     await Promise.all(workers);
+
+    // If the swarm was cancelled, emit a cancelled event instead of all-complete
+    // and return the partial results collected so far.
+    if (this.cancelled) {
+      this.emit('event', {
+        type: 'cancelled',
+        results: allResults,
+      } satisfies RunnerEvent);
+      return allResults;
+    }
 
     const elapsedMs = Date.now() - startedAt;
     this.emit('event', {

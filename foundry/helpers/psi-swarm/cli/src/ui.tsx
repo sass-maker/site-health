@@ -116,6 +116,9 @@ const ProgressApp: React.FC<ProgressAppProps> = ({
           case 'all-complete': {
             return { ...s, finishedAt: Date.now(), results: e.results };
           }
+          case 'cancelled': {
+            return { ...s, finishedAt: Date.now(), results: e.results };
+          }
           default:
             return s;
         }

@@ -52,7 +52,8 @@ export type RunnerEvent =
       result: { metrics?: RunMetrics; error?: string };
     }
   | { type: 'preset-complete'; preset: { name: string } }
-  | { type: 'all-complete'; elapsedMs: number };
+  | { type: 'all-complete'; elapsedMs: number }
+  | { type: 'cancelled'; results: { metrics?: RunMetrics; error?: string }[] };
 
 const DEFAULT_AGENT_URLS = [
   'http://127.0.0.1:7777',
@@ -202,7 +203,7 @@ export class AgentClient {
 
   async runStatus(
     runId: string
-  ): Promise<{ status: 'pending' | 'running' | 'complete' | 'error' }> {
+  ): Promise<{ status: 'pending' | 'running' | 'complete' | 'error' | 'cancelled' }> {
     const r = await fetch(this.requestUrl(`/api/runs/${runId}`));
     if (!r.ok) throw new Error(`runStatus: HTTP ${r.status}`);
     return r.json();
@@ -211,9 +212,26 @@ export class AgentClient {
   async waitForRunCompletion(runId: string, pollIntervalMs = 1_500): Promise<void> {
     for (;;) {
       const status = await this.runStatus(runId);
-      if (status.status === 'complete' || status.status === 'error') return;
+      if (
+        status.status === 'complete' ||
+        status.status === 'error' ||
+        status.status === 'cancelled'
+      )
+        return;
       await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
     }
+  }
+
+  async cancelRun(runId: string): Promise<{ ok: boolean; runId: string }> {
+    const r = await fetch(this.requestUrl(`/api/runs/${runId}/cancel`), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!r.ok) {
+      const txt = await r.text();
+      throw new Error(`cancelRun: HTTP ${r.status} ${txt}`);
+    }
+    return r.json();
   }
 
   subscribe(runId: string, onEvent: (e: RunnerEvent) => void): () => void {

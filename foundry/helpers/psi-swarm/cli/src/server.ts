@@ -32,13 +32,14 @@ interface RunRecord {
   runs: number;
   parallel: number;
   tag?: string;
-  status: 'pending' | 'running' | 'complete' | 'error';
+  status: 'pending' | 'running' | 'complete' | 'error' | 'cancelled';
   events: RunnerEvent[];
   results: RunResultWithArtifact[];
   startedAt: number;
   finishedAt?: number;
   subscribers: Set<ServerResponse>;
   errorMessage?: string;
+  runner?: SwarmRunner;
 }
 
 const runs = new Map<string, RunRecord>();
@@ -173,10 +174,17 @@ function newRunId(): string {
 function startRun(record: RunRecord): void {
   const presets = resolvePresets(record.presetNames.join(','));
   const runner = new SwarmRunner();
+  record.runner = runner;
   record.status = 'running';
   runner.on('event', (e: RunnerEvent) => {
     record.events.push(e);
     if (e.type === 'run-complete') record.results.push(e.result);
+    if (e.type === 'cancelled') {
+      record.status = 'cancelled';
+      record.finishedAt = Date.now();
+      closeSubscribers(record);
+      return;
+    }
     broadcast(record, e);
   });
   runner
@@ -189,6 +197,9 @@ function startRun(record: RunRecord): void {
       captureAudits: true,
     })
     .then((results) => {
+      // If the run was cancelled, the 'cancelled' event handler already set
+      // the status and closed subscribers — don't overwrite with 'complete'.
+      if (record.status === 'cancelled') return;
       record.results = results;
       record.status = 'complete';
       record.finishedAt = Date.now();
@@ -437,7 +448,11 @@ export function createAgentServer(opts: ServeOptions): {
         for (const e of record.events) {
           res.write(`data: ${JSON.stringify(e)}\n\n`);
         }
-        if (record.status === 'complete' || record.status === 'error') {
+        if (
+          record.status === 'complete' ||
+          record.status === 'error' ||
+          record.status === 'cancelled'
+        ) {
           res.end();
           return;
         }
@@ -456,6 +471,18 @@ export function createAgentServer(opts: ServeOptions): {
         const scripts = record.results.find((r) => r.scripts && r.scripts.length > 0)?.scripts;
         const result = await suggestionsFor(record.url, scripts);
         return send(res, 200, result, opts.origin);
+      }
+
+      // POST /api/runs/:id/cancel — abort an active swarm
+      const cancelMatch = url.pathname.match(/^\/api\/runs\/([a-zA-Z0-9]+)\/cancel$/);
+      if (req.method === 'POST' && cancelMatch) {
+        const record = runs.get(cancelMatch[1]);
+        if (!record) return send(res, 404, { error: 'run not found' }, opts.origin);
+        if (record.status !== 'running' && record.status !== 'pending') {
+          return send(res, 409, { error: 'run is not active' }, opts.origin);
+        }
+        record.runner?.cancel();
+        return send(res, 200, { ok: true, runId: record.id }, opts.origin);
       }
 
       // GET /api/urls
