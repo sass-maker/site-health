@@ -65,6 +65,47 @@ export interface WatchlistEntry {
   added_at: number;
 }
 
+export interface DomainRatingRow {
+  domain: string;
+  rating: number | null;
+  fetchedAt: number;
+}
+
+export interface TagSummary {
+  tag: string;
+  count: number;
+  last: number;
+}
+
+export interface UrlSummary {
+  url: string;
+  count: number;
+  last: number;
+}
+
+export interface ProjectSummary {
+  url: string;
+  totalRuns: number;
+  lastRunAt: number;
+  mobileLcpP75?: number;
+  desktopLcpP75?: number;
+  mobilePerfScoreP50?: number;
+  desktopPerfScoreP50?: number;
+  cls?: number;
+}
+
+export interface HistoryRow {
+  started_at: number;
+  preset: string;
+  lcp: number | null;
+  cls: number | null;
+  tbt: number | null;
+  fcp: number | null;
+  ttfb: number | null;
+  performance_score: number | null;
+  tag: string | null;
+}
+
 export class HistoryDB {
   private db: Database.Database;
 
@@ -180,29 +221,25 @@ export class HistoryDB {
   }
 
   /** rating === null is a negative-cache sentinel: Ahrefs reported no rating. */
-  getDomainRating(
-    domain: string
-  ): { domain: string; rating: number | null; fetchedAt: number } | null {
+  getDomainRating(domain: string): DomainRatingRow | null {
     const row = this.db
       .prepare(
         `SELECT domain, rating, fetched_at as fetchedAt FROM domain_ratings WHERE domain = ?`
       )
-      .get(domain.toLowerCase()) as
-      | { domain: string; rating: number | null; fetchedAt: number }
-      | undefined;
+      .get(domain.toLowerCase()) as DomainRatingRow | undefined;
     return row ?? null;
   }
 
-  domainRatings(): Map<string, { domain: string; rating: number | null; fetchedAt: number }> {
+  domainRatings(): Map<string, DomainRatingRow> {
     const rows = this.db
       .prepare(`SELECT domain, rating, fetched_at as fetchedAt FROM domain_ratings`)
-      .all() as Array<{ domain: string; rating: number | null; fetchedAt: number }>;
-    const out = new Map<string, { domain: string; rating: number | null; fetchedAt: number }>();
+      .all() as DomainRatingRow[];
+    const out = new Map<string, DomainRatingRow>();
     for (const row of rows) out.set(row.domain.toLowerCase(), row);
     return out;
   }
 
-  upsertDomainRating(entry: { domain: string; rating: number | null; fetchedAt: number }): void {
+  upsertDomainRating(entry: DomainRatingRow): void {
     this.db
       .prepare(
         `INSERT INTO domain_ratings (domain, rating, fetched_at)
@@ -282,23 +319,23 @@ export class HistoryDB {
   }
 
   /** Distinct tags for a URL, with run count and most-recent timestamp. */
-  tagsForUrl(url: string): { tag: string; count: number; last: number }[] {
+  tagsForUrl(url: string): TagSummary[] {
     return this.db
       .prepare(
         `SELECT tag, COUNT(*) as count, MAX(started_at) as last
          FROM runs WHERE url = ? AND tag IS NOT NULL AND tag != ''
          GROUP BY tag ORDER BY last DESC`
       )
-      .all(url) as { tag: string; count: number; last: number }[];
+      .all(url) as TagSummary[];
   }
 
-  urls(): { url: string; count: number; last: number }[] {
+  urls(): UrlSummary[] {
     return this.db
       .prepare(
         `SELECT url, COUNT(*) as count, MAX(started_at) as last
          FROM runs GROUP BY url ORDER BY last DESC`
       )
-      .all() as { url: string; count: number; last: number }[];
+      .all() as UrlSummary[];
   }
 
   /**
@@ -311,22 +348,13 @@ export class HistoryDB {
    * outcome. This prevents the Console from oscillating on individual-sample
    * noise. Runs without a tag are treated as single-sample batches.
    */
-  projects(windowDays = 30): Array<{
-    url: string;
-    totalRuns: number;
-    lastRunAt: number;
-    mobileLcpP75?: number;
-    desktopLcpP75?: number;
-    mobilePerfScoreP50?: number;
-    desktopPerfScoreP50?: number;
-    cls?: number;
-  }> {
+  projects(windowDays = 30): ProjectSummary[] {
     const cutoff = Date.now() - windowDays * 24 * 60 * 60 * 1000;
     const urls = this.db
       .prepare(
         `SELECT url, COUNT(*) as count, MAX(started_at) as last FROM runs GROUP BY url ORDER BY last DESC`
       )
-      .all() as { url: string; count: number; last: number }[];
+      .all() as UrlSummary[];
 
     const stmt = this.db.prepare(
       `SELECT lcp, cls, performance_score, tag, started_at FROM runs
@@ -517,36 +545,13 @@ export class HistoryDB {
       .all() as WatchlistEntry[];
   }
 
-  history(
-    url: string,
-    limit = 60
-  ): Array<{
-    started_at: number;
-    preset: string;
-    lcp: number | null;
-    cls: number | null;
-    tbt: number | null;
-    fcp: number | null;
-    ttfb: number | null;
-    performance_score: number | null;
-    tag: string | null;
-  }> {
+  history(url: string, limit = 60): HistoryRow[] {
     return this.db
       .prepare(
         `SELECT started_at, preset, lcp, cls, tbt, fcp, ttfb, performance_score, tag
          FROM runs WHERE url = ? AND error IS NULL ORDER BY started_at DESC LIMIT ?`
       )
-      .all(url, limit) as Array<{
-      started_at: number;
-      preset: string;
-      lcp: number | null;
-      cls: number | null;
-      tbt: number | null;
-      fcp: number | null;
-      ttfb: number | null;
-      performance_score: number | null;
-      tag: string | null;
-    }>;
+      .all(url, limit) as HistoryRow[];
   }
 
   close() {
