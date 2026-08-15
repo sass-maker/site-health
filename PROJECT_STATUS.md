@@ -70,6 +70,12 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-16 — Product-platform matching became audience-aware:** Added a
+  validated 12-tag audience taxonomy covering 31 classified product identities
+  and all 143 accreditation destinations. Artifact-compatible platforms now
+  require explicit tag overlap, carry transparent fit evidence, sort by overlap
+  and stable ID, and fail closed into an unclassified queue when audience
+  evidence is missing or unrelated.
 - **2026-08-16 — Accreditation blockers became typed evidence:** Constrained
   blocked platform transitions to `captcha`, `signin`, `payment`, `anti-bot`,
   `moderation`, or `offline`; invalid or missing values now fail before state
@@ -719,7 +725,10 @@ Cloudflare deployment history, not by maintaining duplicate source.
   every P2, and each eligible active P4 identity, with explicit channel
   execution/content boundaries, prerequisites, exclusions, maintained and
   research-only destination inventories, typed accreditation blockers, and
-  fail-closed generated guides.
+  fail-closed generated guides. Product-specific platform matching uses a
+  validated audience taxonomy, transparent overlap scores, stable ranking, and
+  an explicit unclassified bucket that cannot enter verification or manifest
+  queues.
 - Deterministic maintained-product evidence links: each public changelog stays
   on the product domain, public roadmaps resolve to GitHub Issues, public source
   links resolve to canonical repositories, and private repository links remain

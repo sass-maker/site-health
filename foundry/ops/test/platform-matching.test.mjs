@@ -62,13 +62,21 @@ const fixture = {
 };
 
 const now = new Date('2026-08-15T12:00:00.000Z');
+const audienceFit = {
+  products: { codevetter: ['developer'], pace: ['developer', 'productivity'] },
+  platforms: Object.fromEntries(
+    fixture.platforms.map((entry) => [entry.id, ['developer']]),
+  ),
+};
 
 test('fixture state is a valid accreditation document', () => {
   assert.equal(validateAccreditationState(fixture).ok, true);
 });
 
 test('articles route to protected and article-syndication platforms only', () => {
-  const match = matchPlatforms(fixture, { artifact: 'article', productId: 'codevetter', now });
+  const match = matchPlatforms(fixture, {
+    artifact: 'article', productId: 'codevetter', audienceFit, now,
+  });
   assert.deepEqual(match.matched.map((entry) => entry.id).sort(), [
     'dev-community',
     'hacker-news',
@@ -85,7 +93,7 @@ test('articles route to protected and article-syndication platforms only', () =>
 });
 
 test('products route to protected channels, directories, and long-tail seeds', () => {
-  const match = matchPlatforms(fixture, { artifact: 'product', productId: 'pace', now });
+  const match = matchPlatforms(fixture, { artifact: 'product', productId: 'pace', audienceFit, now });
   assert.deepEqual(match.matched.map((entry) => entry.id).sort(), [
     'hacker-news',
     'insidr',
@@ -108,6 +116,7 @@ test('a product launch with a canonical article also matches syndication platfor
   const match = matchPlatforms(fixture, {
     artifact: 'major-feature',
     productId: 'pace',
+    audienceFit,
     includeCanonicalArticle: true,
     now,
   });
@@ -122,7 +131,7 @@ test('a product launch with a canonical article also matches syndication platfor
 });
 
 test('rejected platforms are excluded unless the owner overrides with a reason', () => {
-  const match = matchPlatforms(fixture, { artifact: 'product', now });
+  const match = matchPlatforms(fixture, { artifact: 'product', productId: 'pace', audienceFit, now });
   assert.equal(
     match.matched.some((entry) => entry.id === 'spammy'),
     false,
@@ -131,6 +140,8 @@ test('rejected platforms are excluded unless the owner overrides with a reason',
 
   const overridden = matchPlatforms(fixture, {
     artifact: 'product',
+    productId: 'pace',
+    audienceFit,
     overrides: [{ platformId: 'spammy', reason: 'owner approved a one-off relevant listing' }],
     now,
   });
@@ -143,13 +154,53 @@ test('rejected platforms are excluded unless the owner overrides with a reason',
 });
 
 test('stale accredited platforms re-enter the verification queue', () => {
-  const match = matchPlatforms(fixture, { artifact: 'product', now });
+  const match = matchPlatforms(fixture, { artifact: 'product', productId: 'pace', audienceFit, now });
   assert.deepEqual(match.verificationQueue.map((entry) => entry.id).sort(), [
     'betabound',
     'insidr',
     'stale-directory',
   ]);
   assert.equal(match.accredited.find((entry) => entry.id === 'smol-launch').stale, false);
+});
+
+test('audience fit ranks matches and records the overlapping tags', () => {
+  const rankedFit = {
+    products: { pace: ['developer', 'productivity'] },
+    platforms: {
+      'smol-launch': ['developer'],
+      'stale-directory': ['developer', 'productivity'],
+      insidr: ['developer'],
+      betabound: ['developer'],
+      spammy: ['developer'],
+      'hacker-news': ['developer'],
+    },
+  };
+  const match = matchPlatforms(fixture, {
+    artifact: 'product', productId: 'pace', audienceFit: rankedFit, now,
+  });
+  assert.deepEqual(match.accredited.map((entry) => entry.id), [
+    'stale-directory',
+    'smol-launch',
+  ]);
+  assert.equal(match.accredited[0].fitScore, 2);
+  assert.deepEqual(match.accredited[0].matchedAudienceTags, ['developer', 'productivity']);
+});
+
+test('missing and non-overlapping fit stays unclassified and out of verification', () => {
+  const narrowFit = {
+    products: { pace: ['productivity'] },
+    platforms: {
+      'smol-launch': ['developer'],
+      insidr: ['productivity'],
+    },
+  };
+  const match = matchPlatforms(fixture, {
+    artifact: 'product', productId: 'pace', audienceFit: narrowFit, now,
+  });
+  assert.deepEqual(match.matched.map((entry) => entry.id), ['insidr']);
+  assert.equal(match.unclassified.some((entry) => entry.id === 'smol-launch'), true);
+  assert.equal(match.unclassified.some((entry) => entry.fitReason === 'platform-audience-missing'), true);
+  assert.deepEqual(match.verificationQueue.map((entry) => entry.id), ['insidr']);
 });
 
 test('unknown artifact types are rejected', () => {

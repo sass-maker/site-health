@@ -17,6 +17,9 @@ function platformLine(platform) {
   if (platform.rejectionReason) notes.push(`reason: ${platform.rejectionReason}`);
   if (platform.overrideReason) notes.push(`override: ${platform.overrideReason}`);
   if (platform.verifiedAt) notes.push(`verified ${platform.verifiedAt.slice(0, 10)}`);
+  if (platform.fitScore > 0) {
+    notes.push(`fit ${platform.fitScore}: ${platform.matchedAudienceTags.join(', ')}`);
+  } else if (platform.fitReason) notes.push(`fit: ${platform.fitReason}`);
   return `- ${label} — ${notes.join(' · ')}`;
 }
 
@@ -60,7 +63,7 @@ function orderedProducts(projects) {
   ]);
 }
 
-function renderProduct(lines, project, state, { detail, now }) {
+function renderProduct(lines, project, state, audienceFit, { detail, now }) {
   const portfolio = project.portfolio;
   const name = project.name ?? project.id;
   lines.push(`### ${name} (\`${project.id}\`)`, '');
@@ -78,6 +81,7 @@ function renderProduct(lines, project, state, { detail, now }) {
   renderProductSections(lines, matchPlatforms(state, {
     artifact: 'product',
     productId: project.id,
+    audienceFit,
     now,
   }), detail);
 }
@@ -92,7 +96,7 @@ function renderSeedPointer(lines, seeds) {
     '',
     seeds.length === 0
       ? '- none — no seed platforms match this product'
-      : `- ${seeds.length} unverified platforms match this product. The identical seed set is listed once under [Seed inventory](#seed-inventory); run the generator with \`--detail full\` to expand it per product.`,
+      : `- ${seeds.length} audience-compatible unverified platforms match this product. Run the generator with \`--detail full\` to expand this product-specific set; the shared [Seed inventory](#seed-inventory) remains the complete registry.`,
     '',
   );
 }
@@ -130,6 +134,12 @@ function renderProductSections(lines, match, detail) {
     visible(match.rejected),
     'no rejected platforms',
   );
+  section(
+    lines,
+    'Unclassified — missing or non-overlapping audience evidence',
+    visible(match.unclassified),
+    'every artifact-compatible destination has explicit audience overlap',
+  );
 }
 
 function renderProtected(lines, state) {
@@ -156,7 +166,8 @@ function renderSeedInventory(lines, state) {
     '## Seed inventory',
     '',
     `${seeds.length} platforms are unverified registry evidence. Each one needs a live`,
-    'probe (form present, cost, policy, authentication, CAPTCHA, audience fit)',
+    'probe (form present, cost, policy, authentication, CAPTCHA). Product-specific',
+    'audience fit is applied in the product sections above.',
     'and a recorded transition before it can enter a campaign manifest.',
     '',
   );
@@ -191,6 +202,7 @@ function renderSummary(lines, state, now) {
 export function renderAccreditationQueue({
   state,
   projects,
+  audienceFit,
   date,
   detail = 'summary',
   now = new Date(),
@@ -217,6 +229,9 @@ export function renderAccreditationQueue({
     '- Every external write still requires an exact hash-approved campaign',
     '  manifest. This queue plans work; it does not authorize it.',
     '- Work is ordered by Fleet product priority: P1, then P2, then P4.',
+    '- Product lists are ordered by explicit audience-tag overlap. Missing or',
+    '  non-overlapping signals remain unclassified and never enter verification',
+    '  or manifest queues.',
     '',
   ];
 
@@ -225,7 +240,9 @@ export function renderAccreditationQueue({
   for (const [priority, entries] of orderedProducts(projects)) {
     lines.push(`## ${priority} products (${entries.length})`, '');
     if (entries.length === 0) lines.push('- none', '');
-    for (const project of entries) renderProduct(lines, project, state, { detail, now });
+    for (const project of entries) {
+      renderProduct(lines, project, state, audienceFit, { detail, now });
+    }
   }
 
   renderSeedInventory(lines, state);

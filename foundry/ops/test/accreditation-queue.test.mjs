@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import test from 'node:test';
@@ -14,6 +14,7 @@ import {
   seedAccreditationState,
   writeAccreditationState,
 } from '../lib/accreditation-state.mjs';
+import { AUDIENCE_FIT_SCHEMA } from '../lib/audience-fit.mjs';
 
 const cli = resolve(import.meta.dirname, '../scripts/accreditation/generate-queue.mjs');
 const now = new Date('2026-08-15T12:00:00.000Z');
@@ -123,8 +124,18 @@ const projects = [
   },
 ];
 
+const audienceFit = {
+  $schema: AUDIENCE_FIT_SCHEMA,
+  version: 1,
+  audiences: ['developer'],
+  products: Object.fromEntries(projects.map((project) => [project.id, ['developer']])),
+  platforms: Object.fromEntries(state.platforms.map((entry) => [entry.id, ['developer']])),
+};
+
 function queue(overrides = {}) {
-  return renderAccreditationQueue({ state, projects, date: '2026-08-15', now, ...overrides });
+  return renderAccreditationQueue({
+    state, projects, audienceFit, date: '2026-08-15', now, ...overrides,
+  });
 }
 
 test('queue orders products P1 then P2 then P4 and separates protected channels', () => {
@@ -210,7 +221,7 @@ test('summary mode points at the shared seed inventory and full mode expands it'
     summaryMode.indexOf('### CodeVetter'),
     summaryMode.indexOf('### Reader'),
   );
-  assert.match(summarySection, /listed once under \[Seed inventory\]\(#seed-inventory\)/u);
+  assert.match(summarySection, /product-specific set/u);
   assert.equal(summarySection.includes('`insidr`'), false);
 
   const fullMode = queue({ detail: 'full' });
@@ -221,9 +232,26 @@ test('summary mode points at the shared seed inventory and full mode expands it'
   assert.throws(() => queue({ detail: 'noisy' }), /detail must be summary or full/u);
 });
 
+test('queue exposes unclassified audience evidence without treating it as a seed', () => {
+  const narrowFit = {
+    ...audienceFit,
+    products: { ...audienceFit.products, codevetter: ['health-fitness'] },
+    audiences: ['developer', 'health-fitness'],
+  };
+  const markdown = queue({ audienceFit: narrowFit, detail: 'full' });
+  const codevetter = markdown.slice(
+    markdown.indexOf('### CodeVetter'),
+    markdown.indexOf('### Reader'),
+  );
+  assert.match(codevetter, /Unclassified .+\(4\)/u);
+  assert.match(codevetter, /fit: no-audience-overlap/u);
+  assert.match(codevetter, /Seed .+\(0\)/u);
+});
+
 test('CLI writes the dated queue file and fails clearly without a state file', () => {
   const dir = mkdtempSync(resolve(tmpdir(), 'fleet-accreditation-queue-'));
   const statePath = resolve(dir, 'accreditation-state.json');
+  const audienceFitPath = resolve(dir, 'audience-fit.json');
   const outDir = resolve(dir, 'out');
   const run = (...args) => spawnSync(process.execPath, [cli, ...args], { encoding: 'utf8' });
 
@@ -233,7 +261,19 @@ test('CLI writes the dated queue file and fails clearly without a state file', (
   assert.match(missing.stderr, /update-state\.mjs init/u);
 
   writeAccreditationState(statePath, seedAccreditationState({ updated: '2026-08-15' }));
-  const generated = run('--state', statePath, '--out-dir', outDir, '--date', '2026-08-15');
+  const seededState = JSON.parse(readFileSync(statePath, 'utf8'));
+  const seededAudienceFit = {
+    ...audienceFit,
+    products: {},
+    platforms: Object.fromEntries(seededState.platforms.map((entry) => [entry.id, ['developer']])),
+  };
+  writeFileSync(audienceFitPath, `${JSON.stringify(seededAudienceFit)}\n`);
+  const generated = run(
+    '--state', statePath,
+    '--audience-fit', audienceFitPath,
+    '--out-dir', outDir,
+    '--date', '2026-08-15',
+  );
   assert.equal(generated.status, 0, generated.stderr);
 
   const expected = resolve(outDir, accreditationQueueFilename('2026-08-15'));

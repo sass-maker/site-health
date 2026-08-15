@@ -9,12 +9,14 @@ import {
   renderAccreditationQueue,
 } from '../../lib/accreditation-queue.mjs';
 import { ACCREDITATION_STATE_PATH, readAccreditationState } from '../../lib/accreditation-state.mjs';
+import { AUDIENCE_FIT_PATH, readAudienceFit } from '../../lib/audience-fit.mjs';
 
 const opsRoot = resolve(import.meta.dirname, '../..');
 const fleetRoot = resolve(opsRoot, '../..');
 
 const USAGE = `Usage: generate-queue.mjs [--state <path>] [--projects <path>]
-       [--out-dir <path>] [--date <YYYY-MM-DD>] [--detail summary|full] [--stdout]`;
+       [--audience-fit <path>] [--out-dir <path>] [--date <YYYY-MM-DD>]
+       [--detail summary|full] [--stdout]`;
 
 const args = process.argv.slice(2);
 
@@ -31,8 +33,12 @@ try {
   const state = readAccreditationState(resolve(option('--state', ACCREDITATION_STATE_PATH)));
   const projectsPath = resolve(option('--projects', resolve(opsRoot, 'config/projects.json')));
   const { projects } = JSON.parse(readFileSync(projectsPath, 'utf8'));
+  const audienceFit = readAudienceFit(resolve(option('--audience-fit', AUDIENCE_FIT_PATH)), {
+    projectIds: new Set(projects.map((project) => project.id)),
+    platformIds: new Set(state.platforms.map((platform) => platform.id)),
+  });
 
-  const markdown = renderAccreditationQueue({ state, projects, date, detail, now });
+  const markdown = renderAccreditationQueue({ state, projects, audienceFit, date, detail, now });
 
   if (args.includes('--stdout')) {
     process.stdout.write(markdown);

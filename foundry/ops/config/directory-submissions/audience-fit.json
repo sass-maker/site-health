@@ -1,0 +1,862 @@
+{
+  "$schema": "fleet.product-platform-audience-fit.v1",
+  "version": 1,
+  "updated": "2026-08-16",
+  "audiences": [
+    "ai",
+    "business-software",
+    "consumer-lifestyle",
+    "developer",
+    "education-careers",
+    "health-fitness",
+    "knowledge-research",
+    "media-entertainment",
+    "open-source",
+    "personal-brand",
+    "productivity",
+    "startup-makers"
+  ],
+  "products": {
+    "ai-game": [
+      "ai",
+      "consumer-lifestyle",
+      "media-entertainment"
+    ],
+    "anime-list": [
+      "consumer-lifestyle",
+      "media-entertainment"
+    ],
+    "app-health": [
+      "business-software",
+      "developer",
+      "productivity"
+    ],
+    "calorie": [
+      "consumer-lifestyle",
+      "health-fitness"
+    ],
+    "chatgpt-memory-insights": [
+      "ai",
+      "consumer-lifestyle",
+      "productivity"
+    ],
+    "chess": [
+      "consumer-lifestyle",
+      "education-careers",
+      "media-entertainment"
+    ],
+    "codevetter": [
+      "ai",
+      "business-software",
+      "developer"
+    ],
+    "drank": [
+      "consumer-lifestyle",
+      "health-fitness"
+    ],
+    "email-manager": [
+      "business-software",
+      "productivity"
+    ],
+    "everythingrated": [
+      "consumer-lifestyle",
+      "knowledge-research"
+    ],
+    "fleet-workspace": [
+      "business-software",
+      "developer",
+      "productivity"
+    ],
+    "free-ai": [
+      "ai",
+      "consumer-lifestyle"
+    ],
+    "high-signal": [
+      "ai",
+      "business-software",
+      "knowledge-research"
+    ],
+    "india-standards": [
+      "business-software",
+      "education-careers",
+      "knowledge-research"
+    ],
+    "knowledge-base": [
+      "ai",
+      "knowledge-research",
+      "productivity"
+    ],
+    "looptv": [
+      "consumer-lifestyle",
+      "media-entertainment"
+    ],
+    "materia": [
+      "consumer-lifestyle",
+      "productivity"
+    ],
+    "motion": [
+      "developer",
+      "media-entertainment",
+      "productivity"
+    ],
+    "pace": [
+      "business-software",
+      "productivity",
+      "startup-makers"
+    ],
+    "posttrainllm": [
+      "ai",
+      "developer",
+      "open-source"
+    ],
+    "psi-swarm": [
+      "business-software",
+      "developer"
+    ],
+    "reader": [
+      "consumer-lifestyle",
+      "knowledge-research",
+      "productivity"
+    ],
+    "research-papers": [
+      "ai",
+      "education-careers",
+      "knowledge-research"
+    ],
+    "rolepatch": [
+      "ai",
+      "business-software",
+      "education-careers"
+    ],
+    "saas-ideas": [
+      "business-software",
+      "startup-makers"
+    ],
+    "sarthakagrawal-personal": [
+      "developer",
+      "personal-brand",
+      "startup-makers"
+    ],
+    "setline": [
+      "consumer-lifestyle",
+      "health-fitness"
+    ],
+    "significanthobbies": [
+      "consumer-lifestyle",
+      "personal-brand"
+    ],
+    "starboard": [
+      "business-software",
+      "productivity"
+    ],
+    "swe-interview-prep": [
+      "developer",
+      "education-careers"
+    ],
+    "what-it-takes-to-win": [
+      "education-careers",
+      "knowledge-research",
+      "personal-brand"
+    ]
+  },
+  "platforms": {
+    "10words": [
+      "business-software",
+      "startup-makers"
+    ],
+    "9sites": [
+      "business-software",
+      "startup-makers"
+    ],
+    "aicatalog": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "aiinfinity": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "aitoolnet": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "aitoolsdir": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "aivalley": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "allthingsai": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "alphadigits": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "alternative_me": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "alternativeto": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "americaninno": [
+      "business-software",
+      "startup-makers"
+    ],
+    "amfibi": [
+      "business-software",
+      "startup-makers"
+    ],
+    "appagg": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "apprater": [
+      "business-software",
+      "startup-makers"
+    ],
+    "appysmarts": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "awesomeindie": [
+      "business-software",
+      "startup-makers"
+    ],
+    "beehiiv": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "beingguru": [
+      "business-software",
+      "startup-makers"
+    ],
+    "benbites": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "betabound": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "betalist": [
+      "business-software",
+      "startup-makers"
+    ],
+    "bigstartups": [
+      "business-software",
+      "startup-makers"
+    ],
+    "blogger": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "business-software": [
+      "business-software",
+      "startup-makers"
+    ],
+    "capterra": [
+      "business-software",
+      "startup-makers"
+    ],
+    "cipinet": [
+      "business-software",
+      "startup-makers"
+    ],
+    "cloudfindr": [
+      "business-software",
+      "startup-makers"
+    ],
+    "clutch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "comparasoftware": [
+      "business-software",
+      "startup-makers"
+    ],
+    "crazyabout": [
+      "business-software",
+      "startup-makers"
+    ],
+    "crozdesk": [
+      "business-software",
+      "startup-makers"
+    ],
+    "cuspera": [
+      "business-software",
+      "startup-makers"
+    ],
+    "daily-dev": [
+      "developer",
+      "startup-makers"
+    ],
+    "dev-community": [
+      "developer",
+      "open-source",
+      "startup-makers"
+    ],
+    "devhunt": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "dynamite": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "exactseek": [
+      "business-software",
+      "startup-makers"
+    ],
+    "ezweb": [
+      "business-software",
+      "startup-makers"
+    ],
+    "fazier": [
+      "business-software",
+      "startup-makers"
+    ],
+    "feedough": [
+      "business-software",
+      "startup-makers"
+    ],
+    "financesonline": [
+      "business-software",
+      "startup-makers"
+    ],
+    "fivetaco": [
+      "business-software",
+      "startup-makers"
+    ],
+    "futurepedia": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "futuretools": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "g2": [
+      "business-software",
+      "startup-makers"
+    ],
+    "getworm": [
+      "business-software",
+      "startup-makers"
+    ],
+    "ghost": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "growthjunkie": [
+      "business-software",
+      "startup-makers"
+    ],
+    "hacker-news": [
+      "business-software",
+      "developer",
+      "open-source",
+      "startup-makers"
+    ],
+    "hackernoon": [
+      "developer",
+      "startup-makers"
+    ],
+    "hashnode": [
+      "developer",
+      "open-source",
+      "startup-makers"
+    ],
+    "howtobuysaas": [
+      "business-software",
+      "startup-makers"
+    ],
+    "inc42": [
+      "business-software",
+      "startup-makers"
+    ],
+    "indie-hackers": [
+      "developer",
+      "startup-makers"
+    ],
+    "indiehackerstacks": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "insidr": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "killerstartups": [
+      "business-software",
+      "startup-makers"
+    ],
+    "landbook": [
+      "business-software",
+      "startup-makers"
+    ],
+    "launched": [
+      "business-software",
+      "startup-makers"
+    ],
+    "launching-next": [
+      "business-software",
+      "startup-makers"
+    ],
+    "launching_io": [
+      "business-software",
+      "startup-makers"
+    ],
+    "launchingnext": [
+      "business-software",
+      "startup-makers"
+    ],
+    "linkedin": [
+      "business-software",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "lobsters": [
+      "developer",
+      "open-source",
+      "startup-makers"
+    ],
+    "makerpad": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "marsx": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "medium": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "microlaunch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "microlaunch_tally": [
+      "business-software",
+      "startup-makers"
+    ],
+    "newstartups": [
+      "business-software",
+      "startup-makers"
+    ],
+    "nocodedevs": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "nocodelist": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "open-launch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "openfuture": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "paggu": [
+      "business-software",
+      "startup-makers"
+    ],
+    "payonce": [
+      "business-software",
+      "startup-makers"
+    ],
+    "peerlist": [
+      "developer",
+      "startup-makers"
+    ],
+    "peerspot": [
+      "business-software",
+      "startup-makers"
+    ],
+    "postmake": [
+      "business-software",
+      "startup-makers"
+    ],
+    "poweredbyai": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "product-hunt": [
+      "business-software",
+      "startup-makers"
+    ],
+    "profithunt": [
+      "business-software",
+      "startup-makers"
+    ],
+    "projecthatch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "promoteproject": [
+      "business-software",
+      "startup-makers"
+    ],
+    "quickai": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "reddit": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "robin_tools": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "saasaitools": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "saashub": [
+      "business-software",
+      "startup-makers"
+    ],
+    "saasworthy": [
+      "business-software",
+      "startup-makers"
+    ],
+    "sideprojectors": [
+      "business-software",
+      "startup-makers"
+    ],
+    "sideprojects_net": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "smol-launch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "smollaunch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "snapmunk": [
+      "business-software",
+      "startup-makers"
+    ],
+    "softpedia": [
+      "business-software",
+      "startup-makers"
+    ],
+    "softwaresuggest": [
+      "business-software",
+      "startup-makers"
+    ],
+    "softwareworld": [
+      "business-software",
+      "startup-makers"
+    ],
+    "somuch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "sourceforge": [
+      "business-software",
+      "developer",
+      "open-source",
+      "startup-makers"
+    ],
+    "spotsaas": [
+      "business-software",
+      "startup-makers"
+    ],
+    "springwise": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startup-fast": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startup_pitch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupbase": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupcollections": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupfa_st": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupinspire": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startuplister": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupranking": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startups_fyi": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startups_watch": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startuptracker": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupwizz": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startupxplore": [
+      "business-software",
+      "startup-makers"
+    ],
+    "startus": [
+      "business-software",
+      "startup-makers"
+    ],
+    "submissionweb": [
+      "business-software",
+      "startup-makers"
+    ],
+    "substack": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "super_new": [
+      "business-software",
+      "startup-makers"
+    ],
+    "taaft": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "taalk": [
+      "business-software",
+      "startup-makers"
+    ],
+    "techdirectory": [
+      "business-software",
+      "developer",
+      "startup-makers"
+    ],
+    "techendo": [
+      "business-software",
+      "startup-makers"
+    ],
+    "techpluto": [
+      "business-software",
+      "startup-makers"
+    ],
+    "thepopularapps": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "thestartupinc": [
+      "business-software",
+      "startup-makers"
+    ],
+    "tiny_startups": [
+      "business-software",
+      "startup-makers"
+    ],
+    "toolify": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "toolsalad": [
+      "business-software",
+      "startup-makers"
+    ],
+    "topai": [
+      "ai",
+      "business-software",
+      "startup-makers"
+    ],
+    "trendystartups": [
+      "business-software",
+      "startup-makers"
+    ],
+    "trustradius": [
+      "business-software",
+      "startup-makers"
+    ],
+    "tumblr": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "uneed": [
+      "business-software",
+      "startup-makers"
+    ],
+    "venture_radar": [
+      "business-software",
+      "startup-makers"
+    ],
+    "victrays": [
+      "business-software",
+      "startup-makers"
+    ],
+    "webapprater": [
+      "business-software",
+      "consumer-lifestyle",
+      "startup-makers"
+    ],
+    "webrazzi": [
+      "business-software",
+      "startup-makers"
+    ],
+    "webwiki": [
+      "business-software",
+      "startup-makers"
+    ],
+    "wordpress": [
+      "ai",
+      "business-software",
+      "consumer-lifestyle",
+      "developer",
+      "education-careers",
+      "health-fitness",
+      "knowledge-research",
+      "media-entertainment",
+      "open-source",
+      "personal-brand",
+      "productivity",
+      "startup-makers"
+    ],
+    "workspaces": [
+      "business-software",
+      "startup-makers"
+    ],
+    "x": [
+      "consumer-lifestyle",
+      "developer",
+      "personal-brand",
+      "startup-makers"
+    ]
+  }
+}
