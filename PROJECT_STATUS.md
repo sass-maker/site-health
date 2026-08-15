@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-14
+Last updated: 2026-08-15
 
 ## Why / What
 
@@ -70,6 +70,15 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-15 — Portfolio discovery strip shipped across every maintained
+  public product:** Published the cached `/projects.json` projection and
+  universal project-strip loader from SaaS Maker, then replaced existing
+  portfolio footer promotions across all 28 maintained public landing pages.
+  The bundled first-paint catalog keeps rendering off the network path while
+  background revalidation, project exclusion, priority, descriptions,
+  accessible tooltips, new-tab links, and reduced-motion behavior stay driven
+  by the canonical Fleet catalog. All product changes merged with native checks
+  and their production domains were smoke-tested after deployment.
 - **2026-08-14 — Portfolio classification and external publishing became one
   validated program:** Reconciled the completed staged work into the canonical
   catalog, replacing duplicate priority arrays with per-project product,
@@ -651,7 +660,7 @@ CodeVetter or App Health source.
 | Marketing | Content Factory | `foundry/marketing/content-factory/` | Reel Pipeline-owned content rendering/package scripts |
 | Packages | Feedback | `foundry/packages/feedback/` | Public client package with caller-owned callback or ingestion URL |
 | Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
-| Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | Backend-free React discovery rail with bundled catalog and optional static revalidation |
+| Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | React package and universal loader with bundled catalog and cached static revalidation |
 | Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
 | Fleet Console | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit/` | Experimental local-only mobile client; future undecided |
 | Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
@@ -836,11 +845,13 @@ Cloudflare deployment history, not by maintaining duplicate source.
   Claude, ChatGPT, Gemini, Perplexity, and Grok, pre-filled prompt templates,
   provider filtering, light/dark/auto themes, CSS custom property overrides, and
   accessible markup. No backend, analytics, cookies, or third-party scripts.
-- `@saas-maker/portfolio-project-strip` React package with a generated
-  canonical-registry projection, cached public `/projects.json` revalidation,
-  current-project filtering, theme tokens, semantic links, accessible duplicate
-  suppression, static short lists, and explicit plus reduced-motion controls.
-  No backend, credentials, analytics, storage, or automatic publication.
+- `@saas-maker/portfolio-project-strip` React package plus universal loader,
+  deployed across all 28 maintained public landing pages with a generated
+  canonical-registry first-paint catalog, cached public `/projects.json`
+  revalidation, current-project filtering, descriptions, priority, theme
+  tokens, semantic new-tab links, accessible duplicate suppression and
+  tooltips, static short lists, and explicit plus reduced-motion controls. No
+  backend, credentials, analytics, or browser storage.
 
 ## Work queue
 
