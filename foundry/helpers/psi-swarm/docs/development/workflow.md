@@ -7,9 +7,9 @@ description: Setup, build, dev commands, Node version, and how to preview/valida
 
 ## Prerequisites
 
-- **Node 22 LTS** (required). Lighthouse 12 breaks on Node 24 — see
+- **Node 22.19+** (required). Lighthouse 13 requires Node >=22.19 and supports Node 24 — see
   [ADR](../architecture/decisions/node-22-lighthouse-12-pin.md). The
-  `engines` field hard-gates to `>=20 <24`.
+  `engines` field gates to `>=22.19`.
 - **pnpm 10.33.2** (pinned via `packageManager`). The repo is a pnpm
   workspace (`cli`, `web`). See [ADR](../architecture/decisions/pnpm-migration.md).
 - **Chrome** installed locally — `chrome-launcher` finds it. On CI/Docker

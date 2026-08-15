@@ -6,7 +6,7 @@
 ## What this is
 
 psi-swarm is a **local-first** website performance tracker. It runs
-Lighthouse 12 many times across realistic device/network presets and
+Lighthouse 13 many times across realistic device/network presets and
 reports the **p50 / p75 / p90 / p99** of Web Vitals instead of one noisy
 point. Compute stays on the user's machine; the browser UI is only a
 controller. MIT, no telemetry, no account.
@@ -28,7 +28,7 @@ pnpm docs:check                                     # validate docs/ + internal 
 pnpm docs:dev                                       # Blume docs dev server
 ```
 
-**Node 22 LTS** required (Lighthouse 12 breaks on Node 24). pnpm 10.33.2
+**Node 22.19+** required (Lighthouse 13 requires Node >=22.19 and supports Node 24). pnpm 10.33.2
 pinned via `packageManager`.
 
 ## Critical constraints

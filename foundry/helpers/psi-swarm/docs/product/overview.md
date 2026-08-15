@@ -43,7 +43,7 @@ See [Surfaces](./surfaces.md) for the full command/route/API inventory.
 
 ## In scope
 
-- Lab measurement via headless Chrome + Lighthouse 12.
+- Lab measurement via headless Chrome + Lighthouse 13.
 - Local history, comparisons, regression watchlist.
 - Local browser controller.
 - Optional AI reasoning over results.

@@ -53,7 +53,7 @@ pnpm run cli -- run https://example.com --runs 5 --parallel auto
 
 That's it. Beautiful Ink-driven progress UI in the terminal, percentile tables, LCP element identification, and ranked Lighthouse opportunities.
 
-> **Node version**: use Node 22 LTS. Lighthouse 12 has a known incompatibility with Node 24 (an internal `performance.measure` trace mark). The `engines` field gates this.
+> **Node version**: use Node 22.19+. Lighthouse 13 requires Node >=22.19 and supports Node 24. The `engines` field gates this.
 
 ### Web UI flavour
 
