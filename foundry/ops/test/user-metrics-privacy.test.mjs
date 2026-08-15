@@ -49,10 +49,12 @@ test('D1 queries use COUNT aggregates only — no SELECT * or row-level data', (
 });
 
 test('D1 collector output contains only counts, not user rows', async () => {
-  const execImpl = (command) => {
-    // Verify the command only uses COUNT queries
-    assert.match(command, /COUNT\(/);
-    assert.doesNotMatch(command, /SELECT \*/);
+  const execImpl = (args) => {
+    // Verify the command only uses COUNT queries (args is an array)
+    const sql = args.find((a) => typeof a === 'string' && a.includes('SELECT'));
+    assert.ok(sql, 'expected SQL command in args');
+    assert.match(sql, /COUNT\(/);
+    assert.doesNotMatch(sql, /SELECT \*/);
     return JSON.stringify([{ results: [{ value: 50 }] }]);
   };
 

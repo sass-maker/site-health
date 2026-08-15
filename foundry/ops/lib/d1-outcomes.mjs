@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
 /**
  * Per-product D1 aggregate query mappings.
@@ -140,7 +140,7 @@ export async function collectD1Outcomes({
 async function queryD1Metrics({ execImpl, mapping, startDate, endDate }) {
   const startUnix = Math.floor(startDate.getTime() / 1000);
   const endUnix = Math.floor(endDate.getTime() / 1000);
-  const { userTable, userCreatedColumn, userIdentifier, database } = mapping;
+  const { userTable, userCreatedColumn, database } = mapping;
 
   const metrics = [];
 
@@ -157,18 +157,20 @@ async function queryD1Metrics({ execImpl, mapping, startDate, endDate }) {
   return metrics;
 }
 
-function defaultExec(command) {
-  const result = execSync(command, {
+function defaultExec(args, options) {
+  return execFileSync('npx', args, {
     encoding: 'utf8',
     timeout: 30_000,
-    stdio: ['pipe', 'pipe', 'pipe'],
+    ...options,
   });
-  return result;
 }
 
 async function runD1Query(execImpl, database, sql) {
-  const command = `npx wrangler d1 execute ${database} --json --command "${sql.replace(/"/g, '\\"')}" --remote 2>/dev/null`;
-  const output = execImpl(command);
+  const args = [
+    'wrangler', 'd1', 'execute', database,
+    '--json', '--command', sql, '--remote',
+  ];
+  const output = execImpl(args);
   const parsed = JSON.parse(output);
   const row = parsed?.[0]?.results?.[0];
   return Number(row?.value ?? 0);
