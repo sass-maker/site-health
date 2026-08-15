@@ -7,6 +7,7 @@ import test from 'node:test';
 
 import {
   ACCREDITATION_EVIDENCE_SCHEMA,
+  ACCREDITATION_BLOCKERS,
   applyTransition,
   isStale,
   readAccreditationState,
@@ -155,6 +156,30 @@ test('post-submission states require verified live evidence', () => {
     validateEvidence({ liveUrl: 'https://a.invalid', httpStatus: 301, finalStatus: 200 }, 'indexable')
       .ok,
     true,
+  );
+});
+
+test('blocked transitions require one normalized blocker value', () => {
+  for (const blocker of ACCREDITATION_BLOCKERS) {
+    const result = applyTransition(seeded(), {
+      platformId: 'betabound',
+      toState: 'blocked',
+      blocker,
+      observedAt: '2026-08-15T10:00:00.000Z',
+    });
+    assert.equal(
+      result.state.platforms.find((entry) => entry.id === 'betabound').blocker,
+      blocker,
+    );
+  }
+
+  assert.throws(
+    () => confirm(seeded(), 'betabound', 'blocked'),
+    /blocker must be one of captcha, signin, payment, anti-bot, moderation, offline/u,
+  );
+  assert.throws(
+    () => confirm(seeded(), 'betabound', 'blocked', { blocker: 'CAPTCHA' }),
+    /blocker must be one of captcha, signin, payment, anti-bot, moderation, offline/u,
   );
 });
 

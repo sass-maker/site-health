@@ -66,6 +66,11 @@ const state = {
     platform('insidr'),
     platform('openfuture'),
     platform('betabound', { currentState: 'blocked', blocker: 'captcha' }),
+    platform('signin-gate', { currentState: 'blocked', blocker: 'signin' }),
+    platform('payment-gate', { currentState: 'blocked', blocker: 'payment' }),
+    platform('anti-bot-gate', { currentState: 'blocked', blocker: 'anti-bot' }),
+    platform('moderation-gate', { currentState: 'blocked', blocker: 'moderation' }),
+    platform('offline-gate', { currentState: 'blocked', blocker: 'offline' }),
     platform('spammy', { currentState: 'rejected', rejectionReason: 'spam-only audience' }),
   ],
 };
@@ -168,8 +173,11 @@ test('queue groups each product by state and re-queues stale accreditations', ()
   assert.match(codevetter, /\*\*Accredited but stale — re-verification required \(1\)\*\*/u);
   assert.match(codevetter, /stale-directory/u);
   assert.match(codevetter, /\*\*Seed — live verification required before any submission \(2\)\*\*/u);
-  assert.match(codevetter, /\*\*Blocked — enablement decision required \(1\)\*\*/u);
-  assert.match(codevetter, /blocker: captcha/u);
+  assert.match(codevetter, /\*\*Blocked — enablement decision required \(6\)\*\*/u);
+  for (const blocker of ['captcha', 'signin', 'payment', 'anti-bot', 'moderation', 'offline']) {
+    assert.match(codevetter, new RegExp(`_${blocker} \\(1\\)_`, 'u'));
+    assert.match(codevetter, new RegExp(`blocker: ${blocker}`, 'u'));
+  }
   assert.match(codevetter, /\*\*Rejected — excluded unless the owner overrides \(1\)\*\*/u);
   assert.match(codevetter, /reason: spam-only audience/u);
 });
@@ -189,9 +197,9 @@ test('summary counts report the full inventory by state', () => {
   const summary = queue().slice(queue().indexOf('## Summary counts'));
   assert.match(summary, /\| seed \| 5 \|/u);
   assert.match(summary, /\| accredited \| 2 \|/u);
-  assert.match(summary, /\| blocked \| 1 \|/u);
+  assert.match(summary, /\| blocked \| 6 \|/u);
   assert.match(summary, /\| rejected \| 1 \|/u);
-  assert.match(summary, /\| \*\*total\*\* \| \*\*9\*\* \|/u);
+  assert.match(summary, /\| \*\*total\*\* \| \*\*14\*\* \|/u);
   assert.match(summary, /Protected channels \(owner exclusions\): 3/u);
   assert.match(summary, /past the 30-day staleness window: 1/u);
 });

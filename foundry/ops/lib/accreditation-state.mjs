@@ -23,6 +23,14 @@ export const ACCREDITATION_STATES = [
   'indexable',
   'blocked',
 ];
+export const ACCREDITATION_BLOCKERS = [
+  'captcha',
+  'signin',
+  'payment',
+  'anti-bot',
+  'moderation',
+  'offline',
+];
 
 const OUTCOMES = ['confirmed', 'indeterminate'];
 const DEFAULT_STALENESS_DAYS = 30;
@@ -52,6 +60,7 @@ const ALLOWED_TRANSITIONS = new Map([
 
 const CRAWLABLE_REDIRECTS = new Set([301, 308]);
 const STATE_SET = new Set(ACCREDITATION_STATES);
+const BLOCKER_SET = new Set(ACCREDITATION_BLOCKERS);
 const OUTCOME_SET = new Set(OUTCOMES);
 const DAY_MS = 86_400_000;
 
@@ -152,6 +161,14 @@ function validatePlatform(platform, index, issues) {
     [nonEmptyArray(platform.artifactFit), 'artifactFit must be a non-empty array'],
     [Array.isArray(platform.transitions), 'transitions must be an array'],
     [Array.isArray(platform.transitionsArchive), 'transitionsArchive must be an array'],
+    [
+      platform.currentState === 'blocked'
+        ? BLOCKER_SET.has(platform.blocker)
+        : platform.blocker === null,
+      platform.currentState === 'blocked'
+        ? `blocker must be one of ${ACCREDITATION_BLOCKERS.join(', ')}`
+        : 'blocker must be null unless currentState is blocked',
+    ],
   ];
   for (const [ok, message] of checks) {
     if (!ok) issues.push(`${label}: ${message}`);
@@ -314,6 +331,9 @@ export function applyTransition(state, request) {
 
   if (!OUTCOME_SET.has(outcome)) {
     throw new Error(`outcome must be one of ${OUTCOMES.join(', ')}`);
+  }
+  if (toState === 'blocked' && !BLOCKER_SET.has(blocker)) {
+    throw new Error(`blocker must be one of ${ACCREDITATION_BLOCKERS.join(', ')}`);
   }
   const next = structuredClone(state);
   const platform = next.platforms.find((entry) => entry.id === platformId);

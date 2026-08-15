@@ -6,6 +6,7 @@ import process from 'node:process';
 
 import {
   ACCREDITATION_STATE_PATH,
+  ACCREDITATION_BLOCKERS,
   ACCREDITATION_STATES,
   applyTransition,
   readAccreditationState,
@@ -19,7 +20,7 @@ const USAGE = `Usage:
       [--outcome confirmed|indeterminate] [--live-url <url>] [--http-status <code>]
       [--final-status <code>] [--form-detected true|false] [--captcha-detected true|false]
       [--signin-required true|false] [--payment-required true|false] [--screenshot <path>]
-      [--blocker <type>] [--reason <text>] [--note <text>] [--observed-at <iso>]
+      [--blocker <${ACCREDITATION_BLOCKERS.join('|')}>] [--reason <text>] [--note <text>] [--observed-at <iso>]
       [--state <path>]`;
 
 const args = process.argv.slice(2);
