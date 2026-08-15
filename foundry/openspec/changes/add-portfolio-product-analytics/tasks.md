@@ -9,37 +9,37 @@
 
 ## 2. Outcome store extension
 
-- [x] 2.1 Add `user-metrics` family to `FAMILY_CONTRACTS` in `visibility-outcome-store.mjs` with providers `posthog-insights` and `d1-aggregate`.
-- [x] 2.2 Define metric contracts for Visitors, Identified users, Accounts, Activation rate, D1 retention, D7 retention, and Core actions.
-- [x] 2.3 Add validation tests for the new family covering valid observations, unknown metrics, out-of-range percents, and duplicate ids.
-- [x] 2.4 Verify existing families (search, ai-crawl, ai-referral, web-traffic, web-vitals) remain unaffected.
+- [ ] 2.1 Add `user-metrics` family to `FAMILY_CONTRACTS` in `visibility-outcome-store.mjs` with providers `posthog-insights` and `d1-aggregate`.
+- [ ] 2.2 Define metric contracts for Visitors, Identified users, Accounts, Activation rate, D1 retention, D7 retention, and Core actions.
+- [ ] 2.3 Add validation tests for the new family covering valid observations, unknown metrics, out-of-range percents, and duplicate ids.
+- [ ] 2.4 Verify existing families (search, ai-crawl, ai-referral, web-traffic, web-vitals) remain unaffected.
 
 ## 3. PostHog aggregate collector
 
-- [x] 3.1 Create `foundry/ops/lib/posthog-outcomes.mjs` with an Insights API reader that groups by `project_id` property over a 7-day window.
-- [x] 3.2 Create `foundry/ops/scripts/posthog-outcomes-collect.mjs` following the `cloudflare-outcomes-collect.mjs` shape (read canonical projects, collect, validate, append to ledger).
-- [x] 3.3 Map PostHog Insights results to the `user-metrics` metric labels (Visitors, Identified users, Activation rate, D1/D7 retention, Core actions).
-- [x] 3.4 Add bounded failure handling for rate limits, missing project key, and products with no PostHog events.
-- [x] 3.5 Add focused tests for the collector with fixture PostHog API responses.
+- [ ] 3.1 Create `foundry/ops/lib/posthog-outcomes.mjs` with an Insights API reader that groups by `project_id` property over a 7-day window.
+- [ ] 3.2 Create `foundry/ops/scripts/posthog-outcomes-collect.mjs` following the `cloudflare-outcomes-collect.mjs` shape (read canonical projects, collect, validate, append to ledger).
+- [ ] 3.3 Map PostHog Insights results to the `user-metrics` metric labels (Visitors, Identified users, Activation rate, D1/D7 retention, Core actions).
+- [ ] 3.4 Add bounded failure handling for rate limits, missing project key, and products with no PostHog events.
+- [ ] 3.5 Add focused tests for the collector with fixture PostHog API responses.
 
 ## 4. D1 aggregate collectors
 
-- [x] 4.1 Create `foundry/ops/lib/d1-outcomes.mjs` with a shared aggregate-query template (signup, activated, core_action, returned counts).
-- [x] 4.2 Create `foundry/ops/scripts/d1-outcomes-collect.mjs` that runs read-only aggregate SQL via `wrangler d1 execute` or the D1 REST API.
-- [x] 4.3 Add per-product query mappings for the 6 D1-backed products (significanthobbies, anime-list, reader, swe-interview-prep, karte, starboard).
-- [x] 4.4 Map D1 aggregate results to the `user-metrics` metric labels (Accounts, New accounts).
-- [x] 4.5 Add bounded failure handling for missing D1 access, unknown tables, and products without a D1 database.
-- [x] 4.6 Add focused tests for the collector with fixture D1 query results.
+- [ ] 4.1 Create `foundry/ops/lib/d1-outcomes.mjs` with a shared aggregate-query template (signup, activated, core_action, returned counts).
+- [ ] 4.2 Create `foundry/ops/scripts/d1-outcomes-collect.mjs` that runs read-only aggregate SQL via `wrangler d1 execute` or the D1 REST API.
+- [ ] 4.3 Add per-product query mappings for the 12 D1-backed products (rolepatch, karte, calorie, setline, starboard, significanthobbies, reader, swe-interview-prep, knowledge-base, email-manager, free-ai, high-signal).
+- [ ] 4.4 Map D1 aggregate results to the `user-metrics` metric labels (Accounts, Activation rate, D1/D7 retention, Core actions).
+- [ ] 4.5 Add bounded failure handling for missing D1 access, unknown tables, and products without a D1 database.
+- [ ] 4.6 Add focused tests for the collector with fixture D1 query results.
 
 ## 5. Fleet Console Product Analytics page
 
-- [x] 5.1 Add `product-analytics.astro` to the Fleet Console pages under the Metrics group.
-- [x] 5.2 Extend Founder Control (`founder-control.mjs`) to project `user-metrics` observations from the ledger.
-- [x] 5.3 Render a per-product directory with visitors, identified users, accounts, activation rate, D1/D7 retention, core actions, observation date, and provider boundary.
-- [x] 5.4 Show "Not measured" explicitly for products with no `user-metrics` evidence; never infer zero.
+- [ ] 5.1 Add `product-analytics.astro` to the Fleet Console pages under the Metrics group.
+- [ ] 5.2 Extend Founder Control (`founder-control.mjs`) to project `user-metrics` observations from the ledger.
+- [ ] 5.3 Render a per-product directory with visitors, identified users, accounts, activation rate, D1/D7 retention, core actions, observation date, and provider boundary.
+- [ ] 5.4 Show "Not measured" explicitly for products with no `user-metrics` evidence; never infer zero.
 - [ ] 5.5 Add an Update control that triggers the PostHog and D1 collectors.
 - [ ] 5.6 Ensure the page is keyboard operable and readable at 390, 768, and 1,440 CSS pixels.
-- [x] 5.7 Add the Product Analytics link to the Metrics navigation group.
+- [ ] 5.7 Add the Product Analytics link to the Metrics navigation group.
 
 ## 6. Privacy validation
 
