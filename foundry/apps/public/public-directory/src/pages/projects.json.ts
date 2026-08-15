@@ -1,46 +1,7 @@
-import projectRegistry from '../../../../../ops/config/projects.json';
-
-interface RegistryProject {
-  id: string;
-  name: string;
-  lifecycle: string;
-  tier?: 'focus' | 'active' | 'secondary' | 'parked';
-  priority?: 'P1' | 'P2' | 'P3';
-  domains?: string[];
-  public?: {
-    listing?: string;
-    name?: string;
-    description?: string;
-    category?: string;
-    pillarId?: string;
-    spotlight?: boolean;
-    maturity?: string;
-  };
-}
-
-const projects = (projectRegistry.projects as RegistryProject[])
-  .filter(
-    (project) =>
-      project.lifecycle === 'maintained' &&
-      project.public?.listing === 'maintained' &&
-      project.domains?.[0]
-  )
-  .map(({ id, name, tier, priority, domains, public: publicMetadata }) => ({
-    id,
-    name: publicMetadata?.name ?? name,
-    url: `https://${domains?.[0]}`,
-    description: publicMetadata?.description,
-    tier,
-    priority,
-    category: publicMetadata?.category,
-    maturity: publicMetadata?.maturity,
-    spotlight: publicMetadata?.spotlight,
-    pillarId: publicMetadata?.pillarId,
-    domains,
-  }));
+import { portfolioProjects } from '../lib/portfolio-projects';
 
 export function GET() {
-  return new Response(JSON.stringify(projects), {
+  return new Response(JSON.stringify(portfolioProjects), {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Cache-Control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=86400',
