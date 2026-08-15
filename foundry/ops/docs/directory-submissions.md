@@ -5,6 +5,28 @@
 **Logs:** `config/directory-submissions/log.jsonl` · `status.json` · `research-probe.json`  
 **Tools:** `scripts/directory-submit/spray.py`
 
+## Product-specific audience fit
+
+`config/directory-submissions/audience-fit.json` is the validated audience
+overlay for platform matching. It uses stable project and platform IDs, an
+explicit taxonomy, and reviewed tag arrays; the matcher never infers fit from a
+name, description, or live page.
+
+Generate the priority-ordered planning queue with:
+
+```bash
+node scripts/accreditation/generate-queue.mjs --date YYYY-MM-DD --detail full
+```
+
+Artifact compatibility remains the first filter. Within that set, destinations
+are ordered by the number of overlapping product/platform audience tags and
+then by platform ID. Each queue line includes the score and overlapping tags.
+A missing product signal, missing platform signal, or zero overlap is reported
+under `Unclassified` and cannot enter a verification or campaign queue.
+
+The queue is planning evidence only. It does not authorize a submission; every
+external write still requires the exact immutable campaign-manifest hash.
+
 **Outcomes:** Free-directory spray is awareness-only. For AI citations + Domain
 Rating, follow [`geo-dr-outcomes.md`](./geo-dr-outcomes.md) — deploy S-tier
 agent surfaces (`agent-ready`) and human-kick high-DA listings only.
