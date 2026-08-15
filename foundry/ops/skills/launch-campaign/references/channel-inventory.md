@@ -25,8 +25,9 @@ record across campaigns, so verification work is never repeated without reason.
 - **seed** — unverified registry evidence. Never ready for submission. It needs
   a live audience, policy, cost, authentication, submission-flow, and account
   probe first, and the outcome recorded back into the state file.
-- **blocked** — a recorded blocker (CAPTCHA, sign-in, payment, anti-bot).
-  Enabling one is an owner decision, never a bypass.
+- **blocked** — a recorded blocker using one validated value: `captcha`,
+  `signin`, `payment`, `anti-bot`, `moderation`, or `offline`. Enabling one is
+  an owner decision, never a bypass.
 - **rejected** — excluded unless the owner explicitly overrides with a reason.
 - **untracked** — the channel is not in the state file yet; treat it as seed.
 

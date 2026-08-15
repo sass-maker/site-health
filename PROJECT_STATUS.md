@@ -70,6 +70,11 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-16 — Accreditation blockers became typed evidence:** Constrained
+  blocked platform transitions to `captcha`, `signin`, `payment`, `anti-bot`,
+  `moderation`, or `offline`; invalid or missing values now fail before state
+  persistence. Generated queues group the normalized blocker classes so owner
+  enablement decisions no longer fragment across free-text spellings.
 - **2026-08-15 — Portfolio discovery strip shipped across every maintained
   public product:** Published the cached `/projects.json` projection and
   universal project-strip loader from SaaS Maker, then replaced existing
@@ -713,7 +718,8 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Deterministic tiered external SEO/GEO publishing program covering every P1,
   every P2, and each eligible active P4 identity, with explicit channel
   execution/content boundaries, prerequisites, exclusions, maintained and
-  research-only destination inventories, and fail-closed generated guides.
+  research-only destination inventories, typed accreditation blockers, and
+  fail-closed generated guides.
 - Deterministic maintained-product evidence links: each public changelog stays
   on the product domain, public roadmaps resolve to GitHub Issues, public source
   links resolve to canonical repositories, and private repository links remain

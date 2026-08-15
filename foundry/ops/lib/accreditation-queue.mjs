@@ -1,4 +1,4 @@
-import { isStale, stateCounts } from './accreditation-state.mjs';
+import { ACCREDITATION_BLOCKERS, isStale, stateCounts } from './accreditation-state.mjs';
 import { matchPlatforms } from './platform-matching.mjs';
 
 const PRIORITY_ORDER = ['P1', 'P2', 'P4'];
@@ -25,6 +25,21 @@ function section(lines, heading, platforms, emptyNote) {
   if (platforms.length === 0) lines.push(`- none — ${emptyNote}`);
   else for (const platform of platforms) lines.push(platformLine(platform));
   lines.push('');
+}
+
+function blockedSection(lines, platforms) {
+  lines.push(`**Blocked — enablement decision required (${platforms.length})**`, '');
+  if (platforms.length === 0) {
+    lines.push('- none — no blocked platforms', '');
+    return;
+  }
+  for (const blocker of ACCREDITATION_BLOCKERS) {
+    const entries = platforms.filter((platform) => platform.blocker === blocker);
+    if (entries.length === 0) continue;
+    lines.push(`_${blocker} (${entries.length})_`, '');
+    for (const platform of entries) lines.push(platformLine(platform));
+    lines.push('');
+  }
 }
 
 function orderedProducts(projects) {
@@ -108,12 +123,7 @@ function renderProductSections(lines, match, detail) {
   } else {
     renderSeedPointer(lines, seeds);
   }
-  section(
-    lines,
-    'Blocked — enablement decision required',
-    visible(match.blocked),
-    'no blocked platforms',
-  );
+  blockedSection(lines, visible(match.blocked));
   section(
     lines,
     'Rejected — excluded unless the owner overrides',
