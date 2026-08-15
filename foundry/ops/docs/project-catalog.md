@@ -3,7 +3,7 @@
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 > Maintenance contract: `foundry/ops/config/README.md`.
 
-Generated from 47 internal project identities.
+Generated from 48 internal project identities.
 
 ## Operating model
 
@@ -25,7 +25,7 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 
 | Kind | Coverage | Provider observed | Tracked | Evidence |
 | --- | --- | ---: | ---: | --- |
-| pages | provider-complete | 25 | 26 | Wrangler account list; 25 live plus one deleted historical target. |
+| pages | provider-complete | 26 | 27 | Wrangler account list; 26 live plus one deleted historical target. |
 | worker | known-name-probed | 26 | 28 | All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence. |
 | d1 | provider-complete | 23 | 23 | Wrangler account list. |
 | r2 | provider-complete | 8 | 9 | Wrangler account list; reddit-insights-archive is configured but not provisioned. |
@@ -98,9 +98,9 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | Mashup | active | no | no | No usable distributed or provider-hosted surface is currently deployed. (verified 2026-08-11) | `foundry/helpers/mashup` | — | — | 2026-08-11 |
 | Local AI Video Studio | active | yes | no | No maintained public listing is currently approved. (verified 2026-08-11) | `local-ai-video-studio` | cloudflare pages `local-ai-video-studio` (wrangler-direct; live)<br>local macos-app `LocalVideoStudio` (swift-build; local-only) | — | 2026-08-11 |
 
-## P4 — 24
+## P4 — 25
 
-### Finished (active) — 11
+### Finished (active) — 12
 
 #### Products — 7
 
@@ -121,11 +121,12 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | Free AI | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `free-ai` | cloudflare worker `free-ai-gateway` (wrangler-direct; live) | cloudflare d1 `free-ai-gateway-db` (active)<br>cloudflare kv `free-ai-gateway-HEALTH_KV` (active)<br>cloudflare kv `free-ai-gateway-HEALTH_KV_preview` (preview)<br>cloudflare durable-object `HealthStateDO` (active)<br>cloudflare durable-object `IpRateLimitDO` (active)<br>cloudflare durable-object `NeuronBudgetDO` (active)<br>cloudflare workers-ai `AI` (active) | 2026-08-11 |
 | PSI Swarm | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `foundry/helpers/psi-swarm` | cloudflare pages `psi-swarm-web` (wrangler-direct; live) | — | 2026-08-11 |
 
-#### Experiments — 2
+#### Experiments — 3
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
 | Chess | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `chess` | cloudflare pages `chess-9a0` (wrangler-direct; live) | — | 2026-08-11 |
+| Recipe Index | active | yes | no | The public test surface is live, but this remains a casual experiment without an approved portfolio listing. (verified 2026-08-15) | `recipe-dashboard` | cloudflare pages `veg-protein-food` (wrangler-direct; live) | — | 2026-08-15 |
 | Reddit Insights | active | yes | no | No maintained public listing is currently approved. (verified 2026-08-11) | `reddit-insights` | cloudflare pages `reddit-insights` (wrangler-direct; live)<br>cloudflare worker `reddit-proxy` (wrangler-direct; live)<br>cloudflare worker `reddit-insights-daily-collector` (wrangler-direct; configured-not-deployed) | cloudflare r2 `reddit-insights-archive` (configured-not-provisioned) | 2026-08-11 |
 
 ### Archived — 13

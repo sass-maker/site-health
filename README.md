@@ -95,11 +95,11 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 - platform: Fleet Workspace, Knowledge Base
 - experiment: Mashup, Local AI Video Studio
 
-### P4 — 24
+### P4 — 25
 
 - product: Drank, Email Manager, India Standards, Anime List, LoopTV, SaaS Ideas, What It Takes to Win, Sarthak Agrawal
 - platform: Free AI, PSI Swarm
-- experiment: EverythingRated, Materia, Chess, AliveVille, Protein Index, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables, Reddit Insights, Verified Bases
+- experiment: EverythingRated, Materia, Chess, AliveVille, Protein Index, Recipe Index, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables, Reddit Insights, Verified Bases
 
 Priority, kind, status, deployment, and sharing readiness are independent.
 Past projects remain preserved without becoming maintenance obligations.

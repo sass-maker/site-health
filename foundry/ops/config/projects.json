@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-08-11",
+    "updated": "2026-08-15",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -1370,6 +1370,45 @@
       }
     },
     {
+      "id": "veg-protein-food",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-15",
+          "reason": "The public test surface is live, but this remains a casual experiment without an approved portfolio listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "active",
+      "repo": "veg-protein-food",
+      "sourcePath": "recipe-dashboard",
+      "deployKind": "pages",
+      "cfProject": "veg-protein-food",
+      "domains": [
+        "veg-protein-food.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Casual source-linked vegetarian recipe experiment. The public site deploys from clean main by direct Wrangler upload and is intentionally absent from the maintained portfolio listing.",
+      "name": "Recipe Index",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food",
+      "metrics": {
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "hidden",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food"
+      }
+    },
+    {
       "id": "app-health",
       "portfolio": {
         "kind": "product",
@@ -2098,7 +2137,7 @@
         "local": "PROJECT_STATUS.md, repository deployment scripts, and tracked provider configuration."
       },
       "cloudflareCoverage": [
-        { "kind": "pages", "state": "provider-complete", "observed": 25, "tracked": 26, "evidence": "Wrangler account list; 25 live plus one deleted historical target." },
+        { "kind": "pages", "state": "provider-complete", "observed": 26, "tracked": 27, "evidence": "Wrangler account list; 26 live plus one deleted historical target." },
         { "kind": "worker", "state": "known-name-probed", "observed": 26, "tracked": 28, "evidence": "All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence." },
         { "kind": "d1", "state": "provider-complete", "observed": 23, "tracked": 23, "evidence": "Wrangler account list." },
         { "kind": "r2", "state": "provider-complete", "observed": 8, "tracked": 9, "evidence": "Wrangler account list; reddit-insights-archive is configured but not provisioned." },
@@ -2437,6 +2476,13 @@
           { "provider": "cloudflare", "kind": "d1", "name": "protein-index", "state": "retained" },
           { "provider": "cloudflare", "kind": "r2", "name": "protein-index-labels", "state": "retained" }
         ]
+      },
+      "veg-protein-food": {
+        "updatedAt": "2026-08-15",
+        "deployments": [
+          { "provider": "cloudflare", "kind": "pages", "name": "veg-protein-food", "method": "wrangler-direct", "state": "live" }
+        ],
+        "resources": []
       },
       "app-health": {
         "updatedAt": "2026-08-11",
