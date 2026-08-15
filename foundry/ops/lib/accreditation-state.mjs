@@ -104,27 +104,15 @@ function canTransition(fromState, toState) {
   return { ok: true, reason: null };
 }
 
-function validatePlatform(platform, index, issues) {
-  if (!isRecord(platform)) {
-    issues.push(`platforms[${index}] must be an object`);
-    return;
-  }
-  const label = platform.id ?? `platforms[${index}]`;
-  if (typeof platform.id !== 'string' || !platform.id) issues.push(`${label}: id is required`);
-  if (typeof platform.name !== 'string' || !platform.name) issues.push(`${label}: name is required`);
-  if (typeof platform.source !== 'string' || !platform.source) {
-    issues.push(`${label}: source is required`);
-  }
-  if (!STATE_SET.has(platform.currentState)) {
-    issues.push(`${label}: currentState must be one of ${ACCREDITATION_STATES.join(', ')}`);
-  }
-  if (!Array.isArray(platform.artifactFit) || platform.artifactFit.length === 0) {
-    issues.push(`${label}: artifactFit must be a non-empty array`);
-  }
-  if (!Array.isArray(platform.transitions)) issues.push(`${label}: transitions must be an array`);
-  if (!Array.isArray(platform.transitionsArchive)) {
-    issues.push(`${label}: transitionsArchive must be an array`);
-  }
+function presentString(value) {
+  return typeof value === 'string' && value.length > 0;
+}
+
+function nonEmptyArray(value) {
+  return Array.isArray(value) && value.length > 0;
+}
+
+function validateTransitions(platform, label, issues) {
   for (const transition of platform.transitions ?? []) {
     if (!OUTCOME_SET.has(transition?.outcome)) {
       issues.push(`${label}: transition outcome must be confirmed or indeterminate`);
@@ -133,6 +121,27 @@ function validatePlatform(platform, index, issues) {
       issues.push(`${label}: transition $schema must be ${ACCREDITATION_EVIDENCE_SCHEMA}`);
     }
   }
+}
+
+function validatePlatform(platform, index, issues) {
+  if (!isRecord(platform)) {
+    issues.push(`platforms[${index}] must be an object`);
+    return;
+  }
+  const label = platform.id ?? `platforms[${index}]`;
+  const checks = [
+    [presentString(platform.id), 'id is required'],
+    [presentString(platform.name), 'name is required'],
+    [presentString(platform.source), 'source is required'],
+    [STATE_SET.has(platform.currentState), `currentState must be one of ${ACCREDITATION_STATES.join(', ')}`],
+    [nonEmptyArray(platform.artifactFit), 'artifactFit must be a non-empty array'],
+    [Array.isArray(platform.transitions), 'transitions must be an array'],
+    [Array.isArray(platform.transitionsArchive), 'transitionsArchive must be an array'],
+  ];
+  for (const [ok, message] of checks) {
+    if (!ok) issues.push(`${label}: ${message}`);
+  }
+  validateTransitions(platform, label, issues);
 }
 
 export function validateAccreditationState(input) {

@@ -9,6 +9,45 @@ function fits(platform, artifact) {
   return Array.isArray(platform.artifactFit) && platform.artifactFit.includes(artifact);
 }
 
+function overrideIndex(overrides) {
+  return new Map(
+    overrides.map((entry) =>
+      typeof entry === 'string'
+        ? [entry, 'owner override']
+        : [entry.platformId, entry.reason || 'owner override'],
+    ),
+  );
+}
+
+/**
+ * How one platform is reached by this artifact: `direct` when its artifactFit
+ * covers the artifact itself, `articleComponent` when it only qualifies for the
+ * launch's canonical article.
+ */
+function routeFor(platform, artifact, includeCanonicalArticle) {
+  const direct = fits(platform, artifact);
+  if (direct) return 'direct';
+  const carriesArticle = includeCanonicalArticle && artifact !== 'article';
+  if (carriesArticle && fits(platform, 'article')) return 'articleComponent';
+  return null;
+}
+
+function entryFor(platform, { productId, stalenessDays, now }) {
+  return {
+    id: platform.id,
+    name: platform.name,
+    source: platform.source,
+    submitUrl: platform.submitUrl,
+    home: platform.home,
+    qualityGate: platform.qualityGate,
+    currentState: platform.currentState,
+    verifiedAt: platform.verifiedAt,
+    stale: isStale(platform, { stalenessDays, now }),
+    blocker: platform.blocker,
+    productId,
+  };
+}
+
 /**
  * Deterministic routing for one artifact:
  * - article -> protected channels + article-syndication platforms
@@ -31,12 +70,8 @@ export function matchPlatforms(state, options) {
   if (!ARTIFACT_TYPE_SET.has(artifact)) {
     throw new Error(`artifact must be one of ${ARTIFACT_TYPES.join(', ')}`);
   }
-  const overrideById = new Map(
-    overrides.map((entry) =>
-      typeof entry === 'string' ? [entry, 'owner override'] : [entry.platformId, entry.reason],
-    ),
-  );
-  const stalenessDays = state.stalenessDays;
+  const overrideById = overrideIndex(overrides);
+  const context = { productId, stalenessDays: state.stalenessDays, now };
 
   const accredited = [];
   const seed = [];
@@ -46,34 +81,14 @@ export function matchPlatforms(state, options) {
   const articleComponent = [];
 
   for (const platform of state.platforms) {
-    const matchesArtifact = fits(platform, artifact);
-    const matchesArticleComponent =
-      includeCanonicalArticle &&
-      artifact !== 'article' &&
-      !matchesArtifact &&
-      fits(platform, 'article');
-    if (!(matchesArtifact || matchesArticleComponent)) continue;
-
-    const entry = {
-      id: platform.id,
-      name: platform.name,
-      source: platform.source,
-      submitUrl: platform.submitUrl,
-      home: platform.home,
-      qualityGate: platform.qualityGate,
-      currentState: platform.currentState,
-      verifiedAt: platform.verifiedAt,
-      stale: isStale(platform, { stalenessDays, now }),
-      blocker: platform.blocker,
-      productId,
-    };
+    const route = routeFor(platform, artifact, includeCanonicalArticle);
+    if (!route) continue;
+    const entry = entryFor(platform, context);
 
     if (platform.currentState === 'rejected') {
-      if (overrideById.has(platform.id)) {
-        overridden.push({ ...entry, overrideReason: overrideById.get(platform.id) });
-      } else {
-        rejected.push({ ...entry, rejectionReason: platform.rejectionReason });
-      }
+      const reason = overrideById.get(platform.id);
+      if (reason) overridden.push({ ...entry, overrideReason: reason });
+      else rejected.push({ ...entry, rejectionReason: platform.rejectionReason });
       continue;
     }
     if (platform.currentState === 'blocked') {
@@ -82,11 +97,8 @@ export function matchPlatforms(state, options) {
     }
     if (!MATCHABLE_STATES.has(platform.currentState)) continue;
 
-    if (matchesArticleComponent) {
-      articleComponent.push({ ...entry, component: 'article' });
-      continue;
-    }
-    if (platform.currentState === 'accredited') accredited.push(entry);
+    if (route === 'articleComponent') articleComponent.push({ ...entry, component: 'article' });
+    else if (platform.currentState === 'accredited') accredited.push(entry);
     else seed.push(entry);
   }
 
