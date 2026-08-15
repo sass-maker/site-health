@@ -6,6 +6,11 @@ import { resolve } from 'node:path';
 import test from 'node:test';
 
 import {
+  applyTransition,
+  seedAccreditationState,
+  writeAccreditationState,
+} from '../lib/accreditation-state.mjs';
+import {
   createCampaignApproval,
   createCampaignReceipt,
   evaluateCampaignItem,
@@ -144,6 +149,64 @@ test('channel inventory loads protected, article, curated, and long-tail seeds o
   ]) {
     assert.equal(channel.requiresLiveVerification, true);
   }
+});
+
+test('channel inventory annotates every channel with accreditation state', () => {
+  const statePath = resolve(
+    mkdtempSync(resolve(tmpdir(), 'fleet-inventory-accreditation-')),
+    'accreditation-state.json',
+  );
+  const verified = applyTransition(seedAccreditationState({ updated: '2026-08-15' }), {
+    platformId: 'smol-launch',
+    toState: 'verified',
+    observedAt: '2026-08-15T10:00:00.000Z',
+    evidence: { liveUrl: 'https://smollaunch.com/submit', httpStatus: 200, formDetected: true },
+  }).state;
+  writeAccreditationState(
+    statePath,
+    applyTransition(verified, {
+      platformId: 'smol-launch',
+      toState: 'accredited',
+      observedAt: '2026-08-15T10:00:00.000Z',
+    }).state,
+  );
+
+  const inventoryCli = resolve(
+    import.meta.dirname,
+    '../skills/launch-campaign/scripts/channel-inventory.mjs',
+  );
+  const run = spawnSync(
+    process.execPath,
+    [inventoryCli, '--artifact', 'product', '--state', statePath],
+    { encoding: 'utf8' },
+  );
+  assert.equal(run.status, 0, run.stderr);
+  const inventory = JSON.parse(run.stdout);
+
+  assert.equal(inventory.accreditation.loaded, true);
+  assert.equal(inventory.accreditation.stalenessDays, 30);
+  assert.equal(inventory.counts.accredited, 1);
+  for (const channel of [
+    ...inventory.protected,
+    ...inventory.articleSyndication,
+    ...inventory.curatedDirectories,
+    ...inventory.longTailSeeds,
+  ]) {
+    assert.equal(typeof channel.currentState, 'string');
+    assert.ok('verifiedAt' in channel);
+    assert.equal(channel.requiresLiveVerification, true);
+  }
+
+  const smolLaunch = inventory.curatedDirectories.find((channel) => channel.id === 'smol-launch');
+  assert.equal(smolLaunch.currentState, 'accredited');
+  assert.equal(smolLaunch.verifiedAt, '2026-08-15T10:00:00.000Z');
+  assert.equal(smolLaunch.stale, false);
+  assert.equal(
+    inventory.protected.every((channel) => channel.currentState === 'seed'),
+    true,
+  );
+  assert.match(inventory.warning, /Seed inventory only/u);
+  assert.match(inventory.warning, /per-campaign audience-fit confirmation/u);
 });
 
 test('campaign CLI previews, approves, executes fixture adapters, and suppresses retry', () => {
