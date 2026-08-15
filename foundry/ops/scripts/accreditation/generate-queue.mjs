@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import process from 'node:process';
+
+import {
+  accreditationQueueFilename,
+  renderAccreditationQueue,
+} from '../../lib/accreditation-queue.mjs';
+import { ACCREDITATION_STATE_PATH, readAccreditationState } from '../../lib/accreditation-state.mjs';
+
+const opsRoot = resolve(import.meta.dirname, '../..');
+const fleetRoot = resolve(opsRoot, '../..');
+
+const USAGE = `Usage: generate-queue.mjs [--state <path>] [--projects <path>]
+       [--out-dir <path>] [--date <YYYY-MM-DD>] [--detail summary|full] [--stdout]`;
+
+const args = process.argv.slice(2);
+
+function option(name, fallback = null) {
+  const index = args.indexOf(name);
+  return index >= 0 ? (args[index + 1] ?? fallback) : fallback;
+}
+
+try {
+  if (args.includes('--help')) throw new Error(USAGE);
+  const now = new Date();
+  const date = option('--date', now.toISOString().slice(0, 10));
+  const detail = option('--detail', 'summary');
+  const state = readAccreditationState(resolve(option('--state', ACCREDITATION_STATE_PATH)));
+  const projectsPath = resolve(option('--projects', resolve(opsRoot, 'config/projects.json')));
+  const { projects } = JSON.parse(readFileSync(projectsPath, 'utf8'));
+
+  const markdown = renderAccreditationQueue({ state, projects, date, detail, now });
+
+  if (args.includes('--stdout')) {
+    process.stdout.write(markdown);
+  } else {
+    const outDir = resolve(option('--out-dir', resolve(fleetRoot, 'campaign-manifests/out')));
+    mkdirSync(outDir, { recursive: true });
+    const outPath = resolve(outDir, accreditationQueueFilename(date));
+    writeFileSync(outPath, markdown);
+    process.stdout.write(
+      `${JSON.stringify({ path: outPath, platforms: state.platforms.length, detail }, null, 2)}\n`,
+    );
+  }
+} catch (error) {
+  process.stderr.write(`${error.message}\n`);
+  process.exitCode = 2;
+}
