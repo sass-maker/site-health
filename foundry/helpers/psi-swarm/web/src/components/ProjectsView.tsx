@@ -358,21 +358,22 @@ export default function ProjectsView() {
               client={client!}
               expanded={expandedProjects.has(proj.origin)}
               onToggle={() => toggleProject(proj.origin)}
-              expandedPages={expandedPages}
-              onTogglePage={togglePage}
-              historyByUrl={historyByUrl}
-              runningUrl={runningUrl}
-              onRunPage={(url) => runNew(url)}
-              onRunAll={() => runAllPages(proj)}
-              pageInput={pageInputByOrigin.get(proj.origin) ?? ''}
-              setPageInput={(v) =>
-                setPageInputByOrigin((m) => {
-                  const n = new Map(m);
-                  n.set(proj.origin, v);
-                  return n;
-                })
-              }
-              onAddPage={() => addPage(proj.origin)}
+              pages={{
+                expandedPages,
+                onTogglePage: togglePage,
+                historyByUrl,
+                runningUrl,
+                onRunPage: (url) => runNew(url),
+                onRunAll: () => runAllPages(proj),
+                pageInput: pageInputByOrigin.get(proj.origin) ?? '',
+                setPageInput: (v) =>
+                  setPageInputByOrigin((m) => {
+                    const n = new Map(m);
+                    n.set(proj.origin, v);
+                    return n;
+                  }),
+                onAddPage: () => addPage(proj.origin),
+              }}
             />
           ))}
         </div>
@@ -394,11 +395,7 @@ function Panel({ children }: { children: React.ReactNode }) {
   );
 }
 
-interface ProjectCardProps {
-  proj: ProjectGrouped;
-  client: AgentClient;
-  expanded: boolean;
-  onToggle: () => void;
+interface ProjectCardPages {
   expandedPages: Set<string>;
   onTogglePage: (url: string) => void;
   historyByUrl: Map<string, HistoryRow[]>;
@@ -410,21 +407,15 @@ interface ProjectCardProps {
   onAddPage: () => void;
 }
 
-function ProjectCard({
-  proj,
-  client,
-  expanded,
-  onToggle,
-  expandedPages,
-  onTogglePage,
-  historyByUrl,
-  runningUrl,
-  onRunPage,
-  onRunAll,
-  pageInput,
-  setPageInput,
-  onAddPage,
-}: ProjectCardProps) {
+interface ProjectCardProps {
+  proj: ProjectGrouped;
+  client: AgentClient;
+  expanded: boolean;
+  onToggle: () => void;
+  pages: ProjectCardPages;
+}
+
+function ProjectCard({ proj, client, expanded, onToggle, pages }: ProjectCardProps) {
   const host = useMemo(() => {
     try {
       return new URL(proj.origin).host;
@@ -458,7 +449,7 @@ function ProjectCard({
         <Worst label="worst mobile" value={proj.worstMobileLcp} />
         <ClsCell value={proj.worstCls} />
         <button
-          onClick={onRunAll}
+          onClick={pages.onRunAll}
           className="px-3 py-1.5 text-xs bg-[var(--color-cyan)] text-black rounded font-medium hover:opacity-90 transition"
         >
           Run all pages
@@ -471,25 +462,24 @@ function ProjectCard({
               key={pg.url}
               pg={pg}
               client={client}
-              expanded={expandedPages.has(pg.url)}
-              onToggle={() => onTogglePage(pg.url)}
-              history={historyByUrl.get(pg.url) ?? []}
-              running={runningUrl === pg.url}
-              onRun={() => onRunPage(pg.url)}
+              expanded={pages.expandedPages.has(pg.url)}
+              onToggle={() => pages.onTogglePage(pg.url)}
+              history={pages.historyByUrl.get(pg.url) ?? []}
+              run={{ running: pages.runningUrl === pg.url, onRun: () => pages.onRunPage(pg.url) }}
             />
           ))}
           <div className="px-5 py-3 flex gap-2 border-t border-[var(--color-border)]">
             <input
               type="text"
               placeholder="Add page — /about or full URL"
-              value={pageInput}
-              onChange={(e) => setPageInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && onAddPage()}
+              value={pages.pageInput}
+              onChange={(e) => pages.setPageInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && pages.onAddPage()}
               className="flex-1 bg-[var(--color-panel)] border border-[var(--color-border)] rounded px-3 py-1.5 font-mono text-xs focus:outline-none focus:border-[var(--color-cyan)]"
             />
             <button
-              onClick={onAddPage}
-              disabled={!pageInput.trim()}
+              onClick={pages.onAddPage}
+              disabled={!pages.pageInput.trim()}
               className="px-3 py-1.5 text-xs bg-[var(--color-cyan)] text-black rounded font-medium hover:opacity-90 transition disabled:opacity-40"
             >
               Add page
@@ -547,16 +537,14 @@ function PageRowComp({
   expanded,
   onToggle,
   history,
-  running,
-  onRun,
+  run,
 }: {
   pg: PageRow;
   client: AgentClient;
   expanded: boolean;
   onToggle: () => void;
   history: HistoryRow[];
-  running: boolean;
-  onRun: () => void;
+  run: { running: boolean; onRun: () => void };
 }) {
   const desktopRuns = history.filter((r) => r.preset === 'desktop' && typeof r.lcp === 'number');
   const mobileRuns = history.filter((r) => r.preset === 'mobile-mid' && typeof r.lcp === 'number');
@@ -612,11 +600,11 @@ function PageRowComp({
             </a>
           )}
           <button
-            onClick={onRun}
-            disabled={running}
+            onClick={run.onRun}
+            disabled={run.running}
             className="px-3 py-1 text-xs bg-[var(--color-bg)] border border-[var(--color-cyan)] text-[var(--color-cyan)] rounded hover:bg-[var(--color-cyan)] hover:text-black transition disabled:opacity-40"
           >
-            {running ? '…running' : 'Run'}
+            {run.running ? '…running' : 'Run'}
           </button>
         </div>
       </div>

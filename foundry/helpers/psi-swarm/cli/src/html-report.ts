@@ -24,33 +24,6 @@ export interface HtmlReportOptions {
   traceInsights?: TraceInsightRecord[];
 }
 
-function escapeHtml(s: string): string {
-  return s.replace(
-    /[&<>"']/g,
-    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!
-  );
-}
-function fmt(v: number | undefined, unit: 'ms' | 'index' | 'score'): string {
-  if (v === undefined || !Number.isFinite(v)) return '—';
-  if (unit === 'ms') return v >= 1000 ? `${(v / 1000).toFixed(2)}s` : `${Math.round(v)}ms`;
-  if (unit === 'index') return v.toFixed(3);
-  return v.toFixed(0);
-}
-function tierClass(
-  v: number | undefined,
-  spec: { good?: number; poor?: number; higherIsBetter?: boolean }
-): string {
-  if (v === undefined || !Number.isFinite(v)) return 'dim';
-  if (spec.higherIsBetter) {
-    if (v >= (spec.good ?? 0)) return 'good';
-    if (v >= ((spec.poor ?? 0) + (spec.good ?? 0)) / 2) return 'warn';
-    return 'poor';
-  }
-  if (v <= (spec.good ?? 0)) return 'good';
-  if (v <= (spec.poor ?? Infinity)) return 'warn';
-  return 'poor';
-}
-
 const CSS = `
   :root { --bg:#0b0f17; --panel:#131826; --border:#1f2738; --text:#e6e9f2; --dim:#8089a4;
           --cyan:#38bdf8; --good:#22c55e; --warn:#facc15; --poor:#ef4444; }
@@ -429,4 +402,31 @@ export function renderHtmlReport(opts: HtmlReportOptions): string {
 </main>
 </body>
 </html>`;
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(
+    /[&<>"']/g,
+    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!
+  );
+}
+function fmt(v: number | undefined, unit: 'ms' | 'index' | 'score'): string {
+  if (v === undefined || !Number.isFinite(v)) return '—';
+  if (unit === 'ms') return v >= 1000 ? `${(v / 1000).toFixed(2)}s` : `${Math.round(v)}ms`;
+  if (unit === 'index') return v.toFixed(3);
+  return v.toFixed(0);
+}
+function tierClass(
+  v: number | undefined,
+  spec: { good?: number; poor?: number; higherIsBetter?: boolean }
+): string {
+  if (v === undefined || !Number.isFinite(v)) return 'dim';
+  if (spec.higherIsBetter) {
+    if (v >= (spec.good ?? 0)) return 'good';
+    if (v >= ((spec.poor ?? 0) + (spec.good ?? 0)) / 2) return 'warn';
+    return 'poor';
+  }
+  if (v <= (spec.good ?? 0)) return 'good';
+  if (v <= (spec.poor ?? Infinity)) return 'warn';
+  return 'poor';
 }
