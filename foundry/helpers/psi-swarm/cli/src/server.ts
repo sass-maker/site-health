@@ -448,7 +448,11 @@ export function createAgentServer(opts: ServeOptions): {
         for (const e of record.events) {
           res.write(`data: ${JSON.stringify(e)}\n\n`);
         }
-        if (record.status === 'complete' || record.status === 'error' || record.status === 'cancelled') {
+        if (
+          record.status === 'complete' ||
+          record.status === 'error' ||
+          record.status === 'cancelled'
+        ) {
           res.end();
           return;
         }

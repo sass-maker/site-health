@@ -212,7 +212,11 @@ export class AgentClient {
   async waitForRunCompletion(runId: string, pollIntervalMs = 1_500): Promise<void> {
     for (;;) {
       const status = await this.runStatus(runId);
-      if (status.status === 'complete' || status.status === 'error' || status.status === 'cancelled')
+      if (
+        status.status === 'complete' ||
+        status.status === 'error' ||
+        status.status === 'cancelled'
+      )
         return;
       await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
     }
