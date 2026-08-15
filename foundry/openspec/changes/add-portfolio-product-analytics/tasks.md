@@ -1,7 +1,7 @@
 ## 1. Shared event contract
 
-- [ ] 1.1 Define the 5-event taxonomy (`page_view`, `signup`, `activated`, `core_action`, `returned`) with `project_id` property and `action` sub-property for `core_action`.
-- [ ] 1.2 Document the event contract in `foundry/ops/docs/` so every product can implement it consistently.
+- [x] 1.1 Define the 5-event taxonomy (`page_view`, `signup`, `activated`, `core_action`, `returned`) with `project_id` property and `action` sub-property for `core_action`.
+- [x] 1.2 Document the event contract in `foundry/ops/docs/` so every product can implement it consistently.
 - [ ] 1.3 Audit existing PostHog instrumentation in RolePatch, Karte, and Drank against the 5-event contract and record gaps.
 - [ ] 1.4 Upgrade RolePatch to emit `page_view` (currently emits 4 of 5 events).
 - [ ] 1.5 Upgrade Karte to emit `page_view` (currently emits 4 of 5 events).
@@ -43,11 +43,11 @@
 
 ## 6. Privacy validation
 
-- [ ] 6.1 Verify no PII enters the ledger: PostHog distinct IDs are opaque hashes, D1 queries return counts only.
-- [ ] 6.2 Verify bundles are credential-free: no API tokens, cookies, or raw provider payloads stored.
-- [ ] 6.3 Verify the PostHog project key used by the collector is the same public client-side key already shipped in products.
-- [ ] 6.4 Add a validation check that rejects any `user-metrics` observation containing free-text user content.
-- [ ] 6.5 Document the privacy model in the event contract doc.
+- [x] 6.1 Verify no PII enters the ledger: PostHog distinct IDs are opaque hashes, D1 queries return counts only.
+- [x] 6.2 Verify bundles are credential-free: no API tokens, cookies, or raw provider payloads stored.
+- [x] 6.3 Verify the PostHog project key used by the collector is the same public client-side key already shipped in products.
+- [x] 6.4 Add a validation check that rejects any `user-metrics` observation containing free-text user content.
+- [x] 6.5 Document the privacy model in the event contract doc.
 
 ## 7. Pilot and rollout
 
