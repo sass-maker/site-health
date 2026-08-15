@@ -21,7 +21,7 @@ import {
   type DomainRatingResult,
 } from './ahrefs.js';
 import { SwarmRunner, type RunResult, type RunResultWithArtifact } from './runner.js';
-import { HistoryDB } from './db.js';
+import { HistoryDB, type RunRow } from './db.js';
 import { renderSwarmReport } from './report.js';
 import { discover, rank, type DiscoveredLink } from './discover.js';
 import { profileMachine, resolveParallelism } from './machine.js';
@@ -80,26 +80,7 @@ program
   .option('--no-insight', 'Skip trace-insight export and derived diagnosis')
   .option('--insight-baseline <tag>', 'Compare derived insight against a tagged baseline swarm')
   .action(async (url: string, opts) => {
-    let presets: Preset[];
-    try {
-      presets = resolvePresets(opts.presets);
-    } catch (err) {
-      console.error(chalk.red((err as Error).message));
-      process.exit(1);
-    }
-    const runs = parseInt(opts.runs, 10);
-    if (!Number.isInteger(runs) || runs < 1) {
-      console.error(chalk.red('--runs must be a positive integer'));
-      process.exit(1);
-    }
-    let parallel: number;
-    try {
-      parallel = resolveParallelism(opts.parallel, presets.length);
-    } catch (err) {
-      console.error(chalk.red((err as Error).message));
-      process.exit(1);
-    }
-
+    const { presets, runs, parallel } = resolveRunConfig(opts);
     if (parallel > 1) {
       const machine = profileMachine();
       console.log(
@@ -132,70 +113,11 @@ program
       process.exit(1);
     }
 
-    let traceInsights: Awaited<ReturnType<typeof deriveTraceInsights>> | undefined;
-    if (opts.save !== false) {
-      const db = new HistoryDB();
-      for (const r of results) {
-        db.insert({
-          url,
-          preset: r.preset.name,
-          started_at: r.startedAt,
-          finished_at: r.finishedAt,
-          metrics: r.metrics,
-          error: r.error,
-          tag: opts.tag,
-        });
-      }
+    const traceInsights = await saveAndDeriveInsights(opts, url, results);
+    const cruxByFormFactor = await fetchCruxByFormFactor(url, opts);
+    const domainRating = await fetchDomainRatingData(url, opts);
+    const trafficProfile = resolveTrafficProfile(opts);
 
-      if (opts.insight !== false) {
-        const artifactPaths = exportSwarmArtifacts(url, results, { tag: opts.tag });
-        traceInsights = await deriveTraceInsights(db, url, results, {
-          tag: opts.tag,
-          artifactPaths,
-          baselineTag: opts.insightBaseline,
-        });
-      }
-      db.close();
-    } else if (opts.insight !== false) {
-      exportSwarmArtifacts(url, results, { tag: opts.tag });
-    }
-
-    // Pre-render side-channel: fetch CrUX (mobile + desktop) in parallel.
-    let cruxByFormFactor: { mobile?: CruxRecord | null; desktop?: CruxRecord | null } | undefined;
-    if (opts.crux !== false && process.env.CRUX_API_KEY) {
-      try {
-        const [mobile, desktop] = await Promise.all([
-          fetchCrux(url, { formFactor: 'PHONE' }).catch(() => null),
-          fetchCrux(url, { formFactor: 'DESKTOP' }).catch(() => null),
-        ]);
-        if (mobile || desktop) cruxByFormFactor = { mobile, desktop };
-      } catch {
-        /* skip — report still renders without CrUX */
-      }
-    }
-    let domainRating: DomainRatingResult | null | undefined;
-    if (opts.ahrefs !== false) {
-      try {
-        const db = new HistoryDB();
-        domainRating = await fetchDomainRating(url, { db });
-        db.close();
-      } catch {
-        /* skip — report still renders without DR */
-      }
-    }
-    let trafficProfile: { name: string; weights: Record<string, number> } | undefined;
-    if (opts.profile) {
-      const weights = TRAFFIC_PROFILES[opts.profile];
-      if (!weights) {
-        console.error(
-          chalk.red(
-            `Unknown --profile: ${opts.profile}. Try: ${Object.keys(TRAFFIC_PROFILES).join(', ')}`
-          )
-        );
-      } else {
-        trafficProfile = { name: opts.profile, weights };
-      }
-    }
     console.log(
       '\n' +
         renderSwarmReport(url, results, elapsed, {
@@ -219,27 +141,12 @@ program
     }
 
     if (opts.output === 'html') {
-      const slug = url
-        .replace(/^https?:\/\//, '')
-        .replace(/[^a-zA-Z0-9._-]/g, '_')
-        .replace(/_+/g, '_')
-        .slice(0, 60);
-      const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-      const defaultDir = pathResolve(homedir(), '.psi-swarm', 'reports');
-      const defaultPath = pathJoin(defaultDir, `psi-swarm-${slug}-${stamp}.html`);
-      const outPath = pathResolve(process.cwd(), opts.outputPath ?? defaultPath);
-      mkdirSync(pathResolve(outPath, '..'), { recursive: true });
-      const html = renderHtmlReport({
-        url,
-        results,
-        elapsedMs: elapsed,
+      writeHtmlReport(opts, url, results, elapsed, {
         cruxByFormFactor,
         domainRating,
         reasoning: reasoningCapture,
         traceInsights,
       });
-      writeFileSync(outPath, html, 'utf-8');
-      console.log('\n' + chalk.dim('Wrote HTML report → ') + chalk.cyan(outPath));
     } else if (opts.output && opts.output !== 'html') {
       console.error(chalk.red(`Unknown --output format: ${opts.output}. Try: html`));
     }
@@ -249,11 +156,183 @@ program
     }
   });
 
+function resolveRunConfig(opts: Record<string, unknown>): {
+  presets: Preset[];
+  runs: number;
+  parallel: number;
+} {
+  let presets: Preset[];
+  try {
+    presets = resolvePresets(opts.presets as string);
+  } catch (err) {
+    console.error(chalk.red((err as Error).message));
+    process.exit(1);
+  }
+  const runs = parseInt(opts.runs as string, 10);
+  if (!Number.isInteger(runs) || runs < 1) {
+    console.error(chalk.red('--runs must be a positive integer'));
+    process.exit(1);
+  }
+  let parallel: number;
+  try {
+    parallel = resolveParallelism(opts.parallel as string, presets.length);
+  } catch (err) {
+    console.error(chalk.red((err as Error).message));
+    process.exit(1);
+  }
+  return { presets, runs, parallel };
+}
+
+async function saveAndDeriveInsights(
+  opts: Record<string, unknown>,
+  url: string,
+  results: RunResultWithArtifact[]
+): Promise<Awaited<ReturnType<typeof deriveTraceInsights>> | undefined> {
+  if (opts.save !== false) {
+    const db = new HistoryDB();
+    for (const r of results) {
+      db.insert({
+        url,
+        preset: r.preset.name,
+        started_at: r.startedAt,
+        finished_at: r.finishedAt,
+        metrics: r.metrics,
+        error: r.error,
+        tag: opts.tag as string | undefined,
+      });
+    }
+    let traceInsights: Awaited<ReturnType<typeof deriveTraceInsights>> | undefined;
+    if (opts.insight !== false) {
+      const artifactPaths = exportSwarmArtifacts(url, results, {
+        tag: opts.tag as string | undefined,
+      });
+      traceInsights = await deriveTraceInsights(db, url, results, {
+        tag: opts.tag as string | undefined,
+        artifactPaths,
+        baselineTag: opts.insightBaseline as string | undefined,
+      });
+    }
+    db.close();
+    return traceInsights;
+  }
+  if (opts.insight !== false) {
+    exportSwarmArtifacts(url, results, { tag: opts.tag as string | undefined });
+  }
+  return undefined;
+}
+
+async function fetchCruxByFormFactor(
+  url: string,
+  opts: Record<string, unknown>
+): Promise<{ mobile?: CruxRecord | null; desktop?: CruxRecord | null } | undefined> {
+  if (opts.crux === false || !process.env.CRUX_API_KEY) return undefined;
+  try {
+    const [mobile, desktop] = await Promise.all([
+      fetchCrux(url, { formFactor: 'PHONE' }).catch(() => null),
+      fetchCrux(url, { formFactor: 'DESKTOP' }).catch(() => null),
+    ]);
+    if (mobile || desktop) return { mobile, desktop };
+  } catch {
+    /* skip — report still renders without CrUX */
+  }
+  return undefined;
+}
+
+async function fetchDomainRatingData(
+  url: string,
+  opts: Record<string, unknown>
+): Promise<DomainRatingResult | null | undefined> {
+  if (opts.ahrefs === false) return undefined;
+  try {
+    const db = new HistoryDB();
+    const rating = await fetchDomainRating(url, { db });
+    db.close();
+    return rating;
+  } catch {
+    /* skip — report still renders without DR */
+  }
+  return undefined;
+}
+
+function resolveTrafficProfile(
+  opts: Record<string, unknown>
+): { name: string; weights: Record<string, number> } | undefined {
+  if (!opts.profile) return undefined;
+  const weights = TRAFFIC_PROFILES[opts.profile as string];
+  if (!weights) {
+    console.error(
+      chalk.red(
+        `Unknown --profile: ${opts.profile}. Try: ${Object.keys(TRAFFIC_PROFILES).join(', ')}`
+      )
+    );
+    return undefined;
+  }
+  return { name: opts.profile as string, weights };
+}
+
+interface HtmlReportContext {
+  cruxByFormFactor?: { mobile?: CruxRecord | null; desktop?: CruxRecord | null };
+  domainRating?: DomainRatingResult | null;
+  reasoning?: { text: string; backend?: string; model?: string; durationMs?: number };
+  traceInsights?: Awaited<ReturnType<typeof deriveTraceInsights>>;
+}
+
+function writeHtmlReport(
+  opts: Record<string, unknown>,
+  url: string,
+  results: RunResultWithArtifact[],
+  elapsed: number,
+  ctx: HtmlReportContext
+): void {
+  const outPath = resolveHtmlReportPath(url, opts.outputPath as string | undefined);
+  mkdirSync(pathResolve(outPath, '..'), { recursive: true });
+  const html = renderHtmlReport({
+    url,
+    results,
+    elapsedMs: elapsed,
+    cruxByFormFactor: ctx.cruxByFormFactor,
+    domainRating: ctx.domainRating,
+    reasoning: ctx.reasoning,
+    traceInsights: ctx.traceInsights,
+  });
+  writeFileSync(outPath, html, 'utf-8');
+  console.log('\n' + chalk.dim('Wrote HTML report → ') + chalk.cyan(outPath));
+}
+
 async function resolveBackend(spec: string): Promise<ReasonBackend> {
   if (spec === 'openai' || spec === 'local-ai') return spec;
   // auto: prefer local-ai if reachable.
   const local = await probeLocalAi();
   return local ? 'local-ai' : 'openai';
+}
+
+const METRIC_KEYS = ['lcp', 'cls', 'inp', 'tbt', 'fcp', 'ttfb', 'si', 'performance_score'] as const;
+
+function rowToRunResult(r: RunRow): RunResult {
+  const fallback = {
+    label: r.preset,
+    formFactor: 'mobile' as const,
+    throttling: {} as any,
+    screenEmulation: {} as any,
+  };
+  const p = PRESETS[r.preset] ?? fallback;
+  const metrics: Record<string, number | undefined> = {};
+  for (const key of METRIC_KEYS) {
+    metrics[key] = r[key] ?? undefined;
+  }
+  return {
+    preset: {
+      name: r.preset,
+      label: p.label,
+      formFactor: p.formFactor,
+      throttling: p.throttling,
+      screenEmulation: p.screenEmulation,
+    },
+    startedAt: r.started_at,
+    finishedAt: r.finished_at ?? r.started_at,
+    metrics,
+    error: r.error ?? undefined,
+  };
 }
 
 async function runReasoning(
@@ -450,28 +529,7 @@ program
       db.close();
       return;
     }
-    const fakeResults: RunResult[] = rows.map((r) => ({
-      preset: {
-        name: r.preset,
-        label: PRESETS[r.preset]?.label ?? r.preset,
-        formFactor: PRESETS[r.preset]?.formFactor ?? 'mobile',
-        throttling: PRESETS[r.preset]?.throttling ?? ({} as any),
-        screenEmulation: PRESETS[r.preset]?.screenEmulation ?? ({} as any),
-      },
-      startedAt: r.started_at,
-      finishedAt: r.finished_at ?? r.started_at,
-      metrics: {
-        lcp: r.lcp ?? undefined,
-        cls: r.cls ?? undefined,
-        inp: r.inp ?? undefined,
-        tbt: r.tbt ?? undefined,
-        fcp: r.fcp ?? undefined,
-        ttfb: r.ttfb ?? undefined,
-        si: r.si ?? undefined,
-        performance_score: r.performance_score ?? undefined,
-      },
-      error: r.error ?? undefined,
-    }));
+    const fakeResults: RunResult[] = rows.map(rowToRunResult);
     console.log(renderSwarmReport(url, fakeResults, 0));
     db.close();
   });
@@ -892,3 +950,15 @@ program.parseAsync(process.argv).catch((err) => {
   console.error(chalk.red(err.message));
   process.exit(1);
 });
+
+function resolveHtmlReportPath(url: string, outputPath?: string): string {
+  const slug = url
+    .replace(/^https?:\/\//, '')
+    .replace(/[^a-zA-Z0-9._-]/g, '_')
+    .replace(/_+/g, '_')
+    .slice(0, 60);
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  const defaultDir = pathResolve(homedir(), '.psi-swarm', 'reports');
+  const defaultPath = pathJoin(defaultDir, `psi-swarm-${slug}-${stamp}.html`);
+  return pathResolve(process.cwd(), outputPath ?? defaultPath);
+}

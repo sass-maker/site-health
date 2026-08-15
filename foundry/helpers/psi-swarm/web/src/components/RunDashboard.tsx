@@ -8,21 +8,11 @@ import {
   type RunnerEvent,
   type DiagnosisResponse,
 } from '../lib/agent.js';
+import { applyRunStart, applyRunComplete, type PresetState } from '../lib/preset-state.js';
 import { DisconnectedPanel } from './DisconnectedPanel.js';
 import { auditUrlError, RunForm, type RunPlan } from './RunForm.js';
 
 type View = 'connecting' | 'disconnected' | 'form' | 'running' | 'done';
-
-interface PresetState {
-  name: string;
-  label: string;
-  done: number;
-  total: number;
-  failed: number;
-  active: boolean;
-  lcps: number[];
-  lastLcp?: number;
-}
 
 interface RunSummary {
   byPreset: Record<
@@ -257,31 +247,9 @@ export default function RunDashboard() {
 
   const handleEvent = (e: RunnerEvent) => {
     if (e.type === 'run-start') {
-      setPresetStates((prev) => {
-        const next = new Map(prev);
-        const cur = next.get(e.preset.name);
-        if (cur) next.set(e.preset.name, { ...cur, active: true });
-        return next;
-      });
+      setPresetStates((prev) => applyRunStart(prev, e.preset.name));
     } else if (e.type === 'run-complete') {
-      setPresetStates((prev) => {
-        const next = new Map(prev);
-        const cur = next.get(e.preset.name);
-        if (cur) {
-          const failed = cur.failed + (e.result.error ? 1 : 0);
-          const lcp = e.result.metrics?.lcp;
-          const lcps = typeof lcp === 'number' ? [...cur.lcps, lcp] : cur.lcps;
-          next.set(e.preset.name, {
-            ...cur,
-            done: cur.done + 1,
-            failed,
-            active: cur.done + 1 < cur.total,
-            lcps,
-            lastLcp: lcp ?? cur.lastLcp,
-          });
-        }
-        return next;
-      });
+      setPresetStates((prev) => applyRunComplete(prev, e));
       setTotalDone(e.done);
     } else if (e.type === 'all-complete') {
       setFinished(true);
