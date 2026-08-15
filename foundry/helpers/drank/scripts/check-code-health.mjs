@@ -51,7 +51,7 @@ function checkComplexity() {
     maxLength: Math.max(...rows.map((row) => row[4])),
     maxParams: Math.max(...rows.map((row) => row[3])),
   };
-  const baseline = { violations: 4, maxCcn: 26, maxLength: 909, maxParams: 6 };
+  const baseline = { violations: 4, maxCcn: 22, maxLength: 527, maxParams: 6 };
   const regressions = Object.entries(baseline).filter(([key, maximum]) => observed[key] > maximum);
   console.log(
     `Complexity: ${observed.functions} functions, ${observed.nloc} NLOC, ` +
