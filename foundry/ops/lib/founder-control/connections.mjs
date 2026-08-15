@@ -1492,12 +1492,67 @@ function latestOutcomeSignal(project, outcome, label) {
   };
 }
 
+function buildUserMetricsRows(projectOutputs, userMetricsByProject) {
+  return projectOutputs
+    .map((project) => {
+      const evidence = userMetricsByProject.get(project.projectId);
+      const family = evidence?.families?.['user-metrics'];
+      if (!family?.latest) {
+        return {
+          projectId: project.projectId,
+          name: project.name,
+          domain: project.domains?.[0] ?? null,
+          status: 'not-measured',
+          visitors: null,
+          identifiedUsers: null,
+          accounts: null,
+          newAccounts: null,
+          activationRate: null,
+          d1Retention: null,
+          d7Retention: null,
+          coreActions: null,
+          provider: null,
+          observedAt: null,
+          period: null,
+        };
+      }
+      const latest = family.latest;
+      const metricByLabel = (label) => {
+        const series = family.metrics.get(label);
+        if (!series) return null;
+        const latestPoint = series.series?.[series.series.length - 1];
+        return latestPoint
+          ? { value: latestPoint.value, observedAt: latestPoint.observedAt, unit: series.unit }
+          : null;
+      };
+      return {
+        projectId: project.projectId,
+        name: project.name,
+        domain: project.domains?.[0] ?? null,
+        status: 'observed',
+        visitors: metricByLabel('Visitors'),
+        identifiedUsers: metricByLabel('Identified users'),
+        accounts: metricByLabel('Accounts'),
+        newAccounts: metricByLabel('New accounts'),
+        activationRate: metricByLabel('Activation rate'),
+        d1Retention: metricByLabel('D1 retention'),
+        d7Retention: metricByLabel('D7 retention'),
+        coreActions: metricByLabel('Core actions'),
+        provider: latest.provider,
+        observedAt: latest.observedAt,
+        period: latest.period,
+      };
+    })
+    .sort((left, right) => left.name.localeCompare(right.name));
+}
+
 function buildOwnerOutcomeProjection({
   projectOutputs,
   marketing,
   growthProgram,
   latestIndexingRequestByProject,
   latestSearchChangeByProject,
+  visibilityOutcomes,
 }) {
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
@@ -1507,6 +1562,9 @@ function buildOwnerOutcomeProjection({
   );
   const domainProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.domainCoverage === true,
+  );
+  const userMetricsByProject = new Map(
+    (visibilityOutcomes ?? []).map((project) => [project.projectId, project]),
   );
   const domainGroups = new Map();
   for (const project of domainProjects) {
@@ -1873,6 +1931,7 @@ function buildOwnerOutcomeProjection({
     search: searchRows.sort((left, right) => left.name.localeCompare(right.name)),
     growth: growthRows,
     performanceThresholds,
+    userMetrics: buildUserMetricsRows(projectOutputs, userMetricsByProject),
   };
 }
 
@@ -3034,6 +3093,7 @@ export function buildFleetConnections({
     growthProgram,
     latestIndexingRequestByProject,
     latestSearchChangeByProject,
+    visibilityOutcomes,
   });
   const improvements = attachImprovementWork(
     buildImprovementActions({ projectOutputs, connections }),

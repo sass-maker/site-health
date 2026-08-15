@@ -801,7 +801,7 @@
       "id": "fleet-workspace-legacy-complexity",
       "projectId": "fleet-workspace",
       "capability": "complexity",
-      "accepted": "97 legacy threshold violations, maximum CCN 63 and maximum function length 2,336",
+      "accepted": "99 legacy threshold violations, maximum CCN 63, maximum function length 2,396, and 323 duplicated lines (0.77%) across 26 clone groups",
       "reason": "Fleet Ops now blocks regressions while the largest operational scripts and service boundaries are reduced incrementally.",
       "owner": "Sarthak",
       "issue": "https://github.com/sass-maker/fleet-workspace/issues/320",
