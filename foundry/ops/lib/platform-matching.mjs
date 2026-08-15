@@ -32,7 +32,29 @@ function routeFor(platform, artifact, includeCanonicalArticle) {
   return null;
 }
 
-function entryFor(platform, { productId, stalenessDays, now }) {
+/**
+ * Compute the audience-fit between a platform and a product based on tag
+ * intersection. Returns { score, matchedTags } where score is the number of
+ * overlapping tags (0 means unclassified — no signal either way).
+ *
+ * Platform tags come from `platform.audienceTags` (curated in the
+ * accreditation state). Product tags come from `productAudienceTags` passed
+ * to matchPlatforms (sourced from projects.json portfolio entries or an
+ * overlay). Both sides are optional — missing tags means "unclassified", not
+ * "no fit".
+ */
+function audienceFit(platform, productAudienceTags) {
+  const platformTags = Array.isArray(platform.audienceTags) ? platform.audienceTags : [];
+  const productTags = Array.isArray(productAudienceTags) ? productAudienceTags : [];
+  if (platformTags.length === 0 || productTags.length === 0) {
+    return { score: 0, matchedTags: [], unclassified: true };
+  }
+  const platformSet = new Set(platformTags);
+  const matchedTags = productTags.filter((tag) => platformSet.has(tag));
+  return { score: matchedTags.length, matchedTags, unclassified: false };
+}
+
+function entryFor(platform, { productId, stalenessDays, now, fit }) {
   return {
     id: platform.id,
     name: platform.name,
@@ -45,6 +67,9 @@ function entryFor(platform, { productId, stalenessDays, now }) {
     stale: isStale(platform, { stalenessDays, now }),
     blocker: platform.blocker,
     productId,
+    audienceFit: fit.score,
+    audienceMatchedTags: fit.matchedTags,
+    audienceUnclassified: fit.unclassified,
   };
 }
 
@@ -57,6 +82,11 @@ function entryFor(platform, { productId, stalenessDays, now }) {
  *
  * Only `accredited` and `seed` platforms are matched. `rejected` platforms are
  * excluded unless the owner passes an explicit override with a reason.
+ *
+ * Within each bucket, platforms are ordered by audience-fit score (descending)
+ * so the most relevant platforms for a given product surface first. Platforms
+ * with no audience signal (unclassified) keep their registry order after the
+ * classified ones.
  */
 function emptyBuckets() {
   return {
@@ -82,6 +112,22 @@ function decorate(entry, bucket, platform, overrideReason) {
   if (bucket === 'rejected') return { ...entry, rejectionReason: platform.rejectionReason };
   if (bucket === 'articleComponent') return { ...entry, component: 'article' };
   return entry;
+}
+
+/**
+ * Sort entries by audience-fit score (descending), preserving insertion order
+ * for ties so the result stays deterministic and registry-ordered within a
+ * fit band.
+ */
+function sortByFit(entries) {
+  return [...entries].sort((a, b) => {
+    if (a.audienceFit !== b.audienceFit) return b.audienceFit - a.audienceFit;
+    // Unclassified entries sort after classified ones at the same score
+    if (a.audienceUnclassified !== b.audienceUnclassified) {
+      return a.audienceUnclassified ? 1 : -1;
+    }
+    return 0; // stable: preserve insertion order
+  });
 }
 
 // Stale accredited platforms re-enter verification instead of going straight
@@ -110,6 +156,7 @@ export function matchPlatforms(state, options) {
     productId = null,
     includeCanonicalArticle = false,
     overrides = [],
+    productAudienceTags = [],
     now = new Date(),
   } = options;
 
@@ -126,9 +173,18 @@ export function matchPlatforms(state, options) {
     const overrideReason = overrideById.get(platform.id);
     const bucket = bucketFor(platform, route, overrideReason);
     if (!bucket) continue;
+    const fit = audienceFit(platform, productAudienceTags);
     buckets[bucket].push(
-      decorate(entryFor(platform, context), bucket, platform, overrideReason),
+      decorate(entryFor(platform, { ...context, fit }), bucket, platform, overrideReason),
     );
+  }
+
+  // Order each bucket by audience-fit score (descending) so the most
+  // relevant platforms for this product surface first. The artifact-type
+  // routing is the outer filter and stays intact; fit only reorders within
+  // a bucket.
+  for (const key of Object.keys(buckets)) {
+    buckets[key] = sortByFit(buckets[key]);
   }
 
   const matched = [
@@ -140,9 +196,12 @@ export function matchPlatforms(state, options) {
   return {
     artifact,
     productId,
+    productAudienceTags,
     matched,
     ...buckets,
     verificationQueue: verificationQueueFor(buckets),
     counts: countsFor(buckets, matched),
   };
 }
+
+export { audienceFit };

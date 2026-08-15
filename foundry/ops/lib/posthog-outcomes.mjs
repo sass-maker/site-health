@@ -5,6 +5,40 @@ export const DEFAULT_POSTHOG_PROJECT_ID = 110635;
 const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'returned'];
 
 /**
+ * Property filters that exclude non-production traffic so development,
+ * synthetic monitoring, and known bot/internal-operator events cannot
+ * contaminate the aggregate user-metrics ledger.
+ *
+ * Each filter targets a PostHog event property. Products should set
+ * `$environment` (or `environment`) to 'production' | 'development' and
+ * `$lib` is automatically set by posthog-js. Synthetic monitors should
+ * set `synthetic_monitor: true`.
+ */
+const TRAFFIC_EXCLUSION_FILTERS = [
+  // Exclude events explicitly tagged as non-production
+  {
+    key: '$environment',
+    operator: 'is_not',
+    value: ['production'],
+    type: 'event',
+  },
+  // Exclude PostHog test/CI library markers
+  {
+    key: '$lib',
+    operator: 'is_not',
+    value: ['test', 'ci'],
+    type: 'event',
+  },
+  // Exclude synthetic monitoring traffic
+  {
+    key: 'synthetic_monitor',
+    operator: 'is_not',
+    value: [true],
+    type: 'event',
+  },
+];
+
+/**
  * Collect read-only PostHog aggregate user-metrics grouped by project_id property.
  *
  * Uses the PostHog Query API (/api/projects/:id/query/) with TrendsQuery — the
@@ -15,6 +49,11 @@ const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'retu
  * and never stores PII — only aggregate counts per project_id are emitted as
  * visibility outcome observations.
  *
+ * Non-production traffic is excluded via property filters: events tagged with
+ * `$environment` other than 'production', synthetic monitor events, and test
+ * library markers are filtered out so development and CI traffic cannot
+ * contaminate the production metrics ledger.
+ *
  * @param {object} options
  * @param {Array} options.projects - Canonical Fleet projects with PostHog instrumentation.
  * @param {string} options.personalApiKey - PostHog personal API key (read-only).
@@ -22,6 +61,9 @@ const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'retu
  * @param {Function} [options.fetchImpl] - Fetch implementation (for testing).
  * @param {Date} [options.now] - Current timestamp.
  * @param {number} [options.reportingWindowDays] - Reporting window (default 7).
+ * @param {number} [options.maxEventsPerProject] - Cost guardrail: warn when a project's
+ *   total event count exceeds this threshold (default 100_000). The collector
+ *   still returns the observation but includes a `costWarning` field.
  */
 export async function collectPosthogOutcomes({
   projects,
@@ -30,6 +72,7 @@ export async function collectPosthogOutcomes({
   fetchImpl = fetch,
   now = new Date(),
   reportingWindowDays = 7,
+  maxEventsPerProject = 100_000,
 }) {
   if (!personalApiKey) throw new Error('PostHog personal API key is required');
   if (!Number.isInteger(reportingWindowDays) || reportingWindowDays < 1 || reportingWindowDays > 90) {
@@ -50,6 +93,7 @@ export async function collectPosthogOutcomes({
 
   const observations = [];
   const unavailable = [];
+  const costWarnings = [];
 
   for (const project of projects ?? []) {
     if (!project.id) continue;
@@ -68,6 +112,17 @@ export async function collectPosthogOutcomes({
       if (metrics.length === 0) {
         unavailable.push({ projectId: project.id, reason: 'no-events' });
         continue;
+      }
+
+      // Cost guardrail: check total event volume across all metrics
+      const totalEvents = metrics.reduce((sum, m) => sum + (Number(m.value) || 0), 0);
+      if (maxEventsPerProject > 0 && totalEvents > maxEventsPerProject) {
+        costWarnings.push({
+          projectId: project.id,
+          totalEvents,
+          threshold: maxEventsPerProject,
+          message: `Project ${project.id} exceeded event volume guardrail (${totalEvents} > ${maxEventsPerProject})`,
+        });
       }
 
       const scope = project.domains?.[0] ?? project.id;
@@ -98,6 +153,7 @@ export async function collectPosthogOutcomes({
     projectCount: projects?.length ?? 0,
     observationCount: observations.length,
     unavailable,
+    costWarnings,
     period,
   };
 }
@@ -119,6 +175,7 @@ async function queryProjectMetrics({
       value: [projectIdProperty],
       type: 'event',
     },
+    ...TRAFFIC_EXCLUSION_FILTERS,
   ];
 
   const metrics = [];

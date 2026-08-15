@@ -13,6 +13,9 @@ function platformLine(platform) {
   const url = platform.submitUrl ?? platform.home ?? null;
   const label = url ? `[${platform.name}](${url})` : platform.name;
   const notes = [`\`${platform.id}\``, platform.source];
+  if (platform.audienceFit > 0) {
+    notes.push(`fit: ${platform.audienceFit} (${platform.audienceMatchedTags.join(', ')})`);
+  }
   if (platform.blocker) notes.push(`blocker: ${platform.blocker}`);
   if (platform.rejectionReason) notes.push(`reason: ${platform.rejectionReason}`);
   if (platform.overrideReason) notes.push(`override: ${platform.overrideReason}`);
@@ -60,9 +63,11 @@ function renderProduct(lines, project, state, { detail, now }) {
   }
 
   lines.push('');
+  const productAudienceTags = project.portfolio?.audienceTags ?? project.audienceTags ?? [];
   renderProductSections(lines, matchPlatforms(state, {
     artifact: 'product',
     productId: project.id,
+    productAudienceTags,
     now,
   }), detail);
 }

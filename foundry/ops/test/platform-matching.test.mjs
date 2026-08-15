@@ -158,3 +158,86 @@ test('unknown artifact types are rejected', () => {
     /artifact must be one of/u,
   );
 });
+
+test('audience-fit tags order matched platforms by relevance', () => {
+  const state = {
+    ...fixture,
+    platforms: [
+      ...fixture.platforms,
+      platform('ai-directory', {
+        source: 'curated-directory-registry',
+        artifactFit: ['product', 'major-feature'],
+        audienceTags: ['ai', 'developer-tools'],
+      }),
+      platform('fitness-directory', {
+        source: 'curated-directory-registry',
+        artifactFit: ['product', 'major-feature'],
+        audienceTags: ['fitness', 'health'],
+      }),
+      platform('generic-directory', {
+        source: 'curated-directory-registry',
+        artifactFit: ['product', 'major-feature'],
+      }),
+    ],
+  };
+
+  const match = matchPlatforms(state, {
+    artifact: 'product',
+    productId: 'codevetter',
+    productAudienceTags: ['ai', 'developer-tools', 'coding'],
+    now,
+  });
+
+  // AI directory should rank first (2 matching tags), then fitness (0), then generic (unclassified)
+  const seedIds = match.seed.map((e) => e.id);
+  assert.ok(seedIds.includes('ai-directory'));
+  assert.ok(seedIds.includes('fitness-directory'));
+  assert.ok(seedIds.includes('generic-directory'));
+  assert.ok(seedIds.includes('insidr'));
+
+  // AI directory should come before fitness directory
+  const aiIndex = seedIds.indexOf('ai-directory');
+  const fitnessIndex = seedIds.indexOf('fitness-directory');
+  assert.ok(aiIndex < fitnessIndex, 'AI directory should rank above fitness directory');
+
+  // Verify fit scores
+  const aiEntry = match.seed.find((e) => e.id === 'ai-directory');
+  assert.equal(aiEntry.audienceFit, 2);
+  assert.deepEqual(aiEntry.audienceMatchedTags, ['ai', 'developer-tools']);
+  assert.equal(aiEntry.audienceUnclassified, false);
+
+  const fitnessEntry = match.seed.find((e) => e.id === 'fitness-directory');
+  assert.equal(fitnessEntry.audienceFit, 0);
+  assert.equal(fitnessEntry.audienceMatchedTags.length, 0);
+  assert.equal(fitnessEntry.audienceUnclassified, false);
+
+  const genericEntry = match.seed.find((e) => e.id === 'generic-directory');
+  assert.equal(genericEntry.audienceFit, 0);
+  assert.equal(genericEntry.audienceUnclassified, true);
+});
+
+test('missing audience tags on both sides means unclassified, not no-fit', () => {
+  const match = matchPlatforms(fixture, {
+    artifact: 'product',
+    productId: 'pace',
+    productAudienceTags: [],
+    now,
+  });
+
+  // All entries should be unclassified when product has no tags
+  for (const entry of match.matched) {
+    assert.equal(entry.audienceUnclassified, true);
+    assert.equal(entry.audienceFit, 0);
+  }
+});
+
+test('productAudienceTags is echoed in the result for auditability', () => {
+  const tags = ['ai', 'developer-tools'];
+  const match = matchPlatforms(fixture, {
+    artifact: 'product',
+    productId: 'codevetter',
+    productAudienceTags: tags,
+    now,
+  });
+  assert.deepEqual(match.productAudienceTags, tags);
+});
