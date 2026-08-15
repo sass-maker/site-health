@@ -191,55 +191,35 @@ function seedPlatform({ id, name, source, artifactFit, submitUrl = null, home = 
   };
 }
 
+const PRODUCT_FIT = ['product', 'major-feature'];
+
+function seedGroups(configDir) {
+  return [
+    [PROTECTED_CHANNELS, 'protected-channel', [...PRODUCT_FIT, 'article'], 'protected'],
+    [ARTICLE_SYNDICATION, 'article-syndication', ['article'], 'standard'],
+    [loadCuratedDirectories(configDir), 'curated-directory-registry', PRODUCT_FIT, 'standard'],
+    [loadLongTailSeeds(configDir), 'research-probe', PRODUCT_FIT, 'standard'],
+  ];
+}
+
 export function seedAccreditationState({ configDir = DIRECTORY_SUBMISSIONS_DIR, updated } = {}) {
   const platforms = [];
   const seen = new Set();
-  const add = (platform) => {
-    if (seen.has(platform.id)) return;
-    seen.add(platform.id);
-    platforms.push(platform);
-  };
 
-  for (const channel of PROTECTED_CHANNELS) {
-    add(seedPlatform({
-      id: channel.id,
-      name: channel.name,
-      source: 'protected-channel',
-      artifactFit: ['product', 'major-feature', 'article'],
-      home: channel.home,
-      qualityGate: 'protected',
-    }));
-  }
-  for (const channel of ARTICLE_SYNDICATION) {
-    add(seedPlatform({
-      id: channel.id,
-      name: channel.name,
-      source: 'article-syndication',
-      artifactFit: ['article'],
-      home: channel.home,
-      qualityGate: 'standard',
-    }));
-  }
-  for (const directory of loadCuratedDirectories(configDir)) {
-    add(seedPlatform({
-      id: directory.id,
-      name: directory.name,
-      source: 'curated-directory-registry',
-      artifactFit: ['product', 'major-feature'],
-      submitUrl: directory.submitUrl ?? null,
-      home: directory.home ?? null,
-      qualityGate: 'standard',
-    }));
-  }
-  for (const seed of loadLongTailSeeds(configDir)) {
-    add(seedPlatform({
-      id: seed.id,
-      name: seed.name,
-      source: 'research-probe',
-      artifactFit: ['product', 'major-feature'],
-      submitUrl: seed.submitUrl ?? null,
-      qualityGate: 'standard',
-    }));
+  for (const [entries, source, artifactFit, qualityGate] of seedGroups(configDir)) {
+    for (const entry of entries) {
+      if (seen.has(entry.id)) continue;
+      seen.add(entry.id);
+      platforms.push(seedPlatform({
+        id: entry.id,
+        name: entry.name,
+        source,
+        artifactFit,
+        submitUrl: entry.submitUrl ?? null,
+        home: entry.home ?? null,
+        qualityGate,
+      }));
+    }
   }
 
   return {

@@ -59,24 +59,43 @@ function renderProduct(lines, project, state, { detail, now }) {
     return;
   }
 
-  const match = matchPlatforms(state, { artifact: 'product', productId: project.id, now });
-  const visible = (entries) => entries.filter((entry) => entry.qualityGate !== 'protected');
-  const accredited = visible(match.accredited);
-  const ready = accredited.filter((entry) => !entry.stale);
-  const stale = accredited.filter((entry) => entry.stale);
-  const seeds = visible(match.seed);
   lines.push('');
+  renderProductSections(lines, matchPlatforms(state, {
+    artifact: 'product',
+    productId: project.id,
+    now,
+  }), detail);
+}
+
+function visible(entries) {
+  return entries.filter((entry) => entry.qualityGate !== 'protected');
+}
+
+function renderSeedPointer(lines, seeds) {
+  lines.push(
+    `**Seed — live verification required before any submission (${seeds.length})**`,
+    '',
+    seeds.length === 0
+      ? '- none — no seed platforms match this product'
+      : `- ${seeds.length} unverified platforms match this product. The identical seed set is listed once under [Seed inventory](#seed-inventory); run the generator with \`--detail full\` to expand it per product.`,
+    '',
+  );
+}
+
+function renderProductSections(lines, match, detail) {
+  const accredited = visible(match.accredited);
+  const seeds = visible(match.seed);
 
   section(
     lines,
     'Accredited — ready for manifest inclusion',
-    ready,
+    accredited.filter((entry) => !entry.stale),
     'no platform has recorded verification evidence yet',
   );
   section(
     lines,
     'Accredited but stale — re-verification required',
-    stale,
+    accredited.filter((entry) => entry.stale),
     'no accredited platform is past the staleness window',
   );
   if (detail === 'full') {
@@ -87,14 +106,7 @@ function renderProduct(lines, project, state, { detail, now }) {
       'no seed platforms match this product',
     );
   } else {
-    lines.push(
-      `**Seed — live verification required before any submission (${seeds.length})**`,
-      '',
-      seeds.length === 0
-        ? '- none — no seed platforms match this product'
-        : `- ${seeds.length} unverified platforms match this product. The identical seed set is listed once under [Seed inventory](#seed-inventory); run the generator with \`--detail full\` to expand it per product.`,
-      '',
-    );
+    renderSeedPointer(lines, seeds);
   }
   section(
     lines,
