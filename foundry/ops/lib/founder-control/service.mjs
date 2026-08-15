@@ -315,6 +315,13 @@ function outcomeProjection(connections, family) {
       d7Retention: boundedSignal(row.d7Retention),
       coreActions: boundedSignal(row.coreActions),
       provider: boundedText(row.provider, 80),
+      providers: Array.isArray(row.providers) ? row.providers.filter((p) => typeof p === 'string' && p.length <= 80) : [],
+      discrepancies: Array.isArray(row.discrepancies) ? row.discrepancies.filter((d) => d && typeof d.metric === 'string').map((d) => ({
+        metric: boundedText(d.metric, 80),
+        posthogValue: Number.isFinite(Number(d.posthogValue)) ? Number(d.posthogValue) : null,
+        d1Value: Number.isFinite(Number(d.d1Value)) ? Number(d.d1Value) : null,
+        variance: Number.isFinite(Number(d.variance)) ? Number(d.variance) : null,
+      })) : [],
       observedAt: Number.isFinite(Date.parse(row.observedAt)) ? row.observedAt : null,
       period: row.period ? {
         start: boundedText(row.period.start, 40),

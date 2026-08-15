@@ -124,3 +124,65 @@ test('no credentials or API keys appear in observation output', async () => {
   assert.doesNotMatch(serialized, /phx_super_secret_key_12345/);
   assert.doesNotMatch(serialized, /Bearer /);
 });
+
+test('PostHog collector includes traffic exclusion filters in query body', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, body: JSON.parse(options.body) });
+    return { ok: true, status: 200, json: async () => ({ results: [{ data: [5] }] }) };
+  };
+
+  await collectPosthogOutcomes({
+    projects: [{ id: 'rolepatch', domains: ['rolepatch.com'] }],
+    personalApiKey: 'test-key',
+    fetchImpl,
+    now: new Date('2026-08-15T12:00:00.000Z'),
+  });
+
+  assert.ok(calls.length > 0, 'expected at least one API call');
+  const props = calls[0].body.query.properties;
+  assert.ok(Array.isArray(props), 'expected property filters array');
+  // Should include project_id filter plus traffic exclusion filters
+  const keys = props.map((p) => p.key);
+  assert.ok(keys.includes('project_id'), 'expected project_id filter');
+  assert.ok(keys.includes('$environment'), 'expected $environment exclusion filter');
+  assert.ok(keys.includes('synthetic_monitor'), 'expected synthetic_monitor exclusion filter');
+});
+
+test('PostHog collector emits cost warning when event volume exceeds guardrail', async () => {
+  const fetchImpl = async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ results: [{ data: [200_000] }] }),
+  });
+
+  const result = await collectPosthogOutcomes({
+    projects: [{ id: 'rolepatch', domains: ['rolepatch.com'] }],
+    personalApiKey: 'test-key',
+    fetchImpl,
+    now: new Date('2026-08-15T12:00:00.000Z'),
+    maxEventsPerProject: 100_000,
+  });
+
+  assert.ok(result.costWarnings.length > 0, 'expected cost warning');
+  assert.equal(result.costWarnings[0].projectId, 'rolepatch');
+  assert.ok(result.costWarnings[0].totalEvents > 100_000);
+});
+
+test('PostHog collector does not emit cost warning when volume is below guardrail', async () => {
+  const fetchImpl = async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ results: [{ data: [50] }] }),
+  });
+
+  const result = await collectPosthogOutcomes({
+    projects: [{ id: 'rolepatch', domains: ['rolepatch.com'] }],
+    personalApiKey: 'test-key',
+    fetchImpl,
+    now: new Date('2026-08-15T12:00:00.000Z'),
+    maxEventsPerProject: 100_000,
+  });
+
+  assert.equal(result.costWarnings.length, 0, 'expected no cost warning');
+});

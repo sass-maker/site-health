@@ -3529,12 +3529,12 @@ async function renderProductAnalytics() {
     { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row) },
     { key: "visitors", label: "Visitors", description: "Sort by visitors", value: (row) => row.visitors?.value, render: (row) => metricCell(row.visitors) },
     { key: "identified", label: "Identified", description: "Sort by identified users", value: (row) => row.identifiedUsers?.value, render: (row) => metricCell(row.identifiedUsers) },
-    { key: "accounts", label: "Accounts", description: "Sort by total accounts", value: (row) => row.accounts?.value, render: (row) => metricCell(row.accounts) },
+    { key: "accounts", label: "Accounts", description: "Sort by total accounts", value: (row) => row.accounts?.value, render: (row) => metricCellWithDiscrepancy(row, "accounts") },
     { key: "newAccounts", label: "New", description: "Sort by new accounts", value: (row) => row.newAccounts?.value, render: (row) => metricCell(row.newAccounts) },
     { key: "activation", label: "Activation", description: "Sort by activation rate", value: (row) => row.activationRate?.value, render: (row) => metricCell(row.activationRate, "%") },
     { key: "d7", label: "D7 retention", description: "Sort by D7 retention", value: (row) => row.d7Retention?.value, render: (row) => metricCell(row.d7Retention, "%") },
     { key: "coreActions", label: "Core actions", description: "Sort by core actions", value: (row) => row.coreActions?.value, render: (row) => metricCell(row.coreActions) },
-    { key: "provider", label: "Source", description: "Sort by provider", value: (row) => row.provider, render: (row) => element("span", { class: "provider-label" }, [row.provider ?? "—"]) },
+    { key: "provider", label: "Source", description: "Sort by provider", value: (row) => row.provider, render: (row) => providerCell(row) },
     { key: "observed", label: "Last observed", description: "Sort by latest evidence", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
   ];
   replace("product-analytics", rows.length
@@ -3543,6 +3543,28 @@ async function renderProductAnalytics() {
         className: "outcome-table-wrap--user-metrics",
       })
     : empty("No user metrics", "Run the PostHog or D1 collector to start measuring product usage."));
+}
+
+function providerCell(row: JsonRecord): HTMLElement {
+  const providers = Array.isArray(row.providers) ? row.providers : [];
+  const discrepancies = Array.isArray(row.discrepancies) ? row.discrepancies : [];
+  const children: HTMLElement[] = [];
+  if (providers.length > 1) {
+    children.push(element("span", { class: "provider-label provider-label--multi" }, [providers.join(" · ")]));
+  } else {
+    children.push(element("span", { class: "provider-label" }, [row.provider ?? "—"]));
+  }
+  if (discrepancies.length > 0) {
+    for (const d of discrepancies) {
+      children.push(element("span", { class: "discrepancy-flag", title: `PostHog ${d.posthogValue} vs D1 ${d.d1Value} (${d.variance}% variance)` }, [`⚠ ${d.metric} mismatch`]));
+    }
+  }
+  return element("div", { class: "provider-cell" }, children);
+}
+
+function metricCellWithDiscrepancy(signal: JsonRecord | null, metricKey: string): HTMLElement {
+  const cell = metricCell(signal);
+  return cell;
 }
 
 function metricCell(signal: JsonRecord | null, suffix = ""): HTMLElement {
