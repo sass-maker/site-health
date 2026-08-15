@@ -8,9 +8,34 @@ node foundry/ops/skills/launch-campaign/scripts/channel-inventory.mjs \
 ```
 
 The JSON output keeps large, drift-prone registries out of normal skill
-context. It is discovery input, not an executable plan. Every retained channel
-still needs live audience, policy, cost, authentication, submission-flow, and
-account verification before it enters the immutable manifest.
+context. It is discovery input, not an executable plan.
+
+## Accreditation state
+
+Every channel in the output is annotated from
+`foundry/ops/config/directory-submissions/accreditation-state.json` with
+`currentState`, `verifiedAt`, `stale`, and `blocker`. That file is the durable
+record across campaigns, so verification work is never repeated without reason.
+
+- **accredited** — probed with recorded evidence (live URL, HTTP status, form
+  and blocker detection). Enters the manifest after per-campaign audience-fit
+  confirmation, without a full re-probe. An accredited platform whose
+  `verifiedAt` is older than `stalenessDays` (default 30) is `stale` and
+  returns to the verification queue.
+- **seed** — unverified registry evidence. Never ready for submission. It needs
+  a live audience, policy, cost, authentication, submission-flow, and account
+  probe first, and the outcome recorded back into the state file.
+- **blocked** — a recorded blocker (CAPTCHA, sign-in, payment, anti-bot).
+  Enabling one is an owner decision, never a bypass.
+- **rejected** — excluded unless the owner explicitly overrides with a reason.
+- **untracked** — the channel is not in the state file yet; treat it as seed.
+
+Record outcomes with
+`foundry/ops/scripts/accreditation/update-state.mjs transition`; read state with
+`foundry/ops/scripts/accreditation/summary.mjs`; plan work in product-priority
+order with `foundry/ops/scripts/accreditation/generate-queue.mjs`. Accreditation
+removes repeat probing, not judgment: every external write still requires an
+exact hash-approved immutable manifest.
 
 ## Route the inventory
 

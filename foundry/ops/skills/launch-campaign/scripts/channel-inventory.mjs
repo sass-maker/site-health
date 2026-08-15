@@ -1,8 +1,19 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
+import process from 'node:process';
+
+import {
+  ACCREDITATION_STATE_PATH,
+  isStale,
+  readAccreditationState,
+} from '../../../lib/accreditation-state.mjs';
+import {
+  ARTICLE_SYNDICATION,
+  loadCuratedDirectories,
+  loadLongTailSeeds,
+  PROTECTED_CHANNELS,
+} from '../../../lib/channel-registry.mjs';
 
 const VALID_ARTIFACTS = new Set(['article', 'product', 'major-feature']);
 
@@ -10,116 +21,77 @@ function parseArtifact(argv) {
   const index = argv.indexOf('--artifact');
   const artifact = index === -1 ? null : argv[index + 1];
   if (!VALID_ARTIFACTS.has(artifact)) {
-    throw new Error('Usage: channel-inventory.mjs --artifact <article|product|major-feature>');
+    throw new Error(
+      'Usage: channel-inventory.mjs --artifact <article|product|major-feature> [--state <path>]',
+    );
   }
   return artifact;
 }
 
-function readJson(file) {
-  return JSON.parse(readFileSync(file, 'utf8'));
+function loadAccreditation(argv) {
+  const index = argv.indexOf('--state');
+  const path = resolve(index === -1 ? ACCREDITATION_STATE_PATH : argv[index + 1]);
+  try {
+    const state = readAccreditationState(path);
+    return { state, byId: new Map(state.platforms.map((platform) => [platform.id, platform])) };
+  } catch (error) {
+    return { state: null, byId: new Map(), error: error.message };
+  }
 }
 
-function collectLongTail(value, bucket = null, output = []) {
-  if (Array.isArray(value)) {
-    for (const entry of value) collectLongTail(entry, bucket, output);
-    return output;
-  }
-  if (!value || typeof value !== 'object') return output;
-
-  if (typeof value.id === 'string') {
-    output.push({
-      id: value.id,
-      name: value.title || value.id,
-      submitUrl: value.url || value.final || null,
-      observedBucket: bucket,
-      source: 'research-probe',
-      requiresLiveVerification: true,
-    });
-  }
-
-  for (const [key, child] of Object.entries(value)) {
-    if (key !== 'id') collectLongTail(child, bucket || key, output);
-  }
-  return output;
-}
-
-function uniqueById(entries) {
-  const seen = new Set();
-  return entries.filter((entry) => {
-    if (seen.has(entry.id)) return false;
-    seen.add(entry.id);
-    return true;
+function annotate(channels, accreditation) {
+  return channels.map((channel) => {
+    const platform = accreditation.byId.get(channel.id) ?? null;
+    return {
+      ...channel,
+      currentState: platform?.currentState ?? 'untracked',
+      verifiedAt: platform?.verifiedAt ?? null,
+      stale: platform
+        ? isStale(platform, { stalenessDays: accreditation.state.stalenessDays })
+        : null,
+      blocker: platform?.blocker ?? null,
+    };
   });
 }
 
-const articleSyndication = [
-  ['medium', 'Medium', 'full-canonical', 'https://medium.com/new-story'],
-  ['dev-community', 'DEV Community', 'full-canonical', 'https://dev.to/new'],
-  ['hashnode', 'Hashnode', 'full-canonical', 'https://hashnode.com/'],
-  ['hackernoon', 'HackerNoon', 'editorial', 'https://hackernoon.com/'],
-  ['daily-dev', 'daily.dev', 'discovery', 'https://app.daily.dev/'],
-  ['peerlist', 'Peerlist', 'discovery', 'https://peerlist.io/'],
-  ['indie-hackers', 'Indie Hackers', 'discovery', 'https://www.indiehackers.com/'],
-  ['reddit', 'Reddit', 'discovery', 'https://www.reddit.com/'],
-  ['lobsters', 'Lobsters', 'moderation-sensitive', 'https://lobste.rs/'],
-  ['substack', 'Substack', 'owned-publication', 'https://substack.com/'],
-  ['ghost', 'Ghost', 'owned-publication', 'https://ghost.org/'],
-  ['wordpress', 'WordPress', 'owned-publication', 'https://wordpress.com/'],
-  ['blogger', 'Blogger', 'owned-publication', 'https://www.blogger.com/'],
-  ['tumblr', 'Tumblr', 'owned-publication', 'https://www.tumblr.com/'],
-  ['beehiiv', 'Beehiiv', 'owned-publication', 'https://www.beehiiv.com/'],
-].map(([id, name, distributionMode, home]) => ({
-  id,
-  name,
-  distributionMode,
-  home,
-  requiresConfiguredPublication: distributionMode === 'owned-publication',
-  requiresLiveVerification: true,
-}));
-
-const protectedChannels = [
-  ['hacker-news', 'Hacker News', 'https://news.ycombinator.com/submit'],
-  ['linkedin', 'LinkedIn', 'https://www.linkedin.com/'],
-  ['x', 'X', 'https://x.com/'],
-].map(([id, name, home]) => ({
-  id,
-  name,
-  home,
-  qualityGate: 'protected',
-  requiresLiveVerification: true,
-}));
-
 try {
-  const artifact = parseArtifact(process.argv.slice(2));
-  const scriptDir = dirname(fileURLToPath(import.meta.url));
-  const configDir = resolve(scriptDir, '../../../config/directory-submissions');
-  const curatedSource = readJson(resolve(configDir, 'directories.json'));
-  const probeSource = readJson(resolve(configDir, 'research-probe.json'));
+  const argv = process.argv.slice(2);
+  const artifact = parseArtifact(argv);
+  const accreditation = loadAccreditation(argv);
+  const forProduct = artifact !== 'article';
 
-  const curatedDirectories = uniqueById(curatedSource.directories.map((entry) => ({
-    id: entry.id,
-    name: entry.name,
-    submitUrl: entry.submitUrl,
-    home: entry.home,
-    storedCost: entry.cost,
-    storedAutomation: entry.automation,
-    source: 'curated-directory-registry',
-    requiresLiveVerification: true,
-  })));
-  const longTailSeeds = uniqueById(collectLongTail(probeSource));
+  const protectedChannels = annotate(PROTECTED_CHANNELS, accreditation);
+  const articleSyndication = annotate(ARTICLE_SYNDICATION, accreditation);
+  const curatedDirectories = forProduct ? annotate(loadCuratedDirectories(), accreditation) : [];
+  const longTailSeeds = forProduct ? annotate(loadLongTailSeeds(), accreditation) : [];
+  const all = [
+    ...protectedChannels,
+    ...articleSyndication,
+    ...curatedDirectories,
+    ...longTailSeeds,
+  ];
 
   process.stdout.write(`${JSON.stringify({
     artifact,
-    warning: 'Seed inventory only. Live verification and immutable-manifest approval are required before execution.',
+    warning: 'Seed inventory only. Live verification and immutable-manifest approval are required before execution. Accredited platforms still require per-campaign audience-fit confirmation.',
+    accreditation: {
+      statePath: ACCREDITATION_STATE_PATH,
+      loaded: Boolean(accreditation.state),
+      updated: accreditation.state?.updated ?? null,
+      stalenessDays: accreditation.state?.stalenessDays ?? null,
+      ...(accreditation.error ? { error: accreditation.error } : {}),
+    },
     protected: protectedChannels,
     articleSyndication,
-    curatedDirectories: artifact === 'article' ? [] : curatedDirectories,
-    longTailSeeds: artifact === 'article' ? [] : longTailSeeds,
+    curatedDirectories,
+    longTailSeeds,
     counts: {
       protected: protectedChannels.length,
       articleSyndication: articleSyndication.length,
-      curatedDirectories: artifact === 'article' ? 0 : curatedDirectories.length,
-      longTailSeeds: artifact === 'article' ? 0 : longTailSeeds.length,
+      curatedDirectories: curatedDirectories.length,
+      longTailSeeds: longTailSeeds.length,
+      accredited: all.filter((channel) => channel.currentState === 'accredited').length,
+      seed: all.filter((channel) => channel.currentState === 'seed').length,
     },
   }, null, 2)}\n`);
 } catch (error) {

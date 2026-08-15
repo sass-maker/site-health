@@ -20,10 +20,34 @@ tiers to their own available providers and models.
 2. Check readiness: the feature is shipped or explicitly staged, canonical URL
    works, CTA works, claims are evidenced, support/privacy/pricing are current,
    and measurement is available. Block false readiness.
-3. Research current channel eligibility. Treat the directory registry as seed
-   evidence only; recheck audience fit, cost, policy, authentication, CAPTCHA,
-   account state, and submission fields.
-4. Load the current channel seed inventory only when needed:
+3. Research current channel eligibility from the persistent accreditation
+   state instead of reverifying every platform:
+
+   ```bash
+   node foundry/ops/scripts/accreditation/summary.mjs --state-filter accredited
+   node foundry/ops/scripts/accreditation/summary.mjs --stale-only
+   ```
+
+   - `accredited` with a non-stale `verifiedAt`: include directly in the
+     manifest after per-campaign audience-fit confirmation. No full re-probe.
+   - `seed`, `blocked`, and stale `accredited`: one bounded verification queue
+     carrying the recorded blocker type (CAPTCHA, sign-in, payment, anti-bot)
+     for each blocked entry. Recheck audience fit, cost, policy,
+     authentication, account state, and submission fields there.
+   - `rejected`: excluded unless the owner explicitly overrides with a recorded
+     reason.
+
+   Record every probe outcome back into the state file so the next campaign
+   inherits it. Indeterminate probes never advance state:
+
+   ```bash
+   node foundry/ops/scripts/accreditation/update-state.mjs transition \
+     --platform <id> --to <verified|accredited|rejected|blocked> \
+     --outcome <confirmed|indeterminate> \
+     --live-url <url> --http-status <code> [--blocker <type>] [--reason <text>]
+   ```
+4. Load the current channel inventory, annotated with accreditation state, only
+   when needed:
 
    ```bash
    node foundry/ops/skills/launch-campaign/scripts/channel-inventory.mjs \
@@ -31,8 +55,8 @@ tiers to their own available providers and models.
    ```
 
    Use [channel-inventory.md](references/channel-inventory.md) to revalidate and
-   select destinations. The helper is discovery evidence, never permission to
-   publish.
+   select destinations. Seed inventory is discovery evidence, never permission
+   to publish; accreditation removes repeat probing, not judgment.
 5. Build five lanes using [plan-contract.md](references/plan-contract.md):
    `protected`, `canonical`, `article_syndication`, `broad_backlink`, and
    `manual_or_blocked`. Write protected assets in full, include the complete
