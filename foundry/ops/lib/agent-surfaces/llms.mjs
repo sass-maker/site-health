@@ -48,22 +48,6 @@ export function buildLlmsTxt(meta) {
 }
 
 /**
- * Compact full index: title + one-line description per entry.
- * @param {string} title
- * @param {string} intro
- * @param {LlmsLink[]} entries
- */
-export function buildLlmsFullIndex(title, intro, entries) {
-  const lines = [`# ${title}`, '', intro.trim(), ''];
-  for (const e of entries || []) {
-    const desc = e.description ? `: ${e.description}` : '';
-    lines.push(`- [${e.title}](${e.url})${desc}`);
-  }
-  lines.push('');
-  return lines.join('\n');
-}
-
-/**
  * @param {string[]} lines
  * @param {string} heading
  * @param {LlmsLink[] | undefined} links

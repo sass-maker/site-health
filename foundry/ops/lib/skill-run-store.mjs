@@ -18,7 +18,7 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 
 export const RUN_SCHEMA_VERSION = 'fleet.skill-run.v1';
 export const METRIC_SCHEMA_VERSION = 'fleet.skill-metric.v1';
-export const DEFAULT_OUTPUT_LIMIT_BYTES = 1024 * 1024;
+const DEFAULT_OUTPUT_LIMIT_BYTES = 1024 * 1024;
 
 const RUN_SOURCES = new Set([
   'wrapped',
@@ -65,7 +65,7 @@ const REDACTION_PATTERNS = [
   },
 ];
 
-export class SkillRunValidationError extends Error {
+class SkillRunValidationError extends Error {
   constructor(code, message) {
     super(message);
     this.name = 'SkillRunValidationError';
@@ -175,8 +175,6 @@ export function defaultSkillRunsRoot({
   if (!home) fail('MISSING_HOME', 'HOME is required to resolve the skill-run store');
   return join(home, 'Library', 'Application Support', 'Fleet Ops', 'skill-runs');
 }
-
-export const resolveSkillRunsRoot = defaultSkillRunsRoot;
 
 export function sanitizeOutput(input, { limitBytes = DEFAULT_OUTPUT_LIMIT_BYTES } = {}) {
   if (!Number.isSafeInteger(limitBytes) || limitBytes <= 0) {
@@ -830,10 +828,6 @@ export function recordSkillRun(storeOrOptions, request) {
 
 export function listSkillRuns(storeOrOptions, filters) {
   return asStore(storeOrOptions).list(filters);
-}
-
-export function showSkillRun(storeOrOptions, runId) {
-  return asStore(storeOrOptions).show(runId);
 }
 
 export function readSkillRunOutput(storeOrOptions, runId, stream) {

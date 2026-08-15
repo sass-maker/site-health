@@ -1,4 +1,3 @@
-const levels = ["observe", "propose", "execute-safe", "approve-required"];
 const actionLevels = {
   "read-evidence": "observe",
   "create-task": "propose",
@@ -17,7 +16,7 @@ const actionLevels = {
   "external-publish": "approve-required"
 };
 
-export function actionLevel(action) {
+function actionLevel(action) {
   return actionLevels[action] || "approve-required";
 }
 
@@ -33,8 +32,4 @@ export function evaluateAction({ entry, action, approved = false, approvalRefere
     return { authorized: false, requiredLevel, reason: "experiment approval reference required" };
   }
   return { authorized: true, requiredLevel, reason: approved ? "explicit approval recorded" : "within safe automatic authority" };
-}
-
-export function knownActionLevels() {
-  return [...levels];
 }

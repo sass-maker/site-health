@@ -21,6 +21,20 @@ import {
  *   loadMarkdown?: (htmlPath: string, request: Request) => Promise<string | null> | string | null,
  * }} options
  */
+function handleFixedPath(path, manifest, request) {
+  if (path === '/llms.txt') {
+    return textResponse(manifest.llmsTxt, 'text/plain; charset=utf-8');
+  }
+  if (path === '/llms-full.txt') {
+    if (!manifest.llmsFull) return null;
+    return markdownResponse(manifest.llmsFull, request);
+  }
+  if (path === '/api/ai') {
+    return jsonResponse(manifest.catalog);
+  }
+  return undefined;
+}
+
 export function createAgentSurfaceHandler(options) {
   const { manifest, loadMarkdown } = options;
   if (!manifest) throw new TypeError('createAgentSurfaceHandler: manifest required');
@@ -35,17 +49,8 @@ export function createAgentSurfaceHandler(options) {
     const url = new URL(request.url);
     const path = url.pathname === '' ? '/' : url.pathname;
 
-    // --- Fixed agent discovery paths ---
-    if (path === '/llms.txt') {
-      return textResponse(manifest.llmsTxt, 'text/plain; charset=utf-8');
-    }
-    if (path === '/llms-full.txt') {
-      if (!manifest.llmsFull) return null;
-      return markdownResponse(manifest.llmsFull, request);
-    }
-    if (path === '/api/ai') {
-      return jsonResponse(manifest.catalog);
-    }
+    const fixed = handleFixedPath(path, manifest, request);
+    if (fixed !== undefined) return fixed;
 
     // --- Explicit .md paths ---
     if (path.endsWith('.md') || isAgentPath(path)) {

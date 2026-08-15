@@ -7,21 +7,16 @@
  */
 
 export {
-  AGENT_PATHS,
   isAgentPath,
   markdownPathFor,
   htmlPathFromMarkdown,
   wantsMarkdown,
   isHtmlShell,
-  textResponse,
-  jsonResponse,
-  markdownResponse,
-  alternateLinkHeader,
 } from './http.mjs';
 
-export { buildLlmsTxt, buildLlmsFullIndex } from './llms.mjs';
+export { buildLlmsTxt } from './llms.mjs';
 
-export { buildApiAiCatalog, assertApiAiCatalog } from './catalog.mjs';
+export { buildApiAiCatalog } from './catalog.mjs';
 
 export { createAgentSurfaceHandler } from './handler.mjs';
 

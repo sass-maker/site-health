@@ -151,16 +151,18 @@ function isAiReferrer(value) {
   return AI_REFERRERS.has(host) || [...AI_REFERRERS].some((candidate) => host.endsWith(`.${candidate}`));
 }
 
+const SEARCH_REFERRER_PATTERNS = [
+  /^(?:www\.)?google\.[a-z.]+$/,
+  /^(?:www\.)?bing\.com$/,
+  /^(?:www\.)?duckduckgo\.com$/,
+  /^(?:search\.)?yahoo\.[a-z.]+$/,
+  /^(?:www\.)?yandex\.[a-z.]+$/,
+  /^(?:www\.)?baidu\.com$/,
+];
+
 function isSearchReferrer(value) {
   const host = normalizedHost(value);
-  return (
-    /^(?:www\.)?google\.[a-z.]+$/.test(host) ||
-    /^(?:www\.)?bing\.com$/.test(host) ||
-    /^(?:www\.)?duckduckgo\.com$/.test(host) ||
-    /^(?:search\.)?yahoo\.[a-z.]+$/.test(host) ||
-    /^(?:www\.)?yandex\.[a-z.]+$/.test(host) ||
-    /^(?:www\.)?baidu\.com$/.test(host)
-  );
+  return SEARCH_REFERRER_PATTERNS.some((pattern) => pattern.test(host));
 }
 
 function crawlerName(userAgent, category) {
@@ -426,8 +428,3 @@ export async function collectCloudflareOutcomes({
     period: { start: startDate, end: endDate, aiDay: endDate },
   };
 }
-
-export const cloudflareOutcomeQueries = {
-  account: ACCOUNT_ANALYTICS_QUERY,
-  zoneAi: ZONE_AI_QUERY,
-};

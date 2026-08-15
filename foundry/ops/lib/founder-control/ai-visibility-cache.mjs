@@ -1,7 +1,7 @@
 import { chmodSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-export function defaultAiVisibilityCachePath({ homeDirectory = process.env.HOME } = {}) {
+function defaultAiVisibilityCachePath({ homeDirectory = process.env.HOME } = {}) {
   if (!homeDirectory) throw new Error('A home directory is required to resolve the AI visibility cache');
   return join(
     homeDirectory,

@@ -1,4 +1,4 @@
-export const COMPOUND_PUBLIC_SUFFIXES = new Set([
+const COMPOUND_PUBLIC_SUFFIXES = new Set([
   'co.in',
   'co.jp',
   'co.uk',
@@ -6,7 +6,7 @@ export const COMPOUND_PUBLIC_SUFFIXES = new Set([
   'com.br',
 ]);
 
-export const EXCLUDED_PUBLIC_METRIC_LIFECYCLES = new Set(['past', 'non-product']);
+const EXCLUDED_PUBLIC_METRIC_LIFECYCLES = new Set(['past', 'non-product']);
 
 export function normalizedDomain(value) {
   if (typeof value !== 'string') return null;

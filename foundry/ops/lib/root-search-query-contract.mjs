@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs';
-
 const REQUIRED_KINDS = Object.freeze(['brand', 'exact-domain', 'category', 'problem']);
 const QUERY_STATUSES = new Set(['active', 'historical']);
 const COLLISION_STATES = new Set(['clear', 'ambiguous']);
@@ -10,6 +8,59 @@ function normalizedText(value) {
 
 function hostname(value) {
   return new URL(value).hostname.toLowerCase().replace(/^www\./, '');
+}
+
+function validateRootSearchQueries(entry, rootDomain, queryIds) {
+  const queries = [];
+  const localTexts = new Set();
+  for (const query of entry.queries ?? []) {
+    const id = normalizedText(query?.id);
+    const kind = normalizedText(query?.kind);
+    const text = normalizedText(query?.text);
+    const status = normalizedText(query?.status);
+    if (!id || !REQUIRED_KINDS.includes(kind) || !text || !QUERY_STATUSES.has(status)) {
+      throw new Error(`invalid root search query for ${rootDomain}: ${id || '(empty)'}`);
+    }
+    if (queryIds.has(id)) throw new Error(`duplicate root search query id: ${id}`);
+    queryIds.add(id);
+    const textKey = text.toLocaleLowerCase('en-US');
+    if (localTexts.has(textKey)) throw new Error(`duplicate root search query text for ${rootDomain}: ${text}`);
+    localTexts.add(textKey);
+    queries.push({
+      id,
+      kind,
+      text,
+      status,
+      ...(status === 'historical' ? { supersededBy: normalizedText(query.supersededBy) } : {}),
+    });
+  }
+
+  const activeByKind = new Map();
+  for (const query of queries.filter((query) => query.status === 'active')) {
+    if (activeByKind.has(query.kind)) {
+      throw new Error(`duplicate active ${query.kind} query for ${rootDomain}`);
+    }
+    activeByKind.set(query.kind, query);
+  }
+  const missingKinds = REQUIRED_KINDS.filter((kind) => !activeByKind.has(kind));
+  if (missingKinds.length > 0) {
+    throw new Error(`missing active root search queries for ${rootDomain}: ${missingKinds.join(', ')}`);
+  }
+  for (const query of queries.filter((query) => query.status === 'historical')) {
+    if (!query.supersededBy || !queries.some((candidate) => candidate.id === query.supersededBy && candidate.status === 'active')) {
+      throw new Error(`historical root search query requires an active replacement: ${query.id}`);
+    }
+  }
+  return { queries, activeByKind };
+}
+
+function assertProjectDomain(projectId, rootDomain, projectsById) {
+  if (projectsById.size === 0) return;
+  const project = projectsById.get(projectId);
+  if (!project) throw new Error(`unknown root search project: ${projectId || '(empty)'}`);
+  if (!(project.domains ?? []).includes(rootDomain)) {
+    throw new Error(`root search project domain mismatch: ${projectId} does not own ${rootDomain}`);
+  }
 }
 
 export function validateRootSearchQueryContract(contract, brandMap, projects = []) {
@@ -25,13 +76,7 @@ export function validateRootSearchQueryContract(contract, brandMap, projects = [
     const projectId = normalizedText(entry?.projectId);
     if (!brandMap.has(rootDomain)) throw new Error(`unknown root search domain: ${rootDomain || '(empty)'}`);
     if (roots.has(rootDomain)) throw new Error(`duplicate root search domain: ${rootDomain}`);
-    if (projectsById.size > 0) {
-      const project = projectsById.get(projectId);
-      if (!project) throw new Error(`unknown root search project: ${projectId || '(empty)'}`);
-      if (!(project.domains ?? []).includes(rootDomain)) {
-        throw new Error(`root search project domain mismatch: ${projectId} does not own ${rootDomain}`);
-      }
-    }
+    assertProjectDomain(projectId, rootDomain, projectsById);
 
     const collisionState = normalizedText(entry?.collision?.state);
     const collisionNote = normalizedText(entry?.collision?.note);
@@ -39,46 +84,7 @@ export function validateRootSearchQueryContract(contract, brandMap, projects = [
       throw new Error(`invalid root search collision metadata: ${rootDomain}`);
     }
 
-    const queries = [];
-    const localTexts = new Set();
-    for (const query of entry.queries ?? []) {
-      const id = normalizedText(query?.id);
-      const kind = normalizedText(query?.kind);
-      const text = normalizedText(query?.text);
-      const status = normalizedText(query?.status);
-      if (!id || !REQUIRED_KINDS.includes(kind) || !text || !QUERY_STATUSES.has(status)) {
-        throw new Error(`invalid root search query for ${rootDomain}: ${id || '(empty)'}`);
-      }
-      if (queryIds.has(id)) throw new Error(`duplicate root search query id: ${id}`);
-      queryIds.add(id);
-      const textKey = text.toLocaleLowerCase('en-US');
-      if (localTexts.has(textKey)) throw new Error(`duplicate root search query text for ${rootDomain}: ${text}`);
-      localTexts.add(textKey);
-      queries.push({
-        id,
-        kind,
-        text,
-        status,
-        ...(status === 'historical' ? { supersededBy: normalizedText(query.supersededBy) } : {}),
-      });
-    }
-
-    const activeByKind = new Map();
-    for (const query of queries.filter((query) => query.status === 'active')) {
-      if (activeByKind.has(query.kind)) {
-        throw new Error(`duplicate active ${query.kind} query for ${rootDomain}`);
-      }
-      activeByKind.set(query.kind, query);
-    }
-    const missingKinds = REQUIRED_KINDS.filter((kind) => !activeByKind.has(kind));
-    if (missingKinds.length > 0) {
-      throw new Error(`missing active root search queries for ${rootDomain}: ${missingKinds.join(', ')}`);
-    }
-    for (const query of queries.filter((query) => query.status === 'historical')) {
-      if (!query.supersededBy || !queries.some((candidate) => candidate.id === query.supersededBy && candidate.status === 'active')) {
-        throw new Error(`historical root search query requires an active replacement: ${query.id}`);
-      }
-    }
+    const { queries, activeByKind } = validateRootSearchQueries(entry, rootDomain, queryIds);
 
     roots.set(rootDomain, {
       rootDomain,
@@ -95,10 +101,6 @@ export function validateRootSearchQueryContract(contract, brandMap, projects = [
     throw new Error(`root search coverage mismatch: missing=${missingRoots.join(',') || 'none'} extra=${extraRoots.join(',') || 'none'}`);
   }
   return roots;
-}
-
-export function loadRootSearchQueryContract(path, brandMap, projects = []) {
-  return validateRootSearchQueryContract(JSON.parse(readFileSync(path, 'utf8')), brandMap, projects);
 }
 
 export function mergeRootSearchQueriesIntoObservatory(observatory, rootsByDomain) {

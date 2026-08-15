@@ -67,9 +67,3 @@ export function draftMission(
 
   return { event, decision };
 }
-
-export async function enhanceMissionDraft(draft, enhancer) {
-  if (!enhancer) return { ...draft, enhancement: 'not-requested' };
-  const enhanced = await enhancer(structuredClone(draft));
-  return { ...draft, ...enhanced, enhancement: 'caller-supplied' };
-}

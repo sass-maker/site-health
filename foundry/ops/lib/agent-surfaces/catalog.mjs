@@ -20,6 +20,16 @@
  * }} ApiAiCatalog
  */
 
+function mapSurface(origin, s) {
+  return {
+    id: s.id,
+    url: absolutize(origin, s.url),
+    md: s.md == null ? null : absolutize(origin, s.md),
+    kind: s.kind,
+    ...(s.description ? { description: s.description } : {}),
+  };
+}
+
 /**
  * @param {ApiAiCatalog} input
  * @returns {ApiAiCatalog}
@@ -43,13 +53,7 @@ export function buildApiAiCatalog(input) {
       suffix: input.markdown?.suffix ?? '.md',
       negotiation: input.markdown?.negotiation ?? true,
     },
-    surfaces: input.surfaces.map((s) => ({
-      id: s.id,
-      url: absolutize(origin, s.url),
-      md: s.md == null ? null : absolutize(origin, s.md),
-      kind: s.kind,
-      ...(s.description ? { description: s.description } : {}),
-    })),
+    surfaces: input.surfaces.map((s) => mapSurface(origin, s)),
     auth: {
       public: input.auth?.public ?? true,
       notes: input.auth?.notes ?? '',
@@ -64,7 +68,7 @@ export function buildApiAiCatalog(input) {
  * Lightweight runtime validation for audits and tests.
  * @param {unknown} catalog
  */
-export function assertApiAiCatalog(catalog) {
+function assertApiAiCatalog(catalog) {
   if (!catalog || typeof catalog !== 'object') {
     throw new TypeError('catalog must be an object');
   }

@@ -8,7 +8,7 @@ import {
 import { dirname, join } from 'node:path';
 
 export const VISIBILITY_OUTCOME_BUNDLE_SCHEMA = 'fleet.visibility-outcome-bundle.v1';
-export const VISIBILITY_OUTCOME_SCHEMA = 'fleet.visibility-outcome.v1';
+const VISIBILITY_OUTCOME_SCHEMA = 'fleet.visibility-outcome.v1';
 
 const IDENTIFIER = /^[a-z0-9][a-z0-9._:-]{0,159}$/;
 const MAX_SEARCH_QUERY_LENGTH = 2_048;
@@ -263,7 +263,7 @@ function normalizeIndexInspection(value, family) {
   return normalized;
 }
 
-export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
+function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   assertKnownKeys(
     observation,
     new Set(['id', 'projectId', 'family', 'provider', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'indexInspection', 'breakdowns']),
@@ -316,7 +316,7 @@ export function normalizeVisibilityOutcome(observation, { allowedProjectIds } = 
   };
 }
 
-export function prepareVisibilityOutcomeBundle(bundle, { allowedProjectIds } = {}) {
+function prepareVisibilityOutcomeBundle(bundle, { allowedProjectIds } = {}) {
   assertKnownKeys(bundle, new Set(['schema', 'observations']), 'bundle');
   assert(bundle.schema === VISIBILITY_OUTCOME_BUNDLE_SCHEMA, 'unsupported visibility outcome bundle schema');
   assert(Array.isArray(bundle.observations) && bundle.observations.length > 0, 'bundle.observations is required');

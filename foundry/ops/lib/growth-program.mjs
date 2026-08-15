@@ -3,8 +3,8 @@ import { resolve } from 'node:path';
 
 import { visibilityProjects } from './visibility-projects.mjs';
 
-export const GROWTH_PROGRAM_SCHEMA = 'fleet.growth-program.v1';
-export const GROWTH_MODES = Object.freeze(['focus', 'maintain', 'observe']);
+const GROWTH_PROGRAM_SCHEMA = 'fleet.growth-program.v1';
+const GROWTH_MODES = Object.freeze(['focus', 'maintain', 'observe']);
 
 const REQUIRED_MODE_MAPPINGS = Object.freeze([
   'focus',
@@ -64,6 +64,53 @@ export function directoryAttemptEvidence(status, projectIds) {
   }]));
 }
 
+function validateFocusTarget(target, projectById, marketingById, queryById) {
+  const project = projectById.get(target.projectId);
+  assert(project, `focus project ${target.projectId} is not maintained`);
+  assert(marketingById.get(target.projectId)?.mode === 'focus', `${target.projectId} is not a focus Marketing project`);
+  const query = queryById.get(target.targetQueryId);
+  assert(query, `${target.projectId} target query ${target.targetQueryId} is not active`);
+  assert(query.projectId === target.projectId, `${target.targetQueryId} belongs to ${query.projectId}`);
+  let destination;
+  try {
+    destination = new URL(target.destination);
+  } catch {
+    assert(false, `${target.projectId} destination is not a URL`);
+  }
+  assert(destination.protocol === 'https:', `${target.projectId} destination must use https`);
+  assert(destination.origin === canonicalOrigin(project), `${target.projectId} destination is off-origin`);
+  return {
+    projectId: target.projectId,
+    queryId: query.id,
+    query: query.text,
+    destination: destination.href,
+  };
+}
+
+function validateVerifiedLink(link, projectById) {
+  const project = projectById.get(link.projectId);
+  assert(project, `verified link references unknown project ${link.projectId}`);
+  let sourceUrl;
+  let destinationUrl;
+  try {
+    sourceUrl = new URL(link.sourceUrl);
+    destinationUrl = new URL(link.destinationUrl);
+  } catch {
+    assert(false, `verified link for ${link.projectId} contains an invalid URL`);
+  }
+  assert(sourceUrl.protocol === 'https:', `verified link source for ${link.projectId} must use https`);
+  assert(destinationUrl.origin === canonicalOrigin(project), `verified link destination for ${link.projectId} is off-origin`);
+  assert(sourceUrl.origin !== destinationUrl.origin, `verified link source for ${link.projectId} must be external`);
+  assert(Number.isFinite(Date.parse(link.observedAt)), `verified link for ${link.projectId} needs observedAt`);
+  return {
+    projectId: link.projectId,
+    sourceUrl: sourceUrl.href,
+    destinationUrl: destinationUrl.href,
+    observedAt: link.observedAt,
+    kind: link.kind ?? 'editorial',
+  };
+}
+
 export function validateGrowthProgram({
   program,
   projectCatalog,
@@ -109,52 +156,10 @@ export function validateGrowthProgram({
   const queryById = activeQueries(rootSearchQueries);
   const focusTargets = new Map();
   for (const target of program.focusProjects ?? []) {
-    const project = projectById.get(target.projectId);
-    assert(project, `focus project ${target.projectId} is not maintained`);
-    assert(marketingById.get(target.projectId)?.mode === 'focus', `${target.projectId} is not a focus Marketing project`);
-    const query = queryById.get(target.targetQueryId);
-    assert(query, `${target.projectId} target query ${target.targetQueryId} is not active`);
-    assert(query.projectId === target.projectId, `${target.targetQueryId} belongs to ${query.projectId}`);
-    let destination;
-    try {
-      destination = new URL(target.destination);
-    } catch {
-      assert(false, `${target.projectId} destination is not a URL`);
-    }
-    assert(destination.protocol === 'https:', `${target.projectId} destination must use https`);
-    assert(destination.origin === canonicalOrigin(project), `${target.projectId} destination is off-origin`);
-    focusTargets.set(target.projectId, {
-      projectId: target.projectId,
-      queryId: query.id,
-      query: query.text,
-      destination: destination.href,
-    });
+    focusTargets.set(target.projectId, validateFocusTarget(target, projectById, marketingById, queryById));
   }
 
-  const verifiedLinks = [];
-  for (const link of program.verifiedLinks ?? []) {
-    const project = projectById.get(link.projectId);
-    assert(project, `verified link references unknown project ${link.projectId}`);
-    let sourceUrl;
-    let destinationUrl;
-    try {
-      sourceUrl = new URL(link.sourceUrl);
-      destinationUrl = new URL(link.destinationUrl);
-    } catch {
-      assert(false, `verified link for ${link.projectId} contains an invalid URL`);
-    }
-    assert(sourceUrl.protocol === 'https:', `verified link source for ${link.projectId} must use https`);
-    assert(destinationUrl.origin === canonicalOrigin(project), `verified link destination for ${link.projectId} is off-origin`);
-    assert(sourceUrl.origin !== destinationUrl.origin, `verified link source for ${link.projectId} must be external`);
-    assert(Number.isFinite(Date.parse(link.observedAt)), `verified link for ${link.projectId} needs observedAt`);
-    verifiedLinks.push({
-      projectId: link.projectId,
-      sourceUrl: sourceUrl.href,
-      destinationUrl: destinationUrl.href,
-      observedAt: link.observedAt,
-      kind: link.kind ?? 'editorial',
-    });
-  }
+  const verifiedLinks = (program.verifiedLinks ?? []).map((link) => validateVerifiedLink(link, projectById));
 
   const attemptsByProject = directoryAttemptEvidence(directoryStatus, projectById.keys());
   const allocations = projects.map((project) => {

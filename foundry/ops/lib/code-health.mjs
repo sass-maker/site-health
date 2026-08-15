@@ -1,7 +1,7 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
-export const REPORT_SCHEMA_VERSION = 'fleet.code-health-report.v1';
+const REPORT_SCHEMA_VERSION = 'fleet.code-health-report.v1';
 export const POLICY_SCHEMA_VERSION = 'fleet.code-health-policy.v1';
 
 export const CAPABILITY_IDS = [
@@ -29,7 +29,7 @@ export const PROFILE_IDS = [
   'content-config',
 ];
 
-export const RESULT_STATES = [
+const RESULT_STATES = [
   'pass',
   'fail',
   'warning',
@@ -125,7 +125,7 @@ const normalizedDate = (value) => {
   return parsed.toISOString().slice(0, 10) === value ? value : null;
 };
 
-export const isMaintainedProject = (project) => (
+const isMaintainedProject = (project) => (
   project?.lifecycle === 'maintained' && MAINTAINED_TIERS.has(project?.tier)
 );
 

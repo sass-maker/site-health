@@ -1,5 +1,5 @@
-export const DEFAULT_PROBE_CONCURRENCY = 4;
-export const DEFAULT_RETRY_DELAYS_MS = [1_000, 3_000, 7_000];
+const DEFAULT_PROBE_CONCURRENCY = 4;
+const DEFAULT_RETRY_DELAYS_MS = [1_000, 3_000, 7_000];
 
 export function configuredProbeConcurrency(value) {
   const parsed = Number(value);
@@ -7,7 +7,7 @@ export function configuredProbeConcurrency(value) {
   return Math.min(parsed, 16);
 }
 
-export function isTransientProbeFailure(response) {
+function isTransientProbeFailure(response) {
   return response.status === 0 || response.status === 429 || response.status >= 500;
 }
 
@@ -19,7 +19,7 @@ export function parseRetryAfterMs(value, now = Date.now()) {
   return Number.isFinite(date) ? Math.max(0, date - now) : 0;
 }
 
-export function retryDelayMs(response, fallbackDelayMs, maxDelayMs = 10_000) {
+function retryDelayMs(response, fallbackDelayMs, maxDelayMs = 10_000) {
   const retryAfterMs = parseRetryAfterMs(response.retryAfter);
   return Math.min(maxDelayMs, Math.max(fallbackDelayMs, retryAfterMs));
 }

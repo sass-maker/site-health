@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, statSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
 
-export const evidenceStatuses = new Set([
+const evidenceStatuses = new Set([
   "pass", "fail", "stale", "blocked", "accepted-exception", "not-applicable"
 ]);
 
@@ -12,7 +12,7 @@ const credentialPatterns = [
   /\b[A-Za-z0-9_-]*(?:token|secret|password|api[_-]?key)[A-Za-z0-9_-]*\s*[=:]\s*[^\s,;]+/gi
 ];
 
-export function redactText(value) {
+function redactText(value) {
   let result = String(value);
   for (const pattern of credentialPatterns) result = result.replace(pattern, "[REDACTED]");
   return result;

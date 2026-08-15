@@ -5,7 +5,7 @@ export const SEARCH_CHANGE_RECEIPT_SCHEMA = 'fleet.search-change-receipt.v1';
 const IDENTIFIER = /^[a-z0-9][a-z0-9._:-]{0,159}$/;
 const REVISION = /^[0-9a-f]{40}$/;
 
-export function normalizeSearchChangeReceipt(value) {
+function normalizeSearchChangeReceipt(value) {
   const allowed = new Set(['schemaVersion', 'projectId', 'actionId', 'query', 'landingPage', 'revision', 'changedAt']);
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('search change receipt must be an object');
   for (const key of Object.keys(value)) {

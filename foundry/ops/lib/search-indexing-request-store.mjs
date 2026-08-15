@@ -28,7 +28,7 @@ function normalizeHttpsUrl(value, path) {
   }
 }
 
-export function normalizeSearchIndexingRequest(value) {
+function normalizeSearchIndexingRequest(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error('indexing request must be an object');
   }

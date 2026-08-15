@@ -6,23 +6,7 @@ const RECEIPT_SCHEMA = 'fleet.design-review.v1';
 const MODES = new Set(['preserve', 'overhaul']);
 const REGISTERS = new Set(['brand', 'product']);
 
-export function validateDesignWorkflowPolicy(policy) {
-  const errors = [];
-  if (policy?.$schema !== POLICY_SCHEMA || policy.version !== 1) {
-    errors.push(`policy must use ${POLICY_SCHEMA} version 1`);
-  }
-  if (!/^\d+\.\d+\.\d+$/.test(policy?.impeccableVersion ?? '')) {
-    errors.push('policy impeccableVersion must be an exact semantic version');
-  }
-  if (!/^\d+\.\d+\.\d+$/.test(policy?.impeccablePackageVersion ?? '')) {
-    errors.push('policy impeccablePackageVersion must be an exact semantic version');
-  }
-
-  const preserve = policy?.lanes?.preserve;
-  const overhaul = policy?.lanes?.overhaul;
-  if (preserve?.requireBeforeEvidence !== true) {
-    errors.push('preserve lane must require before evidence');
-  }
+function validateOverhaulLane(overhaul, errors) {
   for (const field of [
     'minimumReferences',
     'maximumReferences',
@@ -50,8 +34,9 @@ export function validateDesignWorkflowPolicy(policy) {
   if (!sameMembers(overhaul?.acceptedDirectionDecisions, ['approved', 'delegated'])) {
     errors.push('overhaul acceptedDirectionDecisions must be approved and delegated');
   }
+}
 
-  const gate = policy?.qualityGate;
+function validateQualityGate(gate, errors) {
   for (const [scoreField, maximumField] of [
     ['minimumCritiqueScore', 'critiqueMaximum'],
     ['minimumAuditScore', 'auditMaximum'],
@@ -86,72 +71,60 @@ export function validateDesignWorkflowPolicy(policy) {
       errors.push(`qualityGate maximumUnresolved.${severity} must be zero`);
     }
   }
+}
+
+export function validateDesignWorkflowPolicy(policy) {
+  const errors = [];
+  if (policy?.$schema !== POLICY_SCHEMA || policy.version !== 1) {
+    errors.push(`policy must use ${POLICY_SCHEMA} version 1`);
+  }
+  if (!/^\d+\.\d+\.\d+$/.test(policy?.impeccableVersion ?? '')) {
+    errors.push('policy impeccableVersion must be an exact semantic version');
+  }
+  if (!/^\d+\.\d+\.\d+$/.test(policy?.impeccablePackageVersion ?? '')) {
+    errors.push('policy impeccablePackageVersion must be an exact semantic version');
+  }
+
+  if (policy?.lanes?.preserve?.requireBeforeEvidence !== true) {
+    errors.push('preserve lane must require before evidence');
+  }
+  validateOverhaulLane(policy?.lanes?.overhaul, errors);
+  validateQualityGate(policy?.qualityGate, errors);
 
   if (errors.length) throw new DesignWorkflowError('Design workflow policy invalid', errors);
   return structuredClone(policy);
 }
 
-export function validateDesignReview(receipt, policyInput, {
-  projectRoot,
-  pathExists = existsSync,
-  enforceMinimumScores = true,
-} = {}) {
-  const policy = validateDesignWorkflowPolicy(policyInput);
-  const root = path.resolve(projectRoot ?? process.cwd());
-  const errors = [];
-
-  if (receipt?.$schema !== RECEIPT_SCHEMA || receipt.version !== 1) {
-    errors.push(`receipt must use ${RECEIPT_SCHEMA} version 1`);
+function validateOverhaulDirection(direction, rules, root, pathExists, errors) {
+  const references = direction.references ?? [];
+  const probes = direction.probes ?? [];
+  if (!bounded(references.length, rules.minimumReferences, rules.maximumReferences)) {
+    errors.push(`overhaul requires ${rules.minimumReferences}-${rules.maximumReferences} named references`);
   }
-  if (!receipt?.project?.trim()) errors.push('receipt project is required');
-  if (!receipt?.target?.trim()) errors.push('receipt target is required');
-  if (!MODES.has(receipt?.mode)) errors.push('receipt mode must be preserve or overhaul');
-  if (!REGISTERS.has(receipt?.register)) errors.push('receipt register must be brand or product');
-
-  for (const [field, fallback] of [
-    ['product', 'PRODUCT.md'],
-    ['design', 'DESIGN.md'],
-  ]) {
-    const value = receipt?.context?.[field] ?? fallback;
-    requireEvidencePath(value, `context.${field}`, root, pathExists, errors);
+  if (references.some((reference) => typeof reference !== 'string' || !reference.trim())) {
+    errors.push('overhaul references must be non-empty names');
   }
-
-  const direction = receipt?.direction ?? {};
-  if (receipt?.mode === 'preserve') {
-    requireEvidencePath(direction.before, 'direction.before', root, pathExists, errors);
-    if (!direction.selected?.trim()) errors.push('preserve direction.selected is required');
+  if (!bounded(probes.length, rules.minimumDirectionProbes, rules.maximumDirectionProbes)) {
+    errors.push(`overhaul requires ${rules.minimumDirectionProbes}-${rules.maximumDirectionProbes} direction probes`);
   }
-  if (receipt?.mode === 'overhaul') {
-    const rules = policy.lanes.overhaul;
-    const references = direction.references ?? [];
-    const probes = direction.probes ?? [];
-    if (!bounded(references.length, rules.minimumReferences, rules.maximumReferences)) {
-      errors.push(`overhaul requires ${rules.minimumReferences}-${rules.maximumReferences} named references`);
+  const probeIds = new Set();
+  for (const probe of probes) {
+    if (!probe?.id?.trim() || probeIds.has(probe.id)) {
+      errors.push('overhaul direction probes require unique ids');
+    } else {
+      probeIds.add(probe.id);
     }
-    if (references.some((reference) => typeof reference !== 'string' || !reference.trim())) {
-      errors.push('overhaul references must be non-empty names');
-    }
-    if (!bounded(probes.length, rules.minimumDirectionProbes, rules.maximumDirectionProbes)) {
-      errors.push(`overhaul requires ${rules.minimumDirectionProbes}-${rules.maximumDirectionProbes} direction probes`);
-    }
-    const probeIds = new Set();
-    for (const probe of probes) {
-      if (!probe?.id?.trim() || probeIds.has(probe.id)) {
-        errors.push('overhaul direction probes require unique ids');
-      } else {
-        probeIds.add(probe.id);
-      }
-      requireEvidencePath(probe?.path, `direction.probes.${probe?.id ?? 'unknown'}`, root, pathExists, errors);
-    }
-    if (!probeIds.has(direction.selected)) {
-      errors.push('overhaul direction.selected must match a probe id');
-    }
-    if (!rules.acceptedDirectionDecisions.includes(direction.approval)) {
-      errors.push('overhaul direction approval must be approved or delegated');
-    }
+    requireEvidencePath(probe?.path, `direction.probes.${probe?.id ?? 'unknown'}`, root, pathExists, errors);
   }
+  if (!probeIds.has(direction.selected)) {
+    errors.push('overhaul direction.selected must match a probe id');
+  }
+  if (!rules.acceptedDirectionDecisions.includes(direction.approval)) {
+    errors.push('overhaul direction approval must be approved or delegated');
+  }
+}
 
-  const evidence = receipt?.evidence ?? {};
+function validateReviewEvidence(evidence, policy, enforceMinimumScores, root, pathExists, errors) {
   const screenshots = evidence.screenshots ?? [];
   for (const width of policy.qualityGate.requiredViewportWidths) {
     const screenshot = screenshots.find((entry) => entry?.width === width);
@@ -190,6 +163,51 @@ export function validateDesignReview(receipt, policyInput, {
   if (evidence?.detector?.posture !== policy.qualityGate.detectorPosture) {
     errors.push('detector posture must be advisory');
   }
+}
+
+export function validateDesignReview(receipt, policyInput, {
+  projectRoot,
+  pathExists = existsSync,
+  enforceMinimumScores = true,
+} = {}) {
+  const policy = validateDesignWorkflowPolicy(policyInput);
+  const root = path.resolve(projectRoot ?? process.cwd());
+  const errors = [];
+
+  if (receipt?.$schema !== RECEIPT_SCHEMA || receipt.version !== 1) {
+    errors.push(`receipt must use ${RECEIPT_SCHEMA} version 1`);
+  }
+  if (!receipt?.project?.trim()) errors.push('receipt project is required');
+  if (!receipt?.target?.trim()) errors.push('receipt target is required');
+  if (!MODES.has(receipt?.mode)) errors.push('receipt mode must be preserve or overhaul');
+  if (!REGISTERS.has(receipt?.register)) errors.push('receipt register must be brand or product');
+
+  for (const [field, fallback] of [
+    ['product', 'PRODUCT.md'],
+    ['design', 'DESIGN.md'],
+  ]) {
+    const value = receipt?.context?.[field] ?? fallback;
+    requireEvidencePath(value, `context.${field}`, root, pathExists, errors);
+  }
+
+  const direction = receipt?.direction ?? {};
+  if (receipt?.mode === 'preserve') {
+    requireEvidencePath(direction.before, 'direction.before', root, pathExists, errors);
+    if (!direction.selected?.trim()) errors.push('preserve direction.selected is required');
+  }
+  if (receipt?.mode === 'overhaul') {
+    validateOverhaulDirection(direction, policy.lanes.overhaul, root, pathExists, errors);
+  }
+
+  validateReviewEvidence(
+    receipt?.evidence ?? {},
+    policy,
+    enforceMinimumScores,
+    root,
+    pathExists,
+    errors,
+  );
+
   if (!policy.qualityGate.acceptedOwnerDecisions.includes(receipt?.ownerFeedback?.decision)) {
     errors.push('owner feedback must be keep or explicitly delegated');
   }
@@ -214,7 +232,7 @@ export function validateDesignReviewEvidence(receipt, policyInput, options = {})
   });
 }
 
-export function installedImpeccableVersion(skillFile) {
+function installedImpeccableVersion(skillFile) {
   if (!skillFile || !existsSync(skillFile)) return null;
   const match = readFileSync(skillFile, 'utf8').match(/^version:\s*["']?([^"' \r\n]+)["']?\s*$/m);
   return match?.[1] ?? null;

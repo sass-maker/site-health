@@ -1,6 +1,6 @@
-export const AHREFS_SITE_AUDIT_ENDPOINT =
+const AHREFS_SITE_AUDIT_ENDPOINT =
   'https://api.ahrefs.com/v3/site-audit/projects';
-export const AHREFS_SITE_AUDIT_SCHEMA =
+const AHREFS_SITE_AUDIT_SCHEMA =
   'fleet.ahrefs-site-audit-health.v1';
 
 const METRIC_FIELDS = [
