@@ -2171,7 +2171,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-16",
-          "reason": "Landing, support and privacy pages deployed 2026-08-16 and serving on anchor-landing-ejy.pages.dev. Not ready to share: the apps themselves are unreleased, the anchor.significanthobbies.com custom domain is not attached yet, and macOS signing awaits registering the owner's Mac."
+          "reason": "Landing, support and privacy pages live at anchor.significanthobbies.com with a valid certificate. Not ready to share: the macOS DMG is Developer ID signed but not notarised, so Gatekeeper warns, and the apps are otherwise unreleased."
         }
       },
       "name": "Anchor",
@@ -2184,11 +2184,13 @@
       "repositoryVisibility": "private",
       "deployKind": "pages",
       "cfProject": "anchor-landing",
-      "domains": [],
+      "domains": [
+        "anchor.significanthobbies.com"
+      ],
       "inRegistry": false,
       "status": "live",
       "app": "swift",
-      "notes": "Local-first focus timer for macOS, iOS and watchOS. SwiftData + CloudKit storage, on-device FoundationModels tagging, hand-written xlsx export and a stdio MCP server. Landing/support/privacy pages are live on Cloudflare Pages project anchor-landing; the anchor.significanthobbies.com custom domain still needs attaching, which is why domains is empty and the pages already canonicalise to that host.",
+      "notes": "Local-first focus timer for macOS, iOS and watchOS. SwiftData + CloudKit storage, on-device FoundationModels tagging, hand-written xlsx export and a stdio MCP server. Landing/support/privacy live on Cloudflare Pages project anchor-landing at anchor.significanthobbies.com. A Developer ID signed DMG is produced by scripts/release-mac.sh; it is not notarised yet and ships without iCloud sync, since restricted entitlements need a macOS provisioning profile.",
       "public": {
         "listing": "hidden",
         "id": "anchor",
@@ -3656,7 +3658,7 @@
           }
         ],
         "resources": [],
-        "notes": "Static landing only — no D1, KV, R2 or Workers. The Apple apps are local binaries with no provider resources."
+        "notes": "Cloudflare Pages project anchor-landing with custom domain anchor.significanthobbies.com (CNAME in the significanthobbies.com zone, proxied). No D1, KV, R2 or Workers. The Apple apps are local binaries with no provider resources."
       }
     },
     "unownedResources": [
