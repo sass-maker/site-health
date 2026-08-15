@@ -11,9 +11,9 @@ import {
 import { homedir } from 'node:os';
 import { isAbsolute, relative, resolve } from 'node:path';
 
-export const CAMPAIGN_MANIFEST_SCHEMA = 'fleet.approved-campaign-manifest.v1';
-export const CAMPAIGN_APPROVAL_SCHEMA = 'fleet.campaign-approval.v1';
-export const CAMPAIGN_RECEIPT_SCHEMA = 'fleet.campaign-item-receipt.v1';
+const CAMPAIGN_MANIFEST_SCHEMA = 'fleet.approved-campaign-manifest.v1';
+const CAMPAIGN_APPROVAL_SCHEMA = 'fleet.campaign-approval.v1';
+const CAMPAIGN_RECEIPT_SCHEMA = 'fleet.campaign-item-receipt.v1';
 
 const KINDS = new Set(['content_coverage', 'launch_campaign']);
 const TIERS = new Set(['flagship', 'secondary', 'manual']);
@@ -93,7 +93,7 @@ export function campaignManifestHash(input) {
   return createHash('sha256').update(canonicalJson(validation.value)).digest('hex');
 }
 
-export function itemIdentity(input, itemKey) {
+function itemIdentity(input, itemKey) {
   const validation = validateCampaignManifest(input);
   if (!validation.ok) throw new CampaignManifestError(validation.issues.join('; '));
   const item = validation.value.items.find((entry) => entry.key === itemKey);
@@ -133,7 +133,7 @@ export function createCampaignApproval(input, options = {}) {
   };
 }
 
-export function validateCampaignApproval(input) {
+function validateCampaignApproval(input) {
   const issues = [];
   if (!record(input)) return invalid(['approval must be an object']);
   if (input.$schema !== CAMPAIGN_APPROVAL_SCHEMA || input.version !== 1) {
@@ -296,7 +296,7 @@ export function publicCampaignSummary(input, receipts = []) {
   };
 }
 
-export function campaignRuntimeRoot(options = {}) {
+function campaignRuntimeRoot(options = {}) {
   const candidate =
     options.runtimeRoot ??
     process.env.FLEET_CAMPAIGN_RUNTIME_DIR ??
@@ -381,7 +381,7 @@ export function readJson(path) {
   return JSON.parse(readFileSync(path, 'utf8'));
 }
 
-export function canonicalJson(value) {
+function canonicalJson(value) {
   return JSON.stringify(sortValue(value));
 }
 
@@ -683,7 +683,7 @@ function blocked(reasons) {
   };
 }
 
-export class CampaignManifestError extends Error {
+class CampaignManifestError extends Error {
   constructor(message) {
     super(message);
     this.name = 'CampaignManifestError';
