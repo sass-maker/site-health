@@ -1,5 +1,5 @@
 import { isStale } from './accreditation-state.mjs';
-import { audienceFitFor, compareAudienceFit } from './audience-fit.mjs';
+import { audienceFitFor } from './audience-fit.mjs';
 
 const ARTIFACT_TYPES = ['article', 'product', 'major-feature'];
 
@@ -86,17 +86,68 @@ function decorate(entry, bucket, platform, overrideReason) {
   return entry;
 }
 
-function sorted(entries) {
-  return entries.sort(compareAudienceFit);
+/**
+ * Compute audience-fit evidence between a platform and a product's tags.
+ * Accepts either the legacy audienceFit mapping object or the modern
+ * productAudienceTags array.
+ */
+function computeAudienceFit(platform, productAudienceTags, audienceFitMapping, productId) {
+  if (audienceFitMapping) {
+    const legacy = audienceFitFor(audienceFitMapping, productId, platform.id);
+    const audienceUnclassified = legacy.fitReason === 'product-audience-missing';
+    return {
+      fitScore: legacy.fitScore,
+      matchedAudienceTags: legacy.matchedAudienceTags,
+      fitReason: legacy.fitReason,
+      audienceFit: legacy.fitScore,
+      audienceMatchedTags: legacy.matchedAudienceTags,
+      audienceUnclassified,
+      isUnclassified: legacy.fitScore === 0 && !audienceUnclassified,
+    };
+  }
+  const platformTags = platform.audienceTags ?? [];
+  const platformTagSet = new Set(platformTags);
+  const matchedAudienceTags = productAudienceTags.filter((tag) => platformTagSet.has(tag)).sort();
+  const audienceUnclassified = platformTags.length === 0;
+  const fitReason = productAudienceTags.length === 0
+    ? 'product-audience-missing'
+    : matchedAudienceTags.length === 0
+      ? 'no-audience-overlap'
+      : null;
+  return {
+    fitScore: matchedAudienceTags.length,
+    matchedAudienceTags,
+    fitReason,
+    audienceFit: matchedAudienceTags.length,
+    audienceMatchedTags: matchedAudienceTags,
+    audienceUnclassified,
+    isUnclassified: productAudienceTags.length > 0 && matchedAudienceTags.length === 0 && !audienceUnclassified,
+  };
+}
+
+/**
+ * Sort entries by audience-fit score (descending), preserving insertion order
+ * for ties so the result stays deterministic and registry-ordered within a
+ * fit band.
+ */
+function sortByFit(entries) {
+  return [...entries].sort((a, b) => {
+    if (a.audienceFit !== b.audienceFit) return b.audienceFit - a.audienceFit;
+    // Unclassified entries sort after classified ones at the same score
+    if (a.audienceUnclassified !== b.audienceUnclassified) {
+      return a.audienceUnclassified ? 1 : -1;
+    }
+    return 0; // stable: preserve insertion order
+  });
 }
 
 // Stale accredited platforms re-enter verification instead of going straight
-// into a manifest. Protected channels are individually planned and never enter
+// into the manifest. Protected channels are individually planned and never enter
 // the broad verification queue.
 function verificationQueueFor({ seed, blocked, accredited }) {
-  return sorted(
+  return sortByFit(
     [...seed, ...blocked, ...accredited.filter((entry) => entry.stale)].filter(
-      (entry) => entry.qualityGate !== 'protected' && entry.fitScore > 0,
+      (entry) => entry.qualityGate !== 'protected' && entry.audienceFit > 0,
     ),
   );
 }
@@ -120,6 +171,7 @@ export function matchPlatforms(state, options) {
     includeCanonicalArticle = false,
     overrides = [],
     audienceFit = null,
+    productAudienceTags = null,
     now = new Date(),
   } = options;
 
@@ -136,21 +188,20 @@ export function matchPlatforms(state, options) {
     const overrideReason = overrideById.get(platform.id);
     const bucket = bucketFor(platform, route, overrideReason);
     if (!bucket) continue;
-    const fit = audienceFitFor(audienceFit, productId, platform.id);
+    const fit = computeAudienceFit(platform, productAudienceTags ?? [], audienceFit, productId);
     const entry = { ...entryFor(platform, context), ...fit };
-    if (MATCHABLE_STATES.has(platform.currentState) || bucket === 'overridden') {
-      if (fit.fitScore === 0) {
-        buckets.unclassified.push({ ...entry, candidateRoute: route });
-        continue;
-      }
+    if (audienceFit && (MATCHABLE_STATES.has(platform.currentState) || bucket === 'overridden') && fit.isUnclassified) {
+      buckets.unclassified.push({ ...entry, candidateRoute: route });
+      continue;
     }
     buckets[bucket].push(decorate(entry, bucket, platform, overrideReason));
   }
 
+  for (const key of Object.keys(buckets)) {
+    buckets[key] = sortByFit(buckets[key]);
+  }
 
-  for (const entries of Object.values(buckets)) sorted(entries);
-
-  const matched = sorted([
+  const matched = sortByFit([
     ...buckets.accredited,
     ...buckets.seed,
     ...buckets.articleComponent,
@@ -159,6 +210,7 @@ export function matchPlatforms(state, options) {
   return {
     artifact,
     productId,
+    productAudienceTags: productAudienceTags ?? audienceFit?.products?.[productId] ?? [],
     matched,
     ...buckets,
     verificationQueue: verificationQueueFor(buckets),

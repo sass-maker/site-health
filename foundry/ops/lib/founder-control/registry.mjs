@@ -38,7 +38,7 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
       const historicalRepositoryUrl =
         project.repositoryUrl ?? project.public?.repositoryUrl ?? null;
       const repositoryUrl =
-        project.lifecycle === 'maintained'
+        project.lifecycle === 'maintained' || project.lifecycle === 'local-only'
           ? fleetWorkspaceRepository
           : historicalRepositoryUrl;
       return {
