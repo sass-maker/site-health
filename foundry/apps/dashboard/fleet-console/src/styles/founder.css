@@ -414,6 +414,10 @@ h1 { max-width: 780px; margin-bottom: 10px; overflow-wrap: anywhere; font-size: 
 .outcome-identity-group { display: grid; gap: 5px; }
 .outcome-provider-link { width: max-content; min-height: 32px; display: inline-flex; align-items: center; color: var(--muted); font-size: 10px; font-weight: 700; text-underline-offset: 3px; }
 .outcome-provider-link:hover { color: var(--accent); }
+.provider-cell { display: flex; flex-direction: column; gap: 3px; }
+.provider-label { color: var(--muted); font-size: 11px; }
+.provider-label--multi { color: var(--accent); font-weight: 600; }
+.discrepancy-flag { color: var(--warn, #c47a2b); font-size: 10px; font-weight: 600; }
 .outcome-signal { display: grid; gap: 2px; }
 .outcome-signal strong { font-size: 14px; }
 .outcome-signal small,

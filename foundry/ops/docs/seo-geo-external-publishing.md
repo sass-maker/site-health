@@ -2,7 +2,7 @@
 
 **Strategy reviewed:** 2026-08-16
 
-**Coverage:** all P1 (4), all P2 (19), all eligible finished P4 (10)
+**Coverage:** all P1 (4), all P2 (21), all eligible finished P4 (10)
 
 **Source of truth:** `foundry/ops/config/seo-geo-publishing.json`
 
@@ -133,7 +133,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
 - **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
-## P2 — 19
+## P2 — 21
 
 ### Fleet Workspace — Publishable
 
@@ -286,7 +286,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 | Secondary | [Medium](https://help.medium.com/hc/en-us/articles/225168768-Writing-and-publishing-your-first-story) | Privacy-first self-tracking methodology | Agent direct | Shared | Can answer search intent without making health promises. |
 | Secondary | [Product-specific forums and communities](https://www.discourse.org/guidelines) | Synthetic-data workflow shared under local health-community rules | Agent with unblock | Owner | Potentially useful, but requires careful community and safety judgment. |
 
-### Setline — Publishable
+### Setline — Preparation only
 
 **Canonical:** [https://setline.significanthobbies.com](https://setline.significanthobbies.com)
 
@@ -294,12 +294,29 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A no-cloud workout execution walkthrough using a complete user-authored training plan.
 
-| Rank | Channel | Format | Execution | Content owner | Why this fits |
-|---|---|---|---|---|---|
-| Primary | [Product Hunt](https://help.producthunt.com/en/articles/479557-how-to-post-a-product) | Offline workout tracker launch | Agent with unblock | Owner | Working consumer product with a clear local-first distinction. |
-| Primary | [AlternativeTo](https://alternativeto.net/faq/) | Workout tracker application listing | Agent direct | Shared | Recognizable software category with differentiating constraints. |
-| Secondary | [Product-specific forums and communities](https://www.discourse.org/guidelines) | Plan-execution workflow for fitness communities | Agent with unblock | Owner | Useful method when shared without generic promotion. |
-| Secondary | [YouTube](https://support.google.com/youtube/answer/57407) | One full workout logging demo | Agent direct | Shared | Shows mobile flow and offline behavior clearly. |
+**Catalog blocker:** Blocked: setline.significanthobbies.com returns 530 after the Worker was deleted. Needs a CNAME to significant-hobbies.github.io and a GitHub Pages publish before the canonical surface answers again. Cloudflare evidence is empty by design; hosting moved to GitHub Pages, which this inventory does not track. (verified 2026-08-16)
+
+**Before publishing:**
+
+- Re-enable the canonical domain setline.significanthobbies.com via GitHub Pages CNAME and verify live landing page.
+
+**Future candidates after re-verification:** Product Hunt, AlternativeTo, Product-specific forums and communities, YouTube
+
+### Kith — Preparation only
+
+**Canonical:** [https://github.com/Significant-Hobbies/kith](https://github.com/Significant-Hobbies/kith)
+
+**Narrative:** A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.
+
+**Source asset:** A recorded walkthrough of adding a person, setting closeness, and reviewing a chronological log without contact-book import.
+
+**Catalog blocker:** Local iOS app under active development; not yet published to the App Store. (verified 2026-08-16)
+
+**Before publishing:**
+
+- Publish a TestFlight or App Store build and verify the landing page.
+
+**Future candidates after re-verification:** Product Hunt, AlternativeTo, YouTube
 
 ### RolePatch — Publishable
 
@@ -452,6 +469,22 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - Approve a privacy-safe public surface before any external publication.
 
 **Future candidates after re-verification:** DEV Community, LinkedIn articles and newsletters
+
+### Anchor — Preparation only
+
+**Canonical:** [https://anchor.significanthobbies.com](https://anchor.significanthobbies.com)
+
+**Narrative:** A local-first focus timer for Mac, iPhone and Apple Watch that parks distractions instead of losing the session.
+
+**Source asset:** A walkthrough of the landing page, focus timer flow, and hand-written xlsx export with a notarised macOS build.
+
+**Catalog blocker:** Landing, support and privacy pages live at anchor.significanthobbies.com with a valid certificate. Not ready to share: the macOS DMG is Developer ID signed but not notarised, so Gatekeeper warns, and the apps are otherwise unreleased. (verified 2026-08-16)
+
+**Before publishing:**
+
+- Notarise the macOS DMG and verify Gatekeeper opens it without a warning.
+
+**Future candidates after re-verification:** Product Hunt, AlternativeTo, Medium, YouTube
 
 ## Eligible finished P4 — 10
 

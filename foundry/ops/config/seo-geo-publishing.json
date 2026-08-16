@@ -394,6 +394,16 @@
       "exclusions": []
     },
     {
+      "projectId": "anchor",
+      "state": "prepare",
+      "narrative": "A local-first focus timer for Mac, iPhone and Apple Watch that parks distractions instead of losing the session.",
+      "sourceAsset": "A walkthrough of the landing page, focus timer flow, and hand-written xlsx export with a notarised macOS build.",
+      "placements": [],
+      "futureChannels": ["product-hunt", "alternative-to", "medium", "youtube"],
+      "prerequisites": ["Notarise the macOS DMG and verify Gatekeeper opens it without a warning."],
+      "exclusions": []
+    },
+    {
       "projectId": "high-signal",
       "state": "publish",
       "narrative": "Evidence-backed daily intelligence across technology, startups, finance, and public markets with a public track record.",
@@ -479,15 +489,22 @@
     },
     {
       "projectId": "setline",
-      "state": "publish",
+      "state": "prepare",
       "narrative": "A mobile-first, offline workout execution tracker for user-authored plans, set logging, and rest timing.",
       "sourceAsset": "A no-cloud workout execution walkthrough using a complete user-authored training plan.",
-      "placements": [
-        { "channelId": "product-hunt", "rank": "primary", "format": "Offline workout tracker launch", "actor": "owner", "fit": "Working consumer product with a clear local-first distinction." },
-        { "channelId": "alternative-to", "rank": "primary", "format": "Workout tracker application listing", "actor": "shared", "fit": "Recognizable software category with differentiating constraints." },
-        { "channelId": "specialist-communities", "rank": "secondary", "format": "Plan-execution workflow for fitness communities", "actor": "owner", "fit": "Useful method when shared without generic promotion." },
-        { "channelId": "youtube", "rank": "secondary", "format": "One full workout logging demo", "actor": "shared", "fit": "Shows mobile flow and offline behavior clearly." }
-      ],
+      "placements": [],
+      "futureChannels": ["product-hunt", "alternative-to", "specialist-communities", "youtube"],
+      "prerequisites": ["Re-enable the canonical domain setline.significanthobbies.com via GitHub Pages CNAME and verify live landing page."],
+      "exclusions": []
+    },
+    {
+      "projectId": "kith",
+      "state": "prepare",
+      "narrative": "A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.",
+      "sourceAsset": "A recorded walkthrough of adding a person, setting closeness, and reviewing a chronological log without contact-book import.",
+      "placements": [],
+      "futureChannels": ["product-hunt", "alternative-to", "youtube"],
+      "prerequisites": ["Publish a TestFlight or App Store build and verify the landing page."],
       "exclusions": []
     },
     {

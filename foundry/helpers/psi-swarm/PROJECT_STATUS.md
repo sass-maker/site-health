@@ -17,9 +17,11 @@ monitoring/alerting.
 ## Dependencies
 
 External:
-- **Lighthouse 12** (`lighthouse`) — the measurement engine. Known
-  incompatibility with Node 24 (TraceEngineResult performance mark), hence the
-  `node >=20 <24` engines pin; Node 22 LTS is the supported path.
+- **Lighthouse 13** (`lighthouse`) — the measurement engine. Requires
+  Node >=22.19 and supports Node 24. Upgraded from Lighthouse 12 to
+  eliminate the `extract-zip@2.0.1` transitive dependency
+  (GHSA-jmr9-qjv8-65gv) — Lighthouse 13 uses `puppeteer-core@25` →
+  `@puppeteer/browsers@3` → `modern-tar` instead of `extract-zip`.
 - **Headless Chrome** via `chrome-launcher` — runs the Lighthouse audits.
 - **better-sqlite3** — local run history, watchlist, insights, and DR cache
   (SQLite on disk).

@@ -72,8 +72,18 @@
       "deployKind": "worker+pages",
       "cfProject": "codevetter, codevetter-landing-proxy",
       "deployTargets": [
-        { "id": "site", "kind": "pages", "name": "codevetter", "sourcePath": "codevetter/apps/landing-page-astro" },
-        { "id": "legacy-proxy", "kind": "worker", "name": "codevetter-landing-proxy", "sourcePath": "codevetter" }
+        {
+          "id": "site",
+          "kind": "pages",
+          "name": "codevetter",
+          "sourcePath": "codevetter/apps/landing-page-astro"
+        },
+        {
+          "id": "legacy-proxy",
+          "kind": "worker",
+          "name": "codevetter-landing-proxy",
+          "sourcePath": "codevetter"
+        }
       ],
       "domains": [
         "codevetter.com"
@@ -1098,11 +1108,11 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": true,
-        "readyToBeShared": true,
+        "deployed": false,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-08-16",
+          "reason": "Blocked: setline.significanthobbies.com returns 530 after the Worker was deleted. Needs a CNAME to significant-hobbies.github.io and a GitHub Pages publish before the canonical surface answers again. Cloudflare evidence is empty by design; hosting moved to GitHub Pages, which this inventory does not track."
         }
       },
       "name": "Setline",
@@ -1113,26 +1123,66 @@
       "lifecycle": "maintained",
       "repo": "setline",
       "repositoryVisibility": "public",
-      "deployKind": "worker",
-      "cfProject": "setline",
+      "deployKind": "none",
+      "cfProject": null,
       "domains": [
         "setline.significanthobbies.com"
       ],
       "inRegistry": true,
-      "status": "live",
+      "status": "undeployed",
       "app": "ios",
       "public": {
         "listing": "maintained",
         "id": "setline",
         "name": "Setline",
-        "description": "An iOS-native workout execution tracker for following user-authored plans, recording sets, and timing rest offline.",
+        "description": "An iOS-native training tracker that runs a written strength, cardio and mobility programme one set at a time and measures each exercise against an authored target.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
       },
-      "notes": "Local-first workout execution tracker with optional Google sign-in and private D1 sync."
+      "notes": "No Cloudflare footprint. The Worker and the setline D1 database were deleted 2026-08-16 (D1 held zero rows across every table). The static site is published by GitHub Pages from public/; setline.significanthobbies.com needs a CNAME to significant-hobbies.github.io before it resolves again."
+    },
+    {
+      "id": "kith",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "Local iOS app under active development; not yet published to the App Store."
+        }
+      },
+      "name": "Kith",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "kith",
+      "repositoryVisibility": "public",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "app": "ios",
+      "public": {
+        "listing": "hidden",
+        "id": "kith",
+        "name": "Kith",
+        "description": "A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "in-progress",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
+      },
+      "notes": "No server or Cloudflare footprint. Local JSON document mirrored to the personal Apple team's private iCloud container."
     },
     {
       "id": "rolepatch",
@@ -1306,8 +1356,18 @@
       "deployKind": "worker+pages",
       "cfProject": "aliveville",
       "deployTargets": [
-        { "id": "site", "kind": "pages", "name": "aliveville", "sourcePath": "../fleet-inactive-projects/aliveville/astro-landing" },
-        { "id": "app", "kind": "worker", "name": "aliveville", "sourcePath": "../fleet-inactive-projects/aliveville" }
+        {
+          "id": "site",
+          "kind": "pages",
+          "name": "aliveville",
+          "sourcePath": "../fleet-inactive-projects/aliveville/astro-landing"
+        },
+        {
+          "id": "app",
+          "kind": "worker",
+          "name": "aliveville",
+          "sourcePath": "../fleet-inactive-projects/aliveville"
+        }
       ],
       "domains": [
         "aliveville.com"
@@ -1385,8 +1445,7 @@
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "active",
-      "repo": "veg-protein-food",
-      "sourcePath": "recipe-dashboard",
+      "repo": "recipe-dashboard",
       "deployKind": "pages",
       "cfProject": "veg-protein-food",
       "domains": [
@@ -2096,9 +2155,24 @@
       "deployKind": "worker+pages",
       "cfProject": "reddit-insights, reddit-proxy, reddit-insights-daily-collector",
       "deployTargets": [
-        { "id": "site", "kind": "pages", "name": "reddit-insights", "sourcePath": "reddit-insights" },
-        { "id": "proxy", "kind": "worker", "name": "reddit-proxy", "sourcePath": "reddit-insights/scripts/reddit-proxy" },
-        { "id": "daily-collector", "kind": "worker", "name": "reddit-insights-daily-collector", "sourcePath": "reddit-insights/workers/daily-collector" }
+        {
+          "id": "site",
+          "kind": "pages",
+          "name": "reddit-insights",
+          "sourcePath": "reddit-insights"
+        },
+        {
+          "id": "proxy",
+          "kind": "worker",
+          "name": "reddit-proxy",
+          "sourcePath": "reddit-insights/scripts/reddit-proxy"
+        },
+        {
+          "id": "daily-collector",
+          "kind": "worker",
+          "name": "reddit-insights-daily-collector",
+          "sourcePath": "reddit-insights/workers/daily-collector"
+        }
       ],
       "domains": [
         "reddit-insights.highsignal.app"
@@ -2149,6 +2223,47 @@
       "public": {
         "listing": "hidden"
       }
+    },
+    {
+      "id": "anchor",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "Landing, support and privacy pages live at anchor.significanthobbies.com with a valid certificate. Not ready to share: the macOS DMG is Developer ID signed but not notarised, so Gatekeeper warns, and the apps are otherwise unreleased."
+        }
+      },
+      "name": "Anchor",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "active",
+      "attention": "my-work",
+      "lifecycle": "local-only",
+      "repo": "anchor",
+      "repositoryVisibility": "private",
+      "deployKind": "pages",
+      "cfProject": "anchor-landing",
+      "domains": [
+        "anchor.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "app": "swift",
+      "notes": "Local-first focus timer for macOS, iOS and watchOS. SwiftData + CloudKit storage, on-device FoundationModels tagging, hand-written xlsx export and a stdio MCP server. Landing/support/privacy live on Cloudflare Pages project anchor-landing at anchor.significanthobbies.com. A Developer ID signed DMG is produced by scripts/release-mac.sh; it is not notarised yet and ships without iCloud sync, since restricted entitlements need a macOS provisioning profile.",
+      "public": {
+        "listing": "hidden",
+        "id": "anchor",
+        "name": "Anchor",
+        "description": "A local-first focus timer for Mac, iPhone and Apple Watch that parks distractions instead of losing the session, and shows what actually costs you your focus.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "in-progress"
+      }
     }
   ],
   "infrastructure": {
@@ -2161,361 +2276,1160 @@
         "local": "PROJECT_STATUS.md, repository deployment scripts, and tracked provider configuration."
       },
       "cloudflareCoverage": [
-        { "kind": "pages", "state": "provider-complete", "observed": 26, "tracked": 27, "evidence": "Wrangler account list; 26 live plus one deleted historical target." },
-        { "kind": "worker", "state": "known-name-probed", "observed": 26, "tracked": 28, "evidence": "All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence." },
-        { "kind": "d1", "state": "provider-complete", "observed": 23, "tracked": 23, "evidence": "Wrangler account list." },
-        { "kind": "r2", "state": "provider-complete", "observed": 8, "tracked": 9, "evidence": "Wrangler account list; reddit-insights-archive is configured but not provisioned." },
-        { "kind": "kv", "state": "provider-complete", "observed": 4, "tracked": 4, "evidence": "Wrangler account list; OAUTH_KV is reserved by the merged Fleet ChatGPT gateway and RATELIMIT is actively bound to verified-bases-api." },
-        { "kind": "vectorize", "state": "provider-complete", "observed": 8, "tracked": 8, "evidence": "Wrangler account list." },
-        { "kind": "queue", "state": "provider-complete", "observed": 1, "tracked": 1, "evidence": "Wrangler account list." },
-        { "kind": "workflow", "state": "provider-complete", "observed": 1, "tracked": 1, "evidence": "Wrangler account list." },
-        { "kind": "tunnel", "state": "provider-complete", "observed": 2, "tracked": 2, "evidence": "Wrangler account list; one tunnel remains owner-unverified." },
-        { "kind": "container", "state": "provider-complete", "observed": 1, "tracked": 1, "evidence": "Wrangler account list." },
-        { "kind": "turnstile", "state": "provider-complete", "observed": 6, "tracked": 6, "evidence": "Wrangler widget list." },
-        { "kind": "hyperdrive", "state": "provider-complete-empty", "observed": 0, "tracked": 0, "evidence": "Wrangler account list." },
-        { "kind": "pipeline", "state": "provider-complete-empty", "observed": 0, "tracked": 0, "evidence": "Wrangler account list." },
-        { "kind": "ai-search", "state": "provider-complete-empty", "observed": 0, "tracked": 0, "evidence": "Wrangler account list." },
-        { "kind": "vpc", "state": "provider-complete-empty", "observed": 0, "tracked": 0, "evidence": "Wrangler account list." },
-        { "kind": "dispatch-namespace", "state": "not-entitled", "observed": 0, "tracked": 0, "evidence": "Cloudflare API returned no product access." },
-        { "kind": "artifacts", "state": "feature-gated", "evidence": "Cloudflare API denied the private-beta inventory endpoint." },
-        { "kind": "durable-object", "state": "config-derived", "tracked": 5, "evidence": "Tracked Wrangler bindings; no account-wide Wrangler list exists." },
-        { "kind": "analytics-engine", "state": "config-derived", "tracked": 3, "evidence": "Tracked Wrangler bindings; provider dataset list not available through current CLI." },
-        { "kind": "workers-ai", "state": "config-derived", "tracked": 4, "evidence": "Tracked Worker bindings; models are usage surfaces, not persistent per-project objects." },
-        { "kind": "browser-rendering", "state": "config-derived", "tracked": 1, "evidence": "Tracked Worker binding." },
-        { "kind": "service-binding", "state": "config-derived", "tracked": 4, "evidence": "Tracked Worker bindings." },
-        { "kind": "access-application", "state": "config-and-live-redirect-derived", "tracked": 2, "evidence": "Tracked product docs plus live Cloudflare Access redirects; dashboard/API enumeration remains unavailable." },
-        { "kind": "zone", "state": "catalog-derived", "tracked": 10, "evidence": "Canonical root-domain ownership; provider zone enumeration remains unavailable." },
-        { "kind": "email-routing", "state": "config-derived", "tracked": 1, "evidence": "Karte Email Worker and routing requirement in tracked configuration; dashboard rule not independently enumerated." }
+        {
+          "kind": "pages",
+          "state": "provider-complete",
+          "observed": 27,
+          "tracked": 28,
+          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing) plus one deleted historical target. Setline moved to GitHub Pages and holds no Cloudflare Pages project."
+        },
+        {
+          "kind": "worker",
+          "state": "known-name-probed",
+          "observed": 26,
+          "tracked": 27,
+          "evidence": "All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence. Setline's Worker was deleted 2026-08-16."
+        },
+        {
+          "kind": "d1",
+          "state": "provider-complete",
+          "observed": 23,
+          "tracked": 22,
+          "evidence": "Wrangler account list. Setline's empty D1 database was deleted 2026-08-16."
+        },
+        {
+          "kind": "r2",
+          "state": "provider-complete",
+          "observed": 8,
+          "tracked": 9,
+          "evidence": "Wrangler account list; reddit-insights-archive is configured but not provisioned."
+        },
+        {
+          "kind": "kv",
+          "state": "provider-complete",
+          "observed": 4,
+          "tracked": 4,
+          "evidence": "Wrangler account list; OAUTH_KV is reserved by the merged Fleet ChatGPT gateway and RATELIMIT is actively bound to verified-bases-api."
+        },
+        {
+          "kind": "vectorize",
+          "state": "provider-complete",
+          "observed": 8,
+          "tracked": 8,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "queue",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "workflow",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "tunnel",
+          "state": "provider-complete",
+          "observed": 2,
+          "tracked": 2,
+          "evidence": "Wrangler account list; one tunnel remains owner-unverified."
+        },
+        {
+          "kind": "container",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "turnstile",
+          "state": "provider-complete",
+          "observed": 6,
+          "tracked": 6,
+          "evidence": "Wrangler widget list."
+        },
+        {
+          "kind": "hyperdrive",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "pipeline",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "ai-search",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "vpc",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "dispatch-namespace",
+          "state": "not-entitled",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Cloudflare API returned no product access."
+        },
+        {
+          "kind": "artifacts",
+          "state": "feature-gated",
+          "evidence": "Cloudflare API denied the private-beta inventory endpoint."
+        },
+        {
+          "kind": "durable-object",
+          "state": "config-derived",
+          "tracked": 5,
+          "evidence": "Tracked Wrangler bindings; no account-wide Wrangler list exists."
+        },
+        {
+          "kind": "analytics-engine",
+          "state": "config-derived",
+          "tracked": 3,
+          "evidence": "Tracked Wrangler bindings; provider dataset list not available through current CLI."
+        },
+        {
+          "kind": "workers-ai",
+          "state": "config-derived",
+          "tracked": 4,
+          "evidence": "Tracked Worker bindings; models are usage surfaces, not persistent per-project objects."
+        },
+        {
+          "kind": "browser-rendering",
+          "state": "config-derived",
+          "tracked": 1,
+          "evidence": "Tracked Worker binding."
+        },
+        {
+          "kind": "service-binding",
+          "state": "config-derived",
+          "tracked": 4,
+          "evidence": "Tracked Worker bindings."
+        },
+        {
+          "kind": "access-application",
+          "state": "config-and-live-redirect-derived",
+          "tracked": 2,
+          "evidence": "Tracked product docs plus live Cloudflare Access redirects; dashboard/API enumeration remains unavailable."
+        },
+        {
+          "kind": "zone",
+          "state": "catalog-derived",
+          "tracked": 10,
+          "evidence": "Canonical root-domain ownership; provider zone enumeration remains unavailable."
+        },
+        {
+          "kind": "email-routing",
+          "state": "config-derived",
+          "tracked": 1,
+          "evidence": "Karte Email Worker and routing requirement in tracked configuration; dashboard rule not independently enumerated."
+        }
       ]
     },
     "projects": {
       "codevetter": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "codevetter", "method": "git-connected", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "codevetter-landing-proxy", "method": "legacy-worker", "state": "live-purpose-review" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "codevetter",
+            "method": "git-connected",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "codevetter-landing-proxy",
+            "method": "legacy-worker",
+            "state": "live-purpose-review"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "zone", "name": "codevetter.com", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "codevetter.com",
+            "state": "active-config-derived"
+          }
         ]
       },
       "pace": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "pace", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "pace",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "zone", "name": "heypace.app", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "heypace.app",
+            "state": "active-config-derived"
+          }
         ]
       },
       "posttrainllm": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "tinygpt", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "tinygpt",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "zone", "name": "posttrainllm.com", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "posttrainllm.com",
+            "state": "active-config-derived"
+          }
         ]
       },
       "fleet-workspace": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "saas-maker-home", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "reel-pipeline-artifacts", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-droid", "method": "legacy-worker", "state": "live-purpose-review" },
-          { "provider": "cloudflare", "kind": "worker", "name": "fleet-chatgpt-connections", "method": "wrangler-direct", "state": "configured-not-deployed" },
-          { "provider": "cloudflare", "kind": "tunnel", "name": "fleet.sassmaker.com", "method": "designated-host", "state": "live" },
-          { "provider": "github", "kind": "actions", "name": "sass-maker/workflows", "method": "repository-workflows", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "saas-maker-home",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reel-pipeline-artifacts",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "saasmaker-droid",
+            "method": "legacy-worker",
+            "state": "live-purpose-review"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "fleet-chatgpt-connections",
+            "method": "wrangler-direct",
+            "state": "configured-not-deployed"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "tunnel",
+            "name": "fleet.sassmaker.com",
+            "method": "designated-host",
+            "state": "live"
+          },
+          {
+            "provider": "github",
+            "kind": "actions",
+            "name": "sass-maker/workflows",
+            "method": "repository-workflows",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "retained" },
-          { "provider": "cloudflare", "kind": "r2", "name": "reel-artifacts", "state": "active" },
-          { "provider": "cloudflare", "kind": "kv", "name": "OAUTH_KV", "state": "configured-for-merged-gateway" },
-          { "provider": "cloudflare", "kind": "tunnel", "name": "fleet-postiz", "state": "down" },
-          { "provider": "cloudflare", "kind": "container", "name": "saasmaker-droid-sandbox", "state": "ready-purpose-review" },
-          { "provider": "cloudflare", "kind": "access-application", "name": "fleet.sassmaker.com", "state": "active-config-derived" },
-          { "provider": "cloudflare", "kind": "zone", "name": "sassmaker.com", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "saasmaker-db",
+            "state": "retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reel-artifacts",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "OAUTH_KV",
+            "state": "configured-for-merged-gateway"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "tunnel",
+            "name": "fleet-postiz",
+            "state": "down"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "container",
+            "name": "saasmaker-droid-sandbox",
+            "state": "ready-purpose-review"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "access-application",
+            "name": "fleet.sassmaker.com",
+            "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "sassmaker.com",
+            "state": "active-config-derived"
+          }
         ]
       },
       "drank": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "drank", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "drank",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "turnstile", "name": "drank (Spin)", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "drank (Spin)",
+            "state": "active"
+          }
         ]
       },
       "email-manager": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "email-manager", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "email-manager",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "email-manager-auth", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "email-manager-auth",
+            "state": "active"
+          }
         ]
       },
       "chatgpt-memory-insights": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "chatgpt-memory-insights", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "chatgpt-memory-insights",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
       "free-ai": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "free-ai-gateway", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "free-ai-gateway",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "free-ai-gateway-db", "state": "active" },
-          { "provider": "cloudflare", "kind": "kv", "name": "free-ai-gateway-HEALTH_KV", "state": "active" },
-          { "provider": "cloudflare", "kind": "kv", "name": "free-ai-gateway-HEALTH_KV_preview", "state": "preview" },
-          { "provider": "cloudflare", "kind": "durable-object", "name": "HealthStateDO", "state": "active" },
-          { "provider": "cloudflare", "kind": "durable-object", "name": "IpRateLimitDO", "state": "active" },
-          { "provider": "cloudflare", "kind": "durable-object", "name": "NeuronBudgetDO", "state": "active" },
-          { "provider": "cloudflare", "kind": "workers-ai", "name": "AI", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "free-ai-gateway-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "free-ai-gateway-HEALTH_KV",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "free-ai-gateway-HEALTH_KV_preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "HealthStateDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "IpRateLimitDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "NeuronBudgetDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          }
         ]
       },
       "psi-swarm": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "psi-swarm-web", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "psi-swarm-web",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
       "high-signal": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "high-signal-web", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "high-signal-api", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "high-signal-web",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "high-signal-api",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "high-signal-db", "state": "active" },
-          { "provider": "cloudflare", "kind": "service-binding", "name": "high-signal-api", "state": "active" },
-          { "provider": "cloudflare", "kind": "turnstile", "name": "high-signal (Spin)", "state": "active" },
-          { "provider": "cloudflare", "kind": "zone", "name": "highsignal.app", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "high-signal-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "high-signal-api",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "high-signal (Spin)",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "highsignal.app",
+            "state": "active-config-derived"
+          }
         ]
       },
       "everythingrated": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "everythingrated", "method": "wrangler-direct", "state": "live-retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "everythingrated",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "everythingrated-db", "state": "retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "everythingrated-db",
+            "state": "retained"
+          }
         ]
       },
       "research-papers": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "research-papers", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "research-papers",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "turnstile", "name": "research-papers (Spin)", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "research-papers (Spin)",
+            "state": "active"
+          }
         ]
       },
       "materia": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "materia", "method": "wrangler-direct", "state": "live-retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "materia",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
         ],
         "resources": []
       },
       "knowledge-base": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "knowledgebase-landing", "method": "git-connected", "state": "live" },
-          { "provider": "cloudflare", "kind": "pages", "name": "knowledgebase-app", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "knowledgebase-app", "method": "legacy-worker", "state": "live-purpose-review" },
-          { "provider": "cloudflare", "kind": "worker", "name": "knowledgebase", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "knowledgebase-landing",
+            "method": "git-connected",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "knowledgebase-app",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "knowledgebase-app",
+            "method": "legacy-worker",
+            "state": "live-purpose-review"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "knowledgebase",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "rag-db", "state": "active" },
-          { "provider": "cloudflare", "kind": "r2", "name": "rag-raw-docs", "state": "active" },
-          { "provider": "cloudflare", "kind": "queue", "name": "knowledgebase-ingest", "state": "active" },
-          { "provider": "cloudflare", "kind": "workflow", "name": "knowledgebase-ingest-workflow", "state": "active" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-embedding-384", "state": "active" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-embedding-768", "state": "active" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-embedding-1024", "state": "active" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-gemini-1536", "state": "active" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-bge-768", "state": "retained-unreferenced" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-bge-small-384", "state": "retained-unreferenced" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "rag-voyage-1024", "state": "retained-unreferenced" },
-          { "provider": "cloudflare", "kind": "analytics-engine", "name": "knowledgebase_rag_events", "state": "active" },
-          { "provider": "cloudflare", "kind": "workers-ai", "name": "AI", "state": "active" },
-          { "provider": "cloudflare", "kind": "service-binding", "name": "free-ai-gateway", "state": "active" },
-          { "provider": "cloudflare", "kind": "access-application", "name": "search.sassmaker.com", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "rag-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "rag-raw-docs",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "queue",
+            "name": "knowledgebase-ingest",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workflow",
+            "name": "knowledgebase-ingest-workflow",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-embedding-384",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-embedding-768",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-embedding-1024",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-gemini-1536",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-bge-768",
+            "state": "retained-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-bge-small-384",
+            "state": "retained-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-voyage-1024",
+            "state": "retained-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "analytics-engine",
+            "name": "knowledgebase_rag_events",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "free-ai-gateway",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "access-application",
+            "name": "search.sassmaker.com",
+            "state": "active-config-derived"
+          }
         ]
       },
       "significanthobbies": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "significanthobbies", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "significanthobbies",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "significanthobbies", "state": "active" },
-          { "provider": "cloudflare", "kind": "d1", "name": "significanthobbies-preview", "state": "preview" },
-          { "provider": "cloudflare", "kind": "workers-ai", "name": "AI", "state": "active" },
-          { "provider": "cloudflare", "kind": "zone", "name": "significanthobbies.com", "state": "active-config-derived" },
-          { "provider": "turso", "kind": "database", "name": "significanthobbies", "state": "rollback-held-unverified" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "significanthobbies",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "significanthobbies-preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "significanthobbies.com",
+            "state": "active-config-derived"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "significanthobbies",
+            "state": "rollback-held-unverified"
+          }
         ]
       },
       "india-standards": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "india-numbers", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "india-numbers",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "turnstile", "name": "india-standards (Spin)", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "india-standards (Spin)",
+            "state": "active"
+          }
         ]
       },
       "anime-list": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "anime-list", "method": "git-connected", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "mal-api", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "anime-list",
+            "method": "git-connected",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "mal-api",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "anime-list", "state": "active" },
-          { "provider": "turso", "kind": "database", "name": "mal-watchlist", "state": "rollback-held-unverified" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "anime-list",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "mal-watchlist",
+            "state": "rollback-held-unverified"
+          }
         ]
       },
       "chess": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "chess-9a0", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "chess-9a0",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
       "looptv": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "looptv", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "looptv",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
       "reader": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "reader", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reader",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "reader", "state": "active" },
-          { "provider": "cloudflare", "kind": "d1", "name": "reader-preview", "state": "preview-unreferenced" },
-          { "provider": "cloudflare", "kind": "r2", "name": "reader-pdfs", "state": "active" },
-          { "provider": "turso", "kind": "database", "name": "reader", "state": "rollback-held-unverified" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "reader",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "reader-preview",
+            "state": "preview-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reader-pdfs",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "reader",
+            "state": "rollback-held-unverified"
+          }
         ]
       },
       "swe-interview-prep": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "swe-interview-prep", "method": "git-connected", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "swe-interview-prep",
+            "method": "git-connected",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "swe-interview-prep", "state": "active" },
-          { "provider": "cloudflare", "kind": "d1", "name": "swe-interview-prep-preview", "state": "preview" },
-          { "provider": "cloudflare", "kind": "r2", "name": "swe-interview-prep-assets", "state": "active-unreferenced" },
-          { "provider": "turso", "kind": "database", "name": "swe-interview-prep", "state": "rollback-held-unverified" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "swe-interview-prep",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "swe-interview-prep-preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "swe-interview-prep-assets",
+            "state": "active-unreferenced"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "swe-interview-prep",
+            "state": "rollback-held-unverified"
+          }
         ]
       },
       "calorie": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "calorie", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "calorie",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "calorie", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "calorie",
+            "state": "active"
+          }
         ]
       },
       "setline": {
-        "updatedAt": "2026-08-11",
-        "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "setline", "method": "wrangler-direct", "state": "live" }
-        ],
-        "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "setline", "state": "active" }
-        ]
+        "updatedAt": "2026-08-16",
+        "deployments": [],
+        "resources": []
+      },
+      "kith": {
+        "updatedAt": "2026-08-16",
+        "deployments": [],
+        "resources": [],
+        "notes": "No Cloudflare resources. Local iOS binary mirrored to the personal Apple team's private iCloud container."
       },
       "rolepatch": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "resume-tailor", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "resume-tailor",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "rolepatch", "state": "active" },
-          { "provider": "cloudflare", "kind": "browser-rendering", "name": "BROWSER", "state": "active" },
-          { "provider": "cloudflare", "kind": "turnstile", "name": "rolepatch (Spin)", "state": "active" },
-          { "provider": "cloudflare", "kind": "zone", "name": "rolepatch.com", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "rolepatch",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "browser-rendering",
+            "name": "BROWSER",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "rolepatch (Spin)",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "rolepatch.com",
+            "state": "active-config-derived"
+          }
         ]
       },
       "karte": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "linkchat", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "email-worker", "name": "karte-email", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "linkchat",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-worker",
+            "name": "karte-email",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "linkchat-auth", "state": "active" },
-          { "provider": "cloudflare", "kind": "r2", "name": "linkchat-images", "state": "active" },
-          { "provider": "cloudflare", "kind": "r2", "name": "linkchat-cache", "state": "active" },
-          { "provider": "cloudflare", "kind": "durable-object", "name": "DOQueueHandler", "state": "active" },
-          { "provider": "cloudflare", "kind": "durable-object", "name": "RateLimiterDO", "state": "active" },
-          { "provider": "cloudflare", "kind": "analytics-engine", "name": "ANALYTICS", "state": "active" },
-          { "provider": "cloudflare", "kind": "service-binding", "name": "knowledgebase", "state": "active" },
-          { "provider": "cloudflare", "kind": "turnstile", "name": "Karte contact (Spin)", "state": "active" },
-          { "provider": "cloudflare", "kind": "email-routing", "name": "*@karte.cc catch-all", "state": "configured-dashboard-unverified" },
-          { "provider": "cloudflare", "kind": "zone", "name": "karte.cc", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "linkchat-auth",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "linkchat-images",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "linkchat-cache",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "DOQueueHandler",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "RateLimiterDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "analytics-engine",
+            "name": "ANALYTICS",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "knowledgebase",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "Karte contact (Spin)",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "*@karte.cc catch-all",
+            "state": "configured-dashboard-unverified"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "karte.cc",
+            "state": "active-config-derived"
+          }
         ]
       },
       "starboard": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "starboard", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "starboard",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "starboard", "state": "active" },
-          { "provider": "cloudflare", "kind": "vectorize", "name": "starboard-repos", "state": "active" },
-          { "provider": "cloudflare", "kind": "workers-ai", "name": "AI", "state": "active" },
-          { "provider": "cloudflare", "kind": "service-binding", "name": "knowledgebase", "state": "active" },
-          { "provider": "turso", "kind": "database", "name": "starboard", "state": "rollback-held-unverified" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "starboard",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "starboard-repos",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "knowledgebase",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "starboard",
+            "state": "rollback-held-unverified"
+          }
         ]
       },
       "ai-game": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "aliveville", "method": "wrangler-direct", "state": "live-retained" },
-          { "provider": "cloudflare", "kind": "worker", "name": "aliveville", "method": "legacy-worker", "state": "live-retained-purpose-review" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "aliveville",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "aliveville",
+            "method": "legacy-worker",
+            "state": "live-retained-purpose-review"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "zone", "name": "aliveville.com", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "aliveville.com",
+            "state": "active-config-derived"
+          }
         ]
       },
       "protein-index": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "protein-index", "method": "wrangler-direct", "state": "live-retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "protein-index",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "protein-index", "state": "retained" },
-          { "provider": "cloudflare", "kind": "r2", "name": "protein-index-labels", "state": "retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "protein-index",
+            "state": "retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "protein-index-labels",
+            "state": "retained"
+          }
         ]
       },
       "veg-protein-food": {
         "updatedAt": "2026-08-15",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "veg-protein-food", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "veg-protein-food",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
       "app-health": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "app-health-worker", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "app-health-worker",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "app-health-control-plane", "state": "active" },
-          { "provider": "cloudflare", "kind": "analytics-engine", "name": "app_health_endpoint_v1", "state": "active" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "app-health-control-plane",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "analytics-engine",
+            "name": "app_health_endpoint_v1",
+            "state": "active"
+          }
         ]
       },
       "mashup": {
@@ -2526,14 +3440,26 @@
       "saas-ideas": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "saas-ideas", "method": "git-connected", "state": "live-retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "saas-ideas",
+            "method": "git-connected",
+            "state": "live-retained"
+          }
         ],
         "resources": []
       },
       "motion": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "motion", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "motion",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
@@ -2541,23 +3467,45 @@
         "updatedAt": "2026-08-11",
         "deployments": [],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "truehire", "state": "retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "truehire",
+            "state": "retained"
+          }
         ]
       },
       "today-little-log": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "today-little-log", "method": "unknown", "state": "deleted" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "today-little-log",
+            "method": "unknown",
+            "state": "deleted"
+          }
         ],
         "resources": []
       },
       "open-historia": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "open-historia", "method": "wrangler-direct", "state": "live-retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "open-historia",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "open-historia", "state": "retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "open-historia",
+            "state": "retained"
+          }
         ]
       },
       "companion-robot": {
@@ -2578,47 +3526,106 @@
       "web-playables": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "web-playables", "method": "git-connected", "state": "live-retained" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "web-playables",
+            "method": "git-connected",
+            "state": "live-retained"
+          }
         ],
         "resources": []
       },
       "what-it-takes-to-win": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "success-by-26", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "success-by-26",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": []
       },
       "sarthakagrawal-personal": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "sarthakagrawal", "method": "wrangler-direct", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "sarthakagrawal",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "zone", "name": "sarthakagrawal.dev", "state": "active-config-derived" }
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "sarthakagrawal.dev",
+            "state": "active-config-derived"
+          }
         ]
       },
       "agent-office": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "office-os", "method": "wrangler-direct", "state": "live" },
-          { "provider": "local", "kind": "macos-app", "name": "AgentOffice.app", "method": "local-package", "state": "local-only" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "office-os",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "local",
+            "kind": "macos-app",
+            "name": "AgentOffice.app",
+            "method": "local-package",
+            "state": "local-only"
+          }
         ],
         "resources": []
       },
       "indulge": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "indulge", "method": "wrangler-direct", "state": "live" },
-          { "provider": "apple", "kind": "app-store-connect", "name": "Indulge", "method": "manual-xcode", "state": "blocked-on-app-record" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "indulge",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Indulge",
+            "method": "manual-xcode",
+            "state": "blocked-on-app-record"
+          }
         ],
         "resources": []
       },
       "local-ai-video-studio": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "local-ai-video-studio", "method": "wrangler-direct", "state": "live" },
-          { "provider": "local", "kind": "macos-app", "name": "LocalVideoStudio", "method": "swift-build", "state": "local-only" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "local-ai-video-studio",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "local",
+            "kind": "macos-app",
+            "name": "LocalVideoStudio",
+            "method": "swift-build",
+            "state": "local-only"
+          }
         ],
         "resources": []
       },
@@ -2630,184 +3637,449 @@
       "reddit-insights": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "pages", "name": "reddit-insights", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "reddit-proxy", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "reddit-insights-daily-collector", "method": "wrangler-direct", "state": "configured-not-deployed" }
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "reddit-insights",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reddit-proxy",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reddit-insights-daily-collector",
+            "method": "wrangler-direct",
+            "state": "configured-not-deployed"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "r2", "name": "reddit-insights-archive", "state": "configured-not-provisioned" }
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reddit-insights-archive",
+            "state": "configured-not-provisioned"
+          }
         ]
       },
       "verified-bases": {
         "updatedAt": "2026-08-11",
         "deployments": [
-          { "provider": "cloudflare", "kind": "worker", "name": "verified-bases-api", "method": "legacy-worker", "state": "live-retained-unrouted" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "verified-bases-api",
+            "method": "legacy-worker",
+            "state": "live-retained-unrouted"
+          }
         ],
         "resources": [
-          { "provider": "cloudflare", "kind": "d1", "name": "verified-bases-db", "state": "retained-unowned-runtime" },
-          { "provider": "cloudflare", "kind": "r2", "name": "verified-bases-delivery", "state": "retained-unowned-runtime" },
-          { "provider": "cloudflare", "kind": "kv", "name": "RATELIMIT", "state": "active-bound" }
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "verified-bases-db",
+            "state": "retained-unowned-runtime"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "verified-bases-delivery",
+            "state": "retained-unowned-runtime"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "RATELIMIT",
+            "state": "active-bound"
+          }
         ]
+      },
+      "anchor": {
+        "updatedAt": "2026-08-16",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "anchor-landing",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [],
+        "notes": "Cloudflare Pages project anchor-landing with custom domain anchor.significanthobbies.com (CNAME in the significanthobbies.com zone, proxied). No D1, KV, R2 or Workers. The Apple apps are local binaries with no provider resources."
       }
     },
     "unownedResources": [
-      { "provider": "cloudflare", "kind": "tunnel", "name": "assistant-mac-server", "state": "owner-unverified-healthy", "updatedAt": "2026-08-11" }
+      {
+        "provider": "cloudflare",
+        "kind": "tunnel",
+        "name": "assistant-mac-server",
+        "state": "owner-unverified-healthy",
+        "updatedAt": "2026-08-11"
+      }
     ]
   },
   "geoIdentities": [
     {
       "id": "agent-office",
       "name": "Office OS",
-      "aliases": ["Agent Office"],
+      "aliases": [
+        "Agent Office"
+      ],
       "origin": "https://office-os.sassmaker.com",
-      "source": { "state": "internal", "path": "agent-office" },
-      "docs": { "state": "landing-only", "url": "https://office-os.sassmaker.com" },
-      "officialProfiles": ["https://github.com/sass-maker/agent-office"],
-      "availability": { "primary": "internal-only", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "source": {
+        "state": "internal",
+        "path": "agent-office"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://office-os.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/agent-office"
+      ],
+      "availability": {
+        "primary": "internal-only",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     },
     {
       "id": "codevetter",
       "name": "CodeVetter",
       "aliases": [],
       "origin": "https://codevetter.com",
-      "source": { "state": "public", "url": "https://github.com/Codevetter/codevetter" },
-      "docs": { "state": "public", "url": "https://codevetter.com/docs/" },
-      "officialProfiles": ["https://github.com/Codevetter/codevetter"],
-      "availability": { "primary": "direct-download", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Codevetter/codevetter"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://codevetter.com/docs/"
+      },
+      "officialProfiles": [
+        "https://github.com/Codevetter/codevetter"
+      ],
+      "availability": {
+        "primary": "direct-download",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "pace",
       "name": "HeyPace",
-      "aliases": ["Pace"],
+      "aliases": [
+        "Pace"
+      ],
       "origin": "https://heypace.app",
-      "source": { "state": "public", "url": "https://github.com/HeyPace/pace" },
-      "docs": { "state": "public", "url": "https://heypace.app/docs/" },
-      "officialProfiles": ["https://github.com/HeyPace/pace"],
-      "availability": { "primary": "direct-download", "appStore": "not-applicable" },
-      "pricing": { "state": "published", "url": "https://heypace.app" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/HeyPace/pace"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://heypace.app/docs/"
+      },
+      "officialProfiles": [
+        "https://github.com/HeyPace/pace"
+      ],
+      "availability": {
+        "primary": "direct-download",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "published",
+        "url": "https://heypace.app"
+      }
     },
     {
       "id": "posttrainllm",
       "name": "PostTrainLLM",
       "aliases": [],
       "origin": "https://posttrainllm.com",
-      "source": { "state": "public", "url": "https://github.com/PostTrainLLM/posttrainllm" },
-      "docs": { "state": "public", "url": "https://posttrainllm.com/docs/" },
-      "officialProfiles": ["https://github.com/PostTrainLLM/posttrainllm"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/PostTrainLLM/posttrainllm"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://posttrainllm.com/docs/"
+      },
+      "officialProfiles": [
+        "https://github.com/PostTrainLLM/posttrainllm"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "fleet-workspace",
       "name": "SaaS Maker",
-      "aliases": ["Fleet Workspace"],
+      "aliases": [
+        "Fleet Workspace"
+      ],
       "origin": "https://sassmaker.com",
-      "source": { "state": "internal", "path": "foundry/ops" },
-      "docs": { "state": "public", "url": "https://sassmaker.com/learnings" },
-      "officialProfiles": ["https://github.com/sass-maker"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "source": {
+        "state": "internal",
+        "path": "foundry/ops"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://sassmaker.com/learnings"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     },
     {
       "id": "drank",
       "name": "Drank",
       "aliases": [],
       "origin": "https://domains.sassmaker.com",
-      "source": { "state": "internal", "path": "foundry/helpers/drank" },
-      "docs": { "state": "landing-only", "url": "https://domains.sassmaker.com" },
-      "officialProfiles": ["https://github.com/sass-maker"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "source": {
+        "state": "internal",
+        "path": "foundry/helpers/drank"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://domains.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     },
     {
       "id": "email-manager",
       "name": "Email Manager",
       "aliases": [],
       "origin": "https://mail.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/email-manager" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/email-manager#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/email-manager"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/email-manager"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/email-manager#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/email-manager"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "chatgpt-memory-insights",
       "name": "Memory Map",
-      "aliases": ["ChatGPT Memory Insights"],
+      "aliases": [
+        "ChatGPT Memory Insights"
+      ],
       "origin": "https://chatgpt.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/chatgpt-memory-insights"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "free-ai",
       "name": "Free AI",
-      "aliases": ["AI Gateway"],
+      "aliases": [
+        "AI Gateway"
+      ],
       "origin": "https://ai-gateway.sassmaker.com",
-      "source": { "state": "public", "url": "https://github.com/sass-maker/free-ai" },
-      "docs": { "state": "public", "url": "https://ai-gateway.sassmaker.com/about/" },
-      "officialProfiles": ["https://github.com/sass-maker/free-ai"],
-      "availability": { "primary": "api", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/free-ai"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://ai-gateway.sassmaker.com/about/"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/free-ai"
+      ],
+      "availability": {
+        "primary": "api",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "psi-swarm",
       "name": "PSI Swarm",
-      "aliases": ["psi-swarm"],
+      "aliases": [
+        "psi-swarm"
+      ],
       "origin": "https://performance.sassmaker.com",
-      "source": { "state": "internal", "path": "foundry/helpers/psi-swarm" },
-      "docs": { "state": "landing-only", "url": "https://performance.sassmaker.com" },
-      "officialProfiles": ["https://github.com/sass-maker"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "source": {
+        "state": "internal",
+        "path": "foundry/helpers/psi-swarm"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://performance.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     },
     {
       "id": "high-signal",
       "name": "High Signal",
       "aliases": [],
       "origin": "https://highsignal.app",
-      "source": { "state": "public", "url": "https://github.com/High-Signal-App/high-signal" },
-      "docs": { "state": "public", "url": "https://highsignal.app/api-docs" },
-      "officialProfiles": ["https://github.com/High-Signal-App/high-signal"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/High-Signal-App/high-signal"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://highsignal.app/api-docs"
+      },
+      "officialProfiles": [
+        "https://github.com/High-Signal-App/high-signal"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "reddit-insights",
       "name": "Reddit Insights",
-      "aliases": ["Research Subreddit"],
+      "aliases": [
+        "Research Subreddit"
+      ],
       "origin": "https://reddit-insights.highsignal.app",
-      "source": { "state": "internal", "path": "reddit-insights" },
-      "docs": { "state": "landing-only", "url": "https://reddit-insights.highsignal.app" },
-      "officialProfiles": ["https://github.com/High-Signal-App/research-subreddit"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "internal",
+        "path": "reddit-insights"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://reddit-insights.highsignal.app"
+      },
+      "officialProfiles": [
+        "https://github.com/High-Signal-App/research-subreddit"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "research-papers",
       "name": "Research Papers",
-      "aliases": ["researchPapers"],
+      "aliases": [
+        "researchPapers"
+      ],
       "origin": "https://papers.highsignal.app",
-      "source": { "state": "public", "url": "https://github.com/High-Signal-App/research-papers" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/High-Signal-App/research-papers#readme" },
-      "officialProfiles": ["https://github.com/High-Signal-App/research-papers"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/High-Signal-App/research-papers"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/High-Signal-App/research-papers#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/High-Signal-App/research-papers"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "knowledge-base",
       "name": "Knowledge Base",
-      "aliases": ["Knowledgebase"],
+      "aliases": [
+        "Knowledgebase"
+      ],
       "origin": "https://knowledgebase.sassmaker.com",
-      "source": { "state": "public", "url": "https://github.com/sass-maker/knowledge-base" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/sass-maker/knowledge-base#readme" },
-      "officialProfiles": ["https://github.com/sass-maker/knowledge-base"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/knowledge-base"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/sass-maker/knowledge-base#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/knowledge-base"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "indulge",
@@ -2825,192 +4097,421 @@
       "name": "Local AI Video Studio",
       "aliases": [],
       "origin": "https://local-ai-video-studio.sassmaker.com",
-      "source": { "state": "internal", "path": "local-ai-video-studio" },
-      "docs": { "state": "landing-only", "url": "https://local-ai-video-studio.sassmaker.com" },
-      "officialProfiles": ["https://github.com/sass-maker/local-ai-video-studio"],
-      "availability": { "primary": "internal-only", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "source": {
+        "state": "internal",
+        "path": "local-ai-video-studio"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://local-ai-video-studio.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/local-ai-video-studio"
+      ],
+      "availability": {
+        "primary": "internal-only",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     },
     {
       "id": "significanthobbies",
       "name": "Significant Hobbies",
       "aliases": [],
       "origin": "https://significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/significanthobbies" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/significanthobbies#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/significanthobbies"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/significanthobbies"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/significanthobbies#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/significanthobbies"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "india-standards",
       "name": "India Standards",
       "aliases": [],
       "origin": "https://india-standards.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/india-standards" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/india-standards#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/india-standards"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/india-standards"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/india-standards#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/india-standards"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "anime-list",
       "name": "Anime List",
-      "aliases": ["Anime List by Significant Hobbies", "MAL Explorer", "Shelf"],
+      "aliases": [
+        "Anime List by Significant Hobbies",
+        "MAL Explorer",
+        "Shelf"
+      ],
       "origin": "https://anime.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/anime-list" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/anime-list#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/anime-list"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/anime-list"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/anime-list#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/anime-list"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "chess",
       "name": "Chess Coach",
-      "aliases": ["Chess"],
+      "aliases": [
+        "Chess"
+      ],
       "origin": "https://chess.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/chess" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/chess#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/chess"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/chess"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/chess#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/chess"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "looptv",
       "name": "LoopTV",
       "aliases": [],
       "origin": "https://tv.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/looptv" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/looptv#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/looptv"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/looptv"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/looptv#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/looptv"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "reader",
       "name": "Reader",
       "aliases": [],
       "origin": "https://read.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/reader" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/reader#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/reader"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/reader"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/reader#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/reader"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "swe-interview-prep",
       "name": "SWE Interview Prep",
       "aliases": [],
       "origin": "https://learn.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/swe-interview-prep" },
-      "docs": { "state": "public", "url": "https://learn.significanthobbies.com" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/swe-interview-prep"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/swe-interview-prep"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://learn.significanthobbies.com"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/swe-interview-prep"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "calorie",
       "name": "Calorie",
       "aliases": [],
       "origin": "https://calorie.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/calorie" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/calorie#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/calorie"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/calorie"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/calorie#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/calorie"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "setline",
       "name": "Setline",
       "aliases": [],
       "origin": "https://setline.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/setline" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/setline#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/setline"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/setline"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/setline#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/setline"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "rolepatch",
       "name": "RolePatch",
       "aliases": [],
       "origin": "https://rolepatch.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/rolepatch" },
-      "docs": { "state": "public", "url": "https://rolepatch.com/blog" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/rolepatch"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/rolepatch"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://rolepatch.com/blog"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/rolepatch"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "karte",
       "name": "Karte",
       "aliases": [],
       "origin": "https://karte.cc",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/karte" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/karte#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/karte"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "free", "url": "https://karte.cc" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/karte"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/karte#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/karte"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "free",
+        "url": "https://karte.cc"
+      }
     },
     {
       "id": "starboard",
       "name": "Starboard",
       "aliases": [],
       "origin": "https://starboard.codevetter.com",
-      "source": { "state": "public", "url": "https://github.com/Codevetter/starboard" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Codevetter/starboard#readme" },
-      "officialProfiles": ["https://github.com/Codevetter/starboard"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Codevetter/starboard"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Codevetter/starboard#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Codevetter/starboard"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "app-health",
       "name": "App Health",
       "aliases": [],
       "origin": "https://health.sassmaker.com",
-      "source": { "state": "public", "url": "https://github.com/sass-maker/app-health" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/sass-maker/app-health#readme" },
-      "officialProfiles": ["https://github.com/sass-maker/app-health"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/app-health"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/sass-maker/app-health#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/app-health"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "motion",
       "name": "Motion",
       "aliases": [],
       "origin": "https://motion.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/motion" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/motion#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/motion"],
-      "availability": { "primary": "internal-only", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/motion"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/motion#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/motion"
+      ],
+      "availability": {
+        "primary": "internal-only",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     },
     {
       "id": "what-it-takes-to-win",
       "name": "What It Takes to Win",
       "aliases": [],
       "origin": "https://paths.significanthobbies.com",
-      "source": { "state": "public", "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win#readme" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/what-it-takes-to-win"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-declared" }
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/what-it-takes-to-win"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     },
     {
       "id": "sarthakagrawal-personal",
       "name": "Sarthak Agrawal",
-      "aliases": ["sarthakagrawal.dev", "sarthakagrawal927"],
+      "aliases": [
+        "sarthakagrawal.dev",
+        "sarthakagrawal927"
+      ],
       "origin": "https://sarthakagrawal.dev",
-      "source": { "state": "public", "url": "https://github.com/sarthakagrawal927/portfolio" },
-      "docs": { "state": "repository-readme", "url": "https://github.com/sarthakagrawal927/portfolio#readme" },
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sarthakagrawal927/portfolio"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/sarthakagrawal927/portfolio#readme"
+      },
       "officialProfiles": [
         "https://github.com/sarthakagrawal927/portfolio",
         "https://www.linkedin.com/in/sarthakagrawal927",
         "https://x.com/sarthakcodes",
         "https://huggingface.co/sarthakagrawal927"
       ],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
     }
   ]
 }

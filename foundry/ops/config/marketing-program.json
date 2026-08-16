@@ -2100,6 +2100,19 @@
       "channels": []
     },
     {
+      "slug": "kith",
+      "name": "Kith",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
       "slug": "rolepatch",
       "name": "RolePatch",
       "aliases": [
@@ -2312,6 +2325,19 @@
       "publicMarketing": false,
       "cta": "Explore the research observatory",
       "cadence": "quarterly",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "anchor",
+      "name": "Anchor",
+      "aliases": [],
+      "mode": "focus",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
       "contentBase": null,
       "channels": []
     },

@@ -13,10 +13,10 @@ Techniques that are genuinely novel in this project, ordered from most unfamilia
 
 ---
 
-## Lighthouse 12 programmatic API (vs PSI HTTP API)
+## Lighthouse 13 programmatic API (vs PSI HTTP API)
 - What: Call Lighthouse directly as a Node module (`import lighthouse from 'lighthouse'`) instead of hitting the PageSpeed Insights REST endpoint.
 - Why here: TBD
-- Gotcha (from code): Node 24 breaks Lighthouse 12 via an internal `TraceEngineResult` performance mark — `engines` field in both `package.json` and `cli/package.json` hard-gates to `>=20 <24`. The runner passes `{ port: chrome.port, logLevel: 'silent', output: 'json' }` with an inline config object rather than a file (`runner.ts:58-74`).
+- Gotcha (from code): Upgraded from Lighthouse 12 to 13 to eliminate the `extract-zip@2.0.1` transitive dependency (GHSA-jmr9-qjv8-65gv). Lighthouse 13 uses `puppeteer-core@25` → `@puppeteer/browsers@3` → `modern-tar` instead of `extract-zip`. Requires Node >=22.19 and supports Node 24. The runner passes `{ port: chrome.port, logLevel: 'silent', output: 'json' }` with an inline config object rather than a file (`runner.ts:58-74`).
 - Source: https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md
 
 ---

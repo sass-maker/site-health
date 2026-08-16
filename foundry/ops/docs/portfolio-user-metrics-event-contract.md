@@ -41,8 +41,26 @@ No product should emit a sixth event or rename these.
 | SignificantHobbies | Hobby tracked | `hobby-tracked` |
 | Reader | Article saved | `article-saved` |
 | Starboard | Star added | `star-added` |
+| Anime List | Anime rated | `anime-rated` |
+| SWE Interview Prep | Practice session completed | `practice-completed` |
+| LoopTV | Video watched | `video-watched` |
+| High Signal | Brief read | `brief-read` |
+| India Standards | Calculation run | `calculation-run` |
+| CodeVetter | Review completed | `review-completed` |
+| App Health | Health check run | `check-run` |
+| Motion | Game played | `game-played` |
+| Free AI | Generation requested | `generation-requested` |
+| What It Takes to Win | Article read | `article-read` |
+| Induldge | Indulgence logged | `indulgence-logged` |
+| Field Track | Field session logged | `session-logged` |
+| Pace | Lesson completed | `lesson-completed` |
+| Knowledge Base | Query answered | `query-answered` |
+| ChatGPT Memory Insights | Memory graph viewed | `graph-viewed` |
+| PostTrainLLM | Training run completed | `run-completed` |
 
 Products not listed here should define their core action before instrumenting.
+Products without web frontends (e.g. reddit-insights) are exempt from
+PostHog instrumentation.
 
 ## Metric labels
 
@@ -82,6 +100,39 @@ The `user-metrics` outcome family maps events to these metric labels:
 5. **No cross-product user tracking.** Each product's PostHog events are
    grouped by `project_id`. The collector does not join users across
    products. D1 queries are per-product with no cross-database joins.
+
+## Traffic filtering
+
+The PostHog collector applies property filters to exclude non-production
+traffic so development, CI, and synthetic monitoring events cannot
+contaminate the aggregate user-metrics ledger:
+
+| Filter | Property | Operator | Excluded values |
+|---|---|---|---|
+| Non-production environment | `$environment` | `is_not` | `production` |
+| Test/CI library markers | `$lib` | `is_not` | `test`, `ci` |
+| Synthetic monitoring | `synthetic_monitor` | `is_not` | `true` |
+
+Products should set `$environment` to `production` or `development` via
+the PostHog init config. Synthetic monitors should set
+`synthetic_monitor: true` on their events.
+
+## Cost guardrail
+
+The PostHog collector includes a configurable event-volume guardrail
+(`maxEventsPerProject`, default 100,000). When a project's total event
+count across all metrics exceeds the threshold, the collector emits a
+`costWarning` in the result but still returns the observation. This
+provides early warning before PostHog billing limits are exceeded.
+
+## Cross-source disagreement
+
+When both PostHog and D1 provide data for the same metric (e.g.
+`Accounts`), the Fleet Console surfaces the disagreement rather than
+silently choosing one value. The `buildUserMetricsRows` function
+compares the latest PostHog and D1 observations and flags discrepancies
+where values differ by more than 10%. The Console renders a warning
+indicator with both values and the variance percentage.
 
 ## Collector scripts
 

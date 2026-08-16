@@ -124,3 +124,33 @@ owner explicitly overrides.
 - **WHEN** the owner explicitly overrides a rejected platform for one campaign
 - **THEN** the matching function includes it with a recorded override reason
 
+### Requirement: Audience-fit ordering within matched buckets
+
+The matching function SHALL order platforms within each bucket (accredited,
+seed, articleComponent) by audience-fit score (descending) so the most
+relevant platforms for a given product surface first. The artifact-type
+routing remains the outer filter; audience-fit only reorders within a bucket.
+
+#### Scenario: Platforms with matching audience tags rank first
+
+- **WHEN** a product has `productAudienceTags: ['ai', 'developer-tools']` and
+  two seed platforms match the artifact type, one with `audienceTags: ['ai']`
+  and one with `audienceTags: ['fitness']`
+- **THEN** the AI-tagged platform appears before the fitness-tagged platform
+  in the seed bucket
+- **AND** the AI-tagged platform's `audienceFit` is 1 and
+  `audienceMatchedTags` is `['ai']`
+
+#### Scenario: Missing audience tags means unclassified, not no-fit
+
+- **WHEN** either the platform or the product has no audience tags
+- **THEN** the platform's `audienceFit` is 0 and
+  `audienceUnclassified` is true
+- **AND** the platform is not excluded from matching (artifact-type routing
+  still applies)
+
+#### Scenario: Product audience tags are echoed in the result
+
+- **WHEN** `productAudienceTags` is passed to `matchPlatforms`
+- **THEN** the result includes `productAudienceTags` for auditability
+

@@ -486,6 +486,7 @@ function visibilityOutcomeEvidence(home) {
     };
     const family = project.families[observation.family] ?? {
       latest: null,
+      latestByProvider: {},
       latestIndexInspection: null,
       metrics: new Map(),
       observations: 0,
@@ -493,6 +494,11 @@ function visibilityOutcomeEvidence(home) {
     family.latest = !family.latest || Date.parse(observation.observedAt) >= Date.parse(family.latest.observedAt)
       ? observation
       : family.latest;
+    // Track latest observation per provider for cross-source comparison
+    const prev = family.latestByProvider[observation.provider];
+    if (!prev || Date.parse(observation.observedAt) >= Date.parse(prev.observedAt)) {
+      family.latestByProvider[observation.provider] = observation;
+    }
     family.observations += 1;
     if (
       observation.family === 'search' &&
@@ -512,6 +518,7 @@ function visibilityOutcomeEvidence(home) {
       values.series.push({
         observedAt: observation.observedAt,
         value: metric.value,
+        provider: observation.provider,
       });
       family.metrics.set(metric.label, values);
     }
@@ -525,6 +532,7 @@ function visibilityOutcomeEvidence(home) {
         familyId,
         {
           latest: family.latest,
+          latestByProvider: family.latestByProvider,
           latestIndexInspection: family.latestIndexInspection,
           observations: family.observations,
           metrics: [...family.metrics.values()].map((metric) => ({
@@ -1512,11 +1520,15 @@ function buildUserMetricsRows(projectOutputs, userMetricsByProject) {
           d7Retention: null,
           coreActions: null,
           provider: null,
+          providers: [],
+          discrepancies: [],
           observedAt: null,
           period: null,
         };
       }
       const latest = family.latest;
+      const byProvider = family.latestByProvider ?? {};
+      const providerList = Object.keys(byProvider).sort();
       const metricByLabel = (label) => {
         const series = family.metrics.get(label);
         if (!series) return null;
@@ -1525,6 +1537,33 @@ function buildUserMetricsRows(projectOutputs, userMetricsByProject) {
           ? { value: latestPoint.value, observedAt: latestPoint.observedAt, unit: series.unit }
           : null;
       };
+      // Surface PostHog-vs-D1 disagreement on shared metrics (e.g. Accounts)
+      const discrepancies = [];
+      const posthogLatest = byProvider['posthog-insights'];
+      const d1Latest = byProvider['d1-aggregate'];
+      if (posthogLatest && d1Latest) {
+        for (const label of ['Accounts']) {
+          const phMetric = posthogLatest.metrics.find((m) => m.label === label);
+          const d1Metric = d1Latest.metrics.find((m) => m.label === label);
+          if (phMetric && d1Metric) {
+            const phVal = Number(phMetric.value);
+            const d1Val = Number(d1Metric.value);
+            // Flag disagreement when values differ by more than 10%
+            const maxVal = Math.max(phVal, d1Val);
+            if (maxVal > 0) {
+              const diff = Math.abs(phVal - d1Val) / maxVal;
+              if (diff > 0.1) {
+                discrepancies.push({
+                  metric: label,
+                  posthogValue: phVal,
+                  d1Value: d1Val,
+                  variance: Number((diff * 100).toFixed(1)),
+                });
+              }
+            }
+          }
+        }
+      }
       return {
         projectId: project.projectId,
         name: project.name,
@@ -1539,6 +1578,8 @@ function buildUserMetricsRows(projectOutputs, userMetricsByProject) {
         d7Retention: metricByLabel('D7 retention'),
         coreActions: metricByLabel('Core actions'),
         provider: latest.provider,
+        providers: providerList,
+        discrepancies,
         observedAt: latest.observedAt,
         period: latest.period,
       };
