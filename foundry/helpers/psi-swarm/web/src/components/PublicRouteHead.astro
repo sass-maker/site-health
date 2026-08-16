@@ -38,6 +38,4 @@ const schema = {
 <meta name="twitter:description" content={meta.description} />
 <meta name="twitter:image" content={socialImage} />
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-<script is:inline>
-  !function(t,e){var o,n,a,r;function s(e){(o=t._phq=t._phq||[]).push([].slice.call(e))}o=t.posthog=function(e,n){s([e,n])},o.__loaded||(a=e.createElement("script"),a.type="text/javascript",a.async=!0,a.crossOrigin="anonymous",a.src="https://us.i.posthog.com/array.js",r=e.getElementsByTagName("script")[0],r.parentNode.insertBefore(a,r),o.__loaded=!0),t.posthog.init("phc_qgiAarw4Co4pw9fz3Fxj4UJaHmqzFetqs4JrXhGc35Nd",{api_host:"https://us.i.posthog.com",person_profiles:"always",capture_pageview:!1,autocapture:!1,loaded:function(){t.posthog.capture("page_view",{project_id:"psi-swarm"})}})}(window,document);
-</script>
+<script async src="/scripts/posthog.js"></script>

@@ -1,25 +1,17 @@
 #!/usr/bin/env node
 /**
  * Validate that every maintained Fleet product with a hosted web surface
- * emits the shared `page_view` + `project_id` contract, or is explicitly
- * not applicable.
+ * emits the shared `page_view` contract, or is explicitly not applicable.
  *
  * Usage:
  *   node user-metrics-coverage.mjs [--catalog <path>] [--root <workspace>]
  */
 
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-
-const PAGE_VIEW_MARKERS = [
-  'trackPageView(',
-  'capture("page_view"',
-  "capture('page_view'",
-  'capture(`page_view`',
-];
+import { execFileSync } from 'node:child_process';
 
 const FLEET_OWNED = new Set(['drank', 'psi-swarm', 'fleet-workspace', 'mashup']);
-
 const CHECKOUT_ALIASES = {
   drank: 'foundry/helpers/drank',
   'psi-swarm': 'foundry/helpers/psi-swarm',
@@ -29,25 +21,10 @@ const CHECKOUT_ALIASES = {
   'fleet-workspace': '.',
   'sarthakagrawal-personal': '../portfolio',
 };
-
 const NO_HOSTED_WEB = {
   kith: 'native iPhone app with no hosted web surface',
   mashup: 'local-first helper with no hosted web surface',
 };
-
-const SKIP_DIR = new Set([
-  '.git',
-  'node_modules',
-  'dist',
-  '.next',
-  '.astro',
-  'coverage',
-  'target',
-  'build',
-  '.open-next',
-  'out',
-  'ios',
-]);
 
 const args = process.argv.slice(2);
 let catalogPath = null;
@@ -58,16 +35,12 @@ for (let i = 0; i < args.length; i += 1) {
 }
 
 const scriptRoot = resolve(import.meta.dirname, '..', '..', '..');
-const workspaceRoot =
-  fleetRoot ??
-  (existsSync(join(scriptRoot, 'rolepatch'))
+if (!fleetRoot) {
+  fleetRoot = existsSync(join(scriptRoot, 'rolepatch'))
     ? scriptRoot
-    : existsSync(join(scriptRoot, '../..', 'rolepatch'))
-      ? resolve(scriptRoot, '../..')
-      : scriptRoot);
-fleetRoot = workspaceRoot;
-catalogPath =
-  catalogPath ?? join(scriptRoot, 'foundry', 'ops', 'config', 'projects.json');
+    : resolve(scriptRoot, '../..');
+}
+catalogPath = catalogPath ?? join(scriptRoot, 'foundry', 'ops', 'config', 'projects.json');
 
 if (!existsSync(catalogPath)) {
   console.error(`Catalog not found: ${catalogPath}`);
@@ -91,46 +64,29 @@ function checkoutDir(project) {
   return null;
 }
 
-function walkSource(dir, visit) {
-  let entries;
-  try {
-    entries = readdirSync(dir);
-  } catch {
-    return;
-  }
-  for (const name of entries) {
-    if (SKIP_DIR.has(name) || name.startsWith('.')) continue;
-    const path = join(dir, name);
-    let stat;
-    try {
-      stat = statSync(path);
-    } catch {
-      continue;
-    }
-    if (stat.isDirectory()) {
-      if (name === 'ios') continue;
-      walkSource(path, visit);
-      continue;
-    }
-    if (/\.(ts|tsx|js|mjs|astro|html)$/.test(name)) visit(path);
-  }
-}
-
 function hasPageView(dir) {
-  let found = null;
-  walkSource(dir, (path) => {
-    if (found) return;
-    let text;
-    try {
-      text = readFileSync(path, 'utf8');
-    } catch {
-      return;
-    }
-    if (PAGE_VIEW_MARKERS.some((marker) => text.includes(marker))) {
-      found = path;
-    }
-  });
-  return found;
+  try {
+    const output = execFileSync(
+      'rg',
+      [
+        '-l',
+        '--glob',
+        '!node_modules',
+        '--glob',
+        '!dist',
+        '--glob',
+        '!.next',
+        '--glob',
+        '!ios',
+        'trackPageView\\(|capture\\([\\\'\\"]page_view',
+        dir,
+      ],
+      { encoding: 'utf8', timeout: 10_000 },
+    );
+    return output.trim().split('\n')[0] || null;
+  } catch {
+    return null;
+  }
 }
 
 let covered = 0;
@@ -138,8 +94,7 @@ let exempt = 0;
 let missing = 0;
 const missingProducts = [];
 
-console.log('User metrics coverage (hosted web page_view)');
-console.log('===========================================\n');
+console.log('User metrics coverage (hosted web page_view)\n');
 
 for (const project of maintained) {
   const reason = NO_HOSTED_WEB[project.id];
@@ -152,35 +107,24 @@ for (const project of maintained) {
   const dir = checkoutDir(project);
   if (!dir) {
     missing += 1;
-    missingProducts.push({ id: project.id, name: project.name, reason: 'no-checkout' });
+    missingProducts.push(project.id);
     console.log(`  ✗ ${project.id.padEnd(30)} MISSING (no-checkout)`);
     continue;
   }
 
-  const file = hasPageView(dir);
-  if (file) {
+  if (hasPageView(dir)) {
     covered += 1;
     console.log(`  ✓ ${project.id.padEnd(30)} page_view`);
   } else {
     missing += 1;
-    missingProducts.push({ id: project.id, name: project.name, reason: 'no-page-view' });
+    missingProducts.push(project.id);
     console.log(`  ✗ ${project.id.padEnd(30)} MISSING (no-page-view)`);
   }
 }
 
-console.log(`\n--- Summary ---`);
-console.log(`Maintained products: ${maintained.length}`);
-console.log(`Web page_view: ${covered}`);
-console.log(`Not applicable: ${exempt}`);
-console.log(`Missing: ${missing}`);
-
+console.log(`\nMaintained ${maintained.length} · page_view ${covered} · n/a ${exempt} · missing ${missing}`);
 if (missing > 0) {
-  console.error(`\n${missing} product(s) missing hosted-web page_view:`);
-  for (const product of missingProducts) {
-    console.error(`  - ${product.id} (${product.reason})`);
-  }
+  console.error(`Missing: ${missingProducts.join(', ')}`);
   process.exit(1);
 }
-
-console.log('\nEvery maintained hosted web surface emits page_view, or is not applicable.');
 process.exit(0);
