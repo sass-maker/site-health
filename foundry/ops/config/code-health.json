@@ -176,6 +176,12 @@
       }
     },
     "karte": { "profile": "javascript-typescript" },
+    "kith": {
+      "profile": "swift-native",
+      "equivalents": {
+        "cycles": "The required isolated SwiftPM build resolves the target and source dependency graph; Swift source files do not import one another."
+      }
+    },
     "knowledge-base": { "profile": "mixed" },
     "local-ai-video-studio": {
       "profile": "swift-native",

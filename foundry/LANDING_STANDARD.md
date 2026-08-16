@@ -35,6 +35,12 @@ indie). Rules that depend on monetization style live at the bottom under
 - **Empathy before solution.** Describe the user's problem better than they
   can before pitching the fix. [#21]
 
+## iOS apps
+
+Copy [`foundry/ops/templates/ios-landing`](ops/templates/ios-landing)
+into the product as `site/`. Fill `site.config.ts` and drop real device
+screenshots in `public/images/screens`. Do not invent a second page set.
+
 ## Structure
 
 - **One idea per screen.** Each scroll-fold communicates exactly one thing.
