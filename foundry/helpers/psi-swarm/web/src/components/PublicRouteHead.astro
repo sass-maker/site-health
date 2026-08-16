@@ -38,4 +38,7 @@ const schema = {
 <meta name="twitter:description" content={meta.description} />
 <meta name="twitter:image" content={socialImage} />
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-<script async src="/scripts/posthog.js"></script>
+<script>
+  import { emitPageView } from '../lib/product-analytics';
+  emitPageView();
+</script>

@@ -56,7 +56,10 @@ const OG_IMAGE = `${SITE_URL}/og-image.svg`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={OG_IMAGE} />
-    <script async src="/scripts/posthog.js"></script>
+    <script>
+      import { emitPageView } from '../lib/product-analytics';
+      emitPageView();
+    </script>
 
     <meta
       name="keywords"

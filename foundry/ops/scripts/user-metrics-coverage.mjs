@@ -67,23 +67,29 @@ function checkoutDir(project) {
 function hasPageView(dir) {
   try {
     const output = execFileSync(
-      'rg',
+      'grep',
       [
-        '-l',
-        '--glob',
-        '!node_modules',
-        '--glob',
-        '!dist',
-        '--glob',
-        '!.next',
-        '--glob',
-        '!ios',
-        'trackPageView\\(|capture\\([\\\'\\"]page_view',
+        '-rl',
+        '--exclude-dir=node_modules',
+        '--exclude-dir=dist',
+        '--exclude-dir=.next',
+        '--exclude-dir=.git',
+        '--exclude-dir=ios',
+        '--include=*.ts',
+        '--include=*.tsx',
+        '--include=*.js',
+        '--include=*.mjs',
+        '--include=*.astro',
+        '--include=*.html',
+        '-E',
+        'trackPageView\\(|capture\\([\'"]page_view|event: [\'"]page_view',
         dir,
       ],
       { encoding: 'utf8', timeout: 10_000 },
     );
-    return output.trim().split('\n')[0] || null;
+    return output
+      .split('\n')
+      .find((line) => line && !line.includes('node_modules') && !line.includes('/dist/') && !line.includes('/ios/'));
   } catch {
     return null;
   }
