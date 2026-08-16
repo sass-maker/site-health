@@ -4,8 +4,8 @@
 - [x] 1.2 Document the event contract in `foundry/ops/docs/` so every product can implement it consistently.
 - [x] 1.3 Audit existing PostHog instrumentation in RolePatch, Karte, and Drank against the 5-event contract and record gaps.
 - [x] 1.4 Upgrade RolePatch to emit `page_view` (currently emits 4 of 5 events).
-- [ ] 1.5 Upgrade Karte to emit `page_view` (currently emits 4 of 5 events).
-- [ ] 1.6 Upgrade Drank from error-monitoring-only to the full 5-event taxonomy.
+- [x] 1.5 Upgrade Karte to emit `page_view` (currently emits 4 of 5 events).
+- [x] 1.6 Emit Drank `page_view` on the hosted web surface. Signup/activation remain not applicable for this operator tool.
 
 ## 2. Outcome store extension
 

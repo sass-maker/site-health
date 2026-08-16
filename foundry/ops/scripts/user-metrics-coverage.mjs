@@ -1,35 +1,73 @@
 #!/usr/bin/env node
 /**
- * Validate that every maintained Fleet product has PostHog analytics
- * instrumentation or an explicit not-applicable designation.
- *
- * Reads the canonical project catalog and checks for PostHog instrumentation
- * markers in the product's source. Products without web frontends are
- * automatically marked not-applicable.
+ * Validate that every maintained Fleet product with a hosted web surface
+ * emits the shared `page_view` + `project_id` contract, or is explicitly
+ * not applicable.
  *
  * Usage:
- *   node user-metrics-coverage.mjs [--catalog <path>] [--root <fleet-root>]
- *
- * Exit codes:
- *   0 — all maintained products have coverage or explicit exceptions
- *   1 — one or more maintained products are missing coverage
+ *   node user-metrics-coverage.mjs [--catalog <path>] [--root <workspace>]
  */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { execSync } from 'node:child_process';
+
+const PAGE_VIEW_MARKERS = [
+  'trackPageView(',
+  'capture("page_view"',
+  "capture('page_view'",
+  'capture(`page_view`',
+];
+
+const FLEET_OWNED = new Set(['drank', 'psi-swarm', 'fleet-workspace', 'mashup']);
+
+const CHECKOUT_ALIASES = {
+  drank: 'foundry/helpers/drank',
+  'psi-swarm': 'foundry/helpers/psi-swarm',
+  indulge: 'induldge',
+  'veg-protein-food': 'recipe-dashboard',
+  mashup: 'foundry/helpers/mashup',
+  'fleet-workspace': '.',
+  'sarthakagrawal-personal': '../portfolio',
+};
+
+const NO_HOSTED_WEB = {
+  kith: 'native iPhone app with no hosted web surface',
+  mashup: 'local-first helper with no hosted web surface',
+};
+
+const SKIP_DIR = new Set([
+  '.git',
+  'node_modules',
+  'dist',
+  '.next',
+  '.astro',
+  'coverage',
+  'target',
+  'build',
+  '.open-next',
+  'out',
+  'ios',
+]);
 
 const args = process.argv.slice(2);
 let catalogPath = null;
 let fleetRoot = null;
-
-for (let i = 0; i < args.length; i++) {
+for (let i = 0; i < args.length; i += 1) {
   if (args[i] === '--catalog' && args[i + 1]) catalogPath = args[++i];
   if (args[i] === '--root' && args[i + 1]) fleetRoot = resolve(args[++i]);
 }
 
-fleetRoot = fleetRoot ?? resolve(import.meta.dirname, '..', '..', '..');
-catalogPath = catalogPath ?? join(fleetRoot, 'foundry', 'ops', 'config', 'projects.json');
+const scriptRoot = resolve(import.meta.dirname, '..', '..', '..');
+const workspaceRoot =
+  fleetRoot ??
+  (existsSync(join(scriptRoot, 'rolepatch'))
+    ? scriptRoot
+    : existsSync(join(scriptRoot, '../..', 'rolepatch'))
+      ? resolve(scriptRoot, '../..')
+      : scriptRoot);
+fleetRoot = workspaceRoot;
+catalogPath =
+  catalogPath ?? join(scriptRoot, 'foundry', 'ops', 'config', 'projects.json');
 
 if (!existsSync(catalogPath)) {
   console.error(`Catalog not found: ${catalogPath}`);
@@ -37,109 +75,112 @@ if (!existsSync(catalogPath)) {
 }
 
 const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
-const projects = catalog.projects ?? catalog;
-const maintained = Object.entries(projects)
-  .filter(([id, p]) => p.lifecycle === 'maintained')
-  .map(([id, p]) => ({ id: p.id ?? id, name: p.name, kind: p.portfolio?.kind, domains: p.domains ?? [] }));
+const maintained = (catalog.projects ?? []).filter((project) => project.lifecycle === 'maintained');
 
-// Products that have no user-facing web frontend or are internal platform tools
-// exempt from PostHog product analytics instrumentation
-const NO_WEB_FRONTEND = new Set([
-  'reddit-insights', // pure data pipeline Worker
-  'fleet-workspace', // internal platform (this repo)
-  'drank', // internal monitoring/ops tool
-  'psi-swarm', // internal performance tool
-  'agent-office', // internal platform surface
-  'local-ai-video-studio', // internal tool (not yet public)
-  'veg-protein-food', // no local checkout
-  'mashup', // no local checkout
-  'sarthakagrawal-personal', // personal site (separate concern)
-  'indulge', // native iOS app (no web frontend)
-  'research-papers', // Astro site with separate analytics
-]);
-
-// Check for PostHog instrumentation in a product checkout
-function hasPosthogInstrumentation(projectId) {
-  const productDir = join(fleetRoot, projectId);
-  if (!existsSync(productDir)) return { found: false, reason: 'no-checkout' };
-
-  // Check for analytics.ts (React/Next.js products)
-  const analyticsPaths = [
-    join(productDir, 'src/lib/analytics.ts'),
-    join(productDir, 'lib/analytics.ts'),
-    join(productDir, 'src/lib/analytics.tsx'),
-    join(productDir, 'components/analytics-provider.tsx'),
-    join(productDir, 'src/components/analytics-provider.tsx'),
-    join(productDir, 'src/components/posthog-provider.tsx'),
-    join(productDir, 'components/posthog-provider.tsx'),
-  ];
-
-  for (const p of analyticsPaths) {
-    if (existsSync(p)) return { found: true, file: p };
+function checkoutDir(project) {
+  const root = FLEET_OWNED.has(project.id) ? scriptRoot : fleetRoot;
+  const alias = CHECKOUT_ALIASES[project.id];
+  if (alias) {
+    const resolved = resolve(root, alias);
+    if (existsSync(resolved)) return resolved;
   }
+  if (project.repo) {
+    const resolved = resolve(root, project.repo);
+    if (existsSync(resolved)) return resolved;
+  }
+  return null;
+}
 
-  // Check for PostHog CDN snippet in source files (not dist/build output)
-  const sourceDirs = [
-    'src', 'lib', 'browser/src', 'landing-astro/src',
-    'apps/web', 'apps/landing-page-astro/src', 'public', 'landing',
-    'site/src', 'website/src', 'docs-site/src',
-  ].filter((d) => existsSync(join(productDir, d)));
-
-  if (sourceDirs.length === 0) return { found: false, reason: 'no-source-dir' };
-
+function walkSource(dir, visit) {
+  let entries;
   try {
-    const dirs = sourceDirs.map((d) => `"${join(productDir, d)}"`).join(' ');
-    const result = execSync(
-      `grep -rl "posthog" --include="*.astro" --include="*.html" --include="*.js" --include="*.ts" --include="*.tsx" ${dirs} 2>/dev/null | grep -v node_modules | grep -v dist | head -1`,
-      { encoding: 'utf8', timeout: 10_000 },
-    ).trim();
-    if (result) return { found: true, file: result };
+    entries = readdirSync(dir);
   } catch {
-    // grep returns non-zero when no matches
+    return;
   }
+  for (const name of entries) {
+    if (SKIP_DIR.has(name) || name.startsWith('.')) continue;
+    const path = join(dir, name);
+    let stat;
+    try {
+      stat = statSync(path);
+    } catch {
+      continue;
+    }
+    if (stat.isDirectory()) {
+      if (name === 'ios') continue;
+      walkSource(path, visit);
+      continue;
+    }
+    if (/\.(ts|tsx|js|mjs|astro|html)$/.test(name)) visit(path);
+  }
+}
 
-  return { found: false, reason: 'no-instrumentation' };
+function hasPageView(dir) {
+  let found = null;
+  walkSource(dir, (path) => {
+    if (found) return;
+    let text;
+    try {
+      text = readFileSync(path, 'utf8');
+    } catch {
+      return;
+    }
+    if (PAGE_VIEW_MARKERS.some((marker) => text.includes(marker))) {
+      found = path;
+    }
+  });
+  return found;
 }
 
 let covered = 0;
-let missing = 0;
 let exempt = 0;
+let missing = 0;
 const missingProducts = [];
 
-console.log('User metrics coverage validation');
-console.log('==================================\n');
+console.log('User metrics coverage (hosted web page_view)');
+console.log('===========================================\n');
 
 for (const project of maintained) {
-  if (NO_WEB_FRONTEND.has(project.id)) {
-    exempt++;
-    console.log(`  ✓ ${project.id.padEnd(30)} exempt (no web frontend)`);
+  const reason = NO_HOSTED_WEB[project.id];
+  if (reason) {
+    exempt += 1;
+    console.log(`  ✓ ${project.id.padEnd(30)} not-applicable (${reason})`);
     continue;
   }
 
-  const result = hasPosthogInstrumentation(project.id);
-  if (result.found) {
-    covered++;
-    console.log(`  ✓ ${project.id.padEnd(30)} instrumented`);
+  const dir = checkoutDir(project);
+  if (!dir) {
+    missing += 1;
+    missingProducts.push({ id: project.id, name: project.name, reason: 'no-checkout' });
+    console.log(`  ✗ ${project.id.padEnd(30)} MISSING (no-checkout)`);
+    continue;
+  }
+
+  const file = hasPageView(dir);
+  if (file) {
+    covered += 1;
+    console.log(`  ✓ ${project.id.padEnd(30)} page_view`);
   } else {
-    missing++;
-    missingProducts.push(project);
-    console.log(`  ✗ ${project.id.padEnd(30)} MISSING (${result.reason})`);
+    missing += 1;
+    missingProducts.push({ id: project.id, name: project.name, reason: 'no-page-view' });
+    console.log(`  ✗ ${project.id.padEnd(30)} MISSING (no-page-view)`);
   }
 }
 
 console.log(`\n--- Summary ---`);
 console.log(`Maintained products: ${maintained.length}`);
-console.log(`Instrumented: ${covered}`);
-console.log(`Exempt: ${exempt}`);
+console.log(`Web page_view: ${covered}`);
+console.log(`Not applicable: ${exempt}`);
 console.log(`Missing: ${missing}`);
 
 if (missing > 0) {
-  console.error(`\n${missing} product(s) missing PostHog instrumentation:`);
-  for (const p of missingProducts) {
-    console.error(`  - ${p.id} (${p.name})`);
+  console.error(`\n${missing} product(s) missing hosted-web page_view:`);
+  for (const product of missingProducts) {
+    console.error(`  - ${product.id} (${product.reason})`);
   }
   process.exit(1);
 }
 
-console.log('\nAll maintained products have PostHog coverage or explicit exemptions.');
+console.log('\nEvery maintained hosted web surface emits page_view, or is not applicable.');
 process.exit(0);

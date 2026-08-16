@@ -29,11 +29,9 @@ emit the catalog ids.
 
 ### Current instrumentation (2026-08-17)
 
-| Product | Events in PostHog | `project_id` emitted | Gap |
-|---|---|---|---|
-| RolePatch | `page_view`, `signup`, `activated`, `core_action`, `returned` | `resume-tailor` | Catalog id is `rolepatch` |
-| Karte | `signup`, `activated`, `core_action`, `returned` | `linkchat` | Missing owner-facing `page_view`; catalog id is `karte` |
-| Drank | error/timing only | `drank` | No 5-event product taxonomy |
+Hosted web surfaces emit `page_view` with a catalog `project_id`. RolePatch and
+Karte still also emit historical ids (`resume-tailor`, `linkchat`); the Query
+API collector reads those aliases. Kith and Mashup have no hosted web surface.
 
 ### Optional property
 
