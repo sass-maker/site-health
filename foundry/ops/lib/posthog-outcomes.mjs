@@ -9,7 +9,7 @@ const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'retu
  * canonical catalog id. Query both so the Query API collector does not
  * report empty windows against the shared PostHog project.
  */
-export const POSTHOG_PROJECT_ID_ALIASES = {
+const POSTHOG_PROJECT_ID_ALIASES = {
   rolepatch: ['resume-tailor'],
   karte: ['linkchat'],
 };

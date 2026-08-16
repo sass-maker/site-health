@@ -3,10 +3,10 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { loadFounderProjects } from './lib/founder-control/registry.mjs';
-import { createFounderControlHandler } from './lib/founder-control/service.mjs';
-import { FounderControlStore, defaultDatabasePath } from './lib/founder-control/store.mjs';
-import { consoleRequestAuthorized } from './lib/founder-control/access.mjs';
+import { consoleRequestAuthorized } from '../../lib/founder-control/access.mjs';
+import { loadFounderProjects } from '../../lib/founder-control/registry.mjs';
+import { createFounderControlHandler } from '../../lib/founder-control/service.mjs';
+import { FounderControlStore, defaultDatabasePath } from '../../lib/founder-control/store.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, 'dist');

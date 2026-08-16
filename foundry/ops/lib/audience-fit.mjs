@@ -80,7 +80,3 @@ export function audienceFitFor(audienceFit, productId, platformId) {
     fitReason,
   };
 }
-
-export function compareAudienceFit(left, right) {
-  return right.fitScore - left.fitScore || left.id.localeCompare(right.id);
-}
