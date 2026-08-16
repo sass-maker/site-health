@@ -23,6 +23,19 @@ copy so it stays independently buildable.
 3. `public/images/screens/` — real iPhone captures
 4. `public/favicon-32.png` and `favicon-64.png`
 5. `PUBLIC_TESTFLIGHT_URL` only when it is a real `https://testflight.apple.com/` link
+6. `appStoreUrl` / `appStoreId` only for a live `https://apps.apple.com/` product
+
+## Apple marketing rules
+
+- Privacy and support URLs are first-class pages. App Store listings need both.
+- Never invent an App Store badge. The template loads Apple’s official badge
+  only when `availability` is `app-store` and `appStoreUrl` is on
+  `apps.apple.com`.
+- Never claim “Available on the App Store” or emit a Smart App Banner until
+  that ID exists.
+- Do not use icons or product shots from apple.com.
+- Screenshots must be the real app, not mocked marketing UI.
+- TestFlight links must be `https://testflight.apple.com/…`.
 
 ## Routes
 
