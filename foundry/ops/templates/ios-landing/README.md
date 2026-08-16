@@ -42,3 +42,16 @@ copy so it stays independently buildable.
 `/`, `/privacy/`, `/support/`, `/terms/`, `/accessibility/`,
 `/testflight/`, `/index.md`, `/llms.txt`, `/api/ai`, `/robots.txt`,
 `/sitemap.xml`.
+
+## Consumers
+
+| App | Path | Scheme |
+|---|---|---|
+| Kith | `kith/site` | light |
+| Setline | `setline/site` | light |
+| Anchor | `anchor/site` | dark |
+| Motion | `motion/site` | dark |
+| Indulge | existing Astro site (visual origin) | light |
+
+Web-primary products with an iOS client (Calorie, Significant Hobbies, Pace)
+keep their own marketing surfaces.
