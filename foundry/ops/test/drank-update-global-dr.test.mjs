@@ -30,9 +30,9 @@ test('explicit targets replace the project-host seed list and remain unique', ()
   );
 });
 
-test('derives all 31 Performance targets from the same canonical registry', () => {
+test('derives all 32 Performance targets from the same canonical registry', () => {
   const targets = publicMetricTargets(loadFounderProjects());
-  assert.equal(targets.length, 31);
+  assert.equal(targets.length, 32);
   assert.equal(targets.some((target) => target.projectId === 'ai-game'), false);
   assert.equal(targets.some((target) => target.projectId === 'fleet-workspace'), true);
   assert.equal(targets.every((target) => target.domain.length > 0), true);

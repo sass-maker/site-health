@@ -14,7 +14,7 @@ const projects = await readJson(new URL('../config/projects.json', import.meta.u
 test('public projection contains only explicitly allowlisted public products', () => {
   const projection = buildPublicProducts(projects);
   assert.equal(projection.schemaVersion, 2);
-  assert.equal(projection.products.length, 28);
+  assert.equal(projection.products.length, 31);
   assert.equal(projection.pastProjects.length, 10);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
@@ -61,8 +61,13 @@ test('public projection contains only explicitly allowlisted public products', (
     projection.products.find((product) => product.id === 'app-health').url,
     'https://health.sassmaker.com',
   );
+  const informationalOnly = new Set(['agent-office', 'indulge', 'local-ai-video-studio']);
   for (const product of projection.products) {
-    assert.equal(product.changelogUrl, `${product.url}/changelog`);
+    if (informationalOnly.has(product.id)) {
+      assert.equal(Object.hasOwn(product, 'changelogUrl'), false);
+    } else {
+      assert.equal(product.changelogUrl, `${product.url}/changelog`);
+    }
     assert.doesNotThrow(() => assertEvidenceLinks(product));
   }
   assert.equal(

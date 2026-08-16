@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-08-15",
+    "updated": "2026-08-16",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -31,7 +31,7 @@
       "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden",
-      "readyToBeShared": "true only after the public support and trusted release-artifact gates pass",
+      "readyToBeShared": "true only for the exact maintained public surface and evidenced claims that were approved; native, store, download, or binary availability must be tracked separately and never inferred",
       "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
     },
     "absorbedCheckouts": {
@@ -1182,10 +1182,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-14",
-          "reason": "The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk."
+          "verifiedAt": "2026-08-16",
+          "reason": "The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing."
         }
       },
       "authModel": "public-persistent",
@@ -1209,7 +1209,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "The canonical karte.cc runtime and all 30 sitemap URLs were verified live on 2026-08-14. Name collision risk (PLAID KARTE) remains the sharing blocker.",
+      "notes": "The canonical karte.cc runtime and all 30 sitemap URLs were verified live on 2026-08-14. On 2026-08-16 the owner accepted the documented PLAID KARTE name-collision risk for public sharing; external copy must still identify the canonical karte.cc product clearly.",
       "name": "Karte",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1460,8 +1460,8 @@
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "No usable distributed or provider-hosted surface is currently deployed."
+          "verifiedAt": "2026-08-16",
+          "reason": "No usable distributed or provider-hosted surface is deployed, and the owner cut Mashup from the current SEO/GEO campaign."
         }
       },
       "authModel": "required-service",
@@ -1473,7 +1473,7 @@
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Independent, maintained local-first Fleet helper for archive analysis, inspectable editorial planning, approval, provenance, and multi-clip rendering. Extracted from Reel Pipeline on 2026-08-09 with a finished-media receipt boundary and no runtime dependency; it has no provider-hosted surface and never publishes media.",
+      "notes": "Independent, maintained local-first Fleet helper for archive analysis, inspectable editorial planning, approval, provenance, and multi-clip rendering. Extracted from Reel Pipeline on 2026-08-09 with a finished-media receipt boundary and no runtime dependency; it has no provider-hosted surface and never publishes media. The owner cut it from the current SEO/GEO campaign on 2026-08-16.",
       "name": "Mashup",
       "attention": "foundry",
       "lifecycle": "maintained",
@@ -1908,10 +1908,10 @@
         "priority": "P1",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "No maintained public listing is currently approved."
+          "verifiedAt": "2026-08-16",
+          "reason": "The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved."
         }
       },
       "aliases": [
@@ -1940,7 +1940,15 @@
         "domainCoverage": true
       },
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "agent-office",
+        "name": "Office OS",
+        "description": "A local-first Mac workplace where named AI employees have bounded responsibilities and their work stays inspectable.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "hasChangelog": false
       }
     },
     {
@@ -1950,10 +1958,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-14",
-          "reason": "The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved."
+          "verifiedAt": "2026-08-16",
+          "reason": "The owner approved the verified product and trust site for public sharing; no App Store, TestFlight, or native distribution claim is approved."
         }
       },
       "aliases": [
@@ -1968,7 +1976,7 @@
       "domains": [
         "indulge.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "notes": "The local checkout retains the historical induldge spelling. The public trust site is live at indulge.significanthobbies.com with indulge.pages.dev retained as the provider origin; native App Store distribution is not yet live.",
       "name": "Indulge",
@@ -1977,7 +1985,15 @@
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/Significant-Hobbies/indulge",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "indulge",
+        "name": "Indulge",
+        "description": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "hasChangelog": false
       }
     },
     {
@@ -1987,10 +2003,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "No maintained public listing is currently approved."
+          "verifiedAt": "2026-08-16",
+          "reason": "The owner approved the verified maintained informational site for public sharing; no downloadable app, signed binary, or public release channel is approved."
         }
       },
       "authModel": "public-persistent",
@@ -2016,7 +2032,15 @@
         "domainCoverage": true
       },
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "local-ai-video-studio",
+        "name": "Local AI Video Studio",
+        "description": "A local-first Mac studio for comparing reproducible video-effect variants before export.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "hasChangelog": false
       }
     },
     {
@@ -2784,6 +2808,17 @@
       "officialProfiles": ["https://github.com/sass-maker/knowledge-base"],
       "availability": { "primary": "web", "appStore": "not-applicable" },
       "pricing": { "state": "not-declared" }
+    },
+    {
+      "id": "indulge",
+      "name": "Indulge",
+      "aliases": ["Induldge"],
+      "origin": "https://indulge.significanthobbies.com",
+      "source": { "state": "internal", "path": "induldge" },
+      "docs": { "state": "public", "url": "https://indulge.significanthobbies.com/index.md" },
+      "officialProfiles": ["https://github.com/Significant-Hobbies/indulge"],
+      "availability": { "primary": "web", "appStore": "not-applicable" },
+      "pricing": { "state": "not-applicable" }
     },
     {
       "id": "local-ai-video-studio",

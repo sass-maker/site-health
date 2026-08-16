@@ -150,6 +150,44 @@
       "indexMd": "# Local AI Video Studio\n\nA local-first Mac studio for comparing reproducible video-effect variants.\n\n## Product boundary\n\n- Media processing stays local and offline-capable\n- Editing intent becomes a validated, versioned effect graph\n- Two to five reproducible variants can be compared before export\n- Public download distribution is not yet open\n\n## Agent entrypoints\n\n- https://local-ai-video-studio.sassmaker.com/llms.txt\n- https://local-ai-video-studio.sassmaker.com/api/ai\n- https://local-ai-video-studio.sassmaker.com/index.md\n"
     },
     {
+      "id": "indulge",
+      "name": "Indulge",
+      "url": "https://indulge.significanthobbies.com",
+      "summary": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
+      "publicDir": "induldge/public",
+      "stack": "astro-static",
+      "headFile": "induldge/src/layouts/SiteLayout.astro",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/indulge"
+      ],
+      "hasDynamicLlms": true,
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://indulge.significanthobbies.com/",
+          "description": "Product overview and beta status"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://indulge.significanthobbies.com/privacy/",
+          "description": "Local-first data handling"
+        },
+        {
+          "title": "Support",
+          "url": "https://indulge.significanthobbies.com/support/",
+          "description": "Support and feedback guidance"
+        },
+        {
+          "title": "TestFlight",
+          "url": "https://indulge.significanthobbies.com/testflight/",
+          "description": "Current beta availability without an App Store claim"
+        }
+      ],
+      "indexMd": "# Indulge\n\nA private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.\n\n## Public boundary\n\n- The site covers the product, privacy, support, accessibility, terms, and beta status.\n- It uses real app proof and describes the beta as invite only.\n- It does not claim App Store or public TestFlight availability.\n\n## Agent entrypoints\n\n- https://indulge.significanthobbies.com/llms.txt\n- https://indulge.significanthobbies.com/api/ai\n- https://indulge.significanthobbies.com/index.md\n"
+    },
+    {
       "id": "rolepatch",
       "name": "RolePatch",
       "url": "https://rolepatch.com",

@@ -76,6 +76,12 @@ export function validateProjectCatalog(catalog, {
     if (!PUBLIC_LISTING.has(project.public?.listing)) {
       errors.push(`${project.id}: invalid public listing ${project.public?.listing}`);
     }
+    if (
+      project.public?.hasChangelog !== undefined
+      && typeof project.public.hasChangelog !== 'boolean'
+    ) {
+      errors.push(`${project.id}: public hasChangelog must be boolean when declared`);
+    }
     if (project.public?.listing === 'past' && project.lifecycle !== 'past') {
       errors.push(`${project.id}: past public listing requires lifecycle past`);
     }

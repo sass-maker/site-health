@@ -1608,6 +1608,61 @@
         }
       },
       {
+        "slug": "indulge",
+        "aliases": [
+          "Indulge",
+          "Induldge"
+        ],
+        "competitors": [
+          {
+            "name": "one sec",
+            "url": "https://one-sec.app"
+          }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              {
+                "id": "category",
+                "text": "What private, local-first iPhone tools help people replace automatic screen time with intentional choices?",
+                "ownedPage": {
+                  "state": "published",
+                  "url": "https://indulge.significanthobbies.com/"
+                }
+              },
+              {
+                "id": "comparison",
+                "text": "Compare humane screen-time reflection tools by privacy, local data storage, non-judgmental design, and honest availability."
+              }
+            ]
+          }
+        ],
+        "personas": [
+          {
+            "id": "intentional-phone-user",
+            "label": "an iPhone user seeking a private, non-judgmental screen-time tool"
+          }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 4,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
         "slug": "local-ai-video-studio",
         "aliases": [
           "Local Video Studio"
@@ -2197,12 +2252,12 @@
       "slug": "agent-office",
       "name": "Office OS",
       "aliases": [],
-      "mode": "private",
+      "mode": "evergreen",
       "domain": "https://office-os.sassmaker.com",
       "domainPosture": "product-subdomain",
-      "publicMarketing": false,
+      "publicMarketing": true,
       "cta": "Explore the Office OS workspace",
-      "cadence": "none",
+      "cadence": "quarterly",
       "contentBase": null,
       "channels": []
     },
@@ -2212,12 +2267,12 @@
       "aliases": [
         "induldge"
       ],
-      "mode": "private",
-      "domain": null,
-      "domainPosture": "local-only",
-      "publicMarketing": false,
-      "cta": "Use the project privately",
-      "cadence": "none",
+      "mode": "evergreen",
+      "domain": "https://indulge.significanthobbies.com",
+      "domainPosture": "product-subdomain",
+      "publicMarketing": true,
+      "cta": "Explore the Indulge product and trust site",
+      "cadence": "quarterly",
       "contentBase": null,
       "channels": []
     },
@@ -2225,12 +2280,12 @@
       "slug": "local-ai-video-studio",
       "name": "Local AI Video Studio",
       "aliases": [],
-      "mode": "private",
+      "mode": "evergreen",
       "domain": "https://local-ai-video-studio.sassmaker.com",
       "domainPosture": "product-subdomain",
-      "publicMarketing": false,
+      "publicMarketing": true,
       "cta": "Explore the local video studio",
-      "cadence": "none",
+      "cadence": "quarterly",
       "contentBase": null,
       "channels": []
     },

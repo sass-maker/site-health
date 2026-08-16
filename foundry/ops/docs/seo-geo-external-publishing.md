@@ -1,6 +1,6 @@
 # Fleet external SEO/GEO publishing matrix
 
-**Strategy reviewed:** 2026-08-12
+**Strategy reviewed:** 2026-08-16
 
 **Coverage:** all P1 (4), all P2 (19), all eligible finished P4 (10)
 
@@ -114,21 +114,24 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 | Secondary | [DEV Community](https://dev.to/help/getting-started) | End-to-end local post-training tutorial | Agent direct | Agent | Developer education grounded in a working recipe. |
 | Secondary | [Hacker News / Show HN](https://news.ycombinator.com/showhn.html) | Show HN with runnable local workflow | Agent with unblock | Owner | Substantial technical tool users can run. |
 
-### Office OS — Preparation only
+### Office OS — Publishable
 
 **Canonical:** [https://office-os.sassmaker.com](https://office-os.sassmaker.com)
 
 **Narrative:** A persistent office environment for coordinating agents and durable work.
 
-**Source asset:** A public product page, safe demo workspace, and clear explanation of persistence and collaboration boundaries.
+**Source asset:** Use the verified informational site for an architecture walkthrough. Explain how local operation works, where employee authority stops, and how owners inspect the work. Do not suggest that the Mac app is publicly downloadable.
 
-**Catalog blocker:** No maintained public listing is currently approved. (verified 2026-08-11)
+| Rank | Channel | Format | Execution | Content owner | Why this fits |
+|---|---|---|---|---|---|
+| Primary | [DEV Community](https://dev.to/help/getting-started) | Architecture case study grounded in the maintained informational site | Agent direct | Agent | Developer audience for local-first agent coordination and explicit authority boundaries. |
+| Secondary | [Substack](https://support.substack.com/hc/en-us/articles/360037831771-How-do-I-publish-a-new-post-on-Substack) | Build note about durable, supervised AI employees | Agent direct | Owner | Founder narrative can link to the public system and privacy details without claiming binary availability. |
 
-**Before publishing:**
+**Do not use:**
 
-- Approve and maintain a canonical public listing before any external publication.
-
-**Future candidates after re-verification:** DEV Community, Hacker News / Show HN, Product Hunt, YouTube
+- **Hacker News / Show HN:** Explicitly excluded from the current campaign by the owner.
+- **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
+- **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
 ## P2 — 19
 
@@ -317,7 +320,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 - **AlternativeTo:** AlternativeTo explicitly disallows résumé/CV builders and ATS résumé checkers.
 
-### Karte — Preparation only
+### Karte — Publishable
 
 **Canonical:** [https://karte.cc](https://karte.cc)
 
@@ -325,13 +328,16 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A verified live profile, public agent manifest, and safe end-to-end conversation demo.
 
-**Catalog blocker:** The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk. (verified 2026-08-14)
+| Rank | Channel | Format | Execution | Content owner | Why this fits |
+|---|---|---|---|---|---|
+| Primary | [DEV Community](https://dev.to/help/getting-started) | Technical walkthrough of the public agent profile and manifest | Agent direct | Agent | Developer audience can inspect the live runtime, sitemap, and agent-readable surface. |
+| Primary | [Relevant GitHub awesome lists](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) | Contribution to maintained AI profile and agent-interface lists | Agent direct | Shared | Direct category fit when the canonical karte.cc identity is stated clearly. |
+| Secondary | [YouTube](https://support.google.com/youtube/answer/57407) | Safe end-to-end public profile conversation demo | Agent direct | Shared | The interaction is easier to evaluate when demonstrated visibly. |
 
-**Before publishing:**
+**Do not use:**
 
-- Verify the live runtime posture and re-confirm the public sharing flag.
-
-**Future candidates after re-verification:** Product Hunt, DEV Community, Relevant GitHub awesome lists, YouTube
+- **Hacker News / Show HN:** Explicitly excluded from the current campaign by the owner.
+- **Product Hunt:** Cut from the current account-gated wave; revisit only with a separate approved campaign.
 
 ### Starboard — Publishable
 
@@ -369,13 +375,13 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A distributable build, before-and-after media example, and clear rights-safe input provenance.
 
-**Catalog blocker:** No usable distributed or provider-hosted surface is currently deployed. (verified 2026-08-11)
+**Catalog blocker:** No usable distributed or provider-hosted surface is deployed, and the owner cut Mashup from the current SEO/GEO campaign. (verified 2026-08-16)
 
 **Before publishing:**
 
-- Ship a usable distributed or provider-hosted surface before external promotion.
+- The owner cut Mashup from the current SEO/GEO campaign; a future campaign requires a usable distributed or provider-hosted surface and new approval.
 
-**Future candidates after re-verification:** DEV Community, YouTube, Hacker News / Show HN, GitHub repository and organization profile
+**Future candidates after re-verification:** 
 
 ### Motion — Publishable
 
@@ -392,37 +398,45 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 | Secondary | [Product-specific forums and communities](https://www.discourse.org/guidelines) | Maker post in iOS, indie-game, or accessibility communities | Agent with unblock | Owner | Community choice depends on the demonstrated use case and local rules. |
 | Secondary | [Specialist newsletters, blogs, and podcasts](https://www.muckrack.com/blog/2020/07/16/how-to-pitch-journalists) | Targeted pitch to indie-game or mobile interaction outlets | Agent with unblock | Owner | The body-control interaction supplies a visual editorial hook. |
 
-### Indulge — Preparation only
+### Indulge — Publishable
 
 **Canonical:** [https://indulge.significanthobbies.com](https://indulge.significanthobbies.com)
 
-**Narrative:** A consumer product whose public distribution surface has not yet been approved.
+**Narrative:** A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.
 
-**Source asset:** An approved public listing, screenshots, privacy disclosures, and a complete product walkthrough.
+**Source asset:** Use the verified product and trust site. It has real app proof, privacy and support details, and the current beta status. Do not suggest that the app is available through the App Store or a public TestFlight link.
 
-**Catalog blocker:** The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved. (verified 2026-08-14)
+| Rank | Channel | Format | Execution | Content owner | Why this fits |
+|---|---|---|---|---|---|
+| Primary | [Medium](https://help.medium.com/hc/en-us/articles/225168768-Writing-and-publishing-your-first-story) | Method article about intentional digital pleasure and humane replacement | Agent direct | Shared | The public trust surface supports a useful narrative without requiring an App Store claim. |
+| Secondary | [Substack](https://support.substack.com/hc/en-us/articles/360037831771-How-do-I-publish-a-new-post-on-Substack) | Product and design field note linked to the public trust site | Agent direct | Owner | A founder note can link directly to the beta and distribution details. |
 
-**Before publishing:**
+**Do not use:**
 
-- Approve and maintain a canonical public or App Store listing.
+- **Apple App Store and relevant marketplaces:** No App Store or public TestFlight availability is currently claimed.
+- **Product Hunt:** Do not launch until a public native distribution channel exists.
+- **Hacker News / Show HN:** Explicitly excluded from the current campaign by the owner.
 
-**Future candidates after re-verification:** Apple App Store and relevant marketplaces, Product Hunt, YouTube
-
-### Local AI Video Studio — Preparation only
+### Local AI Video Studio — Publishable
 
 **Canonical:** [https://local-ai-video-studio.sassmaker.com](https://local-ai-video-studio.sassmaker.com)
 
 **Narrative:** A local AI video studio for model-assisted media workflows.
 
-**Source asset:** An approved public listing, runnable workflow, model cards, and rights-safe example output.
+**Source asset:** Use the verified informational site to explain local video processing and reproducible effect graphs. Show a rights-safe comparison, but do not suggest that the Mac app is available for download.
 
-**Catalog blocker:** No maintained public listing is currently approved. (verified 2026-08-11)
+| Rank | Channel | Format | Execution | Content owner | Why this fits |
+|---|---|---|---|---|---|
+| Primary | [DEV Community](https://dev.to/help/getting-started) | Technical case study on reproducible local video-effect graphs | Agent direct | Agent | Developer audience can evaluate the architecture and disclosed workflow from the maintained public evidence. |
+| Secondary | [YouTube](https://support.google.com/youtube/answer/57407) | Recorded comparison workflow using rights-safe example media | Agent direct | Shared | Side-by-side effect studies are best understood visually without distributing the binary. |
+| Secondary | [Substack](https://support.substack.com/hc/en-us/articles/360037831771-How-do-I-publish-a-new-post-on-Substack) | Build note about local, inspectable video experiments | Agent direct | Owner | Founder narrative can link to the informational site while preserving the release boundary. |
 
-**Before publishing:**
+**Do not use:**
 
-- Approve and maintain a canonical public listing before external publication.
-
-**Future candidates after re-verification:** Hugging Face Hub, DEV Community, YouTube, Product Hunt
+- **Hugging Face Hub:** No public model, dataset, or runnable Space is currently claimed.
+- **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
+- **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
+- **Hacker News / Show HN:** Explicitly excluded from the current campaign by the owner.
 
 ### Field Track — Preparation only
 

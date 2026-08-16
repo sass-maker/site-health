@@ -45,7 +45,7 @@ export function buildPublicProducts(catalog) {
         priority: project.portfolio.priority,
         spotlight: metadata.spotlight ?? false,
         maturity: metadata.maturity,
-        changelogUrl: `${url}/changelog`,
+        ...(metadata.hasChangelog === false ? {} : { changelogUrl: `${url}/changelog` }),
         ...(metadata.repositoryUrl
           ? {
               repositoryUrl: metadata.repositoryUrl,
@@ -107,9 +107,11 @@ export function buildPublicProducts(catalog) {
 
 export function assertEvidenceLinks(product) {
   const productUrl = new URL(product.url);
-  const changelogUrl = new URL(product.changelogUrl);
-  if (changelogUrl.origin !== productUrl.origin || changelogUrl.pathname !== '/changelog') {
-    throw new Error(`${product.id}: changelogUrl must be the canonical product origin /changelog`);
+  if (product.changelogUrl) {
+    const changelogUrl = new URL(product.changelogUrl);
+    if (changelogUrl.origin !== productUrl.origin || changelogUrl.pathname !== '/changelog') {
+      throw new Error(`${product.id}: changelogUrl must be the canonical product origin /changelog`);
+    }
   }
 
   if (!product.repositoryUrl) {

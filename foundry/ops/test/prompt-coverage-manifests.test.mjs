@@ -16,8 +16,8 @@ test('prepares one complete fail-closed manifest for every unmapped prompt', () 
   });
   // One comparison prompt remains unmapped per non-focus product. Focus-set
   // buyer prompts are published with owned pages in marketing-program.json.
-  assert.equal(manifests.length, 21);
-  assert.equal(new Set(manifests.map((entry) => entry.projectId)).size, 21);
+  assert.equal(manifests.length, 22);
+  assert.equal(new Set(manifests.map((entry) => entry.projectId)).size, 22);
   for (const { manifest, manifestHash } of manifests) {
     assert.match(manifestHash, /^[a-f0-9]{64}$/u);
     assert.equal(manifest.items[0].execution.mode, 'blocked');
