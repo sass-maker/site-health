@@ -58,7 +58,8 @@ const tokenStyle = [
   `--site-lantern-b:${t.lanternB}`,
   `--site-lantern-c:${t.lanternC}`,
   `--site-blush:${t.blush}`,
-  `--site-ink-on-dark:${t.inkOnDark}`
+  `--site-ink-on-dark:${t.inkOnDark}`,
+  `--site-ink-on-accent:${t.inkOnAccent ?? "#ffffff"}`
 ].join(";");
 const scheme = site.colorScheme ?? "light";
 ---

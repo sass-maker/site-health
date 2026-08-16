@@ -37,6 +37,7 @@ export type SiteConfig = {
     lanternC: string;
     blush: string;
     inkOnDark: string;
+    inkOnAccent?: string;
   };
   colorScheme: "light" | "dark";
   hero: { image: string; alt: string; caption: string };
@@ -98,7 +99,8 @@ export const site: SiteConfig = {
     lanternB: "#e8a06a",
     lanternC: "#e0b04a",
     blush: "#f4d9dd",
-    inkOnDark: "#f4e6d4"
+    inkOnDark: "#f4e6d4",
+    inkOnAccent: "#fff6ea"
   },
   colorScheme: "light",
   hero: {
