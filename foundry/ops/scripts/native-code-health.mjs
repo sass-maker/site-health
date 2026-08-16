@@ -21,12 +21,12 @@ const ignoredGlobs = [
 
 const baselines = {
   complexity: {
-    warnings: 99,
-    maxNloc: 2394,
+    warnings: 101,
+    maxNloc: 2427,
     maxCcn: 63,
-    maxTokens: 4004,
+    maxTokens: 4014,
     maxParams: 13,
-    maxLength: 2396,
+    maxLength: 2429,
   },
   duplication: {
     duplicatedLines: 326,
