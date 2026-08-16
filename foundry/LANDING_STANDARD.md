@@ -37,11 +37,15 @@ indie). Rules that depend on monetization style live at the bottom under
 
 ## iOS apps
 
-Copy [`foundry/ops/templates/ios-landing`](ops/templates/ios-landing)
-into the product as `site/`. Fill `site.config.ts` and drop real device
-screenshots in `public/images/screens`. Do not invent a second page set.
+The five Significant Hobbies iOS-first apps (Kith, Setline, Anchor,
+Motion, Indulge) are built from [`ios-landings`](../ios-landings): one
+Astro codebase, five `PRODUCT=` sites. Add or edit `products/<id>/`
+there. Do not invent a second page set.
 
-Use this for iOS-first apps (Kith, Setline, Anchor, Motion, Indulge).
+For a new standalone iOS app, copy
+[`foundry/ops/templates/ios-landing`](ops/templates/ios-landing) into
+that product as `site/` until it joins the factory.
+
 Leave web-primary products (Calorie, Significant Hobbies, Pace) on their
 own marketing surfaces. Apple’s official App Store badge and Smart App
 Banner are allowed only with a live `apps.apple.com` URL.

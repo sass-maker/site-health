@@ -1,8 +1,11 @@
 # iOS landing template
 
-Copy this folder into a Significant Hobbies iOS repo as `site/`. It is
-Indulge’s page set and story shape, with tokens and copy filled from one
-config file.
+The five current Significant Hobbies iOS apps live in the shared factory
+`ios-landings` (one codebase, five `PRODUCT=` sites). Use this folder
+only for a new standalone iOS app that is not in that factory yet.
+
+Copy it into a product repo as `site/`. It is Indulge’s page set and
+story shape, with tokens and copy filled from one config file.
 
 ```bash
 cp -R foundry/ops/templates/ios-landing /path/to/app/site
