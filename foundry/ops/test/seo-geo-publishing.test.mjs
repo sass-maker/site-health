@@ -38,6 +38,7 @@ test('generated guide is deterministic and exposes execution boundaries and excl
   assert.match(rendered, /all P1 \(4\), all P2 \(19\), all eligible finished P4 \(10\)/);
   assert.match(rendered, /### Office OS — Publishable/);
   assert.match(rendered, /### Mashup — Preparation only/);
+  assert.match(rendered, /Future candidates after re-verification:\*\* None in the current campaign\./);
   assert.match(rendered, /### RolePatch — Publishable/);
   assert.match(rendered, /AlternativeTo explicitly disallows résumé\/CV builders/);
   assert.match(rendered, /## Eligible finished P4 — 10/);

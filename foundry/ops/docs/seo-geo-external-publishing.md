@@ -381,7 +381,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 - The owner cut Mashup from the current SEO/GEO campaign; a future campaign requires a usable distributed or provider-hosted surface and new approval.
 
-**Future candidates after re-verification:** 
+**Future candidates after re-verification:** None in the current campaign.
 
 ### Motion — Publishable
 
