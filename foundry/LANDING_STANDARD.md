@@ -41,6 +41,11 @@ Copy [`foundry/ops/templates/ios-landing`](ops/templates/ios-landing)
 into the product as `site/`. Fill `site.config.ts` and drop real device
 screenshots in `public/images/screens`. Do not invent a second page set.
 
+Use this for iOS-first apps (Kith, Setline, Anchor, Motion, Indulge).
+Leave web-primary products (Calorie, Significant Hobbies, Pace) on their
+own marketing surfaces. Apple’s official App Store badge and Smart App
+Banner are allowed only with a live `apps.apple.com` URL.
+
 ## Structure
 
 - **One idea per screen.** Each scroll-fold communicates exactly one thing.
