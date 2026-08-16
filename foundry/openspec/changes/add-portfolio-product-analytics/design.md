@@ -96,8 +96,10 @@ extends to the remaining pilot products.
 ### PostHog aggregate collector
 
 `posthog-outcomes-collect.mjs` reads the shared PostHog project via the
-Insights API (`/api/projects/:id/insights`) using the public project key with
-read-only access. It groups by `project_id` property, queries the last 7-day
+Query API (`/api/projects/:id/query/` with `TrendsQuery`) using a personal
+API key with read-only access. The Insights trend endpoint is deprecated and
+returns 403. It groups by `project_id`, including historical aliases
+(`resume-tailor` for RolePatch, `linkchat` for Karte), queries the last 7-day
 window, and emits one `user-metrics` observation per product with the
 PostHog-derived metrics. The collector follows the same shape as
 `cloudflare-outcomes-collect.mjs`: read canonical projects, collect, validate,
@@ -167,7 +169,7 @@ flowchart LR
   end
 
   subgraph Fleet Ops
-    PC[posthog-outcomes-collect.mjs<br/>Insights API reader]
+    PC[posthog-outcomes-collect.mjs<br/>Query API reader]
     DC[d1-outcomes-collect.mjs<br/>read-only aggregate SQL]
     VAL[visibility-outcome-store.mjs<br/>validate + dedupe]
     LED[ledger.jsonl<br/>~/.fleet/visibility-outcomes/]
@@ -200,7 +202,7 @@ flowchart LR
 
 ## Risks / Trade-offs
 
-- [PostHog Insights API rate limits] -> Query one 7-day window per product per
+- [PostHog Query API rate limits] -> Query one 7-day window per product per
   explicit update; serialize with a concurrency cap like the Cloudflare
   collector.
 - [D1 query cost] -> Run aggregate queries only on explicit update; cache

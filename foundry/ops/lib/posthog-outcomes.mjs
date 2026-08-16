@@ -5,6 +5,23 @@ export const DEFAULT_POSTHOG_PROJECT_ID = 110635;
 const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'returned'];
 
 /**
+ * Live products still emit historical `project_id` values that predate the
+ * canonical catalog id. Query both so the Query API collector does not
+ * report empty windows against the shared PostHog project.
+ */
+export const POSTHOG_PROJECT_ID_ALIASES = {
+  rolepatch: ['resume-tailor'],
+  karte: ['linkchat'],
+};
+
+export function posthogProjectIdValues(project) {
+  const canonical = project?.posthogProjectId ?? project?.id;
+  if (!canonical) return [];
+  const aliases = POSTHOG_PROJECT_ID_ALIASES[project.id] ?? [];
+  return [...new Set([canonical, ...aliases])];
+}
+
+/**
  * Property filters that exclude non-production traffic so development,
  * synthetic monitoring, and known bot/internal-operator events cannot
  * contaminate the aggregate user-metrics ledger.
@@ -97,14 +114,15 @@ export async function collectPosthogOutcomes({
 
   for (const project of projects ?? []) {
     if (!project.id) continue;
-    const projectIdProperty = project.posthogProjectId ?? project.id;
+    const projectIdProperties = posthogProjectIdValues(project);
+    if (projectIdProperties.length === 0) continue;
 
     try {
       const metrics = await queryProjectMetrics({
         fetchImpl,
         personalApiKey,
         posthogProjectId: projectId,
-        projectIdProperty,
+        projectIdProperties,
         startDate,
         endDate,
       });
@@ -162,7 +180,7 @@ async function queryProjectMetrics({
   fetchImpl,
   personalApiKey,
   posthogProjectId,
-  projectIdProperty,
+  projectIdProperties,
   startDate,
   endDate,
 }) {
@@ -172,7 +190,7 @@ async function queryProjectMetrics({
     {
       key: 'project_id',
       operator: 'exact',
-      value: [projectIdProperty],
+      value: projectIdProperties,
       type: 'event',
     },
     ...TRAFFIC_EXCLUSION_FILTERS,

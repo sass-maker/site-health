@@ -21,7 +21,19 @@ No product should emit a sixth event or rename these.
 
 - `project_id` (string): The canonical Fleet project ID (e.g. `rolepatch`,
   `karte`, `drank`). This is the only required property on every event. It
-  groups events by product in PostHog Insights.
+  groups events by product in the shared PostHog project.
+
+Live RolePatch and Karte events still use historical values (`resume-tailor`,
+`linkchat`). The Query API collector reads those aliases until the products
+emit the catalog ids.
+
+### Current instrumentation (2026-08-17)
+
+| Product | Events in PostHog | `project_id` emitted | Gap |
+|---|---|---|---|
+| RolePatch | `page_view`, `signup`, `activated`, `core_action`, `returned` | `resume-tailor` | Catalog id is `rolepatch` |
+| Karte | `signup`, `activated`, `core_action`, `returned` | `linkchat` | Missing owner-facing `page_view`; catalog id is `karte` |
+| Drank | error/timing only | `drank` | No 5-event product taxonomy |
 
 ### Optional property
 
@@ -90,7 +102,7 @@ The `user-metrics` outcome family maps events to these metric labels:
    API keys, cookies, or auth tokens appear in stored observations.
 
 3. **Read-only access.** The PostHog collector uses a personal API key with
-   read-only Insights access. It never writes events. The D1 collector uses
+   read-only Query API access. It never writes events. The D1 collector uses
    `wrangler d1 execute --remote` with read-only COUNT queries.
 
 4. **Numeric validation.** The visibility-outcome store rejects any
@@ -138,7 +150,7 @@ indicator with both values and the variance percentage.
 
 | Script | Source | Provider |
 |---|---|---|
-| `posthog-outcomes-collect.mjs` | PostHog Insights API | `posthog-insights` |
+| `posthog-outcomes-collect.mjs` | PostHog Query API | `posthog-insights` |
 | `d1-outcomes-collect.mjs` | Cloudflare D1 (wrangler) | `d1-aggregate` |
 
 Both scripts append observations to the private visibility-outcome ledger

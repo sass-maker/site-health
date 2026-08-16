@@ -20,7 +20,7 @@ function usage() {
 Usage:
   posthog-outcomes-collect.mjs [--project <id>] [--ledger <ledger.jsonl>] [--window <days>]
 
-Uses POSTHOG_PERSONAL_API_KEY for read-only Insights API access.
+Uses POSTHOG_PERSONAL_API_KEY for read-only Query API access.
 Only normalized aggregates are written to the private local ledger.
 No PII, raw events, or credentials are stored.\n`);
 }

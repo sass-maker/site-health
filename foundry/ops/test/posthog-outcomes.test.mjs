@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { collectPosthogOutcomes } from '../lib/posthog-outcomes.mjs';
+import {
+  collectPosthogOutcomes,
+  posthogProjectIdValues,
+} from '../lib/posthog-outcomes.mjs';
 
 function fixtureProjects() {
   return [
@@ -139,6 +142,39 @@ test('rejects reporting window outside 1-90 days', async () => {
     }),
     /1-90 days/,
   );
+});
+
+test('queries the Query API and includes historical project_id aliases', async () => {
+  const responses = Array.from({ length: 12 }, () => trendResult([0]));
+  const fetchImpl = mockFetch(responses);
+
+  await collectPosthogOutcomes({
+    projects: fixtureProjects(),
+    personalApiKey: 'test-key',
+    fetchImpl,
+    now: new Date('2026-08-15T12:00:00.000Z'),
+  });
+
+  assert.ok(fetchImpl.calls.length > 0);
+  for (const call of fetchImpl.calls) {
+    assert.match(call.url, /\/api\/projects\/110635\/query\/$/);
+    assert.doesNotMatch(call.url, /insights/);
+    const body = JSON.parse(call.options.body);
+    assert.equal(body.query.kind, 'TrendsQuery');
+    const projectFilter = body.query.properties.find((property) => property.key === 'project_id');
+    assert.ok(projectFilter);
+    if (projectFilter.value.includes('rolepatch')) {
+      assert.deepEqual(projectFilter.value, ['rolepatch', 'resume-tailor']);
+    } else {
+      assert.deepEqual(projectFilter.value, ['karte', 'linkchat']);
+    }
+  }
+});
+
+test('maps catalog ids to the project_id values products already emit', () => {
+  assert.deepEqual(posthogProjectIdValues({ id: 'rolepatch' }), ['rolepatch', 'resume-tailor']);
+  assert.deepEqual(posthogProjectIdValues({ id: 'karte' }), ['karte', 'linkchat']);
+  assert.deepEqual(posthogProjectIdValues({ id: 'drank' }), ['drank']);
 });
 
 test('handles rate limit responses gracefully', async () => {

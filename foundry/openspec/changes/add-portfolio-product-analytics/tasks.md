@@ -2,25 +2,25 @@
 
 - [x] 1.1 Define the 5-event taxonomy (`page_view`, `signup`, `activated`, `core_action`, `returned`) with `project_id` property and `action` sub-property for `core_action`.
 - [x] 1.2 Document the event contract in `foundry/ops/docs/` so every product can implement it consistently.
-- [ ] 1.3 Audit existing PostHog instrumentation in RolePatch, Karte, and Drank against the 5-event contract and record gaps.
-- [ ] 1.4 Upgrade RolePatch to emit `page_view` (currently emits 4 of 5 events).
+- [x] 1.3 Audit existing PostHog instrumentation in RolePatch, Karte, and Drank against the 5-event contract and record gaps.
+- [x] 1.4 Upgrade RolePatch to emit `page_view` (currently emits 4 of 5 events).
 - [ ] 1.5 Upgrade Karte to emit `page_view` (currently emits 4 of 5 events).
 - [ ] 1.6 Upgrade Drank from error-monitoring-only to the full 5-event taxonomy.
 
 ## 2. Outcome store extension
 
-- [ ] 2.1 Add `user-metrics` family to `FAMILY_CONTRACTS` in `visibility-outcome-store.mjs` with providers `posthog-insights` and `d1-aggregate`.
-- [ ] 2.2 Define metric contracts for Visitors, Identified users, Accounts, Activation rate, D1 retention, D7 retention, and Core actions.
-- [ ] 2.3 Add validation tests for the new family covering valid observations, unknown metrics, out-of-range percents, and duplicate ids.
-- [ ] 2.4 Verify existing families (search, ai-crawl, ai-referral, web-traffic, web-vitals) remain unaffected.
+- [x] 2.1 Add `user-metrics` family to `FAMILY_CONTRACTS` in `visibility-outcome-store.mjs` with providers `posthog-insights` and `d1-aggregate`.
+- [x] 2.2 Define metric contracts for Visitors, Identified users, Accounts, Activation rate, D1 retention, D7 retention, and Core actions.
+- [x] 2.3 Add validation tests for the new family covering valid observations, unknown metrics, out-of-range percents, and duplicate ids.
+- [x] 2.4 Verify existing families (search, ai-crawl, ai-referral, web-traffic, web-vitals) remain unaffected.
 
 ## 3. PostHog aggregate collector
 
-- [ ] 3.1 Create `foundry/ops/lib/posthog-outcomes.mjs` with an Insights API reader that groups by `project_id` property over a 7-day window.
-- [ ] 3.2 Create `foundry/ops/scripts/posthog-outcomes-collect.mjs` following the `cloudflare-outcomes-collect.mjs` shape (read canonical projects, collect, validate, append to ledger).
-- [ ] 3.3 Map PostHog Insights results to the `user-metrics` metric labels (Visitors, Identified users, Activation rate, D1/D7 retention, Core actions).
-- [ ] 3.4 Add bounded failure handling for rate limits, missing project key, and products with no PostHog events.
-- [ ] 3.5 Add focused tests for the collector with fixture PostHog API responses.
+- [x] 3.1 Create `foundry/ops/lib/posthog-outcomes.mjs` with a Query API reader that groups by `project_id` (plus historical aliases) over a 7-day window.
+- [x] 3.2 Create `foundry/ops/scripts/posthog-outcomes-collect.mjs` following the `cloudflare-outcomes-collect.mjs` shape (read canonical projects, collect, validate, append to ledger).
+- [x] 3.3 Map PostHog Query API results to the `user-metrics` metric labels (Visitors, Identified users, Activation rate, D1/D7 retention, Core actions).
+- [x] 3.4 Add bounded failure handling for rate limits, missing project key, and products with no PostHog events.
+- [x] 3.5 Add focused tests for the collector with fixture PostHog API responses.
 
 ## 4. D1 aggregate collectors
 

@@ -50,13 +50,16 @@ appending it to the private JSONL ledger.
 - **THEN** the store rejects the observation
 - **AND** no invalid data enters the ledger
 
-### Requirement: The PostHog collector reads the shared project via the Insights API
+### Requirement: The PostHog collector reads the shared project via the Query API
 
 The system SHALL provide a PostHog aggregate collector that reads the shared
-PostHog project via the Insights API, groups events by `project_id` property
-over a bounded 7-day window, and emits one normalized `user-metrics` observation
-per product with Visitors, Identified users, Activation rate, D1/D7 retention,
-and Core actions where available.
+PostHog project via the Query API (`/api/projects/:id/query/` with
+`TrendsQuery`). The legacy Insights trend endpoint returns 403 and SHALL NOT
+be used. The collector SHALL group events by `project_id`, including
+historical aliases that predate the catalog id, over a bounded 7-day window,
+and emit one normalized `user-metrics` observation per product with Visitors,
+Identified users, Activation rate, D1/D7 retention, and Core actions where
+available.
 
 #### Scenario: A product has PostHog events
 
@@ -75,7 +78,7 @@ and Core actions where available.
 
 #### Scenario: The PostHog API rate limit is hit
 
-- **WHEN** the collector exceeds the PostHog Insights API rate limit
+- **WHEN** the collector exceeds the PostHog Query API rate limit
 - **THEN** it reports a bounded failure
 - **AND** it does not retry aggressively or block the update cycle
 

@@ -15,7 +15,7 @@ grounded, privacy-safe, portfolio-wide user metrics.
   land in the same private JSONL ledger as Cloudflare and Search Console
   evidence.
 - Add a PostHog aggregate collector (`posthog-outcomes-collect.mjs`) that reads
-  the shared PostHog project via the Insights API and emits normalized
+  the shared PostHog project via the Query API and emits normalized
   visitor, identified-user, account, activation, retention, and core-action
   observations per product.
 - Add D1 aggregate collectors for products with authoritative databases
@@ -60,6 +60,6 @@ Karte, and Drank), the existing private JSONL ledger at
 local JSON API. It introduces no new production dependency, no new secrets in
 tracked files, no PII in the ledger, and no automatic recurring schedule. The
 PostHog project key remains a public client-side key (already embedded in
-shipped products); the collector uses the same key with the read-only Insights
+shipped products); the collector uses a personal API key with the read-only Query
 API. D1 collectors use existing Wrangler OAuth or `wrangler d1 execute` with
 read-only aggregate queries.
