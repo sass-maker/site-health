@@ -1,7 +1,7 @@
 {
   "$schema": "fleet.seo-geo-publishing.v1",
   "version": 1,
-  "updatedAt": "2026-08-12",
+  "updatedAt": "2026-08-16",
   "selectedP4": [
     "drank",
     "email-manager",
@@ -367,13 +367,18 @@
     },
     {
       "projectId": "agent-office",
-      "state": "prepare",
+      "state": "publish",
       "narrative": "A persistent office environment for coordinating agents and durable work.",
-      "sourceAsset": "A public product page, safe demo workspace, and clear explanation of persistence and collaboration boundaries.",
-      "placements": [],
-      "futureChannels": ["dev", "hacker-news", "product-hunt", "youtube"],
-      "prerequisites": ["Approve and maintain a canonical public listing before any external publication."] ,
-      "exclusions": []
+      "sourceAsset": "Use the verified informational site for an architecture walkthrough. Explain how local operation works, where employee authority stops, and how owners inspect the work. Do not suggest that the Mac app is publicly downloadable.",
+      "placements": [
+        { "channelId": "dev", "rank": "primary", "format": "Architecture case study grounded in the maintained informational site", "actor": "agent", "fit": "Developer audience for local-first agent coordination and explicit authority boundaries." },
+        { "channelId": "substack", "rank": "secondary", "format": "Build note about durable, supervised AI employees", "actor": "owner", "fit": "Founder narrative can link to the public system and privacy details without claiming binary availability." }
+      ],
+      "exclusions": [
+        { "channelId": "hacker-news", "reason": "Explicitly excluded from the current campaign by the owner." },
+        { "channelId": "product-hunt", "reason": "Do not launch until a trusted public Mac distribution channel exists." },
+        { "channelId": "app-marketplaces", "reason": "No signed, notarized, publicly distributed binary is currently claimed." }
+      ]
     },
     {
       "projectId": "chatgpt-memory-insights",
@@ -502,13 +507,18 @@
     },
     {
       "projectId": "karte",
-      "state": "prepare",
+      "state": "publish",
       "narrative": "An AI link-in-bio that turns a public profile into a conversation.",
       "sourceAsset": "A verified live profile, public agent manifest, and safe end-to-end conversation demo.",
-      "placements": [],
-      "futureChannels": ["product-hunt", "dev", "github-awesome", "youtube"],
-      "prerequisites": ["Verify the live runtime posture and re-confirm the public sharing flag."],
-      "exclusions": []
+      "placements": [
+        { "channelId": "dev", "rank": "primary", "format": "Technical walkthrough of the public agent profile and manifest", "actor": "agent", "fit": "Developer audience can inspect the live runtime, sitemap, and agent-readable surface." },
+        { "channelId": "github-awesome", "rank": "primary", "format": "Contribution to maintained AI profile and agent-interface lists", "actor": "shared", "fit": "Direct category fit when the canonical karte.cc identity is stated clearly." },
+        { "channelId": "youtube", "rank": "secondary", "format": "Safe end-to-end public profile conversation demo", "actor": "shared", "fit": "The interaction is easier to evaluate when demonstrated visibly." }
+      ],
+      "exclusions": [
+        { "channelId": "hacker-news", "reason": "Explicitly excluded from the current campaign by the owner." },
+        { "channelId": "product-hunt", "reason": "Cut from the current account-gated wave; revisit only with a separate approved campaign." }
+      ]
     },
     {
       "projectId": "starboard",
@@ -551,13 +561,18 @@
     },
     {
       "projectId": "indulge",
-      "state": "prepare",
-      "narrative": "A consumer product whose public distribution surface has not yet been approved.",
-      "sourceAsset": "An approved public listing, screenshots, privacy disclosures, and a complete product walkthrough.",
-      "placements": [],
-      "futureChannels": ["app-marketplaces", "product-hunt", "youtube"],
-      "prerequisites": ["Approve and maintain a canonical public or App Store listing."],
-      "exclusions": []
+      "state": "publish",
+      "narrative": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
+      "sourceAsset": "Use the verified product and trust site. It has real app proof, privacy and support details, and the current beta status. Do not suggest that the app is available through the App Store or a public TestFlight link.",
+      "placements": [
+        { "channelId": "medium", "rank": "primary", "format": "Method article about intentional digital pleasure and humane replacement", "actor": "shared", "fit": "The public trust surface supports a useful narrative without requiring an App Store claim." },
+        { "channelId": "substack", "rank": "secondary", "format": "Product and design field note linked to the public trust site", "actor": "owner", "fit": "A founder note can link directly to the beta and distribution details." }
+      ],
+      "exclusions": [
+        { "channelId": "app-marketplaces", "reason": "No App Store or public TestFlight availability is currently claimed." },
+        { "channelId": "product-hunt", "reason": "Do not launch until a public native distribution channel exists." },
+        { "channelId": "hacker-news", "reason": "Explicitly excluded from the current campaign by the owner." }
+      ]
     },
     {
       "projectId": "fleet-workspace",
@@ -593,19 +608,26 @@
       "narrative": "A local media experiment for assembling or transforming video assets.",
       "sourceAsset": "A distributable build, before-and-after media example, and clear rights-safe input provenance.",
       "placements": [],
-      "futureChannels": ["dev", "youtube", "hacker-news", "github-repository"],
-      "prerequisites": ["Ship a usable distributed or provider-hosted surface before external promotion."],
+      "futureChannels": [],
+      "prerequisites": ["The owner cut Mashup from the current SEO/GEO campaign; a future campaign requires a usable distributed or provider-hosted surface and new approval."],
       "exclusions": []
     },
     {
       "projectId": "local-ai-video-studio",
-      "state": "prepare",
+      "state": "publish",
       "narrative": "A local AI video studio for model-assisted media workflows.",
-      "sourceAsset": "An approved public listing, runnable workflow, model cards, and rights-safe example output.",
-      "placements": [],
-      "futureChannels": ["hugging-face", "dev", "youtube", "product-hunt"],
-      "prerequisites": ["Approve and maintain a canonical public listing before external publication."],
-      "exclusions": []
+      "sourceAsset": "Use the verified informational site to explain local video processing and reproducible effect graphs. Show a rights-safe comparison, but do not suggest that the Mac app is available for download.",
+      "placements": [
+        { "channelId": "dev", "rank": "primary", "format": "Technical case study on reproducible local video-effect graphs", "actor": "agent", "fit": "Developer audience can evaluate the architecture and disclosed workflow from the maintained public evidence." },
+        { "channelId": "youtube", "rank": "secondary", "format": "Recorded comparison workflow using rights-safe example media", "actor": "shared", "fit": "Side-by-side effect studies are best understood visually without distributing the binary." },
+        { "channelId": "substack", "rank": "secondary", "format": "Build note about local, inspectable video experiments", "actor": "owner", "fit": "Founder narrative can link to the informational site while preserving the release boundary." }
+      ],
+      "exclusions": [
+        { "channelId": "hugging-face", "reason": "No public model, dataset, or runnable Space is currently claimed." },
+        { "channelId": "product-hunt", "reason": "Do not launch until a trusted public Mac distribution channel exists." },
+        { "channelId": "app-marketplaces", "reason": "No signed, notarized, publicly distributed binary is currently claimed." },
+        { "channelId": "hacker-news", "reason": "Explicitly excluded from the current campaign by the owner." }
+      ]
     },
     {
       "projectId": "field-track",

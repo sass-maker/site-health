@@ -1,6 +1,6 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-15
+Last updated: 2026-08-16
 
 ## Why / What
 
@@ -70,6 +70,13 @@ CodeVetter or App Health source.
 
 ## Timeline
 
+- **2026-08-16 — Public listings now say exactly what can be shared:** Approved
+  the informational sites for Office OS and Local AI Video Studio, the product
+  and trust site for Indulge, and Karte after accepting its documented name
+  collision. The catalog and publishing matrix do not claim native downloads,
+  App Store or TestFlight availability, public models, or launches that have
+  not happened. Mashup remains outside the current SEO/GEO campaign because it
+  has no deployed public surface.
 - **2026-08-16 — Product-platform matching became audience-aware:** Added a
   validated 12-tag audience taxonomy covering 31 classified product identities
   and all 143 accreditation destinations. Artifact-compatible platforms now

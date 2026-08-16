@@ -36,7 +36,9 @@ test('generated guide is deterministic and exposes execution boundaries and excl
   const rendered = renderSeoGeoPublishing(program, catalog);
   assert.equal(rendered, renderSeoGeoPublishing(program, catalog));
   assert.match(rendered, /all P1 \(4\), all P2 \(19\), all eligible finished P4 \(10\)/);
-  assert.match(rendered, /### Office OS — Preparation only/);
+  assert.match(rendered, /### Office OS — Publishable/);
+  assert.match(rendered, /### Mashup — Preparation only/);
+  assert.match(rendered, /Future candidates after re-verification:\*\* None in the current campaign\./);
   assert.match(rendered, /### RolePatch — Publishable/);
   assert.match(rendered, /AlternativeTo explicitly disallows résumé\/CV builders/);
   assert.match(rendered, /## Eligible finished P4 — 10/);
@@ -88,18 +90,18 @@ test('selectedP4 stays an exhaustive ordering of active, deployed, share-ready P
 
 test('catalog readiness controls whether a plan can contain executable placements', () => {
   const executableBlocked = structuredClone(program);
-  const office = executableBlocked.projects.find((plan) => plan.projectId === 'agent-office');
-  office.state = 'publish';
-  office.placements = [{
-    channelId: 'product-hunt',
+  const mashup = executableBlocked.projects.find((plan) => plan.projectId === 'mashup');
+  mashup.state = 'publish';
+  mashup.placements = [{
+    channelId: 'dev',
     rank: 'primary',
     format: 'Launch',
-    actor: 'owner',
+    actor: 'agent',
     fit: 'Premature.',
   }];
   assert.throws(
     () => validateSeoGeoPublishing(executableBlocked, catalog),
-    /agent-office: state publish must match catalog readiness prepare/,
+    /mashup: state publish must match catalog readiness prepare/,
   );
 
   const preparedReady = structuredClone(program);

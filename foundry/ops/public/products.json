@@ -183,6 +183,18 @@
       "pillarId": "learn"
     },
     {
+      "id": "indulge",
+      "name": "Indulge",
+      "description": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
+      "url": "https://indulge.significanthobbies.com",
+      "tier": "active",
+      "category": "personal",
+      "priority": "P2",
+      "spotlight": false,
+      "maturity": "maintained",
+      "pillarId": "learn"
+    },
+    {
       "id": "karte",
       "name": "Karte",
       "description": "An AI link-in-bio that turns a profile into a conversation.",
@@ -210,6 +222,18 @@
       "changelogUrl": "https://knowledgebase.sassmaker.com/changelog",
       "repositoryUrl": "https://github.com/sass-maker/knowledge-base",
       "roadmapUrl": "https://github.com/sass-maker/knowledge-base/issues",
+      "pillarId": "build"
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "description": "A local-first Mac studio for comparing reproducible video-effect variants before export.",
+      "url": "https://local-ai-video-studio.sassmaker.com",
+      "tier": "active",
+      "category": "product",
+      "priority": "P2",
+      "spotlight": false,
+      "maturity": "maintained",
       "pillarId": "build"
     },
     {
@@ -255,6 +279,18 @@
       "changelogUrl": "https://motion.significanthobbies.com/changelog",
       "repositoryUrl": "https://github.com/Significant-Hobbies/motion",
       "roadmapUrl": "https://github.com/Significant-Hobbies/motion/issues",
+      "pillarId": "build"
+    },
+    {
+      "id": "agent-office",
+      "name": "Office OS",
+      "description": "A local-first Mac workplace where named AI employees have bounded responsibilities and their work stays inspectable.",
+      "url": "https://office-os.sassmaker.com",
+      "tier": "active",
+      "category": "product",
+      "priority": "P1",
+      "spotlight": false,
+      "maturity": "maintained",
       "pillarId": "build"
     },
     {

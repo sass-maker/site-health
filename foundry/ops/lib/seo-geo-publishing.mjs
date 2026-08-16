@@ -231,7 +231,9 @@ export function renderSeoGeoPublishing(program, catalog) {
           '',
           ...plan.prerequisites.map((item) => `- ${item}`),
           '',
-          `**Future candidates after re-verification:** ${plan.futureChannels.map((channelId) => channels.get(channelId).name).join(', ')}`,
+          `**Future candidates after re-verification:** ${plan.futureChannels.length > 0
+            ? plan.futureChannels.map((channelId) => channels.get(channelId).name).join(', ')
+            : 'None in the current campaign.'}`,
         );
       } else {
         lines.push(

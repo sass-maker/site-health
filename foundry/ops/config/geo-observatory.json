@@ -28,6 +28,14 @@
       ]
     },
     {
+      "id": "indulge",
+      "origin": "https://indulge.significanthobbies.com",
+      "queries": [
+        { "qid": "indulge-brand", "kind": "brand", "q": "indulge.significanthobbies.com" },
+        { "qid": "indulge-category", "kind": "category", "q": "private local-first intentional screen time iPhone app" }
+      ]
+    },
+    {
       "id": "rolepatch",
       "origin": "https://rolepatch.com",
       "queries": [

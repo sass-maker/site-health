@@ -52,7 +52,7 @@ test('Fleet Workflows remains covered as a Fleet Workspace extension', () => {
 });
 
 test('GEO identity contract covers every maintained visibility product', () => {
-  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 31 });
+  assert.deepEqual(validateGeoIdentityContract(catalog, agentRegistry), { projectCount: 32 });
 });
 
 test('GEO identity contract rejects missing, conflicting, and inaccessible source declarations', () => {
@@ -127,11 +127,11 @@ test('generated catalog separates P4 status and exposes dated readiness evidence
   assert.match(rendered, /\| Readiness evidence \|/);
   assert.match(
     rendered,
-    /The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk\. \(verified 2026-08-14\)/,
+    /The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing\. \(verified 2026-08-16\)/,
   );
   assert.match(
     rendered,
-    /The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved\. \(verified 2026-08-14\)/,
+    /The owner approved the verified product and trust site for public sharing; no App Store, TestFlight, or native distribution claim is approved\. \(verified 2026-08-16\)/,
   );
 });
 
@@ -325,7 +325,7 @@ test('portfolio classification and infrastructure coverage fail closed for every
   const agentOffice = contradictoryReadiness.projects.find(
     (project) => project.id === 'agent-office',
   );
-  agentOffice.portfolio.readyToBeShared = true;
+  agentOffice.public.listing = 'hidden';
   assert.throws(
     () => validateProjectCatalog(contradictoryReadiness, { reconcile: false }),
     /agent-office: readyToBeShared requires a verified maintained public surface/,
@@ -347,6 +347,15 @@ test('portfolio classification and infrastructure coverage fail closed for every
   assert.throws(
     () => validateProjectCatalog(missingReadinessReason, { reconcile: false }),
     /rolepatch: sharingReadiness reason must be non-empty/,
+  );
+
+  const invalidChangelogPosture = structuredClone(catalog);
+  invalidChangelogPosture.projects.find(
+    (project) => project.id === 'agent-office',
+  ).public.hasChangelog = 'no';
+  assert.throws(
+    () => validateProjectCatalog(invalidChangelogPosture, { reconcile: false }),
+    /agent-office: public hasChangelog must be boolean when declared/,
   );
 
   const missingInfrastructure = structuredClone(catalog);
