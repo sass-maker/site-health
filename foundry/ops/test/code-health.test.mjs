@@ -134,6 +134,49 @@ test('discovers JavaScript and language-native capability evidence', async (t) =
   }
 });
 
+test('discovers Python format, lint, and tests from pyproject.toml without package.json', async (t) => {
+  const root = fixtureRoot(t);
+  write(path.join(root, '.git'), 'gitdir: fixture\n');
+  write(path.join(root, 'pyproject.toml'), `[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "C90"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 20
+
+[dependency-groups]
+dev = ["pytest>=8.3.0", "pytest-cov>=6.0.0"]
+
+[tool.pytest.ini_options]
+addopts = "-q --cov"
+`);
+
+  const evidence = await discoverCodeHealthCapabilities({ repositoryRoot: root });
+  assert.ok(
+    evidence.format.some((source) => source.includes('pyproject.toml')),
+    'format should come from pyproject.toml',
+  );
+  assert.ok(
+    evidence.lint.some((source) => source.includes('pyproject.toml')),
+    'lint should come from pyproject.toml',
+  );
+  assert.ok(
+    evidence.tests.some((source) => source.includes('pyproject.toml')),
+    'tests should come from pyproject.toml',
+  );
+  assert.ok(
+    evidence.coverage.some((source) => source.includes('pyproject.toml')),
+    'coverage should come from pytest-cov/--cov',
+  );
+  assert.ok(
+    evidence.complexity.some((source) => source.includes('pyproject.toml')),
+    'complexity should come from C90/max-complexity',
+  );
+  assert.equal(evidence.format.includes('package.json package scripts'), false);
+});
+
 test('discovers repository-native complexity and cycle quality scripts', async (t) => {
   const root = fixtureRoot(t);
   write(path.join(root, '.git'), 'gitdir: fixture\n');

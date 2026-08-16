@@ -169,7 +169,12 @@
     "free-ai": { "profile": "javascript-typescript" },
     "high-signal": { "profile": "mixed" },
     "india-standards": { "profile": "javascript-typescript" },
-    "indulge": { "profile": "javascript-typescript" },
+    "indulge": {
+      "profile": "mixed",
+      "equivalents": {
+        "cycles": "The required isolated Xcode test and Release builds resolve the Swift target and source dependency graph; Knip and Astro cycle checks are not applicable to the thin static landing."
+      }
+    },
     "karte": { "profile": "javascript-typescript" },
     "knowledge-base": { "profile": "mixed" },
     "local-ai-video-studio": {

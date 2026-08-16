@@ -1,0 +1,14 @@
+{
+  "name": "mashup",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Quality wrappers for the Mashup Python helper.",
+  "scripts": {
+    "format:check": "uv run ruff format --check .",
+    "lint": "uv run ruff check .",
+    "test": "uv run pytest",
+    "test:coverage": "uv run pytest --cov",
+    "quality:unused": "uv run ruff check --select F401 .",
+    "quality:complexity": "uv run ruff check --select C90 ."
+  }
+}
