@@ -100,6 +100,7 @@ export const site: SiteConfig = {
     blush: "#f4d9dd",
     inkOnDark: "#f4e6d4"
   },
+  colorScheme: "light",
   hero: {
     image: "/images/screens/home.png",
     alt: "The iPhone app’s home screen",
