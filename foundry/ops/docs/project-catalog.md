@@ -3,7 +3,7 @@
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 > Maintenance contract: `foundry/ops/config/README.md`.
 
-Generated from 48 internal project identities.
+Generated from 49 internal project identities.
 
 ## Operating model
 
@@ -62,9 +62,9 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | PostTrainLLM | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `posttrainllm` | cloudflare pages `tinygpt` (wrangler-direct; live) | cloudflare zone `posttrainllm.com` (active-config-derived) | 2026-08-11 |
 | Office OS | active | yes | yes | The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved. (verified 2026-08-16) | `agent-office` | cloudflare pages `office-os` (wrangler-direct; live)<br>local macos-app `AgentOffice.app` (local-package; local-only) | — | 2026-08-11 |
 
-## P2 — 19
+## P2 — 20
 
-### Products — 15
+### Products — 16
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
@@ -76,6 +76,7 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | SWE Interview Prep | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `swe-interview-prep` | cloudflare pages `swe-interview-prep` (git-connected; live) | cloudflare d1 `swe-interview-prep` (active)<br>cloudflare d1 `swe-interview-prep-preview` (preview)<br>cloudflare r2 `swe-interview-prep-assets` (active-unreferenced)<br>turso database `swe-interview-prep` (rollback-held-unverified) | 2026-08-11 |
 | Calorie | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `calorie` | cloudflare worker `calorie` (wrangler-direct; live) | cloudflare d1 `calorie` (active) | 2026-08-11 |
 | Setline | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `setline` | cloudflare worker `setline` (wrangler-direct; live) | cloudflare d1 `setline` (active) | 2026-08-11 |
+| Kith | active | no | no | Local-only iPhone app. No public surface or App Store listing yet. (verified 2026-08-16) | `kith` | — | — | 2026-08-16 |
 | RolePatch | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `rolepatch` | cloudflare worker `resume-tailor` (wrangler-direct; live) | cloudflare d1 `rolepatch` (active)<br>cloudflare browser-rendering `BROWSER` (active)<br>cloudflare turnstile `rolepatch (Spin)` (active)<br>cloudflare zone `rolepatch.com` (active-config-derived) | 2026-08-11 |
 | Karte | active | yes | yes | The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing. (verified 2026-08-16) | `karte` | cloudflare worker `linkchat` (wrangler-direct; live)<br>cloudflare email-worker `karte-email` (wrangler-direct; live) | cloudflare d1 `linkchat-auth` (active)<br>cloudflare r2 `linkchat-images` (active)<br>cloudflare r2 `linkchat-cache` (active)<br>cloudflare durable-object `DOQueueHandler` (active)<br>cloudflare durable-object `RateLimiterDO` (active)<br>cloudflare analytics-engine `ANALYTICS` (active)<br>cloudflare service-binding `knowledgebase` (active)<br>cloudflare turnstile `Karte contact (Spin)` (active)<br>cloudflare email-routing `*@karte.cc catch-all` (configured-dashboard-unverified)<br>cloudflare zone `karte.cc` (active-config-derived) | 2026-08-11 |
 | Starboard | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `starboard` | cloudflare worker `starboard` (wrangler-direct; live) | cloudflare d1 `starboard` (active)<br>cloudflare vectorize `starboard-repos` (active)<br>cloudflare workers-ai `AI` (active)<br>cloudflare service-binding `knowledgebase` (active)<br>turso database `starboard` (rollback-held-unverified) | 2026-08-11 |

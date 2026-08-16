@@ -2,7 +2,7 @@
 
 **Strategy reviewed:** 2026-08-16
 
-**Coverage:** all P1 (4), all P2 (19), all eligible finished P4 (10)
+**Coverage:** all P1 (4), all P2 (20), all eligible finished P4 (10)
 
 **Source of truth:** `foundry/ops/config/seo-geo-publishing.json`
 
@@ -133,7 +133,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
 - **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
-## P2 — 19
+## P2 — 20
 
 ### Fleet Workspace — Publishable
 
@@ -300,6 +300,23 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 | Primary | [AlternativeTo](https://alternativeto.net/faq/) | Workout tracker application listing | Agent direct | Shared | Recognizable software category with differentiating constraints. |
 | Secondary | [Product-specific forums and communities](https://www.discourse.org/guidelines) | Plan-execution workflow for fitness communities | Agent with unblock | Owner | Useful method when shared without generic promotion. |
 | Secondary | [YouTube](https://support.google.com/youtube/answer/57407) | One full workout logging demo | Agent direct | Shared | Shows mobile flow and offline behavior clearly. |
+
+### Kith — Preparation only
+
+**Canonical:** [https://github.com/Significant-Hobbies/kith](https://github.com/Significant-Hobbies/kith)
+
+**Narrative:** A private iPhone constellation of the people you keep close, with a dated log on each person.
+
+**Source asset:** A privacy-safe product walkthrough using the bundled sample people, not anyone's real notes.
+
+**Catalog blocker:** Local-only iPhone app. No public surface or App Store listing yet. (verified 2026-08-16)
+
+**Before publishing:**
+
+- Keep the people path local-only and confirm no account or network is required.
+- Do not publish until there is an App Store listing or another trusted distribution channel.
+
+**Future candidates after re-verification:** Product Hunt, Apple App Store and relevant marketplaces
 
 ### RolePatch — Publishable
 

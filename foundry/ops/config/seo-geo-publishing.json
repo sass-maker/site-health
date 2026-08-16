@@ -491,6 +491,19 @@
       "exclusions": []
     },
     {
+      "projectId": "kith",
+      "state": "prepare",
+      "narrative": "A private iPhone constellation of the people you keep close, with a dated log on each person.",
+      "sourceAsset": "A privacy-safe product walkthrough using the bundled sample people, not anyone's real notes.",
+      "placements": [],
+      "futureChannels": ["product-hunt", "app-marketplaces"],
+      "prerequisites": [
+        "Keep the people path local-only and confirm no account or network is required.",
+        "Do not publish until there is an App Store listing or another trusted distribution channel."
+      ],
+      "exclusions": []
+    },
+    {
       "projectId": "rolepatch",
       "state": "publish",
       "narrative": "AI-assisted résumé tailoring, role research, and interview preparation with inspectable job-fit evidence.",

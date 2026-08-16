@@ -1135,6 +1135,47 @@
       "notes": "Local-first workout execution tracker with optional Google sign-in and private D1 sync."
     },
     {
+      "id": "kith",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "Local-only iPhone app. No public surface or App Store listing yet."
+        }
+      },
+      "name": "Kith",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "local-only",
+      "repo": "kith",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/kith",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "app": "ios",
+      "public": {
+        "listing": "hidden",
+        "id": "kith",
+        "name": "Kith",
+        "description": "A private iPhone constellation of the people you keep close, with a dated log on each person.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "in-progress",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
+      },
+      "notes": "Device-first relationship constellation. No Cloudflare, no account, no network in the people path."
+    },
+    {
       "id": "rolepatch",
       "portfolio": {
         "kind": "product",
@@ -2436,6 +2477,12 @@
         "resources": [
           { "provider": "cloudflare", "kind": "d1", "name": "setline", "state": "active" }
         ]
+      },
+      "kith": {
+        "updatedAt": "2026-08-16",
+        "deployments": [],
+        "resources": [],
+        "notes": "Native iPhone app only. No Cloudflare, D1, or domain."
       },
       "rolepatch": {
         "updatedAt": "2026-08-11",
