@@ -1,7 +1,7 @@
 {
   "$schema": "fleet.seo-geo-publishing.v1",
   "version": 1,
-  "updatedAt": "2026-08-16",
+  "updatedAt": "2026-08-17",
   "selectedP4": [
     "drank",
     "email-manager",
@@ -505,6 +505,16 @@
       "placements": [],
       "futureChannels": ["product-hunt", "alternative-to", "youtube"],
       "prerequisites": ["Publish a TestFlight or App Store build and verify the landing page."],
+      "exclusions": []
+    },
+    {
+      "projectId": "ios-landings",
+      "state": "prepare",
+      "narrative": "A shared Astro factory that builds a separate static site for each Significant Hobbies iOS-first app.",
+      "sourceAsset": "A per-product landing walkthrough that names one app, shows real screenshots, and keeps TestFlight gated.",
+      "placements": [],
+      "futureChannels": ["github-repository"],
+      "prerequisites": ["Deploy at least one product site from this factory to its product domain and keep App Store privacy/support URLs stable."],
       "exclusions": []
     },
     {

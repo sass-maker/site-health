@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-08-16",
+    "updated": "2026-08-17",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -1183,6 +1183,45 @@
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
       "notes": "No server or Cloudflare footprint. Local JSON document mirrored to the personal Apple team's private iCloud container."
+    },
+    {
+      "id": "ios-landings",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-17",
+          "reason": "Shared Astro factory for five iOS product sites; no public host is served from this repo yet."
+        }
+      },
+      "name": "iOS landings",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "ios-landings",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/ios-landings",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "hidden",
+        "id": "ios-landings",
+        "name": "iOS landings",
+        "description": "Shared Astro factory that builds separate static sites for Significant Hobbies iOS apps.",
+        "category": "platform",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "in-progress"
+      },
+      "notes": "One codebase, five PRODUCT builds. Product domains stay on the product catalog rows until this repo is asked to deploy."
     },
     {
       "id": "rolepatch",
@@ -3176,6 +3215,12 @@
         "deployments": [],
         "resources": [],
         "notes": "No Cloudflare resources. Local iOS binary mirrored to the personal Apple team's private iCloud container."
+      },
+      "ios-landings": {
+        "updatedAt": "2026-08-17",
+        "deployments": [],
+        "resources": [],
+        "notes": "No Cloudflare resources yet. Five static trees are built locally as dist/<id>; product domains remain on the product rows."
       },
       "rolepatch": {
         "updatedAt": "2026-08-11",

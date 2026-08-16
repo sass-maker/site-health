@@ -1,8 +1,8 @@
 # Fleet external SEO/GEO publishing matrix
 
-**Strategy reviewed:** 2026-08-16
+**Strategy reviewed:** 2026-08-17
 
-**Coverage:** all P1 (4), all P2 (21), all eligible finished P4 (10)
+**Coverage:** all P1 (4), all P2 (22), all eligible finished P4 (10)
 
 **Source of truth:** `foundry/ops/config/seo-geo-publishing.json`
 
@@ -133,7 +133,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
 - **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
-## P2 — 21
+## P2 — 22
 
 ### Fleet Workspace — Publishable
 
@@ -317,6 +317,20 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - Publish a TestFlight or App Store build and verify the landing page.
 
 **Future candidates after re-verification:** Product Hunt, AlternativeTo, YouTube
+
+### iOS landings — Preparation only
+
+**Narrative:** A shared Astro factory that builds a separate static site for each Significant Hobbies iOS-first app.
+
+**Source asset:** A per-product landing walkthrough that names one app, shows real screenshots, and keeps TestFlight gated.
+
+**Catalog blocker:** Shared Astro factory for five iOS product sites; no public host is served from this repo yet. (verified 2026-08-17)
+
+**Before publishing:**
+
+- Deploy at least one product site from this factory to its product domain and keep App Store privacy/support URLs stable.
+
+**Future candidates after re-verification:** GitHub repository and organization profile
 
 ### RolePatch — Publishable
 

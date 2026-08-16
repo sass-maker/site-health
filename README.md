@@ -89,10 +89,10 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 
 - product: CodeVetter, HeyPace, PostTrainLLM, Office OS
 
-### P2 — 21
+### P2 — 22
 
 - product: Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track, Anchor
-- platform: Fleet Workspace, Knowledge Base
+- platform: Fleet Workspace, Knowledge Base, iOS landings
 - experiment: Mashup, Local AI Video Studio
 
 ### P4 — 25

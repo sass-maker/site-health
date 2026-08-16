@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-16",
+  "updatedAt": "2026-08-17",
   "attentionCounts": {
     "my-work": 5,
-    "toolbox": 27,
+    "toolbox": 28,
     "foundry": 5,
     "ignored": 13
   },
@@ -913,6 +913,32 @@
       "family": "significanthobbies",
       "owner": "sarthak",
       "repository": "kith",
+      "runtimes": [
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "local toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "ios-landings",
+      "name": "iOS landings",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "ios-landings",
       "runtimes": [
         "local-tool"
       ],
