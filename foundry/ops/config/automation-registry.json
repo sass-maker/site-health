@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "updatedAt": "2026-08-15",
   "attentionCounts": {
-    "my-work": 4,
-    "toolbox": 26,
+    "my-work": 5,
+    "toolbox": 27,
     "foundry": 5,
     "ignored": 13
   },
@@ -907,6 +907,32 @@
       "exceptions": []
     },
     {
+      "id": "kith",
+      "name": "Kith",
+      "attention": "toolbox",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "kith",
+      "runtimes": [
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "local toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
+    },
+    {
       "id": "rolepatch",
       "name": "RolePatch",
       "attention": "toolbox",
@@ -1075,7 +1101,7 @@
       "attention": "toolbox",
       "family": "significanthobbies",
       "owner": "sarthak",
-      "repository": "veg-protein-food",
+      "repository": "recipe-dashboard",
       "runtimes": [
         "public-web"
       ],
@@ -1599,6 +1625,40 @@
           "reason": "Inactive; explicit reactivation required"
         }
       ]
+    },
+    {
+      "id": "anchor",
+      "name": "Anchor",
+      "attention": "my-work",
+      "family": "significanthobbies",
+      "owner": "sarthak",
+      "repository": "anchor",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://anchor.significanthobbies.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Pages"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
+      "exceptions": []
     }
   ]
 }

@@ -3,7 +3,7 @@
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 > Maintenance contract: `foundry/ops/config/README.md`.
 
-Generated from 48 internal project identities.
+Generated from 50 internal project identities.
 
 ## Operating model
 
@@ -25,9 +25,9 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 
 | Kind | Coverage | Provider observed | Tracked | Evidence |
 | --- | --- | ---: | ---: | --- |
-| pages | provider-complete | 26 | 27 | Wrangler account list; 26 live plus one deleted historical target. |
-| worker | known-name-probed | 26 | 28 | All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence. |
-| d1 | provider-complete | 23 | 23 | Wrangler account list. |
+| pages | provider-complete | 27 | 28 | Wrangler account list 2026-08-16: 27 live (adds anchor-landing) plus one deleted historical target. Setline moved to GitHub Pages and holds no Cloudflare Pages project. |
+| worker | known-name-probed | 26 | 27 | All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence. Setline's Worker was deleted 2026-08-16. |
+| d1 | provider-complete | 23 | 22 | Wrangler account list. Setline's empty D1 database was deleted 2026-08-16. |
 | r2 | provider-complete | 8 | 9 | Wrangler account list; reddit-insights-archive is configured but not provisioned. |
 | kv | provider-complete | 4 | 4 | Wrangler account list; OAUTH_KV is reserved by the merged Fleet ChatGPT gateway and RATELIMIT is actively bound to verified-bases-api. |
 | vectorize | provider-complete | 8 | 8 | Wrangler account list. |
@@ -62,9 +62,9 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | PostTrainLLM | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `posttrainllm` | cloudflare pages `tinygpt` (wrangler-direct; live) | cloudflare zone `posttrainllm.com` (active-config-derived) | 2026-08-11 |
 | Office OS | active | yes | no | No maintained public listing is currently approved. (verified 2026-08-11) | `agent-office` | cloudflare pages `office-os` (wrangler-direct; live)<br>local macos-app `AgentOffice.app` (local-package; local-only) | — | 2026-08-11 |
 
-## P2 — 19
+## P2 — 21
 
-### Products — 15
+### Products — 17
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
@@ -75,7 +75,8 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | Reader | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `reader` | cloudflare worker `reader` (wrangler-direct; live) | cloudflare d1 `reader` (active)<br>cloudflare d1 `reader-preview` (preview-unreferenced)<br>cloudflare r2 `reader-pdfs` (active)<br>turso database `reader` (rollback-held-unverified) | 2026-08-11 |
 | SWE Interview Prep | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `swe-interview-prep` | cloudflare pages `swe-interview-prep` (git-connected; live) | cloudflare d1 `swe-interview-prep` (active)<br>cloudflare d1 `swe-interview-prep-preview` (preview)<br>cloudflare r2 `swe-interview-prep-assets` (active-unreferenced)<br>turso database `swe-interview-prep` (rollback-held-unverified) | 2026-08-11 |
 | Calorie | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `calorie` | cloudflare worker `calorie` (wrangler-direct; live) | cloudflare d1 `calorie` (active) | 2026-08-11 |
-| Setline | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `setline` | cloudflare worker `setline` (wrangler-direct; live) | cloudflare d1 `setline` (active) | 2026-08-11 |
+| Setline | active | no | no | Blocked: setline.significanthobbies.com returns 530 after the Worker was deleted. Needs a CNAME to significant-hobbies.github.io and a GitHub Pages publish before the canonical surface answers again. Cloudflare evidence is empty by design; hosting moved to GitHub Pages, which this inventory does not track. (verified 2026-08-16) | `setline` | — | — | 2026-08-16 |
+| Kith | active | no | no | Local iOS app under active development; not yet published to the App Store. (verified 2026-08-16) | `kith` | — | — | 2026-08-16 |
 | RolePatch | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `rolepatch` | cloudflare worker `resume-tailor` (wrangler-direct; live) | cloudflare d1 `rolepatch` (active)<br>cloudflare browser-rendering `BROWSER` (active)<br>cloudflare turnstile `rolepatch (Spin)` (active)<br>cloudflare zone `rolepatch.com` (active-config-derived) | 2026-08-11 |
 | Karte | active | yes | no | The public runtime and all 30 sitemap URLs are verified live; sharing remains held for the documented name-collision risk. (verified 2026-08-14) | `karte` | cloudflare worker `linkchat` (wrangler-direct; live)<br>cloudflare email-worker `karte-email` (wrangler-direct; live) | cloudflare d1 `linkchat-auth` (active)<br>cloudflare r2 `linkchat-images` (active)<br>cloudflare r2 `linkchat-cache` (active)<br>cloudflare durable-object `DOQueueHandler` (active)<br>cloudflare durable-object `RateLimiterDO` (active)<br>cloudflare analytics-engine `ANALYTICS` (active)<br>cloudflare service-binding `knowledgebase` (active)<br>cloudflare turnstile `Karte contact (Spin)` (active)<br>cloudflare email-routing `*@karte.cc catch-all` (configured-dashboard-unverified)<br>cloudflare zone `karte.cc` (active-config-derived) | 2026-08-11 |
 | Starboard | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `starboard` | cloudflare worker `starboard` (wrangler-direct; live) | cloudflare d1 `starboard` (active)<br>cloudflare vectorize `starboard-repos` (active)<br>cloudflare workers-ai `AI` (active)<br>cloudflare service-binding `knowledgebase` (active)<br>turso database `starboard` (rollback-held-unverified) | 2026-08-11 |
@@ -83,6 +84,7 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | Motion | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `motion` | cloudflare pages `motion` (wrangler-direct; live) | — | 2026-08-11 |
 | Indulge | active | yes | no | The product-owned public site and all nine sitemap URLs are verified live; no maintained public listing is currently approved. (verified 2026-08-14) | `induldge` | cloudflare pages `indulge` (wrangler-direct; live)<br>apple app-store-connect `Indulge` (manual-xcode; blocked-on-app-record) | — | 2026-08-11 |
 | Field Track | active | no | no | The private MVP has no verified production deployment or approved public surface. (verified 2026-08-14) | `field-track` | — | — | 2026-08-14 |
+| Anchor | active | yes | no | Landing, support and privacy pages live at anchor.significanthobbies.com with a valid certificate. Not ready to share: the macOS DMG is Developer ID signed but not notarised, so Gatekeeper warns, and the apps are otherwise unreleased. (verified 2026-08-16) | `anchor` | cloudflare pages `anchor-landing` (wrangler-direct; live) | — | 2026-08-16 |
 
 ### Platforms — 2
 
