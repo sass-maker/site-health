@@ -1108,11 +1108,11 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": true,
-        "readyToBeShared": true,
+        "deployed": false,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-08-16",
+          "reason": "Blocked: setline.significanthobbies.com returns 530 after the Worker was deleted. Needs a CNAME to significant-hobbies.github.io and a GitHub Pages publish before the canonical surface answers again. Cloudflare evidence is empty by design; hosting moved to GitHub Pages, which this inventory does not track."
         }
       },
       "name": "Setline",
@@ -1123,13 +1123,13 @@
       "lifecycle": "maintained",
       "repo": "setline",
       "repositoryVisibility": "public",
-      "deployKind": "worker+pages",
-      "cfProject": "setline",
+      "deployKind": "none",
+      "cfProject": null,
       "domains": [
         "setline.significanthobbies.com"
       ],
       "inRegistry": true,
-      "status": "live",
+      "status": "undeployed",
       "app": "ios",
       "public": {
         "listing": "maintained",
@@ -1142,7 +1142,7 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
       },
-      "notes": "Device-first iPhone workout tracker. The Worker backend (Better Auth, D1, MCP, state sync) was removed from the repository; the site is now static Pages content. The live Worker and the unused setline D1 database are retained pending an owner cutover and deletion decision."
+      "notes": "No Cloudflare footprint. The Worker and the setline D1 database were deleted 2026-08-16 (D1 held zero rows across every table). The static site is published by GitHub Pages from public/; setline.significanthobbies.com needs a CNAME to significant-hobbies.github.io before it resolves again."
     },
     {
       "id": "rolepatch",
@@ -2217,22 +2217,22 @@
           "kind": "pages",
           "state": "provider-complete",
           "observed": 27,
-          "tracked": 29,
-          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing), plus one deleted historical target and the setline Pages project, which is declared configured-not-deployed until an owner runs the cutover from its Worker."
+          "tracked": 28,
+          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing) plus one deleted historical target. Setline moved to GitHub Pages and holds no Cloudflare Pages project."
         },
         {
           "kind": "worker",
           "state": "known-name-probed",
           "observed": 26,
-          "tracked": 28,
-          "evidence": "All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence."
+          "tracked": 27,
+          "evidence": "All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence. Setline's Worker was deleted 2026-08-16."
         },
         {
           "kind": "d1",
           "state": "provider-complete",
           "observed": 23,
-          "tracked": 23,
-          "evidence": "Wrangler account list."
+          "tracked": 22,
+          "evidence": "Wrangler account list. Setline's empty D1 database was deleted 2026-08-16."
         },
         {
           "kind": "r2",
@@ -3105,30 +3105,8 @@
       },
       "setline": {
         "updatedAt": "2026-08-16",
-        "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "worker",
-            "name": "setline",
-            "method": "wrangler-direct",
-            "state": "live-purpose-review"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "setline",
-            "method": "wrangler-direct",
-            "state": "configured-not-deployed"
-          }
-        ],
-        "resources": [
-          {
-            "provider": "cloudflare",
-            "kind": "d1",
-            "name": "setline",
-            "state": "active-unreferenced"
-          }
-        ]
+        "deployments": [],
+        "resources": []
       },
       "rolepatch": {
         "updatedAt": "2026-08-11",
