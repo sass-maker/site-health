@@ -428,7 +428,9 @@ function packageEvidence(relativePath, content, evidence) {
   if (
     typeof scripts.knip === 'string'
     || typeof scripts['knip:strict'] === 'string'
+    || typeof scripts['quality:unused'] === 'string'
     || Object.hasOwn(dependencies, 'knip')
+    || /(?:ruff[^\n]*F401|\bvulture\b|\bperiphery\b)/u.test(command)
   ) recordEvidence(evidence, 'unused', source);
   if (
     typeof scripts['quality:complexity'] === 'string'
@@ -449,7 +451,32 @@ function packageEvidence(relativePath, content, evidence) {
   recordEvidence(evidence, 'dependency-risk', `${relativePath} dependency manifest`);
 }
 
+function pyprojectEvidence(relativePath, content, evidence) {
+  if (/ruff\s+format\s+--check/u.test(content) || /\[tool\.ruff\]/u.test(content)) {
+    recordEvidence(evidence, 'format', `${relativePath} python formatter configuration`);
+  }
+  if (/ruff\s+check(?:\s|$)/u.test(content) || /\[tool\.ruff\.lint\]/u.test(content)) {
+    recordEvidence(evidence, 'lint', `${relativePath} python lint configuration`);
+  }
+  if (
+    /\bpytest\b/u.test(content)
+    && /optional-dependencies|dependency-groups|(?:^|\n)dev\s*=|\baddopts\b/u.test(content)
+  ) {
+    recordEvidence(evidence, 'tests', `${relativePath} python test configuration`);
+  }
+  if (/\bpytest-cov\b|--cov\b/u.test(content)) {
+    recordEvidence(evidence, 'coverage', `${relativePath} python coverage configuration`);
+  }
+  if (/\bC90\b|max-complexity/u.test(content)) {
+    recordEvidence(evidence, 'complexity', `${relativePath} python complexity configuration`);
+  }
+}
+
 function markerEvidence(relativePath, name, content, evidence) {
+  if (name === 'pyproject.toml') pyprojectEvidence(relativePath, content, evidence);
+  if (name === 'ruff.toml' || name === '.ruff.toml') {
+    recordEvidence(evidence, 'format', `${relativePath} python formatter configuration`);
+  }
   if (/^(?:biome\.jsonc?|eslint\.config\.|oxlint\.config\.|\.ruff\.toml$|ruff\.toml$)/u.test(name)) {
     recordEvidence(evidence, 'lint', `${relativePath} lint configuration`);
   }
@@ -500,6 +527,7 @@ export async function discoverCodeHealthCapabilities({ repositoryRoot }) {
     const name = path.basename(marker);
     const content = await readableText(marker);
     if (name === 'package.json') packageEvidence(relativePath, content, evidence);
+    if (name === 'pyproject.toml') pyprojectEvidence(relativePath, content, evidence);
     markerEvidence(relativePath, name, content, evidence);
   }
 
