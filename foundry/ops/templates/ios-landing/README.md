@@ -48,13 +48,16 @@ copy so it stays independently buildable.
 
 ## Consumers
 
-| App | Path | Scheme |
+The live factory is `ios-landings/products/<id>`. Per-product `site/`
+copies may still exist so those app repos stay independently buildable.
+
+| App | Factory id | Scheme |
 |---|---|---|
-| Kith | `kith/site` | light |
-| Setline | `setline/site` | light |
-| Anchor | `anchor/site` | dark |
-| Motion | `motion/site` | dark |
-| Indulge | existing Astro site (visual origin) | light |
+| Kith | `kith` | light |
+| Setline | `setline` | light |
+| Anchor | `anchor` | dark |
+| Motion | `motion` | dark |
+| Indulge | `indulge` | light |
 
 Web-primary products with an iOS client (Calorie, Significant Hobbies, Pace)
 keep their own marketing surfaces.
