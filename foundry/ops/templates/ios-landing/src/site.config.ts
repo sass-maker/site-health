@@ -39,6 +39,11 @@ export type SiteConfig = {
     inkOnDark: string;
   };
   hero: { image: string; alt: string; caption: string };
+  gallery: { src: string; alt: string }[];
+  applicationCategory: string;
+  availability: "unreleased" | "testflight" | "app-store";
+  appStoreUrl?: string;
+  appStoreId?: string;
   betaNote: string;
   tension: { statement: string; title: string; copy: string };
   chaptersKicker: string;
@@ -99,6 +104,11 @@ export const site: SiteConfig = {
     alt: "The iPhone app’s home screen",
     caption: "The first screen a person sees."
   },
+  gallery: [
+    { src: "/images/screens/home.png", alt: "Home screen" }
+  ],
+  applicationCategory: "LifestyleApplication",
+  availability: "unreleased",
   betaNote: "Invite-only iPhone testing. No account required.",
   tension: {
     statement: "Name the tension in one line.",
