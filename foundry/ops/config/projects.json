@@ -1123,7 +1123,7 @@
       "lifecycle": "maintained",
       "repo": "setline",
       "repositoryVisibility": "public",
-      "deployKind": "worker",
+      "deployKind": "worker+pages",
       "cfProject": "setline",
       "domains": [
         "setline.significanthobbies.com"
@@ -1135,14 +1135,14 @@
         "listing": "maintained",
         "id": "setline",
         "name": "Setline",
-        "description": "An iOS-native workout execution tracker for following user-authored plans, recording sets, and timing rest offline.",
+        "description": "An iOS-native training tracker that runs a written strength, cardio and mobility programme one set at a time and measures each exercise against an authored target.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
       },
-      "notes": "Local-first workout execution tracker with optional Google sign-in and private D1 sync."
+      "notes": "Device-first iPhone workout tracker. The Worker backend (Better Auth, D1, MCP, state sync) was removed from the repository; the site is now static Pages content. The live Worker and the unused setline D1 database are retained pending an owner cutover and deletion decision."
     },
     {
       "id": "rolepatch",
@@ -2217,8 +2217,8 @@
           "kind": "pages",
           "state": "provider-complete",
           "observed": 27,
-          "tracked": 28,
-          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing) plus one deleted historical target."
+          "tracked": 29,
+          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing), plus one deleted historical target and the setline Pages project, which is declared configured-not-deployed until an owner runs the cutover from its Worker."
         },
         {
           "kind": "worker",
@@ -3104,14 +3104,21 @@
         ]
       },
       "setline": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-16",
         "deployments": [
           {
             "provider": "cloudflare",
             "kind": "worker",
             "name": "setline",
             "method": "wrangler-direct",
-            "state": "live"
+            "state": "live-purpose-review"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "setline",
+            "method": "wrangler-direct",
+            "state": "configured-not-deployed"
           }
         ],
         "resources": [
@@ -3119,7 +3126,7 @@
             "provider": "cloudflare",
             "kind": "d1",
             "name": "setline",
-            "state": "active"
+            "state": "active-unreferenced"
           }
         ]
       },
