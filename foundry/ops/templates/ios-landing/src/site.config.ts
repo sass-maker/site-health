@@ -118,7 +118,7 @@ export const site: SiteConfig = {
     }
   ],
   fit: {
-    kicker: "A honest fit",
+    kicker: "An honest fit",
     title: "Made for this. Not that.",
     yes: "Who it is for, in one sentence.",
     no: "Who it is not for, in one sentence."

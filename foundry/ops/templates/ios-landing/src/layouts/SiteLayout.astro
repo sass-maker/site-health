@@ -21,9 +21,24 @@ const configuredBetaUrl = import.meta.env.PUBLIC_TESTFLIGHT_URL?.trim();
 const hasVerifiedBetaUrl = configuredBetaUrl?.startsWith("https://testflight.apple.com/");
 const betaHref = hasVerifiedBetaUrl ? configuredBetaUrl : "/testflight/";
 const t = site.tokens;
+const tokenStyle = [
+  `--site-paper:${t.paper}`,
+  `--site-field:${t.field}`,
+  `--site-ink:${t.ink}`,
+  `--site-ink-soft:${t.inkSoft}`,
+  `--site-ink-faint:${t.inkFaint}`,
+  `--site-accent:${t.accent}`,
+  `--site-accent-dark:${t.accentDark}`,
+  `--site-accent-soft:${t.accentSoft}`,
+  `--site-lantern-a:${t.lanternA}`,
+  `--site-lantern-b:${t.lanternB}`,
+  `--site-lantern-c:${t.lanternC}`,
+  `--site-blush:${t.blush}`,
+  `--site-ink-on-dark:${t.inkOnDark}`
+].join(";");
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" style={tokenStyle}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -44,7 +59,6 @@ const t = site.tokens;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
     <title>{title}</title>
-    <style is:inline set:html={`:root{--site-paper:${t.paper};--site-field:${t.field};--site-ink:${t.ink};--site-ink-soft:${t.inkSoft};--site-ink-faint:${t.inkFaint};--site-accent:${t.accent};--site-accent-dark:${t.accentDark};--site-accent-soft:${t.accentSoft};--site-lantern-a:${t.lanternA};--site-lantern-b:${t.lanternB};--site-lantern-c:${t.lanternC};--site-blush:${t.blush};--site-ink-on-dark:${t.inkOnDark};}`}></style>
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
