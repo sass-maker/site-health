@@ -1,7 +1,8 @@
 .device { margin: 0; }
-.device.hero { width: min(100%, 336px); }
-.device.gallery { flex: 0 0 min(248px, 70vw); transition: transform 400ms var(--ease-out); }
-.device.chapter { width: min(100%, 276px); justify-self: center; }
+.device.hero { width: min(100%, 360px); }
+.device.echo { width: 100%; }
+.device.gallery { flex: 0 0 min(268px, 72vw); transition: transform 400ms var(--ease-out); }
+.device.chapter { width: min(100%, 288px); justify-self: center; }
 .device-shell {
   position: relative;
   padding: 10px;
