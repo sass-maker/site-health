@@ -37,6 +37,7 @@ const {
         <img src={src} width={width} height={height} alt={alt} loading="lazy" decoding="async" />
       )}
     </div>
+    {size === "hero" ? <span class="device-sheen" aria-hidden="true"></span> : null}
   </div>
   {caption ? <figcaption>{caption}</figcaption> : null}
 </figure>
