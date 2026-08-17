@@ -19,7 +19,7 @@
       "project": ["src/**/*.{ts,tsx}", "test/**/*.{ts,mjs}"]
     },
     "web": {
-      "entry": ["astro.config.mjs"],
+      "entry": ["astro.config.mjs", "src/lib/product-analytics.ts"],
       "project": ["src/**/*.{ts,tsx,astro}"],
       "ignoreDependencies": ["tailwindcss", "wrangler"]
     }
