@@ -41,7 +41,9 @@ Significant Hobbies iOS-first apps (Kith, Setline, Anchor, Motion,
 Indulge) and Calorie’s public front door are built from
 [`ios-landings`](../ios-landings): one Astro codebase, one `PRODUCT=`
 site each. Add or edit `products/<id>/` there. Do not invent a second
-page set. Calorie’s journal stays at `/app/` on its own host.
+page set. Deploy the five iOS sites from that repo (`pnpm run deploy`) onto
+their Cloudflare Pages projects. Calorie’s journal stays at `/app/` on
+its own Worker.
 
 For a new standalone iOS app, copy
 [`foundry/ops/templates/ios-landing`](ops/templates/ios-landing) into

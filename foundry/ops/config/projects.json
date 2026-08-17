@@ -43,6 +43,7 @@
       "reel-pipeline": "fleet-workspace",
       "saas-maker": "fleet-workspace",
       "tinygpt": "posttrainllm",
+      "workflows": "fleet-workspace",
       "workflows-repo": "fleet-workspace"
     },
     "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
@@ -1108,11 +1109,11 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-16",
-          "reason": "Blocked: setline.significanthobbies.com returns 530 after the Worker was deleted. Needs a CNAME to significant-hobbies.github.io and a GitHub Pages publish before the canonical surface answers again. Cloudflare evidence is empty by design; hosting moved to GitHub Pages, which this inventory does not track."
+          "verifiedAt": "2026-08-17",
+          "reason": "Landing is live at setline.significanthobbies.com from the ios-landings factory. Not ready to share: no public TestFlight or App Store build is approved."
         }
       },
       "name": "Setline",
@@ -1123,13 +1124,13 @@
       "lifecycle": "maintained",
       "repo": "setline",
       "repositoryVisibility": "public",
-      "deployKind": "none",
-      "cfProject": null,
+      "deployKind": "pages",
+      "cfProject": "setline",
       "domains": [
         "setline.significanthobbies.com"
       ],
       "inRegistry": true,
-      "status": "undeployed",
+      "status": "live",
       "app": "ios",
       "public": {
         "listing": "maintained",
@@ -1142,7 +1143,7 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
       },
-      "notes": "No Cloudflare footprint. The Worker and the setline D1 database were deleted 2026-08-16 (D1 held zero rows across every table). The static site is published by GitHub Pages from public/; setline.significanthobbies.com needs a CNAME to significant-hobbies.github.io before it resolves again."
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project setline. The earlier Worker and D1 database stay deleted. Native iOS app is separate."
     },
     {
       "id": "kith",
@@ -1150,11 +1151,11 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-16",
-          "reason": "Local iOS app under active development; not yet published to the App Store."
+          "verifiedAt": "2026-08-17",
+          "reason": "Landing is live at kith.significanthobbies.com from the ios-landings factory. Not ready to share: no public TestFlight or App Store build is approved."
         }
       },
       "name": "Kith",
@@ -1165,14 +1166,16 @@
       "lifecycle": "maintained",
       "repo": "kith",
       "repositoryVisibility": "public",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
-      "inRegistry": false,
-      "status": "undeployed",
+      "deployKind": "pages",
+      "cfProject": "kith",
+      "domains": [
+        "kith.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
       "app": "ios",
       "public": {
-        "listing": "hidden",
+        "listing": "maintained",
         "id": "kith",
         "name": "Kith",
         "description": "A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.",
@@ -1182,7 +1185,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "No server or Cloudflare footprint. Local JSON document mirrored to the personal Apple team's private iCloud container."
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project kith. Native iOS app remains local and unpublished; the landing does not invent an App Store or TestFlight URL."
     },
     {
       "id": "ios-landings",
@@ -1194,7 +1197,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-17",
-          "reason": "Shared Astro factory for five iOS product sites; no public host is served from this repo yet."
+          "reason": "Private factory with no host of its own. Product domains are deployed from this repo onto their Pages projects."
         }
       },
       "name": "iOS landings",
@@ -1221,7 +1224,7 @@
         "spotlight": false,
         "maturity": "in-progress"
       },
-      "notes": "One codebase, five PRODUCT builds. Product domains stay on the product catalog rows until this repo is asked to deploy."
+      "notes": "Deploys product Pages projects kith, setline, motion, indulge, and anchor-landing. Product domains stay on the product rows. Calorie stays on the Calorie Worker."
     },
     {
       "id": "rolepatch",
@@ -1640,7 +1643,7 @@
       "app": "web+ios",
       "inRegistry": true,
       "status": "live",
-      "notes": "Public canonical repository at Significant-Hobbies/motion. The public landing and owned changelog are live-ready on Cloudflare Pages project motion at motion.significanthobbies.com; the iOS game remains intentionally unreleased while physical-device validation is pending.",
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project motion at motion.significanthobbies.com. The iOS game remains intentionally unreleased while physical-device validation is pending.",
       "name": "Motion",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -2318,9 +2321,9 @@
         {
           "kind": "pages",
           "state": "provider-complete",
-          "observed": 27,
-          "tracked": 28,
-          "evidence": "Wrangler account list 2026-08-16: 27 live (adds anchor-landing) plus one deleted historical target. Setline moved to GitHub Pages and holds no Cloudflare Pages project."
+          "observed": 29,
+          "tracked": 30,
+          "evidence": "Wrangler account list 2026-08-17: 29 live (adds kith and setline) plus one deleted historical target."
         },
         {
           "kind": "worker",
@@ -3206,21 +3209,37 @@
         ]
       },
       "setline": {
-        "updatedAt": "2026-08-16",
-        "deployments": [],
+        "updatedAt": "2026-08-17",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "setline",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
         "resources": []
       },
       "kith": {
-        "updatedAt": "2026-08-16",
-        "deployments": [],
+        "updatedAt": "2026-08-17",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "kith",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
         "resources": [],
-        "notes": "No Cloudflare resources. Local iOS binary mirrored to the personal Apple team's private iCloud container."
+        "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. Native iOS binary is local-only."
       },
       "ios-landings": {
         "updatedAt": "2026-08-17",
         "deployments": [],
         "resources": [],
-        "notes": "No Cloudflare resources yet. Five static trees are built locally as dist/<id>; product domains remain on the product rows."
+        "notes": "Factory has no Pages project of its own. It deploys into kith, setline, motion, indulge, and anchor-landing."
       },
       "rolepatch": {
         "updatedAt": "2026-08-11",
@@ -4360,6 +4379,30 @@
       }
     },
     {
+      "id": "kith",
+      "name": "Kith",
+      "aliases": [],
+      "origin": "https://kith.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/kith"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://kith.significanthobbies.com/index.md"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/kith"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
       "id": "setline",
       "name": "Setline",
       "aliases": [],
@@ -4369,8 +4412,8 @@
         "url": "https://github.com/Significant-Hobbies/setline"
       },
       "docs": {
-        "state": "repository-readme",
-        "url": "https://github.com/Significant-Hobbies/setline#readme"
+        "state": "landing-only",
+        "url": "https://setline.significanthobbies.com/index.md"
       },
       "officialProfiles": [
         "https://github.com/Significant-Hobbies/setline"

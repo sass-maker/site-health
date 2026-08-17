@@ -494,7 +494,7 @@
       "sourceAsset": "A no-cloud workout execution walkthrough using a complete user-authored training plan.",
       "placements": [],
       "futureChannels": ["product-hunt", "alternative-to", "specialist-communities", "youtube"],
-      "prerequisites": ["Re-enable the canonical domain setline.significanthobbies.com via GitHub Pages CNAME and verify live landing page."],
+      "prerequisites": ["Publish a TestFlight or App Store build before treating the live landing as a distribution surface."],
       "exclusions": []
     },
     {
@@ -504,7 +504,7 @@
       "sourceAsset": "A recorded walkthrough of adding a person, setting closeness, and reviewing a chronological log without contact-book import.",
       "placements": [],
       "futureChannels": ["product-hunt", "alternative-to", "youtube"],
-      "prerequisites": ["Publish a TestFlight or App Store build and verify the landing page."],
+      "prerequisites": ["Publish a TestFlight or App Store build. The landing at kith.significanthobbies.com is already live."],
       "exclusions": []
     },
     {
@@ -514,7 +514,7 @@
       "sourceAsset": "A per-product landing walkthrough that names one app, shows real screenshots, and keeps TestFlight gated.",
       "placements": [],
       "futureChannels": ["github-repository"],
-      "prerequisites": ["Deploy at least one product site from this factory to its product domain and keep App Store privacy/support URLs stable."],
+      "prerequisites": ["Keep product-domain privacy and support URLs stable as App Store listings go live."],
       "exclusions": []
     },
     {

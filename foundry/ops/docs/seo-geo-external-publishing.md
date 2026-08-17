@@ -294,27 +294,27 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A no-cloud workout execution walkthrough using a complete user-authored training plan.
 
-**Catalog blocker:** Blocked: setline.significanthobbies.com returns 530 after the Worker was deleted. Needs a CNAME to significant-hobbies.github.io and a GitHub Pages publish before the canonical surface answers again. Cloudflare evidence is empty by design; hosting moved to GitHub Pages, which this inventory does not track. (verified 2026-08-16)
+**Catalog blocker:** Landing is live at setline.significanthobbies.com from the ios-landings factory. Not ready to share: no public TestFlight or App Store build is approved. (verified 2026-08-17)
 
 **Before publishing:**
 
-- Re-enable the canonical domain setline.significanthobbies.com via GitHub Pages CNAME and verify live landing page.
+- Publish a TestFlight or App Store build before treating the live landing as a distribution surface.
 
 **Future candidates after re-verification:** Product Hunt, AlternativeTo, Product-specific forums and communities, YouTube
 
 ### Kith — Preparation only
 
-**Canonical:** [https://github.com/Significant-Hobbies/kith](https://github.com/Significant-Hobbies/kith)
+**Canonical:** [https://kith.significanthobbies.com](https://kith.significanthobbies.com)
 
 **Narrative:** A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.
 
 **Source asset:** A recorded walkthrough of adding a person, setting closeness, and reviewing a chronological log without contact-book import.
 
-**Catalog blocker:** Local iOS app under active development; not yet published to the App Store. (verified 2026-08-16)
+**Catalog blocker:** Landing is live at kith.significanthobbies.com from the ios-landings factory. Not ready to share: no public TestFlight or App Store build is approved. (verified 2026-08-17)
 
 **Before publishing:**
 
-- Publish a TestFlight or App Store build and verify the landing page.
+- Publish a TestFlight or App Store build. The landing at kith.significanthobbies.com is already live.
 
 **Future candidates after re-verification:** Product Hunt, AlternativeTo, YouTube
 
@@ -324,11 +324,11 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A per-product landing walkthrough that names one app, shows real screenshots, and keeps TestFlight gated.
 
-**Catalog blocker:** Shared Astro factory for five iOS product sites; no public host is served from this repo yet. (verified 2026-08-17)
+**Catalog blocker:** Private factory with no host of its own. Product domains are deployed from this repo onto their Pages projects. (verified 2026-08-17)
 
 **Before publishing:**
 
-- Deploy at least one product site from this factory to its product domain and keep App Store privacy/support URLs stable.
+- Keep product-domain privacy and support URLs stable as App Store listings go live.
 
 **Future candidates after re-verification:** GitHub repository and organization profile
 

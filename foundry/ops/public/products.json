@@ -210,6 +210,21 @@
       "pillarId": "build"
     },
     {
+      "id": "kith",
+      "name": "Kith",
+      "description": "A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.",
+      "url": "https://kith.significanthobbies.com",
+      "tier": "secondary",
+      "category": "personal",
+      "priority": "P2",
+      "spotlight": false,
+      "maturity": "in-progress",
+      "changelogUrl": "https://kith.significanthobbies.com/changelog",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/kith",
+      "roadmapUrl": "https://github.com/Significant-Hobbies/kith/issues",
+      "pillarId": "learn"
+    },
+    {
       "id": "knowledge-base",
       "name": "Knowledge Base",
       "description": "Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.",
