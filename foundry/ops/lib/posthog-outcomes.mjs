@@ -1,6 +1,6 @@
 const POSTHOG_API = 'https://us.i.posthog.com';
 
-export const DEFAULT_POSTHOG_PROJECT_ID = 110635;
+export const DEFAULT_POSTHOG_PROJECT_ID = 396508;
 
 const EVENT_TAXONOMY = ['page_view', 'signup', 'activated', 'core_action', 'returned'];
 
@@ -251,7 +251,7 @@ async function queryProjectMetrics({
   if (signups > 0 && activated > 0) {
     metrics.push({
       label: 'Activation rate',
-      value: Number(((activated / signups) * 100).toFixed(1)),
+      value: percent(activated, signups),
     });
   }
 
@@ -282,11 +282,15 @@ async function queryProjectMetrics({
   if (signups > 0 && returned > 0) {
     metrics.push({
       label: 'D7 retention',
-      value: Number(((returned / signups) * 100).toFixed(1)),
+      value: percent(returned, signups),
     });
   }
 
   return metrics;
+}
+
+function percent(part, whole) {
+  return Math.min(100, Number(((part / whole) * 100).toFixed(1)));
 }
 
 /**

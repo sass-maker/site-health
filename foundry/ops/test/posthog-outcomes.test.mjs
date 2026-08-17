@@ -157,7 +157,7 @@ test('queries the Query API and includes historical project_id aliases', async (
 
   assert.ok(fetchImpl.calls.length > 0);
   for (const call of fetchImpl.calls) {
-    assert.match(call.url, /\/api\/projects\/110635\/query\/$/);
+    assert.match(call.url, /\/api\/projects\/396508\/query\/$/);
     assert.doesNotMatch(call.url, /insights/);
     const body = JSON.parse(call.options.body);
     assert.equal(body.query.kind, 'TrendsQuery');
