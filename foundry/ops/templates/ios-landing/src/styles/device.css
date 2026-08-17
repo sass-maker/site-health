@@ -47,11 +47,11 @@
 }
 .device.tilt-left { transform: rotate(-1.8deg); }
 .device.tilt-right { transform: rotate(2deg); }
-.device.hero {
-  animation: phone-float 7.2s var(--ease-out) infinite;
+@supports not (animation-timeline: scroll()) {
+  .device.hero { animation: phone-float 7.2s var(--ease-out) infinite; }
+  .device.hero.tilt-right { animation-name: phone-float-right; }
+  .device.hero.tilt-left { animation-name: phone-float-left; }
 }
-.device.hero.tilt-right { animation-name: phone-float-right; }
-.device.hero.tilt-left { animation-name: phone-float-left; }
 .device-sheen {
   position: absolute;
   inset: 10px;

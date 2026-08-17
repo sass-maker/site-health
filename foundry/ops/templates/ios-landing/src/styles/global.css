@@ -60,7 +60,13 @@
     transition: transform .2s;
   }
   .skip-link:focus { transform: translateY(0); }
-  .site-header { position: absolute; z-index: 20; inset: 0 0 auto; padding: 22px 0; }
+  .site-header {
+    position: absolute;
+    z-index: 20;
+    inset: 0 0 auto;
+    padding: 18px 0 28px;
+    background: linear-gradient(var(--field) 55%, color-mix(in srgb, var(--field) 0%, transparent));
+  }
   .site-header .shell { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
   .wordmark {
     display: inline-flex;

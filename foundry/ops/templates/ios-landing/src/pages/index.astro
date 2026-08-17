@@ -10,16 +10,33 @@ const echo = site.gallery.find((shot) => shot.src !== site.hero.image) ?? site.g
 <SiteLayout>
   <section class="hero">
     <div class="hero-sky" aria-hidden="true">
-      <span class="orb orb-a"></span>
-      <span class="orb orb-b"></span>
-      <span class="orb orb-c"></span>
-      <span class="orb orb-d"></span>
+      <span class="orb-track t-a"><span class="orb orb-a"></span></span>
+      <span class="orb-track t-b"><span class="orb orb-b"></span></span>
+      <span class="orb-track t-c"><span class="orb orb-c"></span></span>
+      <span class="orb-track t-d"><span class="orb orb-d"></span></span>
       <span class="horizon"></span>
     </div>
-    <div class="shell hero-stage">
-      <div class="hero-copy">
-        <p class="hero-kicker">{site.kicker}</p>
+    <div class="shell hero-room">
+      <p class="hero-kicker">{site.kicker}</p>
+      <div class="hero-lead">
         <h1>{site.headline[0]}<br />{site.headline[1]}</h1>
+        <div class="hero-artifact">
+          {echo ? (
+            <div class="hero-echo" aria-hidden="true">
+              <Phone src={echo.src} alt="" size="echo" tilt="left" />
+            </div>
+          ) : null}
+          <Phone
+            src={site.hero.image}
+            alt={site.hero.alt}
+            caption={site.hero.caption}
+            size="hero"
+            tilt="right"
+            priority
+          />
+        </div>
+      </div>
+      <div class="hero-foot">
         <p class="hero-lede">{site.lede}</p>
         <p class="hero-meta">{site.status} · {site.platforms.join(" · ")}</p>
         <div class="hero-actions">
@@ -27,21 +44,6 @@ const echo = site.gallery.find((shot) => shot.src !== site.hero.image) ?? site.g
           <a class="text-link" href="#look-inside">See the screens <span aria-hidden="true">↓</span></a>
         </div>
         <p class="beta-note">{site.betaNote}</p>
-      </div>
-      <div class="hero-artifact">
-        {echo ? (
-          <div class="hero-echo" aria-hidden="true">
-            <Phone src={echo.src} alt="" size="echo" tilt="left" />
-          </div>
-        ) : null}
-        <Phone
-          src={site.hero.image}
-          alt={site.hero.alt}
-          caption={site.hero.caption}
-          size="hero"
-          tilt="right"
-          priority
-        />
       </div>
     </div>
   </section>
