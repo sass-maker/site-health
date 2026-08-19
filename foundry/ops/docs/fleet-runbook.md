@@ -11,18 +11,18 @@ Ops Console are Fleet components and are maintained directly in this repository.
 
 Use this order when working on the Fleet:
 
-1. Check the project root `PROJECT_STATUS.md`, its active OpenSpec change, and GitHub.
+1. Check the project root `PROJECT_STATUS.md`, its open GitHub Issues, and the repo.
 2. Enter the independent project checkout or canonical `foundry/ops/` component.
 3. Read the Fleet `AGENTS.md` and the project `AGENTS.md` or `agents.md`.
 4. Run the smallest relevant local verification before editing.
 5. Make the change.
 6. Run the project verification commands.
 7. Commit and push the owning repository.
-8. Close the corresponding OpenSpec/GitHub work item with verification evidence.
+8. Close the corresponding GitHub issue with verification evidence.
 
-`PROJECT_STATUS.md` is product-status truth, OpenSpec is feature-lifecycle
-truth, and GitHub is code/review truth. Cloudflare, Vercel, Postiz, and other
-hosts are runtime targets, not task stores.
+`PROJECT_STATUS.md` is product-status truth, GitHub Issues is feature-lifecycle
+and task truth, and the repo is code/review truth. Cloudflare, Vercel, Postiz,
+and other hosts are runtime targets, not task stores.
 
 ## Portfolio Attention Model
 

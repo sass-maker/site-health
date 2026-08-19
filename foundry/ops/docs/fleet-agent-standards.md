@@ -26,7 +26,7 @@ Fleet quality bar:
   5. **Features (shipped)** — exhaustive done inventory by subsystem
   6. **Work queue** — a link to the repository's GitHub Issues; no duplicated task list
 - GitHub Issues is the sole operational work queue. An open issue is a to-do; an open issue with a linked pull request is in progress; a merged pull request plus a closed issue is done. Create an issue before independently shippable work, and use `Closes #<issue>` in the pull request body so GitHub records the relationship.
-- Planned, deferred, blocked, bug, cleanup, and follow-up work belongs in GitHub Issues. Use `deferred` and `blocked` labels when those distinctions matter; use a product label for multiple products sharing one repository. Do not duplicate open work in `PROJECT_STATUS.md`, `STATUS.md`, OpenSpec task lists after archive, plan documents, or another task database.
+- Planned, deferred, blocked, bug, cleanup, and follow-up work belongs in GitHub Issues. Use `deferred` and `blocked` labels when those distinctions matter; use a product label for multiple products sharing one repository. Do not duplicate open work in `PROJECT_STATUS.md`, `STATUS.md`, spec-driven tracking issues after ship, plan documents, or another task database.
 - When work lands, close the issue and update the project root `PROJECT_STATUS.md` only with changed durable product truth: shipped features, timeline, products, or dependencies. Do not copy issue history into the status file or create extra completion notes, handoff docs, or status ledgers for ordinary PR closure.
 - Each fleet product may also maintain `docs/PROJECT_RECOMMENDATION_CONTEXT.md` as the Starboard-facing companion to `PROJECT_STATUS.md`. Read it before recommendation, stack, dependency, or product-context work, and update it when product scope, major runtime surfaces, entrypoints, dependencies, testing signals, or recommendation guidance changes. Do not churn it for tiny edits that do not affect how Starboard should understand or recommend repositories for the project.
 - Fleet membership, owner priority, lifecycle, deployment method, deployed
@@ -95,8 +95,8 @@ Fleet UI standard:
 - Operational/admin surfaces should stay dense, scannable, accessible, and fast. Marketing, demo, onboarding, and showcase surfaces can be more expressive, but motion and decorative effects must remain purposeful.
 - Do not add paid assets or broad UI dependencies without explicit approval. Explain any new UI dependency with why this, why now, and why existing code is insufficient.
 
-Fleet spec-driven development standard (OpenSpec):
-- Any non-trivial new feature in any fleet project starts with the OpenSpec
+Fleet spec-driven development standard (GitHub Issues):
+- Any non-trivial new feature in any fleet project starts with the spec-driven
   workflow BEFORE feature code is written. This is a strong default, not a
   suggestion. Invoke the `spec-driven` skill (symlinked into every agent's
   skill dir) at the moment feature intent is detected.
@@ -106,25 +106,26 @@ Fleet spec-driven development standard (OpenSpec):
   copy edits, single-file polish, test additions for existing behavior, and
   config/CI tweaks. When in doubt, run the workflow — a 5-minute proposal is
   cheaper than building the wrong thing.
-- Workflow: `/opsx:explore` (optional, for ambiguous features) →
-  `/opsx:propose <feature>` (mandatory, creates `openspec/changes/<feature>/`
-  with proposal/specs/design/tasks) → `/opsx:apply` (implement tasks.md) →
-  `/opsx:archive` on ship.
-- Cross-repo features (umbrella + sub-product, support infra + consumer) use
-  OpenSpec **Stores** — one plan in a store, code lands in multiple repos.
-  Do not duplicate the same change into per-repo `openspec/changes/`.
-- Boundary with existing fleet docs: OpenSpec owns feature design while a
-  non-trivial change is active. GitHub Issues owns operational state and links
-  the proposal to its implementing pull request. `PROJECT_STATUS.md` owns
-  durable shipped/current product truth. At archive time, close the issue and
+- Workflow: explore (optional, for ambiguous features) → propose (mandatory,
+  opens one GitHub tracking issue whose body holds the proposal, design notes,
+  requirements/scenarios, and task checklist) → apply (implement, checking
+  off tasks in the issue) → close the issue on ship.
+- All spec content lives in the GitHub Issue body — proposal (why/what/how),
+  design notes, requirements/scenarios, and the task checklist. There is no
+  local `openspec/` directory, no local spec files, and no `openspec` CLI.
+  The tracking issue is the single source of truth for both design and tasks.
+  Check items off in the issue body as work lands.
+- Cross-repo features: open one tracking issue in the repo that owns the
+  change. Reference it from every affected repo's PR body
+  (`Part of #<issue>`).
+- Boundary with existing fleet docs: the tracking issue owns feature design
+  and task state while a change is active. `PROJECT_STATUS.md` owns durable
+  shipped/current product truth. At ship time, close the tracking issue and
   record only the shipped outcome in `PROJECT_STATUS.md`.
-- Pre-flight: `openspec --version` (install `npm install -g
-  @fission-ai/openspec@latest` if missing), `openspec init` if the project
-  has no `openspec/` dir, `openspec list --specs` to read existing specs.
-- Anti-patterns: writing feature code before `proposal.md` exists, skipping
-  propose because "it's obvious", letting `openspec/changes/` accumulate
-  unarchived, duplicating proposals into `docs/plans/`, per-repo changes for
-  cross-repo features.
+- Anti-patterns: writing feature code before the tracking issue exists,
+  skipping propose because "it's obvious", maintaining local spec files
+  alongside the tracking issue, letting tracking issues stay open after ship,
+  duplicating proposals into `docs/plans/`.
 - See `foundry/ops/skills/spec-driven/SKILL.md` for the full contract.
 
 Ownership has boundaries:
@@ -307,7 +308,7 @@ Fleet skills are exposed via 4 parents + standalones (canonical home:
 | `call-teammate` | parent | call-claude-code, call-codex, call-cursor, call-devin, call-grok |
 | `site-health` | parent | agent-ready, seo-audit, content-coverage, psi-swarm, geo-observatory, public-product-smoke; combined scorecard |
 | `name-domains` | standalone | — |
-| `spec-driven` | standalone | OpenSpec workflow for new features |
+| `spec-driven` | standalone | GitHub-issue spec workflow for new features |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `analyze-storage` | standalone | read-only disk analysis with ignored workspace-local JSON and static HTML reports; no cleanup execution |
 | `token-budget` | standalone | Codex context/token audit |

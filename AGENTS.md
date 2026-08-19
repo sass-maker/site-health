@@ -107,8 +107,16 @@ Use the `spec-driven` skill before non-trivial new fleet features: new surfaces,
 routes, commands, capabilities, cross-repo behavior, or multi-file behavior
 changes.
 
-Skip OpenSpec for bug fixes, cleanup, dependency bumps, copy edits, tests for
-existing behavior, and config/CI tweaks.
+Skip the spec workflow for bug fixes, cleanup, dependency bumps, copy edits,
+tests for existing behavior, and config/CI tweaks.
+
+Specs live in GitHub Issues, not on disk. The spec-driven workflow creates one
+tracking issue per feature; the issue body holds the proposal (why/what/how),
+design notes, requirements/scenarios, and the task checklist. Check off tasks
+in the issue as work lands. There is no local `openspec/` directory, no local
+spec files, and no `openspec` CLI — the GitHub Issue is the single source of
+truth for both design and tasks. When the feature ships, close the issue and
+record the shipped outcome in `PROJECT_STATUS.md`.
 
 ## Fleet Tooling
 
@@ -142,7 +150,7 @@ Current Fleet-owned and approved external skills exposed to agents:
 | `fleet-deploy-parity` | standalone | fleet-wide "is everything deployed to the latest?" — Cloudflare Pages deployments match current main SHA, Workers at 100% traffic, Actions green at HEAD |
 | `call-teammate` | parent | routes to Codex, Grok, and Hermes |
 | `name-domains` | standalone | domain naming pipeline |
-| `spec-driven` | standalone | OpenSpec workflow |
+| `spec-driven` | standalone | GitHub-issue spec workflow for new features |
 | `code-cleanup` | standalone | Knip/native quality orchestration, dependency health, guarded upgrades, and advisory Bundlephobia evidence |
 | `site-health` | parent | routes to agent-ready (GEO surfaces), seo-audit (on-page), content-coverage (search-intent pages), psi-swarm (perf), geo-observatory (trends), public-product-smoke (guest journeys); combined scorecard via site-health-scorecard.mjs |
 | `analyze-storage` | standalone | read-only disk analysis with ignored workspace-local JSON and static HTML reports; never deletes or moves data |
