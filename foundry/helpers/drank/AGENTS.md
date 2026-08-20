@@ -81,7 +81,6 @@ presentation + search layer.
 - [`docs/operations/jobs/weekly-global-dr.md`](docs/operations/jobs/weekly-global-dr.md) — the weekly cron.
 - [`docs/knowledge/`](docs/knowledge/) — learnings + failed approaches.
 - [`docs/archive/`](docs/archive/) — superseded docs kept for history.
-- [`openspec/`](openspec/) — spec-driven feature specs (dr-advisor).
 
 ## Documentation maintenance rules
 
