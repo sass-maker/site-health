@@ -1,8 +1,6 @@
 import { timingSafeEqual } from 'node:crypto';
 import { createServer } from 'node:http';
 
-import { buildDailyBrief } from './projections.mjs';
-import { buildOwnerNotifications } from './learning.mjs';
 import { cloudflareAccessAuthorized } from './access.mjs';
 import { buildFleetConnections, readSkillRunOutput } from './connections.mjs';
 import { createMetricRunController } from './metric-runs.mjs';
@@ -208,7 +206,6 @@ export function buildMarketingProjection(projections, portfolio, scheduleActivat
   );
   return {
     generatedAt: projections.generatedAt,
-    recommendations: projections.recommendations.filter((item) => item.projectId),
     outcomes: [],
     providerEvidence: 'linked-only',
     aiVisibility: {
@@ -305,12 +302,6 @@ export function createFounderControlHandler({
     if (url.pathname === '/v1/activity') return json(response, 200, projections.activity);
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
     if (url.pathname === '/v1/schedules') return json(response, 200, projections.schedules);
-    if (url.pathname === '/v1/daily-brief') {
-      return json(response, 200, buildDailyBrief(projections));
-    }
-    if (url.pathname === '/v1/notifications') {
-      return json(response, 200, buildOwnerNotifications(projections, { now: now() }));
-    }
     if (url.pathname === '/v1/marketing') {
       return json(
         response,
@@ -344,29 +335,7 @@ export function createFounderControlHandler({
     }
     return false;
   };
-  const handleProjectionMutations = async (url, method, projections, request, response) => {
-    const recommendationMatch = url.pathname.match(/^\/v1\/recommendations\/(.+)\/(accept|reject|snooze|refine)$/);
-    if (method === 'POST' && recommendationMatch) {
-      const [, encodedId, action] = recommendationMatch;
-      const recommendationId = decodeURIComponent(encodedId);
-      const item = projections.recommendations.find((recommendation) => recommendation.id === recommendationId);
-      if (!item) return json(response, 404, { error: 'recommendation not found' });
-      const body = await readBody(request);
-      const suffix = action === 'accept' ? 'accepted' : action === 'reject' ? 'rejected' : action === 'snooze' ? 'snoozed' : 'refined';
-      store.append({
-        type: `recommendation.${suffix}`,
-        actor: { type: 'owner', id: 'founder', label: 'Founder' },
-        ...(item.projectId ? { projectId: item.projectId } : {}),
-        idempotencyKey: `recommendation-${action}/${recommendationId}/${body.until ?? 'now'}`,
-        occurredAt: now(),
-        payload: {
-          recommendationId,
-          ...(action === 'snooze' ? { until: body.until } : {}),
-          ...(action === 'refine' ? { changes: body.changes ?? {} } : {}),
-        },
-      });
-      return json(response, 200, { recommendation: recommendationId, action });
-    }
+  const handleProjectionMutations = async (url, method, response) => {
     if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
       const rebuilt = projectionFor(store);
       rebuildConnections(rebuilt);
@@ -396,7 +365,7 @@ export function createFounderControlHandler({
       }
 
       if (await handleMetricRunMutations(url, method, request, response)) return;
-      if (await handleProjectionMutations(url, method, projections, request, response)) return;
+      if (await handleProjectionMutations(url, method, response)) return;
       return json(response, 404, { error: 'route not found' });
     } catch (error) {
       return json(response, error.statusCode ?? (error.code ? 422 : 500), {

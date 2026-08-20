@@ -10,25 +10,20 @@ import {
 const actor = { type: 'automation', id: 'foundry-test', label: 'Foundry test' };
 const now = '2026-07-25T08:00:00.000Z';
 
-function recommendationInput() {
+function evidenceInput() {
   return {
-    type: 'recommendation.created',
+    type: 'evidence.recorded',
     actor,
     projectId: 'codevetter',
-    idempotencyKey: 'test/recommendation/example',
+    idempotencyKey: 'test/evidence/example',
     payload: {
-      title: 'Verify the release',
-      rationale: 'Current evidence is incomplete.',
-      impact: 0.8,
-      confidence: 0.7,
-      effort: 0.2,
-      reversibility: 1,
+      summary: 'Release evidence recorded.',
     },
   };
 }
 
 test('normalizes bounded evidence events with one generated identity', () => {
-  const event = normalizeEvent(recommendationInput(), { now });
+  const event = normalizeEvent(evidenceInput(), { now });
   assert.match(event.id, /^[0-9a-f-]{36}$/);
   assert.equal(event.recordedAt, now);
   assert.equal(event.projectId, 'codevetter');
@@ -46,8 +41,8 @@ test('rejects retired workflow event types and private fields', () => {
   );
   assert.throws(
     () => normalizeEvent({
-      ...recommendationInput(),
-      payload: { ...recommendationInput().payload, apiKey: 'must-not-be-stored' },
+      ...evidenceInput(),
+      payload: { ...evidenceInput().payload, apiKey: 'must-not-be-stored' },
     }, { now }),
     (error) => error instanceof FounderControlValidationError && error.code === 'PRIVATE_PAYLOAD_FIELD',
   );

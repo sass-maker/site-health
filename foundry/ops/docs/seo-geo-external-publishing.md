@@ -135,7 +135,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 ## P2 — 25
 
-### Fleet Workspace — Preparation only
+### Foundry — Preparation only
 
 **Canonical:** [https://fleet.sassmaker.com](https://fleet.sassmaker.com)
 
@@ -143,7 +143,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Source asset:** A privacy-safe standards excerpt and verified operational case study.
 
-**Catalog blocker:** Fleet Workspace is a private operational platform; its public directory is now owned by the standalone SaaS Maker repository. (verified 2026-08-20)
+**Catalog blocker:** Foundry is a private operational platform; its public directory is owned by the standalone SaaS Maker repository. (verified 2026-08-20)
 
 **Before publishing:**
 

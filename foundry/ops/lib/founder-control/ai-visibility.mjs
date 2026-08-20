@@ -5,7 +5,6 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-import { recommendationEvent } from './recommendations.mjs';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultPackageEntry = join(
@@ -480,44 +479,6 @@ function buildReport({ engine, project, rows, observedAt }) {
   });
 }
 
-function recommendationInputs({ report, comparison, project, evidence, runId, observedAt, coverageRate }) {
-  const priorityValue = { high: 0.85, medium: 0.65, low: 0.35 };
-  const inputs = report.recommendations.slice(0, 3).map((recommendation, index) => ({
-    title: recommendation.title,
-    rationale: `${recommendation.detail} This is a recommendation for owner review; no marketing work was started.`,
-    impact: priorityValue[recommendation.priority],
-    confidence: Math.max(0.25, Math.min(0.9, coverageRate)),
-    effort: recommendation.area === 'citations' ? 0.6 : 0.45,
-    reversibility: 1,
-    attention: project.attention,
-    projectId: project.slug,
-    idempotencyKey: `ai-visibility-recommendation/${runId}/${index}`,
-    observedAt,
-    actor: { type: 'automation', id: 'ai-visibility-canary', label: 'AI visibility canary' },
-    evidence,
-  }));
-  if (
-    comparison?.deltas &&
-    (comparison.deltas.visibilityScore <= -5 || comparison.deltas.citationRate <= -0.1)
-  ) {
-    inputs.unshift({
-      title: 'Review the AI visibility decline',
-      rationale: `Visibility changed by ${comparison.deltas.visibilityScore} points and citation rate changed by ${round(comparison.deltas.citationRate * 100, 2)} percentage points since the previous comparable run. Investigate the linked evidence before choosing any marketing response.`,
-      impact: 0.8,
-      confidence: Math.max(0.25, Math.min(0.9, coverageRate)),
-      effort: 0.4,
-      reversibility: 1,
-      attention: project.attention,
-      projectId: project.slug,
-      idempotencyKey: `ai-visibility-recommendation/${runId}/comparison`,
-      observedAt,
-      actor: { type: 'automation', id: 'ai-visibility-canary', label: 'AI visibility canary' },
-      evidence,
-    });
-  }
-  return inputs;
-}
-
 export async function runAiVisibilityCanary({
   project,
   providers,
@@ -664,22 +625,6 @@ export async function runAiVisibilityCanary({
     evidence,
   });
 
-  const recommendations = [];
-  if (completedAnswers > 0) {
-    for (const input of recommendationInputs({
-      report,
-      comparison,
-      project,
-      evidence,
-      runId,
-      observedAt,
-      coverageRate: metrics.coverageRate,
-    })) {
-      const event = recommendationEvent(input, { now: observedAt });
-      if (event) recommendations.push(store.append(event).event);
-    }
-  }
-
   return {
     event: recorded.event,
     duplicate: recorded.duplicate,
@@ -693,6 +638,5 @@ export async function runAiVisibilityCanary({
     metrics,
     citations,
     comparison,
-    recommendationIds: recommendations.map((event) => event.payload.recommendationId ?? event.id),
   };
 }

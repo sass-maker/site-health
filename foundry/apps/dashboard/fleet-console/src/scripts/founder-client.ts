@@ -2937,7 +2937,6 @@ async function renderProjects() {
 
 function projectMetricPanel(
   project: JsonRecord,
-  improvements: JsonRecord[],
   family: MetricFamily,
 ) {
   const definition = METRIC_FAMILIES[family];
@@ -2945,16 +2944,6 @@ function projectMetricPanel(
   const historyState = metricFamilyHistoryState(definition, project, signals);
   const observedAt = metricFamilyObservedAt(definition, project, signals);
   const evidence = definition.renderEvidence(project, signals, definition.emptyState(project));
-  const actions = improvements
-    .filter((action: JsonRecord) =>
-      action.projectId === project.projectId && definition.matchesAction(action))
-    .map((action: JsonRecord) => {
-      return element("div", { class: "metric-report__action" }, [
-        element("span", {}, ["Next"]),
-        element("strong", {}, [action.action]),
-        state("recommendation"),
-      ]);
-    });
   return element("article", { class: "metric-report project-metric-panel" }, [
     element("header", {}, [
       element("div", {}, [
@@ -2970,13 +2959,11 @@ function projectMetricPanel(
       ]),
     ]),
     evidence,
-    ...actions,
   ]);
 }
 
 function projectMetricSection(
   project: JsonRecord,
-  improvements: JsonRecord[],
   section: "seo" | "geo" | "performance" | "design",
   title: string,
   description: string,
@@ -2994,15 +2981,14 @@ function projectMetricSection(
       ]),
     ]),
     element("div", { class: "project-metric-grid" }, families.map((family) =>
-      projectMetricPanel(project, improvements, family))),
+      projectMetricPanel(project, family))),
   ]);
 }
 
-function projectMetricsWorkspace(project: JsonRecord, improvements: JsonRecord[]) {
+function projectMetricsWorkspace(project: JsonRecord) {
   return element("div", { class: "project-metrics-workspace" }, [
     projectMetricSection(
       project,
-      improvements,
       "seo",
       "SEO",
       "What people search for, where this domain ranks, and whether the site has enough owned content.",
@@ -3010,7 +2996,6 @@ function projectMetricsWorkspace(project: JsonRecord, improvements: JsonRecord[]
     ),
     projectMetricSection(
       project,
-      improvements,
       "geo",
       "GEO",
       "Which questions surface this product, whether answer engines cite it, and whether AI crawlers can reach it.",
@@ -3018,7 +3003,6 @@ function projectMetricsWorkspace(project: JsonRecord, improvements: JsonRecord[]
     ),
     projectMetricSection(
       project,
-      improvements,
       "performance",
       "Performance",
       "Current PSI score, LCP, CLS, and their historical movement.",
@@ -3026,7 +3010,6 @@ function projectMetricsWorkspace(project: JsonRecord, improvements: JsonRecord[]
     ),
     projectMetricSection(
       project,
-      improvements,
       "design",
       "Design",
       "The latest critique, audit result, and any comparable review history.",
@@ -3044,9 +3027,8 @@ function revealProjectMetricSection() {
 async function renderProjectDetail() {
   const routeProjectId = document.body.dataset.projectId;
   const projectId = catalogProjectId(routeProjectId);
-  const [projects, recommendations, connections] = await Promise.all([
+  const [projects, connections] = await Promise.all([
     api("/v1/projects"),
-    api("/v1/home").then((home) => home.recommendedNext),
     api("/v1/connections"),
   ]);
   const project = projects.find((item: JsonRecord) => item.id === projectId);
@@ -3054,13 +3036,9 @@ async function renderProjectDetail() {
     replace("project-detail", empty("Project not in current registry", "This static route no longer resolves to a canonical Fleet project."));
     return;
   }
-  const next = recommendations.filter((item: JsonRecord) => item.projectId === project.id);
   const metricProject = connections.outputs.projects.find(
     (item: JsonRecord) =>
       item.catalogProjectId === project.id || item.projectId === project.id,
-  );
-  const metricImprovements = connections.outputs.improvements.filter(
-    (item: JsonRecord) => item.projectId === project.id,
   );
   const wrap = element("div");
   wrap.append(
@@ -3071,7 +3049,6 @@ async function renderProjectDetail() {
           element("div", {}, [element("dt", {}, ["Lifecycle"]), element("dd", {}, [titleCase(project.lifecycle ?? "unknown")])]),
           element("div", {}, [element("dt", {}, ["Sharing"]), element("dd", {}, [project.readyToShare ? "Ready" : "Not ready"])]),
           element("div", {}, [element("dt", {}, ["Public listing"]), element("dd", {}, [titleCase(project.publicListing ?? "not listed")])]),
-          element("div", {}, [element("dt", {}, ["Next suggestion"]), element("dd", {}, [next[0]?.title ?? "No recommendation"])]),
         ]),
       ]),
       element("article", { class: "project" }, [
@@ -3096,7 +3073,7 @@ async function renderProjectDetail() {
       ]),
     ]),
     metricProject
-      ? projectMetricsWorkspace(metricProject, metricImprovements)
+      ? projectMetricsWorkspace(metricProject)
       : element("section", { class: "owner-section" }, [
           empty("No project measurements", "This project is not part of the current Metrics coverage set."),
         ]),

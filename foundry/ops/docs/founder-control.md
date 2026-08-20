@@ -1,10 +1,10 @@
-# Founder evidence service
+# Foundry evidence service
 
-Founder control is the private, local-first evidence service behind Fleet
-Console. It records bounded provider observations and recommendations, then
-builds privacy-safe projections for the owner interface. GitHub Issues remains
-the only operational work tracker. Product feedback remains with each product's
-chosen ingestion owner and is never stored or projected here.
+The Foundry evidence service is the private, local-first data layer behind the
+Foundry dashboard. It records bounded provider observations and builds
+privacy-safe projections for the owner interface. It does not create tasks,
+recommendations, notifications, decisions, or feedback records. GitHub Issues
+remains the only operational work tracker.
 
 ## Local state
 
@@ -30,9 +30,6 @@ From the Fleet root:
 
 ```bash
 node foundry/ops/scripts/founder-control.mjs status
-node foundry/ops/scripts/founder-control.mjs brief
-node foundry/ops/scripts/founder-control.mjs notifications
-node foundry/ops/scripts/founder-control.mjs notify --no-drain
 node foundry/ops/scripts/founder-control.mjs snapshot /private/path/snapshot.json
 node foundry/ops/scripts/founder-control.mjs backup /private/path/backup.json
 node foundry/ops/scripts/founder-control.mjs verify /private/path/backup.json
@@ -44,12 +41,8 @@ The standalone service binds to `127.0.0.1:4187`. Reads expose only normalized
 projections. Mutations fail closed unless an owner bearer token, trusted
 loopback boundary, or verified Cloudflare Access identity is configured.
 
-The machine-hosted Ops Console serves the same API under `/api/founder`.
-`notifications` previews failed critical schedules and material
-security/cost/data-loss recommendations. `notify` hands those bounded records to
-the existing durable Fleet notification outbox; stable keys suppress duplicate
-delivery. The checked-in schedule remains inert until the designated host
-explicitly installs Fleet cron.
+The machine-hosted dashboard serves the same API under `/api/founder`. Checked-in
+schedules remain inert until a designated host explicitly installs them.
 
 ## Evidence and privacy
 
@@ -60,5 +53,5 @@ payloads, prompts, transcripts, or feedback submissions. The ownership map is
 machine-checked at `foundry/ops/config/evidence-ownership.json`.
 
 AI Visibility collectors are the current writers. Their normalized observations
-and recommendations remain attributable to canonical projects without creating
-a parallel task system.
+remain attributable to canonical projects without creating a parallel task or
+recommendation system.

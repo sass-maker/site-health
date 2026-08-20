@@ -1,8 +1,8 @@
-# Fleet workspace — Claude Code instructions
+# Foundry — Claude Code instructions
 
-This is the Fleet workspace root (`sass-maker/fleet-workspace`, private).
-Fleet-owned source lives under `foundry/`; every independent child product
-keeps its own repository.
+This checkout currently uses the historical private remote
+`sass-maker/fleet-workspace`. Foundry source lives under `foundry/`; every
+independent child product keeps its own repository.
 
 Follow the shared fleet agent standard:
 

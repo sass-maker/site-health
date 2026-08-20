@@ -1,18 +1,19 @@
 
-**Product:** [sassmaker.com](https://sassmaker.com)
 <p align="center">
-  <img src="foundry/assets/logo.svg" alt="Fleet" width="150"/>
+  <img src="foundry/assets/logo.svg" alt="Foundry" width="150"/>
 </p>
 
-<h1 align="center">Fleet</h1>
+<h1 align="center">Foundry</h1>
 
-<p align="center"><em>One shared-infrastructure project, several independent products.</em></p>
+<p align="center"><em>Shared systems for operating a portfolio of independent products.</em></p>
 
-This repository is the canonical Fleet shared-infrastructure project and also
-serves as the local workspace root for independent product repositories.
+This repository currently contains Foundry, the shared operational project for
+the Fleet portfolio. Independent products remain separate repositories and are
+only cataloged, measured, or invoked through explicit contracts.
 
 All Fleet-owned source is nested under `foundry/` and organized by the
-operator-facing product model: helpers, skills, operations, and Fleet Console.
+operator-facing product model: evidence helpers, skills, workflows, operations,
+reusable packages, and the private Foundry dashboard.
 `foundry/ops/` is the shared operational
 substrate beneath those buckets. This workspace root remains the agent and
 independent-project entrypoint; independent products remain separately
@@ -25,11 +26,11 @@ public-listing posture. Automation and marketing registries are policy overlays;
 generated internal and public views come from the catalog with
 `npm run generate:projects`.
 
-## Canonical Fleet components
+## Canonical Foundry components
 
 - **Helpers:** `foundry/helpers/ai-visibility/` and other Fleet-owned focused helpers.
 - **Skills:** `foundry/ops/skills/` and `foundry/ops/teammates/skills/`.
-- **Fleet Console:** `foundry/apps/dashboard/fleet-console/`.
+- **Foundry dashboard:** `foundry/apps/dashboard/fleet-console/`.
 - **Operational substrate:** `foundry/ops/`, including its pinned public,
   credential-free `workflows/` module.
 
@@ -59,8 +60,9 @@ source dependencies:
 | [`sass-maker/mashup`](https://github.com/sass-maker/mashup) | sibling `mashup/` checkout |
 | [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | sibling parked `mobile-dev-cockpit/` checkout |
 
-Clone `sass-maker/fleet-workspace` once and initialize its public automation
-module:
+The current GitHub repository still uses the historical
+`sass-maker/fleet-workspace` remote name. After cloning it, initialize the
+public automation module:
 
 ```bash
 git submodule update --init --depth 1 foundry/ops/workflows
@@ -84,7 +86,7 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 ### P2 — 25
 
 - product: SaaS Maker, GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Habits, Field Track, Anchor
-- platform: Fleet Workspace, Knowledge Base, iOS landings
+- platform: Foundry, Knowledge Base, iOS landings
 - experiment: Mashup, Local AI Video Studio
 
 ### P4 — 26

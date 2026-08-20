@@ -1,12 +1,7 @@
 #!/usr/bin/env node
-import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
-import { buildOwnerNotifications } from '../lib/founder-control/learning.mjs';
-import { deliverOwnerNotifications } from '../lib/founder-control/notification-delivery.mjs';
-import { buildDailyBrief } from '../lib/founder-control/projections.mjs';
 import { loadFounderProjects } from '../lib/founder-control/registry.mjs';
 import { startFounderControlService } from '../lib/founder-control/service.mjs';
 import {
@@ -21,9 +16,6 @@ function usage() {
 Usage:
   founder-control.mjs status
   founder-control.mjs snapshot [output.json]
-  founder-control.mjs brief
-  founder-control.mjs notifications
-  founder-control.mjs notify [--no-drain]
   founder-control.mjs backup <output.json>
   founder-control.mjs verify <backup.json>
   founder-control.mjs restore <backup.json>
@@ -35,8 +27,6 @@ The database defaults to:
 Override it for local testing with FOUNDER_CONTROL_DB.`);
 }
 
-const scriptDir = dirname(fileURLToPath(import.meta.url));
-const fleetNotify = resolve(scriptDir, 'agent-bin', 'fleet-notify');
 const [command, ...args] = process.argv.slice(2);
 if (!command || ['help', '--help', '-h'].includes(command)) {
   usage();
@@ -56,7 +46,6 @@ if (command === 'status') {
       {
         database: store.databasePath,
         events: store.listEvents().length,
-        recommendations: projections.home.recommendedNext.length,
         projects: projections.projects.length,
         visibilityProjects: projections.aiVisibility.projects.length,
       },
@@ -69,49 +58,6 @@ if (command === 'status') {
   const output = resolve(args[0] ?? 'founder-control-snapshot.json');
   writeFileSync(output, `${JSON.stringify(store.rebuildProjections(), null, 2)}\n`, { mode: 0o600 });
   console.log(output);
-  store.close();
-} else if (command === 'brief') {
-  console.log(JSON.stringify(buildDailyBrief(store.rebuildProjections()), null, 2));
-  store.close();
-} else if (command === 'notifications') {
-  console.log(JSON.stringify(buildOwnerNotifications(store.rebuildProjections()), null, 2));
-  store.close();
-} else if (command === 'notify') {
-  const noDrain = args.includes('--no-drain');
-  const summary = await deliverOwnerNotifications(store.rebuildProjections(), {
-    consoleBaseUrl: process.env.FOUNDER_CONTROL_CONSOLE_URL || 'https://fleet.sassmaker.com',
-    emit: async (notification) => {
-      const notifyArgs = [
-        fleetNotify,
-        'emit',
-        '--severity',
-        notification.severity,
-        '--source',
-        notification.source,
-        '--title',
-        notification.title,
-        '--body',
-        notification.body,
-        '--url',
-        notification.url,
-        '--dedupe-key',
-        notification.dedupeKey,
-        '--json',
-      ];
-      if (notification.project) notifyArgs.push('--project', notification.project);
-      if (notification.forceOwnerChannel) notifyArgs.push('--channel', 'openclaw-telegram');
-      if (noDrain) notifyArgs.push('--no-drain');
-      const result = spawnSync(process.execPath, notifyArgs, {
-        encoding: 'utf8',
-        env: process.env,
-      });
-      if (result.status !== 0) {
-        throw new Error((result.stderr || result.stdout || 'fleet-notify failed').trim());
-      }
-      return JSON.parse(result.stdout);
-    },
-  });
-  console.log(JSON.stringify(summary, null, 2));
   store.close();
 } else if (command === 'backup') {
   if (!args[0]) throw new Error('backup requires an output path');

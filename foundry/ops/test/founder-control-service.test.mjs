@@ -61,6 +61,12 @@ test('serves evidence views, rejects unauthenticated mutations, and retires work
   assert.equal(rebuilt.status, 200);
   assert.equal((await fetch(`${base}/v1/missions`)).status, 404);
   assert.equal((await fetch(`${base}/v1/decisions`)).status, 404);
+  assert.equal((await fetch(`${base}/v1/daily-brief`)).status, 404);
+  assert.equal((await fetch(`${base}/v1/notifications`)).status, 404);
+  assert.equal((await fetch(`${base}/v1/recommendations/example/accept`, {
+    method: 'POST',
+    headers: { authorization: 'Bearer test-owner-token' },
+  })).status, 404);
   assert.equal((await fetch(`${base}/v1/home`)).status, 200);
 });
 
