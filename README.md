@@ -53,6 +53,7 @@ source dependencies:
 
 | Repository | Maintained source |
 | --- | --- |
+| [`sass-maker/chatgpt-connections`](https://github.com/sass-maker/chatgpt-connections) | sibling `chatgpt-connections/` checkout |
 | [`sass-maker/saas-maker`](https://github.com/sass-maker/saas-maker) | sibling `saas-maker/` checkout |
 | [`sass-maker/drank`](https://github.com/sass-maker/drank) | sibling `drank/` checkout |
 | [`sass-maker/psi-swarm`](https://github.com/sass-maker/psi-swarm) | sibling `psi-swarm/` checkout |
@@ -83,10 +84,10 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 
 - product: CodeVetter, HeyPace, PostTrainLLM, Office OS
 
-### P2 — 25
+### P2 — 26
 
 - product: SaaS Maker, GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Habits, Field Track, Anchor
-- platform: Foundry, Knowledge Base, iOS landings
+- platform: Foundry, ChatGPT Connections, Knowledge Base, iOS landings
 - experiment: Mashup, Local AI Video Studio
 
 ### P4 — 26

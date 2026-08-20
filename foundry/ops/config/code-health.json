@@ -156,6 +156,7 @@
         "cycles": "Knip enforces TypeScript import cycles; the required Xcode test and Release builds resolve the Swift target and source dependency graph."
       }
     },
+    "chatgpt-connections": { "profile": "javascript-typescript" },
     "chatgpt-memory-insights": { "profile": "javascript-typescript" },
     "codevetter": { "profile": "mixed" },
     "drank": { "profile": "javascript-typescript" },

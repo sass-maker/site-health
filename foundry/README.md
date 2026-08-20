@@ -6,16 +6,16 @@ Foundry is the canonical home for all Fleet-owned source.
 
 | Bucket | Canonical components | Responsibility |
 |---|---|---|
-| Helpers | `helpers/ai-visibility/`, `helpers/chatgpt-connections/` | Focused GEO evidence and read-only ChatGPT connection surfaces |
+| Helpers | `helpers/ai-visibility/` | Focused GEO evidence and comparison surfaces |
 | Skills | `ops/skills/`, `ops/teammates/skills/` | Agent-operated Fleet capabilities |
 | Workflows | `ops/workflows/`, `ops/automation/` | Credential-free public checks and inert private schedule intent |
 | Packages | `packages/ai-chat-footer/`, `packages/portfolio-project-strip/` | Reusable UI packages awaiting the SaaS Maker cleanup pass |
 | Foundry dashboard | `apps/dashboard/fleet-console/` | Deferred private view of projects, domains, search, GEO, and performance evidence |
 
-SaaS Maker, Feedback, Drank, PSI Swarm, Mashup, Reel Pipeline (including Content
-Factory), and Mobile Dev Cockpit are independent sibling repositories. Foundry
-may catalog or call their declared interfaces, but does not own their source or
-runtime.
+ChatGPT Connections, SaaS Maker, Feedback, Drank, PSI Swarm, Mashup, Reel
+Pipeline (including Content Factory), and Mobile Dev Cockpit are independent
+sibling repositories. Foundry may catalog or call their declared interfaces,
+but does not own their source or runtime.
 
 `ops/` is the shared substrate beneath those buckets: policy, registries,
 automation, scripts, evidence contracts, host support, public workflows, and
@@ -37,6 +37,7 @@ transport or consumer does.
 |---|---|---|---|---|
 | Project catalog | Public projections and Foundry dashboard | Generated privacy-filtered JSON plus direct private reads | Connected | One registry supplies both surfaces without creating another project database |
 | AI Visibility helper | Evidence service and Foundry dashboard | Normalized evidence ledger and bounded API | Connected | Manual runs, history, comparison, coverage, cost, citations, and model outcomes are visible |
+| ChatGPT Connections | ChatGPT and MCP clients | Standalone read-only Worker | Separate | The gateway owns its integrations, OAuth boundary, checks, monitoring, and release flow outside Foundry |
 | Drank | Foundry dashboard | Standalone service/data contract | Connected | Foundry reads domain intelligence without absorbing Drank |
 | PSI Swarm | Site Health and Foundry dashboard | Standalone CLI artifacts plus machine-local history | Connected | Skills can call PSI Swarm and Foundry can summarize its evidence |
 | Postiz runners | Marketing evidence | Draft/publication/analytics receipts in machine-local state | Partial | Safe runners and receipt contracts exist; live operation remains deliberately gated |

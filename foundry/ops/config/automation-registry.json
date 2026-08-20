@@ -4,7 +4,7 @@
   "attentionCounts": {
     "my-work": 7,
     "toolbox": 30,
-    "foundry": 3,
+    "foundry": 4,
     "ignored": 15
   },
   "defaults": {
@@ -193,6 +193,38 @@
       ],
       "actionPolicy": "factory-safe",
       "alertPolicy": "page host, scheduler, publication-integrity, or prolonged production failure; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "chatgpt-connections",
+      "name": "ChatGPT Connections",
+      "attention": "foundry",
+      "family": "chatgpt-connections",
+      "owner": "foundry",
+      "repository": "chatgpt-connections",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
       "exceptions": []
     },
     {

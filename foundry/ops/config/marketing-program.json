@@ -1829,6 +1829,21 @@
       "channels": []
     },
     {
+      "slug": "chatgpt-connections",
+      "name": "ChatGPT Connections",
+      "aliases": [
+        "fleet-chatgpt-connections"
+      ],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
       "slug": "saas-maker",
       "name": "SaaS Maker",
       "aliases": [

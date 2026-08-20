@@ -212,6 +212,41 @@
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "foundry/ops",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [
+        "fleet.sassmaker.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Private shared-infrastructure source, including workflows and the deferred Foundry dashboard. Public directory and Feedback ownership moved to sass-maker/saas-maker on 2026-08-20; ChatGPT Connections moved to its standalone repository on 2026-08-21.",
+      "name": "Foundry",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
+      "public": { "listing": "hidden" }
+    },
+    {
+      "id": "chatgpt-connections",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "The read-only MCP gateway is live for configured integrations, but it is a private operational service rather than a general public product."
+        }
+      },
+      "aliases": [
+        "fleet-chatgpt-connections"
+      ],
+      "authModel": "public-personalized",
+      "family": "chatgpt-connections",
+      "tier": "active",
+      "repo": "chatgpt-connections",
       "deployKind": "worker",
       "cfProject": "fleet-chatgpt-connections",
       "deployTargets": [
@@ -219,20 +254,18 @@
           "id": "chatgpt-connections",
           "kind": "worker",
           "name": "fleet-chatgpt-connections",
-          "sourcePath": "foundry/helpers/chatgpt-connections"
+          "sourcePath": "chatgpt-connections"
         }
       ],
-      "domains": [
-        "fleet.sassmaker.com"
-      ],
+      "domains": [],
       "inRegistry": false,
       "status": "live",
-      "notes": "Private shared-infrastructure source, including workflows and the deferred Foundry dashboard. Public directory and Feedback ownership moved to sass-maker/saas-maker on 2026-08-20.",
-      "name": "Foundry",
+      "notes": "Standalone private read-only MCP gateway extracted from Foundry with its history on 2026-08-21. Existing Worker name, routes, OAuth boundary, and provider resources were retained without deployment.",
+      "name": "ChatGPT Connections",
       "attention": "foundry",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
+      "repositoryUrl": "https://github.com/sass-maker/chatgpt-connections",
       "public": { "listing": "hidden" }
     },
     {
@@ -2691,15 +2724,8 @@
         ]
       },
       "fleet-workspace": {
-        "updatedAt": "2026-08-20",
+        "updatedAt": "2026-08-21",
         "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "worker",
-            "name": "fleet-chatgpt-connections",
-            "method": "wrangler-direct",
-            "state": "configured-not-deployed"
-          },
           {
             "provider": "cloudflare",
             "kind": "tunnel",
@@ -2718,15 +2744,29 @@
         "resources": [
           {
             "provider": "cloudflare",
-            "kind": "kv",
-            "name": "OAUTH_KV",
-            "state": "configured-for-merged-gateway"
-          },
-          {
-            "provider": "cloudflare",
             "kind": "access-application",
             "name": "fleet.sassmaker.com",
             "state": "active-config-derived"
+          }
+        ]
+      },
+      "chatgpt-connections": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "fleet-chatgpt-connections",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "OAUTH_KV",
+            "state": "configured-for-merged-gateway"
           }
         ]
       },

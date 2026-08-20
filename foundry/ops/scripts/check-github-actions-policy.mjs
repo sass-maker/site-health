@@ -12,9 +12,7 @@ const workflowFiles = readdirSync(workflowRoot)
 
 // Credential-free availability checks may run daily when explicitly reviewed.
 // Keep this filename allowlist narrow so product/build automation stays weekly.
-const frequentScheduleAllowlist = new Set([
-  'chatgpt-connections-monitor.yml',
-]);
+const frequentScheduleAllowlist = new Set();
 
 const errors = [];
 

@@ -5,7 +5,6 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '../../..');
 const checks = [
-  ['chatgpt-connections', 'foundry/helpers/chatgpt-connections', 'pnpm', ['check']],
   ['ai-visibility', 'foundry/helpers/ai-visibility', 'pnpm', ['check']],
   ['fleet-console', 'foundry/apps/dashboard/fleet-console', 'npm', ['run', 'build']],
 ];

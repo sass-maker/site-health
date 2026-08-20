@@ -24,9 +24,9 @@ const [directories, probe, supplements] = await Promise.all([
 
 test('publishing program covers all P1, all P2, and every eligible P4 project', () => {
   assert.deepEqual(validateSeoGeoPublishing(program, catalog), {
-    projectCount: 38,
+    projectCount: 39,
     p1Count: 4,
-    p2Count: 25,
+    p2Count: 26,
     p4Count: 9,
     channelCount: 27,
   });
@@ -35,7 +35,7 @@ test('publishing program covers all P1, all P2, and every eligible P4 project', 
 test('generated guide is deterministic and exposes execution boundaries and exclusions', () => {
   const rendered = renderSeoGeoPublishing(program, catalog);
   assert.equal(rendered, renderSeoGeoPublishing(program, catalog));
-  assert.match(rendered, /all P1 \(4\), all P2 \(25\), all eligible finished P4 \(9\)/);
+  assert.match(rendered, /all P1 \(4\), all P2 \(26\), all eligible finished P4 \(9\)/);
   assert.match(rendered, /### Office OS — Publishable/);
   assert.match(rendered, /### Mashup — Preparation only/);
   assert.match(rendered, /Future candidates after re-verification:\*\* None in the current campaign\./);

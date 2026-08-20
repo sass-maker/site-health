@@ -3,7 +3,7 @@
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 > Maintenance contract: `foundry/ops/config/README.md`.
 
-Generated from 55 internal project identities.
+Generated from 56 internal project identities.
 
 ## Operating model
 
@@ -62,7 +62,7 @@ Provider inventory checked 2026-08-21. A resource is not considered accounted fo
 | PostTrainLLM | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `posttrainllm` | cloudflare pages `tinygpt` (wrangler-direct; live) | cloudflare zone `posttrainllm.com` (active-config-derived) | 2026-08-11 |
 | Office OS | active | yes | yes | The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved. (verified 2026-08-16) | `agent-office` | cloudflare pages `office-os` (wrangler-direct; live)<br>local macos-app `AgentOffice.app` (local-package; local-only) | — | 2026-08-11 |
 
-## P2 — 25
+## P2 — 26
 
 ### Products — 20
 
@@ -89,11 +89,12 @@ Provider inventory checked 2026-08-21. A resource is not considered accounted fo
 | Field Track | active | no | no | The private MVP has no verified production deployment or approved public surface. (verified 2026-08-14) | `field-track` | — | — | 2026-08-14 |
 | Anchor | active | yes | no | Landing, support and privacy pages live at anchor.significanthobbies.com with a valid certificate. Not ready to share: the macOS DMG is Developer ID signed but not notarised, so Gatekeeper warns, and the apps are otherwise unreleased. (verified 2026-08-16) | `anchor` | cloudflare pages `anchor-landing` (wrangler-direct; live) | — | 2026-08-16 |
 
-### Platforms — 3
+### Platforms — 4
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
-| Foundry | active | yes | no | Foundry is a private operational platform; its public directory is owned by the standalone SaaS Maker repository. (verified 2026-08-20) | `foundry/ops` | cloudflare worker `fleet-chatgpt-connections` (wrangler-direct; configured-not-deployed)<br>cloudflare tunnel `fleet.sassmaker.com` (designated-host; live)<br>github actions `sass-maker/workflows` (repository-workflows; live) | cloudflare kv `OAUTH_KV` (configured-for-merged-gateway)<br>cloudflare access-application `fleet.sassmaker.com` (active-config-derived) | 2026-08-20 |
+| Foundry | active | yes | no | Foundry is a private operational platform; its public directory is owned by the standalone SaaS Maker repository. (verified 2026-08-20) | `foundry/ops` | cloudflare tunnel `fleet.sassmaker.com` (designated-host; live)<br>github actions `sass-maker/workflows` (repository-workflows; live) | cloudflare access-application `fleet.sassmaker.com` (active-config-derived) | 2026-08-21 |
+| ChatGPT Connections | active | yes | no | The read-only MCP gateway is live for configured integrations, but it is a private operational service rather than a general public product. (verified 2026-08-21) | `chatgpt-connections` | cloudflare worker `fleet-chatgpt-connections` (wrangler-direct; live) | cloudflare kv `OAUTH_KV` (configured-for-merged-gateway) | 2026-08-21 |
 | Knowledge Base | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `knowledge-base` | cloudflare pages `knowledgebase-landing` (git-connected; live)<br>cloudflare pages `knowledgebase-app` (wrangler-direct; live)<br>cloudflare worker `knowledgebase-app` (legacy-worker; live-purpose-review)<br>cloudflare worker `knowledgebase` (wrangler-direct; live) | cloudflare d1 `rag-db` (active)<br>cloudflare r2 `rag-raw-docs` (active)<br>cloudflare queue `knowledgebase-ingest` (active)<br>cloudflare workflow `knowledgebase-ingest-workflow` (active)<br>cloudflare vectorize `rag-embedding-384` (active)<br>cloudflare vectorize `rag-embedding-768` (active)<br>cloudflare vectorize `rag-embedding-1024` (active)<br>cloudflare vectorize `rag-gemini-1536` (active)<br>cloudflare vectorize `rag-bge-768` (retained-unreferenced)<br>cloudflare vectorize `rag-bge-small-384` (retained-unreferenced)<br>cloudflare vectorize `rag-voyage-1024` (retained-unreferenced)<br>cloudflare analytics-engine `knowledgebase_rag_events` (active)<br>cloudflare workers-ai `AI` (active)<br>cloudflare service-binding `free-ai-gateway` (active)<br>cloudflare access-application `search.sassmaker.com` (active-config-derived) | 2026-08-11 |
 | iOS landings | active | yes | no | Private factory whose Journal Pages deployment is live at journal.significanthobbies.com; Journal remains landing-only with no native release claim. (verified 2026-08-21) | `ios-landings` | cloudflare pages `journal` (wrangler-direct; live) | — | 2026-08-21 |
 

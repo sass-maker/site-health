@@ -68,9 +68,19 @@ recommendations, decisions, missions, learning prompts, notifications, or work.
 - The standalone SaaS Maker repository owns `@saas-maker/feedback`, its hosted
   submission service, project keys, attachments, private viewing UI, and agent
   API. Feedback remains separate from Fleet Console.
+- The standalone ChatGPT Connections repository owns the read-only MCP gateway,
+  product adapters, OAuth boundary, CI, production monitor, and guarded deploy
+  command. Foundry retains only its project and infrastructure catalog entries.
 
 ## Timeline
 
+- **2026-08-21 — ChatGPT Connections became an independent service:** Extracted
+  the complete read-only MCP gateway into `sass-maker/chatgpt-connections` with
+  its component history, tests, CI, production monitor, and guarded deploy
+  command. Foundry no longer contains or builds the Worker and retains only its
+  catalog and infrastructure references. The existing Worker name, routes,
+  OAuth boundary, and KV binding remain unchanged; no deployment or provider
+  mutation ran.
 - **2026-08-21 — Foundry's first removal slice landed:** Removed the experimental
   FleetWorkspace transition runtime; Founder Control recommendations, learning,
   daily briefs, and notification delivery; six retired Console redirect routes;

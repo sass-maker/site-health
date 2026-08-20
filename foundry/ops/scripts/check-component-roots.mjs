@@ -13,6 +13,7 @@ const retiredRoots = [
   ['foundry/packages', 'feedback'].join('/'),
   ['foundry/apps/public', 'public-directory'].join('/'),
   ['foundry/packages', 'ai-visibility'].join('/'),
+  ['foundry/helpers', 'chatgpt-connections'].join('/'),
   ['foundry/apps/public', 'mobile-cockpit'].join('/'),
   ['foundry/apps/dashboard', 'mobile-cockpit'].join('/'),
   ['foundry/helpers', 'mashup'].join('/'),
@@ -27,12 +28,6 @@ const historicalReferenceFiles = new Set([
   'foundry/ops/docs/public-product-smoke-latest.json',
 ]);
 const components = [
-  {
-    id: 'chatgpt-connections',
-    root: 'foundry/helpers/chatgpt-connections',
-    required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml', 'wrangler.jsonc'],
-    nativeCheck: 'pnpm check',
-  },
   {
     id: 'ai-visibility',
     root: 'foundry/helpers/ai-visibility',

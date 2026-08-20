@@ -2,7 +2,7 @@
 
 **Strategy reviewed:** 2026-08-20
 
-**Coverage:** all P1 (4), all P2 (25), all eligible finished P4 (9)
+**Coverage:** all P1 (4), all P2 (26), all eligible finished P4 (9)
 
 **Source of truth:** `foundry/ops/config/seo-geo-publishing.json`
 
@@ -133,7 +133,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
 - **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
-## P2 — 25
+## P2 — 26
 
 ### Foundry — Preparation only
 
@@ -150,6 +150,20 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - Approve a public Fleet narrative that exposes no private operational data.
 
 **Future candidates after re-verification:** DEV Community, GitHub repository and organization profile
+
+### ChatGPT Connections — Preparation only
+
+**Narrative:** A read-only MCP gateway that exposes bounded product data to ChatGPT and other compatible clients.
+
+**Source asset:** A privacy-safe integration guide and public compatibility contract that does not expose private product data or credentials.
+
+**Catalog blocker:** The read-only MCP gateway is live for configured integrations, but it is a private operational service rather than a general public product. (verified 2026-08-21)
+
+**Before publishing:**
+
+- Approve a public product and security narrative before treating the private integration service as shareable.
+
+**Future candidates after re-verification:** None in the current campaign.
 
 ### SaaS Maker — Publishable
 
