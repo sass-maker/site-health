@@ -50,9 +50,9 @@ editorial products; or an active mobile-control product.
 - Automation, marketing, site, and family registries are validated policy
   overlays keyed to catalog identities; generated internal and public views
   never create project identities independently.
-- Reel Pipeline, Content Factory, and Mashup are independent products currently
-  colocated in this repository pending extraction. Fleet may consume their
-  versioned receipts but does not own their product surfaces.
+- Reel Pipeline, Content Factory, and Mashup are independent products in
+  standalone Sass Maker repositories. Fleet may consume their versioned
+  receipts but does not own their product surfaces.
 - Drank supplies domain intelligence.
 - PSI Swarm supplies bounded performance/site-health evidence.
 - Mobile Dev Cockpit is parked. Its source and retained Cloudflare resources
@@ -73,14 +73,20 @@ editorial products; or an active mobile-control product.
 
 ## Timeline
 
+- **2026-08-20 — Media products extracted from Fleet:** Restored Reel Pipeline
+  as a standalone Sass Maker repository with Content Factory inside its product
+  boundary, restored Mashup as a separate Sass Maker repository, and removed
+  their implementation code from Fleet. Fleet retains only catalog,
+  infrastructure-ownership, automation-policy, and versioned receipt-contract
+  references. Mobile Dev Cockpit was extracted to its standalone parked
+  repository; no deployment or provider resource changed.
 - **2026-08-20 — Chess reconciled and Mobile Cockpit parked:** Kept Chess as a
   past catalog identity with its live deployment and historical observations
   retained, while removing it from active code-health, lint, AI-visibility,
   GEO, distribution, Domain Rating refresh, and bundled project-strip inputs.
   Parked Mobile Dev Cockpit without deleting its source or changing provider
   resources, and removed the mobile dashboard from Fleet's active scope and
-  missing-capability claims. Reel Pipeline, Content Factory, and Mashup remain
-  independent colocated products pending repository extraction.
+  missing-capability claims.
 - **2026-08-20 — The redundant Growth aggregation left Fleet Console:** Removed
   the Growth route, navigation, client renderer, outcome endpoint, projection,
   standalone allocation program, and active documentation. Search, traffic,
