@@ -7,7 +7,7 @@ import test from 'node:test';
 import { FounderControlStore, verifyBackup } from '../lib/founder-control/store.mjs';
 
 const now = '2026-07-25T08:00:00.000Z';
-const actor = { type: 'owner', id: 'founder', label: 'Founder' };
+const actor = { type: 'automation', id: 'foundry-test', label: 'Foundry test' };
 
 function createStore(name = 'ledger.sqlite') {
   return new FounderControlStore({
@@ -16,81 +16,48 @@ function createStore(name = 'ledger.sqlite') {
   });
 }
 
-function draftInput() {
+function recommendationInput() {
   return {
-    type: 'mission.drafted',
+    type: 'recommendation.created',
     actor,
-    missionId: 'mission/example',
     projectId: 'codevetter',
-    idempotencyKey: 'test/mission/example',
+    idempotencyKey: 'test/recommendation/example',
     occurredAt: now,
     payload: {
+      recommendationId: 'recommendation/example',
       title: 'Verify the release',
-      outcome: 'The release is verified',
-      completionCriteria: ['Production evidence exists'],
-      authority: { mode: 'owner-acceptance-required' },
+      rationale: 'Current evidence is incomplete.',
+      impact: 0.8,
+      confidence: 0.7,
+      effort: 0.2,
+      reversibility: 1,
+      score: 80,
     },
   };
 }
 
-test('appends idempotently and rejects conflicting or illegal writes', () => {
+test('appends evidence events idempotently and rejects conflicts', () => {
   const store = createStore();
-  const first = store.append(draftInput(), { now });
-  const repeated = store.append(draftInput(), { now });
+  const first = store.append(recommendationInput(), { now });
+  const repeated = store.append(recommendationInput(), { now });
   assert.equal(first.duplicate, false);
   assert.equal(repeated.duplicate, true);
   assert.equal(store.listEvents().length, 1);
   assert.throws(
-    () => store.append({ ...draftInput(), payload: { ...draftInput().payload, title: 'Different' } }, { now }),
+    () => store.append({
+      ...recommendationInput(),
+      payload: { ...recommendationInput().payload, title: 'Different' },
+    }, { now }),
     (error) => error.code === 'IDEMPOTENCY_CONFLICT',
-  );
-  assert.throws(
-    () =>
-      store.append(
-        {
-          type: 'mission.completed',
-          actor,
-          missionId: 'mission/example',
-          idempotencyKey: 'test/mission/illegal',
-          occurredAt: now,
-          payload: { summary: 'Done' },
-        },
-        { now },
-      ),
-    (error) => error.code === 'ILLEGAL_MISSION_TRANSITION',
   );
   store.close();
 });
 
 test('rebuilds deterministic projections and verifies restore/replay', () => {
   const store = createStore();
-  store.append(draftInput(), { now });
-  store.append(
-    {
-      type: 'mission.accepted',
-      actor,
-      missionId: 'mission/example',
-      projectId: 'codevetter',
-      idempotencyKey: 'test/mission/accepted',
-      occurredAt: '2026-07-25T08:01:00.000Z',
-      payload: { reason: 'Approved' },
-    },
-    { now: '2026-07-25T08:01:00.000Z' },
-  );
-  store.append(
-    {
-      type: 'mission.started',
-      actor: { type: 'agent', id: 'codex', label: 'Codex' },
-      missionId: 'mission/example',
-      projectId: 'codevetter',
-      idempotencyKey: 'test/mission/started',
-      occurredAt: '2026-07-25T08:02:00.000Z',
-      payload: { summary: 'Started' },
-    },
-    { now: '2026-07-25T08:02:00.000Z' },
-  );
+  store.append(recommendationInput(), { now });
   const firstProjection = store.rebuildProjections({ now: '2026-07-25T09:00:00.000Z' });
-  assert.equal(firstProjection.home.workingNow[0].state, 'active');
+  assert.equal(firstProjection.home.recommendedNext[0].id, 'recommendation/example');
   const backup = store.createBackup({ now: '2026-07-25T09:00:00.000Z' });
   assert.equal(verifyBackup(backup).valid, true);
 

@@ -8,7 +8,6 @@ import {
   FounderControlValidationError,
   normalizeEvent,
   redactForExport,
-  validateMissionTransition,
 } from './contracts.mjs';
 import { buildProjections } from './projections.mjs';
 
@@ -41,7 +40,6 @@ function rowToEvent(row) {
     actor: JSON.parse(row.actor_json),
     ...(row.project_id ? { projectId: row.project_id } : {}),
     ...(row.objective_id ? { objectiveId: row.objective_id } : {}),
-    ...(row.mission_id ? { missionId: row.mission_id } : {}),
     ...(row.correlation_id ? { correlationId: row.correlation_id } : {}),
     idempotencyKey: row.idempotency_key,
     visibility: row.visibility,
@@ -56,7 +54,6 @@ function sameRequest(existing, input) {
     actor: input.actor,
     projectId: input.projectId,
     objectiveId: input.objectiveId,
-    missionId: input.missionId,
     correlationId: input.correlationId,
     visibility: input.visibility ?? 'private',
     payload: input.payload ?? {},
@@ -67,7 +64,6 @@ function sameRequest(existing, input) {
     actor: existing.actor,
     projectId: existing.projectId,
     objectiveId: existing.objectiveId,
-    missionId: existing.missionId,
     correlationId: existing.correlationId,
     visibility: existing.visibility,
     payload: existing.payload,
@@ -115,16 +111,6 @@ export class FounderControlStore {
     return row ? rowToEvent(row) : null;
   }
 
-  getMissionState(missionId) {
-    if (!missionId) return null;
-    const rows = this.database
-      .prepare("SELECT * FROM events WHERE mission_id = ? AND type LIKE 'mission.%' ORDER BY sequence")
-      .all(missionId);
-    let state = null;
-    for (const row of rows) state = validateMissionTransition(rowToEvent(row), state);
-    return state;
-  }
-
   append(input, { now = new Date().toISOString() } = {}) {
     const existing = input?.idempotencyKey
       ? this.getEventByIdempotencyKey(input.idempotencyKey)
@@ -142,15 +128,13 @@ export class FounderControlStore {
     const event = normalizeEvent(input, { now });
     this.database.exec('BEGIN IMMEDIATE');
     try {
-      const currentState = this.getMissionState(event.missionId);
-      validateMissionTransition(event, currentState);
       this.database
         .prepare(`
           INSERT INTO events (
             id, schema_version, type, occurred_at, recorded_at, actor_json,
-            project_id, objective_id, mission_id, correlation_id,
+            project_id, objective_id, correlation_id,
             idempotency_key, visibility, payload_json, evidence_json
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `)
         .run(
           event.id,
@@ -161,7 +145,6 @@ export class FounderControlStore {
           JSON.stringify(event.actor),
           event.projectId ?? null,
           event.objectiveId ?? null,
-          event.missionId ?? null,
           event.correlationId ?? null,
           event.idempotencyKey,
           event.visibility,

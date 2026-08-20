@@ -4,11 +4,6 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { draftMission } from '../lib/founder-control/intake.mjs';
-import {
-  appendCurrentEvidenceBatch,
-  appendMarketingReceipt,
-} from '../lib/founder-control/evidence-ingestion.mjs';
 import { buildOwnerNotifications } from '../lib/founder-control/learning.mjs';
 import { deliverOwnerNotifications } from '../lib/founder-control/notification-delivery.mjs';
 import { buildDailyBrief } from '../lib/founder-control/projections.mjs';
@@ -25,13 +20,10 @@ function usage() {
 
 Usage:
   founder-control.mjs status
-  founder-control.mjs draft <title> [project-id]
   founder-control.mjs snapshot [output.json]
   founder-control.mjs brief
   founder-control.mjs notifications
   founder-control.mjs notify [--no-drain]
-  founder-control.mjs backfill-current <receipts.json>
-  founder-control.mjs marketing-receipt <receipt.json>
   founder-control.mjs backup <output.json>
   founder-control.mjs verify <backup.json>
   founder-control.mjs restore <backup.json>
@@ -64,22 +56,14 @@ if (command === 'status') {
       {
         database: store.databasePath,
         events: store.listEvents().length,
-        missions: projections.missions.length,
-        decisions: projections.home.needsMe.length,
+        recommendations: projections.home.recommendedNext.length,
         projects: projections.projects.length,
+        visibilityProjects: projections.aiVisibility.projects.length,
       },
       null,
       2,
     ),
   );
-  store.close();
-} else if (command === 'draft') {
-  const [title, projectId] = args;
-  if (!title) throw new Error('draft requires a title');
-  const drafted = draftMission({ title, ...(projectId ? { projectId } : {}) }, { projects });
-  const result = store.append(drafted.event);
-  if (drafted.decision) store.append(drafted.decision);
-  console.log(JSON.stringify(result.event, null, 2));
   store.close();
 } else if (command === 'snapshot') {
   const output = resolve(args[0] ?? 'founder-control-snapshot.json');
@@ -128,22 +112,6 @@ if (command === 'status') {
     },
   });
   console.log(JSON.stringify(summary, null, 2));
-  store.close();
-} else if (command === 'backfill-current') {
-  if (!args[0]) throw new Error('backfill-current requires a receipts JSON path');
-  const summary = appendCurrentEvidenceBatch(
-    store,
-    JSON.parse(readFileSync(resolve(args[0]), 'utf8')),
-  );
-  console.log(JSON.stringify(summary, null, 2));
-  store.close();
-} else if (command === 'marketing-receipt') {
-  if (!args[0]) throw new Error('marketing-receipt requires a receipt JSON path');
-  const result = appendMarketingReceipt(
-    store,
-    JSON.parse(readFileSync(resolve(args[0]), 'utf8')),
-  );
-  console.log(JSON.stringify({ appended: !result.duplicate, duplicate: result.duplicate }, null, 2));
   store.close();
 } else if (command === 'backup') {
   if (!args[0]) throw new Error('backup requires an output path');

@@ -13,16 +13,12 @@ CREATE TABLE IF NOT EXISTS events (
   actor_json TEXT NOT NULL,
   project_id TEXT,
   objective_id TEXT,
-  mission_id TEXT,
   correlation_id TEXT,
   idempotency_key TEXT NOT NULL UNIQUE,
   visibility TEXT NOT NULL,
   payload_json TEXT NOT NULL,
   evidence_json TEXT NOT NULL
 );
-
-CREATE INDEX IF NOT EXISTS events_mission_sequence
-  ON events(mission_id, sequence);
 
 CREATE INDEX IF NOT EXISTS events_project_sequence
   ON events(project_id, sequence);

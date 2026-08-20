@@ -1,14 +1,13 @@
 {
   "$schema": "fleet.seo-geo-publishing.v1",
   "version": 1,
-  "updatedAt": "2026-08-17",
+  "updatedAt": "2026-08-20",
   "selectedP4": [
     "drank",
     "email-manager",
     "free-ai",
     "psi-swarm",
     "anime-list",
-    "chess",
     "india-standards",
     "looptv",
     "sarthakagrawal-personal",
@@ -18,7 +17,7 @@
     "Publish a useful source asset first; adapt it to a venue instead of pasting the same promotion everywhere.",
     "A placement is a fit recommendation, not a promise of ranking, backlink value, acceptance, or AI citation.",
     "Respect each community's current rules and disclose the maker relationship where relevant.",
-    "Keep completion and outcome evidence in GitHub Issues, growth-program.json, or existing submission receipts—not in this strategy file.",
+    "Keep completion and outcome evidence in GitHub Issues or existing submission receipts—not in this strategy file.",
     "Work on at most five P2 projects in one execution cycle even though this program covers every P2 identity."
   ],
   "channelExecution": {
@@ -630,6 +629,30 @@
       "exclusions": []
     },
     {
+      "projectId": "gitstat",
+      "state": "prepare",
+      "narrative": "A client-side explorer for aggregate GitHub contribution and line statistics across repositories and organizations.",
+      "sourceAsset": "A committed, publicly testable build with a clear GitHub OAuth and local-caching privacy boundary.",
+      "placements": [],
+      "futureChannels": ["dev", "github-repository"],
+      "prerequisites": [
+        "Commit the initial product source and verify a usable public deployment before publication."
+      ],
+      "exclusions": []
+    },
+    {
+      "projectId": "reel-pipeline",
+      "state": "prepare",
+      "narrative": "A private media production, review, and policy-gated distribution pipeline.",
+      "sourceAsset": "A rights-safe public example and approved explanation that exposes no private production inputs, credentials, or unpublished media.",
+      "placements": [],
+      "futureChannels": [],
+      "prerequisites": [
+        "Approve a public product surface and a rights-safe evidence package before any external publication."
+      ],
+      "exclusions": []
+    },
+    {
       "projectId": "mashup",
       "state": "prepare",
       "narrative": "A local media experiment for assembling or transforming video assets.",
@@ -735,19 +758,6 @@
       "exclusions": [
         { "channelId": "alternative-to", "reason": "AlternativeTo disallows directories and lists; avoid the category ambiguity." }
       ]
-    },
-    {
-      "projectId": "chess",
-      "state": "publish",
-      "narrative": "Browser chess against Stockfish with optional AI move coaching.",
-      "sourceAsset": "A playable annotated game showing where the coaching explanation helps and where engine evaluation alone is insufficient.",
-      "placements": [
-        { "channelId": "hacker-news", "rank": "primary", "format": "Show HN with instant playable board", "actor": "owner", "fit": "Directly playable maker-built software." },
-        { "channelId": "youtube", "rank": "primary", "format": "Annotated game and coaching demo", "actor": "shared", "fit": "Shows the difference between moves, engine scores, and explanations." },
-        { "channelId": "specialist-communities", "rank": "secondary", "format": "Coaching-method discussion in chess communities", "actor": "owner", "fit": "Relevant only with honest strength limits and local moderator approval." },
-        { "channelId": "product-hunt", "rank": "secondary", "format": "Playable chess coach launch", "actor": "owner", "fit": "Interactive game and learning tool." }
-      ],
-      "exclusions": []
     },
     {
       "projectId": "looptv",

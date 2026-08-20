@@ -11,7 +11,6 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
-import { inspectPostizReadiness, PostizReadinessError } from './postiz/readiness.mjs';
 
 const ROLE_KEYS = new Set([
   'schemaVersion',
@@ -26,7 +25,6 @@ const ROLE_KEYS = new Set([
   'leaseFile',
   'receiptDir',
   'scheduleOutput',
-  'postizConfigFile',
 ]);
 
 const REQUIRED_PATH_KEYS = [
@@ -126,12 +124,6 @@ function validateRoleShape(role, roleFile) {
       fail('SOURCE_PATH_REFUSED', 'Schedule registries and runners must remain inside the checkout.');
     }
   }
-  if (role.postizConfigFile !== undefined) {
-    if (typeof role.postizConfigFile !== 'string' || !isAbsolute(role.postizConfigFile)) {
-      fail('ROLE_FILE_INVALID', 'The Postiz config file path must be explicit and absolute.');
-    }
-    requireMachineLocalPath(role.checkoutRoot, role.postizConfigFile);
-  }
   return Object.freeze({ ...role });
 }
 
@@ -223,21 +215,6 @@ export function doctor(roleFile, options = {}) {
   if (checks.every((check) => check.ok)) {
     parseRegistry(role.jobsFile, JOB_HEADERS, 'conversational');
     parseRegistry(role.systemJobsFile, SYSTEM_JOB_HEADERS, 'system');
-  }
-  if (role.postizConfigFile) {
-    const configCheck = fileCheck('postiz-readiness-config', role.postizConfigFile);
-    checks.push(configCheck);
-    if (configCheck.ok) {
-      try {
-        checks.push(...inspectPostizReadiness(role.postizConfigFile, {
-          checkoutRoot: role.checkoutRoot,
-          probes: options.postizProbes,
-        }).checks);
-      } catch (error) {
-        if (error instanceof PostizReadinessError) fail(error.code, error.message);
-        throw error;
-      }
-    }
   }
   const ok = checks.every((check) => check.ok);
   return {

@@ -151,32 +151,13 @@ Email templating, higher volume).
 
 ---
 
-## 5. Product analytics
+## 5. Product analytics (outside Fleet)
 
-**Adopt: PostHog** (already fleet-wide — 14+ projects).
-- Free: 1M events/mo, 5k session replays, 1M feature flag evaluations,
-  experiments, surveys. Most generous free tier in the category.
-- MIT-licensed core. Self-hostable (Kubernetes) if data sovereignty matters.
-- Bundles analytics + replay + flags + A/B — removes the "stitch six tools
-  together" problem.
-
-**Acceptable: Umami** for marketing/content sites that only need pageviews
-and want zero cookies / no consent banner.
-- MIT-licensed, self-hostable on Vercel + Supabase/Neon for $0/mo.
-- Cloud Hobby: 100k events free.
-- Use for `*-blume` docs sites and Astro marketing pages where PostHog is
-  overkill.
-
-**Acceptable: Plausible** — cleanest pageview UI, <1 KB script, GDPR-
-compliant by default. $9/mo cloud or self-host on a $5 VPS. Use when Umami
-isn't polished enough for a public marketing surface.
-
-**Avoid: Google Analytics 4** — privacy trade-offs, ad blockers lose 30-50%
-of data, vendor lock-in. Not used in the fleet and should stay that way.
-
-**Fleet adoption:** PostHog in ai-game, anime-list, drank, karte, looptv,
-reader, rolepatch, significanthobbies, starboard, swe-interview-prep,
-today-little-log, and more. No project uses GA4.
+Fleet does not select, aggregate, or present product/user analytics. PostHog,
+Cloudflare analytics, Microsoft Clarity, event contracts, funnels, retention,
+and any replacement analytics stack belong to an independently owned rebuild.
+Individual products may retain their own instrumentation until that owner
+defines the replacement boundary.
 
 ---
 
@@ -425,7 +406,6 @@ free tier. Use when you want a managed status page without self-hosting.
 | ORM | Drizzle | Apache 2.0 | n/a (library) |
 | Auth | Better Auth | MIT | Free forever (self-host) |
 | Email | Cloudflare Email Routing + Resend | Cloudflare ToS / MIT | Free routing; 3k/mo Resend |
-| Analytics | PostHog | MIT | 1M events/mo |
 | Error monitoring | Sentry free tier + errex (self-host) | MIT (errex) | 5k errors/mo (Sentry); unlimited (errex) |
 | Uptime | Uptime Kuma (self-host) | MIT | Unlimited monitors |
 | Logs | Axiom | Proprietary (free tier) | 500 GB/mo ingest |
@@ -456,7 +436,6 @@ and actual usage before approving a rollout.
 | PlanetScale | Track record of removing free tier | Use Neon or D1 |
 | HashiCorp Vault | BSL license, op-heavy | Use Infisical |
 | Vercel Hobby (commercial) | Fair-use ban on monetization | Migrate to Cloudflare Pages via OpenNext |
-| GA4 | Privacy, ad-block data loss, lock-in | Use PostHog (already fleet-wide) |
 | eslint (where Biome is the standard) | Biome is faster and fleet-standard | Migrate to Biome (open-historia is the only eslint holdout) |
 
 ---

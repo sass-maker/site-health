@@ -5,61 +5,51 @@ import {
   FounderControlValidationError,
   normalizeEvent,
   redactForExport,
-  validateMissionTransition,
 } from '../lib/founder-control/contracts.mjs';
 
-const actor = { type: 'owner', id: 'founder', label: 'Founder' };
+const actor = { type: 'automation', id: 'foundry-test', label: 'Foundry test' };
 const now = '2026-07-25T08:00:00.000Z';
 
-test('normalizes bounded events and preserves one generated identity', () => {
-  const event = normalizeEvent(
-    {
-      type: 'mission.drafted',
-      actor,
-      missionId: 'mission/example',
-      idempotencyKey: 'test/mission/example',
-      payload: {
-        title: 'Example',
-        outcome: 'A verified example',
-        completionCriteria: ['Verified'],
-        authority: { mode: 'owner-acceptance-required' },
-      },
+function recommendationInput() {
+  return {
+    type: 'recommendation.created',
+    actor,
+    projectId: 'codevetter',
+    idempotencyKey: 'test/recommendation/example',
+    payload: {
+      title: 'Verify the release',
+      rationale: 'Current evidence is incomplete.',
+      impact: 0.8,
+      confidence: 0.7,
+      effort: 0.2,
+      reversibility: 1,
     },
-    { now },
-  );
+  };
+}
+
+test('normalizes bounded evidence events with one generated identity', () => {
+  const event = normalizeEvent(recommendationInput(), { now });
   assert.match(event.id, /^[0-9a-f-]{36}$/);
   assert.equal(event.recordedAt, now);
-  assert.equal(validateMissionTransition(event, null), 'draft');
+  assert.equal(event.projectId, 'codevetter');
 });
 
-test('rejects private fields and illegal mission transitions', () => {
+test('rejects retired workflow event types and private fields', () => {
   assert.throws(
-    () =>
-      normalizeEvent(
-        {
-          type: 'mission.completed',
-          actor,
-          missionId: 'mission/example',
-          idempotencyKey: 'test/mission/private',
-          payload: { summary: 'Done', apiKey: 'must-not-be-stored' },
-        },
-        { now },
-      ),
-    (error) => error instanceof FounderControlValidationError && error.code === 'PRIVATE_PAYLOAD_FIELD',
-  );
-  const completed = normalizeEvent(
-    {
-      type: 'mission.completed',
+    () => normalizeEvent({
+      type: 'mission.drafted',
       actor,
-      missionId: 'mission/example',
-      idempotencyKey: 'test/mission/completed',
-      payload: { summary: 'Done' },
-    },
-    { now },
+      idempotencyKey: 'test/retired-workflow',
+      payload: {},
+    }, { now }),
+    (error) => error instanceof FounderControlValidationError && error.code === 'INVALID_EVENT_TYPE',
   );
   assert.throws(
-    () => validateMissionTransition(completed, 'draft'),
-    (error) => error.code === 'ILLEGAL_MISSION_TRANSITION',
+    () => normalizeEvent({
+      ...recommendationInput(),
+      payload: { ...recommendationInput().payload, apiKey: 'must-not-be-stored' },
+    }, { now }),
+    (error) => error instanceof FounderControlValidationError && error.code === 'PRIVATE_PAYLOAD_FIELD',
   );
 });
 

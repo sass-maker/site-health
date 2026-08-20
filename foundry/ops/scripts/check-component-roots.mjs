@@ -10,6 +10,10 @@ const retiredRoots = [
   ['foundry/apps/internal', 'psi-swarm'].join('/'),
   ['foundry/packages', 'ai-visibility'].join('/'),
   ['foundry/apps/public', 'mobile-cockpit'].join('/'),
+  ['foundry/apps/dashboard', 'mobile-cockpit'].join('/'),
+  ['foundry/helpers', 'mashup'].join('/'),
+  ['foundry/marketing', 'reel-pipeline'].join('/'),
+  ['foundry/marketing', 'content-factory'].join('/'),
 ];
 const historicalReferencePrefixes = [
   'foundry/openspec/',
@@ -19,18 +23,6 @@ const historicalReferenceFiles = new Set([
   'foundry/ops/docs/public-product-smoke-latest.json',
 ]);
 const components = [
-  {
-    id: 'reel-pipeline',
-    root: 'foundry/marketing/reel-pipeline',
-    required: ['package.json', 'PROJECT_STATUS.md', 'reel/Cargo.toml'],
-    nativeCheck: 'npm test',
-  },
-  {
-    id: 'content-factory',
-    root: 'foundry/marketing/content-factory',
-    required: ['package.json', 'README.md', 'scripts/render-pro.js'],
-    nativeCheck: 'npm run render:package -- --file <brief.json>',
-  },
   {
     id: 'drank',
     root: 'foundry/helpers/drank',
@@ -60,12 +52,6 @@ const components = [
     root: 'foundry/apps/public/public-directory',
     required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm run check',
-  },
-  {
-    id: 'mobile-cockpit',
-    root: 'foundry/apps/dashboard/mobile-cockpit',
-    required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],
-    nativeCheck: 'pnpm check',
   },
   {
     id: 'psi-swarm',

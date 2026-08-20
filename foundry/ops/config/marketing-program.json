@@ -823,60 +823,6 @@
         }
       },
       {
-        "slug": "chess",
-        "aliases": [
-          "Chess Coach"
-        ],
-        "competitors": [
-          {
-            "name": "Chess.com",
-            "url": "https://www.chess.com"
-          }
-        ],
-        "promptSets": [
-          {
-            "id": "buyer-discovery",
-            "prompts": [
-              {
-                "id": "category",
-                "text": "What browser chess games include optional AI move coaching against Stockfish?"
-              },
-              {
-                "id": "comparison",
-                "text": "Compare free browser chess analysis tools for playing, move explanations, and configurable coaching.",
-                "ownedPage": {
-                  "state": "published",
-                  "url": "https://chess.significanthobbies.com/faq"
-                }
-              }
-            ]
-          }
-        ],
-        "personas": [
-          {
-            "id": "improving-chess-player",
-            "label": "a chess player who wants explanations while playing"
-          }
-        ],
-        "providerPolicy": {
-          "allowedProviderIds": [
-            "fixture-primary",
-            "fixture-secondary"
-          ],
-          "freeFirst": true,
-          "liveProvidersAllowed": false
-        },
-        "cacheWindowHours": 168,
-        "runBudget": {
-          "maxCalls": 4,
-          "maxConcurrency": 2,
-          "timeoutMs": 2000,
-          "retryAttempts": 1,
-          "maxEstimatedCostUsd": 0.05,
-          "maxResponseCharacters": 4000
-        }
-      },
-      {
         "slug": "looptv",
         "aliases": [
           "LoopTV"
@@ -1106,6 +1052,56 @@
           {
             "id": "structured-trainee",
             "label": "a trainee following a self-authored structured programme"
+          }
+        ],
+        "providerPolicy": {
+          "allowedProviderIds": [
+            "fixture-primary",
+            "fixture-secondary"
+          ],
+          "freeFirst": true,
+          "liveProvidersAllowed": false
+        },
+        "cacheWindowHours": 168,
+        "runBudget": {
+          "maxCalls": 4,
+          "maxConcurrency": 2,
+          "timeoutMs": 2000,
+          "retryAttempts": 1,
+          "maxEstimatedCostUsd": 0.05,
+          "maxResponseCharacters": 4000
+        }
+      },
+      {
+        "slug": "kith",
+        "aliases": [
+          "Kith relationship journal"
+        ],
+        "competitors": [
+          {
+            "name": "Clay",
+            "url": "https://clay.earth"
+          }
+        ],
+        "promptSets": [
+          {
+            "id": "buyer-discovery",
+            "prompts": [
+              {
+                "id": "category",
+                "text": "Which private iPhone apps help me stay intentionally close to the people who matter?"
+              },
+              {
+                "id": "comparison",
+                "text": "Compare private relationship journals by closeness-weighted reminders, standing notes, chronological logs, and local data handling."
+              }
+            ]
+          }
+        ],
+        "personas": [
+          {
+            "id": "intentional-relationship-keeper",
+            "label": "a person who wants a private system for staying close to important people"
           }
         ],
         "providerPolicy": {
@@ -1833,6 +1829,32 @@
       "channels": []
     },
     {
+      "slug": "gitstat",
+      "name": "GitStat",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "reel-pipeline",
+      "name": "Reel Pipeline",
+      "aliases": [],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
       "slug": "drank",
       "name": "Drank",
       "aliases": [],
@@ -2008,19 +2030,6 @@
       "channels": []
     },
     {
-      "slug": "chess",
-      "name": "Chess Coach",
-      "aliases": [],
-      "mode": "evergreen",
-      "domain": "https://chess.significanthobbies.com",
-      "domainPosture": "product-subdomain",
-      "publicMarketing": true,
-      "cta": "Play a game or request coaching",
-      "cadence": "quarterly",
-      "contentBase": null,
-      "channels": []
-    },
-    {
       "slug": "looptv",
       "name": "LoopTV",
       "aliases": [],
@@ -2139,7 +2148,7 @@
       "cadence": "monthly",
       "contentBase": {
         "adapter": "project-campaigns",
-        "path": "foundry/marketing/reel-pipeline/config/project-campaigns.json"
+        "path": "reel-pipeline/config/project-campaigns.json"
       },
       "channels": [
         {
@@ -2166,7 +2175,7 @@
       "cadence": "monthly",
       "contentBase": {
         "adapter": "project-campaigns",
-        "path": "foundry/marketing/reel-pipeline/config/project-campaigns.json"
+        "path": "reel-pipeline/config/project-campaigns.json"
       },
       "channels": [
         {

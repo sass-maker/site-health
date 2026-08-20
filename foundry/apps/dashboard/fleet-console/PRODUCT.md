@@ -10,27 +10,26 @@ web
 
 ## Users
 
-Sarthak is the sole operator. He opens the console between product decisions,
+Sarthak is the sole operator. He opens the console between product reviews,
 often from a laptop or phone, to understand what needs his attention without
 reading logs, task queues, or infrastructure dashboards.
 
 ## Product Purpose
 
-Foundry is the private owner control loop for the portfolio. It connects an
-objective to bounded missions, accountable actors, decisions, evidence,
-deliverables, and measured outcomes. Its primary portfolio views answer seven
+Foundry is the private evidence view for the portfolio. It connects canonical
+projects to provider observations, recommendations, and measured outcomes while
+leaving work tracking in GitHub Issues. Its primary portfolio views answer six
 owner questions quickly: which projects exist, where domain strength is
 concentrated, whether people find products through Google, whether core products
-are known by AI, which products are actively being grown and what should be
-measured next, whether every maintained product has marketing proof, and whether
-public products meet the shared speed guardrail. Project detail and secondary
-diagnostics retain the deeper evidence.
+are known by AI, whether every maintained product has marketing proof, and
+whether public products meet the shared speed guardrail. Project detail and
+secondary diagnostics retain the deeper evidence.
 
 ## Positioning
 
-Foundry turns real portfolio evidence into owner decisions and post-ship
-learning while leaving code, deployments, performance, distribution, and raw
-telemetry with their authoritative products.
+Foundry turns real portfolio evidence into a concise review surface while
+leaving work, code, deployments, performance, distribution, feedback, and raw
+telemetry with their authoritative owners.
 
 ## Brand Personality
 
@@ -45,7 +44,7 @@ prove.
 - Theatrical agent-team products that invent personalities or imply work is
   happening without fresh receipts.
 - Generic SaaS dashboards made from interchangeable metric cards.
-- Chat-first interfaces that bury durable outcomes and decisions in a transcript.
+- Chat-first interfaces that bury durable evidence in a transcript.
 
 ## Design Principles
 

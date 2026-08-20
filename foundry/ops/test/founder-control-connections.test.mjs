@@ -167,11 +167,7 @@ function fixture() {
   const home = join(root, 'home');
   for (const path of [
     'foundry/ops/skills',
-    'foundry/apps/dashboard/mobile-cockpit',
     'foundry/apps/public/public-directory',
-    'foundry/marketing/reel-pipeline/editorial',
-    'foundry/marketing/content-factory',
-    'foundry/marketing/reel-pipeline',
   ]) {
     mkdirSync(join(root, path), { recursive: true });
   }
@@ -225,7 +221,6 @@ function fixture() {
       },
     ],
   });
-  writeFixtureGrowthContracts(root);
   writeJson(join(root, 'foundry/ops/config/geo-observatory.json'), {
     products: [{
       id: 'pace',
@@ -489,40 +484,6 @@ function writeFixtureRootSearchContracts(root) {
         { id: `${entry.projectId}-problem`, kind: 'problem', text: `${entry.name} problem`, status: 'active' },
       ],
     })),
-  });
-  writeFixtureGrowthContracts(root, { focus: true });
-}
-
-function writeFixtureGrowthContracts(root, { focus = false } = {}) {
-  writeJson(join(root, 'foundry/ops/config/marketing-program.json'), {
-    focusSet: focus ? ['pace'] : [],
-    projects: [
-      { slug: 'pace', mode: focus ? 'focus' : 'private' },
-      { slug: 'standards', mode: 'private' },
-    ],
-  });
-  writeJson(join(root, 'foundry/ops/config/growth-program.json'), {
-    $schema: 'fleet.growth-program.v1',
-    version: 1,
-    modeMapping: {
-      focus: 'focus',
-      evergreen: 'maintain',
-      infrastructure: 'maintain',
-      private: 'observe',
-    },
-    focusProjects: focus ? [{
-      projectId: 'pace',
-      targetQueryId: 'pace-category',
-      destination: 'https://heypace.app/',
-    }] : [],
-    verifiedLinks: [],
-    attribution: {
-      search: 'Google Search Console',
-      traffic: 'Cloudflare Web Analytics',
-      conversions: 'Product-owned outcome receipt required',
-      revenue: 'Product-owned outcome receipt required',
-      causality: 'Not inferred from temporal proximity',
-    },
   });
 }
 
@@ -811,13 +772,6 @@ test('projects provider-authoritative search and Cloudflare activity without con
     },
     searchConsole: { state: 'not-observed' },
   }]);
-  const marketingRow = result.outputs.ownerOutcomes.marketing.find(
-    (project) => project.projectId === 'pace',
-  );
-  assert.equal(marketingRow.visits.value, 240);
-  assert.equal(marketingRow.pageViews.value, 380);
-  assert.equal(marketingRow.traffic.breakdowns[0].values[0].label, '/');
-  assert.match(marketingRow.traffic.providerUrl, /dash\.cloudflare\.com/);
   const performanceRow = result.outputs.ownerOutcomes.performance.find(
     (project) => project.projectId === 'pace',
   );
@@ -834,39 +788,7 @@ test('projects provider-authoritative search and Cloudflare activity without con
   assert.equal(awarenessRow.discovery.crawler.breakdowns[0].values[0].label, 'GPTBot');
 });
 
-test('projects every public project into a focus-first growth ledger', () => {
-  const { root, home } = fixture();
-  writeFixtureRootSearchContracts(root);
-
-  const result = buildFleetConnections({ fleetRoot: root, home, now });
-  const growth = result.outputs.ownerOutcomes.growth;
-
-  assert.deepEqual(growth.map((row) => row.projectId), ['pace', 'standards']);
-  assert.equal(growth[0].mode, 'focus');
-  assert.deepEqual(growth[0].target, {
-    projectId: 'pace',
-    queryId: 'pace-category',
-    query: 'Pace category',
-    destination: 'https://heypace.app/',
-  });
-  assert.equal(growth[1].mode, 'observe');
-  assert.equal(growth[1].target, null);
-  assert.equal(growth[0].links.earnedStatus, 'not-measured');
-  assert.equal(growth[0].links.acknowledgedSubmissions, 0);
-  assert.deepEqual(growth[0].commercial, {
-    conversions: {
-      status: 'not-connected',
-      owner: 'Product-owned outcome receipt required',
-    },
-    revenue: {
-      status: 'not-connected',
-      owner: 'Product-owned outcome receipt required',
-    },
-  });
-  assert.equal(growth[0].attribution.causality, 'Not inferred from temporal proximity');
-});
-
-test('builds one honest six-bucket projection from readable Fleet evidence', () => {
+test('builds one honest Console projection from readable Fleet evidence', () => {
   const { root, home } = fixture();
   const result = buildFleetConnections({
     fleetRoot: root,
@@ -919,55 +841,18 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
         }],
       },
     },
-    missions: [{
-      id: 'mission-pace-improvement',
-      projectId: 'pace',
-      state: 'active',
-      outcome: 'Create Pace AI visibility baseline',
-      updatedAt: '2026-07-30T09:30:00.000Z',
-    }],
-    feedbackSubmissions: [
-      {
-        id: 'feedback-1',
-        projectId: 'pace',
-        category: 'Bug',
-        message: 'The weekly chart is difficult to read on a phone.',
-        page: '/reports/weekly',
-        hasAttachment: true,
-        receivedAt: '2026-07-30T09:45:00.000Z',
-      },
-      {
-        id: 'feedback-unsafe',
-        projectId: 'unknown',
-        category: 'Support',
-        message: 'api_key=must-not-enter-the-console',
-        page: 'https://example.com/private',
-        receivedAt: '2026-07-30T09:40:00.000Z',
-      },
-    ],
   });
 
   assert.equal(result.schemaVersion, CONNECTIONS_SCHEMA_VERSION);
-  assert.equal(result.buckets.length, 6);
+  assert.equal(result.buckets.length, 4);
   const internalComponents = result.buckets
     .flatMap((bucket) => bucket.components)
     .filter((component) => component.audience === 'internal');
-  assert.deepEqual(
-    internalComponents.map((component) => component.id).sort(),
-    ['mobile-cockpit', 'reel-pipeline'],
-  );
-  assert.equal(
-    internalComponents.find((component) => component.id === 'mobile-cockpit').sourcePath,
-    'foundry/apps/dashboard/mobile-cockpit',
-  );
-  assert.equal(
-    internalComponents.find((component) => component.id === 'reel-pipeline').sourcePath,
-    'foundry/marketing/reel-pipeline',
-  );
-  assert.equal(result.summary.bucketCount, 6);
+  assert.deepEqual(internalComponents, []);
+  assert.equal(result.summary.bucketCount, 4);
   assert.equal(result.summary.connected > 0, true);
-  assert.equal(result.summary.missing, 2);
-  assert.equal(result.summary.highestPriorityGap.id, 'feedback-to-ingestion');
+  assert.equal(result.summary.missing, 0);
+  assert.equal(result.summary.highestPriorityGap.id, 'psi-to-console');
   assert.equal(
     result.connections.find((item) => item.id === 'skill-runs-to-console').status,
     'connected',
@@ -1070,32 +955,6 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].projectId, 'pace');
   assert.equal(result.outputs.ownerOutcomes.coreAi[0].status, 'not-measured');
   assert.equal(
-    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'pace').status,
-    'marketed',
-  );
-  const paceMarketing = result.outputs.ownerOutcomes.marketing.find(
-    (project) => project.projectId === 'pace',
-  );
-  assert.equal(paceMarketing.postCount, 2);
-  assert.deepEqual(paceMarketing.posts.map((post) => post.id), [
-    'marketing-pace-1',
-    'marketing-pace-older',
-  ]);
-  assert.equal('privatePayload' in paceMarketing.posts[0], false);
-  assert.deepEqual(
-    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').posts,
-    [],
-  );
-  assert.equal(
-    result.outputs.ownerOutcomes.marketing.find((project) => project.projectId === 'standards').status,
-    'never-marketed',
-  );
-  assert.equal(result.outputs.ownerOutcomes.growth.length, 2);
-  assert.equal(
-    result.outputs.ownerOutcomes.growth.find((project) => project.projectId === 'pace').mode,
-    'observe',
-  );
-  assert.equal(
     result.outputs.ownerOutcomes.performance.find((project) => project.projectId === 'pace').status,
     'fast-enough',
   );
@@ -1143,36 +1002,10 @@ test('builds one honest six-bucket projection from readable Fleet evidence', () 
   assert.equal(paceOutput.history.state, 'comparable');
   assert.equal(result.outputs.skillRuns.length, 1);
   assert.equal(result.outputs.skillHistoryByProject[0].periods[0].runs, 1);
-  assert.equal(result.outputs.feedback.total, 2);
-  assert.deepEqual(result.outputs.feedback.submissions[0], {
-    id: 'feedback-1',
-    projectId: 'pace',
-    category: 'Bug',
-    message: 'The weekly chart is difficult to read on a phone.',
-    page: '/reports/weekly',
-    hasAttachment: true,
-    receivedAt: '2026-07-30T09:45:00.000Z',
-  });
-  assert.equal(
-    result.outputs.feedback.submissions[1].message,
-    'Feedback content withheld by the privacy filter.',
-  );
-  assert.equal(result.outputs.feedback.submissions[1].projectId, null);
-  assert.equal(result.outputs.feedback.submissions[1].page, null);
-  assert.equal(
-    result.outputs.improvements.some((action) => action.id === 'connection:feedback-to-ingestion'),
-    true,
-  );
-  const linkedImprovement = result.outputs.improvements.find(
+  const improvement = result.outputs.improvements.find(
     (action) => action.id === 'project:pace:ai-baseline',
   );
-  assert.equal(linkedImprovement.work.missionId, 'mission-pace-improvement');
-  assert.equal(linkedImprovement.work.state, 'active');
-  assert.equal(result.outputs.improvementWork.activeActions, 1);
-  assert.equal(
-    result.outputs.improvementWork.notStartedActions,
-    result.outputs.improvements.length - 1,
-  );
+  assert.equal(improvement.work, undefined);
   const connectionAnchors = new Set([
     ...result.buckets.map((bucket) => `bucket-${bucket.id}`),
     ...result.connections.map((item) => item.id),
@@ -1339,23 +1172,14 @@ test('isolates absent machine evidence without hiding implemented contracts', ()
     marketing: { aiVisibility: { projects: [] } },
   });
 
-  assert.equal(result.buckets.length, 6);
+  assert.equal(result.buckets.length, 4);
   assert.equal(
     result.connections.find((item) => item.id === 'skill-runs-to-console').status,
     'unavailable',
   );
-  assert.equal(
-    result.connections.find((item) => item.id === 'feedback-to-ingestion').status,
-    'missing',
-  );
-  assert.equal(
-    result.connections.find((item) => item.id === 'console-to-mobile').status,
-    'missing',
-  );
+  assert.equal(result.connections.some((item) => item.id === 'console-to-mobile'), false);
   assert.equal(result.evidence.publicWorkflows.sites, 0);
   assert.equal(result.outputs.summary.capturedOutputs, 0);
-  assert.equal(result.outputs.feedback.total, 0);
-  assert.deepEqual(result.outputs.feedback.submissions, []);
   assert.deepEqual(result.outputs.ownerOutcomes.aiCoverage, {
     total: 0,
     observedCount: 0,

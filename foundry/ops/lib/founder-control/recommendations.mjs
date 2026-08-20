@@ -43,7 +43,6 @@ export function recommendationEvent(input, context = {}) {
     type: 'recommendation.created',
     actor: input.actor ?? { type: 'automation', id: 'foundry-learning', label: 'Foundry learning' },
     ...(input.projectId ? { projectId: input.projectId } : {}),
-    ...(input.missionId ? { missionId: input.missionId } : {}),
     idempotencyKey: input.idempotencyKey,
     occurredAt: input.observedAt ?? context.now,
     payload: {

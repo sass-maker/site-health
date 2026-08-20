@@ -33,7 +33,7 @@ test('real catalog validates with every authored overlay reference', () => {
       agentRegistry,
       reconcile: false,
     }),
-    { projectCount: 51 },
+    { projectCount: 54 },
   );
 });
 
@@ -121,9 +121,9 @@ test('generated catalog separates P4 status and exposes dated readiness evidence
   assert.match(rendered, /GitHub Issues remains the only operational queue/);
   assert.match(rendered, /at most five P2 projects/);
   assert.match(rendered, /do not prove that no unknown provider object exists/);
-  assert.match(rendered, /## P4 — 25/);
-  assert.match(rendered, /### Finished \(active\) — 12/);
-  assert.match(rendered, /### Archived — 13/);
+  assert.match(rendered, /## P4 — 26/);
+  assert.match(rendered, /### Finished \(active\) — 11/);
+  assert.match(rendered, /### Archived — 15/);
   assert.match(rendered, /\| Readiness evidence \|/);
   assert.match(
     rendered,

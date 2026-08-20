@@ -15,7 +15,7 @@ test('public projection contains only explicitly allowlisted public products', (
   const projection = buildPublicProducts(projects);
   assert.equal(projection.schemaVersion, 2);
   assert.equal(projection.products.length, 31);
-  assert.equal(projection.pastProjects.length, 10);
+  assert.equal(projection.pastProjects.length, 11);
   assert.deepEqual(
     projection.products.filter((product) => product.spotlight).map((product) => product.id).sort(),
     ['codevetter', 'high-signal', 'pace', 'posttrainllm'],
@@ -74,9 +74,15 @@ test('public projection contains only explicitly allowlisted public products', (
     Object.hasOwn(projection.products.find((product) => product.id === 'drank'), 'repositoryUrl'),
     false,
   );
-  assert.equal(
-    projection.products.find((product) => product.id === 'chess').roadmapUrl,
-    'https://github.com/Significant-Hobbies/chess/issues',
+  assert.deepEqual(
+    projection.pastProjects.find((project) => project.id === 'chess'),
+    {
+      id: 'chess',
+      name: 'Chess Coach',
+      description: 'Browser chess against Stockfish with optional AI move coaching.',
+      lifecycle: 'past',
+      repositoryUrl: 'https://github.com/Significant-Hobbies/chess',
+    },
   );
   assert.equal(
     projection.products.find((product) => product.id === 'setline').repositoryUrl,

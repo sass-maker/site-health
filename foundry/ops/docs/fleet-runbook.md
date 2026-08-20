@@ -57,8 +57,8 @@ Foundry begins after product work is complete and verified:
 4. Production smoke verification passes.
 
 After handoff, Foundry measures product and API outcomes, runs approved or
-bounded marketing, and synthesizes user feedback and behavioral evidence. It
-may recommend the next action or create a reviewable task, but it does not own
+bounded marketing, and summarizes provider evidence. It may recommend the next
+action, but it does not own
 product direction or autonomously implement product features. The product owner
 decides whether evidence becomes new product work.
 
@@ -73,10 +73,9 @@ node foundry/ops/scripts/ai-visibility-canary.mjs \
   --fixture foundry/ops/test/fixtures/ai-visibility/providers-v1.json
 ```
 
-Current provider proof and marketing-stage receipts may be attached only to an
-existing canonical mission through the bounded commands documented in
-`foundry/ops/docs/founder-control.md`. Raw logs, traces, prompts, credentials,
-and provider payloads remain outside the ledger. Recurring AI visibility and
+Current provider proof is recorded through its owning bounded collector. Raw
+logs, traces, prompts, credentials, feedback submissions, and provider payloads
+remain outside the ledger. Recurring AI visibility and
 notification schedules remain inert until the designated host and explicit
 activation gates pass.
 
@@ -113,12 +112,9 @@ separate Fleet products.
 Prerequisites: Git, GitHub CLI, Node 22, pnpm, and Wrangler. Authenticate once,
 then clone the Fleet root and its active child repositories:
 
-The historical repositories `saas-maker`, `reel-pipeline`, `drank`,
-`mobile-dev-cockpit`, and `psi-swarm` have been merged into Fleet and moved to
-Sarthak's personal GitHub account. Do not clone them during setup. Their
-maintained source is already present under `foundry/apps/`,
-`foundry/services/`, `foundry/packages/`, and `foundry/tools/`;
-`foundry/ops/` contains shared operations only.
+Reel Pipeline, Mashup, and Mobile Dev Cockpit are independent sibling
+repositories. Clone only the products needed for the current task; Fleet does
+not vendor their source. `foundry/ops/` contains shared operations only.
 
 ```bash
 gh auth status
@@ -240,7 +236,7 @@ The active production fleet is listed in `foundry/ops/config/projects.json`.
 | `pace` | Local macOS voice agent | see project README | see project README / CI | see project README / CI |
 | `posttrainllm` | Local LLM factory/runtime | see project README | see project README / CI | see project README / CI |
 | `reader` | Article/PDF reader, annotation, and research workspace | `pnpm dev` | `pnpm lint`, `pnpm type-check`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `reel-pipeline` | AI short-form video generation pipeline | `cd foundry/marketing/reel-pipeline && npm run dev` | root `Reel Pipeline CI` | `cd foundry/marketing/reel-pipeline && npm run deploy` |
+| `reel-pipeline` | AI short-form video generation pipeline | `cd reel-pipeline && npm run dev` | repo-local `CI` | `cd reel-pipeline && npm run deploy` |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `Fleet public directory` | Static SaaS Maker product directory maintained at `foundry/apps/public/public-directory/` | `npm --prefix foundry/apps/public/public-directory run dev` | `npm run check:public` | guarded Fleet workflow |

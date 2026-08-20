@@ -35,43 +35,9 @@ export function evaluateOutcomeWindow({
 }
 
 export function buildOwnerNotifications(projections, { now = new Date().toISOString(), blockerHours = 24 } = {}) {
+  void now;
+  void blockerHours;
   const items = [];
-  for (const decision of projections.decisions) {
-    if (!['open', 'stale'].includes(decision.state)) continue;
-    items.push({
-      key: `decision/${decision.id}/${decision.updatedAt}`,
-      kind: 'owner-decision',
-      severity: decision.state === 'stale' ? 'warning' : 'attention',
-      title: decision.question,
-      missionId: decision.missionId,
-      projectId: decision.projectId,
-    });
-  }
-  for (const mission of projections.missions) {
-    if (mission.state === 'blocked') {
-      const blockedAt = [...mission.timeline].reverse().find((event) => event.type === 'mission.blocked')?.occurredAt;
-      if (blockedAt && Date.parse(now) - Date.parse(blockedAt) >= blockerHours * 3_600_000) {
-        items.push({
-          key: `blocked/${mission.id}/${blockedAt}`,
-          kind: 'prolonged-blocker',
-          severity: 'warning',
-          title: `${mission.title} remains blocked`,
-          missionId: mission.id,
-          projectId: mission.projectId,
-        });
-      }
-    }
-    if (mission.state === 'completed' && mission.authority?.notifyOnCompletion === true) {
-      items.push({
-        key: `completed/${mission.id}/${mission.updatedAt}`,
-        kind: 'requested-completion',
-        severity: 'info',
-        title: `${mission.title} completed`,
-        missionId: mission.id,
-        projectId: mission.projectId,
-      });
-    }
-  }
   for (const schedule of projections.schedules) {
     if (schedule.lastState !== 'failed') continue;
     items.push({
@@ -94,7 +60,6 @@ export function buildOwnerNotifications(projections, { now = new Date().toISOStr
       kind: 'material-risk',
       severity: 'critical',
       title: recommendation.title,
-      missionId: recommendation.missionId,
       projectId: recommendation.projectId,
       risk: recommendation.risk,
     });

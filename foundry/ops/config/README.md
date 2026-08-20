@@ -93,5 +93,5 @@ coverage class, tracked count, or generated view drifts.
 
 When priority, deployment, or sharing readiness changes, update `projects.json`
 first and then reconcile `seo-geo-publishing.json`. Keep mutable submission and
-completion evidence in GitHub Issues, `growth-program.json`, or the existing
-submission receipts rather than in the publishing strategy.
+completion evidence in GitHub Issues or the existing submission receipts rather
+than in the publishing strategy.

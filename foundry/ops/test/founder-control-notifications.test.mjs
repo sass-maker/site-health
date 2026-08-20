@@ -10,35 +10,39 @@ import { FounderControlStore } from '../lib/founder-control/store.mjs';
 const root = resolve(import.meta.dirname, '..', '..', '..');
 const cli = resolve(root, 'foundry/ops/scripts/founder-control.mjs');
 
-test('founder notification sync queues one durable event and suppresses its retry', () => {
+test('founder notification sync queues one material-risk event and suppresses its retry', () => {
   const scratch = mkdtempSync(join(tmpdir(), 'founder-notifications-'));
   const databasePath = join(scratch, 'foundry.sqlite');
   const notificationState = join(scratch, 'notifications');
   const store = new FounderControlStore({ databasePath });
   store.append({
-    type: 'decision.requested',
+    type: 'recommendation.created',
     actor: { type: 'automation', id: 'foundry-test' },
-    idempotencyKey: 'founder-notification-test/decision',
+    projectId: 'codevetter',
+    idempotencyKey: 'founder-notification-test/risk',
     occurredAt: '2026-07-25T08:00:00.000Z',
     payload: {
-      question: 'Approve the test release?',
-      why: 'The release is waiting for owner confirmation.',
-      allowedResponses: ['approve', 'reject'],
-      scope: 'test-release',
-      reversible: true,
+      recommendationId: 'recommendation/cost-risk',
+      title: 'Stop unexpected provider spend',
+      rationale: 'The latest provider evidence shows an unplanned charge.',
+      impact: 1,
+      confidence: 1,
+      effort: 0.2,
+      reversibility: 1,
+      score: 90,
+      risk: 'cost',
     },
   });
   store.close();
 
-  const run = () =>
-    spawnSync(process.execPath, [cli, 'notify', '--no-drain'], {
-      encoding: 'utf8',
-      env: {
-        ...process.env,
-        FOUNDER_CONTROL_DB: databasePath,
-        FLEET_NOTIFY_STATE_DIR: notificationState,
-      },
-    });
+  const run = () => spawnSync(process.execPath, [cli, 'notify', '--no-drain'], {
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      FOUNDER_CONTROL_DB: databasePath,
+      FLEET_NOTIFY_STATE_DIR: notificationState,
+    },
+  });
 
   try {
     const first = run();

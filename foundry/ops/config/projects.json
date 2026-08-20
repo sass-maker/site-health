@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-08-17",
+    "updated": "2026-08-20",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -38,9 +38,7 @@
       "aliveville": "ai-game",
       "drank": "drank",
       "fleet-workspace": "fleet-workspace",
-      "mashup": "mashup",
       "reddit-insights": "reddit-insights",
-      "reel-pipeline": "fleet-workspace",
       "saas-maker": "fleet-workspace",
       "tinygpt": "posttrainllm",
       "workflows": "fleet-workspace",
@@ -215,25 +213,13 @@
       "tier": "active",
       "repo": "foundry/ops",
       "deployKind": "worker+pages",
-      "cfProject": "saas-maker-home, reel-pipeline-artifacts, saasmaker-droid, fleet-chatgpt-connections",
+      "cfProject": "saas-maker-home, fleet-chatgpt-connections",
       "deployTargets": [
         {
           "id": "public-directory",
           "kind": "pages",
           "name": "saas-maker-home",
           "sourcePath": "foundry/apps/public/public-directory"
-        },
-        {
-          "id": "reel-artifacts",
-          "kind": "worker",
-          "name": "reel-pipeline-artifacts",
-          "sourcePath": "foundry/marketing/reel-pipeline"
-        },
-        {
-          "id": "legacy-droid",
-          "kind": "worker",
-          "name": "saasmaker-droid",
-          "sourcePath": "foundry/apps/dashboard/mobile-cockpit"
         },
         {
           "id": "chatgpt-connections",
@@ -263,6 +249,118 @@
         "pillarId": "build",
         "spotlight": false,
         "maturity": "public-ready"
+      }
+    },
+    {
+      "id": "gitstat",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "The local implementation has no committed main revision or verified public deployment yet."
+        }
+      },
+      "authModel": "required-service",
+      "family": "gitstat",
+      "tier": "active",
+      "repo": "gitstat",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Client-side GitHub contribution and line-statistics explorer with a thin OAuth proxy. Cataloged to reconcile the active Fleet checkout; no deployment claim is made.",
+      "name": "GitStat",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/gitstat",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "reel-pipeline",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "The standalone source and retained artifact Worker are current, but no public product surface is approved for sharing."
+        }
+      },
+      "authModel": "required-service",
+      "family": "reel-pipeline",
+      "tier": "active",
+      "repo": "reel-pipeline",
+      "deployKind": "worker",
+      "cfProject": "reel-pipeline-artifacts",
+      "deployTargets": [
+        {
+          "id": "reel-artifacts",
+          "kind": "worker",
+          "name": "reel-pipeline-artifacts",
+          "sourcePath": "reel-pipeline"
+        }
+      ],
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Independent media production, review, and policy-gated distribution product. Canonical source was extracted from Fleet Workspace on 2026-08-20; Content Factory is owned inside the same repository. Existing Cloudflare resources were retained without deployment.",
+      "name": "Reel Pipeline",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/reel-pipeline",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "The product is parked with no approved distribution; its retained Worker and container are inventory only."
+        }
+      },
+      "authModel": "required-service",
+      "family": "mobile-dev-cockpit",
+      "tier": "parked",
+      "repo": "mobile-dev-cockpit",
+      "deployKind": "worker",
+      "cfProject": "saasmaker-droid",
+      "deployTargets": [
+        {
+          "id": "legacy-droid",
+          "kind": "worker",
+          "name": "saasmaker-droid",
+          "sourcePath": "mobile-dev-cockpit"
+        }
+      ],
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Parked native mobile supervision client extracted from Fleet Workspace on 2026-08-20. Source and existing provider resources are retained; there is no active product, physical-device, deployment, or Fleet Console work.",
+      "name": "Mobile Dev Cockpit",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/mobile-dev-cockpit",
+      "public": {
+        "listing": "hidden"
       }
     },
     {
@@ -870,18 +968,19 @@
       "portfolio": {
         "kind": "experiment",
         "priority": "P4",
-        "status": "active",
+        "status": "archived",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-08-20",
+          "reason": "Archived at the owner's request; the live surface is retained but is no longer an active sharing target."
         }
       },
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "chess",
+      "sourcePath": "../fleet-inactive-projects/chess",
       "deployKind": "pages",
       "cfProject": "chess-9a0",
       "domains": [
@@ -889,22 +988,17 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "project auto-named chess-9a0",
+      "notes": "Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0.",
       "name": "Chess",
-      "attention": "toolbox",
-      "lifecycle": "maintained",
+      "attention": "ignored",
+      "lifecycle": "past",
       "repositoryVisibility": "public",
       "public": {
-        "listing": "maintained",
+        "listing": "past",
         "id": "chess",
         "name": "Chess Coach",
         "description": "Browser chess against Stockfish with optional AI move coaching.",
-        "category": "personal",
-        "pillarId": "learn",
-        "spotlight": false,
-        "maturity": "maintained",
-        "repositoryUrl": "https://github.com/Significant-Hobbies/chess",
-        "roadmapPath": null
+        "repositoryUrl": "https://github.com/Significant-Hobbies/chess"
       }
     },
     {
@@ -1568,18 +1662,18 @@
       "authModel": "required-service",
       "family": "mashup",
       "tier": "active",
-      "repo": "foundry/helpers/mashup",
+      "repo": "mashup",
       "deployKind": "none",
       "cfProject": null,
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Independent, maintained local-first Fleet helper for archive analysis, inspectable editorial planning, approval, provenance, and multi-clip rendering. Extracted from Reel Pipeline on 2026-08-09 with a finished-media receipt boundary and no runtime dependency; it has no provider-hosted surface and never publishes media. The owner cut it from the current SEO/GEO campaign on 2026-08-16.",
+      "notes": "Independent, maintained local-first editorial product for archive analysis, inspectable planning, approval, provenance, and multi-clip rendering. Canonical source was restored to its standalone repository on 2026-08-20; Reel Pipeline accepts only its finished-media receipt and has no runtime dependency. It has no provider-hosted surface and never publishes media.",
       "name": "Mashup",
       "attention": "foundry",
       "lifecycle": "maintained",
-      "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
+      "repositoryVisibility": "public",
+    "repositoryUrl": "https://github.com/sass-maker/mashup",
       "public": {
         "listing": "hidden"
       }
@@ -2501,7 +2595,7 @@
             "kind": "worker",
             "name": "codevetter-landing-proxy",
             "method": "legacy-worker",
-            "state": "live-purpose-review"
+            "state": "live-retained"
           }
         ],
         "resources": [
@@ -2566,20 +2660,6 @@
           {
             "provider": "cloudflare",
             "kind": "worker",
-            "name": "reel-pipeline-artifacts",
-            "method": "wrangler-direct",
-            "state": "live"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "worker",
-            "name": "saasmaker-droid",
-            "method": "legacy-worker",
-            "state": "live-purpose-review"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "worker",
             "name": "fleet-chatgpt-connections",
             "method": "wrangler-direct",
             "state": "configured-not-deployed"
@@ -2608,27 +2688,9 @@
           },
           {
             "provider": "cloudflare",
-            "kind": "r2",
-            "name": "reel-artifacts",
-            "state": "active"
-          },
-          {
-            "provider": "cloudflare",
             "kind": "kv",
             "name": "OAUTH_KV",
             "state": "configured-for-merged-gateway"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "tunnel",
-            "name": "fleet-postiz",
-            "state": "down"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "container",
-            "name": "saasmaker-droid-sandbox",
-            "state": "ready-purpose-review"
           },
           {
             "provider": "cloudflare",
@@ -2641,6 +2703,58 @@
             "kind": "zone",
             "name": "sassmaker.com",
             "state": "active-config-derived"
+          }
+        ]
+      },
+      "gitstat": {
+        "updatedAt": "2026-08-20",
+        "deployments": [],
+        "resources": [],
+        "notes": "No provider resource or verified deployment is cataloged."
+      },
+      "reel-pipeline": {
+        "updatedAt": "2026-08-20",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reel-pipeline-artifacts",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reel-artifacts",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "tunnel",
+            "name": "fleet-postiz",
+            "state": "down"
+          }
+        ]
+      },
+      "mobile-dev-cockpit": {
+        "updatedAt": "2026-08-20",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "saasmaker-droid",
+            "method": "legacy-worker",
+            "state": "live-retained"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "container",
+            "name": "saasmaker-droid-sandbox",
+            "state": "retained"
           }
         ]
       },
@@ -4247,32 +4361,6 @@
       },
       "officialProfiles": [
         "https://github.com/Significant-Hobbies/anime-list"
-      ],
-      "availability": {
-        "primary": "web",
-        "appStore": "not-applicable"
-      },
-      "pricing": {
-        "state": "not-declared"
-      }
-    },
-    {
-      "id": "chess",
-      "name": "Chess Coach",
-      "aliases": [
-        "Chess"
-      ],
-      "origin": "https://chess.significanthobbies.com",
-      "source": {
-        "state": "public",
-        "url": "https://github.com/Significant-Hobbies/chess"
-      },
-      "docs": {
-        "state": "repository-readme",
-        "url": "https://github.com/Significant-Hobbies/chess#readme"
-      },
-      "officialProfiles": [
-        "https://github.com/Significant-Hobbies/chess"
       ],
       "availability": {
         "primary": "web",

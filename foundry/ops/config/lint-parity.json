@@ -2,7 +2,6 @@
   "$schema": "fleet.lint-parity-config.v1",
   "deliberateDivergences": {
     "app-health": "Keep the passing flat ESLint and Prettier setup: it covers the mixed TypeScript workspace while the independent Go SDK remains governed by gofmt, go test, and go vet.",
-    "chess": "Biome uses preset none with formatting disabled; preserve until an owner-specific migration reviews the generated chess surface.",
     "fleet-workspace": "Keep Fleet Ops under the aggregate workspace contract: the registered foundry/ops component has no standalone package boundary, while root Fleet scripts are governed by component, policy, registry, and full Fleet contract tests.",
     "karte": "Biome keeps a custom ruleset and lineWidth 80; preserve until an owner-specific migration reviews its current style contract.",
     "knowledge-base": "Keep the repository's existing multi-surface boundaries: the root is a Blume and Knip documentation workspace, the nested Next.js app owns its ESLint configuration, and the Cloudflare Worker owns its separate checks.",

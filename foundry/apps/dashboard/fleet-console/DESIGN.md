@@ -39,10 +39,9 @@ immutable identifiers and source revisions.
 - A persistent, collapsible left sidebar groups Domains, Google Search, AI
   Awareness, and Performance under a visible Metrics heading; repository
   taxonomy does not appear in primary navigation.
-- Growth and Marketing share a visible Growth navigation group below Metrics;
-  Projects and Feedback remain standalone tabs. Project scope follows the
-  operator only between views that support it. The four Metrics views and the
-  portfolio-wide Growth ledger do not expose a project filter.
+- Marketing has its own visible navigation group below Metrics; Projects
+  remains a standalone tab. Project scope follows the operator only between
+  views that support it. The four Metrics views do not expose a project filter.
 - Domains answers whether every owned registrable root is becoming stronger.
   Google Search shows every canonical public metric project, keeps native Search
   Console units in a sortable ledger, and reveals reporting scope, terms, and
@@ -50,11 +49,8 @@ immutable identifiers and source revisions.
   AI Awareness is limited to maintained P1 products and leads with
   provider-backed model outcomes. Expanded project evidence separates
   project-owned citations from independent sources and keeps Cloudflare crawl
-  and referral activity in a subordinate discovery layer. Growth connects
-  explicit allocation, canonical targets, shipped interventions, native Search
-  and traffic evidence, link posture, and the next measurement without
-  inferring causality. Marketing shows coverage for every maintained product,
-  while
+  and referral activity in a subordinate discovery layer. Marketing shows
+  coverage for every maintained product, while
   Performance treats PSI and LCP as a pass/fail guardrail for every maintained
   public product. Projects remains the canonical secondary directory with
   explicit website, changelog, source, and project-detail destinations.
@@ -62,17 +58,14 @@ immutable identifiers and source revisions.
   agent readiness, design review, and full diagnostic histories stay inside
   project detail.
 - Use bordered rows and section bands for related records; reserve cards for a
-  genuinely independent decision or recommendation.
-- Technical evidence appears in expandable detail or on mission detail pages.
+  genuinely independent recommendation.
+- Technical evidence appears in expandable detail or on project detail pages.
 - At mobile widths, the sidebar becomes a modal drawer and split layouts become
   one column without shrinking type.
 
 ## Components
 
 - `OwnerSection`: heading, count/freshness note, honest empty/error state.
-- `DecisionRow`: exact question, project, consequence, freshness, bounded
-  responses.
-- `MissionRow`: outcome, project, actor, lifecycle state, latest verified event.
 - `EvidenceLink`: provider, verification state, observation time, external link.
 - `HistoryChart`: one comparable metric in its native unit, with start, current,
   absolute and percentage change, observation count, and date range. The compact

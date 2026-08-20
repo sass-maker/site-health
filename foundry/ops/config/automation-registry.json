@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-17",
+  "updatedAt": "2026-08-20",
   "attentionCounts": {
-    "my-work": 5,
+    "my-work": 6,
     "toolbox": 28,
     "foundry": 5,
-    "ignored": 13
+    "ignored": 15
   },
   "defaults": {
     "freshnessHours": {
@@ -60,7 +60,6 @@
         "fleet-deploy",
         "live-smoke",
         "site-health",
-        "product-analytics",
         "release"
       ],
       "contracts": [
@@ -99,7 +98,6 @@
         "fleet-deploy",
         "live-smoke",
         "site-health",
-        "product-analytics",
         "release"
       ],
       "contracts": [
@@ -139,7 +137,6 @@
         "fleet-deploy",
         "live-smoke",
         "site-health",
-        "product-analytics",
         "release"
       ],
       "contracts": [
@@ -198,6 +195,89 @@
       "actionPolicy": "factory-safe",
       "alertPolicy": "page host, scheduler, publication-integrity, or prolonged production failure; digest routine findings",
       "exceptions": []
+    },
+    {
+      "id": "gitstat",
+      "name": "GitStat",
+      "attention": "toolbox",
+      "family": "gitstat",
+      "owner": "sarthak",
+      "repository": "gitstat",
+      "runtimes": [
+        "public-web",
+        "api"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "GitHub Actions",
+        "GitHub API",
+        "local checks"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "local-checks"
+      ],
+      "contracts": [
+        "build",
+        "errors",
+        "api-health"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings; production alerting starts only after an explicit deploy",
+      "exceptions": []
+    },
+    {
+      "id": "reel-pipeline",
+      "name": "Reel Pipeline",
+      "attention": "my-work",
+      "family": "reel-pipeline",
+      "owner": "sarthak",
+      "repository": "reel-pipeline",
+      "runtimes": [
+        "worker",
+        "local-tool"
+      ],
+      "surfaces": [],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers",
+        "local media toolchain"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "local-checks",
+        "jobs"
+      ],
+      "contracts": [
+        "build",
+        "errors",
+        "jobs"
+      ],
+      "actionPolicy": "human-direction",
+      "alertPolicy": "page prolonged build, distribution, or artifact failure; digest routine validation findings",
+      "exceptions": []
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "name": "Mobile Dev Cockpit",
+      "attention": "ignored",
+      "family": "mobile-dev-cockpit",
+      "owner": "none",
+      "repository": "mobile-dev-cockpit",
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Parked product retained outside Fleet; no routine automation or distribution is approved."
+        }
+      ]
     },
     {
       "id": "drank",
@@ -425,7 +505,6 @@
         "site-health",
         "cloudflare-resilience",
         "job-receipts",
-        "product-analytics",
         "data-recovery"
       ],
       "contracts": [
@@ -490,7 +569,6 @@
         "live-smoke",
         "site-health",
         "job-receipts",
-        "product-analytics",
         "data-recovery"
       ],
       "contracts": [
@@ -601,7 +679,6 @@
         "live-smoke",
         "site-health",
         "cloudflare-resilience",
-        "product-analytics",
         "data-recovery"
       ],
       "contracts": [
@@ -673,8 +750,7 @@
         "github-actions",
         "fleet-deploy",
         "live-smoke",
-        "site-health",
-        "product-analytics"
+        "site-health"
       ],
       "contracts": [
         "build",
@@ -690,37 +766,23 @@
     {
       "id": "chess",
       "name": "Chess",
-      "attention": "toolbox",
+      "attention": "ignored",
       "family": "significanthobbies",
       "owner": "sarthak",
       "repository": "chess",
-      "runtimes": [
-        "public-web"
-      ],
-      "surfaces": [
-        "https://chess.significanthobbies.com"
-      ],
-      "dependencies": [
-        "GitHub Actions",
-        "Cloudflare Pages"
-      ],
-      "evidenceSources": [
-        "github-actions",
-        "fleet-deploy",
-        "live-smoke",
-        "site-health",
-        "product-analytics"
-      ],
-      "contracts": [
-        "build",
-        "live",
-        "indexing",
-        "activation",
-        "errors"
-      ],
-      "actionPolicy": "quiet-maintenance",
-      "alertPolicy": "digest by default; page only prolonged outage, security, or cost risk",
-      "exceptions": []
+      "runtimes": [],
+      "surfaces": [],
+      "dependencies": [],
+      "evidenceSources": [],
+      "contracts": [],
+      "actionPolicy": "excluded",
+      "alertPolicy": "none",
+      "exceptions": [
+        {
+          "contract": "all",
+          "reason": "Inactive; explicit reactivation required"
+        }
+      ]
     },
     {
       "id": "looptv",
@@ -744,8 +806,7 @@
         "github-actions",
         "fleet-deploy",
         "live-smoke",
-        "site-health",
-        "product-analytics"
+        "site-health"
       ],
       "contracts": [
         "build",
@@ -784,7 +845,6 @@
         "live-smoke",
         "site-health",
         "cloudflare-resilience",
-        "product-analytics",
         "data-recovery"
       ],
       "contracts": [
@@ -823,8 +883,7 @@
         "fleet-deploy",
         "live-smoke",
         "site-health",
-        "job-receipts",
-        "product-analytics"
+        "job-receipts"
       ],
       "contracts": [
         "build",
@@ -981,8 +1040,7 @@
         "fleet-deploy",
         "live-smoke",
         "site-health",
-        "cloudflare-resilience",
-        "product-analytics"
+        "cloudflare-resilience"
       ],
       "contracts": [
         "build",
@@ -1019,8 +1077,7 @@
         "fleet-deploy",
         "live-smoke",
         "site-health",
-        "cloudflare-resilience",
-        "product-analytics"
+        "cloudflare-resilience"
       ],
       "contracts": [
         "build",
@@ -1063,7 +1120,6 @@
         "site-health",
         "cloudflare-resilience",
         "job-receipts",
-        "product-analytics",
         "data-recovery"
       ],
       "contracts": [
@@ -1195,7 +1251,7 @@
       "attention": "foundry",
       "family": "mashup",
       "owner": "foundry",
-      "repository": "foundry/helpers/mashup",
+      "repository": "mashup",
       "runtimes": [
         "local-tool"
       ],

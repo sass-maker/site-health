@@ -1,16 +1,16 @@
 # Fleet SEO/GEO destination inventory
 
-**Concrete destinations accounted for:** 167
+**Concrete destinations accounted for:** 166
 
-**Maintained candidates:** 67
+**Maintained candidates:** 66
 
 **Long-tail research-only candidates:** 100
 
-**Source records reconciled before deduplication:** 200
+**Source records reconciled before deduplication:** 199
 
 This is the destination-level inventory behind the publishing matrix. “Maintained candidate” does not authorize blind submission: recheck the live policy, audience, cost, authentication, and moderation flow before adding an item to an approved campaign manifest. Research-only entries remain accounted for but cannot be submitted until promoted with current evidence.
 
-## Maintained candidates — 67
+## Maintained candidates — 66
 
 | Destination | Family | Execution | Auth | Cost | Source | Projects |
 |---|---|---|---|---|---|---|
@@ -60,7 +60,6 @@ This is the destination-level inventory behind the publishing matrix. “Maintai
 | [PyPI](https://pypi.org/manage/projects/) | package-registries | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | fit per campaign |
 | [Quora](https://www.quora.com/) | quora | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | fit per campaign |
 | [r/anime](https://www.reddit.com/r/anime/submit) | specialist-communities | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | anime-list |
-| [r/chess](https://www.reddit.com/r/chess/submit) | specialist-communities | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | chess |
 | [r/devops](https://www.reddit.com/r/devops/submit) | specialist-communities | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | app-health |
 | [r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/submit) | specialist-communities | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | posttrainllm, free-ai, knowledge-base |
 | [r/MachineLearning](https://www.reddit.com/r/MachineLearning/submit) | specialist-communities | agent-with-unblock | required-or-verify | free-or-verify | maintained-supplement | posttrainllm, research-papers |

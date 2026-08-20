@@ -1,12 +1,12 @@
 # Fleet external SEO/GEO publishing matrix
 
-**Strategy reviewed:** 2026-08-17
+**Strategy reviewed:** 2026-08-20
 
-**Coverage:** all P1 (4), all P2 (22), all eligible finished P4 (10)
+**Coverage:** all P1 (4), all P2 (24), all eligible finished P4 (9)
 
 **Source of truth:** `foundry/ops/config/seo-geo-publishing.json`
 
-This is the current external publishing strategy, not a completion tracker or permission to mass-submit. External URLs and outcomes belong in `growth-program.json`, the existing submission receipts, or GitHub Issues. Actual P2 execution remains limited to at most five projects per work cycle.
+This is the current external publishing strategy, not a completion tracker or permission to mass-submit. External URLs and outcomes belong in the existing submission receipts or GitHub Issues. Actual P2 execution remains limited to at most five projects per work cycle.
 
 ## How to read execution and content ownership
 
@@ -29,7 +29,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - Publish a useful source asset first; adapt it to a venue instead of pasting the same promotion everywhere.
 - A placement is a fit recommendation, not a promise of ranking, backlink value, acceptance, or AI citation.
 - Respect each community's current rules and disclose the maker relationship where relevant.
-- Keep completion and outcome evidence in GitHub Issues, growth-program.json, or existing submission receipts—not in this strategy file.
+- Keep completion and outcome evidence in GitHub Issues or existing submission receipts—not in this strategy file.
 - Work on at most five P2 projects in one execution cycle even though this program covers every P2 identity.
 
 ## Channel registry
@@ -133,7 +133,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
 - **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
-## P2 — 22
+## P2 — 24
 
 ### Fleet Workspace — Publishable
 
@@ -153,6 +153,34 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 **Do not use:**
 
 - **Product Hunt:** Treat Fleet Workspace as a platform and operating narrative, not as a one-off launch listing.
+
+### GitStat — Preparation only
+
+**Narrative:** A client-side explorer for aggregate GitHub contribution and line statistics across repositories and organizations.
+
+**Source asset:** A committed, publicly testable build with a clear GitHub OAuth and local-caching privacy boundary.
+
+**Catalog blocker:** The local implementation has no committed main revision or verified public deployment yet. (verified 2026-08-20)
+
+**Before publishing:**
+
+- Commit the initial product source and verify a usable public deployment before publication.
+
+**Future candidates after re-verification:** DEV Community, GitHub repository and organization profile
+
+### Reel Pipeline — Preparation only
+
+**Narrative:** A private media production, review, and policy-gated distribution pipeline.
+
+**Source asset:** A rights-safe public example and approved explanation that exposes no private production inputs, credentials, or unpublished media.
+
+**Catalog blocker:** The standalone source and retained artifact Worker are current, but no public product surface is approved for sharing. (verified 2026-08-20)
+
+**Before publishing:**
+
+- Approve a public product surface and a rights-safe evidence package before any external publication.
+
+**Future candidates after re-verification:** None in the current campaign.
 
 ### Memory Map — Publishable
 
@@ -500,7 +528,7 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 **Future candidates after re-verification:** Product Hunt, AlternativeTo, Medium, YouTube
 
-## Eligible finished P4 — 10
+## Eligible finished P4 — 9
 
 ### Drank — Publishable
 
@@ -582,21 +610,6 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 **Do not use:**
 
 - **AlternativeTo:** AlternativeTo disallows directories and lists; avoid the category ambiguity.
-
-### Chess — Publishable
-
-**Canonical:** [https://chess.significanthobbies.com](https://chess.significanthobbies.com)
-
-**Narrative:** Browser chess against Stockfish with optional AI move coaching.
-
-**Source asset:** A playable annotated game showing where the coaching explanation helps and where engine evaluation alone is insufficient.
-
-| Rank | Channel | Format | Execution | Content owner | Why this fits |
-|---|---|---|---|---|---|
-| Primary | [Hacker News / Show HN](https://news.ycombinator.com/showhn.html) | Show HN with instant playable board | Agent with unblock | Owner | Directly playable maker-built software. |
-| Primary | [YouTube](https://support.google.com/youtube/answer/57407) | Annotated game and coaching demo | Agent direct | Shared | Shows the difference between moves, engine scores, and explanations. |
-| Secondary | [Product-specific forums and communities](https://www.discourse.org/guidelines) | Coaching-method discussion in chess communities | Agent with unblock | Owner | Relevant only with honest strength limits and local moderator approval. |
-| Secondary | [Product Hunt](https://help.producthunt.com/en/articles/479557-how-to-post-a-product) | Playable chess coach launch | Agent with unblock | Owner | Interactive game and learning tool. |
 
 ### India Standards — Publishable
 

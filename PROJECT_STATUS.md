@@ -1,27 +1,29 @@
 # Fleet Workspace — PROJECT STATUS
 
-Last updated: 2026-08-16
+Last updated: 2026-08-20
 
 ## Why / What
 
 Fleet Workspace is the single version-controlled home for shared operations
 across Sarthak's projects. It owns the project registry, automation policy,
-skills, marketing production pipeline, domain intelligence, performance tools,
-mobile control client, host setup, and reviewable evidence used to keep mostly
-finished products usable and discoverable.
+skills, shared operational tooling, host setup, public project projections, and
+reviewable evidence used to keep mostly finished products usable and
+discoverable.
 
 **Users:** Sarthak and explicitly authorized local or hosted agents.
 
 **In scope:** Fleet registries and policy; shared scripts and skills; bounded
-automation; Postiz/Reel Pipeline marketing production; Drank domain
-intelligence; PSI Swarm site performance; Mobile Dev Cockpit; machine-host
-setup; shared package ownership; links to independent evidence
+automation; cross-product connections; machine-host setup; shared package
+ownership; public catalog projections; and links to independent evidence
 owners.
 
-**Out of scope:** Product feature direction; a general public SaaS; duplicating
-GitHub, PostHog, Cloudflare, Postiz, CodeVetter, or App Health; ingesting private
-product content into public output; automatic production deploys; owning
-CodeVetter or App Health source.
+**Out of scope:** Product feature direction; a general public SaaS; product
+feedback ingestion, storage, or dashboarding; product/user analytics, event
+contracts, funnels, retention, or analytics-provider aggregation; duplicating
+GitHub, PostHog, Cloudflare, Microsoft Clarity, Postiz, CodeVetter, or App
+Health; ingesting private product content into public output; automatic
+production deploys; owning CodeVetter or App Health source; media creation and
+editorial products; or an active mobile-control product.
 
 ## Dependencies
 
@@ -32,7 +34,6 @@ CodeVetter or App Health source.
   GitHub-hosted runners.
 - Cloudflare for deployed product surfaces and provider-native runtime evidence.
 - Postiz for approved marketing scheduling/distribution.
-- PostHog and product-native analytics where selected by each product.
 - Ahrefs for optional authenticated Site Audit project-health observations;
   missing or unentitled access fails closed without affecting Domain Rating,
   Fleet on-page checks, or PageSpeed evidence.
@@ -49,10 +50,13 @@ CodeVetter or App Health source.
 - Automation, marketing, site, and family registries are validated policy
   overlays keyed to catalog identities; generated internal and public views
   never create project identities independently.
-- Reel Pipeline produces approved media and publication handoff receipts.
+- Reel Pipeline, Content Factory, and Mashup are independent products currently
+  colocated in this repository pending extraction. Fleet may consume their
+  versioned receipts but does not own their product surfaces.
 - Drank supplies domain intelligence.
 - PSI Swarm supplies bounded performance/site-health evidence.
-- Mobile Dev Cockpit is the private mobile Fleet client.
+- Mobile Dev Cockpit is parked. Its source and retained Cloudflare resources
+  remain inventoried, but it has no active product work or Fleet Console gap.
 - CodeVetter remains an independent linked product. App Health is an
   independent SaaS Maker-owned product and evidence owner. Neither is a Fleet
   Workspace package.
@@ -64,12 +68,39 @@ CodeVetter or App Health source.
 - Fleet owns `@saas-maker/feedback` as the public client package for a shared
   Feedback product. Consumers choose either an `onSubmit` callback or a
   compatible caller-owned `ingestionUrl`; Fleet-owned ingestion, storage,
-  and attachments are not yet implemented. Fleet Console now has the
-  project-filtered inbox surface and normalized submission projection, which
-  remains empty until an ingestion owner supplies sanitized submissions.
+  attachments, and Console projections do not exist. Feedback is separate from
+  Fleet Console and each consumer owns its submission destination.
 
 ## Timeline
 
+- **2026-08-20 — Chess reconciled and Mobile Cockpit parked:** Kept Chess as a
+  past catalog identity with its live deployment and historical observations
+  retained, while removing it from active code-health, lint, AI-visibility,
+  GEO, distribution, Domain Rating refresh, and bundled project-strip inputs.
+  Parked Mobile Dev Cockpit without deleting its source or changing provider
+  resources, and removed the mobile dashboard from Fleet's active scope and
+  missing-capability claims. Reel Pipeline, Content Factory, and Mashup remain
+  independent colocated products pending repository extraction.
+- **2026-08-20 — The redundant Growth aggregation left Fleet Console:** Removed
+  the Growth route, navigation, client renderer, outcome endpoint, projection,
+  standalone allocation program, and active documentation. Search, traffic,
+  Marketing, and directory evidence remain with their authoritative owners;
+  no source observations or production data were deleted.
+- **2026-08-20 — Feedback and workflow scope left Fleet Console:** Verified the
+  only local founder-control SQLite database contains no Feedback table or
+  submission events, then removed the empty Feedback route, navigation,
+  projection, boundary, and System Map contract. The backend-free
+  `@saas-maker/feedback` package remains separate with caller-owned delivery.
+  Also removed Missions and Decisions from Console, APIs, CLI, projections,
+  contracts, notifications, and documentation because GitHub Issues is the sole
+  operational tracker. Generic recommendation and provider-evidence storage
+  remains; no database rows were deleted and no deployment occurred.
+- **2026-08-20 — Product analytics left Fleet ownership:** Removed the empty
+  Fleet Console Product Analytics surface, PostHog and D1 aggregate collectors,
+  shared user-metrics ledger contract, coverage scanner, provider projection,
+  registry capability, and event-taxonomy documentation. Product analytics and
+  any replacement stack now belong to an independent owner; Fleet retains no
+  parallel product/user analytics dashboard or ledger. No deployment occurred.
 - **2026-08-16 — Public listings now say exactly what can be shared:** Approved
   the informational sites for Office OS and Local AI Video Studio, the product
   and trust site for Indulge, and Karte after accepting its documented name
@@ -400,8 +431,8 @@ CodeVetter or App Health source.
   Mobile Dev Cockpit, PSI Swarm, and Mashup repositories in Sarthak's personal
   namespace. Mashup's complete changed implementation and design evidence were
   preserved first, its nine historical issues were consolidated into Fleet
-  issue #73, and the canonical editorial runtime remains under
-  `foundry/marketing/reel-pipeline/editorial/`.
+  issue #73. This consolidation was superseded by the 2026-08-20 extraction;
+  Mashup now owns its canonical editorial runtime in `sass-maker/mashup`.
 - **2026-07-30 — Independent-product boundary made one-way:** Removed tracked
   release and agent-instruction dependencies from standalone products to the
   private Fleet checkout while preserving product-owned validation and manual
@@ -679,13 +710,10 @@ CodeVetter or App Health source.
 | Helpers | PSI Swarm | `foundry/helpers/psi-swarm/` | Local CLI plus independently deployable static surface |
 | Skills | Fleet skills | `foundry/ops/skills/` | Agent workflows installed as repo-local symlinks |
 | Public apps | Public directory | `foundry/apps/public/public-directory/` | Static public product projection on Cloudflare Pages |
-| Marketing | Reel Pipeline | `foundry/marketing/reel-pipeline/` | Node/Rust/Python orchestration, Editorial, rendering, and distribution contracts |
-| Marketing | Content Factory | `foundry/marketing/content-factory/` | Reel Pipeline-owned content rendering/package scripts |
 | Packages | Feedback | `foundry/packages/feedback/` | Public client package with caller-owned callback or ingestion URL |
 | Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
 | Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | React package and universal loader with bundled catalog and cached static revalidation |
 | Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
-| Fleet Console | Mobile Dev Cockpit | `foundry/apps/dashboard/mobile-cockpit/` | Experimental local-only mobile client; future undecided |
 | Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
 | Substrate | Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |
 
@@ -762,24 +790,21 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Six explicit Foundry product buckets with category-owned canonical paths,
   native component boundaries, and an evidence-backed connection map.
 - Responsive Fleet Console with a collapsible sidebar that groups Domains,
-  Google Search, AI Awareness, and Performance under Metrics, Growth and
-  Marketing under their own operating group, and Projects plus Feedback as
-  standalone views. The Growth ledger covers every maintained public project,
-  sorts focus work first, and separates source-owned activity from observed
-  outcomes while keeping missing conversion, revenue, earned-link, and causal
-  attribution evidence explicit. Project-owned views retain one
+  Google Search, AI Awareness, and Performance under Metrics, Marketing under
+  its own operating group, and Projects as a standalone view. Project-owned
+  views retain one
   URL-persisted 27-project scope, while the four portfolio-wide Metrics views
   have no redundant project filter. Domains includes compact pointer- and
   keyboard-inspectable D-Rank history; bounded prewarmed outcome endpoints keep
   these views independent of the full connection payload. The Console includes provider-backed
-  AI Awareness, marketing-receipt coverage, explicit PSI/LCP guardrails,
+  AI Awareness, marketing coverage, explicit PSI/LCP guardrails,
   Search Visibility, AI Visibility,
   D-Rank, AI Agent Readiness, AI Crawlability, Content Coverage, PSI Swarm,
   and Design Critique reports. Agent Readiness retains public-route Markdown
   coverage, readable/checked/public route counts, and `/api/ai` catalog
   integrity as dated project histories. The Console also provides a
-  success/failure skill-result ledger, a privacy-bounded Feedback inbox,
-  deterministic improvement actions, a secondary 15-provider System Map, and
+  success/failure skill-result ledger, deterministic improvement actions, a
+  secondary provider System Map, and
   fail-soft evidence.
 - Private local Fleet skill-run history with sanitized retained output,
   explicit capture completeness, structured project metric observations,
@@ -803,10 +828,9 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - PSI Swarm performance tooling.
 - Agent and notification policy, machine-host foundations, and inert schedule
   definitions.
-- One tracked `foundry/openspec/` store for Fleet and cross-repository changes;
-  project-local changes remain in their owning repositories.
-- Deterministic Fleet-wide OpenSpec inventory generated from canonical project
-  classifications, current checkouts, inactive history, and registered stores.
+- GitHub Issues as the single operational tracker and the home for feature
+  proposals, design notes, requirements, and implementation checklists; Fleet
+  has no parallel workspace-local specification store.
 - Fleet-owned design workflow over pinned Impeccable with project-specific
   context, preserve/overhaul lanes, reference and direction gates,
   machine-checkable multi-viewport review receipts, score/severity/project
@@ -819,13 +843,13 @@ Cloudflare deployment history, not by maintaining duplicate source.
   personal/six-organization profile synchronization, canonical repository
   ownership checks, and explicit creator-attribution markers.
 - Feedback client package with Pinpoint context, local screenshot attachment,
-  and consumer-supplied submission; Fleet Console has the project-filtered
-  inbox and privacy-bounded projection, while shared ingestion and persistence
-  remain unshipped.
+  and consumer-supplied submission. It has no Fleet-owned ingestion, storage,
+  inbox, or Console projection.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
   deploy commands for the three Cloudflare surfaces.
-- Local-first founder control with an append-only mission/evidence ledger,
-  owner decisions, outcome learning, daily briefs, and an owner-first console.
+- Local-first founder evidence service with an append-only provider and
+  recommendation ledger, bounded projections, daily briefs, and an owner-first
+  console; operational work remains exclusively in GitHub Issues.
 - Dependency-free internal FleetWorkspace verified-transition runtime with an
   attributable append-only JSONL event store, durable pre-action predictions,
   post-action GitHub observation, goal evidence, duplicate-side-effect

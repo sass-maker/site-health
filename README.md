@@ -12,8 +12,8 @@ This repository is the canonical Fleet shared-infrastructure project and also
 serves as the local workspace root for independent product repositories.
 
 All Fleet-owned source is nested under `foundry/` and organized by the
-operator-facing product model: helpers, skills, public apps, Marketing,
-packages, and Fleet Console. `foundry/ops/` is the shared operational
+operator-facing product model: helpers, skills, public apps, packages, and
+Fleet Console. `foundry/ops/` is the shared operational
 substrate beneath those buckets. This workspace root remains the agent and
 independent-project entrypoint; independent products remain separately
 versioned and deployed unless explicitly imported as Fleet infrastructure.
@@ -31,12 +31,8 @@ generated internal and public views come from the catalog with
   `foundry/helpers/drank/`, and `foundry/helpers/psi-swarm/`.
 - **Skills:** `foundry/ops/skills/` and `foundry/ops/teammates/skills/`.
 - **Public apps:** `foundry/apps/public/public-directory/`.
-- **Marketing:** `foundry/marketing/reel-pipeline/` and
-  `foundry/marketing/content-factory/`.
 - **Packages:** `foundry/packages/feedback/`.
-- **Fleet Console:** `foundry/apps/dashboard/fleet-console/`, with the
-  experimental local-only mobile client at
-  `foundry/apps/dashboard/mobile-cockpit/`.
+- **Fleet Console:** `foundry/apps/dashboard/fleet-console/`.
 - **Operational substrate:** `foundry/ops/`, including its pinned public,
   credential-free `workflows/` module.
 
@@ -52,20 +48,20 @@ deploy. Run `npm run check:independence` after fetching child repositories to
 audit their canonical `origin/main` revisions; unavailable checkouts are
 reported as skipped.
 
-## Merged historical repositories
+## Independent sibling repositories
 
-The following standalone repositories were merged into Fleet and moved to
-Sarthak's personal GitHub account for attribution and history only. They are not
-setup dependencies and must not be cloned as Fleet projects:
+These products have their own source histories, issue queues, checks, and
+release boundaries. Fleet may catalog or inspect them, but they are not Fleet
+source dependencies:
 
 | Historical repository | Maintained source |
 | --- | --- |
 | [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `foundry/apps/public/public-directory/` and `foundry/packages/feedback/` |
-| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | `foundry/marketing/reel-pipeline/` |
 | [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/helpers/drank/` |
-| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | `foundry/apps/dashboard/mobile-cockpit/` |
 | [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/helpers/psi-swarm/` |
-| [`sarthakagrawal927/mashup`](https://github.com/sarthakagrawal927/mashup) | `foundry/marketing/reel-pipeline/editorial/` |
+| [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | sibling `reel-pipeline/` checkout |
+| [`sass-maker/mashup`](https://github.com/sass-maker/mashup) | sibling `mashup/` checkout |
+| [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | sibling parked `mobile-dev-cockpit/` checkout |
 
 Clone `sass-maker/fleet-workspace` once and initialize its public automation
 module:
@@ -89,15 +85,15 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 
 - product: CodeVetter, HeyPace, PostTrainLLM, Office OS
 
-### P2 — 22
+### P2 — 24
 
-- product: Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track, Anchor
+- product: GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track, Anchor
 - platform: Fleet Workspace, Knowledge Base, iOS landings
 - experiment: Mashup, Local AI Video Studio
 
-### P4 — 25
+### P4 — 26
 
-- product: Drank, Email Manager, India Standards, Anime List, LoopTV, SaaS Ideas, What It Takes to Win, Sarthak Agrawal
+- product: Mobile Dev Cockpit, Drank, Email Manager, India Standards, Anime List, LoopTV, SaaS Ideas, What It Takes to Win, Sarthak Agrawal
 - platform: Free AI, PSI Swarm
 - experiment: EverythingRated, Materia, Chess, AliveVille, Protein Index, Recipe Index, TrueHire, Today Little Log, Open Historia, Companion Robot, Elves HQ, Forecast Lab, Web Playables, Reddit Insights, Verified Bases
 

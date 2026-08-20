@@ -8,21 +8,9 @@ const MAX_STRING_LENGTH = 2_000;
 const EVENT_TYPES = new Set([
   'project.registered',
   'objective.created',
-  'mission.drafted',
-  'mission.accepted',
-  'mission.started',
-  'mission.progressed',
-  'mission.blocked',
-  'mission.awaiting-verification',
-  'mission.completed',
-  'mission.cancelled',
   'evidence.recorded',
   'evidence.stale',
   'deliverable.recorded',
-  'decision.requested',
-  'decision.resolved',
-  'decision.rejected',
-  'decision.reversed',
   'recommendation.created',
   'recommendation.accepted',
   'recommendation.rejected',
@@ -38,7 +26,6 @@ const EVENT_TYPES = new Set([
 const ACTOR_TYPES = new Set(['owner', 'agent', 'automation', 'provider']);
 const VISIBILITY_CLASSES = new Set(['private', 'aggregate-public']);
 const EVIDENCE_STATES = new Set(['verified', 'unverified', 'stale', 'unavailable']);
-const DECISION_RESPONSES = new Set(['approve', 'reject', 'clarify', 'defer', 'acknowledge']);
 
 const identifierPattern = /^[a-zA-Z0-9][a-zA-Z0-9._:/-]{0,159}$/;
 const unsafeKeyPattern =
@@ -47,17 +34,7 @@ const unsafeKeyPattern =
 const requiredPayloadFields = {
   'project.registered': ['name', 'attention'],
   'objective.created': ['title', 'outcome'],
-  'mission.drafted': ['title', 'outcome', 'completionCriteria', 'authority'],
-  'mission.progressed': ['summary'],
-  'mission.blocked': ['reason', 'owner'],
-  'mission.awaiting-verification': ['reason'],
-  'mission.completed': ['summary'],
-  'mission.cancelled': ['reason'],
   'deliverable.recorded': ['title', 'kind'],
-  'decision.requested': ['question', 'why', 'allowedResponses', 'scope', 'reversible'],
-  'decision.resolved': ['decisionId', 'response', 'scope'],
-  'decision.rejected': ['decisionId', 'scope'],
-  'decision.reversed': ['decisionId', 'reason'],
   'recommendation.created': ['title', 'rationale', 'impact', 'confidence', 'effort', 'reversibility'],
   'recommendation.accepted': ['recommendationId'],
   'recommendation.rejected': ['recommendationId'],
@@ -69,28 +46,6 @@ const requiredPayloadFields = {
   'visibility.run-recorded': ['runId', 'promptSetId', 'coverage', 'cost', 'metrics', 'citations', 'attempts'],
   'event.corrected': ['eventId', 'reason'],
 };
-
-const missionEventStates = new Map([
-  ['mission.drafted', 'draft'],
-  ['mission.accepted', 'accepted'],
-  ['mission.started', 'active'],
-  ['mission.progressed', 'active'],
-  ['mission.blocked', 'blocked'],
-  ['mission.awaiting-verification', 'awaiting-verification'],
-  ['mission.completed', 'completed'],
-  ['mission.cancelled', 'cancelled'],
-]);
-
-const allowedMissionTransitions = new Map([
-  [null, new Set(['mission.drafted'])],
-  ['draft', new Set(['mission.accepted', 'mission.cancelled'])],
-  ['accepted', new Set(['mission.started', 'mission.cancelled'])],
-  ['active', new Set(['mission.progressed', 'mission.blocked', 'mission.awaiting-verification', 'mission.cancelled'])],
-  ['blocked', new Set(['mission.started', 'mission.cancelled'])],
-  ['awaiting-verification', new Set(['mission.started', 'mission.blocked', 'mission.completed', 'mission.cancelled'])],
-  ['completed', new Set()],
-  ['cancelled', new Set()],
-]);
 
 export class FounderControlValidationError extends Error {
   constructor(code, message) {
@@ -190,7 +145,7 @@ export function normalizeEvent(input, { now = new Date().toISOString() } = {}) {
   const eventId = input.id ?? randomUUID();
   assertIdentifier(eventId, 'id');
   assertIdentifier(input.idempotencyKey, 'idempotencyKey');
-  for (const field of ['projectId', 'objectiveId', 'missionId', 'correlationId']) {
+  for (const field of ['projectId', 'objectiveId', 'correlationId']) {
     assertIdentifier(input[field], field, { optional: true });
   }
 
@@ -205,16 +160,6 @@ export function normalizeEvent(input, { now = new Date().toISOString() } = {}) {
     assert(payload[field] !== undefined, 'MISSING_PAYLOAD_FIELD', `${input.type} requires payload.${field}`);
   }
   assertSafeValue(payload);
-  if (input.type === 'decision.requested') {
-    assert(Array.isArray(payload.allowedResponses) && payload.allowedResponses.length > 0, 'RESPONSES_REQUIRED', 'decision needs allowed responses');
-    assert(payload.allowedResponses.length <= 4, 'TOO_MANY_RESPONSES', 'decision supports at most four visible responses');
-    for (const response of payload.allowedResponses) {
-      assert(DECISION_RESPONSES.has(response), 'INVALID_DECISION_RESPONSE', `unsupported decision response: ${response}`);
-    }
-  }
-  if (input.type === 'decision.resolved') {
-    assert(DECISION_RESPONSES.has(payload.response), 'INVALID_DECISION_RESPONSE', `unsupported decision response: ${payload.response}`);
-  }
   if (input.type === 'outcome.recorded') {
     assert(
       ['supported', 'unsupported', 'mixed', 'not-yet-measurable'].includes(payload.verdict),
@@ -235,7 +180,6 @@ export function normalizeEvent(input, { now = new Date().toISOString() } = {}) {
     actor: normalizeActor(input.actor),
     ...(input.projectId ? { projectId: input.projectId } : {}),
     ...(input.objectiveId ? { objectiveId: input.objectiveId } : {}),
-    ...(input.missionId ? { missionId: input.missionId } : {}),
     ...(input.correlationId ? { correlationId: input.correlationId } : {}),
     idempotencyKey: input.idempotencyKey,
     visibility,
@@ -244,14 +188,6 @@ export function normalizeEvent(input, { now = new Date().toISOString() } = {}) {
   };
   assert(Buffer.byteLength(JSON.stringify(event)) <= MAX_EVENT_BYTES, 'EVENT_TOO_LARGE', `event exceeds ${MAX_EVENT_BYTES} bytes`);
   return event;
-}
-
-export function validateMissionTransition(event, currentState) {
-  if (!event.type.startsWith('mission.')) return currentState;
-  assertIdentifier(event.missionId, 'missionId');
-  const allowed = allowedMissionTransitions.get(currentState);
-  assert(allowed?.has(event.type), 'ILLEGAL_MISSION_TRANSITION', `${currentState ?? 'none'} cannot transition through ${event.type}`);
-  return missionEventStates.get(event.type) ?? currentState;
 }
 
 export function redactForExport(value) {

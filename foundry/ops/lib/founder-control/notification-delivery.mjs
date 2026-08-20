@@ -8,7 +8,7 @@ const severityMap = {
 };
 
 export function toFleetNotification(item, { consoleBaseUrl = 'https://fleet.sassmaker.com' } = {}) {
-  const path = item.kind === 'owner-decision' ? '/decisions' : item.missionId ? `/missions/${encodeURIComponent(item.missionId)}` : '/';
+  const path = item.projectId ? `/projects/${encodeURIComponent(item.projectId)}` : '/';
   const context = [
     item.kind === 'material-risk' ? `${item.risk} risk` : item.kind.replaceAll('-', ' '),
     item.projectId ? `project: ${item.projectId}` : null,
@@ -21,7 +21,7 @@ export function toFleetNotification(item, { consoleBaseUrl = 'https://fleet.sass
     body: context.join(' · '),
     url: new URL(path, consoleBaseUrl).toString(),
     dedupeKey: item.key,
-    forceOwnerChannel: item.kind === 'requested-completion',
+    forceOwnerChannel: false,
   };
 }
 

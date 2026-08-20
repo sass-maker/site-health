@@ -213,7 +213,10 @@ test('fixture canary records bounded normalized receipts, history, cache use, an
 
     const events = store.listEvents();
     assert.equal(events.filter((event) => event.type === 'visibility.run-recorded').length, 2);
-    assert.equal(events.some((event) => event.type.startsWith('mission.')), false);
+    assert.equal(
+      events.every((event) => ['visibility.run-recorded', 'recommendation.created'].includes(event.type)),
+      true,
+    );
     assert.ok(events.some((event) => event.type === 'recommendation.created'));
     assert.doesNotMatch(JSON.stringify(events), /HeyPace is the first recommendation/);
     assert.doesNotMatch(JSON.stringify(events), /responseText/);

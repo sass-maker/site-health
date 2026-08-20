@@ -110,21 +110,6 @@
       "pillarId": "learn"
     },
     {
-      "id": "chess",
-      "name": "Chess Coach",
-      "description": "Browser chess against Stockfish with optional AI move coaching.",
-      "url": "https://chess.significanthobbies.com",
-      "tier": "secondary",
-      "category": "personal",
-      "priority": "P4",
-      "spotlight": false,
-      "maturity": "maintained",
-      "changelogUrl": "https://chess.significanthobbies.com/changelog",
-      "repositoryUrl": "https://github.com/Significant-Hobbies/chess",
-      "roadmapUrl": "https://github.com/Significant-Hobbies/chess/issues",
-      "pillarId": "learn"
-    },
-    {
       "id": "drank",
       "name": "Drank",
       "description": "Domain Rating intelligence for product, SEO, and market research.",
@@ -477,6 +462,13 @@
       "description": "Persistent AI world and multi-agent simulation experiments.",
       "lifecycle": "past",
       "repositoryUrl": "https://github.com/sarthakagrawal927/aliveville"
+    },
+    {
+      "id": "chess",
+      "name": "Chess Coach",
+      "description": "Browser chess against Stockfish with optional AI move coaching.",
+      "lifecycle": "past",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/chess"
     },
     {
       "id": "companion-robot",

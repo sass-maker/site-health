@@ -3,7 +3,7 @@
 > Generated from `foundry/ops/config/projects.json`. Edit the catalog, then run `npm run generate:projects`.
 > Maintenance contract: `foundry/ops/config/README.md`.
 
-Generated from 51 internal project identities.
+Generated from 54 internal project identities.
 
 ## Operating model
 
@@ -57,17 +57,19 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
-| CodeVetter | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `codevetter` | cloudflare pages `codevetter` (git-connected; live)<br>cloudflare worker `codevetter-landing-proxy` (legacy-worker; live-purpose-review) | cloudflare zone `codevetter.com` (active-config-derived) | 2026-08-11 |
+| CodeVetter | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `codevetter` | cloudflare pages `codevetter` (git-connected; live)<br>cloudflare worker `codevetter-landing-proxy` (legacy-worker; live-retained) | cloudflare zone `codevetter.com` (active-config-derived) | 2026-08-11 |
 | HeyPace | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `pace` | cloudflare pages `pace` (wrangler-direct; live) | cloudflare zone `heypace.app` (active-config-derived) | 2026-08-11 |
 | PostTrainLLM | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `posttrainllm` | cloudflare pages `tinygpt` (wrangler-direct; live) | cloudflare zone `posttrainllm.com` (active-config-derived) | 2026-08-11 |
 | Office OS | active | yes | yes | The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved. (verified 2026-08-16) | `agent-office` | cloudflare pages `office-os` (wrangler-direct; live)<br>local macos-app `AgentOffice.app` (local-package; local-only) | — | 2026-08-11 |
 
-## P2 — 22
+## P2 — 24
 
-### Products — 17
+### Products — 19
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
+| GitStat | active | no | no | The local implementation has no committed main revision or verified public deployment yet. (verified 2026-08-20) | `gitstat` | — | — | 2026-08-20 |
+| Reel Pipeline | active | yes | no | The standalone source and retained artifact Worker are current, but no public product surface is approved for sharing. (verified 2026-08-20) | `reel-pipeline` | cloudflare worker `reel-pipeline-artifacts` (wrangler-direct; live) | cloudflare r2 `reel-artifacts` (active)<br>cloudflare tunnel `fleet-postiz` (down) | 2026-08-20 |
 | Memory Map | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `chatgpt-memory-insights` | cloudflare pages `chatgpt-memory-insights` (wrangler-direct; live) | — | 2026-08-11 |
 | High Signal | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `high-signal` | cloudflare worker `high-signal-web` (wrangler-direct; live)<br>cloudflare worker `high-signal-api` (wrangler-direct; live) | cloudflare d1 `high-signal-db` (active)<br>cloudflare service-binding `high-signal-api` (active)<br>cloudflare turnstile `high-signal (Spin)` (active)<br>cloudflare zone `highsignal.app` (active-config-derived) | 2026-08-11 |
 | Research Papers | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `research-papers` | cloudflare pages `research-papers` (wrangler-direct; live) | cloudflare turnstile `research-papers (Spin)` (active) | 2026-08-11 |
@@ -90,7 +92,7 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
-| Fleet Workspace | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `foundry/ops` | cloudflare pages `saas-maker-home` (wrangler-direct; live)<br>cloudflare worker `reel-pipeline-artifacts` (wrangler-direct; live)<br>cloudflare worker `saasmaker-droid` (legacy-worker; live-purpose-review)<br>cloudflare worker `fleet-chatgpt-connections` (wrangler-direct; configured-not-deployed)<br>cloudflare tunnel `fleet.sassmaker.com` (designated-host; live)<br>github actions `sass-maker/workflows` (repository-workflows; live) | cloudflare d1 `saasmaker-db` (retained)<br>cloudflare r2 `reel-artifacts` (active)<br>cloudflare kv `OAUTH_KV` (configured-for-merged-gateway)<br>cloudflare tunnel `fleet-postiz` (down)<br>cloudflare container `saasmaker-droid-sandbox` (ready-purpose-review)<br>cloudflare access-application `fleet.sassmaker.com` (active-config-derived)<br>cloudflare zone `sassmaker.com` (active-config-derived) | 2026-08-11 |
+| Fleet Workspace | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `foundry/ops` | cloudflare pages `saas-maker-home` (wrangler-direct; live)<br>cloudflare worker `fleet-chatgpt-connections` (wrangler-direct; configured-not-deployed)<br>cloudflare tunnel `fleet.sassmaker.com` (designated-host; live)<br>github actions `sass-maker/workflows` (repository-workflows; live) | cloudflare d1 `saasmaker-db` (retained)<br>cloudflare kv `OAUTH_KV` (configured-for-merged-gateway)<br>cloudflare access-application `fleet.sassmaker.com` (active-config-derived)<br>cloudflare zone `sassmaker.com` (active-config-derived) | 2026-08-11 |
 | Knowledge Base | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `knowledge-base` | cloudflare pages `knowledgebase-landing` (git-connected; live)<br>cloudflare pages `knowledgebase-app` (wrangler-direct; live)<br>cloudflare worker `knowledgebase-app` (legacy-worker; live-purpose-review)<br>cloudflare worker `knowledgebase` (wrangler-direct; live) | cloudflare d1 `rag-db` (active)<br>cloudflare r2 `rag-raw-docs` (active)<br>cloudflare queue `knowledgebase-ingest` (active)<br>cloudflare workflow `knowledgebase-ingest-workflow` (active)<br>cloudflare vectorize `rag-embedding-384` (active)<br>cloudflare vectorize `rag-embedding-768` (active)<br>cloudflare vectorize `rag-embedding-1024` (active)<br>cloudflare vectorize `rag-gemini-1536` (active)<br>cloudflare vectorize `rag-bge-768` (retained-unreferenced)<br>cloudflare vectorize `rag-bge-small-384` (retained-unreferenced)<br>cloudflare vectorize `rag-voyage-1024` (retained-unreferenced)<br>cloudflare analytics-engine `knowledgebase_rag_events` (active)<br>cloudflare workers-ai `AI` (active)<br>cloudflare service-binding `free-ai-gateway` (active)<br>cloudflare access-application `search.sassmaker.com` (active-config-derived) | 2026-08-11 |
 | iOS landings | active | no | no | Private factory with no host of its own. Product domains are deployed from this repo onto their Pages projects. (verified 2026-08-17) | `ios-landings` | — | — | 2026-08-17 |
 
@@ -98,12 +100,12 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
-| Mashup | active | no | no | No usable distributed or provider-hosted surface is deployed, and the owner cut Mashup from the current SEO/GEO campaign. (verified 2026-08-16) | `foundry/helpers/mashup` | — | — | 2026-08-11 |
+| Mashup | active | no | no | No usable distributed or provider-hosted surface is deployed, and the owner cut Mashup from the current SEO/GEO campaign. (verified 2026-08-16) | `mashup` | — | — | 2026-08-11 |
 | Local AI Video Studio | active | yes | yes | The owner approved the verified maintained informational site for public sharing; no downloadable app, signed binary, or public release channel is approved. (verified 2026-08-16) | `local-ai-video-studio` | cloudflare pages `local-ai-video-studio` (wrangler-direct; live)<br>local macos-app `LocalVideoStudio` (swift-build; local-only) | — | 2026-08-11 |
 
-## P4 — 25
+## P4 — 26
 
-### Finished (active) — 12
+### Finished (active) — 11
 
 #### Products — 7
 
@@ -124,28 +126,29 @@ Provider inventory checked 2026-08-11. A resource is not considered accounted fo
 | Free AI | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `free-ai` | cloudflare worker `free-ai-gateway` (wrangler-direct; live) | cloudflare d1 `free-ai-gateway-db` (active)<br>cloudflare kv `free-ai-gateway-HEALTH_KV` (active)<br>cloudflare kv `free-ai-gateway-HEALTH_KV_preview` (preview)<br>cloudflare durable-object `HealthStateDO` (active)<br>cloudflare durable-object `IpRateLimitDO` (active)<br>cloudflare durable-object `NeuronBudgetDO` (active)<br>cloudflare workers-ai `AI` (active) | 2026-08-11 |
 | PSI Swarm | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `foundry/helpers/psi-swarm` | cloudflare pages `psi-swarm-web` (wrangler-direct; live) | — | 2026-08-11 |
 
-#### Experiments — 3
+#### Experiments — 2
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
-| Chess | active | yes | yes | Verified active, deployed, live canonical public surface with a maintained listing. (verified 2026-08-11) | `chess` | cloudflare pages `chess-9a0` (wrangler-direct; live) | — | 2026-08-11 |
 | Recipe Index | active | yes | no | The public test surface is live, but this remains a casual experiment without an approved portfolio listing. (verified 2026-08-15) | `recipe-dashboard` | cloudflare pages `veg-protein-food` (wrangler-direct; live) | — | 2026-08-15 |
 | Reddit Insights | active | yes | no | No maintained public listing is currently approved. (verified 2026-08-11) | `reddit-insights` | cloudflare pages `reddit-insights` (wrangler-direct; live)<br>cloudflare worker `reddit-proxy` (wrangler-direct; live)<br>cloudflare worker `reddit-insights-daily-collector` (wrangler-direct; configured-not-deployed) | cloudflare r2 `reddit-insights-archive` (configured-not-provisioned) | 2026-08-11 |
 
-### Archived — 13
+### Archived — 15
 
-#### Products — 1
+#### Products — 2
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
+| Mobile Dev Cockpit | archived | yes | no | The product is parked with no approved distribution; its retained Worker and container are inventory only. (verified 2026-08-20) | `mobile-dev-cockpit` | cloudflare worker `saasmaker-droid` (legacy-worker; live-retained) | cloudflare container `saasmaker-droid-sandbox` (retained) | 2026-08-20 |
 | SaaS Ideas | archived | yes | no | Archived projects are not ready for active sharing. (verified 2026-08-11) | `../fleet-inactive-projects/saas-ideas` | cloudflare pages `saas-ideas` (git-connected; live-retained) | — | 2026-08-11 |
 
-#### Experiments — 12
+#### Experiments — 13
 
 | Project | Status | Deployed | Ready to share | Readiness evidence | Repository | Deployment | Cloud resources | Updated |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
 | EverythingRated | archived | yes | no | Archived projects are not ready for active sharing. (verified 2026-08-11) | `../fleet-inactive-projects/everythingrated` | cloudflare worker `everythingrated` (wrangler-direct; live-retained) | cloudflare d1 `everythingrated-db` (retained) | 2026-08-11 |
 | Materia | archived | yes | no | Archived projects are not ready for active sharing. (verified 2026-08-11) | `../fleet-inactive-projects/materia` | cloudflare pages `materia` (wrangler-direct; live-retained) | — | 2026-08-11 |
+| Chess | archived | yes | no | Archived at the owner's request; the live surface is retained but is no longer an active sharing target. (verified 2026-08-20) | `../fleet-inactive-projects/chess` | cloudflare pages `chess-9a0` (wrangler-direct; live) | — | 2026-08-11 |
 | AliveVille | archived | yes | no | Archived projects are not ready for active sharing. (verified 2026-08-11) | `../fleet-inactive-projects/aliveville` | cloudflare pages `aliveville` (wrangler-direct; live-retained)<br>cloudflare worker `aliveville` (legacy-worker; live-retained-purpose-review) | cloudflare zone `aliveville.com` (active-config-derived) | 2026-08-11 |
 | Protein Index | archived | yes | no | Archived projects are not ready for active sharing. (verified 2026-08-11) | `../fleet-inactive-projects/protein-index` | cloudflare worker `protein-index` (wrangler-direct; live-retained) | cloudflare d1 `protein-index` (retained)<br>cloudflare r2 `protein-index-labels` (retained) | 2026-08-11 |
 | TrueHire | archived | no | no | Archived projects are not ready for active sharing. (verified 2026-08-11) | `../fleet-inactive-projects/truehire` | — | cloudflare d1 `truehire` (retained) | 2026-08-11 |

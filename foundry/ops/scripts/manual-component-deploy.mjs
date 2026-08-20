@@ -71,18 +71,6 @@ const components = {
       ],
     ],
   },
-  'reel-pipeline': {
-    root: 'foundry/marketing/reel-pipeline',
-    workflow: 'reel-pipeline-ci.yml',
-    tagWorker: true,
-    paths: [
-      'foundry/marketing/reel-pipeline',
-      'foundry/marketing/content-factory',
-      'foundry/ops/scripts/manual-component-deploy.mjs',
-      '.github/workflows/reel-pipeline-ci.yml',
-    ],
-    commands: [['npx', ['wrangler', 'deploy', '--config', 'wrangler.jsonc']]],
-  },
 };
 
 if (!components[componentId]) {

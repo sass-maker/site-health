@@ -166,14 +166,6 @@
       ]
     },
     {
-      "id": "chess",
-      "origin": "https://chess.significanthobbies.com",
-      "queries": [
-        { "qid": "chess-brand", "kind": "brand", "q": "chess.significanthobbies.com" },
-        { "qid": "chess-category", "kind": "category", "q": "browser chess Stockfish AI move coaching" }
-      ]
-    },
-    {
       "id": "email-manager",
       "origin": "https://mail.significanthobbies.com",
       "queries": [
@@ -227,6 +219,14 @@
       "queries": [
         { "qid": "research-papers-brand", "kind": "brand", "q": "papers.highsignal.app" },
         { "qid": "research-papers-category", "kind": "category", "q": "semantic academic paper search arXiv OpenReview bioRxiv medRxiv" }
+      ]
+    },
+    {
+      "id": "kith",
+      "origin": "https://kith.significanthobbies.com",
+      "queries": [
+        { "qid": "kith-brand", "kind": "brand", "q": "kith.significanthobbies.com" },
+        { "qid": "kith-category", "kind": "category", "q": "private iPhone relationship journal closeness reminders" }
       ]
     },
     {

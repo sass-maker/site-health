@@ -32,7 +32,6 @@ import {
   defaultSearchChangeReceiptPath,
   readSearchChangeReceipts,
 } from '../search-change-receipt-store.mjs';
-import { loadGrowthProgram } from '../growth-program.mjs';
 import {
   isDomainStrengthProject,
   isPublicMetricProject,
@@ -273,22 +272,10 @@ const BUCKETS = [
     components: ['public-directory'],
   },
   {
-    id: 'marketing',
-    label: 'Marketing',
-    purpose: 'Source-to-outcome production',
-    components: ['editorial', 'content-factory', 'reel-pipeline', 'postiz'],
-  },
-  {
-    id: 'packages',
-    label: 'Packages',
-    purpose: 'Reusable public contracts',
-    components: ['feedback'],
-  },
-  {
     id: 'dashboard',
     label: 'Fleet Console',
     purpose: 'Cross-bucket owner interfaces',
-    components: ['fleet-console', 'mobile-cockpit'],
+    components: ['fleet-console'],
   },
 ];
 
@@ -1244,38 +1231,6 @@ function citationSourceSummary(project) {
   };
 }
 
-function normalizeFeedbackSubmissions(submissions = [], projects = []) {
-  const projectIds = new Set(projects.map((project) => project.id));
-  return submissions
-    .flatMap((item) => {
-      const receivedAt = item?.receivedAt;
-      if (!receivedAt || !Number.isFinite(Date.parse(receivedAt))) return [];
-      const rawMessage = String(item?.message ?? '').replace(/\s+/g, ' ').trim();
-      const sensitive =
-        /(?:\/Users\/|\/home\/|\/private\/|[A-Za-z]:\\)/.test(rawMessage) ||
-        /(?:password|secret|credential|api[_ -]?key)\s*[:=]/i.test(rawMessage);
-      const message = sensitive
-        ? 'Feedback content withheld by the privacy filter.'
-        : rawMessage.slice(0, 500);
-      if (!message) return [];
-      const projectId = projectIds.has(item?.projectId) ? item.projectId : null;
-      const page = typeof item?.page === 'string' && item.page.startsWith('/') && !item.page.includes('..')
-        ? item.page.slice(0, 180)
-        : null;
-      return [{
-        id: String(item?.id ?? `feedback-${receivedAt}`).slice(0, 100),
-        projectId,
-        category: String(item?.category ?? 'Feedback').replace(/\s+/g, ' ').trim().slice(0, 80),
-        message,
-        page,
-        hasAttachment: item?.hasAttachment === true,
-        receivedAt,
-      }];
-    })
-    .sort((left, right) => Date.parse(right.receivedAt) - Date.parse(left.receivedAt))
-    .slice(0, 200);
-}
-
 function historicalSignal({ label, unit = null, direction = null, source = null, series = [] }) {
   const normalized = series
     .filter(
@@ -1500,100 +1455,10 @@ function latestOutcomeSignal(project, outcome, label) {
   };
 }
 
-function buildUserMetricsRows(projectOutputs, userMetricsByProject) {
-  return projectOutputs
-    .map((project) => {
-      const evidence = userMetricsByProject.get(project.projectId);
-      const family = evidence?.families?.['user-metrics'];
-      if (!family?.latest) {
-        return {
-          projectId: project.projectId,
-          name: project.name,
-          domain: project.domains?.[0] ?? null,
-          status: 'not-measured',
-          visitors: null,
-          identifiedUsers: null,
-          accounts: null,
-          newAccounts: null,
-          activationRate: null,
-          d1Retention: null,
-          d7Retention: null,
-          coreActions: null,
-          provider: null,
-          providers: [],
-          discrepancies: [],
-          observedAt: null,
-          period: null,
-        };
-      }
-      const latest = family.latest;
-      const byProvider = family.latestByProvider ?? {};
-      const providerList = Object.keys(byProvider).sort();
-      const metricByLabel = (label) => {
-        const series = family.metrics.get(label);
-        if (!series) return null;
-        const latestPoint = series.series?.[series.series.length - 1];
-        return latestPoint
-          ? { value: latestPoint.value, observedAt: latestPoint.observedAt, unit: series.unit }
-          : null;
-      };
-      // Surface PostHog-vs-D1 disagreement on shared metrics (e.g. Accounts)
-      const discrepancies = [];
-      const posthogLatest = byProvider['posthog-insights'];
-      const d1Latest = byProvider['d1-aggregate'];
-      if (posthogLatest && d1Latest) {
-        for (const label of ['Accounts']) {
-          const phMetric = posthogLatest.metrics.find((m) => m.label === label);
-          const d1Metric = d1Latest.metrics.find((m) => m.label === label);
-          if (phMetric && d1Metric) {
-            const phVal = Number(phMetric.value);
-            const d1Val = Number(d1Metric.value);
-            // Flag disagreement when values differ by more than 10%
-            const maxVal = Math.max(phVal, d1Val);
-            if (maxVal > 0) {
-              const diff = Math.abs(phVal - d1Val) / maxVal;
-              if (diff > 0.1) {
-                discrepancies.push({
-                  metric: label,
-                  posthogValue: phVal,
-                  d1Value: d1Val,
-                  variance: Number((diff * 100).toFixed(1)),
-                });
-              }
-            }
-          }
-        }
-      }
-      return {
-        projectId: project.projectId,
-        name: project.name,
-        domain: project.domains?.[0] ?? null,
-        status: 'observed',
-        visitors: metricByLabel('Visitors'),
-        identifiedUsers: metricByLabel('Identified users'),
-        accounts: metricByLabel('Accounts'),
-        newAccounts: metricByLabel('New accounts'),
-        activationRate: metricByLabel('Activation rate'),
-        d1Retention: metricByLabel('D1 retention'),
-        d7Retention: metricByLabel('D7 retention'),
-        coreActions: metricByLabel('Core actions'),
-        provider: latest.provider,
-        providers: providerList,
-        discrepancies,
-        observedAt: latest.observedAt,
-        period: latest.period,
-      };
-    })
-    .sort((left, right) => left.name.localeCompare(right.name));
-}
-
 function buildOwnerOutcomeProjection({
   projectOutputs,
-  marketing,
-  growthProgram,
   latestIndexingRequestByProject,
   latestSearchChangeByProject,
-  visibilityOutcomes,
 }) {
   const publicProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.publicSite === true,
@@ -1603,9 +1468,6 @@ function buildOwnerOutcomeProjection({
   );
   const domainProjects = projectOutputs.filter(
     (project) => project.metricEligibility?.domainCoverage === true,
-  );
-  const userMetricsByProject = new Map(
-    (visibilityOutcomes ?? []).map((project) => [project.projectId, project]),
   );
   const domainGroups = new Map();
   for (const project of domainProjects) {
@@ -1636,46 +1498,6 @@ function buildOwnerOutcomeProjection({
     }
     domainGroups.set(domain, current);
   }
-
-  const recommendations = marketing?.recommendations ?? [];
-  const outcomes = marketing?.outcomes ?? marketing?.receipts ?? [];
-  const marketingRows = publicProjects.map((project) => {
-    const projectRecommendations = recommendations.filter(
-      (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
-    );
-    const projectOutcomes = outcomes
-      .filter(
-        (item) => item.projectId === project.catalogProjectId || item.projectId === project.projectId,
-      )
-      .sort((left, right) => Date.parse(right.observedAt) - Date.parse(left.observedAt));
-    const traffic = project.webTraffic?.outcome ?? null;
-    const posts = projectOutcomes.slice(0, 20).map((item) => ({
-      id: item.id ?? null,
-      title: item.title ?? null,
-      provider: item.provider ?? null,
-      stage: item.stage ?? null,
-      status: item.status ?? 'recorded',
-      observedAt: item.observedAt ?? null,
-      url: item.url ?? null,
-    }));
-    return {
-      projectId: project.projectId,
-      name: project.name,
-      domain: project.domains[0] ?? null,
-      posts,
-      postCount: projectOutcomes.length,
-      positioning: project.description ? 'ready' : 'missing',
-      description: project.description,
-      recommendationCount: projectRecommendations.length,
-      latestOutcome: projectOutcomes[0] ?? null,
-      outcomeCount: projectOutcomes.length,
-      status: projectOutcomes.length > 0 ? 'marketed' : 'never-marketed',
-      visits: latestFamilySignal(project, traffic, 'Web visits'),
-      pageViews: latestFamilySignal(project, traffic, 'Web page views'),
-      searchReferrals: latestFamilySignal(project, traffic, 'Search referral visits'),
-      traffic,
-    };
-  });
 
   const performanceThresholds = {
     psiScore: 90,
@@ -1796,107 +1618,6 @@ function buildOwnerOutcomeProjection({
     };
   });
 
-  const projectById = new Map(projectOutputs.map((project) => [project.projectId, project]));
-  const searchById = new Map(searchRows.map((row) => [row.projectId, row]));
-  const marketingById = new Map(marketingRows.map((row) => [row.projectId, row]));
-  const growthModeOrder = new Map([
-    ['focus', 0],
-    ['maintain', 1],
-    ['observe', 2],
-  ]);
-  const growthRows = growthProgram.allocations.map((allocation) => {
-    const project = projectById.get(allocation.projectId);
-    const search = searchById.get(allocation.projectId) ?? null;
-    const market = marketingById.get(allocation.projectId) ?? null;
-    const change = search?.searchChangeReceipt ?? null;
-    const latestPost = market?.posts?.[0] ?? null;
-    const trafficObservedAt = market?.traffic?.observedAt ?? null;
-    return {
-      projectId: allocation.projectId,
-      name: project?.name ?? allocation.projectId,
-      domain: project?.domains?.[0] ?? null,
-      mode: allocation.mode,
-      target: allocation.target,
-      intervention: change ? {
-        actionId: change.actionId,
-        query: change.query,
-        landingPage: change.landingPage,
-        revision: change.revision,
-        changedAt: change.changedAt,
-      } : null,
-      search: search ? {
-        status: search.status,
-        impressions: search.impressions,
-        clicks: search.clicks,
-        averagePosition: search.averagePosition,
-        observedAt: search.observedAt,
-        period: search.period,
-        providerUrl: search.providerUrl,
-      } : {
-        status: 'not-measured',
-        impressions: null,
-        clicks: null,
-        averagePosition: null,
-        observedAt: null,
-        period: null,
-        providerUrl: null,
-      },
-      traffic: {
-        visits: market?.visits ?? null,
-        pageViews: market?.pageViews ?? null,
-        searchReferrals: market?.searchReferrals ?? null,
-        observedAt: trafficObservedAt,
-        providerUrl: market?.traffic?.providerUrl ?? null,
-      },
-      marketing: {
-        status: market?.status ?? 'never-marketed',
-        postCount: market?.postCount ?? 0,
-        latest: latestPost ? {
-          title: latestPost.title ?? null,
-          provider: latestPost.provider ?? null,
-          status: latestPost.status ?? 'recorded',
-          observedAt: latestPost.observedAt ?? null,
-          url: latestPost.url ?? null,
-        } : null,
-      },
-      links: {
-        acknowledgedSubmissions: allocation.directoryAttempts?.acknowledgedSubmissions ?? 0,
-        submissionObservedAt: allocation.directoryAttempts?.observedAt ?? null,
-        evidenceClass: allocation.directoryAttempts?.evidenceClass ?? 'not-recorded',
-        verifiedCount: allocation.verifiedLinks.length,
-        verified: allocation.verifiedLinks,
-        earnedStatus: allocation.verifiedLinks.length > 0 ? 'verified' : 'not-measured',
-      },
-      commercial: {
-        conversions: { status: 'not-connected', owner: growthProgram.attribution.conversions },
-        revenue: { status: 'not-connected', owner: growthProgram.attribution.revenue },
-      },
-      attribution: {
-        search: growthProgram.attribution.search,
-        traffic: growthProgram.attribution.traffic,
-        causality: growthProgram.attribution.causality,
-      },
-      next: search?.action ?? {
-        id: 'measure-search',
-        label: 'Measure now',
-        stage: 'measure',
-        reason: 'No completed Google Search observation is available.',
-        priority: 7,
-      },
-      observedAt: newestTimestamp([
-        search?.observedAt,
-        trafficObservedAt,
-        latestPost?.observedAt,
-        change?.changedAt,
-        allocation.directoryAttempts?.observedAt,
-        ...allocation.verifiedLinks.map((link) => link.observedAt),
-      ]),
-    };
-  }).sort((left, right) => {
-    const modeDifference = growthModeOrder.get(left.mode) - growthModeOrder.get(right.mode);
-    return modeDifference || left.name.localeCompare(right.name);
-  });
-
   const coreAiRows = publicProjects
     .filter((project) => project.priority === 'P1' && project.lifecycle === 'maintained')
     .map((project) => {
@@ -1967,12 +1688,9 @@ function buildOwnerOutcomeProjection({
       observed: observedAiProjects,
       unobserved: unobservedAiProjects,
     },
-    marketing: marketingRows.sort((left, right) => left.name.localeCompare(right.name)),
     performance: performanceRows.sort((left, right) => left.name.localeCompare(right.name)),
     search: searchRows.sort((left, right) => left.name.localeCompare(right.name)),
-    growth: growthRows,
     performanceThresholds,
-    userMetrics: buildUserMetricsRows(projectOutputs, userMetricsByProject),
   };
 }
 
@@ -2661,40 +2379,11 @@ function buildImprovementActions({ projectOutputs, connections }) {
     .slice(0, 12);
 }
 
-function attachImprovementWork(actions, missions) {
-  const activeStates = new Set([
-    'accepted',
-    'active',
-    'blocked',
-    'awaiting-verification',
-  ]);
-  const activeMissions = (missions ?? []).filter((mission) => activeStates.has(mission.state));
-  return actions.map((action) => {
-    const mission = action.projectId
-      ? activeMissions.find((candidate) => candidate.projectId === action.projectId)
-      : null;
-    return {
-      ...action,
-      work: mission
-        ? {
-            missionId: mission.id,
-            state: mission.state,
-            outcome: mission.outcome,
-            updatedAt: mission.updatedAt,
-            ownerPath: `/missions?id=${encodeURIComponent(mission.id)}`,
-          }
-        : null,
-    };
-  });
-}
-
 export function buildFleetConnections({
   fleetRoot = resolve(import.meta.dirname, '../../../..'),
   home = process.env.HOME ?? '',
   now = new Date().toISOString(),
   marketing = null,
-  missions = [],
-  feedbackSubmissions = [],
 } = {}) {
   const projectCatalog = readJson(
     resolve(fleetRoot, 'foundry/ops/config/projects.json'),
@@ -2705,15 +2394,6 @@ export function buildFleetConnections({
     priority: project.portfolio?.priority ?? null,
   }));
   const rootSearchQueries = validatedRootSearchQueries(fleetRoot, projectCatalog);
-  const growthProgram = loadGrowthProgram({
-    fleetRoot,
-    projectCatalog,
-    marketingProgram: readJson(
-      resolve(fleetRoot, 'foundry/ops/config/marketing-program.json'),
-      { focusSet: [], projects: [] },
-    ),
-    rootSearchQueries,
-  });
   const searchProjects = searchConsoleProjects(projectCatalog, rootSearchQueries);
   const searchConsoleProjectIds = new Set(searchProjects.map((project) => project.id));
   const drank = drankEvidence(fleetRoot, now);
@@ -2744,10 +2424,6 @@ export function buildFleetConnections({
     return latest ? [{ ...project, latest }] : [];
   });
   const configuredAiProjects = visibleAiProjects.length;
-  const normalizedFeedback = normalizeFeedbackSubmissions(
-    feedbackSubmissions,
-    maintainedProjects,
-  );
   const maintainedProjectIds = new Set(maintainedProjects.map((project) => project.id));
   const drankDomains = new Set(
     drank.domains.map((entry) => normalizedDomain(entry.domain)).filter(Boolean),
@@ -2778,15 +2454,6 @@ export function buildFleetConnections({
       ownerPath: '/marketing',
       freshness: measuredAiProjects.length > 0 ? 'fresh' : 'unknown',
     },
-    {
-      id: 'feedback',
-      name: 'Feedback',
-      bucketId: 'packages',
-      status: 'partial',
-      headline: 'The widget contract and Console inbox exist; no Fleet ingestion supplies submissions.',
-      ownerPath: '/connections#bucket-packages',
-      freshness: 'not-applicable',
-    },
     pathComponent({
       id: 'fleet-skills',
       name: 'Fleet skills',
@@ -2807,16 +2474,6 @@ export function buildFleetConnections({
       ownerPath: '/connections#skill-runs',
       freshness: skills.freshness ?? 'unavailable',
     },
-    pathComponent({
-      id: 'mobile-cockpit',
-      name: 'Mobile Dev Cockpit',
-      bucketId: 'dashboard',
-      path: 'foundry/apps/dashboard/mobile-cockpit',
-      root: fleetRoot,
-      headline: 'Internal local-only mobile client; its product future remains undecided.',
-      ownerPath: '/connections#bucket-dashboard',
-      audience: 'internal',
-    }),
     pathComponent({
       id: 'public-directory',
       name: 'Public Directory',
@@ -2847,48 +2504,6 @@ export function buildFleetConnections({
         : 'Performance history is unavailable on this machine.',
       ownerPath: '/connections#domain-intelligence',
       freshness: psi.freshness,
-    },
-    pathComponent({
-      id: 'editorial',
-      name: 'Editorial',
-      bucketId: 'marketing',
-      path: 'foundry/marketing/reel-pipeline/editorial',
-      root: fleetRoot,
-      headline: 'Editorial commands and contracts feed Reel Pipeline.',
-      ownerPath: '/marketing',
-    }),
-    pathComponent({
-      id: 'content-factory',
-      name: 'Content Factory',
-      bucketId: 'marketing',
-      path: 'foundry/marketing/content-factory',
-      root: fleetRoot,
-      headline: 'Package and rendering commands feed Reel Pipeline.',
-      ownerPath: '/marketing',
-    }),
-    {
-      ...pathComponent({
-        id: 'reel-pipeline',
-        name: 'Reel Pipeline',
-        bucketId: 'marketing',
-        path: 'foundry/marketing/reel-pipeline',
-        root: fleetRoot,
-        headline: 'Internal marketing pipeline; proof and readiness evidence reach the Marketing view.',
-        ownerPath: '/marketing',
-        audience: 'internal',
-      }),
-      status: existsSync(resolve(fleetRoot, 'foundry/marketing/reel-pipeline'))
-        ? 'partial'
-        : 'unavailable',
-    },
-    {
-      id: 'postiz',
-      name: 'Postiz handoff',
-      bucketId: 'marketing',
-      status: 'partial',
-      headline: 'Draft, publication, and analytics receipt contracts exist; live operation stays gated.',
-      ownerPath: '/marketing',
-      freshness: 'unknown',
     },
     {
       id: 'fleet-console',
@@ -2970,9 +2585,9 @@ export function buildFleetConnections({
       consumer: 'fleet-console',
       transport: 'Normalized visibility ledger',
       status: configuredAiProjects > 0 ? 'connected' : 'partial',
-      detail: 'History, cost, citations, and recommendations reach Marketing.',
+      detail: 'History, cost, citations, and recommendations reach AI awareness.',
       evidence: evidence.ai,
-      ownerPath: '/marketing',
+      ownerPath: '/ai-awareness',
       priority: 20,
     }),
     connection({
@@ -2998,46 +2613,6 @@ export function buildFleetConnections({
       priority: 20,
     }),
     connection({
-      id: 'editorial-to-reel',
-      provider: 'editorial',
-      consumer: 'reel-pipeline',
-      transport: 'Editorial commands and content contracts',
-      status: components.get('editorial').status === 'connected' ? 'connected' : 'unavailable',
-      detail: 'Source-backed editorial packages enter the rendering pipeline.',
-      ownerPath: '/marketing',
-      priority: 30,
-    }),
-    connection({
-      id: 'content-factory-to-reel',
-      provider: 'content-factory',
-      consumer: 'reel-pipeline',
-      transport: 'Sibling scripts and manifest fixtures',
-      status: components.get('content-factory').status === 'connected' ? 'connected' : 'unavailable',
-      detail: 'Package and rendering commands execute against Reel Pipeline.',
-      ownerPath: '/marketing',
-      priority: 30,
-    }),
-    connection({
-      id: 'reel-to-console',
-      provider: 'reel-pipeline',
-      consumer: 'fleet-console',
-      transport: 'Marketing registry, proof, and readiness summaries',
-      status: 'partial',
-      detail: 'Readiness is visible; one queue-to-outcome state model is not complete.',
-      ownerPath: '/marketing',
-      priority: 60,
-    }),
-    connection({
-      id: 'postiz-to-marketing',
-      provider: 'postiz',
-      consumer: 'reel-pipeline',
-      transport: 'Draft, publication, and analytics receipts',
-      status: 'partial',
-      detail: 'Receipt contracts exist while live scheduling remains deliberately gated.',
-      ownerPath: '/marketing',
-      priority: 60,
-    }),
-    connection({
       id: 'skills-to-runtimes',
       provider: 'fleet-skills',
       consumer: 'agent-runtimes',
@@ -3059,16 +2634,6 @@ export function buildFleetConnections({
       priority: 15,
     }),
     connection({
-      id: 'feedback-to-ingestion',
-      provider: 'feedback',
-      consumer: 'fleet-feedback-ingestion',
-      transport: 'No Fleet-owned transport',
-      status: 'missing',
-      detail: 'The widget accepts onSubmit or ingestionUrl; no Fleet endpoint receives and retains submissions.',
-      ownerPath: '/connections#feedback-to-ingestion',
-      priority: 100,
-    }),
-    connection({
       id: 'public-workflows-to-console',
       provider: 'public-workflows',
       consumer: 'fleet-console',
@@ -3080,26 +2645,6 @@ export function buildFleetConnections({
       evidence: workflows.summaries,
       ownerPath: '/connections#public-evidence',
       priority: 15,
-    }),
-    connection({
-      id: 'mobile-to-operations',
-      provider: 'mobile-cockpit',
-      consumer: 'fleet-operations',
-      transport: 'Authenticated local bridge and allowlisted commands',
-      status: components.get('mobile-cockpit').status,
-      detail: 'The mobile client can inspect and operate configured projects.',
-      ownerPath: '/connections#mobile-to-operations',
-      priority: 30,
-    }),
-    connection({
-      id: 'console-to-mobile',
-      provider: 'fleet-console',
-      consumer: 'mobile-cockpit',
-      transport: 'No first-class mobile dashboard consumer',
-      status: 'missing',
-      detail: 'Fleet Console connection state is not yet presented inside Mobile Cockpit.',
-      ownerPath: '/connections#console-to-mobile',
-      priority: 80,
     }),
   ];
 
@@ -3130,17 +2675,10 @@ export function buildFleetConnections({
   });
   const ownerOutcomes = buildOwnerOutcomeProjection({
     projectOutputs,
-    marketing,
-    growthProgram,
     latestIndexingRequestByProject,
     latestSearchChangeByProject,
-    visibilityOutcomes,
   });
-  const improvements = attachImprovementWork(
-    buildImprovementActions({ projectOutputs, connections }),
-    missions,
-  );
-  const activeImprovementActions = improvements.filter((item) => item.work);
+  const improvements = buildImprovementActions({ projectOutputs, connections });
   const producingProjects = projectOutputs.filter((project) => project.produced.length > 0);
   const successfulSkillRuns = skills.history.reduce(
     (total, period) => total + period.succeeded,
@@ -3195,18 +2733,10 @@ export function buildFleetConnections({
       recentRuns: skills.recent,
       skillRuns: skills.runs,
       skillHistoryByProject: skills.projectHistory,
-      feedback: {
-        total: normalizedFeedback.length,
-        submissions: normalizedFeedback,
-      },
       ownerOutcomes,
       projects: projectOutputs,
       history: skills.history,
       improvements,
-      improvementWork: {
-        activeActions: activeImprovementActions.length,
-        notStartedActions: improvements.length - activeImprovementActions.length,
-      },
       boundaries: {
         aiVisibility: {
           status: measuredAiProjects.length > 0 ? 'producing' : 'baseline-missing',
@@ -3216,18 +2746,6 @@ export function buildFleetConnections({
             measuredAiProjects.length > 0
               ? 'Provider-backed project observations are available.'
               : 'Configured projects have fixture canaries only; real outcomes are not measured.',
-        },
-        feedback: {
-          status: normalizedFeedback.length > 0 ? 'producing' : 'empty',
-          value: normalizedFeedback.length,
-          detail: normalizedFeedback.length > 0
-            ? `${normalizedFeedback.length} sanitized submission${normalizedFeedback.length === 1 ? '' : 's'} available.`
-            : 'No feedback submissions are available.',
-        },
-        marketing: {
-          status: 'unmeasured',
-          value: null,
-          detail: 'No unified render-to-outcome receipt count is available.',
         },
       },
     },

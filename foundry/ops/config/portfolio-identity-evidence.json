@@ -30,14 +30,14 @@
       "meaningfulCta": "Tailor a resume or browse jobs.",
       "activation": {
         "kind": "first_successful_tailor",
-        "evidenceSource": "posthog-4-event-taxonomy",
-        "events": ["signup", "activated", "core_action:tailor_completed", "returned"],
-        "sanitizedFields": ["project_id", "action", "distinctId"],
-        "privatePayloadExcluded": true
+        "evidenceSource": "none",
+        "sanitizedFields": [],
+        "privatePayloadExcluded": true,
+        "notes": "Product analytics is outside Fleet; the activation definition remains product context only."
       },
       "indexing": ["llms.txt", "llms-full.txt", "sitemap", "robots.txt", "/api/ai"],
       "errorEvidence": "foundry-monitoring (captureError, capturePageCrash, captureAuthFailure) + error.tsx + global-error.tsx",
-      "privacy": "resume/JD/stash/cover-letter/apply-packet stored in D1 per user; activation events carry project_id + action + distinctId only"
+      "privacy": "resume/JD/stash/cover-letter/apply-packet remains product-owned; Fleet collects no user analytics"
     },
     {
       "id": "karte",
@@ -48,14 +48,14 @@
       "meaningfulCta": "Create an AI profile.",
       "activation": {
         "kind": "first_published_profile_or_generated_mode",
-        "evidenceSource": "posthog-4-event-taxonomy",
-        "events": ["signup", "activated", "core_action:page_published", "core_action:mode_generated", "returned"],
-        "sanitizedFields": ["project_id", "action"],
-        "privatePayloadExcluded": true
+        "evidenceSource": "none",
+        "sanitizedFields": [],
+        "privatePayloadExcluded": true,
+        "notes": "Product analytics is outside Fleet; the activation definition remains product context only."
       },
       "indexing": ["llms.txt", "llms-full.txt", "sitemap", "robots.txt", "/api/ai", "index.md"],
       "errorEvidence": "foundry-monitoring (captureError, capturePageCrash) + error.tsx + global-error.tsx",
-      "privacy": "profile/chat/contact/mode content stored in Turso/D1/R2 per user; activation events carry project_id + action only"
+      "privacy": "profile/chat/contact/mode content remains product-owned; Fleet collects no user analytics"
     }
   ],
   "forbiddenPayloadFields": [

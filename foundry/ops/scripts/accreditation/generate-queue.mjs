@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 import process from 'node:process';
 
@@ -12,7 +13,10 @@ import { ACCREDITATION_STATE_PATH, readAccreditationState } from '../../lib/accr
 import { AUDIENCE_FIT_PATH, readAudienceFit } from '../../lib/audience-fit.mjs';
 
 const opsRoot = resolve(import.meta.dirname, '../..');
-const fleetRoot = resolve(opsRoot, '../..');
+const defaultOutDir = resolve(
+  homedir(),
+  'Library/Application Support/Fleet Ops/accreditation',
+);
 
 const USAGE = `Usage: generate-queue.mjs [--state <path>] [--projects <path>]
        [--audience-fit <path>] [--out-dir <path>] [--date <YYYY-MM-DD>]
@@ -43,8 +47,8 @@ try {
   if (args.includes('--stdout')) {
     process.stdout.write(markdown);
   } else {
-    const outDir = resolve(option('--out-dir', resolve(fleetRoot, 'campaign-manifests/out')));
-    mkdirSync(outDir, { recursive: true });
+    const outDir = resolve(option('--out-dir', defaultOutDir));
+    mkdirSync(outDir, { recursive: true, mode: 0o700 });
     const outPath = resolve(outDir, accreditationQueueFilename(date));
     writeFileSync(outPath, markdown);
     process.stdout.write(

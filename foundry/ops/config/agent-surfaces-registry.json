@@ -702,41 +702,6 @@
       "indexMd": "# Anime List\n\nAnime/manga discovery with multi-axis filtering and watchlists.\n\n## Note for agents\n\nThe UI is a client SPA. Prefer this markdown and `/api/ai` over scraping HTML shells.\n\n## Agent entrypoints\n\n- https://anime.significanthobbies.com/llms.txt\n- https://anime.significanthobbies.com/api/ai\n- https://anime.significanthobbies.com/index.md\n"
     },
     {
-      "id": "chess",
-      "name": "Chess Coach",
-      "url": "https://chess.significanthobbies.com",
-      "summary": "AI-coached chess game for practice with coaching feedback.",
-      "publicDir": "chess/public",
-      "stack": "spa-static",
-      "headFile": "chess/index.html",
-      "schemaType": "WebSite",
-      "sameAs": [
-        "https://github.com/Significant-Hobbies/chess"
-      ],
-      "productLinks": [
-        {
-          "title": "Home",
-          "url": "https://chess.significanthobbies.com/",
-          "description": "Play (SPA)"
-        },
-        {
-          "title": "FAQ",
-          "url": "https://chess.significanthobbies.com/faq",
-          "md": "https://chess.significanthobbies.com/faq.md",
-          "description": "Engine, coaching, privacy, and pricing questions",
-          "markdown": "# Chess Coach FAQ\n\nChess Coach combines a browser-local Stockfish 18 engine with optional, on-demand AI explanations. No account is required. Stockfish runs as WebAssembly inside a Web Worker; the static production deployment does not expose the development-only AI proxy.\n"
-        },
-        {
-          "title": "Changelog",
-          "url": "https://chess.significanthobbies.com/changelog",
-          "md": "https://chess.significanthobbies.com/changelog.md",
-          "description": "Verified reliability, discovery, and learning updates",
-          "markdown": "# Chess Coach changelog\n\nVerified updates to browser-based chess practice, reliability, and learning. The current public history covers reliable Stockfish startup, better search and sharing context, and the focused chess-practice board.\n"
-        }
-      ],
-      "indexMd": "# Chess Coach\n\nBrowser-based chess practice against Stockfish 18 with optional, on-demand AI explanations.\n\n## What is included\n\n- Six engine levels, configurable clocks, hints, undo, and board flip\n- Real-time evaluation and move-quality badges\n- Local game persistence with no account\n- Optional explanations from a configured cloud provider or a local development bridge\n\nStockfish runs locally in a Web Worker. The static production deployment does not expose the development-only AI proxy.\n\n## Agent entrypoints\n\n- https://chess.significanthobbies.com/llms.txt\n- https://chess.significanthobbies.com/index.md\n- https://chess.significanthobbies.com/api/ai\n"
-    },
-    {
       "id": "reader",
       "name": "Reader",
       "url": "https://read.significanthobbies.com",
@@ -1055,6 +1020,44 @@
       ],
       "generateSitemap": true,
       "indexMd": "# Memory Map\n\nPrivate, browser-local analysis of a ChatGPT export.\n\n## What it does\n\n- Parses the official export ZIP in the browser\n- Builds evidence-linked activity, topic, repeat, and change views\n- Keeps conversations away from an application server\n- Offers optional browser-local semantic models and Memory Chat\n\n## Agent entrypoints\n\n- https://chatgpt.significanthobbies.com/llms.txt\n- https://chatgpt.significanthobbies.com/api/ai\n- https://chatgpt.significanthobbies.com/index.md\n"
+    },
+    {
+      "id": "kith",
+      "name": "Kith",
+      "url": "https://kith.significanthobbies.com",
+      "summary": "A private iPhone relationship journal for staying intentionally close to the people who matter.",
+      "publicDir": "kith/site/public",
+      "stack": "astro-static",
+      "headFile": "kith/site/src/layouts/SiteLayout.astro",
+      "schemaType": "WebSite",
+      "sameAs": [
+        "https://github.com/Significant-Hobbies/kith"
+      ],
+      "hasDynamicLlms": true,
+      "skipLlmsOverwrite": true,
+      "productLinks": [
+        {
+          "title": "Home",
+          "url": "https://kith.significanthobbies.com/",
+          "description": "Product overview and private relationship-journal boundary"
+        },
+        {
+          "title": "Privacy",
+          "url": "https://kith.significanthobbies.com/privacy/",
+          "description": "Private data handling"
+        },
+        {
+          "title": "Support",
+          "url": "https://kith.significanthobbies.com/support/",
+          "description": "Support and feedback guidance"
+        },
+        {
+          "title": "TestFlight",
+          "url": "https://kith.significanthobbies.com/testflight/",
+          "description": "Current distribution status without an App Store claim"
+        }
+      ],
+      "indexMd": "# Kith\n\nA private iPhone relationship journal for staying intentionally close to the people who matter.\n\n## Public boundary\n\n- The public site explains the product, privacy, support, accessibility, terms, and distribution status.\n- Relationship notes, people, logs, and reminders remain private app data.\n- The site does not claim App Store or public TestFlight availability.\n\n## Agent entrypoints\n\n- https://kith.significanthobbies.com/llms.txt\n- https://kith.significanthobbies.com/api/ai\n- https://kith.significanthobbies.com/index.md\n"
     },
     {
       "id": "setline",

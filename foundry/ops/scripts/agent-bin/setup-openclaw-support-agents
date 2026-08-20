@@ -106,7 +106,7 @@ project_workspace() {
       printf '%s\n' "$FLEET_ROOT/foundry/ops/agents/research"
       ;;
     reel-pipeline)
-      printf '%s\n' "$FLEET_ROOT/foundry/marketing/reel-pipeline"
+      printf '%s\n' "$FLEET_ROOT/reel-pipeline"
       ;;
     drank)
       printf '%s\n' "$FLEET_ROOT/foundry/helpers/drank"

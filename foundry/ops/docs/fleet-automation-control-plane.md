@@ -13,12 +13,12 @@ and its owner remain responsible for completing the work.
 
 After handoff, the control plane has three responsibilities:
 
-1. **Measure** product health and outcomes: availability, speed, activation,
-   usage, errors, retention, jobs, API behavior, and attribution.
+1. **Verify** shared operational contracts: availability, speed, errors, jobs,
+   API behavior, indexing, and deployment evidence.
 2. **Market** verified products through indexing, directories, reusable
    content, approved distribution, and bounded experiments.
-3. **Understand feedback** by combining explicit feedback, support signals,
-   behavioral evidence, and experiment results into themes and recommendations.
+3. **Understand feedback** from explicit submissions and support signals while
+   leaving behavioral and product analytics with an independent owner.
 
 Recommendations and reviewable tasks flow back to the product owner. The
 control plane does not autonomously choose or implement product features.

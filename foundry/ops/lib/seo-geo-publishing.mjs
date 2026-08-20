@@ -281,7 +281,7 @@ function renderPublishingIntroduction(program, projects, plans) {
     '',
     '**Source of truth:** `foundry/ops/config/seo-geo-publishing.json`',
     '',
-    'This is the current external publishing strategy, not a completion tracker or permission to mass-submit. External URLs and outcomes belong in `growth-program.json`, the existing submission receipts, or GitHub Issues. Actual P2 execution remains limited to at most five projects per work cycle.',
+    'This is the current external publishing strategy, not a completion tracker or permission to mass-submit. External URLs and outcomes belong in the existing submission receipts or GitHub Issues. Actual P2 execution remains limited to at most five projects per work cycle.',
     '',
     '## How to read execution and content ownership',
     '',

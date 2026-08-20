@@ -10,57 +10,28 @@ import {
 } from '../lib/founder-control/service.mjs';
 import { FounderControlStore } from '../lib/founder-control/store.mjs';
 
-test('projects only explicit marketing receipts into the owner coverage view', () => {
-  const projection = buildMarketingProjection({
-    generatedAt: '2026-07-31T10:00:00.000Z',
-    recommendations: [],
-    aiVisibility: { projects: [] },
-    activity: [
-      {
-        id: 'publish-1',
-        projectId: 'pace',
-        missionId: 'mission-1',
-        summary: 'Marketing publication receipt',
-        occurredAt: '2026-07-31T09:00:00.000Z',
-        evidence: [{
-          provider: 'postiz',
-          state: 'published',
-          summary: 'Pace launch note',
-          url: 'https://example.com/post/1',
-        }],
-      },
-      {
-        id: 'ordinary-event',
-        projectId: 'pace',
-        summary: 'Project evidence updated',
-        occurredAt: '2026-07-31T09:30:00.000Z',
-        evidence: [],
-      },
-    ],
-  }, {
-    eligible: [],
-    scheduleIntent: { enabled: false },
-  });
-
-  assert.deepEqual(projection.outcomes, [{
-    id: 'publish-1',
-    projectId: 'pace',
-    missionId: 'mission-1',
-    stage: 'publication',
-    status: 'published',
-    provider: 'postiz',
-    title: 'Pace launch note',
-    observedAt: '2026-07-31T09:00:00.000Z',
-    url: 'https://example.com/post/1',
-  }]);
+const emptyVisibilityPortfolio = { eligible: [], scheduleIntent: { enabled: false } };
+const emptyConnections = () => ({
+  schemaVersion: 'fleet.connections.v1',
+  generatedAt: '2026-07-25T08:00:00.000Z',
+  outputs: { ownerOutcomes: {} },
 });
 
-test('serves owner views and rejects unauthenticated mutations', async (context) => {
+function startTestService(options) {
+  return startFounderControlService({ visibilityPortfolio: emptyVisibilityPortfolio, ...options });
+}
+
+test('serves evidence views, rejects unauthenticated mutations, and retires workflow routes', async (context) => {
   const store = new FounderControlStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'service.sqlite'),
     projects: [{ id: 'codevetter', name: 'CodeVetter', attention: 'focus' }],
   });
-  const server = await startFounderControlService({ store, port: 0, ownerToken: 'test-owner-token' });
+  const server = await startTestService({
+    store,
+    port: 0,
+    ownerToken: 'test-owner-token',
+    connectionsProvider: emptyConnections,
+  });
   context.after(
     () =>
       new Promise((resolve) => {
@@ -73,27 +44,13 @@ test('serves owner views and rejects unauthenticated mutations', async (context)
   const base = `http://127.0.0.1:${server.address().port}`;
 
   assert.equal((await fetch(`${base}/health`)).status, 200);
-  const denied = await fetch(`${base}/v1/missions/draft`, {
+  const denied = await fetch(`${base}/v1/projections/rebuild`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ title: 'Denied' }),
   });
   assert.equal(denied.status, 401);
   assert.equal(store.listEvents().length, 0);
 
-  const created = await fetch(`${base}/v1/missions/draft`, {
-    method: 'POST',
-    headers: {
-      authorization: 'Bearer test-owner-token',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({ title: 'Verify CodeVetter', projectId: 'codevetter' }),
-  });
-  assert.equal(created.status, 201);
-  const mission = await created.json();
-  assert.equal(mission.state, 'draft');
-  const missionPath = encodeURIComponent(mission.id);
-  const accepted = await fetch(`${base}/v1/missions/${missionPath}/accept`, {
+  const rebuilt = await fetch(`${base}/v1/projections/rebuild`, {
     method: 'POST',
     headers: {
       authorization: 'Bearer test-owner-token',
@@ -101,21 +58,9 @@ test('serves owner views and rejects unauthenticated mutations', async (context)
     },
     body: '{}',
   });
-  assert.equal((await accepted.json()).state, 'accepted');
-  const started = await fetch(`${base}/v1/missions/${missionPath}/start`, {
-    method: 'POST',
-    headers: {
-      authorization: 'Bearer test-owner-token',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      actor: { type: 'agent', id: 'codex', label: 'Codex' },
-      idempotencyKey: 'service-test/start',
-    }),
-  });
-  const activeMission = await started.json();
-  assert.equal(activeMission.state, 'active');
-  assert.equal(activeMission.actor.id, 'codex');
+  assert.equal(rebuilt.status, 200);
+  assert.equal((await fetch(`${base}/v1/missions`)).status, 404);
+  assert.equal((await fetch(`${base}/v1/decisions`)).status, 404);
   assert.equal((await fetch(`${base}/v1/home`)).status, 200);
 });
 
@@ -123,7 +68,7 @@ test('fails closed when no mutation authentication boundary is configured', asyn
   const store = new FounderControlStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'closed.sqlite'),
   });
-  const server = await startFounderControlService({ store, port: 0 });
+  const server = await startTestService({ store, port: 0 });
   context.after(
     () =>
       new Promise((resolve) => {
@@ -151,7 +96,7 @@ test('serves the read-only connection projection without mutation credentials', 
     connections: [],
     evidence: {},
   };
-  const server = await startFounderControlService({
+  const server = await startTestService({
     store,
     port: 0,
     connectionsProvider: () => expected,
@@ -292,87 +237,6 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
           ctr: { value: 6.67, series: [{ value: 5 }] },
           averagePosition: { value: 14.2, series: [{ value: 16 }] },
         }],
-        growth: [{
-          projectId: 'site',
-          name: 'Site',
-          domain: 'site.example',
-          mode: 'focus',
-          target: {
-            queryId: 'site-category',
-            query: 'private fixture query',
-            destination: 'https://site.example/compare',
-          },
-          intervention: {
-            actionId: 'strengthen-ranking-page',
-            query: 'private fixture query',
-            landingPage: 'javascript:alert(1)',
-            revision: 'abc123',
-            changedAt: '2026-07-30T08:00:00.000Z',
-          },
-          search: {
-            status: 'measured',
-            impressions: { value: 120, series: [{ value: 100 }] },
-            clicks: { value: 8, series: [{ value: 6 }] },
-            averagePosition: { value: 14.2, series: [{ value: 16 }] },
-            observedAt: '2026-07-30T09:00:00.000Z',
-            period: {
-              start: '2026-07-01T00:00:00.000Z',
-              end: '2026-07-30T23:59:59.000Z',
-            },
-            providerUrl: 'https://search.google.com/search-console/',
-          },
-          traffic: {
-            visits: { value: 240, series: [{ value: 180 }] },
-            pageViews: { value: 380, series: [{ value: 300 }] },
-            searchReferrals: { value: 44, series: [{ value: 30 }] },
-            observedAt: '2026-07-30T09:00:00.000Z',
-            providerUrl: 'https://dash.cloudflare.com/account/zone/analytics/traffic',
-          },
-          marketing: {
-            status: 'marketed',
-            postCount: 1,
-            latest: {
-              title: 'Launch note',
-              provider: 'youtube',
-              status: 'published',
-              observedAt: '2026-07-30T09:00:00.000Z',
-              url: 'javascript:alert(1)',
-            },
-          },
-          links: {
-            acknowledgedSubmissions: 2,
-            submissionObservedAt: '2026-07-30T09:00:00.000Z',
-            evidenceClass: 'submission-acknowledgement',
-            verifiedCount: 1,
-            earnedStatus: 'verified',
-            verified: [{
-              sourceUrl: 'https://review.example/site',
-              destinationUrl: 'https://site.example/',
-              observedAt: '2026-07-30T09:00:00.000Z',
-              kind: 'editorial',
-              private: 'must-not-leak',
-            }],
-          },
-          commercial: {
-            conversions: { status: 'not-connected', owner: 'Product receipt' },
-            revenue: { status: 'not-connected', owner: 'Product receipt' },
-          },
-          attribution: {
-            search: 'Google Search Console',
-            traffic: 'Cloudflare Web Analytics',
-            causality: 'Not inferred',
-          },
-          next: {
-            id: 'wait-indexed',
-            label: 'Wait, then measure',
-            stage: 'wait',
-            reason: 'The latest change needs another observation window.',
-            priority: 6,
-            nextMeasurementAt: '2026-08-06T09:00:00.000Z',
-          },
-          observedAt: '2026-07-30T09:00:00.000Z',
-          private: 'must-not-leak',
-        }],
         performanceThresholds: {
           psiScore: 90,
           lcpMilliseconds: 2500,
@@ -383,7 +247,7 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
       },
     },
   };
-  const server = await startFounderControlService({
+  const server = await startTestService({
     store,
     port: 0,
     trustLoopback: true,
@@ -407,8 +271,8 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   const search = await (await fetch(`${base}/v1/outcomes/search`)).json();
   const awareness = await (await fetch(`${base}/v1/outcomes/ai-awareness`)).json();
   const performance = await (await fetch(`${base}/v1/outcomes/performance`)).json();
-  const marketing = await (await fetch(`${base}/v1/outcomes/marketing`)).json();
-  const growth = await (await fetch(`${base}/v1/outcomes/growth`)).json();
+  const marketing = await fetch(`${base}/v1/outcomes/marketing`);
+  const growth = await fetch(`${base}/v1/outcomes/growth`);
   const connections = await (await fetch(`${base}/v1/connections`)).json();
 
   assert.equal(builds, 1);
@@ -440,36 +304,8 @@ test('prewarms one connection projection and serves bounded owner outcomes', asy
   assert.equal('private' in awareness.rows[0].attempts[0], false);
   assert.equal(awareness.rows[0].citationSources.external, 1);
   assert.equal('private' in awareness.rows[0].citationSources.sources[0], false);
-  assert.equal(marketing.rows[0].postCount, 2);
-  assert.deepEqual(Object.keys(marketing.rows[0]).sort(), [
-    'domain',
-    'name',
-    'postCount',
-    'posts',
-    'projectId',
-  ]);
-  assert.deepEqual(Object.keys(marketing.rows[0].posts[0]).sort(), [
-    'id',
-    'observedAt',
-    'provider',
-    'stage',
-    'status',
-    'title',
-    'url',
-  ]);
-  assert.equal(marketing.rows[0].posts[0].url, 'https://example.com/post-1');
-  assert.equal(marketing.rows[0].posts[1].url, null);
-  assert.equal(marketing.rows[0].posts[1].observedAt, null);
-  assert.equal(growth.family, 'growth');
-  assert.equal(growth.rows[0].target.destination, 'https://site.example/compare');
-  assert.equal(growth.rows[0].intervention.landingPage, null);
-  assert.equal(growth.rows[0].marketing.latest.url, null);
-  assert.equal(growth.rows[0].search.impressions.series, undefined);
-  assert.equal(growth.rows[0].search.period.start, '2026-07-01T00:00:00.000Z');
-  assert.equal(growth.rows[0].links.verified[0].sourceUrl, 'https://review.example/site');
-  assert.equal('private' in growth.rows[0], false);
-  assert.equal('private' in growth.rows[0].links.verified[0], false);
-  assert.equal(growth.rows[0].commercial.revenue.status, 'not-connected');
+  assert.equal(marketing.status, 404);
+  assert.equal(growth.status, 404);
   assert.deepEqual(performance.thresholds, expected.outputs.ownerOutcomes.performanceThresholds);
   assert.equal(performance.rows[0].psi.value, 95);
   assert.equal('series' in performance.rows[0].psi, false);
@@ -493,7 +329,7 @@ test('serves one bounded retained skill output only when explicitly requested', 
     outputCount: 1,
     truncated: false,
   };
-  const server = await startFounderControlService({
+  const server = await startTestService({
     store,
     port: 0,
     skillRunOutputProvider: ({ runId }) => ({ ...expected, runId }),
@@ -535,7 +371,7 @@ test('starts and polls allowlisted metric runs through explicit loopback trust',
     start: ({ family, projectId, scope }) => ({ ...receipt, family, projectId, scope }),
     get: (runId) => runId === receipt.runId ? receipt : null,
   };
-  const server = await startFounderControlService({
+  const server = await startTestService({
     store,
     port: 0,
     trustLoopback: true,
@@ -574,7 +410,12 @@ test('accepts mutations through the explicit Cloudflare Access boundary only wit
   const store = new FounderControlStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'access.sqlite'),
   });
-  const server = await startFounderControlService({ store, port: 0, trustAccessHeaders: true });
+  const server = await startTestService({
+    store,
+    port: 0,
+    trustAccessHeaders: true,
+    connectionsProvider: emptyConnections,
+  });
   context.after(
     () =>
       new Promise((resolve) => {
@@ -585,23 +426,48 @@ test('accepts mutations through the explicit Cloudflare Access boundary only wit
       }),
   );
   const base = `http://127.0.0.1:${server.address().port}`;
-  const emailOnly = await fetch(`${base}/v1/missions/draft`, {
+  const emailOnly = await fetch(`${base}/v1/projections/rebuild`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
       'cf-access-authenticated-user-email': 'owner@example.com',
     },
-    body: JSON.stringify({ title: 'Denied without assertion' }),
+    body: '{}',
   });
   assert.equal(emailOnly.status, 401);
-  const accepted = await fetch(`${base}/v1/missions/draft`, {
+  const accepted = await fetch(`${base}/v1/projections/rebuild`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
       'cf-access-authenticated-user-email': 'owner@example.com',
       'cf-access-jwt-assertion': 'signed-access-assertion-placeholder',
     },
-    body: JSON.stringify({ title: 'Accepted through Access' }),
+    body: '{}',
   });
-  assert.equal(accepted.status, 201);
+  assert.equal(accepted.status, 200);
+});
+
+test('does not expose a Fleet product analytics outcome route', async (context) => {
+  const store = new FounderControlStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'founder-service-')), 'no-product-analytics.sqlite'),
+  });
+  const server = await startTestService({
+    store,
+    port: 0,
+    visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
+  });
+  context.after(
+    () =>
+      new Promise((resolve) => {
+        server.close(() => {
+          store.close();
+          resolve();
+        });
+      }),
+  );
+
+  const response = await fetch(
+    `http://127.0.0.1:${server.address().port}/v1/outcomes/user-metrics`,
+  );
+  assert.equal(response.status, 404);
 });

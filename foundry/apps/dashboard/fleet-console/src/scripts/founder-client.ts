@@ -105,10 +105,6 @@ function replace(id: string, content: Node) {
   }
 }
 
-function missionHref(id: string) {
-  return `/missions?id=${encodeURIComponent(id)}`;
-}
-
 function projectHref(id: string) {
   const aliases: Record<string, string> = { "fleet-workspace": "fleet-ops" };
   return `/projects/${aliases[id] ?? id}`;
@@ -164,80 +160,6 @@ async function initProjectScope() {
     else url.searchParams.delete("project");
     window.location.assign(`${url.pathname}${url.search}${url.hash}`);
   });
-}
-
-function missionRecord(mission: JsonRecord) {
-  const link = element("a", { class: "record", href: missionHref(mission.id) });
-  const main = element("div", { class: "record-main" }, [
-    element("div", { class: "record-kicker" }, [mission.projectId ?? "Portfolio", " · ", formatted(mission.updatedAt)]),
-    element("h3", {}, [mission.title]),
-    element("p", {}, [mission.latestSummary || mission.outcome || "No progress summary yet."]),
-  ]);
-  const side = element("div", { class: "record-side" }, [
-    state(mission.state),
-    element("small", {}, [mission.actor?.label ?? mission.actor?.id ?? "Unassigned"]),
-  ]);
-  link.append(main, side);
-  return link;
-}
-
-function decisionCard(decision: JsonRecord) {
-  const status = element("span", { class: "action-status", role: "status", "aria-live": "polite" });
-  const actions = element("div", { class: "decision-actions" });
-  if (["open", "stale"].includes(decision.state)) {
-    for (const response of decision.allowedResponses ?? []) {
-      const button = element(
-        "button",
-        { type: "button", class: response === "approve" ? "primary-action" : "secondary-action" },
-        [response],
-      );
-      button.addEventListener("click", async () => {
-        button.setAttribute("disabled", "");
-        status.textContent = "Saving…";
-        try {
-          await mutate(`/v1/decisions/${encodeURIComponent(decision.id)}/respond`, { response });
-          status.textContent = "Decision recorded.";
-          location.reload();
-        } catch (error) {
-          status.textContent = error instanceof Error ? error.message : "Decision failed.";
-          button.removeAttribute("disabled");
-        }
-      });
-      actions.append(button);
-    }
-  }
-  return element("article", { class: "decision" }, [
-    element("div", {}, [
-      element("div", { class: "record-kicker" }, [decision.projectId ?? "Portfolio", " · ", formatted(decision.updatedAt)]),
-      state(decision.state),
-      element("h3", {}, [decision.question]),
-      element("p", {}, [decision.why]),
-    ]),
-    element("footer", {}, [
-      element("div", {}, [
-        element("span", {}, [decision.reversible ? "Reversible" : "Hard to reverse"]),
-        status,
-      ]),
-      element("div", { class: "decision-footer-actions" }, [
-        actions,
-        decision.missionId ? element("a", { class: "action-link", href: missionHref(decision.missionId) }, ["Open mission"]) : null,
-      ]),
-    ]),
-  ]);
-}
-
-function activityItem(item: JsonRecord) {
-  const evidence = element("div", { class: "evidence" });
-  for (const pointer of item.evidence ?? []) {
-    const label = `${pointer.provider} · ${pointer.state}`;
-    evidence.append(pointer.url ? element("a", { href: pointer.url, target: "_blank", rel: "noreferrer" }, [label]) : element("span", {}, [label]));
-  }
-  return element("article", { class: "timeline-item" }, [
-    element("h3", {}, [item.summary]),
-    element("p", {}, [`${item.projectId ?? "Portfolio"} · ${item.type.replaceAll(".", " ")}`]),
-    element("time", { datetime: item.occurredAt }, [formatted(item.occurredAt)]),
-    evidence,
-  ]);
 }
 
 function connectionStat(label: string, value: string | number, tone: string) {
@@ -446,16 +368,6 @@ function outputOverview(payload: JsonRecord, { compact = false } = {}) {
         state(boundaries.aiVisibility.status),
         element("span", {}, [`${boundaries.aiVisibility.observations}/${boundaries.aiVisibility.configured} project baselines`]),
       ]),
-      element("div", {}, [
-        element("strong", {}, ["Feedback"]),
-        state(boundaries.feedback.status),
-        element("span", {}, [boundaries.feedback.detail]),
-      ]),
-      element("div", {}, [
-        element("strong", {}, ["Marketing outcomes"]),
-        state(boundaries.marketing.status),
-        element("span", {}, [boundaries.marketing.detail]),
-      ]),
     ]),
   ]);
 }
@@ -576,11 +488,11 @@ function skillHistoryForRuns(runs: JsonRecord[]) {
 }
 
 function outputPriority(item: JsonRecord) {
-  return element("a", { class: "output-priority", href: consoleHref(item.work?.ownerPath ?? item.ownerPath) }, [
+  return element("a", { class: "output-priority", href: consoleHref(item.ownerPath) }, [
     element("span", {}, [item.scope === "project" ? item.projectId : "System"]),
     element("strong", {}, [item.action]),
     element("small", {}, [item.signal]),
-    state(item.work?.state ?? "not-started"),
+    state("recommendation"),
   ]);
 }
 
@@ -827,19 +739,15 @@ function outputHistory(history: JsonRecord[]) {
 }
 
 function improvementAction(item: JsonRecord) {
-  return element("a", { class: "record improvement-action", href: consoleHref(item.work?.ownerPath ?? item.ownerPath) }, [
+  return element("a", { class: "record improvement-action", href: consoleHref(item.ownerPath) }, [
     element("div", { class: "record-main" }, [
       element("div", { class: "record-kicker" }, [item.scope === "project" ? item.projectId : "System"]),
       element("h3", {}, [item.action]),
       element("p", {}, [item.signal]),
     ]),
     element("div", { class: "record-side" }, [
-      state(item.work?.state ?? "not-started"),
-      element("small", {}, [
-        item.work
-          ? `${item.severity} priority · linked mission`
-          : `${item.severity} priority · recommendation`,
-      ]),
+      state("recommendation"),
+      element("small", {}, [`${item.severity} priority`]),
     ]),
   ]);
 }
@@ -883,7 +791,7 @@ async function renderHome() {
   if (renderedAt) renderedAt.textContent = `Evidence rebuilt ${formatted(payload.generatedAt)}`;
   const scopedAttention = selectedProjectId
     ? payload.outputs.improvements.filter((item: JsonRecord) => item.projectId === selectedProjectId)
-    : payload.outputs.improvements.filter((item: JsonRecord) => item.scope === "project" || item.work);
+    : payload.outputs.improvements.filter((item: JsonRecord) => item.scope === "project");
   const attention = scopedAttention.slice(0, 4);
   const count = document.querySelector<HTMLElement>('[data-founder-count="overview-attention"]');
   if (count) count.textContent = String(attention.length);
@@ -1378,14 +1286,11 @@ function metricReportProject(
   ]);
   const evidence = definition.renderEvidence(project, signals, definition.emptyState(project));
   const actionRows = actions.map((action: JsonRecord) => {
-    const content = [
+    return element("div", { class: "metric-report__action" }, [
       element("span", {}, ["Next"]),
       element("strong", {}, [action.action]),
-      state(action.work?.state ?? "not-started"),
-    ];
-    return action.work
-      ? element("a", { class: "metric-report__action", href: consoleHref(action.work.ownerPath) }, content)
-      : element("div", { class: "metric-report__action" }, content);
+      state("recommendation"),
+    ]);
   });
 
   if (family === "design") {
@@ -2379,7 +2284,6 @@ type PortfolioMetricFamily = "drank" | "psi" | "search" | "cloudflare";
 const CLOUDFLARE_VIEW_REFRESH: Record<string, () => Promise<void>> = {
   "ai-awareness": renderAiAwareness,
   performance: renderPerformance,
-  marketing: renderMarketing,
 };
 
 async function refreshCloudflareView() {
@@ -2984,50 +2888,6 @@ async function renderSkillUses() {
   draw();
 }
 
-async function renderFeedback() {
-  const payload = await api("/v1/connections");
-  const renderedAt = document.querySelector<HTMLElement>("[data-feedback-time]");
-  if (renderedAt) renderedAt.textContent = `Inbox rebuilt ${formatted(payload.generatedAt)}`;
-  const submissions = (payload.outputs.feedback?.submissions ?? [])
-    .filter((item: JsonRecord) => !selectedProjectId || item.projectId === selectedProjectId);
-  const count = document.querySelector<HTMLElement>('[data-founder-count="feedback-submissions"]');
-  if (count) count.textContent = String(submissions.length);
-  replace(
-    "feedback-submissions",
-    submissions.length
-      ? element("div", { class: "feedback-inbox" }, submissions.map((item: JsonRecord) =>
-          element("article", { class: "feedback-entry" }, [
-            element("header", {}, [
-              element("div", {}, [
-                element("span", {}, [item.projectId ?? "Unknown project"]),
-                element("h3", {}, [item.category ?? "Feedback"]),
-              ]),
-              element("time", { datetime: item.receivedAt }, [formatted(item.receivedAt)]),
-            ]),
-            element("p", {}, [item.message]),
-            element("footer", {}, [
-              item.page ? element("span", {}, [item.page]) : null,
-              item.hasAttachment ? element("span", {}, ["Attachment"]) : null,
-            ]),
-          ])))
-      : empty(
-          "No feedback received",
-          selectedProjectId ? `${selectedProjectName} has no submissions yet.` : "No project has submitted feedback yet.",
-        ),
-  );
-}
-
-async function renderDecisions() {
-  const decisions = await api("/v1/decisions");
-  const groups = ["open", "stale", "resolved", "rejected", "reversed"];
-  for (const group of groups) {
-    const items = decisions.filter((decision: JsonRecord) => decision.state === group);
-    const count = document.querySelector<HTMLElement>(`[data-founder-count="${group}"]`);
-    if (count) count.textContent = String(items.length);
-    replace(group, items.length ? element("div", { class: "decision-grid" }, items.map(decisionCard)) : empty(`No ${group} decisions`, "This is a factual empty state."));
-  }
-}
-
 async function renderProjects() {
   const projects = await api("/v1/projects");
   const activeProjects = projects.filter(
@@ -3089,18 +2949,11 @@ function projectMetricPanel(
     .filter((action: JsonRecord) =>
       action.projectId === project.projectId && definition.matchesAction(action))
     .map((action: JsonRecord) => {
-      const content = [
+      return element("div", { class: "metric-report__action" }, [
         element("span", {}, ["Next"]),
         element("strong", {}, [action.action]),
-        state(action.work?.state ?? "not-started"),
-      ];
-      if (!action.work) {
-        return element("div", { class: "metric-report__action" }, content);
-      }
-      return element("a", {
-        class: "metric-report__action",
-        href: consoleHref(action.work.ownerPath),
-      }, content);
+        state("recommendation"),
+      ]);
     });
   return element("article", { class: "metric-report project-metric-panel" }, [
     element("header", {}, [
@@ -3191,10 +3044,8 @@ function revealProjectMetricSection() {
 async function renderProjectDetail() {
   const routeProjectId = document.body.dataset.projectId;
   const projectId = catalogProjectId(routeProjectId);
-  const [projects, missions, decisions, recommendations, connections] = await Promise.all([
+  const [projects, recommendations, connections] = await Promise.all([
     api("/v1/projects"),
-    api("/v1/missions"),
-    api("/v1/decisions"),
     api("/v1/home").then((home) => home.recommendedNext),
     api("/v1/connections"),
   ]);
@@ -3203,10 +3054,6 @@ async function renderProjectDetail() {
     replace("project-detail", empty("Project not in current registry", "This static route no longer resolves to a canonical Fleet project."));
     return;
   }
-  const projectMissions = missions.filter((mission: JsonRecord) => mission.projectId === project.id);
-  const current = projectMissions.find((mission: JsonRecord) => ["active", "blocked", "awaiting-verification", "accepted"].includes(mission.state));
-  const completed = projectMissions.filter((mission: JsonRecord) => mission.state === "completed");
-  const needsMe = decisions.filter((decision: JsonRecord) => decision.projectId === project.id && ["open", "stale"].includes(decision.state));
   const next = recommendations.filter((item: JsonRecord) => item.projectId === project.id);
   const metricProject = connections.outputs.projects.find(
     (item: JsonRecord) =>
@@ -3221,9 +3068,9 @@ async function renderProjectDetail() {
       element("article", { class: "project" }, [
         element("header", {}, [element("h2", {}, ["Owner view"]), state(project.attention)]),
         element("dl", {}, [
-          element("div", {}, [element("dt", {}, ["Current objective"]), element("dd", {}, [current?.outcome ?? "No accepted mission"])]),
-          element("div", {}, [element("dt", {}, ["Needs you"]), element("dd", {}, [needsMe[0]?.question ?? "No"])]),
-          element("div", {}, [element("dt", {}, ["Latest outcome"]), element("dd", {}, [completed[0]?.latestSummary ?? "None verified"])]),
+          element("div", {}, [element("dt", {}, ["Lifecycle"]), element("dd", {}, [titleCase(project.lifecycle ?? "unknown")])]),
+          element("div", {}, [element("dt", {}, ["Sharing"]), element("dd", {}, [project.readyToShare ? "Ready" : "Not ready"])]),
+          element("div", {}, [element("dt", {}, ["Public listing"]), element("dd", {}, [titleCase(project.publicListing ?? "not listed")])]),
           element("div", {}, [element("dt", {}, ["Next suggestion"]), element("dd", {}, [next[0]?.title ?? "No recommendation"])]),
         ]),
       ]),
@@ -3248,10 +3095,6 @@ async function renderProjectDetail() {
         ]),
       ]),
     ]),
-    element("section", { class: "owner-section" }, [
-      element("div", { class: "section-head" }, [element("div", {}, [element("p", { class: "eyebrow" }, ["Work"]), element("h2", {}, ["Missions"])]), element("span", { class: "count" }, [String(projectMissions.length)])]),
-      projectMissions.length ? element("div", { class: "record-list" }, projectMissions.map(missionRecord)) : empty("No missions for this product", "The registry record exists, but Foundry has not accepted work against it."),
-    ]),
     metricProject
       ? projectMetricsWorkspace(metricProject, metricImprovements)
       : element("section", { class: "owner-section" }, [
@@ -3260,11 +3103,6 @@ async function renderProjectDetail() {
   );
   replace("project-detail", wrap);
   window.setTimeout(revealProjectMetricSection, 100);
-}
-
-async function renderActivity() {
-  const activity = await api("/v1/activity");
-  replace("activity", activity.length ? element("div", { class: "timeline" }, activity.map(activityItem)) : empty("No mission activity", "Provider noise is intentionally excluded."));
 }
 
 function percentage(value?: number | null) {
@@ -3335,313 +3173,6 @@ function visibilityProject(project: JsonRecord) {
   ]);
 }
 
-async function renderMarketing() {
-  const payload = await api("/v1/outcomes/marketing");
-  updateOutcomeTime(payload.generatedAt);
-  const rows = (payload.rows ?? []).filter((row: JsonRecord) => matchesProject(row.projectId));
-  const count = document.querySelector<HTMLElement>('[data-founder-count="marketing-coverage"]');
-  if (count) count.textContent = String(rows.length);
-
-  const postRow = (post: JsonRecord) => {
-    const title = post.title || "Recorded post";
-    const titleNode = post.url
-      ? element("a", { href: post.url, target: "_blank", rel: "noreferrer" }, [title])
-      : element("strong", {}, [title]);
-    const source = post.provider ? titleCase(post.provider) : "Provider not recorded";
-    const kind = post.stage ? titleCase(post.stage) : "Post";
-    return element("li", { class: "marketing-post" }, [
-      element("div", { class: "marketing-post__main" }, [
-        titleNode,
-        element("small", {}, [`${source} · ${kind} · ${formattedDay(post.observedAt)}`]),
-      ]),
-      state(post.status || "recorded"),
-    ]);
-  };
-
-  const projectRow = (row: JsonRecord) => {
-    const posts = row.posts ?? [];
-    const retained = Number(row.postCount ?? posts.length);
-    return element("article", { class: "marketing-project" }, [
-      element("header", { class: "marketing-project__header" }, [
-        projectIdentity(row),
-        element("span", { class: posts.length ? "marketing-project__count" : "marketing-project__count is-empty" }, [
-          posts.length ? `${retained} post${retained === 1 ? "" : "s"}` : "No posts yet",
-        ]),
-      ]),
-      posts.length
-        ? element("ol", { class: "marketing-posts", "aria-label": `${row.name} posts` }, posts.map(postRow))
-        : null,
-    ]);
-  };
-
-  replace("marketing-coverage", rows.length
-    ? element("div", { class: "marketing-projects" }, [...rows].sort((left: JsonRecord, right: JsonRecord) => left.name.localeCompare(right.name)).map(projectRow))
-    : empty("No matching project", "The current project scope has no public marketing project."));
-}
-
-const GROWTH_MODE_ORDER: Record<string, number> = {
-  focus: 0,
-  maintain: 1,
-  observe: 2,
-};
-
-function growthSearchSummary(row: JsonRecord) {
-  if (!Number.isFinite(row.search?.impressions?.value)) {
-    return element("span", { class: "outcome-missing" }, ["Not measured"]);
-  }
-  const impressionCount = Number(row.search.impressions.value);
-  const clickCount = Number(row.search?.clicks?.value);
-  const impressions = compactNumber(impressionCount);
-  const clicks = Number.isFinite(clickCount)
-    ? compactNumber(clickCount)
-    : "—";
-  const position = Number.isFinite(row.search?.averagePosition?.value)
-    ? new Intl.NumberFormat("en", { maximumFractionDigits: 1 }).format(row.search.averagePosition.value)
-    : "—";
-  return element("span", { class: "outcome-signal growth-summary" }, [
-    element("strong", {}, [`${impressions} ${impressionCount === 1 ? "impression" : "impressions"}`]),
-    element("small", {}, [`${clicks} ${clickCount === 1 ? "click" : "clicks"} · position ${position}`]),
-  ]);
-}
-
-function growthTrafficSummary(row: JsonRecord) {
-  if (!Number.isFinite(row.traffic?.visits?.value)) {
-    return element("span", { class: "outcome-missing" }, ["Not measured"]);
-  }
-  const visitCount = Number(row.traffic.visits.value);
-  const visits = compactNumber(visitCount);
-  const referrals = Number.isFinite(row.traffic?.searchReferrals?.value)
-    ? compactNumber(Number(row.traffic.searchReferrals.value))
-    : "—";
-  return element("span", { class: "outcome-signal growth-summary" }, [
-    element("strong", {}, [`${visits} ${visitCount === 1 ? "visit" : "visits"}`]),
-    element("small", {}, [`${referrals} from search`]),
-  ]);
-}
-
-function growthTarget(row: JsonRecord) {
-  if (!row.target) return element("span", { class: "outcome-missing" }, ["No focus target"]);
-  const destination = new URL(row.target.destination);
-  return element("span", { class: "outcome-signal growth-target" }, [
-    element("strong", {}, [row.target.query]),
-    element("small", {}, [destination.pathname === "/" ? "Homepage" : destination.pathname]),
-  ]);
-}
-
-function growthNext(row: JsonRecord) {
-  const detail = row.next?.nextMeasurementAt
-    ? `Measure ${formattedDay(row.next.nextMeasurementAt)}`
-    : titleCase(row.next?.stage ?? "measure");
-  return element("span", { class: "outcome-signal growth-summary" }, [
-    element("strong", {}, [row.next?.label ?? "Measure now"]),
-    element("small", {}, [detail]),
-  ]);
-}
-
-function growthDetails(row: JsonRecord) {
-  const providerLinks = [
-    providerLink("Open Search Console", row.search?.providerUrl),
-    providerLink("Open Cloudflare", row.traffic?.providerUrl),
-  ].filter(Boolean) as Node[];
-  const target = row.target
-    ? element("a", { href: row.target.destination, target: "_blank", rel: "noreferrer" }, [row.target.destination])
-    : "No focus target";
-  const intervention = row.intervention
-    ? `${row.intervention.query ?? row.intervention.actionId} · ${formattedDay(row.intervention.changedAt)}`
-    : "No recorded search change";
-  const latestPost = row.marketing?.latest;
-  const marketing = latestPost
-    ? `${latestPost.title} · ${formattedDay(latestPost.observedAt)}`
-    : "No recorded post";
-  const submissions = Number(row.links?.acknowledgedSubmissions ?? 0);
-  const linkEvidence = Number(row.links?.verifiedCount ?? 0) > 0
-    ? `${row.links.verifiedCount} exact external link${row.links.verifiedCount === 1 ? "" : "s"} verified`
-    : "No exact external link verified";
-  const period = row.search?.period?.start && row.search?.period?.end
-    ? `${searchReportingDay(row.search.period.start)} – ${searchReportingDay(row.search.period.end)}`
-    : "Not measured";
-  const facts = element("dl", { class: "search-detail__facts growth-detail__facts" }, [
-    element("div", {}, [element("dt", {}, ["Mode"]), element("dd", {}, [titleCase(row.mode)])]),
-    element("div", {}, [element("dt", {}, ["Target query"]), element("dd", {}, [row.target?.query ?? "No focus target"])]),
-    element("div", {}, [element("dt", {}, ["Landing page"]), element("dd", {}, [target])]),
-    element("div", {}, [element("dt", {}, ["Latest change"]), element("dd", {}, [intervention])]),
-    element("div", {}, [element("dt", {}, ["Search window"]), element("dd", {}, [period])]),
-    element("div", {}, [element("dt", {}, ["Latest marketing"]), element("dd", {}, [marketing])]),
-    element("div", {}, [element("dt", {}, ["Submission attempts"]), element("dd", {}, [submissions ? `${submissions} acknowledged; not backlinks` : "None recorded"])]),
-    element("div", {}, [element("dt", {}, ["Verified links"]), element("dd", {}, [linkEvidence])]),
-    element("div", {}, [element("dt", {}, ["Commercial outcomes"]), element("dd", {}, ["Conversions and revenue not connected"])]),
-    element("div", {}, [element("dt", {}, ["Next step"]), element("dd", {}, [row.next?.reason ?? "Measure the next evidence window."])]),
-  ]);
-  const content: Node[] = [
-    element("p", { class: "search-detail__note" }, [
-      `${row.attribution?.causality ?? "Causality is not inferred."} Search and traffic remain provider-owned observations.`,
-    ]),
-  ];
-  if (providerLinks.length > 0) content.push(element("div", { class: "provider-links" }, providerLinks));
-  content.push(facts);
-  if (row.links?.verified?.length) {
-    content.push(element("div", { class: "growth-detail__links" }, [
-      element("h3", {}, ["Verified external links"]),
-      element("ul", {}, row.links.verified.map((link: JsonRecord) => element("li", {}, [
-        element("a", { href: link.sourceUrl, target: "_blank", rel: "noreferrer" }, [new URL(link.sourceUrl).host]),
-        ` → ${new URL(link.destinationUrl).pathname}`,
-      ]))),
-    ]));
-  }
-  return element("div", { class: "search-detail growth-detail" }, content);
-}
-
-async function renderGrowth() {
-  const payload = await api("/v1/outcomes/growth");
-  updateOutcomeTime(payload.generatedAt);
-  const rows = payload.rows ?? [];
-  const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row) },
-    { key: "mode", label: "Mode", description: "Sort by growth allocation", value: (row) => GROWTH_MODE_ORDER[row.mode] ?? 3, render: (row) => state(row.mode) },
-    { key: "target", label: "Target", description: "Sort by target query", value: (row) => row.target?.query, render: growthTarget },
-    { key: "search", label: "Search", description: "Sort by Search impressions", value: (row) => row.search?.impressions?.value, render: growthSearchSummary },
-    { key: "traffic", label: "Traffic", description: "Sort by visits", value: (row) => row.traffic?.visits?.value, render: growthTrafficSummary },
-    { key: "next", label: "Next", description: "Sort by next-step priority", value: (row) => row.next?.priority, render: growthNext },
-    { key: "observed", label: "Last observed", description: "Sort by latest evidence", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
-  ];
-  replace("growth", rows.length
-    ? outcomeTable(rows, columns, "mode", "Growth program by project", "ascending", {
-        details: growthDetails,
-        rowKey: (row) => row.projectId,
-        className: "outcome-table-wrap--growth",
-      })
-    : empty("No growth evidence", "No maintained public projects are available to allocate."));
-}
-
-async function renderProductAnalytics() {
-  const payload = await api("/v1/outcomes/user-metrics");
-  updateOutcomeTime(payload.generatedAt);
-  const rows = payload.rows ?? [];
-  const count = document.querySelector<HTMLElement>('[data-founder-count="product-analytics"]');
-  if (count) count.textContent = String(rows.length);
-  const stateLabel = document.querySelector<HTMLElement>("[data-user-metrics-state]");
-  if (stateLabel) {
-    const observed = rows.filter((row: JsonRecord) => row.status === "observed").length;
-    stateLabel.className = `state ${observed > 0 ? "ok" : "none"}`;
-    stateLabel.textContent = observed > 0 ? `${observed} product${observed === 1 ? "" : "s"} observed` : "Not measured";
-  }
-  const columns: OutcomeColumn[] = [
-    { key: "project", label: "Product", description: "Sort by project", value: (row) => row.name, render: (row) => projectIdentity(row) },
-    { key: "visitors", label: "Visitors", description: "Sort by visitors", value: (row) => row.visitors?.value, render: (row) => metricCell(row.visitors) },
-    { key: "identified", label: "Identified", description: "Sort by identified users", value: (row) => row.identifiedUsers?.value, render: (row) => metricCell(row.identifiedUsers) },
-    { key: "accounts", label: "Accounts", description: "Sort by total accounts", value: (row) => row.accounts?.value, render: (row) => metricCellWithDiscrepancy(row, "accounts") },
-    { key: "newAccounts", label: "New", description: "Sort by new accounts", value: (row) => row.newAccounts?.value, render: (row) => metricCell(row.newAccounts) },
-    { key: "activation", label: "Activation", description: "Sort by activation rate", value: (row) => row.activationRate?.value, render: (row) => metricCell(row.activationRate, "%") },
-    { key: "d7", label: "D7 retention", description: "Sort by D7 retention", value: (row) => row.d7Retention?.value, render: (row) => metricCell(row.d7Retention, "%") },
-    { key: "coreActions", label: "Core actions", description: "Sort by core actions", value: (row) => row.coreActions?.value, render: (row) => metricCell(row.coreActions) },
-    { key: "provider", label: "Source", description: "Sort by provider", value: (row) => row.provider, render: (row) => providerCell(row) },
-    { key: "observed", label: "Last observed", description: "Sort by latest evidence", value: (row) => row.observedAt ? Date.parse(row.observedAt) : null, render: (row) => formattedDay(row.observedAt) },
-  ];
-  replace("product-analytics", rows.length
-    ? outcomeTable(rows, columns, "project", "User metrics by product", "ascending", {
-        rowKey: (row) => row.projectId,
-        className: "outcome-table-wrap--user-metrics",
-      })
-    : empty("No user metrics", "Run the PostHog or D1 collector to start measuring product usage."));
-}
-
-function providerCell(row: JsonRecord): HTMLElement {
-  const providers = Array.isArray(row.providers) ? row.providers : [];
-  const discrepancies = Array.isArray(row.discrepancies) ? row.discrepancies : [];
-  const children: HTMLElement[] = [];
-  if (providers.length > 1) {
-    children.push(element("span", { class: "provider-label provider-label--multi" }, [providers.join(" · ")]));
-  } else {
-    children.push(element("span", { class: "provider-label" }, [row.provider ?? "—"]));
-  }
-  if (discrepancies.length > 0) {
-    for (const d of discrepancies) {
-      children.push(element("span", { class: "discrepancy-flag", title: `PostHog ${d.posthogValue} vs D1 ${d.d1Value} (${d.variance}% variance)` }, [`⚠ ${d.metric} mismatch`]));
-    }
-  }
-  return element("div", { class: "provider-cell" }, children);
-}
-
-function metricCellWithDiscrepancy(signal: JsonRecord | null, metricKey: string): HTMLElement {
-  const cell = metricCell(signal);
-  return cell;
-}
-
-function metricCell(signal: JsonRecord | null, suffix = ""): HTMLElement {
-  if (!signal || signal.value === null || signal.value === undefined) {
-    return element("span", { class: "metric metric--none" }, ["—"]);
-  }
-  const value = Number(signal.value);
-  const display = Number.isFinite(value) ? (suffix === "%" ? value.toFixed(1) + "%" : String(value)) : "—";
-  return element("span", { class: "metric" }, [display]);
-}
-
-async function renderMission() {
-  const missionId = new URLSearchParams(location.search).get("id");
-  const host = document.querySelector<HTMLElement>("[data-mission]");
-  if (!host) return;
-  if (!missionId) {
-    const missions = await api("/v1/missions");
-    host.replaceChildren(missions.length ? element("div", { class: "record-list" }, missions.map(missionRecord)) : empty("No missions yet", "Draft one through the local control service."));
-    return;
-  }
-  const [mission, decisions] = await Promise.all([
-    api(`/v1/missions/${encodeURIComponent(missionId)}`),
-    api("/v1/decisions"),
-  ]);
-  const latestOutcome = mission.outcomes.at(-1);
-  const missionDecisions = decisions.filter((decision: JsonRecord) => decision.missionId === mission.id);
-  const evidence = mission.evidence.length ? element("div", { class: "record-list" }, mission.evidence.map((pointer: JsonRecord) =>
-    element("div", { class: "record" }, [
-      element("div", { class: "record-main" }, [element("h3", {}, [`${pointer.provider} · ${pointer.kind}`]), element("p", {}, [pointer.summary ? JSON.stringify(pointer.summary) : "Evidence pointer only"])]),
-      element("div", { class: "record-side" }, [state(pointer.currentState ?? pointer.state), element("small", {}, [formatted(pointer.observedAt)])]),
-    ]))) : empty("No evidence attached", "This mission has not received a provider receipt.");
-  const deliverables = mission.deliverables.length
-    ? element("div", { class: "record-list" }, mission.deliverables.map((item: JsonRecord) =>
-        element("div", { class: "record" }, [
-          element("div", { class: "record-main" }, [
-            element("h3", {}, [item.title]),
-            element("p", {}, [item.kind]),
-          ]),
-          item.url
-            ? element("a", { class: "action-link", href: item.url, target: "_blank", rel: "noreferrer" }, ["Open"])
-            : null,
-        ])))
-    : empty("No deliverables recorded", "Deliverables appear after an actor attaches a durable receipt.");
-  host.replaceChildren(
-    element("section", { class: "mission-hero" }, [
-      element("div", {}, [state(mission.state), element("h2", {}, [mission.title]), element("p", { class: "lede" }, [mission.outcome])]),
-      element("div", { class: "mission-meta" }, [
-        element("div", {}, [element("span", {}, ["Project"]), element("strong", {}, [mission.projectId ?? "Portfolio"])]),
-        element("div", {}, [element("span", {}, ["Actor"]), element("strong", {}, [mission.actor?.label ?? mission.actor?.id ?? "Unassigned"])]),
-        element("div", {}, [element("span", {}, ["Updated"]), element("strong", {}, [formatted(mission.updatedAt)])]),
-        element("div", {}, [element("span", {}, ["Outcome"]), element("strong", {}, [latestOutcome?.verdict ?? "Not measured"])]),
-      ]),
-    ]),
-    element("section", { class: "owner-section" }, [
-      element("div", { class: "section-head" }, [
-        element("div", {}, [element("p", { class: "eyebrow" }, ["Proof"]), element("h2", {}, ["Evidence"])]),
-      ]),
-      evidence,
-    ]),
-    element("section", { class: "owner-section" }, [
-      element("div", { class: "section-head" }, [
-        element("div", {}, [element("p", { class: "eyebrow" }, ["Output"]), element("h2", {}, ["Deliverables"])]),
-      ]),
-      deliverables,
-    ]),
-    element("section", { class: "owner-section" }, [
-      element("div", { class: "section-head" }, [
-        element("div", {}, [element("p", { class: "eyebrow" }, ["Judgment"]), element("h2", {}, ["Owner decisions"])]),
-      ]),
-      missionDecisions.length
-        ? element("div", { class: "decision-grid" }, missionDecisions.map(decisionCard))
-        : empty("No owner decision attached", "This mission has not needed an explicit choice."),
-    ]),
-    element("section", { class: "owner-section" }, [element("div", { class: "section-head" }, [element("div", {}, [element("p", { class: "eyebrow" }, ["History"]), element("h2", {}, ["Mission timeline"])])]), element("div", { class: "timeline" }, mission.timeline.map(activityItem))]),
-  );
-}
-
 async function start() {
   const view = document.body.dataset.founderView;
   if (!view) return;
@@ -3672,19 +3203,11 @@ async function start() {
     if (view === "project") await renderProjectDetail();
     if (view === "metrics") await renderMetrics();
     if (view === "skill-uses") await renderSkillUses();
-    if (view === "feedback") await renderFeedback();
-    if (view === "marketing") {
-      bindPortfolioRefresh("cloudflare");
-      await renderMarketing();
-    }
-    if (view === "growth") await renderGrowth();
-    if (view === "product-analytics") await renderProductAnalytics();
     if (view === "performance") {
       bindPortfolioRefresh("psi");
       bindPortfolioRefresh("cloudflare");
       await renderPerformance();
     }
-    if (view === "mission") await renderMission();
     connection?.classList.add("online");
     if (connectionLabel) connectionLabel.textContent = "Live evidence";
   } catch (error) {

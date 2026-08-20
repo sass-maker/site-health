@@ -58,19 +58,6 @@ const FAMILY_CONTRACTS = {
       'RUM samples': { unit: 'samples', direction: 'higher-is-better' },
     },
   },
-  'user-metrics': {
-    providers: ['posthog-insights', 'd1-aggregate'],
-    metrics: {
-      'Visitors': { unit: 'visitors', direction: 'higher-is-better' },
-      'Identified users': { unit: 'users', direction: 'higher-is-better' },
-      'Accounts': { unit: 'accounts', direction: 'higher-is-better' },
-      'New accounts': { unit: 'accounts', direction: 'higher-is-better' },
-      'Activation rate': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
-      'D1 retention': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
-      'D7 retention': { unit: 'percent', direction: 'higher-is-better', maximum: 100 },
-      'Core actions': { unit: 'actions', direction: 'higher-is-better' },
-    },
-  },
 };
 
 function allowedProviders(contract) {

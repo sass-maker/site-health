@@ -24,10 +24,10 @@ const [directories, probe, supplements] = await Promise.all([
 
 test('publishing program covers all P1, all P2, and every eligible P4 project', () => {
   assert.deepEqual(validateSeoGeoPublishing(program, catalog), {
-    projectCount: 36,
+    projectCount: 37,
     p1Count: 4,
-    p2Count: 22,
-    p4Count: 10,
+    p2Count: 24,
+    p4Count: 9,
     channelCount: 27,
   });
 });
@@ -35,13 +35,13 @@ test('publishing program covers all P1, all P2, and every eligible P4 project', 
 test('generated guide is deterministic and exposes execution boundaries and exclusions', () => {
   const rendered = renderSeoGeoPublishing(program, catalog);
   assert.equal(rendered, renderSeoGeoPublishing(program, catalog));
-  assert.match(rendered, /all P1 \(4\), all P2 \(22\), all eligible finished P4 \(10\)/);
+  assert.match(rendered, /all P1 \(4\), all P2 \(24\), all eligible finished P4 \(9\)/);
   assert.match(rendered, /### Office OS — Publishable/);
   assert.match(rendered, /### Mashup — Preparation only/);
   assert.match(rendered, /Future candidates after re-verification:\*\* None in the current campaign\./);
   assert.match(rendered, /### RolePatch — Publishable/);
   assert.match(rendered, /AlternativeTo explicitly disallows résumé\/CV builders/);
-  assert.match(rendered, /## Eligible finished P4 — 10/);
+  assert.match(rendered, /## Eligible finished P4 — 9/);
   assert.match(rendered, /### India Standards — Publishable/);
   assert.match(rendered, /### Sarthak Agrawal — Publishable/);
   assert.match(rendered, /Agent with unblock \| The agent still owns execution/);
@@ -74,10 +74,10 @@ test('coverage fails closed when a P2 project plan is absent or an extra project
 
 test('selectedP4 stays an exhaustive ordering of active, deployed, share-ready P4 projects', () => {
   const missing = structuredClone(program);
-  missing.selectedP4 = missing.selectedP4.filter((id) => id !== 'chess');
+  missing.selectedP4 = missing.selectedP4.filter((id) => id !== 'drank');
   assert.throws(
     () => validateSeoGeoPublishing(missing, catalog),
-    /eligible P4 projects missing from selectedP4: chess/,
+    /eligible P4 projects missing from selectedP4: drank/,
   );
 
   const invalid = structuredClone(program);
@@ -158,13 +158,13 @@ test('destination inventory accounts for the maintained and long-tail source uni
     researchOnlyCount: inventory.researchOnlyCount,
     channelCount: inventory.channelCount,
   }, {
-    destinationCount: 167,
-    actionableCount: 67,
+    destinationCount: 166,
+    actionableCount: 66,
     researchOnlyCount: 100,
     channelCount: 27,
   });
   const rendered = renderSeoGeoDestinations(inventory);
-  assert.match(rendered, /Maintained candidates — 67/);
+  assert.match(rendered, /Maintained candidates — 66/);
   assert.match(rendered, /Research-only long tail — 100/);
   assert.match(rendered, /r\/LocalLLaMA/);
   assert.match(rendered, /awesome-wpo/);

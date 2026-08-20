@@ -22,7 +22,7 @@ const ACTIVATION_KINDS = new Set([
   'first_published_profile_or_generated_mode',
   'other',
 ]);
-const EVIDENCE_SOURCES = new Set(['none', 'posthog-4-event-taxonomy', 'other']);
+const EVIDENCE_SOURCES = new Set(['none', 'other']);
 
 export function loadPortfolioIdentityEvidence(path) {
   return validatePortfolioIdentityEvidence(JSON.parse(readFileSync(path, 'utf8')));

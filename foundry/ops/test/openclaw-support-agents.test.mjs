@@ -24,7 +24,7 @@ test('support-agent installer repairs migrated monorepo workspaces', async () =>
       mkdir(join(workspaceRoot, 'foundry/ops/agents/research'), {
         recursive: true,
       }),
-      mkdir(join(workspaceRoot, 'foundry/marketing/reel-pipeline'), {
+      mkdir(join(workspaceRoot, 'reel-pipeline'), {
         recursive: true,
       }),
       mkdir(join(workspaceRoot, 'foundry/helpers/drank'), { recursive: true }),
@@ -65,7 +65,7 @@ exit 1
     );
     assert.match(
       stdout,
-      /update: OpenClaw agent reel-pipeline .*foundry\/marketing\/reel-pipeline/,
+      /ok: OpenClaw agent reel-pipeline -> .*\/reel-pipeline/,
     );
     assert.match(
       stdout,

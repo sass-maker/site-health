@@ -30,7 +30,6 @@ export type FoundryEvent = {
   actor: ActorRef;
   projectId?: string;
   objectiveId?: string;
-  missionId?: string;
   correlationId?: string;
   idempotencyKey: string;
   visibility: Visibility;
@@ -38,21 +37,7 @@ export type FoundryEvent = {
   evidence: EvidencePointer[];
 };
 
-export type MissionState =
-  | "draft"
-  | "accepted"
-  | "active"
-  | "blocked"
-  | "awaiting-verification"
-  | "completed"
-  | "cancelled";
-
-export type DecisionState = "open" | "stale" | "resolved" | "rejected" | "reversed";
 export type OutcomeVerdict = "supported" | "unsupported" | "mixed" | "not-yet-measurable";
 
 export function normalizeEvent(input: Partial<FoundryEvent>, options?: { now?: string }): FoundryEvent;
-export function validateMissionTransition(
-  event: FoundryEvent,
-  currentState: MissionState | null,
-): MissionState | null;
 export function redactForExport(value: unknown): unknown;
