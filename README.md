@@ -13,7 +13,7 @@ only cataloged, measured, or invoked through explicit contracts.
 
 All Fleet-owned source is nested under `foundry/` and organized by the
 operator-facing product model: evidence helpers, skills, workflows, operations,
-reusable packages, and the private Foundry dashboard.
+and the private Foundry dashboard.
 `foundry/ops/` is the shared operational
 substrate beneath those buckets. This workspace root remains the agent and
 independent-project entrypoint; independent products remain separately
@@ -36,7 +36,7 @@ generated internal and public views come from the catalog with
 
 The detailed ownership and connection map is in
 [`foundry/README.md`](foundry/README.md). SaaS Maker owns the public directory
-and the complete Feedback package, service, and private inbox.
+and the complete Feedback service, private inbox, and public UI packages.
 
 The orchestration boundary is one-way: Fleet may catalog, inspect, monitor, and
 invoke a standalone product's repo-local commands, but standalone products must
@@ -150,7 +150,7 @@ infrastructure under `foundry/ops/`. Its `.gitignore` ignores independent child
 product checkouts (`/*`) and allowlists:
 
 - `README.md`, `PROJECT_STATUS.md`, `package.json`, agent/policy files, and `.gitignore`
-- `foundry/` — all Fleet-owned apps, services, packages, tools, operations,
+- `foundry/` — all Fleet-owned apps, services, tools, operations,
   specifications, and assets
 
 Child project directories are intentionally ignored here because they are

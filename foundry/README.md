@@ -9,13 +9,12 @@ Foundry is the canonical home for all Fleet-owned source.
 | Helpers | `helpers/ai-visibility/` | Focused GEO evidence and comparison surfaces |
 | Skills | `ops/skills/`, `ops/teammates/skills/` | Agent-operated Fleet capabilities |
 | Workflows | `ops/workflows/`, `ops/automation/` | Credential-free public checks and inert private schedule intent |
-| Packages | `packages/ai-chat-footer/`, `packages/portfolio-project-strip/` | Reusable UI packages awaiting the SaaS Maker cleanup pass |
 | Foundry dashboard | `apps/dashboard/fleet-console/` | Deferred private view of projects, domains, search, GEO, and performance evidence |
 
-ChatGPT Connections, SaaS Maker, Feedback, Drank, PSI Swarm, Mashup, Reel
-Pipeline (including Content Factory), and Mobile Dev Cockpit are independent
-sibling repositories. Foundry may catalog or call their declared interfaces,
-but does not own their source or runtime.
+ChatGPT Connections, SaaS Maker and its public UI packages, Feedback, Drank,
+PSI Swarm, Mashup, Reel Pipeline (including Content Factory), and Mobile Dev
+Cockpit are independent sibling repositories. Foundry may catalog or call their
+declared interfaces, but does not own their source or runtime.
 
 `ops/` is the shared substrate beneath those buckets: policy, registries,
 automation, scripts, evidence contracts, host support, public workflows, and

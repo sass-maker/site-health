@@ -5,9 +5,10 @@ registries, automation intent, host setup, scripts, skills, agent workspaces,
 shared operational libraries, evidence, and operational documentation.
 
 Public, internal, and dashboard interfaces live under `foundry/apps/`.
-Marketing lives under `foundry/marketing/`, shared packages under
-`foundry/packages/`, and Fleet-owned skills under `foundry/ops/skills/`.
-Independent products such as CodeVetter and App Health do not live in this
+Fleet-owned skills live under `foundry/ops/skills/`. Marketing products and
+public UI packages live in their independent repositories; Foundry retains
+only the operational contracts and evidence it actually consumes. Independent
+products such as SaaS Maker, CodeVetter, and App Health do not live in this
 repository.
 
 ## Structure

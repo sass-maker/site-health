@@ -12,9 +12,8 @@ domains, Google Search, GEO, and performance.
 **Users:** Sarthak and explicitly authorized local or hosted agents.
 
 **In scope:** Fleet registries and policy; shared scripts and skills; bounded
-automation; cross-product connections; machine-host setup; shared package
-ownership; public catalog projections; and links to independent evidence
-owners.
+automation; cross-product connections; machine-host setup; public catalog
+projections; and links to independent evidence owners.
 
 **Out of scope:** Product feature direction; a general public SaaS; product
 feedback ingestion, storage, or dashboarding; product/user analytics, event
@@ -67,13 +66,21 @@ recommendations, decisions, missions, learning prompts, notifications, or work.
   automation, and sanitized public-projection links only.
 - The standalone SaaS Maker repository owns `@saas-maker/feedback`, its hosted
   submission service, project keys, attachments, private viewing UI, and agent
-  API. Feedback remains separate from Fleet Console.
+  API, plus `@saas-maker/ai-chat-footer` and
+  `@saas-maker/portfolio-project-strip`. Feedback and public UI packages remain
+  separate from Fleet Console.
 - The standalone ChatGPT Connections repository owns the read-only MCP gateway,
   product adapters, OAuth boundary, CI, production monitor, and guarded deploy
   command. Foundry retains only its project and infrastructure catalog entries.
 
 ## Timeline
 
+- **2026-08-21 — Public UI packages moved to SaaS Maker:** Extracted
+  `@saas-maker/ai-chat-footer` and `@saas-maker/portfolio-project-strip` with
+  their component histories into `sass-maker/saas-maker`. SaaS Maker now owns
+  their workspace checks, safe-catalog generation, CI, and future publication;
+  Foundry retains only the canonical private catalog and its public projection.
+  No npm publication or deployment ran.
 - **2026-08-21 — ChatGPT Connections became an independent service:** Extracted
   the complete read-only MCP gateway into `sass-maker/chatgpt-connections` with
   its component history, tests, CI, production monitor, and guarded deploy
@@ -741,8 +748,8 @@ recommendations, decisions, missions, learning prompts, notifications, or work.
 | Skills | Fleet skills | `foundry/ops/skills/` | Agent workflows installed as repo-local symlinks |
 | Independent products | SaaS Maker | `saas-maker/apps/showcase/` | Static public product projection on Cloudflare Pages |
 | Independent products | Feedback | `saas-maker/` | Hosted submission service, private inbox, agent API, and public React package |
-| Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
-| Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | React package and universal loader with bundled catalog and cached static revalidation |
+| Independent packages | AI Chat Footer | `saas-maker/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
+| Independent packages | Portfolio Project Strip | `saas-maker/packages/portfolio-project-strip/` | React package with bundled public catalog and cached static revalidation |
 | Dashboard | Foundry | `foundry/apps/dashboard/fleet-console/` | Deferred private projects, domains, search, GEO, and performance view |
 | Substrate | Foundry Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
 | Substrate | Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |

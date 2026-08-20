@@ -11,6 +11,8 @@ const retiredRoots = [
   ['foundry/helpers', 'drank'].join('/'),
   ['foundry/helpers', 'psi-swarm'].join('/'),
   ['foundry/packages', 'feedback'].join('/'),
+  ['foundry/packages', 'ai-chat-footer'].join('/'),
+  ['foundry/packages', 'portfolio-project-strip'].join('/'),
   ['foundry/apps/public', 'public-directory'].join('/'),
   ['foundry/packages', 'ai-visibility'].join('/'),
   ['foundry/helpers', 'chatgpt-connections'].join('/'),
