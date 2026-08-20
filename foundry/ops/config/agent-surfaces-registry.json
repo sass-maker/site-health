@@ -2,15 +2,16 @@
   "version": 1,
   "products": [
     {
-      "id": "fleet-workspace",
+      "id": "saas-maker",
       "name": "SaaS Maker",
       "url": "https://sassmaker.com",
       "summary": "Software as a specialized service: a living studio of focused products built for particular problems.",
-      "publicDir": "foundry/apps/public/public-directory/public",
+      "publicDir": "saas-maker/apps/showcase/public",
       "stack": "astro-static",
-      "headFile": "foundry/apps/public/public-directory/src/layouts/Layout.astro",
+      "headFile": "saas-maker/apps/showcase/src/layouts/Layout.astro",
       "schemaType": "WebSite",
       "sameAs": [
+        "https://github.com/sass-maker/saas-maker",
         "https://github.com/sass-maker"
       ],
       "hasDynamicLlms": true,
@@ -24,10 +25,10 @@
         {
           "title": "Package",
           "url": "https://www.npmjs.com/package/@saas-maker/feedback",
-          "description": "Backend-free feedback package"
+          "description": "Feedback widget for the hosted service or caller-owned delivery"
         }
       ],
-      "indexMd": "# SaaS Maker\n\nSoftware as a specialized service: Sarthak Agrawal's living studio of focused, maintained products.\n\n## What it contains\n\n- Canonical product links\n- Public changelogs and roadmaps\n- One maintained package: @saas-maker/feedback\n\n## Agent entrypoints\n\n- https://sassmaker.com/llms.txt\n- https://sassmaker.com/api/ai\n- https://sassmaker.com/index.md\n"
+      "indexMd": "# SaaS Maker\n\nSoftware as a specialized service: Sarthak Agrawal's living studio of focused, maintained products.\n\n## What it contains\n\n- Canonical product links\n- Public changelogs and roadmaps\n- Feedback submission service and private inbox\n- One maintained package: @saas-maker/feedback\n\n## Agent entrypoints\n\n- https://sassmaker.com/llms.txt\n- https://sassmaker.com/api/ai\n- https://sassmaker.com/index.md\n"
     },
     {
       "id": "codevetter",
@@ -602,16 +603,17 @@
       "name": "Drank",
       "url": "https://domains.sassmaker.com",
       "summary": "Ahrefs Domain Rating tracker feeding High Signal /domains and fleet domain marketing work.",
-      "publicDir": "foundry/helpers/drank/public",
+      "publicDir": "drank/public",
       "preserveFiles": [
         "llms.txt",
         "llms-full.txt",
         "robots.txt"
       ],
       "stack": "next-static",
-      "headFile": "foundry/helpers/drank/app/layout.tsx",
+      "headFile": "drank/app/layout.tsx",
       "schemaType": "WebSite",
       "sameAs": [
+        "https://github.com/sass-maker/drank",
         "https://github.com/sass-maker"
       ],
       "productLinks": [
@@ -845,7 +847,7 @@
       "name": "PSI Swarm",
       "url": "https://performance.sassmaker.com",
       "summary": "Distributional Lighthouse / PageSpeed audits with grounded performance analysis across the fleet.",
-      "publicDir": "foundry/helpers/psi-swarm/web/public",
+      "publicDir": "psi-swarm/web/public",
       "preserveFiles": [
         "api-ai.json",
         "llms.txt",
@@ -855,6 +857,7 @@
       "stack": "astro-static",
       "schemaType": "WebSite",
       "sameAs": [
+        "https://github.com/sass-maker/psi-swarm",
         "https://github.com/sass-maker"
       ],
       "generateSitemap": true,

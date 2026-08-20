@@ -222,7 +222,7 @@ function runContentCoverage() {
 
 function contentSourceRoot() {
   if (project.id === 'fleet-workspace') {
-    return resolve(FLEET_ROOT, 'foundry/apps/public/public-directory');
+    return resolve(FLEET_ROOT, 'saas-maker/apps/showcase');
   }
   if (project.sourcePath) return resolve(FLEET_ROOT, project.sourcePath);
   if (project.repo) return resolve(FLEET_ROOT, project.repo);

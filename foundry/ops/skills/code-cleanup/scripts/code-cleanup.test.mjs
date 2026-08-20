@@ -218,7 +218,7 @@ test('Fleet scan uses active registry tiers and deduplicates git roots', (t) => 
           id: 'drank',
           lifecycle: 'maintained',
           tier: 'active',
-          repo: 'foundry/helpers/drank',
+          repo: 'drank',
         },
         {
           id: 'missing-active',

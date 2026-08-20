@@ -11,4 +11,4 @@ Follow the shared fleet agent standard:
 See also:
 - `foundry/LANDING_STANDARD.md` for landing-page conventions
 - `foundry/ops/` for Fleet skills, scripts, docs, templates, and teammates
-- `foundry/helpers/psi-swarm/` for the performance tool
+- `psi-swarm/` for the standalone performance tool

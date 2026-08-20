@@ -122,10 +122,10 @@ record the shipped outcome in `PROJECT_STATUS.md`.
 
 All Fleet-owned source lives under `foundry/`. Operational tooling is under
 `foundry/ops/`: skills, scripts, registries, automation, host setup, docs,
-templates, and teammates. Focused supporting products live under
-`foundry/helpers/`; public and Fleet Console interfaces live under
-`foundry/apps/`; Marketing lives under `foundry/marketing/`; and the public
-Feedback package lives under `foundry/packages/`. Fleet-owned orchestration
+templates, and teammates. Focused Fleet helpers live under
+`foundry/helpers/`, and Fleet Console interfaces live under `foundry/apps/`.
+SaaS Maker and Feedback, Drank, and PSI Swarm are standalone repositories at
+the workspace root. Fleet-owned orchestration
 skills remain canonical under `foundry/ops/skills/`; a helper-specific skill
 may remain canonical beside its helper and be exposed through a thin link in
 that directory. Edit Fleet sources in the repo, not in agent profile dirs.

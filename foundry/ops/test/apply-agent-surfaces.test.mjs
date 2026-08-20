@@ -134,12 +134,12 @@ test('writes the canonical owner identity into generated product JSON-LD', () =>
   const fleetRoot = mkdtempSync(join(tmpdir(), 'fleet-agent-surfaces-'));
   const headPath = join(
     fleetRoot,
-    'foundry/apps/public/public-directory/src/layouts/Layout.astro',
+    'saas-maker/apps/showcase/src/layouts/Layout.astro',
   );
   mkdirSync(dirname(headPath), { recursive: true });
   writeFileSync(headPath, '<html><head></head><body></body></html>\n');
 
-  runJsonLdAtRoot('fleet-workspace', fleetRoot);
+  runJsonLdAtRoot('saas-maker', fleetRoot);
 
   const head = readFileSync(headPath, 'utf8');
   assert.match(head, /"@id":"https:\/\/sarthakagrawal\.dev\/#person"/);

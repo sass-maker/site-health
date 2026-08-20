@@ -315,7 +315,7 @@
         }
       },
       {
-        "slug": "fleet-workspace",
+        "slug": "saas-maker",
         "aliases": [
           "SaaS Maker"
         ],
@@ -1814,6 +1814,22 @@
     },
     {
       "slug": "fleet-workspace",
+      "name": "Fleet Workspace",
+      "aliases": [
+        "fleet-workflows",
+        "workflows-repo"
+      ],
+      "mode": "private",
+      "domain": null,
+      "domainPosture": "local-only",
+      "publicMarketing": false,
+      "cta": "Use the project privately",
+      "cadence": "none",
+      "contentBase": null,
+      "channels": []
+    },
+    {
+      "slug": "saas-maker",
       "name": "SaaS Maker",
       "aliases": [
         "fleet-ops",

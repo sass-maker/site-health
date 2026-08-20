@@ -46,7 +46,7 @@ node foundry/ops/scripts/generate-token-world.mjs \
 ```
 
 The expected diff is limited to
-`foundry/apps/public/public-directory/src/data/tokenWorld.json`. Review that
+`saas-maker/apps/showcase/src/data/tokenWorld.json`. Review that
 file, then run:
 
 ```bash

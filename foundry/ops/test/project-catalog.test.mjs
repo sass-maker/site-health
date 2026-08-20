@@ -33,7 +33,7 @@ test('real catalog validates with every authored overlay reference', () => {
       agentRegistry,
       reconcile: false,
     }),
-    { projectCount: 54 },
+    { projectCount: 55 },
   );
 });
 
@@ -71,16 +71,16 @@ test('GEO identity contract rejects missing, conflicting, and inaccessible sourc
   );
 
   const publicPrivateSource = structuredClone(catalog);
-  const fleetIdentity = publicPrivateSource.geoIdentities.find(
-    (identity) => identity.id === 'fleet-workspace',
+  const privateIdentity = publicPrivateSource.geoIdentities.find(
+    (identity) => identity.id === 'agent-office',
   );
-  fleetIdentity.source = {
+  privateIdentity.source = {
     state: 'public',
-    url: 'https://github.com/sass-maker/fleet-workspace',
+    url: 'https://github.com/sass-maker/agent-office',
   };
   assert.throws(
     () => validateGeoIdentityContract(publicPrivateSource, agentRegistry),
-    /fleet-workspace: public geo source requires repositoryVisibility public/,
+    /agent-office: public geo source requires repositoryVisibility public/,
   );
 });
 

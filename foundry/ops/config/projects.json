@@ -39,7 +39,7 @@
       "drank": "drank",
       "fleet-workspace": "fleet-workspace",
       "reddit-insights": "reddit-insights",
-      "saas-maker": "fleet-workspace",
+      "saas-maker": "saas-maker",
       "tinygpt": "posttrainllm",
       "workflows": "fleet-workspace",
       "workflows-repo": "fleet-workspace"
@@ -198,10 +198,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-08-20",
+          "reason": "Fleet Workspace is a private operational platform; its public directory is now owned by the standalone SaaS Maker repository."
         }
       },
       "aliases": [
@@ -212,15 +212,9 @@
       "family": "fleet-workspace",
       "tier": "active",
       "repo": "foundry/ops",
-      "deployKind": "worker+pages",
-      "cfProject": "saas-maker-home, fleet-chatgpt-connections",
+      "deployKind": "worker",
+      "cfProject": "fleet-chatgpt-connections",
       "deployTargets": [
-        {
-          "id": "public-directory",
-          "kind": "pages",
-          "name": "saas-maker-home",
-          "sourcePath": "foundry/apps/public/public-directory"
-        },
         {
           "id": "chatgpt-connections",
           "kind": "worker",
@@ -229,17 +223,57 @@
         }
       ],
       "domains": [
-        "sassmaker.com",
         "fleet.sassmaker.com"
       ],
-      "inRegistry": true,
+      "inRegistry": false,
       "status": "live",
-      "notes": "Canonical shared-infrastructure source, including the Fleet Workflows GitHub Actions extension. sassmaker.com is a static public directory generated from Fleet's privacy-checked projection on Cloudflare Pages. The operational Fleet Console remains machine-hosted at fleet.sassmaker.com through Cloudflare Tunnel.",
+      "notes": "Private shared-infrastructure source, including Fleet Workflows and the machine-hosted Fleet Console. Public directory and Feedback ownership moved to sass-maker/saas-maker on 2026-08-20.",
       "name": "Fleet Workspace",
       "attention": "foundry",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
+      "public": { "listing": "hidden" }
+    },
+    {
+      "id": "saas-maker",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "Canonical public directory source restored to its standalone repository; the existing public surface remains live."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "saas-maker",
+      "tier": "active",
+      "repo": "saas-maker",
+      "deployKind": "worker+pages",
+      "cfProject": "saas-maker-home, saasmaker-api, saasmaker-dashboard, saas-maker-packages",
+      "deployTargets": [
+        {
+          "id": "public-directory",
+          "kind": "pages",
+          "name": "saas-maker-home",
+          "sourcePath": "saas-maker/apps/showcase"
+        },
+        { "id": "feedback-api", "kind": "worker", "name": "saasmaker-api", "sourcePath": "saas-maker/workers/api" },
+        { "id": "feedback-inbox", "kind": "worker", "name": "saasmaker-dashboard", "sourcePath": "saas-maker/apps/cockpit" },
+        { "id": "feedback-docs", "kind": "pages", "name": "saas-maker-packages", "sourcePath": "saas-maker/apps/docs-blume" }
+      ],
+      "domains": ["sassmaker.com", "app.sassmaker.com", "api.sassmaker.com"],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Standalone public product directory and focused Feedback product: hosted submissions, private inbox, agent API, project keys, attachments, package, and docs. Canonical source restored from Fleet Workspace on 2026-08-20.",
+      "name": "SaaS Maker",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/saas-maker",
       "public": {
         "listing": "maintained",
         "id": "saas-maker",
@@ -248,7 +282,8 @@
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "public-ready"
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sass-maker/saas-maker"
       }
     },
     {
@@ -377,9 +412,9 @@
         }
       },
       "authModel": "public-persistent",
-      "family": "fleet-workspace",
+      "family": "drank",
       "tier": "active",
-      "repo": "foundry/helpers/drank",
+      "repo": "drank",
       "deployKind": "pages",
       "cfProject": "drank",
       "domains": [
@@ -387,11 +422,12 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.",
       "name": "Drank",
-      "attention": "foundry",
+      "attention": "toolbox",
       "lifecycle": "maintained",
-      "repositoryVisibility": "unknown",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/drank",
       "public": {
         "listing": "maintained",
         "id": "drank",
@@ -400,7 +436,8 @@
         "category": "helper",
         "pillarId": "market",
         "spotlight": false,
-        "maturity": "maintained"
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/drank"
       }
     },
     {
@@ -541,9 +578,9 @@
         }
       },
       "authModel": "public-persistent",
-      "family": "fleet-workspace",
+      "family": "psi-swarm",
       "tier": "active",
-      "repo": "foundry/helpers/psi-swarm",
+      "repo": "psi-swarm",
       "deployKind": "pages",
       "cfProject": "psi-swarm-web",
       "domains": [
@@ -551,11 +588,12 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.",
       "name": "PSI Swarm",
-      "attention": "foundry",
+      "attention": "toolbox",
       "lifecycle": "maintained",
-      "repositoryVisibility": "unknown",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/psi-swarm",
       "public": {
         "listing": "maintained",
         "id": "psi-swarm",
@@ -564,7 +602,8 @@
         "category": "helper",
         "pillarId": "visibility",
         "spotlight": false,
-        "maturity": "maintained"
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/psi-swarm"
       }
     },
     {
@@ -2416,15 +2455,15 @@
           "kind": "pages",
           "state": "provider-complete",
           "observed": 29,
-          "tracked": 30,
-          "evidence": "Wrangler account list 2026-08-17: 29 live (adds kith and setline) plus one deleted historical target."
+          "tracked": 31,
+          "evidence": "Wrangler account list 2026-08-17 plus the restored SaaS Maker package-docs target from tracked standalone configuration."
         },
         {
           "kind": "worker",
           "state": "known-name-probed",
           "observed": 26,
-          "tracked": 27,
-          "evidence": "All 26 known live names were probed; reddit-insights-daily-collector and fleet-chatgpt-connections are configured but not deployed. Account-wide Worker listing still requires API or dashboard evidence. Setline's Worker was deleted 2026-08-16."
+          "tracked": 29,
+          "evidence": "Known live names plus the restored SaaS Maker API and dashboard targets from tracked standalone configuration; account-wide Worker listing still requires API or dashboard evidence."
         },
         {
           "kind": "d1",
@@ -2437,8 +2476,8 @@
           "kind": "r2",
           "state": "provider-complete",
           "observed": 8,
-          "tracked": 9,
-          "evidence": "Wrangler account list; reddit-insights-archive is configured but not provisioned."
+          "tracked": 11,
+          "evidence": "Wrangler account list plus the Feedback image and dashboard cache buckets from tracked standalone configuration; reddit-insights-archive is configured but not provisioned."
         },
         {
           "kind": "kv",
@@ -2648,15 +2687,8 @@
         ]
       },
       "fleet-workspace": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-20",
         "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "saas-maker-home",
-            "method": "wrangler-direct",
-            "state": "live"
-          },
           {
             "provider": "cloudflare",
             "kind": "worker",
@@ -2682,12 +2714,6 @@
         "resources": [
           {
             "provider": "cloudflare",
-            "kind": "d1",
-            "name": "saasmaker-db",
-            "state": "retained"
-          },
-          {
-            "provider": "cloudflare",
             "kind": "kv",
             "name": "OAUTH_KV",
             "state": "configured-for-merged-gateway"
@@ -2697,13 +2723,33 @@
             "kind": "access-application",
             "name": "fleet.sassmaker.com",
             "state": "active-config-derived"
+          }
+        ]
+      },
+      "saas-maker": {
+        "updatedAt": "2026-08-20",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "saas-maker-home",
+            "method": "wrangler-direct",
+            "state": "live"
           },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "live" },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "live" },
+          { "provider": "cloudflare", "kind": "pages", "name": "saas-maker-packages", "method": "wrangler-direct", "state": "live" }
+        ],
+        "resources": [
           {
             "provider": "cloudflare",
             "kind": "zone",
             "name": "sassmaker.com",
             "state": "active-config-derived"
-          }
+          },
+          { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "active" },
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "config-derived" },
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "config-derived" }
         ]
       },
       "gitstat": {
@@ -4006,21 +4052,20 @@
       }
     },
     {
-      "id": "fleet-workspace",
+      "id": "saas-maker",
       "name": "SaaS Maker",
-      "aliases": [
-        "Fleet Workspace"
-      ],
+      "aliases": [],
       "origin": "https://sassmaker.com",
       "source": {
-        "state": "internal",
-        "path": "foundry/ops"
+        "state": "public",
+        "url": "https://github.com/sass-maker/saas-maker"
       },
       "docs": {
         "state": "public",
         "url": "https://sassmaker.com/learnings"
       },
       "officialProfiles": [
+        "https://github.com/sass-maker/saas-maker",
         "https://github.com/sass-maker"
       ],
       "availability": {
@@ -4037,14 +4082,15 @@
       "aliases": [],
       "origin": "https://domains.sassmaker.com",
       "source": {
-        "state": "internal",
-        "path": "foundry/helpers/drank"
+        "state": "public",
+        "url": "https://github.com/sass-maker/drank"
       },
       "docs": {
         "state": "landing-only",
         "url": "https://domains.sassmaker.com"
       },
       "officialProfiles": [
+        "https://github.com/sass-maker/drank",
         "https://github.com/sass-maker"
       ],
       "availability": {
@@ -4139,14 +4185,15 @@
       ],
       "origin": "https://performance.sassmaker.com",
       "source": {
-        "state": "internal",
-        "path": "foundry/helpers/psi-swarm"
+        "state": "public",
+        "url": "https://github.com/sass-maker/psi-swarm"
       },
       "docs": {
         "state": "landing-only",
         "url": "https://performance.sassmaker.com"
       },
       "officialProfiles": [
+        "https://github.com/sass-maker/psi-swarm",
         "https://github.com/sass-maker"
       ],
       "availability": {

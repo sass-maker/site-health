@@ -224,7 +224,7 @@ The active production fleet is listed in `foundry/ops/config/projects.json`.
 | `anime-list` | MAL Explorer for anime/manga discovery and watchlists | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm pages:build` | `pnpm deploy` |
 | `app-health` | Independent application-health ingestion and evidence product | see project README | see project README / CI | see project README / CI |
 | `codevetter` | Desktop-first AI code review platform | see project README | see project README / CI | see project README / CI |
-| `drank` | Domain rating tracker | `cd foundry/helpers/drank && pnpm dev` | root `Drank CI` | `cd foundry/helpers/drank && pnpm deploy` |
+| `drank` | Domain rating tracker | `cd drank && pnpm dev` | standalone `Drank CI` | `cd drank && pnpm deploy` |
 | `email-manager` | Gmail/email triage and automation | `pnpm dev` | `pnpm lint`, `pnpm cf:build` | `pnpm deploy` |
 | `everythingrated` | Multi-axis ratings for High Signal directories | `pnpm dev` | see project README / CI | project workflows |
 | `free-ai` | OpenAI-compatible gateway for free LLM providers | `pnpm dev` | `pnpm check`, `pnpm test:e2e` when relevant | `pnpm deploy` |
@@ -239,7 +239,7 @@ The active production fleet is listed in `foundry/ops/config/projects.json`.
 | `reel-pipeline` | AI short-form video generation pipeline | `cd reel-pipeline && npm run dev` | repo-local `CI` | `cd reel-pipeline && npm run deploy` |
 | `research-papers` | Academic paper platform and search asset | see project README | see project README / CI | see project README / CI |
 | `rolepatch` | RolePatch resume tailoring and interview prep | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
-| `Fleet public directory` | Static SaaS Maker product directory maintained at `foundry/apps/public/public-directory/` | `npm --prefix foundry/apps/public/public-directory run dev` | `npm run check:public` | guarded Fleet workflow |
+| `SaaS Maker public directory` | Static product directory maintained in the standalone repository | `pnpm --dir saas-maker build:showcase` | SaaS Maker CI | manual SaaS Maker deploy |
 | `significanthobbies` | Hobby journeys and discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy` |
 | `starboard` | GitHub stars organization and stack discovery | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm cf:build` | `pnpm deploy:cf` |
 | `swe-interview-prep` | Interview Coder prep app | `pnpm dev` | `pnpm lint`, `pnpm test`, `pnpm build` | `pnpm deploy` |

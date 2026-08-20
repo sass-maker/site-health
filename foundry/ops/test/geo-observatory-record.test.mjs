@@ -166,7 +166,10 @@ test('the retained ten-root baseline satisfies the repeatable weekly contract', 
     .split('\n')
     .filter(Boolean)
     .map((line) => JSON.parse(line))
-    .filter((entry) => entry.date === '2026-08-05');
+    .filter((entry) => entry.date === '2026-08-05')
+    .map((entry) => entry.product === 'fleet-workspace'
+      ? { ...entry, product: 'saas-maker' }
+      : entry);
 
   assert.equal(baseline.length, 40);
   assert.deepEqual(validateRootSearchRun(baseline, rootRunConfig, roots), []);

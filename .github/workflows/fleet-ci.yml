@@ -13,7 +13,6 @@ on:
       - "foundry/ops/templates/**"
       - "foundry/ops/test/**"
       - "foundry/ops/workflows"
-      - "foundry/apps/public/public-directory/**"
       - ".gitmodules"
       - ".github/workflows/fleet-ci.yml"
   pull_request:
@@ -28,7 +27,6 @@ on:
       - "foundry/ops/templates/**"
       - "foundry/ops/test/**"
       - "foundry/ops/workflows"
-      - "foundry/apps/public/public-directory/**"
       - ".gitmodules"
       - ".github/workflows/fleet-ci.yml"
   workflow_dispatch:

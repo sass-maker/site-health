@@ -61,7 +61,7 @@ function commandFor({ family, project, fleetRoot }) {
     };
   }
   if (family === 'psi') {
-    const cli = resolve(fleetRoot, 'foundry/helpers/psi-swarm/cli/dist/cli.js');
+    const cli = resolve(fleetRoot, 'psi-swarm/cli/dist/cli.js');
     if (!existsSync(cli)) {
       fail('METRIC_RUNNER_UNAVAILABLE', 'PSI Swarm CLI is not built');
     }
@@ -90,7 +90,7 @@ function commandFor({ family, project, fleetRoot }) {
     return {
       command: process.execPath,
       args: [
-        resolve(fleetRoot, 'foundry/helpers/drank/scripts/update-global-dr.mjs'),
+        resolve(fleetRoot, 'drank/scripts/update-global-dr.mjs'),
         '--sites',
         'data/fleet-sites.json',
         '--data',
@@ -142,7 +142,7 @@ function portfolioCommandFor({ family, fleetRoot, projects }) {
     return {
       command: process.execPath,
       args: [
-        resolve(fleetRoot, 'foundry/helpers/drank/scripts/update-global-dr.mjs'),
+        resolve(fleetRoot, 'drank/scripts/update-global-dr.mjs'),
         '--sites',
         'data/fleet-sites.json',
         '--data',

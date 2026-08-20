@@ -1045,7 +1045,7 @@ export function readSkillRunOutput({
 
 function drankEvidence(root, now) {
   const payload = readJson(
-    resolve(root, 'foundry/helpers/drank/data/fleet-dr.json'),
+    resolve(root, 'drank/data/fleet-dr.json'),
   );
   const domainCount = Object.keys(payload?.domains ?? {}).length;
   return {
@@ -2478,7 +2478,7 @@ export function buildFleetConnections({
       id: 'public-directory',
       name: 'Public Directory',
       bucketId: 'public-apps',
-      path: 'foundry/apps/public/public-directory',
+      path: 'saas-maker/apps/showcase',
       root: fleetRoot,
       headline: `${maintainedProjects.length} maintained project identities are available to projections.`,
       ownerPath: '/projects',

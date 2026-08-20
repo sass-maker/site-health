@@ -298,8 +298,8 @@ const TARGETS = {
     public: ["pace/website/public"],
   },
   drank: {
-    public: ["foundry/helpers/drank/public"],
-    appSvg: ["foundry/helpers/drank/app"],
+    public: ["drank/public"],
+    appSvg: ["drank/app"],
   },
   looptv: {
     public: ["looptv/public"],
@@ -326,7 +326,7 @@ const TARGETS = {
     public: ["swe-interview-prep/public"],
   },
   "psi-swarm": {
-    public: ["foundry/helpers/psi-swarm/web/public"],
+    public: ["psi-swarm/web/public"],
   },
 };
 

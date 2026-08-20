@@ -71,8 +71,8 @@ test('public projection contains only explicitly allowlisted public products', (
     assert.doesNotThrow(() => assertEvidenceLinks(product));
   }
   assert.equal(
-    Object.hasOwn(projection.products.find((product) => product.id === 'drank'), 'repositoryUrl'),
-    false,
+    projection.products.find((product) => product.id === 'drank').repositoryUrl,
+    'https://github.com/sass-maker/drank',
   );
   assert.deepEqual(
     projection.pastProjects.find((project) => project.id === 'chess'),
@@ -150,26 +150,33 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
   assert.throws(() => assertNoPrivateData({ description: 'api_key=should-not-leak' }), /credential-shaped/);
 });
 
-test('SaaS Maker does not expose its private Fleet repository', async () => {
+test('SaaS Maker exposes its canonical standalone source without exposing Fleet', async () => {
   const [links, agentRegistry, registrySource, projectsSource, routesSource, navSource, redirects] = await Promise.all([
-    readFile(new URL('../../apps/public/public-directory/src/data/links.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../../saas-maker/apps/showcase/src/data/links.ts', import.meta.url), 'utf8'),
     readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
-    readFile(new URL('../../apps/public/public-directory/src/data/registry.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../apps/public/public-directory/src/data/projects.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../apps/public/public-directory/src/data/publicRoutes.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../apps/public/public-directory/src/components/Nav.astro', import.meta.url), 'utf8'),
-    readFile(new URL('../../apps/public/public-directory/public/_redirects', import.meta.url), 'utf8'),
+    readFile(new URL('../../../saas-maker/apps/showcase/src/data/registry.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../../saas-maker/apps/showcase/src/data/projects.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../../saas-maker/apps/showcase/src/data/publicRoutes.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../../saas-maker/apps/showcase/src/components/Nav.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../../../saas-maker/apps/showcase/public/_redirects', import.meta.url), 'utf8'),
   ]);
-  const saasMaker = agentRegistry.products.find((product) => product.id === 'fleet-workspace');
+  const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');
   const publicSaasMaker = buildPublicProducts(projects).products.find(
     (product) => product.id === 'saas-maker',
   );
 
   assert.match(links, /https:\/\/github\.com\/sarthakagrawal927['"]/);
   assert.match(links, /https:\/\/github\.com\/sass-maker['"]/);
-  assert.equal(Object.hasOwn(publicSaasMaker, 'repositoryUrl'), false);
-  assert.equal(Object.hasOwn(publicSaasMaker, 'roadmapUrl'), false);
-  assert.deepEqual(saasMaker.sameAs, ['https://github.com/sass-maker']);
+  assert.equal(publicSaasMaker.repositoryUrl, 'https://github.com/sass-maker/saas-maker');
+  assert.equal(publicSaasMaker.roadmapUrl, 'https://github.com/sass-maker/saas-maker/issues');
+  assert.deepEqual(saasMaker.sameAs, [
+    'https://github.com/sass-maker/saas-maker',
+    'https://github.com/sass-maker',
+  ]);
+  assert.doesNotMatch(
+    [links, registrySource, projectsSource, routesSource, navSource].join('\n'),
+    /github\.com\/sass-maker\/fleet-workspace/,
+  );
   assert.match(registrySource, /PAGED_PRODUCTS = REGISTRY_PRODUCTS\.filter\(\(product\) => product\.id !== 'saas-maker'\)/);
   assert.match(projectsSource, /\['personal-website', 'saas-maker'\]\.includes\(product\.id\)/);
   assert.match(routesSource, /filter\(\(product\) => product\.id !== 'saas-maker'\)/);
@@ -182,12 +189,12 @@ test('SaaS Maker does not expose its private Fleet repository', async () => {
 test('SaaS Maker exposes the complete learning article to agents', async () => {
   const [routesSource, articleMarkdown] = await Promise.all([
     readFile(
-      new URL('../../apps/public/public-directory/src/data/publicRoutes.ts', import.meta.url),
+      new URL('../../../saas-maker/apps/showcase/src/data/publicRoutes.ts', import.meta.url),
       'utf8',
     ),
     readFile(
       new URL(
-        '../../apps/public/public-directory/src/data/articles/skills-should-declare-capabilities-not-model-names.md',
+        '../../../saas-maker/apps/showcase/src/data/articles/skills-should-declare-capabilities-not-model-names.md',
         import.meta.url,
       ),
       'utf8',

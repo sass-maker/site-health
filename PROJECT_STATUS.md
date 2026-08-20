@@ -37,8 +37,8 @@ editorial products; or an active mobile-control product.
 - Ahrefs for optional authenticated Site Audit project-health observations;
   missing or unentitled access fails closed without affecting Domain Rating,
   Fleet on-page checks, or PageSpeed evidence.
-- Ultracite 7.10.2 as an exact, development-only dependency of the independently
-  installed Drank pilot; the shared generator invokes that pinned pilot binary.
+- Ultracite remains a Drank-owned development dependency in the standalone
+  repository; Fleet no longer generates or owns its lint context.
 - Private Fleet evidence, authenticated providers, agent runs, Apple-native
   proof, and operator workflows remain manual. The optional host tooling stays
   inert; Fleet has no designated-host or macOS crontab cutover.
@@ -53,8 +53,8 @@ editorial products; or an active mobile-control product.
 - Reel Pipeline, Content Factory, and Mashup are independent products in
   standalone Sass Maker repositories. Fleet may consume their versioned
   receipts but does not own their product surfaces.
-- Drank supplies domain intelligence.
-- PSI Swarm supplies bounded performance/site-health evidence.
+- Standalone Drank supplies domain intelligence through its versioned data and scripts.
+- Standalone PSI Swarm supplies bounded performance/site-health evidence.
 - Mobile Dev Cockpit is parked. Its source and retained Cloudflare resources
   remain inventoried, but it has no active product work or Fleet Console gap.
 - CodeVetter remains an independent linked product. App Health is an
@@ -65,14 +65,19 @@ editorial products; or an active mobile-control product.
   queues live in `Significant-Hobbies/setline` and
   `Significant-Hobbies/india-standards`; Fleet retains catalog, monitoring,
   automation, and sanitized public-projection links only.
-- Fleet owns `@saas-maker/feedback` as the public client package for a shared
-  Feedback product. Consumers choose either an `onSubmit` callback or a
-  compatible caller-owned `ingestionUrl`; Fleet-owned ingestion, storage,
-  attachments, and Console projections do not exist. Feedback is separate from
-  Fleet Console and each consumer owns its submission destination.
+- The standalone SaaS Maker repository owns `@saas-maker/feedback`, its hosted
+  submission service, project keys, attachments, private viewing UI, and agent
+  API. Feedback remains separate from Fleet Console.
 
 ## Timeline
 
+- **2026-08-20 — SaaS Maker, Feedback, Drank, and PSI Swarm extracted:** Restored
+  the three standalone Sass Maker repositories, moved the current public
+  directory and the focused Feedback service, private inbox, agent contract,
+  and React package into `sass-maker/saas-maker`, and removed their nested Fleet
+  implementations. Drank and PSI Swarm now own their source, checks, skills,
+  and release boundaries; Fleet retains only portfolio metadata, monitoring,
+  and cross-product orchestration references. No deployment or migration ran.
 - **2026-08-20 — Media products extracted from Fleet:** Restored Reel Pipeline
   as a standalone Sass Maker repository with Content Factory inside its product
   boundary, restored Mashup as a separate Sass Maker repository, and removed
@@ -685,7 +690,8 @@ editorial products; or an active mobile-control product.
   preserving `PROJECT_STATUS.md` as product-scope truth.
 - **2026-07-23 — Feedback reduced to a package:** Consumer audit found no Fleet
   imports or hosted API calls. Reduced the retained boundary to a callback-only
-  React package at `foundry/packages/feedback/`; removed API, inbox, auth,
+  React package in `saas-maker/packages/widgets/feedback-widget/`; restored its
+  focused API, private inbox, and agent contract in the standalone repository,
   storage, project-key, and Worker source from Fleet.
 - **2026-07-22 — SaaS Maker retirement started:** Removed the separate runtime,
   docs platform, and operational product identity; the public directory moved
@@ -712,11 +718,11 @@ editorial products; or an active mobile-control product.
 | Bucket | Component | Canonical path | Runtime boundary |
 |---|---|---|---|
 | Helpers | AI Visibility | `foundry/helpers/ai-visibility/` | Framework-independent helper library plus Fleet evidence consumer |
-| Helpers | Drank | `foundry/helpers/drank/` | Domain-intelligence app/API |
-| Helpers | PSI Swarm | `foundry/helpers/psi-swarm/` | Local CLI plus independently deployable static surface |
+| Independent products | Drank | `drank/` | Domain-intelligence app/API |
+| Independent products | PSI Swarm | `psi-swarm/` | Local CLI plus independently deployable static surface |
 | Skills | Fleet skills | `foundry/ops/skills/` | Agent workflows installed as repo-local symlinks |
-| Public apps | Public directory | `foundry/apps/public/public-directory/` | Static public product projection on Cloudflare Pages |
-| Packages | Feedback | `foundry/packages/feedback/` | Public client package with caller-owned callback or ingestion URL |
+| Independent products | SaaS Maker | `saas-maker/apps/showcase/` | Static public product projection on Cloudflare Pages |
+| Independent products | Feedback | `saas-maker/` | Hosted submission service, private inbox, agent API, and public React package |
 | Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
 | Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | React package and universal loader with bundled catalog and cached static revalidation |
 | Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |

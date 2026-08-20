@@ -8,32 +8,6 @@ const fleetRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const componentId = process.argv[2];
 
 const components = {
-  drank: {
-    root: 'foundry/helpers/drank',
-    workflow: 'drank-ci.yml',
-    paths: [
-      'foundry/helpers/drank',
-      'foundry/ops/scripts/manual-component-deploy.mjs',
-      '.github/workflows/drank-ci.yml',
-    ],
-    commands: [
-      ['pnpm', ['run', 'build']],
-      [
-        'pnpm',
-        [
-          '--allow-build=esbuild',
-          '--allow-build=workerd',
-          'dlx',
-          'wrangler@4.120.0',
-          'pages',
-          'deploy',
-          'out',
-          '--project-name=drank',
-          '--branch=main',
-        ],
-      ],
-    ],
-  },
   'chatgpt-connections': {
     root: 'foundry/helpers/chatgpt-connections',
     workflow: 'chatgpt-connections-ci.yml',
@@ -44,32 +18,6 @@ const components = {
       '.github/workflows/chatgpt-connections-ci.yml',
     ],
     commands: [['pnpm', ['exec', 'wrangler', 'deploy']]],
-  },
-  'psi-swarm': {
-    root: 'foundry/helpers/psi-swarm',
-    workflow: 'psi-swarm-ci.yml',
-    paths: [
-      'foundry/helpers/psi-swarm',
-      'foundry/ops/scripts/manual-component-deploy.mjs',
-      '.github/workflows/psi-swarm-ci.yml',
-    ],
-    commands: [
-      ['pnpm', ['run', 'build:web']],
-      [
-        'pnpm',
-        [
-          '--dir',
-          'web',
-          'exec',
-          'wrangler',
-          'pages',
-          'deploy',
-          'dist',
-          '--project-name=psi-swarm-web',
-          '--branch=main',
-        ],
-      ],
-    ],
   },
 };
 

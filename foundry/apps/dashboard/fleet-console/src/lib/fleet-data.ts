@@ -28,7 +28,7 @@ const registryProjects = registryPayload.projects ?? [];
 
 const localDirBySlug: Record<string, string> = {
   "alive-ville": "aliveville",
-  drank: "foundry/helpers/drank",
+  drank: "drank",
   "fleet-ops": "foundry/ops"
 };
 
@@ -460,7 +460,7 @@ export function getFleetDevlog(limit = 3): FleetDevlog[] {
 }
 
 export function getDomainIntelligence(): DomainIntelligence[] {
-  const drank = readJsonObject(resolve(fleetRoot, "foundry/helpers/drank/data/fleet-dr.json")) as {
+  const drank = readJsonObject(resolve(fleetRoot, "drank/data/fleet-dr.json")) as {
     lastUpdated?: string | null;
     domains?: Record<string, { history?: Array<{ ts?: number; dr?: number }> }>;
   };

@@ -2,7 +2,7 @@
 
 **Strategy reviewed:** 2026-08-20
 
-**Coverage:** all P1 (4), all P2 (24), all eligible finished P4 (9)
+**Coverage:** all P1 (4), all P2 (25), all eligible finished P4 (9)
 
 **Source of truth:** `foundry/ops/config/seo-geo-publishing.json`
 
@@ -133,26 +133,42 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 - **Product Hunt:** Do not launch until a trusted public Mac distribution channel exists.
 - **Apple App Store and relevant marketplaces:** No signed, notarized, publicly distributed binary is currently claimed.
 
-## P2 — 24
+## P2 — 25
 
-### Fleet Workspace — Publishable
+### Fleet Workspace — Preparation only
+
+**Canonical:** [https://fleet.sassmaker.com](https://fleet.sassmaker.com)
+
+**Narrative:** A private operating system for maintaining a portfolio of independent software products.
+
+**Source asset:** A privacy-safe standards excerpt and verified operational case study.
+
+**Catalog blocker:** Fleet Workspace is a private operational platform; its public directory is now owned by the standalone SaaS Maker repository. (verified 2026-08-20)
+
+**Before publishing:**
+
+- Approve a public Fleet narrative that exposes no private operational data.
+
+**Future candidates after re-verification:** DEV Community, GitHub repository and organization profile
+
+### SaaS Maker — Publishable
 
 **Canonical:** [https://sassmaker.com](https://sassmaker.com)
 
-**Narrative:** The operating system and public boundary for maintaining a one-person fleet of software products.
+**Narrative:** A public directory of focused products plus a small hosted Feedback package and service.
 
-**Source asset:** A transparent operating manual describing catalog truth, issue-based work, deploy verification, and agent maintenance loops.
+**Source asset:** The live product directory, package documentation, and transparent Feedback API contract.
 
 | Rank | Channel | Format | Execution | Content owner | Why this fits |
 |---|---|---|---|---|---|
-| Primary | [DEV Community](https://dev.to/help/getting-started) | Engineering a maintainable one-person software fleet | Agent direct | Agent | Cross-project automation and repository discipline are developer-relevant. |
+| Primary | [DEV Community](https://dev.to/help/getting-started) | Building a focused feedback service and public product directory | Agent direct | Agent | The package and API contract are directly useful to developers. |
 | Primary | [LinkedIn articles and newsletters](https://www.linkedin.com/help/linkedin/answer/a522525/linkedin-newsletters?lang=en) | Founder operating-system essay | Agent with unblock | Owner | Professional audience for operational lessons and trade-offs. |
 | Secondary | [Substack](https://support.substack.com/hc/en-us/articles/360037831771-How-do-I-publish-a-new-post-on-Substack) | Recurring build-and-operate field notes | Agent direct | Owner | Portfolio-level narrative fits a coherent newsletter better than individual product promotion. |
 | Secondary | [GitHub repository and organization profile](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository) | Organization profile and public standards excerpts | Agent direct | Agent | Citable source for the fleet method without exposing private internals. |
 
 **Do not use:**
 
-- **Product Hunt:** Treat Fleet Workspace as a platform and operating narrative, not as a one-off launch listing.
+- **Product Hunt:** Wait for a separately approved Feedback release rather than launching the directory alone.
 
 ### GitStat — Preparation only
 

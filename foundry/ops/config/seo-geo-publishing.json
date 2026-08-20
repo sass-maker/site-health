@@ -601,19 +601,29 @@
       ]
     },
     {
-      "projectId": "fleet-workspace",
+      "projectId": "saas-maker",
       "state": "publish",
-      "narrative": "The operating system and public boundary for maintaining a one-person fleet of software products.",
-      "sourceAsset": "A transparent operating manual describing catalog truth, issue-based work, deploy verification, and agent maintenance loops.",
+      "narrative": "A public directory of focused products plus a small hosted Feedback package and service.",
+      "sourceAsset": "The live product directory, package documentation, and transparent Feedback API contract.",
       "placements": [
-        { "channelId": "dev", "rank": "primary", "format": "Engineering a maintainable one-person software fleet", "actor": "agent", "fit": "Cross-project automation and repository discipline are developer-relevant." },
+        { "channelId": "dev", "rank": "primary", "format": "Building a focused feedback service and public product directory", "actor": "agent", "fit": "The package and API contract are directly useful to developers." },
         { "channelId": "linkedin", "rank": "primary", "format": "Founder operating-system essay", "actor": "owner", "fit": "Professional audience for operational lessons and trade-offs." },
         { "channelId": "substack", "rank": "secondary", "format": "Recurring build-and-operate field notes", "actor": "owner", "fit": "Portfolio-level narrative fits a coherent newsletter better than individual product promotion." },
         { "channelId": "github-repository", "rank": "secondary", "format": "Organization profile and public standards excerpts", "actor": "agent", "fit": "Citable source for the fleet method without exposing private internals." }
       ],
       "exclusions": [
-        { "channelId": "product-hunt", "reason": "Treat Fleet Workspace as a platform and operating narrative, not as a one-off launch listing." }
+        { "channelId": "product-hunt", "reason": "Wait for a separately approved Feedback release rather than launching the directory alone." }
       ]
+    },
+    {
+      "projectId": "fleet-workspace",
+      "state": "prepare",
+      "narrative": "A private operating system for maintaining a portfolio of independent software products.",
+      "sourceAsset": "A privacy-safe standards excerpt and verified operational case study.",
+      "placements": [],
+      "futureChannels": ["dev", "github-repository"],
+      "prerequisites": ["Approve a public Fleet narrative that exposes no private operational data."],
+      "exclusions": []
     },
     {
       "projectId": "knowledge-base",

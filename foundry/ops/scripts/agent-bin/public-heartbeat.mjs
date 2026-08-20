@@ -72,7 +72,7 @@ function notificationSummary() {
 }
 
 function domainSummary() {
-  const drankPath = resolve(fleetRoot, "foundry/helpers/drank/data/fleet-dr.json");
+  const drankPath = resolve(fleetRoot, "drank/data/fleet-dr.json");
   let drank = {};
   try { drank = JSON.parse(readFileSync(drankPath, "utf8")); } catch {}
   const dbPath = `${process.env.HOME}/.psi-swarm/history.db`;

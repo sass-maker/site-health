@@ -12,7 +12,7 @@ if (!args.seed) {
   process.exit(1);
 }
 
-const outputPath = path.resolve(root, args.output ?? 'foundry/apps/public/public-directory/src/data/tokenWorld.json');
+const outputPath = path.resolve(root, args.output ?? 'saas-maker/apps/showcase/src/data/tokenWorld.json');
 const seed = JSON.parse(await readFile(path.resolve(args.seed), 'utf8'));
 const previous = JSON.parse(await readFile(outputPath, 'utf8').catch(() => 'null'));
 const projection = buildTokenWorldProjection(seed, previous, { correctionNote: args.correctionNote });

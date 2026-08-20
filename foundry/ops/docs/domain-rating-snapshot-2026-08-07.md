@@ -4,7 +4,7 @@ Live Ahrefs free DR fetch (no key required until 2026-08-10).
 Single-digit DR is real authority, not a measurement bug. Technical site-health
 (agent-ready S-tier) is orthogonal to Domain Rating.
 
-Source: `foundry/helpers/drank/data/fleet-dr.json` lastUpdated `2026-08-07T14:02:51.754Z`
+Source at capture time: the Drank repository's `data/fleet-dr.json`, lastUpdated `2026-08-07T14:02:51.754Z`
 
 | Domain | DR |
 | --- | ---: |

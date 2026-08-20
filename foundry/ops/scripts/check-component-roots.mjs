@@ -8,6 +8,10 @@ const root = path.resolve(import.meta.dirname, '../../..');
 const retiredRoots = [
   ['foundry/apps/internal', 'drank'].join('/'),
   ['foundry/apps/internal', 'psi-swarm'].join('/'),
+  ['foundry/helpers', 'drank'].join('/'),
+  ['foundry/helpers', 'psi-swarm'].join('/'),
+  ['foundry/packages', 'feedback'].join('/'),
+  ['foundry/apps/public', 'public-directory'].join('/'),
   ['foundry/packages', 'ai-visibility'].join('/'),
   ['foundry/apps/public', 'mobile-cockpit'].join('/'),
   ['foundry/apps/dashboard', 'mobile-cockpit'].join('/'),
@@ -24,21 +28,9 @@ const historicalReferenceFiles = new Set([
 ]);
 const components = [
   {
-    id: 'drank',
-    root: 'foundry/helpers/drank',
-    required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],
-    nativeCheck: 'pnpm check',
-  },
-  {
     id: 'chatgpt-connections',
     root: 'foundry/helpers/chatgpt-connections',
     required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml', 'wrangler.jsonc'],
-    nativeCheck: 'pnpm check',
-  },
-  {
-    id: 'feedback',
-    root: 'foundry/packages/feedback',
-    required: ['package.json', 'README.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm check',
   },
   {
@@ -46,18 +38,6 @@ const components = [
     root: 'foundry/helpers/ai-visibility',
     required: ['package.json', 'README.md', 'pnpm-lock.yaml'],
     nativeCheck: 'pnpm check',
-  },
-  {
-    id: 'public-directory',
-    root: 'foundry/apps/public/public-directory',
-    required: ['package.json', 'PRODUCT.md', 'DESIGN.md', 'pnpm-lock.yaml'],
-    nativeCheck: 'pnpm run check',
-  },
-  {
-    id: 'psi-swarm',
-    root: 'foundry/helpers/psi-swarm',
-    required: ['package.json', 'PROJECT_STATUS.md', 'pnpm-lock.yaml'],
-    nativeCheck: 'pnpm build:cli && pnpm build:web',
   },
   {
     id: 'fleet-console',
@@ -123,8 +103,10 @@ if (staleReferences.length > 0) {
 
 const psiSkillLink = path.join(root, 'foundry/ops/skills/psi-swarm/SKILL.md');
 const psiSkillTarget = await readlink(psiSkillLink);
-if (psiSkillTarget !== '../../../helpers/psi-swarm/SKILL.md') {
-  throw new Error(`PSI Swarm skill must point to its helper-owned contract; got ${psiSkillTarget}`);
+if (psiSkillTarget !== '../../../../psi-swarm/SKILL.md') {
+  throw new Error(
+    `PSI Swarm skill must point to its standalone repository contract; got ${psiSkillTarget}`
+  );
 }
 
 for (const component of components) {

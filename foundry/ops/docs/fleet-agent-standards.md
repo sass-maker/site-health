@@ -263,11 +263,10 @@ Rules:
 ## Fleet tooling architecture (foundry/ops/)
 
 Fleet operational tooling — skills, scripts, registries, automation, host
-setup, docs, templates, and teammates — lives under `foundry/ops/`. Public,
-and dashboard interfaces live under `foundry/apps/`; Drank, PSI Swarm, and AI
-Visibility live under `foundry/helpers/`; Marketing lives under
-`foundry/marketing/`; and the reusable public Feedback package lives under
-`foundry/packages/`. Agents discover skills via symlinks from their profile
+setup, docs, templates, and teammates — lives under `foundry/ops/`. Fleet
+Console and internal interfaces live under `foundry/apps/`; AI Visibility lives
+under `foundry/helpers/`. SaaS Maker, Feedback, Drank, and PSI Swarm are
+standalone repositories inventoried by Fleet. Agents discover skills via symlinks from their profile
 skill dirs into `foundry/ops/`; edit Fleet-owned skills in the repo, never in
 agent profile directories. Helper-owned skill entrypoints remain canonical
 beside their helper and are exposed through thin links in `foundry/ops/skills/`.
@@ -290,11 +289,11 @@ foundry/ops/
 ├── test/                ← operational tests and shared fixtures
 └── docs/                ← living references and dated history
 
-foundry/helpers/        ← AI Visibility, Drank, and PSI Swarm
-foundry/apps/public/     ← SaaS Maker directory
-foundry/apps/dashboard/  ← Fleet Console and experimental Mobile Cockpit client
-foundry/marketing/       ← Reel Pipeline and Content Factory
-foundry/packages/        ← public Feedback package
+foundry/helpers/        ← Fleet-owned focused helpers such as AI Visibility
+foundry/apps/dashboard/ ← Fleet Console
+saas-maker/             ← standalone directory and Feedback service/package
+drank/                  ← standalone domain-intelligence product
+psi-swarm/              ← standalone performance product and canonical skill
 ```
 
 ### Skill discovery (progressive disclosure)

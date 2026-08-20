@@ -5,13 +5,8 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '../../..');
 const checks = [
-  ['drank', 'foundry/helpers/drank', 'pnpm', ['check']],
   ['chatgpt-connections', 'foundry/helpers/chatgpt-connections', 'pnpm', ['check']],
-  ['feedback', 'foundry/packages/feedback', 'pnpm', ['check']],
   ['ai-visibility', 'foundry/helpers/ai-visibility', 'pnpm', ['check']],
-  ['public-directory', 'foundry/apps/public/public-directory', 'npm', ['run', 'check']],
-  ['psi-swarm-cli', 'foundry/helpers/psi-swarm', 'pnpm', ['build:cli']],
-  ['psi-swarm-web', 'foundry/helpers/psi-swarm', 'pnpm', ['build:web']],
   ['fleet-console', 'foundry/apps/dashboard/fleet-console', 'npm', ['run', 'build']],
 ];
 

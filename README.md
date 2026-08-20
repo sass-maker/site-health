@@ -12,8 +12,8 @@ This repository is the canonical Fleet shared-infrastructure project and also
 serves as the local workspace root for independent product repositories.
 
 All Fleet-owned source is nested under `foundry/` and organized by the
-operator-facing product model: helpers, skills, public apps, packages, and
-Fleet Console. `foundry/ops/` is the shared operational
+operator-facing product model: helpers, skills, operations, and Fleet Console.
+`foundry/ops/` is the shared operational
 substrate beneath those buckets. This workspace root remains the agent and
 independent-project entrypoint; independent products remain separately
 versioned and deployed unless explicitly imported as Fleet infrastructure.
@@ -27,19 +27,15 @@ generated internal and public views come from the catalog with
 
 ## Canonical Fleet components
 
-- **Helpers:** `foundry/helpers/ai-visibility/`,
-  `foundry/helpers/drank/`, and `foundry/helpers/psi-swarm/`.
+- **Helpers:** `foundry/helpers/ai-visibility/` and other Fleet-owned focused helpers.
 - **Skills:** `foundry/ops/skills/` and `foundry/ops/teammates/skills/`.
-- **Public apps:** `foundry/apps/public/public-directory/`.
-- **Packages:** `foundry/packages/feedback/`.
 - **Fleet Console:** `foundry/apps/dashboard/fleet-console/`.
 - **Operational substrate:** `foundry/ops/`, including its pinned public,
   credential-free `workflows/` module.
 
 The detailed ownership and connection map is in
-[`foundry/README.md`](foundry/README.md). Feedback is a Fleet-owned product,
-but only its client package is shipped today; shared ingestion and the final
-dashboard inbox remain missing.
+[`foundry/README.md`](foundry/README.md). SaaS Maker owns the public directory
+and the complete Feedback package, service, and private inbox.
 
 The orchestration boundary is one-way: Fleet may catalog, inspect, monitor, and
 invoke a standalone product's repo-local commands, but standalone products must
@@ -54,11 +50,11 @@ These products have their own source histories, issue queues, checks, and
 release boundaries. Fleet may catalog or inspect them, but they are not Fleet
 source dependencies:
 
-| Historical repository | Maintained source |
+| Repository | Maintained source |
 | --- | --- |
-| [`sarthakagrawal927/saas-maker`](https://github.com/sarthakagrawal927/saas-maker) | `foundry/apps/public/public-directory/` and `foundry/packages/feedback/` |
-| [`sarthakagrawal927/drank`](https://github.com/sarthakagrawal927/drank) | `foundry/helpers/drank/` |
-| [`sarthakagrawal927/psi-swarm`](https://github.com/sarthakagrawal927/psi-swarm) | `foundry/helpers/psi-swarm/` |
+| [`sass-maker/saas-maker`](https://github.com/sass-maker/saas-maker) | sibling `saas-maker/` checkout |
+| [`sass-maker/drank`](https://github.com/sass-maker/drank) | sibling `drank/` checkout |
+| [`sass-maker/psi-swarm`](https://github.com/sass-maker/psi-swarm) | sibling `psi-swarm/` checkout |
 | [`sarthakagrawal927/reel-pipeline`](https://github.com/sarthakagrawal927/reel-pipeline) | sibling `reel-pipeline/` checkout |
 | [`sass-maker/mashup`](https://github.com/sass-maker/mashup) | sibling `mashup/` checkout |
 | [`sarthakagrawal927/mobile-dev-cockpit`](https://github.com/sarthakagrawal927/mobile-dev-cockpit) | sibling parked `mobile-dev-cockpit/` checkout |
@@ -85,9 +81,9 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 
 - product: CodeVetter, HeyPace, PostTrainLLM, Office OS
 
-### P2 — 24
+### P2 — 25
 
-- product: GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track, Anchor
+- product: SaaS Maker, GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track, Anchor
 - platform: Fleet Workspace, Knowledge Base, iOS landings
 - experiment: Mashup, Local AI Video Studio
 

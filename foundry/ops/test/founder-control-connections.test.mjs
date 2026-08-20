@@ -167,7 +167,7 @@ function fixture() {
   const home = join(root, 'home');
   for (const path of [
     'foundry/ops/skills',
-    'foundry/apps/public/public-directory',
+    'saas-maker/apps/showcase',
   ]) {
     mkdirSync(join(root, path), { recursive: true });
   }
@@ -377,7 +377,7 @@ function fixture() {
       ('https://heypace.app', 1785500000000, NULL, NULL, NULL, NULL);
   `);
   performanceDatabase.close();
-  writeJson(join(root, 'foundry/helpers/drank/data/fleet-dr.json'), {
+  writeJson(join(root, 'drank/data/fleet-dr.json'), {
     lastUpdated: '2026-07-29T10:00:00.000Z',
     domains: {
       'heypace.app': {
@@ -1240,7 +1240,7 @@ test('derives a bounded result summary without projecting the retained body', ()
 
 test('surfaces stale evidence independently from an implemented transport', () => {
   const { root, home } = fixture();
-  writeJson(join(root, 'foundry/helpers/drank/data/fleet-dr.json'), {
+  writeJson(join(root, 'drank/data/fleet-dr.json'), {
     lastUpdated: '2026-06-01T10:00:00.000Z',
     domains: { 'heypace.app': { history: [{ ts: 1748772000000, dr: 8 }] } },
   });

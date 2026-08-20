@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "updatedAt": "2026-08-20",
   "attentionCounts": {
-    "my-work": 6,
-    "toolbox": 28,
-    "foundry": 5,
+    "my-work": 7,
+    "toolbox": 30,
+    "foundry": 3,
     "ignored": 15
   },
   "defaults": {
@@ -164,7 +164,6 @@
         "local-tool"
       ],
       "surfaces": [
-        "https://sassmaker.com",
         "https://fleet.sassmaker.com"
       ],
       "dependencies": [
@@ -194,6 +193,42 @@
       ],
       "actionPolicy": "factory-safe",
       "alertPolicy": "page host, scheduler, publication-integrity, or prolonged production failure; digest routine findings",
+      "exceptions": []
+    },
+    {
+      "id": "saas-maker",
+      "name": "SaaS Maker",
+      "attention": "my-work",
+      "family": "saas-maker",
+      "owner": "sarthak",
+      "repository": "saas-maker",
+      "runtimes": [
+        "public-web"
+      ],
+      "surfaces": [
+        "https://sassmaker.com",
+        "https://app.sassmaker.com",
+        "https://api.sassmaker.com"
+      ],
+      "dependencies": [
+        "GitHub Actions",
+        "Cloudflare Workers"
+      ],
+      "evidenceSources": [
+        "github-actions",
+        "fleet-deploy",
+        "live-smoke",
+        "indexing",
+        "errors"
+      ],
+      "contracts": [
+        "build",
+        "live",
+        "indexing",
+        "errors"
+      ],
+      "actionPolicy": "quiet-maintenance",
+      "alertPolicy": "digest validation findings",
       "exceptions": []
     },
     {
@@ -282,10 +317,10 @@
     {
       "id": "drank",
       "name": "Drank",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/helpers/drank",
+      "attention": "toolbox",
+      "family": "drank",
+      "owner": "sarthak",
+      "repository": "drank",
       "runtimes": [
         "public-web",
         "data-pipeline",
@@ -437,10 +472,10 @@
     {
       "id": "psi-swarm",
       "name": "PSI Swarm",
-      "attention": "foundry",
-      "family": "fleet-workspace",
-      "owner": "foundry",
-      "repository": "foundry/helpers/psi-swarm",
+      "attention": "toolbox",
+      "family": "psi-swarm",
+      "owner": "sarthak",
+      "repository": "psi-swarm",
       "runtimes": [
         "public-web",
         "local-tool",
