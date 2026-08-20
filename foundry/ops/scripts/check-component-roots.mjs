@@ -101,11 +101,14 @@ if (staleReferences.length > 0) {
   throw new Error(`Stale active component paths:\n- ${staleReferences.join('\n- ')}`);
 }
 
-const psiSkillLink = path.join(root, 'foundry/ops/skills/psi-swarm/SKILL.md');
-const psiSkillTarget = await readlink(psiSkillLink);
-if (psiSkillTarget !== '../../../../psi-swarm/SKILL.md') {
+const psiSkillPointer = path.join(root, 'foundry/ops/skills/psi-swarm/SKILL.md');
+const psiSkillContract = await readFile(psiSkillPointer, 'utf8');
+if (
+  !psiSkillContract.includes('../../../../psi-swarm/SKILL.md') ||
+  !psiSkillContract.includes('https://github.com/sass-maker/psi-swarm/blob/main/SKILL.md')
+) {
   throw new Error(
-    `PSI Swarm skill must point to its standalone repository contract; got ${psiSkillTarget}`
+    'PSI Swarm skill pointer must name the standalone checkout and canonical public contract'
   );
 }
 
