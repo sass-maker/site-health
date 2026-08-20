@@ -152,9 +152,9 @@
     },
     {
       "id": "indulge",
-      "name": "Indulge",
-      "url": "https://indulge.significanthobbies.com",
-      "summary": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
+      "name": "Habits",
+      "url": "https://habits.significanthobbies.com",
+      "summary": "A private habit practice for noticing patterns, making intentional trades, and building better defaults.",
       "publicDir": "induldge/public",
       "stack": "astro-static",
       "headFile": "induldge/src/layouts/SiteLayout.astro",

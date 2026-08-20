@@ -587,12 +587,18 @@
     },
     {
       "projectId": "indulge",
-      "state": "publish",
-      "narrative": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
-      "sourceAsset": "Use the verified product and trust site. It has real app proof, privacy and support details, and the current beta status. Do not suggest that the app is available through the App Store or a public TestFlight link.",
-      "placements": [
-        { "channelId": "medium", "rank": "primary", "format": "Method article about intentional digital pleasure and humane replacement", "actor": "shared", "fit": "The public trust surface supports a useful narrative without requiring an App Store claim." },
-        { "channelId": "substack", "rank": "secondary", "format": "Product and design field note linked to the public trust site", "actor": "owner", "fit": "A founder note can link directly to the beta and distribution details." }
+      "state": "prepare",
+      "narrative": "Habits is the focused successor to Indulge for noticing patterns, making intentional trades, and building better defaults.",
+      "sourceAsset": "Use the live Habits landing as product context, but wait for a verified public native build before distribution. Do not suggest App Store or public TestFlight availability.",
+      "placements": [],
+      "futureChannels": [
+        "medium",
+        "substack",
+        "product-hunt",
+        "app-marketplaces"
+      ],
+      "prerequisites": [
+        "Publish a verified TestFlight or App Store build under the Habits identity."
       ],
       "exclusions": [
         { "channelId": "app-marketplaces", "reason": "No App Store or public TestFlight availability is currently claimed." },
