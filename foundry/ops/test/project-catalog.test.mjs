@@ -131,7 +131,7 @@ test('generated catalog separates P4 status and exposes dated readiness evidence
   );
   assert.match(
     rendered,
-    /The owner approved the verified product and trust site for public sharing; no App Store, TestFlight, or native distribution claim is approved\. \(verified 2026-08-16\)/,
+    /Habits is live at habits\.significanthobbies\.com; the renamed native app is not released\. \(verified 2026-08-21\)/,
   );
 });
 
