@@ -152,12 +152,12 @@
     },
     {
       "id": "indulge",
-      "name": "Indulge",
-      "url": "https://indulge.significanthobbies.com",
-      "summary": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
-      "publicDir": "induldge/public",
+      "name": "Habits",
+      "url": "https://habits.significanthobbies.com",
+      "summary": "A private habit practice for noticing patterns, making intentional trades, and building better defaults.",
+      "publicDir": "ios-landings/products/habits/public",
       "stack": "astro-static",
-      "headFile": "induldge/src/layouts/SiteLayout.astro",
+      "headFile": "ios-landings/src/layouts/SiteLayout.astro",
       "schemaType": "WebSite",
       "sameAs": [
         "https://github.com/Significant-Hobbies/indulge"
@@ -167,26 +167,26 @@
       "productLinks": [
         {
           "title": "Home",
-          "url": "https://indulge.significanthobbies.com/",
-          "description": "Product overview and beta status"
+          "url": "https://habits.significanthobbies.com/",
+          "description": "Product overview and current availability"
         },
         {
           "title": "Privacy",
-          "url": "https://indulge.significanthobbies.com/privacy/",
+          "url": "https://habits.significanthobbies.com/privacy/",
           "description": "Local-first data handling"
         },
         {
           "title": "Support",
-          "url": "https://indulge.significanthobbies.com/support/",
+          "url": "https://habits.significanthobbies.com/support/",
           "description": "Support and feedback guidance"
         },
         {
           "title": "TestFlight",
-          "url": "https://indulge.significanthobbies.com/testflight/",
+          "url": "https://habits.significanthobbies.com/testflight/",
           "description": "Current beta availability without an App Store claim"
         }
       ],
-      "indexMd": "# Indulge\n\nA private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.\n\n## Public boundary\n\n- The site covers the product, privacy, support, accessibility, terms, and beta status.\n- It uses real app proof and describes the beta as invite only.\n- It does not claim App Store or public TestFlight availability.\n\n## Agent entrypoints\n\n- https://indulge.significanthobbies.com/llms.txt\n- https://indulge.significanthobbies.com/api/ai\n- https://indulge.significanthobbies.com/index.md\n"
+      "indexMd": "# Habits\n\nA private habit practice for noticing patterns, making intentional trades, and building better defaults.\n\n## Public boundary\n\n- The site covers the product, privacy, support, accessibility, terms, and current availability.\n- It does not claim App Store or public TestFlight availability.\n\n## Agent entrypoints\n\n- https://habits.significanthobbies.com/llms.txt\n- https://habits.significanthobbies.com/api/ai\n- https://habits.significanthobbies.com/index.md\n"
     },
     {
       "id": "rolepatch",

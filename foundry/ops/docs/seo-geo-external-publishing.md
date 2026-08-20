@@ -364,11 +364,13 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 
 ### iOS landings — Preparation only
 
+**Canonical:** [https://journal.significanthobbies.com](https://journal.significanthobbies.com)
+
 **Narrative:** A shared Astro factory that builds a separate static site for each Significant Hobbies iOS-first app.
 
 **Source asset:** A per-product landing walkthrough that names one app, shows real screenshots, and keeps TestFlight gated.
 
-**Catalog blocker:** Private factory with no host of its own. Product domains are deployed from this repo onto their Pages projects. (verified 2026-08-17)
+**Catalog blocker:** Private factory whose Journal Pages deployment is live at journal.significanthobbies.com; Journal remains landing-only with no native release claim. (verified 2026-08-21)
 
 **Before publishing:**
 
@@ -473,18 +475,21 @@ Authentication does not override venue rules, CAPTCHA/2FA, payment approval, or 
 | Secondary | [Product-specific forums and communities](https://www.discourse.org/guidelines) | Maker post in iOS, indie-game, or accessibility communities | Agent with unblock | Owner | Community choice depends on the demonstrated use case and local rules. |
 | Secondary | [Specialist newsletters, blogs, and podcasts](https://www.muckrack.com/blog/2020/07/16/how-to-pitch-journalists) | Targeted pitch to indie-game or mobile interaction outlets | Agent with unblock | Owner | The body-control interaction supplies a visual editorial hook. |
 
-### Indulge — Publishable
+### Habits — Preparation only
 
-**Canonical:** [https://indulge.significanthobbies.com](https://indulge.significanthobbies.com)
+**Canonical:** [https://habits.significanthobbies.com](https://habits.significanthobbies.com)
 
-**Narrative:** A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.
+**Narrative:** Habits is the focused successor to Indulge for noticing patterns, making intentional trades, and building better defaults.
 
-**Source asset:** Use the verified product and trust site. It has real app proof, privacy and support details, and the current beta status. Do not suggest that the app is available through the App Store or a public TestFlight link.
+**Source asset:** Use the live Habits landing as product context, but wait for a verified public native build before distribution. Do not suggest App Store or public TestFlight availability.
 
-| Rank | Channel | Format | Execution | Content owner | Why this fits |
-|---|---|---|---|---|---|
-| Primary | [Medium](https://help.medium.com/hc/en-us/articles/225168768-Writing-and-publishing-your-first-story) | Method article about intentional digital pleasure and humane replacement | Agent direct | Shared | The public trust surface supports a useful narrative without requiring an App Store claim. |
-| Secondary | [Substack](https://support.substack.com/hc/en-us/articles/360037831771-How-do-I-publish-a-new-post-on-Substack) | Product and design field note linked to the public trust site | Agent direct | Owner | A founder note can link directly to the beta and distribution details. |
+**Catalog blocker:** Habits is live at habits.significanthobbies.com; the renamed native app is not released. (verified 2026-08-21)
+
+**Before publishing:**
+
+- Publish a verified TestFlight or App Store build under the Habits identity.
+
+**Future candidates after re-verification:** Medium, Substack, Product Hunt, Apple App Store and relevant marketplaces
 
 **Do not use:**
 

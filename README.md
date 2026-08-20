@@ -85,7 +85,7 @@ Maintenance rules live in [`foundry/ops/config/README.md`](foundry/ops/config/RE
 
 ### P2 — 25
 
-- product: SaaS Maker, GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Indulge, Field Track, Anchor
+- product: SaaS Maker, GitStat, Reel Pipeline, Memory Map, High Signal, Research Papers, Significant Hobbies, Reader, SWE Interview Prep, Calorie, Setline, Kith, RolePatch, Karte, Starboard, App Health, Motion, Habits, Field Track, Anchor
 - platform: Foundry, Knowledge Base, iOS landings
 - experiment: Mashup, Local AI Video Studio
 
