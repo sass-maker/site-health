@@ -1,14 +1,13 @@
-# Fleet Workspace — PROJECT STATUS
+# Foundry — PROJECT STATUS
 
-Last updated: 2026-08-20
+Last updated: 2026-08-21
 
 ## Why / What
 
-Fleet Workspace is the single version-controlled home for shared operations
-across Sarthak's projects. It owns the project registry, automation policy,
-skills, shared operational tooling, host setup, public project projections, and
-reviewable evidence used to keep mostly finished products usable and
-discoverable.
+Foundry is the shared operational project for Sarthak's portfolio. It owns the
+project registry, skills, workflows, evidence adapters and storage, host setup,
+public project projections, and the deferred private dashboard for projects,
+domains, Google Search, GEO, and performance.
 
 **Users:** Sarthak and explicitly authorized local or hosted agents.
 
@@ -23,7 +22,8 @@ contracts, funnels, retention, or analytics-provider aggregation; duplicating
 GitHub, PostHog, Cloudflare, Microsoft Clarity, Postiz, CodeVetter, or App
 Health; ingesting private product content into public output; automatic
 production deploys; owning CodeVetter or App Health source; media creation and
-editorial products; or an active mobile-control product.
+editorial products; an active mobile-control product; or a parallel system for
+recommendations, decisions, missions, learning prompts, notifications, or work.
 
 ## Dependencies
 
@@ -71,6 +71,14 @@ editorial products; or an active mobile-control product.
 
 ## Timeline
 
+- **2026-08-21 — Foundry's first removal slice landed:** Removed the experimental
+  FleetWorkspace transition runtime; Founder Control recommendations, learning,
+  daily briefs, and notification delivery; six retired Console redirect routes;
+  and a stale automation-closure architecture document. The surviving service
+  records and projects bounded provider evidence only. Registries, skills,
+  workflows, GEO/AI Visibility, outcome adapters, packages, and the deferred
+  dashboard remain. No deployment, migration, dependency change, or provider
+  mutation ran.
 - **2026-08-20 — SaaS Maker, Feedback, Drank, and PSI Swarm extracted:** Restored
   the three standalone Sass Maker repositories, moved the current public
   directory and the focused Feedback service, private inbox, agent contract,
@@ -725,8 +733,8 @@ editorial products; or an active mobile-control product.
 | Independent products | Feedback | `saas-maker/` | Hosted submission service, private inbox, agent API, and public React package |
 | Packages | AI Chat Footer | `foundry/packages/ai-chat-footer/` | Public React package for pre-filled AI assistant prompts |
 | Packages | Portfolio Project Strip | `foundry/packages/portfolio-project-strip/` | React package and universal loader with bundled catalog and cached static revalidation |
-| Fleet Console | Fleet Console | `foundry/apps/dashboard/fleet-console/` | Private operational view served from the designated host |
-| Substrate | Fleet Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
+| Dashboard | Foundry | `foundry/apps/dashboard/fleet-console/` | Deferred private projects, domains, search, GEO, and performance view |
+| Substrate | Foundry Ops | `foundry/ops/` | Scripts, registries, automation, evidence, policy, and host support |
 | Substrate | Public workflows | `foundry/ops/workflows/` | Pinned public submodule and credential-free GitHub Actions |
 
 The implemented, partial, and missing cross-bucket contracts are documented in
@@ -799,25 +807,11 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Workspace-local, read-only storage analysis with conservative safety tiers,
   deterministic JSON and static HTML reports, symlink avoidance, and no
   mutation or cleanup controls.
-- Six explicit Foundry product buckets with category-owned canonical paths,
-  native component boundaries, and an evidence-backed connection map.
-- Responsive Fleet Console with a collapsible sidebar that groups Domains,
-  Google Search, AI Awareness, and Performance under Metrics, Marketing under
-  its own operating group, and Projects as a standalone view. Project-owned
-  views retain one
-  URL-persisted 27-project scope, while the four portfolio-wide Metrics views
-  have no redundant project filter. Domains includes compact pointer- and
-  keyboard-inspectable D-Rank history; bounded prewarmed outcome endpoints keep
-  these views independent of the full connection payload. The Console includes provider-backed
-  AI Awareness, marketing coverage, explicit PSI/LCP guardrails,
-  Search Visibility, AI Visibility,
-  D-Rank, AI Agent Readiness, AI Crawlability, Content Coverage, PSI Swarm,
-  and Design Critique reports. Agent Readiness retains public-route Markdown
-  coverage, readable/checked/public route counts, and `/api/ai` catalog
-  integrity as dated project histories. The Console also provides a
-  success/failure skill-result ledger, deterministic improvement actions, a
-  secondary provider System Map, and
-  fail-soft evidence.
+- Foundry buckets with category-owned canonical paths, native component
+  boundaries, and an evidence-backed connection map.
+- Deferred responsive Foundry dashboard with Projects, Domains, Google Search,
+  AI Awareness/GEO, and Performance views. Bounded outcome endpoints keep these
+  owner-facing projections independent of the full provider connection payload.
 - Private local Fleet skill-run history with sanitized retained output,
   explicit capture completeness, structured project metric observations,
   Codex/Devin capture paths, idempotent historical backfill, and
@@ -838,8 +832,7 @@ Cloudflare deployment history, not by maintaining duplicate source.
   quarantined for reconciliation and schedules remain disabled until canary
   acceptance.
 - PSI Swarm performance tooling.
-- Agent and notification policy, machine-host foundations, and inert schedule
-  definitions.
+- Agent policy, machine-host foundations, and inert schedule definitions.
 - GitHub Issues as the single operational tracker and the home for feature
   proposals, design notes, requirements, and implementation checklists; Fleet
   has no parallel workspace-local specification store.
@@ -854,24 +847,16 @@ Cloudflare deployment history, not by maintaining duplicate source.
 - Fleet-owned four-product spotlight contract with direct portfolio and
   personal/six-organization profile synchronization, canonical repository
   ownership checks, and explicit creator-attribution markers.
-- Feedback client package with Pinpoint context, local screenshot attachment,
-  and consumer-supplied submission. It has no Fleet-owned ingestion, storage,
-  inbox, or Console projection.
 - Fleet-root CI for every absorbed component plus guarded, source-aware local
   deploy commands for the three Cloudflare surfaces.
-- Local-first founder evidence service with an append-only provider and
-  recommendation ledger, bounded projections, daily briefs, and an owner-first
-  console; operational work remains exclusively in GitHub Issues.
-- Dependency-free internal FleetWorkspace verified-transition runtime with an
-  attributable append-only JSONL event store, durable pre-action predictions,
-  post-action GitHub observation, goal evidence, duplicate-side-effect
-  localization, readable replay, and deterministic tests.
+- Local-first Foundry evidence service with an append-only provider ledger and
+  bounded projections; operational work remains exclusively in GitHub Issues.
 - Framework-independent `@saas-maker/ai-visibility` package with deterministic
   citation, mention, recommendation, rank, sentiment, competitor, provider,
   budget, cache, and provenance contracts.
 - Foundry AI Visibility consumer with fixture-only manual execution, normalized
-  private history/comparison, cost and cache receipts, recommendation-only
-  handoff, ignored-project suppression, and disabled schedule activation gates.
+  private history/comparison, cost and cache receipts, ignored-project
+  suppression, and disabled schedule activation gates.
 - Credential-free provider-observation ingestion with strict bundle validation,
   partial-canary and canonical-27 gates, evidence-mode-isolated history, and no
   retained raw answer text or provider request IDs. Provider-backed runs retain

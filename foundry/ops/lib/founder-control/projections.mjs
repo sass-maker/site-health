@@ -26,7 +26,6 @@ function eventSummary(event) {
 
 export function buildProjections(inputEvents, { now = new Date().toISOString(), projects = [] } = {}) {
   const events = [...inputEvents].sort(byTime);
-  const recommendations = new Map();
   const actors = new Map();
   const schedules = new Map();
   const visibilityRuns = new Map();
@@ -89,45 +88,11 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
       });
       visibilityRuns.set(event.projectId, projectRuns);
     }
-    if (event.type === 'recommendation.created') {
-      const id = String(event.payload.recommendationId ?? event.id);
-      recommendations.set(id, {
-        id,
-        projectId: event.projectId ?? null,
-        title: event.payload.title,
-        rationale: event.payload.rationale,
-        score: Number(event.payload.score ?? 0),
-        confidence: Number(event.payload.confidence),
-        effort: Number(event.payload.effort),
-        risk: event.payload.risk ?? null,
-        state: 'open',
-        createdAt: event.occurredAt,
-        updatedAt: event.occurredAt,
-        evidence: event.evidence,
-      });
-    }
-    if (event.type.startsWith('recommendation.') && event.type !== 'recommendation.created') {
-      const item = recommendations.get(String(event.payload.recommendationId));
-      if (item) {
-        item.state = event.type.split('.')[1];
-        item.updatedAt = event.occurredAt;
-        item.until = event.payload.until ?? null;
-      }
-    }
   }
 
   const projectMap = new Map(
-    projects.map((project) => [project.id, { ...project, recommendations: [] }]),
+    projects.map((project) => [project.id, { ...project }]),
   );
-  for (const recommendation of recommendations.values()) {
-    if (!recommendation.projectId) continue;
-    const project = projectMap.get(recommendation.projectId);
-    if (project) project.recommendations.push(recommendation.id);
-  }
-
-  const recommendationList = [...recommendations.values()]
-    .filter((item) => item.state === 'open')
-    .sort((a, b) => b.score - a.score || b.updatedAt.localeCompare(a.updatedAt));
   const orderedActivity = activity.sort((a, b) => b.occurredAt.localeCompare(a.occurredAt));
   const aiVisibility = {
     generatedAt: now,
@@ -150,29 +115,11 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
     home: {
       generatedAt: now,
       whatChanged: orderedActivity.slice(0, 12),
-      recommendedNext: recommendationList,
     },
-    recommendations: [...recommendations.values()],
     activity: orderedActivity,
     projects: [...projectMap.values()],
     actors: [...actors.values()],
     schedules: [...schedules.values()],
     aiVisibility,
-  };
-}
-
-export function buildDailyBrief(projections) {
-  const recommendations = projections.home.recommendedNext.slice(0, 5);
-  return {
-    generatedAt: projections.generatedAt,
-    headline: recommendations.length > 0
-      ? `${recommendations.length} evidence-backed recommendation${recommendations.length === 1 ? '' : 's'} available`
-      : 'No evidence-backed recommendation is waiting',
-    ownerActionPath: recommendations.length > 0 ? '/metrics' : null,
-    materialChanges: projections.home.whatChanged.slice(0, 8),
-    recommendedNext: recommendations,
-    schedules: projections.schedules.filter(
-      (schedule) => schedule.enabled || ['failed', 'stale'].includes(schedule.lastState),
-    ),
   };
 }

@@ -4,8 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultRegistryPath = join(moduleDirectory, '..', '..', 'config', 'projects.json');
-export const fleetWorkspaceRepository = 'https://github.com/sass-maker/fleet-workspace';
-
+const currentFoundryRepository = 'https://github.com/sass-maker/fleet-workspace';
 const canonicalNames = {
   'app-health': 'App Health',
   codevetter: 'CodeVetter',
@@ -39,7 +38,7 @@ export function loadFounderProjects(registryPath = defaultRegistryPath) {
         project.repositoryUrl ?? project.public?.repositoryUrl ?? null;
       const repositoryUrl =
         project.lifecycle === 'maintained' || project.lifecycle === 'local-only'
-          ? fleetWorkspaceRepository
+          ? currentFoundryRepository
           : historicalRepositoryUrl;
       return {
         id: project.id,

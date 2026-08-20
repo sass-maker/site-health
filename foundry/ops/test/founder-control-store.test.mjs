@@ -16,37 +16,30 @@ function createStore(name = 'ledger.sqlite') {
   });
 }
 
-function recommendationInput() {
+function evidenceInput() {
   return {
-    type: 'recommendation.created',
+    type: 'evidence.recorded',
     actor,
     projectId: 'codevetter',
-    idempotencyKey: 'test/recommendation/example',
+    idempotencyKey: 'test/evidence/example',
     occurredAt: now,
     payload: {
-      recommendationId: 'recommendation/example',
-      title: 'Verify the release',
-      rationale: 'Current evidence is incomplete.',
-      impact: 0.8,
-      confidence: 0.7,
-      effort: 0.2,
-      reversibility: 1,
-      score: 80,
+      summary: 'Release evidence recorded.',
     },
   };
 }
 
 test('appends evidence events idempotently and rejects conflicts', () => {
   const store = createStore();
-  const first = store.append(recommendationInput(), { now });
-  const repeated = store.append(recommendationInput(), { now });
+  const first = store.append(evidenceInput(), { now });
+  const repeated = store.append(evidenceInput(), { now });
   assert.equal(first.duplicate, false);
   assert.equal(repeated.duplicate, true);
   assert.equal(store.listEvents().length, 1);
   assert.throws(
     () => store.append({
-      ...recommendationInput(),
-      payload: { ...recommendationInput().payload, title: 'Different' },
+      ...evidenceInput(),
+      payload: { ...evidenceInput().payload, summary: 'Different' },
     }, { now }),
     (error) => error.code === 'IDEMPOTENCY_CONFLICT',
   );
@@ -55,9 +48,9 @@ test('appends evidence events idempotently and rejects conflicts', () => {
 
 test('rebuilds deterministic projections and verifies restore/replay', () => {
   const store = createStore();
-  store.append(recommendationInput(), { now });
+  store.append(evidenceInput(), { now });
   const firstProjection = store.rebuildProjections({ now: '2026-07-25T09:00:00.000Z' });
-  assert.equal(firstProjection.home.recommendedNext[0].id, 'recommendation/example');
+  assert.equal(firstProjection.home.whatChanged[0].type, 'evidence.recorded');
   const backup = store.createBackup({ now: '2026-07-25T09:00:00.000Z' });
   assert.equal(verifyBackup(backup).valid, true);
 

@@ -201,7 +201,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-20",
-          "reason": "Fleet Workspace is a private operational platform; its public directory is now owned by the standalone SaaS Maker repository."
+        "reason": "Foundry is a private operational platform; its public directory is owned by the standalone SaaS Maker repository."
         }
       },
       "aliases": [
@@ -227,8 +227,8 @@
       ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Private shared-infrastructure source, including Fleet Workflows and the machine-hosted Fleet Console. Public directory and Feedback ownership moved to sass-maker/saas-maker on 2026-08-20.",
-      "name": "Fleet Workspace",
+      "notes": "Private shared-infrastructure source, including workflows and the deferred Foundry dashboard. Public directory and Feedback ownership moved to sass-maker/saas-maker on 2026-08-20.",
+      "name": "Foundry",
       "attention": "foundry",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",

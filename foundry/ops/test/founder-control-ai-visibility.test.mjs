@@ -155,7 +155,7 @@ test('every maintained public Fleet identity has product-specific fixture covera
   }
 });
 
-test('fixture canary records bounded normalized receipts, history, cache use, and recommendations only', async () => {
+test('fixture canary records bounded normalized receipts, history, and cache use only', async () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), 'foundry-ai-visibility-'));
   const cachePath = join(temporaryDirectory, 'cache.json');
   const store = new FounderControlStore({
@@ -193,7 +193,6 @@ test('fixture canary records bounded normalized receipts, history, cache use, an
     assert.equal(first.metrics.coverageRate, 0.5);
     assert.equal(first.metrics.averagePosition, 1);
     assert.ok(first.metrics.visibilityScore > 0);
-    assert.ok(first.recommendationIds.length > 0);
 
     const second = await runAiVisibilityCanary({
       project,
@@ -213,11 +212,7 @@ test('fixture canary records bounded normalized receipts, history, cache use, an
 
     const events = store.listEvents();
     assert.equal(events.filter((event) => event.type === 'visibility.run-recorded').length, 2);
-    assert.equal(
-      events.every((event) => ['visibility.run-recorded', 'recommendation.created'].includes(event.type)),
-      true,
-    );
-    assert.ok(events.some((event) => event.type === 'recommendation.created'));
+    assert.equal(events.every((event) => event.type === 'visibility.run-recorded'), true);
     assert.doesNotMatch(JSON.stringify(events), /HeyPace is the first recommendation/);
     assert.doesNotMatch(JSON.stringify(events), /responseText/);
 

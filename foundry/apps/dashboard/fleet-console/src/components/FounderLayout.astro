@@ -13,7 +13,7 @@ interface Props {
   loadFounderEvidence?: boolean;
 }
 
-const { title, description, active, eyebrow = "Founder control", view, projectId, showProjectScope = true, loadFounderEvidence = true } = Astro.props;
+const { title, description, active, eyebrow = "Foundry evidence", view, projectId, showProjectScope = true, loadFounderEvidence = true } = Astro.props;
 const filterable = showProjectScope && !["project", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
 const directoryView = ["domains", "search", "ai-awareness", "performance", "project-statuses"].includes(view ?? "");
 ---

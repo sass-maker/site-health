@@ -3,7 +3,7 @@
   "owners": [
     {
       "id": "foundry",
-      "authority": ["objectives", "missions", "owner-decisions", "recommendations", "outcome-synthesis"],
+      "authority": ["project-registry", "evidence-projections", "outcome-synthesis"],
       "references": ["github", "cloudflare", "postiz", "codevetter", "app-health", "drank", "psi-swarm", "high-signal"]
     },
     {

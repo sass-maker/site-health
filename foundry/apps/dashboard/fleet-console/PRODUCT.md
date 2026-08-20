@@ -17,13 +17,12 @@ reading logs, task queues, or infrastructure dashboards.
 ## Product Purpose
 
 Foundry is the private evidence view for the portfolio. It connects canonical
-projects to provider observations, recommendations, and measured outcomes while
-leaving work tracking in GitHub Issues. Its primary portfolio views answer six
+projects to provider observations and measured outcomes while
+leaving work tracking in GitHub Issues. Its primary portfolio views answer five
 owner questions quickly: which projects exist, where domain strength is
 concentrated, whether people find products through Google, whether core products
-are known by AI, whether every maintained product has marketing proof, and
-whether public products meet the shared speed guardrail. Project detail and
-secondary diagnostics retain the deeper evidence.
+are known by AI, and whether public products meet the shared speed guardrail.
+Project detail retains the deeper evidence.
 
 ## Positioning
 

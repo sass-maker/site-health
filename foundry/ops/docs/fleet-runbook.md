@@ -1,11 +1,11 @@
 # Fleet Runbook
 
-This is the operating guide for the projects in the Fleet workspace.
+This is the operating guide for projects in the Fleet folder.
 
-The Fleet root owns shared infrastructure under `foundry/ops/`. Immediate child
-directories with their own `.git/` remain independent product repositories.
-Reel Pipeline, Drank, PSI Swarm, Mobile Dev Cockpit, Content Factory, and the
-Ops Console are Fleet components and are maintained directly in this repository.
+Foundry owns shared infrastructure under `foundry/`. Immediate child directories
+with their own `.git/` remain independent product repositories. SaaS Maker,
+Feedback, Reel Pipeline, Drank, PSI Swarm, Mashup, Mobile Dev Cockpit, and
+Content Factory are not Foundry source.
 
 ## Operating Model
 
@@ -36,9 +36,8 @@ defines treatment without duplicating membership.
   their product direction.
 - **Toolbox:** mostly finished utilities kept usable, discoverable, and quietly
   marketed for bounded experiments.
-- **Foundry + Helpers:** the shared post-ship system that measures verified
-  products, markets them, and turns feedback into evidence-backed
-  recommendations.
+- **Foundry + Helpers:** the shared post-ship system that catalogs verified
+  products and projects bounded provider evidence.
 - **Ignored / inactive:** frozen or retired projects with no routine
   obligation.
 
@@ -56,18 +55,14 @@ Foundry begins after product work is complete and verified:
 3. The intended artifact is deployed.
 4. Production smoke verification passes.
 
-After handoff, Foundry measures product and API outcomes, runs approved or
-bounded marketing, and summarizes provider evidence. It may recommend the next
-action, but it does not own
-product direction or autonomously implement product features. The product owner
-decides whether evidence becomes new product work.
+After handoff, Foundry measures product and API outcomes and summarizes provider
+evidence. It does not own product direction, create a parallel work queue, or
+autonomously implement product features.
 
 The private owner loop is local-first and remains useful without external AI:
 
 ```sh
 node foundry/ops/scripts/founder-control.mjs status
-node foundry/ops/scripts/founder-control.mjs brief
-node foundry/ops/scripts/founder-control.mjs notifications
 node foundry/ops/scripts/ai-visibility-canary.mjs \
   --project pace \
   --fixture foundry/ops/test/fixtures/ai-visibility/providers-v1.json
@@ -75,9 +70,8 @@ node foundry/ops/scripts/ai-visibility-canary.mjs \
 
 Current provider proof is recorded through its owning bounded collector. Raw
 logs, traces, prompts, credentials, feedback submissions, and provider payloads
-remain outside the ledger. Recurring AI visibility and
-notification schedules remain inert until the designated host and explicit
-activation gates pass.
+remain outside the ledger. Recurring AI visibility schedules remain inert until
+the designated host and explicit activation gates pass.
 
 Local checkout aliases:
 
