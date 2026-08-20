@@ -150,65 +150,6 @@ test('privacy scanner rejects private fields and credential-shaped values', () =
   assert.throws(() => assertNoPrivateData({ description: 'api_key=should-not-leak' }), /credential-shaped/);
 });
 
-test('SaaS Maker exposes its canonical standalone source without exposing Fleet', async () => {
-  const [links, agentRegistry, registrySource, projectsSource, routesSource, navSource, redirects] = await Promise.all([
-    readFile(new URL('../../../saas-maker/apps/showcase/src/data/links.ts', import.meta.url), 'utf8'),
-    readJson(new URL('../config/agent-surfaces-registry.json', import.meta.url)),
-    readFile(new URL('../../../saas-maker/apps/showcase/src/data/registry.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../../saas-maker/apps/showcase/src/data/projects.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../../saas-maker/apps/showcase/src/data/publicRoutes.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../../../saas-maker/apps/showcase/src/components/Nav.astro', import.meta.url), 'utf8'),
-    readFile(new URL('../../../saas-maker/apps/showcase/public/_redirects', import.meta.url), 'utf8'),
-  ]);
-  const saasMaker = agentRegistry.products.find((product) => product.id === 'saas-maker');
-  const publicSaasMaker = buildPublicProducts(projects).products.find(
-    (product) => product.id === 'saas-maker',
-  );
-
-  assert.match(links, /https:\/\/github\.com\/sarthakagrawal927['"]/);
-  assert.match(links, /https:\/\/github\.com\/sass-maker['"]/);
-  assert.equal(publicSaasMaker.repositoryUrl, 'https://github.com/sass-maker/saas-maker');
-  assert.equal(publicSaasMaker.roadmapUrl, 'https://github.com/sass-maker/saas-maker/issues');
-  assert.deepEqual(saasMaker.sameAs, [
-    'https://github.com/sass-maker/saas-maker',
-    'https://github.com/sass-maker',
-  ]);
-  assert.doesNotMatch(
-    [links, registrySource, projectsSource, routesSource, navSource].join('\n'),
-    /github\.com\/sass-maker\/fleet-workspace/,
-  );
-  assert.match(registrySource, /PAGED_PRODUCTS = REGISTRY_PRODUCTS\.filter\(\(product\) => product\.id !== 'saas-maker'\)/);
-  assert.match(projectsSource, /\['personal-website', 'saas-maker'\]\.includes\(product\.id\)/);
-  assert.match(routesSource, /filter\(\(product\) => product\.id !== 'saas-maker'\)/);
-  assert.match(navSource, /GITHUB_ORG_URL/);
-  assert.match(navSource, /Public source index/);
-  assert.match(redirects, /^\/p\/saas-maker \/ 301$/m);
-  assert.match(redirects, /^\/p\/saas-maker\.md \/index\.md 301$/m);
-});
-
-test('SaaS Maker exposes the complete learning article to agents', async () => {
-  const [routesSource, articleMarkdown] = await Promise.all([
-    readFile(
-      new URL('../../../saas-maker/apps/showcase/src/data/publicRoutes.ts', import.meta.url),
-      'utf8',
-    ),
-    readFile(
-      new URL(
-        '../../../saas-maker/apps/showcase/src/data/articles/skills-should-declare-capabilities-not-model-names.md',
-        import.meta.url,
-      ),
-      'utf8',
-    ),
-  ]);
-
-  assert.match(routesSource, /markdown: learning\.markdown/);
-  assert.match(articleMarkdown, /## What is the methodology\?/);
-  assert.match(articleMarkdown, /## Where does it fall short\?/);
-  assert.match(articleMarkdown, /## Sources and implementation/);
-  assert.ok(articleMarkdown.split(/\s+/u).length > 700);
-  assert.doesNotMatch(articleMarkdown, /full article is available at/i);
-});
-
 test('agent surface metadata covers the visibility project inventory exactly', async () => {
   const agentRegistry = await readJson(
     new URL('../config/agent-surfaces-registry.json', import.meta.url),

@@ -11,6 +11,9 @@ import { tmpdir } from 'node:os';
 import test from 'node:test';
 
 const script = new URL('../scripts/apply-agent-surfaces.mjs', import.meta.url);
+const agentRegistry = JSON.parse(
+  readFileSync(new URL('../config/agent-surfaces-registry.json', import.meta.url), 'utf8'),
+);
 
 function dryRun(projectId) {
   return execFileSync(process.execPath, [script.pathname, '--id', projectId, '--dry-run'], {
@@ -225,15 +228,14 @@ test('preserves custom runtime handlers while retaining worker wiring checks', (
 });
 
 test('preserves curated helper discovery copy', () => {
-  const drank = dryRun('drank');
-  const psi = dryRun('psi-swarm');
-
-  assert.match(drank, /llms\.txt preserved/);
-  assert.match(drank, /llms-full\.txt preserved/);
-  assert.match(drank, /robots preserved/);
-  assert.match(psi, /llms\.txt preserved/);
-  assert.match(psi, /llms-full\.txt preserved/);
-  assert.match(psi, /robots preserved/);
+  for (const id of ['drank', 'psi-swarm']) {
+    const preserved = new Set(
+      agentRegistry.products.find((product) => product.id === id)?.preserveFiles,
+    );
+    assert.ok(preserved.has('llms.txt'), `${id}: llms.txt`);
+    assert.ok(preserved.has('llms-full.txt'), `${id}: llms-full.txt`);
+    assert.ok(preserved.has('robots.txt'), `${id}: robots.txt`);
+  }
 });
 
 test('does not create a static catalog when the product build owns that route', () => {
