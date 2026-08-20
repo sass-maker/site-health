@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-08-20",
+    "updated": "2026-08-21",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -836,8 +836,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-08-21",
+          "reason": "The seven-product Hub and preserved Live landing are deployed and publicly verified."
         }
       },
       "aliases": [
@@ -865,11 +865,12 @@
         }
       ],
       "domains": [
-        "significanthobbies.com"
+        "significanthobbies.com",
+        "live.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "apex/hub; D1 significanthobbies is authoritative; Turso significanthobbies is rollback-held and not retired",
+      "notes": "Apex is the live personal-apps Hub. The Live custom domain serves the preserved cinematic landing from the same Worker, and deeper Live paths return to the apex application origin. D1 significanthobbies is authoritative; Turso significanthobbies is rollback-held and not retired.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -878,7 +879,7 @@
         "listing": "maintained",
         "id": "significanthobbies",
         "name": "Significant Hobbies",
-        "description": "Plan meaningful hobbies, side quests, rituals, and life journeys.",
+        "description": "A simple directory for Live, Journal, Habits, Calorie, Setline, Kith, and Anchor.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
@@ -1326,11 +1327,11 @@
         "kind": "platform",
         "priority": "P2",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-17",
-          "reason": "Private factory with no host of its own. Product domains are deployed from this repo onto their Pages projects."
+          "verifiedAt": "2026-08-21",
+          "reason": "Private factory whose Journal Pages deployment is live at journal.significanthobbies.com; Journal remains landing-only with no native release claim."
         }
       },
       "name": "iOS landings",
@@ -1342,11 +1343,13 @@
       "repo": "ios-landings",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/Significant-Hobbies/ios-landings",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
+      "deployKind": "pages",
+      "cfProject": "journal",
+      "domains": [
+        "journal.significanthobbies.com"
+      ],
       "inRegistry": false,
-      "status": "undeployed",
+      "status": "live",
       "public": {
         "listing": "hidden",
         "id": "ios-landings",
@@ -1357,7 +1360,7 @@
         "spotlight": false,
         "maturity": "in-progress"
       },
-      "notes": "Deploys product Pages projects kith, setline, motion, indulge, and anchor-landing. Product domains stay on the product rows. Calorie stays on the Calorie Worker."
+      "notes": "Owns the Journal Pages project until Journal has its own repository. Also builds product trees for kith, setline, motion, indulge, anchor-landing, and habits. Calorie stays on its Worker and Live stays on the Significant Hobbies Worker."
     },
     {
       "id": "rolepatch",
@@ -2192,10 +2195,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-16",
-          "reason": "The owner approved the verified product and trust site for public sharing; no App Store, TestFlight, or native distribution claim is approved."
+          "verifiedAt": "2026-08-21",
+          "reason": "Habits is live at habits.significanthobbies.com; the renamed native app is not released."
         }
       },
       "aliases": [
@@ -2206,14 +2209,15 @@
       "tier": "active",
       "repo": "induldge",
       "deployKind": "pages",
-      "cfProject": "indulge",
+      "cfProject": "habits",
       "domains": [
+        "habits.significanthobbies.com",
         "indulge.significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "The local checkout retains the historical induldge spelling. The public trust site is live at indulge.significanthobbies.com with indulge.pages.dev retained as the provider origin; native App Store distribution is not yet live.",
-      "name": "Indulge",
+      "notes": "Habits is the canonical successor to Indulge. The local checkout and repository retain their historical spellings during the transition, and indulge.significanthobbies.com remains a compatibility landing. Native distribution is not yet live.",
+      "name": "Habits",
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
@@ -2221,12 +2225,12 @@
       "public": {
         "listing": "maintained",
         "id": "indulge",
-        "name": "Indulge",
-        "description": "A private iPhone and iPad app for keeping the pleasures you choose and trading away the time you do not.",
+        "name": "Habits",
+        "description": "A private habit practice for noticing patterns, making intentional trades, and building better defaults.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "in-progress",
         "hasChangelog": false
       }
     },
@@ -2444,7 +2448,7 @@
   "infrastructure": {
     "_meta": {
       "purpose": "Owner-readable deployment and cloud-resource inventory for every Fleet identity, including inactive and local-only projects.",
-      "verifiedAt": "2026-08-11",
+      "verifiedAt": "2026-08-21",
       "evidence": {
         "cloudflare": "Live Pages, D1, R2, KV, Vectorize, Queues, and Workflows inventory plus tracked Wrangler configuration.",
         "turso": "Tracked configuration only; the Turso CLI was not authenticated on 2026-08-11.",
@@ -2454,9 +2458,9 @@
         {
           "kind": "pages",
           "state": "provider-complete",
-          "observed": 29,
-          "tracked": 31,
-          "evidence": "Wrangler account list 2026-08-17 plus the restored SaaS Maker package-docs target from tracked standalone configuration."
+          "observed": 31,
+          "tracked": 33,
+          "evidence": "Wrangler account list plus verified direct uploads through 2026-08-21: 31 live after adding Journal and Habits, plus the restored SaaS Maker package-docs target and one deleted historical target."
         },
         {
           "kind": "worker",
@@ -3150,7 +3154,7 @@
         ]
       },
       "significanthobbies": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-21",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3395,11 +3399,47 @@
         "resources": [],
         "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. Native iOS binary is local-only."
       },
-      "ios-landings": {
-        "updatedAt": "2026-08-17",
-        "deployments": [],
+      "indulge": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "habits",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "indulge",
+            "method": "wrangler-direct",
+            "state": "live-compatibility"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Indulge",
+            "method": "manual-xcode",
+            "state": "blocked-on-app-record"
+          }
+        ],
         "resources": [],
-        "notes": "Factory has no Pages project of its own. It deploys into kith, setline, motion, indulge, and anchor-landing."
+        "notes": "Cloudflare Pages project habits is live at habits.significanthobbies.com. The historical indulge Pages project and App Store record remain transitional resources."
+      },
+      "ios-landings": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "journal",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [],
+        "notes": "Factory owns the live Journal Pages deployment at journal.significanthobbies.com until Journal has its own repository. It also deploys the other product trees, whose resources stay on product rows."
       },
       "rolepatch": {
         "updatedAt": "2026-08-11",
@@ -3809,26 +3849,6 @@
             "name": "AgentOffice.app",
             "method": "local-package",
             "state": "local-only"
-          }
-        ],
-        "resources": []
-      },
-      "indulge": {
-        "updatedAt": "2026-08-11",
-        "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "indulge",
-            "method": "wrangler-direct",
-            "state": "live"
-          },
-          {
-            "provider": "apple",
-            "kind": "app-store-connect",
-            "name": "Indulge",
-            "method": "manual-xcode",
-            "state": "blocked-on-app-record"
           }
         ],
         "resources": []
@@ -4307,17 +4327,6 @@
       }
     },
     {
-      "id": "indulge",
-      "name": "Indulge",
-      "aliases": ["Induldge"],
-      "origin": "https://indulge.significanthobbies.com",
-      "source": { "state": "internal", "path": "induldge" },
-      "docs": { "state": "public", "url": "https://indulge.significanthobbies.com/index.md" },
-      "officialProfiles": ["https://github.com/Significant-Hobbies/indulge"],
-      "availability": { "primary": "web", "appStore": "not-applicable" },
-      "pricing": { "state": "not-applicable" }
-    },
-    {
       "id": "local-ai-video-studio",
       "name": "Local AI Video Studio",
       "aliases": [],
@@ -4356,6 +4365,32 @@
       },
       "officialProfiles": [
         "https://github.com/Significant-Hobbies/significanthobbies"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "indulge",
+      "name": "Habits",
+      "aliases": [
+        "Indulge"
+      ],
+      "origin": "https://habits.significanthobbies.com",
+      "source": {
+        "state": "internal",
+        "path": "induldge"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://habits.significanthobbies.com/index.md"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/indulge"
       ],
       "availability": {
         "primary": "web",
