@@ -7,9 +7,10 @@ import test from 'node:test';
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 
 test('Dashboard projection contains only project and five-area outcome data', () => {
+  const repositoryRoot = resolve(import.meta.dirname, '../../..');
   const result = buildDashboardProjection({
-    repositoryRoot: process.cwd(),
-    workspaceRoot: resolve(process.cwd(), '..'),
+    repositoryRoot,
+    workspaceRoot: resolve(repositoryRoot, '..'),
     home: mkdtempSync(`${tmpdir()}/dashboard-connections-`),
     now: '2026-08-21T00:00:00.000Z',
   });
@@ -23,4 +24,19 @@ test('Dashboard projection contains only project and five-area outcome data', ()
   assert.equal('skills' in result, false);
   assert.equal('workflows' in result, false);
   assert.equal('marketing' in result, false);
+  assert.deepEqual(
+    result.outcomes.domains.map((row) => row.domain),
+    [
+      'aliveville.com',
+      'codevetter.com',
+      'heypace.app',
+      'highsignal.app',
+      'karte.cc',
+      'posttrainllm.com',
+      'rolepatch.com',
+      'sarthakagrawal.dev',
+      'sassmaker.com',
+      'significanthobbies.com',
+    ],
+  );
 });

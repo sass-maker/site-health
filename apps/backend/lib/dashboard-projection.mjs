@@ -6,6 +6,7 @@ import { validateRootBrandContract } from './root-brand-contract.mjs';
 import { validateRootSearchQueryContract } from './root-search-query-contract.mjs';
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
 import { searchConsoleProjects, visibilityProjects } from './visibility-projects.mjs';
+import { domainStrengthRoots, registrableDomain } from './dashboard-backend/domain-scope.mjs';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -36,7 +37,12 @@ function signal(label, value, observedAt, series = []) {
 function drankProjection(fleetRoot, catalog, now) {
   const payload = readJson(resolve(fleetRoot, 'drank/data/fleet-dr.json'), { domains: {} });
   const projects = catalog.projects ?? [];
-  return Object.entries(payload.domains ?? {}).map(([domain, record]) => {
+  const records = new Map(Object.entries(payload.domains ?? {}).map(([domain, record]) => [
+    normalizedDomain(domain),
+    record,
+  ]));
+  return domainStrengthRoots(projects).map((domain) => {
+    const record = records.get(domain) ?? {};
     const history = [...(record.history ?? [])]
       .filter((item) => Number.isFinite(Number(item.ts)) && Number.isFinite(Number(item.dr)))
       .sort((left, right) => Number(left.ts) - Number(right.ts));
@@ -45,7 +51,8 @@ function drankProjection(fleetRoot, catalog, now) {
     return {
       domain,
       projects: projects
-        .filter((project) => (project.domains ?? []).some((item) => normalizedDomain(item) === normalizedDomain(domain)))
+        .filter((project) => (project.domains ?? []).some((item) =>
+          registrableDomain(normalizedDomain(item)) === domain))
         .map((project) => ({ projectId: project.id, name: project.name ?? project.id })),
       status: latest ? observedState(observedAt, now, 14 * DAY_MS) : 'not-measured',
       observedAt,
@@ -146,14 +153,15 @@ function searchProjection(catalog, configRoot, home) {
     const history = (byProject.get(project.id) ?? [])
       .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
     const latest = history.at(-1) ?? null;
-    const metric = (label) => {
-      const series = history.flatMap((observation) => {
-        const item = observation.metrics.find((candidate) => candidate.label === label);
-        return item ? [{ observedAt: observation.observedAt, value: item.value }] : [];
-      });
-      return signal(label, series.at(-1)?.value, latest?.observedAt, series);
+    const metric = (label, dailyKey) => {
+      const aggregate = latest?.metrics.find((candidate) => candidate.label === label);
+      const daily = (latest?.dailySeries ?? []).flatMap((point) =>
+        Number.isFinite(Number(point[dailyKey]))
+          ? [{ observedAt: `${point.date}T12:00:00.000Z`, value: Number(point[dailyKey]) }]
+          : []);
+      return signal(label, aggregate?.value, latest?.observedAt, daily);
     };
-    const impressions = metric('Search impressions');
+    const impressions = metric('Search impressions', 'impressions');
     return {
       projectId: project.id,
       name: project.name ?? project.id,
@@ -162,13 +170,15 @@ function searchProjection(catalog, configRoot, home) {
       observedAt: latest?.observedAt ?? null,
       scope: latest?.scope ?? null,
       provider: latest?.provider ?? null,
+      provenance: latest?.provenance ?? 'provider',
       providerUrl: latest?.providerUrl ?? null,
       period: latest?.period ?? null,
+      previousPeriod: latest?.previousPeriod ?? null,
       indexInspection: latest?.indexInspection ?? null,
       impressions,
-      clicks: metric('Search clicks'),
-      ctr: metric('Search CTR'),
-      averagePosition: metric('Search average position'),
+      clicks: metric('Search clicks', 'clicks'),
+      ctr: metric('Search CTR', 'ctr'),
+      averagePosition: metric('Search average position', 'position'),
     };
   }).sort((left, right) => left.name.localeCompare(right.name));
 }

@@ -5,6 +5,7 @@
   "description": "Private portfolio health dashboard and its backend",
   "scripts": {
     "dev": "pnpm --dir apps/web dev",
+    "dashboard": "node scripts/start-owner.mjs",
     "backend": "node apps/backend/scripts/server.mjs serve",
     "build": "pnpm --dir apps/web build",
     "test:backend": "node --disable-warning=ExperimentalWarning --test apps/backend/test/*.test.mjs",

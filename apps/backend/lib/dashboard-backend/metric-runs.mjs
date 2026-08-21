@@ -81,15 +81,10 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
   }
   if (family === 'ai') {
     return {
-      command: process.execPath,
-      args: [
-        resolve(repositoryRoot, 'apps/backend/scripts/ai-visibility-canary.mjs'),
-        '--project',
-        project.id,
-        '--fixture',
-        resolve(repositoryRoot, 'apps/backend/test/fixtures/ai-visibility/providers-v1.json'),
-      ],
-      label: 'AI Visibility fixture canary',
+      unavailable: true,
+      code: 'AI_PROVIDER_CONNECTION_REQUIRED',
+      label: 'AI Awareness',
+      summary: 'No approved provider-backed AI connection is configured; cached evidence was not changed.',
     };
   }
   fail('METRIC_FAMILY_INVALID', 'Unsupported project metric family');
@@ -138,9 +133,8 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
       command: process.execPath,
       args: [
         resolve(repositoryRoot, 'apps/backend/scripts/search-console-collect.mjs'),
-        '--discovery-cycle',
       ],
-      label: 'Portfolio search discovery',
+      label: 'Portfolio Search Console evidence',
     };
   }
   fail('METRIC_SCOPE_INVALID', 'Unsupported portfolio metric family');
@@ -165,6 +159,8 @@ function publicRun(run, { duplicate = false } = {}) {
     finishedAt: run.finishedAt,
     exitCode: run.exitCode,
     summary: run.summary,
+    code: run.code ?? null,
+    resultCount: run.resultCount ?? null,
     duplicate,
   };
 }
@@ -175,6 +171,7 @@ export function createMetricRunController({
   workspaceRoot = resolve(repositoryRoot, '..'),
   spawnProcess = spawn,
   now = () => new Date().toISOString(),
+  onRunChange = () => {},
 } = {}) {
   const projectsById = new Map((projects ?? []).map((project) => [project.id, project]));
   const runs = new Map();
@@ -206,15 +203,22 @@ export function createMetricRunController({
         projectId: scope === 'project' ? projectId : null,
         scope,
         label: plan.label,
-        state: 'running',
+        state: plan.unavailable ? 'unavailable' : 'running',
         startedAt: now(),
-        finishedAt: null,
+        finishedAt: plan.unavailable ? now() : null,
         exitCode: null,
-        summary: `${plan.label} is running.`,
+        summary: plan.summary ?? `${plan.label} is running.`,
+        code: plan.code ?? null,
+        resultCount: null,
         capture: '',
       };
       runs.set(run.runId, run);
+      if (plan.unavailable) {
+        onRunChange(publicRun(run));
+        return publicRun(run);
+      }
       active.set(key, run.runId);
+      onRunChange(publicRun(run));
 
       const child = spawnProcess(plan.command, plan.args, {
         cwd: projectRoot(workspaceRoot, repositoryRoot, project ?? { id: 'site-health' }),
@@ -233,6 +237,7 @@ export function createMetricRunController({
         run.finishedAt = now();
         run.summary = boundedStatusText(error.message) || `${plan.label} failed to start.`;
         active.delete(key);
+        onRunChange(publicRun(run));
       });
       child.once('close', (code) => {
         if (run.state !== 'running') return;
@@ -245,6 +250,7 @@ export function createMetricRunController({
             ?? `${plan.label} failed.`;
         run.capture = '';
         active.delete(key);
+        onRunChange(publicRun(run));
       });
       return publicRun(run);
     },

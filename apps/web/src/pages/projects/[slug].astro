@@ -14,19 +14,20 @@ const { project } = Astro.props;
 
 <DashboardLayout
   title={project.title}
-  description="Current state, changelog, and measurable SEO, GEO, and performance outcomes."
+  description="Identity, live site evidence, capabilities, and source-level refresh history."
   active="projects"
   view="project"
   projectId={project.slug}
 >
-  <section class="owner-section" aria-labelledby="project-control-title">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Product control loop</p>
-        <h2 id="project-control-title">Current state</h2>
-        <p>Canonical identity stays in the project registry. Site Health shows only owner-relevant projections.</p>
-      </div>
-    </div>
-    <div class="loading-state" data-dashboard-slot="project-detail">Loading project evidence…</div>
+  <div slot="meta" class="page-head__actions">
+    <a class="quiet-link" href="/projects">All projects</a>
+    <button class="primary-action" type="button" data-project-refresh disabled>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6v5h-5 M4 18v-5h5 M18.5 9A7 7 0 006 6.5L4 9 M5.5 15A7 7 0 0018 17.5l2-2.5" /></svg>
+      <span>Refresh available</span>
+    </button>
+    <span class="refresh-status" data-project-refresh-status role="status" aria-live="polite">Product DRANK + Performance · portfolio Search</span>
+  </div>
+  <section class="owner-section owner-section--directory" aria-label="Product evidence">
+    <div class="loading-state" data-dashboard-slot="project-detail" role="status" aria-live="polite" aria-busy="true">Loading project evidence…</div>
   </section>
 </DashboardLayout>

@@ -491,11 +491,12 @@ export async function inspectSearchConsoleUrl({
   accessToken,
   quotaProject,
   fetchImpl = fetch,
+  requestImpl = googleRequest,
 }) {
   let lastError = null;
   for (let attempt = 0; attempt < 2; attempt += 1) {
     try {
-      const payload = await googleRequest('/urlInspection/index:inspect', {
+      const payload = await requestImpl('/urlInspection/index:inspect', {
         accessToken,
         quotaProject,
         fetchImpl,
@@ -551,17 +552,21 @@ export async function collectSearchConsoleOutcomes({
   reportingWindowDays = 28,
   reportingLagDays = 3,
   searchTermLimit = 25,
+  requestImpl = googleRequest,
+  provenance = 'provider',
 }) {
-  if (!accessToken) throw new Error('Search Console access token is required');
-  if (!quotaProject) throw new Error('Search Console quota project is required');
+  if (requestImpl === googleRequest && !accessToken) throw new Error('Search Console access token is required');
+  if (requestImpl === googleRequest && !quotaProject) throw new Error('Search Console quota project is required');
   if (!Number.isInteger(searchTermLimit) || searchTermLimit < 1 || searchTermLimit > 50) {
     throw new Error('Search Console search term limit must be 1-50');
   }
   const endDate = shiftedDay(isoDay(now), -reportingLagDays);
   const startDate = shiftedDay(endDate, -(reportingWindowDays - 1));
+  const previousEndDate = shiftedDay(startDate, -1);
+  const previousStartDate = shiftedDay(previousEndDate, -(reportingWindowDays - 1));
   const observedAt = now.toISOString();
   const runId = observedAt.replace(/[^0-9]/g, '');
-  const siteList = await googleRequest('/sites', {
+  const siteList = await requestImpl('/sites', {
     accessToken,
     quotaProject,
     fetchImpl,
@@ -578,7 +583,7 @@ export async function collectSearchConsoleOutcomes({
         unavailable: { projectId: project.id, domain: domain ?? null, reason: 'property-unavailable' },
       };
     }
-    const aggregateRequest = googleRequest(
+    const aggregateRequest = requestImpl(
       `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`, {
         accessToken,
         quotaProject,
@@ -586,7 +591,7 @@ export async function collectSearchConsoleOutcomes({
         body: requestBody({ startDate, endDate, pageFilter: selected.pageFilter }),
       },
     );
-    const termsRequest = googleRequest(
+    const termsRequest = requestImpl(
       `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`, {
         accessToken,
         quotaProject,
@@ -600,6 +605,32 @@ export async function collectSearchConsoleOutcomes({
         }),
       },
     );
+    const dailyRequest = requestImpl(
+      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`, {
+        accessToken,
+        quotaProject,
+        fetchImpl,
+        body: requestBody({
+          startDate,
+          endDate,
+          pageFilter: selected.pageFilter,
+          dimensions: ['date'],
+          rowLimit: Math.min(reportingWindowDays, 90),
+        }),
+      },
+    );
+    const previousRequest = requestImpl(
+      `/sites/${encodeURIComponent(selected.siteUrl)}/searchAnalytics/query`, {
+        accessToken,
+        quotaProject,
+        fetchImpl,
+        body: requestBody({
+          startDate: previousStartDate,
+          endDate: previousEndDate,
+          pageFilter: selected.pageFilter,
+        }),
+      },
+    );
     const inspectedUrl = `https://${domain}/`;
     const inspectionRequest = inspectWithBoundedConcurrency(() => inspectSearchConsoleUrl({
       inspectionUrl: inspectedUrl,
@@ -607,10 +638,13 @@ export async function collectSearchConsoleOutcomes({
       accessToken,
       quotaProject,
       fetchImpl,
+      requestImpl,
     }));
-    const [result, termResult, indexInspection] = await Promise.all([
+    const [result, termResult, dailyResult, previousResult, indexInspection] = await Promise.all([
       aggregateRequest,
       termsRequest,
+      dailyRequest,
+      previousRequest,
       inspectionRequest,
     ]);
     const row = result.rows?.[0] ?? null;
@@ -644,11 +678,32 @@ export async function collectSearchConsoleOutcomes({
         ? [{ label: 'Search average position', value: Number(row.position) }]
         : []),
     ];
+    const previousRow = previousResult.rows?.[0] ?? null;
+    const previousMetrics = [
+      { label: 'Search impressions', value: Number(previousRow?.impressions ?? 0) },
+      { label: 'Search clicks', value: Number(previousRow?.clicks ?? 0) },
+      { label: 'Search CTR', value: Number(previousRow?.ctr ?? 0) * 100 },
+      ...(Number(previousRow?.impressions) > 0 && Number(previousRow?.position) > 0
+        ? [{ label: 'Search average position', value: Number(previousRow.position) }]
+        : []),
+    ];
+    const dailySeries = (dailyResult.rows ?? []).flatMap((point) => {
+      const date = String(point.keys?.[0] ?? '');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return [];
+      return [{
+        date,
+        impressions: Number(point.impressions ?? 0),
+        clicks: Number(point.clicks ?? 0),
+        ctr: Number(point.ctr ?? 0) * 100,
+        position: Number(point.position ?? 0),
+      }];
+    });
     return { observation: {
       id: `search-${project.id}-${endDate}-${runId}`,
       projectId: project.id,
       family: 'search',
       provider: 'google-search-console',
+      provenance,
       providerUrl: searchConsoleProviderUrl(selected.siteUrl),
       scope: selected.pageFilter
         ? `${selected.siteUrl} · page:${selected.pageFilter}`
@@ -659,6 +714,12 @@ export async function collectSearchConsoleOutcomes({
         end: `${endDate}T23:59:59.999Z`,
       },
       metrics,
+      dailySeries,
+      previousPeriod: {
+        start: `${previousStartDate}T00:00:00.000Z`,
+        end: `${previousEndDate}T23:59:59.999Z`,
+        metrics: previousMetrics,
+      },
       searchTerms,
       indexInspection,
     } };

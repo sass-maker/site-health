@@ -6,6 +6,11 @@ type RegistryProject = {
   name?: string;
   lifecycle?: string;
   status?: string;
+  attention?: string;
+  tier?: string;
+  portfolio?: {
+    status?: string;
+  };
 };
 
 export type DashboardProject = {
@@ -27,7 +32,12 @@ export function getFleetProjects(): DashboardProject[] {
   };
 
   return (registry.projects ?? [])
-    .filter((project) => project.status !== "orphan")
+    .filter((project) =>
+      project.status !== "orphan"
+      && !["past", "non-product"].includes(project.lifecycle ?? "")
+      && project.attention !== "ignored"
+      && project.tier !== "out-of-fleet"
+      && project.portfolio?.status !== "archived")
     .map((project) => ({
       slug: project.id,
       title: project.name ?? titleize(project.id),

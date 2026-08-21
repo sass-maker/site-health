@@ -15,9 +15,6 @@ export default defineConfig({
           rewrite: (path) => path.replace(/^\/api\/dashboard/, "")
         }
       }
-    },
-    preview: {
-      allowedHosts: ["fleet.sassmaker.com"]
     }
   }
 });

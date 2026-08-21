@@ -4,6 +4,11 @@ import { resolve } from 'node:path';
 
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
+import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
+import { recordRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
+import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
+import { reconcileCampaignEvidence } from '../lib/dashboard-backend/campaign-reconciliation.mjs';
 import {
   DashboardStore,
   defaultDatabasePath,
@@ -75,16 +80,45 @@ if (command === 'status') {
   store.close();
 } else if (command === 'serve') {
   const port = Number(args[0] ?? 4187);
+  const metricRunController = createMetricRunController({
+    projects: store.projects,
+    onRunChange: (run) => recordRefreshReceipt(store, run),
+  });
+  let campaignRefresh = null;
+  const prefillEvidence = ({ force = true } = {}) => {
+    const sources = refreshStaleEvidence({
+      store,
+      projection: buildDashboardProjection(),
+      metricRunController,
+      force,
+    });
+    if (process.env.SITE_HEALTH_RECONCILE_CAMPAIGNS !== '0' && !campaignRefresh) {
+      campaignRefresh = reconcileCampaignEvidence({ store, projects: store.projects })
+        .then((result) => console.log(`Campaign evidence: ${result.counts.verified} verified, ${result.counts.notVerified} pending`))
+        .catch((error) => console.error(`Campaign evidence unavailable: ${error.message}`))
+        .finally(() => { campaignRefresh = null; });
+    }
+    return {
+      schemaVersion: 'site-health.prefill.v1',
+      startedAt: new Date().toISOString(),
+      sources,
+      campaigns: process.env.SITE_HEALTH_RECONCILE_CAMPAIGNS === '0' ? 'disabled' : 'refreshing',
+      capabilities: 'local',
+    };
+  };
   const server = await startDashboardService({
     store,
     port,
     prewarmProjection: true,
     ownerToken: process.env.DASHBOARD_OWNER_TOKEN ?? process.env.FOUNDER_CONTROL_OWNER_TOKEN,
-    trustAccessHeaders: (process.env.DASHBOARD_TRUST_ACCESS ?? process.env.FOUNDER_CONTROL_TRUST_ACCESS) === '1',
     trustLoopback: (process.env.DASHBOARD_TRUST_LOOPBACK ?? process.env.FOUNDER_CONTROL_TRUST_LOOPBACK) !== '0',
-    ownerEmail: process.env.DASHBOARD_OWNER_EMAIL ?? process.env.FOUNDER_CONTROL_OWNER_EMAIL,
+    metricRunController,
+    prefillEvidence,
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
+  const startupPrefill = prefillEvidence({ force: true });
+  const startupRefresh = startupPrefill.sources;
+  console.log(`Evidence startup: ${startupRefresh.map((item) => `${item.family}=${item.action}`).join(', ')}`);
   const shutdown = () => server.close(() => store.close());
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);

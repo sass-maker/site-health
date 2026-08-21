@@ -36,8 +36,8 @@ node apps/backend/scripts/server.mjs serve
 
 The service binds to `127.0.0.1:4187`. The web app proxies it under
 `/api/dashboard`. Reads expose normalized projections; mutations fail closed
-unless an owner token, trusted loopback boundary, or verified Cloudflare Access
-identity is configured.
+unless an owner token or the trusted local loopback boundary is configured.
+The service has no public-host, Cloudflare Tunnel, or Cloudflare Access mode.
 
 Collectors retain bounded scalar summaries and public provider pointers. They
 do not copy credentials, raw provider responses, prompts, transcripts, private

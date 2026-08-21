@@ -173,6 +173,41 @@ function normalizeSearchTerms(searchTerms, family) {
   return normalized;
 }
 
+function normalizeDailySeries(value, family) {
+  if (value === undefined) return [];
+  assert(family === 'search', 'dailySeries is only supported for Search Console outcomes');
+  assert(Array.isArray(value) && value.length <= 90, 'observation.dailySeries must contain at most 90 entries');
+  const normalized = value.map((point, index) => {
+    const path = `observation.dailySeries[${index}]`;
+    assertKnownKeys(point, new Set(['date', 'impressions', 'clicks', 'ctr', 'position']), path);
+    assert(/^\d{4}-\d{2}-\d{2}$/.test(point.date) && Number.isFinite(Date.parse(`${point.date}T00:00:00.000Z`)), `${path}.date is invalid`);
+    const impressions = Number(point.impressions);
+    const clicks = Number(point.clicks);
+    const ctr = Number(point.ctr);
+    const position = Number(point.position);
+    assert(Number.isFinite(impressions) && impressions >= 0, `${path}.impressions is invalid`);
+    assert(Number.isFinite(clicks) && clicks >= 0, `${path}.clicks is invalid`);
+    assert(Number.isFinite(ctr) && ctr >= 0 && ctr <= 100, `${path}.ctr is invalid`);
+    assert(Number.isFinite(position) && position >= 0, `${path}.position is invalid`);
+    return { date: point.date, impressions, clicks, ctr, position };
+  }).sort((left, right) => left.date.localeCompare(right.date));
+  assert(new Set(normalized.map((point) => point.date)).size === normalized.length, 'observation.dailySeries contains duplicate dates');
+  return normalized;
+}
+
+function normalizePreviousPeriod(value, contract, family) {
+  if (value === undefined) return null;
+  assert(family === 'search', 'previousPeriod is only supported for Search Console outcomes');
+  assertKnownKeys(value, new Set(['start', 'end', 'metrics']), 'observation.previousPeriod');
+  const start = normalizeTimestamp(value.start, 'observation.previousPeriod.start');
+  const end = normalizeTimestamp(value.end, 'observation.previousPeriod.end');
+  assert(Date.parse(start) <= Date.parse(end), 'observation.previousPeriod must not end before it starts');
+  assert(Array.isArray(value.metrics) && value.metrics.length > 0, 'observation.previousPeriod.metrics is required');
+  const metrics = value.metrics.map((metric, index) =>
+    normalizeMetric(metric, contract, `observation.previousPeriod.metrics[${index}]`));
+  return { start, end, metrics };
+}
+
 function normalizeHttpsUrl(value, path) {
   assert(typeof value === 'string' && value.length <= 2048, `${path} must be an HTTPS URL`);
   try {
@@ -239,7 +274,7 @@ function normalizeIndexInspection(value, family) {
 function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   assertKnownKeys(
     observation,
-    new Set(['id', 'projectId', 'family', 'provider', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'indexInspection', 'breakdowns']),
+    new Set(['id', 'projectId', 'family', 'provider', 'provenance', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'dailySeries', 'previousPeriod', 'indexInspection', 'breakdowns']),
     'observation',
   );
   assert(typeof observation.id === 'string' && IDENTIFIER.test(observation.id), 'observation.id is invalid');
@@ -270,8 +305,12 @@ function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
     normalizeMetric(metric, contract, `observation.metrics[${index}]`));
   assert(new Set(metrics.map((metric) => metric.label)).size === metrics.length, 'observation.metrics contains duplicates');
   const searchTerms = normalizeSearchTerms(observation.searchTerms, observation.family);
+  const dailySeries = normalizeDailySeries(observation.dailySeries, observation.family);
+  const previousPeriod = normalizePreviousPeriod(observation.previousPeriod, contract, observation.family);
   const indexInspection = normalizeIndexInspection(observation.indexInspection, observation.family);
   const providerUrl = normalizeProviderUrl(observation.providerUrl);
+  const provenance = observation.provenance ?? 'provider';
+  assert(new Set(['provider', 'public-probe']).has(provenance), 'observation.provenance is invalid');
   const breakdowns = normalizeBreakdowns(observation.breakdowns);
   return {
     schemaVersion: VISIBILITY_OUTCOME_SCHEMA,
@@ -279,12 +318,15 @@ function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
     projectId: observation.projectId,
     family: observation.family,
     provider: observation.provider,
+    provenance,
     ...(providerUrl ? { providerUrl } : {}),
     scope: observation.scope,
     observedAt,
     period: { start: periodStart, end: periodEnd },
     metrics,
     ...(observation.family === 'search' ? { searchTerms } : {}),
+    ...(observation.family === 'search' ? { dailySeries } : {}),
+    ...(previousPeriod ? { previousPeriod } : {}),
     ...(indexInspection ? { indexInspection } : {}),
     ...(breakdowns.length > 0 ? { breakdowns } : {}),
   };
@@ -319,6 +361,7 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
           projectId: value.projectId,
           family: value.family,
           provider: value.provider,
+          provenance: value.provenance,
           providerUrl: value.providerUrl,
           scope: value.scope,
           observedAt: value.observedAt,
@@ -327,6 +370,16 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
             ? value.metrics.map((metric) => ({ label: metric?.label, value: metric?.value }))
             : value.metrics,
           searchTerms: value.searchTerms,
+          dailySeries: value.dailySeries,
+          previousPeriod: value.previousPeriod
+            ? {
+                start: value.previousPeriod.start,
+                end: value.previousPeriod.end,
+                metrics: Array.isArray(value.previousPeriod.metrics)
+                  ? value.previousPeriod.metrics.map((metric) => ({ label: metric?.label, value: metric?.value }))
+                  : value.previousPeriod.metrics,
+              }
+            : undefined,
           indexInspection: value.indexInspection,
           breakdowns: value.breakdowns,
         })];

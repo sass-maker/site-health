@@ -21,8 +21,8 @@
       "domains": "live custom domains (empty = pages.dev only or undeployed)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
-      "status": "live | undeployed | orphan | deleted | unverified",
-      "authModel": "required-user | required-service | public-personalized | public-persistent",
+      "status": "live | local-only | undeployed | orphan | deleted | unverified",
+      "authModel": "local-only | required-user | required-service | private-authenticated | public-personalized | public-persistent",
       "notes": "reconciliation flags / decisions",
       "name": "human display name",
       "attention": "my-work | toolbox | foundry | ignored",
@@ -55,7 +55,7 @@
         "kind": "product",
         "priority": "P1",
         "status": "active",
-        "deployed": true,
+        "deployed": false,
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-08-11",
@@ -195,15 +195,15 @@
         "kind": "platform",
         "priority": "P2",
         "status": "active",
-        "deployed": true,
+        "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-20",
-          "reason": "Site Health is a private owner surface and is not intended for public sharing."
+          "verifiedAt": "2026-08-22",
+          "reason": "Site Health is intentionally local-only and has no intended public deployment; its obsolete public edge hostname is pending provider removal."
         }
       },
       "aliases": [],
-      "authModel": "public-personalized",
+      "authModel": "local-only",
       "family": "site-health",
       "tier": "active",
       "repo": "site-health",
@@ -213,8 +213,8 @@
         "fleet.sassmaker.com"
       ],
       "inRegistry": false,
-      "status": "live",
-      "notes": "Private Site Health product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections are independently owned outside this repository.",
+      "status": "local-only",
+      "notes": "Private local-only Site Health product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories; T-Reg is retired and excluded from the active product.",
       "name": "Site Health",
       "attention": "foundry",
       "lifecycle": "maintained",
@@ -267,13 +267,13 @@
       "id": "treg",
       "portfolio": {
         "kind": "platform",
-        "priority": "P2",
-        "status": "active",
+        "priority": "P4",
+        "status": "archived",
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "The internal tool registry has been imported with upstream history but is not yet configured or deployed for Fleet use."
+          "verifiedAt": "2026-08-22",
+          "reason": "The copied registry could relay calls but did not produce useful Site Health provider evidence; Fleet retired the active copy and retained a deferred issue plus the upstream pointer."
         }
       },
       "aliases": [
@@ -281,17 +281,17 @@
       ],
       "authModel": "private-authenticated",
       "family": "treg",
-      "tier": "active",
+      "tier": "out-of-fleet",
       "repo": "treg",
       "deployKind": "none",
       "cfProject": null,
       "domains": [],
       "inRegistry": false,
-      "status": "undeployed",
-      "notes": "Private internal agent tool registry copied from superdesigndev/treg with its license, tags, and Git history preserved. Superdesign remains configured as the upstream remote; Fleet adaptation is tracked in the repository issue queue.",
+      "status": "deleted",
+      "notes": "Retired from active Fleet use on 2026-08-22 after a local viability run. The empty checkout and sass-maker/treg history remain as a recoverable pointer; future reconsideration is tracked in sass-maker/treg#3 and upstream remains superdesigndev/treg.",
       "name": "Treg",
-      "attention": "foundry",
-      "lifecycle": "maintained",
+      "attention": "ignored",
+      "lifecycle": "past",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/treg",
       "public": { "listing": "hidden" }
@@ -351,27 +351,27 @@
       "id": "gitstat",
       "portfolio": {
         "kind": "product",
-        "priority": "P2",
+        "priority": "P4",
         "status": "active",
-        "deployed": true,
+        "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-20",
-          "reason": "The local implementation has no committed main revision or verified public deployment yet."
+          "verifiedAt": "2026-08-21",
+          "reason": "GitStat is an independently owned outside project and is excluded from active Fleet work and Site Health coverage."
         }
       },
       "authModel": "required-service",
       "family": "gitstat",
-      "tier": "active",
+      "tier": "out-of-fleet",
       "repo": "gitstat",
       "deployKind": "none",
       "cfProject": null,
       "domains": [],
       "inRegistry": false,
       "status": "undeployed",
-      "notes": "Client-side GitHub contribution and line-statistics explorer with a thin OAuth proxy. Cataloged to reconcile the active Fleet checkout; no deployment claim is made.",
+      "notes": "Independent GitHub contribution and line-statistics project retained in the inventory but outside Fleet and Site Health scope.",
       "name": "GitStat",
-      "attention": "toolbox",
+      "attention": "ignored",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/gitstat",
@@ -2608,7 +2608,7 @@
           "state": "provider-complete",
           "observed": 2,
           "tracked": 2,
-          "evidence": "Wrangler account list; one tunnel remains owner-unverified."
+          "evidence": "Two tunnel objects remain. The obsolete Site Health hostname route was removed from the shared assistant-mac-server tunnel on 2026-08-22; neither remaining tunnel is owned by Site Health."
         },
         {
           "kind": "container",
@@ -2698,7 +2698,7 @@
           "kind": "access-application",
           "state": "config-and-live-redirect-derived",
           "tracked": 2,
-          "evidence": "Tracked product docs plus live Cloudflare Access redirects; dashboard/API enumeration remains unavailable."
+          "evidence": "The obsolete Site Health Access application remains provider-visible pending authenticated Cloudflare removal; one unrelated tracked application remains."
         },
         {
           "kind": "zone",
@@ -2783,15 +2783,8 @@
         ]
       },
       "site-health": {
-        "updatedAt": "2026-08-21",
+        "updatedAt": "2026-08-22",
         "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "tunnel",
-            "name": "fleet.sassmaker.com",
-            "method": "designated-host",
-            "state": "live"
-          },
           {
             "provider": "github",
             "kind": "actions",
@@ -2805,9 +2798,10 @@
             "provider": "cloudflare",
             "kind": "access-application",
             "name": "fleet.sassmaker.com",
-            "state": "active-config-derived"
+            "state": "retirement-pending"
           }
-        ]
+        ],
+        "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel hostname route was removed 2026-08-22; the obsolete Cloudflare DNS record and Access application remain pending authenticated provider removal."
       },
       "chatgpt-connections": {
         "updatedAt": "2026-08-21",

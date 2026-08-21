@@ -1,0 +1,11 @@
+{
+  "schema": "site-health.capabilities.v1",
+  "skills": [
+    { "id": "site-health", "family": "projects", "label": "Site Health router" },
+    { "id": "agent-ready", "family": "ai-awareness", "label": "AI and agent readiness" },
+    { "id": "seo-audit", "family": "search", "label": "On-page SEO audit" },
+    { "id": "geo-observatory", "family": "ai-awareness", "label": "Search and GEO trend evidence" },
+    { "id": "psi-swarm", "family": "performance", "label": "Performance collection" },
+    { "id": "public-product-smoke", "family": "projects", "label": "Public guest journey" }
+  ]
+}

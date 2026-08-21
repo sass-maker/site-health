@@ -17,6 +17,25 @@ backend.
 
 ## Timeline
 
+- **2026-08-22:** Made Site Health strictly local-only on `127.0.0.1`. Removed
+  public-host allowances and trusted Cloudflare identity headers; local
+  loopback and an optional owner token are the only mutation boundaries. The
+  obsolete Mac launch services were retired recoverably, and the
+  `fleet.sassmaker.com` route was removed from the shared Cloudflare Tunnel. Its
+  DNS record and Access application await authenticated provider removal.
+- **2026-08-21:** Repaired the owner evidence loop. The dashboard now starts
+  from one `pnpm run dashboard` command, reuses healthy local processes,
+  and requests one deduplicated portfolio prefill on every invocation. Cached
+  evidence remains visible while authorized free collectors run; persistent
+  receipts distinguish provider observations from failed or unavailable
+  attempts. Live refreshes populated all ten domain roots, all 32 performance
+  targets, and all 33 Search Console properties. AI retains its last provider
+  evidence and records the recurring-approval blocker without fixture fallback
+  or silent spend.
+- **2026-08-21:** Added provider-native Search Console daily-series and previous
+  period contracts, a skill capability projection, and read-only
+  reconciliation of already-authorized campaign URLs without changing
+  campaign receipts.
 - **2026-08-21:** Extracted Site Health into its own repository while
   preserving the historical Fleet Workspace Git history. Simplified the
   repository layout to `apps/web` and `apps/backend`; the Fleet directory is
@@ -42,6 +61,20 @@ backend.
 - PSI and field-performance view.
 - Google Search evidence view.
 - GEO/AI-awareness view with a private provider-independent analysis engine.
+- Source-specific freshness envelopes with persistent sanitized success,
+  failure, unavailable, and in-progress refresh receipts.
+- Every owner-command invocation requests fresh Domains, Performance, Search,
+  campaign, and capability evidence, including when healthy dashboard processes
+  are reused; concurrent invocations join the same source run.
+- Daily Search Console graph contract, comparable previous period, and exact
+  Search Console property links; legacy aggregate snapshots are never graphed
+  as daily traffic.
+- Applicable Fleet skill capability discovery without copying implementations
+  into Site Health.
+- Read-only public-evidence reconciliation for previously authorized campaign
+  receipts; source receipts remain unchanged.
+- Local-only web and backend surfaces with no public hostname, Tunnel, or
+  Cloudflare Access dependency.
 
 ## Work queue
 

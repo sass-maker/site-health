@@ -314,6 +314,14 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
           ] })
         : Response.json({});
     }
+    if (body.dimensions?.includes('date')) {
+      return filter === 'https://one.example.com/'
+        ? Response.json({ rows: [
+            { keys: ['2026-07-27'], clicks: 1, impressions: 8, ctr: 0.125, position: 5 },
+            { keys: ['2026-07-28'], clicks: 1, impressions: 12, ctr: 1 / 12, position: 4 },
+          ] })
+        : Response.json({ rows: [] });
+    }
     return filter === 'https://one.example.com/'
       ? Response.json({ rows: [{ clicks: 2, impressions: 20, ctr: 0.1, position: 4.5 }] })
       : Response.json({});
@@ -332,7 +340,7 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
     reportingLagDays: 3,
   });
 
-  assert.equal(requests.length, 7);
+  assert.equal(requests.length, 11);
   assert.equal(result.bundle.observations.length, 2);
   assert.deepEqual(result.unavailable, [{
     projectId: 'missing',
@@ -374,4 +382,10 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
   assert.equal(queryRequest.body.rowLimit, 25);
   assert.equal(result.bundle.observations[0].period.start, '2026-07-01T00:00:00.000Z');
   assert.equal(result.bundle.observations[0].period.end, '2026-07-28T23:59:59.999Z');
+  assert.deepEqual(result.bundle.observations[0].dailySeries, [
+    { date: '2026-07-27', impressions: 8, clicks: 1, ctr: 12.5, position: 5 },
+    { date: '2026-07-28', impressions: 12, clicks: 1, ctr: (1 / 12) * 100, position: 4 },
+  ]);
+  assert.equal(result.bundle.observations[0].previousPeriod.start, '2026-06-03T00:00:00.000Z');
+  assert.equal(result.bundle.observations[0].previousPeriod.end, '2026-06-30T23:59:59.999Z');
 });

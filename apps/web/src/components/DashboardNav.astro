@@ -148,10 +148,14 @@ const secondaryLinks = [
     fetch("/api/dashboard/health", { headers: { accept: "application/json" } })
       .then((response) => {
         if (!response.ok) throw new Error("offline");
+        if (indicator?.dataset.dashboardEvidenceState) return;
+        indicator?.classList.remove("offline");
         indicator?.classList.add("online");
         if (label) label.textContent = "Live evidence";
       })
       .catch(() => {
+        if (indicator?.dataset.dashboardEvidenceState) return;
+        indicator?.classList.remove("online");
         indicator?.classList.add("offline");
         if (label) label.textContent = "Offline";
       });

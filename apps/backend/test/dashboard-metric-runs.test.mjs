@@ -4,6 +4,7 @@ import { PassThrough } from 'node:stream';
 import test from 'node:test';
 
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
+import { resolveFleetRoot, runPerformancePortfolio } from '../scripts/run-performance-portfolio.mjs';
 
 function fakeProcess() {
   const child = new EventEmitter();
@@ -22,6 +23,34 @@ function project() {
     lifecycle: 'maintained',
   };
 }
+
+test('resolves PSI Swarm from the Fleet root beside Site Health', () => {
+  assert.equal(
+    resolveFleetRoot('/workspace/fleet/site-health/apps/backend/scripts'),
+    '/workspace/fleet',
+  );
+});
+
+test('runs PSI with the Node ABI used by its installed native module', () => {
+  let invocation;
+  const result = runPerformancePortfolio(
+    [{ projectId: 'pace', url: 'https://heypace.app/' }],
+    {
+      cliPath: '/workspace/fleet/psi-swarm/cli/dist/cli.js',
+      cwd: '/workspace/fleet/psi-swarm',
+      run(command, args, options) {
+        invocation = { command, args, options };
+        return { status: 0 };
+      },
+      log() {},
+    },
+  );
+  assert.equal(result.completed, 1);
+  assert.equal(invocation.command, 'mise');
+  assert.deepEqual(invocation.args.slice(0, 5), [
+    'exec', 'node@22.23.1', '--', 'node', '/workspace/fleet/psi-swarm/cli/dist/cli.js',
+  ]);
+});
 
 test('starts and deduplicates project D-Rank runs without a shell', () => {
   let invocation;
@@ -59,28 +88,28 @@ test('starts portfolio D-Rank, PSI, and Search runs', () => {
 
   assert.equal(controller.start({ family: 'drank', scope: 'portfolio' }).label, 'Portfolio D-Rank');
   assert.equal(controller.start({ family: 'psi', scope: 'portfolio' }).label, 'Portfolio PSI');
-  assert.equal(controller.start({ family: 'search', scope: 'portfolio' }).label, 'Portfolio search discovery');
+  assert.equal(controller.start({ family: 'search', scope: 'portfolio' }).label, 'Portfolio Search Console evidence');
   assert.equal(invocations.every(({ options }) => options.shell === false), true);
   assert.equal(invocations[0].args.includes('--only'), false);
   assert.equal(invocations[1].args[0].endsWith('run-performance-portfolio.mjs'), true);
   assert.equal(invocations[2].args[0].endsWith('search-console-collect.mjs'), true);
 });
 
-test('starts the bounded AI-awareness canary for one project', () => {
-  let invocation;
+test('reports AI-awareness unavailable instead of projecting a fixture', () => {
+  let invoked = false;
   const controller = createMetricRunController({
     projects: [project()],
-    spawnProcess: (command, args, options) => {
-      invocation = { command, args, options };
+    spawnProcess: () => {
+      invoked = true;
       return fakeProcess();
     },
   });
 
   const started = controller.start({ family: 'ai', projectId: 'pace' });
-  assert.equal(started.label, 'AI Visibility fixture canary');
-  assert.equal(invocation.options.shell, false);
-  assert.deepEqual(invocation.args.slice(1, 3), ['--project', 'pace']);
-  assert.equal(invocation.args.at(-1).endsWith('providers-v1.json'), true);
+  assert.equal(started.label, 'AI Awareness');
+  assert.equal(started.state, 'unavailable');
+  assert.equal(started.code, 'AI_PROVIDER_CONNECTION_REQUIRED');
+  assert.equal(invoked, false);
 });
 
 test('rejects removed metric families and unsupported scopes', () => {

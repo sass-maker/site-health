@@ -4,9 +4,14 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const FLEET_ROOT = resolve(import.meta.dirname, '../../../../..');
+export function resolveFleetRoot(directory = import.meta.dirname) {
+  return resolve(directory, '../../../..');
+}
+
+const FLEET_ROOT = resolveFleetRoot();
 const PSI_ROOT = resolve(FLEET_ROOT, 'psi-swarm');
 const PSI_CLI = resolve(PSI_ROOT, 'cli/dist/cli.js');
+const PSI_NODE_VERSION = '22.23.1';
 const PROJECT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function parseTargets(args) {
@@ -38,7 +43,11 @@ export function runPerformancePortfolio(
   const failed = [];
   targets.forEach((target, index) => {
     log(`[${index + 1}/${targets.length}] ${target.projectId}`);
-    const result = run(process.execPath, [
+    const result = run('mise', [
+      'exec',
+      `node@${PSI_NODE_VERSION}`,
+      '--',
+      'node',
       cliPath,
       'run',
       target.url,

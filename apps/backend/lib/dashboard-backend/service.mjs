@@ -1,9 +1,15 @@
 import { timingSafeEqual } from 'node:crypto';
 import { createServer } from 'node:http';
 
-import { cloudflareAccessAuthorized } from './access.mjs';
 import { buildDashboardProjection } from '../dashboard-projection.mjs';
 import { createMetricRunController } from './metric-runs.mjs';
+import {
+  buildEvidenceEnvelope,
+  readRefreshReceipt,
+  recordRefreshReceipt,
+} from './evidence-freshness.mjs';
+import { buildCapabilityProjection } from './capabilities.mjs';
+import { readCampaignReconciliation } from './campaign-reconciliation.mjs';
 import {
   evaluateAiVisibilityScheduleActivation,
   loadAiVisibilityPortfolio,
@@ -30,7 +36,7 @@ function safeEqual(left, right) {
 
 function mutationAuthorized(
   request,
-  { ownerToken, trustAccessHeaders = false, trustLoopback = false, ownerEmail } = {},
+  { ownerToken, trustLoopback = false } = {},
 ) {
   if (
     trustLoopback &&
@@ -39,9 +45,6 @@ function mutationAuthorized(
   if (ownerToken) {
     const authorization = request.headers.authorization ?? '';
     return authorization.startsWith('Bearer ') && safeEqual(authorization.slice(7), ownerToken);
-  }
-  if (trustAccessHeaders) {
-    return cloudflareAccessAuthorized(request, { ownerEmail });
   }
   return false;
 }
@@ -74,7 +77,14 @@ function boundedSignal(signal, { includeSeries = false } = {}) {
     : bounded;
 }
 
-function outcomeProjection(projection, family) {
+const OUTCOME_SOURCES = Object.freeze({
+  domains: 'drank',
+  performance: 'psi',
+  search: 'search',
+  'ai-awareness': 'ai',
+});
+
+function outcomeProjection(projection, family, { receipt = null, now } = {}) {
   const outcomes = projection.outcomes ?? {};
   let rows = [];
   if (family === 'domains') {
@@ -143,6 +153,7 @@ function outcomeProjection(projection, family) {
     schemaVersion: 'dashboard.owner-outcome.v1',
     generatedAt: projection.generatedAt,
     family,
+    source: buildEvidenceEnvelope({ family: OUTCOME_SOURCES[family], rows, receipt, now }),
     rows,
     ...(family === 'performance'
       ? { thresholds: { psiScore: 90, lcpMilliseconds: 2500 } }
@@ -188,21 +199,24 @@ export function buildAiVisibilityProjection(projections, portfolio, scheduleActi
 export function createDashboardHandler({
   store,
   ownerToken,
-  trustAccessHeaders = false,
   trustLoopback = false,
-  ownerEmail,
   now = () => new Date().toISOString(),
   visibilityPortfolio = loadAiVisibilityPortfolio(),
   visibilityScheduleActivation = {},
   projectionProvider = buildDashboardProjection,
   prewarmProjection = false,
   metricRunController,
+  prefillEvidence,
 }) {
-  const resolvedMetricRunController = metricRunController ?? createMetricRunController({
-    projects: store.projects,
-  });
   let projectionCache = null;
   const completedMetricRuns = new Set();
+  const resolvedMetricRunController = metricRunController ?? createMetricRunController({
+    projects: store.projects,
+    onRunChange: (run) => {
+      recordRefreshReceipt(store, run);
+      if (run.state !== 'running') projectionCache = null;
+    },
+  });
   const rebuildDashboardProjection = (projections = projectionFor(store)) => {
     const aiVisibility = buildAiVisibilityProjection(
       projections,
@@ -217,8 +231,10 @@ export function createDashboardHandler({
     return payload;
   };
   const cachedDashboardProjection = (projections) => {
-    if (!projectionCache) return rebuildDashboardProjection(projections);
-    return projectionCache.payload;
+    // Evidence is file/provider-backed and may be updated by sibling collectors.
+    // Rebuild on every owner read so a completed run is visible even when no client
+    // happened to poll its run receipt to completion.
+    return rebuildDashboardProjection(projections);
   };
   if (prewarmProjection) rebuildDashboardProjection();
   const handleEarlyRoutes = (url, method, response) => {
@@ -240,19 +256,50 @@ export function createDashboardHandler({
   };
   const handleProjectionReadRoutes = (url, projections, response) => {
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
+    if (url.pathname === '/v1/capabilities') {
+      return json(response, 200, buildCapabilityProjection({ now: now(), store }));
+    }
+    if (url.pathname === '/v1/evidence-status') {
+      const payload = cachedDashboardProjection(projections);
+      const sources = Object.fromEntries(Object.entries(OUTCOME_SOURCES).map(([family, source]) => [
+        source,
+        buildEvidenceEnvelope({
+          family: source,
+          rows: outcomeProjection(payload, family, { now: now() }).rows,
+          receipt: readRefreshReceipt(store, source),
+          now: now(),
+        }),
+      ]));
+      return json(response, 200, {
+        schemaVersion: 'site-health.evidence-status.v1',
+        generatedAt: now(),
+        sources,
+        campaigns: readCampaignReconciliation(store),
+        capabilities: buildCapabilityProjection({ now: now(), store }).sources,
+      });
+    }
     const outcomeMatch = url.pathname.match(
       /^\/v1\/outcomes\/(domains|search|ai-awareness|performance)$/,
     );
     if (outcomeMatch) {
+      const family = outcomeMatch[1];
+      const source = OUTCOME_SOURCES[family];
       return json(
         response,
         200,
-        outcomeProjection(cachedDashboardProjection(projections), outcomeMatch[1]),
+        outcomeProjection(cachedDashboardProjection(projections), family, {
+          receipt: readRefreshReceipt(store, source),
+          now: now(),
+        }),
       );
     }
     return false;
   };
   const handleMetricRunMutations = async (url, method, request, response) => {
+    if (method === 'POST' && url.pathname === '/v1/prefill') {
+      if (!prefillEvidence) return json(response, 503, { error: 'dashboard prefill is unavailable' });
+      return json(response, 202, prefillEvidence({ force: true }));
+    }
     if (method === 'POST' && url.pathname === '/v1/metric-runs') {
       const body = await readBody(request);
       return json(response, 202, resolvedMetricRunController.start({
@@ -284,9 +331,7 @@ export function createDashboardHandler({
         method !== 'GET' &&
         !mutationAuthorized(request, {
           ownerToken,
-          trustAccessHeaders,
           trustLoopback,
-          ownerEmail,
         })
       ) {
         return json(response, 401, { error: 'owner authentication required' });
@@ -309,27 +354,25 @@ export function startDashboardService({
   host = '127.0.0.1',
   port = 4187,
   ownerToken,
-  trustAccessHeaders = false,
   trustLoopback = false,
-  ownerEmail,
   visibilityPortfolio,
   visibilityScheduleActivation,
   projectionProvider,
   prewarmProjection = false,
   metricRunController,
+  prefillEvidence,
 } = {}) {
   const server = createServer(
     createDashboardHandler({
       store,
       ownerToken,
-      trustAccessHeaders,
       trustLoopback,
-      ownerEmail,
       ...(visibilityPortfolio ? { visibilityPortfolio } : {}),
       ...(visibilityScheduleActivation ? { visibilityScheduleActivation } : {}),
       ...(projectionProvider ? { projectionProvider } : {}),
       prewarmProjection,
       ...(metricRunController ? { metricRunController } : {}),
+      ...(prefillEvidence ? { prefillEvidence } : {}),
     }),
   );
   return new Promise((resolve, reject) => {
