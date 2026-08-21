@@ -264,6 +264,39 @@
       "public": { "listing": "hidden" }
     },
     {
+      "id": "treg",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "The internal tool registry has been imported with upstream history but is not yet configured or deployed for Fleet use."
+        }
+      },
+      "aliases": [
+        "tools-registry"
+      ],
+      "authModel": "private-authenticated",
+      "family": "treg",
+      "tier": "active",
+      "repo": "treg",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Private internal agent tool registry copied from superdesigndev/treg with its license, tags, and Git history preserved. Superdesign remains configured as the upstream remote; Fleet adaptation is tracked in the repository issue queue.",
+      "name": "Treg",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/treg",
+      "public": { "listing": "hidden" }
+    },
+    {
       "id": "saas-maker",
       "portfolio": {
         "kind": "product",
