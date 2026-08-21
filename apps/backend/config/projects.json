@@ -199,7 +199,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-22",
-          "reason": "Site Health is intentionally local-only and has no intended public deployment; its obsolete public edge hostname is pending provider removal."
+          "reason": "Site Health is intentionally local-only and has no intended public deployment; its obsolete public edge hostname and Access application were retired on 2026-08-22."
         }
       },
       "aliases": [],
@@ -209,9 +209,7 @@
       "repo": "site-health",
       "deployKind": "none",
       "cfProject": null,
-      "domains": [
-        "fleet.sassmaker.com"
-      ],
+      "domains": [],
       "inRegistry": false,
       "status": "local-only",
       "notes": "Private local-only Site Health product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories.",
@@ -2663,9 +2661,9 @@
         },
         {
           "kind": "access-application",
-          "state": "config-and-live-redirect-derived",
-          "tracked": 2,
-          "evidence": "The obsolete Site Health Access application remains provider-visible pending authenticated Cloudflare removal; one unrelated tracked application remains."
+          "state": "config-derived",
+          "tracked": 1,
+          "evidence": "One unrelated Access application remains tracked in project configuration; the obsolete Site Health application was retired on 2026-08-22."
         },
         {
           "kind": "zone",
@@ -2760,15 +2758,8 @@
             "state": "live"
           }
         ],
-        "resources": [
-          {
-            "provider": "cloudflare",
-            "kind": "access-application",
-            "name": "fleet.sassmaker.com",
-            "state": "retirement-pending"
-          }
-        ],
-        "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel hostname route was removed 2026-08-22; the obsolete Cloudflare DNS record and Access application remain pending authenticated provider removal."
+        "resources": [],
+        "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
       },
       "chatgpt-connections": {
         "updatedAt": "2026-08-21",

@@ -21,8 +21,9 @@ backend.
   public-host allowances and trusted Cloudflare identity headers; local
   loopback and an optional owner token are the only mutation boundaries. The
   obsolete Mac launch services were retired recoverably, and the
-  `fleet.sassmaker.com` route was removed from the shared Cloudflare Tunnel. Its
-  DNS record and Access application await authenticated provider removal.
+  `fleet.sassmaker.com` route, DNS record, and Access application were removed.
+  Authoritative and public DNS resolvers confirmed the hostname no longer
+  resolves; the shared tunnel and its unrelated routes remain untouched.
 - **2026-08-21:** Repaired the owner evidence loop. The dashboard now starts
   from one `pnpm run dashboard` command, reuses healthy local processes,
   and requests one deduplicated portfolio prefill on every invocation. Cached
