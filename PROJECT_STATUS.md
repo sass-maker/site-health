@@ -12,7 +12,8 @@ backend.
 - PSI Swarm provides web-performance evidence.
 - Google Search Console provides search evidence.
 - Configured model providers supply bounded AI Visibility observations.
-- `sass-maker/workflows` owns reusable GitHub Actions.
+- `sass-maker/workflows-and-skills` owns reusable GitHub Actions, Fleet-owned
+  scripts, and agent skills.
 
 ## Timeline
 
@@ -20,7 +21,8 @@ backend.
   Dashboard web app, Dashboard backend, internal AI Visibility engine, and
   required catalog/evidence contracts. Fleet operations, skills, marketing,
   templates, historical design evidence, and the Workflows submodule were
-  removed from the product repository.
+  removed from the product repository; scripts and skills were preserved in
+  `sass-maker/workflows-and-skills`.
 
 ## Products
 

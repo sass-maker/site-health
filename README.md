@@ -16,7 +16,8 @@ This repository contains one product and its backend:
 
 Drank and PSI Swarm remain independent repositories. The backend reads or
 invokes them through explicit adapters. Reusable GitHub Actions remain in the
-independent `sass-maker/workflows` repository.
+independent `sass-maker/workflows-and-skills` repository, which also preserves
+Fleet-owned scripts and agent skills.
 
 ## Commands
 

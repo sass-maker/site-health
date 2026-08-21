@@ -16,4 +16,4 @@ permissions:
 
 jobs:
   check:
-    uses: sass-maker/workflows/.github/workflows/dashboard-ci.yml@main
+    uses: sass-maker/workflows-and-skills/.github/workflows/dashboard-ci.yml@main
