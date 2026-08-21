@@ -1,0 +1,19 @@
+---
+import DashboardLayout from "../components/DashboardLayout.astro";
+---
+
+<DashboardLayout
+  title="Domains"
+  description="Is every owned domain becoming more authoritative?"
+  active="domains"
+  view="domains"
+>
+  <div slot="meta" class="page-head__meta">
+    <button type="button" class="secondary-action" data-portfolio-refresh="drank">Re-run</button>
+    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="drank"></span>
+    <span class="snapshot-time" data-outcome-time>Reading domain evidence</span>
+  </div>
+  <section class="owner-section owner-section--directory" aria-label="Domain directory">
+    <div class="loading-state" data-dashboard-slot="domains">Building domain directory…</div>
+  </section>
+</DashboardLayout>

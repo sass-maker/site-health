@@ -1,0 +1,14 @@
+{
+  "name": "dashboard-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Private data and API backend for Dashboard",
+  "scripts": {
+    "serve": "node scripts/server.mjs serve",
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

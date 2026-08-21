@@ -1,23 +1,15 @@
 # Ignore every child project by default. Each project keeps its own git repo.
 /*
 
-# Track only Fleet workspace control files.
+# Track only Dashboard repository files.
 !/.gitignore
-!/.gitmodules
 !/README.md
 !/AGENTS.md
 !/CLAUDE.md
 !/PROJECT_STATUS.md
 !/package.json
 !/foundry/
-!/openspec
 !/.github/
-!/.openspec-store/
-!/.codex/
-
-# Impeccable is installed per machine by agent-stack.sh. Keep its generated
-# hook local because it depends on the ignored .agents/ skill payload.
-/.codex/hooks.json
 
 # Local/system noise at the Fleet root.
 .DS_Store
@@ -32,11 +24,6 @@ __pycache__/
 # Infisical project link (workspaceId pointer — keep local)
 .infisical.json
 
-# Devin fleet-run outputs (logs, prompts, markers)
-foundry/ops/.devin-runs/
-
-# Grok fan-out worktrees
-foundry/ops/.grok-wt/
-
-# Local discovery-submission history.
-foundry/ops/config/indexnow-state.json
+# Local Dashboard state.
+foundry/apps/dashboard/backend/*.sqlite
+foundry/apps/dashboard/backend/*.sqlite-*

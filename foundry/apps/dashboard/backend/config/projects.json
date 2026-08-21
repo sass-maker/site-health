@@ -1,0 +1,4911 @@
+{
+  "_meta": {
+    "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
+    "updated": "2026-08-21",
+    "fields": {
+      "id": "stable project/surface id",
+      "family": "top-level product family this belongs to",
+      "tier": "focus | active | secondary | parked | out-of-fleet | non-product",
+      "portfolio": "owner-facing classification with kind (product | platform | experiment), priority (P1 | P2 | P4), status (active | archived), deployed boolean, readyToBeShared boolean, and sharingReadiness evidence with verifiedAt and reason",
+      "repo": "child repo dir under fleet root (null if none)",
+      "sourcePath": "optional source checkout path relative to fleet root when the repo is stored outside the active workspace",
+      "_meta.absorbedCheckouts": "top-level historical checkout names preserved locally and their canonical catalog identities",
+      "deployKind": "pages | worker | worker+pages | none | unknown",
+      "cfProject": "Cloudflare Pages project name and/or Worker script name(s)",
+      "cfPages": "optional exact Cloudflare Pages project names when cfProject also describes Worker surfaces",
+      "deployTargets": "optional exact per-surface objects with id, kind, name, and sourcePath; required for mixed or multi-source deploys",
+      "d1Databases": "optional exact Cloudflare D1 database names currently owned by this project",
+      "tursoDatabases": "optional exact Turso database names owned by this project",
+      "databaseResources": "optional exact relational database resources with provider, name, and prepared | authoritative | rollback-held state",
+      "infrastructure": "complete per-project deployment and provider-resource inventory; every project id must have one entry, including inactive and local-only projects",
+      "domains": "live custom domains (empty = pages.dev only or undeployed)",
+      "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
+      "inRegistry": "present in agent-surfaces-registry.json",
+      "status": "live | undeployed | orphan | deleted | unverified",
+      "authModel": "required-user | required-service | public-personalized | public-persistent",
+      "notes": "reconciliation flags / decisions",
+      "name": "human display name",
+      "attention": "my-work | toolbox | foundry | ignored",
+      "lifecycle": "maintained | local-only | past | non-product",
+      "repositoryVisibility": "public | private | unknown",
+      "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
+      "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
+      "public": "sanitized public listing metadata; listing is maintained | past | hidden",
+      "readyToBeShared": "true only for the exact maintained public surface and evidenced claims that were approved; native, store, download, or binary availability must be tracked separately and never inferred",
+      "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
+    },
+    "absorbedCheckouts": {
+      "aliveville": "ai-game",
+      "drank": "drank",
+      "fleet-workspace": "fleet-workspace",
+      "reddit-insights": "reddit-insights",
+      "saas-maker": "saas-maker",
+      "tinygpt": "posttrainllm"
+    },
+    "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
+    "openGaps": [
+      "CF project 'tinygpt' name unchanged — cosmetic only and not user-visible. posttrainllm.com is the canonical live domain; the platform-generated tinygpt.pages.dev hostname is not a custom fallback.",
+      "open-historia confirmed a live product (historia.aliveville.com), not an orphan."
+    ]
+  },
+  "projects": [
+    {
+      "id": "codevetter",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P1",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "codevetter",
+      "tier": "focus",
+      "repo": "codevetter",
+      "deployKind": "worker+pages",
+      "cfProject": "codevetter, codevetter-landing-proxy",
+      "deployTargets": [
+        {
+          "id": "site",
+          "kind": "pages",
+          "name": "codevetter",
+          "sourcePath": "codevetter/apps/landing-page-astro"
+        },
+        {
+          "id": "legacy-proxy",
+          "kind": "worker",
+          "name": "codevetter-landing-proxy",
+          "sourcePath": "codevetter"
+        }
+      ],
+      "domains": [
+        "codevetter.com"
+      ],
+      "app": "tauri",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "",
+      "name": "CodeVetter",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "codevetter",
+        "name": "CodeVetter",
+        "description": "AI code review platform — desktop-first, works offline.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/Codevetter/codevetter"
+      }
+    },
+    {
+      "id": "pace",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P1",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "pace",
+      "tier": "focus",
+      "repo": "pace",
+      "deployKind": "pages",
+      "cfProject": "pace",
+      "domains": [
+        "heypace.app"
+      ],
+      "app": "swift",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "",
+      "name": "HeyPace",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "pace",
+        "name": "HeyPace",
+        "description": "Local-only macOS voice agent that can understand what is on your screen.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/HeyPace/pace"
+      }
+    },
+    {
+      "id": "posttrainllm",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P1",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "posttrainllm",
+      "tier": "focus",
+      "repo": "posttrainllm",
+      "deployKind": "pages",
+      "cfProject": "tinygpt",
+      "domains": [
+        "posttrainllm.com"
+      ],
+      "app": "web",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic).",
+      "name": "PostTrainLLM",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "posttrainllm",
+        "name": "PostTrainLLM",
+        "description": "A local factory for training, evaluating, and running specialist language models.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/PostTrainLLM/posttrainllm"
+      }
+    },
+    {
+      "id": "fleet-workspace",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "Dashboard is a private owner surface and is not intended for public sharing."
+        }
+      },
+      "aliases": [],
+      "authModel": "public-personalized",
+      "family": "fleet-workspace",
+      "tier": "active",
+      "repo": "foundry/apps/dashboard/backend",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [
+        "fleet.sassmaker.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Private Dashboard product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections are independently owned outside this repository.",
+      "name": "Dashboard",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/fleet-workspace",
+      "public": { "listing": "hidden" }
+    },
+    {
+      "id": "chatgpt-connections",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "The read-only MCP gateway is live for configured integrations, but it is a private operational service rather than a general public product."
+        }
+      },
+      "aliases": [
+        "fleet-chatgpt-connections"
+      ],
+      "authModel": "public-personalized",
+      "family": "chatgpt-connections",
+      "tier": "active",
+      "repo": "chatgpt-connections",
+      "deployKind": "worker",
+      "cfProject": "fleet-chatgpt-connections",
+      "deployTargets": [
+        {
+          "id": "chatgpt-connections",
+          "kind": "worker",
+          "name": "fleet-chatgpt-connections",
+          "sourcePath": "chatgpt-connections"
+        }
+      ],
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Standalone private read-only MCP gateway extracted from Foundry with its history on 2026-08-21. Existing Worker name, routes, OAuth boundary, and provider resources were retained without deployment.",
+      "name": "ChatGPT Connections",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/chatgpt-connections",
+      "public": { "listing": "hidden" }
+    },
+    {
+      "id": "saas-maker",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "Canonical public directory source restored to its standalone repository; the existing public surface remains live."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "saas-maker",
+      "tier": "active",
+      "repo": "saas-maker",
+      "deployKind": "worker+pages",
+      "cfProject": "saas-maker-home, saasmaker-api, saasmaker-dashboard, saas-maker-packages",
+      "deployTargets": [
+        {
+          "id": "public-directory",
+          "kind": "pages",
+          "name": "saas-maker-home",
+          "sourcePath": "saas-maker/apps/showcase"
+        },
+        { "id": "feedback-api", "kind": "worker", "name": "saasmaker-api", "sourcePath": "saas-maker/workers/api" },
+        { "id": "feedback-inbox", "kind": "worker", "name": "saasmaker-dashboard", "sourcePath": "saas-maker/apps/cockpit" },
+        { "id": "feedback-docs", "kind": "pages", "name": "saas-maker-packages", "sourcePath": "saas-maker/apps/docs-blume" }
+      ],
+      "domains": ["sassmaker.com", "app.sassmaker.com", "api.sassmaker.com"],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Standalone public product directory and focused Feedback product: hosted submissions, private inbox, agent API, project keys, attachments, package, and docs. Canonical source restored from Fleet Workspace on 2026-08-20.",
+      "name": "SaaS Maker",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/saas-maker",
+      "public": {
+        "listing": "maintained",
+        "id": "saas-maker",
+        "name": "SaaS Maker",
+        "description": "Software as a specialized service: a living studio of focused products built for particular problems and maintained in public.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sass-maker/saas-maker"
+      }
+    },
+    {
+      "id": "gitstat",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "The local implementation has no committed main revision or verified public deployment yet."
+        }
+      },
+      "authModel": "required-service",
+      "family": "gitstat",
+      "tier": "active",
+      "repo": "gitstat",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Client-side GitHub contribution and line-statistics explorer with a thin OAuth proxy. Cataloged to reconcile the active Fleet checkout; no deployment claim is made.",
+      "name": "GitStat",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/gitstat",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "reel-pipeline",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "The standalone source and retained artifact Worker are current, but no public product surface is approved for sharing."
+        }
+      },
+      "authModel": "required-service",
+      "family": "reel-pipeline",
+      "tier": "active",
+      "repo": "reel-pipeline",
+      "deployKind": "worker",
+      "cfProject": "reel-pipeline-artifacts",
+      "deployTargets": [
+        {
+          "id": "reel-artifacts",
+          "kind": "worker",
+          "name": "reel-pipeline-artifacts",
+          "sourcePath": "reel-pipeline"
+        }
+      ],
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Independent media production, review, and policy-gated distribution product. Canonical source was extracted from Fleet Workspace on 2026-08-20; Content Factory is owned inside the same repository. Existing Cloudflare resources were retained without deployment.",
+      "name": "Reel Pipeline",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/reel-pipeline",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "The product is parked with no approved distribution; its retained Worker and container are inventory only."
+        }
+      },
+      "authModel": "required-service",
+      "family": "mobile-dev-cockpit",
+      "tier": "parked",
+      "repo": "mobile-dev-cockpit",
+      "deployKind": "worker",
+      "cfProject": "saasmaker-droid",
+      "deployTargets": [
+        {
+          "id": "legacy-droid",
+          "kind": "worker",
+          "name": "saasmaker-droid",
+          "sourcePath": "mobile-dev-cockpit"
+        }
+      ],
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Parked native mobile supervision client extracted from Fleet Workspace on 2026-08-20. Source and existing provider resources are retained; there is no active product, physical-device, deployment, or Fleet Console work.",
+      "name": "Mobile Dev Cockpit",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/mobile-dev-cockpit",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "drank",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "drank",
+      "tier": "active",
+      "repo": "drank",
+      "deployKind": "pages",
+      "cfProject": "drank",
+      "domains": [
+        "domains.sassmaker.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.",
+      "name": "Drank",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/drank",
+      "public": {
+        "listing": "maintained",
+        "id": "drank",
+        "name": "Drank",
+        "description": "Domain Rating intelligence for product, SEO, and market research.",
+        "category": "helper",
+        "pillarId": "market",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/drank"
+      }
+    },
+    {
+      "id": "email-manager",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "required-user",
+      "family": "email-manager",
+      "tier": "active",
+      "repo": "email-manager",
+      "deployKind": "worker",
+      "cfProject": "email-manager",
+      "domains": [
+        "mail.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified.",
+      "name": "Email Manager",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "email-manager",
+        "name": "Email Manager",
+        "description": "A private Gmail workspace for local semantic search, sender insights, and explicit unsubscribe workflows.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/email-manager"
+      }
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "chatgpt-memory-insights",
+      "tier": "secondary",
+      "repo": "chatgpt-memory-insights",
+      "deployKind": "pages",
+      "cfProject": "chatgpt-memory-insights",
+      "domains": [
+        "chatgpt.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.",
+      "name": "Memory Map",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "chatgpt-memory-insights",
+        "name": "Memory Map",
+        "description": "Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
+      }
+    },
+    {
+      "id": "free-ai",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "required-service",
+      "family": "free-ai",
+      "tier": "active",
+      "repo": "free-ai",
+      "deployKind": "worker",
+      "cfProject": "free-ai-gateway",
+      "domains": [
+        "ai-gateway.sassmaker.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "",
+      "name": "Free AI",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "free-ai",
+        "name": "Free AI",
+        "description": "OpenAI-compatible gateway across free-tier model providers.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/free-ai",
+        "roadmapPath": null
+      }
+    },
+    {
+      "id": "psi-swarm",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "psi-swarm",
+      "tier": "active",
+      "repo": "psi-swarm",
+      "deployKind": "pages",
+      "cfProject": "psi-swarm-web",
+      "domains": [
+        "performance.sassmaker.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.",
+      "name": "PSI Swarm",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/psi-swarm",
+      "public": {
+        "listing": "maintained",
+        "id": "psi-swarm",
+        "name": "PSI Swarm",
+        "description": "Repeated Lighthouse distributions for honest website performance tracking.",
+        "category": "helper",
+        "pillarId": "visibility",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/psi-swarm"
+      }
+    },
+    {
+      "id": "high-signal",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "high-signal",
+      "tier": "active",
+      "repo": "high-signal",
+      "deployKind": "worker",
+      "cfProject": "high-signal-web, high-signal-api",
+      "domains": [
+        "highsignal.app"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Next/OpenNext on Workers",
+      "name": "High Signal",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "high-signal",
+        "name": "High Signal",
+        "description": "Evidence-backed daily intelligence across technology, startups, finance, and public markets.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": true,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/High-Signal-App/high-signal"
+      }
+    },
+    {
+      "id": "everythingrated",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "high-signal",
+      "tier": "secondary",
+      "repo": "everythingrated",
+      "sourcePath": "../fleet-inactive-projects/everythingrated",
+      "deployKind": "worker",
+      "cfProject": "everythingrated",
+      "domains": [
+        "ratings.highsignal.app"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "canonical = ratings.highsignal.app; everythingrated.com is NOT ours (external) — do not associate",
+      "name": "EverythingRated",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "everythingrated",
+        "name": "EverythingRated",
+        "description": "A general-purpose rating and comparison experiment.",
+        "repositoryUrl": "https://github.com/High-Signal-App/everythingrated"
+      }
+    },
+    {
+      "id": "research-papers",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "high-signal",
+      "tier": "secondary",
+      "repo": "research-papers",
+      "deployKind": "pages",
+      "cfProject": "research-papers",
+      "domains": [
+        "papers.highsignal.app"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "",
+      "name": "Research Papers",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "research-papers",
+        "name": "Research Papers",
+        "description": "Academic paper discovery and a structured research data asset.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/High-Signal-App/research-papers"
+      }
+    },
+    {
+      "id": "materia",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "materia",
+      "tier": "active",
+      "repo": "materia",
+      "sourcePath": "../fleet-inactive-projects/materia",
+      "deployKind": "pages",
+      "cfProject": "materia",
+      "domains": [
+        "materia.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "own bet; hosted on SH domain",
+      "name": "Materia",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "materia",
+        "name": "Materia",
+        "description": "Evidence-graded remedy reference organized by body system.",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/materia"
+      }
+    },
+    {
+      "id": "knowledge-base",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "required-service",
+      "family": "knowledge-base",
+      "tier": "active",
+      "repo": "knowledge-base",
+      "deployKind": "worker+pages",
+      "cfProject": "knowledgebase-landing + knowledgebase-app + RAG_SERVICE workers",
+      "cfPages": [
+        "knowledgebase-landing",
+        "knowledgebase-app"
+      ],
+      "deployTargets": [
+        {
+          "id": "landing",
+          "kind": "pages",
+          "name": "knowledgebase-landing"
+        },
+        {
+          "id": "app",
+          "kind": "pages",
+          "name": "knowledgebase-app"
+        },
+        {
+          "id": "rag-service",
+          "kind": "worker",
+          "name": "knowledgebase"
+        }
+      ],
+      "domains": [
+        "knowledgebase.sassmaker.com",
+        "search.sassmaker.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base.",
+      "name": "Knowledge Base",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "knowledge-base",
+        "name": "Knowledge Base",
+        "description": "Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sass-maker/knowledge-base"
+      }
+    },
+    {
+      "id": "significanthobbies",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "The seven-product Hub and preserved Live landing are deployed and publicly verified."
+        }
+      },
+      "aliases": [
+        "significant-hobbies"
+      ],
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "significanthobbies",
+      "deployKind": "worker",
+      "cfProject": "significanthobbies",
+      "d1Databases": [
+        "significanthobbies"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "significanthobbies",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "significanthobbies",
+          "state": "rollback-held"
+        }
+      ],
+      "domains": [
+        "significanthobbies.com",
+        "live.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Apex is the live personal-apps Hub. The Live custom domain serves the preserved cinematic landing from the same Worker, and deeper Live paths return to the apex application origin. The split Journal iOS target preserves the existing bundle identity; Personal Platform-enabled version 1.0.0 (3) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21. D1 significanthobbies is authoritative; Turso significanthobbies is rollback-held and not retired.",
+      "name": "Significant Hobbies",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "significanthobbies",
+        "name": "Significant Hobbies",
+        "description": "A simple directory for Live, Journal, Habits, Calorie, Setline, Kith, and Anchor.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/significanthobbies",
+        "roadmapPath": null
+      }
+    },
+    {
+      "id": "india-standards",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-12",
+          "reason": "Verified active, deployed, live canonical calculator and public discovery surfaces with a maintained repository listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "india-standards",
+      "deployKind": "worker",
+      "cfProject": "india-numbers",
+      "domains": [
+        "india-standards.significanthobbies.com",
+        "india-numbers.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Public Significant Hobbies repository. india-standards.significanthobbies.com is canonical; india-numbers.significanthobbies.com remains a compatibility alias.",
+      "name": "India Standards",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "metrics": {
+        "publicSite": true
+      },
+      "public": {
+        "listing": "maintained",
+        "id": "india-standards",
+        "name": "India Standards",
+        "description": "A transparent India demographic standards calculator using aggregate PLFS data, explicit uncertainty ranges, and clear source limits.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/india-standards"
+      }
+    },
+    {
+      "id": "anime-list",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "anime-list",
+      "deployKind": "worker+pages",
+      "cfProject": "anime-list, mal-api",
+      "deployTargets": [
+        {
+          "id": "web",
+          "kind": "pages",
+          "name": "anime-list",
+          "sourcePath": "anime-list"
+        },
+        {
+          "id": "catalog-refresh",
+          "kind": "worker",
+          "name": "mal-api",
+          "sourcePath": "anime-list/wrangler.cron.toml"
+        }
+      ],
+      "d1Databases": [
+        "anime-list"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "anime-list",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "mal-watchlist",
+          "state": "rollback-held"
+        }
+      ],
+      "domains": [
+        "anime.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "D1 anime-list is authoritative; Turso mal-watchlist is rollback-held and not retired",
+      "name": "Anime List",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "anime-list",
+        "name": "Anime List",
+        "description": "Anime and manga discovery with multi-axis filtering and personal watchlists.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/anime-list"
+      }
+    },
+    {
+      "id": "chess",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-20",
+          "reason": "Archived at the owner's request; the live surface is retained but is no longer an active sharing target."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "chess",
+      "sourcePath": "../fleet-inactive-projects/chess",
+      "deployKind": "pages",
+      "cfProject": "chess-9a0",
+      "domains": [
+        "chess.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0.",
+      "name": "Chess",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "chess",
+        "name": "Chess Coach",
+        "description": "Browser chess against Stockfish with optional AI move coaching.",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/chess"
+      }
+    },
+    {
+      "id": "looptv",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "looptv",
+      "deployKind": "pages",
+      "cfProject": "looptv",
+      "domains": [
+        "tv.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "",
+      "name": "LoopTV",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "looptv",
+        "name": "LoopTV",
+        "description": "A lean-back, TV-style random video player for curated channels.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/looptv",
+        "roadmapPath": null
+      }
+    },
+    {
+      "id": "reader",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "reader",
+      "deployKind": "worker",
+      "cfProject": "reader",
+      "d1Databases": [
+        "reader"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "reader",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "reader",
+          "state": "rollback-held"
+        }
+      ],
+      "domains": [
+        "read.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "D1 reader is authoritative; Turso reader is rollback-held and not retired",
+      "name": "Reader",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "reader",
+        "name": "Reader",
+        "description": "Capture, annotate, revisit, and discuss saved reading.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/reader"
+      }
+    },
+    {
+      "id": "swe-interview-prep",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "swe-interview-prep",
+      "deployKind": "pages",
+      "cfProject": "swe-interview-prep",
+      "d1Databases": [
+        "swe-interview-prep"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "swe-interview-prep",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "swe-interview-prep",
+          "state": "rollback-held"
+        }
+      ],
+      "domains": [
+        "learn.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "D1 swe-interview-prep is authoritative; Turso swe-interview-prep is rollback-held and not retired",
+      "name": "SWE Interview Prep",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "swe-interview-prep",
+        "name": "SWE Interview Prep",
+        "description": "A learning OS for software-engineering interview practice.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/swe-interview-prep"
+      }
+    },
+    {
+      "id": "calorie",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "name": "Calorie",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "calorie",
+      "repositoryVisibility": "public",
+      "deployKind": "worker",
+      "cfProject": "calorie",
+      "domains": [
+        "calorie.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "app": "web",
+      "public": {
+        "listing": "maintained",
+        "id": "calorie",
+        "name": "Calorie",
+        "description": "A private, local-first food, water, and weight journal with transparent timing guidance.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/calorie"
+      },
+      "notes": "Finished local-first calorie journal with optional Google sign-in and private D1 sync. Native build 1.0.0 (3) is available to internal TestFlight testers on personal team 8F7LXHTJZR."
+    },
+    {
+      "id": "setline",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-17",
+          "reason": "Landing is live at setline.significanthobbies.com from the ios-landings factory. Not ready to share: no public TestFlight or App Store build is approved."
+        }
+      },
+      "name": "Setline",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "setline",
+      "repositoryVisibility": "public",
+      "deployKind": "pages",
+      "cfProject": "setline",
+      "domains": [
+        "setline.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "app": "ios",
+      "public": {
+        "listing": "maintained",
+        "id": "setline",
+        "name": "Setline",
+        "description": "An iOS-native training tracker that runs a written strength, cardio and mobility programme one set at a time and measures each exercise against an authored target.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
+      },
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project setline. The earlier Worker and D1 database stay deleted. Personal Platform-enabled native iOS build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+    },
+    {
+      "id": "personal-platform",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "Private shared sync infrastructure is live and verified; it is not a public product surface."
+        }
+      },
+      "name": "Personal Platform",
+      "authModel": "private-authenticated",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "personal-platform",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/personal-platform",
+      "deployKind": "worker",
+      "cfProject": "personal-platform",
+      "inRegistry": true,
+      "status": "live",
+      "public": {
+        "listing": "hidden"
+      },
+      "notes": "Shared signed-in Cloudflare sync and semantic API foundation for Journal, Habits, Setline, Kith, and Anchor. Hub remains a read/action client, Live remains web-only, and Calorie remains authoritative in its existing Worker and D1 through a service binding. Worker version 4076cb73-56f9-478b-b90f-35fe84863e25 is live from exact Git SHA a3ce2fa6ab59d48cabe4854c9916d4c4a455cb16; D1 personal-platform is active."
+    },
+    {
+      "id": "kith",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "Landing is live at kith.significanthobbies.com from the ios-landings factory. Personal Platform-enabled Kith 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; no public TestFlight or App Store build is approved."
+        }
+      },
+      "name": "Kith",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "kith",
+      "repositoryVisibility": "public",
+      "deployKind": "pages",
+      "cfProject": "kith",
+      "domains": [
+        "kith.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "app": "ios",
+      "public": {
+        "listing": "maintained",
+        "id": "kith",
+        "name": "Kith",
+        "description": "A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "in-progress",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
+      },
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project kith. App Store Connect record Kith by Significant Hobbies (6803666674) and Personal Platform-enabled native iPhone build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; the landing does not invent a public App Store or TestFlight URL."
+    },
+    {
+      "id": "ios-landings",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "Private factory whose Journal Pages deployment is live at journal.significanthobbies.com. Personal Platform-enabled Journal 1.0.0 (3) completed internal-only TestFlight processing on 2026-08-21, but no public TestFlight or App Store build is approved."
+        }
+      },
+      "name": "iOS landings",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repo": "ios-landings",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/ios-landings",
+      "deployKind": "pages",
+      "cfProject": "journal",
+      "domains": [
+        "journal.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "public": {
+        "listing": "hidden",
+        "id": "ios-landings",
+        "name": "iOS landings",
+        "description": "Shared Astro factory that builds separate static sites for Significant Hobbies iOS apps.",
+        "category": "platform",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "in-progress"
+      },
+      "notes": "Owns the Journal Pages project until Journal has its own repository. Journal's native target remains in the Significant Hobbies repository and Personal Platform-enabled build 1.0.0 (3) completed internal-only TestFlight processing. Also builds product trees for kith, setline, motion, indulge, anchor-landing, and habits. Calorie stays on its Worker and Live stays on the Significant Hobbies Worker."
+    },
+    {
+      "id": "rolepatch",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "rolepatch",
+      "tier": "secondary",
+      "repo": "rolepatch",
+      "deployKind": "worker",
+      "cfProject": "resume-tailor",
+      "domains": [
+        "rolepatch.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "",
+      "name": "RolePatch",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "rolepatch",
+        "name": "RolePatch",
+        "description": "AI-assisted resume tailoring, role research, and interview preparation.",
+        "category": "personal",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/rolepatch"
+      }
+    },
+    {
+      "id": "karte",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "karte",
+      "tier": "secondary",
+      "repo": "karte",
+      "deployKind": "worker",
+      "cfProject": "linkchat",
+      "d1Databases": [
+        "linkchat-auth"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "linkchat-auth",
+          "state": "authoritative"
+        }
+      ],
+      "domains": [
+        "karte.cc"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "The canonical karte.cc runtime and all 30 sitemap URLs were verified live on 2026-08-14. On 2026-08-16 the owner accepted the documented PLAID KARTE name-collision risk for public sharing; external copy must still identify the canonical karte.cc product clearly.",
+      "name": "Karte",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "karte",
+        "name": "Karte",
+        "description": "An AI link-in-bio that turns a profile into a conversation.",
+        "category": "personal",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/karte",
+        "roadmapPath": null
+      }
+    },
+    {
+      "id": "starboard",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-personalized",
+      "family": "codevetter",
+      "tier": "secondary",
+      "repo": "starboard",
+      "deployKind": "worker",
+      "cfProject": "starboard",
+      "d1Databases": [
+        "starboard"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "starboard",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "starboard",
+          "state": "rollback-held"
+        }
+      ],
+      "domains": [
+        "starboard.codevetter.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "D1 starboard is authoritative; Turso starboard is rollback-held and not retired",
+      "name": "Starboard",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "starboard",
+        "name": "Starboard",
+        "description": "Organize and semantically search your GitHub stars.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Codevetter/starboard"
+      }
+    },
+    {
+      "id": "ai-game",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "aliases": [
+        "aliveville"
+      ],
+      "authModel": "public-persistent",
+      "family": "ai-game",
+      "tier": "parked",
+      "repo": "ai-game",
+      "deployKind": "worker+pages",
+      "cfProject": "aliveville",
+      "deployTargets": [
+        {
+          "id": "site",
+          "kind": "pages",
+          "name": "aliveville",
+          "sourcePath": "../fleet-inactive-projects/aliveville/astro-landing"
+        },
+        {
+          "id": "app",
+          "kind": "worker",
+          "name": "aliveville",
+          "sourcePath": "../fleet-inactive-projects/aliveville"
+        }
+      ],
+      "domains": [
+        "aliveville.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Aliveville world-sim; parked but live (user: leave)",
+      "name": "AliveVille",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "sourcePath": "../fleet-inactive-projects/aliveville",
+      "repositoryVisibility": "public",
+      "metrics": {
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "past",
+        "id": "aliveville",
+        "name": "AliveVille",
+        "description": "Persistent AI world and multi-agent simulation experiments.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/aliveville"
+      }
+    },
+    {
+      "id": "protein-index",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "parked",
+      "repo": "protein-index-resilience",
+      "sourcePath": "../fleet-inactive-projects/protein-index",
+      "deployKind": "worker",
+      "cfProject": "protein-index",
+      "domains": [
+        "protein.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development. The sourcePath checkout tracks the superseded Significant-Hobbies/protein-index repository; Significant-Hobbies/protein-index-resilience is the canonical public source.",
+      "name": "Protein Index",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "protein-index",
+        "name": "Protein Index",
+        "description": "Searchable protein and nutrition reference.",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index-resilience"
+      }
+    },
+    {
+      "id": "veg-protein-food",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-15",
+          "reason": "The public test surface is live, but this remains a casual experiment without an approved portfolio listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "active",
+      "repo": "recipe-dashboard",
+      "deployKind": "pages",
+      "cfProject": "veg-protein-food",
+      "domains": [
+        "veg-protein-food.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Casual source-linked vegetarian recipe experiment. The public site deploys from clean main by direct Wrangler upload and is intentionally absent from the maintained portfolio listing.",
+      "name": "Recipe Index",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food",
+      "metrics": {
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "hidden",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food"
+      }
+    },
+    {
+      "id": "app-health",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "required-service",
+      "family": "fleet-workspace",
+      "tier": "active",
+      "repo": "app-health",
+      "deployKind": "worker",
+      "cfProject": "app-health-worker",
+      "domains": [
+        "health.sassmaker.com",
+        "ingest.sassmaker.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Independent SaaS Maker-owned aggregate-only endpoint health product. The public repository is sass-maker/app-health; health.sassmaker.com and ingest.sassmaker.com are live.",
+      "name": "App Health",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "app-health",
+        "name": "App Health",
+        "description": "Privacy-first endpoint health for Node, Go, and OpenTelemetry services.",
+        "category": "product",
+        "pillarId": "visibility",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/sass-maker/app-health",
+        "roadmapPath": null
+      }
+    },
+    {
+      "id": "mashup",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "No usable distributed or provider-hosted surface is deployed, and the owner cut Mashup from the current SEO/GEO campaign."
+        }
+      },
+      "authModel": "required-service",
+      "family": "mashup",
+      "tier": "active",
+      "repo": "mashup",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Independent, maintained local-first editorial product for archive analysis, inspectable planning, approval, provenance, and multi-clip rendering. Canonical source was restored to its standalone repository on 2026-08-20; Reel Pipeline accepts only its finished-media receipt and has no runtime dependency. It has no provider-hosted surface and never publishes media.",
+      "name": "Mashup",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+    "repositoryUrl": "https://github.com/sass-maker/mashup",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "saas-ideas",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "saas-ideas",
+      "tier": "secondary",
+      "repo": "saas-ideas",
+      "sourcePath": "../fleet-inactive-projects/saas-ideas",
+      "deployKind": "pages",
+      "cfProject": "saas-ideas",
+      "domains": [
+        "ideas.sassmaker.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Static scored catalog of SaaS ideas. The Pages project is GitHub-connected; there is no runtime service or manual deploy workflow.",
+      "name": "SaaS Ideas",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "private",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "motion",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "active",
+      "repo": "motion",
+      "deployKind": "pages",
+      "cfProject": "motion",
+      "domains": [
+        "motion.significanthobbies.com"
+      ],
+      "app": "web+ios",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project motion at motion.significanthobbies.com. The iOS game remains intentionally unreleased while physical-device validation is pending.",
+      "name": "Motion",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "motion",
+        "name": "Motion",
+        "description": "Use your body as the controller for an iPhone-hosted game that can mirror to a larger screen.",
+        "category": "personal",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/motion"
+      }
+    },
+    {
+      "id": "truehire",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "rolepatch",
+      "tier": "out-of-fleet",
+      "repo": "truehire",
+      "deployKind": "none",
+      "domains": [],
+      "inRegistry": false,
+      "status": "archived",
+      "notes": "Archived and superseded by RolePatch; retained only in the historical public catalog.",
+      "name": "TrueHire",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "sourcePath": "../fleet-inactive-projects/truehire",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "truehire",
+        "name": "TrueHire",
+        "description": "Earlier resume and hiring workflow superseded by RolePatch.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/truehire"
+      }
+    },
+    {
+      "id": "today-little-log",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "today-little-log",
+      "tier": "out-of-fleet",
+      "repo": null,
+      "deployKind": "none",
+      "cfProject": "today-little-log",
+      "domains": [],
+      "inRegistry": false,
+      "status": "deleted",
+      "notes": "Pages project deleted 2026-07-18 (purged 126 deployments then project)",
+      "name": "Today Little Log",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "sourcePath": "../fleet-inactive-projects/today-little-log",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "today-little-log",
+        "name": "Today Little Log",
+        "description": "A small daily logging experiment later folded into other work.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/today-little-log"
+      }
+    },
+    {
+      "id": "open-historia",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "ai-game",
+      "tier": "parked",
+      "repo": null,
+      "sourcePath": "../fleet-inactive-projects/open-historia",
+      "deployKind": "worker",
+      "cfProject": "open-historia",
+      "domains": [
+        "historia.aliveville.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.",
+      "name": "Open Historia",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "past",
+        "id": "open-historia",
+        "name": "Open Historia",
+        "description": "Interactive historical storytelling and world simulation.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/open-historia"
+      }
+    },
+    {
+      "id": "companion-robot",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "name": "Companion Robot",
+      "authModel": "public-persistent",
+      "family": "companion-robot",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "companion-robot",
+      "sourcePath": "../fleet-inactive-projects/companion-robot",
+      "repositoryVisibility": "public",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "past",
+        "id": "companion-robot",
+        "name": "Companion Robot",
+        "description": "Earlier companion robotics and embodied-agent exploration.",
+        "repositoryUrl": "https://github.com/HeyPace/companion-robot"
+      },
+      "notes": "Inactive historical repository with a retained live Cloudflare Pages surface; explicit source reactivation is required for changes."
+    },
+    {
+      "id": "elves-hq",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "name": "Elves HQ",
+      "authModel": "public-persistent",
+      "family": "elves-hq",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "elves-hq",
+      "sourcePath": "../fleet-inactive-projects/elves-hq",
+      "repositoryVisibility": "private",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "hidden"
+      },
+      "notes": "Inactive historical repository; explicit reactivation required."
+    },
+    {
+      "id": "forecast-lab",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "name": "Forecast Lab",
+      "authModel": "public-persistent",
+      "family": "forecast-lab",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "forecast-lab",
+      "sourcePath": "../fleet-inactive-projects/forecast-lab",
+      "repositoryVisibility": "public",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "public": {
+        "listing": "past",
+        "id": "forecast-lab",
+        "name": "Forecast Lab",
+        "description": "Forecasting experiments and evaluation tooling.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/forecast-lab"
+      },
+      "notes": "Inactive historical repository; explicit reactivation required."
+    },
+    {
+      "id": "web-playables",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "name": "Web Playables",
+      "authModel": "public-persistent",
+      "family": "web-playables",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repo": "web-playables",
+      "sourcePath": "../fleet-inactive-projects/web-playables",
+      "repositoryVisibility": "public",
+      "deployKind": "pages",
+      "cfProject": "web-playables",
+      "domains": [
+        "idle.aliveville.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "public": {
+        "listing": "past",
+        "id": "web-playables",
+        "name": "Web Playables",
+        "description": "Small browser-playable game experiments.",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/web-playables"
+      },
+      "notes": "Inactive historical repository with a retained live Cloudflare Pages surface; explicit source reactivation is required for changes."
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "secondary",
+      "repo": "what-it-takes-to-win",
+      "deployKind": "pages",
+      "cfProject": "success-by-26",
+      "domains": [
+        "paths.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "The canonical product and repository are What It Takes to Win; the Cloudflare Pages project retains its historical internal name success-by-26.",
+      "name": "What It Takes to Win",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "public": {
+        "listing": "maintained",
+        "id": "what-it-takes-to-win",
+        "name": "What It Takes to Win",
+        "description": "Explore 2,585 documented early-breakthrough paths without pretending success follows a formula.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/what-it-takes-to-win"
+      }
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+        }
+      },
+      "aliases": [
+        "personal-website",
+        "sarthakagrawal.dev",
+        "sarthakagrawal927"
+      ],
+      "authModel": "public-persistent",
+      "family": "personal",
+      "tier": "secondary",
+      "repo": null,
+      "sourcePath": "../portfolio",
+      "deployKind": "pages",
+      "cfProject": "sarthakagrawal",
+      "domains": [
+        "sarthakagrawal.dev"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "personal portfolio site for Sarthak Agrawal",
+      "name": "Sarthak Agrawal",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "attention": "toolbox",
+      "metrics": {
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "maintained",
+        "id": "sarthakagrawal-personal",
+        "name": "Sarthak Agrawal",
+        "description": "Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.",
+        "category": "personal",
+        "pillarId": "personal",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio"
+      }
+    },
+    {
+      "id": "agent-office",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P1",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved."
+        }
+      },
+      "aliases": [
+        "office-os"
+      ],
+      "authModel": "public-persistent",
+      "family": "agent-office",
+      "tier": "active",
+      "repo": "agent-office",
+      "deployKind": "pages",
+      "cfProject": "office-os",
+      "domains": [
+        "office-os.sassmaker.com"
+      ],
+      "app": "swift",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
+      "name": "Office OS",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/agent-office",
+      "metrics": {
+        "publicSite": true,
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "maintained",
+        "id": "agent-office",
+        "name": "Office OS",
+        "description": "A local-first Mac workplace where named AI employees have bounded responsibilities and their work stays inspectable.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "hasChangelog": false
+      }
+    },
+    {
+      "id": "indulge",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "Habits is live at habits.significanthobbies.com. Personal Platform-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21; no public TestFlight or App Store build is approved."
+        }
+      },
+      "aliases": [
+        "induldge"
+      ],
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "active",
+      "repo": "induldge",
+      "deployKind": "pages",
+      "cfProject": "habits",
+      "domains": [
+        "habits.significanthobbies.com",
+        "indulge.significanthobbies.com"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Habits is the canonical successor to Indulge. The local checkout and repository retain their historical spellings during the transition, and indulge.significanthobbies.com remains a compatibility landing. Personal Platform-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21.",
+      "name": "Habits",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/indulge",
+      "public": {
+        "listing": "maintained",
+        "id": "indulge",
+        "name": "Habits",
+        "description": "A private habit practice for noticing patterns, making intentional trades, and building better defaults.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "in-progress",
+        "hasChangelog": false
+      }
+    },
+    {
+      "id": "local-ai-video-studio",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-16",
+          "reason": "The owner approved the verified maintained informational site for public sharing; no downloadable app, signed binary, or public release channel is approved."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "local-ai-video-studio",
+      "tier": "active",
+      "repo": "local-ai-video-studio",
+      "deployKind": "pages",
+      "cfProject": "local-ai-video-studio",
+      "domains": [
+        "local-ai-video-studio.sassmaker.com"
+      ],
+      "app": "swift",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
+      "name": "Local AI Video Studio",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/local-ai-video-studio",
+      "metrics": {
+        "publicSite": true,
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "maintained",
+        "id": "local-ai-video-studio",
+        "name": "Local AI Video Studio",
+        "description": "A local-first Mac studio for comparing reproducible video-effect variants before export.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "maintained",
+        "hasChangelog": false
+      }
+    },
+    {
+      "id": "field-track",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-14",
+          "reason": "The private MVP has no verified production deployment or approved public surface."
+        }
+      },
+      "authModel": "private-authenticated",
+      "family": "field-track",
+      "tier": "active",
+      "repo": "field-track",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "app": "android+web",
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Private employee-location MVP with an Android foreground collector, manager dashboard, and Cloudflare Worker/D1 production path. Physical-device pilot validation remains open.",
+      "name": "Field Track",
+      "attention": "toolbox",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/field-track",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "reddit-insights",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "No maintained public listing is currently approved."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "high-signal",
+      "tier": "active",
+      "repo": "reddit-insights",
+      "deployKind": "worker+pages",
+      "cfProject": "reddit-insights, reddit-proxy, reddit-insights-daily-collector",
+      "deployTargets": [
+        {
+          "id": "site",
+          "kind": "pages",
+          "name": "reddit-insights",
+          "sourcePath": "reddit-insights"
+        },
+        {
+          "id": "proxy",
+          "kind": "worker",
+          "name": "reddit-proxy",
+          "sourcePath": "reddit-insights/scripts/reddit-proxy"
+        },
+        {
+          "id": "daily-collector",
+          "kind": "worker",
+          "name": "reddit-insights-daily-collector",
+          "sourcePath": "reddit-insights/workers/daily-collector"
+        }
+      ],
+      "domains": [
+        "reddit-insights.highsignal.app"
+      ],
+      "inRegistry": true,
+      "status": "live",
+      "notes": "Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.",
+      "name": "Reddit Insights",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/High-Signal-App/research-subreddit",
+      "metrics": {
+        "publicSite": true,
+        "domainCoverage": true
+      },
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "verified-bases",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-11",
+          "reason": "Archived projects are not ready for active sharing."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "verified-bases",
+      "tier": "out-of-fleet",
+      "repo": null,
+      "deployKind": "worker",
+      "cfProject": "verified-bases-api",
+      "domains": [],
+      "inRegistry": false,
+      "status": "retained-resources",
+      "notes": "Historical product identity retained because the verified-bases-api Worker plus D1 and R2 resources still exist. No current checkout or live public route was found in the 2026-08-11 inventory.",
+      "name": "Verified Bases",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "unknown",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
+      "id": "anchor",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-21",
+          "reason": "Landing, support and privacy pages are live. The stable-Xcode iOS and watchOS build is personal-team signed, but TestFlight is blocked on Apple-account reauthentication and creation of the missing Anchor App Store Connect record; the macOS DMG is not notarised."
+        }
+      },
+      "name": "Anchor",
+      "authModel": "public-persistent",
+      "family": "significanthobbies",
+      "tier": "active",
+      "attention": "my-work",
+      "lifecycle": "local-only",
+      "repo": "anchor",
+      "repositoryVisibility": "private",
+      "deployKind": "pages",
+      "cfProject": "anchor-landing",
+      "domains": [
+        "anchor.significanthobbies.com"
+      ],
+      "inRegistry": false,
+      "status": "live",
+      "app": "swift",
+      "notes": "Local-first focus timer for macOS, iOS and watchOS. Optional Personal Platform synchronization publishes finished-session metadata only; distraction notes never leave the device, and SwiftData plus private CloudKit remain the immediate and transition stores. iOS/watchOS build 1.0 (2) has a supported Xcode 26.6 personal-team distribution package, but TestFlight is blocked on Apple-account reauthentication and the missing com.significanthobbies.anchor App Store Connect record. Landing/support/privacy remain live on Cloudflare Pages project anchor-landing. The Developer ID signed macOS DMG remains unnotarised.",
+      "public": {
+        "listing": "hidden",
+        "id": "anchor",
+        "name": "Anchor",
+        "description": "A local-first focus timer for Mac, iPhone and Apple Watch that parks distractions instead of losing the session, and shows what actually costs you your focus.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "in-progress"
+      }
+    }
+  ],
+  "infrastructure": {
+    "_meta": {
+      "purpose": "Owner-readable deployment and cloud-resource inventory for every Fleet identity, including inactive and local-only projects.",
+      "verifiedAt": "2026-08-21",
+      "evidence": {
+        "cloudflare": "Live Pages, D1, R2, KV, Vectorize, Queues, and Workflows inventory plus tracked Wrangler configuration.",
+        "turso": "Tracked configuration only; the Turso CLI was not authenticated on 2026-08-11.",
+        "local": "PROJECT_STATUS.md, repository deployment scripts, and tracked provider configuration."
+      },
+      "cloudflareCoverage": [
+        {
+          "kind": "pages",
+          "state": "provider-complete",
+          "observed": 31,
+          "tracked": 33,
+          "evidence": "Wrangler account list plus verified direct uploads through 2026-08-21: 31 live after adding Journal and Habits, plus the restored SaaS Maker package-docs target and one deleted historical target."
+        },
+        {
+          "kind": "worker",
+          "state": "known-name-probed",
+          "observed": 26,
+          "tracked": 30,
+          "evidence": "Known live names plus the restored SaaS Maker API and dashboard targets from tracked standalone configuration; account-wide Worker listing still requires API or dashboard evidence."
+        },
+        {
+          "kind": "d1",
+          "state": "provider-complete",
+          "observed": 23,
+          "tracked": 23,
+          "evidence": "Wrangler account list. Setline's empty D1 database was deleted 2026-08-16."
+        },
+        {
+          "kind": "r2",
+          "state": "provider-complete",
+          "observed": 8,
+          "tracked": 11,
+          "evidence": "Wrangler account list plus the Feedback image and dashboard cache buckets from tracked standalone configuration; reddit-insights-archive is configured but not provisioned."
+        },
+        {
+          "kind": "kv",
+          "state": "provider-complete",
+          "observed": 4,
+          "tracked": 4,
+          "evidence": "Wrangler account list; OAUTH_KV is reserved by the merged Fleet ChatGPT gateway and RATELIMIT is actively bound to verified-bases-api."
+        },
+        {
+          "kind": "vectorize",
+          "state": "provider-complete",
+          "observed": 8,
+          "tracked": 8,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "queue",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "workflow",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "tunnel",
+          "state": "provider-complete",
+          "observed": 2,
+          "tracked": 2,
+          "evidence": "Wrangler account list; one tunnel remains owner-unverified."
+        },
+        {
+          "kind": "container",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "turnstile",
+          "state": "provider-complete",
+          "observed": 6,
+          "tracked": 6,
+          "evidence": "Wrangler widget list."
+        },
+        {
+          "kind": "hyperdrive",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "pipeline",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "ai-search",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "vpc",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "dispatch-namespace",
+          "state": "not-entitled",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Cloudflare API returned no product access."
+        },
+        {
+          "kind": "artifacts",
+          "state": "feature-gated",
+          "evidence": "Cloudflare API denied the private-beta inventory endpoint."
+        },
+        {
+          "kind": "durable-object",
+          "state": "config-derived",
+          "tracked": 5,
+          "evidence": "Tracked Wrangler bindings; no account-wide Wrangler list exists."
+        },
+        {
+          "kind": "analytics-engine",
+          "state": "config-derived",
+          "tracked": 3,
+          "evidence": "Tracked Wrangler bindings; provider dataset list not available through current CLI."
+        },
+        {
+          "kind": "workers-ai",
+          "state": "config-derived",
+          "tracked": 4,
+          "evidence": "Tracked Worker bindings; models are usage surfaces, not persistent per-project objects."
+        },
+        {
+          "kind": "browser-rendering",
+          "state": "config-derived",
+          "tracked": 1,
+          "evidence": "Tracked Worker binding."
+        },
+        {
+          "kind": "service-binding",
+          "state": "config-derived",
+          "tracked": 6,
+          "evidence": "Tracked Worker bindings."
+        },
+        {
+          "kind": "access-application",
+          "state": "config-and-live-redirect-derived",
+          "tracked": 2,
+          "evidence": "Tracked product docs plus live Cloudflare Access redirects; dashboard/API enumeration remains unavailable."
+        },
+        {
+          "kind": "zone",
+          "state": "catalog-derived",
+          "tracked": 10,
+          "evidence": "Canonical root-domain ownership; provider zone enumeration remains unavailable."
+        },
+        {
+          "kind": "email-routing",
+          "state": "config-derived",
+          "tracked": 1,
+          "evidence": "Karte Email Worker and routing requirement in tracked configuration; dashboard rule not independently enumerated."
+        }
+      ]
+    },
+    "projects": {
+      "codevetter": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "codevetter",
+            "method": "git-connected",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "codevetter-landing-proxy",
+            "method": "legacy-worker",
+            "state": "live-retained"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "codevetter.com",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "pace": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "pace",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "heypace.app",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "posttrainllm": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "tinygpt",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "posttrainllm.com",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "fleet-workspace": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "tunnel",
+            "name": "fleet.sassmaker.com",
+            "method": "designated-host",
+            "state": "live"
+          },
+          {
+            "provider": "github",
+            "kind": "actions",
+            "name": "sass-maker/workflows",
+            "method": "repository-workflows",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "access-application",
+            "name": "fleet.sassmaker.com",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "chatgpt-connections": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "fleet-chatgpt-connections",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "OAUTH_KV",
+            "state": "configured-for-merged-gateway"
+          }
+        ]
+      },
+      "saas-maker": {
+        "updatedAt": "2026-08-20",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "saas-maker-home",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "live" },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "live" },
+          { "provider": "cloudflare", "kind": "pages", "name": "saas-maker-packages", "method": "wrangler-direct", "state": "live" }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "sassmaker.com",
+            "state": "active-config-derived"
+          },
+          { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "active" },
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "config-derived" },
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "config-derived" }
+        ]
+      },
+      "gitstat": {
+        "updatedAt": "2026-08-20",
+        "deployments": [],
+        "resources": [],
+        "notes": "No provider resource or verified deployment is cataloged."
+      },
+      "reel-pipeline": {
+        "updatedAt": "2026-08-20",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reel-pipeline-artifacts",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reel-artifacts",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "tunnel",
+            "name": "fleet-postiz",
+            "state": "down"
+          }
+        ]
+      },
+      "mobile-dev-cockpit": {
+        "updatedAt": "2026-08-20",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "saasmaker-droid",
+            "method": "legacy-worker",
+            "state": "live-retained"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "container",
+            "name": "saasmaker-droid-sandbox",
+            "state": "retained"
+          }
+        ]
+      },
+      "drank": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "drank",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "drank (Spin)",
+            "state": "active"
+          }
+        ]
+      },
+      "email-manager": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "email-manager",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "email-manager-auth",
+            "state": "active"
+          }
+        ]
+      },
+      "chatgpt-memory-insights": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "chatgpt-memory-insights",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "free-ai": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "free-ai-gateway",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "free-ai-gateway-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "free-ai-gateway-HEALTH_KV",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "free-ai-gateway-HEALTH_KV_preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "HealthStateDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "IpRateLimitDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "NeuronBudgetDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          }
+        ]
+      },
+      "psi-swarm": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "psi-swarm-web",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "high-signal": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "high-signal-web",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "high-signal-api",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "high-signal-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "high-signal-api",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "high-signal (Spin)",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "highsignal.app",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "everythingrated": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "everythingrated",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "everythingrated-db",
+            "state": "retained"
+          }
+        ]
+      },
+      "research-papers": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "research-papers",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "research-papers (Spin)",
+            "state": "active"
+          }
+        ]
+      },
+      "materia": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "materia",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
+        ],
+        "resources": []
+      },
+      "knowledge-base": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "knowledgebase-landing",
+            "method": "git-connected",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "knowledgebase-app",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "knowledgebase-app",
+            "method": "legacy-worker",
+            "state": "live-purpose-review"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "knowledgebase",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "rag-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "rag-raw-docs",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "queue",
+            "name": "knowledgebase-ingest",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workflow",
+            "name": "knowledgebase-ingest-workflow",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-embedding-384",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-embedding-768",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-embedding-1024",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-gemini-1536",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-bge-768",
+            "state": "retained-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-bge-small-384",
+            "state": "retained-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "rag-voyage-1024",
+            "state": "retained-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "analytics-engine",
+            "name": "knowledgebase_rag_events",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "free-ai-gateway",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "access-application",
+            "name": "search.sassmaker.com",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "significanthobbies": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "significanthobbies",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Journal by Significant Hobbies",
+            "method": "manual-xcode",
+            "state": "testflight-processed"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "significanthobbies",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "significanthobbies-preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "significanthobbies.com",
+            "state": "active-config-derived"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "significanthobbies",
+            "state": "rollback-held-unverified"
+          }
+        ],
+        "notes": "Worker version ecfee832-cbe6-4e94-bb75-4603fec9ff44 is live from exact Git SHA 442ce0285b451b9b0726a4eaefd2bf86a904e3de. Journal 1.0.0 (3) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+      },
+      "india-standards": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "india-numbers",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "india-standards (Spin)",
+            "state": "active"
+          }
+        ]
+      },
+      "anime-list": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "anime-list",
+            "method": "git-connected",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "mal-api",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "anime-list",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "mal-watchlist",
+            "state": "rollback-held-unverified"
+          }
+        ]
+      },
+      "chess": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "chess-9a0",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "looptv": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "looptv",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "reader": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reader",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "reader",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "reader-preview",
+            "state": "preview-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reader-pdfs",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "reader",
+            "state": "rollback-held-unverified"
+          }
+        ]
+      },
+      "swe-interview-prep": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "swe-interview-prep",
+            "method": "git-connected",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "swe-interview-prep",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "swe-interview-prep-preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "swe-interview-prep-assets",
+            "state": "active-unreferenced"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "swe-interview-prep",
+            "state": "rollback-held-unverified"
+          }
+        ]
+      },
+      "calorie": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "calorie",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Calorie by Significant Hobbies",
+            "method": "manual-xcode",
+            "state": "internal-testflight-ready"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "calorie",
+            "state": "active"
+          }
+        ]
+      },
+      "setline": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "setline",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Setline by Significant Hobbies",
+            "method": "manual-xcode",
+            "state": "testflight-processed"
+          }
+        ],
+        "resources": [],
+        "notes": "Cloudflare Pages project setline remains the public landing. Personal Platform-enabled iOS build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+      },
+      "personal-platform": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "personal-platform",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "personal-platform",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "significanthobbies",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "calorie",
+            "state": "active"
+          }
+        ],
+        "notes": "Worker version 4076cb73-56f9-478b-b90f-35fe84863e25 is live from exact Git SHA a3ce2fa6ab59d48cabe4854c9916d4c4a455cb16. D1 database 61f421a2-f8c7-49c4-97f2-58a1f9b6feda and both domain service bindings are active."
+      },
+      "kith": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "kith",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Kith by Significant Hobbies",
+            "method": "manual-xcode",
+            "state": "testflight-processed"
+          }
+        ],
+        "resources": [],
+        "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has Personal Platform-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight."
+      },
+      "indulge": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "habits",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "indulge",
+            "method": "wrangler-direct",
+            "state": "live-compatibility"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Indulge by Significant Hobbies",
+            "method": "manual-xcode",
+            "state": "testflight-processed"
+          }
+        ],
+        "resources": [],
+        "notes": "Cloudflare Pages project habits is live at habits.significanthobbies.com. The historical Indulge App Store record carries Habits; Personal Platform-enabled build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR. The indulge Pages project remains a compatibility resource."
+      },
+      "ios-landings": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "journal",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [],
+        "notes": "Factory owns the live Journal Pages deployment at journal.significanthobbies.com until Journal has its own repository. It also deploys the other product trees, whose resources stay on product rows."
+      },
+      "rolepatch": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "resume-tailor",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "rolepatch",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "browser-rendering",
+            "name": "BROWSER",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "rolepatch (Spin)",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "rolepatch.com",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "karte": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "linkchat",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-worker",
+            "name": "karte-email",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "linkchat-auth",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "linkchat-images",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "linkchat-cache",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "DOQueueHandler",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "durable-object",
+            "name": "RateLimiterDO",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "analytics-engine",
+            "name": "ANALYTICS",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "knowledgebase",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "turnstile",
+            "name": "Karte contact (Spin)",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "*@karte.cc catch-all",
+            "state": "configured-dashboard-unverified"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "karte.cc",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "starboard": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "starboard",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "starboard",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "vectorize",
+            "name": "starboard-repos",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "knowledgebase",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "starboard",
+            "state": "rollback-held-unverified"
+          }
+        ]
+      },
+      "ai-game": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "aliveville",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "aliveville",
+            "method": "legacy-worker",
+            "state": "live-retained-purpose-review"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "aliveville.com",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "protein-index": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "protein-index",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "protein-index",
+            "state": "retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "protein-index-labels",
+            "state": "retained"
+          }
+        ]
+      },
+      "veg-protein-food": {
+        "updatedAt": "2026-08-15",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "veg-protein-food",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "app-health": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "app-health-worker",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "app-health-control-plane",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "analytics-engine",
+            "name": "app_health_endpoint_v1",
+            "state": "active"
+          }
+        ]
+      },
+      "mashup": {
+        "updatedAt": "2026-08-11",
+        "deployments": [],
+        "resources": []
+      },
+      "saas-ideas": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "saas-ideas",
+            "method": "git-connected",
+            "state": "live-retained"
+          }
+        ],
+        "resources": []
+      },
+      "motion": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "motion",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "truehire": {
+        "updatedAt": "2026-08-11",
+        "deployments": [],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "truehire",
+            "state": "retained"
+          }
+        ]
+      },
+      "today-little-log": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "today-little-log",
+            "method": "unknown",
+            "state": "deleted"
+          }
+        ],
+        "resources": []
+      },
+      "open-historia": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "open-historia",
+            "method": "wrangler-direct",
+            "state": "live-retained"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "open-historia",
+            "state": "retained"
+          }
+        ]
+      },
+      "companion-robot": {
+        "updatedAt": "2026-08-11",
+        "deployments": [],
+        "resources": []
+      },
+      "elves-hq": {
+        "updatedAt": "2026-08-11",
+        "deployments": [],
+        "resources": []
+      },
+      "forecast-lab": {
+        "updatedAt": "2026-08-11",
+        "deployments": [],
+        "resources": []
+      },
+      "web-playables": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "web-playables",
+            "method": "git-connected",
+            "state": "live-retained"
+          }
+        ],
+        "resources": []
+      },
+      "what-it-takes-to-win": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "success-by-26",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": []
+      },
+      "sarthakagrawal-personal": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "sarthakagrawal",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "sarthakagrawal.dev",
+            "state": "active-config-derived"
+          }
+        ]
+      },
+      "agent-office": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "office-os",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "local",
+            "kind": "macos-app",
+            "name": "AgentOffice.app",
+            "method": "local-package",
+            "state": "local-only"
+          }
+        ],
+        "resources": []
+      },
+      "local-ai-video-studio": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "local-ai-video-studio",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "local",
+            "kind": "macos-app",
+            "name": "LocalVideoStudio",
+            "method": "swift-build",
+            "state": "local-only"
+          }
+        ],
+        "resources": []
+      },
+      "field-track": {
+        "updatedAt": "2026-08-14",
+        "deployments": [],
+        "resources": []
+      },
+      "reddit-insights": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "reddit-insights",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reddit-proxy",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "reddit-insights-daily-collector",
+            "method": "wrangler-direct",
+            "state": "configured-not-deployed"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "reddit-insights-archive",
+            "state": "configured-not-provisioned"
+          }
+        ]
+      },
+      "verified-bases": {
+        "updatedAt": "2026-08-11",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "verified-bases-api",
+            "method": "legacy-worker",
+            "state": "live-retained-unrouted"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "verified-bases-db",
+            "state": "retained-unowned-runtime"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "verified-bases-delivery",
+            "state": "retained-unowned-runtime"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "kv",
+            "name": "RATELIMIT",
+            "state": "active-bound"
+          }
+        ]
+      },
+      "anchor": {
+        "updatedAt": "2026-08-21",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "anchor-landing",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Anchor",
+            "method": "manual-xcode",
+            "state": "blocked-on-app-record"
+          }
+        ],
+        "resources": [],
+        "notes": "Cloudflare Pages project anchor-landing remains live. iOS/watchOS build 1.0 (2) is a supported Xcode 26.6 personal-team distribution package. App Store Connect delivery is blocked on Xcode Apple-account reauthentication and creation of the missing com.significanthobbies.anchor app record."
+      }
+    },
+    "unownedResources": [
+      {
+        "provider": "cloudflare",
+        "kind": "tunnel",
+        "name": "assistant-mac-server",
+        "state": "owner-unverified-healthy",
+        "updatedAt": "2026-08-11"
+      }
+    ]
+  },
+  "geoIdentities": [
+    {
+      "id": "agent-office",
+      "name": "Office OS",
+      "aliases": [
+        "Agent Office"
+      ],
+      "origin": "https://office-os.sassmaker.com",
+      "source": {
+        "state": "internal",
+        "path": "agent-office"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://office-os.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/agent-office"
+      ],
+      "availability": {
+        "primary": "internal-only",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    },
+    {
+      "id": "codevetter",
+      "name": "CodeVetter",
+      "aliases": [],
+      "origin": "https://codevetter.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Codevetter/codevetter"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://codevetter.com/docs/"
+      },
+      "officialProfiles": [
+        "https://github.com/Codevetter/codevetter"
+      ],
+      "availability": {
+        "primary": "direct-download",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "pace",
+      "name": "HeyPace",
+      "aliases": [
+        "Pace"
+      ],
+      "origin": "https://heypace.app",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/HeyPace/pace"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://heypace.app/docs/"
+      },
+      "officialProfiles": [
+        "https://github.com/HeyPace/pace"
+      ],
+      "availability": {
+        "primary": "direct-download",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "published",
+        "url": "https://heypace.app"
+      }
+    },
+    {
+      "id": "posttrainllm",
+      "name": "PostTrainLLM",
+      "aliases": [],
+      "origin": "https://posttrainllm.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/PostTrainLLM/posttrainllm"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://posttrainllm.com/docs/"
+      },
+      "officialProfiles": [
+        "https://github.com/PostTrainLLM/posttrainllm"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "saas-maker",
+      "name": "SaaS Maker",
+      "aliases": [],
+      "origin": "https://sassmaker.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/saas-maker"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://sassmaker.com/learnings"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/saas-maker",
+        "https://github.com/sass-maker"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    },
+    {
+      "id": "drank",
+      "name": "Drank",
+      "aliases": [],
+      "origin": "https://domains.sassmaker.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/drank"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://domains.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/drank",
+        "https://github.com/sass-maker"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    },
+    {
+      "id": "email-manager",
+      "name": "Email Manager",
+      "aliases": [],
+      "origin": "https://mail.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/email-manager"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/email-manager#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/email-manager"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "aliases": [
+        "ChatGPT Memory Insights"
+      ],
+      "origin": "https://chatgpt.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "free-ai",
+      "name": "Free AI",
+      "aliases": [
+        "AI Gateway"
+      ],
+      "origin": "https://ai-gateway.sassmaker.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/free-ai"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://ai-gateway.sassmaker.com/about/"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/free-ai"
+      ],
+      "availability": {
+        "primary": "api",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "psi-swarm",
+      "name": "PSI Swarm",
+      "aliases": [
+        "psi-swarm"
+      ],
+      "origin": "https://performance.sassmaker.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/psi-swarm"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://performance.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/psi-swarm",
+        "https://github.com/sass-maker"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    },
+    {
+      "id": "high-signal",
+      "name": "High Signal",
+      "aliases": [],
+      "origin": "https://highsignal.app",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/High-Signal-App/high-signal"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://highsignal.app/api-docs"
+      },
+      "officialProfiles": [
+        "https://github.com/High-Signal-App/high-signal"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "reddit-insights",
+      "name": "Reddit Insights",
+      "aliases": [
+        "Research Subreddit"
+      ],
+      "origin": "https://reddit-insights.highsignal.app",
+      "source": {
+        "state": "internal",
+        "path": "reddit-insights"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://reddit-insights.highsignal.app"
+      },
+      "officialProfiles": [
+        "https://github.com/High-Signal-App/research-subreddit"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "research-papers",
+      "name": "Research Papers",
+      "aliases": [
+        "researchPapers"
+      ],
+      "origin": "https://papers.highsignal.app",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/High-Signal-App/research-papers"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/High-Signal-App/research-papers#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/High-Signal-App/research-papers"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
+      "aliases": [
+        "Knowledgebase"
+      ],
+      "origin": "https://knowledgebase.sassmaker.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/knowledge-base"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/sass-maker/knowledge-base#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/knowledge-base"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "aliases": [],
+      "origin": "https://local-ai-video-studio.sassmaker.com",
+      "source": {
+        "state": "internal",
+        "path": "local-ai-video-studio"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://local-ai-video-studio.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/local-ai-video-studio"
+      ],
+      "availability": {
+        "primary": "internal-only",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    },
+    {
+      "id": "significanthobbies",
+      "name": "Significant Hobbies",
+      "aliases": [],
+      "origin": "https://significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/significanthobbies"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/significanthobbies#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/significanthobbies"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "indulge",
+      "name": "Habits",
+      "aliases": [
+        "Indulge"
+      ],
+      "origin": "https://habits.significanthobbies.com",
+      "source": {
+        "state": "internal",
+        "path": "induldge"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://habits.significanthobbies.com/index.md"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/indulge"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "india-standards",
+      "name": "India Standards",
+      "aliases": [],
+      "origin": "https://india-standards.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/india-standards"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/india-standards#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/india-standards"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "anime-list",
+      "name": "Anime List",
+      "aliases": [
+        "Anime List by Significant Hobbies",
+        "MAL Explorer",
+        "Shelf"
+      ],
+      "origin": "https://anime.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/anime-list"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/anime-list#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/anime-list"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "looptv",
+      "name": "LoopTV",
+      "aliases": [],
+      "origin": "https://tv.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/looptv"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/looptv#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/looptv"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "reader",
+      "name": "Reader",
+      "aliases": [],
+      "origin": "https://read.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/reader"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/reader#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/reader"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "swe-interview-prep",
+      "name": "SWE Interview Prep",
+      "aliases": [],
+      "origin": "https://learn.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/swe-interview-prep"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://learn.significanthobbies.com"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/swe-interview-prep"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "aliases": [],
+      "origin": "https://calorie.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/calorie"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/calorie#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/calorie"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "kith",
+      "name": "Kith",
+      "aliases": [],
+      "origin": "https://kith.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/kith"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://kith.significanthobbies.com/index.md"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/kith"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "aliases": [],
+      "origin": "https://setline.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/setline"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://setline.significanthobbies.com/index.md"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/setline"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "rolepatch",
+      "name": "RolePatch",
+      "aliases": [],
+      "origin": "https://rolepatch.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/rolepatch"
+      },
+      "docs": {
+        "state": "public",
+        "url": "https://rolepatch.com/blog"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/rolepatch"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "karte",
+      "name": "Karte",
+      "aliases": [],
+      "origin": "https://karte.cc",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/karte"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/karte#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/karte"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "free",
+        "url": "https://karte.cc"
+      }
+    },
+    {
+      "id": "starboard",
+      "name": "Starboard",
+      "aliases": [],
+      "origin": "https://starboard.codevetter.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Codevetter/starboard"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Codevetter/starboard#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Codevetter/starboard"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "app-health",
+      "name": "App Health",
+      "aliases": [],
+      "origin": "https://health.sassmaker.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sass-maker/app-health"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/sass-maker/app-health#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/app-health"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "motion",
+      "name": "Motion",
+      "aliases": [],
+      "origin": "https://motion.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/motion"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/motion#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/motion"
+      ],
+      "availability": {
+        "primary": "internal-only",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "name": "What It Takes to Win",
+      "aliases": [],
+      "origin": "https://paths.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/what-it-takes-to-win"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "aliases": [
+        "sarthakagrawal.dev",
+        "sarthakagrawal927"
+      ],
+      "origin": "https://sarthakagrawal.dev",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/sarthakagrawal927/portfolio"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/sarthakagrawal927/portfolio#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/sarthakagrawal927/portfolio",
+        "https://www.linkedin.com/in/sarthakagrawal927",
+        "https://x.com/sarthakcodes",
+        "https://huggingface.co/sarthakagrawal927"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-applicable"
+      }
+    }
+  ]
+}
