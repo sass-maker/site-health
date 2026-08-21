@@ -229,8 +229,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "The read-only MCP gateway is live for configured integrations, but it is a private operational service rather than a general public product."
+          "verifiedAt": "2026-08-22",
+          "reason": "The source repository is public and the read-only MCP gateway is live for configured integrations, but the service is infrastructure rather than a general public product."
         }
       },
       "aliases": [
@@ -253,11 +253,11 @@
       "domains": [],
       "inRegistry": false,
       "status": "live",
-      "notes": "Standalone private read-only MCP gateway extracted from Foundry with its history on 2026-08-21. Existing Worker name, routes, OAuth boundary, and provider resources were retained without deployment.",
+      "notes": "Standalone public-source read-only MCP gateway. The Personal Apps route was merged and deployed at exact SHA b296e05910ca808ce436f47bc0c1ecb1844f04c0 on 2026-08-22; OAuth activation remains owner-scoped and fail-closed.",
       "name": "ChatGPT Connections",
       "attention": "foundry",
       "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/chatgpt-connections",
       "public": { "listing": "hidden" }
     },
@@ -2762,7 +2762,7 @@
         "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
       },
       "chatgpt-connections": {
-        "updatedAt": "2026-08-21",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
