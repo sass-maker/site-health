@@ -214,7 +214,7 @@
       ],
       "inRegistry": false,
       "status": "local-only",
-      "notes": "Private local-only Site Health product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories; T-Reg is retired and excluded from the active product.",
+      "notes": "Private local-only Site Health product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories.",
       "name": "Site Health",
       "attention": "foundry",
       "lifecycle": "maintained",
@@ -261,39 +261,6 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/chatgpt-connections",
-      "public": { "listing": "hidden" }
-    },
-    {
-      "id": "treg",
-      "portfolio": {
-        "kind": "platform",
-        "priority": "P4",
-        "status": "archived",
-        "deployed": false,
-        "readyToBeShared": false,
-        "sharingReadiness": {
-          "verifiedAt": "2026-08-22",
-          "reason": "The copied registry could relay calls but did not produce useful Site Health provider evidence; Fleet retired the active copy and retained a deferred issue plus the upstream pointer."
-        }
-      },
-      "aliases": [
-        "tools-registry"
-      ],
-      "authModel": "private-authenticated",
-      "family": "treg",
-      "tier": "out-of-fleet",
-      "repo": "treg",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
-      "inRegistry": false,
-      "status": "deleted",
-      "notes": "Retired from active Fleet use on 2026-08-22 after a local viability run. The empty checkout and sass-maker/treg history remain as a recoverable pointer; future reconsideration is tracked in sass-maker/treg#3 and upstream remains superdesigndev/treg.",
-      "name": "Treg",
-      "attention": "ignored",
-      "lifecycle": "past",
-      "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/sass-maker/treg",
       "public": { "listing": "hidden" }
     },
     {
