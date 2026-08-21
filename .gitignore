@@ -1,17 +1,4 @@
-# Ignore every child project by default. Each project keeps its own git repo.
-/*
-
-# Track only Dashboard repository files.
-!/.gitignore
-!/README.md
-!/AGENTS.md
-!/CLAUDE.md
-!/PROJECT_STATUS.md
-!/package.json
-!/foundry/
-!/.github/
-
-# Local/system noise at the Fleet root.
+# Local/system noise.
 .DS_Store
 __pycache__/
 *.pyc
@@ -20,10 +7,13 @@ __pycache__/
 .wrangler/
 .claude/
 .husky/
+node_modules/
+dist/
+.astro/
 
-# Infisical project link (workspaceId pointer — keep local)
+# Infisical project link (workspaceId pointer — keep local).
 .infisical.json
 
-# Local Dashboard state.
-foundry/apps/dashboard/backend/*.sqlite
-foundry/apps/dashboard/backend/*.sqlite-*
+# Local Site Health state.
+apps/backend/*.sqlite
+apps/backend/*.sqlite-*

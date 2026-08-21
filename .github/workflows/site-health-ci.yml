@@ -1,0 +1,19 @@
+name: Site Health CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: dashboard-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    uses: sass-maker/workflows-and-skills/.github/workflows/dashboard-ci.yml@main

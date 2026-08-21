@@ -1,8 +1,8 @@
-# Dashboard — PROJECT STATUS
+# Site Health — PROJECT STATUS
 
 ## Why / What
 
-Dashboard is the private owner view for projects, domain strength, web
+Site Health is the private owner view for projects, domain strength, web
 performance, Google Search, and AI awareness. It is one product with one local
 backend.
 
@@ -17,6 +17,10 @@ backend.
 
 ## Timeline
 
+- **2026-08-21:** Extracted Site Health into its own repository while
+  preserving the historical Fleet Workspace Git history. Simplified the
+  repository layout to `apps/web` and `apps/backend`; the Fleet directory is
+  no longer the product repository.
 - **2026-08-21:** Reduced the historical Fleet Workspace repository to the
   Dashboard web app, Dashboard backend, internal AI Visibility engine, and
   required catalog/evidence contracts. Fleet operations, skills, marketing,
@@ -28,8 +32,8 @@ backend.
 
 | Product | Surface | Purpose |
 | --- | --- | --- |
-| Dashboard | `foundry/apps/dashboard/web/` | Private owner-facing UI |
-| Dashboard backend | `foundry/apps/dashboard/backend/` | Internal implementation supporting Dashboard |
+| Site Health | `apps/web/` | Private owner-facing UI |
+| Site Health backend | `apps/backend/` | Internal implementation supporting Site Health |
 
 ## Features (shipped)
 
@@ -41,4 +45,4 @@ backend.
 
 ## Work queue
 
-[GitHub Issues](https://github.com/sass-maker/fleet-workspace/issues)
+[GitHub Issues](https://github.com/sass-maker/site-health/issues)

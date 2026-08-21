@@ -1,14 +1,14 @@
-# Dashboard Agent Instructions
+# Site Health Agent Instructions
 
-This repository contains one product: Dashboard and its backend.
+This repository contains one product: Site Health and its backend.
 
 ## Product boundary
 
 - The five product areas are Projects, Domains, Performance, Google Search,
   and AI Awareness.
-- Keep the UI under `foundry/apps/dashboard/web/`.
+- Keep the UI under `apps/web/`.
 - Keep its backend, catalog, evidence adapters, storage, and internal AI engine
-  under `foundry/apps/dashboard/backend/`.
+  under `apps/backend/`.
 - Drank, PSI Swarm, SaaS Maker, and Workflows are independent repositories.
 - Do not add Fleet-wide skills, marketing, media, mobile, feedback, generic
   workflows, or unrelated portfolio tooling here.

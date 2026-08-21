@@ -1,6 +1,6 @@
-# Dashboard
+# Site Health
 
-Private portfolio dashboard for answering five owner questions:
+Private portfolio health dashboard for answering five owner questions:
 
 1. Which projects exist and what state are they in?
 2. How strong are their domains?
@@ -10,8 +10,8 @@ Private portfolio dashboard for answering five owner questions:
 
 This repository contains one product and its backend:
 
-- `foundry/apps/dashboard/web/` — Astro dashboard UI.
-- `foundry/apps/dashboard/backend/` — catalog, evidence adapters, API, storage,
+- `apps/web/` — Astro UI.
+- `apps/backend/` — catalog, evidence adapters, API, storage,
   metric runners, and the internal AI Visibility engine.
 
 Drank and PSI Swarm remain independent repositories. The backend reads or
@@ -28,6 +28,6 @@ pnpm run check
 pnpm run backend
 ```
 
-The current GitHub remote retains the historical `fleet-workspace` name until
-the repository itself is renamed or archived. That historical name is not a
-second product.
+The repository preserves the historical Fleet Workspace Git history, but owns
+only Site Health. The Fleet directory itself is an unversioned container for
+independent project repositories.

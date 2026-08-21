@@ -1,14 +1,14 @@
 {
-  "name": "dashboard",
+  "name": "site-health",
   "version": "0.1.0",
   "private": true,
-  "description": "Private portfolio dashboard and its backend",
+  "description": "Private portfolio health dashboard and its backend",
   "scripts": {
-    "dev": "pnpm --dir foundry/apps/dashboard/web dev",
-    "backend": "node foundry/apps/dashboard/backend/scripts/server.mjs serve",
-    "build": "pnpm --dir foundry/apps/dashboard/web build",
-    "test:backend": "node --disable-warning=ExperimentalWarning --test foundry/apps/dashboard/backend/test/*.test.mjs",
-    "test:ai": "pnpm --dir foundry/apps/dashboard/backend/packages/ai-visibility check",
+    "dev": "pnpm --dir apps/web dev",
+    "backend": "node apps/backend/scripts/server.mjs serve",
+    "build": "pnpm --dir apps/web build",
+    "test:backend": "node --disable-warning=ExperimentalWarning --test apps/backend/test/*.test.mjs",
+    "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
     "test": "pnpm run test:backend && pnpm run test:ai",
     "check": "pnpm run build && pnpm run test"
   },
