@@ -11,7 +11,9 @@ Private portfolio health dashboard for answering five owner questions:
 This repository contains one product and its backend:
 
 - `apps/web/` — Astro UI.
-- `apps/backend/` — catalog, evidence adapters, API, storage,
+- `apps/backend/config/projects.json` — canonical private project and
+  infrastructure catalog.
+- `apps/backend/` — evidence adapters, API, storage,
   metric runners, and the internal AI Visibility engine.
 
 Drank and PSI Swarm remain independent repositories. The backend reads or

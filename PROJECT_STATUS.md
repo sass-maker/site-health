@@ -17,6 +17,11 @@ backend.
 
 ## Timeline
 
+- **2026-08-22:** Reconciled the standalone workspace boundary in the canonical
+  project catalog. Workflows and Skills is now an explicit independent
+  platform and infrastructure owner, Site Health no longer claims its GitHub
+  Actions, App Health no longer belongs to the retired Fleet Workspace family,
+  and catalog tests prevent those ownership boundaries from drifting again.
 - **2026-08-22:** Made Site Health strictly local-only on `127.0.0.1`. Removed
   public-host allowances and trusted Cloudflare identity headers; local
   loopback and an optional owner token are the only mutation boundaries. The

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
-    "updated": "2026-08-21",
+    "updated": "2026-08-22",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -212,12 +212,45 @@
       "domains": [],
       "inRegistry": false,
       "status": "local-only",
-      "notes": "Private local-only Site Health product. Workflows, Fleet operations, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories.",
+      "notes": "Private local-only Site Health product. Workflows and Skills, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories.",
       "name": "Site Health",
       "attention": "foundry",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/site-health",
+      "public": { "listing": "hidden" }
+    },
+    {
+      "id": "workflows-and-skills",
+      "portfolio": {
+        "kind": "platform",
+        "priority": "P2",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": true,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-22",
+          "reason": "The canonical public repository is live and exposes credential-free reusable workflows, Fleet-owned agent skills, and operator scripts."
+        }
+      },
+      "aliases": [
+        "workflows"
+      ],
+      "authModel": "public-persistent",
+      "family": "workflows-and-skills",
+      "tier": "active",
+      "repo": "workflows-and-skills",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Canonical public, credential-free home for reusable GitHub Actions, Fleet-owned skills, and operator scripts. It is an independent repository, not a Site Health submodule or Fleet-root product.",
+      "name": "Workflows and Skills",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sass-maker/workflows-and-skills",
       "public": { "listing": "hidden" }
     },
     {
@@ -1716,7 +1749,7 @@
         }
       },
       "authModel": "required-service",
-      "family": "fleet-workspace",
+      "family": "app-health",
       "tier": "active",
       "repo": "app-health",
       "deployKind": "worker",
@@ -2749,6 +2782,12 @@
       },
       "site-health": {
         "updatedAt": "2026-08-22",
+        "deployments": [],
+        "resources": [],
+        "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
+      },
+      "workflows-and-skills": {
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "github",
@@ -2759,7 +2798,7 @@
           }
         ],
         "resources": [],
-        "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
+        "notes": "Public credential-free reusable workflows and agent tooling; no Cloudflare runtime or private provider resource is owned here."
       },
       "chatgpt-connections": {
         "updatedAt": "2026-08-22",
