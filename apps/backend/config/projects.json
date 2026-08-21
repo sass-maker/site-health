@@ -1296,7 +1296,7 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/calorie"
       },
-      "notes": "Finished local-first calorie journal with optional Google sign-in and private D1 sync. Native build 1.0.0 (3) is available to internal TestFlight testers on personal team 8F7LXHTJZR."
+      "notes": "Finished local-first calorie journal with optional Apple or Google sign-in and private D1 sync. Shared-identity migration 0008 is live at exact Worker SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Native build 1.0.0 (3) is available to internal TestFlight testers; Apple Distribution-signed build 1.0.0 (4) is prepared and waits for Xcode personal-account authentication."
     },
     {
       "id": "setline",
@@ -1369,7 +1369,7 @@
       "public": {
         "listing": "hidden"
       },
-      "notes": "Shared signed-in Cloudflare sync and semantic API foundation for Journal, Habits, Setline, Kith, and Anchor. Hub remains a read/action client, Live remains web-only, and Calorie remains authoritative in its existing Worker and D1 through a service binding. Worker version 4076cb73-56f9-478b-b90f-35fe84863e25 is live from exact Git SHA a3ce2fa6ab59d48cabe4854c9916d4c4a455cb16; D1 personal-platform is active."
+      "notes": "Shared signed-in Cloudflare sync and semantic API foundation for Journal, Habits, Setline, Kith, and Anchor. Hub remains a read/action client, Live remains web-only, and Calorie remains authoritative in its existing Worker and D1 through a service binding. Worker version d5ffabaa-b754-4cc9-886f-9637a45834fb is live from exact Git SHA e6ca445b4218784ac5320ab8796201b318278e59; D1 personal-platform is active."
     },
     {
       "id": "kith",
@@ -2524,7 +2524,7 @@
       "inRegistry": false,
       "status": "live",
       "app": "swift",
-      "notes": "Local-first focus timer for macOS, iOS and watchOS. Optional Personal Platform synchronization publishes finished-session metadata only; distraction notes never leave the device, and SwiftData plus private CloudKit remain the immediate and transition stores. iOS/watchOS build 1.0 (2) has a supported Xcode 26.6 personal-team distribution package, but TestFlight is blocked on Apple-account reauthentication and the missing com.significanthobbies.anchor App Store Connect record. Landing/support/privacy remain live on Cloudflare Pages project anchor-landing. The Developer ID signed macOS DMG remains unnotarised.",
+      "notes": "Local-first focus timer for macOS, iOS and watchOS. Optional Personal Platform synchronization publishes finished-session metadata only; distraction notes never leave the device, and SwiftData plus private CloudKit remain the immediate and transition stores. App Store Connect record 6803853891 exists. Xcode 27 Beta 5 passes the 89 shared tests, but TestFlight waits for personal-account authentication and a refreshed Sign in with Apple profile. A current Developer ID-signed macOS build is installed and running; the direct-download DMG remains unnotarised.",
       "public": {
         "listing": "hidden",
         "id": "anchor",
@@ -3302,7 +3302,7 @@
             "state": "rollback-held-unverified"
           }
         ],
-        "notes": "Worker version ecfee832-cbe6-4e94-bb75-4603fec9ff44 is live from exact Git SHA 442ce0285b451b9b0726a4eaefd2bf86a904e3de. Journal 1.0.0 (3) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+        "notes": "Worker version 2b7c418c-8b72-4440-a00c-da720d60f06f is live from exact Git SHA 81a4339102351a1722740af9e041fd09987fdd50. Journal 1.0.0 (3) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
       },
       "india-standards": {
         "updatedAt": "2026-08-11",
@@ -3484,7 +3484,8 @@
             "name": "calorie",
             "state": "active"
           }
-        ]
+        ],
+        "notes": "Worker version 56590a7b-7467-4074-a3af-008fc3fd3d7e is live from exact Git SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Additive shared-identity migration 0008 is applied. Build 1.0.0 (3) remains available to internal testers while signed build 1.0.0 (4) waits for Xcode personal-account authentication."
       },
       "setline": {
         "updatedAt": "2026-08-21",
@@ -3538,7 +3539,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker version 4076cb73-56f9-478b-b90f-35fe84863e25 is live from exact Git SHA a3ce2fa6ab59d48cabe4854c9916d4c4a455cb16. D1 database 61f421a2-f8c7-49c4-97f2-58a1f9b6feda and both domain service bindings are active."
+        "notes": "Worker version d5ffabaa-b754-4cc9-886f-9637a45834fb is live from exact Git SHA e6ca445b4218784ac5320ab8796201b318278e59. D1 database 61f421a2-f8c7-49c4-97f2-58a1f9b6feda and both domain service bindings are active."
       },
       "kith": {
         "updatedAt": "2026-08-21",
@@ -4121,11 +4122,11 @@
             "kind": "app-store-connect",
             "name": "Anchor",
             "method": "manual-xcode",
-            "state": "blocked-on-app-record"
+            "state": "blocked-on-xcode-account"
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project anchor-landing remains live. iOS/watchOS build 1.0 (2) is a supported Xcode 26.6 personal-team distribution package. App Store Connect delivery is blocked on Xcode Apple-account reauthentication and creation of the missing com.significanthobbies.anchor app record."
+        "notes": "Cloudflare Pages project anchor-landing remains live. App Store Connect record 6803853891 exists. Xcode 27 Beta 5 passes the shared tests; iOS/watchOS build 1.0 (2) now waits for personal-account authentication and a refreshed Sign in with Apple provisioning profile. A Developer ID-signed current-main macOS build is installed and running locally."
       }
     },
     "unownedResources": [
