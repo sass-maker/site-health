@@ -474,7 +474,7 @@ Keetha! It is also something I wanted to build. I saw a tweet in which someone h
 ### Agent record
 
 - Assessment: a deliberately personal, device-first relationship memory app. Its distinctive choice is an explicit closeness-based constellation and human notes/logs rather than CRM mechanics or inferred relationship scores; daily use should determine its next iteration.
-- Start / latest commit: `b8a622e9e26fa5ac71e86ade558647a9cf857fca` (2026-08-16) / `f4dc2969b1422016c4fc1187898b142cb88c1f5b` (2026-08-23); 35 commits.
+- Start / latest commit: `b8a622e9e26fa5ac71e86ade558647a9cf857fca` (2026-08-16) / `51331125848e38ab90a00192e2c7e605a8613094` (2026-08-23); 36 commits.
 - Stack: native SwiftUI iPhone app, local JSON document, XCTest, XcodeGen, optional private CloudKit mirror, Sign in with Apple and Significant Hobbies Hub synchronization, and Astro static landing.
 - Git snapshot: public `Significant-Hobbies/kith`; clean `main` matched `origin/main`.
 - Public link: `https://kith.significanthobbies.com`.
@@ -511,7 +511,7 @@ live*
 
 - Verbatim coverage: the correction above is the only separate owner statement about Live captured during this review; its motivation/status/next narrative still needs an owner pass.
 - Assessment: the independently owned original Significant Hobbies experience. It retains the existing user data, authentication, timelines, bookmarks, and deeper app routes; only the apex Hub routes are proxied to the Hub backend.
-- Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `62c42a7b4acdbcb74f042da4eaa0f792020d1da9` (2026-08-23).
+- Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `8d3b92d49612da978d5435919c1e02ff11f84720` (2026-08-23); 526 commits.
 - Stack: Next.js, React, TypeScript, OpenNext, Cloudflare Workers, D1, Workers AI, Better Auth, Vitest, and Playwright.
 - Git snapshot: public `Significant-Hobbies/live`; clean `main` matched `origin/main` after extraction.
 - Public link: `https://live.significanthobbies.com`; existing deeper routes also remain available on the apex domain.
@@ -721,7 +721,7 @@ Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse A
 ### Agent record
 
 - Assessment: a completed local-first performance-measurement tool. Its key contribution is replacing a single noisy Lighthouse score with distributions across realistic conditions, so it belongs in ongoing fleet operations rather than a feature-product roadmap.
-- Start / latest commit: `be46b6c1d70194759dd47b0b568d58f7dc2497cb` (2026-06-03) / `a333f724a792267ff5a2dcae1a23a89d7ae32b5a` (2026-08-23); 61 commits.
+- Start / latest commit: `be46b6c1d70194759dd47b0b568d58f7dc2497cb` (2026-06-03) / `50af7340d4ad200b46925a365e08d79113bd7883` (2026-08-23); 62 commits.
 - Stack: Node/TypeScript CLI, Lighthouse 13, headless Chrome, SQLite local history, Ink/React terminal UI, Astro/React/Tailwind local controller, optional OpenAI-compatible/local reasoning, Ahrefs free Domain Rating, and Cloudflare Pages static site.
 - Git snapshot: public `sass-maker/psi-swarm`; `main` matched `origin/main`; observed local public-discovery files and an untracked web Functions directory.
 - Public link: `https://performance.sassmaker.com`.
@@ -1045,4 +1045,3 @@ The purpose for this project was to research what are the advantages held by peo
 - Public link: [paths.significanthobbies.com](https://paths.significanthobbies.com) and [repository](https://github.com/Significant-Hobbies/what-it-takes-to-win).
 - Open issues: #30, interview accomplished people and add their past-life accounts; #29, external submissions and edits; #28, better 3D animation.
 - Catalog state: active, live, maintained P4 secondary Significant Hobbies research publication. The rendered project dataset currently says 3,577 paths while the public catalog description says 2,585, so reconcile that stale public count when the next data refresh is published.
-
