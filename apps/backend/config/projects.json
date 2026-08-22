@@ -56,7 +56,7 @@
         "kind": "product",
         "priority": "P1",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-08-11",
@@ -422,6 +422,9 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/reel-pipeline",
+      "repositoryAliases": [
+        "https://github.com/sarthakagrawal927/reel-maker"
+      ],
       "public": {
         "listing": "hidden"
       }
@@ -703,6 +706,9 @@
       "attention": "my-work",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
+      "repositoryAliases": [
+        "https://github.com/sarthakagrawal927/mentionpilot"
+      ],
       "public": {
         "listing": "maintained",
         "id": "high-signal",
@@ -1251,6 +1257,9 @@
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
+      "repositoryAliases": [
+        "https://github.com/sarthakagrawal927/local-ai"
+      ],
       "public": {
         "listing": "maintained",
         "id": "swe-interview-prep",
@@ -1792,6 +1801,41 @@
       }
     },
     {
+      "id": "shiprank",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "archived",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-22",
+          "reason": "ShipRank was retired as a standalone product on 2026-07-10; its evaluation diagnostics moved into CodeVetter and no ShipRank-named Cloudflare deployment or retained data resource exists."
+        }
+      },
+      "aliases": [
+        "taste"
+      ],
+      "authModel": "public-persistent",
+      "family": "codevetter",
+      "tier": "out-of-fleet",
+      "repo": null,
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "Retired product identity retained for source history. The reusable review-to-evaluation capability moved to CodeVetter; the personal repository remains recoverable historical source and must not be treated as a current product or deploy target.",
+      "name": "ShipRank",
+      "attention": "ignored",
+      "lifecycle": "past",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/taste",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
       "id": "mashup",
       "portfolio": {
         "kind": "experiment",
@@ -2214,8 +2258,7 @@
       "authModel": "public-persistent",
       "family": "personal",
       "tier": "secondary",
-      "repo": null,
-      "sourcePath": "../portfolio",
+      "repo": "portfolio",
       "deployKind": "pages",
       "cfProject": "sarthakagrawal",
       "domains": [
@@ -2227,6 +2270,7 @@
       "name": "Sarthak Agrawal",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio",
       "attention": "toolbox",
       "metrics": {
         "domainCoverage": true
@@ -2469,6 +2513,9 @@
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/High-Signal-App/research-subreddit",
+      "repositoryAliases": [
+        "https://github.com/sarthakagrawal927/subreddit-research"
+      ],
       "metrics": {
         "publicSite": true,
         "domainCoverage": true
@@ -3010,6 +3057,12 @@
             "kind": "tunnel",
             "name": "fleet-postiz",
             "state": "down"
+          },
+          {
+            "provider": "github",
+            "kind": "absorbed-repository",
+            "name": "sarthakagrawal927/reel-maker",
+            "state": "archived-source"
           }
         ]
       },
@@ -3216,6 +3269,12 @@
             "kind": "organization-profile",
             "name": "High-Signal-App/.github",
             "state": "active"
+          },
+          {
+            "provider": "github",
+            "kind": "absorbed-repository",
+            "name": "sarthakagrawal927/mentionpilot",
+            "state": "absorbed-source"
           }
         ]
       },
@@ -3631,6 +3690,12 @@
             "kind": "database",
             "name": "swe-interview-prep",
             "state": "rollback-held-unverified"
+          },
+          {
+            "provider": "github",
+            "kind": "absorbed-repository",
+            "name": "sarthakagrawal927/local-ai",
+            "state": "absorbed-source"
           }
         ]
       },
@@ -4046,6 +4111,19 @@
           }
         ]
       },
+      "shiprank": {
+        "updatedAt": "2026-08-22",
+        "deployments": [],
+        "resources": [
+          {
+            "provider": "github",
+            "kind": "retained-source",
+            "name": "sarthakagrawal927/taste",
+            "state": "archived"
+          }
+        ],
+        "notes": "No taste, ShipRank, or taste-capture Pages, Worker, D1, or R2 object was found in the authenticated Cloudflare inventory on 2026-08-22."
+      },
       "mashup": {
         "updatedAt": "2026-08-11",
         "deployments": [],
@@ -4186,6 +4264,12 @@
             "kind": "email-routing",
             "name": "sarthakagrawal.dev",
             "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "profile-repository",
+            "name": "sarthakagrawal927/sarthakagrawal927",
+            "state": "active"
           }
         ]
       },
@@ -4265,6 +4349,12 @@
             "kind": "r2",
             "name": "reddit-insights-archive",
             "state": "configured-not-provisioned"
+          },
+          {
+            "provider": "github",
+            "kind": "absorbed-repository",
+            "name": "sarthakagrawal927/subreddit-research",
+            "state": "absorbed-source"
           }
         ]
       },

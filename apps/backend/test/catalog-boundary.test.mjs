@@ -166,6 +166,31 @@ test('non-Vault organization repositories reconcile without duplicate products',
   );
 });
 
+test('personal-profile product sources reconcile without inflating current Fleet scope', () => {
+  const projectById = new Map(catalog.projects.map((project) => [project.id, project]));
+  const absorbedSources = new Map([
+    ['high-signal', 'https://github.com/sarthakagrawal927/mentionpilot'],
+    ['reddit-insights', 'https://github.com/sarthakagrawal927/subreddit-research'],
+    ['reel-pipeline', 'https://github.com/sarthakagrawal927/reel-maker'],
+    ['swe-interview-prep', 'https://github.com/sarthakagrawal927/local-ai'],
+  ]);
+
+  for (const [projectId, repositoryUrl] of absorbedSources) {
+    assert.equal(projectById.get(projectId)?.repositoryAliases?.includes(repositoryUrl), true);
+  }
+  assert.equal(projectById.get('shiprank')?.portfolio?.status, 'archived');
+  assert.equal(projectById.get('shiprank')?.repositoryUrl, 'https://github.com/sarthakagrawal927/taste');
+  assert.equal(projectById.get('sarthakagrawal-personal')?.repo, 'portfolio');
+  assert.equal(
+    catalog.infrastructure.projects['sarthakagrawal-personal'].resources.some(
+      (resource) => resource.provider === 'github'
+        && resource.kind === 'profile-repository'
+        && resource.name === 'sarthakagrawal927/sarthakagrawal927',
+    ),
+    true,
+  );
+});
+
 test('current product scope stays smaller than the complete retained inventory', () => {
   const current = catalog.projects.filter((project) =>
     project.status !== 'orphan'
@@ -175,7 +200,7 @@ test('current product scope stays smaller than the complete retained inventory',
     && project.portfolio?.priority !== 'P4'
     && project.portfolio?.status !== 'archived');
 
-  assert.equal(catalog.projects.length, 58);
+  assert.equal(catalog.projects.length, 59);
   assert.equal(current.length, 32);
   assert.equal(current.some((project) => project.id === 'gitstat'), true);
 });
