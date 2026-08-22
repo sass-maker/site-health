@@ -17,6 +17,11 @@ backend.
 
 ## Timeline
 
+- **2026-08-22:** Brought GitStat into Fleet as an active P2 secondary product
+  and narrowed the default Projects surface to the 32 current P1/P2 identities.
+  The complete 58-identity catalog still preserves P4, archived, parked,
+  retained-resource, and outside-Fleet history without presenting it as the
+  daily work portfolio.
 - **2026-08-22:** Reconciled all 58 catalog identities against the live
   Cloudflare account. Registered GitStat's retained outside-Fleet Pages
   surface, assigned the missing SWE Interview Prep artifact bucket and job

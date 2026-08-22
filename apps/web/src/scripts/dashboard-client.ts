@@ -336,6 +336,7 @@ async function renderProjects() {
       !["non-product", "past"].includes(project.lifecycle)
       && project.attention !== "ignored"
       && project.tier !== "out-of-fleet"
+      && project.priority !== "P4"
       && project.portfolioStatus !== "archived")
     .sort((left: JsonRecord, right: JsonRecord) =>
       String(left.priority ?? "P9").localeCompare(String(right.priority ?? "P9"))
@@ -358,7 +359,7 @@ async function renderProjects() {
     awareness.generatedAt,
   ))}`;
   replace("project-summary", element("dl", { class: "portfolio-summary__grid" }, [
-    element("div", {}, [element("dt", {}, ["Maintained products"]), element("dd", {}, [String(visible.length)]), element("small", {}, ["Active and parked owner scope"])]),
+    element("div", {}, [element("dt", {}, ["Current products"]), element("dd", {}, [String(visible.length)]), element("small", {}, ["Active P1 and P2 owner scope"])]),
     element("div", {}, [element("dt", {}, ["With evidence"]), element("dd", {}, [`${measured} / ${visible.length}`]), element("small", {}, [`${observedSignals} source observations`])]),
     element("div", {}, [element("dt", {}, ["Needs attention"]), element("dd", {}, [String(needsAttention)]), element("small", {}, ["Measured regression or zero search"])]),
     element("div", {}, [

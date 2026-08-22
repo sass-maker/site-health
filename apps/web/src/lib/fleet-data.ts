@@ -9,6 +9,7 @@ type RegistryProject = {
   attention?: string;
   tier?: string;
   portfolio?: {
+    priority?: string;
     status?: string;
   };
 };
@@ -37,6 +38,7 @@ export function getFleetProjects(): DashboardProject[] {
       && !["past", "non-product"].includes(project.lifecycle ?? "")
       && project.attention !== "ignored"
       && project.tier !== "out-of-fleet"
+      && project.portfolio?.priority !== "P4"
       && project.portfolio?.status !== "archived")
     .map((project) => ({
       slug: project.id,

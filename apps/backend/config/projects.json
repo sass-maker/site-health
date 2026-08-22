@@ -349,32 +349,40 @@
       "id": "gitstat",
       "portfolio": {
         "kind": "product",
-        "priority": "P4",
+        "priority": "P2",
         "status": "active",
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-22",
-          "reason": "GitStat is independently owned outside Fleet and excluded from active Fleet work and Site Health coverage, although its retained public Cloudflare Pages surface is live."
+          "reason": "GitStat is an active Fleet product with a verified live public surface. Keep sharing gated until its optional GitHub connection flow is repaired."
         }
       },
-      "authModel": "required-service",
+      "authModel": "public-persistent",
       "family": "gitstat",
-      "tier": "out-of-fleet",
+      "tier": "secondary",
       "repo": "gitstat",
       "deployKind": "pages",
       "cfProject": "gitstat",
       "domains": ["git.significanthobbies.com"],
       "inRegistry": false,
       "status": "live",
-      "notes": "Independent GitHub contribution and line-statistics project retained outside Fleet and Site Health scope. Cloudflare Pages and the custom domain were live on 2026-08-22.",
+      "notes": "Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.",
       "name": "GitStat",
-      "attention": "ignored",
+      "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/gitstat",
       "public": {
-        "listing": "hidden"
+        "listing": "hidden",
+        "id": "gitstat",
+        "name": "GitStat",
+        "description": "A GitHub analytics dashboard for contribution history, code churn, collaboration, and AI-assisted work.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "in-progress",
+        "repositoryUrl": "https://github.com/sass-maker/gitstat"
       }
     },
     {
@@ -2861,11 +2869,11 @@
             "kind": "pages",
             "name": "gitstat",
             "method": "git-connected",
-            "state": "live-out-of-fleet"
+            "state": "live"
           }
         ],
         "resources": [],
-        "notes": "Retained Cloudflare deployment owned by the independently managed GitStat project; it is not part of Fleet or Site Health coverage."
+        "notes": "Live Cloudflare deployment owned by the Fleet GitStat product."
       },
       "reel-pipeline": {
         "updatedAt": "2026-08-20",

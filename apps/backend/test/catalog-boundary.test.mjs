@@ -40,7 +40,10 @@ test('live Cloudflare ownership stays reconciled', () => {
 
   assert.equal(gitstat?.cfProject, 'gitstat');
   assert.deepEqual(gitstat?.domains, ['git.significanthobbies.com']);
-  assert.equal(catalog.infrastructure.projects.gitstat.deployments[0]?.state, 'live-out-of-fleet');
+  assert.equal(gitstat?.portfolio?.priority, 'P2');
+  assert.equal(gitstat?.tier, 'secondary');
+  assert.equal(gitstat?.attention, 'toolbox');
+  assert.equal(catalog.infrastructure.projects.gitstat.deployments[0]?.state, 'live');
   assert.deepEqual(saasMaker?.domains, ['sassmaker.com']);
   assert.equal(
     catalog.infrastructure.projects['saas-maker'].deployments.some(
@@ -55,4 +58,18 @@ test('live Cloudflare ownership stays reconciled', () => {
       .sort(),
     ['swe-interview-prep-war-jobs', 'swe-interview-prep-war-jobs-dlq'],
   );
+});
+
+test('current product scope stays smaller than the complete retained inventory', () => {
+  const current = catalog.projects.filter((project) =>
+    project.status !== 'orphan'
+    && !['past', 'non-product'].includes(project.lifecycle)
+    && project.attention !== 'ignored'
+    && project.tier !== 'out-of-fleet'
+    && project.portfolio?.priority !== 'P4'
+    && project.portfolio?.status !== 'archived');
+
+  assert.equal(catalog.projects.length, 58);
+  assert.equal(current.length, 32);
+  assert.equal(current.some((project) => project.id === 'gitstat'), true);
 });
