@@ -17,17 +17,14 @@ backend.
 
 ## Timeline
 
-- **2026-08-22:** Reconciled all 126 repositories on the owner personal GitHub
-  profile without turning forks, learning history, or absorbed source into new
-  active products. Added the missing retired ShipRank identity, linked
-  MentionPilot, AgentData, local-ai, and reel-maker to their current product
-  owners, and recorded the GitHub profile repository as personal identity
-  infrastructure. Moved the unique clean portfolio checkout from the Desktop
-  sibling path into the Fleet project folder; no Git histories were combined
-  and no provider resources were changed.
+- **2026-08-22:** Kept repositories in the owner personal GitHub profile outside
+  Fleet scope by explicit owner decision. Moved the already-established,
+  unique, clean portfolio checkout from the Desktop sibling path into the Fleet
+  project folder; no Git histories were combined and no provider resources were
+  changed.
 - **2026-08-22:** Made the complete retained portfolio discoverable without
   widening operational scope. Projects now keeps the 32 current identities
-  primary and exposes the other 27 archived, parked, outside-Fleet, and
+  primary and exposes the other 26 archived, parked, outside-Fleet, and
   resource-only identities in a searchable collapsed section. The backend
   reloads catalog membership before projections and metric runs, and rejects
   inactive project and portfolio refresh targets.
