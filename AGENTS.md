@@ -11,6 +11,9 @@ This repository contains one product: Site Health and its backend.
   under `apps/backend/`.
 - Drank and PSI Swarm are independent repositories. Fleet-owned reusable workflows,
   skills, and operator scripts live under `saas-maker/tooling/`.
+- `docs/portfolio-owner-narratives-2026-08-22.md` is the verbatim owner archive;
+  `docs/portfolio-condensed-2026-08-23.md` is its derived 58-project decision view.
+  Keep both discoverable and never replace owner wording with a condensation.
 - Do not add Fleet-wide skills, marketing, media, mobile, feedback, generic
   workflows, or unrelated portfolio tooling here.
 
