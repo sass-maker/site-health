@@ -436,11 +436,15 @@ IOS Landings is the core name. It is essentially a landing page template which w
 
 ## Journal
 
-No separate owner narrative for Journal was captured in this review. This is recorded explicitly so the verbatim archive does not invent one.
+```text
+I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
+
+Journal is currently being built. What's next for it? As I use it, I will add more features to it and have some emotional detection also.
+```
 
 ### Agent record
 
-- Assessment: the private daily-writing iPhone product extracted from the old combined Significant Hobbies repository. It is now independently owned while retaining its history, bundle identity, local document/export behavior, and Hub sync integration.
+- Assessment: the actively built private daily-writing iPhone product extracted from the old combined Significant Hobbies repository. It is now independently owned while retaining its history, bundle identity, local document/export behavior, and Hub sync integration. Regular journaling should drive its feature work; emotional-pattern detection is a coherent next direction if it remains private, explainable, and supportive rather than diagnostic.
 - Start / latest commit: `31193ef743e2e0ed740fc19b90b8644c6a95c51f` (2026-08-11) / `e2d514bbca21c81c6ae03dc255077d182ee18da4` (2026-08-23).
 - Stack: Swift 6, SwiftUI, XcodeGen, XCTest/XCUITest, local JSON document/export, and `PersonalSyncKit` from the Significant Hobbies Hub repository.
 - Git snapshot: public `Significant-Hobbies/journal`; clean `main` matched `origin/main` after extraction.
@@ -505,12 +509,15 @@ Knowledge base is my internal rack service which powers other applications. It h
 Help me understand: where was the lab repository and is it still inside Significant Hobbies?
 
 live*
+
+The purpose of live is to help people live more. I think people underestimate the importance of a bucket list. A bucket list essentially gives them a long list of things to look forward to. If most people have some goal or purpose, something to look forward to, they will be happier in general. This is my reason for building it.
+
+I think currently it is in a very good shape. I just need to spend some time and confirm whether it is exhaustive enough and nicely searchable, and also suggests good things, and just start using it, I guess, and see how it goes.
 ```
 
 ### Agent record
 
-- Verbatim coverage: the correction above is the only separate owner statement about Live captured during this review; its motivation/status/next narrative still needs an owner pass.
-- Assessment: the independently owned original Significant Hobbies experience. It retains the existing user data, authentication, timelines, bookmarks, and deeper app routes; only the apex Hub routes are proxied to the Hub backend.
+- Assessment: the independently owned original Significant Hobbies experience, built around giving people meaningful things to anticipate through bucket lists, hobbies, experiences, and life goals. It retains the existing user data, authentication, timelines, bookmarks, and deeper app routes; only the apex Hub routes are proxied to the Hub backend. The product is technically mature, but its next proof should come from regular use and evaluating whether its catalog, search, and suggestions feel comprehensive and genuinely useful.
 - Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `8d3b92d49612da978d5435919c1e02ff11f84720` (2026-08-23); 526 commits.
 - Stack: Next.js, React, TypeScript, OpenNext, Cloudflare Workers, D1, Workers AI, Better Auth, Vitest, and Playwright.
 - Git snapshot: public `Significant-Hobbies/live`; clean `main` matched `origin/main` after extraction.
