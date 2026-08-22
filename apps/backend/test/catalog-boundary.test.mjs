@@ -31,3 +31,28 @@ test('standalone workspace boundaries remain explicit', () => {
   );
   assert.equal(catalog.projects.some((project) => project.family === 'fleet-workspace'), false);
 });
+
+test('live Cloudflare ownership stays reconciled', () => {
+  const projectById = new Map(catalog.projects.map((project) => [project.id, project]));
+  const gitstat = projectById.get('gitstat');
+  const saasMaker = projectById.get('saas-maker');
+  const sweResources = catalog.infrastructure.projects['swe-interview-prep'].resources;
+
+  assert.equal(gitstat?.cfProject, 'gitstat');
+  assert.deepEqual(gitstat?.domains, ['git.significanthobbies.com']);
+  assert.equal(catalog.infrastructure.projects.gitstat.deployments[0]?.state, 'live-out-of-fleet');
+  assert.deepEqual(saasMaker?.domains, ['sassmaker.com']);
+  assert.equal(
+    catalog.infrastructure.projects['saas-maker'].deployments.some(
+      (deployment) => deployment.name === 'saasmaker-api' && deployment.state === 'live',
+    ),
+    false,
+  );
+  assert.deepEqual(
+    sweResources
+      .filter((resource) => resource.kind === 'queue')
+      .map((resource) => resource.name)
+      .sort(),
+    ['swe-interview-prep-war-jobs', 'swe-interview-prep-war-jobs-dlq'],
+  );
+});

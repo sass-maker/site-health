@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-07-18.",
+    "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-08-22.",
     "updated": "2026-08-22",
     "fields": {
       "id": "stable project/surface id",
@@ -303,16 +303,16 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-20",
-          "reason": "Canonical public directory source restored to its standalone repository; the existing public surface remains live."
+          "verifiedAt": "2026-08-22",
+          "reason": "The canonical public directory is live at sassmaker.com. Feedback API, inbox, and docs targets remain configured in source but are not provisioned in Cloudflare."
         }
       },
       "authModel": "public-persistent",
       "family": "saas-maker",
       "tier": "active",
       "repo": "saas-maker",
-      "deployKind": "worker+pages",
-      "cfProject": "saas-maker-home, saasmaker-api, saasmaker-dashboard, saas-maker-packages",
+      "deployKind": "pages",
+      "cfProject": "saas-maker-home",
       "deployTargets": [
         {
           "id": "public-directory",
@@ -324,10 +324,10 @@
         { "id": "feedback-inbox", "kind": "worker", "name": "saasmaker-dashboard", "sourcePath": "saas-maker/apps/cockpit" },
         { "id": "feedback-docs", "kind": "pages", "name": "saas-maker-packages", "sourcePath": "saas-maker/apps/docs-blume" }
       ],
-      "domains": ["sassmaker.com", "app.sassmaker.com", "api.sassmaker.com"],
+      "domains": ["sassmaker.com"],
       "inRegistry": true,
       "status": "live",
-      "notes": "Standalone public product directory and focused Feedback product: hosted submissions, private inbox, agent API, project keys, attachments, package, and docs. Canonical source restored from Fleet Workspace on 2026-08-20.",
+      "notes": "Standalone public product directory plus configured Feedback source. Live Cloudflare reconciliation on 2026-08-22 confirmed only saas-maker-home and sassmaker.com; the Feedback API, inbox, docs, and their hostnames are not currently provisioned.",
       "name": "SaaS Maker",
       "attention": "my-work",
       "lifecycle": "maintained",
@@ -351,23 +351,23 @@
         "kind": "product",
         "priority": "P4",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "GitStat is an independently owned outside project and is excluded from active Fleet work and Site Health coverage."
+          "verifiedAt": "2026-08-22",
+          "reason": "GitStat is independently owned outside Fleet and excluded from active Fleet work and Site Health coverage, although its retained public Cloudflare Pages surface is live."
         }
       },
       "authModel": "required-service",
       "family": "gitstat",
       "tier": "out-of-fleet",
       "repo": "gitstat",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
+      "deployKind": "pages",
+      "cfProject": "gitstat",
+      "domains": ["git.significanthobbies.com"],
       "inRegistry": false,
-      "status": "undeployed",
-      "notes": "Independent GitHub contribution and line-statistics project retained in the inventory but outside Fleet and Site Health scope.",
+      "status": "live",
+      "notes": "Independent GitHub contribution and line-statistics project retained outside Fleet and Site Health scope. Cloudflare Pages and the custom domain were live on 2026-08-22.",
       "name": "GitStat",
       "attention": "ignored",
       "lifecycle": "maintained",
@@ -2538,9 +2538,9 @@
   "infrastructure": {
     "_meta": {
       "purpose": "Owner-readable deployment and cloud-resource inventory for every Fleet identity, including inactive and local-only projects.",
-      "verifiedAt": "2026-08-21",
+      "verifiedAt": "2026-08-22",
       "evidence": {
-        "cloudflare": "Live Pages, D1, R2, KV, Vectorize, Queues, and Workflows inventory plus tracked Wrangler configuration.",
+        "cloudflare": "Live Pages, known-name Workers, D1, R2, KV, Vectorize, Queues, Workflows, Containers, Tunnels, Turnstile, and account-level service inventory plus tracked Wrangler configuration.",
         "turso": "Tracked configuration only; the Turso CLI was not authenticated on 2026-08-11.",
         "local": "PROJECT_STATUS.md, repository deployment scripts, and tracked provider configuration."
       },
@@ -2548,16 +2548,16 @@
         {
           "kind": "pages",
           "state": "provider-complete",
-          "observed": 31,
-          "tracked": 33,
-          "evidence": "Wrangler account list plus verified direct uploads through 2026-08-21: 31 live after adding Journal and Habits, plus the restored SaaS Maker package-docs target and one deleted historical target."
+          "observed": 32,
+          "tracked": 34,
+          "evidence": "Wrangler account list on 2026-08-22: 32 live. The catalog additionally retains one configured SaaS Maker docs target and one deleted historical Today Little Log target."
         },
         {
           "kind": "worker",
           "state": "known-name-probed",
           "observed": 26,
-          "tracked": 30,
-          "evidence": "Known live names plus the restored SaaS Maker API and dashboard targets from tracked standalone configuration; account-wide Worker listing still requires API or dashboard evidence."
+          "tracked": 29,
+          "evidence": "Known-name deployment probes on 2026-08-22: 26 live, with the SaaS Maker API, SaaS Maker dashboard, and Reddit collector retained as configured but not deployed."
         },
         {
           "kind": "d1",
@@ -2569,9 +2569,9 @@
         {
           "kind": "r2",
           "state": "provider-complete",
-          "observed": 8,
-          "tracked": 11,
-          "evidence": "Wrangler account list plus the Feedback image and dashboard cache buckets from tracked standalone configuration; reddit-insights-archive is configured but not provisioned."
+          "observed": 9,
+          "tracked": 12,
+          "evidence": "Wrangler account list on 2026-08-22: 9 live. The Feedback image bucket, SaaS Maker dashboard cache, and reddit-insights archive remain configured but not provisioned."
         },
         {
           "kind": "kv",
@@ -2590,9 +2590,9 @@
         {
           "kind": "queue",
           "state": "provider-complete",
-          "observed": 1,
-          "tracked": 1,
-          "evidence": "Wrangler account list."
+          "observed": 3,
+          "tracked": 3,
+          "evidence": "Wrangler account list on 2026-08-22: the Knowledge Base queue plus the SWE Interview Prep jobs queue and dead-letter queue."
         },
         {
           "kind": "workflow",
@@ -2661,6 +2661,13 @@
           "kind": "artifacts",
           "state": "feature-gated",
           "evidence": "Cloudflare API denied the private-beta inventory endpoint."
+        },
+        {
+          "kind": "secrets-store",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler account list on 2026-08-22 returned the account-level default Secrets Store; contents were not inspected."
         },
         {
           "kind": "durable-object",
@@ -2821,7 +2828,7 @@
         ]
       },
       "saas-maker": {
-        "updatedAt": "2026-08-20",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -2830,9 +2837,9 @@
             "method": "wrangler-direct",
             "state": "live"
           },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "live" },
-          { "provider": "cloudflare", "kind": "pages", "name": "saas-maker-packages", "method": "wrangler-direct", "state": "live" }
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "configured-not-deployed" },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "configured-not-deployed" },
+          { "provider": "cloudflare", "kind": "pages", "name": "saas-maker-packages", "method": "wrangler-direct", "state": "configured-not-deployed" }
         ],
         "resources": [
           {
@@ -2847,10 +2854,18 @@
         ]
       },
       "gitstat": {
-        "updatedAt": "2026-08-20",
-        "deployments": [],
+        "updatedAt": "2026-08-22",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "gitstat",
+            "method": "git-connected",
+            "state": "live-out-of-fleet"
+          }
+        ],
         "resources": [],
-        "notes": "No provider resource or verified deployment is cataloged."
+        "notes": "Retained Cloudflare deployment owned by the independently managed GitStat project; it is not part of Fleet or Site Health coverage."
       },
       "reel-pipeline": {
         "updatedAt": "2026-08-20",
@@ -3413,7 +3428,7 @@
         ]
       },
       "swe-interview-prep": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3441,6 +3456,24 @@
             "kind": "r2",
             "name": "swe-interview-prep-assets",
             "state": "active-unreferenced"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "swe-interview-prep-war-artifacts",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "queue",
+            "name": "swe-interview-prep-war-jobs",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "queue",
+            "name": "swe-interview-prep-war-jobs-dlq",
+            "state": "active"
           },
           {
             "provider": "turso",
@@ -4126,7 +4159,14 @@
         "kind": "tunnel",
         "name": "assistant-mac-server",
         "state": "owner-unverified-healthy",
-        "updatedAt": "2026-08-11"
+        "updatedAt": "2026-08-22"
+      },
+      {
+        "provider": "cloudflare",
+        "kind": "secrets-store",
+        "name": "default_secrets_store",
+        "state": "account-default-owner-unverified",
+        "updatedAt": "2026-08-22"
       }
     ]
   },
