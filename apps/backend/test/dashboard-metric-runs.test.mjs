@@ -95,6 +95,35 @@ test('starts portfolio D-Rank, PSI, and Search runs', () => {
   assert.equal(invocations[2].args[0].endsWith('search-console-collect.mjs'), true);
 });
 
+test('portfolio and project refreshes exclude inactive identities', () => {
+  const invocations = [];
+  const inactive = {
+    ...project(),
+    id: 'archived-product',
+    name: 'Archived product',
+    domains: ['archived.example'],
+    priority: 'P4',
+    portfolioStatus: 'archived',
+  };
+  const controller = createMetricRunController({
+    projects: [project(), inactive],
+    spawnProcess: (command, args, options) => {
+      invocations.push({ command, args, options });
+      return fakeProcess();
+    },
+  });
+
+  controller.start({ family: 'drank', scope: 'portfolio' });
+  controller.start({ family: 'psi', scope: 'portfolio' });
+
+  assert.equal(invocations[0].args.includes('archived.example'), false);
+  assert.equal(invocations[1].args.some((value) => value.includes('archived-product=')), false);
+  assert.throws(
+    () => controller.start({ family: 'drank', projectId: 'archived-product' }),
+    { code: 'METRIC_PROJECT_INACTIVE' },
+  );
+});
+
 test('reports AI-awareness unavailable instead of projecting a fixture', () => {
   let invoked = false;
   const controller = createMetricRunController({
@@ -131,5 +160,23 @@ test('rejects removed metric families and unsupported scopes', () => {
   assert.throws(
     () => controller.start({ family: 'psi', projectId: 'unknown' }),
     { code: 'METRIC_PROJECT_INVALID' },
+  );
+});
+
+test('refreshes the project inventory before planning a metric run', () => {
+  let currentProjects = [];
+  const controller = createMetricRunController({
+    projectsProvider: () => currentProjects,
+    spawnProcess: () => fakeProcess(),
+  });
+
+  assert.throws(
+    () => controller.start({ family: 'drank', projectId: 'pace' }),
+    { code: 'METRIC_PROJECT_INVALID' },
+  );
+  currentProjects = [project()];
+  assert.equal(
+    controller.start({ family: 'drank', projectId: 'pace' }).label,
+    'D-Rank',
   );
 });

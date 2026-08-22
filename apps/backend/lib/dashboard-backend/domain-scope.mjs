@@ -8,6 +8,17 @@ const COMPOUND_PUBLIC_SUFFIXES = new Set([
 
 const EXCLUDED_PUBLIC_METRIC_LIFECYCLES = new Set(['past', 'non-product']);
 
+export function isCurrentPortfolioProject(project) {
+  return (
+    project.status !== 'orphan' &&
+    !EXCLUDED_PUBLIC_METRIC_LIFECYCLES.has(project.lifecycle) &&
+    project.attention !== 'ignored' &&
+    project.tier !== 'out-of-fleet' &&
+    project.priority !== 'P4' &&
+    project.portfolioStatus !== 'archived'
+  );
+}
+
 export function normalizedDomain(value) {
   if (typeof value !== 'string') return null;
   try {

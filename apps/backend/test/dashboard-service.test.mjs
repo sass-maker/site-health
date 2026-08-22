@@ -20,6 +20,7 @@ const projection = {
 };
 
 test('serves Dashboard evidence, capabilities, and four outcome families', async (context) => {
+  let currentProjects = [];
   const store = new DashboardStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'dashboard-service-')), 'dashboard.sqlite'),
     projects: [],
@@ -31,6 +32,7 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
     projectionProvider: () => projection,
     visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
     prefillEvidence: () => ({ schemaVersion: 'site-health.prefill.v1', sources: [] }),
+    projectsProvider: () => currentProjects,
   });
   context.after(() => new Promise((resolve) => server.close(() => {
     store.close();
@@ -42,6 +44,8 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   const health = await (await fetch(`${base}/health`)).json();
   assert.equal(health.service, 'site-health-backend');
   assert.deepEqual(await (await fetch(`${base}/v1/projects`)).json(), []);
+  currentProjects = [{ id: 'retained', name: 'Retained', status: 'live', lifecycle: 'past' }];
+  assert.equal((await (await fetch(`${base}/v1/projects`)).json())[0].id, 'retained');
   assert.equal((await fetch(`${base}/v1/outcomes/domains`)).status, 200);
   assert.equal((await fetch(`${base}/v1/outcomes/search`)).status, 200);
   assert.equal((await fetch(`${base}/v1/outcomes/ai-awareness`)).status, 200);

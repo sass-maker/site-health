@@ -1,3 +1,10 @@
+import {
+  inactiveProjectState,
+  isCurrentProject,
+  matchesProjectFilters,
+  partitionProjects,
+} from "../lib/project-directory.mjs";
+
 type JsonRecord = Record<string, any>;
 
 const base = document.querySelector<HTMLMetaElement>('meta[name="dashboard-api-base"]')?.content ?? "/api/dashboard";
@@ -89,6 +96,23 @@ async function optionalOutcome(path: string) {
     return await api(path);
   } catch {
     return { generatedAt: null, rows: [], unavailable: true };
+  }
+}
+
+async function optionalCapabilities() {
+  try {
+    return await api("/v1/capabilities");
+  } catch {
+    return {
+      skills: [],
+      sources: {
+        skills: {
+          state: "unavailable",
+          reason: "The skill catalog is unavailable; project inventory remains available.",
+        },
+      },
+      unavailable: true,
+    };
   }
 }
 
@@ -328,26 +352,17 @@ async function renderProjects() {
     optionalOutcome("/v1/outcomes/search"),
     optionalOutcome("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/performance"),
-    api("/v1/capabilities"),
+    optionalCapabilities(),
   ]);
   const payloads = { domains, search, awareness, performance };
-  const visible = projects
-    .filter((project: JsonRecord) =>
-      !["non-product", "past"].includes(project.lifecycle)
-      && project.attention !== "ignored"
-      && project.tier !== "out-of-fleet"
-      && project.priority !== "P4"
-      && project.portfolioStatus !== "archived")
-    .sort((left: JsonRecord, right: JsonRecord) =>
-      String(left.priority ?? "P9").localeCompare(String(right.priority ?? "P9"))
-      || left.name.localeCompare(right.name));
-  const evidenceByProject = new Map(visible.map((project: JsonRecord) => [
+  const { current, inactive } = partitionProjects(projects);
+  const evidenceByProject = new Map(current.map((project: JsonRecord) => [
     project.id,
     projectEvidence(project.id, payloads),
   ]));
-  const measured = visible.filter((project: JsonRecord) =>
+  const measured = current.filter((project: JsonRecord) =>
     evidenceByProject.get(project.id)?.some((item: JsonRecord) => item.observedAt)).length;
-  const needsAttention = visible.filter((project: JsonRecord) =>
+  const needsAttention = current.filter((project: JsonRecord) =>
     evidenceByProject.get(project.id)?.some((item: JsonRecord) => attentionStates.has(item.status))).length;
   const observedSignals = [...evidenceByProject.values()].flat()
     .filter((item: JsonRecord) => item.observedAt).length;
@@ -359,8 +374,8 @@ async function renderProjects() {
     awareness.generatedAt,
   ))}`;
   replace("project-summary", element("dl", { class: "portfolio-summary__grid" }, [
-    element("div", {}, [element("dt", {}, ["Current products"]), element("dd", {}, [String(visible.length)]), element("small", {}, ["Active P1 and P2 owner scope"])]),
-    element("div", {}, [element("dt", {}, ["With evidence"]), element("dd", {}, [`${measured} / ${visible.length}`]), element("small", {}, [`${observedSignals} source observations`])]),
+    element("div", {}, [element("dt", {}, ["Current products"]), element("dd", {}, [String(current.length)]), element("small", {}, ["Active P1 and P2 owner scope"])]),
+    element("div", {}, [element("dt", {}, ["With evidence"]), element("dd", {}, [`${measured} / ${current.length}`]), element("small", {}, [`${observedSignals} source observations`])]),
     element("div", {}, [element("dt", {}, ["Needs attention"]), element("dd", {}, [String(needsAttention)]), element("small", {}, ["Measured regression or zero search"])]),
     element("div", {}, [
       element("dt", {}, ["Capabilities"]),
@@ -368,9 +383,11 @@ async function renderProjects() {
       element("small", {}, [`Fleet skills ${capabilities.sources?.skills?.state ?? "unavailable"}`]),
     ]),
   ]));
-  const directory = element("div", { class: "project-directory" }, visible.map((project: JsonRecord) =>
+  const currentDirectory = element("div", { class: "project-directory" }, current.map((project: JsonRecord) =>
     element("article", {
       class: "project-directory__row project-health-row",
+      "data-project-id": project.id,
+      "data-project-section": "current",
       "data-project-name": `${project.name} ${project.domains?.join(" ") ?? ""}`.toLowerCase(),
       "data-project-priority-value": project.priority ?? "",
       "data-project-health-value": evidenceByProject.get(project.id)?.some((item: JsonRecord) => attentionStates.has(item.status))
@@ -392,33 +409,120 @@ async function renderProjects() {
         evidenceByProject.get(project.id)?.map(evidenceCell) ?? []),
       element("a", { class: "project-row-action", href: projectHref(project.id), "aria-label": `View ${project.name} details` }, ["View"]),
     ])));
+  const currentSection = element("section", {
+    class: "project-directory-section",
+    "aria-labelledby": "current-projects-title",
+    "data-current-projects": "",
+  }, [
+    element("div", { class: "directory-section-head" }, [
+      element("div", {}, [
+        element("h2", { id: "current-projects-title" }, ["Current products"]),
+        element("p", {}, ["Operational P1 and P2 identities with portfolio evidence."]),
+      ]),
+      element("span", {}, [`${current.length} products`]),
+    ]),
+    element("div", { class: "project-directory__header", "aria-hidden": "true" }, [
+      element("span", {}, ["Product"]),
+      element("span", {}, ["Site evidence"]),
+      element("span"),
+    ]),
+    currentDirectory,
+  ]);
+  const inactiveDetails = element("details", {
+    class: "inactive-projects",
+    "data-inactive-projects": "",
+  }, [
+    element("summary", {}, [
+      element("span", { class: "inactive-projects__toggle", "aria-hidden": "true" }),
+      element("span", { class: "inactive-projects__title" }, [
+        element("strong", {}, ["Inactive and retained"]),
+        element("small", {}, ["Archived, parked, outside-Fleet, and resource-only identities"]),
+      ]),
+      element("span", { class: "inactive-projects__count", "data-inactive-visible-count": "" }, [`${inactive.length} identities`]),
+    ]),
+    element("p", { class: "inactive-projects__intro" }, [
+      "Kept for history and ownership. These identities do not affect current portfolio counts or refresh scope.",
+    ]),
+    element("div", { class: "project-directory inactive-project-directory" }, inactive.map((project: JsonRecord) =>
+      element("article", {
+        class: "project-directory__row project-health-row inactive-project-row",
+        "data-project-id": project.id,
+        "data-project-section": "inactive",
+        "data-project-name": `${project.name} ${project.domains?.join(" ") ?? ""}`.toLowerCase(),
+        "data-project-priority-value": project.priority ?? "",
+        "data-project-health-value": "inactive",
+      }, [
+        element("div", { class: "project-directory__identity" }, [
+          element("div", { class: "project-directory__kicker" }, [
+            element("span", {}, [project.priority ?? "Unranked"]),
+            state(inactiveProjectState(project)),
+          ]),
+          element("h3", {}, [project.name]),
+          element("p", {}, [project.description ?? "Historical Fleet identity retained in the canonical catalog."]),
+          element("small", { class: "project-directory__domain" }, [project.domains?.[0] ?? "No public domain"]),
+        ]),
+        element("a", { class: "project-row-action", href: projectHref(project.id), "aria-label": `View retained identity ${project.name}` }, ["View"]),
+      ]))),
+  ]);
+  const directory = element("div", { class: "project-directory-groups" }, [currentSection, inactiveDetails]);
   directory.append(element("div", { class: "directory-filter-empty", "data-project-filter-empty": "", hidden: "" }, [
     element("strong", {}, ["No projects match these filters."]),
     element("span", {}, ["Clear the search or choose a broader priority or state."]),
   ]));
   replace("project-statuses", directory);
-  bindProjectFilters();
+  bindProjectFilters(projects);
 }
 
-function bindProjectFilters() {
+function bindProjectFilters(projects: JsonRecord[]) {
   const searchInput = document.querySelector<HTMLInputElement>("[data-project-search]");
   const priority = document.querySelector<HTMLSelectElement>("[data-project-priority]");
   const health = document.querySelector<HTMLSelectElement>("[data-project-health]");
   const reset = document.querySelector<HTMLButtonElement>("[data-project-filter-reset]");
   const result = document.querySelector<HTMLElement>("[data-project-result-count]");
+  const projectById = new Map(projects.map((project) => [project.id, project]));
   const apply = () => {
     const query = searchInput?.value.trim().toLowerCase() ?? "";
-    let count = 0;
+    let currentCount = 0;
+    let inactiveCount = 0;
     document.querySelectorAll<HTMLElement>(".project-health-row").forEach((row) => {
-      const matches = (!query || row.dataset.projectName?.includes(query))
-        && (!priority?.value || row.dataset.projectPriorityValue === priority.value)
-        && (!health?.value || row.dataset.projectHealthValue === health.value);
+      const project = projectById.get(row.dataset.projectId);
+      const matches = project ? matchesProjectFilters({
+        ...project,
+        health: row.dataset.projectHealthValue,
+      }, {
+        query,
+        priority: priority?.value ?? "",
+        health: health?.value ?? "",
+      }) : false;
       row.hidden = !matches;
-      if (matches) count += 1;
+      if (matches && row.dataset.projectSection === "current") currentCount += 1;
+      if (matches && row.dataset.projectSection === "inactive") inactiveCount += 1;
     });
+    const currentSection = document.querySelector<HTMLElement>("[data-current-projects]");
+    const inactiveDetails = document.querySelector<HTMLDetailsElement>("[data-inactive-projects]");
+    const inactiveCountLabel = document.querySelector<HTMLElement>("[data-inactive-visible-count]");
+    const revealInactive = Boolean(
+      query || health?.value === "inactive" || priority?.value === "P4",
+    );
+    if (currentSection) currentSection.hidden = currentCount === 0;
+    if (inactiveDetails) {
+      inactiveDetails.hidden = inactiveCount === 0;
+      if (revealInactive && inactiveDetails.dataset.filterDisclosureActive !== "true") {
+        inactiveDetails.dataset.filterDisclosureActive = "true";
+        inactiveDetails.dataset.wasOpen = String(inactiveDetails.open);
+      }
+      if (revealInactive) inactiveDetails.open = inactiveCount > 0;
+      if (!revealInactive && inactiveDetails.dataset.filterDisclosureActive === "true") {
+        inactiveDetails.open = inactiveDetails.dataset.wasOpen === "true";
+        delete inactiveDetails.dataset.filterDisclosureActive;
+        delete inactiveDetails.dataset.wasOpen;
+      }
+    }
+    if (inactiveCountLabel) inactiveCountLabel.textContent = `${inactiveCount} ${inactiveCount === 1 ? "identity" : "identities"}`;
+    const count = currentCount + inactiveCount;
     const emptyResult = document.querySelector<HTMLElement>("[data-project-filter-empty]");
     if (emptyResult) emptyResult.hidden = count !== 0;
-    if (result) result.textContent = `${count} shown`;
+    if (result) result.textContent = `${currentCount} current · ${inactiveCount} inactive`;
   };
   if (searchInput && searchInput.dataset.projectFilterBound !== "true") {
     searchInput.dataset.projectFilterBound = "true";
@@ -499,7 +603,7 @@ async function renderProject() {
     optionalOutcome("/v1/outcomes/search"),
     optionalOutcome("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/performance"),
-    api("/v1/capabilities"),
+    optionalCapabilities(),
   ]);
   const project = projects.find((item: JsonRecord) => item.id === projectId);
   if (!project) {
@@ -655,6 +759,13 @@ function bindProjectRefresh(project: JsonRecord) {
   const status = document.querySelector<HTMLElement>("[data-project-refresh-status]");
   if (!button || button.dataset.refreshBound === "true") return;
   button.dataset.refreshBound = "true";
+  if (!isCurrentProject(project)) {
+    button.disabled = true;
+    const label = button.querySelector("span");
+    if (label) label.textContent = "Refresh unavailable";
+    if (status) status.textContent = "Inactive identity · excluded from portfolio refreshes";
+    return;
+  }
   button.disabled = false;
   if (status) status.textContent = project.domains?.length
     ? "Product DRANK + Performance · portfolio Search"

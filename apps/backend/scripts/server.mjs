@@ -38,7 +38,8 @@ if (!command || ['help', '--help', '-h'].includes(command)) {
   process.exit(0);
 }
 
-const projects = loadDashboardProjects();
+const projectsProvider = () => loadDashboardProjects();
+const projects = projectsProvider();
 const store = new DashboardStore({
   databasePath: process.env.DASHBOARD_DB || process.env.FOUNDER_CONTROL_DB || defaultDatabasePath(),
   projects,
@@ -81,11 +82,12 @@ if (command === 'status') {
 } else if (command === 'serve') {
   const port = Number(args[0] ?? 4187);
   const metricRunController = createMetricRunController({
-    projects: store.projects,
+    projectsProvider,
     onRunChange: (run) => recordRefreshReceipt(store, run),
   });
   let campaignRefresh = null;
   const prefillEvidence = ({ force = true } = {}) => {
+    store.projects = projectsProvider();
     const sources = refreshStaleEvidence({
       store,
       projection: buildDashboardProjection(),
@@ -114,6 +116,7 @@ if (command === 'status') {
     trustLoopback: (process.env.DASHBOARD_TRUST_LOOPBACK ?? process.env.FOUNDER_CONTROL_TRUST_LOOPBACK) !== '0',
     metricRunController,
     prefillEvidence,
+    projectsProvider,
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
   const startupPrefill = prefillEvidence({ force: true });

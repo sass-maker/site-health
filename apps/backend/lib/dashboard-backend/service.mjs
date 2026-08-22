@@ -207,11 +207,12 @@ export function createDashboardHandler({
   prewarmProjection = false,
   metricRunController,
   prefillEvidence,
+  projectsProvider = () => store.projects,
 }) {
   let projectionCache = null;
   const completedMetricRuns = new Set();
   const resolvedMetricRunController = metricRunController ?? createMetricRunController({
-    projects: store.projects,
+    projectsProvider,
     onRunChange: (run) => {
       recordRefreshReceipt(store, run);
       if (run.state !== 'running') projectionCache = null;
@@ -324,6 +325,7 @@ export function createDashboardHandler({
       const method = request.method ?? 'GET';
       if (handleEarlyRoutes(url, method, response)) return;
 
+      store.projects = projectsProvider();
       const projections = projectionFor(store);
       if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
 
@@ -361,6 +363,7 @@ export function startDashboardService({
   prewarmProjection = false,
   metricRunController,
   prefillEvidence,
+  projectsProvider,
 } = {}) {
   const server = createServer(
     createDashboardHandler({
@@ -373,6 +376,7 @@ export function startDashboardService({
       prewarmProjection,
       ...(metricRunController ? { metricRunController } : {}),
       ...(prefillEvidence ? { prefillEvidence } : {}),
+      ...(projectsProvider ? { projectsProvider } : {}),
     }),
   );
   return new Promise((resolve, reject) => {

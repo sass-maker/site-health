@@ -17,6 +17,12 @@ backend.
 
 ## Timeline
 
+- **2026-08-22:** Made the complete retained portfolio discoverable without
+  widening operational scope. Projects now keeps the 32 current identities
+  primary and exposes the other 26 archived, parked, outside-Fleet, and
+  resource-only identities in a searchable collapsed section. The backend
+  reloads catalog membership before projections and metric runs, and rejects
+  inactive project and portfolio refresh targets.
 - **2026-08-22:** Reconciled the catalog against every Cloudflare object that
   the authenticated CLI can enumerate and all 57 repositories across the six
   accessible non-Vault product organizations. Added live Email Routing
@@ -81,7 +87,8 @@ backend.
 
 ## Features (shipped)
 
-- Projects directory and project detail pages.
+- Projects directory and project detail pages, including a searchable retained
+  inventory separated from current portfolio counts and refresh scope.
 - DRANK/domain-strength view.
 - PSI and field-performance view.
 - Google Search evidence view.

@@ -4,7 +4,7 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
 
 <DashboardLayout
   title="Projects"
-  description="Portfolio health, capability coverage, and evidence for the current P1 and P2 products."
+  description="Current portfolio health with the complete inactive and retained inventory kept within reach."
   active="projects"
   view="projects"
   showProjectScope={false}
@@ -28,9 +28,10 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
     <label>
       <span>Priority</span>
       <select data-project-priority>
-        <option value="">P1 and P2</option>
+        <option value="">All priorities</option>
         <option value="P1">P1</option>
         <option value="P2">P2</option>
+        <option value="P4">P4</option>
       </select>
     </label>
     <label>
@@ -40,6 +41,7 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
         <option value="attention">Needs attention</option>
         <option value="measured">Has evidence</option>
         <option value="missing">Missing evidence</option>
+        <option value="inactive">Inactive / retained</option>
       </select>
     </label>
     <button class="directory-reset" type="button" data-project-filter-reset>Clear filters</button>
@@ -51,11 +53,6 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
       <summary>Status guide</summary>
       <p><strong>Fresh / observed</strong> has current evidence. <strong>Needs work / stale / zero impressions</strong> needs attention. <strong>Not measured</strong> has no observation. <strong>Unavailable</strong> means the provider could not be reached.</p>
     </details>
-    <div class="project-directory__header" aria-hidden="true">
-      <span>Product</span>
-      <span>Site evidence</span>
-      <span></span>
-    </div>
     <div class="loading-state" data-dashboard-slot="project-statuses" role="status" aria-live="polite" aria-busy="true">Building project directory…</div>
   </section>
 </DashboardLayout>

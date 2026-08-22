@@ -3,7 +3,11 @@ import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import { domainStrengthRoots, publicMetricTargets } from './domain-scope.mjs';
+import {
+  domainStrengthRoots,
+  isCurrentPortfolioProject,
+  publicMetricTargets,
+} from './domain-scope.mjs';
 
 const FAMILIES = new Set([
   'psi',
@@ -91,8 +95,9 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
 }
 
 function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }) {
+  const currentProjects = projects.filter(isCurrentPortfolioProject);
   if (family === 'drank') {
-    const targets = domainStrengthRoots(projects);
+    const targets = domainStrengthRoots(currentProjects);
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
     }
@@ -112,7 +117,7 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     };
   }
   if (family === 'psi') {
-    const targets = publicMetricTargets(projects);
+    const targets = publicMetricTargets(currentProjects);
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No public performance targets are configured');
     }
@@ -167,24 +172,29 @@ function publicRun(run, { duplicate = false } = {}) {
 
 export function createMetricRunController({
   projects,
+  projectsProvider,
   repositoryRoot = resolve(import.meta.dirname, '../../../..'),
   workspaceRoot = resolve(repositoryRoot, '..'),
   spawnProcess = spawn,
   now = () => new Date().toISOString(),
   onRunChange = () => {},
 } = {}) {
-  const projectsById = new Map((projects ?? []).map((project) => [project.id, project]));
   const runs = new Map();
   const active = new Map();
 
   return {
     start({ family, projectId, scope = 'project' } = {}) {
+      const currentProjects = projectsProvider ? projectsProvider() : projects ?? [];
+      const projectsById = new Map(currentProjects.map((project) => [project.id, project]));
       if (!FAMILIES.has(family)) fail('METRIC_FAMILY_INVALID', 'Unsupported metric family');
       if (!['project', 'portfolio'].includes(scope)) {
         fail('METRIC_SCOPE_INVALID', 'Unsupported metric scope');
       }
       const project = scope === 'project' ? projectsById.get(projectId) : null;
       if (scope === 'project' && !project) fail('METRIC_PROJECT_INVALID', 'Unknown Site Health project');
+      if (scope === 'project' && !isCurrentPortfolioProject(project)) {
+        fail('METRIC_PROJECT_INACTIVE', 'Inactive Site Health projects cannot start metric runs');
+      }
       const key = `${family}:${scope === 'portfolio' ? 'portfolio' : projectId}`;
       const existingId = active.get(key);
       if (existingId) return publicRun(runs.get(existingId), { duplicate: true });

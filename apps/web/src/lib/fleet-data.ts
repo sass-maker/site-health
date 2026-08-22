@@ -33,13 +33,7 @@ export function getFleetProjects(): DashboardProject[] {
   };
 
   return (registry.projects ?? [])
-    .filter((project) =>
-      project.status !== "orphan"
-      && !["past", "non-product"].includes(project.lifecycle ?? "")
-      && project.attention !== "ignored"
-      && project.tier !== "out-of-fleet"
-      && project.portfolio?.priority !== "P4"
-      && project.portfolio?.status !== "archived")
+    .filter((project) => project.status !== "orphan")
     .map((project) => ({
       slug: project.id,
       title: project.name ?? titleize(project.id),
