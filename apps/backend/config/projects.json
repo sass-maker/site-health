@@ -2967,7 +2967,7 @@
         "form": "Research dataset",
         "platforms": ["GitHub"],
         "technologies": ["Markdown", "Git"],
-        "description": "A retained research-data identity with public source history but no standalone deployment.",
+        "description": "A retained research-data identity with no retained local Git history or standalone public destination.",
         "firstCommitAt": null,
         "latestCommitAt": null
       },
