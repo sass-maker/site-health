@@ -23,6 +23,7 @@ I will start testing this product and see but due to the recent explosion of sim
 - Public link: `https://office-os.sassmaker.com`.
 - Open issues: #61, #60, #57, #56, #53, #21.
 
+
 ## AliveVille
 
 ```text
@@ -41,6 +42,7 @@ What's next? I would definitely like to pick this up because I think this will b
 - Git snapshot: `sarthakagrawal927/aliveville`; 48 commits; clean `main` matched `origin/main`.
 - Public links: `https://aliveville.com` and `https://aliveville.com/game`.
 - Open issues: none.
+
 
 ## Anchor
 
@@ -61,6 +63,7 @@ What's next for this product? This product will be part of my Significant-Hobbie
 - Public link: `https://anchor.significanthobbies.com`.
 - Open issues: #12, iPhone Live Activity; #10, Mac-Watch session continuity and compact-window scrolling.
 
+
 ## Anime List
 
 ```text
@@ -79,6 +82,7 @@ This will be done until some major functions, I think. It will be done only.
 - Git snapshot: `Significant-Hobbies/anime-list`; observed on `fix/agent-edge-api-passthrough` tracking its origin branch, with modified `index.html`.
 - Public link: `https://anime.significanthobbies.com`.
 - Open issue: #74.
+
 
 ## App Health
 
@@ -102,6 +106,7 @@ I think it is at a good v1/v0 stage. I have to use it more aggressively througho
 - Public links: `https://health.sassmaker.com` and `https://ingest.sassmaker.com`.
 - Open issues: none.
 
+
 ## Calorie
 
 ```text
@@ -121,6 +126,7 @@ I think it is at a good stage. I would say it's done. For next, this is to just 
 - Git snapshot: `Significant-Hobbies/calorie`; clean `main` matched `origin/main` after the Hub package migration.
 - Public link: `https://calorie.significanthobbies.com`.
 - Open issues: none. Calorie 1.0.0 (4) was available to internal TestFlight testers.
+
 
 ## ChatGPT Connections
 
@@ -142,6 +148,7 @@ While we are at it I want you to go check out this project and see if ChatGPT co
 - Open issue: #2, “Publish Fleet Mcp Plugins.”
 - Naming decision: retain **ChatGPT Connections**. “MCP Connections” is protocol jargon and suggests a general multi-client product that this project does not yet claim to be. Use “read-only MCP gateway for Fleet products” as the technical descriptor. OpenAI currently frames MCP servers as a way to extend ChatGPT and Codex, supporting the ChatGPT-facing product name ([OpenAI Developers](https://developers.openai.com/)).
 
+
 ## ChatGPT Memory Insights
 
 ```text
@@ -159,6 +166,7 @@ I would say it is at a good stage but I would not call it complete. I think the 
 - Public link: `https://chatgpt.significanthobbies.com`.
 - Open issue: #22, “Allow adding claude chat cloud, Claude Code and codex sessions from local.”
 
+
 ## Chess
 
 ```text
@@ -174,6 +182,7 @@ I started off to have a chess player on board which can use my local AI agent to
 - Public link: `https://chess.significanthobbies.com`.
 - Open issues: none.
 - Catalog state: archived experiment (2026-08-20); live public surface retained, not an active sharing target.
+
 
 ## CodeVetter
 
@@ -191,6 +200,7 @@ Ah this is a big one. I think this is the flagship product right now. I started 
 - Open issue: #159, “Compare Code Context Providers.”
 - Catalog state: P1 focus product, active, deployed, maintained, and public-ready.
 
+
 ## Companion Robot
 
 ```text
@@ -206,6 +216,7 @@ Companion robot is a project for the future. I don't think I have done anything 
 - Public link: source only, `https://github.com/HeyPace/companion-robot`; no deployed product.
 - Open issue: #1, “Non-Destructive Food Nutrition Scanner” (an unrelated later idea, not part of the documented robot v1 plan).
 - Status reconciliation: repository status calls the project parked/delayed (not archived), while the Fleet catalog currently classifies it as an archived, undeployed experiment. The owner's current framing supports “parked/ideation” if the catalog is updated later.
+
 
 ## Drank
 
@@ -225,6 +236,7 @@ I would say it's done. It is kind of like a skill. It's kind of inside the site 
 - Open issues: none.
 - Status reconciliation: the source was explicitly restored as a standalone repo on 2026-08-20, and its documented integration is currently with High Signal's `/domains` lens—not Site Health. The Fleet catalog still marks it active/maintained. The owner's “done/infrastructure” framing supports later recategorizing it as maintained shared infrastructure with no planned feature work.
 
+
 ## Elves HQ
 
 ```text
@@ -243,6 +255,7 @@ I could not build a UI that I was happy with on Mac OS. I think if I had started
 - Open issues: none.
 - Catalog state: archived, undeployed, hidden; explicit reactivation is required.
 
+
 ## Email Manager
 
 ```text
@@ -260,6 +273,7 @@ Email Manager I built because I was getting a lot of mails and Gmail's UI was no
 - Operational caveat: #45 is material—until the canonical Google OAuth callback is registered and verified, a fresh production sign-in can fail with `redirect_uri_mismatch`. This is maintenance/connection reliability, not a request for new product features.
 - Catalog state: active, deployed, maintained toolbox product.
 
+
 ## Everything Rated
 
 ```text
@@ -275,6 +289,7 @@ Everything Rated. This is also a fancy project that I had wanted to build for a 
 - Public link: `https://ratings.highsignal.app`.
 - Open issues: none.
 - Catalog state: archived experiment, with the deployed public POC retained but not an active sharing target.
+
 
 ## Field Track
 
@@ -293,6 +308,7 @@ Fieldtrack is a product I'm building for my dad but as of now the economics of t
 - Product-boundary discrepancy to resolve before rollout: the written product contract intentionally has **no employee start/stop/pause control** after administrator enrollment; server policy chooses which continuous points are retained. Your description says employees can choose when to track. That consent/control decision is material for product, legal, and technical design, so it needs an explicit later decision rather than being assumed.
 - Catalog state: active private P2 MVP, undeployed and not ready to share.
 
+
 ## Forecast Lab
 
 ```text
@@ -308,6 +324,7 @@ Forecast lab is also a very interesting product. This is also a product I wanted
 - Public link: source `https://github.com/sarthakagrawal927/forecast-lab`; no deployed product.
 - Open issues: none.
 - Catalog state: archived, undeployed experiment. Repository status calls it parked rather than archived, with reopen triggers of a concrete product/hiring need or return to systematic ML study.
+
 
 ## Free AI
 
@@ -326,6 +343,7 @@ Free AI is also a really good product. There are a lot of free AI providers whic
 - Operating boundary: this is best-effort free-tier routing, not an SLA. Providers can throttle or disappear and all capable options can be unavailable; the gateway is designed to fail over or return a transparent failure rather than promise uninterrupted free inference.
 - Catalog state: active, deployed, maintained public platform/toolbox product.
 
+
 ## GitStat
 
 ```text
@@ -343,6 +361,7 @@ Gitstat is, I think, the newest addition. I just wanted to see the churn of all 
 - Operational caveat: anonymous public analysis is live, but the optional GitHub connection flow is currently not repaired; catalog sharing remains gated until it is. This limits private-repository coverage and the user's own GitHub rate-limit path, but not the public-analysis surface.
 - Catalog state: active P2 deployed product, intentionally hidden from public listing while the connection flow is repaired.
 
+
 ## High Signal
 
 ```text
@@ -358,6 +377,25 @@ High-Signal is kind of started with very wide things but now I have focused it i
 - Public links: `https://highsignal.app` and `https://highsignal.app/api-docs`.
 - Open issues: none.
 - Status reconciliation: the catalog currently calls High Signal active, deployed, maintained, and public-ready (P2), while the owner says it is on hold pending personal use. The portfolio should later distinguish “live and maintained technically” from “not receiving product investment until the owner uses it.”
+
+
+## India Standards
+
+```text
+India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now.
+```
+
+### Agent record
+
+- Assessment: a transparent demographic-calculator experiment whose integrity depends on strict aggregate-only and uncertainty boundaries. The right reopen trigger is materially more authoritative, jointly usable data—not broader filters or more confident claims.
+- Start / latest commit: `73a290011fb4527f7f874d998b43578b1e25be23` (2026-07-27) / `ed39fa6988e17121cf42d3ac92c0ab936bfb269d` (2026-08-21); 32 commits.
+- Stack: Next.js, React, TypeScript, DuckDB local ETL/parity tests, MotherDuck aggregate-only serving tables through PostgreSQL, Cloudflare Workers/OpenNext, and PLFS 2025 controlled local input.
+- Git snapshot: public `Significant-Hobbies/india-standards`; `main` matched `origin/main`; observed local worker, agent-edge, layout, and public discovery-file changes.
+- Public link: `https://india-standards.significanthobbies.com` (`india-numbers.significanthobbies.com` is a compatibility alias).
+- Open issues: #31, “Import Official Survey Data”; #30, “Deploy Motherduck Cloudflare”; #29, “Build Local India Standards Calculator.”
+- Data boundary: the live calculator is explicitly a PLFS-backed preview, not fully survey-backed; NFHS access and height modelling remain unavailable, and person-level records are never served. The product must retain those disclosures.
+- Status reconciliation: the catalog calls it active, deployed, and maintained (P4), while the owner places it on hold pending better data quality. That owner gate should control future investment.
+
 
 ## Indulge
 
@@ -378,124 +416,54 @@ I had this idea for beautiful onboarding so I was like, let's build it out. It t
 - Release state: Habits 0.1.0 (6) was available to internal TestFlight testers on 2026-08-22; no public TestFlight or App Store release is approved.
 - Naming reconciliation: the user-facing product has been renamed **Habits**; Indulge remains the repository, bundle, and historical implementation identity for safe transition. The portfolio should show “Habits (formerly Indulge)” while retaining the historical origin story.
 
-## India Standards
+
+## iOS Landings
 
 ```text
-India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now.
+IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
 ```
 
 ### Agent record
 
-- Assessment: a transparent demographic-calculator experiment whose integrity depends on strict aggregate-only and uncertainty boundaries. The right reopen trigger is materially more authoritative, jointly usable data—not broader filters or more confident claims.
-- Start / latest commit: `73a290011fb4527f7f874d998b43578b1e25be23` (2026-07-27) / `ed39fa6988e17121cf42d3ac92c0ab936bfb269d` (2026-08-21); 32 commits.
-- Stack: Next.js, React, TypeScript, DuckDB local ETL/parity tests, MotherDuck aggregate-only serving tables through PostgreSQL, Cloudflare Workers/OpenNext, and PLFS 2025 controlled local input.
-- Git snapshot: public `Significant-Hobbies/india-standards`; `main` matched `origin/main`; observed local worker, agent-edge, layout, and public discovery-file changes.
-- Public link: `https://india-standards.significanthobbies.com` (`india-numbers.significanthobbies.com` is a compatibility alias).
-- Open issues: #31, “Import Official Survey Data”; #30, “Deploy Motherduck Cloudflare”; #29, “Build Local India Standards Calculator.”
-- Data boundary: the live calculator is explicitly a PLFS-backed preview, not fully survey-backed; NFHS access and height modelling remain unavailable, and person-level records are never served. The product must retain those disclosures.
-- Status reconciliation: the catalog calls it active, deployed, and maintained (P4), while the owner places it on hold pending better data quality. That owner gate should control future investment.
-
-## Materia
-
-```text
-Materia is also kind of an over-ambitious project. I wanted to have an encyclopaedia-like product in which you can come to visit, click on any body parts you have issues with, go deep into it, and see what all herbs and medicines are there to treat it. This is a product I will very actively pursue in the future but for now I don't have time or focus for
-```
-
-### Agent record
-
-- Assessment: a strong but exceptionally demanding evidence-reference thesis: interactive anatomy joined to an evidence-graded remedy graph. Its trust and content-maintenance burden, rather than software capability, is the central constraint; pausing until there is a defined evidence/content budget is prudent.
-- Start / latest commit: `48b4b3269bbaee8ea83a0214a1848391929e6678` (2026-06-21) / `3f61c2223c7e930c78595a25330b658538d11d17` (2026-08-22); 47 commits.
-- Stack: Astro static site, React 19 islands, Tailwind CSS, TypeScript, Three.js/react-three-fiber, nanostores, Zod content collections and graph references, Vitest, and Cloudflare Pages.
-- Git snapshot: public `Significant-Hobbies/materia`; `main` matched `origin/main`; observed substantial local work across content importers, safety checker, content pages, tests, and project configuration.
-- Public link: `https://materia.significanthobbies.com`.
+- Assessment: the shared marketing-site factory for the Significant Hobbies native-app family. One Astro engine produces separate, product-specific static sites rather than a combined storefront; each product supplies a small configuration and real screenshots. It currently covers Kith, Setline, Anchor, Motion, Indulge/Habits, Calorie, Journal, and Habits, while Significant Hobbies, Pace, and Live retain their own application surfaces.
+- Start / latest commit: `7f3cda21f43e8e1d4d2ec74d11e4d128b6f26c56` (2026-08-17) / `9d9877f8f75d38891a3fe6ba54dd12f2086b3ebd` (2026-08-23); 22 commits.
+- Stack: Astro, TypeScript, pnpm, product-scoped site configuration/content/screenshot folders, static builds, Cloudflare Pages, and product-specific `llms.txt` agent/discovery surfaces.
+- Git snapshot: private `Significant-Hobbies/ios-landings`; clean local `main` matched `origin/main`.
+- Public links: [Kith](https://kith.significanthobbies.com), [Setline](https://setline.significanthobbies.com), [Anchor](https://anchor.significanthobbies.com), [Motion](https://motion.significanthobbies.com), [Habits](https://habits.significanthobbies.com), and [Journal](https://journal.significanthobbies.com). The factory repository itself is private.
 - Open issues: none.
-- Safety boundary: educational reference only—not diagnosis or medical advice. Every efficacy claim requires a citation at build time; remedies are graded conservatively per condition, safety is separate, and the product describes study ranges rather than prescribing doses.
-- Catalog state: archived P4 experiment, with the 555-page public reference retained but not an active sharing target. Repository closure says reopen only with sustained traffic and a defined evidence/content budget.
+- Catalog state: active, live, maintained P2 internal platform and hidden from the public directory. Continue using it as the canonical landing engine where an eligible Significant Hobbies native product needs a marketing surface; do not invent App Store/TestFlight links before those releases are approved.
 
-## Open Historia
 
-```text
-I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
-```
+## Journal
+
+No separate owner narrative for Journal was captured in this review. This is recorded explicitly so the verbatim archive does not invent one.
 
 ### Agent record
 
-- Assessment: a compelling AI-native grand-strategy experiment whose novel core is durable, compressed country-level history (“story so far”) combined with natural-language orders. The current prototype has a broad system surface, but the single coherent campaign turn loop and a map that feels game-quality are the actual reopen gates.
-- Start / latest commit: `7b052aa7b2796f838fbedbc5855fd40ab12be0fb` (2026-06-04) / `5fe61f4147fb48cfbbd42e000bb8bb0cb053e9f0` (2026-08-22); 207 commits.
-- Stack: Vite 8, React 19, TypeScript, Tailwind CSS, MapLibre with hierarchical TopoJSON map levels, Hono/Cloudflare Workers, Turso/libSQL, Drizzle, better-auth/Google OAuth, browser localStorage, multi-provider AI and a local development bridge, Astro landing, Vitest, and Playwright.
-- Git snapshot: public `sarthakagrawal927/open-historia`; local `main` was clean and two commits ahead of `origin/main`.
-- Public link: `https://historia.aliveville.com`.
+- Assessment: the private daily-writing iPhone product extracted from the old combined Significant Hobbies repository. It is now independently owned while retaining its history, bundle identity, local document/export behavior, and Hub sync integration.
+- Start / latest commit: `31193ef743e2e0ed740fc19b90b8644c6a95c51f` (2026-08-11) / `e2d514bbca21c81c6ae03dc255077d182ee18da4` (2026-08-23).
+- Stack: Swift 6, SwiftUI, XcodeGen, XCTest/XCUITest, local JSON document/export, and `PersonalSyncKit` from the Significant Hobbies Hub repository.
+- Git snapshot: public `Significant-Hobbies/journal`; clean `main` matched `origin/main` after extraction.
+- Public link: `https://journal.significanthobbies.com` (landing); the native app remains internal-only.
 - Open issues: none.
-- Scope correction: the local AI bridge is a development mode; the deployed game is architected to use server-side multi-provider AI through its gateway. Offline local saves work without authentication, but AI turns themselves are not an offline runtime guarantee.
-- Catalog state: archived P4 experiment in the AliveVille/AI-game family; its live surface is retained, but it is not an active sharing target.
 
-## Pace
+
+## Karte
 
 ```text
-Pace. It started off as a fork of a product called Hey Clicky. I also wanted to build a personal assistant. I copied most features. I added some features of my own. I wanted to make it a local-first product. I think it's pretty well made also. I tried training my own model. It has a lot of features, it has a lot of abilities, but I've never really used it myself. I don't know why. I don't really have a solid answer why I did not use it but since I did not use it, it kept falling in priority. I would definitely want to work on this more in the future.
+Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
 ```
 
 ### Agent record
 
-- Assessment: Pace has a serious differentiated thesis—fast, privacy-first, on-device Mac assistance with screen context and approved actions. Its gating problem is not capability breadth but product pull: regular owner use must expose the one or two moments it should own before more feature expansion is justified.
-- Start / latest commit: `3efd1a265dc94816bd78d998c37c9bbd4b9028d8` (2026-07-13) / `12b1ff1a8cf844a23c5bd26e419bc30fc81f3dd0` (2026-08-22); 50 commits.
-- Stack: native Swift/SwiftUI and AppKit macOS menu-bar app, Apple Speech/WhisperKit, ScreenCaptureKit, on-device VLM/planners through MLX and Apple Foundation Models, local TTS, Accessibility/CGEvent automation, persistent local JSON memory, typed MCP/automation catalog, XCTest/evaluation harnesses, and Astro/Cloudflare Pages website.
-- Git snapshot: public `HeyPace/pace`; `main` matched `origin/main`; observed untracked local build and Personal Platform/PersonalSyncKit directories.
-- Public links: `https://heypace.app`, source `https://github.com/HeyPace/pace`, and releases `https://github.com/HeyPace/pace/releases/latest`.
-- Open issue: #157, “Build Spatial Teach Mode and evidence-rich compiled flows.”
-- Local-first boundary: its default/aspirational posture is fully on-device, but optional explicit off-device tiers (CLI bridge or direct API) exist and must stay visibly disclosed. Public Mac distribution also still needs Developer ID signing, notarization, and a real-hardware smoke gate.
-- Catalog state: active P1 focus product, deployed, maintained, and public-ready—despite the owner's current lower personal-use priority.
-
-## PostTrainLLM
-
-```text
-Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
-```
-
-### Agent record
-
-- Assessment: correctly a flagship alongside CodeVetter. The active product is now a Mac-local specialist-model factory—target → data → post-training → evaluation → package → report—while browser/WebGPU training remains the origin story and a valuable parked research asset. Its strength is measured, reproducible local capability rather than trying to outscale frontier training.
-- Start / latest commit: `567a3715003c98c4ed68e773b2a2b122b92903a1` (2026-07-26) / `595f3516bddba1e1a7d0ef877274d5d10854b613` (2026-08-22); 755 commits.
-- Stack: Swift/MLX native Mac CLI and app, Python reference/data tooling, browser Astro/WebGPU/WGSL/WASM playground, Rust helper tools, LoRA/distillation/evaluation harnesses, local OpenAI-compatible serving, and Cloudflare Pages public documentation/playground.
-- Git snapshot: public `PostTrainLLM/posttrainllm`; `main` matched `origin/main`; observed local browser-site configuration and layout changes.
-- Public links: `https://posttrainllm.com`, docs `https://posttrainllm.com/docs/`, source `https://github.com/PostTrainLLM/posttrainllm`.
-- Open issues: #125, “Build 50m Character Chess Specialist”; #111, “Evaluate parakeet.wgsl for local browser transcription”; #110, “Evaluate Needle 2 as the tiny tool-calling baseline”; #101, “Build a privacy-first personal-style dataset pilot from ChatGPT and Codex history.”
-- Operating boundary: heavy GPU or model-training loops require explicit owner approval; active experiments must enter the factory loop with frozen evaluation and a reportable ship/reject decision, while broad browser polish and other research tracks remain parked unless needed.
-- Catalog state: active P1 focus product, deployed, maintained, and public-ready.
-
-## Protein Index
-
-```text
-Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
-```
-
-### Agent record
-
-- Assessment: a high-integrity Indian protein-product intelligence project whose actual moat is evidence provenance and canonical product identity, not the catalog UI. Its data-access problem is fundamental: commercial GS1/DataKart and retailer-authorized sources are needed to support trustworthy current-market coverage, so pausing is correct.
-- Start / latest commit: `71d860be5034b3b7c4992585ce67c394ea15c827` (2026-07-18) / `ec15b4fef1006f47506acbe43ba3e8076e1a6361` (2026-07-25); 233 commits.
-- Stack: Vite, React, TypeScript, Hono, Cloudflare Workers, D1, private R2 evidence storage, GTIN-based canonicalization, controlled ingestion/evidence pipelines, and Open Food Facts bootstrap data.
-- Git snapshot: local `protein-index` checkout tracks public `Significant-Hobbies/protein-index`; local `main` was one commit ahead of `origin/main`, with modified public discovery files, Worker code, and Wrangler configuration.
-- Public link: `https://protein.significanthobbies.com`.
+- Assessment: a live AI-native public profile and inbound-assistant platform, evolved materially beyond a link-in-bio clone. A Karte profile carries links, projects, proof, and contextual information, with optional chat, encyclopedia, roast, and newspaper modes; public visitors can converse through a streaming assistant rather than only click out. Company-facing capability and language are the right next focus because the individual profile foundation and agent-readable surfaces already exist.
+- Start / latest commit: `3f27987469ae5129bfab77a3542eec657e40df4b` (2026-07-20) / `8111a5dafac4b2fd7e1ee30b22ec830a609a35dc` (2026-08-22); 487 commits.
+- Stack: Next.js 16/App Router, React 19, TypeScript, Cloudflare Workers/OpenNext, Cloudflare D1 via Drizzle, better-auth Google OAuth, R2, Durable Object rate limiting, Cloudflare Analytics Engine, PostHog, Free AI gateway through AI SDK, Knowledge Base RAG, Vitest, Playwright, and GitHub Actions.
+- Git snapshot: public `Significant-Hobbies/karte`; local `main` matched `origin/main` with modified agent-indexing artifacts (`agent-edge.mjs`, `public/api-ai.json`, `public/llms.txt`).
+- Public link: [karte.cc](https://karte.cc) and [repository](https://github.com/Significant-Hobbies/karte).
 - Open issues: none.
-- Source mapping: this checkout/repository is the documented historical alias. The Fleet catalog identifies `Significant-Hobbies/protein-index-resilience` as the canonical public source, with `Significant-Hobbies/protein-index` retained as an alias.
-- Catalog state: retired/archived P4 experiment. GitHub Actions, scheduled producers, publication jobs, CI, and deployment automation were removed; explicit reactivation is required.
+- Catalog state: active, live, maintained P2 secondary product, with all 30 sitemap URLs verified live on 2026-08-14. The documented PLAID KARTE name-collision risk was accepted for sharing on 2026-08-16, but company-facing work should continue to identify the canonical `karte.cc` product clearly.
 
-## PSI Swarm
-
-```text
-Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
-```
-
-### Agent record
-
-- Assessment: a completed local-first performance-measurement tool. Its key contribution is replacing a single noisy Lighthouse score with distributions across realistic conditions, so it belongs in ongoing fleet operations rather than a feature-product roadmap.
-- Start / latest commit: `be46b6c1d70194759dd47b0b568d58f7dc2497cb` (2026-06-03) / `a333f724a792267ff5a2dcae1a23a89d7ae32b5a` (2026-08-23); 61 commits.
-- Stack: Node/TypeScript CLI, Lighthouse 13, headless Chrome, SQLite local history, Ink/React terminal UI, Astro/React/Tailwind local controller, optional OpenAI-compatible/local reasoning, Ahrefs free Domain Rating, and Cloudflare Pages static site.
-- Git snapshot: public `sass-maker/psi-swarm`; `main` matched `origin/main`; observed local public-discovery files and an untracked web Functions directory.
-- Public link: `https://performance.sassmaker.com`.
-- Open issue: #18, “Publish a supported public local-agent distribution.”
-- Ownership correction: PSI Swarm is a standalone Sass Maker repository that owns its CLI, runtime, documentation, and canonical skill. Site Health/Fleet may invoke it, but it is not implemented inside Site Health.
-- Catalog state: active, deployed, maintained P4 toolbox platform. The completed operational stance is maintenance and use, not new feature investment.
 
 ## Kith
 
@@ -514,6 +482,42 @@ Keetha! It is also something I wanted to build. I saw a tweet in which someone h
 - Release state: Kith 1.0.0 (3) completed processing on 2026-08-22 but still requires internal tester assignment; no public TestFlight or App Store release is approved.
 - Catalog state: active P2 maintained personal product, part of the Significant Hobbies Personal Platform family.
 
+
+## Knowledge Base
+
+```text
+Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
+```
+
+### Agent record
+
+- Assessment: shared private-corpus retrieval infrastructure for Fleet applications, not a standalone knowledge-management app. Authorized consumers receive isolated scopes plus ranked, cited evidence through search and grounded-query APIs; it combines schema-aware extraction, lexical/vector retrieval, reranking, provenance, and answer support checks. The user’s maintenance-only posture is sensible while its dependent applications remain healthy.
+- Start / latest commit: `cac148ee91ea0b21c825884c4967aa4caba468ab` (2026-06-26) / `a1379a3c1df96e6ad4d3a354329a3fe0edb22088` (2026-08-20); 201 commits.
+- Stack: Cloudflare Workers, Pages, D1, R2, Vectorize, Queues, Workflows, Workers AI, Free AI gateway, TypeScript/Hono worker APIs, a service-key-authenticated RAG contract, retrieval evaluations, and cited-provenance storage.
+- Git snapshot: public `sass-maker/knowledge-base`; local `main` matched `origin/main` with uncommitted agent-discovery files and a new middleware file.
+- Public links: [knowledgebase.sassmaker.com](https://knowledgebase.sassmaker.com) and [search.sassmaker.com](https://search.sassmaker.com); the shared retrieval APIs remain authenticated.
+- Open issues: none.
+- Catalog state: active, live, maintained P2 internal platform with a live landing, app/search surface, and shared RAG Worker. Leave it untouched unless a consumer failure, retrieval-quality regression, or an explicit new corpus/use-case supplies a concrete reason to change it.
+
+## Live
+
+```text
+Help me understand: where was the lab repository and is it still inside Significant Hobbies?
+
+live*
+```
+
+### Agent record
+
+- Verbatim coverage: the correction above is the only separate owner statement about Live captured during this review; its motivation/status/next narrative still needs an owner pass.
+- Assessment: the independently owned original Significant Hobbies experience. It retains the existing user data, authentication, timelines, bookmarks, and deeper app routes; only the apex Hub routes are proxied to the Hub backend.
+- Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `62c42a7b4acdbcb74f042da4eaa0f792020d1da9` (2026-08-23).
+- Stack: Next.js, React, TypeScript, OpenNext, Cloudflare Workers, D1, Workers AI, Better Auth, Vitest, and Playwright.
+- Git snapshot: public `Significant-Hobbies/live`; clean `main` matched `origin/main` after extraction.
+- Public link: `https://live.significanthobbies.com`; existing deeper routes also remain available on the apex domain.
+- Open issues: none.
+
+
 ## Local AI Video Studio
 
 ```text
@@ -531,6 +535,7 @@ Local AI video studio. I think I started off this project because there are a lo
 - Release state: local macOS app bundle only. Public direct distribution is closed pending an approved support contact and a Developer ID-signed, notarized, stapled, Gatekeeper-accepted DMG with a matching checksum.
 - Status reconciliation: catalog calls it active/maintained and approves its informational site for sharing, while the owner calls the product an experiment that may resume later. Treat product investment as parked while retaining the site and local source.
 
+
 ## LoopTV
 
 ```text
@@ -547,37 +552,6 @@ Loot tv, I wanted a better experience of watching YouTube more controlled so I p
 - Open issues: none.
 - Catalog state: active, deployed, maintained P4 toolbox product. Repository status independently calls the current scope feature-complete, limiting work to maintenance and catalog freshness.
 
-## Reader
-
-```text
-I think Reader is one of the earliest products in the fleet and a product that started before all this by the way. Its purpose was to essentially let me post any website link and it just downloads everything and gets it ready for my viewing. While it is a good product, I also expanded it to have boards and other things. I've never really used it a lot. I have not been reading much. I will definitely want to pick and improve its tooling. I think there are a lot of tools that can improve the product once I start using it more.
-```
-
-### Agent record
-
-- Assessment: a mature personal research library, not merely a read-later app: it captures articles and PDFs, supports annotations and AI-assisted work, and has the organisational depth the owner describes. The correct next move is personal-use validation, because the key unknown is whether the capture-to-reading loop actually earns a place in the owner's routine.
-- Start / latest commit: `9607d0c8c7469f37ccade42380c5ac89e8bc4fc7` (2026-07-17) / `e8e1043c731dc783eaa6668fe772d71d8bf17f19` (2026-08-22); 317 commits.
-- Stack: Vite, React 19, TypeScript, Tailwind CSS, Hono on Cloudflare Workers, Cloudflare D1 with Drizzle, Cloudflare R2 for PDFs, better-auth Google OAuth, AI SDK with free gateway/BYOK/local-AI paths, and a Chrome MV3 capture extension.
-- Git snapshot: public `Significant-Hobbies/reader`; local `main` matched `origin/main`, with an owner-local modification to `app.html`.
-- Public link: `https://read.significanthobbies.com`.
-- Open issues: none.
-- Catalog state: active, deployed, share-ready P2 Significant Hobbies product; repository truth says personal-use, maintenance-first support. This agrees with improving it only after renewed personal reading use shows what is missing.
-
-## Reel Pipeline
-
-```text
-Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
-```
-
-### Agent record
-
-- Assessment: the repository has substantial, real production infrastructure, but it over-expanded from a simple per-product reel and posting loop into a provider-neutral production suite. Its most valuable future direction is therefore a deliberately smaller end-to-end lane: one approved brief, one deterministic render path, human review, and one policy-gated publishing destination.
-- Start / latest commit: `f5e9d65cd10f9433418a928f55b619d63e496add` (2026-06-24) / `a7663ef1fbb858134997d8db6ca73b6da4821a68` (2026-08-22); 91 commits.
-- Stack: Node.js/JavaScript, Cloudflare Worker and R2 artifacts, FFmpeg and Chromium, optional Blender and Kokoro, contract-driven source packages and VideoBriefs, browser Studio, YouTube and Instagram adapters, plus policy-gated Postiz handoff.
-- Git snapshot: public `sass-maker/reel-pipeline`; clean `main` matched `origin/main`.
-- Public link: none approved. The retained Worker has no public domain or share-approved product surface.
-- Open issues: #14, truthful cartoon-hand-pointer demo; #13, representative proof-gallery coverage; #11, creative-quality improvement from reviewed output/performance; #10, reproducible local-video recipes and episode assembly.
-- Catalog state: active/deployed P2 with retained artifacts, but hidden from the public directory and explicitly not ready to share. The owner’s hold status should govern new investment; existing records show real foundations, not a shipped public product.
 
 ## Mashup
 
@@ -595,6 +569,25 @@ Mashup's purpose was that I was thinking about how comedy videos can be used. Fo
 - Open issues: #11, validate a hosted URL-to-clips product loop; #10, validate a zero-API-cost RSS-to-personalized-podcast loop.
 - Catalog state: active P2 maintained experiment, undeployed, hidden, and not share-ready. It was extracted from Reel Pipeline on 2026-08-09 and restored as its own canonical repository on 2026-08-20; the only integration is an explicit finished-media receipt.
 
+
+## Materia
+
+```text
+Materia is also kind of an over-ambitious project. I wanted to have an encyclopaedia-like product in which you can come to visit, click on any body parts you have issues with, go deep into it, and see what all herbs and medicines are there to treat it. This is a product I will very actively pursue in the future but for now I don't have time or focus for
+```
+
+### Agent record
+
+- Assessment: a strong but exceptionally demanding evidence-reference thesis: interactive anatomy joined to an evidence-graded remedy graph. Its trust and content-maintenance burden, rather than software capability, is the central constraint; pausing until there is a defined evidence/content budget is prudent.
+- Start / latest commit: `48b4b3269bbaee8ea83a0214a1848391929e6678` (2026-06-21) / `3f61c2223c7e930c78595a25330b658538d11d17` (2026-08-22); 47 commits.
+- Stack: Astro static site, React 19 islands, Tailwind CSS, TypeScript, Three.js/react-three-fiber, nanostores, Zod content collections and graph references, Vitest, and Cloudflare Pages.
+- Git snapshot: public `Significant-Hobbies/materia`; `main` matched `origin/main`; observed substantial local work across content importers, safety checker, content pages, tests, and project configuration.
+- Public link: `https://materia.significanthobbies.com`.
+- Open issues: none.
+- Safety boundary: educational reference only—not diagnosis or medical advice. Every efficacy claim requires a citation at build time; remedies are graded conservatively per condition, safety is separate, and the product describes study ranges rather than prescribing doses.
+- Catalog state: archived P4 experiment, with the 555-page public reference retained but not an active sharing target. Repository closure says reopen only with sustained traffic and a defined evidence/content budget.
+
+
 ## Mobile Dev Cockpit
 
 ```text
@@ -610,6 +603,7 @@ Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for 
 - Public link: none; no approved distribution surface.
 - Open issues: none.
 - Catalog state: archived P4, hidden and not share-ready. The catalog retains legacy Cloudflare Worker/container inventory only; it confirms there is no active physical-device, deployment, or Fleet Console work. This is fully aligned with the owner’s decision to stop it permanently.
+
 
 ## Motion
 
@@ -628,23 +622,42 @@ Notion was another fancy thing that I wanted to build. Its purpose was to have m
 - Open issue: #20, create the personal App Store Connect record and upload to TestFlight (deferred).
 - Catalog state: active/deployed/share-ready P2 because the landing is live, while physical-device validation and app distribution remain parked. There is a technical ownership conflict to resolve before any landing work: the catalog points to the `ios-landings` factory, but Motion’s status document says this repository most recently deployed the same Pages project and one source must be retired.
 
-## Significant Hobbies
+
+## Open Historia
 
 ```text
-OK we need to move things outside and significanthobbies will be the hub and its backend, create a task for this reconcilliation
-
-So hub backend is the backend for seven applications and its purpose is to join the applications and show it on a UI. It is currently being built and it would be an important project for future
+I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
 ```
 
 ### Agent record
 
-- Identity: **Significant Hobbies** is now the Hub and its backend. The old standalone Hub Backend repository has been absorbed into `services/hub-backend`; stable Worker and D1 identifiers remain `personal-platform` to avoid an operational migration.
-- Assessment: the canonical seven-app control plane. It serves the public Hub UI, composes privacy-safe summaries and actions, and versions `PersonalSyncKit` for native consumers while each app retains ownership of its immediate data.
-- Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `56bf264b8bcf2aed5230398b34f9250f0de5c14a` (2026-08-23).
-- Stack: TypeScript, Cloudflare Workers and D1, typed service bindings, Better Auth session verification, read-only MCP contracts, HTML Hub UI, and the Foundation-only Swift `PersonalSyncKit` package.
-- Git snapshot: public `Significant-Hobbies/significanthobbies`; reconciliation merged in PR #140.
-- Public link: `https://significanthobbies.com`; signed-out private Hub access redirects to login.
-- Open issues: #142, expose all seven personal domains to the read-only Hub and ChatGPT; #141, unify personal-app authentication. Reconciliation issue #138 is complete.
+- Assessment: a compelling AI-native grand-strategy experiment whose novel core is durable, compressed country-level history (“story so far”) combined with natural-language orders. The current prototype has a broad system surface, but the single coherent campaign turn loop and a map that feels game-quality are the actual reopen gates.
+- Start / latest commit: `7b052aa7b2796f838fbedbc5855fd40ab12be0fb` (2026-06-04) / `5fe61f4147fb48cfbbd42e000bb8bb0cb053e9f0` (2026-08-22); 207 commits.
+- Stack: Vite 8, React 19, TypeScript, Tailwind CSS, MapLibre with hierarchical TopoJSON map levels, Hono/Cloudflare Workers, Turso/libSQL, Drizzle, better-auth/Google OAuth, browser localStorage, multi-provider AI and a local development bridge, Astro landing, Vitest, and Playwright.
+- Git snapshot: public `sarthakagrawal927/open-historia`; local `main` was clean and two commits ahead of `origin/main`.
+- Public link: `https://historia.aliveville.com`.
+- Open issues: none.
+- Scope correction: the local AI bridge is a development mode; the deployed game is architected to use server-side multi-provider AI through its gateway. Offline local saves work without authentication, but AI turns themselves are not an offline runtime guarantee.
+- Catalog state: archived P4 experiment in the AliveVille/AI-game family; its live surface is retained, but it is not an active sharing target.
+
+
+## Pace
+
+```text
+Pace. It started off as a fork of a product called Hey Clicky. I also wanted to build a personal assistant. I copied most features. I added some features of my own. I wanted to make it a local-first product. I think it's pretty well made also. I tried training my own model. It has a lot of features, it has a lot of abilities, but I've never really used it myself. I don't know why. I don't really have a solid answer why I did not use it but since I did not use it, it kept falling in priority. I would definitely want to work on this more in the future.
+```
+
+### Agent record
+
+- Assessment: Pace has a serious differentiated thesis—fast, privacy-first, on-device Mac assistance with screen context and approved actions. Its gating problem is not capability breadth but product pull: regular owner use must expose the one or two moments it should own before more feature expansion is justified.
+- Start / latest commit: `3efd1a265dc94816bd78d998c37c9bbd4b9028d8` (2026-07-13) / `12b1ff1a8cf844a23c5bd26e419bc30fc81f3dd0` (2026-08-22); 50 commits.
+- Stack: native Swift/SwiftUI and AppKit macOS menu-bar app, Apple Speech/WhisperKit, ScreenCaptureKit, on-device VLM/planners through MLX and Apple Foundation Models, local TTS, Accessibility/CGEvent automation, persistent local JSON memory, typed MCP/automation catalog, XCTest/evaluation harnesses, and Astro/Cloudflare Pages website.
+- Git snapshot: public `HeyPace/pace`; `main` matched `origin/main`; observed untracked local build and Personal Platform/PersonalSyncKit directories.
+- Public links: `https://heypace.app`, source `https://github.com/HeyPace/pace`, and releases `https://github.com/HeyPace/pace/releases/latest`.
+- Open issue: #157, “Build Spatial Teach Mode and evidence-rich compiled flows.”
+- Local-first boundary: its default/aspirational posture is fully on-device, but optional explicit off-device tiers (CLI bridge or direct API) exist and must stay visibly disclosed. Public Mac distribution also still needs Developer ID signing, notarization, and a real-hardware smoke gate.
+- Catalog state: active P1 focus product, deployed, maintained, and public-ready—despite the owner's current lower personal-use priority.
+
 
 ## Portfolio
 
@@ -661,6 +674,78 @@ Portfolio, as the name suggests, is my personal website. It needs to exist so it
 - Public link: `https://sarthakagrawal.dev`.
 - Open issues: none.
 - Catalog state: live, maintained personal P2 site; public directory identity is **Sarthak Agrawal** with `portfolio` as its source repository.
+
+
+## PostTrainLLM
+
+```text
+Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
+```
+
+### Agent record
+
+- Assessment: correctly a flagship alongside CodeVetter. The active product is now a Mac-local specialist-model factory—target → data → post-training → evaluation → package → report—while browser/WebGPU training remains the origin story and a valuable parked research asset. Its strength is measured, reproducible local capability rather than trying to outscale frontier training.
+- Start / latest commit: `567a3715003c98c4ed68e773b2a2b122b92903a1` (2026-07-26) / `595f3516bddba1e1a7d0ef877274d5d10854b613` (2026-08-22); 755 commits.
+- Stack: Swift/MLX native Mac CLI and app, Python reference/data tooling, browser Astro/WebGPU/WGSL/WASM playground, Rust helper tools, LoRA/distillation/evaluation harnesses, local OpenAI-compatible serving, and Cloudflare Pages public documentation/playground.
+- Git snapshot: public `PostTrainLLM/posttrainllm`; `main` matched `origin/main`; observed local browser-site configuration and layout changes.
+- Public links: `https://posttrainllm.com`, docs `https://posttrainllm.com/docs/`, source `https://github.com/PostTrainLLM/posttrainllm`.
+- Open issues: #125, “Build 50m Character Chess Specialist”; #111, “Evaluate parakeet.wgsl for local browser transcription”; #110, “Evaluate Needle 2 as the tiny tool-calling baseline”; #101, “Build a privacy-first personal-style dataset pilot from ChatGPT and Codex history.”
+- Operating boundary: heavy GPU or model-training loops require explicit owner approval; active experiments must enter the factory loop with frozen evaluation and a reportable ship/reject decision, while broad browser polish and other research tracks remain parked unless needed.
+- Catalog state: active P1 focus product, deployed, maintained, and public-ready.
+
+
+## Protein Index
+
+```text
+Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
+```
+
+### Agent record
+
+- Assessment: a high-integrity Indian protein-product intelligence project whose actual moat is evidence provenance and canonical product identity, not the catalog UI. Its data-access problem is fundamental: commercial GS1/DataKart and retailer-authorized sources are needed to support trustworthy current-market coverage, so pausing is correct.
+- Start / latest commit: `71d860be5034b3b7c4992585ce67c394ea15c827` (2026-07-18) / `ec15b4fef1006f47506acbe43ba3e8076e1a6361` (2026-07-25); 233 commits.
+- Stack: Vite, React, TypeScript, Hono, Cloudflare Workers, D1, private R2 evidence storage, GTIN-based canonicalization, controlled ingestion/evidence pipelines, and Open Food Facts bootstrap data.
+- Git snapshot: local `protein-index` checkout tracks public `Significant-Hobbies/protein-index`; local `main` was one commit ahead of `origin/main`, with modified public discovery files, Worker code, and Wrangler configuration.
+- Public link: `https://protein.significanthobbies.com`.
+- Open issues: none.
+- Source mapping: this checkout/repository is the documented historical alias. The Fleet catalog identifies `Significant-Hobbies/protein-index-resilience` as the canonical public source, with `Significant-Hobbies/protein-index` retained as an alias.
+- Catalog state: retired/archived P4 experiment. GitHub Actions, scheduled producers, publication jobs, CI, and deployment automation were removed; explicit reactivation is required.
+
+
+## PSI Swarm
+
+```text
+Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
+```
+
+### Agent record
+
+- Assessment: a completed local-first performance-measurement tool. Its key contribution is replacing a single noisy Lighthouse score with distributions across realistic conditions, so it belongs in ongoing fleet operations rather than a feature-product roadmap.
+- Start / latest commit: `be46b6c1d70194759dd47b0b568d58f7dc2497cb` (2026-06-03) / `a333f724a792267ff5a2dcae1a23a89d7ae32b5a` (2026-08-23); 61 commits.
+- Stack: Node/TypeScript CLI, Lighthouse 13, headless Chrome, SQLite local history, Ink/React terminal UI, Astro/React/Tailwind local controller, optional OpenAI-compatible/local reasoning, Ahrefs free Domain Rating, and Cloudflare Pages static site.
+- Git snapshot: public `sass-maker/psi-swarm`; `main` matched `origin/main`; observed local public-discovery files and an untracked web Functions directory.
+- Public link: `https://performance.sassmaker.com`.
+- Open issue: #18, “Publish a supported public local-agent distribution.”
+- Ownership correction: PSI Swarm is a standalone Sass Maker repository that owns its CLI, runtime, documentation, and canonical skill. Site Health/Fleet may invoke it, but it is not implemented inside Site Health.
+- Catalog state: active, deployed, maintained P4 toolbox platform. The completed operational stance is maintenance and use, not new feature investment.
+
+
+## Reader
+
+```text
+I think Reader is one of the earliest products in the fleet and a product that started before all this by the way. Its purpose was to essentially let me post any website link and it just downloads everything and gets it ready for my viewing. While it is a good product, I also expanded it to have boards and other things. I've never really used it a lot. I have not been reading much. I will definitely want to pick and improve its tooling. I think there are a lot of tools that can improve the product once I start using it more.
+```
+
+### Agent record
+
+- Assessment: a mature personal research library, not merely a read-later app: it captures articles and PDFs, supports annotations and AI-assisted work, and has the organisational depth the owner describes. The correct next move is personal-use validation, because the key unknown is whether the capture-to-reading loop actually earns a place in the owner's routine.
+- Start / latest commit: `9607d0c8c7469f37ccade42380c5ac89e8bc4fc7` (2026-07-17) / `e8e1043c731dc783eaa6668fe772d71d8bf17f19` (2026-08-22); 317 commits.
+- Stack: Vite, React 19, TypeScript, Tailwind CSS, Hono on Cloudflare Workers, Cloudflare D1 with Drizzle, Cloudflare R2 for PDFs, better-auth Google OAuth, AI SDK with free gateway/BYOK/local-AI paths, and a Chrome MV3 capture extension.
+- Git snapshot: public `Significant-Hobbies/reader`; local `main` matched `origin/main`, with an owner-local modification to `app.html`.
+- Public link: `https://read.significanthobbies.com`.
+- Open issues: none.
+- Catalog state: active, deployed, share-ready P2 Significant Hobbies product; repository truth says personal-use, maintenance-first support. This agrees with improving it only after renewed personal reading use shows what is missing.
+
 
 ## Recipe Dashboard
 
@@ -679,6 +764,7 @@ Recipe Dashboard: It's just a product which has some higher protein recipes with
 - Open issues: none.
 - Catalog state: live P4 experiment but hidden from the maintained portfolio. Owner status is on hold, which is the correct investment state; retain the public reference without adding cooking-product scope.
 
+
 ## Reddit Insights
 
 ```text
@@ -694,6 +780,24 @@ Reddit Insights is a product in which I was trying to see how historically signa
 - Public link: `https://reddit-insights.highsignal.app`.
 - Open issues: #9 daily collector; #10 compact community reports; #11 research-workbench overhaul; #12 browser-mode relevant-post search.
 - Catalog state: live but hidden P4 High Signal experiment. The static observatory exposes curated compact artifacts only; raw research corpus remains private. Owner status should be treated as blocked/on hold until prospective collection creates sufficient history.
+
+
+## Reel Pipeline
+
+```text
+Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
+```
+
+### Agent record
+
+- Assessment: the repository has substantial, real production infrastructure, but it over-expanded from a simple per-product reel and posting loop into a provider-neutral production suite. Its most valuable future direction is therefore a deliberately smaller end-to-end lane: one approved brief, one deterministic render path, human review, and one policy-gated publishing destination.
+- Start / latest commit: `f5e9d65cd10f9433418a928f55b619d63e496add` (2026-06-24) / `a7663ef1fbb858134997d8db6ca73b6da4821a68` (2026-08-22); 91 commits.
+- Stack: Node.js/JavaScript, Cloudflare Worker and R2 artifacts, FFmpeg and Chromium, optional Blender and Kokoro, contract-driven source packages and VideoBriefs, browser Studio, YouTube and Instagram adapters, plus policy-gated Postiz handoff.
+- Git snapshot: public `sass-maker/reel-pipeline`; clean `main` matched `origin/main`.
+- Public link: none approved. The retained Worker has no public domain or share-approved product surface.
+- Open issues: #14, truthful cartoon-hand-pointer demo; #13, representative proof-gallery coverage; #11, creative-quality improvement from reviewed output/performance; #10, reproducible local-video recipes and episode assembly.
+- Catalog state: active/deployed P2 with retained artifacts, but hidden from the public directory and explicitly not ready to share. The owner’s hold status should govern new investment; existing records show real foundations, not a shipped public product.
+
 
 ## Research Papers
 
@@ -711,6 +815,7 @@ Research paper was my attempt to understand what all there is in the market by a
 - Open issues: none.
 - Catalog state: active, live, maintained P2 High Signal product and publicly share-ready. Its public runtime is static Pages/Functions; ClickHouse and FastAPI are operator-side refresh machinery, not a production availability dependency.
 
+
 ## RolePatch
 
 ```text
@@ -727,6 +832,7 @@ Role patch was my attempt to build a tool for generating a resume for a job desc
 - Open issues: none.
 - Catalog state: active, live, maintained P2 product and publicly share-ready. Owner intent is use/testing-first—not more feature expansion—until an actual job-search workflow gives evidence.
 
+
 ## SaaS Ideas
 
 ```text
@@ -742,6 +848,7 @@ SaaS ideas is just my dump of ideas that I had collected over time into a websit
 - Public link: `https://ideas.sassmaker.com`.
 - Open issues: none.
 - Catalog state: live Pages site but archived/hidden P4 personal catalog. The repository calls it a personal tool rather than something for sale; this matches the owner’s concise description.
+
 
 ## SaaS Maker
 
@@ -761,6 +868,7 @@ Workflows and skills, I think I am going to merge it in SaaSmaker and have SaaSm
 - Open issues: #63, per-project Microsoft Clarity; #62, landing-page convergence; #61, canonical model-calling package; #52, publish `@saas-maker/feedback`; #46, restore Feedback as an agent-native hosted service. Tooling consolidation issue #58 is complete.
 - Catalog state: public directory and Tools catalog are live, maintained, and share-ready P2. Reusable tooling is no longer a separate Fleet identity.
 
+
 ## Setline
 
 ```text
@@ -776,6 +884,26 @@ Setline is an iOS app whose purpose is to help me exercise, have better timings,
 - Public link: `https://setline.significanthobbies.com` (landing only; no public App Store or TestFlight distribution).
 - Open issues: none.
 - Release/catalog state: active maintained P2 iOS product. Setline 1.0.0 (3) was processed for internal TestFlight on 2026-08-22; public distribution is not approved. Continue work around actual workouts and physical-device use, keeping network out of the active workout path.
+
+
+## Significant Hobbies
+
+```text
+OK we need to move things outside and significanthobbies will be the hub and its backend, create a task for this reconcilliation
+
+So hub backend is the backend for seven applications and its purpose is to join the applications and show it on a UI. It is currently being built and it would be an important project for future
+```
+
+### Agent record
+
+- Identity: **Significant Hobbies** is now the Hub and its backend. The old standalone Hub Backend repository has been absorbed into `services/hub-backend`; stable Worker and D1 identifiers remain `personal-platform` to avoid an operational migration.
+- Assessment: the canonical seven-app control plane. It serves the public Hub UI, composes privacy-safe summaries and actions, and versions `PersonalSyncKit` for native consumers while each app retains ownership of its immediate data.
+- Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `56bf264b8bcf2aed5230398b34f9250f0de5c14a` (2026-08-23).
+- Stack: TypeScript, Cloudflare Workers and D1, typed service bindings, Better Auth session verification, read-only MCP contracts, HTML Hub UI, and the Foundation-only Swift `PersonalSyncKit` package.
+- Git snapshot: public `Significant-Hobbies/significanthobbies`; reconciliation merged in PR #140.
+- Public link: `https://significanthobbies.com`; signed-out private Hub access redirects to login.
+- Open issues: #142, expose all seven personal domains to the read-only Hub and ChatGPT; #141, unify personal-app authentication. Reconciliation issue #138 is complete.
+
 
 ## Site Health
 
@@ -799,6 +927,7 @@ Scythe Health is essentially a local-only dashboard which has 5 main things:
 - Open issues: none.
 - Catalog state: active maintained P2 local-only platform. Its former public hostname, tunnel route, DNS, and Access application were retired on 2026-08-22; active work should continue locally rather than reopening a public dashboard.
 
+
 ## Starboard
 
 ```text
@@ -814,6 +943,7 @@ GitHub stars were not working for me due to the volume so I decided to build my 
 - Public link: `https://starboard.codevetter.com`.
 - Open issues: none.
 - Catalog state: active, live, maintained P2 public-personalized product. D1 is authoritative and Turso is only rollback-held; it is appropriate to keep refining discovery rather than rebuilding basic star management.
+
 
 ## SWE Interview Prep
 
@@ -831,6 +961,7 @@ SWE Interview Prep. This project's purpose was to give me a platform for learnin
 - Open issues: #86, complete Fanout-inspired learning surfaces; #79, breadth triage.
 - Catalog state: active, live, maintained P2 product. The repository bootloader says maintenance-only since 2026-07-10, but current active branch work and the owner’s statement establish it as an active work-in-progress; reconcile the stale maintenance-only wording when this portfolio review concludes.
 
+
 ## Today Little Log
 
 ```text
@@ -846,6 +977,7 @@ Today little log was one of the first five coded products I have coded with love
 - Public link: none active. The former `today-little-log.pages.dev` deployment was retired when the Pages project was deleted on 2026-07-18.
 - Open issues: none.
 - Catalog state: archived P4, outside current Fleet scope, with a deleted deployment. The new Significant Hobbies reconciliation issue #138 may eventually extract the embedded Daily/Journal concerns again, but this historical repository itself should not be revived.
+
 
 ## TrueHire
 
@@ -863,6 +995,7 @@ True hire is more like a concept application but it again needs trust in the eco
 - Open issues: none.
 - Catalog state: archived P4, out of Fleet, and superseded by RolePatch. Retain it as the earlier verified-candidate/hiring experiment; do not represent it as an active marketplace without first resolving the recommendation, trust, and two-sided adoption problem the owner identified.
 
+
 ## Verified Bases
 
 ```text
@@ -878,6 +1011,7 @@ VerifiedBases was also more of a concept application. I was thinking since I am 
 - Public link: [repository](https://github.com/sass-maker/verified-bases). No current routed public product or checkout was found.
 - Open issues: none.
 - Catalog state: archived P4 retained-resources identity, outside current Fleet. The `verified-bases-api` Worker remains live but unrouted, with retained D1/R2 and an active-bound rate-limit KV; it should be treated as dormant infrastructure until demand validation justifies revival or a successor.
+
 
 ## Web Playables
 
@@ -895,6 +1029,7 @@ Web-playables I built to study idle games, how idle games are built, and I was a
 - Open issues: none.
 - Catalog state: archived P4 historical game collection, with a retained live Cloudflare Pages surface. Treat it as on hold: source changes require explicit reactivation, while the public arcade can remain as evidence of the experiment.
 
+
 ## What It Takes to Win
 
 ```text
@@ -911,81 +1046,3 @@ The purpose for this project was to research what are the advantages held by peo
 - Open issues: #30, interview accomplished people and add their past-life accounts; #29, external submissions and edits; #28, better 3D animation.
 - Catalog state: active, live, maintained P4 secondary Significant Hobbies research publication. The rendered project dataset currently says 3,577 paths while the public catalog description says 2,585, so reconcile that stale public count when the next data refresh is published.
 
-## Live
-
-```text
-Help me understand: where was the lab repository and is it still inside Significant Hobbies?
-
-live*
-```
-
-### Agent record
-
-- Verbatim coverage: the correction above is the only separate owner statement about Live captured during this review; its motivation/status/next narrative still needs an owner pass.
-- Assessment: the independently owned original Significant Hobbies experience. It retains the existing user data, authentication, timelines, bookmarks, and deeper app routes; only the apex Hub routes are proxied to the Hub backend.
-- Start / latest commit: `7bb85f44783a9ee66ebe0f9111e3254c7d3b0348` (2026-08-21) / `62c42a7b4acdbcb74f042da4eaa0f792020d1da9` (2026-08-23).
-- Stack: Next.js, React, TypeScript, OpenNext, Cloudflare Workers, D1, Workers AI, Better Auth, Vitest, and Playwright.
-- Git snapshot: public `Significant-Hobbies/live`; clean `main` matched `origin/main` after extraction.
-- Public link: `https://live.significanthobbies.com`; existing deeper routes also remain available on the apex domain.
-- Open issues: none.
-
-## Journal
-
-No separate owner narrative for Journal was captured in this review. This is recorded explicitly so the verbatim archive does not invent one.
-
-### Agent record
-
-- Assessment: the private daily-writing iPhone product extracted from the old combined Significant Hobbies repository. It is now independently owned while retaining its history, bundle identity, local document/export behavior, and Hub sync integration.
-- Start / latest commit: `31193ef743e2e0ed740fc19b90b8644c6a95c51f` (2026-08-11) / `e2d514bbca21c81c6ae03dc255077d182ee18da4` (2026-08-23).
-- Stack: Swift 6, SwiftUI, XcodeGen, XCTest/XCUITest, local JSON document/export, and `PersonalSyncKit` from the Significant Hobbies Hub repository.
-- Git snapshot: public `Significant-Hobbies/journal`; clean `main` matched `origin/main` after extraction.
-- Public link: `https://journal.significanthobbies.com` (landing); the native app remains internal-only.
-- Open issues: none.
-
-## iOS Landings
-
-```text
-IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
-```
-
-### Agent record
-
-- Assessment: the shared marketing-site factory for the Significant Hobbies native-app family. One Astro engine produces separate, product-specific static sites rather than a combined storefront; each product supplies a small configuration and real screenshots. It currently covers Kith, Setline, Anchor, Motion, Indulge/Habits, Calorie, Journal, and Habits, while Significant Hobbies, Pace, and Live retain their own application surfaces.
-- Start / latest commit: `7f3cda21f43e8e1d4d2ec74d11e4d128b6f26c56` (2026-08-17) / `9d9877f8f75d38891a3fe6ba54dd12f2086b3ebd` (2026-08-23); 22 commits.
-- Stack: Astro, TypeScript, pnpm, product-scoped site configuration/content/screenshot folders, static builds, Cloudflare Pages, and product-specific `llms.txt` agent/discovery surfaces.
-- Git snapshot: private `Significant-Hobbies/ios-landings`; clean local `main` matched `origin/main`.
-- Public links: [Kith](https://kith.significanthobbies.com), [Setline](https://setline.significanthobbies.com), [Anchor](https://anchor.significanthobbies.com), [Motion](https://motion.significanthobbies.com), [Habits](https://habits.significanthobbies.com), and [Journal](https://journal.significanthobbies.com). The factory repository itself is private.
-- Open issues: none.
-- Catalog state: active, live, maintained P2 internal platform and hidden from the public directory. Continue using it as the canonical landing engine where an eligible Significant Hobbies native product needs a marketing surface; do not invent App Store/TestFlight links before those releases are approved.
-
-## Karte
-
-```text
-Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
-```
-
-### Agent record
-
-- Assessment: a live AI-native public profile and inbound-assistant platform, evolved materially beyond a link-in-bio clone. A Karte profile carries links, projects, proof, and contextual information, with optional chat, encyclopedia, roast, and newspaper modes; public visitors can converse through a streaming assistant rather than only click out. Company-facing capability and language are the right next focus because the individual profile foundation and agent-readable surfaces already exist.
-- Start / latest commit: `3f27987469ae5129bfab77a3542eec657e40df4b` (2026-07-20) / `8111a5dafac4b2fd7e1ee30b22ec830a609a35dc` (2026-08-22); 487 commits.
-- Stack: Next.js 16/App Router, React 19, TypeScript, Cloudflare Workers/OpenNext, Cloudflare D1 via Drizzle, better-auth Google OAuth, R2, Durable Object rate limiting, Cloudflare Analytics Engine, PostHog, Free AI gateway through AI SDK, Knowledge Base RAG, Vitest, Playwright, and GitHub Actions.
-- Git snapshot: public `Significant-Hobbies/karte`; local `main` matched `origin/main` with modified agent-indexing artifacts (`agent-edge.mjs`, `public/api-ai.json`, `public/llms.txt`).
-- Public link: [karte.cc](https://karte.cc) and [repository](https://github.com/Significant-Hobbies/karte).
-- Open issues: none.
-- Catalog state: active, live, maintained P2 secondary product, with all 30 sitemap URLs verified live on 2026-08-14. The documented PLAID KARTE name-collision risk was accepted for sharing on 2026-08-16, but company-facing work should continue to identify the canonical `karte.cc` product clearly.
-
-## Knowledge Base
-
-```text
-Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
-```
-
-### Agent record
-
-- Assessment: shared private-corpus retrieval infrastructure for Fleet applications, not a standalone knowledge-management app. Authorized consumers receive isolated scopes plus ranked, cited evidence through search and grounded-query APIs; it combines schema-aware extraction, lexical/vector retrieval, reranking, provenance, and answer support checks. The user’s maintenance-only posture is sensible while its dependent applications remain healthy.
-- Start / latest commit: `cac148ee91ea0b21c825884c4967aa4caba468ab` (2026-06-26) / `a1379a3c1df96e6ad4d3a354329a3fe0edb22088` (2026-08-20); 201 commits.
-- Stack: Cloudflare Workers, Pages, D1, R2, Vectorize, Queues, Workflows, Workers AI, Free AI gateway, TypeScript/Hono worker APIs, a service-key-authenticated RAG contract, retrieval evaluations, and cited-provenance storage.
-- Git snapshot: public `sass-maker/knowledge-base`; local `main` matched `origin/main` with uncommitted agent-discovery files and a new middleware file.
-- Public links: [knowledgebase.sassmaker.com](https://knowledgebase.sassmaker.com) and [search.sassmaker.com](https://search.sassmaker.com); the shared retrieval APIs remain authenticated.
-- Open issues: none.
-- Catalog state: active, live, maintained P2 internal platform with a live landing, app/search surface, and shared RAG Worker. Leave it untouched unless a consumer failure, retrieval-quality regression, or an explicit new corpus/use-case supplies a concrete reason to change it.
