@@ -17,6 +17,11 @@ backend.
 
 ## Timeline
 
+- **2026-08-22:** Added a privacy-safe public-directory projection for every
+  one of the 58 retained Fleet identities. Each catalog entry now records its
+  product form, platforms, concise technology set, and first/latest dates from
+  the currently retained Git history; missing local history remains explicit
+  instead of being inferred.
 - **2026-08-22:** Kept repositories in the owner personal GitHub profile outside
   Fleet scope by explicit owner decision. Moved the already-established,
   unique, clean portfolio checkout from the Desktop sibling path into the Fleet
@@ -94,6 +99,9 @@ backend.
 
 - Projects directory and project detail pages, including a searchable retained
   inventory separated from current portfolio counts and refresh scope.
+- Privacy-safe public-directory metadata for all 58 catalog identities,
+  including product form, platforms, technologies, and retained Git-history
+  bounds.
 - DRANK/domain-strength view.
 - PSI and field-performance view.
 - Google Search evidence view.

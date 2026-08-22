@@ -166,6 +166,42 @@ test('non-Vault organization repositories reconcile without duplicate products',
   );
 });
 
+test('public directory metadata covers every retained identity with bounded public fields', () => {
+  const projectIds = catalog.projects.map((project) => project.id).sort();
+  const directoryIds = Object.keys(catalog.publicDirectory.projects).sort();
+  const allowedFields = new Set([
+    'description',
+    'firstCommitAt',
+    'form',
+    'latestCommitAt',
+    'platforms',
+    'technologies',
+  ]);
+
+  assert.equal(catalog.publicDirectory.schemaVersion, 1);
+  assert.deepEqual(directoryIds, projectIds);
+
+  for (const [projectId, metadata] of Object.entries(catalog.publicDirectory.projects)) {
+    assert.deepEqual(
+      Object.keys(metadata).filter((field) => !allowedFields.has(field)),
+      [],
+      `${projectId} has an unsupported public directory field`,
+    );
+    assert.equal(typeof metadata.form, 'string', `${projectId} needs a public form`);
+    assert.equal(metadata.form.length > 0, true, `${projectId} needs a public form`);
+    assert.equal(Array.isArray(metadata.platforms) && metadata.platforms.length > 0, true);
+    assert.equal(Array.isArray(metadata.technologies) && metadata.technologies.length > 0, true);
+    assert.equal(metadata.technologies.length <= 4, true, `${projectId} technology list is too long`);
+
+    for (const date of [metadata.firstCommitAt, metadata.latestCommitAt]) {
+      assert.equal(date === null || /^\d{4}-\d{2}-\d{2}$/.test(date), true);
+    }
+    if (metadata.firstCommitAt && metadata.latestCommitAt) {
+      assert.equal(metadata.firstCommitAt <= metadata.latestCommitAt, true);
+    }
+  }
+});
+
 test('current product scope stays smaller than the complete retained inventory', () => {
   const current = catalog.projects.filter((project) =>
     project.status !== 'orphan'

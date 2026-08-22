@@ -32,6 +32,7 @@
       "repositoryAliases": "optional historical or alternate source repositories that belong to the same product identity",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden",
+      "publicDirectory": "privacy-safe form, platform, curated technology, and Git-history metadata for the complete public SaaS Maker directory; commit dates are evidence dates, not launch claims",
       "readyToBeShared": "true only for the exact maintained public surface and evidenced claims that were approved; native, store, download, or binary availability must be tracked separately and never inferred",
       "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
     },
@@ -1875,6 +1876,7 @@
       "family": "significanthobbies",
       "tier": "active",
       "repo": "motion",
+      "sourcePath": "ios-landings",
       "deployKind": "pages",
       "cfProject": "motion",
       "domains": [
@@ -2313,6 +2315,7 @@
       "family": "significanthobbies",
       "tier": "active",
       "repo": "induldge",
+      "sourcePath": "ios-landings",
       "deployKind": "pages",
       "cfProject": "habits",
       "domains": [
@@ -2552,6 +2555,431 @@
       }
     }
   ],
+  "publicDirectory": {
+    "schemaVersion": 1,
+    "historySemantics": "firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.",
+    "projects": {
+      "codevetter": {
+        "form": "Desktop app",
+        "platforms": ["macOS", "Windows", "Linux", "Web"],
+        "technologies": ["Tauri", "React", "Go", "Rust"],
+        "firstCommitAt": "2025-11-30",
+        "latestCommitAt": "2026-08-22"
+      },
+      "pace": {
+        "form": "macOS app",
+        "platforms": ["macOS", "Web"],
+        "technologies": ["Swift", "SwiftUI", "Astro", "Cloudflare Pages"],
+        "firstCommitAt": "2026-07-13",
+        "latestCommitAt": "2026-08-22"
+      },
+      "posttrainllm": {
+        "form": "Research platform",
+        "platforms": ["Web", "Local"],
+        "technologies": ["Astro", "Python", "Rust", "Cloudflare Pages"],
+        "firstCommitAt": "2026-05-21",
+        "latestCommitAt": "2026-08-22"
+      },
+      "site-health": {
+        "form": "Local dashboard",
+        "platforms": ["Web", "Local"],
+        "technologies": ["Astro", "TypeScript", "Node.js"],
+        "description": "A local portfolio dashboard for domains, performance, search, and AI visibility evidence.",
+        "firstCommitAt": "2026-05-02",
+        "latestCommitAt": "2026-08-22"
+      },
+      "workflows-and-skills": {
+        "form": "Automation toolkit",
+        "platforms": ["CLI", "GitHub Actions"],
+        "technologies": ["JavaScript", "Shell", "GitHub Actions"],
+        "description": "Reusable Fleet skills, workflows, and operator scripts without product runtime ownership.",
+        "firstCommitAt": "2026-07-30",
+        "latestCommitAt": "2026-08-22"
+      },
+      "chatgpt-connections": {
+        "form": "MCP service",
+        "platforms": ["API", "ChatGPT"],
+        "technologies": ["TypeScript", "Cloudflare Workers", "MCP"],
+        "description": "A read-only MCP gateway that exposes selected public Fleet data to ChatGPT connections.",
+        "firstCommitAt": "2026-08-11",
+        "latestCommitAt": "2026-08-22"
+      },
+      "saas-maker": {
+        "form": "Web directory and service",
+        "platforms": ["Web", "API"],
+        "technologies": ["Astro", "React", "Cloudflare", "D1"],
+        "firstCommitAt": "2026-02-26",
+        "latestCommitAt": "2026-08-22"
+      },
+      "gitstat": {
+        "form": "Web app",
+        "platforms": ["Web"],
+        "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-08-21",
+        "latestCommitAt": "2026-08-22"
+      },
+      "reel-pipeline": {
+        "form": "Video pipeline",
+        "platforms": ["CLI", "API", "Local"],
+        "technologies": ["Python", "Rust", "Cloudflare Workers", "R2"],
+        "description": "A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.",
+        "firstCommitAt": "2026-05-28",
+        "latestCommitAt": "2026-08-22"
+      },
+      "mobile-dev-cockpit": {
+        "form": "Mobile app",
+        "platforms": ["iOS", "Android"],
+        "technologies": ["React Native", "TypeScript"],
+        "description": "A parked mobile supervision client retained for possible future reactivation.",
+        "firstCommitAt": "2026-07-13",
+        "latestCommitAt": "2026-08-22"
+      },
+      "drank": {
+        "form": "Web tool",
+        "platforms": ["Web"],
+        "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-06-10",
+        "latestCommitAt": "2026-08-22"
+      },
+      "email-manager": {
+        "form": "Web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-02-24",
+        "latestCommitAt": "2026-08-22"
+      },
+      "chatgpt-memory-insights": {
+        "form": "Web app",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-07-28",
+        "latestCommitAt": "2026-08-20"
+      },
+      "free-ai": {
+        "form": "API gateway",
+        "platforms": ["API", "Web"],
+        "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-02-15",
+        "latestCommitAt": "2026-08-22"
+      },
+      "psi-swarm": {
+        "form": "Performance platform",
+        "platforms": ["Web", "CLI"],
+        "technologies": ["Astro", "React", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-06-03",
+        "latestCommitAt": "2026-08-22"
+      },
+      "high-signal": {
+        "form": "Intelligence web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["Next.js", "React", "Hono", "Cloudflare"],
+        "firstCommitAt": "2026-04-25",
+        "latestCommitAt": "2026-08-22"
+      },
+      "everythingrated": {
+        "form": "Ratings experiment",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "Next.js", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-04-26",
+        "latestCommitAt": "2026-08-22"
+      },
+      "research-papers": {
+        "form": "Research library",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "Python", "React", "TypeScript"],
+        "firstCommitAt": "2026-05-30",
+        "latestCommitAt": "2026-08-20"
+      },
+      "materia": {
+        "form": "Interactive experiment",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "React", "Three.js", "Cloudflare Pages"],
+        "firstCommitAt": "2026-06-21",
+        "latestCommitAt": "2026-08-22"
+      },
+      "knowledge-base": {
+        "form": "Knowledge platform",
+        "platforms": ["Web", "API"],
+        "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-05-27",
+        "latestCommitAt": "2026-08-20"
+      },
+      "significanthobbies": {
+        "form": "Publication",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "Next.js", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-03-01",
+        "latestCommitAt": "2026-08-22"
+      },
+      "india-standards": {
+        "form": "Reference web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Workers"],
+        "firstCommitAt": "2026-07-27",
+        "latestCommitAt": "2026-08-21"
+      },
+      "anime-list": {
+        "form": "Web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["React", "Vite", "Hono", "Cloudflare"],
+        "firstCommitAt": "2025-02-16",
+        "latestCommitAt": "2026-08-22"
+      },
+      "chess": {
+        "form": "Web game",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
+        "firstCommitAt": "2026-02-22",
+        "latestCommitAt": "2026-08-17"
+      },
+      "looptv": {
+        "form": "Web app",
+        "platforms": ["Web", "TV"],
+        "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
+        "firstCommitAt": "2026-04-04",
+        "latestCommitAt": "2026-08-22"
+      },
+      "reader": {
+        "form": "Reading web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2025-11-16",
+        "latestCommitAt": "2026-08-22"
+      },
+      "swe-interview-prep": {
+        "form": "Learning web app",
+        "platforms": ["Web"],
+        "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-02-08",
+        "latestCommitAt": "2026-08-22"
+      },
+      "calorie": {
+        "form": "iOS app",
+        "platforms": ["iOS", "API"],
+        "technologies": ["SwiftUI", "Hono", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-07-25",
+        "latestCommitAt": "2026-08-22"
+      },
+      "setline": {
+        "form": "Web app",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-07-27",
+        "latestCommitAt": "2026-08-22"
+      },
+      "personal-platform": {
+        "form": "Shared API platform",
+        "platforms": ["API"],
+        "technologies": ["TypeScript", "Cloudflare Workers", "D1"],
+        "description": "A private shared identity and data plane for selected Significant Hobbies apps.",
+        "firstCommitAt": "2026-08-21",
+        "latestCommitAt": "2026-08-22"
+      },
+      "kith": {
+        "form": "Web app",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-08-16",
+        "latestCommitAt": "2026-08-22"
+      },
+      "ios-landings": {
+        "form": "Landing-site factory",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-08-17",
+        "latestCommitAt": "2026-08-22"
+      },
+      "rolepatch": {
+        "form": "Web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-02-23",
+        "latestCommitAt": "2026-08-22"
+      },
+      "karte": {
+        "form": "Web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-03-05",
+        "latestCommitAt": "2026-08-22"
+      },
+      "starboard": {
+        "form": "Web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-02-22",
+        "latestCommitAt": "2026-08-22"
+      },
+      "ai-game": {
+        "form": "Web game",
+        "platforms": ["Web"],
+        "technologies": ["React", "Vite", "Three.js", "Cloudflare"],
+        "firstCommitAt": "2026-05-03",
+        "latestCommitAt": "2026-08-22"
+      },
+      "protein-index": {
+        "form": "Data API and web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-07-15",
+        "latestCommitAt": "2026-07-25"
+      },
+      "veg-protein-food": {
+        "form": "Food directory",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "Cloudflare Pages"],
+        "description": "A searchable directory of vegetarian protein foods and practical nutrition comparisons.",
+        "firstCommitAt": "2026-08-15",
+        "latestCommitAt": "2026-08-20"
+      },
+      "app-health": {
+        "form": "Monitoring service",
+        "platforms": ["Web", "API"],
+        "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
+        "firstCommitAt": "2026-07-20",
+        "latestCommitAt": "2026-08-21"
+      },
+      "mashup": {
+        "form": "Local media tool",
+        "platforms": ["CLI", "Local"],
+        "technologies": ["Python", "FFmpeg", "SQLite", "MLX"],
+        "description": "A local-first tool that turns owned media archives into inspectable multi-clip edits.",
+        "firstCommitAt": "2026-07-25",
+        "latestCommitAt": "2026-08-20"
+      },
+      "saas-ideas": {
+        "form": "Idea directory",
+        "platforms": ["Web"],
+        "technologies": ["JavaScript", "Cloudflare Pages"],
+        "description": "A past public directory of software product ideas.",
+        "firstCommitAt": "2025-05-10",
+        "latestCommitAt": "2026-08-22"
+      },
+      "motion": {
+        "form": "iOS game",
+        "platforms": ["iOS", "iPadOS", "Web"],
+        "technologies": ["SwiftUI", "Apple Vision", "Vite", "TypeScript"],
+        "firstCommitAt": "2026-08-17",
+        "latestCommitAt": "2026-08-22"
+      },
+      "truehire": {
+        "form": "Hiring experiment",
+        "platforms": ["Web"],
+        "technologies": ["Next.js", "React", "TypeScript", "Cloudflare"],
+        "firstCommitAt": "2026-04-24",
+        "latestCommitAt": "2026-07-20"
+      },
+      "today-little-log": {
+        "form": "Personal PWA",
+        "platforms": ["Web", "Mobile"],
+        "technologies": ["React", "Vite", "TypeScript", "Cloudflare"],
+        "firstCommitAt": "2025-12-03",
+        "latestCommitAt": "2026-07-03"
+      },
+      "open-historia": {
+        "form": "Strategy web game",
+        "platforms": ["Web"],
+        "technologies": ["React", "Vite", "Hono", "Cloudflare Workers"],
+        "firstCommitAt": "2026-02-08",
+        "latestCommitAt": "2026-08-22"
+      },
+      "companion-robot": {
+        "form": "Hardware experiment",
+        "platforms": ["iOS", "macOS", "ESP32"],
+        "technologies": ["Swift", "Apple Vision", "ESP32", "Local AI"],
+        "firstCommitAt": "2026-06-25",
+        "latestCommitAt": "2026-07-17"
+      },
+      "elves-hq": {
+        "form": "Web experiment",
+        "platforms": ["Web"],
+        "technologies": ["React", "Vite", "TypeScript"],
+        "description": "A past collaborative-agent interface experiment retained for reference.",
+        "firstCommitAt": "2026-07-06",
+        "latestCommitAt": "2026-07-25"
+      },
+      "forecast-lab": {
+        "form": "Research toolkit",
+        "platforms": ["CLI", "Web"],
+        "technologies": ["Rust", "Python", "React", "Vite"],
+        "firstCommitAt": "2026-06-21",
+        "latestCommitAt": "2026-07-04"
+      },
+      "web-playables": {
+        "form": "Game collection",
+        "platforms": ["Web", "YouTube Playables"],
+        "technologies": ["TypeScript", "Vite", "Cloudflare Pages"],
+        "firstCommitAt": "2026-07-10",
+        "latestCommitAt": "2026-08-22"
+      },
+      "what-it-takes-to-win": {
+        "form": "Research publication",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-07-21",
+        "latestCommitAt": "2026-08-21"
+      },
+      "sarthakagrawal-personal": {
+        "form": "Portfolio website",
+        "platforms": ["Web"],
+        "technologies": ["Astro", "React", "TypeScript", "Cloudflare Pages"],
+        "firstCommitAt": "2026-05-22",
+        "latestCommitAt": "2026-08-17"
+      },
+      "agent-office": {
+        "form": "macOS app",
+        "platforms": ["macOS", "Local"],
+        "technologies": ["SwiftUI", "SpriteKit", "Codex CLI"],
+        "firstCommitAt": "2026-08-09",
+        "latestCommitAt": "2026-08-20"
+      },
+      "indulge": {
+        "form": "iOS app",
+        "platforms": ["iOS", "Web"],
+        "technologies": ["SwiftUI", "Astro", "Cloudflare Pages"],
+        "firstCommitAt": "2026-08-17",
+        "latestCommitAt": "2026-08-22"
+      },
+      "local-ai-video-studio": {
+        "form": "macOS app",
+        "platforms": ["macOS", "Local"],
+        "technologies": ["SwiftUI", "AVFoundation", "Core Image", "VideoToolbox"],
+        "firstCommitAt": "2026-08-09",
+        "latestCommitAt": "2026-08-21"
+      },
+      "field-track": {
+        "form": "Android app and dashboard",
+        "platforms": ["Android", "Web", "API"],
+        "technologies": ["React Native", "MapLibre", "Cloudflare Workers", "D1"],
+        "description": "A private field-location system for managed Android devices and team-scoped route review.",
+        "firstCommitAt": "2026-08-12",
+        "latestCommitAt": "2026-08-20"
+      },
+      "reddit-insights": {
+        "form": "Research collector",
+        "platforms": ["Web", "API"],
+        "technologies": ["TypeScript", "Cloudflare Workers", "R2"],
+        "description": "A bounded research collector for subreddit evidence and recurring insight snapshots.",
+        "firstCommitAt": "2026-08-07",
+        "latestCommitAt": "2026-08-20"
+      },
+      "verified-bases": {
+        "form": "Research dataset",
+        "platforms": ["GitHub"],
+        "technologies": ["Markdown", "Git"],
+        "description": "A retained research-data identity with public source history but no standalone deployment.",
+        "firstCommitAt": null,
+        "latestCommitAt": null
+      },
+      "anchor": {
+        "form": "Apple app",
+        "platforms": ["macOS", "iOS", "watchOS", "Web"],
+        "technologies": ["SwiftUI", "SwiftData", "CloudKit", "Foundation Models"],
+        "firstCommitAt": "2026-08-16",
+        "latestCommitAt": "2026-08-22"
+      }
+    }
+  },
   "infrastructure": {
     "_meta": {
       "purpose": "Owner-readable deployment and cloud-resource inventory for every Fleet identity, including inactive and local-only projects.",
