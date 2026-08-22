@@ -17,6 +17,14 @@ backend.
 
 ## Timeline
 
+- **2026-08-22:** Reconciled the catalog against every Cloudflare object that
+  the authenticated CLI can enumerate and all 57 repositories across the six
+  accessible non-Vault product organizations. Added live Email Routing
+  ownership for ten zones, two private destination objects, both container
+  image repositories, and the Cloudflare-managed Gateway CA. Added the six
+  organization-profile repositories plus missing source links for five
+  existing identities; no new or duplicate product identity was required. No
+  Cloudflare resource or GitHub repository was changed.
 - **2026-08-22:** Brought GitStat into Fleet as an active P2 secondary product
   and narrowed the default Projects surface to the 32 current P1/P2 identities.
   The complete 58-identity catalog still preserves P4, archived, parked,

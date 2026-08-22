@@ -60,6 +60,112 @@ test('live Cloudflare ownership stays reconciled', () => {
   );
 });
 
+test('account-level Cloudflare resources remain explicitly owned or unowned', () => {
+  const projectResources = Object.values(catalog.infrastructure.projects).flatMap(
+    (project) => project.resources,
+  );
+  const emailRoutingZones = projectResources
+    .filter((resource) => resource.provider === 'cloudflare' && resource.kind === 'email-routing')
+    .map((resource) => resource.name)
+    .sort();
+  const coverageByKind = new Map(
+    catalog.infrastructure._meta.cloudflareCoverage.map((entry) => [entry.kind, entry]),
+  );
+
+  assert.deepEqual(emailRoutingZones, [
+    'aliveville.com',
+    'codevetter.com',
+    'heypace.app',
+    'highsignal.app',
+    'karte.cc',
+    'posttrainllm.com',
+    'rolepatch.com',
+    'sarthakagrawal.dev',
+    'sassmaker.com',
+    'significanthobbies.com',
+  ]);
+  assert.deepEqual(
+    [coverageByKind.get('email-routing')?.observed, coverageByKind.get('email-routing')?.tracked],
+    [10, 10],
+  );
+  assert.deepEqual(
+    [
+      coverageByKind.get('container-image-repository')?.observed,
+      coverageByKind.get('container-image-repository')?.tracked,
+    ],
+    [2, 2],
+  );
+  assert.equal(
+    catalog.infrastructure.projects['mobile-dev-cockpit'].resources.some(
+      (resource) => resource.kind === 'container-image-repository'
+        && resource.name === 'saasmaker-droid-sandbox'
+        && resource.observedVersions === 42,
+    ),
+    true,
+  );
+  assert.equal(
+    catalog.infrastructure.unownedResources.some(
+      (resource) => resource.kind === 'container-image-repository'
+        && resource.name === 'box'
+        && resource.observedVersions === 1,
+    ),
+    true,
+  );
+  assert.equal(
+    catalog.infrastructure.unownedResources.filter(
+      (resource) => resource.kind === 'email-routing-destination',
+    ).length,
+    2,
+  );
+});
+
+test('non-Vault organization repositories reconcile without duplicate products', () => {
+  const projectById = new Map(catalog.projects.map((project) => [project.id, project]));
+  const expectedProfiles = new Map([
+    ['significanthobbies', 'Significant-Hobbies/.github'],
+    ['codevetter', 'Codevetter/.github'],
+    ['high-signal', 'High-Signal-App/.github'],
+    ['pace', 'HeyPace/.github'],
+    ['posttrainllm', 'PostTrainLLM/.github'],
+    ['saas-maker', 'sass-maker/.github'],
+  ]);
+
+  for (const [projectId, profileRepository] of expectedProfiles) {
+    assert.equal(
+      catalog.infrastructure.projects[projectId].resources.some(
+        (resource) => resource.provider === 'github'
+          && resource.kind === 'organization-profile'
+          && resource.name === profileRepository,
+      ),
+      true,
+    );
+  }
+
+  assert.equal(
+    projectById.get('protein-index')?.repositoryUrl,
+    'https://github.com/Significant-Hobbies/protein-index-resilience',
+  );
+  assert.deepEqual(projectById.get('protein-index')?.repositoryAliases, [
+    'https://github.com/Significant-Hobbies/protein-index',
+  ]);
+  assert.equal(
+    projectById.get('anchor')?.repositoryUrl,
+    'https://github.com/Significant-Hobbies/anchor',
+  );
+  assert.equal(
+    projectById.get('saas-ideas')?.repositoryUrl,
+    'https://github.com/sass-maker/saas-ideas',
+  );
+  assert.equal(
+    projectById.get('verified-bases')?.repositoryUrl,
+    'https://github.com/sass-maker/verified-bases',
+  );
+  assert.equal(
+    projectById.get('elves-hq')?.repositoryUrl,
+    'https://github.com/sass-maker/elves-hq',
+  );
+});
+
 test('current product scope stays smaller than the complete retained inventory', () => {
   const current = catalog.projects.filter((project) =>
     project.status !== 'orphan'

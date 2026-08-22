@@ -29,6 +29,7 @@
       "lifecycle": "maintained | local-only | past | non-product",
       "repositoryVisibility": "public | private | unknown",
       "repositoryUrl": "owner-visible canonical source repository; may be private and is not emitted by the public projection",
+      "repositoryAliases": "optional historical or alternate source repositories that belong to the same product identity",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden",
       "readyToBeShared": "true only for the exact maintained public surface and evidenced claims that were approved; native, store, download, or binary availability must be tracked separately and never inferred",
@@ -1697,6 +1698,10 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index-resilience",
+      "repositoryAliases": [
+        "https://github.com/Significant-Hobbies/protein-index"
+      ],
       "public": {
         "listing": "past",
         "id": "protein-index",
@@ -1848,6 +1853,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/saas-ideas",
       "public": {
         "listing": "hidden"
       }
@@ -2061,6 +2067,7 @@
       "repo": "elves-hq",
       "sourcePath": "../fleet-inactive-projects/elves-hq",
       "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/sass-maker/elves-hq",
       "deployKind": "none",
       "cfProject": null,
       "domains": [],
@@ -2497,6 +2504,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repositoryVisibility": "unknown",
+      "repositoryUrl": "https://github.com/sass-maker/verified-bases",
       "public": {
         "listing": "hidden"
       }
@@ -2522,6 +2530,7 @@
       "lifecycle": "local-only",
       "repo": "anchor",
       "repositoryVisibility": "private",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/anchor",
       "deployKind": "pages",
       "cfProject": "anchor-landing",
       "domains": [
@@ -2678,6 +2687,70 @@
           "evidence": "Wrangler account list on 2026-08-22 returned the account-level default Secrets Store; contents were not inspected."
         },
         {
+          "kind": "container-image-repository",
+          "state": "provider-complete",
+          "observed": 2,
+          "tracked": 2,
+          "observedVersions": 43,
+          "evidence": "Wrangler account list on 2026-08-22 returned two image repositories containing 43 immutable versions; versions are aggregated under their repository owner rather than cataloged as separate products."
+        },
+        {
+          "kind": "gateway-ca",
+          "state": "provider-complete",
+          "observed": 1,
+          "tracked": 1,
+          "evidence": "Wrangler certificate list returned one Cloudflare-managed Gateway CA. No user-uploaded mTLS certificates exist."
+        },
+        {
+          "kind": "email-routing-destination",
+          "state": "provider-complete",
+          "observed": 2,
+          "tracked": 2,
+          "evidence": "Wrangler returned two verified account-level destination objects. Private destination addresses were not stored in the catalog."
+        },
+        {
+          "kind": "email-sending",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "flagship-application",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "browser-run-session",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler active-session list."
+        },
+        {
+          "kind": "mtls-certificate",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler uploaded-certificate list."
+        },
+        {
+          "kind": "ai-finetune-asset",
+          "state": "provider-complete-empty",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Wrangler account list."
+        },
+        {
+          "kind": "agent-memory",
+          "state": "not-entitled",
+          "observed": 0,
+          "tracked": 0,
+          "evidence": "Cloudflare API returned no product access."
+        },
+        {
           "kind": "durable-object",
           "state": "config-derived",
           "tracked": 5,
@@ -2721,15 +2794,16 @@
         },
         {
           "kind": "email-routing",
-          "state": "config-derived",
-          "tracked": 1,
-          "evidence": "Karte Email Worker and routing requirement in tracked configuration; dashboard rule not independently enumerated."
+          "state": "provider-complete",
+          "observed": 10,
+          "tracked": 10,
+          "evidence": "Wrangler account list and per-zone rule probes on 2026-08-22: 10 enabled zones, each with an enabled catch-all and no custom routing rules. Destination addresses are tracked separately without storing private addresses."
         }
       ]
     },
     "projects": {
       "codevetter": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -2752,11 +2826,23 @@
             "kind": "zone",
             "name": "codevetter.com",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "codevetter.com",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "Codevetter/.github",
+            "state": "active"
           }
         ]
       },
       "pace": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -2772,11 +2858,23 @@
             "kind": "zone",
             "name": "heypace.app",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "heypace.app",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "HeyPace/.github",
+            "state": "active"
           }
         ]
       },
       "posttrainllm": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -2792,6 +2890,18 @@
             "kind": "zone",
             "name": "posttrainllm.com",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "posttrainllm.com",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "PostTrainLLM/.github",
+            "state": "active"
           }
         ]
       },
@@ -2856,9 +2966,11 @@
             "name": "sassmaker.com",
             "state": "active-config-derived"
           },
+          { "provider": "cloudflare", "kind": "email-routing", "name": "sassmaker.com", "state": "enabled-catch-all" },
           { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "active" },
           { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "config-derived" },
-          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "config-derived" }
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "config-derived" },
+          { "provider": "github", "kind": "organization-profile", "name": "sass-maker/.github", "state": "active" }
         ]
       },
       "gitstat": {
@@ -2902,7 +3014,7 @@
         ]
       },
       "mobile-dev-cockpit": {
-        "updatedAt": "2026-08-20",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -2918,6 +3030,13 @@
             "kind": "container",
             "name": "saasmaker-droid-sandbox",
             "state": "retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "container-image-repository",
+            "name": "saasmaker-droid-sandbox",
+            "state": "retained",
+            "observedVersions": 42
           }
         ]
       },
@@ -3044,7 +3163,7 @@
         "resources": []
       },
       "high-signal": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3085,6 +3204,18 @@
             "kind": "zone",
             "name": "highsignal.app",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "highsignal.app",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "High-Signal-App/.github",
+            "state": "active"
           }
         ]
       },
@@ -3267,7 +3398,7 @@
         ]
       },
       "significanthobbies": {
-        "updatedAt": "2026-08-21",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3308,6 +3439,18 @@
             "kind": "zone",
             "name": "significanthobbies.com",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "significanthobbies.com",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "Significant-Hobbies/.github",
+            "state": "active"
           },
           {
             "provider": "turso",
@@ -3637,7 +3780,7 @@
         "notes": "Factory owns the live Journal Pages deployment at journal.significanthobbies.com until Journal has its own repository. It also deploys the other product trees, whose resources stay on product rows."
       },
       "rolepatch": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3671,11 +3814,17 @@
             "kind": "zone",
             "name": "rolepatch.com",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "rolepatch.com",
+            "state": "enabled-catch-all"
           }
         ]
       },
       "karte": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3744,8 +3893,8 @@
           {
             "provider": "cloudflare",
             "kind": "email-routing",
-            "name": "*@karte.cc catch-all",
-            "state": "configured-dashboard-unverified"
+            "name": "karte.cc",
+            "state": "enabled-catch-all"
           },
           {
             "provider": "cloudflare",
@@ -3800,7 +3949,7 @@
         ]
       },
       "ai-game": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3823,6 +3972,12 @@
             "kind": "zone",
             "name": "aliveville.com",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "aliveville.com",
+            "state": "enabled-catch-all"
           }
         ]
       },
@@ -4009,7 +4164,7 @@
         "resources": []
       },
       "sarthakagrawal-personal": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-22",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4025,6 +4180,12 @@
             "kind": "zone",
             "name": "sarthakagrawal.dev",
             "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "sarthakagrawal.dev",
+            "state": "enabled-catch-all"
           }
         ]
       },
@@ -4174,6 +4335,35 @@
         "kind": "secrets-store",
         "name": "default_secrets_store",
         "state": "account-default-owner-unverified",
+        "updatedAt": "2026-08-22"
+      },
+      {
+        "provider": "cloudflare",
+        "kind": "container-image-repository",
+        "name": "box",
+        "state": "owner-unverified-retained",
+        "observedVersions": 1,
+        "updatedAt": "2026-08-22"
+      },
+      {
+        "provider": "cloudflare",
+        "kind": "gateway-ca",
+        "name": "Cloudflare-managed Gateway CA",
+        "state": "account-managed-active",
+        "updatedAt": "2026-08-22"
+      },
+      {
+        "provider": "cloudflare",
+        "kind": "email-routing-destination",
+        "name": "destination:d73ccf5dd5b449ff99eb51ea16bfee27",
+        "state": "verified-owner-unverified-private-address",
+        "updatedAt": "2026-08-22"
+      },
+      {
+        "provider": "cloudflare",
+        "kind": "email-routing-destination",
+        "name": "destination:b4bcc354aa1f4337a88ffec6ccf1f669",
+        "state": "verified-owner-unverified-private-address",
         "updatedAt": "2026-08-22"
       }
     ]
