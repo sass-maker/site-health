@@ -55,11 +55,11 @@ What's next for this product? This product will be part of my Significant-Hobbie
 ### Agent record
 
 - Assessment: interruption-first focus analytics, not a generic timer; it is ready for personal dogfooding and Hub integration.
-- Start / latest commit: `ee89a4d` (2026-08-16) / `70f73c0` (2026-08-22).
+- Start / latest commit: `ee89a4d85ffffdcadc62d4d3a024a68c1fce3b32` (2026-08-16) / `b38fc2a7346137dadfca33e678052725ecbeb1a3` (2026-08-23); 31 commits.
 - Stack: Swift, SwiftUI, SwiftData, CloudKit, Swift Charts, Apple Foundation Models with rule fallback, XcodeGen, macOS/iOS/watchOS, Astro landing.
 - Git snapshot: `Significant-Hobbies/anchor`; clean `main` matched `origin/main`.
 - Public link: `https://anchor.significanthobbies.com`.
-- Open issues: #4, #3. iOS 1.0 (2) had completed processing and awaited internal tester assignment.
+- Open issues: #12, iPhone Live Activity; #10, Mac-Watch session continuity and compact-window scrolling.
 
 ## Anime List
 
@@ -116,11 +116,11 @@ I think it is at a good stage. I would say it's done. For next, this is to just 
 ### Agent record
 
 - Assessment: finished local-first food and timing journal; future work should come from daily use and Hub integration, while preserving its non-medical scope.
-- Start / latest commit: `adb0e7c` (2026-08-11) / `d6de133` (2026-08-22).
+- Start / latest commit: `73ce72a04ab24d65205059cbbcabc622c0d3f51f` (2026-07-25) / `329cfead548987c5b88d5dc3fb259e382603ba49` (2026-08-23); 101 commits.
 - Stack: SwiftUI iPhone/iPad app, TypeScript Cloudflare Worker, D1, Better Auth, Sign in with Apple/Google, static landing, deterministic nutrition/timing formulas.
-- Git snapshot: `Significant-Hobbies/calorie`; clean local `main` was two commits ahead of `origin/main`.
+- Git snapshot: `Significant-Hobbies/calorie`; clean `main` matched `origin/main` after the Hub package migration.
 - Public link: `https://calorie.significanthobbies.com`.
-- Open issue: #65. Calorie 1.0.0 (4) was available to internal TestFlight testers.
+- Open issues: none. Calorie 1.0.0 (4) was available to internal TestFlight testers.
 
 ## ChatGPT Connections
 
@@ -218,7 +218,7 @@ I would say it's done. It is kind of like a skill. It's kind of inside the site 
 ### Agent record
 
 - Assessment: a finished, local-first Domain Rating tracker made practical by Ahrefs' free endpoint. It works best as shared portfolio/SEO infrastructure, rather than as a product that needs a roadmap of its own.
-- Start / latest commit: `d9ab244717c410a16fe1e6fc5803cc9b93e18e54` (2026-07-02) / `cec8b80a857dbf9a29e72dc0f97f51884059e906` (2026-08-22); 77 commits.
+- Start / latest commit: `d84ac325b6a4f2fc25b0246bea8dfe6741f20e48` (2026-06-10) / `cd5e7614463f855ae5df6236142cc042f6bd9af1` (2026-08-23); 79 commits.
 - Stack: Next.js 16, React 19, TypeScript, Tailwind CSS, Recharts, framer-motion, browser localStorage, Cloudflare Pages Functions, Ahrefs free Domain Rating API, and GitHub Actions weekly global-data refresh.
 - Git snapshot: public `sass-maker/drank`; `main` matched `origin/main`; observed local work across public discovery assets, middleware, headers, data, and layout.
 - Public link: `https://domains.sassmaker.com`.
@@ -370,8 +370,8 @@ I had this idea for beautiful onboarding so I was like, let's build it out. It t
 ### Agent record
 
 - Assessment: an unusually well-formed personal habit product whose core mechanism is non-moralizing replacement, not suppression or streak scoring. The visual onboarding and evolving Life → Trade → History scene are integral to that proposition, not cosmetic work.
-- Start / latest commit: `f2a7aad100fd82d5b0b7ff7dfb3b2543fe0be149` (2026-08-11) / `aa3597a35390f88741077f97a7e7e5f016e1f58c` (2026-08-22); 41 commits.
-- Stack: native SwiftUI and RealityKit iPhone/iPad app, SwiftData, optional Sign in with Apple and Cloudflare Personal Platform synchronization, optional Apple Image Playground, XcodeGen, and an Astro static landing surface.
+- Start / latest commit: `f2a7aad100fd82d5b0b7ff7dfb3b2543fe0be149` (2026-08-11) / `0e7e322206e3ffeeefa6ca029ab7b9c82228a42e` (2026-08-23); 42 commits.
+- Stack: native SwiftUI and RealityKit iPhone/iPad app, SwiftData, optional Sign in with Apple and Significant Hobbies Hub synchronization, optional Apple Image Playground, XcodeGen, and an Astro static landing surface.
 - Git snapshot: private `Significant-Hobbies/indulge`; `main` matched `origin/main`; observed local landing/site validation, layout, and OpenAPI changes.
 - Public link: `https://habits.significanthobbies.com` (`https://indulge.significanthobbies.com` is a compatibility landing).
 - Open issues: none.
@@ -489,7 +489,7 @@ Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse A
 ### Agent record
 
 - Assessment: a completed local-first performance-measurement tool. Its key contribution is replacing a single noisy Lighthouse score with distributions across realistic conditions, so it belongs in ongoing fleet operations rather than a feature-product roadmap.
-- Start / latest commit: `cfee3d77f26582ff2c9185e7cacdb86a052dea28` (2026-06-03) / `9664f3400cceca9dcc28750efc426d0f645bb86a` (2026-08-22); 59 commits.
+- Start / latest commit: `be46b6c1d70194759dd47b0b568d58f7dc2497cb` (2026-06-03) / `a333f724a792267ff5a2dcae1a23a89d7ae32b5a` (2026-08-23); 61 commits.
 - Stack: Node/TypeScript CLI, Lighthouse 13, headless Chrome, SQLite local history, Ink/React terminal UI, Astro/React/Tailwind local controller, optional OpenAI-compatible/local reasoning, Ahrefs free Domain Rating, and Cloudflare Pages static site.
 - Git snapshot: public `sass-maker/psi-swarm`; `main` matched `origin/main`; observed local public-discovery files and an untracked web Functions directory.
 - Public link: `https://performance.sassmaker.com`.
@@ -506,11 +506,11 @@ Keetha! It is also something I wanted to build. I saw a tweet in which someone h
 ### Agent record
 
 - Assessment: a deliberately personal, device-first relationship memory app. Its distinctive choice is an explicit closeness-based constellation and human notes/logs rather than CRM mechanics or inferred relationship scores; daily use should determine its next iteration.
-- Start / latest commit: `b8a622e9e26fa5ac71e86ade558647a9cf857fca` (2026-08-16) / `844cac0ec89209dd789e2a78bed3d8e002e129fe` (2026-08-22); 30 commits.
-- Stack: native SwiftUI iPhone app, local JSON document, XCTest, XcodeGen, optional private CloudKit mirror, Sign in with Apple and Cloudflare Personal Platform synchronization, and Astro static landing.
+- Start / latest commit: `b8a622e9e26fa5ac71e86ade558647a9cf857fca` (2026-08-16) / `f4dc2969b1422016c4fc1187898b142cb88c1f5b` (2026-08-23); 35 commits.
+- Stack: native SwiftUI iPhone app, local JSON document, XCTest, XcodeGen, optional private CloudKit mirror, Sign in with Apple and Significant Hobbies Hub synchronization, and Astro static landing.
 - Git snapshot: public `Significant-Hobbies/kith`; clean `main` matched `origin/main`.
 - Public link: `https://kith.significanthobbies.com`.
-- Open issues: #15, “Assign Kith 1.0.0 (3) to internal TestFlight testers”; #11, “Create a constellation-building onboarding journey for Kith.”
+- Open issues: none.
 - Release state: Kith 1.0.0 (3) completed processing on 2026-08-22 but still requires internal tester assignment; no public TestFlight or App Store release is approved.
 - Catalog state: active P2 maintained personal product, part of the Significant Hobbies Personal Platform family.
 
@@ -644,7 +644,7 @@ So hub backend is the backend for seven applications and its purpose is to join 
 - Stack: TypeScript, Cloudflare Workers and D1, typed service bindings, Better Auth session verification, read-only MCP contracts, HTML Hub UI, and the Foundation-only Swift `PersonalSyncKit` package.
 - Git snapshot: public `Significant-Hobbies/significanthobbies`; reconciliation merged in PR #140.
 - Public link: `https://significanthobbies.com`; signed-out private Hub access redirects to login.
-- Open issues: reconciliation issue #138 is complete; remaining product work stays in this repository.
+- Open issues: #142, expose all seven personal domains to the read-only Hub and ChatGPT; #141, unify personal-app authentication. Reconciliation issue #138 is complete.
 
 ## Portfolio
 
@@ -655,7 +655,7 @@ Portfolio, as the name suggests, is my personal website. It needs to exist so it
 ### Agent record
 
 - Assessment: a complete, intentionally low-maintenance personal site. It does more than a landing page—case studies, writing, résumé, command palette, GitHub-sourced project archive, and agent-readable content—but its current focused scope is appropriate. Update it only when the underlying work or professional positioning changes.
-- Start / latest commit: `0f894141e4dafa387416fb9808eb14be99d38cb5` (2026-06-04) / `37b02d4ac587076c8dd595441ca18e9e8fcd5e2f` (2026-08-22); 74 commits.
+- Start / latest commit: `eb47a81c2bc0e4064a83b42ecd0d21c03b4e97b0` (2026-05-22) / `dd5f508e0d77b39a3fb6d55a7653311a949a26b8` (2026-08-23); 75 commits.
 - Stack: Astro 5 static site, React 19 islands, TypeScript, Tailwind CSS v4, MDX content collections, GitHub build-time project data, LaTeX résumé generation, and Cloudflare Pages.
 - Git snapshot: public `sarthakagrawal927/portfolio`; clean `main` matched `origin/main`.
 - Public link: `https://sarthakagrawal.dev`.
@@ -754,11 +754,11 @@ Workflows and skills, I think I am going to merge it in SaaSmaker and have SaaSm
 ### Agent record
 
 - Assessment: SaaS Maker is the public product directory, reusable package/feedback boundary, and now the canonical home for Fleet workflows, skills, scripts, templates, and public tooling contracts. The former standalone tooling repository was absorbed with full history and is exposed through a searchable Tools surface.
-- Start / latest commit: `ca726ae4e9f6bb1fcfc38d5f4727ba6c1098090a` (2026-07-20) / `361d53fb4faa570f2fd43a6108a96317e37d3e5a` (2026-08-23).
+- Start / latest commit: `c3e1c5f897d90fc6f8ec7df0d8479984cc286078` (2026-02-26) / `c9bade86e49a78ea6398e018bef45eaa5823e211` (2026-08-23); 1,193 commits.
 - Stack: pnpm monorepo, Astro/React, Blume documentation, Cloudflare Pages/Workers/D1/R2, reusable GitHub Actions, Node/Shell operator tooling, Fleet agent skills, and generated privacy-filtered Site Health catalog.
-- Git snapshot: public `sass-maker/saas-maker`; tooling consolidation merged in PR #59.
+- Git snapshot: public `sass-maker/saas-maker`; tooling consolidation merged in PR #59 and the 58-project catalog reconciliation merged in PR #60. Unrelated local Cockpit and feedback-package edits remain preserved.
 - Public link: `https://sassmaker.com`.
-- Open issues: #52, publish `@saas-maker/feedback` with hosted project key; #46, restore Feedback as an agent-native hosted service. Tooling consolidation issue #58 is complete.
+- Open issues: #63, per-project Microsoft Clarity; #62, landing-page convergence; #61, canonical model-calling package; #52, publish `@saas-maker/feedback`; #46, restore Feedback as an agent-native hosted service. Tooling consolidation issue #58 is complete.
 - Catalog state: public directory and Tools catalog are live, maintained, and share-ready P2. Reusable tooling is no longer a separate Fleet identity.
 
 ## Setline
@@ -770,9 +770,9 @@ Setline is an iOS app whose purpose is to help me exercise, have better timings,
 ### Agent record
 
 - Assessment: a focused device-first workout player rather than a generic fitness tracker. It executes an authored programme one set at a time, keeps actual performance distinct from targets/calculations, controls rest and set timing, and records explicit skips, extras, partials, and deferrals. That precision gives it a real reason to continue.
-- Start / latest commit: `793ed2125d0de9b041f54e787dacba2263d6a7a0` (2026-07-31) / `de536e62239693dfc5a4b51ea1ecbec3c3827bfc` (2026-08-22); 82 commits.
-- Stack: SwiftUI iPhone app, Swift Charts, local JSON document/export, local notifications, XCTest/XcodeGen, optional Sign in with Apple plus Hub Backend session sync, temporary CloudKit transition sync, Astro static landing, and Cloudflare Pages.
-- Git snapshot: public `Significant-Hobbies/setline`; local `main` was two commits behind `origin/main`, with active native workout-domain changes, generated Xcode package updates from the Hub Backend rename, and an untracked OpenAPI file.
+- Start / latest commit: `2a04ef1c16135892f499c43d9ba58d5683315743` (2026-07-27) / `c4a61707bb0217676ae123bf14bd4c1dc91c02c3` (2026-08-23); 89 commits.
+- Stack: SwiftUI iPhone app, Swift Charts, local JSON document/export, local notifications, XCTest/XcodeGen, optional Sign in with Apple plus Significant Hobbies Hub session sync, temporary CloudKit transition sync, Astro static landing, and Cloudflare Pages.
+- Git snapshot: public `Significant-Hobbies/setline`; `main` matched `origin/main` after the Hub package migration, with unrelated native test and OpenAPI work preserved locally.
 - Public link: `https://setline.significanthobbies.com` (landing only; no public App Store or TestFlight distribution).
 - Open issues: none.
 - Release/catalog state: active maintained P2 iOS product. Setline 1.0.0 (3) was processed for internal TestFlight on 2026-08-22; public distribution is not approved. Continue work around actual workouts and physical-device use, keeping network out of the active workout path.
@@ -792,9 +792,9 @@ Scythe Health is essentially a local-only dashboard which has 5 main things:
 
 - Name mapping: the repository and product are **Site Health**. The owner narrative above remains verbatim.
 - Assessment: the private operating dashboard for Fleet, answering five owner questions: what exists, domain strength, public performance, Google Search evidence, and AI-answer visibility. It integrates Drank and PSI Swarm through explicit adapters rather than absorbing them, and it is the canonical private catalog for the 58 retained identities.
-- Start / latest commit: `1a475d932eaf0d88c0a905ced8e89c5070d397e5` (2026-08-17) / `00d7bb046471009c6dd53c696f4afcbe69b40bd0` (2026-08-22); 938 commits.
+- Start / latest commit: `c182c641811f9335ca81cc2350090ccde8a0b219` (2026-05-02) / `a07a3952819f45cae03b2630848520820629dc1a` (2026-08-23); 941 commits before this metadata refresh.
 - Stack: Astro UI, Node.js backend, private JSON catalog, local evidence storage/adapters, Drank domain evidence, PSI Swarm performance evidence, Google Search Console, model-provider AI-visibility observations, and local process orchestration.
-- Git snapshot: private `sass-maker/site-health`; local `main` matched `origin/main`, with catalog changes and this untracked owner-narratives document.
+- Git snapshot: private `sass-maker/site-health`; the canonical catalog and owner-narratives document are tracked on `main`.
 - Public link: none by design; it is loopback-only.
 - Open issues: none.
 - Catalog state: active maintained P2 local-only platform. Its former public hostname, tunnel route, DNS, and Access application were retired on 2026-08-22; active work should continue locally rather than reopening a public dashboard.
