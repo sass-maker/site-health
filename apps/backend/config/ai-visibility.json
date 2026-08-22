@@ -737,19 +737,19 @@
           "prompts": [
             {
               "id": "category",
-              "text": "How can I create a visual timeline of my hobbies over different life phases?"
+              "text": "What personal hubs bring focus, fitness, habits, relationships, and private reflection into one place?"
             },
             {
               "id": "comparison",
-              "text": "Which tools help track hobby journeys, rekindled interests, life phases, and what to explore next?"
+              "text": "Compare personal-app hubs by privacy, local-first ownership, cross-app summaries, and useful next actions."
             }
           ]
         }
       ],
       "personas": [
         {
-          "id": "hobby-planner",
-          "label": "a person planning meaningful hobbies across life phases"
+          "id": "personal-system-owner",
+          "label": "a person coordinating several private self-improvement apps"
         }
       ],
       "providerPolicy": {
@@ -772,6 +772,112 @@
       "name": "Significant Hobbies",
       "domain": "https://significanthobbies.com",
       "attention": "secondary"
+    },
+    {
+      "slug": "live",
+      "aliases": [
+        "Live by Significant Hobbies"
+      ],
+      "competitors": [
+        {
+          "name": "Day One",
+          "url": "https://dayoneapp.com"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "How can I create a visual timeline of my hobbies, experiences, and life phases?"
+            },
+            {
+              "id": "comparison",
+              "text": "Which tools help track hobby journeys, meaningful experiences, rekindled interests, and what to explore next?"
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "intentional-life-planner",
+          "label": "a person trying to live more intentionally across changing interests"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "name": "Live",
+      "domain": "https://live.significanthobbies.com",
+      "attention": "toolbox"
+    },
+    {
+      "slug": "journal",
+      "aliases": [
+        "Journal by Significant Hobbies"
+      ],
+      "competitors": [
+        {
+          "name": "Day One",
+          "url": "https://dayoneapp.com"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What private iPhone journals keep daily writing and a personal archive under my control?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare private journaling apps by local ownership, export and recovery, daily writing flow, and optional sync."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "private-journaler",
+          "label": "a person building a private daily writing practice"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "name": "Journal",
+      "domain": "https://journal.significanthobbies.com",
+      "attention": "toolbox"
     },
     {
       "slug": "anime-list",

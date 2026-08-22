@@ -9,7 +9,8 @@ This repository contains one product: Site Health and its backend.
 - Keep the UI under `apps/web/`.
 - Keep its backend, catalog, evidence adapters, storage, and internal AI engine
   under `apps/backend/`.
-- Drank, PSI Swarm, SaaS Maker, and Workflows are independent repositories.
+- Drank and PSI Swarm are independent repositories. Fleet-owned reusable workflows,
+  skills, and operator scripts live under `saas-maker/tooling/`.
 - Do not add Fleet-wide skills, marketing, media, mobile, feedback, generic
   workflows, or unrelated portfolio tooling here.
 

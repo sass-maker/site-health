@@ -683,7 +683,7 @@ async function renderProject() {
       element("div", { class: "section-head" }, [element("div", {}, [
         element("p", { class: "eyebrow" }, ["Operator capability layer"]),
         element("h2", { id: "capabilities-title" }, ["Fleet skills"]),
-        element("p", {}, ["Applicable skills remain canonical in the workflows-and-skills repository."]),
+        element("p", {}, ["Applicable skills remain canonical in SaaS Maker tooling."]),
       ])]),
       element("div", { class: "capability-ledger" }, [
         element("article", {}, [
@@ -693,7 +693,7 @@ async function renderProject() {
             element("small", {}, [(capabilities.skills ?? []).map((item: JsonRecord) => item.id).join(" · ")]),
           ]),
           state(capabilities.sources?.skills?.state),
-          element("a", { href: "https://github.com/sass-maker/workflows-and-skills", target: "_blank", rel: "noreferrer" }, ["Open skill catalog ↗"]),
+          element("a", { href: "https://github.com/sass-maker/saas-maker/tree/main/tooling", target: "_blank", rel: "noreferrer" }, ["Open skill catalog ↗"]),
         ]),
       ]),
     ]),

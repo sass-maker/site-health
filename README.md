@@ -17,9 +17,8 @@ This repository contains one product and its backend:
   metric runners, and the internal AI Visibility engine.
 
 Drank and PSI Swarm remain independent repositories. The backend reads or
-invokes them through explicit adapters. Reusable GitHub Actions remain in the
-independent `sass-maker/workflows-and-skills` repository, which also preserves
-Fleet-owned scripts and agent skills.
+invokes them through explicit adapters. Reusable GitHub Actions, Fleet-owned
+scripts, and agent skills live under `sass-maker/saas-maker/tooling`.
 
 ## Commands
 

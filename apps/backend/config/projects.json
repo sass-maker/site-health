@@ -214,7 +214,7 @@
       "domains": [],
       "inRegistry": false,
       "status": "local-only",
-      "notes": "Private local-only Site Health product. Workflows and Skills, SaaS Maker, Feedback, and ChatGPT Connections remain independently owned sibling repositories.",
+      "notes": "Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories.",
       "name": "Site Health",
       "attention": "foundry",
       "lifecycle": "maintained",
@@ -223,37 +223,64 @@
       "public": { "listing": "hidden" }
     },
     {
-      "id": "workflows-and-skills",
+      "id": "live",
       "portfolio": {
-        "kind": "platform",
+        "kind": "product",
         "priority": "P2",
         "status": "active",
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-22",
-          "reason": "The canonical public repository is live and exposes credential-free reusable workflows, Fleet-owned agent skills, and operator scripts."
+          "verifiedAt": "2026-08-23",
+          "reason": "The independent Live repository is deployed at live.significanthobbies.com; its Worker also preserves existing Live routes while proxying the Hub apex."
         }
       },
       "aliases": [
-        "workflows"
+        "significant-hobbies-live"
       ],
       "authModel": "public-persistent",
-      "family": "workflows-and-skills",
+      "family": "significanthobbies",
       "tier": "active",
-      "repo": "workflows-and-skills",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
-      "inRegistry": false,
+      "repo": "live",
+      "deployKind": "worker",
+      "cfProject": "significanthobbies",
+      "d1Databases": [
+        "significanthobbies"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "significanthobbies",
+          "state": "authoritative"
+        },
+        {
+          "provider": "turso",
+          "name": "significanthobbies",
+          "state": "rollback-held"
+        }
+      ],
+      "domains": [
+        "live.significanthobbies.com"
+      ],
+      "inRegistry": true,
       "status": "live",
-      "notes": "Canonical public, credential-free home for reusable GitHub Actions, Fleet-owned skills, and operator scripts. It is an independent repository, not a Site Health submodule or Fleet-root product.",
-      "name": "Workflows and Skills",
-      "attention": "foundry",
+      "notes": "Independent home for the original Significant Hobbies experience, data, authentication, bookmarks, timelines, and deeper application routes. The existing significanthobbies Worker and D1 remain Live-owned; apex / and /hub proxy to the Hub service binding without migrating user data.",
+      "name": "Live",
+      "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
-      "repositoryUrl": "https://github.com/sass-maker/workflows-and-skills",
-      "public": { "listing": "hidden" }
+      "repositoryUrl": "https://github.com/Significant-Hobbies/live",
+      "public": {
+        "listing": "maintained",
+        "id": "live",
+        "name": "Live",
+        "description": "The long-running Significant Hobbies experience for recording, exploring, and acting on a life lived beyond passive consumption.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/live"
+      }
     },
     {
       "id": "chatgpt-connections",
@@ -733,7 +760,7 @@
       "family": "high-signal",
       "tier": "secondary",
       "repo": "everythingrated",
-      "sourcePath": "../fleet-inactive-projects/everythingrated",
+      "sourcePath": "everythingrated",
       "deployKind": "worker",
       "cfProject": "everythingrated",
       "domains": [
@@ -812,7 +839,7 @@
       "family": "materia",
       "tier": "active",
       "repo": "materia",
-      "sourcePath": "../fleet-inactive-projects/materia",
+      "sourcePath": "materia",
       "deployKind": "pages",
       "cfProject": "materia",
       "domains": [
@@ -905,8 +932,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "The seven-product Hub and preserved Live landing are deployed and publicly verified."
+          "verifiedAt": "2026-08-23",
+          "reason": "The seven-product Hub is deployed from the canonical Significant Hobbies repository and publicly verified through the Live-owned apex proxy."
         }
       },
       "aliases": [
@@ -917,29 +944,23 @@
       "tier": "secondary",
       "repo": "significanthobbies",
       "deployKind": "worker",
-      "cfProject": "significanthobbies",
+      "cfProject": "personal-platform",
       "d1Databases": [
-        "significanthobbies"
+        "personal-platform"
       ],
       "databaseResources": [
         {
           "provider": "cloudflare-d1",
-          "name": "significanthobbies",
+          "name": "personal-platform",
           "state": "authoritative"
-        },
-        {
-          "provider": "turso",
-          "name": "significanthobbies",
-          "state": "rollback-held"
         }
       ],
       "domains": [
-        "significanthobbies.com",
-        "live.significanthobbies.com"
+        "significanthobbies.com"
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Apex is the live personal-apps Hub. The Live custom domain serves the preserved cinematic landing from the same Worker, and deeper Live paths return to the apex application origin. The split Journal iOS target preserves the existing bundle identity; Personal Platform-enabled version 1.0.0 (3) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21. D1 significanthobbies is authoritative; Turso significanthobbies is rollback-held and not retired.",
+      "notes": "Canonical Hub repository and backend for the seven-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -948,7 +969,7 @@
         "listing": "maintained",
         "id": "significanthobbies",
         "name": "Significant Hobbies",
-        "description": "A simple directory for Live, Journal, Habits, Calorie, Setline, Kith, and Anchor.",
+        "description": "The shared Hub for Live, Journal, Habits, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
@@ -1089,7 +1110,7 @@
       "family": "significanthobbies",
       "tier": "secondary",
       "repo": "chess",
-      "sourcePath": "../fleet-inactive-projects/chess",
+      "sourcePath": "chess",
       "deployKind": "pages",
       "cfProject": "chess-9a0",
       "domains": [
@@ -1346,38 +1367,51 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/setline"
       },
-      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project setline. The earlier Worker and D1 database stay deleted. Personal Platform-enabled native iOS build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project setline. The earlier Worker and D1 database stay deleted. Hub-enabled native iOS build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
     },
     {
-      "id": "personal-platform",
+      "id": "journal",
       "portfolio": {
-        "kind": "platform",
+        "kind": "product",
         "priority": "P2",
         "status": "active",
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "Private shared sync infrastructure is live and verified; it is not a public product surface."
+          "verifiedAt": "2026-08-23",
+          "reason": "The independent native repository and public landing are live, but no public TestFlight or App Store release is approved."
         }
       },
-      "name": "Personal Platform",
-      "authModel": "private-authenticated",
+      "name": "Journal",
+      "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
       "attention": "toolbox",
       "lifecycle": "maintained",
-      "repo": "personal-platform",
+      "repo": "journal",
+      "sourcePath": "ios-landings",
       "repositoryVisibility": "public",
-      "repositoryUrl": "https://github.com/Significant-Hobbies/personal-platform",
-      "deployKind": "worker",
-      "cfProject": "personal-platform",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/journal",
+      "deployKind": "pages",
+      "cfProject": "journal",
+      "domains": [
+        "journal.significanthobbies.com"
+      ],
       "inRegistry": true,
       "status": "live",
+      "app": "ios",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "journal",
+        "name": "Journal",
+        "description": "A private iPhone journal for daily writing, reflection, and a personal archive that stays under the owner's control.",
+        "category": "personal",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "in-progress",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/journal"
       },
-      "notes": "Shared signed-in Cloudflare sync and semantic API foundation for Journal, Habits, Setline, Kith, and Anchor. Hub remains a read/action client, Live remains web-only, and Calorie remains authoritative in its existing Worker and D1 through a service binding. Worker version d5ffabaa-b754-4cc9-886f-9637a45834fb is live from exact Git SHA e6ca445b4218784ac5320ab8796201b318278e59; D1 personal-platform is active."
+      "notes": "Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository."
     },
     {
       "id": "kith",
@@ -1389,7 +1423,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-21",
-          "reason": "Landing is live at kith.significanthobbies.com from the ios-landings factory. Personal Platform-enabled Kith 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; no public TestFlight or App Store build is approved."
+          "reason": "Landing is live at kith.significanthobbies.com from the ios-landings factory. Hub-enabled Kith 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; no public TestFlight or App Store build is approved."
         }
       },
       "name": "Kith",
@@ -1419,7 +1453,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project kith. App Store Connect record Kith by Significant Hobbies (6803666674) and Personal Platform-enabled native iPhone build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; the landing does not invent a public App Store or TestFlight URL."
+      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project kith. App Store Connect record Kith by Significant Hobbies (6803666674) and Hub-enabled native iPhone build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; the landing does not invent a public App Store or TestFlight URL."
     },
     {
       "id": "ios-landings",
@@ -1427,11 +1461,11 @@
         "kind": "platform",
         "priority": "P2",
         "status": "active",
-        "deployed": true,
+        "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-21",
-          "reason": "Private factory whose Journal Pages deployment is live at journal.significanthobbies.com. Personal Platform-enabled Journal 1.0.0 (3) completed internal-only TestFlight processing on 2026-08-21, but no public TestFlight or App Store build is approved."
+          "reason": "Private source factory that builds native-product landings; each public deployment is owned by its product row."
         }
       },
       "name": "iOS landings",
@@ -1443,13 +1477,11 @@
       "repo": "ios-landings",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/Significant-Hobbies/ios-landings",
-      "deployKind": "pages",
-      "cfProject": "journal",
-      "domains": [
-        "journal.significanthobbies.com"
-      ],
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
       "inRegistry": false,
-      "status": "live",
+      "status": "local-only",
       "public": {
         "listing": "hidden",
         "id": "ios-landings",
@@ -1460,7 +1492,7 @@
         "spotlight": false,
         "maturity": "in-progress"
       },
-      "notes": "Owns the Journal Pages project until Journal has its own repository. Journal's native target remains in the Significant Hobbies repository and Personal Platform-enabled build 1.0.0 (3) completed internal-only TestFlight processing. Also builds product trees for kith, setline, motion, indulge, anchor-landing, and habits. Calorie stays on its Worker and Live stays on the Significant Hobbies Worker."
+      "notes": "Builds the Journal, Kith, Setline, Motion, Indulge, Anchor, and Habits landing trees. Journal's native source now lives in its independent repository; Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker."
     },
     {
       "id": "rolepatch",
@@ -1630,7 +1662,7 @@
       "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
-      "repo": "ai-game",
+      "repo": "aliveville",
       "deployKind": "worker+pages",
       "cfProject": "aliveville",
       "deployTargets": [
@@ -1638,13 +1670,13 @@
           "id": "site",
           "kind": "pages",
           "name": "aliveville",
-          "sourcePath": "../fleet-inactive-projects/aliveville/astro-landing"
+          "sourcePath": "aliveville/astro-landing"
         },
         {
           "id": "app",
           "kind": "worker",
           "name": "aliveville",
-          "sourcePath": "../fleet-inactive-projects/aliveville"
+          "sourcePath": "aliveville"
         }
       ],
       "domains": [
@@ -1656,7 +1688,7 @@
       "name": "AliveVille",
       "attention": "ignored",
       "lifecycle": "past",
-      "sourcePath": "../fleet-inactive-projects/aliveville",
+      "sourcePath": "aliveville",
       "repositoryVisibility": "public",
       "metrics": {
         "domainCoverage": true
@@ -1685,8 +1717,8 @@
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "parked",
-      "repo": "protein-index-resilience",
-      "sourcePath": "../fleet-inactive-projects/protein-index",
+      "repo": "protein-index",
+      "sourcePath": "protein-index",
       "deployKind": "worker",
       "cfProject": "protein-index",
       "domains": [
@@ -1841,7 +1873,7 @@
       "family": "saas-ideas",
       "tier": "secondary",
       "repo": "saas-ideas",
-      "sourcePath": "../fleet-inactive-projects/saas-ideas",
+      "sourcePath": "saas-ideas",
       "deployKind": "pages",
       "cfProject": "saas-ideas",
       "domains": [
@@ -1927,7 +1959,7 @@
       "name": "TrueHire",
       "attention": "ignored",
       "lifecycle": "past",
-      "sourcePath": "../fleet-inactive-projects/truehire",
+      "sourcePath": "truehire",
       "repositoryVisibility": "public",
       "public": {
         "listing": "past",
@@ -1953,7 +1985,7 @@
       "authModel": "public-persistent",
       "family": "today-little-log",
       "tier": "out-of-fleet",
-      "repo": null,
+      "repo": "today-little-log",
       "deployKind": "none",
       "cfProject": "today-little-log",
       "domains": [],
@@ -1963,7 +1995,7 @@
       "name": "Today Little Log",
       "attention": "ignored",
       "lifecycle": "past",
-      "sourcePath": "../fleet-inactive-projects/today-little-log",
+      "sourcePath": "today-little-log",
       "repositoryVisibility": "public",
       "public": {
         "listing": "past",
@@ -1989,8 +2021,8 @@
       "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
-      "repo": null,
-      "sourcePath": "../fleet-inactive-projects/open-historia",
+      "repo": "open-historia",
+      "sourcePath": "open-historia",
       "deployKind": "worker",
       "cfProject": "open-historia",
       "domains": [
@@ -2031,7 +2063,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repo": "companion-robot",
-      "sourcePath": "../fleet-inactive-projects/companion-robot",
+      "sourcePath": "companion-robot",
       "repositoryVisibility": "public",
       "deployKind": "none",
       "cfProject": null,
@@ -2067,7 +2099,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repo": "elves-hq",
-      "sourcePath": "../fleet-inactive-projects/elves-hq",
+      "sourcePath": "elves-hq",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/elves-hq",
       "deployKind": "none",
@@ -2100,7 +2132,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repo": "forecast-lab",
-      "sourcePath": "../fleet-inactive-projects/forecast-lab",
+      "sourcePath": "forecast-lab",
       "repositoryVisibility": "public",
       "deployKind": "none",
       "cfProject": null,
@@ -2136,7 +2168,7 @@
       "attention": "ignored",
       "lifecycle": "past",
       "repo": "web-playables",
-      "sourcePath": "../fleet-inactive-projects/web-playables",
+      "sourcePath": "web-playables",
       "repositoryVisibility": "public",
       "deployKind": "pages",
       "cfProject": "web-playables",
@@ -2305,7 +2337,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-21",
-          "reason": "Habits is live at habits.significanthobbies.com. Personal Platform-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21; no public TestFlight or App Store build is approved."
+          "reason": "Habits is live at habits.significanthobbies.com. Hub-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21; no public TestFlight or App Store build is approved."
         }
       },
       "aliases": [
@@ -2324,7 +2356,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Habits is the canonical successor to Indulge. The local checkout and repository retain their historical spellings during the transition, and indulge.significanthobbies.com remains a compatibility landing. Personal Platform-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21.",
+      "notes": "Habits is the canonical successor to Indulge. The local checkout and repository retain their historical spellings during the transition, and indulge.significanthobbies.com remains a compatibility landing. Hub-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21.",
       "name": "Habits",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -2496,7 +2528,7 @@
       "authModel": "public-persistent",
       "family": "verified-bases",
       "tier": "out-of-fleet",
-      "repo": null,
+      "repo": "verified-bases",
       "deployKind": "worker",
       "cfProject": "verified-bases-api",
       "domains": [],
@@ -2542,7 +2574,7 @@
       "inRegistry": false,
       "status": "live",
       "app": "swift",
-      "notes": "Local-first focus timer for macOS, iOS and watchOS. Optional Personal Platform synchronization publishes finished-session metadata only; distraction notes never leave the device, and SwiftData plus private CloudKit remain the immediate and transition stores. App Store Connect record 6803853891 exists. Xcode 27 Beta 5 passes the 89 shared tests, but TestFlight waits for personal-account authentication and a refreshed Sign in with Apple profile. A current Developer ID-signed macOS build is installed and running; the direct-download DMG remains unnotarised.",
+      "notes": "Local-first focus timer for macOS, iOS and watchOS. Optional Hub synchronization publishes finished-session metadata only; distraction notes never leave the device, and SwiftData plus private CloudKit remain the immediate and transition stores. App Store Connect record 6803853891 exists. Xcode 27 Beta 5 passes the 89 shared tests, but TestFlight waits for personal-account authentication and a refreshed Sign in with Apple profile. A current Developer ID-signed macOS build is installed and running; the direct-download DMG remains unnotarised.",
       "public": {
         "listing": "hidden",
         "id": "anchor",
@@ -2588,13 +2620,13 @@
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-08-22"
       },
-      "workflows-and-skills": {
-        "form": "Automation toolkit",
-        "platforms": ["CLI", "GitHub Actions"],
-        "technologies": ["JavaScript", "Shell", "GitHub Actions"],
-        "description": "Reusable Fleet skills, workflows, and operator scripts without product runtime ownership.",
-        "firstCommitAt": "2026-07-30",
-        "latestCommitAt": "2026-08-22"
+      "live": {
+        "form": "Web app",
+        "platforms": ["Web"],
+        "technologies": ["Next.js", "TypeScript", "Cloudflare Workers", "D1"],
+        "description": "The original Significant Hobbies experience, now independently owned while preserving its data and authentication boundary.",
+        "firstCommitAt": "2026-08-21",
+        "latestCommitAt": "2026-08-23"
       },
       "chatgpt-connections": {
         "form": "MCP service",
@@ -2705,11 +2737,12 @@
         "latestCommitAt": "2026-08-20"
       },
       "significanthobbies": {
-        "form": "Publication",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "Next.js", "Cloudflare Workers", "D1"],
-        "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-08-22"
+        "form": "Personal-app Hub",
+        "platforms": ["Web", "API", "Swift package"],
+        "technologies": ["TypeScript", "Cloudflare Workers", "D1", "Swift"],
+        "description": "The shared Hub and backend for seven Significant Hobbies applications.",
+        "firstCommitAt": "2026-08-21",
+        "latestCommitAt": "2026-08-23"
       },
       "india-standards": {
         "form": "Reference web app",
@@ -2767,13 +2800,13 @@
         "firstCommitAt": "2026-07-27",
         "latestCommitAt": "2026-08-22"
       },
-      "personal-platform": {
-        "form": "Shared API platform",
-        "platforms": ["API"],
-        "technologies": ["TypeScript", "Cloudflare Workers", "D1"],
-        "description": "A private shared identity and data plane for selected Significant Hobbies apps.",
-        "firstCommitAt": "2026-08-21",
-        "latestCommitAt": "2026-08-22"
+      "journal": {
+        "form": "iOS app",
+        "platforms": ["iOS", "Web"],
+        "technologies": ["SwiftUI", "Swift", "XcodeGen", "Astro"],
+        "description": "A private daily journal and personal archive with an independently owned native codebase.",
+        "firstCommitAt": "2026-08-11",
+        "latestCommitAt": "2026-08-23"
       },
       "kith": {
         "form": "Web app",
@@ -2787,7 +2820,7 @@
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "rolepatch": {
         "form": "Web app",
@@ -3339,19 +3372,68 @@
         "resources": [],
         "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
       },
-      "workflows-and-skills": {
-        "updatedAt": "2026-08-22",
+      "live": {
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
-            "provider": "github",
-            "kind": "actions",
-            "name": "sass-maker/workflows-and-skills",
-            "method": "repository-workflows",
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "significanthobbies",
+            "method": "open-next-wrangler",
             "state": "live"
           }
         ],
-        "resources": [],
-        "notes": "Public credential-free reusable workflows and agent tooling; no Cloudflare runtime or private provider resource is owned here."
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "significanthobbies",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "significanthobbies-preview",
+            "state": "preview"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
+            "name": "personal-platform",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "zone",
+            "name": "significanthobbies.com",
+            "state": "active-config-derived"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "significanthobbies.com",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "Significant-Hobbies/.github",
+            "state": "active"
+          },
+          {
+            "provider": "turso",
+            "kind": "database",
+            "name": "significanthobbies",
+            "state": "rollback-held-unverified"
+          }
+        ],
+        "notes": "Worker version b12f3076-3eb9-4cb0-95b0-fd0dea393fe1 is live from exact Git SHA 62c42a7b4acdbcb74f042da4eaa0f792020d1da9. Live retains its existing data and authentication boundary and proxies only Hub routes to personal-platform."
       },
       "chatgpt-connections": {
         "updatedAt": "2026-08-22",
@@ -3826,68 +3908,37 @@
         ]
       },
       "significanthobbies": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
             "kind": "worker",
-            "name": "significanthobbies",
+            "name": "personal-platform",
             "method": "wrangler-direct",
             "state": "live"
-          },
-          {
-            "provider": "apple",
-            "kind": "app-store-connect",
-            "name": "Journal by Significant Hobbies",
-            "method": "manual-xcode",
-            "state": "testflight-processed"
           }
         ],
         "resources": [
           {
             "provider": "cloudflare",
             "kind": "d1",
+            "name": "personal-platform",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "service-binding",
             "name": "significanthobbies",
             "state": "active"
           },
           {
             "provider": "cloudflare",
-            "kind": "d1",
-            "name": "significanthobbies-preview",
-            "state": "preview"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "workers-ai",
-            "name": "AI",
+            "kind": "service-binding",
+            "name": "calorie",
             "state": "active"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "zone",
-            "name": "significanthobbies.com",
-            "state": "active-config-derived"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "email-routing",
-            "name": "significanthobbies.com",
-            "state": "enabled-catch-all"
-          },
-          {
-            "provider": "github",
-            "kind": "organization-profile",
-            "name": "Significant-Hobbies/.github",
-            "state": "active"
-          },
-          {
-            "provider": "turso",
-            "kind": "database",
-            "name": "significanthobbies",
-            "state": "rollback-held-unverified"
           }
         ],
-        "notes": "Worker version 2b7c418c-8b72-4440-a00c-da720d60f06f is live from exact Git SHA 81a4339102351a1722740af9e041fd09987fdd50. Journal 1.0.0 (3) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+        "notes": "Worker version dc4e0603-594f-4bf3-a584-459efe46c2e1 is live from exact Git SHA 56bf264b8bcf2aed5230398b34f9250f0de5c14a. D1 personal-platform and both domain service bindings remain active."
       },
       "india-standards": {
         "updatedAt": "2026-08-11",
@@ -4109,40 +4160,28 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project setline remains the public landing. Personal Platform-enabled iOS build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
+        "notes": "Cloudflare Pages project setline remains the public landing. Hub-enabled iOS build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR."
       },
-      "personal-platform": {
-        "updatedAt": "2026-08-21",
+      "journal": {
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
-            "kind": "worker",
-            "name": "personal-platform",
+            "kind": "pages",
+            "name": "journal",
             "method": "wrangler-direct",
             "state": "live"
-          }
-        ],
-        "resources": [
-          {
-            "provider": "cloudflare",
-            "kind": "d1",
-            "name": "personal-platform",
-            "state": "active"
           },
           {
-            "provider": "cloudflare",
-            "kind": "service-binding",
-            "name": "significanthobbies",
-            "state": "active"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "service-binding",
-            "name": "calorie",
-            "state": "active"
+            "provider": "apple",
+            "kind": "app-store-connect",
+            "name": "Journal by Significant Hobbies",
+            "method": "manual-xcode",
+            "state": "testflight-processed"
           }
         ],
-        "notes": "Worker version d5ffabaa-b754-4cc9-886f-9637a45834fb is live from exact Git SHA e6ca445b4218784ac5320ab8796201b318278e59. D1 database 61f421a2-f8c7-49c4-97f2-58a1f9b6feda and both domain service bindings are active."
+        "resources": [],
+        "notes": "The native source is independently owned by Significant-Hobbies/journal. Cloudflare Pages project journal serves the ios-landings-generated public surface; build 1.0.0 (3) remains internal-only in TestFlight."
       },
       "kith": {
         "updatedAt": "2026-08-21",
@@ -4163,7 +4202,7 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has Personal Platform-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight."
+        "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight."
       },
       "indulge": {
         "updatedAt": "2026-08-21",
@@ -4191,21 +4230,13 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project habits is live at habits.significanthobbies.com. The historical Indulge App Store record carries Habits; Personal Platform-enabled build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR. The indulge Pages project remains a compatibility resource."
+        "notes": "Cloudflare Pages project habits is live at habits.significanthobbies.com. The historical Indulge App Store record carries Habits; Hub-enabled build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR. The indulge Pages project remains a compatibility resource."
       },
       "ios-landings": {
-        "updatedAt": "2026-08-21",
-        "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "journal",
-            "method": "wrangler-direct",
-            "state": "live"
-          }
-        ],
+        "updatedAt": "2026-08-23",
+        "deployments": [],
         "resources": [],
-        "notes": "Factory owns the live Journal Pages deployment at journal.significanthobbies.com until Journal has its own repository. It also deploys the other product trees, whose resources stay on product rows."
+        "notes": "Private landing factory. Product Pages deployments are attributed to their product rows; Journal native ownership now lives in Significant-Hobbies/journal."
       },
       "rolepatch": {
         "updatedAt": "2026-08-22",

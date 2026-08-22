@@ -14,21 +14,24 @@ test('catalog records every project and infrastructure owner exactly once', () =
   assert.deepEqual(infrastructureIds, projectIds);
 });
 
-test('standalone workspace boundaries remain explicit', () => {
+test('consolidated workspace boundaries remain explicit', () => {
   const projectById = new Map(catalog.projects.map((project) => [project.id, project]));
-  const workflows = projectById.get('workflows-and-skills');
+  const saasMaker = projectById.get('saas-maker');
+  const live = projectById.get('live');
+  const hub = projectById.get('significanthobbies');
+  const journal = projectById.get('journal');
   const siteHealth = projectById.get('site-health');
 
-  assert.equal(workflows?.repo, 'workflows-and-skills');
-  assert.equal(workflows?.repositoryUrl, 'https://github.com/sass-maker/workflows-and-skills');
-  assert.equal(workflows?.public?.listing, 'hidden');
+  assert.equal(saasMaker?.repo, 'saas-maker');
+  assert.equal(live?.repositoryUrl, 'https://github.com/Significant-Hobbies/live');
+  assert.equal(hub?.cfProject, 'personal-platform');
+  assert.equal(journal?.repositoryUrl, 'https://github.com/Significant-Hobbies/journal');
   assert.deepEqual(siteHealth?.domains, []);
   assert.equal(siteHealth?.status, 'local-only');
   assert.deepEqual(catalog.infrastructure.projects['site-health'].deployments, []);
-  assert.equal(
-    catalog.infrastructure.projects['workflows-and-skills'].deployments[0]?.name,
-    'sass-maker/workflows-and-skills',
-  );
+  assert.equal(catalog.infrastructure.projects.live.deployments[0]?.name, 'significanthobbies');
+  assert.equal(catalog.infrastructure.projects.significanthobbies.deployments[0]?.name, 'personal-platform');
+  assert.equal(catalog.infrastructure.projects.journal.deployments[0]?.name, 'journal');
   assert.equal(catalog.projects.some((project) => project.family === 'fleet-workspace'), false);
 });
 
@@ -122,7 +125,7 @@ test('account-level Cloudflare resources remain explicitly owned or unowned', ()
 test('non-Vault organization repositories reconcile without duplicate products', () => {
   const projectById = new Map(catalog.projects.map((project) => [project.id, project]));
   const expectedProfiles = new Map([
-    ['significanthobbies', 'Significant-Hobbies/.github'],
+    ['live', 'Significant-Hobbies/.github'],
     ['codevetter', 'Codevetter/.github'],
     ['high-signal', 'High-Signal-App/.github'],
     ['pace', 'HeyPace/.github'],

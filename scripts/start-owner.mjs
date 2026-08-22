@@ -8,7 +8,7 @@ const workspaceRoot = resolve(repositoryRoot, '..');
 const required = [
   ['Drank', resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs')],
   ['PSI Swarm', resolve(workspaceRoot, 'psi-swarm/cli/dist/cli.js')],
-  ['Fleet skills', resolve(workspaceRoot, 'workflows-and-skills/skills/site-health/SKILL.md')],
+  ['Fleet skills', resolve(workspaceRoot, 'saas-maker/tooling/skills/site-health/SKILL.md')],
 ];
 
 console.log('Site Health owner dashboard');

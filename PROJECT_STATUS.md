@@ -12,8 +12,8 @@ backend.
 - PSI Swarm provides web-performance evidence.
 - Google Search Console provides search evidence.
 - Configured model providers supply bounded AI Visibility observations.
-- `sass-maker/workflows-and-skills` owns reusable GitHub Actions, Fleet-owned
-  scripts, and agent skills.
+- `sass-maker/saas-maker` owns reusable GitHub Actions, Fleet-owned scripts,
+  and agent skills under `tooling/`.
 
 ## Timeline
 
@@ -52,11 +52,11 @@ backend.
   queues, recorded the account-level default Secrets Store as owner-unverified,
   and corrected SaaS Maker's API, inbox, and docs from live to configured but
   not deployed. No Cloudflare resources were changed.
-- **2026-08-22:** Reconciled the standalone workspace boundary in the canonical
-  project catalog. Workflows and Skills is now an explicit independent
-  platform and infrastructure owner, Site Health no longer claims its GitHub
-  Actions, App Health no longer belongs to the retired Fleet Workspace family,
-  and catalog tests prevent those ownership boundaries from drifting again.
+- **2026-08-23:** Consolidated Workflows and Skills into SaaS Maker's `tooling/`
+  tree, extracted Live and Journal into independent repositories, and made
+  Significant Hobbies the canonical Hub plus backend. The private catalog
+  remains at exactly 58 identities by replacing the two retired standalone
+  identities with Live and Journal.
 - **2026-08-22:** Made Site Health strictly local-only on `127.0.0.1`. Removed
   public-host allowances and trusted Cloudflare identity headers; local
   loopback and an optional owner token are the only mutation boundaries. The
@@ -85,8 +85,8 @@ backend.
   Dashboard web app, Dashboard backend, internal AI Visibility engine, and
   required catalog/evidence contracts. Fleet operations, skills, marketing,
   templates, historical design evidence, and the Workflows submodule were
-  removed from the product repository; scripts and skills were preserved in
-  `sass-maker/workflows-and-skills`.
+  removed from the product repository; scripts and skills now live under
+  `sass-maker/saas-maker/tooling`.
 
 ## Products
 
