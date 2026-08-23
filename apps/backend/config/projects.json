@@ -1043,7 +1043,7 @@
           "id": "catalog-refresh",
           "kind": "worker",
           "name": "mal-api",
-          "sourcePath": "anime-list/wrangler.cron.toml"
+          "sourcePath": "anime-list"
         }
       ],
       "d1Databases": [
@@ -2429,7 +2429,7 @@
       "tier": "active",
       "repo": "reddit-insights",
       "deployKind": "worker+pages",
-      "cfProject": "reddit-insights, reddit-proxy, reddit-insights-daily-collector",
+      "cfProject": "reddit-insights, reddit-proxy",
       "deployTargets": [
         {
           "id": "site",
@@ -2442,12 +2442,6 @@
           "kind": "worker",
           "name": "reddit-proxy",
           "sourcePath": "reddit-insights/scripts/reddit-proxy"
-        },
-        {
-          "id": "daily-collector",
-          "kind": "worker",
-          "name": "reddit-insights-daily-collector",
-          "sourcePath": "reddit-insights/workers/daily-collector"
         }
       ],
       "domains": [
