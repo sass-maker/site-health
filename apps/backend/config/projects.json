@@ -3468,8 +3468,8 @@
             "method": "wrangler-direct",
             "state": "live"
           },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "configured-not-deployed" },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "configured-not-deployed" },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "live" },
+          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "live" },
           { "provider": "cloudflare", "kind": "pages", "name": "saas-maker-packages", "method": "wrangler-direct", "state": "configured-not-deployed" }
         ],
         "resources": [
