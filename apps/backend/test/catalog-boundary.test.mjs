@@ -52,7 +52,7 @@ test('live Cloudflare ownership stays reconciled', () => {
     catalog.infrastructure.projects['saas-maker'].deployments.some(
       (deployment) => deployment.name === 'saasmaker-api' && deployment.state === 'live',
     ),
-    false,
+    true,
   );
   assert.deepEqual(
     sweResources
@@ -96,16 +96,13 @@ test('account-level Cloudflare resources remain explicitly owned or unowned', ()
       coverageByKind.get('container-image-repository')?.observed,
       coverageByKind.get('container-image-repository')?.tracked,
     ],
-    [2, 2],
+    [1, 1],
   );
-  assert.equal(
-    catalog.infrastructure.projects['mobile-dev-cockpit'].resources.some(
-      (resource) => resource.kind === 'container-image-repository'
-        && resource.name === 'saasmaker-droid-sandbox'
-        && resource.observedVersions === 42,
-    ),
-    true,
-  );
+  // The Droid worker, its container and all 49 sandbox image versions were
+  // deleted from Cloudflare on 2026-08-23. Mobile Dev Cockpit never owned it —
+  // the code was saas-maker/workers/droid, removed from the repo in 25c460a0.
+  assert.deepEqual(catalog.infrastructure.projects['mobile-dev-cockpit'].resources, []);
+  assert.deepEqual(catalog.infrastructure.projects['mobile-dev-cockpit'].deployments, []);
   assert.equal(
     catalog.infrastructure.unownedResources.some(
       (resource) => resource.kind === 'container-image-repository'
