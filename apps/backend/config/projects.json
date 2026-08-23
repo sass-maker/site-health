@@ -2384,31 +2384,40 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": false,
-        "readyToBeShared": false,
+        "deployed": true,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-14",
-          "reason": "The private MVP has no verified production deployment or approved public surface."
+          "verifiedAt": "2026-08-23",
+          "reason": "The actual manager dashboard is verified at field-track.sassmaker.com as a credential-free synthetic demo; production employee data and the managed Android rollout remain unavailable."
         }
       },
-      "authModel": "private-authenticated",
+      "authModel": "public-persistent",
       "family": "field-track",
       "tier": "active",
       "repo": "field-track",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
+      "deployKind": "worker",
+      "cfProject": "field-track",
+      "domains": [
+        "field-track.sassmaker.com"
+      ],
       "app": "android+web",
-      "inRegistry": false,
-      "status": "undeployed",
-      "notes": "Private employee-location MVP with an Android foreground collector, manager dashboard, and Cloudflare Worker/D1 production path. Physical-device pilot validation remains open.",
+      "inRegistry": true,
+      "status": "live",
+      "notes": "The public Cloudflare Worker serves the actual manager dashboard as a clearly labeled synthetic demo. Production employee data, authenticated operations, and physical-device Android pilot validation remain unreleased.",
       "name": "Field Track",
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/sass-maker/field-track",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "field-track",
+        "name": "Field Track",
+        "description": "An interactive manager dashboard for freshness-aware field location operations, shown with clearly labeled synthetic employees and routes.",
+        "category": "product",
+        "pillarId": "build",
+        "spotlight": false,
+        "maturity": "in-progress"
       }
     },
     {
@@ -2977,9 +2986,9 @@
         {
           "kind": "worker",
           "state": "known-name-probed",
-          "observed": 26,
-          "tracked": 29,
-          "evidence": "Known-name deployment probes on 2026-08-22: 26 live, with the SaaS Maker API, SaaS Maker dashboard, and Reddit collector retained as configured but not deployed."
+          "observed": 27,
+          "tracked": 30,
+          "evidence": "Known-name deployment probes on 2026-08-23: 27 live, including the Field Track synthetic demo, with the SaaS Maker API, SaaS Maker dashboard, and Reddit collector retained as configured but not deployed."
         },
         {
           "kind": "d1",
@@ -4597,8 +4606,16 @@
         "resources": []
       },
       "field-track": {
-        "updatedAt": "2026-08-14",
-        "deployments": [],
+        "updatedAt": "2026-08-23",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "field-track",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
         "resources": []
       },
       "reddit-insights": {
