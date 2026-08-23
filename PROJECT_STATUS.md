@@ -17,6 +17,10 @@ backend.
 
 ## Timeline
 
+- **2026-08-23:** Absorbed the former SaaS Ideas identity into SaaS Maker's
+  `/ideas` surface. Removed its retired Pages, domain, repository, directory,
+  and asset records from the canonical project catalog; the portfolio now has
+  57 identities. The historical repository remains outside catalog scope.
 - **2026-08-22:** Added a privacy-safe public-directory projection for every
   one of the 58 retained Fleet identities. Each catalog entry now records its
   product form, platforms, concise technology set, and first/latest dates from
@@ -99,7 +103,7 @@ backend.
 
 - Projects directory and project detail pages, including a searchable retained
   inventory separated from current portfolio counts and refresh scope.
-- Privacy-safe public-directory metadata for all 58 catalog identities,
+- Privacy-safe public-directory metadata for all 57 catalog identities,
   including product form, platforms, technologies, and retained Git-history
   bounds.
 - DRANK/domain-strength view.

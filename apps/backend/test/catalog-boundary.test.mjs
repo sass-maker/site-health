@@ -152,10 +152,7 @@ test('non-Vault organization repositories reconcile without duplicate products',
     projectById.get('anchor')?.repositoryUrl,
     'https://github.com/Significant-Hobbies/anchor',
   );
-  assert.equal(
-    projectById.get('saas-ideas')?.repositoryUrl,
-    'https://github.com/sass-maker/saas-ideas',
-  );
+  assert.equal(projectById.has('saas-ideas'), false);
   assert.equal(
     projectById.get('verified-bases')?.repositoryUrl,
     'https://github.com/sass-maker/verified-bases',
@@ -211,7 +208,7 @@ test('current product scope stays smaller than the complete retained inventory',
     && project.portfolio?.priority !== 'P4'
     && project.portfolio?.status !== 'archived');
 
-  assert.equal(catalog.projects.length, 58);
+  assert.equal(catalog.projects.length, 57);
   assert.equal(current.length, 32);
   assert.equal(current.some((project) => project.id === 'gitstat'), true);
 });

@@ -1849,41 +1849,6 @@
       }
     },
     {
-      "id": "saas-ideas",
-      "portfolio": {
-        "kind": "product",
-        "priority": "P4",
-        "status": "archived",
-        "deployed": true,
-        "readyToBeShared": false,
-        "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
-        }
-      },
-      "authModel": "public-persistent",
-      "family": "saas-ideas",
-      "tier": "secondary",
-      "repo": "saas-ideas",
-      "sourcePath": "saas-ideas",
-      "deployKind": "pages",
-      "cfProject": "saas-ideas",
-      "domains": [
-        "ideas.sassmaker.com"
-      ],
-      "inRegistry": true,
-      "status": "live",
-      "notes": "Static scored catalog of SaaS ideas. The Pages project is GitHub-connected; there is no runtime service or manual deploy workflow.",
-      "name": "SaaS Ideas",
-      "attention": "ignored",
-      "lifecycle": "past",
-      "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/sass-maker/saas-ideas",
-      "public": {
-        "listing": "hidden"
-      }
-    },
-    {
       "id": "motion",
       "portfolio": {
         "kind": "product",
@@ -2872,14 +2837,6 @@
         "description": "A local-first tool that turns owned media archives into inspectable multi-clip edits.",
         "firstCommitAt": "2026-07-25",
         "latestCommitAt": "2026-08-20"
-      },
-      "saas-ideas": {
-        "form": "Idea directory",
-        "platforms": ["Web"],
-        "technologies": ["JavaScript", "Cloudflare Pages"],
-        "description": "A past public directory of software product ideas.",
-        "firstCommitAt": "2025-05-10",
-        "latestCommitAt": "2026-08-22"
       },
       "motion": {
         "form": "iOS game",
@@ -4478,19 +4435,6 @@
       "mashup": {
         "updatedAt": "2026-08-11",
         "deployments": [],
-        "resources": []
-      },
-      "saas-ideas": {
-        "updatedAt": "2026-08-11",
-        "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "saas-ideas",
-            "method": "git-connected",
-            "state": "live-retained"
-          }
-        ],
         "resources": []
       },
       "motion": {
