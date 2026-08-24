@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,18 +22,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 654979ba95b70df5ef8213f6ad7d44f7f2e991cfed86a79eae6da66b809a941d
-      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      documentSha256: ad7605ce858f00b645f11213749a2607118200165c34a851b3004281edcb4db5
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-24
       state: available
       checkout: portfolio
-      revision: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+      revision: 5e9fb7907ffc1216d44df3343b190169ae74343c
       githubRepository: sarthakagrawal927/portfolio
       expectedHomepage: https://sarthakagrawal.dev
       observedHomepage: https://sarthakagrawal.dev
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T17:54:29.488Z
+      observedAt: 2026-08-24T19:14:32.439Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -92,7 +92,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: portfolio
-  observedRevision: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+  observedRevision: 5e9fb7907ffc1216d44df3343b190169ae74343c
   githubRepository: sarthakagrawal927/portfolio
   githubHomepageUrl: https://sarthakagrawal.dev
   worktree: *a1
@@ -140,7 +140,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T17:54:29.488Z
+  observedAt: 2026-08-24T19:14:32.439Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -149,7 +149,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/portfolio
     defaultBranch: main
-    defaultBranchSha: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+    defaultBranchSha: 5e9fb7907ffc1216d44df3343b190169ae74343c
     homepage: https://sarthakagrawal.dev
     query: verified
     disposition:
@@ -175,15 +175,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694380914
+          id: 32762801012
           status: completed
           conclusion: success
-          event: push
+          event: workflow_dispatch
           branch: main
-          headSha: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
-          createdAt: 2026-08-24T05:40:40Z
-          updatedAt: 2026-08-24T05:41:22Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32694380914
+          headSha: 5e9fb7907ffc1216d44df3343b190169ae74343c
+          createdAt: 2026-08-24T18:30:23Z
+          updatedAt: 2026-08-24T18:31:17Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32762801012
         ageDays: 0
       schedule:
         health: not-applicable
@@ -193,15 +193,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694380914
+          id: 32762708078
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
-          createdAt: 2026-08-24T05:40:40Z
-          updatedAt: 2026-08-24T05:41:22Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32694380914
+          headSha: 5e9fb7907ffc1216d44df3343b190169ae74343c
+          createdAt: 2026-08-24T18:29:25Z
+          updatedAt: 2026-08-24T18:30:03Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32762708078
         ageDays: 0
       attention: clear
     - name: Build résumé PDF
@@ -238,7 +238,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 6fdd7bc
+        reason: no push run at current main revision 5e9fb79
         lastRun:
           id: 26280785969
           status: completed

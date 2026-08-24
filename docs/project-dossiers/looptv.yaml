@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,12 +22,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 36c02709a309a9cb0a570b53ec8c7786422005309cb69fa6ebf25c0104352425
-      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      documentSha256: ad7605ce858f00b645f11213749a2607118200165c34a851b3004281edcb4db5
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-24
@@ -42,13 +42,13 @@ verification:
         trackedChangeCount: 8
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T17:54:29.488Z
+      observedAt: 2026-08-24T19:14:32.439Z
       staleAfterDays: 30
-      failing: 1
       healthy: 4
+      failing: 1
       attention: &a2
-        action-required: 1
         clear: 3
+        action-required: 1
         missing-data: 1
   unknowns: []
 ownerVoice:
@@ -152,16 +152,16 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T17:54:29.488Z
+  observedAt: 2026-08-24T19:14:32.439Z
   staleAfterDays: 30
   summary:
-    failing: 1
     healthy: 4
+    failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/looptv
     defaultBranch: main
-    defaultBranchSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+    defaultBranchSha: 0675f34df5d8f38917eca2676b41fb347f40bf93
     homepage: https://tv.significanthobbies.com
     query: verified
     disposition:
@@ -182,19 +182,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32759222435
+          id: 32762410650
           status: completed
-          conclusion: failure
+          conclusion: success
           event: workflow_run
           branch: main
-          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
-          createdAt: 2026-08-24T17:53:27Z
-          updatedAt: 2026-08-24T17:53:49Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32759222435
+          headSha: 453957e649fdef7eba0148902dad45365dd1bab2
+          createdAt: 2026-08-24T18:26:14Z
+          updatedAt: 2026-08-24T18:29:59Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762410650
         ageDays: 0
       schedule:
         health: not-applicable
@@ -204,7 +204,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: action-required
+      attention: clear
     - name: CI
       file: .github/workflows/ci.yml
       triggers:
@@ -219,39 +219,38 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 32694369809
+          id: 32762297573
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
-          createdAt: 2026-08-24T05:40:28Z
-          updatedAt: 2026-08-24T05:41:14Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32694369809
+          headSha: 453957e649fdef7eba0148902dad45365dd1bab2
+          createdAt: 2026-08-24T18:25:03Z
+          updatedAt: 2026-08-24T18:25:37Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762297573
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 0675f34
         lastRun:
-          id: 32694369809
+          id: 32762297573
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
-          createdAt: 2026-08-24T05:40:28Z
-          updatedAt: 2026-08-24T05:41:14Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32694369809
-        ageDays: 0
-      attention: clear
+          headSha: 453957e649fdef7eba0148902dad45365dd1bab2
+          createdAt: 2026-08-24T18:25:03Z
+          updatedAt: 2026-08-24T18:25:37Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762297573
+      attention: action-required
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -324,7 +323,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 2c88bee
+        reason: no push run at current main revision 0675f34
         lastRun:
           id: 32538274819
           status: completed
@@ -355,15 +354,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32759156831
+          id: 32762350267
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
-          createdAt: 2026-08-24T17:52:46Z
-          updatedAt: 2026-08-24T17:53:20Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32759156831
+          headSha: 453957e649fdef7eba0148902dad45365dd1bab2
+          createdAt: 2026-08-24T18:25:36Z
+          updatedAt: 2026-08-24T18:26:12Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762350267
         ageDays: 0
       schedule:
         health: healthy

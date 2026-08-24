@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,12 +22,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: dffcead6c21427ac28ccdd5739cfcd7a28b32a7b9cd9bafb981676bd2e8b8374
-      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      documentSha256: ad7605ce858f00b645f11213749a2607118200165c34a851b3004281edcb4db5
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-24
@@ -42,13 +42,11 @@ verification:
         trackedChangeCount: 3
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T17:54:29.488Z
+      observedAt: 2026-08-24T19:14:32.439Z
       staleAfterDays: 30
-      failing: 1
-      healthy: 3
+      healthy: 4
       attention: &a2
-        action-required: 1
-        clear: 2
+        clear: 3
         missing-data: 1
   unknowns: []
 ownerVoice:
@@ -170,16 +168,15 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T17:54:29.488Z
+  observedAt: 2026-08-24T19:14:32.439Z
   staleAfterDays: 30
   summary:
-    failing: 1
-    healthy: 3
+    healthy: 4
   attention: *a2
   remote:
     repository: sass-maker/free-ai
     defaultBranch: main
-    defaultBranchSha: 7915eb10cdff7f5e6f8cbb85332c039199b3a481
+    defaultBranchSha: 8b7026f9efa7b49e65b2273638fa10fffd624289
     homepage: https://ai-gateway.sassmaker.com
     query: verified
     disposition:
@@ -201,23 +198,23 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32630705293
+          id: 32762670476
           status: completed
-          conclusion: failure
-          event: schedule
+          conclusion: success
+          event: workflow_dispatch
           branch: main
-          headSha: bc805b86711009a3da350bf3cfc242fba409e9eb
-          createdAt: 2026-08-23T09:20:00Z
-          updatedAt: 2026-08-23T09:20:13Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/32630705293
-        ageDays: 1
+          headSha: 84d4609e15bc0c3d35195be617bc7bca9e5a5c36
+          createdAt: 2026-08-24T18:29:01Z
+          updatedAt: 2026-08-24T18:29:24Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32762670476
+        ageDays: 0
       schedule:
-        health: failing
-        reason: latest scheduled run concluded failure
+        health: recovered-manually
+        reason: a newer manual run succeeded after the failed scheduled run
         lastRun:
           id: 32630705293
           status: completed
@@ -228,12 +225,22 @@ githubActions:
           createdAt: 2026-08-23T09:20:00Z
           updatedAt: 2026-08-23T09:20:13Z
           url: https://github.com/sass-maker/free-ai/actions/runs/32630705293
+        recoveryRun:
+          id: 32762670476
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 84d4609e15bc0c3d35195be617bc7bca9e5a5c36
+          createdAt: 2026-08-24T18:29:01Z
+          updatedAt: 2026-08-24T18:29:24Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32762670476
         ageDays: 1
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: action-required
+      attention: clear
     - name: CI
       file: .github/workflows/ci.yml
       triggers:
@@ -252,15 +259,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32754738757
+          id: 32764878801
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 7915eb10cdff7f5e6f8cbb85332c039199b3a481
-          createdAt: 2026-08-24T17:06:49Z
-          updatedAt: 2026-08-24T17:07:47Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/32754738757
+          headSha: 8b7026f9efa7b49e65b2273638fa10fffd624289
+          createdAt: 2026-08-24T18:52:33Z
+          updatedAt: 2026-08-24T18:53:28Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32764878801
         ageDays: 0
       schedule:
         health: not-applicable
@@ -270,15 +277,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32754738757
+          id: 32764878801
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 7915eb10cdff7f5e6f8cbb85332c039199b3a481
-          createdAt: 2026-08-24T17:06:49Z
-          updatedAt: 2026-08-24T17:07:47Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/32754738757
+          headSha: 8b7026f9efa7b49e65b2273638fa10fffd624289
+          createdAt: 2026-08-24T18:52:33Z
+          updatedAt: 2026-08-24T18:53:28Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32764878801
         ageDays: 0
       attention: clear
     - name: Deploy Cloudflare
@@ -307,7 +314,7 @@ githubActions:
           createdAt: 2026-08-22T18:18:52Z
           updatedAt: 2026-08-22T18:20:02Z
           url: https://github.com/sass-maker/free-ai/actions/runs/32590364065
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -351,7 +358,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 7915eb1
+        reason: no push run at current main revision 8b7026f
         lastRun:
           id: 32694843049
           status: completed

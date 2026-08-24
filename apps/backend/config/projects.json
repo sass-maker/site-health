@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-08-23.",
-    "updated": "2026-08-24",
+    "updated": "2026-08-25",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -739,11 +739,11 @@
         "kind": "product",
         "priority": "P2",
         "status": "active",
-        "deployed": false,
+        "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-25",
-          "reason": "High Signal Podcasts SSR exists locally; Cloudflare D1/R2/DNS for podcasts.highsignal.app are not provisioned yet."
+          "reason": "Live at podcasts.highsignal.app, but the published corpus is still a thin V1 slice, so the public listing stays hidden."
         }
       },
       "authModel": "public-persistent",
@@ -751,11 +751,30 @@
       "tier": "active",
       "repo": "on-record",
       "deployKind": "worker",
-      "cfProject": null,
-      "domains": [],
+      "cfProject": "on-record-api, high-signal-podcasts",
+      "deployTargets": [
+        {
+          "id": "api",
+          "kind": "worker",
+          "name": "on-record-api",
+          "sourcePath": "on-record/workers/api"
+        },
+        {
+          "id": "web",
+          "kind": "worker",
+          "name": "high-signal-podcasts",
+          "sourcePath": "on-record/apps/web"
+        }
+      ],
+      "d1Databases": [
+        "on-record-db"
+      ],
+      "domains": [
+        "podcasts.highsignal.app"
+      ],
       "inRegistry": false,
-      "status": "undeployed",
-      "notes": "High Signal sub-product (own layout). Intended domain podcasts.highsignal.app; intended workers on-record-api and high-signal-podcasts; intended D1 on-record-db and R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record. Do not probe the domain until DNS exists.",
+      "status": "live",
+      "notes": "High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.",
       "name": "High Signal Podcasts",
       "attention": "my-work",
       "lifecycle": "maintained",
@@ -2601,6 +2620,15 @@
         "firstCommitAt": "2026-04-25",
         "latestCommitAt": "2026-08-23"
       },
+      "on-record": {
+        "makerNote": "I’m building High Signal Podcasts to extract useful insights, recommendations, and emerging technology signals from top podcasts without listening to every episode.",
+        "form": "Podcast intelligence web app",
+        "platforms": ["Web", "API"],
+        "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
+        "description": "A source-backed index of what notable people said on podcasts, including books and tools they use.",
+        "firstCommitAt": "2026-08-24",
+        "latestCommitAt": "2026-08-25"
+      },
       "everythingrated": {
         "makerNote": "I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.",
         "form": "Ratings experiment",
@@ -2934,23 +2962,23 @@
         {
           "kind": "worker",
           "state": "known-name-probed",
-          "observed": 27,
-          "tracked": 30,
-          "evidence": "Known-name deployment probes on 2026-08-23: 27 live, including the Field Track synthetic demo, with the SaaS Maker API, SaaS Maker dashboard, and Reddit collector retained as configured but not deployed."
+          "observed": 29,
+          "tracked": 32,
+          "evidence": "Known-name deployment probes found 27 live on 2026-08-23, including the Field Track synthetic demo. On 2026-08-25, on-record-api and high-signal-podcasts were verified live. The SaaS Maker API, SaaS Maker dashboard, and Reddit collector remain attributed as configured but not deployed."
         },
         {
           "kind": "d1",
           "state": "provider-complete",
-          "observed": 23,
-          "tracked": 23,
-          "evidence": "Wrangler account list. Setline's empty D1 database was deleted 2026-08-16."
+          "observed": 24,
+          "tracked": 24,
+          "evidence": "Wrangler account inventory plus the on-record deployment verification on 2026-08-25: 24 databases are attributed, including on-record-db. Setline's empty D1 database was deleted 2026-08-16."
         },
         {
           "kind": "r2",
           "state": "provider-complete",
-          "observed": 11,
-          "tracked": 12,
-          "evidence": "Wrangler account list on 2026-08-23: 11 live buckets, all attributed in the catalog. The reddit-insights archive remains configured but not provisioned."
+          "observed": 12,
+          "tracked": 13,
+          "evidence": "Wrangler account inventory found 11 live buckets on 2026-08-23; on-record-raw was added and attributed on 2026-08-25. The reddit-insights archive remains configured but not provisioned."
         },
         {
           "kind": "kv",
@@ -3659,8 +3687,36 @@
       },
       "on-record": {
         "updatedAt": "2026-08-25",
-        "deployments": [],
-        "resources": []
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "on-record-api",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "high-signal-podcasts",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "on-record-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "on-record-raw",
+            "state": "active"
+          }
+        ]
       },
       "everythingrated": {
         "updatedAt": "2026-08-23",

@@ -1,0 +1,333 @@
+schemaVersion: 1
+projectId: on-record
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
+      infrastructureUpdatedAt: 2026-08-25
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: High Signal Podcasts
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-25
+      reviewSha256: c54c9d1797d06ae6718206b930e554f1041ea39cae1eee8bb4180b610a0fa52f
+      documentSha256: ad7605ce858f00b645f11213749a2607118200165c34a851b3004281edcb4db5
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: on-record
+      revision: 7636a0aa249732afca8615c16ea8962c32fe93d3
+      githubRepository: Significant-Hobbies/on-record
+      expectedHomepage: https://podcasts.highsignal.app
+      observedHomepage: https://podcasts.highsignal.app
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 19
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T19:14:32.439Z
+      staleAfterDays: 30
+      healthy: 1
+      never-run: 1
+      manual-or-reusable-never-run: 1
+      attention: &a2
+        clear: 2
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
+  fullReviewVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Index what notable people said on podcasts as evidenced claims, including books/apps they use.
+  currentState: Live at podcasts.highsignal.app as a High Signal sub-product with its own layout; published corpus is still a thin V1 slice.
+  nextDecision: Grow the evidenced recs/stack index and keep the public listing hidden until the corpus is worth sharing.
+identity:
+  name: High Signal Podcasts
+  publicName: null
+  aliases: []
+  family: high-signal
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A source-backed index of what notable people said on podcasts, including books and tools they use.
+  publicMakerNote: I’m building High Signal Podcasts to extract useful insights, recommendations, and emerging technology signals from top podcasts without listening to every episode.
+  form: Podcast intelligence web app
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - Astro
+    - Hono
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-08-24
+    latestCommitAt: 2026-08-25
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: on-record
+  observedRevision: 7636a0aa249732afca8615c16ea8962c32fe93d3
+  githubRepository: Significant-Hobbies/on-record
+  githubHomepageUrl: https://podcasts.highsignal.app
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/on-record
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - apps/web/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - apps/web/wrangler.jsonc
+          - workers/api/wrangler.jsonc
+      - name: Drizzle
+        evidence:
+          - packages/db/drizzle.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Python pyproject
+        evidence:
+          - python/ingest/pyproject.toml
+      - name: uv
+        evidence:
+          - python/ingest/uv.lock
+      - name: Vitest
+        evidence:
+          - workers/api/vitest.config.ts
+    rootPackageScripts:
+      - build
+      - db:migrate:local
+      - db:migrate:remote
+      - dev
+      - dev:web
+      - format
+      - format:check
+      - ingest
+      - lint
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:duplication
+      - quality:hygiene
+      - quality:python-format
+      - quality:python-lint
+      - quality:suppressions
+      - quality:unused
+      - ready
+      - review:report
+      - test
+      - test:python
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T19:14:32.439Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    never-run: 1
+    manual-or-reusable-never-run: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/on-record
+    defaultBranch: main
+    defaultBranchSha: 7636a0aa249732afca8615c16ea8962c32fe93d3
+    homepage: https://podcasts.highsignal.app
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32764396143
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 7636a0aa249732afca8615c16ea8962c32fe93d3
+          createdAt: 2026-08-24T18:47:24Z
+          updatedAt: 2026-08-24T18:48:09Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32764396143
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32764396143
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 7636a0aa249732afca8615c16ea8962c32fe93d3
+          createdAt: 2026-08-24T18:47:24Z
+          updatedAt: 2026-08-24T18:48:09Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32764396143
+        ageDays: 0
+      attention: clear
+    - name: cron-ingest
+      file: .github/workflows/cron-ingest.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 6 * * *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: never-run
+        reason: no workflow run was returned by GitHub
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: never-run
+        reason: no scheduled run was returned by GitHub
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: missing-data
+    - name: deploy
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - podcasts.highsignal.app
+  primaryUrl: https://podcasts.highsignal.app
+  domainProbePaths: {}
+  targets:
+    - id: api
+      kind: worker
+      name: on-record-api
+      sourcePath: on-record/workers/api
+    - id: web
+      kind: worker
+      name: high-signal-podcasts
+      sourcePath: on-record/apps/web
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: on-record-api
+        method: wrangler-direct
+        state: live
+      - provider: cloudflare
+        kind: worker
+        name: high-signal-podcasts
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: on-record-db
+        state: active
+        scope: project
+        operationalOwner: on-record
+        attributionReason: "Canonical project owner: on-record"
+      - provider: cloudflare
+        kind: r2
+        name: on-record-raw
+        state: active
+        scope: project
+        operationalOwner: on-record
+        attributionReason: "Canonical project owner: on-record"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-25
+  reason: Live at podcasts.highsignal.app, but the published corpus is still a thin V1 slice, so the public listing stays hidden.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/on-record/issues
+  geoIdentity: null
+notes:
+  catalog: High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.
+  infrastructure: null
