@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-08-22.",
-    "updated": "2026-08-22",
+    "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-08-23.",
+    "updated": "2026-08-23",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -18,10 +18,10 @@
       "tursoDatabases": "optional exact Turso database names owned by this project",
       "databaseResources": "optional exact relational database resources with provider, name, and prepared | authoritative | rollback-held state",
       "infrastructure": "complete per-project deployment and provider-resource inventory; every project id must have one entry, including inactive and local-only projects",
-      "domains": "live custom domains (empty = pages.dev only or undeployed)",
+      "domains": "canonical live custom domains (empty = provider hostname only or undeployed; redirect and www aliases may be omitted)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
       "inRegistry": "present in agent-surfaces-registry.json",
-      "status": "live | local-only | undeployed | orphan | deleted | unverified",
+      "status": "live | local-only | undeployed | orphan | deleted | archived | retired | retained-resources | unverified",
       "authModel": "local-only | required-user | required-service | private-authenticated | public-personalized | public-persistent",
       "notes": "reconciliation flags / decisions",
       "name": "human display name",
@@ -44,10 +44,10 @@
       "saas-maker": "saas-maker",
       "tinygpt": "posttrainllm"
     },
-    "workers": "Historical 2026-07-18 enumeration; use current provider evidence for live inventory. The former high-signal-annotation Worker is decommissioned.",
+    "workers": "Use infrastructure._meta.cloudflareCoverage plus per-project deployment rows for current evidence. Wrangler supports known-name Worker probes but not a complete reverse account inventory.",
     "openGaps": [
       "CF project 'tinygpt' name unchanged — cosmetic only and not user-visible. posttrainllm.com is the canonical live domain; the platform-generated tinygpt.pages.dev hostname is not a custom fallback.",
-      "open-historia confirmed a live product (historia.aliveville.com), not an orphan."
+      "Reddit Insights retains one configured-but-not-deployed daily collector Worker and one configured-but-not-provisioned archive bucket."
     ]
   },
   "projects": [
@@ -332,16 +332,16 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-22",
-          "reason": "The canonical public directory is live at sassmaker.com. Feedback API, inbox, and docs targets remain configured in source but are not provisioned in Cloudflare."
+          "verifiedAt": "2026-08-23",
+          "reason": "The canonical public directory is live at sassmaker.com, and both the feedback API and private inbox Workers are provisioned and live."
         }
       },
       "authModel": "public-persistent",
       "family": "saas-maker",
       "tier": "active",
       "repo": "saas-maker",
-      "deployKind": "pages",
-      "cfProject": "saas-maker-home",
+      "deployKind": "worker+pages",
+      "cfProject": "saas-maker-home, saasmaker-api, saasmaker-dashboard",
       "deployTargets": [
         {
           "id": "public-directory",
@@ -355,7 +355,7 @@
       "domains": ["sassmaker.com"],
       "inRegistry": true,
       "status": "live",
-      "notes": "Standalone public product directory plus configured Feedback source. Live Cloudflare reconciliation on 2026-08-22 confirmed only saas-maker-home and sassmaker.com; the Feedback API, inbox, docs, and their hostnames are not currently provisioned.",
+      "notes": "Standalone public product directory plus Feedback API and private inbox. Live Cloudflare reconciliation on 2026-08-23 confirmed the saas-maker-home Pages project, both Workers, both R2 buckets, and sassmaker.com; there is no separate SaaS Maker docs Pages project.",
       "name": "SaaS Maker",
       "attention": "my-work",
       "lifecycle": "maintained",
@@ -459,11 +459,11 @@
         "kind": "product",
         "priority": "P4",
         "status": "archived",
-        "deployed": true,
+        "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-20",
-          "reason": "The product is parked with no approved distribution; its retained Worker and container are inventory only."
+          "verifiedAt": "2026-08-23",
+          "reason": "The product is retired with no active deployment or retained Cloudflare resources."
         }
       },
       "authModel": "required-service",
@@ -474,7 +474,7 @@
       "domains": [],
       "inRegistry": false,
       "status": "retired",
-      "notes": "Parked native mobile supervision client extracted from Fleet Workspace on 2026-08-20. Source and existing provider resources are retained; there is no active product, physical-device, deployment, or Fleet Console work.",
+      "notes": "Retired native mobile supervision client extracted from Fleet Workspace on 2026-08-20. Source is retained, but its former Worker, container, and sandbox image versions were deleted from Cloudflare on 2026-08-23.",
       "name": "Mobile Dev Cockpit",
       "attention": "ignored",
       "lifecycle": "past",
@@ -868,7 +868,7 @@
       "tier": "active",
       "repo": "knowledge-base",
       "deployKind": "worker+pages",
-      "cfProject": "knowledgebase-landing + knowledgebase-app + RAG_SERVICE workers",
+      "cfProject": "knowledgebase-landing, knowledgebase-app, knowledgebase",
       "cfPages": [
         "knowledgebase-landing",
         "knowledgebase-app"
@@ -1927,42 +1927,6 @@
       }
     },
     {
-      "id": "today-little-log",
-      "portfolio": {
-        "kind": "experiment",
-        "priority": "P4",
-        "status": "archived",
-        "deployed": false,
-        "readyToBeShared": false,
-        "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
-        }
-      },
-      "authModel": "public-persistent",
-      "family": "today-little-log",
-      "tier": "out-of-fleet",
-      "repo": "today-little-log",
-      "deployKind": "none",
-      "cfProject": "today-little-log",
-      "domains": [],
-      "inRegistry": false,
-      "status": "deleted",
-      "notes": "Pages project deleted 2026-07-18 (purged 126 deployments then project)",
-      "name": "Today Little Log",
-      "attention": "ignored",
-      "lifecycle": "past",
-      "sourcePath": "today-little-log",
-      "repositoryVisibility": "public",
-      "public": {
-        "listing": "past",
-        "id": "today-little-log",
-        "name": "Today Little Log",
-        "description": "A small daily logging experiment later folded into other work.",
-        "repositoryUrl": "https://github.com/sarthakagrawal927/today-little-log"
-      }
-    },
-    {
       "id": "open-historia",
       "portfolio": {
         "kind": "experiment",
@@ -2035,39 +1999,6 @@
         "repositoryUrl": "https://github.com/HeyPace/companion-robot"
       },
       "notes": "Inactive historical repository with a retained live Cloudflare Pages surface; explicit source reactivation is required for changes."
-    },
-    {
-      "id": "elves-hq",
-      "portfolio": {
-        "kind": "experiment",
-        "priority": "P4",
-        "status": "archived",
-        "deployed": false,
-        "readyToBeShared": false,
-        "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
-        }
-      },
-      "name": "Elves HQ",
-      "authModel": "public-persistent",
-      "family": "elves-hq",
-      "tier": "out-of-fleet",
-      "attention": "ignored",
-      "lifecycle": "past",
-      "repo": "elves-hq",
-      "sourcePath": "elves-hq",
-      "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/sass-maker/elves-hq",
-      "deployKind": "none",
-      "cfProject": null,
-      "domains": [],
-      "inRegistry": false,
-      "status": "undeployed",
-      "public": {
-        "listing": "hidden"
-      },
-      "notes": "Inactive historical repository; explicit reactivation required."
     },
     {
       "id": "forecast-lab",
@@ -2494,11 +2425,11 @@
       "domains": [],
       "inRegistry": false,
       "status": "retained-resources",
-      "notes": "Historical product identity retained because the verified-bases-api Worker plus D1 and R2 resources still exist. No current checkout or live public route was found in the 2026-08-11 inventory.",
+      "notes": "Historical product identity with a retained public checkout. The verified-bases-api Worker plus D1 and R2 resources still exist, but no live public route was found in the 2026-08-23 inventory.",
       "name": "Verified Bases",
       "attention": "ignored",
       "lifecycle": "past",
-      "repositoryVisibility": "unknown",
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/verified-bases",
       "public": {
         "listing": "hidden"
@@ -2557,21 +2488,21 @@
         "platforms": ["macOS", "Windows", "Linux", "Web"],
         "technologies": ["Tauri", "React", "Go", "Rust"],
         "firstCommitAt": "2025-11-30",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "pace": {
         "form": "macOS app",
         "platforms": ["macOS", "Web"],
         "technologies": ["Swift", "SwiftUI", "Astro", "Cloudflare Pages"],
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "posttrainllm": {
         "form": "Research platform",
         "platforms": ["Web", "Local"],
         "technologies": ["Astro", "Python", "Rust", "Cloudflare Pages"],
         "firstCommitAt": "2026-05-21",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "site-health": {
         "form": "Local dashboard",
@@ -2609,7 +2540,7 @@
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
         "firstCommitAt": "2026-08-21",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "reel-pipeline": {
         "form": "Video pipeline",
@@ -2617,7 +2548,7 @@
         "technologies": ["Python", "Rust", "Cloudflare Workers", "R2"],
         "description": "A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.",
         "firstCommitAt": "2026-05-28",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "mobile-dev-cockpit": {
         "form": "Mobile app",
@@ -2639,21 +2570,21 @@
         "platforms": ["Web", "API"],
         "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-02-24",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "chatgpt-memory-insights": {
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
         "firstCommitAt": "2026-07-28",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-08-23"
       },
       "free-ai": {
         "form": "API gateway",
         "platforms": ["API", "Web"],
         "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-02-15",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "psi-swarm": {
         "form": "Performance platform",
@@ -2667,35 +2598,35 @@
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Hono", "Cloudflare"],
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "everythingrated": {
         "form": "Ratings experiment",
         "platforms": ["Web"],
         "technologies": ["Astro", "Next.js", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "research-papers": {
         "form": "Research library",
         "platforms": ["Web"],
         "technologies": ["Astro", "Python", "React", "TypeScript"],
         "firstCommitAt": "2026-05-30",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-08-23"
       },
       "materia": {
         "form": "Interactive experiment",
         "platforms": ["Web"],
         "technologies": ["Astro", "React", "Three.js", "Cloudflare Pages"],
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "knowledge-base": {
         "form": "Knowledge platform",
         "platforms": ["Web", "API"],
         "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-08-23"
       },
       "significanthobbies": {
         "form": "Personal-app Hub",
@@ -2710,14 +2641,14 @@
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Workers"],
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-08-21"
+        "latestCommitAt": "2026-08-23"
       },
       "anime-list": {
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Vite", "Hono", "Cloudflare"],
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "chess": {
         "form": "Web game",
@@ -2731,21 +2662,21 @@
         "platforms": ["Web", "TV"],
         "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
         "firstCommitAt": "2026-04-04",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "reader": {
         "form": "Reading web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "swe-interview-prep": {
         "form": "Learning web app",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "calorie": {
         "form": "iOS app",
@@ -2788,35 +2719,35 @@
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-02-23",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "karte": {
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "starboard": {
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "ai-game": {
         "form": "Web game",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "Three.js", "Cloudflare"],
         "firstCommitAt": "2026-05-03",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "protein-index": {
         "form": "Data API and web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-07-15",
-        "latestCommitAt": "2026-07-25"
+        "latestCommitAt": "2026-08-23"
       },
       "veg-protein-food": {
         "form": "Food directory",
@@ -2824,14 +2755,14 @@
         "technologies": ["Astro", "Cloudflare Pages"],
         "description": "A searchable directory of vegetarian protein foods and practical nutrition comparisons.",
         "firstCommitAt": "2026-08-15",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-08-23"
       },
       "app-health": {
         "form": "Monitoring service",
         "platforms": ["Web", "API"],
         "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-08-21"
+        "latestCommitAt": "2026-08-23"
       },
       "mashup": {
         "form": "Local media tool",
@@ -2846,28 +2777,21 @@
         "platforms": ["iOS", "iPadOS", "Web"],
         "technologies": ["SwiftUI", "Apple Vision", "Vite", "TypeScript"],
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "truehire": {
         "form": "Hiring experiment",
         "platforms": ["Web"],
         "technologies": ["Next.js", "React", "TypeScript", "Cloudflare"],
         "firstCommitAt": "2026-04-24",
-        "latestCommitAt": "2026-07-20"
-      },
-      "today-little-log": {
-        "form": "Personal PWA",
-        "platforms": ["Web", "Mobile"],
-        "technologies": ["React", "Vite", "TypeScript", "Cloudflare"],
-        "firstCommitAt": "2025-12-03",
-        "latestCommitAt": "2026-07-03"
+        "latestCommitAt": "2026-08-02"
       },
       "open-historia": {
         "form": "Strategy web game",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "Hono", "Cloudflare Workers"],
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "companion-robot": {
         "form": "Hardware experiment",
@@ -2875,14 +2799,6 @@
         "technologies": ["Swift", "Apple Vision", "ESP32", "Local AI"],
         "firstCommitAt": "2026-06-25",
         "latestCommitAt": "2026-07-17"
-      },
-      "elves-hq": {
-        "form": "Web experiment",
-        "platforms": ["Web"],
-        "technologies": ["React", "Vite", "TypeScript"],
-        "description": "A past collaborative-agent interface experiment retained for reference.",
-        "firstCommitAt": "2026-07-06",
-        "latestCommitAt": "2026-07-25"
       },
       "forecast-lab": {
         "form": "Research toolkit",
@@ -2896,14 +2812,14 @@
         "platforms": ["Web", "YouTube Playables"],
         "technologies": ["TypeScript", "Vite", "Cloudflare Pages"],
         "firstCommitAt": "2026-07-10",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-08-23"
       },
       "what-it-takes-to-win": {
         "form": "Research publication",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
         "firstCommitAt": "2026-07-21",
-        "latestCommitAt": "2026-08-21"
+        "latestCommitAt": "2026-08-23"
       },
       "sarthakagrawal-personal": {
         "form": "Portfolio website",
@@ -2917,7 +2833,7 @@
         "platforms": ["macOS", "Local"],
         "technologies": ["SwiftUI", "SpriteKit", "Codex CLI"],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-08-23"
       },
       "indulge": {
         "form": "iOS app",
@@ -2931,7 +2847,7 @@
         "platforms": ["macOS", "Local"],
         "technologies": ["SwiftUI", "AVFoundation", "Core Image", "VideoToolbox"],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-21"
+        "latestCommitAt": "2026-08-23"
       },
       "field-track": {
         "form": "Android app and dashboard",
@@ -2947,15 +2863,15 @@
         "technologies": ["TypeScript", "Cloudflare Workers", "R2"],
         "description": "A bounded research collector for subreddit evidence and recurring insight snapshots.",
         "firstCommitAt": "2026-08-07",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-08-23"
       },
       "verified-bases": {
         "form": "Research dataset",
         "platforms": ["GitHub"],
         "technologies": ["Markdown", "Git"],
         "description": "A retained research-data identity with no retained local Git history or standalone public destination.",
-        "firstCommitAt": null,
-        "latestCommitAt": null
+        "firstCommitAt": "2026-06-16",
+        "latestCommitAt": "2026-07-18"
       },
       "anchor": {
         "form": "Apple app",
@@ -2969,7 +2885,7 @@
   "infrastructure": {
     "_meta": {
       "purpose": "Owner-readable deployment and cloud-resource inventory for every Fleet identity, including inactive and local-only projects.",
-      "verifiedAt": "2026-08-22",
+      "verifiedAt": "2026-08-23",
       "evidence": {
         "cloudflare": "Live Pages, known-name Workers, D1, R2, KV, Vectorize, Queues, Workflows, Containers, Tunnels, Turnstile, and account-level service inventory plus tracked Wrangler configuration.",
         "turso": "Tracked configuration only; the Turso CLI was not authenticated on 2026-08-11.",
@@ -2979,9 +2895,9 @@
         {
           "kind": "pages",
           "state": "provider-complete",
-          "observed": 32,
-          "tracked": 34,
-          "evidence": "Wrangler account list on 2026-08-22: 32 live. The catalog additionally retains one configured SaaS Maker docs target and one deleted historical Today Little Log target."
+          "observed": 31,
+          "tracked": 31,
+          "evidence": "Wrangler account list on 2026-08-23: 31 live Pages projects, all attributed in the catalog."
         },
         {
           "kind": "worker",
@@ -3000,9 +2916,9 @@
         {
           "kind": "r2",
           "state": "provider-complete",
-          "observed": 9,
+          "observed": 11,
           "tracked": 12,
-          "evidence": "Wrangler account list on 2026-08-22: 9 live. The Feedback image bucket, SaaS Maker dashboard cache, and reddit-insights archive remain configured but not provisioned."
+          "evidence": "Wrangler account list on 2026-08-23: 11 live buckets, all attributed in the catalog. The reddit-insights archive remains configured but not provisioned."
         },
         {
           "kind": "kv",
@@ -3191,7 +3107,7 @@
         {
           "kind": "service-binding",
           "state": "config-derived",
-          "tracked": 6,
+          "tracked": 7,
           "evidence": "Tracked Worker bindings."
         },
         {
@@ -3409,7 +3325,7 @@
         ]
       },
       "saas-maker": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3430,8 +3346,8 @@
           },
           { "provider": "cloudflare", "kind": "email-routing", "name": "sassmaker.com", "state": "enabled-catch-all" },
           { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "active" },
-          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "config-derived" },
-          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "config-derived" },
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "active" },
+          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "active" },
           { "provider": "github", "kind": "organization-profile", "name": "sass-maker/.github", "state": "active" }
         ]
       },
@@ -3660,7 +3576,7 @@
         ]
       },
       "everythingrated": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3713,7 +3629,7 @@
         "resources": []
       },
       "knowledge-base": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3733,8 +3649,8 @@
             "provider": "cloudflare",
             "kind": "worker",
             "name": "knowledgebase-app",
-            "method": "legacy-worker",
-            "state": "live-purpose-review"
+            "method": "open-next-wrangler",
+            "state": "live-retained-legacy-app"
           },
           {
             "provider": "cloudflare",
@@ -3835,7 +3751,8 @@
             "name": "search.sassmaker.com",
             "state": "active-config-derived"
           }
-        ]
+        ],
+        "notes": "The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name."
       },
       "significanthobbies": {
         "updatedAt": "2026-08-23",
@@ -3950,7 +3867,7 @@
         "resources": []
       },
       "reader": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4338,7 +4255,7 @@
         ]
       },
       "ai-game": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4351,8 +4268,8 @@
             "provider": "cloudflare",
             "kind": "worker",
             "name": "aliveville",
-            "method": "legacy-worker",
-            "state": "live-retained-purpose-review"
+            "method": "wrangler-direct",
+            "state": "live-retained"
           }
         ],
         "resources": [
@@ -4368,7 +4285,8 @@
             "name": "aliveville.com",
             "state": "enabled-catch-all"
           }
-        ]
+        ],
+        "notes": "The Pages project serves the marketing root; the Worker serves aliveville.com/game* and owns the per-session GameSessionDO runtime."
       },
       "protein-index": {
         "updatedAt": "2026-08-11",
@@ -4465,21 +4383,8 @@
           }
         ]
       },
-      "today-little-log": {
-        "updatedAt": "2026-08-11",
-        "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "today-little-log",
-            "method": "unknown",
-            "state": "deleted"
-          }
-        ],
-        "resources": []
-      },
       "open-historia": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4499,11 +4404,6 @@
         ]
       },
       "companion-robot": {
-        "updatedAt": "2026-08-11",
-        "deployments": [],
-        "resources": []
-      },
-      "elves-hq": {
         "updatedAt": "2026-08-11",
         "deployments": [],
         "resources": []
@@ -4619,7 +4519,7 @@
         "resources": []
       },
       "reddit-insights": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4653,7 +4553,7 @@
         ]
       },
       "verified-bases": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-23",
         "deployments": [
           {
             "provider": "cloudflare",

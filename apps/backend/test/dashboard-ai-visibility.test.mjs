@@ -136,7 +136,7 @@ test('every maintained public Fleet identity has product-specific fixture covera
   const portfolio = loadAiVisibilityPortfolio();
   assert.equal(portfolio.excluded.length, 0);
   assert.deepEqual(portfolio.eligible.map((project) => project.slug).sort(), expected);
-  assert.equal(portfolio.eligible.length, 34);
+  assert.equal(portfolio.eligible.length, 35);
   for (const project of portfolio.eligible) {
     assert.equal(project.promptSets.length, 1);
     assert.equal(project.promptSets[0].prompts.length, 2);
@@ -340,9 +340,9 @@ test('provider observation ingestion rejects incomplete provenance and unknown p
   );
 });
 
-test('provider observation all-project gate requires the exact canonical 34', () => {
+test('provider observation all-project gate requires the exact canonical 35', () => {
   const portfolio = loadAiVisibilityPortfolio();
-  assert.equal(portfolio.eligible.length, 34);
+  assert.equal(portfolio.eligible.length, 35);
   assert.throws(
     () => prepareProviderObservationRuns({
       bundle: {
@@ -353,7 +353,7 @@ test('provider observation all-project gate requires the exact canonical 34', ()
       engine,
       requireAll: true,
     }),
-    /do not cover the canonical 34/,
+    /do not cover the canonical 35/,
   );
 
   const prepared = prepareProviderObservationRuns({
@@ -365,7 +365,7 @@ test('provider observation all-project gate requires the exact canonical 34', ()
     engine,
     requireAll: true,
   });
-  assert.equal(prepared.length, 34);
+  assert.equal(prepared.length, 35);
 });
 
 test('offline observations do not enable direct live provider execution', async () => {

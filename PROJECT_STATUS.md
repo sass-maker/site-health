@@ -103,7 +103,7 @@ backend.
 
 - Projects directory and project detail pages, including a searchable retained
   inventory separated from current portfolio counts and refresh scope.
-- Privacy-safe public-directory metadata for all 57 catalog identities,
+- Privacy-safe public-directory metadata for all 55 catalog identities,
   including product form, platforms, technologies, and retained Git-history
   bounds.
 - DRANK/domain-strength view.

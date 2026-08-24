@@ -63,6 +63,54 @@ test('live Cloudflare ownership stays reconciled', () => {
   );
 });
 
+test('deployment summaries stay internally consistent', () => {
+  const coverageByKind = new Map(
+    catalog.infrastructure._meta.cloudflareCoverage.map((entry) => [entry.kind, entry]),
+  );
+  const cloudflareDeployments = Object.values(catalog.infrastructure.projects).flatMap(
+    (project) => project.deployments.filter((deployment) => deployment.provider === 'cloudflare'),
+  );
+  const cloudflareResources = [
+    ...Object.values(catalog.infrastructure.projects).flatMap((project) => project.resources),
+    ...catalog.infrastructure.unownedResources,
+  ].filter((resource) => resource.provider === 'cloudflare');
+
+  assert.equal(
+    coverageByKind.get('pages')?.tracked,
+    cloudflareDeployments.filter((deployment) => deployment.kind === 'pages').length,
+  );
+  assert.equal(
+    coverageByKind.get('worker')?.tracked,
+    cloudflareDeployments.filter((deployment) =>
+      deployment.kind === 'worker' || deployment.kind === 'email-worker').length,
+  );
+  for (const kind of ['r2', 'service-binding']) {
+    assert.equal(
+      coverageByKind.get(kind)?.tracked,
+      cloudflareResources.filter((resource) => resource.kind === kind).length,
+    );
+  }
+
+  for (const project of catalog.projects) {
+    const deployments = catalog.infrastructure.projects[project.id].deployments;
+    const liveCloudflareKinds = new Set(
+      deployments
+        .filter((deployment) =>
+          deployment.provider === 'cloudflare' && deployment.state.startsWith('live'))
+        .map((deployment) => deployment.kind === 'email-worker' ? 'worker' : deployment.kind),
+    );
+    const expectedDeployKind = liveCloudflareKinds.size === 0
+      ? 'none'
+      : liveCloudflareKinds.size === 2
+        ? 'worker+pages'
+        : [...liveCloudflareKinds][0];
+
+    assert.equal(project.portfolio.deployed, liveCloudflareKinds.size > 0, project.id);
+    assert.equal(project.deployKind, expectedDeployKind, project.id);
+    assert.notEqual(project.repositoryVisibility, 'unknown', project.id);
+  }
+});
+
 test('account-level Cloudflare resources remain explicitly owned or unowned', () => {
   const projectResources = Object.values(catalog.infrastructure.projects).flatMap(
     (project) => project.resources,
@@ -157,10 +205,6 @@ test('non-Vault organization repositories reconcile without duplicate products',
     projectById.get('verified-bases')?.repositoryUrl,
     'https://github.com/sass-maker/verified-bases',
   );
-  assert.equal(
-    projectById.get('elves-hq')?.repositoryUrl,
-    'https://github.com/sass-maker/elves-hq',
-  );
 });
 
 test('public directory metadata covers every retained identity with bounded public fields', () => {
@@ -208,7 +252,7 @@ test('current product scope stays smaller than the complete retained inventory',
     && project.portfolio?.priority !== 'P4'
     && project.portfolio?.status !== 'archived');
 
-  assert.equal(catalog.projects.length, 57);
+  assert.equal(catalog.projects.length, 55);
   assert.equal(current.length, 32);
   assert.equal(current.some((project) => project.id === 'gitstat'), true);
 });

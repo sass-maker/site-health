@@ -501,6 +501,59 @@
       "attention": "toolbox"
     },
     {
+      "slug": "field-track",
+      "aliases": [
+        "Field Track"
+      ],
+      "competitors": [
+        {
+          "name": "Connecteam",
+          "url": "https://connecteam.com"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What software helps managers see whether field employees are active, stale, or offline on a live map?"
+            },
+            {
+              "id": "comparison",
+              "text": "Which field workforce dashboards combine location freshness, route gaps, and employee status without hiding stale data?"
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "field-operations-manager",
+          "label": "a manager coordinating a distributed field team"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "name": "Field Track",
+      "domain": "https://field-track.sassmaker.com",
+      "attention": "toolbox"
+    },
+    {
       "slug": "free-ai",
       "aliases": [
         "AI Gateway"
