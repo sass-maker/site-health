@@ -734,6 +734,38 @@
       }
     },
     {
+      "id": "on-record",
+      "portfolio": {
+        "kind": "product",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-25",
+          "reason": "High Signal Podcasts SSR exists locally; Cloudflare D1/R2/DNS for podcasts.highsignal.app are not provisioned yet."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "high-signal",
+      "tier": "active",
+      "repo": "on-record",
+      "deployKind": "worker",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": false,
+      "status": "undeployed",
+      "notes": "High Signal sub-product (own layout). Intended domain podcasts.highsignal.app; intended workers on-record-api and high-signal-podcasts; intended D1 on-record-db and R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record. Do not probe the domain until DNS exists.",
+      "name": "High Signal Podcasts",
+      "attention": "my-work",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/Significant-Hobbies/on-record",
+      "public": {
+        "listing": "hidden"
+      }
+    },
+    {
       "id": "everythingrated",
       "portfolio": {
         "kind": "experiment",
@@ -3624,6 +3656,11 @@
             "state": "active"
           }
         ]
+      },
+      "on-record": {
+        "updatedAt": "2026-08-25",
+        "deployments": [],
+        "resources": []
       },
       "everythingrated": {
         "updatedAt": "2026-08-23",

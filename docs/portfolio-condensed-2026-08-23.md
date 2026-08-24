@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
 Date: 2026-08-23
-Scope: all 54 canonical Fleet identities
+Scope: all 55 canonical Fleet identities
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -14,12 +14,12 @@ open issues. Those belong in the canonical catalog, each project's
 | Classification | Count | Meaning |
 | --- | ---: | --- |
 | Flagship | 2 | Products worth sustained market-level investment. |
-| Active | 12 | Being built, integrated, tested, or deliberately dogfooded now. |
+| Active | 13 | Being built, integrated, tested, or deliberately dogfooded now. |
 | Maintenance | 7 | Complete enough; change only for defects or proven needs. |
 | Hold | 22 | Worth retaining, but blocked by a named validation, data, interest, UI, distribution, or economic gate. |
 | Dropped | 3 | Superseded or intentionally stopped; retain history without roadmap work. |
 | Infrastructure | 8 | Shared systems whose roadmap should be driven by consumer needs. |
-| **Total** | **54** | Every canonical Fleet identity appears exactly once. |
+| **Total** | **55** | Every canonical Fleet identity appears exactly once. |
 
 These classifications reflect current owner intent. They deliberately override misleading signals such as a live deployment for a held product or an old repository label that says maintenance while the owner is actively building.
 
@@ -46,6 +46,7 @@ These classifications reflect current owner intent. They deliberately override m
 | Free AI | Infrastructure | Aggregate useful free AI tiers behind one resilient interface. | Working well for internal consumers. | Add providers only when they improve capability coverage, reliability, or available free capacity. |
 | GitStat | Maintenance | Understand work and code churn across the owner's repositories. | More or less complete; no unanswered recurring question is currently known. | Use it and add analysis only when a specific question is missing. |
 | High Signal | Hold | Aggregate news/data sources and derive useful signals. | Product focus is now clearer, but the owner is not using it. | Resume only after regular Daily Brief use identifies a concrete deficiency. |
+| High Signal Podcasts (`on-record`) | Active | Index what notable people said on podcasts as evidenced claims, including books/apps they use. | Independent repo and ledger UI; intended domain podcasts.highsignal.app. | Keep ingest+SSR looping locally, then provision Cloudflare and DNS when ready to go live. |
 | India Standards | Hold | Use official data to contextualize how a person is doing in India. | The transparent aggregate calculator exists, but data quality limits expansion. | Reopen when materially better authoritative data becomes available. |
 | iOS landings (`ios-landings`) | Infrastructure | Reuse one landing-page engine across native Significant Hobbies products. | Canonical shared factory with multiple product-specific sites. | Add products and capabilities only when a native app actually needs a public landing surface. |
 | Journal | Active | Make journaling a durable habit within the Hub. | Currently being built as a private, device-first writing app. | Use it, add features from real practice, and explore careful emotional-pattern detection. |
