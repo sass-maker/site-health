@@ -112,6 +112,12 @@ test('restored verbatim owner narratives cover every canonical project', () => {
   assert.deepEqual(ownerSources.retired.sort(), ['Elves HQ', 'SaaS Ideas', 'Today Little Log']);
   assert.equal(ownerSources.related.anchor[0].sourceHeading, 'Indulge');
   assert.match(ownerSources.narratives.codevetter.whyVerbatim, /flagship product right now/);
+  assert.match(
+    ownerSources.narratives['on-record'].whyVerbatim,
+    /a lot of people want to take insights from podcasts/,
+  );
+  assert.equal(ownerSources.narratives['on-record'].capturedAt, '2026-08-25');
+  assert.equal(ownerSources.narratives['on-record'].restoredFromCommit, null);
 });
 
 test('current intent and operations snapshots cover every canonical project', () => {

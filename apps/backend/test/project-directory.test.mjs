@@ -14,8 +14,8 @@ const projects = loadDashboardProjects();
 test('Projects partitions the complete catalog without changing current scope', () => {
   const { current, inactive } = partitionProjects(projects);
 
-  assert.equal(projects.length, 54);
-  assert.equal(current.length, 31);
+  assert.equal(projects.length, 55);
+  assert.equal(current.length, 32);
   assert.equal(inactive.length, 23);
   assert.equal(current.every(isCurrentProject), true);
   assert.equal(inactive.every((project) => !isCurrentProject(project)), true);

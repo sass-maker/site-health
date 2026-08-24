@@ -50,17 +50,25 @@ export function parseOwnerNarratives(markdown, projects) {
   const related = {};
   const retired = [];
   const unmapped = [];
-  const pattern = /^## (.+?)\n\n```text\n([\s\S]*?)\n```/gm;
+  const pattern =
+    /^## (.+?)\n\n(?:<!-- owner-captured-at: (\d{4}-\d{2}-\d{2}) -->\n\n)?```text\n([\s\S]*?)\n```/gm;
 
   for (const match of markdown.matchAll(pattern)) {
     const heading = match[1].trim();
     const normalizedHeading = normalize(heading);
-    const verbatim = match[2];
+    const capturedAt = match[2] ?? '2026-08-22';
+    const verbatim = match[3];
+    const restoredFromArchive = match[2] == null;
     const narrative = {
       sourceHeading: heading,
       whyVerbatim: firstParagraph(verbatim),
       reviewVerbatim: verbatim,
       reviewSha256: sha256(verbatim),
+      capturedAt,
+      restoredFromCommit: restoredFromArchive
+        ? '4964ce35daee38aa91ea9648ba09012e9ee9a5da'
+        : null,
+      restoredBlob: restoredFromArchive ? '161289aa88af76fc68c74a35525119fbf3fda01e' : null,
     };
     const relatedProjectId = RELATED_OWNER_HEADINGS.get(normalizedHeading);
     if (relatedProjectId) {
@@ -206,11 +214,11 @@ export function buildProjectDossier({
           path: 'docs/portfolio-owner-narratives-2026-08-22.md',
           sourceHeading: ownerNarrative.sourceHeading,
           sourceKind: 'verbatim-owner-message',
-          capturedAt: '2026-08-22',
+          capturedAt: ownerNarrative.capturedAt,
           reviewSha256: ownerNarrative.reviewSha256,
           documentSha256: sourceFingerprints.ownerNarratives,
-          restoredFromCommit: '4964ce35daee38aa91ea9648ba09012e9ee9a5da',
-          restoredBlob: '161289aa88af76fc68c74a35525119fbf3fda01e',
+          restoredFromCommit: ownerNarrative.restoredFromCommit,
+          restoredBlob: ownerNarrative.restoredBlob,
         },
         decisionSummary: {
           path: 'docs/portfolio-condensed-2026-08-23.md',

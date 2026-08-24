@@ -379,6 +379,25 @@ High-Signal is kind of started with very wide things but now I have focused it i
 - Status reconciliation: the catalog currently calls High Signal active, deployed, maintained, and public-ready (P2), while the owner says it is on hold pending personal use. The portfolio should later distinguish “live and maintained technically” from “not receiving product investment until the owner uses it.”
 
 
+## High Signal Podcasts
+
+<!-- owner-captured-at: 2026-08-25 -->
+
+```text
+For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff.
+```
+
+### Agent record
+
+- Assessment: this is stronger than a generic podcast summarizer because it combines two concrete jobs: deciding what is worth listening to and building a cross-podcast index of evidenced recommendations and emerging technology signals. The main product risk is breadth; V1 should stay centered on a curated podcast set, inspectable claims, and repeated books/apps/tools rather than attempting arbitrary podcast intelligence.
+- Start / latest commit: `1461eadd9858d2d5395c4563cb356d3fb9030ac2` / `4d8193d83457cdb41ee187bd13955a809e749f4b`; 7 commits as of capture.
+- Stack: Astro SSR, Hono on Cloudflare Workers, D1/Drizzle, R2 for raw source material, Python/uv ingestion, Podcast Index and YouTube captions, GitHub Actions, and the Free AI gateway for extraction.
+- Git snapshot: public `Significant-Hobbies/on-record`; local `main` and `origin/main` both point to the production deployment commit.
+- Public links: `https://podcasts.highsignal.app` and `https://api.podcasts.highsignal.app`; both Workers are live, and the API health endpoint returned 200 during verification.
+- Open issues: #1, thin vertical claim-index slice; #2, evidenced books/apps/personal-stack extraction; #3, segment triage before LLM extraction; #4, SSR site, daily cron, and intended domain.
+- Catalog state: active, deployed, hidden High Signal family member. Keep claims and recommendations evidence-backed, and keep the public directory listing hidden until the index is worth sharing.
+
+
 ## India Standards
 
 ```text
