@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-08-23.",
-    "updated": "2026-08-23",
+    "updated": "2026-08-24",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -2216,45 +2216,6 @@
       }
     },
     {
-      "id": "indulge",
-      "portfolio": {
-        "kind": "product",
-        "priority": "P4",
-        "status": "archived",
-        "deployed": true,
-        "readyToBeShared": false,
-        "sharingReadiness": {
-          "verifiedAt": "2026-08-24",
-          "reason": "Retired and superseded by Anchor. Historical Apple, Hub, and landing resources are preserved for compatibility and are not active sharing targets."
-        }
-      },
-      "aliases": [
-        "induldge"
-      ],
-      "authModel": "public-persistent",
-      "family": "significanthobbies",
-      "tier": "out-of-fleet",
-      "repo": "indulge",
-      "sourcePath": "ios-landings",
-      "deployKind": "pages",
-      "cfProject": "habits",
-      "domains": [
-        "habits.significanthobbies.com",
-        "indulge.significanthobbies.com"
-      ],
-      "inRegistry": false,
-      "status": "retained-resources",
-      "notes": "Retired on 2026-08-24 and superseded by Anchor, which now owns the maintained schedule, focus, interruption, and behavior-change loop. The GitHub repository is archived and its clean local checkout is stored recoverably under fleet-inactive-projects/indulge, outside the active Fleet tree. The Habits and Indulge Pages projects, App Store/TestFlight record, bundle identity, stores, and Personal Platform habits records remain compatibility resources; no deployment, deletion, or data migration occurred.",
-      "name": "Habits / Indulge",
-      "attention": "ignored",
-      "lifecycle": "past",
-      "repositoryVisibility": "private",
-      "repositoryUrl": "https://github.com/Significant-Hobbies/indulge",
-      "public": {
-        "listing": "hidden"
-      }
-    },
-    {
       "id": "local-ai-video-studio",
       "portfolio": {
         "kind": "experiment",
@@ -2437,7 +2398,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-24",
-          "reason": "The landing, support, and privacy pages are live; App Store Connect has processed the internal Anchor beta. The merged Indulge/Habits work is locally verified but remains uncommitted and unreleased."
+        "reason": "The landing, support, and privacy pages are live. The unified Anchor source is committed, its signed macOS build 12 is installed, and iOS/watchOS build 12 is uploaded to App Store Connect for internal processing."
         }
       },
       "name": "Anchor",
@@ -2458,7 +2419,7 @@
       "inRegistry": true,
       "status": "live",
       "app": "swift",
-      "notes": "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The merged source passes 131 shared tests and native builds locally, but remains uncommitted and unreleased. App Store Connect record 6803853891 and the live landing remain intact.",
+  "notes": "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The unified source passes 134 shared tests and focused native UI journeys. Signed build 12 is installed on macOS and uploaded to App Store Connect for iOS/watchOS processing; record 6803853891 and the live landing remain intact.",
       "public": {
         "listing": "maintained",
         "id": "anchor",
@@ -2825,14 +2786,6 @@
         "platforms": ["macOS", "Local"],
         "technologies": ["SwiftUI", "SpriteKit", "Codex CLI"],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-23"
-      },
-      "indulge": {
-        "form": "iOS app",
-        "platforms": ["iOS", "Web"],
-        "technologies": ["SwiftUI", "Astro", "Cloudflare Pages"],
-        "description": "A retired behavior-change app whose illustrated onboarding and non-moralizing replacement loop now live in Anchor; public and Apple identities remain for compatibility.",
-        "firstCommitAt": "2026-08-17",
         "latestCommitAt": "2026-08-23"
       },
       "local-ai-video-studio": {
@@ -4044,34 +3997,6 @@
         "resources": [],
         "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight."
       },
-      "indulge": {
-        "updatedAt": "2026-08-24",
-        "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "habits",
-            "method": "wrangler-direct",
-            "state": "live"
-          },
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "indulge",
-            "method": "wrangler-direct",
-            "state": "live-compatibility"
-          },
-          {
-            "provider": "apple",
-            "kind": "app-store-connect",
-            "name": "Indulge by Significant Hobbies",
-            "method": "manual-xcode",
-            "state": "testflight-processed"
-          }
-        ],
-        "resources": [],
-        "notes": "Retired product resources preserved for compatibility after Anchor became the maintained successor. The GitHub repository is archived and its clean checkout is outside the active Fleet tree. Cloudflare Pages projects habits and indulge, the historical App Store/TestFlight record, and Personal Platform habits data remain intact; no deploy, deletion, or migration was performed."
-      },
       "ios-landings": {
         "updatedAt": "2026-08-23",
         "deployments": [],
@@ -4580,13 +4505,27 @@
       "anchor": {
         "updatedAt": "2026-08-24",
         "deployments": [
-          {
-            "provider": "cloudflare",
-            "kind": "pages",
-            "name": "anchor-landing",
-            "method": "wrangler-direct",
-            "state": "live"
-          },
+        {
+          "provider": "cloudflare",
+          "kind": "pages",
+          "name": "anchor-landing",
+          "method": "wrangler-direct",
+          "state": "live"
+        },
+        {
+          "provider": "cloudflare",
+          "kind": "pages",
+          "name": "habits",
+          "method": "wrangler-direct",
+          "state": "live-compatibility"
+        },
+        {
+          "provider": "cloudflare",
+          "kind": "pages",
+          "name": "indulge",
+          "method": "wrangler-direct",
+          "state": "live-compatibility"
+        },
           {
             "provider": "apple",
             "kind": "app-store-connect",
@@ -4596,7 +4535,7 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project anchor-landing remains live. App Store Connect record 6803853891 has processed the internal beta. The local merged source makes Anchor the maintained Indulge/Habits successor and passes 131 shared tests plus Mac, iPhone, and Watch build checks; that merge remains uncommitted and unreleased."
+      "notes": "Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit."
       }
     },
     "unownedResources": [
@@ -5041,32 +4980,6 @@
       },
       "officialProfiles": [
         "https://github.com/Significant-Hobbies/significanthobbies"
-      ],
-      "availability": {
-        "primary": "web",
-        "appStore": "not-applicable"
-      },
-      "pricing": {
-        "state": "not-declared"
-      }
-    },
-    {
-      "id": "indulge",
-      "name": "Habits / Indulge (retired)",
-      "aliases": [
-        "Indulge"
-      ],
-      "origin": "https://habits.significanthobbies.com",
-      "source": {
-        "state": "internal",
-        "path": "indulge"
-      },
-      "docs": {
-        "state": "landing-only",
-        "url": "https://habits.significanthobbies.com/index.md"
-      },
-      "officialProfiles": [
-        "https://github.com/Significant-Hobbies/indulge"
       ],
       "availability": {
         "primary": "web",

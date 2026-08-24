@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
 Date: 2026-08-23
-Scope: all 56 canonical Fleet identities
+Scope: all 55 canonical Fleet identities
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -19,7 +19,7 @@ open issues. Those belong in the canonical catalog, each project's
 | Hold | 22 | Worth retaining, but blocked by a named validation, data, interest, UI, distribution, or economic gate. |
 | Dropped | 5 | Superseded or intentionally stopped; retain history without roadmap work. |
 | Infrastructure | 8 | Shared systems whose roadmap should be driven by consumer needs. |
-| **Total** | **56** | Every canonical Fleet identity appears exactly once. |
+| **Total** | **55** | Every canonical Fleet identity appears exactly once. |
 
 These classifications reflect current owner intent. They deliberately override misleading signals such as a live deployment for a held product or an old repository label that says maintenance while the owner is actively building.
 
@@ -29,7 +29,7 @@ These classifications reflect current owner intent. They deliberately override m
 | --- | --- | --- | --- | --- |
 | Office OS (`agent-office`) | Hold | Give humans and non-coding agents durable ownership of outcomes. | Built to a credible testable stage, but not yet part of the owner's routine; the category has also become crowded. | Compare the strongest alternatives, define a differentiated wedge, then run a real recurring workflow before adding features. |
 | AliveVille | Hold | Create a long-running AI-agent world with memory, conflict, grudges, and open-world behavior. | The simulation thesis remains compelling, but no attempted UI made the game emotionally attractive enough to continue. | Reopen only with a convincing playable visual direction and a small fun loop—not more simulation depth. |
-| Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the merged source is verified locally but not yet committed or released. | Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change. |
+| Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; signed build 12 is installed on macOS and uploaded for internal iOS/watchOS processing. | Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change. |
 | Anime List | Maintenance | Add better anime filtering, discovery, and a personal watchlist. | Complete and frequently used; broader anime-community features are unwanted. | Maintain the directory/watchlist and fix only meaningful regressions or missing core functions. |
 | App Health | Active | Replace fragmented Sentry, PostHog, Slack, and cloud-console checking with easy high-level observability. | Good v0/v1 with a coherent OpenTelemetry-friendly model. | Integrate it across owned production services and let observed failures drive improvements. |
 | Calorie | Maintenance | Support weight loss through food logging, fasting windows, exercise timing, and daily performance. | Functionally done and connected to the Hub family. | Keep using it; change it only when repeated use reveals a gap. |
@@ -47,7 +47,6 @@ These classifications reflect current owner intent. They deliberately override m
 | GitStat | Maintenance | Understand work and code churn across the owner's repositories. | More or less complete; no unanswered recurring question is currently known. | Use it and add analysis only when a specific question is missing. |
 | High Signal | Hold | Aggregate news/data sources and derive useful signals. | Product focus is now clearer, but the owner is not using it. | Resume only after regular Daily Brief use identifies a concrete deficiency. |
 | India Standards | Hold | Use official data to contextualize how a person is doing in India. | The transparent aggregate calculator exists, but data quality limits expansion. | Reopen when materially better authoritative data becomes available. |
-| Habits / Indulge (`indulge`) | Dropped | Earlier visual exploration of intentional enjoyment, automatic patterns, and chosen alternatives. | Superseded by Anchor on 2026-08-24. Useful onboarding artwork and framing moved to Anchor; the GitHub repository is archived and its clean checkout moved outside active Fleet. Apple identities, Hub data contracts, and landing resources remain only for compatibility. | No roadmap. Preserve compatibility until a separately approved migration or deletion. |
 | iOS landings (`ios-landings`) | Infrastructure | Reuse one landing-page engine across native Significant Hobbies products. | Canonical shared factory with multiple product-specific sites. | Add products and capabilities only when a native app actually needs a public landing surface. |
 | Journal | Active | Make journaling a durable habit within the Hub. | Currently being built as a private, device-first writing app. | Use it, add features from real practice, and explore careful emotional-pattern detection. |
 | Karte | Active | Evolve a link-in-bio page into a greeting card, company profile, and personal agent. | Strong individual profile and conversational foundation already exist. | Make the positioning and workflows company-friendly, then validate real company use. |
@@ -73,7 +72,7 @@ These classifications reflect current owner intent. They deliberately override m
 | Research Papers | Maintenance | Maintain a large RAG-assisted library of market and research papers. | Essentially complete as a corpus. | Preserve and analyse it when a concrete research question appears. |
 | RolePatch | Hold | Tailor a resume and supporting application material to a job description. | Strong product, but unused because the owner is not job hunting. | Test it against real applications when job-search intent returns; let that test trim unnecessary breadth. |
 | SaaS Ideas | Maintenance | Preserve and score the owner's accumulated SaaS ideas. | Complete personal idea catalog rather than a product business. | Use it for prioritization; update when new ideas or selection criteria appear. |
-| SaaS Maker | Infrastructure | House reusable packages, public Fleet discovery, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home and public 55-product/95-capability directory after reconciliation. | Stabilize its package boundaries and let real Fleet consumers determine which packages deserve investment. |
+| SaaS Maker | Infrastructure | House reusable packages, public Fleet discovery, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home and public 54-product/95-capability directory after reconciliation. | Stabilize its package boundaries and let real Fleet consumers determine which packages deserve investment. |
 | Setline | Active | Execute workouts one set at a time with accurate timing and performance tracking. | Actively being built as a focused native workout player. | Continue the working workout loop and validate it through real sessions. |
 | Significant Hobbies | Active | Join six maintained personal applications in one Hub while each retains ownership of its data. | Hub UI, backend, typed sync package, and extracted product boundaries are canonical. The historical `habits` domain remains available as compatibility data but is no longer a separate app card. | Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains. |
 | Site Health | Infrastructure | Give the owner one local view of Fleet inventory, domain rank, performance, search, and AI visibility. | Actively maintained canonical private catalog and operational dashboard. | Keep it local; improve only the five owner questions and their evidence adapters. |
@@ -163,7 +162,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 
 6. **Completed tools should stay boring.** Anime List, Calorie, Email Manager, GitStat, LoopTV, Sarthak Agrawal, Research Papers, and SaaS Ideas have achieved their current purpose. Maintenance is success, not neglect.
 
-7. **Four projects should have no active roadmap.** Chess Coach, Habits/Indulge, Mobile Dev Cockpit, and TrueHire should remain historical or superseded artifacts unless the owner explicitly changes the underlying decision.
+7. **Three projects should have no active roadmap.** Chess Coach, Mobile Dev Cockpit, and TrueHire should remain historical artifacts unless the owner explicitly changes the underlying decision.
 
 ## Recommended operating policy
 
