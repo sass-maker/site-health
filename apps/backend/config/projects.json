@@ -2244,7 +2244,7 @@
       ],
       "inRegistry": false,
       "status": "retained-resources",
-      "notes": "Retired on 2026-08-24 and superseded by Anchor, which now owns the maintained schedule, focus, interruption, and behavior-change loop. The repository and local checkout are historical. The Habits and Indulge Pages projects, App Store/TestFlight record, bundle identity, stores, and Personal Platform habits records remain compatibility resources; no deployment, deletion, or data migration occurred.",
+      "notes": "Retired on 2026-08-24 and superseded by Anchor, which now owns the maintained schedule, focus, interruption, and behavior-change loop. The GitHub repository is archived and its clean local checkout is stored recoverably under fleet-inactive-projects/indulge, outside the active Fleet tree. The Habits and Indulge Pages projects, App Store/TestFlight record, bundle identity, stores, and Personal Platform habits records remain compatibility resources; no deployment, deletion, or data migration occurred.",
       "name": "Habits / Indulge",
       "attention": "ignored",
       "lifecycle": "past",
@@ -4070,7 +4070,7 @@
           }
         ],
         "resources": [],
-        "notes": "Retired product resources preserved for compatibility after Anchor became the maintained successor. Cloudflare Pages projects habits and indulge, the historical App Store/TestFlight record, and Personal Platform habits data remain intact; no deploy, deletion, or migration was performed."
+        "notes": "Retired product resources preserved for compatibility after Anchor became the maintained successor. The GitHub repository is archived and its clean checkout is outside the active Fleet tree. Cloudflare Pages projects habits and indulge, the historical App Store/TestFlight record, and Personal Platform habits data remain intact; no deploy, deletion, or migration was performed."
       },
       "ios-landings": {
         "updatedAt": "2026-08-23",
