@@ -39,10 +39,10 @@ verification:
       observedHomepage: https://anchor.significanthobbies.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 9
+        trackedChangeCount: 14
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:14:32.439Z
+      observedAt: 2026-08-24T19:34:35.813Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -116,7 +116,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-08-24T19:14:32.439Z
+  observedAt: 2026-08-24T19:34:35.813Z
   staleAfterDays: 30
   summary: {}
   attention: *a2

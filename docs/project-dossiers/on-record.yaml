@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-24
       state: available
       checkout: on-record
-      revision: 7636a0aa249732afca8615c16ea8962c32fe93d3
+      revision: 4d8193d83457cdb41ee187bd13955a809e749f4b
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
       worktree: &a1
         state: dirty
-        trackedChangeCount: 19
+        trackedChangeCount: 5
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:14:32.439Z
+      observedAt: 2026-08-24T19:34:35.813Z
       staleAfterDays: 30
       healthy: 1
       never-run: 1
@@ -91,7 +91,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 7636a0aa249732afca8615c16ea8962c32fe93d3
+  observedRevision: 4d8193d83457cdb41ee187bd13955a809e749f4b
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -152,7 +152,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T19:14:32.439Z
+  observedAt: 2026-08-24T19:34:35.813Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -162,7 +162,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 7636a0aa249732afca8615c16ea8962c32fe93d3
+    defaultBranchSha: 4d8193d83457cdb41ee187bd13955a809e749f4b
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
@@ -188,15 +188,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32764396143
+          id: 32767145892
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 7636a0aa249732afca8615c16ea8962c32fe93d3
-          createdAt: 2026-08-24T18:47:24Z
-          updatedAt: 2026-08-24T18:48:09Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32764396143
+          headSha: 4d8193d83457cdb41ee187bd13955a809e749f4b
+          createdAt: 2026-08-24T19:15:55Z
+          updatedAt: 2026-08-24T19:16:39Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32767145892
         ageDays: 0
       schedule:
         health: not-applicable
@@ -206,15 +206,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32764396143
+          id: 32767145892
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 7636a0aa249732afca8615c16ea8962c32fe93d3
-          createdAt: 2026-08-24T18:47:24Z
-          updatedAt: 2026-08-24T18:48:09Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32764396143
+          headSha: 4d8193d83457cdb41ee187bd13955a809e749f4b
+          createdAt: 2026-08-24T19:15:55Z
+          updatedAt: 2026-08-24T19:16:39Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32767145892
         ageDays: 0
       attention: clear
     - name: cron-ingest

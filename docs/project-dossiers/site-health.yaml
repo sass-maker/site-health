@@ -33,20 +33,20 @@ verification:
       observedAt: 2026-08-24
       state: available
       checkout: site-health
-      revision: 4703df5034f6ac493832b0b6fa35193c6b6b6018
+      revision: dd4fbbcf984dc092e3d497e5d376abde57853b65
       githubRepository: sass-maker/site-health
       expectedHomepage: null
       observedHomepage: https://sassmaker.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 63
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:14:32.439Z
+      observedAt: 2026-08-24T19:34:35.813Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        action-required: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: |-
@@ -99,7 +99,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: site-health
-  observedRevision: 4703df5034f6ac493832b0b6fa35193c6b6b6018
+  observedRevision: dd4fbbcf984dc092e3d497e5d376abde57853b65
   githubRepository: sass-maker/site-health
   githubHomepageUrl: https://sassmaker.com
   worktree: *a1
@@ -132,15 +132,15 @@ repository:
       - test:ai
       - test:backend
 githubActions:
-  observedAt: 2026-08-24T19:14:32.439Z
+  observedAt: 2026-08-24T19:34:35.813Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: sass-maker/site-health
     defaultBranch: main
-    defaultBranchSha: 4703df5034f6ac493832b0b6fa35193c6b6b6018
+    defaultBranchSha: dd4fbbcf984dc092e3d497e5d376abde57853b65
     homepage: https://sassmaker.com
     query: verified
     disposition:
@@ -162,39 +162,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32764409128
+          id: 32768285853
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 4703df5034f6ac493832b0b6fa35193c6b6b6018
-          createdAt: 2026-08-24T18:47:32Z
-          updatedAt: 2026-08-24T18:47:54Z
-          url: https://github.com/sass-maker/site-health/actions/runs/32764409128
+          headSha: dd4fbbcf984dc092e3d497e5d376abde57853b65
+          createdAt: 2026-08-24T19:27:42Z
+          updatedAt: 2026-08-24T19:28:11Z
+          url: https://github.com/sass-maker/site-health/actions/runs/32768285853
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32764409128
+          id: 32768285853
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 4703df5034f6ac493832b0b6fa35193c6b6b6018
-          createdAt: 2026-08-24T18:47:32Z
-          updatedAt: 2026-08-24T18:47:54Z
-          url: https://github.com/sass-maker/site-health/actions/runs/32764409128
+          headSha: dd4fbbcf984dc092e3d497e5d376abde57853b65
+          createdAt: 2026-08-24T19:27:42Z
+          updatedAt: 2026-08-24T19:28:11Z
+          url: https://github.com/sass-maker/site-health/actions/runs/32768285853
         ageDays: 0
-      attention: action-required
+      attention: clear
 deployment:
   kind: none
   deployed: false
