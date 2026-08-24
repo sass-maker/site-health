@@ -43,7 +43,7 @@ verification:
         deletedWorkflowFiles:
           - .github/workflows/weekly.yml
     githubActions:
-      observedAt: 2026-08-24T16:11:48.629Z
+      observedAt: 2026-08-24T17:54:29.488Z
       staleAfterDays: 30
       healthy: 1
       stale: 2
@@ -146,7 +146,7 @@ repository:
       - test:e2e:local
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T16:11:48.629Z
+  observedAt: 2026-08-24T17:54:29.488Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -260,7 +260,7 @@ githubActions:
         reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
       live:
         health: stale
-        reason: latest run is 45 days old
+        reason: latest run is 46 days old
         apiState: active
         lastRun:
           id: 29036998309
@@ -272,7 +272,7 @@ githubActions:
           createdAt: 2026-07-09T17:25:35Z
           updatedAt: 2026-07-09T17:27:58Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/29036998309
-        ageDays: 45
+        ageDays: 46
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

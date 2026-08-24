@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 8
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T16:11:48.629Z
+      observedAt: 2026-08-24T17:54:29.488Z
       staleAfterDays: 30
       failing: 1
       healthy: 4
@@ -152,7 +152,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T16:11:48.629Z
+  observedAt: 2026-08-24T17:54:29.488Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -186,16 +186,16 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 31869584346
+          id: 32759222435
           status: completed
           conclusion: failure
           event: workflow_run
           branch: main
-          headSha: 552e06eac381631c746bd32ecdf0301887a79769
-          createdAt: 2026-08-15T06:29:46Z
-          updatedAt: 2026-08-15T06:30:12Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/31869584346
-        ageDays: 9
+          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+          createdAt: 2026-08-24T17:53:27Z
+          updatedAt: 2026-08-24T17:53:49Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32759222435
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -355,16 +355,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 31869560450
+          id: 32759156831
           status: completed
           conclusion: success
-          event: schedule
+          event: workflow_dispatch
           branch: main
-          headSha: 552e06eac381631c746bd32ecdf0301887a79769
-          createdAt: 2026-08-15T06:29:10Z
-          updatedAt: 2026-08-15T06:29:44Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/31869560450
-        ageDays: 9
+          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+          createdAt: 2026-08-24T17:52:46Z
+          updatedAt: 2026-08-24T17:53:20Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32759156831
+        ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success

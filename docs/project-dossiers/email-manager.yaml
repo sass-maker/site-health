@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 14
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T16:11:48.629Z
+      observedAt: 2026-08-24T17:54:29.488Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -155,7 +155,7 @@ repository:
       - typecheck
       - verify:indexing
 githubActions:
-  observedAt: 2026-08-24T16:11:48.629Z
+  observedAt: 2026-08-24T17:54:29.488Z
   staleAfterDays: 30
   summary:
     healthy: 3

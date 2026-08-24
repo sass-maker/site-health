@@ -33,23 +33,21 @@ verification:
       observedAt: 2026-08-24
       state: available
       checkout: reel-pipeline
-      revision: 4542fef7373636291ca225d37694e5662ac50fd5
+      revision: af993477a8519c781b42ccec0a23f481431f74ea
       githubRepository: sass-maker/reel-pipeline
       expectedHomepage: null
       observedHomepage: null
       worktree: &a1
         state: dirty
-        trackedChangeCount: 9
+        trackedChangeCount: 8
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T16:11:48.629Z
+      observedAt: 2026-08-24T17:54:29.488Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 2
       stale: 1
-      healthy: 1
       attention: &a2
-        action-required: 1
-        clear: 1
+        clear: 2
         missing-data: 1
   unknowns: []
 ownerVoice:
@@ -93,7 +91,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reel-pipeline
-  observedRevision: 4542fef7373636291ca225d37694e5662ac50fd5
+  observedRevision: af993477a8519c781b42ccec0a23f481431f74ea
   githubRepository: sass-maker/reel-pipeline
   githubHomepageUrl: null
   worktree: *a1
@@ -185,17 +183,16 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-08-24T16:11:48.629Z
+  observedAt: 2026-08-24T17:54:29.488Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 2
     stale: 1
-    healthy: 1
   attention: *a2
   remote:
     repository: sass-maker/reel-pipeline
     defaultBranch: main
-    defaultBranchSha: 4542fef7373636291ca225d37694e5662ac50fd5
+    defaultBranchSha: af993477a8519c781b42ccec0a23f481431f74ea
     homepage: null
     query: verified
     disposition:
@@ -217,38 +214,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32748382799
+          id: 32754737547
           status: completed
-          conclusion: failure
-          event: workflow_dispatch
+          conclusion: success
+          event: push
           branch: main
-          headSha: 4542fef7373636291ca225d37694e5662ac50fd5
-          createdAt: 2026-08-24T16:01:09Z
-          updatedAt: 2026-08-24T16:01:54Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32748382799
+          headSha: af993477a8519c781b42ccec0a23f481431f74ea
+          createdAt: 2026-08-24T17:06:49Z
+          updatedAt: 2026-08-24T17:08:05Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32754737547
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 4542fef
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 30117652308
+          id: 32754737547
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 704309619bf9a98f2b7b46693d8d70f70c23e044
-          createdAt: 2026-07-24T18:37:27Z
-          updatedAt: 2026-07-24T18:38:13Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/30117652308
-      attention: action-required
+          headSha: af993477a8519c781b42ccec0a23f481431f74ea
+          createdAt: 2026-08-24T17:06:49Z
+          updatedAt: 2026-08-24T17:08:05Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32754737547
+        ageDays: 0
+      attention: clear
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
       triggers:
@@ -319,7 +317,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 4542fef
+        reason: no push run at current main revision af99347
         lastRun:
           id: 30117652312
           status: completed
