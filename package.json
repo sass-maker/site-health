@@ -7,14 +7,21 @@
     "dev": "pnpm --dir apps/web dev",
     "dashboard": "node scripts/start-owner.mjs",
     "backend": "node apps/backend/scripts/server.mjs serve",
+    "docs:projects": "node scripts/generate-project-dossiers.mjs",
+    "docs:projects:refresh": "node scripts/generate-project-dossiers.mjs --refresh --refresh-github",
+    "docs:projects:refresh-local": "node scripts/generate-project-dossiers.mjs --refresh",
+    "docs:projects:check": "node scripts/generate-project-dossiers.mjs --check",
     "build": "pnpm --dir apps/web build",
     "test:backend": "node --disable-warning=ExperimentalWarning --test apps/backend/test/*.test.mjs",
     "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
     "test": "pnpm run test:backend && pnpm run test:ai",
-    "check": "pnpm run build && pnpm run test"
+    "check": "pnpm run docs:projects:check && pnpm run build && pnpm run test"
   },
   "engines": {
     "node": ">=22"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.0"
   },
   "packageManager": "pnpm@10.33.2"
 }

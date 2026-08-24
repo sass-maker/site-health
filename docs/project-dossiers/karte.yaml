@@ -1,0 +1,468 @@
+schemaVersion: 1
+projectId: karte
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Karte
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 5000d64494f2fb9df5ed6632ec7222d51d4406022d831ef8390237fc7ae479ab
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: karte
+      revision: 5dd0c0e6b43ed162a2e0f7e0368e63b8730d8281
+      githubRepository: Significant-Hobbies/karte
+      expectedHomepage: https://karte.cc
+      observedHomepage: https://karte.cc
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 10
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 4
+      attention: &a2
+        clear: 3
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
+  fullReviewVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Evolve a link-in-bio page into a greeting card, company profile, and personal agent.
+  currentState: Strong individual profile and conversational foundation already exist.
+  nextDecision: Make the positioning and workflows company-friendly, then validate real company use.
+identity:
+  name: Karte
+  publicName: Karte
+  aliases: []
+  family: karte
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: An AI link-in-bio that turns a profile into a conversation.
+  publicMakerNote: "I wanted a link-in-bio surface that could grow into something more personal: a greeting card, profile, and small agent."
+  form: Web app
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - Next.js
+    - React
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-03-05
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: karte
+  observedRevision: 5dd0c0e6b43ed162a2e0f7e0368e63b8730d8281
+  githubRepository: Significant-Hobbies/karte
+  githubHomepageUrl: https://karte.cc
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/karte
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - landing-astro/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - email-worker/wrangler.jsonc
+          - landing-astro/wrangler.toml
+          - wrangler.jsonc
+      - name: Drizzle
+        evidence:
+          - drizzle.config.ts
+      - name: Next.js
+        evidence:
+          - next.config.ts
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - email-worker/pnpm-lock.yaml
+          - landing-astro/pnpm-lock.yaml
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - backfill:aggregates
+      - build
+      - cf:build
+      - check
+      - db:setup:local
+      - deploy:cf
+      - dev
+      - docs:check
+      - enrich:profile
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - preview
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - smoke:agent
+      - smoke:profile-memory
+      - start
+      - test
+      - test:coverage
+      - test:e2e
+      - test:e2e:ui
+      - test:watch
+      - typecheck
+      - upload:cf
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 4
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/karte
+    defaultBranch: main
+    defaultBranchSha: 5dd0c0e6b43ed162a2e0f7e0368e63b8730d8281
+    homepage: https://karte.cc
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694362568
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 5dd0c0e6b43ed162a2e0f7e0368e63b8730d8281
+          createdAt: 2026-08-24T05:40:21Z
+          updatedAt: 2026-08-24T05:42:56Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/32694362568
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694362568
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 5dd0c0e6b43ed162a2e0f7e0368e63b8730d8281
+          createdAt: 2026-08-24T05:40:21Z
+          updatedAt: 2026-08-24T05:42:56Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/32694362568
+        ageDays: 0
+      attention: clear
+    - name: Deploy to Cloudflare Workers
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 31888544189
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 9c9a181778ca4b6a85fb44035791fe51e79272cb
+          createdAt: 2026-08-15T13:56:10Z
+          updatedAt: 2026-08-15T13:58:44Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/31888544189
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32538258163
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8111a5dafac4b2fd7e1ee30b22ec830a609a35dc
+          createdAt: 2026-08-21T23:49:42Z
+          updatedAt: 2026-08-21T23:50:47Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/32538258163
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 5dd0c0e
+        lastRun:
+          id: 32538258163
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8111a5dafac4b2fd7e1ee30b22ec830a609a35dc
+          createdAt: 2026-08-21T23:49:42Z
+          updatedAt: 2026-08-21T23:50:47Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/32538258163
+      attention: missing-data
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32078058920
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 8654a16999867167fc87b20a3f93086757f38727
+          createdAt: 2026-08-17T22:53:38Z
+          updatedAt: 2026-08-17T22:54:41Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/32078058920
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - karte.cc
+  primaryUrl: https://karte.cc
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: linkchat
+        method: wrangler-direct
+        state: live
+      - provider: cloudflare
+        kind: email-worker
+        name: karte-email
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: linkchat-auth
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: r2
+        name: linkchat-images
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: r2
+        name: linkchat-cache
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: durable-object
+        name: DOQueueHandler
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: durable-object
+        name: RateLimiterDO
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: analytics-engine
+        name: ANALYTICS
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: service-binding
+        name: knowledgebase
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: turnstile
+        name: Karte contact (Spin)
+        state: active
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: email-routing
+        name: karte.cc
+        state: enabled-catch-all
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: zone
+        name: karte.cc
+        state: active-config-derived
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: public-ready
+  ready: true
+  verifiedAt: 2026-08-16
+  reason: The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing.
+  changelogUrl: https://karte.cc/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/karte/issues
+  geoIdentity:
+    id: karte
+    name: Karte
+    aliases: []
+    origin: https://karte.cc
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/karte
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/karte#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/karte
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: free
+      url: https://karte.cc
+notes:
+  catalog: The canonical karte.cc runtime and all 30 sitemap URLs were verified live on 2026-08-14. On 2026-08-16 the owner accepted the documented PLAID KARTE name-collision risk for public sharing; external copy must still identify the canonical karte.cc product clearly.
+  infrastructure: null

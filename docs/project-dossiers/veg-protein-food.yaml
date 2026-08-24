@@ -1,0 +1,210 @@
+schemaVersion: 1
+projectId: veg-protein-food
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-15
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Recipe Dashboard
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 7dda5477b82011c7a1d5e9bcc520b4cce257b273fbed2e0d621b5dd31ebcd379
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: recipe-dashboard
+      revision: d242c6129a2636e2426c9706a2fe9fc43418d3e0
+      githubRepository: Significant-Hobbies/veg-protein-food
+      expectedHomepage: https://veg-protein-food.significanthobbies.com
+      observedHomepage: https://veg-protein-food.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
+  fullReviewVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Collect higher-protein recipes using Indian ingredients.
+  currentState: The result was not compelling and the owner's current food routine is already optimized.
+  nextDecision: Keep parked until cooking or meal variety becomes a real priority.
+identity:
+  name: Recipe Index
+  publicName: null
+  aliases: []
+  family: significanthobbies
+  kind: experiment
+  priority: P4
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A searchable directory of vegetarian protein foods and practical nutrition comparisons.
+  publicMakerNote: I wanted a practical collection of higher-protein recipes that works with ingredients people actually use in Indian kitchens.
+  form: Food directory
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-08-15
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: recipe-dashboard
+  observedRevision: d242c6129a2636e2426c9706a2fe9fc43418d3e0
+  githubRepository: Significant-Hobbies/veg-protein-food
+  githubHomepageUrl: https://veg-protein-food.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/veg-protein-food
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: npm
+        evidence:
+          - package-lock.json
+    rootPackageScripts:
+      - build
+      - check
+      - data:fetch
+      - data:rebuild
+      - deploy
+      - dev
+      - preview
+      - test
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/veg-protein-food
+    defaultBranch: main
+    defaultBranchSha: d242c6129a2636e2426c9706a2fe9fc43418d3e0
+    homepage: https://veg-protein-food.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694392491
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d242c6129a2636e2426c9706a2fe9fc43418d3e0
+          createdAt: 2026-08-24T05:40:53Z
+          updatedAt: 2026-08-24T05:41:12Z
+          url: https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/32694392491
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694392491
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d242c6129a2636e2426c9706a2fe9fc43418d3e0
+          createdAt: 2026-08-24T05:40:53Z
+          updatedAt: 2026-08-24T05:41:12Z
+          url: https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/32694392491
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - veg-protein-food.significanthobbies.com
+  primaryUrl: https://veg-protein-food.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: veg-protein-food
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-15
+  reason: The public test surface is live, but this remains a casual experiment without an approved portfolio listing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/veg-protein-food/issues
+  geoIdentity: null
+notes:
+  catalog: Casual source-linked vegetarian recipe experiment. The public site deploys from clean main by direct Wrangler upload and is intentionally absent from the maintained portfolio listing.
+  infrastructure: null

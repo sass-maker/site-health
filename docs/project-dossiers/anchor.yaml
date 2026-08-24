@@ -1,0 +1,178 @@
+schemaVersion: 1
+projectId: anchor
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: not-applicable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-24
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Anchor
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 035887da5a426c99c2c54759f30deeebf25f9f1528be599a68d2634f4d51ff05
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: anchor
+      revision: 5715b5ac5fcb00a5fc4238a55374fded746d35e9
+      githubRepository: Significant-Hobbies/anchor
+      expectedHomepage: https://anchor.significanthobbies.com
+      observedHomepage: https://anchor.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      attention: &a2 {}
+  unknowns: []
+ownerVoice:
+  whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
+  fullReviewVerbatim: |-
+    The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
+
+    I think it is ready. I have to start using it.
+
+    What's next for this product? This product will be part of my Significant-Hobbies Hub and I intend to actively use it.
+  relatedHistoricalReviews:
+    - sourceHeading: Indulge
+      whyVerbatim: "Indulge is also quite interesting. I had this idea sitting in, just purely for an iOS application. Imagine an app in which you can select your various indulgences, like TV, adult content, or whatever. You can select multiple and you get a hybrid image of those two things. For example, TV and gaming: you get a TV and a gaming console. You add food and you get popcorn on the side."
+      fullReviewVerbatim: |-
+        Indulge is also quite interesting. I had this idea sitting in, just purely for an iOS application. Imagine an app in which you can select your various indulgences, like TV, adult content, or whatever. You can select multiple and you get a hybrid image of those two things. For example, TV and gaming: you get a TV and a gaming console. You add food and you get popcorn on the side.
+
+        I had this idea for beautiful onboarding so I was like, let's build it out. It turned out fine. Now I have kind of built it into a habit, because breaking bad habits inherently needs something to replace. It's an idea on that. It is also part of Significant Hobbies Hub so I intend to use and build on it.
+      reviewSha256: f6868a96a8397a6aec7316f7883b750fde2c4c469a54fa407643ae36e470b1fd
+decision:
+  classification: Active
+  whySummary: Plan a realistic day, follow it with a focus timer, and explain why the lived day differed.
+  currentState: Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; signed build 12 is installed on macOS and uploaded for internal iOS/watchOS processing.
+  nextDecision: Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change.
+identity:
+  name: Anchor
+  publicName: Anchor
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A local-first day planner and focus timer for Mac, iPhone, and Apple Watch that explains the gap between the schedule you planned and the day you lived.
+  publicMakerNote: I wanted a realistic daily planner that could help me follow the day and explain why the lived plan diverged from the intended one.
+  form: Apple app
+  platforms:
+    - macOS
+    - iOS
+    - watchOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - SwiftData
+    - CloudKit
+    - Foundation Models
+  retainedGitHistory:
+    firstCommitAt: 2026-08-16
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: anchor
+  observedRevision: 5715b5ac5fcb00a5fc4238a55374fded746d35e9
+  githubRepository: Significant-Hobbies/anchor
+  githubHomepageUrl: https://anchor.significanthobbies.com
+  worktree: *a1
+  visibility: private
+  url: https://github.com/Significant-Hobbies/anchor
+  aliases: []
+  sourceOverride: ios-landings
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/anchor
+    defaultBranch: main
+    defaultBranchSha: 5715b5ac5fcb00a5fc4238a55374fded746d35e9
+    homepage: https://anchor.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - anchor.significanthobbies.com
+  primaryUrl: https://anchor.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: anchor-landing
+        method: wrangler-direct
+        state: live
+      - provider: cloudflare
+        kind: pages
+        name: habits
+        method: wrangler-direct
+        state: live-compatibility
+      - provider: cloudflare
+        kind: pages
+        name: indulge
+        method: wrangler-direct
+        state: live-compatibility
+    resources: []
+  otherProviders:
+    deployments:
+      - provider: apple
+        kind: app-store-connect
+        name: Anchor
+        method: manual-xcode
+        state: testflight-processed
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-08-24
+  reason: The landing, support, and privacy pages are live. The unified Anchor source is committed, its signed macOS build 12 is installed, and iOS/watchOS build 12 is uploaded to App Store Connect for internal processing.
+  changelogUrl: https://anchor.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
+  geoIdentity: null
+notes:
+  catalog: "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The unified source passes 134 shared tests and focused native UI journeys. Signed build 12 is installed on macOS and uploaded to App Store Connect for iOS/watchOS processing; record 6803853891 and the live landing remain intact."
+  infrastructure: Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit.

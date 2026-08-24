@@ -1,0 +1,250 @@
+schemaVersion: 1
+projectId: what-it-takes-to-win
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: What It Takes to Win
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: dad16b73ba132e64429a361a6d916d15f97c6c528dba40db0334048811f2ba81
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: what-it-takes-to-win
+      revision: 47b6cf325bb7a40a05db0a86e77a904bae25e37d
+      githubRepository: Significant-Hobbies/what-it-takes-to-win
+      expectedHomepage: https://paths.significanthobbies.com
+      observedHomepage: https://paths.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: The purpose for this project was to research what are the advantages held by people who are successful and also to help my habit of comparison to die down. I think I will invest a lot more time in this to study people.
+  fullReviewVerbatim: The purpose for this project was to research what are the advantages held by people who are successful and also to help my habit of comparison to die down. I think I will invest a lot more time in this to study people.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Study advantages behind success and turn comparison into evidence-based understanding.
+  currentState: Strong research publication with clear personal motivation and room for deeper coverage.
+  nextDecision: Continue studying people, improve source-linked life histories, and reconcile stale public dataset counts during the next refresh.
+identity:
+  name: What It Takes to Win
+  publicName: What It Takes to Win
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P4
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Explore 2,585 documented early-breakthrough paths without pretending success follows a formula.
+  publicMakerNote: I wanted to study the real advantages behind success and replace unhelpful comparison with evidence-based understanding.
+  form: Research publication
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-07-21
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: what-it-takes-to-win
+  observedRevision: 47b6cf325bb7a40a05db0a86e77a904bae25e37d
+  githubRepository: Significant-Hobbies/what-it-takes-to-win
+  githubHomepageUrl: https://paths.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/what-it-takes-to-win
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - audit:clarity
+      - audit:discovery
+      - audit:reliability
+      - audit:sources
+      - audit:stats
+      - audit:tiers
+      - build
+      - check
+      - deploy
+      - dev
+      - format:check
+      - lint
+      - preview
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - ready
+      - render:og
+      - sync:stats
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/what-it-takes-to-win
+    defaultBranch: main
+    defaultBranchSha: 47b6cf325bb7a40a05db0a86e77a904bae25e37d
+    homepage: https://paths.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694411453
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 47b6cf325bb7a40a05db0a86e77a904bae25e37d
+          createdAt: 2026-08-24T05:41:13Z
+          updatedAt: 2026-08-24T05:44:17Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/32694411453
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694411453
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 47b6cf325bb7a40a05db0a86e77a904bae25e37d
+          createdAt: 2026-08-24T05:41:13Z
+          updatedAt: 2026-08-24T05:44:17Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/32694411453
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - paths.significanthobbies.com
+  primaryUrl: https://paths.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: success-by-26
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://paths.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/what-it-takes-to-win/issues
+  geoIdentity:
+    id: what-it-takes-to-win
+    name: What It Takes to Win
+    aliases: []
+    origin: https://paths.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/what-it-takes-to-win
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/what-it-takes-to-win#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/what-it-takes-to-win
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: The canonical product and repository are What It Takes to Win; the Cloudflare Pages project retains its historical internal name success-by-26.
+  infrastructure: null

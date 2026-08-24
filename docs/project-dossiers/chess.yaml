@@ -1,0 +1,348 @@
+schemaVersion: 1
+projectId: chess
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Chess
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 71abe88c117cde1773bf230e1af7a8ae206bee923e4fa18f41f7d8fb7370a87d
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: chess
+      revision: f817f8281990c4246e4575bff89c044d05e70d56
+      githubRepository: Significant-Hobbies/chess
+      expectedHomepage: https://chess.significanthobbies.com
+      observedHomepage: https://chess.significanthobbies.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 17
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 4
+      attention: &a2
+        clear: 3
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: I started off to have a chess player on board which can use my local AI agent to help me improve but I would call it B-0 completed. I have no intention of making more progress in this project since I have a bit lost interest in the game.
+  fullReviewVerbatim: I started off to have a chess player on board which can use my local AI agent to help me improve but I would call it B-0 completed. I have no intention of making more progress in this project since I have a bit lost interest in the game.
+  relatedHistoricalReviews: []
+decision:
+  classification: Dropped
+  whySummary: Use a local AI agent as a chess improvement partner.
+  currentState: Complete enough, but the owner has lost interest in chess.
+  nextDecision: No roadmap; retain the working public artifact.
+identity:
+  name: Chess
+  publicName: Chess Coach
+  aliases: []
+  family: significanthobbies
+  kind: experiment
+  priority: P4
+  tier: secondary
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Browser chess against Stockfish with optional AI move coaching.
+  publicMakerNote: I built Chess to explore whether a local AI agent could become a practical, patient partner for improving my game.
+  form: Web game
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - React
+    - Vite
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-02-22
+    latestCommitAt: 2026-08-17
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: chess
+  observedRevision: f817f8281990c4246e4575bff89c044d05e70d56
+  githubRepository: Significant-Hobbies/chess
+  githubHomepageUrl: https://chess.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/chess
+  aliases: []
+  sourceOverride: chess
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - vite.config.ts
+    rootPackageScripts:
+      - build
+      - dev
+      - dev:frontend
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - prepare
+      - preview
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - server
+      - test
+      - test:coverage
+      - test:e2e
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 4
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/chess
+    defaultBranch: main
+    defaultBranchSha: f817f8281990c4246e4575bff89c044d05e70d56
+    homepage: https://chess.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694543455
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f817f8281990c4246e4575bff89c044d05e70d56
+          createdAt: 2026-08-24T05:43:31Z
+          updatedAt: 2026-08-24T05:45:03Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/32694543455
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694543455
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f817f8281990c4246e4575bff89c044d05e70d56
+          createdAt: 2026-08-24T05:43:31Z
+          updatedAt: 2026-08-24T05:45:03Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/32694543455
+        ageDays: 0
+      attention: clear
+    - name: Deploy to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 31976391297
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: c4d877ddbbbcaf1096ef31e69e15105a4073dc40
+          createdAt: 2026-08-16T22:27:29Z
+          updatedAt: 2026-08-16T22:28:06Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/31976391297
+        ageDays: 7
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 31797167479
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e7eb9546071284e06a2328656d6513e14fed04da
+          createdAt: 2026-08-14T11:40:29Z
+          updatedAt: 2026-08-14T11:41:23Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/31797167479
+        ageDays: 10
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision f817f82
+        lastRun:
+          id: 31797167479
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e7eb9546071284e06a2328656d6513e14fed04da
+          createdAt: 2026-08-14T11:40:29Z
+          updatedAt: 2026-08-14T11:41:23Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/31797167479
+      attention: missing-data
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32686282400
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: c4d877ddbbbcaf1096ef31e69e15105a4073dc40
+          createdAt: 2026-08-24T03:23:34Z
+          updatedAt: 2026-08-24T03:24:30Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/32686282400
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - chess.significanthobbies.com
+  primaryUrl: https://chess.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: chess-9a0
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-20
+  reason: Archived at the owner's request; the live surface is retained but is no longer an active sharing target.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/chess/issues
+  geoIdentity: null
+notes:
+  catalog: Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0.
+  infrastructure: null

@@ -1,0 +1,319 @@
+schemaVersion: 1
+projectId: sarthakagrawal-personal
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Portfolio
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 654979ba95b70df5ef8213f6ad7d44f7f2e991cfed86a79eae6da66b809a941d
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: portfolio
+      revision: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+      githubRepository: sarthakagrawal927/portfolio
+      expectedHomepage: https://sarthakagrawal.dev
+      observedHomepage: https://sarthakagrawal.dev
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      stale: 1
+      attention: &a2
+        clear: 1
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
+  fullReviewVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
+  relatedHistoricalReviews: []
+decision:
+  classification: Maintenance
+  whySummary: Maintain the owner's necessary personal website and professional record.
+  currentState: Complete and satisfactory.
+  nextDecision: Update only when the underlying work, writing, résumé, or positioning changes.
+identity:
+  name: Sarthak Agrawal
+  publicName: Sarthak Agrawal
+  aliases:
+    - personal-website
+    - sarthakagrawal.dev
+    - sarthakagrawal927
+  family: personal
+  kind: product
+  priority: P4
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.
+  publicMakerNote: I maintain a personal website because I need one durable, accurate public record of my work and professional identity.
+  form: Portfolio website
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - React
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-05-22
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: portfolio
+  observedRevision: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+  githubRepository: sarthakagrawal927/portfolio
+  githubHomepageUrl: https://sarthakagrawal.dev
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/portfolio
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: npm
+        evidence:
+          - package-lock.json
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - astro
+      - build
+      - check
+      - dev
+      - format:check
+      - lint
+      - preview
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - start
+      - test
+      - test:contract
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    stale: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/portfolio
+    defaultBranch: main
+    defaultBranchSha: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+    homepage: https://sarthakagrawal.dev
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Portfolio CI / Deploy
+      file: .github/workflows/deploy.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694380914
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+          createdAt: 2026-08-24T05:40:40Z
+          updatedAt: 2026-08-24T05:41:22Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32694380914
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694380914
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6fdd7bc39574628f7f77df22df6c0bbd900e2031
+          createdAt: 2026-08-24T05:40:40Z
+          updatedAt: 2026-08-24T05:41:22Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32694380914
+        ageDays: 0
+      attention: clear
+    - name: Build résumé PDF
+      file: .github/workflows/resume.yml
+      triggers:
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 94 days old
+        apiState: active
+        lastRun:
+          id: 26280785969
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
+          createdAt: 2026-05-22T09:48:57Z
+          updatedAt: 2026-05-22T09:50:23Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
+        ageDays: 94
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 6fdd7bc
+        lastRun:
+          id: 26280785969
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
+          createdAt: 2026-05-22T09:48:57Z
+          updatedAt: 2026-05-22T09:50:23Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
+      attention: missing-data
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - sarthakagrawal.dev
+  primaryUrl: https://sarthakagrawal.dev
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: sarthakagrawal
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: zone
+        name: sarthakagrawal.dev
+        state: active-config-derived
+        scope: project
+        operationalOwner: sarthakagrawal-personal
+        attributionReason: "Canonical project owner: sarthakagrawal-personal"
+      - provider: cloudflare
+        kind: email-routing
+        name: sarthakagrawal.dev
+        state: enabled-catch-all
+        scope: project
+        operationalOwner: sarthakagrawal-personal
+        attributionReason: "Canonical project owner: sarthakagrawal-personal"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://sarthakagrawal.dev/changelog
+  roadmapUrl: https://github.com/sarthakagrawal927/portfolio/issues
+  geoIdentity:
+    id: sarthakagrawal-personal
+    name: Sarthak Agrawal
+    aliases:
+      - sarthakagrawal.dev
+      - sarthakagrawal927
+    origin: https://sarthakagrawal.dev
+    source:
+      state: public
+      url: https://github.com/sarthakagrawal927/portfolio
+    docs:
+      state: repository-readme
+      url: https://github.com/sarthakagrawal927/portfolio#readme
+    officialProfiles:
+      - https://github.com/sarthakagrawal927/portfolio
+      - https://www.linkedin.com/in/sarthakagrawal927
+      - https://x.com/sarthakcodes
+      - https://huggingface.co/sarthakagrawal927
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-applicable
+notes:
+  catalog: personal portfolio site for Sarthak Agrawal
+  infrastructure: null

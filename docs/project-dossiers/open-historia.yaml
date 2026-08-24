@@ -1,0 +1,375 @@
+schemaVersion: 1
+projectId: open-historia
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Open Historia
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: be4f60bec0e9467fe167c5f742e76d78a7c4aa5aa2124021e2518e9a84526118
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: open-historia
+      revision: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+      githubRepository: sarthakagrawal927/open-historia
+      expectedHomepage: https://historia.aliveville.com
+      observedHomepage: https://historia.aliveville.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 3
+      failing: 1
+      attention: &a2
+        clear: 3
+        review-history: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
+  fullReviewVerbatim: I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Recreate an AI grand-strategy game locally and without credit limits.
+  currentState: Durable country memory is compelling, but the map and campaign loop were not enjoyable enough.
+  nextDecision: Reopen during a live build with a game-quality map and one coherent campaign-turn loop.
+identity:
+  name: Open Historia
+  publicName: Open Historia
+  aliases: []
+  family: ai-game
+  kind: experiment
+  priority: P4
+  tier: parked
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Interactive historical storytelling and world simulation.
+  publicMakerNote: I wanted a local, credit-free version of an AI grand-strategy game where long-form memory could make countries feel alive.
+  form: Strategy web game
+  platforms:
+    - Web
+  prominentTools:
+    - React
+    - Vite
+    - Hono
+    - Cloudflare Workers
+  retainedGitHistory:
+    firstCommitAt: 2026-02-08
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: open-historia
+  observedRevision: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+  githubRepository: sarthakagrawal927/open-historia
+  githubHomepageUrl: https://historia.aliveville.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/open-historia
+  aliases: []
+  sourceOverride: open-historia
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - landing-astro/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - landing-astro/wrangler.toml
+          - wrangler.toml
+      - name: Drizzle
+        evidence:
+          - drizzle.config.ts
+      - name: ESLint
+        evidence:
+          - eslint.config.js
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - landing-astro/pnpm-lock.yaml
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - cf:build
+      - check
+      - db:generate
+      - db:migrate:local
+      - db:migrate:remote
+      - deploy
+      - dev
+      - dev:fe
+      - dev:worker
+      - format
+      - format:check
+      - generate:discovery
+      - lint
+      - prepare
+      - test
+      - test:e2e
+      - test:e2e:mobile
+      - test:watch
+      - typecheck
+      - validate:env:deploy
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 3
+    failing: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/open-historia
+    defaultBranch: main
+    defaultBranchSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+    homepage: https://historia.aliveville.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694377408
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+          createdAt: 2026-08-24T05:40:36Z
+          updatedAt: 2026-08-24T05:41:09Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32694377408
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694377408
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+          createdAt: 2026-08-24T05:40:36Z
+          updatedAt: 2026-08-24T05:41:09Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32694377408
+        ageDays: 0
+      attention: clear
+    - name: Deploy to Cloudflare Workers
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 32642002574
+          status: completed
+          conclusion: failure
+          event: workflow_dispatch
+          branch: main
+          headSha: c8247e9b3b3e87d38f1cdb1c109f218a1b1a6a17
+          createdAt: 2026-08-23T13:19:34Z
+          updatedAt: 2026-08-23T13:19:58Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32642002574
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: review-history
+    - name: Weekly Quality Check
+      file: .github/workflows/weekly.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32712132547
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+          createdAt: 2026-08-24T09:32:50Z
+          updatedAt: 2026-08-24T09:33:27Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32712132547
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32712132547
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+          createdAt: 2026-08-24T09:32:50Z
+          updatedAt: 2026-08-24T09:33:27Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32712132547
+        ageDays: 0
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32697892470
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
+          createdAt: 2026-08-24T06:34:34Z
+          updatedAt: 2026-08-24T06:35:23Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32697892470
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - historia.aliveville.com
+  primaryUrl: https://historia.aliveville.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: open-historia
+        method: wrangler-direct
+        state: live-retained
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: open-historia
+        state: retained
+        scope: project
+        operationalOwner: open-historia
+        attributionReason: "Canonical project owner: open-historia"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/open-historia/issues
+  geoIdentity: null
+notes:
+  catalog: Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.
+  infrastructure: null

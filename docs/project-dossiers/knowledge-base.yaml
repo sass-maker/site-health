@@ -1,0 +1,468 @@
+schemaVersion: 1
+projectId: knowledge-base
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Knowledge Base
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: d98a957f3fbb826c0e849256b217a66fdd9bd7e3c42ae73c5c5819ba17c43197
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: knowledge-base
+      revision: a5a9e3082ce9b14c0b5fb9ede9df43c99bdacbb8
+      githubRepository: sass-maker/knowledge-base
+      expectedHomepage: https://knowledgebase.sassmaker.com
+      observedHomepage: https://knowledgebase.sassmaker.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 10
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 3
+      attention: &a2
+        clear: 2
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
+  fullReviewVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Supply private, cited retrieval to other Fleet applications.
+  currentState: Working shared RAG service with healthy consumers.
+  nextDecision: Leave it alone until a consumer failure, retrieval regression, or new corpus requires work.
+identity:
+  name: Knowledge Base
+  publicName: Knowledge Base
+  aliases: []
+  family: knowledge-base
+  kind: platform
+  priority: P2
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: required-service
+  inRegistry: true
+product:
+  description: Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.
+  publicMakerNote: I built Knowledge Base as the private, cited retrieval layer that other Fleet applications can rely on.
+  form: Knowledge platform
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - Astro
+    - Hono
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-05-27
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: knowledge-base
+  observedRevision: a5a9e3082ce9b14c0b5fb9ede9df43c99bdacbb8
+  githubRepository: sass-maker/knowledge-base
+  githubHomepageUrl: https://knowledgebase.sassmaker.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/knowledge-base
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - landing-astro/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - app/wrangler.jsonc
+          - cloudflare/worker/wrangler.jsonc
+      - name: ESLint
+        evidence:
+          - app/eslint.config.js
+      - name: pnpm
+        evidence:
+          - app/pnpm-lock.yaml
+          - cloudflare/worker/pnpm-lock.yaml
+          - landing-astro/pnpm-lock.yaml
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - app/vite.config.ts
+      - name: Vitest
+        evidence:
+          - app/vitest.config.ts
+          - cloudflare/worker/vitest.config.ts
+    rootPackageScripts:
+      - check
+      - docs:check
+      - format:check
+      - knip
+      - knip:strict
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:format
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 3
+  attention: *a2
+  remote:
+    repository: sass-maker/knowledge-base
+    defaultBranch: main
+    defaultBranchSha: a5a9e3082ce9b14c0b5fb9ede9df43c99bdacbb8
+    homepage: https://knowledgebase.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: ci
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694364603
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: a5a9e3082ce9b14c0b5fb9ede9df43c99bdacbb8
+          createdAt: 2026-08-24T05:40:23Z
+          updatedAt: 2026-08-24T05:41:32Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/32694364603
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694364603
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: a5a9e3082ce9b14c0b5fb9ede9df43c99bdacbb8
+          createdAt: 2026-08-24T05:40:23Z
+          updatedAt: 2026-08-24T05:41:32Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/32694364603
+        ageDays: 0
+      attention: clear
+    - name: docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32626377557
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b845bb2671ab4b26ad71ca7e93fde9e01c9d988a
+          createdAt: 2026-08-23T07:44:39Z
+          updatedAt: 2026-08-23T07:45:27Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/32626377557
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision a5a9e30
+        lastRun:
+          id: 32626377557
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b845bb2671ab4b26ad71ca7e93fde9e01c9d988a
+          createdAt: 2026-08-23T07:44:39Z
+          updatedAt: 2026-08-23T07:45:27Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/32626377557
+      attention: missing-data
+    - name: worker-eval-on-pr
+      file: .github/workflows/eval.yml
+      triggers:
+        - pull_request
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 31964660082
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: chore/split-worker-entrypoint
+          headSha: bb7a2f37f8eb01673fbef80d81bf4de942def80c
+          createdAt: 2026-08-16T18:27:47Z
+          updatedAt: 2026-08-16T18:27:59Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/31964660082
+        ageDays: 7
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker+pages
+  deployed: true
+  domains:
+    - knowledgebase.sassmaker.com
+    - search.sassmaker.com
+  primaryUrl: https://knowledgebase.sassmaker.com
+  domainProbePaths: {}
+  targets:
+    - id: landing
+      kind: pages
+      name: knowledgebase-landing
+    - id: app
+      kind: pages
+      name: knowledgebase-app
+    - id: rag-service
+      kind: worker
+      name: knowledgebase
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: knowledgebase-landing
+        method: git-connected
+        state: live
+      - provider: cloudflare
+        kind: pages
+        name: knowledgebase-app
+        method: wrangler-direct
+        state: live
+      - provider: cloudflare
+        kind: worker
+        name: knowledgebase-app
+        method: open-next-wrangler
+        state: live-retained-legacy-app
+      - provider: cloudflare
+        kind: worker
+        name: knowledgebase
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: rag-db
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: r2
+        name: rag-raw-docs
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: queue
+        name: knowledgebase-ingest
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: workflow
+        name: knowledgebase-ingest-workflow
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-embedding-384
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-embedding-768
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-embedding-1024
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-gemini-1536
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-bge-768
+        state: retained-unreferenced
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-bge-small-384
+        state: retained-unreferenced
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: vectorize
+        name: rag-voyage-1024
+        state: retained-unreferenced
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: analytics-engine
+        name: knowledgebase_rag_events
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: workers-ai
+        name: AI
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+      - provider: cloudflare
+        kind: access-application
+        name: search.sassmaker.com
+        state: active-config-derived
+        scope: project
+        operationalOwner: knowledge-base
+        attributionReason: "Canonical project owner: knowledge-base"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://knowledgebase.sassmaker.com/changelog
+  roadmapUrl: https://github.com/sass-maker/knowledge-base/issues
+  geoIdentity:
+    id: knowledge-base
+    name: Knowledge Base
+    aliases:
+      - Knowledgebase
+    origin: https://knowledgebase.sassmaker.com
+    source:
+      state: public
+      url: https://github.com/sass-maker/knowledge-base
+    docs:
+      state: repository-readme
+      url: https://github.com/sass-maker/knowledge-base#readme
+    officialProfiles:
+      - https://github.com/sass-maker/knowledge-base
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base."
+  infrastructure: The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name.

@@ -1,0 +1,435 @@
+schemaVersion: 1
+projectId: looptv
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: LoopTV
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 36c02709a309a9cb0a570b53ec8c7786422005309cb69fa6ebf25c0104352425
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: looptv
+      revision: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+      githubRepository: Significant-Hobbies/looptv
+      expectedHomepage: https://tv.significanthobbies.com
+      observedHomepage: https://tv.significanthobbies.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 8
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      failing: 1
+      healthy: 4
+      attention: &a2
+        action-required: 1
+        clear: 3
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Loot tv, I wanted a better experience of watching YouTube more controlled so I picked the top few video channels and decided to get their top videos in a tv5 format. This is done and I also added a much better search on this so that is also looking good. I don't see myself further improving this product and I would call it done for now.
+  fullReviewVerbatim: Loot tv, I wanted a better experience of watching YouTube more controlled so I picked the top few video channels and decided to get their top videos in a tv5 format. This is done and I also added a much better search on this so that is also looking good. I don't see myself further improving this product and I would call it done for now.
+  relatedHistoricalReviews: []
+decision:
+  classification: Maintenance
+  whySummary: Offer a more controlled, curated, TV-like way to watch YouTube.
+  currentState: Done, including stronger search and handling for unavailable videos.
+  nextDecision: Keep the catalog healthy; no feature expansion without a new viewing need.
+identity:
+  name: LoopTV
+  publicName: LoopTV
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P4
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A lean-back, TV-style random video player for curated channels.
+  publicMakerNote: I wanted a more controlled and curated way to watch YouTube, shaped like television rather than an endless feed.
+  form: Web app
+  platforms:
+    - Web
+    - TV
+  prominentTools:
+    - Astro
+    - React
+    - Vite
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-04-04
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: looptv
+  observedRevision: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+  githubRepository: Significant-Hobbies/looptv
+  githubHomepageUrl: https://tv.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/looptv
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.ts
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.toml
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - audit:catalog
+      - audit:catalog:full
+      - build
+      - build:catalog
+      - build:ner
+      - cf:build
+      - check
+      - deploy
+      - dev
+      - docs:check
+      - docs:check:strict
+      - fetch:all
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - seed:local
+      - start
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    failing: 1
+    healthy: 4
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/looptv
+    defaultBranch: main
+    defaultBranchSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+    homepage: https://tv.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Build Catalog
+      file: .github/workflows/build-catalog.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 31869584346
+          status: completed
+          conclusion: failure
+          event: workflow_run
+          branch: main
+          headSha: 552e06eac381631c746bd32ecdf0301887a79769
+          createdAt: 2026-08-15T06:29:46Z
+          updatedAt: 2026-08-15T06:30:12Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/31869584346
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: action-required
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694369809
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+          createdAt: 2026-08-24T05:40:28Z
+          updatedAt: 2026-08-24T05:41:14Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32694369809
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694369809
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 2c88bee444aca3558ac663d3eca73c7e0e1fb524
+          createdAt: 2026-08-24T05:40:28Z
+          updatedAt: 2026-08-24T05:41:14Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32694369809
+        ageDays: 0
+      attention: clear
+    - name: Deploy to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - pull_request
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 31905898367
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: fix/reduce-code-health-debt-38
+          headSha: 46a71bf8d835c4de4111ca18ac1fa1dbedb3dac4
+          createdAt: 2026-08-15T20:08:56Z
+          updatedAt: 2026-08-15T20:09:31Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/31905898367
+        ageDays: 8
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32538274819
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f13ad30f0f95eea03f0eb17dfd10055874dd7f1a
+          createdAt: 2026-08-21T23:50:00Z
+          updatedAt: 2026-08-21T23:50:10Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32538274819
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 2c88bee
+        lastRun:
+          id: 32538274819
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f13ad30f0f95eea03f0eb17dfd10055874dd7f1a
+          createdAt: 2026-08-21T23:50:00Z
+          updatedAt: 2026-08-21T23:50:10Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32538274819
+      attention: missing-data
+    - name: Fetch Catalog Sources
+      file: .github/workflows/fetch-catalog-sources.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 6 1,15 * *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 31869560450
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 552e06eac381631c746bd32ecdf0301887a79769
+          createdAt: 2026-08-15T06:29:10Z
+          updatedAt: 2026-08-15T06:29:44Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/31869560450
+        ageDays: 9
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 31869560450
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 552e06eac381631c746bd32ecdf0301887a79769
+          createdAt: 2026-08-15T06:29:10Z
+          updatedAt: 2026-08-15T06:29:44Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/31869560450
+        ageDays: 9
+        freshnessDays: 20
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - tv.significanthobbies.com
+  primaryUrl: https://tv.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: looptv
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://tv.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/looptv/issues
+  geoIdentity:
+    id: looptv
+    name: LoopTV
+    aliases: []
+    origin: https://tv.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/looptv
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/looptv#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/looptv
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: null
+  infrastructure: null

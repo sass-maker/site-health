@@ -1,0 +1,318 @@
+schemaVersion: 1
+projectId: psi-swarm
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: PSI Swarm
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 55b49e5ecd9836910ae1bac58c819379f6b3c865701ff418910a9f559f54edd7
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: psi-swarm
+      revision: 407cadf537714c7e1a6f99432256f7f74ea570ac
+      githubRepository: sass-maker/psi-swarm
+      expectedHomepage: https://performance.sassmaker.com
+      observedHomepage: https://performance.sassmaker.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 11
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      stale: 2
+      attention: &a2
+        clear: 3
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
+  fullReviewVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Measure real product performance across repeated Lighthouse conditions.
+  currentState: Completed operational CLI and Site Health input.
+  nextDecision: Maintain compatibility and measurement integrity; no independent feature roadmap.
+identity:
+  name: PSI Swarm
+  publicName: PSI Swarm
+  aliases: []
+  family: psi-swarm
+  kind: platform
+  priority: P4
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Repeated Lighthouse distributions for honest website performance tracking.
+  publicMakerNote: I wanted repeatable evidence of how my products perform under real Lighthouse conditions, not a single flattering test.
+  form: Performance platform
+  platforms:
+    - Web
+    - CLI
+  prominentTools:
+    - Astro
+    - React
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-06-03
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: psi-swarm
+  observedRevision: 407cadf537714c7e1a6f99432256f7f74ea570ac
+  githubRepository: sass-maker/psi-swarm
+  githubHomepageUrl: https://performance.sassmaker.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/psi-swarm
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - web/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build:cli
+      - build:web
+      - cli
+      - deploy
+      - dev:cli
+      - docs:check
+      - format:check
+      - install:skill
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:lint
+      - quality:suppressions
+      - quality:unused
+      - run
+      - serve
+      - setup
+      - web
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    stale: 2
+  attention: *a2
+  remote:
+    repository: sass-maker/psi-swarm
+    defaultBranch: main
+    defaultBranchSha: 407cadf537714c7e1a6f99432256f7f74ea570ac
+    homepage: https://performance.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: PSI Swarm CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694386871
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 407cadf537714c7e1a6f99432256f7f74ea570ac
+          createdAt: 2026-08-24T05:40:47Z
+          updatedAt: 2026-08-24T05:41:52Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/32694386871
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694386871
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 407cadf537714c7e1a6f99432256f7f74ea570ac
+          createdAt: 2026-08-24T05:40:47Z
+          updatedAt: 2026-08-24T05:41:52Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/32694386871
+        ageDays: 0
+      attention: clear
+    - name: Deploy psi-swarm-web to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 37 days old
+        apiState: active
+        lastRun:
+          id: 29648902523
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 3b74ce64aff2116013c9c25968410b9daceb945e
+          createdAt: 2026-07-18T14:53:27Z
+          updatedAt: 2026-07-18T14:54:02Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/29648902523
+        ageDays: 37
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: pages-build-deployment
+      file: dynamic/pages/pages-build-deployment
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: stale
+        reason: latest run is 82 days old
+        apiState: active
+        lastRun:
+          id: 26895965998
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: gh-pages
+          headSha: d9ea021fb81430761cd2287eb38adc67974826ae
+          createdAt: 2026-06-03T15:44:14Z
+          updatedAt: 2026-06-03T15:45:21Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
+        ageDays: 82
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - performance.sassmaker.com
+  primaryUrl: https://performance.sassmaker.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: psi-swarm-web
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://performance.sassmaker.com/changelog
+  roadmapUrl: https://github.com/sass-maker/psi-swarm/issues
+  geoIdentity:
+    id: psi-swarm
+    name: PSI Swarm
+    aliases:
+      - psi-swarm
+    origin: https://performance.sassmaker.com
+    source:
+      state: public
+      url: https://github.com/sass-maker/psi-swarm
+    docs:
+      state: landing-only
+      url: https://performance.sassmaker.com
+    officialProfiles:
+      - https://github.com/sass-maker/psi-swarm
+      - https://github.com/sass-maker
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-applicable
+notes:
+  catalog: Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.
+  infrastructure: null

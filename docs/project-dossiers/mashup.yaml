@@ -1,0 +1,212 @@
+schemaVersion: 1
+projectId: mashup
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Mashup
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 96011b1c86bf4fa32e690ccc3de01e1da2b1c7b420ed871018579129c56ff8cf
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: mashup
+      revision: 63f0afe28c4dd54c6180fb49c97814d696d5452e
+      githubRepository: sass-maker/mashup
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
+  fullReviewVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Turn a creator's archive into coherent topic-specific comedy, motivation, podcast, or clipping compilations.
+  currentState: Strong local clipper/merger with provenance and approval boundaries.
+  nextDecision: Reopen around one real creator archive and prove the comedy-topic workflow end to end.
+identity:
+  name: Mashup
+  publicName: null
+  aliases: []
+  family: mashup
+  kind: experiment
+  priority: P2
+  tier: active
+  attention: foundry
+  lifecycle: maintained
+  operationalStatus: undeployed
+  authenticationModel: required-service
+  inRegistry: false
+product:
+  description: A local-first tool that turns owned media archives into inspectable multi-clip edits.
+  publicMakerNote: I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.
+  form: Local media tool
+  platforms:
+    - CLI
+    - Local
+  prominentTools:
+    - Python
+    - FFmpeg
+    - SQLite
+    - MLX
+  retainedGitHistory:
+    firstCommitAt: 2026-07-25
+    latestCommitAt: 2026-08-20
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: mashup
+  observedRevision: 63f0afe28c4dd54c6180fb49c97814d696d5452e
+  githubRepository: sass-maker/mashup
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/mashup
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - web/astro.config.mjs
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+          - web/pnpm-lock.yaml
+      - name: Python pyproject
+        evidence:
+          - pyproject.toml
+      - name: uv
+        evidence:
+          - uv.lock
+    rootPackageScripts:
+      - format:check
+      - lint
+      - quality:complexity
+      - quality:cycles
+      - quality:duplication
+      - quality:unused
+      - test
+      - test:coverage
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/mashup
+    defaultBranch: main
+    defaultBranchSha: 63f0afe28c4dd54c6180fb49c97814d696d5452e
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694371565
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 63f0afe28c4dd54c6180fb49c97814d696d5452e
+          createdAt: 2026-08-24T05:40:30Z
+          updatedAt: 2026-08-24T05:42:10Z
+          url: https://github.com/sass-maker/mashup/actions/runs/32694371565
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694371565
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 63f0afe28c4dd54c6180fb49c97814d696d5452e
+          createdAt: 2026-08-24T05:40:30Z
+          updatedAt: 2026-08-24T05:42:10Z
+          url: https://github.com/sass-maker/mashup/actions/runs/32694371565
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-16
+  reason: No usable distributed or provider-hosted surface is deployed, and the owner cut Mashup from the current SEO/GEO campaign.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/mashup/issues
+  geoIdentity: null
+notes:
+  catalog: Independent, maintained local-first editorial product for archive analysis, inspectable planning, approval, provenance, and multi-clip rendering. Canonical source was restored to its standalone repository on 2026-08-20; Reel Pipeline accepts only its finished-media receipt and has no runtime dependency. It has no provider-hosted surface and never publishes media.
+  infrastructure: null

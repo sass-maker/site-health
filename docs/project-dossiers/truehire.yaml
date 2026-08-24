@@ -1,0 +1,364 @@
+schemaVersion: 1
+projectId: truehire
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: TrueHire
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: ab83cb2286fb43dc5cce729e7db545d849c4721cbcb4db2c95858ce0a1d9b17c
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: truehire
+      revision: 49e5a70cc8beb1dc0ce4629e013bd62871937dc8
+      githubRepository: sarthakagrawal927/truehire
+      expectedHomepage: null
+      observedHomepage: https://truehire.rolepatch.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 1
+        deletedWorkflowFiles:
+          - .github/workflows/weekly.yml
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      stale: 2
+      failing: 1
+      attention: &a2
+        ignored: 4
+  unknowns: []
+ownerVoice:
+  whyVerbatim: True hire is more like a concept application but it again needs trust in the economy and some chicken-and-egg problem to have recommendations or something so I delayed it for the future.
+  fullReviewVerbatim: True hire is more like a concept application but it again needs trust in the economy and some chicken-and-egg problem to have recommendations or something so I delayed it for the future.
+  relatedHistoricalReviews: []
+decision:
+  classification: Dropped
+  whySummary: Rank candidates transparently from verified GitHub evidence.
+  currentState: Trust and marketplace adoption remain unsolved, and RolePatch supersedes the active hiring surface.
+  nextDecision: Preserve the evidence-scoring ideas; do not restart the marketplace without a distribution solution.
+identity:
+  name: TrueHire
+  publicName: TrueHire
+  aliases: []
+  family: rolepatch
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle: past
+  operationalStatus: archived
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Earlier resume and hiring workflow superseded by RolePatch.
+  publicMakerNote: I explored whether candidates could be ranked more transparently using verified evidence from their public GitHub work.
+  form: Hiring experiment
+  platforms:
+    - Web
+  prominentTools:
+    - Next.js
+    - React
+    - TypeScript
+    - Cloudflare
+  retainedGitHistory:
+    firstCommitAt: 2026-04-24
+    latestCommitAt: 2026-08-02
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: truehire
+  observedRevision: 49e5a70cc8beb1dc0ce4629e013bd62871937dc8
+  githubRepository: sarthakagrawal927/truehire
+  githubHomepageUrl: https://truehire.rolepatch.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/truehire
+  aliases: []
+  sourceOverride: truehire
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - apps/web/landing-astro/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - apps/web/wrangler.jsonc
+      - name: Drizzle
+        evidence:
+          - packages/db/drizzle.config.ts
+      - name: Next.js
+        evidence:
+          - apps/web/next.config.ts
+      - name: Playwright
+        evidence:
+          - apps/web/playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - apps/web/vitest.config.ts
+          - packages/cli/vitest.config.ts
+          - packages/core/vitest.config.ts
+    rootPackageScripts:
+      - biome:lint
+      - build
+      - check
+      - db:generate
+      - db:migrate:local
+      - db:migrate:remote
+      - deploy
+      - dev
+      - format
+      - format:check
+      - lint
+      - prepare
+      - start
+      - test
+      - test:e2e
+      - test:e2e:local
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    stale: 2
+    failing: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/truehire
+    defaultBranch: main
+    defaultBranchSha: 49e5a70cc8beb1dc0ce4629e013bd62871937dc8
+    homepage: https://truehire.rolepatch.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 30736749633
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e1cb69f93f9af30bb7eb15e4b66ab55057567d49
+          createdAt: 2026-08-02T06:53:39Z
+          updatedAt: 2026-08-02T07:01:36Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/30736749633
+        ageDays: 22
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 49e5a70
+        lastRun:
+          id: 30736749633
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e1cb69f93f9af30bb7eb15e4b66ab55057567d49
+          createdAt: 2026-08-02T06:53:39Z
+          updatedAt: 2026-08-02T07:01:36Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/30736749633
+      attention: ignored
+    - name: Release CLI
+      file: .github/workflows/cli-release.yml
+      triggers:
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
+      live:
+        health: stale
+        reason: latest run is 58 days old
+        apiState: active
+        lastRun:
+          id: 28280282798
+          status: completed
+          conclusion: success
+          event: push
+          branch: cli-v0.3.1
+          headSha: 9cf07a4dc6772e7925c98dd3494deb7123305983
+          createdAt: 2026-06-27T05:46:06Z
+          updatedAt: 2026-06-27T05:46:43Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/28280282798
+        ageDays: 58
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run was returned for main
+        lastRun: null
+      attention: ignored
+    - name: Deploy to Cloudflare Workers
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
+      live:
+        health: stale
+        reason: latest run is 45 days old
+        apiState: active
+        lastRun:
+          id: 29036998309
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: c70650927fc5521975725135894e0cb1a16d9723
+          createdAt: 2026-07-09T17:25:35Z
+          updatedAt: 2026-07-09T17:27:58Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/29036998309
+        ageDays: 45
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
+    - name: Weekly Quality Check
+      file: .github/workflows/weekly.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 9 * * 1
+      inventory:
+        source: remote-only
+        local: false
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 30264788208
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: e1eed7d2e6ca39e65b32c1c4b2d6431ab72bab1a
+          createdAt: 2026-07-27T12:09:59Z
+          updatedAt: 2026-07-27T12:10:16Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/30264788208
+        ageDays: 28
+      schedule:
+        health: failing
+        reason: latest scheduled run concluded failure
+        lastRun:
+          id: 30264788208
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: e1eed7d2e6ca39e65b32c1c4b2d6431ab72bab1a
+          createdAt: 2026-07-27T12:09:59Z
+          updatedAt: 2026-07-27T12:10:16Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/30264788208
+        ageDays: 28
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: truehire
+        state: retained
+        scope: project
+        operationalOwner: truehire
+        attributionReason: "Canonical project owner: truehire"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/truehire/issues
+  geoIdentity: null
+notes:
+  catalog: Archived and superseded by RolePatch; retained only in the historical public catalog.
+  infrastructure: null

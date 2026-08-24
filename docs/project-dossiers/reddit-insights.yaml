@@ -1,0 +1,272 @@
+schemaVersion: 1
+projectId: reddit-insights
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Reddit Insights
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 5f52e00e47c352fa1ec0083365f110195f53b5f9c7f491ad6796ffb07ef22be6
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: reddit-insights
+      revision: 8395ae505ca48d9f6b071439e1b913aeabdb4d46
+      githubRepository: High-Signal-App/research-subreddit
+      expectedHomepage: https://reddit-insights.highsignal.app
+      observedHomepage: https://reddit-insights.highsignal.app
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Reddit Insights is a product in which I was trying to see how historically signals and emotions have changed in a subreddit but I was not able to finish because of a lack of data or lack of historical data. Reddit does not provide the historical data easily so that is why it kind of got blocked but I might reopen it and start storing the data soon.
+  fullReviewVerbatim: Reddit Insights is a product in which I was trying to see how historically signals and emotions have changed in a subreddit but I was not able to finish because of a lack of data or lack of historical data. Reddit does not provide the historical data easily so that is why it kind of got blocked but I might reopen it and start storing the data soon.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Track historical shifts in subreddit signals and emotion.
+  currentState: Blocked by poor access to historical Reddit data.
+  nextDecision: Either begin collecting forward-looking data now or reopen when a lawful historical source is available.
+identity:
+  name: Reddit Insights
+  publicName: null
+  aliases: []
+  family: high-signal
+  kind: experiment
+  priority: P4
+  tier: active
+  attention: foundry
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A bounded research collector for subreddit evidence and recurring insight snapshots.
+  publicMakerNote: I wanted to understand how the signals and emotions inside a subreddit change over time, even though historical data is difficult to obtain.
+  form: Research collector
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - TypeScript
+    - Cloudflare Workers
+    - R2
+  retainedGitHistory:
+    firstCommitAt: 2026-08-07
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: reddit-insights
+  observedRevision: 8395ae505ca48d9f6b071439e1b913aeabdb4d46
+  githubRepository: High-Signal-App/research-subreddit
+  githubHomepageUrl: https://reddit-insights.highsignal.app
+  worktree: *a1
+  visibility: private
+  url: https://github.com/High-Signal-App/research-subreddit
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - scripts/reddit-proxy/wrangler.jsonc
+          - workers/daily-collector/wrangler.jsonc
+          - wrangler.jsonc
+      - name: npm
+        evidence:
+          - package-lock.json
+    rootPackageScripts:
+      - analyze
+      - build:display
+      - build:pages
+      - check:collector
+      - deploy:collector
+      - deploy:pages
+      - deploy:proxy
+      - format:check
+      - ingest
+      - knip
+      - lint
+      - quality
+      - quality:cycles
+      - quality:duplication
+      - quality:unused
+      - run
+      - test
+      - test:collector
+      - test:coverage
+      - test:display
+      - test:performance
+      - typecheck
+      - ui
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: High-Signal-App/research-subreddit
+    defaultBranch: main
+    defaultBranchSha: 8395ae505ca48d9f6b071439e1b913aeabdb4d46
+    homepage: https://reddit-insights.highsignal.app
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694394413
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8395ae505ca48d9f6b071439e1b913aeabdb4d46
+          createdAt: 2026-08-24T05:40:55Z
+          updatedAt: 2026-08-24T05:41:34Z
+          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/32694394413
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694394413
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8395ae505ca48d9f6b071439e1b913aeabdb4d46
+          createdAt: 2026-08-24T05:40:55Z
+          updatedAt: 2026-08-24T05:41:34Z
+          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/32694394413
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker+pages
+  deployed: true
+  domains:
+    - reddit-insights.highsignal.app
+  primaryUrl: https://reddit-insights.highsignal.app
+  domainProbePaths: {}
+  targets:
+    - id: site
+      kind: pages
+      name: reddit-insights
+      sourcePath: reddit-insights
+    - id: proxy
+      kind: worker
+      name: reddit-proxy
+      sourcePath: reddit-insights/scripts/reddit-proxy
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: reddit-insights
+        method: wrangler-direct
+        state: live
+      - provider: cloudflare
+        kind: worker
+        name: reddit-proxy
+        method: wrangler-direct
+        state: live
+      - provider: cloudflare
+        kind: worker
+        name: reddit-insights-daily-collector
+        method: wrangler-direct
+        state: configured-not-deployed
+    resources:
+      - provider: cloudflare
+        kind: r2
+        name: reddit-insights-archive
+        state: configured-not-provisioned
+        scope: project
+        operationalOwner: reddit-insights
+        attributionReason: "Canonical project owner: reddit-insights"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: No maintained public listing is currently approved.
+  changelogUrl: null
+  roadmapUrl: https://github.com/High-Signal-App/research-subreddit/issues
+  geoIdentity:
+    id: reddit-insights
+    name: Reddit Insights
+    aliases:
+      - Research Subreddit
+    origin: https://reddit-insights.highsignal.app
+    source:
+      state: internal
+      path: reddit-insights
+    docs:
+      state: landing-only
+      url: https://reddit-insights.highsignal.app
+    officialProfiles:
+      - https://github.com/High-Signal-App/research-subreddit
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.
+  infrastructure: null

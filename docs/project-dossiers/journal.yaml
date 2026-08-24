@@ -1,0 +1,157 @@
+schemaVersion: 1
+projectId: journal
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: not-applicable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Journal
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: ab4be138914270e62e5dd15e9b7015f59b36594d4e3ec5faf749f2f8452d29a6
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: journal
+      revision: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+      githubRepository: Significant-Hobbies/journal
+      expectedHomepage: https://journal.significanthobbies.com
+      observedHomepage: https://journal.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      attention: &a2 {}
+  unknowns: []
+ownerVoice:
+  whyVerbatim: I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
+  fullReviewVerbatim: |-
+    I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
+
+    Journal is currently being built. What's next for it? As I use it, I will add more features to it and have some emotional detection also.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Make journaling a durable habit within the Hub.
+  currentState: Currently being built as a private, device-first writing app.
+  nextDecision: Use it, add features from real practice, and explore careful emotional-pattern detection.
+identity:
+  name: Journal
+  publicName: Journal
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A private daily journal and personal archive with an independently owned native codebase.
+  publicMakerNote: I believe journaling is an important habit, so I wanted a durable journal that fits naturally inside the Hub.
+  form: iOS app
+  platforms:
+    - iOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - Swift
+    - XcodeGen
+    - Astro
+  retainedGitHistory:
+    firstCommitAt: 2026-08-11
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: journal
+  observedRevision: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+  githubRepository: Significant-Hobbies/journal
+  githubHomepageUrl: https://journal.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/journal
+  aliases: []
+  sourceOverride: ios-landings
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Xcode
+        evidence:
+          - SignificantHobbies.xcodeproj/project.pbxproj
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/journal
+    defaultBranch: main
+    defaultBranchSha: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+    homepage: https://journal.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - journal.significanthobbies.com
+  primaryUrl: https://journal.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: journal
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments:
+      - provider: apple
+        kind: app-store-connect
+        name: Journal by Significant Hobbies
+        method: manual-xcode
+        state: testflight-processed
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-08-23
+  reason: The independent native repository and public landing are live, but no public TestFlight or App Store release is approved.
+  changelogUrl: https://journal.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/journal/issues
+  geoIdentity: null
+notes:
+  catalog: Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository.
+  infrastructure: The native source is independently owned by Significant-Hobbies/journal. Cloudflare Pages project journal serves the ios-landings-generated public surface; build 1.0.0 (3) remains internal-only in TestFlight.

@@ -1,0 +1,362 @@
+schemaVersion: 1
+projectId: ai-game
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: AliveVille
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 1b7d8831446bbe65b30a457cee946d561b29b60bb4ed413ee1c3e1763696e906
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: aliveville
+      revision: 8483904903db947add536f241d12f725f59d3d9c
+      githubRepository: sarthakagrawal927/aliveville
+      expectedHomepage: https://aliveville.com
+      observedHomepage: https://aliveville.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 9
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 3
+      attention: &a2
+        clear: 3
+  unknowns: []
+ownerVoice:
+  whyVerbatim: I started AliveVille with a vision that there will be AI agents that are going on their life in a real-life-based game. It can be a fantasy game also but it will be AI, a long-running AI agent essentially doing actions, getting into fights, all the standard open-world game characteristics. With AI having long-form memory they can hold grudges and they can do things. It was a fairly technical thing to start so I wanted to do it.
+  fullReviewVerbatim: |-
+    I started AliveVille with a vision that there will be AI agents that are going on their life in a real-life-based game. It can be a fantasy game also but it will be AI, a long-running AI agent essentially doing actions, getting into fights, all the standard open-world game characteristics. With AI having long-form memory they can hold grudges and they can do things. It was a fairly technical thing to start so I wanted to do it.
+
+    Current status: I really struggled with building a UI that I enjoyed. I tried 3JS, 2GTJS, that fancy Game Development Toolkit. Not sure what it is but I tried a bunch of things. At the UI level itself I was never convinced nor drawn to the game enough to give more time.
+
+    What's next? I would definitely like to pick this up because I think this will be made in the future even if I don't build it. Someone will build it. But as of now it is on hold.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Create a long-running AI-agent world with memory, conflict, grudges, and open-world behavior.
+  currentState: The simulation thesis remains compelling, but no attempted UI made the game emotionally attractive enough to continue.
+  nextDecision: Reopen only with a convincing playable visual direction and a small fun loop—not more simulation depth.
+identity:
+  name: AliveVille
+  publicName: AliveVille
+  aliases:
+    - aliveville
+  family: ai-game
+  kind: experiment
+  priority: P4
+  tier: parked
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Persistent AI world and multi-agent simulation experiments.
+  publicMakerNote: I wanted to create a long-running world where AI characters remember, form grudges, make choices, and live through open-ended conflict.
+  form: Web game
+  platforms:
+    - Web
+  prominentTools:
+    - React
+    - Vite
+    - Three.js
+    - Cloudflare
+  retainedGitHistory:
+    firstCommitAt: 2026-05-03
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: aliveville
+  observedRevision: 8483904903db947add536f241d12f725f59d3d9c
+  githubRepository: sarthakagrawal927/aliveville
+  githubHomepageUrl: https://aliveville.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/aliveville
+  aliases: []
+  sourceOverride: aliveville
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro-landing/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - astro-landing/wrangler.toml
+          - wrangler.jsonc
+      - name: npm
+        evidence:
+          - astro-landing/package-lock.json
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - build:3d
+      - check
+      - check:docs
+      - deploy
+      - deploy:worker
+      - dev
+      - dev:server
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - playtest:all
+      - playtest:astro-landing
+      - playtest:game
+      - portraits:pregen
+      - probe:lifelikeness
+      - serve
+      - serve:3d
+      - size
+      - size:check
+      - test
+      - test:coverage
+      - test:gameplay
+      - test:ui
+      - test:watch
+      - typecheck
+      - verify:readiness
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 3
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/aliveville
+    defaultBranch: main
+    defaultBranchSha: 8483904903db947add536f241d12f725f59d3d9c
+    homepage: https://aliveville.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694326563
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8483904903db947add536f241d12f725f59d3d9c
+          createdAt: 2026-08-24T05:39:47Z
+          updatedAt: 2026-08-24T05:40:24Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326563
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694326563
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8483904903db947add536f241d12f725f59d3d9c
+          createdAt: 2026-08-24T05:39:47Z
+          updatedAt: 2026-08-24T05:40:24Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326563
+        ageDays: 0
+      attention: clear
+    - name: Deploy aliveville landing
+      file: .github/workflows/deploy-aliveville.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32562374731
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 896231fd63d8bf57570820c2215b3e0e160fee2b
+          createdAt: 2026-08-22T08:28:29Z
+          updatedAt: 2026-08-22T08:29:15Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32562374731
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694326579
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8483904903db947add536f241d12f725f59d3d9c
+          createdAt: 2026-08-24T05:39:47Z
+          updatedAt: 2026-08-24T05:40:01Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326579
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694326579
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8483904903db947add536f241d12f725f59d3d9c
+          createdAt: 2026-08-24T05:39:47Z
+          updatedAt: 2026-08-24T05:40:01Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326579
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker+pages
+  deployed: true
+  domains:
+    - aliveville.com
+  primaryUrl: https://aliveville.com
+  domainProbePaths: {}
+  targets:
+    - id: site
+      kind: pages
+      name: aliveville
+      sourcePath: aliveville/astro-landing
+    - id: app
+      kind: worker
+      name: aliveville
+      sourcePath: aliveville
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: aliveville
+        method: wrangler-direct
+        state: live-retained
+      - provider: cloudflare
+        kind: worker
+        name: aliveville
+        method: wrangler-direct
+        state: live-retained
+    resources:
+      - provider: cloudflare
+        kind: zone
+        name: aliveville.com
+        state: active-config-derived
+        scope: project
+        operationalOwner: ai-game
+        attributionReason: "Canonical project owner: ai-game"
+      - provider: cloudflare
+        kind: email-routing
+        name: aliveville.com
+        state: enabled-catch-all
+        scope: project
+        operationalOwner: ai-game
+        attributionReason: "Canonical project owner: ai-game"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/aliveville/issues
+  geoIdentity: null
+notes:
+  catalog: "Aliveville world-sim; parked but live (user: leave)"
+  infrastructure: The Pages project serves the marketing root; the Worker serves aliveville.com/game* and owns the per-session GameSessionDO runtime.

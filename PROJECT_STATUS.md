@@ -17,6 +17,13 @@ backend.
 
 ## Timeline
 
+- **2026-08-24:** Added a reviewed first-person public maker note to all 54
+  canonical identities. Regenerated all 54 verified YAML dossiers so each
+  begins with current provenance and includes the public note alongside the
+  preserved verbatim owner voice. SaaS Maker consumes the deny-by-default
+  projection for expanded public project profiles; private repository and
+  operational evidence remains excluded.
+
 - **2026-08-23:** Absorbed the former SaaS Ideas identity into SaaS Maker's
   `/ideas` surface. Removed its retired Pages, domain, repository, directory,
   and asset records from the canonical project catalog; the portfolio now has
@@ -99,13 +106,22 @@ backend.
 | Site Health | `apps/web/` | Private owner-facing UI |
 | Site Health backend | `apps/backend/` | Internal implementation supporting Site Health |
 
+## Operator documentation
+
+- [Project dossiers](docs/project-dossiers/) provide one verified YAML record
+  per canonical project. Each begins with provenance and the owner's verbatim
+  why, includes the reviewed public maker note, then records repository
+  revisions, tracked tooling, live GitHub Actions health, domains, deployments,
+  and attributed provider resources. Refresh them
+  from the complete Fleet workspace with `pnpm docs:projects:refresh`.
+
 ## Features (shipped)
 
 - Projects directory and project detail pages, including a searchable retained
   inventory separated from current portfolio counts and refresh scope.
-- Privacy-safe public-directory metadata for all 55 catalog identities,
-  including product form, platforms, technologies, and retained Git-history
-  bounds.
+- Privacy-safe public-directory metadata for all 54 catalog identities,
+  including a reviewed first-person maker note, product form, platforms,
+  technologies, and retained Git-history bounds.
 - DRANK/domain-strength view.
 - PSI and field-performance view.
 - Google Search evidence view.

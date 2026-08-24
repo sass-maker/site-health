@@ -1,0 +1,219 @@
+schemaVersion: 1
+projectId: ios-landings
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: iOS Landings
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 93ced46b10baf51d4aa857805d57fff4745f21add38fb419817a265d721cec05
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: ios-landings
+      revision: de38b1efc535f3396fae5f2d15c0ca2c7953fc5b
+      githubRepository: Significant-Hobbies/ios-landings
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
+  fullReviewVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Reuse one landing-page engine across native Significant Hobbies products.
+  currentState: Canonical shared factory with multiple product-specific sites.
+  nextDecision: Add products and capabilities only when a native app actually needs a public landing surface.
+identity:
+  name: iOS landings
+  publicName: iOS landings
+  aliases: []
+  family: significanthobbies
+  kind: platform
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: local-only
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Shared Astro factory that builds separate static sites for Significant Hobbies iOS apps.
+  publicMakerNote: I built one reusable landing-page engine so each native Significant Hobbies app does not need to reinvent its public home.
+  form: Landing-site factory
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-08-17
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: ios-landings
+  observedRevision: de38b1efc535f3396fae5f2d15c0ca2c7953fc5b
+  githubRepository: Significant-Hobbies/ios-landings
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/Significant-Hobbies/ios-landings
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build
+      - build:one
+      - check
+      - check:one
+      - deploy
+      - deploy:anchor
+      - deploy:habits
+      - deploy:indulge
+      - deploy:journal
+      - deploy:kith
+      - deploy:motion
+      - deploy:setline
+      - dev
+      - dev:anchor
+      - dev:calorie
+      - dev:habits
+      - dev:indulge
+      - dev:journal
+      - dev:kith
+      - dev:motion
+      - dev:setline
+      - preview
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/ios-landings
+    defaultBranch: main
+    defaultBranchSha: de38b1efc535f3396fae5f2d15c0ca2c7953fc5b
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32728448527
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: de38b1efc535f3396fae5f2d15c0ca2c7953fc5b
+          createdAt: 2026-08-24T12:41:37Z
+          updatedAt: 2026-08-24T12:42:27Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/32728448527
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32728448527
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: de38b1efc535f3396fae5f2d15c0ca2c7953fc5b
+          createdAt: 2026-08-24T12:41:37Z
+          updatedAt: 2026-08-24T12:42:27Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/32728448527
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-08-21
+  reason: Private source factory that builds native-product landings; each public deployment is owned by its product row.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/ios-landings/issues
+  geoIdentity: null
+notes:
+  catalog: Builds the Journal, Kith, Setline, Motion, Anchor, and compatibility Indulge/Habits landing trees. Journal's native source lives in its independent repository; Habits and Indulge now point to Anchor without removing their domains. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker.
+  infrastructure: Private landing factory. Product Pages deployments are attributed to their product rows; Journal native ownership now lives in Significant-Hobbies/journal.

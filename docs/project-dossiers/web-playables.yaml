@@ -1,0 +1,260 @@
+schemaVersion: 1
+projectId: web-playables
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Web Playables
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: c81dcad17da16a2f902f2210998f1f64d7c9c8435de5eb0a41f452e127662e2a
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: web-playables
+      revision: 32c5554436ca9cb131ea5fdd6c638fec92e38e70
+      githubRepository: sarthakagrawal927/web-playables
+      expectedHomepage: https://idle.aliveville.com
+      observedHomepage: https://idle.aliveville.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      failing: 1
+      attention: &a2
+        clear: 1
+        review-history: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Web-playables I built to study idle games, how idle games are built, and I was also doing research on HTML-based games since they are everywhere. Now I might add more games to it in the future but for now it's on hold.
+  fullReviewVerbatim: Web-playables I built to study idle games, how idle games are built, and I was also doing research on HTML-based games since they are everywhere. Now I might add more games to it in the future but for now it's on hold.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Learn how idle and HTML-based games are built and distributed.
+  currentState: Research goal was met with a reusable game kit and an idle game; currently parked.
+  nextDecision: Add another game only when there is a specific mechanic worth studying.
+identity:
+  name: Web Playables
+  publicName: Web Playables
+  aliases: []
+  family: web-playables
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Small browser-playable game experiments.
+  publicMakerNote: I built this laboratory to understand how idle and HTML-based games are designed, shipped, and distributed.
+  form: Game collection
+  platforms:
+    - Web
+    - YouTube Playables
+  prominentTools:
+    - TypeScript
+    - Vite
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-07-10
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: web-playables
+  observedRevision: 32c5554436ca9cb131ea5fdd6c638fec92e38e70
+  githubRepository: sarthakagrawal927/web-playables
+  githubHomepageUrl: https://idle.aliveville.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/web-playables
+  aliases: []
+  sourceOverride: web-playables
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - apps/hub/vite.config.ts
+          - games/idle-startup/vite.config.ts
+    rootPackageScripts:
+      - build
+      - build:yt
+      - check
+      - deploy
+      - dev
+      - dev:hub
+      - knip
+      - knip:strict
+      - lint
+      - lint:fix
+      - preview
+      - test
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    failing: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/web-playables
+    defaultBranch: main
+    defaultBranchSha: 32c5554436ca9cb131ea5fdd6c638fec92e38e70
+    homepage: https://idle.aliveville.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694409441
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 32c5554436ca9cb131ea5fdd6c638fec92e38e70
+          createdAt: 2026-08-24T05:41:10Z
+          updatedAt: 2026-08-24T05:41:34Z
+          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/32694409441
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694409441
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 32c5554436ca9cb131ea5fdd6c638fec92e38e70
+          createdAt: 2026-08-24T05:41:10Z
+          updatedAt: 2026-08-24T05:41:34Z
+          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/32694409441
+        ageDays: 0
+      attention: clear
+    - name: Deploy web-playables to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 31828614197
+          status: completed
+          conclusion: failure
+          event: workflow_dispatch
+          branch: main
+          headSha: 87b411dfac987d54c762088bcb64188a29c35199
+          createdAt: 2026-08-14T18:26:00Z
+          updatedAt: 2026-08-14T18:26:38Z
+          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/31828614197
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: review-history
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - idle.aliveville.com
+  primaryUrl: https://idle.aliveville.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: web-playables
+        method: git-connected
+        state: live-retained
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/web-playables/issues
+  geoIdentity: null
+notes:
+  catalog: Inactive historical repository with a retained live Cloudflare Pages surface; explicit source reactivation is required for changes.
+  infrastructure: null

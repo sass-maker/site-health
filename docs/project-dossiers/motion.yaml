@@ -1,0 +1,254 @@
+schemaVersion: 1
+projectId: motion
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Motion
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 9f083a3d9ceff5ddf16085fd760a38ce95bc129e7cef991a9c83d86efb690aee
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: motion
+      revision: 957a7d40325546d9917613658a01a28620ded296
+      githubRepository: Significant-Hobbies/motion
+      expectedHomepage: https://motion.significanthobbies.com
+      observedHomepage: https://motion.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
+  fullReviewVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Turn body movement captured by a phone into games displayed on a TV.
+  currentState: Promising body-as-controller prototype, but physical play quality and distribution remain unproven.
+  nextDecision: Reopen for focused physical-device playtesting of one genuinely fun control loop.
+identity:
+  name: Motion
+  publicName: Motion
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P2
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Use your body as the controller for an iPhone-hosted game that can mirror to a larger screen.
+  publicMakerNote: I wanted body movement captured by a phone to become playful games on a television—and a workout without feeling like one.
+  form: iOS game
+  platforms:
+    - iOS
+    - iPadOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - Apple Vision
+    - Vite
+    - TypeScript
+  retainedGitHistory:
+    firstCommitAt: 2026-08-17
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: motion
+  observedRevision: 957a7d40325546d9917613658a01a28620ded296
+  githubRepository: Significant-Hobbies/motion
+  githubHomepageUrl: https://motion.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/motion
+  aliases: []
+  sourceOverride: ios-landings
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: CocoaPods
+        evidence:
+          - ios/Podfile
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - web/vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - check
+      - deploy
+      - dev
+      - dev:server
+      - dev:web
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - quality
+      - quality:complexity
+      - quality:coverage
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:swift
+      - quality:swift-format
+      - quality:swift-unused
+      - quality:unused
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/motion
+    defaultBranch: main
+    defaultBranchSha: 957a7d40325546d9917613658a01a28620ded296
+    homepage: https://motion.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32591694069
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 957a7d40325546d9917613658a01a28620ded296
+          createdAt: 2026-08-22T18:45:43Z
+          updatedAt: 2026-08-22T18:47:34Z
+          url: https://github.com/Significant-Hobbies/motion/actions/runs/32591694069
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32591694069
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 957a7d40325546d9917613658a01a28620ded296
+          createdAt: 2026-08-22T18:45:43Z
+          updatedAt: 2026-08-22T18:47:34Z
+          url: https://github.com/Significant-Hobbies/motion/actions/runs/32591694069
+        ageDays: 1
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - motion.significanthobbies.com
+  primaryUrl: https://motion.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: motion
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://motion.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/motion/issues
+  geoIdentity:
+    id: motion
+    name: Motion
+    aliases: []
+    origin: https://motion.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/motion
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/motion#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/motion
+    availability:
+      primary: internal-only
+      appStore: not-applicable
+    pricing:
+      state: not-applicable
+notes:
+  catalog: Public landing is the ios-landings factory on Cloudflare Pages project motion at motion.significanthobbies.com. The iOS game remains intentionally unreleased while physical-device validation is pending.
+  infrastructure: null

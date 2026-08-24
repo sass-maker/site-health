@@ -1,0 +1,208 @@
+schemaVersion: 1
+projectId: gitstat
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: GitStat
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 3e52bb0c260d1fb0d88301274f64783d6f332dac8da370c55bfbdedd10168207
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: gitstat
+      revision: 520aeb7551be03a8ece58403d1b71654a4de0c23
+      githubRepository: sass-maker/gitstat
+      expectedHomepage: https://git.significanthobbies.com
+      observedHomepage: https://git.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
+  fullReviewVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
+  relatedHistoricalReviews: []
+decision:
+  classification: Maintenance
+  whySummary: Understand work and code churn across the owner's repositories.
+  currentState: More or less complete; no unanswered recurring question is currently known.
+  nextDecision: Use it and add analysis only when a specific question is missing.
+identity:
+  name: GitStat
+  publicName: GitStat
+  aliases: []
+  family: gitstat
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A GitHub analytics dashboard for contribution history, code churn, collaboration, and AI-assisted work.
+  publicMakerNote: I built GitStat to understand how my time and code churn are distributed across a large collection of repositories.
+  form: Web app
+  platforms:
+    - Web
+  prominentTools:
+    - React
+    - Vite
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-08-21
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: gitstat
+  observedRevision: 520aeb7551be03a8ece58403d1b71654a4de0c23
+  githubRepository: sass-maker/gitstat
+  githubHomepageUrl: https://git.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/gitstat
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: npm
+        evidence:
+          - package-lock.json
+      - name: Vite
+        evidence:
+          - vite.config.ts
+    rootPackageScripts:
+      - build
+      - deploy
+      - dev
+      - dev:full
+      - lint
+      - preview
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/gitstat
+    defaultBranch: main
+    defaultBranchSha: 520aeb7551be03a8ece58403d1b71654a4de0c23
+    homepage: https://git.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694353773
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 520aeb7551be03a8ece58403d1b71654a4de0c23
+          createdAt: 2026-08-24T05:40:13Z
+          updatedAt: 2026-08-24T05:40:28Z
+          url: https://github.com/sass-maker/gitstat/actions/runs/32694353773
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694353773
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 520aeb7551be03a8ece58403d1b71654a4de0c23
+          createdAt: 2026-08-24T05:40:13Z
+          updatedAt: 2026-08-24T05:40:28Z
+          url: https://github.com/sass-maker/gitstat/actions/runs/32694353773
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - git.significanthobbies.com
+  primaryUrl: https://git.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: gitstat
+        method: git-connected
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-08-22
+  reason: GitStat is an active Fleet product with a verified live public surface. Keep sharing gated until its optional GitHub connection flow is repaired.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/gitstat/issues
+  geoIdentity: null
+notes:
+  catalog: Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.
+  infrastructure: Live Cloudflare deployment owned by the Fleet GitStat product.

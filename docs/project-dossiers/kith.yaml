@@ -1,0 +1,219 @@
+schemaVersion: 1
+projectId: kith
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-21
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Kith
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 08cbe2a327edb11ee198800b0042ab6dbd2347f16e6d8673820a95887b1c93b6
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: kith
+      revision: 065a9a07be4deecb8a54b39a6ef972950552da17
+      githubRepository: Significant-Hobbies/kith
+      expectedHomepage: https://kith.significanthobbies.com
+      observedHomepage: https://kith.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
+  fullReviewVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Provide a beautiful personal relationship-memory app.
+  currentState: Built as a device-first constellation rather than a CRM.
+  nextDecision: Use it regularly and let relationship-management behavior determine improvements.
+identity:
+  name: Kith
+  publicName: Kith
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.
+  publicMakerNote: I wanted a beautiful personal relationship-memory app that helps me stay more thoughtful about the people in my life.
+  form: Web app
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-08-16
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: kith
+  observedRevision: 065a9a07be4deecb8a54b39a6ef972950552da17
+  githubRepository: Significant-Hobbies/kith
+  githubHomepageUrl: https://kith.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/kith
+  aliases: []
+  sourceOverride: ios-landings
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Xcode
+        evidence:
+          - ios/Kith.xcodeproj/project.pbxproj
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/kith
+    defaultBranch: main
+    defaultBranchSha: 065a9a07be4deecb8a54b39a6ef972950552da17
+    homepage: https://kith.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32639089308
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 065a9a07be4deecb8a54b39a6ef972950552da17
+          createdAt: 2026-08-23T12:20:01Z
+          updatedAt: 2026-08-23T12:27:43Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/32639089308
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32639089308
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 065a9a07be4deecb8a54b39a6ef972950552da17
+          createdAt: 2026-08-23T12:20:01Z
+          updatedAt: 2026-08-23T12:27:43Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/32639089308
+        ageDays: 1
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - kith.significanthobbies.com
+  primaryUrl: https://kith.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: kith
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments:
+      - provider: apple
+        kind: app-store-connect
+        name: Kith by Significant Hobbies
+        method: manual-xcode
+        state: testflight-processed
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-08-21
+  reason: Landing is live at kith.significanthobbies.com from the ios-landings factory. Hub-enabled Kith 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; no public TestFlight or App Store build is approved.
+  changelogUrl: https://kith.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
+  geoIdentity:
+    id: kith
+    name: Kith
+    aliases: []
+    origin: https://kith.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/kith
+    docs:
+      state: landing-only
+      url: https://kith.significanthobbies.com/index.md
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/kith
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Public landing is the ios-landings factory on Cloudflare Pages project kith. App Store Connect record Kith by Significant Hobbies (6803666674) and Hub-enabled native iPhone build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; the landing does not invent a public App Store or TestFlight URL.
+  infrastructure: Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight.

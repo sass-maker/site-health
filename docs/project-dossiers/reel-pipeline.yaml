@@ -1,0 +1,381 @@
+schemaVersion: 1
+projectId: reel-pipeline
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-20
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Reel Pipeline
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 61071b399acddcfc99b2252b8bc1601ec98e9d8b591f609e0f0c542cb94ae91e
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: reel-pipeline
+      revision: 4542fef7373636291ca225d37694e5662ac50fd5
+      githubRepository: sass-maker/reel-pipeline
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 9
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      failing: 1
+      stale: 1
+      healthy: 1
+      attention: &a2
+        action-required: 1
+        clear: 1
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
+  fullReviewVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Automate product-video creation and posting.
+  currentState: Scope spiralled, accumulated features, and never shipped.
+  nextDecision: Before reopening, reduce it to one publishable video loop with explicit cost and operator-time limits.
+identity:
+  name: Reel Pipeline
+  publicName: null
+  aliases: []
+  family: reel-pipeline
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: required-service
+  inRegistry: false
+product:
+  description: A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.
+  publicMakerNote: I wanted to automate the repetitive work of making and publishing useful product videos.
+  form: Video pipeline
+  platforms:
+    - CLI
+    - API
+    - Local
+  prominentTools:
+    - Python
+    - Rust
+    - Cloudflare Workers
+    - R2
+  retainedGitHistory:
+    firstCommitAt: 2026-05-28
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: reel-pipeline
+  observedRevision: 4542fef7373636291ca225d37694e5662ac50fd5
+  githubRepository: sass-maker/reel-pipeline
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/reel-pipeline
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: Docker
+        evidence:
+          - ops/postiz/compose.yaml
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Python pyproject
+        evidence:
+          - tools/mlx-video/pyproject.toml
+      - name: Rust Cargo
+        evidence:
+          - reel/Cargo.toml
+      - name: uv
+        evidence:
+          - tools/mlx-video/uv.lock
+    rootPackageScripts:
+      - agent
+      - bootstrap:cloudflare
+      - canary:lyric
+      - check:cloudflare
+      - check:generation-readiness
+      - check:retired-boundaries
+      - check:social
+      - content
+      - demo:cartoon-hand
+      - demo:cartoon-hand:capture
+      - demo:cartoon-hand:check
+      - deploy
+      - dev
+      - distribution
+      - docs:validate
+      - draft:signal
+      - faceless
+      - factory
+      - forge:coherent
+      - gallery:build
+      - gallery:check
+      - gallery:proofs:blender
+      - gallery:quality:frames
+      - gallery:representatives:build
+      - gallery:representatives:capture
+      - gallery:representatives:check
+      - inspect:mashup-media
+      - lesson:render
+      - postiz:evidence
+      - postiz:queue
+      - probe:engines
+      - ready:local
+      - ready:proofs
+      - ready:target
+      - render:fixture
+      - render:html
+      - render:package
+      - render:pro
+      - render:pro:rs
+      - setup:kokoro
+      - significant-content
+      - smoke:artifact
+      - smoke:generation-cases
+      - smoke:lesson-local
+      - smoke:mock
+      - smoke:postiz
+      - smoke:render-modes
+      - smoke:significant-content
+      - smoke:significant-content-loop
+      - smoke:studio
+      - studio
+      - test
+      - test:coverage
+      - validate:watcher
+      - watch:render
+      - watch:render:dry
+      - watch:render:once
+      - worker:dry-run
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    failing: 1
+    stale: 1
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/reel-pipeline
+    defaultBranch: main
+    defaultBranchSha: 4542fef7373636291ca225d37694e5662ac50fd5
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 32748382799
+          status: completed
+          conclusion: failure
+          event: workflow_dispatch
+          branch: main
+          headSha: 4542fef7373636291ca225d37694e5662ac50fd5
+          createdAt: 2026-08-24T16:01:09Z
+          updatedAt: 2026-08-24T16:01:54Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32748382799
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 4542fef
+        lastRun:
+          id: 30117652308
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 704309619bf9a98f2b7b46693d8d70f70c23e044
+          createdAt: 2026-07-24T18:37:27Z
+          updatedAt: 2026-07-24T18:38:13Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/30117652308
+      attention: action-required
+    - name: Deploy artifacts worker
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 41 days old
+        apiState: active
+        lastRun:
+          id: 29273219217
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 364f2fd836e1f545360adbd44eac03c7dff993d7
+          createdAt: 2026-07-13T18:07:43Z
+          updatedAt: 2026-07-13T18:08:12Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/29273219217
+        ageDays: 41
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 30117652312
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 704309619bf9a98f2b7b46693d8d70f70c23e044
+          createdAt: 2026-07-24T18:37:27Z
+          updatedAt: 2026-07-24T18:37:38Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/30117652312
+        ageDays: 30
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 4542fef
+        lastRun:
+          id: 30117652312
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 704309619bf9a98f2b7b46693d8d70f70c23e044
+          createdAt: 2026-07-24T18:37:27Z
+          updatedAt: 2026-07-24T18:37:38Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/30117652312
+      attention: missing-data
+deployment:
+  kind: worker
+  deployed: true
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets:
+    - id: reel-artifacts
+      kind: worker
+      name: reel-pipeline-artifacts
+      sourcePath: reel-pipeline
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: reel-pipeline-artifacts
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: r2
+        name: reel-artifacts
+        state: active
+        scope: project
+        operationalOwner: reel-pipeline
+        attributionReason: "Canonical project owner: reel-pipeline"
+      - provider: cloudflare
+        kind: tunnel
+        name: fleet-postiz
+        state: down
+        scope: project
+        operationalOwner: reel-pipeline
+        attributionReason: "Canonical project owner: reel-pipeline"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-20
+  reason: The standalone source and retained artifact Worker are current, but no public product surface is approved for sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/reel-pipeline/issues
+  geoIdentity: null
+notes:
+  catalog: Independent media production, review, and policy-gated distribution product. Canonical source was extracted from Fleet Workspace on 2026-08-20; Content Factory is owned inside the same repository. Existing Cloudflare resources were retained without deployment.
+  infrastructure: null

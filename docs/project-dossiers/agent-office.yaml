@@ -1,0 +1,290 @@
+schemaVersion: 1
+projectId: agent-office
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Agent Office
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 5f6c41e2a9413526d7cbd241ca5462c90d578f8149a48007a8712a7475cd0e68
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: agent-office
+      revision: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+      githubRepository: sass-maker/agent-office
+      expectedHomepage: https://office-os.sassmaker.com
+      observedHomepage: https://office-os.sassmaker.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 2
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: I started this project to hop on the transaction of AI employees and move away from coding-first AI employees instead of focusing on regular non-coder coding employees. Essentially trying to build a company in which humans and agents can live in synergy with each having ownership of an outcome and they just keep focusing on it endlessly.
+  fullReviewVerbatim: |-
+    I started this project to hop on the transaction of AI employees and move away from coding-first AI employees instead of focusing on regular non-coder coding employees. Essentially trying to build a company in which humans and agents can live in synergy with each having ownership of an outcome and they just keep focusing on it endlessly.
+
+     Currently I think it has been built reasonably well but I don't think it is yet to use. It is at the stage where I have to start testing but I have not been able to prioritise it.
+
+    I will start testing this product and see but due to the recent explosion of similar products which are far better, I will first have to check them out and see what valuable badge I can add before moving forward with this.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Give humans and non-coding agents durable ownership of outcomes.
+  currentState: Built to a credible testable stage, but not yet part of the owner's routine; the category has also become crowded.
+  nextDecision: Compare the strongest alternatives, define a differentiated wedge, then run a real recurring workflow before adding features.
+identity:
+  name: Office OS
+  publicName: Office OS
+  aliases:
+    - office-os
+  family: agent-office
+  kind: product
+  priority: P1
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A local-first Mac workplace where named AI employees have bounded responsibilities and their work stays inspectable.
+  publicMakerNote: I wanted to explore a company where humans and non-coding agents each own outcomes and keep working toward them over time.
+  form: macOS app
+  platforms:
+    - macOS
+    - Local
+  prominentTools:
+    - SwiftUI
+    - SpriteKit
+    - Codex CLI
+  retainedGitHistory:
+    firstCommitAt: 2026-08-09
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: agent-office
+  observedRevision: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+  githubRepository: sass-maker/agent-office
+  githubHomepageUrl: https://office-os.sassmaker.com
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sass-maker/agent-office
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
+    rootPackageScripts:
+      - deploy
+      - format:check
+      - lint
+      - quality
+      - quality:complexity
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: sass-maker/agent-office
+    defaultBranch: main
+    defaultBranchSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+    homepage: https://office-os.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Native Quality
+      file: .github/workflows/native-quality.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694324697
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+          createdAt: 2026-08-24T05:39:45Z
+          updatedAt: 2026-08-24T05:42:54Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/32694324697
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694324697
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+          createdAt: 2026-08-24T05:39:45Z
+          updatedAt: 2026-08-24T05:42:54Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/32694324697
+        ageDays: 0
+      attention: clear
+    - name: Site Check
+      file: .github/workflows/site-check.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694324604
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+          createdAt: 2026-08-24T05:39:45Z
+          updatedAt: 2026-08-24T05:40:07Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/32694324604
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694324604
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+          createdAt: 2026-08-24T05:39:45Z
+          updatedAt: 2026-08-24T05:40:07Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/32694324604
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - office-os.sassmaker.com
+  primaryUrl: https://office-os.sassmaker.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: office-os
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments:
+      - provider: local
+        kind: macos-app
+        name: AgentOffice.app
+        method: local-package
+        state: local-only
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-16
+  reason: The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/agent-office/issues
+  geoIdentity:
+    id: agent-office
+    name: Office OS
+    aliases:
+      - Agent Office
+    origin: https://office-os.sassmaker.com
+    source:
+      state: internal
+      path: agent-office
+    docs:
+      state: landing-only
+      url: https://office-os.sassmaker.com
+    officialProfiles:
+      - https://github.com/sass-maker/agent-office
+    availability:
+      primary: internal-only
+      appStore: not-applicable
+    pricing:
+      state: not-applicable
+notes:
+  catalog: The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.
+  infrastructure: null

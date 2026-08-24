@@ -1,0 +1,211 @@
+schemaVersion: 1
+projectId: forecast-lab
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Forecast Lab
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 6373b541321e344e524cb75144096872740e51d1f1073240d77cbccc43b73b15
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: forecast-lab
+      revision: 53744a08e5c70bb3885a5dfcc48344c0471974f6
+      githubRepository: sarthakagrawal927/forecast-lab
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 1
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
+  fullReviewVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Learn forecasting and model regional/time-based commerce demand.
+  currentState: Valuable as an evaluation-first learning lab, not a credible B2B SaaS without data and domain expertise.
+  nextDecision: Reopen for a concrete learning or customer problem with suitable data.
+identity:
+  name: Forecast Lab
+  publicName: Forecast Lab
+  aliases: []
+  family: forecast-lab
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle: past
+  operationalStatus: undeployed
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Forecasting experiments and evaluation tooling.
+  publicMakerNote: I wanted to learn forecasting by modeling how regional, temporal, and behavioral signals shape commerce demand.
+  form: Research toolkit
+  platforms:
+    - CLI
+    - Web
+  prominentTools:
+    - Rust
+    - Python
+    - React
+    - Vite
+  retainedGitHistory:
+    firstCommitAt: 2026-06-21
+    latestCommitAt: 2026-07-04
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: forecast-lab
+  observedRevision: 53744a08e5c70bb3885a5dfcc48344c0471974f6
+  githubRepository: sarthakagrawal927/forecast-lab
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/forecast-lab
+  aliases: []
+  sourceOverride: forecast-lab
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Docker
+        evidence:
+          - event-forecast/docker-compose.yml
+      - name: npm
+        evidence:
+          - web/package-lock.json
+      - name: Python pyproject
+        evidence:
+          - demand-forecast/pyproject.toml
+          - recsys-lab/pyproject.toml
+      - name: Rust Cargo
+        evidence:
+          - event-forecast/Cargo.toml
+      - name: uv
+        evidence:
+          - demand-forecast/uv.lock
+          - recsys-lab/uv.lock
+      - name: Vite
+        evidence:
+          - web/vite.config.ts
+    rootPackageScripts:
+      - deploy
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/forecast-lab
+    defaultBranch: main
+    defaultBranchSha: 53744a08e5c70bb3885a5dfcc48344c0471974f6
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694347633
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 53744a08e5c70bb3885a5dfcc48344c0471974f6
+          createdAt: 2026-08-24T05:40:07Z
+          updatedAt: 2026-08-24T05:41:19Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/32694347633
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694347633
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 53744a08e5c70bb3885a5dfcc48344c0471974f6
+          createdAt: 2026-08-24T05:40:07Z
+          updatedAt: 2026-08-24T05:41:19Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/32694347633
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/forecast-lab/issues
+  geoIdentity: null
+notes:
+  catalog: Inactive historical repository; explicit reactivation required.
+  infrastructure: null

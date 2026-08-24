@@ -1,0 +1,221 @@
+schemaVersion: 1
+projectId: site-health
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Site Health
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 898ad3494adf0f2eac9def552e57e351278a79ed8b7c20ed339f2d2d1f76bd3e
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: site-health
+      revision: 92a1b1c47be8490e7a878f35e03ac3a7e5e5ab24
+      githubRepository: sass-maker/site-health
+      expectedHomepage: null
+      observedHomepage: https://sassmaker.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 7
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: |-
+    Scythe Health is essentially a local-only dashboard which has 5 main things:
+    - Domain rank
+    - Size swarm (basically it's LCP, TTFP, and some other things)
+    - AI awareness
+    - Search console results
+    - Other thingsIt is being actively worked on and it will continue as is.
+  fullReviewVerbatim: |-
+    Scythe Health is essentially a local-only dashboard which has 5 main things:
+    - Domain rank
+    - Size swarm (basically it's LCP, TTFP, and some other things)
+    - AI awareness
+    - Search console results
+    - Other thingsIt is being actively worked on and it will continue as is.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Give the owner one local view of Fleet inventory, domain rank, performance, search, and AI visibility.
+  currentState: Actively maintained canonical private catalog and operational dashboard.
+  nextDecision: Keep it local; improve only the five owner questions and their evidence adapters.
+identity:
+  name: Site Health
+  publicName: null
+  aliases: []
+  family: site-health
+  kind: platform
+  priority: P2
+  tier: active
+  attention: foundry
+  lifecycle: maintained
+  operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
+product:
+  description: A local portfolio dashboard for domains, performance, search, and AI visibility evidence.
+  publicMakerNote: I built Site Health because I needed one clear view of Fleet’s domains, performance, search visibility, and AI visibility.
+  form: Local dashboard
+  platforms:
+    - Web
+    - Local
+  prominentTools:
+    - Astro
+    - TypeScript
+    - Node.js
+  retainedGitHistory:
+    firstCommitAt: 2026-05-02
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: site-health
+  observedRevision: 92a1b1c47be8490e7a878f35e03ac3a7e5e5ab24
+  githubRepository: sass-maker/site-health
+  githubHomepageUrl: https://sassmaker.com
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sass-maker/site-health
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - apps/web/astro.config.mjs
+      - name: pnpm
+        evidence:
+          - apps/backend/packages/ai-visibility/pnpm-lock.yaml
+          - apps/web/pnpm-lock.yaml
+    rootPackageScripts:
+      - backend
+      - build
+      - check
+      - dashboard
+      - dev
+      - docs:projects
+      - docs:projects:check
+      - docs:projects:refresh
+      - docs:projects:refresh-local
+      - test
+      - test:ai
+      - test:backend
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/site-health
+    defaultBranch: main
+    defaultBranchSha: 92a1b1c47be8490e7a878f35e03ac3a7e5e5ab24
+    homepage: https://sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Site Health CI
+      file: .github/workflows/site-health-ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32738711735
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 92a1b1c47be8490e7a878f35e03ac3a7e5e5ab24
+          createdAt: 2026-08-24T14:26:27Z
+          updatedAt: 2026-08-24T14:26:56Z
+          url: https://github.com/sass-maker/site-health/actions/runs/32738711735
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32738711735
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 92a1b1c47be8490e7a878f35e03ac3a7e5e5ab24
+          createdAt: 2026-08-24T14:26:27Z
+          updatedAt: 2026-08-24T14:26:56Z
+          url: https://github.com/sass-maker/site-health/actions/runs/32738711735
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-22
+  reason: Site Health is intentionally local-only and has no intended public deployment; its obsolete public edge hostname and Access application were retired on 2026-08-22.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/site-health/issues
+  geoIdentity: null
+notes:
+  catalog: Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories.
+  infrastructure: Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched.

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fleet.local/schemas/project-dossier-v1.json",
+  "title": "Fleet project dossier",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "projectId",
+    "verification",
+    "ownerVoice",
+    "decision",
+    "identity",
+    "product",
+    "repository",
+    "githubActions",
+    "deployment",
+    "sharing"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "projectId": { "type": "string", "minLength": 1 },
+    "verification": {
+      "type": "object",
+      "required": ["status", "meaning", "generatedAt", "checks", "evidence", "unknowns"],
+      "properties": {
+        "status": { "enum": ["verified", "partial"] },
+        "meaning": { "type": "string", "minLength": 1 },
+        "generatedAt": { "type": "string", "minLength": 1 },
+        "checks": { "type": "object" },
+        "evidence": { "type": "object" },
+        "unknowns": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ownerVoice": {
+      "type": "object",
+      "required": ["whyVerbatim", "fullReviewVerbatim", "relatedHistoricalReviews"],
+      "properties": {
+        "whyVerbatim": { "type": "string", "minLength": 1 },
+        "fullReviewVerbatim": { "type": "string", "minLength": 1 },
+        "relatedHistoricalReviews": { "type": "array" }
+      }
+    },
+    "decision": { "type": "object" },
+    "identity": { "type": "object" },
+    "product": { "type": "object" },
+    "repository": { "type": "object" },
+    "githubActions": {
+      "type": "object",
+      "required": ["observedAt", "summary", "attention", "remote", "workflows"],
+      "properties": {
+        "workflows": { "type": "array" }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "required": ["kind", "domains", "targets", "cloudflare", "otherProviders"]
+    },
+    "sharing": { "type": "object" }
+  }
+}

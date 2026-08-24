@@ -1,0 +1,422 @@
+schemaVersion: 1
+projectId: rolepatch
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: RolePatch
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 39863a3a3682861cb619b47b7761540ae597975492698d55446fcab46660346a
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: rolepatch
+      revision: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+      githubRepository: Significant-Hobbies/rolepatch
+      expectedHomepage: https://rolepatch.com
+      observedHomepage: https://rolepatch.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 9
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 4
+      attention: &a2
+        clear: 4
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Role patch was my attempt to build a tool for generating a resume for a job description. I am not actively looking for a job so I am not using it but it's a good product and I will test and start using it soon.
+  fullReviewVerbatim: Role patch was my attempt to build a tool for generating a resume for a job description. I am not actively looking for a job so I am not using it but it's a good product and I will test and start using it soon.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Tailor a resume and supporting application material to a job description.
+  currentState: Strong product, but unused because the owner is not job hunting.
+  nextDecision: Test it against real applications when job-search intent returns; let that test trim unnecessary breadth.
+identity:
+  name: RolePatch
+  publicName: RolePatch
+  aliases: []
+  family: rolepatch
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: AI-assisted resume tailoring, role research, and interview preparation.
+  publicMakerNote: I wanted a focused way to tailor a resume and its supporting material to the actual job description.
+  form: Web app
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - Next.js
+    - React
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-02-23
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: rolepatch
+  observedRevision: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+  githubRepository: Significant-Hobbies/rolepatch
+  githubHomepageUrl: https://rolepatch.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/rolepatch
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - landing-astro/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - landing-astro/wrangler.toml
+          - wrangler.toml
+      - name: Next.js
+        evidence:
+          - next.config.ts
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - landing-astro/pnpm-lock.yaml
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - apply-agent
+      - apply-agent:mcp
+      - build
+      - cf:build
+      - check
+      - deploy
+      - dev
+      - docs:check
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - prepare
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - release:verify
+      - smoke:local
+      - smoke:prod
+      - start
+      - test
+      - test:coverage
+      - test:e2e
+      - test:watch
+      - typecheck
+      - verify:deploy-routes
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 4
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/rolepatch
+    defaultBranch: main
+    defaultBranchSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+    homepage: https://rolepatch.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694550692
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+          createdAt: 2026-08-24T05:43:40Z
+          updatedAt: 2026-08-24T05:47:06Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550692
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694550692
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+          createdAt: 2026-08-24T05:43:40Z
+          updatedAt: 2026-08-24T05:47:06Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550692
+        ageDays: 0
+      attention: clear
+    - name: Deploy to Cloudflare Workers
+      file: .github/workflows/deploy.yml
+      triggers:
+        - pull_request
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32628060063
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: fix/request-lazy-auth-init
+          headSha: 1dbb61ea4c2ecdf9d90082f4195f58005f383b1e
+          createdAt: 2026-08-23T08:21:49Z
+          updatedAt: 2026-08-23T08:23:40Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32628060063
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694550698
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+          createdAt: 2026-08-24T05:43:40Z
+          updatedAt: 2026-08-24T05:43:47Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550698
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694550698
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+          createdAt: 2026-08-24T05:43:40Z
+          updatedAt: 2026-08-24T05:43:47Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550698
+        ageDays: 0
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32081074392
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: ed415e29b8d06d02a4982f55c31d2ef9b0564684
+          createdAt: 2026-08-17T23:35:29Z
+          updatedAt: 2026-08-17T23:36:14Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32081074392
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - rolepatch.com
+  primaryUrl: https://rolepatch.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: resume-tailor
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: rolepatch
+        state: active
+        scope: project
+        operationalOwner: rolepatch
+        attributionReason: "Canonical project owner: rolepatch"
+      - provider: cloudflare
+        kind: browser-rendering
+        name: BROWSER
+        state: active
+        scope: project
+        operationalOwner: rolepatch
+        attributionReason: "Canonical project owner: rolepatch"
+      - provider: cloudflare
+        kind: turnstile
+        name: rolepatch (Spin)
+        state: active
+        scope: project
+        operationalOwner: rolepatch
+        attributionReason: "Canonical project owner: rolepatch"
+      - provider: cloudflare
+        kind: zone
+        name: rolepatch.com
+        state: active-config-derived
+        scope: project
+        operationalOwner: rolepatch
+        attributionReason: "Canonical project owner: rolepatch"
+      - provider: cloudflare
+        kind: email-routing
+        name: rolepatch.com
+        state: enabled-catch-all
+        scope: project
+        operationalOwner: rolepatch
+        attributionReason: "Canonical project owner: rolepatch"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://rolepatch.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/rolepatch/issues
+  geoIdentity:
+    id: rolepatch
+    name: RolePatch
+    aliases: []
+    origin: https://rolepatch.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/rolepatch
+    docs:
+      state: public
+      url: https://rolepatch.com/blog
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/rolepatch
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: null
+  infrastructure: null

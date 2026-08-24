@@ -1,0 +1,386 @@
+schemaVersion: 1
+projectId: everythingrated
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Everything Rated
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 3ddc5658f254146bc339f2acb1d78abbdbbf91c9a36c46aba2b7eed1ed2934ca
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: everythingrated
+      revision: 69f2066dc704ff50499634cb18773b57674b1d1f
+      githubRepository: High-Signal-App/everythingrated
+      expectedHomepage: https://ratings.highsignal.app
+      observedHomepage: https://ratings.highsignal.app
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 16
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 3
+      failing: 1
+      attention: &a2
+        clear: 3
+        review-history: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Everything Rated. This is also a fancy project that I had wanted to build for a long time. The purpose of this product was that you can come, make lists, and rate things. After building it out I realised this is a social product. As of now I didn't really have a lot of energy to build out a social product because it's a big chicken-and-egg problem to solve in those cases. This is something I would re-pick again once I'm more confident in my marketing skills.
+  fullReviewVerbatim: Everything Rated. This is also a fancy project that I had wanted to build for a long time. The purpose of this product was that you can come, make lists, and rate things. After building it out I realised this is a social product. As of now I didn't really have a lot of energy to build out a social product because it's a big chicken-and-egg problem to solve in those cases. This is something I would re-pick again once I'm more confident in my marketing skills.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Let people create lists and rate anything.
+  currentState: The build exposed a social-network cold-start and moderation problem.
+  nextDecision: Reopen only with stronger distribution/marketing ability or a narrow community that solves the chicken-and-egg problem.
+identity:
+  name: EverythingRated
+  publicName: EverythingRated
+  aliases: []
+  family: high-signal
+  kind: experiment
+  priority: P4
+  tier: secondary
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A general-purpose rating and comparison experiment.
+  publicMakerNote: I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.
+  form: Ratings experiment
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - Next.js
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-04-26
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: everythingrated
+  observedRevision: 69f2066dc704ff50499634cb18773b57674b1d1f
+  githubRepository: High-Signal-App/everythingrated
+  githubHomepageUrl: https://ratings.highsignal.app
+  worktree: *a1
+  visibility: public
+  url: https://github.com/High-Signal-App/everythingrated
+  aliases: []
+  sourceOverride: everythingrated
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - apps/web/wrangler.toml
+      - name: Drizzle
+        evidence:
+          - packages/db/drizzle.config.ts
+      - name: ESLint
+        evidence:
+          - apps/web/eslint.config.mjs
+      - name: Next.js
+        evidence:
+          - apps/web/next.config.ts
+      - name: Playwright
+        evidence:
+          - apps/web/playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - cf:build
+      - check
+      - db:generate
+      - db:migrate:local
+      - db:migrate:remote
+      - db:seed:local
+      - db:seed:remote
+      - db:studio
+      - deploy
+      - dev
+      - docs:check
+      - format
+      - format:check
+      - generate:agent-catalog
+      - knip
+      - knip:strict
+      - lint
+      - prepare
+      - start
+      - test
+      - test:coverage
+      - test:watch
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 3
+    failing: 1
+  attention: *a2
+  remote:
+    repository: High-Signal-App/everythingrated
+    defaultBranch: main
+    defaultBranchSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+    homepage: https://ratings.highsignal.app
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694343728
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+          createdAt: 2026-08-24T05:40:04Z
+          updatedAt: 2026-08-24T05:41:44Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343728
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694343728
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+          createdAt: 2026-08-24T05:40:04Z
+          updatedAt: 2026-08-24T05:41:44Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343728
+        ageDays: 0
+      attention: clear
+    - name: Deploy Cloudflare
+      file: .github/workflows/cloudflare-deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 32642143733
+          status: completed
+          conclusion: failure
+          event: workflow_dispatch
+          branch: main
+          headSha: 087453daf95847a36c3c425de2497cfdec7dbc2c
+          createdAt: 2026-08-23T13:22:18Z
+          updatedAt: 2026-08-23T13:23:55Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32642143733
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: review-history
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694343760
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+          createdAt: 2026-08-24T05:40:04Z
+          updatedAt: 2026-08-24T05:40:48Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343760
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694343760
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+          createdAt: 2026-08-24T05:40:04Z
+          updatedAt: 2026-08-24T05:40:48Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343760
+        ageDays: 0
+      attention: clear
+    - name: Weekly Quality Check
+      file: .github/workflows/weekly.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32713159194
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+          createdAt: 2026-08-24T09:44:30Z
+          updatedAt: 2026-08-24T09:45:30Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32713159194
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32713159194
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+          createdAt: 2026-08-24T09:44:30Z
+          updatedAt: 2026-08-24T09:45:30Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32713159194
+        ageDays: 0
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - ratings.highsignal.app
+  primaryUrl: https://ratings.highsignal.app
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: everythingrated
+        method: wrangler-direct
+        state: live-retained
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: everythingrated-db
+        state: retained
+        scope: project
+        operationalOwner: everythingrated
+        attributionReason: "Canonical project owner: everythingrated"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/High-Signal-App/everythingrated/issues
+  geoIdentity: null
+notes:
+  catalog: canonical = ratings.highsignal.app; everythingrated.com is NOT ours (external) — do not associate
+  infrastructure: null

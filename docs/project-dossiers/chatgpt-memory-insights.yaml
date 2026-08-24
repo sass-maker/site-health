@@ -1,0 +1,250 @@
+schemaVersion: 1
+projectId: chatgpt-memory-insights
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: ChatGPT Memory Insights
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 038ac2e074abdddc9e0e8287d9742723ae4cc51b2c49414e0f5eb6a60b19390b
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: chatgpt-memory-insights
+      revision: fa9dc1b5b3bb02ff5a3e9b0a6fe2ef5d30ec7d7a
+      githubRepository: Significant-Hobbies/chatgpt-memory-insights
+      expectedHomepage: https://chatgpt.significanthobbies.com
+      observedHomepage: https://chatgpt.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: I started off this product to have a way to analyse my conversations I have with ChatGPT. Its purpose is that I can use an exported version of ChatGPT's conversation and it will give me insights into memory, what I talk about, my emotions, and other relevant things.
+  fullReviewVerbatim: |-
+    I started off this product to have a way to analyse my conversations I have with ChatGPT. Its purpose is that I can use an exported version of ChatGPT's conversation and it will give me insights into memory, what I talk about, my emotions, and other relevant things.
+
+    I would say it is at a good stage but I would not call it complete. I think the dashboard and Insights can still use some improvement. In future I would want to include local codecs and cloud agent chats and more cloud services maybe, but add more insights I would say. maybe historical shift
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Analyse exported AI conversations for themes, memory, emotion, and personal change.
+  currentState: Useful but not complete; dashboard and insight quality can improve.
+  nextDecision: Deepen historical-shift insights, then add Codex, Claude, and other sources without weakening the browser-local privacy boundary.
+identity:
+  name: Memory Map
+  publicName: Memory Map
+  aliases: []
+  family: chatgpt-memory-insights
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.
+  publicMakerNote: I wanted to learn what my exported AI conversations reveal about my themes, emotions, memory, and personal change.
+  form: Web app
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-07-28
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: chatgpt-memory-insights
+  observedRevision: fa9dc1b5b3bb02ff5a3e9b0a6fe2ef5d30ec7d7a
+  githubRepository: Significant-Hobbies/chatgpt-memory-insights
+  githubHomepageUrl: https://chatgpt.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/chatgpt-memory-insights
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.ts
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.toml
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - check
+      - deploy
+      - dev
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - preview
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/chatgpt-memory-insights
+    defaultBranch: main
+    defaultBranchSha: c180d846b548f069137c628f8df4df7f2ba3a17f
+    homepage: https://chatgpt.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694725926
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: feat/render-historical-shifts
+          headSha: fa9dc1b5b3bb02ff5a3e9b0a6fe2ef5d30ec7d7a
+          createdAt: 2026-08-24T05:46:31Z
+          updatedAt: 2026-08-24T05:47:12Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/32694725926
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694307253
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: c180d846b548f069137c628f8df4df7f2ba3a17f
+          createdAt: 2026-08-24T05:39:28Z
+          updatedAt: 2026-08-24T05:40:11Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/32694307253
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - chatgpt.significanthobbies.com
+  primaryUrl: https://chatgpt.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: chatgpt-memory-insights
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://chatgpt.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues
+  geoIdentity:
+    id: chatgpt-memory-insights
+    name: Memory Map
+    aliases:
+      - ChatGPT Memory Insights
+    origin: https://chatgpt.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/chatgpt-memory-insights
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/chatgpt-memory-insights#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/chatgpt-memory-insights
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.
+  infrastructure: null

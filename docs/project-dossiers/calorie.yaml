@@ -1,0 +1,275 @@
+schemaVersion: 1
+projectId: calorie
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-21
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Calorie
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: cb46ebf564dc0c6c578d85885e358487c3b52e59c681d6fd134a932a4dbdf337
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: calorie
+      revision: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+      githubRepository: Significant-Hobbies/calorie
+      expectedHomepage: https://calorie.significanthobbies.com
+      observedHomepage: https://calorie.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: |-
+    I was trying to lose weight so I built this. It's just a simple calorie tracker in which you can input your food, you can input your log time, and it will tell you:
+    - how your fasting schedule was
+    - when the good exercise window is
+    - how you performed in days
+  fullReviewVerbatim: |-
+    I was trying to lose weight so I built this. It's just a simple calorie tracker in which you can input your food, you can input your log time, and it will tell you:
+    - how your fasting schedule was
+    - when the good exercise window is
+    - how you performed in days
+
+    I think it is at a good stage. I would say it's done. For next, this is to just use it more and connect it to the hub that I am building.
+  relatedHistoricalReviews: []
+decision:
+  classification: Maintenance
+  whySummary: Support weight loss through food logging, fasting windows, exercise timing, and daily performance.
+  currentState: Functionally done and connected to the Hub family.
+  nextDecision: Keep using it; change it only when repeated use reveals a gap.
+identity:
+  name: Calorie
+  publicName: Calorie
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A private, local-first food, water, and weight journal with transparent timing guidance.
+  publicMakerNote: I wanted one personal system for weight loss that connects food logging, fasting, exercise timing, and daily performance.
+  form: iOS app
+  platforms:
+    - iOS
+    - API
+  prominentTools:
+    - SwiftUI
+    - Hono
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-07-25
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: calorie
+  observedRevision: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+  githubRepository: Significant-Hobbies/calorie
+  githubHomepageUrl: https://calorie.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/calorie
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+      - name: Xcode
+        evidence:
+          - ios/Calorie.xcodeproj/project.pbxproj
+    rootPackageScripts:
+      - build
+      - check
+      - db:migrate:local
+      - db:migrate:remote
+      - deploy
+      - dev
+      - dev:api
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:native
+      - quality:suppressions
+      - quality:unused
+      - test
+      - test:coverage
+      - typecheck
+      - types:worker
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/calorie
+    defaultBranch: main
+    defaultBranchSha: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+    homepage: https://calorie.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32637598388
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+          createdAt: 2026-08-23T11:48:47Z
+          updatedAt: 2026-08-23T11:55:44Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/32637598388
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32637598388
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+          createdAt: 2026-08-23T11:48:47Z
+          updatedAt: 2026-08-23T11:55:44Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/32637598388
+        ageDays: 1
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - calorie.significanthobbies.com
+  primaryUrl: https://calorie.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: calorie
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: calorie
+        state: active
+        scope: project
+        operationalOwner: calorie
+        attributionReason: "Canonical project owner: calorie"
+  otherProviders:
+    deployments:
+      - provider: apple
+        kind: app-store-connect
+        name: Calorie by Significant Hobbies
+        method: manual-xcode
+        state: internal-testflight-ready
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://calorie.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/calorie/issues
+  geoIdentity:
+    id: calorie
+    name: Calorie
+    aliases: []
+    origin: https://calorie.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/calorie
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/calorie#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/calorie
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Finished local-first calorie journal with optional Apple or Google sign-in and private D1 sync. Shared-identity migration 0008 is live at exact Worker SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Native build 1.0.0 (3) is available to internal TestFlight testers; Apple Distribution-signed build 1.0.0 (4) is prepared and waits for Xcode personal-account authentication.
+  infrastructure: Worker version 56590a7b-7467-4074-a3af-008fc3fd3d7e is live from exact Git SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Additive shared-identity migration 0008 is applied. Build 1.0.0 (3) remains available to internal testers while signed build 1.0.0 (4) waits for Xcode personal-account authentication.

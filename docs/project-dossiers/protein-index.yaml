@@ -1,0 +1,268 @@
+schemaVersion: 1
+projectId: protein-index
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Protein Index
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 1102b3d930cd4c2c4de3e14fdc1333023a6d890c0711da0c25225996a678555b
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: protein-index
+      revision: 60093a68a933e633ffb7263ea6c649be16f0fb6d
+      githubRepository: Significant-Hobbies/protein-index
+      expectedHomepage: https://protein.significanthobbies.com
+      observedHomepage: https://protein.significanthobbies.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 7
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
+  fullReviewVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Catalogue and compare protein products available in India.
+  currentState: Product exists, but trustworthy market data is unavailable or too expensive.
+  nextDecision: Reopen only when authoritative, affordable product data can support current coverage.
+identity:
+  name: Protein Index
+  publicName: Protein Index
+  aliases: []
+  family: significanthobbies
+  kind: experiment
+  priority: P4
+  tier: parked
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Searchable protein and nutrition reference.
+  publicMakerNote: I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.
+  form: Data API and web app
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - React
+    - Hono
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-07-15
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: protein-index
+  observedRevision: 60093a68a933e633ffb7263ea6c649be16f0fb6d
+  githubRepository: Significant-Hobbies/protein-index
+  githubHomepageUrl: https://protein.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/protein-index-resilience
+  aliases:
+    - https://github.com/Significant-Hobbies/protein-index
+  sourceOverride: protein-index
+  tooling:
+    declaredPackageManager: pnpm@10.13.1
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - cf-typegen
+      - check
+      - data:audit-decisions
+      - data:brand-dedupe
+      - data:brand-discover
+      - data:brand-import-sql
+      - data:brand-prepare
+      - data:coverage
+      - data:enrich
+      - data:extract
+      - data:guarded-release:final-state
+      - data:guarded-release:prepare
+      - data:guarded-release:state-query
+      - data:machine-benchmark
+      - data:machine-discover
+      - data:machine-label
+      - data:machine-publish-batch
+      - data:machine-publish-sql
+      - data:machine-release
+      - data:machine-run
+      - data:macro-refresh
+      - data:publish
+      - data:reclassify
+      - data:review:export
+      - data:review:live-selection-prepare
+      - data:review:live-selection-query
+      - data:review:reattest
+      - data:seed
+      - data:stage
+      - db:migrate
+      - deploy
+      - dev
+      - docs:validate
+      - knip
+      - knip:strict
+      - preview
+      - release:dry-run
+      - release:preflight
+      - release:startup
+      - test
+      - test:unit
+      - test:watch
+      - test:worker
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/protein-index
+    defaultBranch: main
+    defaultBranchSha: 60093a68a933e633ffb7263ea6c649be16f0fb6d
+    homepage: https://protein.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694385090
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 60093a68a933e633ffb7263ea6c649be16f0fb6d
+          createdAt: 2026-08-24T05:40:45Z
+          updatedAt: 2026-08-24T05:41:14Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/32694385090
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694385090
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 60093a68a933e633ffb7263ea6c649be16f0fb6d
+          createdAt: 2026-08-24T05:40:45Z
+          updatedAt: 2026-08-24T05:41:14Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/32694385090
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - protein.significanthobbies.com
+  primaryUrl: https://protein.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: protein-index
+        method: wrangler-direct
+        state: live-retained
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: protein-index
+        state: retained
+        scope: project
+        operationalOwner: protein-index
+        attributionReason: "Canonical project owner: protein-index"
+      - provider: cloudflare
+        kind: r2
+        name: protein-index-labels
+        state: retained
+        scope: project
+        operationalOwner: protein-index
+        attributionReason: "Canonical project owner: protein-index"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/protein-index-resilience/issues
+  geoIdentity: null
+notes:
+  catalog: Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development. The sourcePath checkout tracks the superseded Significant-Hobbies/protein-index repository; Significant-Hobbies/protein-index-resilience is the canonical public source.
+  infrastructure: null

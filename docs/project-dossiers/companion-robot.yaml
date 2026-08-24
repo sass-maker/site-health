@@ -1,0 +1,192 @@
+schemaVersion: 1
+projectId: companion-robot
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Companion Robot
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 1da11cddff8a43cd1b1dcddc92ca6a2a80485b086ff55d6b201e0cfb5954b94b
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: companion-robot
+      revision: a7c0cb4fa9ad9e7cce24035ece61d196cf82f46c
+      githubRepository: HeyPace/companion-robot
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      stale: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Companion robot is a project for the future. I don't think I have done anything yet apart from planning out the future. It is in an ideation state and something that I will pick in the future.
+  fullReviewVerbatim: Companion robot is a project for the future. I don't think I have done anything yet apart from planning out the future. It is in an ideation state and something that I will pick in the future.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Explore a future embodied AI companion.
+  currentState: Ideation and planning only.
+  nextDecision: Reopen when there is an explicit hardware purchase and a bounded Phase 0 experiment.
+identity:
+  name: Companion Robot
+  publicName: Companion Robot
+  aliases: []
+  family: companion-robot
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle: past
+  operationalStatus: undeployed
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Earlier companion robotics and embodied-agent exploration.
+  publicMakerNote: I am keeping this as a future exploration of what a genuinely useful embodied AI companion could become.
+  form: Hardware experiment
+  platforms:
+    - iOS
+    - macOS
+    - ESP32
+  prominentTools:
+    - Swift
+    - Apple Vision
+    - ESP32
+    - Local AI
+  retainedGitHistory:
+    firstCommitAt: 2026-06-25
+    latestCommitAt: 2026-07-17
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: companion-robot
+  observedRevision: a7c0cb4fa9ad9e7cce24035ece61d196cf82f46c
+  githubRepository: HeyPace/companion-robot
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/HeyPace/companion-robot
+  aliases: []
+  sourceOverride: companion-robot
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts:
+      - deploy
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    stale: 1
+  attention: *a2
+  remote:
+    repository: HeyPace/companion-robot
+    defaultBranch: main
+    defaultBranchSha: a7c0cb4fa9ad9e7cce24035ece61d196cf82f46c
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 38 days old
+        apiState: active
+        lastRun:
+          id: 29554785811
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: a7c0cb4fa9ad9e7cce24035ece61d196cf82f46c
+          createdAt: 2026-07-17T04:24:44Z
+          updatedAt: 2026-07-17T04:24:50Z
+          url: https://github.com/HeyPace/companion-robot/actions/runs/29554785811
+        ageDays: 38
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 29554785811
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: a7c0cb4fa9ad9e7cce24035ece61d196cf82f46c
+          createdAt: 2026-07-17T04:24:44Z
+          updatedAt: 2026-07-17T04:24:50Z
+          url: https://github.com/HeyPace/companion-robot/actions/runs/29554785811
+        ageDays: 38
+      attention: clear
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/HeyPace/companion-robot/issues
+  geoIdentity: null
+notes:
+  catalog: Inactive historical repository with a retained live Cloudflare Pages surface; explicit source reactivation is required for changes.
+  infrastructure: null

@@ -1,0 +1,285 @@
+schemaVersion: 1
+projectId: chatgpt-connections
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: ChatGPT Connections
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: b45894af55b80d3977d8e4e7ee0bd10aef4d0eb2ec13e69ccbc3c1d906b71f40
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: chatgpt-connections
+      revision: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+      githubRepository: sass-maker/chatgpt-connections
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 9
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 2
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: "ChatGPT connections: the purpose for this was that I have a lot of projects and there was no solid way for me to connect with them with ChatGPT so this was built."
+  fullReviewVerbatim: |-
+    ChatGPT connections: the purpose for this was that I have a lot of projects and there was no solid way for me to connect with them with ChatGPT so this was built.
+
+    I think it is done. It works. Nothing extra to add, just more connections maybe in the future and maybe even a stronger connection.
+
+    While we are at it I want you to go check out this project and see if ChatGPT connections is the correct word or MCP connections would be better.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Let ChatGPT securely reach selected Fleet projects.
+  currentState: Working shared read-only gateway; ChatGPT is the destination and MCP is the protocol.
+  nextDecision: Add stronger or additional connections only when a concrete consumer needs them.
+identity:
+  name: ChatGPT Connections
+  publicName: null
+  aliases:
+    - fleet-chatgpt-connections
+  family: chatgpt-connections
+  kind: platform
+  priority: P2
+  tier: active
+  attention: foundry
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-personalized
+  inRegistry: false
+product:
+  description: A read-only MCP gateway that exposes selected public Fleet data to ChatGPT connections.
+  publicMakerNote: I had many projects but no solid way to connect them to ChatGPT, so I built a selective gateway for that.
+  form: MCP service
+  platforms:
+    - API
+    - ChatGPT
+  prominentTools:
+    - TypeScript
+    - Cloudflare Workers
+    - MCP
+  retainedGitHistory:
+    firstCommitAt: 2026-08-11
+    latestCommitAt: 2026-08-22
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: chatgpt-connections
+  observedRevision: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+  githubRepository: sass-maker/chatgpt-connections
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/chatgpt-connections
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build
+      - check
+      - deploy
+      - dev:worker
+      - doctor
+      - eval:submission:public
+      - monitor:production
+      - start:calorie
+      - start:high-signal
+      - start:reader
+      - start:research-papers
+      - start:setline
+      - start:significant-hobbies
+      - start:starboard
+      - test
+      - types:check
+      - types:worker
+      - verify:activation
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: sass-maker/chatgpt-connections
+    defaultBranch: main
+    defaultBranchSha: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: ChatGPT Connections CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32535326011
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+          createdAt: 2026-08-21T23:01:28Z
+          updatedAt: 2026-08-21T23:01:48Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32535326011
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32535326011
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+          createdAt: 2026-08-21T23:01:28Z
+          updatedAt: 2026-08-21T23:01:48Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32535326011
+        ageDays: 2
+      attention: clear
+    - name: ChatGPT Connections Production Monitor
+      file: .github/workflows/production-monitor.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 17 3 * * *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32688755577
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+          createdAt: 2026-08-24T04:06:06Z
+          updatedAt: 2026-08-24T04:06:31Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32688755577
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32688755577
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 10251116fc40d3f0ddb7c1e7240b21667edcdb32
+          createdAt: 2026-08-24T04:06:06Z
+          updatedAt: 2026-08-24T04:06:31Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32688755577
+        ageDays: 0
+        freshnessDays: 2
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets:
+    - id: chatgpt-connections
+      kind: worker
+      name: fleet-chatgpt-connections
+      sourcePath: chatgpt-connections
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: fleet-chatgpt-connections
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: kv
+        name: OAUTH_KV
+        state: configured-for-merged-gateway
+        scope: project
+        operationalOwner: chatgpt-connections
+        attributionReason: "Canonical project owner: chatgpt-connections"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-22
+  reason: The source repository is public and the read-only MCP gateway is live for configured integrations, but the service is infrastructure rather than a general public product.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/chatgpt-connections/issues
+  geoIdentity: null
+notes:
+  catalog: Standalone public-source read-only MCP gateway. The Personal Apps route was merged and deployed at exact SHA b296e05910ca808ce436f47bc0c1ecb1844f04c0 on 2026-08-22; OAuth activation remains owner-scoped and fail-closed.
+  infrastructure: null

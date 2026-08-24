@@ -1,0 +1,345 @@
+schemaVersion: 1
+projectId: pace
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Pace
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 0a18820417028c198130f2e6a019d8389cc394d9e719f402ce059a3af19a42d5
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: pace
+      revision: d916f627655210468043f20aeda3568e3ae78f55
+      githubRepository: HeyPace/pace
+      expectedHomepage: https://heypace.app
+      observedHomepage: https://heypace.app
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 3
+      attention: &a2
+        clear: 3
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Pace. It started off as a fork of a product called Hey Clicky. I also wanted to build a personal assistant. I copied most features. I added some features of my own. I wanted to make it a local-first product. I think it's pretty well made also. I tried training my own model. It has a lot of features, it has a lot of abilities, but I've never really used it myself. I don't know why. I don't really have a solid answer why I did not use it but since I did not use it, it kept falling in priority. I would definitely want to work on this more in the future.
+  fullReviewVerbatim: Pace. It started off as a fork of a product called Hey Clicky. I also wanted to build a personal assistant. I copied most features. I added some features of my own. I wanted to make it a local-first product. I think it's pretty well made also. I tried training my own model. It has a lot of features, it has a lot of abilities, but I've never really used it myself. I don't know why. I don't really have a solid answer why I did not use it but since I did not use it, it kept falling in priority. I would definitely want to work on this more in the future.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Build a fast, privacy-first local Mac assistant inspired by Hey Clicky.
+  currentState: Technically broad and well made, but the owner never formed a usage habit.
+  nextDecision: Find one or two moments it should own through daily use before building more capabilities.
+identity:
+  name: HeyPace
+  publicName: HeyPace
+  aliases: []
+  family: pace
+  kind: product
+  priority: P1
+  tier: focus
+  attention: my-work
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Local-only macOS voice agent that can understand what is on your screen.
+  publicMakerNote: I wanted a fast, privacy-first Mac assistant that could understand what is on my screen while keeping the work local.
+  form: macOS app
+  platforms:
+    - macOS
+    - Web
+  prominentTools:
+    - Swift
+    - SwiftUI
+    - Astro
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-07-13
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: pace
+  observedRevision: d916f627655210468043f20aeda3568e3ae78f55
+  githubRepository: HeyPace/pace
+  githubHomepageUrl: https://heypace.app
+  worktree: *a1
+  visibility: public
+  url: https://github.com/HeyPace/pace
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - website/astro.config.mjs
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+          - website/pnpm-lock.yaml
+      - name: Xcode
+        evidence:
+          - leanring-buddy.xcodeproj/project.pbxproj
+    rootPackageScripts:
+      - docs:build
+      - docs:check
+      - docs:dev
+      - docs:doctor
+      - docs:preview
+      - docs:validate
+      - format:check
+      - lint
+      - quality:dependencies
+      - quality:duplication
+      - quality:unused
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 3
+  attention: *a2
+  remote:
+    repository: HeyPace/pace
+    defaultBranch: main
+    defaultBranchSha: d916f627655210468043f20aeda3568e3ae78f55
+    homepage: https://heypace.app
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694572878
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d916f627655210468043f20aeda3568e3ae78f55
+          createdAt: 2026-08-24T05:44:04Z
+          updatedAt: 2026-08-24T05:47:32Z
+          url: https://github.com/HeyPace/pace/actions/runs/32694572878
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694572878
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d916f627655210468043f20aeda3568e3ae78f55
+          createdAt: 2026-08-24T05:44:04Z
+          updatedAt: 2026-08-24T05:47:32Z
+          url: https://github.com/HeyPace/pace/actions/runs/32694572878
+        ageDays: 0
+      attention: clear
+    - name: Deploy pace to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32559485938
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 12b1ff1a8cf844a23c5bd26e419bc30fc81f3dd0
+          createdAt: 2026-08-22T07:24:02Z
+          updatedAt: 2026-08-22T07:25:04Z
+          url: https://github.com/HeyPace/pace/actions/runs/32559485938
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694572883
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d916f627655210468043f20aeda3568e3ae78f55
+          createdAt: 2026-08-24T05:44:04Z
+          updatedAt: 2026-08-24T05:44:38Z
+          url: https://github.com/HeyPace/pace/actions/runs/32694572883
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694572883
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d916f627655210468043f20aeda3568e3ae78f55
+          createdAt: 2026-08-24T05:44:04Z
+          updatedAt: 2026-08-24T05:44:38Z
+          url: https://github.com/HeyPace/pace/actions/runs/32694572883
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - heypace.app
+  primaryUrl: https://heypace.app
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: pace
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: zone
+        name: heypace.app
+        state: active-config-derived
+        scope: project
+        operationalOwner: pace
+        attributionReason: "Canonical project owner: pace"
+      - provider: cloudflare
+        kind: email-routing
+        name: heypace.app
+        state: enabled-catch-all
+        scope: project
+        operationalOwner: pace
+        attributionReason: "Canonical project owner: pace"
+  otherProviders:
+    deployments: []
+    resources:
+      - provider: github
+        kind: organization-profile
+        name: HeyPace/.github
+        state: active
+        scope: project
+        operationalOwner: pace
+        attributionReason: "Canonical project owner: pace"
+sharing:
+  publicListing: maintained
+  maturity: public-ready
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://heypace.app/changelog
+  roadmapUrl: https://github.com/HeyPace/pace/issues
+  geoIdentity:
+    id: pace
+    name: HeyPace
+    aliases:
+      - Pace
+    origin: https://heypace.app
+    source:
+      state: public
+      url: https://github.com/HeyPace/pace
+    docs:
+      state: public
+      url: https://heypace.app/docs/
+    officialProfiles:
+      - https://github.com/HeyPace/pace
+    availability:
+      primary: direct-download
+      appStore: not-applicable
+    pricing:
+      state: published
+      url: https://heypace.app
+notes:
+  catalog: null
+  infrastructure: null

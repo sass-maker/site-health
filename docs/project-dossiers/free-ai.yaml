@@ -1,0 +1,463 @@
+schemaVersion: 1
+projectId: free-ai
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Free AI
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: dffcead6c21427ac28ccdd5739cfcd7a28b32a7b9cd9bafb981676bd2e8b8374
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: free-ai
+      revision: 41145a90f11791562045a66f5a67b819caa70175
+      githubRepository: sass-maker/free-ai
+      expectedHomepage: https://ai-gateway.sassmaker.com
+      observedHomepage: https://ai-gateway.sassmaker.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 7
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      failing: 2
+      healthy: 2
+      attention: &a2
+        action-required: 2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Free AI is also a really good product. There are a lot of free AI providers which give you a decent daily free tier. I aggregated them into what kind of tool they can provide and put them behind a load balancer type thing. I can get access to a free AI whenever I want. So far it has been working well for my internal products. In future I would want to add hopefully more free AI options.
+  fullReviewVerbatim: Free AI is also a really good product. There are a lot of free AI providers which give you a decent daily free tier. I aggregated them into what kind of tool they can provide and put them behind a load balancer type thing. I can get access to a free AI whenever I want. So far it has been working well for my internal products. In future I would want to add hopefully more free AI options.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Aggregate useful free AI tiers behind one resilient interface.
+  currentState: Working well for internal consumers.
+  nextDecision: Add providers only when they improve capability coverage, reliability, or available free capacity.
+identity:
+  name: Free AI
+  publicName: Free AI
+  aliases: []
+  family: free-ai
+  kind: platform
+  priority: P4
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: required-service
+  inRegistry: true
+product:
+  description: OpenAI-compatible gateway across free-tier model providers.
+  publicMakerNote: I built Free AI to make genuinely useful free model capacity easier to discover and use through one resilient interface.
+  form: API gateway
+  platforms:
+    - API
+    - Web
+  prominentTools:
+    - Hono
+    - TypeScript
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-02-15
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: free-ai
+  observedRevision: 41145a90f11791562045a66f5a67b819caa70175
+  githubRepository: sass-maker/free-ai
+  githubHomepageUrl: https://ai-gateway.sassmaker.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/free-ai
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - site/astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.toml
+      - name: npm
+        evidence:
+          - docs-blume/package-lock.json
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - examples/node-openai-sdk/pnpm-lock.yaml
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - playground/vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - audit:cloudflare-costs
+      - build
+      - build:playground
+      - check
+      - check:provider-health
+      - deploy
+      - deploy:cloudflare
+      - dev
+      - dev:local
+      - docs:build
+      - docs:check
+      - env:sync
+      - format
+      - format:check
+      - keys:generate
+      - keys:list
+      - keys:print-secret
+      - keys:upload
+      - knip
+      - knip:strict
+      - lint
+      - lint:fix
+      - prepare
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:suppressions
+      - quality:unused
+      - smoke:embedding-models
+      - smoke:text-providers
+      - test
+      - test:all
+      - test:coverage
+      - test:e2e
+      - test:e2e:headed
+      - test:e2e:live
+      - test:e2e:live:update
+      - test:watch
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    failing: 2
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: sass-maker/free-ai
+    defaultBranch: main
+    defaultBranchSha: 41145a90f11791562045a66f5a67b819caa70175
+    homepage: https://ai-gateway.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Check Provider Catalogs
+      file: .github/workflows/check-models.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 9 * * 0
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 32630705293
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: bc805b86711009a3da350bf3cfc242fba409e9eb
+          createdAt: 2026-08-23T09:20:00Z
+          updatedAt: 2026-08-23T09:20:13Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32630705293
+        ageDays: 1
+      schedule:
+        health: failing
+        reason: latest scheduled run concluded failure
+        lastRun:
+          id: 32630705293
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: bc805b86711009a3da350bf3cfc242fba409e9eb
+          createdAt: 2026-08-23T09:20:00Z
+          updatedAt: 2026-08-23T09:20:13Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32630705293
+        ageDays: 1
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: action-required
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 32694843061
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 41145a90f11791562045a66f5a67b819caa70175
+          createdAt: 2026-08-24T05:48:33Z
+          updatedAt: 2026-08-24T05:49:19Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32694843061
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 32694843061
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 41145a90f11791562045a66f5a67b819caa70175
+          createdAt: 2026-08-24T05:48:33Z
+          updatedAt: 2026-08-24T05:49:19Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32694843061
+        ageDays: 0
+      attention: action-required
+    - name: Deploy Cloudflare
+      file: .github/workflows/cloudflare-deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32590364065
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: bc805b86711009a3da350bf3cfc242fba409e9eb
+          createdAt: 2026-08-22T18:18:52Z
+          updatedAt: 2026-08-22T18:20:02Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32590364065
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Docs Check
+      file: .github/workflows/docs-check.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694843049
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 41145a90f11791562045a66f5a67b819caa70175
+          createdAt: 2026-08-24T05:48:33Z
+          updatedAt: 2026-08-24T05:49:33Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32694843049
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694843049
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 41145a90f11791562045a66f5a67b819caa70175
+          createdAt: 2026-08-24T05:48:33Z
+          updatedAt: 2026-08-24T05:49:33Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/32694843049
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - ai-gateway.sassmaker.com
+  primaryUrl: https://ai-gateway.sassmaker.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: free-ai-gateway
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: free-ai-gateway-db
+        state: active
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: kv
+        name: free-ai-gateway-HEALTH_KV
+        state: active
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: kv
+        name: free-ai-gateway-HEALTH_KV_preview
+        state: preview
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: durable-object
+        name: HealthStateDO
+        state: active
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: durable-object
+        name: IpRateLimitDO
+        state: active
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: durable-object
+        name: NeuronBudgetDO
+        state: active
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: workers-ai
+        name: AI
+        state: active
+        scope: project
+        operationalOwner: free-ai
+        attributionReason: "Canonical project owner: free-ai"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://ai-gateway.sassmaker.com/changelog
+  roadmapUrl: https://github.com/sass-maker/free-ai/issues
+  geoIdentity:
+    id: free-ai
+    name: Free AI
+    aliases:
+      - AI Gateway
+    origin: https://ai-gateway.sassmaker.com
+    source:
+      state: public
+      url: https://github.com/sass-maker/free-ai
+    docs:
+      state: public
+      url: https://ai-gateway.sassmaker.com/about/
+    officialProfiles:
+      - https://github.com/sass-maker/free-ai
+    availability:
+      primary: api
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: null
+  infrastructure: null

@@ -1,0 +1,290 @@
+schemaVersion: 1
+projectId: significanthobbies
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Significant Hobbies
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 2fbbfd2ed2ba8141b8be5c1ba7fbe416f6a77882e5088b10c1a9d53b29b2ee8e
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: significanthobbies
+      revision: c9ef271665259768d8aacd074061b11cc6267e93
+      githubRepository: Significant-Hobbies/significanthobbies
+      expectedHomepage: https://significanthobbies.com
+      observedHomepage: https://significanthobbies.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 1
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 2
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: OK we need to move things outside and significanthobbies will be the hub and its backend, create a task for this reconcilliation
+  fullReviewVerbatim: |-
+    OK we need to move things outside and significanthobbies will be the hub and its backend, create a task for this reconcilliation
+
+    So hub backend is the backend for seven applications and its purpose is to join the applications and show it on a UI. It is currently being built and it would be an important project for future
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Join six maintained personal applications in one Hub while each retains ownership of its data.
+  currentState: Hub UI, backend, typed sync package, and extracted product boundaries are canonical. The historical `habits` domain remains available as compatibility data but is no longer a separate app card.
+  nextDecision: Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains.
+identity:
+  name: Significant Hobbies
+  publicName: Significant Hobbies
+  aliases:
+    - significant-hobbies
+  family: significanthobbies
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: The shared Hub and backend for six maintained Significant Hobbies applications, plus retained compatibility data domains.
+  publicMakerNote: I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.
+  form: Personal-app Hub
+  platforms:
+    - Web
+    - API
+    - Swift package
+  prominentTools:
+    - TypeScript
+    - Cloudflare Workers
+    - D1
+    - Swift
+  retainedGitHistory:
+    firstCommitAt: 2026-08-21
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: significanthobbies
+  observedRevision: c9ef271665259768d8aacd074061b11cc6267e93
+  githubRepository: Significant-Hobbies/significanthobbies
+  githubHomepageUrl: https://significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/significanthobbies
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - services/hub-backend/wrangler.jsonc
+      - name: npm
+        evidence:
+          - services/hub-backend/package-lock.json
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
+      - name: Vitest
+        evidence:
+          - services/hub-backend/vitest.config.ts
+    rootPackageScripts:
+      - check
+      - install:worker
+      - test:swift
+      - test:worker
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/significanthobbies
+    defaultBranch: main
+    defaultBranchSha: c9ef271665259768d8aacd074061b11cc6267e93
+    homepage: https://significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32728444238
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: c9ef271665259768d8aacd074061b11cc6267e93
+          createdAt: 2026-08-24T12:41:34Z
+          updatedAt: 2026-08-24T12:42:05Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32728444238
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32728444238
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: c9ef271665259768d8aacd074061b11cc6267e93
+          createdAt: 2026-08-24T12:41:34Z
+          updatedAt: 2026-08-24T12:42:05Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32728444238
+        ageDays: 0
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32031376545
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: ae0798c244b56c07ceea2c257d84b2306fb3417d
+          createdAt: 2026-08-17T12:44:38Z
+          updatedAt: 2026-08-17T12:45:28Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32031376545
+        ageDays: 7
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - significanthobbies.com
+  primaryUrl: https://significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: personal-platform
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: personal-platform
+        state: active
+        scope: project
+        operationalOwner: significanthobbies
+        attributionReason: "Canonical project owner: significanthobbies"
+      - provider: cloudflare
+        kind: service-binding
+        name: significanthobbies
+        state: active
+        scope: project
+        operationalOwner: significanthobbies
+        attributionReason: "Canonical project owner: significanthobbies"
+      - provider: cloudflare
+        kind: service-binding
+        name: calorie
+        state: active
+        scope: project
+        operationalOwner: significanthobbies
+        attributionReason: "Canonical project owner: significanthobbies"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: public-ready
+  ready: true
+  verifiedAt: 2026-08-23
+  reason: The six-product Hub is deployed from the canonical Significant Hobbies repository and publicly verified through the Live-owned apex proxy; the retained habits domain is compatibility data, not a separate product.
+  changelogUrl: https://significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/significanthobbies/issues
+  geoIdentity:
+    id: significanthobbies
+    name: Significant Hobbies
+    aliases: []
+    origin: https://significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/significanthobbies
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/significanthobbies#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/significanthobbies
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Canonical Hub repository and backend for the six-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.
+  infrastructure: Worker version dc4e0603-594f-4bf3-a584-459efe46c2e1 is live from exact Git SHA 56bf264b8bcf2aed5230398b34f9250f0de5c14a. D1 personal-platform and both domain service bindings remain active.

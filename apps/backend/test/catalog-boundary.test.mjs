@@ -111,7 +111,7 @@ test('deployment summaries stay internally consistent', () => {
   }
 });
 
-test('account-level Cloudflare resources remain explicitly owned or unowned', () => {
+test('every account-level Cloudflare resource has an explicit operational owner', () => {
   const projectResources = Object.values(catalog.infrastructure.projects).flatMap(
     (project) => project.resources,
   );
@@ -151,20 +151,28 @@ test('account-level Cloudflare resources remain explicitly owned or unowned', ()
   // the code was saas-maker/workers/droid, removed from the repo in 25c460a0.
   assert.deepEqual(catalog.infrastructure.projects['mobile-dev-cockpit'].resources, []);
   assert.deepEqual(catalog.infrastructure.projects['mobile-dev-cockpit'].deployments, []);
+  assert.deepEqual(catalog.infrastructure.unownedResources, []);
   assert.equal(
-    catalog.infrastructure.unownedResources.some(
+    catalog.infrastructure.projects['saas-maker'].resources.some(
       (resource) => resource.kind === 'container-image-repository'
         && resource.name === 'box'
-        && resource.observedVersions === 1,
+        && resource.observedVersions === 1
+        && resource.scope === 'shared-fleet-account',
     ),
     true,
   );
   assert.equal(
-    catalog.infrastructure.unownedResources.filter(
+    catalog.infrastructure.projects['saas-maker'].resources.filter(
       (resource) => resource.kind === 'email-routing-destination',
     ).length,
     2,
   );
+  for (const resource of catalog.infrastructure.projects['saas-maker'].resources.filter(
+    (entry) => entry.scope === 'shared-fleet-account',
+  )) {
+    assert.equal(typeof resource.attributionReason, 'string');
+    assert.equal(resource.attributionReason.length > 0, true);
+  }
 });
 
 test('non-Vault organization repositories reconcile without duplicate products', () => {
@@ -215,11 +223,12 @@ test('public directory metadata covers every retained identity with bounded publ
     'firstCommitAt',
     'form',
     'latestCommitAt',
+    'makerNote',
     'platforms',
     'technologies',
   ]);
 
-  assert.equal(catalog.publicDirectory.schemaVersion, 1);
+  assert.equal(catalog.publicDirectory.schemaVersion, 2);
   assert.deepEqual(directoryIds, projectIds);
 
   for (const [projectId, metadata] of Object.entries(catalog.publicDirectory.projects)) {
@@ -230,6 +239,13 @@ test('public directory metadata covers every retained identity with bounded publ
     );
     assert.equal(typeof metadata.form, 'string', `${projectId} needs a public form`);
     assert.equal(metadata.form.length > 0, true, `${projectId} needs a public form`);
+    assert.equal(typeof metadata.makerNote, 'string', `${projectId} needs a public maker note`);
+    assert.equal(metadata.makerNote.length >= 40, true, `${projectId} maker note is too thin`);
+    assert.match(
+      metadata.makerNote,
+      /\b(?:I|me|my)\b/,
+      `${projectId} maker note must preserve first-person voice`,
+    );
     assert.equal(Array.isArray(metadata.platforms) && metadata.platforms.length > 0, true);
     assert.equal(Array.isArray(metadata.technologies) && metadata.technologies.length > 0, true);
     assert.equal(metadata.technologies.length <= 4, true, `${projectId} technology list is too long`);

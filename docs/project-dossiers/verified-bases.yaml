@@ -1,0 +1,268 @@
+schemaVersion: 1
+projectId: verified-bases
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Verified Bases
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 9f6621f4383edfc05b28461008b16101da6386bc11b6efb4120e41429e4b5006
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: verified-bases
+      revision: f92a9b6d2ae58294a7b34825b0ecf05271249afa
+      githubRepository: sass-maker/verified-bases
+      expectedHomepage: null
+      observedHomepage: https://verified-bases-web.pages.dev
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      stale: 1
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
+  fullReviewVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Sell inexpensive, verified versions of the owner's iOS and Mac codebases as templates.
+  currentState: Marketplace and fulfilment prototype exists, but expected ROI is unclear.
+  nextDecision: Validate buyer demand and support economics before reviving it or folding the idea into a successor.
+identity:
+  name: Verified Bases
+  publicName: null
+  aliases: []
+  family: verified-bases
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle: past
+  operationalStatus: retained-resources
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A retained research-data identity with no retained local Git history or standalone public destination.
+  publicMakerNote: I explored whether the native codebases I already build could become inexpensive, verified templates for other makers.
+  form: Research dataset
+  platforms:
+    - GitHub
+  prominentTools:
+    - Markdown
+    - Git
+  retainedGitHistory:
+    firstCommitAt: 2026-06-16
+    latestCommitAt: 2026-07-18
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: verified-bases
+  observedRevision: f92a9b6d2ae58294a7b34825b0ecf05271249afa
+  githubRepository: sass-maker/verified-bases
+  githubHomepageUrl: https://verified-bases-web.pages.dev
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/verified-bases
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - web/astro.config.mjs
+      - name: Cloudflare Wrangler
+        evidence:
+          - api/wrangler.jsonc
+          - web/wrangler.jsonc
+      - name: Go modules
+        evidence:
+          - api/go.mod
+      - name: npm
+        evidence:
+          - web/package-lock.json
+      - name: pnpm
+        evidence:
+          - web/pnpm-lock.yaml
+    rootPackageScripts:
+      - deploy
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    stale: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/verified-bases
+    defaultBranch: main
+    defaultBranchSha: f92a9b6d2ae58294a7b34825b0ecf05271249afa
+    homepage: https://verified-bases-web.pages.dev
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: ci
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694407647
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f92a9b6d2ae58294a7b34825b0ecf05271249afa
+          createdAt: 2026-08-24T05:41:08Z
+          updatedAt: 2026-08-24T05:41:48Z
+          url: https://github.com/sass-maker/verified-bases/actions/runs/32694407647
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694407647
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f92a9b6d2ae58294a7b34825b0ecf05271249afa
+          createdAt: 2026-08-24T05:41:08Z
+          updatedAt: 2026-08-24T05:41:48Z
+          url: https://github.com/sass-maker/verified-bases/actions/runs/32694407647
+        ageDays: 0
+      attention: clear
+    - name: Deploy API Worker
+      file: .github/workflows/deploy-api.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 52 days old
+        apiState: active
+        lastRun:
+          id: 28654888874
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 2a83e566dc100fb0f7a79b94ac0ecb7de1a6c5d6
+          createdAt: 2026-07-03T10:32:56Z
+          updatedAt: 2026-07-03T10:33:51Z
+          url: https://github.com/sass-maker/verified-bases/actions/runs/28654888874
+        ageDays: 52
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: verified-bases-api
+        method: legacy-worker
+        state: live-retained-unrouted
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: verified-bases-db
+        state: retained-unowned-runtime
+        scope: project
+        operationalOwner: verified-bases
+        attributionReason: "Canonical project owner: verified-bases"
+      - provider: cloudflare
+        kind: r2
+        name: verified-bases-delivery
+        state: retained-unowned-runtime
+        scope: project
+        operationalOwner: verified-bases
+        attributionReason: "Canonical project owner: verified-bases"
+      - provider: cloudflare
+        kind: kv
+        name: RATELIMIT
+        state: active-bound
+        scope: project
+        operationalOwner: verified-bases
+        attributionReason: "Canonical project owner: verified-bases"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/verified-bases/issues
+  geoIdentity: null
+notes:
+  catalog: Historical product identity with a retained public checkout. The verified-bases-api Worker plus D1 and R2 resources still exist, but no live public route was found in the 2026-08-23 inventory.
+  infrastructure: null

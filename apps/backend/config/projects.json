@@ -32,7 +32,7 @@
       "repositoryAliases": "optional historical or alternate source repositories that belong to the same product identity",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden",
-      "publicDirectory": "privacy-safe form, platform, curated technology, and Git-history metadata for the complete public SaaS Maker directory; commit dates are evidence dates, not launch claims",
+    "publicDirectory": "privacy-safe maker rationale, form, platform, curated technology, and Git-history metadata for the complete public SaaS Maker directory; commit dates are evidence dates, not launch claims",
       "readyToBeShared": "true only for the exact maintained public surface and evidenced claims that were approved; native, store, download, or binary availability must be tracked separately and never inferred",
       "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
     },
@@ -2433,10 +2433,11 @@
     }
   ],
   "publicDirectory": {
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "historySemantics": "firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.",
     "projects": {
       "codevetter": {
+        "makerNote": "I built CodeVetter to make reviewing AI-generated code rigorous without giving up a local-first workflow.",
         "form": "Desktop app",
         "platforms": ["macOS", "Windows", "Linux", "Web"],
         "technologies": ["Tauri", "React", "Go", "Rust"],
@@ -2444,6 +2445,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "pace": {
+        "makerNote": "I wanted a fast, privacy-first Mac assistant that could understand what is on my screen while keeping the work local.",
         "form": "macOS app",
         "platforms": ["macOS", "Web"],
         "technologies": ["Swift", "SwiftUI", "Astro", "Cloudflare Pages"],
@@ -2451,6 +2453,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "posttrainllm": {
+        "makerNote": "I use PostTrainLLM to explore local model training and turn those experiments into repeatable recipes for specialist models.",
         "form": "Research platform",
         "platforms": ["Web", "Local"],
         "technologies": ["Astro", "Python", "Rust", "Cloudflare Pages"],
@@ -2458,6 +2461,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "site-health": {
+        "makerNote": "I built Site Health because I needed one clear view of Fleet’s domains, performance, search visibility, and AI visibility.",
         "form": "Local dashboard",
         "platforms": ["Web", "Local"],
         "technologies": ["Astro", "TypeScript", "Node.js"],
@@ -2466,6 +2470,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "live": {
+        "makerNote": "I wanted a product that helps people live more intentionally through goals, possibilities, and things worth anticipating.",
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["Next.js", "TypeScript", "Cloudflare Workers", "D1"],
@@ -2474,6 +2479,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "chatgpt-connections": {
+        "makerNote": "I had many projects but no solid way to connect them to ChatGPT, so I built a selective gateway for that.",
         "form": "MCP service",
         "platforms": ["API", "ChatGPT"],
         "technologies": ["TypeScript", "Cloudflare Workers", "MCP"],
@@ -2482,6 +2488,7 @@
         "latestCommitAt": "2026-08-22"
       },
       "saas-maker": {
+        "makerNote": "I use SaaS Maker as the public home for Fleet and as a workshop for reusable feedback, workflow, and automation tools.",
         "form": "Web directory and service",
         "platforms": ["Web", "API"],
         "technologies": ["Astro", "React", "Cloudflare", "D1"],
@@ -2489,6 +2496,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "gitstat": {
+        "makerNote": "I built GitStat to understand how my time and code churn are distributed across a large collection of repositories.",
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
@@ -2496,6 +2504,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "reel-pipeline": {
+        "makerNote": "I wanted to automate the repetitive work of making and publishing useful product videos.",
         "form": "Video pipeline",
         "platforms": ["CLI", "API", "Local"],
         "technologies": ["Python", "Rust", "Cloudflare Workers", "R2"],
@@ -2504,6 +2513,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "mobile-dev-cockpit": {
+        "makerNote": "I explored whether development work running on a desktop could be supervised clearly from a phone.",
         "form": "Mobile app",
         "platforms": ["iOS", "Android"],
         "technologies": ["React Native", "TypeScript"],
@@ -2512,6 +2522,7 @@
         "latestCommitAt": "2026-08-22"
       },
       "drank": {
+        "makerNote": "I built DRank when domain-rating data became accessible enough to track the strength of my own domains over time.",
         "form": "Web tool",
         "platforms": ["Web"],
         "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Pages"],
@@ -2519,6 +2530,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "email-manager": {
+        "makerNote": "Gmail did not help me see who was filling my inbox, so I built a clearer way to understand volume and unsubscribe.",
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
@@ -2526,6 +2538,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "chatgpt-memory-insights": {
+        "makerNote": "I wanted to learn what my exported AI conversations reveal about my themes, emotions, memory, and personal change.",
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
@@ -2533,6 +2546,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "free-ai": {
+        "makerNote": "I built Free AI to make genuinely useful free model capacity easier to discover and use through one resilient interface.",
         "form": "API gateway",
         "platforms": ["API", "Web"],
         "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
@@ -2540,6 +2554,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "psi-swarm": {
+        "makerNote": "I wanted repeatable evidence of how my products perform under real Lighthouse conditions, not a single flattering test.",
         "form": "Performance platform",
         "platforms": ["Web", "CLI"],
         "technologies": ["Astro", "React", "TypeScript", "Cloudflare Pages"],
@@ -2547,6 +2562,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "high-signal": {
+        "makerNote": "I built High Signal to combine scattered news and data sources and extract the signals that are actually useful.",
         "form": "Intelligence web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Hono", "Cloudflare"],
@@ -2554,6 +2570,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "everythingrated": {
+        "makerNote": "I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.",
         "form": "Ratings experiment",
         "platforms": ["Web"],
         "technologies": ["Astro", "Next.js", "Cloudflare Workers", "D1"],
@@ -2561,6 +2578,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "research-papers": {
+        "makerNote": "I wanted one large, searchable research library where retrieval could help me understand what already exists in a market.",
         "form": "Research library",
         "platforms": ["Web"],
         "technologies": ["Astro", "Python", "React", "TypeScript"],
@@ -2568,6 +2586,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "materia": {
+        "makerNote": "I want to make anatomy explorable and connect body concerns to clear, evidence-based information about treatments and remedies.",
         "form": "Interactive experiment",
         "platforms": ["Web"],
         "technologies": ["Astro", "React", "Three.js", "Cloudflare Pages"],
@@ -2575,6 +2594,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "knowledge-base": {
+        "makerNote": "I built Knowledge Base as the private, cited retrieval layer that other Fleet applications can rely on.",
         "form": "Knowledge platform",
         "platforms": ["Web", "API"],
         "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
@@ -2582,6 +2602,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "significanthobbies": {
+        "makerNote": "I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.",
         "form": "Personal-app Hub",
         "platforms": ["Web", "API", "Swift package"],
         "technologies": ["TypeScript", "Cloudflare Workers", "D1", "Swift"],
@@ -2590,6 +2611,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "india-standards": {
+        "makerNote": "I wanted official data to provide a more grounded answer to how a person is doing in the Indian context.",
         "form": "Reference web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Workers"],
@@ -2597,6 +2619,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "anime-list": {
+        "makerNote": "I wanted better anime filtering and discovery than the standard catalog experience, with a watchlist that works for me.",
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Vite", "Hono", "Cloudflare"],
@@ -2604,6 +2627,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "chess": {
+        "makerNote": "I built Chess to explore whether a local AI agent could become a practical, patient partner for improving my game.",
         "form": "Web game",
         "platforms": ["Web"],
         "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
@@ -2611,6 +2635,7 @@
         "latestCommitAt": "2026-08-17"
       },
       "looptv": {
+        "makerNote": "I wanted a more controlled and curated way to watch YouTube, shaped like television rather than an endless feed.",
         "form": "Web app",
         "platforms": ["Web", "TV"],
         "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
@@ -2618,6 +2643,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "reader": {
+        "makerNote": "I wanted any article or PDF to become a focused reading and research surface instead of another forgotten browser tab.",
         "form": "Reading web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
@@ -2625,6 +2651,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "swe-interview-prep": {
+        "makerNote": "I built this as a learning-by-doing system that combines Pomodoro, Feynman, retrieval practice, and practical roadmaps.",
         "form": "Learning web app",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
@@ -2632,6 +2659,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "calorie": {
+        "makerNote": "I wanted one personal system for weight loss that connects food logging, fasting, exercise timing, and daily performance.",
         "form": "iOS app",
         "platforms": ["iOS", "API"],
         "technologies": ["SwiftUI", "Hono", "Cloudflare Workers", "D1"],
@@ -2639,6 +2667,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "setline": {
+        "makerNote": "I built Setline to make workouts easier to execute one set at a time, with timing and performance kept accurate.",
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
@@ -2646,6 +2675,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "journal": {
+        "makerNote": "I believe journaling is an important habit, so I wanted a durable journal that fits naturally inside the Hub.",
         "form": "iOS app",
         "platforms": ["iOS", "Web"],
         "technologies": ["SwiftUI", "Swift", "XcodeGen", "Astro"],
@@ -2654,6 +2684,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "kith": {
+        "makerNote": "I wanted a beautiful personal relationship-memory app that helps me stay more thoughtful about the people in my life.",
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
@@ -2661,6 +2692,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "ios-landings": {
+        "makerNote": "I built one reusable landing-page engine so each native Significant Hobbies app does not need to reinvent its public home.",
         "form": "Landing-site factory",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
@@ -2668,6 +2700,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "rolepatch": {
+        "makerNote": "I wanted a focused way to tailor a resume and its supporting material to the actual job description.",
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
@@ -2675,6 +2708,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "karte": {
+        "makerNote": "I wanted a link-in-bio surface that could grow into something more personal: a greeting card, profile, and small agent.",
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
@@ -2682,6 +2716,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "starboard": {
+        "makerNote": "GitHub Stars stopped working for me at scale, so I built a better personal interface for exploring what I had saved.",
         "form": "Web app",
         "platforms": ["Web", "API"],
         "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
@@ -2689,6 +2724,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "ai-game": {
+        "makerNote": "I wanted to create a long-running world where AI characters remember, form grudges, make choices, and live through open-ended conflict.",
         "form": "Web game",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "Three.js", "Cloudflare"],
@@ -2696,6 +2732,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "protein-index": {
+        "makerNote": "I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.",
         "form": "Data API and web app",
         "platforms": ["Web", "API"],
         "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
@@ -2703,6 +2740,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "veg-protein-food": {
+        "makerNote": "I wanted a practical collection of higher-protein recipes that works with ingredients people actually use in Indian kitchens.",
         "form": "Food directory",
         "platforms": ["Web"],
         "technologies": ["Astro", "Cloudflare Pages"],
@@ -2711,6 +2749,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "app-health": {
+        "makerNote": "I built App Health because checking Sentry, PostHog, Slack, and cloud consoles separately made basic product health too fragmented.",
         "form": "Monitoring service",
         "platforms": ["Web", "API"],
         "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
@@ -2718,6 +2757,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "mashup": {
+        "makerNote": "I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.",
         "form": "Local media tool",
         "platforms": ["CLI", "Local"],
         "technologies": ["Python", "FFmpeg", "SQLite", "MLX"],
@@ -2726,6 +2766,7 @@
         "latestCommitAt": "2026-08-20"
       },
       "motion": {
+        "makerNote": "I wanted body movement captured by a phone to become playful games on a television—and a workout without feeling like one.",
         "form": "iOS game",
         "platforms": ["iOS", "iPadOS", "Web"],
         "technologies": ["SwiftUI", "Apple Vision", "Vite", "TypeScript"],
@@ -2733,6 +2774,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "truehire": {
+        "makerNote": "I explored whether candidates could be ranked more transparently using verified evidence from their public GitHub work.",
         "form": "Hiring experiment",
         "platforms": ["Web"],
         "technologies": ["Next.js", "React", "TypeScript", "Cloudflare"],
@@ -2740,6 +2782,7 @@
         "latestCommitAt": "2026-08-02"
       },
       "open-historia": {
+        "makerNote": "I wanted a local, credit-free version of an AI grand-strategy game where long-form memory could make countries feel alive.",
         "form": "Strategy web game",
         "platforms": ["Web"],
         "technologies": ["React", "Vite", "Hono", "Cloudflare Workers"],
@@ -2747,6 +2790,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "companion-robot": {
+        "makerNote": "I am keeping this as a future exploration of what a genuinely useful embodied AI companion could become.",
         "form": "Hardware experiment",
         "platforms": ["iOS", "macOS", "ESP32"],
         "technologies": ["Swift", "Apple Vision", "ESP32", "Local AI"],
@@ -2754,6 +2798,7 @@
         "latestCommitAt": "2026-07-17"
       },
       "forecast-lab": {
+        "makerNote": "I wanted to learn forecasting by modeling how regional, temporal, and behavioral signals shape commerce demand.",
         "form": "Research toolkit",
         "platforms": ["CLI", "Web"],
         "technologies": ["Rust", "Python", "React", "Vite"],
@@ -2761,6 +2806,7 @@
         "latestCommitAt": "2026-07-04"
       },
       "web-playables": {
+        "makerNote": "I built this laboratory to understand how idle and HTML-based games are designed, shipped, and distributed.",
         "form": "Game collection",
         "platforms": ["Web", "YouTube Playables"],
         "technologies": ["TypeScript", "Vite", "Cloudflare Pages"],
@@ -2768,6 +2814,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "what-it-takes-to-win": {
+        "makerNote": "I wanted to study the real advantages behind success and replace unhelpful comparison with evidence-based understanding.",
         "form": "Research publication",
         "platforms": ["Web"],
         "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
@@ -2775,6 +2822,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "sarthakagrawal-personal": {
+        "makerNote": "I maintain a personal website because I need one durable, accurate public record of my work and professional identity.",
         "form": "Portfolio website",
         "platforms": ["Web"],
         "technologies": ["Astro", "React", "TypeScript", "Cloudflare Pages"],
@@ -2782,6 +2830,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "agent-office": {
+        "makerNote": "I wanted to explore a company where humans and non-coding agents each own outcomes and keep working toward them over time.",
         "form": "macOS app",
         "platforms": ["macOS", "Local"],
         "technologies": ["SwiftUI", "SpriteKit", "Codex CLI"],
@@ -2789,6 +2838,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "local-ai-video-studio": {
+        "makerNote": "I wanted editing intent to choose efficient local video tools before defaulting to expensive generative video.",
         "form": "macOS app",
         "platforms": ["macOS", "Local"],
         "technologies": ["SwiftUI", "AVFoundation", "Core Image", "VideoToolbox"],
@@ -2796,6 +2846,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "field-track": {
+        "makerNote": "I started Field Track for my father: an employee-controlled way to share field location only when work requires it.",
         "form": "Android app and dashboard",
         "platforms": ["Android", "Web", "API"],
         "technologies": ["React Native", "MapLibre", "Cloudflare Workers", "D1"],
@@ -2804,6 +2855,7 @@
         "latestCommitAt": "2026-08-20"
       },
       "reddit-insights": {
+        "makerNote": "I wanted to understand how the signals and emotions inside a subreddit change over time, even though historical data is difficult to obtain.",
         "form": "Research collector",
         "platforms": ["Web", "API"],
         "technologies": ["TypeScript", "Cloudflare Workers", "R2"],
@@ -2812,6 +2864,7 @@
         "latestCommitAt": "2026-08-23"
       },
       "verified-bases": {
+        "makerNote": "I explored whether the native codebases I already build could become inexpensive, verified templates for other makers.",
         "form": "Research dataset",
         "platforms": ["GitHub"],
         "technologies": ["Markdown", "Git"],
@@ -2820,6 +2873,7 @@
         "latestCommitAt": "2026-07-18"
       },
       "anchor": {
+        "makerNote": "I wanted a realistic daily planner that could help me follow the day and explain why the lived plan diverged from the intended one.",
         "form": "Apple app",
         "platforms": ["macOS", "iOS", "watchOS", "Web"],
         "technologies": ["SwiftUI", "SwiftData", "CloudKit", "Foundation Models"],
@@ -3271,7 +3325,7 @@
         ]
       },
       "saas-maker": {
-        "updatedAt": "2026-08-23",
+        "updatedAt": "2026-08-24",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3294,8 +3348,58 @@
           { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "active" },
           { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "active" },
           { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "active" },
+          {
+            "provider": "cloudflare",
+            "kind": "tunnel",
+            "name": "assistant-mac-server",
+            "state": "owner-unverified-healthy",
+            "scope": "shared-fleet-account",
+            "attributionReason": "SaaS Maker Tooling is the operational steward for shared Fleet host automation; the tunnel's consuming product remains unverified."
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "secrets-store",
+            "name": "default_secrets_store",
+            "state": "account-default-owner-unverified",
+            "scope": "shared-fleet-account",
+            "attributionReason": "Attributed to SaaS Maker Tooling for account-level inventory stewardship; contents were not inspected."
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "container-image-repository",
+            "name": "box",
+            "state": "owner-unverified-retained",
+            "scope": "shared-fleet-account",
+            "observedVersions": 1,
+            "attributionReason": "Attributed to SaaS Maker Tooling for retained shared-container inventory until a consuming project is verified."
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "gateway-ca",
+            "name": "Cloudflare-managed Gateway CA",
+            "state": "account-managed-active",
+            "scope": "shared-fleet-account",
+            "attributionReason": "Cloudflare-managed account object attributed to SaaS Maker Tooling for shared Fleet account stewardship."
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing-destination",
+            "name": "destination:d73ccf5dd5b449ff99eb51ea16bfee27",
+            "state": "verified-owner-unverified-private-address",
+            "scope": "shared-fleet-account",
+            "attributionReason": "Shared verified Email Routing destination attributed to SaaS Maker Tooling without storing the private address."
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing-destination",
+            "name": "destination:b4bcc354aa1f4337a88ffec6ccf1f669",
+            "state": "verified-owner-unverified-private-address",
+            "scope": "shared-fleet-account",
+            "attributionReason": "Shared verified Email Routing destination attributed to SaaS Maker Tooling without storing the private address."
+          },
           { "provider": "github", "kind": "organization-profile", "name": "sass-maker/.github", "state": "active" }
-        ]
+        ],
+        "notes": "Owns its product-specific Pages, Workers, databases, and buckets. SaaS Maker Tooling is also the explicit operational steward for shared Fleet account objects whose consuming product is account-wide or not yet verified; this attribution is inventory responsibility, not proof of runtime use."
       },
       "gitstat": {
         "updatedAt": "2026-08-22",
@@ -4538,51 +4642,7 @@
       "notes": "Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit."
       }
     },
-    "unownedResources": [
-      {
-        "provider": "cloudflare",
-        "kind": "tunnel",
-        "name": "assistant-mac-server",
-        "state": "owner-unverified-healthy",
-        "updatedAt": "2026-08-22"
-      },
-      {
-        "provider": "cloudflare",
-        "kind": "secrets-store",
-        "name": "default_secrets_store",
-        "state": "account-default-owner-unverified",
-        "updatedAt": "2026-08-22"
-      },
-      {
-        "provider": "cloudflare",
-        "kind": "container-image-repository",
-        "name": "box",
-        "state": "owner-unverified-retained",
-        "observedVersions": 1,
-        "updatedAt": "2026-08-22"
-      },
-      {
-        "provider": "cloudflare",
-        "kind": "gateway-ca",
-        "name": "Cloudflare-managed Gateway CA",
-        "state": "account-managed-active",
-        "updatedAt": "2026-08-22"
-      },
-      {
-        "provider": "cloudflare",
-        "kind": "email-routing-destination",
-        "name": "destination:d73ccf5dd5b449ff99eb51ea16bfee27",
-        "state": "verified-owner-unverified-private-address",
-        "updatedAt": "2026-08-22"
-      },
-      {
-        "provider": "cloudflare",
-        "kind": "email-routing-destination",
-        "name": "destination:b4bcc354aa1f4337a88ffec6ccf1f669",
-        "state": "verified-owner-unverified-private-address",
-        "updatedAt": "2026-08-22"
-      }
-    ]
+    "unownedResources": []
   },
   "geoIdentities": [
     {

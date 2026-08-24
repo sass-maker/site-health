@@ -1,0 +1,209 @@
+schemaVersion: 1
+projectId: mobile-dev-cockpit
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Mobile Dev Cockpit
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 0dffe3ecb4b19a8cb67029589f8bc22f2a874d787b3ce4543e18f708cab3d69a
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: mobile-dev-cockpit
+      revision: 746ebd33349e81287fb2d4c03b5f1ceeb72c6866
+      githubRepository: sarthakagrawal927/mobile-dev-cockpit
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      stuck: 1
+      attention: &a2
+        ignored: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
+  fullReviewVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
+  relatedHistoricalReviews: []
+decision:
+  classification: Dropped
+  whySummary: Supervise desktop development workflows from a phone.
+  currentState: Its required desktop-control dependency was abandoned; the owner now prefers purpose-built apps.
+  nextDecision: Archive permanently; retain pairing, allowlisting, and approval patterns as reference.
+identity:
+  name: Mobile Dev Cockpit
+  publicName: null
+  aliases: []
+  family: mobile-dev-cockpit
+  kind: product
+  priority: P4
+  tier: parked
+  attention: ignored
+  lifecycle: past
+  operationalStatus: retired
+  authenticationModel: required-service
+  inRegistry: false
+product:
+  description: A parked mobile supervision client retained for possible future reactivation.
+  publicMakerNote: I explored whether development work running on a desktop could be supervised clearly from a phone.
+  form: Mobile app
+  platforms:
+    - iOS
+    - Android
+  prominentTools:
+    - React Native
+    - TypeScript
+  retainedGitHistory:
+    firstCommitAt: 2026-07-13
+    latestCommitAt: 2026-08-22
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: mobile-dev-cockpit
+  observedRevision: 746ebd33349e81287fb2d4c03b5f1ceeb72c6866
+  githubRepository: sarthakagrawal927/mobile-dev-cockpit
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/mobile-dev-cockpit
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: ESLint
+        evidence:
+          - apps/mobile/eslint.config.js
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - bridge
+      - build:bridge
+      - check
+      - discover
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - mobile
+      - mobile:export
+      - mobile:export:ios
+      - mobile:web
+      - postinstall
+      - test
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    stuck: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/mobile-dev-cockpit
+    defaultBranch: main
+    defaultBranchSha: 746ebd33349e81287fb2d4c03b5f1ceeb72c6866
+    homepage: null
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: The canonical catalog marks this project retired with owner attention ignored; repository-level Actions remain intentionally disabled.
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: The canonical catalog marks this project retired with owner attention ignored; repository-level Actions remain intentionally disabled.
+      live:
+        health: stuck
+        reason: latest run has remained queued for 3 day(s)
+        apiState: active
+        lastRun:
+          id: 32396632476
+          status: queued
+          conclusion: null
+          event: workflow_dispatch
+          branch: main
+          headSha: c7ea69a1e6268285bc32c9d31953daa4afccc7aa
+          createdAt: 2026-08-20T17:15:48Z
+          updatedAt: 2026-08-20T17:15:48Z
+          url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 746ebd3
+        lastRun:
+          id: 30117645410
+          status: completed
+          conclusion: cancelled
+          event: push
+          branch: main
+          headSha: cdebe82f243744ea972278cc3a2c48f41a5ac58c
+          createdAt: 2026-07-24T18:37:21Z
+          updatedAt: 2026-07-24T18:38:55Z
+          url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/30117645410
+      attention: ignored
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-23
+  reason: The product is retired with no active deployment or retained Cloudflare resources.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/mobile-dev-cockpit/issues
+  geoIdentity: null
+notes:
+  catalog: Retired native mobile supervision client extracted from Fleet Workspace on 2026-08-20. Source is retained, but its former Worker, container, and sandbox image versions were deleted from Cloudflare on 2026-08-23.
+  infrastructure: null

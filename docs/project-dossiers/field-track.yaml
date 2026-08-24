@@ -1,0 +1,215 @@
+schemaVersion: 1
+projectId: field-track
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-23
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Field Track
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: bd2cebe346fa12514d45548c18c23a2403760622491e49436fa6dd61d43c6363
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: field-track
+      revision: 09ba0df3c0d559417e5ade7c308534d44dea8ab7
+      githubRepository: sass-maker/field-track
+      expectedHomepage: https://field-track.sassmaker.com
+      observedHomepage: https://field-track.sassmaker.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Fieldtrack is a product I'm building for my dad but as of now the economics of this do not make sense and I will have to build it out eventually. I am kind of delaying it because I did not want to deal with android application building. It's a product in which you can track the employees by installing an application on their phone. They can choose when they want to track
+  fullReviewVerbatim: Fieldtrack is a product I'm building for my dad but as of now the economics of this do not make sense and I will have to build it out eventually. I am kind of delaying it because I did not want to deal with android application building. It's a product in which you can track the employees by installing an application on their phone. They can choose when they want to track
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Give the owner's father an employee-controlled field-location tracker.
+  currentState: A small MVP path exists, but economics and Android work are unresolved.
+  nextDecision: Validate business economics and test on a physical Android device before expanding.
+identity:
+  name: Field Track
+  publicName: Field Track
+  aliases: []
+  family: field-track
+  kind: product
+  priority: P2
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A private field-location system for managed Android devices and team-scoped route review.
+  publicMakerNote: "I started Field Track for my father: an employee-controlled way to share field location only when work requires it."
+  form: Android app and dashboard
+  platforms:
+    - Android
+    - Web
+    - API
+  prominentTools:
+    - React Native
+    - MapLibre
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-08-12
+    latestCommitAt: 2026-08-20
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: field-track
+  observedRevision: 09ba0df3c0d559417e5ade7c308534d44dea8ab7
+  githubRepository: sass-maker/field-track
+  githubHomepageUrl: https://field-track.sassmaker.com
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sass-maker/field-track
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.15.1
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build
+      - check
+      - dev
+      - mobile:android
+      - mobile:start
+      - mobile:typecheck
+      - preview
+      - quality
+      - test
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/field-track
+    defaultBranch: main
+    defaultBranchSha: 09ba0df3c0d559417e5ade7c308534d44dea8ab7
+    homepage: https://field-track.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694345414
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 09ba0df3c0d559417e5ade7c308534d44dea8ab7
+          createdAt: 2026-08-24T05:40:05Z
+          updatedAt: 2026-08-24T05:44:39Z
+          url: https://github.com/sass-maker/field-track/actions/runs/32694345414
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694345414
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 09ba0df3c0d559417e5ade7c308534d44dea8ab7
+          createdAt: 2026-08-24T05:40:05Z
+          updatedAt: 2026-08-24T05:44:39Z
+          url: https://github.com/sass-maker/field-track/actions/runs/32694345414
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - field-track.sassmaker.com
+  primaryUrl: https://field-track.sassmaker.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: field-track
+        method: wrangler-direct
+        state: live
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: in-progress
+  ready: true
+  verifiedAt: 2026-08-23
+  reason: The actual manager dashboard is verified at field-track.sassmaker.com as a credential-free synthetic demo; production employee data and the managed Android rollout remain unavailable.
+  changelogUrl: https://field-track.sassmaker.com/changelog
+  roadmapUrl: https://github.com/sass-maker/field-track/issues
+  geoIdentity: null
+notes:
+  catalog: The public Cloudflare Worker serves the actual manager dashboard as a clearly labeled synthetic demo. Production employee data, authenticated operations, and physical-device Android pilot validation remain unreleased.
+  infrastructure: null

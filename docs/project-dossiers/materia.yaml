@@ -1,0 +1,264 @@
+schemaVersion: 1
+projectId: materia
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Materia
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: f33c40aaac59dee6213f3f138b3ef95da146dd8a86f80646516d51e76a3d2093
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: materia
+      revision: 22a5eda1cf0274464eebd0200f597b197776b482
+      githubRepository: Significant-Hobbies/materia
+      expectedHomepage: https://materia.significanthobbies.com
+      observedHomepage: https://materia.significanthobbies.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 11
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 2
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Materia is also kind of an over-ambitious project. I wanted to have an encyclopaedia-like product in which you can come to visit, click on any body parts you have issues with, go deep into it, and see what all herbs and medicines are there to treat it. This is a product I will very actively pursue in the future but for now I don't have time or focus for
+  fullReviewVerbatim: Materia is also kind of an over-ambitious project. I wanted to have an encyclopaedia-like product in which you can come to visit, click on any body parts you have issues with, go deep into it, and see what all herbs and medicines are there to treat it. This is a product I will very actively pursue in the future but for now I don't have time or focus for
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Build an interactive anatomy and evidence-based remedies encyclopedia.
+  currentState: Technically and editorially ambitious; evidence quality and content maintenance dominate the cost.
+  nextDecision: Reopen only with a defined evidence standard, medical-safety boundary, and sustained content budget.
+identity:
+  name: Materia
+  publicName: Materia
+  aliases: []
+  family: materia
+  kind: experiment
+  priority: P4
+  tier: active
+  attention: ignored
+  lifecycle: past
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Evidence-graded remedy reference organized by body system.
+  publicMakerNote: I want to make anatomy explorable and connect body concerns to clear, evidence-based information about treatments and remedies.
+  form: Interactive experiment
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - React
+    - Three.js
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-06-21
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: materia
+  observedRevision: 22a5eda1cf0274464eebd0200f597b197776b482
+  githubRepository: Significant-Hobbies/materia
+  githubHomepageUrl: https://materia.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/materia
+  aliases: []
+  sourceOverride: materia
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: npm
+        evidence:
+          - package-lock.json
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - astro
+      - build
+      - check
+      - checks
+      - deploy
+      - dev
+      - docs:check
+      - format
+      - knip
+      - knip:strict
+      - lint
+      - preview
+      - start
+      - test
+      - test:coverage
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/materia
+    defaultBranch: main
+    defaultBranchSha: 22a5eda1cf0274464eebd0200f597b197776b482
+    homepage: https://materia.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694373251
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 22a5eda1cf0274464eebd0200f597b197776b482
+          createdAt: 2026-08-24T05:40:32Z
+          updatedAt: 2026-08-24T05:41:18Z
+          url: https://github.com/Significant-Hobbies/materia/actions/runs/32694373251
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694373251
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 22a5eda1cf0274464eebd0200f597b197776b482
+          createdAt: 2026-08-24T05:40:32Z
+          updatedAt: 2026-08-24T05:41:18Z
+          url: https://github.com/Significant-Hobbies/materia/actions/runs/32694373251
+        ageDays: 0
+      attention: clear
+    - name: Deploy materia to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32562035822
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 850ee1f60bc99d460727a4a4ea4144868131e76e
+          createdAt: 2026-08-22T08:20:48Z
+          updatedAt: 2026-08-22T08:21:44Z
+          url: https://github.com/Significant-Hobbies/materia/actions/runs/32562035822
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - materia.significanthobbies.com
+  primaryUrl: https://materia.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: materia
+        method: wrangler-direct
+        state: live-retained
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-11
+  reason: Archived projects are not ready for active sharing.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/materia/issues
+  geoIdentity: null
+notes:
+  catalog: own bet; hosted on SH domain
+  infrastructure: null

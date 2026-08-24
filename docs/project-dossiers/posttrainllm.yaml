@@ -1,0 +1,306 @@
+schemaVersion: 1
+projectId: posttrainllm
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-22
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: PostTrainLLM
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 4d1869634815abb32d4ab07adf10304a07226c4b3a3d1d8253b500e50c927cbc
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: posttrainllm
+      revision: cdc9ecd30576a6440922faf235cf6b382df4c040
+      githubRepository: PostTrainLLM/posttrainllm
+      expectedHomepage: https://posttrainllm.com
+      observedHomepage: https://posttrainllm.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 2
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
+  fullReviewVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
+  relatedHistoricalReviews: []
+decision:
+  classification: Flagship
+  whySummary: Explore browser and Mac-local model training, then turn that work into repeatable specialist-model recipes.
+  currentState: Ongoing, ambitious, and rich in experiments and future plans.
+  nextDecision: Continue measured local training/evaluation recipes and publish reproducible proof rather than chasing scale.
+identity:
+  name: PostTrainLLM
+  publicName: PostTrainLLM
+  aliases: []
+  family: posttrainllm
+  kind: product
+  priority: P1
+  tier: focus
+  attention: my-work
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A local factory for training, evaluating, and running specialist language models.
+  publicMakerNote: I use PostTrainLLM to explore local model training and turn those experiments into repeatable recipes for specialist models.
+  form: Research platform
+  platforms:
+    - Web
+    - Local
+  prominentTools:
+    - Astro
+    - Python
+    - Rust
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-05-21
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: posttrainllm
+  observedRevision: cdc9ecd30576a6440922faf235cf6b382df4c040
+  githubRepository: PostTrainLLM/posttrainllm
+  githubHomepageUrl: https://posttrainllm.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/PostTrainLLM/posttrainllm
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - browser/astro.config.mjs
+      - name: pnpm
+        evidence:
+          - browser/pnpm-lock.yaml
+          - docs-site/pnpm-lock.yaml
+          - pnpm-lock.yaml
+      - name: Python pyproject
+        evidence:
+          - scripts/data-prep/pyproject.toml
+      - name: Rust Cargo
+        evidence:
+          - scripts/hf-downloader/Cargo.toml
+          - scripts/humaneval-sandbox/Cargo.toml
+          - scripts/parquet-decoder/Cargo.toml
+          - scripts/tokenizer-trainer/Cargo.toml
+      - name: Swift Package Manager
+        evidence:
+          - native-mac/Package.swift
+      - name: Vitest
+        evidence:
+          - browser/vitest.config.ts
+    rootPackageScripts:
+      - deploy
+      - format:check
+      - lint
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:unused
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: PostTrainLLM/posttrainllm
+    defaultBranch: main
+    defaultBranchSha: cdc9ecd30576a6440922faf235cf6b382df4c040
+    homepage: https://posttrainllm.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694383154
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: cdc9ecd30576a6440922faf235cf6b382df4c040
+          createdAt: 2026-08-24T05:40:43Z
+          updatedAt: 2026-08-24T05:51:26Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32694383154
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694383154
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: cdc9ecd30576a6440922faf235cf6b382df4c040
+          createdAt: 2026-08-24T05:40:43Z
+          updatedAt: 2026-08-24T05:51:26Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32694383154
+        ageDays: 0
+      attention: clear
+    - name: Deploy to Cloudflare Pages
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32562272768
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 595f3516bddba1e1a7d0ef877274d5d10854b613
+          createdAt: 2026-08-22T08:26:10Z
+          updatedAt: 2026-08-22T08:27:36Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32562272768
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - posttrainllm.com
+  primaryUrl: https://posttrainllm.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: tinygpt
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: zone
+        name: posttrainllm.com
+        state: active-config-derived
+        scope: project
+        operationalOwner: posttrainllm
+        attributionReason: "Canonical project owner: posttrainllm"
+      - provider: cloudflare
+        kind: email-routing
+        name: posttrainllm.com
+        state: enabled-catch-all
+        scope: project
+        operationalOwner: posttrainllm
+        attributionReason: "Canonical project owner: posttrainllm"
+  otherProviders:
+    deployments: []
+    resources:
+      - provider: github
+        kind: organization-profile
+        name: PostTrainLLM/.github
+        state: active
+        scope: project
+        operationalOwner: posttrainllm
+        attributionReason: "Canonical project owner: posttrainllm"
+sharing:
+  publicListing: maintained
+  maturity: public-ready
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://posttrainllm.com/changelog
+  roadmapUrl: https://github.com/PostTrainLLM/posttrainllm/issues
+  geoIdentity:
+    id: posttrainllm
+    name: PostTrainLLM
+    aliases: []
+    origin: https://posttrainllm.com
+    source:
+      state: public
+      url: https://github.com/PostTrainLLM/posttrainllm
+    docs:
+      state: public
+      url: https://posttrainllm.com/docs/
+    officialProfiles:
+      - https://github.com/PostTrainLLM/posttrainllm
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic).
+  infrastructure: null

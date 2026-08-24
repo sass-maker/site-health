@@ -1,0 +1,311 @@
+schemaVersion: 1
+projectId: drank
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Drank
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: f2d2d7296870638728646e18422442d870c65ec7514b07bb9c0b3ca3e7bae039
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: drank
+      revision: af33d2e91e432e4cc9e0943d8cb55ec7d2d59b9e
+      githubRepository: sass-maker/drank
+      expectedHomepage: https://domains.sassmaker.com
+      observedHomepage: https://domains.sassmaker.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 19
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 2
+      attention: &a2
+        clear: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Drank, I started off because The domain ranking API suddenly got free and I was like I should have a tool to check domain rankings of my products.
+  fullReviewVerbatim: |-
+    Drank, I started off because The domain ranking API suddenly got free and I was like I should have a tool to check domain rankings of my products.
+
+    I would say it's done. It is kind of like a skill. It's kind of inside the site health product. I don't see myself doing any further developments on this.
+  relatedHistoricalReviews: []
+decision:
+  classification: Infrastructure
+  whySummary: Track Domain Rating after the relevant API became freely usable.
+  currentState: Finished and already consumed by Site Health.
+  nextDecision: Maintain the adapter/data flow; no independent feature roadmap.
+identity:
+  name: Drank
+  publicName: Drank
+  aliases: []
+  family: drank
+  kind: product
+  priority: P4
+  tier: active
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: Domain Rating intelligence for product, SEO, and market research.
+  publicMakerNote: I built DRank when domain-rating data became accessible enough to track the strength of my own domains over time.
+  form: Web tool
+  platforms:
+    - Web
+  prominentTools:
+    - Next.js
+    - React
+    - TypeScript
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-06-10
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: drank
+  observedRevision: af33d2e91e432e4cc9e0943d8cb55ec7d2d59b9e
+  githubRepository: sass-maker/drank
+  githubHomepageUrl: https://domains.sassmaker.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sass-maker/drank
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.toml
+      - name: Next.js
+        evidence:
+          - next.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - biome:lint
+      - build
+      - cf:build
+      - check
+      - deploy
+      - dev
+      - docs:check
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:unused
+      - size
+      - start
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 2
+  attention: *a2
+  remote:
+    repository: sass-maker/drank
+    defaultBranch: main
+    defaultBranchSha: af33d2e91e432e4cc9e0943d8cb55ec7d2d59b9e
+    homepage: https://domains.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Drank CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694504153
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: af33d2e91e432e4cc9e0943d8cb55ec7d2d59b9e
+          createdAt: 2026-08-24T05:42:52Z
+          updatedAt: 2026-08-24T05:49:03Z
+          url: https://github.com/sass-maker/drank/actions/runs/32694504153
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694504153
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: af33d2e91e432e4cc9e0943d8cb55ec7d2d59b9e
+          createdAt: 2026-08-24T05:42:52Z
+          updatedAt: 2026-08-24T05:49:03Z
+          url: https://github.com/sass-maker/drank/actions/runs/32694504153
+        ageDays: 0
+      attention: clear
+    - name: Update Global DR History
+      file: .github/workflows/update-global-dr.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 4 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32691529162
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: f6181f14594907d8886d6fb2303c78f8dc898929
+          createdAt: 2026-08-24T04:51:17Z
+          updatedAt: 2026-08-24T04:52:20Z
+          url: https://github.com/sass-maker/drank/actions/runs/32691529162
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32691529162
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: f6181f14594907d8886d6fb2303c78f8dc898929
+          createdAt: 2026-08-24T04:51:17Z
+          updatedAt: 2026-08-24T04:52:20Z
+          url: https://github.com/sass-maker/drank/actions/runs/32691529162
+        ageDays: 0
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - domains.sassmaker.com
+  primaryUrl: https://domains.sassmaker.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: drank
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: turnstile
+        name: drank (Spin)
+        state: active
+        scope: project
+        operationalOwner: drank
+        attributionReason: "Canonical project owner: drank"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-11
+  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  changelogUrl: https://domains.sassmaker.com/changelog
+  roadmapUrl: https://github.com/sass-maker/drank/issues
+  geoIdentity:
+    id: drank
+    name: Drank
+    aliases: []
+    origin: https://domains.sassmaker.com
+    source:
+      state: public
+      url: https://github.com/sass-maker/drank
+    docs:
+      state: landing-only
+      url: https://domains.sassmaker.com
+    officialProfiles:
+      - https://github.com/sass-maker/drank
+      - https://github.com/sass-maker
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-applicable
+notes:
+  catalog: Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.
+  infrastructure: null

@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
 Date: 2026-08-23
-Scope: all 55 canonical Fleet identities
+Scope: all 54 canonical Fleet identities
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -15,11 +15,11 @@ open issues. Those belong in the canonical catalog, each project's
 | --- | ---: | --- |
 | Flagship | 2 | Products worth sustained market-level investment. |
 | Active | 12 | Being built, integrated, tested, or deliberately dogfooded now. |
-| Maintenance | 8 | Complete enough; change only for defects or proven needs. |
+| Maintenance | 7 | Complete enough; change only for defects or proven needs. |
 | Hold | 22 | Worth retaining, but blocked by a named validation, data, interest, UI, distribution, or economic gate. |
-| Dropped | 5 | Superseded or intentionally stopped; retain history without roadmap work. |
+| Dropped | 3 | Superseded or intentionally stopped; retain history without roadmap work. |
 | Infrastructure | 8 | Shared systems whose roadmap should be driven by consumer needs. |
-| **Total** | **55** | Every canonical Fleet identity appears exactly once. |
+| **Total** | **54** | Every canonical Fleet identity appears exactly once. |
 
 These classifications reflect current owner intent. They deliberately override misleading signals such as a live deployment for a held product or an old repository label that says maintenance while the owner is actively building.
 
@@ -71,7 +71,6 @@ These classifications reflect current owner intent. They deliberately override m
 | Reel Pipeline | Hold | Automate product-video creation and posting. | Scope spiralled, accumulated features, and never shipped. | Before reopening, reduce it to one publishable video loop with explicit cost and operator-time limits. |
 | Research Papers | Maintenance | Maintain a large RAG-assisted library of market and research papers. | Essentially complete as a corpus. | Preserve and analyse it when a concrete research question appears. |
 | RolePatch | Hold | Tailor a resume and supporting application material to a job description. | Strong product, but unused because the owner is not job hunting. | Test it against real applications when job-search intent returns; let that test trim unnecessary breadth. |
-| SaaS Ideas | Maintenance | Preserve and score the owner's accumulated SaaS ideas. | Complete personal idea catalog rather than a product business. | Use it for prioritization; update when new ideas or selection criteria appear. |
 | SaaS Maker | Infrastructure | House reusable packages, public Fleet discovery, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home and public 54-product/95-capability directory after reconciliation. | Stabilize its package boundaries and let real Fleet consumers determine which packages deserve investment. |
 | Setline | Active | Execute workouts one set at a time with accurate timing and performance tracking. | Actively being built as a focused native workout player. | Continue the working workout loop and validate it through real sessions. |
 | Significant Hobbies | Active | Join six maintained personal applications in one Hub while each retains ownership of its data. | Hub UI, backend, typed sync package, and extracted product boundaries are canonical. The historical `habits` domain remains available as compatibility data but is no longer a separate app card. | Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains. |

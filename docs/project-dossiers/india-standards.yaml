@@ -1,0 +1,260 @@
+schemaVersion: 1
+projectId: india-standards
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-24
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: e11c8e8005cceedd15761dd2dd9c9acacdbff7cc1a5aa99b13b59d8b80046bc6
+      infrastructureUpdatedAt: 2026-08-11
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: India Standards
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: a4472aa73179917eca02ccf14b7d8eba36286890949d79b402d03c32475c3143
+      documentSha256: 341fc1b463723411b87e05dd685d69b88ef7f8c32a0631c19e7f8248ef562335
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: b7e241f8818c56b876cd833d38e1053ecab03b06d0b0d62ea54ef8a6a1524906
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-24
+      state: available
+      checkout: india-standards
+      revision: e3c34c4b3e5bda2396730d7bf928b9a908317889
+      githubRepository: Significant-Hobbies/india-standards
+      expectedHomepage: https://india-standards.significanthobbies.com
+      observedHomepage: https://india-standards.significanthobbies.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-24T16:11:48.629Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
+  fullReviewVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
+  relatedHistoricalReviews: []
+decision:
+  classification: Hold
+  whySummary: Use official data to contextualize how a person is doing in India.
+  currentState: The transparent aggregate calculator exists, but data quality limits expansion.
+  nextDecision: Reopen when materially better authoritative data becomes available.
+identity:
+  name: India Standards
+  publicName: India Standards
+  aliases: []
+  family: significanthobbies
+  kind: product
+  priority: P4
+  tier: secondary
+  attention: toolbox
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A transparent India demographic standards calculator using aggregate PLFS data, explicit uncertainty ranges, and clear source limits.
+  publicMakerNote: I wanted official data to provide a more grounded answer to how a person is doing in the Indian context.
+  form: Reference web app
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - Next.js
+    - React
+    - TypeScript
+    - Cloudflare Workers
+  retainedGitHistory:
+    firstCommitAt: 2026-07-27
+    latestCommitAt: 2026-08-23
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: india-standards
+  observedRevision: e3c34c4b3e5bda2396730d7bf928b9a908317889
+  githubRepository: Significant-Hobbies/india-standards
+  githubHomepageUrl: https://india-standards.significanthobbies.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/india-standards
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: Next.js
+        evidence:
+          - next.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build
+      - build:cf
+      - cf:typegen
+      - cf:types:check
+      - check
+      - data:benchmark:compaction
+      - data:stage:plfs
+      - data:verify:motherduck
+      - db:seed
+      - deploy:cf
+      - dev
+      - format:check
+      - lint
+      - preview:cf
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:hygiene
+      - quality:suppressions
+      - quality:unused
+      - start
+      - test
+      - test:coverage
+      - typecheck
+githubActions:
+  observedAt: 2026-08-24T16:11:48.629Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/india-standards
+    defaultBranch: main
+    defaultBranchSha: e3c34c4b3e5bda2396730d7bf928b9a908317889
+    homepage: https://india-standards.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32694357355
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e3c34c4b3e5bda2396730d7bf928b9a908317889
+          createdAt: 2026-08-24T05:40:16Z
+          updatedAt: 2026-08-24T05:41:39Z
+          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/32694357355
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32694357355
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e3c34c4b3e5bda2396730d7bf928b9a908317889
+          createdAt: 2026-08-24T05:40:16Z
+          updatedAt: 2026-08-24T05:41:39Z
+          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/32694357355
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - india-standards.significanthobbies.com
+    - india-numbers.significanthobbies.com
+  primaryUrl: https://india-standards.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: india-numbers
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: turnstile
+        name: india-standards (Spin)
+        state: active
+        scope: project
+        operationalOwner: india-standards
+        attributionReason: "Canonical project owner: india-standards"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: maintained
+  ready: true
+  verifiedAt: 2026-08-12
+  reason: Verified active, deployed, live canonical calculator and public discovery surfaces with a maintained repository listing.
+  changelogUrl: https://india-standards.significanthobbies.com/changelog
+  roadmapUrl: https://github.com/Significant-Hobbies/india-standards/issues
+  geoIdentity:
+    id: india-standards
+    name: India Standards
+    aliases: []
+    origin: https://india-standards.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/india-standards
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/india-standards#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/india-standards
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Public Significant Hobbies repository. india-standards.significanthobbies.com is canonical; india-numbers.significanthobbies.com remains a compatibility alias.
+  infrastructure: null
