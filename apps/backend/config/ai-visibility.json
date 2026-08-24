@@ -1812,10 +1812,9 @@
       "attention": "toolbox"
     },
     {
-      "slug": "indulge",
+      "slug": "anchor",
       "aliases": [
-        "Indulge",
-        "Induldge"
+        "Anchor by Significant Hobbies"
       ],
       "competitors": [
         {
@@ -1829,23 +1828,23 @@
           "prompts": [
             {
               "id": "category",
-              "text": "What private, local-first iPhone tools help people replace automatic screen time with intentional choices?",
+              "text": "What private, local-first Apple apps compare a planned schedule with actual focused time and interruptions?",
               "ownedPage": {
                 "state": "published",
-                "url": "https://habits.significanthobbies.com/"
+                "url": "https://anchor.significanthobbies.com/"
               }
             },
             {
               "id": "comparison",
-              "text": "Compare humane screen-time reflection tools by privacy, local data storage, non-judgmental design, and honest availability."
+              "text": "Compare day-planning and focus-timing apps by interruption evidence, planned-versus-actual review, local data privacy, and non-judgmental behavior support."
             }
           ]
         }
       ],
       "personas": [
         {
-          "id": "intentional-phone-user",
-          "label": "an iPhone user seeking a private, non-judgmental screen-time tool"
+          "id": "deliberate-day-planner",
+          "label": "an Apple user seeking a private schedule and interruption review tool"
         }
       ],
       "providerPolicy": {
@@ -1865,9 +1864,9 @@
         "maxEstimatedCostUsd": 0.05,
         "maxResponseCharacters": 4000
       },
-      "name": "Habits",
-      "domain": "https://habits.significanthobbies.com",
-      "attention": "toolbox"
+      "name": "Anchor",
+      "domain": "https://anchor.significanthobbies.com",
+      "attention": "my-work"
     },
     {
       "slug": "local-ai-video-studio",

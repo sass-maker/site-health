@@ -923,7 +923,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-08-23",
-          "reason": "The seven-product Hub is deployed from the canonical Significant Hobbies repository and publicly verified through the Live-owned apex proxy."
+          "reason": "The six-product Hub is deployed from the canonical Significant Hobbies repository and publicly verified through the Live-owned apex proxy; the retained habits domain is compatibility data, not a separate product."
         }
       },
       "aliases": [
@@ -950,7 +950,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical Hub repository and backend for the seven-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
+      "notes": "Canonical Hub repository and backend for the six-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -959,7 +959,7 @@
         "listing": "maintained",
         "id": "significanthobbies",
         "name": "Significant Hobbies",
-        "description": "The shared Hub for Live, Journal, Habits, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
+        "description": "The shared Hub for Live, Journal, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
@@ -1484,7 +1484,7 @@
         "spotlight": false,
         "maturity": "in-progress"
       },
-      "notes": "Builds the Journal, Kith, Setline, Motion, Indulge, Anchor, and Habits landing trees. Journal's native source now lives in its independent repository; Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker."
+      "notes": "Builds the Journal, Kith, Setline, Motion, Anchor, and compatibility Indulge/Habits landing trees. Journal's native source lives in its independent repository; Habits and Indulge now point to Anchor without removing their domains. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker."
     },
     {
       "id": "rolepatch",
@@ -2219,13 +2219,13 @@
       "id": "indulge",
       "portfolio": {
         "kind": "product",
-        "priority": "P2",
-        "status": "active",
+        "priority": "P4",
+        "status": "archived",
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "Habits is live at habits.significanthobbies.com. Hub-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21; no public TestFlight or App Store build is approved."
+          "verifiedAt": "2026-08-24",
+          "reason": "Retired and superseded by Anchor. Historical Apple, Hub, and landing resources are preserved for compatibility and are not active sharing targets."
         }
       },
       "aliases": [
@@ -2233,7 +2233,7 @@
       ],
       "authModel": "public-persistent",
       "family": "significanthobbies",
-      "tier": "active",
+      "tier": "out-of-fleet",
       "repo": "indulge",
       "sourcePath": "ios-landings",
       "deployKind": "pages",
@@ -2242,24 +2242,16 @@
         "habits.significanthobbies.com",
         "indulge.significanthobbies.com"
       ],
-      "inRegistry": true,
-      "status": "live",
-      "notes": "Habits is the canonical successor to Indulge. The local checkout and repository retain their historical spellings during the transition, and indulge.significanthobbies.com remains a compatibility landing. Hub-enabled native build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR as of 2026-08-21.",
-      "name": "Habits",
-      "attention": "toolbox",
-      "lifecycle": "maintained",
+      "inRegistry": false,
+      "status": "retained-resources",
+      "notes": "Retired on 2026-08-24 and superseded by Anchor, which now owns the maintained schedule, focus, interruption, and behavior-change loop. The repository and local checkout are historical. The Habits and Indulge Pages projects, App Store/TestFlight record, bundle identity, stores, and Personal Platform habits records remain compatibility resources; no deployment, deletion, or data migration occurred.",
+      "name": "Habits / Indulge",
+      "attention": "ignored",
+      "lifecycle": "past",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/Significant-Hobbies/indulge",
       "public": {
-        "listing": "maintained",
-        "id": "indulge",
-        "name": "Habits",
-        "description": "A private habit practice for noticing patterns, making intentional trades, and building better defaults.",
-        "category": "personal",
-        "pillarId": "learn",
-        "spotlight": false,
-        "maturity": "in-progress",
-        "hasChangelog": false
+        "listing": "hidden"
       }
     },
     {
@@ -2444,8 +2436,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "Landing, support and privacy pages are live. The stable-Xcode iOS and watchOS build is personal-team signed, but TestFlight is blocked on Apple-account reauthentication and creation of the missing Anchor App Store Connect record; the macOS DMG is not notarised."
+          "verifiedAt": "2026-08-24",
+          "reason": "The landing, support, and privacy pages are live; App Store Connect has processed the internal Anchor beta. The merged Indulge/Habits work is locally verified but remains uncommitted and unreleased."
         }
       },
       "name": "Anchor",
@@ -2453,7 +2445,7 @@
       "family": "significanthobbies",
       "tier": "active",
       "attention": "my-work",
-      "lifecycle": "local-only",
+      "lifecycle": "maintained",
       "repo": "anchor",
       "sourcePath": "ios-landings",
       "repositoryVisibility": "private",
@@ -2463,17 +2455,17 @@
       "domains": [
         "anchor.significanthobbies.com"
       ],
-      "inRegistry": false,
+      "inRegistry": true,
       "status": "live",
       "app": "swift",
-      "notes": "Local-first focus timer for macOS, iOS and watchOS. Optional Hub synchronization publishes finished-session metadata only; distraction notes never leave the device, and SwiftData plus private CloudKit remain the immediate and transition stores. App Store Connect record 6803853891 exists. Xcode 27 Beta 5 passes the 89 shared tests, but TestFlight waits for personal-account authentication and a refreshed Sign in with Apple profile. A current Developer ID-signed macOS build is installed and running; the direct-download DMG remains unnotarised.",
+      "notes": "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The merged source passes 131 shared tests and native builds locally, but remains uncommitted and unreleased. App Store Connect record 6803853891 and the live landing remain intact.",
       "public": {
-        "listing": "hidden",
+        "listing": "maintained",
         "id": "anchor",
         "name": "Anchor",
-        "description": "A local-first focus timer for Mac, iPhone and Apple Watch that parks distractions instead of losing the session, and shows what actually costs you your focus.",
-        "category": "product",
-        "pillarId": "build",
+        "description": "A local-first day planner and focus timer for Mac, iPhone, and Apple Watch that explains the gap between the schedule you planned and the day you lived.",
+        "category": "personal",
+        "pillarId": "learn",
         "spotlight": false,
         "maturity": "in-progress"
       }
@@ -2632,7 +2624,7 @@
         "form": "Personal-app Hub",
         "platforms": ["Web", "API", "Swift package"],
         "technologies": ["TypeScript", "Cloudflare Workers", "D1", "Swift"],
-        "description": "The shared Hub and backend for seven Significant Hobbies applications.",
+        "description": "The shared Hub and backend for six maintained Significant Hobbies applications, plus retained compatibility data domains.",
         "firstCommitAt": "2026-08-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2839,6 +2831,7 @@
         "form": "iOS app",
         "platforms": ["iOS", "Web"],
         "technologies": ["SwiftUI", "Astro", "Cloudflare Pages"],
+        "description": "A retired behavior-change app whose illustrated onboarding and non-moralizing replacement loop now live in Anchor; public and Apple identities remain for compatibility.",
         "firstCommitAt": "2026-08-17",
         "latestCommitAt": "2026-08-23"
       },
@@ -4052,7 +4045,7 @@
         "notes": "Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight."
       },
       "indulge": {
-        "updatedAt": "2026-08-21",
+        "updatedAt": "2026-08-24",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4077,7 +4070,7 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project habits is live at habits.significanthobbies.com. The historical Indulge App Store record carries Habits; Hub-enabled build 0.1.0 (5) completed internal-only TestFlight processing on personal team 8F7LXHTJZR. The indulge Pages project remains a compatibility resource."
+        "notes": "Retired product resources preserved for compatibility after Anchor became the maintained successor. Cloudflare Pages projects habits and indulge, the historical App Store/TestFlight record, and Personal Platform habits data remain intact; no deploy, deletion, or migration was performed."
       },
       "ios-landings": {
         "updatedAt": "2026-08-23",
@@ -4585,7 +4578,7 @@
         ]
       },
       "anchor": {
-        "updatedAt": "2026-08-21",
+        "updatedAt": "2026-08-24",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4599,11 +4592,11 @@
             "kind": "app-store-connect",
             "name": "Anchor",
             "method": "manual-xcode",
-            "state": "blocked-on-xcode-account"
+            "state": "testflight-processed"
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project anchor-landing remains live. App Store Connect record 6803853891 exists. Xcode 27 Beta 5 passes the shared tests; iOS/watchOS build 1.0 (2) now waits for personal-account authentication and a refreshed Sign in with Apple provisioning profile. A Developer ID-signed current-main macOS build is installed and running locally."
+        "notes": "Cloudflare Pages project anchor-landing remains live. App Store Connect record 6803853891 has processed the internal beta. The local merged source makes Anchor the maintained Indulge/Habits successor and passes 131 shared tests plus Mac, iPhone, and Watch build checks; that merge remains uncommitted and unreleased."
       }
     },
     "unownedResources": [
@@ -5059,7 +5052,7 @@
     },
     {
       "id": "indulge",
-      "name": "Habits",
+      "name": "Habits / Indulge (retired)",
       "aliases": [
         "Indulge"
       ],

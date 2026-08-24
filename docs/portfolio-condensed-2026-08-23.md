@@ -14,10 +14,10 @@ open issues. Those belong in the canonical catalog, each project's
 | Classification | Count | Meaning |
 | --- | ---: | --- |
 | Flagship | 2 | Products worth sustained market-level investment. |
-| Active | 13 | Being built, integrated, tested, or deliberately dogfooded now. |
+| Active | 12 | Being built, integrated, tested, or deliberately dogfooded now. |
 | Maintenance | 8 | Complete enough; change only for defects or proven needs. |
 | Hold | 22 | Worth retaining, but blocked by a named validation, data, interest, UI, distribution, or economic gate. |
-| Dropped | 4 | Superseded or intentionally stopped; retain history without roadmap work. |
+| Dropped | 5 | Superseded or intentionally stopped; retain history without roadmap work. |
 | Infrastructure | 8 | Shared systems whose roadmap should be driven by consumer needs. |
 | **Total** | **56** | Every canonical Fleet identity appears exactly once. |
 
@@ -29,7 +29,7 @@ These classifications reflect current owner intent. They deliberately override m
 | --- | --- | --- | --- | --- |
 | Office OS (`agent-office`) | Hold | Give humans and non-coding agents durable ownership of outcomes. | Built to a credible testable stage, but not yet part of the owner's routine; the category has also become crowded. | Compare the strongest alternatives, define a differentiated wedge, then run a real recurring workflow before adding features. |
 | AliveVille | Hold | Create a long-running AI-agent world with memory, conflict, grudges, and open-world behavior. | The simulation thesis remains compelling, but no attempted UI made the game emotionally attractive enough to continue. | Reopen only with a convincing playable visual direction and a small fun loop—not more simulation depth. |
-| Anchor | Active | Make interruptions and the choice to abandon focus visible. | Ready for use and integrated into the Significant Hobbies family. | Dogfood it daily; use real interruption data to decide the next change. |
+| Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the merged source is verified locally but not yet committed or released. | Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change. |
 | Anime List | Maintenance | Add better anime filtering, discovery, and a personal watchlist. | Complete and frequently used; broader anime-community features are unwanted. | Maintain the directory/watchlist and fix only meaningful regressions or missing core functions. |
 | App Health | Active | Replace fragmented Sentry, PostHog, Slack, and cloud-console checking with easy high-level observability. | Good v0/v1 with a coherent OpenTelemetry-friendly model. | Integrate it across owned production services and let observed failures drive improvements. |
 | Calorie | Maintenance | Support weight loss through food logging, fasting windows, exercise timing, and daily performance. | Functionally done and connected to the Hub family. | Keep using it; change it only when repeated use reveals a gap. |
@@ -47,7 +47,7 @@ These classifications reflect current owner intent. They deliberately override m
 | GitStat | Maintenance | Understand work and code churn across the owner's repositories. | More or less complete; no unanswered recurring question is currently known. | Use it and add analysis only when a specific question is missing. |
 | High Signal | Hold | Aggregate news/data sources and derive useful signals. | Product focus is now clearer, but the owner is not using it. | Resume only after regular Daily Brief use identifies a concrete deficiency. |
 | India Standards | Hold | Use official data to contextualize how a person is doing in India. | The transparent aggregate calculator exists, but data quality limits expansion. | Reopen when materially better authoritative data becomes available. |
-| Habits (`indulge`) | Active | Replace unwanted indulgences with healthier alternatives through a visual, non-moralizing experience. | The original onboarding concept became a coherent habit product in the Hub family. | Use it personally and evolve the replacement loop from observed behavior. |
+| Habits / Indulge (`indulge`) | Dropped | Earlier visual exploration of intentional enjoyment, automatic patterns, and chosen alternatives. | Superseded by Anchor on 2026-08-24. Useful onboarding artwork and framing moved to Anchor; source, Apple identities, Hub data contracts, and landing resources remain only for history and compatibility. | No roadmap. Preserve compatibility until a separately approved migration or deletion. |
 | iOS landings (`ios-landings`) | Infrastructure | Reuse one landing-page engine across native Significant Hobbies products. | Canonical shared factory with multiple product-specific sites. | Add products and capabilities only when a native app actually needs a public landing surface. |
 | Journal | Active | Make journaling a durable habit within the Hub. | Currently being built as a private, device-first writing app. | Use it, add features from real practice, and explore careful emotional-pattern detection. |
 | Karte | Active | Evolve a link-in-bio page into a greeting card, company profile, and personal agent. | Strong individual profile and conversational foundation already exist. | Make the positioning and workflows company-friendly, then validate real company use. |
@@ -75,7 +75,7 @@ These classifications reflect current owner intent. They deliberately override m
 | SaaS Ideas | Maintenance | Preserve and score the owner's accumulated SaaS ideas. | Complete personal idea catalog rather than a product business. | Use it for prioritization; update when new ideas or selection criteria appear. |
 | SaaS Maker | Infrastructure | House reusable packages, public Fleet discovery, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home and public 55-product/95-capability directory after reconciliation. | Stabilize its package boundaries and let real Fleet consumers determine which packages deserve investment. |
 | Setline | Active | Execute workouts one set at a time with accurate timing and performance tracking. | Actively being built as a focused native workout player. | Continue the working workout loop and validate it through real sessions. |
-| Significant Hobbies | Active | Join seven personal applications in one Hub while each retains ownership of its data. | Hub UI, backend, typed sync package, and extracted product boundaries are now canonical. | Finish unified authentication and complete privacy-safe summaries/actions for all seven domains. |
+| Significant Hobbies | Active | Join six maintained personal applications in one Hub while each retains ownership of its data. | Hub UI, backend, typed sync package, and extracted product boundaries are canonical. The historical `habits` domain remains available as compatibility data but is no longer a separate app card. | Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains. |
 | Site Health | Infrastructure | Give the owner one local view of Fleet inventory, domain rank, performance, search, and AI visibility. | Actively maintained canonical private catalog and operational dashboard. | Keep it local; improve only the five owner questions and their evidence adapters. |
 | Starboard | Active | Replace GitHub Stars' overloaded UI with better personal exploration. | Core synchronization, search, tags, lists, and project-aware discovery are largely complete. | Continue focused exploration improvements without expanding into unrelated alerts or reporting. |
 | SWE Interview Prep | Active | Create a learning-by-doing system using Pomodoro, Feynman, retrieval practice, and roadmaps. | Broad active work-in-progress with a strong learning loop and growing scope. | Strengthen practice and retention; resist adding tracks that do not improve personal learning. |
@@ -92,13 +92,17 @@ These classifications reflect current owner intent. They deliberately override m
 
 - Anchor
 - Calorie
-- Indulge
 - Journal
 - Kith
 - Live
 - Setline
 
-Each app keeps ownership of its immediate data. `iOS Landings` supplies eligible native-app marketing surfaces. The correct integration direction is typed summaries and semantic actions through the Hub—not merging the seven applications into one codebase.
+Each app keeps ownership of its immediate data. `iOS Landings` supplies eligible native-app marketing surfaces. The normal integration direction is typed summaries and semantic actions through the Hub—not merging the six applications into one codebase.
+
+Anchor is the deliberate exception to that general boundary: Indulge/Habits
+competed for the same schedule and time-tracking loop, so its useful behavioral
+onboarding was absorbed into Anchor. Personal Platform's `habits` records and
+contracts remain compatibility data rather than a seventh maintained app.
 
 ### Fleet operations system
 
@@ -140,6 +144,9 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 - Mobile Dev Cockpit depended on an abandoned desktop-control workflow.
 - TrueHire was superseded by RolePatch as the active employment-related product.
 - Chess Coach was stopped because the underlying personal interest disappeared.
+- Habits/Indulge was superseded by Anchor; its original pattern artwork and
+  humane replacement framing moved forward, while its separate shell and
+  roadmap were retired.
 - Workflows and Skills and Hub Backend are no longer separate Fleet identities; their responsibilities now live in SaaS Maker and Significant Hobbies respectively.
 
 ## Portfolio-level conclusions
@@ -148,7 +155,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 
 2. **The portfolio has two true flagships.** CodeVetter and PostTrainLLM deserve sustained ambition, market comparison, public proof, and the majority of discretionary product-building time.
 
-3. **The Hub family is the strongest dogfooding opportunity.** Seven products share one owner, a coherent life-improvement thesis, and a control plane. Daily use can generate evidence across several products without creating seven separate acquisition problems.
+3. **The Hub family is the strongest dogfooding opportunity.** Six maintained products share one owner, a coherent life-improvement thesis, and a control plane. Daily use can generate evidence across several products without creating six separate acquisition problems.
 
 4. **Held products have identifiable gates.** The largest groups are data/evidence access, enjoyable UI or playability, distribution/marketplace trust, personal routine, and economics. A held project should not receive feature work until its gate changes.
 
@@ -156,7 +163,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 
 6. **Completed tools should stay boring.** Anime List, Calorie, Email Manager, GitStat, LoopTV, Sarthak Agrawal, Research Papers, and SaaS Ideas have achieved their current purpose. Maintenance is success, not neglect.
 
-7. **Three projects should have no active roadmap.** Chess Coach, Mobile Dev Cockpit, and TrueHire should remain historical or superseded artifacts unless the owner explicitly changes the underlying decision.
+7. **Four projects should have no active roadmap.** Chess Coach, Habits/Indulge, Mobile Dev Cockpit, and TrueHire should remain historical or superseded artifacts unless the owner explicitly changes the underlying decision.
 
 ## Recommended operating policy
 
@@ -168,4 +175,6 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 - Treat maintenance products as closed scopes unless usage or breakage supplies evidence.
 - Start infrastructure work only from a named consumer requirement.
 
-The immediate portfolio move is therefore not another consolidation. It is a structured dogfooding cycle that measures which already-built products repeatedly earn attention.
+With the Anchor consolidation complete in source, the immediate portfolio move
+is a structured dogfooding cycle that measures which already-built products
+repeatedly earn attention.
