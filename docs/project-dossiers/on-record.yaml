@@ -33,23 +33,21 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: on-record
-      revision: 79596dfe38ca9a564a4497799a7ac1d10b66a012
+      revision: 8170439cfadd60e399fc96214728f0ad9a44aec5
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
-      failing: 1
-      healthy: 1
+      healthy: 2
       manual-or-reusable-never-run: 1
       attention: &a2
-        action-required: 1
-        clear: 2
+        clear: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
@@ -91,7 +89,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 79596dfe38ca9a564a4497799a7ac1d10b66a012
+  observedRevision: 8170439cfadd60e399fc96214728f0ad9a44aec5
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -152,17 +150,16 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
-    failing: 1
-    healthy: 1
+    healthy: 2
     manual-or-reusable-never-run: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 79596dfe38ca9a564a4497799a7ac1d10b66a012
+    defaultBranchSha: 8170439cfadd60e399fc96214728f0ad9a44aec5
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
@@ -184,39 +181,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32845688603
+          id: 32876101532
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 79596dfe38ca9a564a4497799a7ac1d10b66a012
-          createdAt: 2026-08-25T12:05:15Z
-          updatedAt: 2026-08-25T12:06:04Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32845688603
+          headSha: 8170439cfadd60e399fc96214728f0ad9a44aec5
+          createdAt: 2026-08-25T17:08:16Z
+          updatedAt: 2026-08-25T17:09:05Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32876101532
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32845688603
+          id: 32876101532
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 79596dfe38ca9a564a4497799a7ac1d10b66a012
-          createdAt: 2026-08-25T12:05:15Z
-          updatedAt: 2026-08-25T12:06:04Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32845688603
+          headSha: 8170439cfadd60e399fc96214728f0ad9a44aec5
+          createdAt: 2026-08-25T17:08:16Z
+          updatedAt: 2026-08-25T17:09:05Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32876101532
         ageDays: 0
-      attention: action-required
+      attention: clear
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
       triggers:

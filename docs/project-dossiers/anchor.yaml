@@ -33,7 +33,7 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: anchor
-      revision: d41c4abac7f515cbd343e3d6fe6044472376b68a
+      revision: 0cf30fbdff57e017d95d0e1aa2a71e27e5e9d84b
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -100,7 +100,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: d41c4abac7f515cbd343e3d6fe6044472376b68a
+  observedRevision: 0cf30fbdff57e017d95d0e1aa2a71e27e5e9d84b
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -116,14 +116,14 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary: {}
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: d41c4abac7f515cbd343e3d6fe6044472376b68a
+    defaultBranchSha: 0cf30fbdff57e017d95d0e1aa2a71e27e5e9d84b
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:

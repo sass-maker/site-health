@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 11
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
@@ -168,7 +168,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -340,7 +340,7 @@ githubActions:
           createdAt: 2026-05-08T16:51:58Z
           updatedAt: 2026-05-08T16:52:04Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/25568063470
-        ageDays: 108
+        ageDays: 109
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -375,7 +375,7 @@ githubActions:
           createdAt: 2026-08-24T17:03:51Z
           updatedAt: 2026-08-24T17:04:38Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/32754450067
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

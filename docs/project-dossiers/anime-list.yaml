@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 9
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 4
       stale: 3
@@ -175,7 +175,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -491,7 +491,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 98 days old
+        reason: latest run is 99 days old
         apiState: active
         lastRun:
           id: 26038689795
@@ -503,7 +503,7 @@ githubActions:
           createdAt: 2026-05-18T14:07:24Z
           updatedAt: 2026-05-18T14:09:18Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/26038689795
-        ageDays: 98
+        ageDays: 99
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

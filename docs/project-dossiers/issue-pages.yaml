@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: issue-pages
-      revision: 81b27df370ca8eedd36570a897c6206958a4e2f3
+      revision: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
       githubRepository: sarthakagrawal927/issue-pages
       expectedHomepage: https://issues.sarthakagrawal.dev
       observedHomepage: https://issues.sarthakagrawal.dev
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 14
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -92,7 +92,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: issue-pages
-  observedRevision: 81b27df370ca8eedd36570a897c6206958a4e2f3
+  observedRevision: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
   githubRepository: sarthakagrawal927/issue-pages
   githubHomepageUrl: https://issues.sarthakagrawal.dev
   worktree: *a1
@@ -119,6 +119,9 @@ repository:
       - build
       - check
       - client:build
+      - client:build:mermaid
+      - client:build:reader
+      - client:check
       - db:migrate:local
       - db:seed:local
       - deploy
@@ -132,7 +135,7 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -140,7 +143,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/issue-pages
     defaultBranch: main
-    defaultBranchSha: 81b27df370ca8eedd36570a897c6206958a4e2f3
+    defaultBranchSha: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
     homepage: https://issues.sarthakagrawal.dev
     query: verified
     disposition:
@@ -165,15 +168,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32853739959
+          id: 32873427743
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 81b27df370ca8eedd36570a897c6206958a4e2f3
-          createdAt: 2026-08-25T13:30:27Z
-          updatedAt: 2026-08-25T13:31:14Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32853739959
+          headSha: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
+          createdAt: 2026-08-25T16:41:06Z
+          updatedAt: 2026-08-25T16:41:47Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32873427743
         ageDays: 0
       schedule:
         health: not-applicable
@@ -183,15 +186,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32853739959
+          id: 32873427743
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 81b27df370ca8eedd36570a897c6206958a4e2f3
-          createdAt: 2026-08-25T13:30:27Z
-          updatedAt: 2026-08-25T13:31:14Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32853739959
+          headSha: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
+          createdAt: 2026-08-25T16:41:06Z
+          updatedAt: 2026-08-25T16:41:47Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32873427743
         ageDays: 0
       attention: clear
 deployment:

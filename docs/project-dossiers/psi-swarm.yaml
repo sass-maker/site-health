@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 11
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 1
       stale: 2
@@ -131,7 +131,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -209,7 +209,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 37 days old
+        reason: latest run is 38 days old
         apiState: active
         lastRun:
           id: 29648902523
@@ -221,7 +221,7 @@ githubActions:
           createdAt: 2026-07-18T14:53:27Z
           updatedAt: 2026-07-18T14:54:02Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/29648902523
-        ageDays: 37
+        ageDays: 38
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -244,7 +244,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 82 days old
+        reason: latest run is 83 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -256,7 +256,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
-        ageDays: 82
+        ageDays: 83
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

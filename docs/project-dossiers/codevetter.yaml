@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 7
       attention: &a2
@@ -203,7 +203,7 @@ repository:
       - verification:mcp
       - verify
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 7
@@ -507,7 +507,7 @@ githubActions:
           createdAt: 2026-08-23T16:07:17Z
           updatedAt: 2026-08-23T16:09:10Z
           url: https://github.com/Codevetter/codevetter/actions/runs/32650684446
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

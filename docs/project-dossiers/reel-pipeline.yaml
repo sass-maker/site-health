@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 8
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 1
       stale: 2
@@ -183,7 +183,7 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -227,7 +227,7 @@ githubActions:
           createdAt: 2026-08-24T17:06:49Z
           updatedAt: 2026-08-24T17:08:05Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32754737547
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -245,7 +245,7 @@ githubActions:
           createdAt: 2026-08-24T17:06:49Z
           updatedAt: 2026-08-24T17:08:05Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32754737547
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml

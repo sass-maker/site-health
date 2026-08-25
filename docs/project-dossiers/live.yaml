@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 21
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 3
       failing: 2
@@ -175,7 +175,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -394,7 +394,7 @@ githubActions:
           createdAt: 2026-08-24T13:36:42Z
           updatedAt: 2026-08-24T13:51:46Z
           url: https://github.com/Significant-Hobbies/live/actions/runs/32733710681
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

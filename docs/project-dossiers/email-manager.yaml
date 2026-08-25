@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 14
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -155,7 +155,7 @@ repository:
       - typecheck
       - verify:indexing
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -243,7 +243,7 @@ githubActions:
           createdAt: 2026-08-15T13:56:10Z
           updatedAt: 2026-08-15T13:56:56Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/31888543924
-        ageDays: 9
+        ageDays: 10
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

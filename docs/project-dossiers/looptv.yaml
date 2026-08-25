@@ -42,13 +42,11 @@ verification:
         trackedChangeCount: 8
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
-      healthy: 4
-      failing: 1
+      healthy: 5
       attention: &a2
-        clear: 3
-        action-required: 1
+        clear: 4
         missing-data: 1
   unknowns: []
 ownerVoice:
@@ -152,16 +150,15 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
-    healthy: 4
-    failing: 1
+    healthy: 5
   attention: *a2
   remote:
     repository: Significant-Hobbies/looptv
     defaultBranch: main
-    defaultBranchSha: 0675f34df5d8f38917eca2676b41fb347f40bf93
+    defaultBranchSha: cb42917ad93d3939518e298f7b4d6951a86affe0
     homepage: https://tv.significanthobbies.com
     query: verified
     disposition:
@@ -219,38 +216,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32762297573
+          id: 32878048427
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 453957e649fdef7eba0148902dad45365dd1bab2
-          createdAt: 2026-08-24T18:25:03Z
-          updatedAt: 2026-08-24T18:25:37Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762297573
+          headSha: cb42917ad93d3939518e298f7b4d6951a86affe0
+          createdAt: 2026-08-25T17:28:04Z
+          updatedAt: 2026-08-25T17:28:55Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32878048427
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 0675f34
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32762297573
+          id: 32878048427
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 453957e649fdef7eba0148902dad45365dd1bab2
-          createdAt: 2026-08-24T18:25:03Z
-          updatedAt: 2026-08-24T18:25:37Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762297573
-      attention: action-required
+          headSha: cb42917ad93d3939518e298f7b4d6951a86affe0
+          createdAt: 2026-08-25T17:28:04Z
+          updatedAt: 2026-08-25T17:28:55Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/32878048427
+        ageDays: 0
+      attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -323,7 +321,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 0675f34
+        reason: no push run at current main revision cb42917
         lastRun:
           id: 32538274819
           status: completed

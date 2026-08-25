@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 13
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T13:35:46.540Z
+      observedAt: 2026-08-25T17:35:33.690Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
@@ -174,7 +174,7 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-08-25T13:35:46.540Z
+  observedAt: 2026-08-25T17:35:33.690Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -261,7 +261,7 @@ githubActions:
           createdAt: 2026-08-15T14:15:47Z
           updatedAt: 2026-08-15T14:16:44Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/31889430472
-        ageDays: 9
+        ageDays: 10
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
