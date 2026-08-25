@@ -9,12 +9,12 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: not-applicable
+    githubHomepage: passed
     githubActionsLiveState: verified
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
+      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
       infrastructureUpdatedAt: 2026-08-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,27 +22,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-25
       reviewSha256: 57840404050e7f321b4421628d548ecb34a3a40329a4320e5c9120b40d27f10c
-      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
+      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
+      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-25
       state: available
       checkout: issue-pages
-      revision: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+      revision: 81b27df370ca8eedd36570a897c6206958a4e2f3
       githubRepository: sarthakagrawal927/issue-pages
-      expectedHomepage: null
-      observedHomepage: https://issue-pages-production.sarthakagrawal927.workers.dev
+      expectedHomepage: https://issues.sarthakagrawal.dev
+      observedHomepage: https://issues.sarthakagrawal.dev
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 3
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T12:15:42.767Z
+      observedAt: 2026-08-25T13:35:46.540Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -59,7 +59,7 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Make publishing a public page as simple as opening a GitHub issue.
-  currentState: Owner-only production pilot is live; the issue/edit/archive/search/render loop is proven, while public moderation and authenticated GitHub rendering remain gated.
+  currentState: Owner-only production pilot is live at issues.sarthakagrawal.dev; the issue/edit/archive/search/render loop is proven, while public moderation and authenticated GitHub rendering remain gated.
   nextDecision: Connect the GitHub render token, then OpenAI moderation; study whether strangers publish and readers continue browsing.
 identity:
   name: IssuePages
@@ -92,9 +92,9 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: issue-pages
-  observedRevision: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+  observedRevision: 81b27df370ca8eedd36570a897c6206958a4e2f3
   githubRepository: sarthakagrawal927/issue-pages
-  githubHomepageUrl: https://issue-pages-production.sarthakagrawal927.workers.dev
+  githubHomepageUrl: https://issues.sarthakagrawal.dev
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/issue-pages
@@ -132,7 +132,7 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-08-25T12:15:42.767Z
+  observedAt: 2026-08-25T13:35:46.540Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -140,8 +140,8 @@ githubActions:
   remote:
     repository: sarthakagrawal927/issue-pages
     defaultBranch: main
-    defaultBranchSha: d084221c41bc7ff43e9edeecd270def26a5e2ad2
-    homepage: https://issue-pages-production.sarthakagrawal927.workers.dev
+    defaultBranchSha: 81b27df370ca8eedd36570a897c6206958a4e2f3
+    homepage: https://issues.sarthakagrawal.dev
     query: verified
     disposition:
       disposition: active
@@ -165,15 +165,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32845494382
+          id: 32853739959
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d084221c41bc7ff43e9edeecd270def26a5e2ad2
-          createdAt: 2026-08-25T12:03:07Z
-          updatedAt: 2026-08-25T12:03:35Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32845494382
+          headSha: 81b27df370ca8eedd36570a897c6206958a4e2f3
+          createdAt: 2026-08-25T13:30:27Z
+          updatedAt: 2026-08-25T13:31:14Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32853739959
         ageDays: 0
       schedule:
         health: not-applicable
@@ -183,22 +183,23 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32845494382
+          id: 32853739959
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d084221c41bc7ff43e9edeecd270def26a5e2ad2
-          createdAt: 2026-08-25T12:03:07Z
-          updatedAt: 2026-08-25T12:03:35Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32845494382
+          headSha: 81b27df370ca8eedd36570a897c6206958a4e2f3
+          createdAt: 2026-08-25T13:30:27Z
+          updatedAt: 2026-08-25T13:31:14Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32853739959
         ageDays: 0
       attention: clear
 deployment:
   kind: worker
   deployed: true
-  domains: []
-  primaryUrl: null
+  domains:
+    - issues.sarthakagrawal.dev
+  primaryUrl: https://issues.sarthakagrawal.dev
   domainProbePaths: {}
   targets:
     - id: web
@@ -220,6 +221,13 @@ deployment:
         scope: project
         operationalOwner: issue-pages
         attributionReason: "Canonical project owner: issue-pages"
+      - provider: cloudflare
+        kind: custom-domain
+        name: issues.sarthakagrawal.dev
+        state: active
+        scope: project
+        operationalOwner: issue-pages
+        attributionReason: "Canonical project owner: issue-pages"
   otherProviders:
     deployments: []
     resources: []
@@ -233,5 +241,5 @@ sharing:
   roadmapUrl: https://github.com/sarthakagrawal927/issue-pages/issues
   geoIdentity: null
 notes:
-  catalog: Owner-only production pilot at issue-pages-production.sarthakagrawal927.workers.dev. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
+  catalog: Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
   infrastructure: null

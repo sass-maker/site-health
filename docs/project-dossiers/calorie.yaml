@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
+      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,12 +22,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: cb46ebf564dc0c6c578d85885e358487c3b52e59c681d6fd134a932a4dbdf337
-      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
+      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
+      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-25
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T12:15:42.767Z
+      observedAt: 2026-08-25T13:35:46.540Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -151,7 +151,7 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-08-25T12:15:42.767Z
+  observedAt: 2026-08-25T13:35:46.540Z
   staleAfterDays: 30
   summary:
     healthy: 1

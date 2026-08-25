@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
+      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,12 +22,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 6c2cfc3847723651fd163b9117ec01e388078d58b06e19c3d890d1061fa74ffb
-      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
+      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
+      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-25
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T12:15:42.767Z
+      observedAt: 2026-08-25T13:35:46.540Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 1
@@ -242,7 +242,7 @@ repository:
       - watchlist-impact:test
       - youtube:brand-probe
 githubActions:
-  observedAt: 2026-08-25T12:15:42.767Z
+  observedAt: 2026-08-25T13:35:46.540Z
   staleAfterDays: 30
   summary:
     stale: 1
@@ -486,29 +486,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32844887550
+          id: 32851067813
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 3504bc62d919f2a479029411b377186a0f24a1e3
-          createdAt: 2026-08-25T11:56:17Z
-          updatedAt: 2026-08-25T11:57:12Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/32844887550
+          createdAt: 2026-08-25T13:03:23Z
+          updatedAt: 2026-08-25T13:04:38Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/32851067813
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 32844887550
+          id: 32851067813
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 3504bc62d919f2a479029411b377186a0f24a1e3
-          createdAt: 2026-08-25T11:56:17Z
-          updatedAt: 2026-08-25T11:57:12Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/32844887550
+          createdAt: 2026-08-25T13:03:23Z
+          updatedAt: 2026-08-25T13:04:38Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/32851067813
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:
@@ -633,29 +633,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32826715166
+          id: 32847247024
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: ab4d327b5f5b68d36119118889496728ffcaa94f
-          createdAt: 2026-08-25T08:27:37Z
-          updatedAt: 2026-08-25T08:32:34Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/32826715166
+          headSha: 3504bc62d919f2a479029411b377186a0f24a1e3
+          createdAt: 2026-08-25T12:22:35Z
+          updatedAt: 2026-08-25T12:27:30Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/32847247024
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 32826715166
+          id: 32847247024
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: ab4d327b5f5b68d36119118889496728ffcaa94f
-          createdAt: 2026-08-25T08:27:37Z
-          updatedAt: 2026-08-25T08:32:34Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/32826715166
+          headSha: 3504bc62d919f2a479029411b377186a0f24a1e3
+          createdAt: 2026-08-25T12:22:35Z
+          updatedAt: 2026-08-25T12:27:30Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/32847247024
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:

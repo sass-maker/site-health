@@ -428,10 +428,10 @@ Open an issue and leave your page on the internet.
 ### Agent record
 
 - Assessment: the product removes the editor, account, and discussion layers from a publishing experiment by using GitHub Issues as all three. The main risks are moderation, reliable GitHub rendering, and whether the repository-shaped interaction is welcoming enough for strangers.
-- Start / latest commit: `39111d1afddef098fe89409904469f5db3136550` / `d084221c41bc7ff43e9edeecd270def26a5e2ad2`; four commits as of capture.
+- Start / latest commit: `39111d1afddef098fe89409904469f5db3136550` / `81b27df370ca8eedd36570a897c6206958a4e2f3`; six commits as of capture.
 - Stack: Hono, TypeScript, Cloudflare Workers, D1/FTS5, Cache API, GitHub webhooks and Markdown rendering, Vitest, KaTeX, and Mermaid.
-- Git snapshot: public `sarthakagrawal927/issue-pages`; clean `main` matched `origin/main` before the production-study documentation update.
-- Public link: `https://issue-pages-production.sarthakagrawal927.workers.dev`; owner-only pilot deployed at 100% with exact source provenance.
+- Git snapshot: public `sarthakagrawal927/issue-pages`; clean `main` matched `origin/main` at the custom-domain release commit.
+- Public link: `https://issues.sarthakagrawal.dev`; owner-only pilot deployed at 100% with exact source provenance. The `workers.dev` hostname remains a provider fallback.
 - Open issues: #2, GitHub rendering parity live acceptance; #3, owner-only pilot release; #5, standalone reaction reconciliation.
 - Catalog state: active P4 experiment with a hidden public listing until authenticated GitHub rendering and OpenAI moderation are connected.
 

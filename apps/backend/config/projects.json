@@ -821,10 +821,12 @@
           "state": "authoritative"
         }
       ],
-      "domains": [],
+      "domains": [
+        "issues.sarthakagrawal.dev"
+      ],
       "inRegistry": false,
       "status": "live",
-      "notes": "Owner-only production pilot at issue-pages-production.sarthakagrawal927.workers.dev. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.",
+      "notes": "Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.",
       "name": "IssuePages",
       "attention": "foundry",
       "lifecycle": "maintained",
@@ -3794,6 +3796,12 @@
             "provider": "cloudflare",
             "kind": "d1",
             "name": "issue-pages",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "custom-domain",
+            "name": "issues.sarthakagrawal.dev",
             "state": "active"
           }
         ]
