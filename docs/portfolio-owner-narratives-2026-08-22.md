@@ -416,6 +416,26 @@ India Standards: this is also a very interesting product. The purpose of buildin
 - Status reconciliation: the catalog calls it active, deployed, and maintained (P4), while the owner places it on hold pending better data quality. That owner gate should control future investment.
 
 
+## IssuePages
+
+<!-- owner-captured-at: 2026-08-25 -->
+
+```text
+This website is a GitHub repository.
+Open an issue and leave your page on the internet.
+```
+
+### Agent record
+
+- Assessment: the product removes the editor, account, and discussion layers from a publishing experiment by using GitHub Issues as all three. The main risks are moderation, reliable GitHub rendering, and whether the repository-shaped interaction is welcoming enough for strangers.
+- Start / latest commit: `39111d1afddef098fe89409904469f5db3136550` / `d084221c41bc7ff43e9edeecd270def26a5e2ad2`; four commits as of capture.
+- Stack: Hono, TypeScript, Cloudflare Workers, D1/FTS5, Cache API, GitHub webhooks and Markdown rendering, Vitest, KaTeX, and Mermaid.
+- Git snapshot: public `sarthakagrawal927/issue-pages`; clean `main` matched `origin/main` before the production-study documentation update.
+- Public link: `https://issue-pages-production.sarthakagrawal927.workers.dev`; owner-only pilot deployed at 100% with exact source provenance.
+- Open issues: #2, GitHub rendering parity live acceptance; #3, owner-only pilot release; #5, standalone reaction reconciliation.
+- Catalog state: active P4 experiment with a hidden public listing until authenticated GitHub rendering and OpenAI moderation are connected.
+
+
 ## Indulge
 
 ```text

@@ -3,7 +3,7 @@ projectId: starboard
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-24
+  generatedAt: 2026-08-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
+      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,15 +22,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: b9b251d5c25ba601d3489767fa1d9f3c9731313c194de98f746061074fc77c26
-      documentSha256: d2b1264b172105371d2f09456e419986a0d672b4d1611c989deeb6d17bf7f8d4
+      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
+      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-24
+      observedAt: 2026-08-25
       state: available
       checkout: starboard
       revision: 6680a27918bf26e164ae2bc914d84eb08c579d6d
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 10
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:34:35.813Z
+      observedAt: 2026-08-25T12:15:42.767Z
       staleAfterDays: 30
       healthy: 8
       disabled: 1
@@ -169,7 +169,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T19:34:35.813Z
+  observedAt: 2026-08-25T12:15:42.767Z
   staleAfterDays: 30
   summary:
     healthy: 8
@@ -212,7 +212,7 @@ githubActions:
           createdAt: 2026-08-24T05:41:05Z
           updatedAt: 2026-08-24T05:43:56Z
           url: https://github.com/Codevetter/starboard/actions/runs/32694403883
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -230,7 +230,7 @@ githubActions:
           createdAt: 2026-08-24T05:41:05Z
           updatedAt: 2026-08-24T05:43:56Z
           url: https://github.com/Codevetter/starboard/actions/runs/32694403883
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Cloudflare operator smoke
       file: .github/workflows/cloudflare-operator-smoke.yml
@@ -258,7 +258,7 @@ githubActions:
           createdAt: 2026-08-01T22:22:08Z
           updatedAt: 2026-08-01T22:22:48Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721106035
-        ageDays: 22
+        ageDays: 23
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -332,7 +332,7 @@ githubActions:
           createdAt: 2026-08-21T23:50:08Z
           updatedAt: 2026-08-21T23:50:17Z
           url: https://github.com/Codevetter/starboard/actions/runs/32538283882
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -377,7 +377,7 @@ githubActions:
           createdAt: 2026-08-01T22:24:44Z
           updatedAt: 2026-08-01T22:25:14Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721198381
-        ageDays: 22
+        ageDays: 23
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -451,7 +451,7 @@ githubActions:
           createdAt: 2026-08-23T04:04:49Z
           updatedAt: 2026-08-23T04:23:38Z
           url: https://github.com/Codevetter/starboard/actions/runs/32616961215
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -465,7 +465,7 @@ githubActions:
           createdAt: 2026-08-23T04:04:49Z
           updatedAt: 2026-08-23T04:23:38Z
           url: https://github.com/Codevetter/starboard/actions/runs/32616961215
-        ageDays: 1
+        ageDays: 2
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -532,7 +532,7 @@ githubActions:
           createdAt: 2026-08-24T03:54:34Z
           updatedAt: 2026-08-24T03:55:22Z
           url: https://github.com/Codevetter/starboard/actions/runs/32688077001
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

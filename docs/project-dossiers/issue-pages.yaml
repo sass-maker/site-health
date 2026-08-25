@@ -1,0 +1,237 @@
+schemaVersion: 1
+projectId: issue-pages
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-08-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
+      infrastructureUpdatedAt: 2026-08-25
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: IssuePages
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-25
+      reviewSha256: 57840404050e7f321b4421628d548ecb34a3a40329a4320e5c9120b40d27f10c
+      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-08-25
+      state: available
+      checkout: issue-pages
+      revision: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+      githubRepository: sarthakagrawal927/issue-pages
+      expectedHomepage: null
+      observedHomepage: https://issue-pages-production.sarthakagrawal927.workers.dev
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 3
+        deletedWorkflowFiles: []
+    githubActions:
+      observedAt: 2026-08-25T12:15:42.767Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: |-
+    This website is a GitHub repository.
+    Open an issue and leave your page on the internet.
+  fullReviewVerbatim: |-
+    This website is a GitHub repository.
+    Open an issue and leave your page on the internet.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Make publishing a public page as simple as opening a GitHub issue.
+  currentState: Owner-only production pilot is live; the issue/edit/archive/search/render loop is proven, while public moderation and authenticated GitHub rendering remain gated.
+  nextDecision: Connect the GitHub render token, then OpenAI moderation; study whether strangers publish and readers continue browsing.
+identity:
+  name: IssuePages
+  publicName: null
+  aliases: []
+  family: issue-pages
+  kind: experiment
+  priority: P4
+  tier: active
+  attention: foundry
+  lifecycle: maintained
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A public website where a GitHub issue becomes a readable, searchable page.
+  publicMakerNote: I wanted publishing a public page to be as simple as opening a GitHub issue.
+  form: Issue-backed publishing website
+  platforms:
+    - Web
+    - GitHub
+  prominentTools:
+    - Hono
+    - TypeScript
+    - Cloudflare Workers
+    - D1
+  retainedGitHistory:
+    firstCommitAt: 2026-08-25
+    latestCommitAt: 2026-08-25
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: issue-pages
+  observedRevision: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+  githubRepository: sarthakagrawal927/issue-pages
+  githubHomepageUrl: https://issue-pages-production.sarthakagrawal927.workers.dev
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/issue-pages
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - check
+      - client:build
+      - db:migrate:local
+      - db:seed:local
+      - deploy
+      - dev
+      - format
+      - format:check
+      - lint
+      - startup
+      - test
+      - typecheck
+      - types
+      - types:check
+githubActions:
+  observedAt: 2026-08-25T12:15:42.767Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/issue-pages
+    defaultBranch: main
+    defaultBranchSha: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+    homepage: https://issue-pages-production.sarthakagrawal927.workers.dev
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 32845494382
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+          createdAt: 2026-08-25T12:03:07Z
+          updatedAt: 2026-08-25T12:03:35Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32845494382
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 32845494382
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d084221c41bc7ff43e9edeecd270def26a5e2ad2
+          createdAt: 2026-08-25T12:03:07Z
+          updatedAt: 2026-08-25T12:03:35Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32845494382
+        ageDays: 0
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets:
+    - id: web
+      kind: worker
+      name: issue-pages-production
+      sourcePath: issue-pages
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: issue-pages-production
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: issue-pages
+        state: active
+        scope: project
+        operationalOwner: issue-pages
+        attributionReason: "Canonical project owner: issue-pages"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-08-25
+  reason: The owner-only production pilot is live and proven for issues, edits, archive state, search, and rendering, but public moderation and reliable authenticated GitHub rendering are not connected yet.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/issue-pages/issues
+  geoIdentity: null
+notes:
+  catalog: Owner-only production pilot at issue-pages-production.sarthakagrawal927.workers.dev. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
+  infrastructure: null

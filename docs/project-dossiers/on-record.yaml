@@ -3,7 +3,7 @@ projectId: on-record
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-24
+  generatedAt: 2026-08-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
+      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
       infrastructureUpdatedAt: 2026-08-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,34 +22,34 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-25
       reviewSha256: c54c9d1797d06ae6718206b930e554f1041ea39cae1eee8bb4180b610a0fa52f
-      documentSha256: d2b1264b172105371d2f09456e419986a0d672b4d1611c989deeb6d17bf7f8d4
+      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
+      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-24
+      observedAt: 2026-08-25
       state: available
       checkout: on-record
-      revision: 4d8193d83457cdb41ee187bd13955a809e749f4b
+      revision: 79596dfe38ca9a564a4497799a7ac1d10b66a012
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 5
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:34:35.813Z
+      observedAt: 2026-08-25T12:15:42.767Z
       staleAfterDays: 30
+      failing: 1
       healthy: 1
-      never-run: 1
       manual-or-reusable-never-run: 1
       attention: &a2
+        action-required: 1
         clear: 2
-        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
@@ -91,7 +91,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 4d8193d83457cdb41ee187bd13955a809e749f4b
+  observedRevision: 79596dfe38ca9a564a4497799a7ac1d10b66a012
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -152,17 +152,17 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T19:34:35.813Z
+  observedAt: 2026-08-25T12:15:42.767Z
   staleAfterDays: 30
   summary:
+    failing: 1
     healthy: 1
-    never-run: 1
     manual-or-reusable-never-run: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 4d8193d83457cdb41ee187bd13955a809e749f4b
+    defaultBranchSha: 79596dfe38ca9a564a4497799a7ac1d10b66a012
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
@@ -184,39 +184,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 32767145892
+          id: 32845688603
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 4d8193d83457cdb41ee187bd13955a809e749f4b
-          createdAt: 2026-08-24T19:15:55Z
-          updatedAt: 2026-08-24T19:16:39Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32767145892
+          headSha: 79596dfe38ca9a564a4497799a7ac1d10b66a012
+          createdAt: 2026-08-25T12:05:15Z
+          updatedAt: 2026-08-25T12:06:04Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32845688603
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 32767145892
+          id: 32845688603
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 4d8193d83457cdb41ee187bd13955a809e749f4b
-          createdAt: 2026-08-24T19:15:55Z
-          updatedAt: 2026-08-24T19:16:39Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32767145892
+          headSha: 79596dfe38ca9a564a4497799a7ac1d10b66a012
+          createdAt: 2026-08-25T12:05:15Z
+          updatedAt: 2026-08-25T12:06:04Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32845688603
         ageDays: 0
-      attention: clear
+      attention: action-required
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
       triggers:
@@ -224,6 +224,7 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 6 * * *
+        - 0 7 * * 0
       inventory:
         source: tracked
         local: true
@@ -232,20 +233,40 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: never-run
-        reason: no workflow run was returned by GitHub
+        health: healthy
+        reason: latest run concluded success
         apiState: active
-        lastRun: null
-        ageDays: null
+        lastRun:
+          id: 32818197741
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 3d2e0a86473a19d40343edd25f6680fd263bb44b
+          createdAt: 2026-08-25T06:43:07Z
+          updatedAt: 2026-08-25T06:45:58Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32818197741
+        ageDays: 0
       schedule:
-        health: never-run
-        reason: no scheduled run was returned by GitHub
-        lastRun: null
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32818197741
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 3d2e0a86473a19d40343edd25f6680fd263bb44b
+          createdAt: 2026-08-25T06:43:07Z
+          updatedAt: 2026-08-25T06:45:58Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/32818197741
+        ageDays: 0
+        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: missing-data
+      attention: clear
     - name: deploy
       file: .github/workflows/deploy.yml
       triggers:

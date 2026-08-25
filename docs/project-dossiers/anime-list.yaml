@@ -3,7 +3,7 @@ projectId: anime-list
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-24
+  generatedAt: 2026-08-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
+      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,15 +22,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 1ba8dd16a36234f4300615fb059ccd27a12a753904a2db5e17713707f3f930e9
-      documentSha256: d2b1264b172105371d2f09456e419986a0d672b4d1611c989deeb6d17bf7f8d4
+      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
+      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-24
+      observedAt: 2026-08-25
       state: available
       checkout: anime-list
       revision: 0871513cb5d4623b2684dde9ed52ce2a0f6fdd7d
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 9
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:34:35.813Z
+      observedAt: 2026-08-25T12:15:42.767Z
       staleAfterDays: 30
       healthy: 4
       stale: 3
@@ -175,7 +175,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T19:34:35.813Z
+  observedAt: 2026-08-25T12:15:42.767Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -265,7 +265,7 @@ githubActions:
           createdAt: 2026-08-22T10:33:37Z
           updatedAt: 2026-08-22T10:34:34Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32567923495
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -303,7 +303,7 @@ githubActions:
           createdAt: 2026-08-22T10:20:56Z
           updatedAt: 2026-08-22T10:21:32Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32567372063
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -338,7 +338,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 44 days old
+        reason: latest run is 45 days old
         apiState: active
         lastRun:
           id: 29146271414
@@ -350,7 +350,7 @@ githubActions:
           createdAt: 2026-07-11T08:32:19Z
           updatedAt: 2026-07-11T08:32:59Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/29146271414
-        ageDays: 44
+        ageDays: 45
       schedule:
         health: recovered-manually
         reason: a newer manual run succeeded after the failed scheduled run
@@ -374,7 +374,7 @@ githubActions:
           createdAt: 2026-07-11T08:32:19Z
           updatedAt: 2026-07-11T08:32:59Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/29146271414
-        ageDays: 54
+        ageDays: 55
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -396,7 +396,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 54 days old
+        reason: latest run is 55 days old
         apiState: active
         lastRun:
           id: 28495233930
@@ -408,7 +408,7 @@ githubActions:
           createdAt: 2026-07-01T05:15:13Z
           updatedAt: 2026-07-01T05:17:44Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28495233930
-        ageDays: 54
+        ageDays: 55
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -422,7 +422,7 @@ githubActions:
           createdAt: 2026-07-01T05:15:13Z
           updatedAt: 2026-07-01T05:17:44Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28495233930
-        ageDays: 54
+        ageDays: 55
         freshnessDays: 100
       currentDefaultBranch:
         health: not-applicable
@@ -448,40 +448,31 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32762782102
+          id: 32795909919
           status: completed
           conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 97d7b1293015930f5129c6199054b4505c5fe646
-          createdAt: 2026-08-24T18:30:11Z
-          updatedAt: 2026-08-24T18:32:24Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32762782102
-        ageDays: 0
-      schedule:
-        health: recovered-manually
-        reason: a newer manual run succeeded after the failed scheduled run
-        lastRun:
-          id: 32678460949
-          status: completed
-          conclusion: failure
           event: schedule
           branch: main
-          headSha: cf3a67b259dcac70b68f2de61720be5a4cac44fe
-          createdAt: 2026-08-24T01:01:26Z
-          updatedAt: 2026-08-24T01:02:01Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32678460949
-        recoveryRun:
-          id: 32762782102
+          headSha: 97d7b1293015930f5129c6199054b4505c5fe646
+          createdAt: 2026-08-25T01:01:09Z
+          updatedAt: 2026-08-25T01:03:22Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32795909919
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32795909919
           status: completed
           conclusion: success
-          event: workflow_dispatch
+          event: schedule
           branch: main
           headSha: 97d7b1293015930f5129c6199054b4505c5fe646
-          createdAt: 2026-08-24T18:30:11Z
-          updatedAt: 2026-08-24T18:32:24Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32762782102
+          createdAt: 2026-08-25T01:01:09Z
+          updatedAt: 2026-08-25T01:03:22Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32795909919
         ageDays: 0
+        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

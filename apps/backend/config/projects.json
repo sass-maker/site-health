@@ -785,6 +785,57 @@
       }
     },
     {
+      "id": "issue-pages",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P4",
+        "status": "active",
+        "deployed": true,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-08-25",
+          "reason": "The owner-only production pilot is live and proven for issues, edits, archive state, search, and rendering, but public moderation and reliable authenticated GitHub rendering are not connected yet."
+        }
+      },
+      "authModel": "public-persistent",
+      "family": "issue-pages",
+      "tier": "active",
+      "repo": "issue-pages",
+      "deployKind": "worker",
+      "cfProject": "issue-pages-production",
+      "deployTargets": [
+        {
+          "id": "web",
+          "kind": "worker",
+          "name": "issue-pages-production",
+          "sourcePath": "issue-pages"
+        }
+      ],
+      "d1Databases": [
+        "issue-pages"
+      ],
+      "databaseResources": [
+        {
+          "provider": "cloudflare-d1",
+          "name": "issue-pages",
+          "state": "authoritative"
+        }
+      ],
+      "domains": [],
+      "inRegistry": false,
+      "status": "live",
+      "notes": "Owner-only production pilot at issue-pages-production.sarthakagrawal927.workers.dev. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.",
+      "name": "IssuePages",
+      "attention": "foundry",
+      "lifecycle": "maintained",
+      "repositoryVisibility": "public",
+      "repositoryUrl": "https://github.com/sarthakagrawal927/issue-pages",
+      "public": {
+        "listing": "hidden",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/issue-pages"
+      }
+    },
+    {
       "id": "everythingrated",
       "portfolio": {
         "kind": "experiment",
@@ -2629,6 +2680,15 @@
         "firstCommitAt": "2026-08-24",
         "latestCommitAt": "2026-08-25"
       },
+      "issue-pages": {
+        "makerNote": "I wanted publishing a public page to be as simple as opening a GitHub issue.",
+        "form": "Issue-backed publishing website",
+        "platforms": ["Web", "GitHub"],
+        "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
+        "description": "A public website where a GitHub issue becomes a readable, searchable page.",
+        "firstCommitAt": "2026-08-25",
+        "latestCommitAt": "2026-08-25"
+      },
       "everythingrated": {
         "makerNote": "I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.",
         "form": "Ratings experiment",
@@ -2962,16 +3022,16 @@
         {
           "kind": "worker",
           "state": "known-name-probed",
-          "observed": 29,
-          "tracked": 32,
-          "evidence": "Known-name deployment probes found 27 live on 2026-08-23, including the Field Track synthetic demo. On 2026-08-25, on-record-api and high-signal-podcasts were verified live. The SaaS Maker API, SaaS Maker dashboard, and Reddit collector remain attributed as configured but not deployed."
+          "observed": 30,
+          "tracked": 33,
+          "evidence": "Known-name deployment probes found 27 live on 2026-08-23, including the Field Track synthetic demo. On 2026-08-25, on-record-api, high-signal-podcasts, and issue-pages-production were verified live. The SaaS Maker API, SaaS Maker dashboard, and Reddit collector remain attributed as configured but not deployed."
         },
         {
           "kind": "d1",
           "state": "provider-complete",
-          "observed": 24,
-          "tracked": 24,
-          "evidence": "Wrangler account inventory plus the on-record deployment verification on 2026-08-25: 24 databases are attributed, including on-record-db. Setline's empty D1 database was deleted 2026-08-16."
+          "observed": 25,
+          "tracked": 25,
+          "evidence": "Wrangler account inventory plus deployment verification on 2026-08-25: 25 databases are attributed, including on-record-db and issue-pages. Setline's empty D1 database was deleted 2026-08-16."
         },
         {
           "kind": "r2",
@@ -3714,6 +3774,26 @@
             "provider": "cloudflare",
             "kind": "r2",
             "name": "on-record-raw",
+            "state": "active"
+          }
+        ]
+      },
+      "issue-pages": {
+        "updatedAt": "2026-08-25",
+        "deployments": [
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "issue-pages-production",
+            "method": "wrangler-direct",
+            "state": "live"
+          }
+        ],
+        "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "issue-pages",
             "state": "active"
           }
         ]

@@ -268,7 +268,7 @@ test('current product scope stays smaller than the complete retained inventory',
     && project.portfolio?.priority !== 'P4'
     && project.portfolio?.status !== 'archived');
 
-  assert.equal(catalog.projects.length, 55);
+  assert.equal(catalog.projects.length, 56);
   assert.equal(current.length, 32);
   assert.equal(current.some((project) => project.id === 'gitstat'), true);
 });

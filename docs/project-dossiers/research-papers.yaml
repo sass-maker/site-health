@@ -3,7 +3,7 @@ projectId: research-papers
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-24
+  generatedAt: 2026-08-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
+      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,15 +22,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 95a2bd8236cf586cc58041bd07c30446dde5dfaa614f0f899b556d4d1b6c99e3
-      documentSha256: d2b1264b172105371d2f09456e419986a0d672b4d1611c989deeb6d17bf7f8d4
+      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
+      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-24
+      observedAt: 2026-08-25
       state: available
       checkout: research-papers
       revision: d3f1eaaaef0ea0854662ba6d47c34501d9660ede
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 9
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:34:35.813Z
+      observedAt: 2026-08-25T12:15:42.767Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -137,7 +137,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-24T19:34:35.813Z
+  observedAt: 2026-08-25T12:15:42.767Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -180,7 +180,7 @@ githubActions:
           createdAt: 2026-08-24T05:40:59Z
           updatedAt: 2026-08-24T05:43:05Z
           url: https://github.com/High-Signal-App/research-papers/actions/runs/32694398727
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -198,7 +198,7 @@ githubActions:
           createdAt: 2026-08-24T05:40:59Z
           updatedAt: 2026-08-24T05:43:05Z
           url: https://github.com/High-Signal-App/research-papers/actions/runs/32694398727
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Deploy research-papers to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -264,7 +264,7 @@ githubActions:
           createdAt: 2026-08-16T22:50:50Z
           updatedAt: 2026-08-16T22:51:00Z
           url: https://github.com/High-Signal-App/research-papers/actions/runs/31977461516
-        ageDays: 7
+        ageDays: 8
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

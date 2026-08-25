@@ -3,7 +3,7 @@ projectId: companion-robot
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-24
+  generatedAt: 2026-08-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 492379dc67d1a3300dedd5d2f881a65ee0e7b23a05129b5d4e51701530341fd9
+      sha256: 7fba2a2be0f4ac8b36c8fc217c44f9a040e7ab4336a64e37f1eb9a148feb1d79
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -22,15 +22,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 1da11cddff8a43cd1b1dcddc92ca6a2a80485b086ff55d6b201e0cfb5954b94b
-      documentSha256: d2b1264b172105371d2f09456e419986a0d672b4d1611c989deeb6d17bf7f8d4
+      documentSha256: ef29c9222762848a66983518270e7339ed3dd420f0efe0b612af0a995f2fd058
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 18588d8476c51b2ccd35930787def2becace22cb072c69457519c9cf73ab2fbb
+      sha256: 4598344f9ec0b197c3367f8d4c6bfe7d5da277f3253e30f739e5f5520243bd63
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-24
+      observedAt: 2026-08-25
       state: available
       checkout: companion-robot
       revision: a7c0cb4fa9ad9e7cce24035ece61d196cf82f46c
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-24T19:34:35.813Z
+      observedAt: 2026-08-25T12:15:42.767Z
       staleAfterDays: 30
       stale: 1
       attention: &a2
@@ -103,7 +103,7 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-08-24T19:34:35.813Z
+  observedAt: 2026-08-25T12:15:42.767Z
   staleAfterDays: 30
   summary:
     stale: 1
@@ -133,7 +133,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 38 days old
+        reason: latest run is 39 days old
         apiState: active
         lastRun:
           id: 29554785811
@@ -145,7 +145,7 @@ githubActions:
           createdAt: 2026-07-17T04:24:44Z
           updatedAt: 2026-07-17T04:24:50Z
           url: https://github.com/HeyPace/companion-robot/actions/runs/29554785811
-        ageDays: 38
+        ageDays: 39
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -163,7 +163,7 @@ githubActions:
           createdAt: 2026-07-17T04:24:44Z
           updatedAt: 2026-07-17T04:24:50Z
           url: https://github.com/HeyPace/companion-robot/actions/runs/29554785811
-        ageDays: 38
+        ageDays: 39
       attention: clear
 deployment:
   kind: none
