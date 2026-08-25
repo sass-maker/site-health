@@ -38,21 +38,21 @@ verification:
       expectedHomepage: https://highsignal.app
       observedHomepage: https://highsignal.app
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 4
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T21:41:07.621Z
+      observedAt: 2026-08-25T22:08:30.168Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 1
-      healthy: 14
+      healthy: 13
+      failing: 2
       never-run: 1
-      failing: 1
       attention: &a2
-        clear: 14
+        clear: 13
         missing-data: 3
-        action-required: 1
+        action-required: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: High-Signal is kind of started with very wide things but now I have focused it into just a data and news application. Currently it just aggregates information from a lot of sources and tries to derive signals. As of now I am not actively using it but I do see its potential. For now it's on hold and once I start using it then I will pick it up again.
@@ -246,14 +246,14 @@ repository:
       - watchlist-impact:test
       - youtube:brand-probe
 githubActions:
-  observedAt: 2026-08-25T21:41:07.621Z
+  observedAt: 2026-08-25T22:08:30.168Z
   staleAfterDays: 30
   summary:
     stale: 1
     manual-or-reusable-never-run: 1
-    healthy: 14
+    healthy: 13
+    failing: 2
     never-run: 1
-    failing: 1
   attention: *a2
   remote:
     repository: High-Signal-App/high-signal
@@ -555,40 +555,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 32781850690
+          id: 32903336846
           status: completed
-          conclusion: success
+          conclusion: failure
           event: schedule
           branch: main
-          headSha: 0bef33cb0e4a436197399dfc642e1fedd7096191
-          createdAt: 2026-08-24T21:53:11Z
-          updatedAt: 2026-08-24T22:02:19Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/32781850690
+          headSha: 026df04f0aa8f7a456f5e7207cab9488c1804382
+          createdAt: 2026-08-25T21:52:55Z
+          updatedAt: 2026-08-25T21:53:43Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/32903336846
         ageDays: 0
       schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
+        health: failing
+        reason: latest scheduled run concluded failure
         lastRun:
-          id: 32781850690
+          id: 32903336846
           status: completed
-          conclusion: success
+          conclusion: failure
           event: schedule
           branch: main
-          headSha: 0bef33cb0e4a436197399dfc642e1fedd7096191
-          createdAt: 2026-08-24T21:53:11Z
-          updatedAt: 2026-08-24T22:02:19Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/32781850690
+          headSha: 026df04f0aa8f7a456f5e7207cab9488c1804382
+          createdAt: 2026-08-25T21:52:55Z
+          updatedAt: 2026-08-25T21:53:43Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/32903336846
         ageDays: 0
-        freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: action-required
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
       triggers:

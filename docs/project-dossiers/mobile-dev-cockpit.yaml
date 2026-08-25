@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T21:41:07.621Z
+      observedAt: 2026-08-25T22:08:30.168Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -120,7 +120,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T21:41:07.621Z
+  observedAt: 2026-08-25T22:08:30.168Z
   staleAfterDays: 30
   summary:
     stuck: 1

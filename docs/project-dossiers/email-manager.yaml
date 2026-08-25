@@ -33,7 +33,7 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: email-manager
-      revision: 7f6a083647cd08fe6442b4e1c19d464e683157c3
+      revision: ae63375a9b7cd60f70e40798eaffde416fdae149
       githubRepository: Significant-Hobbies/email-manager
       expectedHomepage: https://mail.significanthobbies.com
       observedHomepage: https://mail.significanthobbies.com
@@ -42,10 +42,9 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T21:41:07.621Z
+      observedAt: 2026-08-25T22:08:30.168Z
       staleAfterDays: 30
-      running: 1
-      healthy: 2
+      healthy: 3
       attention: &a2
         clear: 3
   unknowns: []
@@ -89,7 +88,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: email-manager
-  observedRevision: 7f6a083647cd08fe6442b4e1c19d464e683157c3
+  observedRevision: ae63375a9b7cd60f70e40798eaffde416fdae149
   githubRepository: Significant-Hobbies/email-manager
   githubHomepageUrl: https://mail.significanthobbies.com
   worktree: *a1
@@ -156,16 +155,15 @@ repository:
       - typecheck
       - verify:indexing
 githubActions:
-  observedAt: 2026-08-25T21:41:07.621Z
+  observedAt: 2026-08-25T22:08:30.168Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 2
+    healthy: 3
   attention: *a2
   remote:
     repository: Significant-Hobbies/email-manager
     defaultBranch: main
-    defaultBranchSha: 0f4bf47e184edebc0543c818b8d855e308f72e01
+    defaultBranchSha: ae63375a9b7cd60f70e40798eaffde416fdae149
     homepage: https://mail.significanthobbies.com
     query: verified
     disposition:
@@ -186,19 +184,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32902272853
-          status: in_progress
-          conclusion: null
-          event: pull_request
-          branch: fix/kinetic-footer-csp-47
-          headSha: 7f6a083647cd08fe6442b4e1c19d464e683157c3
-          createdAt: 2026-08-25T21:40:47Z
-          updatedAt: 2026-08-25T21:40:52Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902272853
+          id: 32902387876
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: ae63375a9b7cd60f70e40798eaffde416fdae149
+          createdAt: 2026-08-25T21:42:06Z
+          updatedAt: 2026-08-25T21:42:48Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902387876
         ageDays: 0
       schedule:
         health: not-applicable
@@ -208,15 +206,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32900295659
+          id: 32902387876
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0f4bf47e184edebc0543c818b8d855e308f72e01
-          createdAt: 2026-08-25T21:18:28Z
-          updatedAt: 2026-08-25T21:19:22Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32900295659
+          headSha: ae63375a9b7cd60f70e40798eaffde416fdae149
+          createdAt: 2026-08-25T21:42:06Z
+          updatedAt: 2026-08-25T21:42:48Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902387876
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
