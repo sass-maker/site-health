@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,7 +33,7 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: mobile-dev-cockpit
-      revision: 746ebd33349e81287fb2d4c03b5f1ceeb72c6866
+      revision: 395161d9b7f571e36f1a94b189360be6afec3067
       githubRepository: sarthakagrawal927/mobile-dev-cockpit
       expectedHomepage: null
       observedHomepage: null
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -86,7 +86,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mobile-dev-cockpit
-  observedRevision: 746ebd33349e81287fb2d4c03b5f1ceeb72c6866
+  observedRevision: 395161d9b7f571e36f1a94b189360be6afec3067
   githubRepository: sarthakagrawal927/mobile-dev-cockpit
   githubHomepageUrl: null
   worktree: *a1
@@ -120,7 +120,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     stuck: 1
@@ -128,7 +128,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/mobile-dev-cockpit
     defaultBranch: main
-    defaultBranchSha: 746ebd33349e81287fb2d4c03b5f1ceeb72c6866
+    defaultBranchSha: 395161d9b7f571e36f1a94b189360be6afec3067
     homepage: null
     query: verified
     disposition:
@@ -170,7 +170,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 746ebd3
+        reason: no push run at current main revision 395161d
         lastRun:
           id: 30117645410
           status: completed

@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,22 +33,21 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: reel-pipeline
-      revision: af993477a8519c781b42ccec0a23f481431f74ea
+      revision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
       githubRepository: sass-maker/reel-pipeline
       expectedHomepage: null
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 8
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
-      healthy: 1
-      stale: 2
+      healthy: 2
+      stale: 1
       attention: &a2
-        clear: 2
-        missing-data: 1
+        clear: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
@@ -91,7 +90,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reel-pipeline
-  observedRevision: af993477a8519c781b42ccec0a23f481431f74ea
+  observedRevision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
   githubRepository: sass-maker/reel-pipeline
   githubHomepageUrl: null
   worktree: *a1
@@ -183,16 +182,16 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
-    healthy: 1
-    stale: 2
+    healthy: 2
+    stale: 1
   attention: *a2
   remote:
     repository: sass-maker/reel-pipeline
     defaultBranch: main
-    defaultBranchSha: af993477a8519c781b42ccec0a23f481431f74ea
+    defaultBranchSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
     homepage: null
     query: verified
     disposition:
@@ -218,16 +217,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32754737547
+          id: 32898720516
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: af993477a8519c781b42ccec0a23f481431f74ea
-          createdAt: 2026-08-24T17:06:49Z
-          updatedAt: 2026-08-24T17:08:05Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32754737547
-        ageDays: 1
+          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+          createdAt: 2026-08-25T21:01:40Z
+          updatedAt: 2026-08-25T21:02:32Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720516
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -236,16 +235,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32754737547
+          id: 32898720516
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: af993477a8519c781b42ccec0a23f481431f74ea
-          createdAt: 2026-08-24T17:06:49Z
-          updatedAt: 2026-08-24T17:08:05Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32754737547
-        ageDays: 1
+          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+          createdAt: 2026-08-25T21:01:40Z
+          updatedAt: 2026-08-25T21:02:32Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720516
+        ageDays: 0
       attention: clear
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
@@ -261,7 +260,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 42 days old
+        reason: latest run is 43 days old
         apiState: active
         lastRun:
           id: 29273219217
@@ -273,7 +272,7 @@ githubActions:
           createdAt: 2026-07-13T18:07:43Z
           updatedAt: 2026-07-13T18:08:12Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/29273219217
-        ageDays: 42
+        ageDays: 43
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -297,38 +296,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: stale
-        reason: latest run is 31 days old
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 30117652312
+          id: 32898720425
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 704309619bf9a98f2b7b46693d8d70f70c23e044
-          createdAt: 2026-07-24T18:37:27Z
-          updatedAt: 2026-07-24T18:37:38Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/30117652312
-        ageDays: 31
+          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+          createdAt: 2026-08-25T21:01:40Z
+          updatedAt: 2026-08-25T21:01:52Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720425
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision af99347
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 30117652312
+          id: 32898720425
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 704309619bf9a98f2b7b46693d8d70f70c23e044
-          createdAt: 2026-07-24T18:37:27Z
-          updatedAt: 2026-07-24T18:37:38Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/30117652312
-      attention: missing-data
+          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+          createdAt: 2026-08-25T21:01:40Z
+          updatedAt: 2026-08-25T21:01:52Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720425
+        ageDays: 0
+      attention: clear
 deployment:
   kind: worker
   deployed: true

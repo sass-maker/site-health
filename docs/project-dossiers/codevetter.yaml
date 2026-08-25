@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,7 +33,7 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: codevetter
-      revision: 5ee66878aaf7b1195ef25efeaf086b918371b095
+      revision: f2de98f084aac9098094cc21b0597bd5a6ff3721
       githubRepository: Codevetter/codevetter
       expectedHomepage: https://codevetter.com
       observedHomepage: https://codevetter.com
@@ -42,11 +42,12 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 7
       attention: &a2
-        clear: 7
+        missing-data: 1
+        clear: 6
   unknowns: []
 ownerVoice:
   whyVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
@@ -90,7 +91,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: codevetter
-  observedRevision: 5ee66878aaf7b1195ef25efeaf086b918371b095
+  observedRevision: f2de98f084aac9098094cc21b0597bd5a6ff3721
   githubRepository: Codevetter/codevetter
   githubHomepageUrl: https://codevetter.com
   worktree: *a1
@@ -203,7 +204,7 @@ repository:
       - verification:mcp
       - verify
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 7
@@ -211,7 +212,7 @@ githubActions:
   remote:
     repository: Codevetter/codevetter
     defaultBranch: main
-    defaultBranchSha: 5ee66878aaf7b1195ef25efeaf086b918371b095
+    defaultBranchSha: f2de98f084aac9098094cc21b0597bd5a6ff3721
     homepage: https://codevetter.com
     query: verified
     disposition:
@@ -251,8 +252,8 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision f2de98f
         lastRun:
           id: 32837031354
           status: completed
@@ -263,8 +264,7 @@ githubActions:
           createdAt: 2026-08-25T10:24:07Z
           updatedAt: 2026-08-25T10:24:21Z
           url: https://github.com/Codevetter/codevetter/actions/runs/32837031354
-        ageDays: 0
-      attention: clear
+      attention: missing-data
     - name: CI
       file: .github/workflows/ci.yml
       triggers:
@@ -284,15 +284,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32837031384
+          id: 32898637175
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5ee66878aaf7b1195ef25efeaf086b918371b095
-          createdAt: 2026-08-25T10:24:07Z
-          updatedAt: 2026-08-25T10:33:11Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/32837031384
+          headSha: f2de98f084aac9098094cc21b0597bd5a6ff3721
+          createdAt: 2026-08-25T21:00:48Z
+          updatedAt: 2026-08-25T21:08:41Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/32898637175
         ageDays: 0
       schedule:
         health: not-applicable
@@ -302,15 +302,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32837031384
+          id: 32898637175
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5ee66878aaf7b1195ef25efeaf086b918371b095
-          createdAt: 2026-08-25T10:24:07Z
-          updatedAt: 2026-08-25T10:33:11Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/32837031384
+          headSha: f2de98f084aac9098094cc21b0597bd5a6ff3721
+          createdAt: 2026-08-25T21:00:48Z
+          updatedAt: 2026-08-25T21:08:41Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/32898637175
         ageDays: 0
       attention: clear
     - name: Deploy Landing Page
@@ -367,15 +367,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32837031359
+          id: 32898637163
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5ee66878aaf7b1195ef25efeaf086b918371b095
-          createdAt: 2026-08-25T10:24:07Z
-          updatedAt: 2026-08-25T10:24:20Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/32837031359
+          headSha: f2de98f084aac9098094cc21b0597bd5a6ff3721
+          createdAt: 2026-08-25T21:00:48Z
+          updatedAt: 2026-08-25T21:00:59Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/32898637163
         ageDays: 0
       schedule:
         health: not-applicable
@@ -385,15 +385,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32837031359
+          id: 32898637163
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5ee66878aaf7b1195ef25efeaf086b918371b095
-          createdAt: 2026-08-25T10:24:07Z
-          updatedAt: 2026-08-25T10:24:20Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/32837031359
+          headSha: f2de98f084aac9098094cc21b0597bd5a6ff3721
+          createdAt: 2026-08-25T21:00:48Z
+          updatedAt: 2026-08-25T21:00:59Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/32898637163
         ageDays: 0
       attention: clear
     - name: Release Desktop App

@@ -2595,7 +2595,7 @@
         "makerNote": "I use SaaS Maker as the public home for Fleet and as a workshop for reusable feedback, workflow, and automation tools.",
         "form": "Web directory and service",
         "platforms": ["Web", "API"],
-        "technologies": ["Astro", "React", "Cloudflare", "D1"],
+        "technologies": ["Astro", "Cloudflare", "D1", "IssuePages"],
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-08-23"
       },
@@ -2947,7 +2947,7 @@
         "makerNote": "I maintain a personal website because I need one durable, accurate public record of my work and professional identity.",
         "form": "Portfolio website",
         "platforms": ["Web"],
-        "technologies": ["Astro", "React", "TypeScript", "Cloudflare Pages"],
+        "technologies": ["Astro", "React", "Cloudflare Pages", "IssuePages"],
         "firstCommitAt": "2026-05-22",
         "latestCommitAt": "2026-08-23"
       },

@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: aliveville
-      revision: 8483904903db947add536f241d12f725f59d3d9c
+      revision: 70b253804751b5821381a2a760609725d0d1345d
       githubRepository: sarthakagrawal927/aliveville
       expectedHomepage: https://aliveville.com
       observedHomepage: https://aliveville.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 9
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -93,7 +93,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: aliveville
-  observedRevision: 8483904903db947add536f241d12f725f59d3d9c
+  observedRevision: 70b253804751b5821381a2a760609725d0d1345d
   githubRepository: sarthakagrawal927/aliveville
   githubHomepageUrl: https://aliveville.com
   worktree: *a1
@@ -157,7 +157,7 @@ repository:
       - typecheck
       - verify:readiness
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -165,7 +165,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/aliveville
     defaultBranch: main
-    defaultBranchSha: 8483904903db947add536f241d12f725f59d3d9c
+    defaultBranchSha: 70b253804751b5821381a2a760609725d0d1345d
     homepage: https://aliveville.com
     query: verified
     disposition:
@@ -190,16 +190,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694326563
+          id: 32900294473
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8483904903db947add536f241d12f725f59d3d9c
-          createdAt: 2026-08-24T05:39:47Z
-          updatedAt: 2026-08-24T05:40:24Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326563
-        ageDays: 1
+          headSha: 70b253804751b5821381a2a760609725d0d1345d
+          createdAt: 2026-08-25T21:18:28Z
+          updatedAt: 2026-08-25T21:19:20Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32900294473
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -208,16 +208,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694326563
+          id: 32900294473
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8483904903db947add536f241d12f725f59d3d9c
-          createdAt: 2026-08-24T05:39:47Z
-          updatedAt: 2026-08-24T05:40:24Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326563
-        ageDays: 1
+          headSha: 70b253804751b5821381a2a760609725d0d1345d
+          createdAt: 2026-08-25T21:18:28Z
+          updatedAt: 2026-08-25T21:19:20Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32900294473
+        ageDays: 0
       attention: clear
     - name: Deploy aliveville landing
       file: .github/workflows/deploy-aliveville.yml
@@ -273,16 +273,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694326579
+          id: 32900295134
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8483904903db947add536f241d12f725f59d3d9c
-          createdAt: 2026-08-24T05:39:47Z
-          updatedAt: 2026-08-24T05:40:01Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326579
-        ageDays: 1
+          headSha: 70b253804751b5821381a2a760609725d0d1345d
+          createdAt: 2026-08-25T21:18:28Z
+          updatedAt: 2026-08-25T21:18:45Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32900295134
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -291,16 +291,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694326579
+          id: 32900295134
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8483904903db947add536f241d12f725f59d3d9c
-          createdAt: 2026-08-24T05:39:47Z
-          updatedAt: 2026-08-24T05:40:01Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32694326579
-        ageDays: 1
+          headSha: 70b253804751b5821381a2a760609725d0d1345d
+          createdAt: 2026-08-25T21:18:28Z
+          updatedAt: 2026-08-25T21:18:45Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32900295134
+        ageDays: 0
       attention: clear
 deployment:
   kind: worker+pages

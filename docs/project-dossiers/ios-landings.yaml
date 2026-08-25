@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: ios-landings
-      revision: ed3ac36287d9156eec3568e348f396657e981e89
+      revision: 55c20cb9981c85da70ebdca1d275513e82a99827
       githubRepository: Significant-Hobbies/ios-landings
       expectedHomepage: null
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 7
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -86,7 +86,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ios-landings
-  observedRevision: ed3ac36287d9156eec3568e348f396657e981e89
+  observedRevision: 55c20cb9981c85da70ebdca1d275513e82a99827
   githubRepository: Significant-Hobbies/ios-landings
   githubHomepageUrl: null
   worktree: *a1
@@ -130,7 +130,7 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -138,7 +138,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/ios-landings
     defaultBranch: main
-    defaultBranchSha: ed3ac36287d9156eec3568e348f396657e981e89
+    defaultBranchSha: 55c20cb9981c85da70ebdca1d275513e82a99827
     homepage: null
     query: verified
     disposition:
@@ -163,15 +163,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32758530314
+          id: 32898650352
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ed3ac36287d9156eec3568e348f396657e981e89
-          createdAt: 2026-08-24T17:46:12Z
-          updatedAt: 2026-08-24T17:46:58Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/32758530314
+          headSha: 55c20cb9981c85da70ebdca1d275513e82a99827
+          createdAt: 2026-08-25T21:00:56Z
+          updatedAt: 2026-08-25T21:01:40Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/32898650352
         ageDays: 0
       schedule:
         health: not-applicable
@@ -181,15 +181,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32758530314
+          id: 32898650352
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ed3ac36287d9156eec3568e348f396657e981e89
-          createdAt: 2026-08-24T17:46:12Z
-          updatedAt: 2026-08-24T17:46:58Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/32758530314
+          headSha: 55c20cb9981c85da70ebdca1d275513e82a99827
+          createdAt: 2026-08-25T21:00:56Z
+          updatedAt: 2026-08-25T21:01:40Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/32898650352
         ageDays: 0
       attention: clear
 deployment:

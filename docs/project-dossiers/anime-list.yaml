@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,22 +33,21 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: anime-list
-      revision: 0871513cb5d4623b2684dde9ed52ce2a0f6fdd7d
+      revision: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
       githubRepository: Significant-Hobbies/anime-list
       expectedHomepage: https://anime.significanthobbies.com
       observedHomepage: https://anime.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 9
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 4
       stale: 3
       attention: &a2
-        clear: 6
-        missing-data: 1
+        clear: 7
   unknowns: []
 ownerVoice:
   whyVerbatim: I started anime-list to talk as just a backend service to have better filters that my anime-list was not providing. With the help of AI I was quickly able to build up content and it is something I use very frequently.
@@ -95,7 +94,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anime-list
-  observedRevision: 0871513cb5d4623b2684dde9ed52ce2a0f6fdd7d
+  observedRevision: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
   githubRepository: Significant-Hobbies/anime-list
   githubHomepageUrl: https://anime.significanthobbies.com
   worktree: *a1
@@ -175,7 +174,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -184,7 +183,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anime-list
     defaultBranch: main
-    defaultBranchSha: 97d7b1293015930f5129c6199054b4505c5fe646
+    defaultBranchSha: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
     homepage: https://anime.significanthobbies.com
     query: verified
     disposition:
@@ -210,15 +209,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32762782307
+          id: 32898669703
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 97d7b1293015930f5129c6199054b4505c5fe646
-          createdAt: 2026-08-24T18:30:11Z
-          updatedAt: 2026-08-24T18:32:08Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32762782307
+          headSha: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
+          createdAt: 2026-08-25T21:01:09Z
+          updatedAt: 2026-08-25T21:02:58Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32898669703
         ageDays: 0
       schedule:
         health: not-applicable
@@ -228,15 +227,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32762782307
+          id: 32898669703
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 97d7b1293015930f5129c6199054b4505c5fe646
-          createdAt: 2026-08-24T18:30:11Z
-          updatedAt: 2026-08-24T18:32:08Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32762782307
+          headSha: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
+          createdAt: 2026-08-25T21:01:09Z
+          updatedAt: 2026-08-25T21:02:58Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32898669703
         ageDays: 0
       attention: clear
     - name: Deploy anime_list to Cloudflare Pages
@@ -294,34 +293,35 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32567372063
+          id: 32898669543
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 04c82b859beaf61df8bbe12787eb41aa23dfc980
-          createdAt: 2026-08-22T10:20:56Z
-          updatedAt: 2026-08-22T10:21:32Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32567372063
-        ageDays: 3
+          headSha: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
+          createdAt: 2026-08-25T21:01:09Z
+          updatedAt: 2026-08-25T21:01:23Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32898669543
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 97d7b12
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32567372063
+          id: 32898669543
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 04c82b859beaf61df8bbe12787eb41aa23dfc980
-          createdAt: 2026-08-22T10:20:56Z
-          updatedAt: 2026-08-22T10:21:32Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32567372063
-      attention: missing-data
+          headSha: fb02e9232ff61bddb3e02fd041a4c9948ca284b6
+          createdAt: 2026-08-25T21:01:09Z
+          updatedAt: 2026-08-25T21:01:23Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/32898669543
+        ageDays: 0
+      attention: clear
     - name: Quarterly Anime Sync
       file: .github/workflows/quarterly-anime-sync.yml
       triggers:

@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: rolepatch
-      revision: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+      revision: 2e99081b48096c7dffaefd50098e3bfcded0709c
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 9
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -88,7 +88,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+  observedRevision: 2e99081b48096c7dffaefd50098e3bfcded0709c
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -156,7 +156,7 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -164,7 +164,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
+    defaultBranchSha: 2e99081b48096c7dffaefd50098e3bfcded0709c
     homepage: https://rolepatch.com
     query: verified
     disposition:
@@ -189,16 +189,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694550692
+          id: 32898611981
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
-          createdAt: 2026-08-24T05:43:40Z
-          updatedAt: 2026-08-24T05:47:06Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550692
-        ageDays: 1
+          headSha: 2e99081b48096c7dffaefd50098e3bfcded0709c
+          createdAt: 2026-08-25T21:00:33Z
+          updatedAt: 2026-08-25T21:03:51Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32898611981
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -207,16 +207,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694550692
+          id: 32898611981
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
-          createdAt: 2026-08-24T05:43:40Z
-          updatedAt: 2026-08-24T05:47:06Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550692
-        ageDays: 1
+          headSha: 2e99081b48096c7dffaefd50098e3bfcded0709c
+          createdAt: 2026-08-25T21:00:33Z
+          updatedAt: 2026-08-25T21:03:51Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32898611981
+        ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -273,16 +273,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694550698
+          id: 32898611674
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
-          createdAt: 2026-08-24T05:43:40Z
-          updatedAt: 2026-08-24T05:43:47Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550698
-        ageDays: 1
+          headSha: 2e99081b48096c7dffaefd50098e3bfcded0709c
+          createdAt: 2026-08-25T21:00:32Z
+          updatedAt: 2026-08-25T21:00:42Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32898611674
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -291,16 +291,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694550698
+          id: 32898611674
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
-          createdAt: 2026-08-24T05:43:40Z
-          updatedAt: 2026-08-24T05:43:47Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32694550698
-        ageDays: 1
+          headSha: 2e99081b48096c7dffaefd50098e3bfcded0709c
+          createdAt: 2026-08-25T21:00:32Z
+          updatedAt: 2026-08-25T21:00:42Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32898611674
+        ageDays: 0
       attention: clear
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates

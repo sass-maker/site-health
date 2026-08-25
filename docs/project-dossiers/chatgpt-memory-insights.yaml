@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,7 +33,7 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: chatgpt-memory-insights
-      revision: fa9dc1b5b3bb02ff5a3e9b0a6fe2ef5d30ec7d7a
+      revision: d3a99366c24a258039a250adc89c8eeeb319d1ea
       githubRepository: Significant-Hobbies/chatgpt-memory-insights
       expectedHomepage: https://chatgpt.significanthobbies.com
       observedHomepage: https://chatgpt.significanthobbies.com
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -89,7 +89,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: chatgpt-memory-insights
-  observedRevision: fa9dc1b5b3bb02ff5a3e9b0a6fe2ef5d30ec7d7a
+  observedRevision: d3a99366c24a258039a250adc89c8eeeb319d1ea
   githubRepository: Significant-Hobbies/chatgpt-memory-insights
   githubHomepageUrl: https://chatgpt.significanthobbies.com
   worktree: *a1
@@ -137,7 +137,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -145,7 +145,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/chatgpt-memory-insights
     defaultBranch: main
-    defaultBranchSha: c180d846b548f069137c628f8df4df7f2ba3a17f
+    defaultBranchSha: d3a99366c24a258039a250adc89c8eeeb319d1ea
     homepage: https://chatgpt.significanthobbies.com
     query: verified
     disposition:
@@ -170,16 +170,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694725926
+          id: 32899394308
           status: completed
           conclusion: success
-          event: pull_request
-          branch: feat/render-historical-shifts
-          headSha: fa9dc1b5b3bb02ff5a3e9b0a6fe2ef5d30ec7d7a
-          createdAt: 2026-08-24T05:46:31Z
-          updatedAt: 2026-08-24T05:47:12Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/32694725926
-        ageDays: 1
+          event: push
+          branch: main
+          headSha: d3a99366c24a258039a250adc89c8eeeb319d1ea
+          createdAt: 2026-08-25T21:08:44Z
+          updatedAt: 2026-08-25T21:09:28Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/32899394308
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -188,16 +188,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694307253
+          id: 32899394308
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c180d846b548f069137c628f8df4df7f2ba3a17f
-          createdAt: 2026-08-24T05:39:28Z
-          updatedAt: 2026-08-24T05:40:11Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/32694307253
-        ageDays: 1
+          headSha: d3a99366c24a258039a250adc89c8eeeb319d1ea
+          createdAt: 2026-08-25T21:08:44Z
+          updatedAt: 2026-08-25T21:09:28Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/32899394308
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

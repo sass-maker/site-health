@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: everythingrated
-      revision: 69f2066dc704ff50499634cb18773b57674b1d1f
+      revision: 9063dd6a2d18661f887b4516d8d14f8be9c315db
       githubRepository: High-Signal-App/everythingrated
       expectedHomepage: https://ratings.highsignal.app
       observedHomepage: https://ratings.highsignal.app
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 16
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -89,7 +89,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: everythingrated
-  observedRevision: 69f2066dc704ff50499634cb18773b57674b1d1f
+  observedRevision: 9063dd6a2d18661f887b4516d8d14f8be9c315db
   githubRepository: High-Signal-App/everythingrated
   githubHomepageUrl: https://ratings.highsignal.app
   worktree: *a1
@@ -150,7 +150,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -159,7 +159,7 @@ githubActions:
   remote:
     repository: High-Signal-App/everythingrated
     defaultBranch: main
-    defaultBranchSha: 69f2066dc704ff50499634cb18773b57674b1d1f
+    defaultBranchSha: 9063dd6a2d18661f887b4516d8d14f8be9c315db
     homepage: https://ratings.highsignal.app
     query: verified
     disposition:
@@ -184,16 +184,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694343728
+          id: 32898673521
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
-          createdAt: 2026-08-24T05:40:04Z
-          updatedAt: 2026-08-24T05:41:44Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343728
-        ageDays: 1
+          headSha: 9063dd6a2d18661f887b4516d8d14f8be9c315db
+          createdAt: 2026-08-25T21:01:11Z
+          updatedAt: 2026-08-25T21:02:45Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673521
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -202,16 +202,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694343728
+          id: 32898673521
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
-          createdAt: 2026-08-24T05:40:04Z
-          updatedAt: 2026-08-24T05:41:44Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343728
-        ageDays: 1
+          headSha: 9063dd6a2d18661f887b4516d8d14f8be9c315db
+          createdAt: 2026-08-25T21:01:11Z
+          updatedAt: 2026-08-25T21:02:45Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673521
+        ageDays: 0
       attention: clear
     - name: Deploy Cloudflare
       file: .github/workflows/cloudflare-deploy.yml
@@ -268,16 +268,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694343760
+          id: 32898673514
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
-          createdAt: 2026-08-24T05:40:04Z
-          updatedAt: 2026-08-24T05:40:48Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343760
-        ageDays: 1
+          headSha: 9063dd6a2d18661f887b4516d8d14f8be9c315db
+          createdAt: 2026-08-25T21:01:11Z
+          updatedAt: 2026-08-25T21:01:18Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673514
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -286,16 +286,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694343760
+          id: 32898673514
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
-          createdAt: 2026-08-24T05:40:04Z
-          updatedAt: 2026-08-24T05:40:48Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32694343760
-        ageDays: 1
+          headSha: 9063dd6a2d18661f887b4516d8d14f8be9c315db
+          createdAt: 2026-08-25T21:01:11Z
+          updatedAt: 2026-08-25T21:01:18Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673514
+        ageDays: 0
       attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml

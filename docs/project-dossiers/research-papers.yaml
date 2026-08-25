@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,21 +33,20 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: research-papers
-      revision: d3f1eaaaef0ea0854662ba6d47c34501d9660ede
+      revision: f728624b1c21dc08bcd599669eb876ea279aeb5c
       githubRepository: High-Signal-App/research-papers
       expectedHomepage: https://papers.highsignal.app
       observedHomepage: https://papers.highsignal.app
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 9
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
-        clear: 2
-        missing-data: 1
+        clear: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: Research paper was my attempt to understand what all there is in the market by adding some RAG on top of it. It has a huge amount of papers. I would want to do some more analysis in the future but for now I think it is done. It's just a lot of research papers.
@@ -88,7 +87,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: research-papers
-  observedRevision: d3f1eaaaef0ea0854662ba6d47c34501d9660ede
+  observedRevision: f728624b1c21dc08bcd599669eb876ea279aeb5c
   githubRepository: High-Signal-App/research-papers
   githubHomepageUrl: https://papers.highsignal.app
   worktree: *a1
@@ -137,7 +136,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -145,7 +144,7 @@ githubActions:
   remote:
     repository: High-Signal-App/research-papers
     defaultBranch: main
-    defaultBranchSha: d3f1eaaaef0ea0854662ba6d47c34501d9660ede
+    defaultBranchSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
     homepage: https://papers.highsignal.app
     query: verified
     disposition:
@@ -171,16 +170,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694398727
+          id: 32898658926
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d3f1eaaaef0ea0854662ba6d47c34501d9660ede
-          createdAt: 2026-08-24T05:40:59Z
-          updatedAt: 2026-08-24T05:43:05Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/32694398727
-        ageDays: 1
+          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
+          createdAt: 2026-08-25T21:01:02Z
+          updatedAt: 2026-08-25T21:03:01Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658926
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -189,16 +188,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694398727
+          id: 32898658926
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d3f1eaaaef0ea0854662ba6d47c34501d9660ede
-          createdAt: 2026-08-24T05:40:59Z
-          updatedAt: 2026-08-24T05:43:05Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/32694398727
-        ageDays: 1
+          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
+          createdAt: 2026-08-25T21:01:02Z
+          updatedAt: 2026-08-25T21:03:01Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658926
+        ageDays: 0
       attention: clear
     - name: Deploy research-papers to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -255,34 +254,35 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 31977461516
+          id: 32898658977
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4a13945e1c9d1db0f3d80267b7efa3ba9dcfdd0b
-          createdAt: 2026-08-16T22:50:50Z
-          updatedAt: 2026-08-16T22:51:00Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/31977461516
-        ageDays: 8
+          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
+          createdAt: 2026-08-25T21:01:02Z
+          updatedAt: 2026-08-25T21:01:14Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658977
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision d3f1eaa
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 31977461516
+          id: 32898658977
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4a13945e1c9d1db0f3d80267b7efa3ba9dcfdd0b
-          createdAt: 2026-08-16T22:50:50Z
-          updatedAt: 2026-08-16T22:51:00Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/31977461516
-      attention: missing-data
+          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
+          createdAt: 2026-08-25T21:01:02Z
+          updatedAt: 2026-08-25T21:01:14Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658977
+        ageDays: 0
+      attention: clear
 deployment:
   kind: pages
   deployed: true

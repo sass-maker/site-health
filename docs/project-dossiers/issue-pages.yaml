@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bf0547e5dbc5a08a749e223c3628af3a289cb9c8a63f3357249b7dbb5df744cf
+      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
       infrastructureUpdatedAt: 2026-08-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,16 +33,16 @@ verification:
       observedAt: 2026-08-25
       state: available
       checkout: issue-pages
-      revision: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
+      revision: f94ea2313fa9b5464ee5c810daa2f74149e00f3d
       githubRepository: sarthakagrawal927/issue-pages
       expectedHomepage: https://issues.sarthakagrawal.dev
       observedHomepage: https://issues.sarthakagrawal.dev
       worktree: &a1
         state: dirty
-        trackedChangeCount: 14
+        trackedChangeCount: 4
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T17:35:33.690Z
+      observedAt: 2026-08-25T21:41:07.621Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -92,7 +92,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: issue-pages
-  observedRevision: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
+  observedRevision: f94ea2313fa9b5464ee5c810daa2f74149e00f3d
   githubRepository: sarthakagrawal927/issue-pages
   githubHomepageUrl: https://issues.sarthakagrawal.dev
   worktree: *a1
@@ -119,6 +119,7 @@ repository:
       - build
       - check
       - client:build
+      - client:build:embed
       - client:build:mermaid
       - client:build:reader
       - client:check
@@ -135,7 +136,7 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-08-25T17:35:33.690Z
+  observedAt: 2026-08-25T21:41:07.621Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -143,7 +144,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/issue-pages
     defaultBranch: main
-    defaultBranchSha: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
+    defaultBranchSha: f94ea2313fa9b5464ee5c810daa2f74149e00f3d
     homepage: https://issues.sarthakagrawal.dev
     query: verified
     disposition:
@@ -168,15 +169,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32873427743
+          id: 32901531802
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
-          createdAt: 2026-08-25T16:41:06Z
-          updatedAt: 2026-08-25T16:41:47Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32873427743
+          headSha: f94ea2313fa9b5464ee5c810daa2f74149e00f3d
+          createdAt: 2026-08-25T21:32:18Z
+          updatedAt: 2026-08-25T21:32:44Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32901531802
         ageDays: 0
       schedule:
         health: not-applicable
@@ -186,15 +187,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32873427743
+          id: 32901531802
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e3ebbcd5c6228a46be1bfef268602a0f9b75e35e
-          createdAt: 2026-08-25T16:41:06Z
-          updatedAt: 2026-08-25T16:41:47Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32873427743
+          headSha: f94ea2313fa9b5464ee5c810daa2f74149e00f3d
+          createdAt: 2026-08-25T21:32:18Z
+          updatedAt: 2026-08-25T21:32:44Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32901531802
         ageDays: 0
       attention: clear
 deployment:
