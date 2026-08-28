@@ -3,7 +3,7 @@ projectId: saas-maker
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: saas-maker
       revision: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
@@ -38,19 +38,17 @@ verification:
       expectedHomepage: https://sassmaker.com
       observedHomepage: https://sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 35
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
-      running: 1
-      healthy: 5
+      healthy: 7
       manual-or-reusable-never-run: 4
-      never-run: 1
       attention: &a2
-        clear: 9
-        missing-data: 2
+        clear: 10
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: SaaSmaker started off as a plate workspace. It kind of has an on-and-off relationship but currently its purpose is to harbour the feedback package and I think two other packages. This is a project in which I have to dig deep soon.
@@ -159,18 +157,16 @@ repository:
       - tooling:check
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 5
+    healthy: 7
     manual-or-reusable-never-run: 4
-    never-run: 1
   attention: *a2
   remote:
     repository: sass-maker/saas-maker
     defaultBranch: main
-    defaultBranchSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
+    defaultBranchSha: b06c4ebb370ec71f55f74cd97a7f38f9df2a2e29
     homepage: https://sassmaker.com
     query: verified
     disposition:
@@ -192,38 +188,38 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32904644599
-          status: in_progress
-          conclusion: null
+          id: 33043421871
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
-          createdAt: 2026-08-25T22:08:03Z
-          updatedAt: 2026-08-25T22:08:06Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/32904644599
-        ageDays: 0
+          headSha: b06c4ebb370ec71f55f74cd97a7f38f9df2a2e29
+          createdAt: 2026-08-27T05:43:46Z
+          updatedAt: 2026-08-27T05:45:28Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/33043421871
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32904644599
-          status: in_progress
-          conclusion: null
+          id: 33043421871
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
-          createdAt: 2026-08-25T22:08:03Z
-          updatedAt: 2026-08-25T22:08:06Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/32904644599
-        ageDays: 0
+          headSha: b06c4ebb370ec71f55f74cd97a7f38f9df2a2e29
+          createdAt: 2026-08-27T05:43:46Z
+          updatedAt: 2026-08-27T05:45:28Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/33043421871
+        ageDays: 1
       attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
@@ -252,14 +248,14 @@ githubActions:
           createdAt: 2026-08-25T22:00:48Z
           updatedAt: 2026-08-25T22:00:57Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/32904029358
-        ageDays: 0
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 96af472
+        reason: no push run at current main revision b06c4eb
         lastRun:
           id: 32904029358
           status: completed
@@ -371,16 +367,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32904644649
+          id: 33043421902
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
-          createdAt: 2026-08-25T22:08:03Z
-          updatedAt: 2026-08-25T22:08:32Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/32904644649
-        ageDays: 0
+          headSha: b06c4ebb370ec71f55f74cd97a7f38f9df2a2e29
+          createdAt: 2026-08-27T05:43:46Z
+          updatedAt: 2026-08-27T05:44:14Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/33043421902
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -389,16 +385,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32904644649
+          id: 33043421902
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
-          createdAt: 2026-08-25T22:08:03Z
-          updatedAt: 2026-08-25T22:08:32Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/32904644649
-        ageDays: 0
+          headSha: b06c4ebb370ec71f55f74cd97a7f38f9df2a2e29
+          createdAt: 2026-08-27T05:43:46Z
+          updatedAt: 2026-08-27T05:44:14Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/33043421902
+        ageDays: 1
       attention: clear
     - name: Public Performance Sweep
       file: .github/workflows/tooling-performance-sweep.yml
@@ -428,7 +424,7 @@ githubActions:
           createdAt: 2026-08-24T09:33:28Z
           updatedAt: 2026-08-24T09:33:42Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/32712192385
-        ageDays: 1
+        ageDays: 4
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -442,7 +438,7 @@ githubActions:
           createdAt: 2026-08-24T09:33:28Z
           updatedAt: 2026-08-24T09:33:42Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/32712192385
-        ageDays: 1
+        ageDays: 4
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -464,20 +460,40 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: never-run
-        reason: no workflow run was returned by GitHub
+        health: healthy
+        reason: latest run concluded success
         apiState: active
-        lastRun: null
-        ageDays: null
+        lastRun:
+          id: 32942911934
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
+          createdAt: 2026-08-26T07:28:15Z
+          updatedAt: 2026-08-26T07:28:27Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/32942911934
+        ageDays: 2
       schedule:
-        health: never-run
-        reason: no scheduled run was returned by GitHub
-        lastRun: null
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 32942911934
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 96af472ed3200291b58ef6ff7aa3999f2a64df7d
+          createdAt: 2026-08-26T07:28:15Z
+          updatedAt: 2026-08-26T07:28:27Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/32942911934
+        ageDays: 2
+        freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: missing-data
+      attention: clear
     - name: Verify Local
       file: .github/workflows/verify-local.yml
       triggers:
@@ -533,7 +549,7 @@ githubActions:
           createdAt: 2026-08-24T09:33:30Z
           updatedAt: 2026-08-24T09:34:39Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/32712195251
-        ageDays: 1
+        ageDays: 4
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -547,7 +563,7 @@ githubActions:
           createdAt: 2026-08-24T09:33:30Z
           updatedAt: 2026-08-24T09:34:39Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/32712195251
-        ageDays: 1
+        ageDays: 4
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -579,7 +595,7 @@ githubActions:
           createdAt: 2026-08-24T22:53:30Z
           updatedAt: 2026-08-24T22:54:18Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/32786804242
-        ageDays: 0
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -3,7 +3,7 @@ projectId: pace
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: pace
-      revision: d916f627655210468043f20aeda3568e3ae78f55
+      revision: c30d8d331c20838aff84eabb725081f56d06f62a
       githubRepository: HeyPace/pace
       expectedHomepage: https://heypace.app
       observedHomepage: https://heypace.app
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 40
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -88,7 +88,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: pace
-  observedRevision: d916f627655210468043f20aeda3568e3ae78f55
+  observedRevision: c30d8d331c20838aff84eabb725081f56d06f62a
   githubRepository: HeyPace/pace
   githubHomepageUrl: https://heypace.app
   worktree: *a1
@@ -125,7 +125,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -133,7 +133,7 @@ githubActions:
   remote:
     repository: HeyPace/pace
     defaultBranch: main
-    defaultBranchSha: d916f627655210468043f20aeda3568e3ae78f55
+    defaultBranchSha: fad5f87b144e5c2a9f6b779f3db6f1c37e57f3bb
     homepage: https://heypace.app
     query: verified
     disposition:
@@ -159,16 +159,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694572878
+          id: 33166612502
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d916f627655210468043f20aeda3568e3ae78f55
-          createdAt: 2026-08-24T05:44:04Z
-          updatedAt: 2026-08-24T05:47:32Z
-          url: https://github.com/HeyPace/pace/actions/runs/32694572878
-        ageDays: 1
+          headSha: fad5f87b144e5c2a9f6b779f3db6f1c37e57f3bb
+          createdAt: 2026-08-28T11:17:50Z
+          updatedAt: 2026-08-28T11:21:01Z
+          url: https://github.com/HeyPace/pace/actions/runs/33166612502
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -177,16 +177,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694572878
+          id: 33166612502
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d916f627655210468043f20aeda3568e3ae78f55
-          createdAt: 2026-08-24T05:44:04Z
-          updatedAt: 2026-08-24T05:47:32Z
-          url: https://github.com/HeyPace/pace/actions/runs/32694572878
-        ageDays: 1
+          headSha: fad5f87b144e5c2a9f6b779f3db6f1c37e57f3bb
+          createdAt: 2026-08-28T11:17:50Z
+          updatedAt: 2026-08-28T11:21:01Z
+          url: https://github.com/HeyPace/pace/actions/runs/33166612502
+        ageDays: 0
       attention: clear
     - name: Deploy pace to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -214,7 +214,7 @@ githubActions:
           createdAt: 2026-08-22T07:24:02Z
           updatedAt: 2026-08-22T07:25:04Z
           url: https://github.com/HeyPace/pace/actions/runs/32559485938
-        ageDays: 3
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -243,16 +243,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694572883
+          id: 33166612468
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d916f627655210468043f20aeda3568e3ae78f55
-          createdAt: 2026-08-24T05:44:04Z
-          updatedAt: 2026-08-24T05:44:38Z
-          url: https://github.com/HeyPace/pace/actions/runs/32694572883
-        ageDays: 1
+          headSha: fad5f87b144e5c2a9f6b779f3db6f1c37e57f3bb
+          createdAt: 2026-08-28T11:17:50Z
+          updatedAt: 2026-08-28T11:18:28Z
+          url: https://github.com/HeyPace/pace/actions/runs/33166612468
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -261,16 +261,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694572883
+          id: 33166612468
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d916f627655210468043f20aeda3568e3ae78f55
-          createdAt: 2026-08-24T05:44:04Z
-          updatedAt: 2026-08-24T05:44:38Z
-          url: https://github.com/HeyPace/pace/actions/runs/32694572883
-        ageDays: 1
+          headSha: fad5f87b144e5c2a9f6b779f3db6f1c37e57f3bb
+          createdAt: 2026-08-28T11:17:50Z
+          updatedAt: 2026-08-28T11:18:28Z
+          url: https://github.com/HeyPace/pace/actions/runs/33166612468
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

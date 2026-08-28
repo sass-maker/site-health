@@ -3,7 +3,7 @@ projectId: everythingrated
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: everythingrated
       revision: 9063dd6a2d18661f887b4516d8d14f8be9c315db
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -150,7 +150,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -193,7 +193,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:11Z
           updatedAt: 2026-08-25T21:02:45Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673521
-        ageDays: 0
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -211,7 +211,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:11Z
           updatedAt: 2026-08-25T21:02:45Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673521
-        ageDays: 0
+        ageDays: 2
       attention: clear
     - name: Deploy Cloudflare
       file: .github/workflows/cloudflare-deploy.yml
@@ -239,7 +239,7 @@ githubActions:
           createdAt: 2026-08-23T13:22:18Z
           updatedAt: 2026-08-23T13:23:55Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32642143733
-        ageDays: 2
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -277,7 +277,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:11Z
           updatedAt: 2026-08-25T21:01:18Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673514
-        ageDays: 0
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -295,7 +295,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:11Z
           updatedAt: 2026-08-25T21:01:18Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32898673514
-        ageDays: 0
+        ageDays: 2
       attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
@@ -325,7 +325,7 @@ githubActions:
           createdAt: 2026-08-24T09:44:30Z
           updatedAt: 2026-08-24T09:45:30Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32713159194
-        ageDays: 1
+        ageDays: 4
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -339,7 +339,7 @@ githubActions:
           createdAt: 2026-08-24T09:44:30Z
           updatedAt: 2026-08-24T09:45:30Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/32713159194
-        ageDays: 1
+        ageDays: 4
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

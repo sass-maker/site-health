@@ -289,6 +289,75 @@
       "attention": "my-work"
     },
     {
+      "slug": "on-record",
+      "aliases": [
+        "High Signal Podcasts"
+      ],
+      "competitors": [
+        {
+          "name": "Podwise",
+          "url": "https://podwise.ai"
+        },
+        {
+          "name": "Snipd",
+          "url": "https://www.snipd.com"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What are the best source-backed podcast intelligence tools for finding what notable guests actually said and recommended?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/recommendations"
+              }
+            },
+            {
+              "id": "comparison",
+              "text": "Compare podcast research tools for searchable claims, speaker attribution, verbatim quotes, and links to source episodes.",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/methodology"
+              }
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "knowledge-worker",
+          "label": "a knowledge worker"
+        },
+        {
+          "id": "podcast-researcher",
+          "label": "a podcast researcher"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 8,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "name": "High Signal Podcasts",
+      "domain": "https://podcasts.highsignal.app",
+      "attention": "my-work"
+    },
+    {
       "slug": "saas-maker",
       "aliases": [
         "SaaS Maker"

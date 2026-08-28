@@ -3,7 +3,7 @@ projectId: mobile-dev-cockpit
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: mobile-dev-cockpit
       revision: 395161d9b7f571e36f1a94b189360be6afec3067
@@ -38,11 +38,11 @@ verification:
       expectedHomepage: null
       observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -120,7 +120,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
     stuck: 1
@@ -151,7 +151,7 @@ githubActions:
         reason: The canonical catalog marks this project retired with owner attention ignored; repository-level Actions remain intentionally disabled.
       live:
         health: stuck
-        reason: latest run has remained queued for 5 day(s)
+        reason: latest run has remained queued for 7 day(s)
         apiState: active
         lastRun:
           id: 32396632476
@@ -163,7 +163,7 @@ githubActions:
           createdAt: 2026-08-20T17:15:48Z
           updatedAt: 2026-08-20T17:15:48Z
           url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
-        ageDays: 5
+        ageDays: 7
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

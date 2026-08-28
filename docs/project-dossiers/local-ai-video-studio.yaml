@@ -3,7 +3,7 @@ projectId: local-ai-video-studio
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: local-ai-video-studio
       revision: fd5d0fc88de757484ca3641e9708c1a7e8422e5f
@@ -38,11 +38,11 @@ verification:
       expectedHomepage: https://local-ai-video-studio.sassmaker.com
       observedHomepage: https://local-ai-video-studio.sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 9
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -127,7 +127,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -169,7 +169,7 @@ githubActions:
           createdAt: 2026-08-25T21:06:01Z
           updatedAt: 2026-08-25T21:07:29Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/32899141274
-        ageDays: 0
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -187,7 +187,7 @@ githubActions:
           createdAt: 2026-08-25T21:06:01Z
           updatedAt: 2026-08-25T21:07:29Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/32899141274
-        ageDays: 0
+        ageDays: 2
       attention: clear
     - name: Site Check
       file: .github/workflows/site-check.yml
@@ -216,7 +216,7 @@ githubActions:
           createdAt: 2026-08-25T21:06:01Z
           updatedAt: 2026-08-25T21:06:10Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/32899141099
-        ageDays: 0
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -234,7 +234,7 @@ githubActions:
           createdAt: 2026-08-25T21:06:01Z
           updatedAt: 2026-08-25T21:06:10Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/32899141099
-        ageDays: 0
+        ageDays: 2
       attention: clear
 deployment:
   kind: pages

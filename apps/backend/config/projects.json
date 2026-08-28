@@ -740,10 +740,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-25",
-          "reason": "Live at podcasts.highsignal.app, but the published corpus is still a thin V1 slice, so the public listing stays hidden."
+          "verifiedAt": "2026-08-28",
+          "reason": "Trusted public corpus is live with 11,624 published claims, 294 quote-safe recommendation evidences in 281 groups, and 1,190 source episodes; exact-SHA CI, 100% API/web deployment traffic, and public route checks passed."
         }
       },
       "authModel": "public-persistent",
@@ -781,7 +781,15 @@
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/Significant-Hobbies/on-record",
       "public": {
-        "listing": "hidden"
+        "listing": "maintained",
+        "id": "on-record",
+        "name": "High Signal Podcasts",
+        "description": "Source-backed podcast intelligence with attributable claims and recommendations linked to the original episode.",
+        "category": "product",
+        "pillarId": "learn",
+        "spotlight": false,
+        "maturity": "public-ready",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/on-record"
       }
     },
     {
@@ -2680,7 +2688,7 @@
         "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
         "description": "A source-backed index of what notable people said on podcasts, including books and tools they use.",
         "firstCommitAt": "2026-08-24",
-        "latestCommitAt": "2026-08-25"
+        "latestCommitAt": "2026-08-28"
       },
       "issue-pages": {
         "makerNote": "I wanted publishing a public page to be as simple as opening a GitHub issue.",
@@ -3748,7 +3756,7 @@
         ]
       },
       "on-record": {
-        "updatedAt": "2026-08-25",
+        "updatedAt": "2026-08-28",
         "deployments": [
           {
             "provider": "cloudflare",

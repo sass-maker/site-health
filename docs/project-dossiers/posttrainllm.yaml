@@ -3,7 +3,7 @@ projectId: posttrainllm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: posttrainllm
       revision: cdc9ecd30576a6440922faf235cf6b382df4c040
@@ -38,11 +38,11 @@ verification:
       expectedHomepage: https://posttrainllm.com
       observedHomepage: https://posttrainllm.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 37
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -136,7 +136,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -179,7 +179,7 @@ githubActions:
           createdAt: 2026-08-24T05:40:43Z
           updatedAt: 2026-08-24T05:51:26Z
           url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32694383154
-        ageDays: 1
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -197,7 +197,7 @@ githubActions:
           createdAt: 2026-08-24T05:40:43Z
           updatedAt: 2026-08-24T05:51:26Z
           url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32694383154
-        ageDays: 1
+        ageDays: 4
       attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -225,7 +225,7 @@ githubActions:
           createdAt: 2026-08-22T08:26:10Z
           updatedAt: 2026-08-22T08:27:36Z
           url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32562272768
-        ageDays: 3
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

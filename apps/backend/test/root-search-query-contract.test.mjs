@@ -34,8 +34,8 @@ test('Search Console covers every contracted root without expanding the public m
   const publicProjects = visibilityProjects(catalog);
   const searchProjects = searchConsoleProjects(catalog, roots);
 
-  assert.equal(publicProjects.length, 35);
-  assert.equal(searchProjects.length, 36);
+  assert.equal(publicProjects.length, 36);
+  assert.equal(searchProjects.length, 37);
   assert.equal(publicProjects.some((project) => project.id === 'ai-game'), false);
   for (const root of roots.values()) {
     const target = searchProjects.find((project) => project.id === root.projectId);

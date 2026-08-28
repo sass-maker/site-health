@@ -3,7 +3,7 @@ projectId: issue-pages
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-25
+  generatedAt: 2026-08-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1dd65547020d77ed1043dfe26c162e8f7c0e241875fe31458c728dd281b20935
+      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
       infrastructureUpdatedAt: 2026-08-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-25
+      observedAt: 2026-08-28
       state: available
       checkout: issue-pages
-      revision: a9ed1c5ae101683e0e3dc6c46e0b870eb708e179
+      revision: 2ff837f8f49f14ab3b6fb55e8c92039b1e8d4243
       githubRepository: sarthakagrawal927/issue-pages
       expectedHomepage: https://issues.sarthakagrawal.dev
       observedHomepage: https://issues.sarthakagrawal.dev
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-25T22:08:30.168Z
+      observedAt: 2026-08-28T15:10:35.586Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -92,7 +92,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: issue-pages
-  observedRevision: a9ed1c5ae101683e0e3dc6c46e0b870eb708e179
+  observedRevision: 2ff837f8f49f14ab3b6fb55e8c92039b1e8d4243
   githubRepository: sarthakagrawal927/issue-pages
   githubHomepageUrl: https://issues.sarthakagrawal.dev
   worktree: *a1
@@ -136,7 +136,7 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-08-25T22:08:30.168Z
+  observedAt: 2026-08-28T15:10:35.586Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -144,7 +144,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/issue-pages
     defaultBranch: main
-    defaultBranchSha: a9ed1c5ae101683e0e3dc6c46e0b870eb708e179
+    defaultBranchSha: 2ff837f8f49f14ab3b6fb55e8c92039b1e8d4243
     homepage: https://issues.sarthakagrawal.dev
     query: verified
     disposition:
@@ -169,16 +169,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32903921036
+          id: 32950596843
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: a9ed1c5ae101683e0e3dc6c46e0b870eb708e179
-          createdAt: 2026-08-25T21:59:38Z
-          updatedAt: 2026-08-25T22:00:22Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32903921036
-        ageDays: 0
+          headSha: 2ff837f8f49f14ab3b6fb55e8c92039b1e8d4243
+          createdAt: 2026-08-26T08:59:19Z
+          updatedAt: 2026-08-26T08:59:53Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32950596843
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -187,16 +187,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32903921036
+          id: 32950596843
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: a9ed1c5ae101683e0e3dc6c46e0b870eb708e179
-          createdAt: 2026-08-25T21:59:38Z
-          updatedAt: 2026-08-25T22:00:22Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32903921036
-        ageDays: 0
+          headSha: 2ff837f8f49f14ab3b6fb55e8c92039b1e8d4243
+          createdAt: 2026-08-26T08:59:19Z
+          updatedAt: 2026-08-26T08:59:53Z
+          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/32950596843
+        ageDays: 2
       attention: clear
 deployment:
   kind: worker
