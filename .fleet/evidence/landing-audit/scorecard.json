@@ -1,0 +1,30 @@
+{
+  "$schema": "fleet.landing-audit.scorecard.v1",
+  "project": "site-health",
+  "priority": "P2",
+  "surfaceMode": "none",
+  "applicability": "not-applicable",
+  "productionChanged": false,
+  "checkedAt": "2026-08-28",
+  "purpose": {
+    "score": null,
+    "reason": "Site Health is a private owner-operated portfolio dashboard, not a public product acquisition surface."
+  },
+  "design": {
+    "score": null,
+    "reason": "Its authenticated local application UI is outside the Fleet landing-page ranking."
+  },
+  "publicSurface": {
+    "expected": false,
+    "observedCanonicalDomains": [],
+    "publicListing": "hidden",
+    "deploymentKind": "none"
+  },
+  "verification": {
+    "dossier": "docs/project-dossiers/site-health.yaml",
+    "dossierStatus": "verified",
+    "repositoryStatus": "local-only",
+    "obsoletePublicSurface": "retired 2026-08-22"
+  },
+  "decision": "Do not invent, host, SEO-audit, GEO-audit, or rank a public landing page for Site Health. Keep it private and move to the next canonical P2 product."
+}
