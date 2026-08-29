@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 
 import {
@@ -18,10 +21,13 @@ import {
   validateProjectDossierYaml,
 } from '../lib/project-dossier-yaml.mjs';
 import {
+  auditRetainedGitHistory,
   githubRepositorySlug,
   observeTrackedRepository,
   parsePortfolioIntents,
   parseWorkflow,
+  refreshRetainedGitHistory,
+  scanFleetRepositories,
   validateDossierInputs,
 } from '../lib/project-dossiers.mjs';
 
@@ -397,5 +403,323 @@ test('dossier validation rejects unattributed Cloudflare inventory', () => {
         intents,
       }),
     /Cloudflare resources must have a project or shared operational owner/,
+  );
+});
+
+const GIT_ENVIRONMENT = {
+  ...process.env,
+  GIT_CONFIG_GLOBAL: '/dev/null',
+  GIT_CONFIG_SYSTEM: '/dev/null',
+  GIT_AUTHOR_NAME: 'Fixture',
+  GIT_AUTHOR_EMAIL: 'fixture@example.test',
+  GIT_COMMITTER_NAME: 'Fixture',
+  GIT_COMMITTER_EMAIL: 'fixture@example.test',
+};
+
+function git(cwd, args, commitDate = null) {
+  return execFileSync('git', ['-C', cwd, ...args], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+    env: commitDate
+      ? { ...GIT_ENVIRONMENT, GIT_AUTHOR_DATE: commitDate, GIT_COMMITTER_DATE: commitDate }
+      : GIT_ENVIRONMENT,
+  });
+}
+
+function createHistoryFixtures() {
+  const fleetRoot = mkdtempSync(join(tmpdir(), 'site-health-history-'));
+  const completePath = join(fleetRoot, 'complete-app');
+  mkdirSync(completePath, { recursive: true });
+  git(completePath, ['init', '-b', 'main']);
+  git(completePath, ['remote', 'add', 'origin', 'https://github.com/owner/complete-app.git']);
+  for (const [index, date] of ['2026-01-05', '2026-02-10', '2026-03-15'].entries()) {
+    writeFileSync(join(completePath, 'README.md'), `commit ${index}\n`);
+    git(completePath, ['add', 'README.md']);
+    git(completePath, ['commit', '-m', `commit ${index}`], `${date}T12:00:00+00:00`);
+  }
+  git(fleetRoot, [
+    'clone',
+    '--quiet',
+    '--depth',
+    '1',
+    `file://${completePath}`,
+    join(fleetRoot, 'shallow-app'),
+  ]);
+  return { fleetRoot, cleanup: () => rmSync(fleetRoot, { recursive: true, force: true }) };
+}
+
+test('retained Git history separates complete, shallow, and missing repositories', () => {
+  const { fleetRoot, cleanup } = createHistoryFixtures();
+  try {
+    const snapshot = scanFleetRepositories(
+      [
+        { id: 'complete', repo: 'complete-app' },
+        { id: 'shallow', repo: 'shallow-app' },
+        { id: 'missing', repo: 'missing-app' },
+      ],
+      { fleetRoot, observedAt: '2026-03-20' },
+    );
+
+    assert.equal(snapshot.historyObservedAt, '2026-03-20');
+    assert.match(snapshot.observationSemantics, /commit messages, and commit authorship are not retained/);
+
+    assert.equal(snapshot.projects.complete.source.state, 'available');
+    assert.deepEqual(snapshot.projects.complete.history, {
+      firstCommitAt: '2026-01-05',
+      latestCommitAt: '2026-03-15',
+      retainedCommitCount: 3,
+      historyCompleteness: 'complete',
+      reason: null,
+    });
+
+    const shallow = snapshot.projects.shallow.history;
+    assert.equal(shallow.historyCompleteness, 'incomplete');
+    assert.equal(shallow.retainedCommitCount, 1);
+    assert.equal(shallow.firstCommitAt, '2026-03-15');
+    assert.equal(shallow.latestCommitAt, '2026-03-15');
+    assert.match(shallow.reason, /Shallow checkout/);
+
+    assert.equal(snapshot.projects.missing.source.state, 'unavailable');
+    assert.deepEqual(snapshot.projects.missing.history, {
+      firstCommitAt: null,
+      latestCommitAt: null,
+      retainedCommitCount: null,
+      historyCompleteness: null,
+      reason:
+        'The repository checkout is not present in the Fleet workspace, so no Git history could be read.',
+    });
+  } finally {
+    cleanup();
+  }
+});
+
+test('history-only refresh leaves every other observed field untouched', () => {
+  const { fleetRoot, cleanup } = createHistoryFixtures();
+  try {
+    const projects = [
+      { id: 'complete', repo: 'complete-app' },
+      { id: 'missing', repo: 'missing-app' },
+    ];
+    const stale = {
+      schemaVersion: 1,
+      observedAt: '2026-03-01',
+      projects: {
+        complete: {
+          source: { state: 'available', path: 'complete-app', revision: 'stale-revision' },
+          githubActions: [{ name: 'CI' }],
+          toolingSignals: [{ name: 'pnpm', evidence: ['pnpm-lock.yaml'] }],
+        },
+        missing: { source: { state: 'unavailable', path: 'missing-app', revision: null } },
+      },
+    };
+
+    const refreshed = refreshRetainedGitHistory(stale, {
+      projects,
+      fleetRoot,
+      observedAt: '2026-03-20',
+    });
+
+    assert.equal(refreshed.historyObservedAt, '2026-03-20');
+    assert.equal(refreshed.projects.complete.source.revision, 'stale-revision');
+    assert.deepEqual(refreshed.projects.complete.githubActions, [{ name: 'CI' }]);
+    assert.equal(refreshed.projects.complete.history.retainedCommitCount, 3);
+    assert.equal(refreshed.projects.missing.history.historyCompleteness, null);
+  } finally {
+    cleanup();
+  }
+});
+
+test('retained Git history audit lists catalog drift and unavailable repositories by project id', () => {
+  const auditCatalog = {
+    projects: [{ id: 'kept' }, { id: 'drifted' }, { id: 'gone' }, { id: 'truncated' }],
+    publicDirectory: {
+      projects: {
+        kept: { firstCommitAt: '2026-01-05', latestCommitAt: '2026-03-15' },
+        drifted: { firstCommitAt: '2026-01-05', latestCommitAt: '2026-03-15' },
+        gone: { firstCommitAt: '2026-01-05', latestCommitAt: '2026-03-15' },
+        truncated: { firstCommitAt: '2026-03-15', latestCommitAt: '2026-03-15' },
+      },
+    },
+  };
+  const findings = auditRetainedGitHistory({
+    catalog: auditCatalog,
+    operations: {
+      projects: {
+        kept: {
+          history: {
+            firstCommitAt: '2026-01-05',
+            latestCommitAt: '2026-03-15',
+            retainedCommitCount: 3,
+            historyCompleteness: 'complete',
+            reason: null,
+          },
+        },
+        drifted: {
+          history: {
+            firstCommitAt: '2026-01-05',
+            latestCommitAt: '2026-04-01',
+            retainedCommitCount: 4,
+            historyCompleteness: 'complete',
+            reason: null,
+          },
+        },
+        gone: {
+          history: {
+            firstCommitAt: null,
+            latestCommitAt: null,
+            retainedCommitCount: null,
+            historyCompleteness: null,
+            reason: 'checkout missing',
+          },
+        },
+        truncated: {
+          history: {
+            firstCommitAt: '2026-03-15',
+            latestCommitAt: '2026-03-15',
+            retainedCommitCount: 1,
+            historyCompleteness: 'incomplete',
+            reason: 'shallow',
+          },
+        },
+      },
+    },
+  });
+
+  assert.deepEqual(
+    findings.map((finding) => [finding.projectId, finding.status]),
+    [
+      ['drifted', 'catalog-drift'],
+      ['gone', 'unavailable'],
+      ['truncated', 'incomplete'],
+    ],
+  );
+  assert.deepEqual(findings[0].mismatches, [
+    { field: 'latestCommitAt', catalog: '2026-03-15', observed: '2026-04-01' },
+  ]);
+  assert.equal(
+    auditRetainedGitHistory({
+      catalog: auditCatalog,
+      operations: { projects: { kept: {}, drifted: {}, gone: {}, truncated: {} } },
+    }).every((finding) => finding.status === 'not-observed'),
+    true,
+  );
+});
+
+test('dossiers publish retained Git history with reproducible provenance', () => {
+  const { intents } = parsePortfolioIntents(intentMarkdown, catalog.projects);
+  const ownerSources = parseOwnerNarratives(ownerNarrativesMarkdown, catalog.projects);
+  const project = catalog.projects.find((entry) => entry.id === 'anchor');
+  const metadata = catalog.publicDirectory.projects.anchor;
+  const build = (history) => {
+    const withHistory = structuredClone(operations);
+    withHistory.projects.anchor.history = history;
+    const rendered = serializeProjectDossier(
+      buildProjectDossier({
+        catalog,
+        operations: withHistory,
+        project,
+        operation: withHistory.projects.anchor,
+        intent: intents.anchor,
+        ownerNarrative: ownerSources.narratives.anchor,
+        relatedNarratives: ownerSources.related.anchor,
+        sourceFingerprints: {
+          catalog: sha256(catalogSource),
+          ownerNarratives: sha256(ownerNarrativesMarkdown),
+          portfolioIntent: sha256(intentMarkdown),
+        },
+      }),
+    );
+    return validateProjectDossierYaml(rendered, 'anchor');
+  };
+
+  const matching = build({
+    firstCommitAt: metadata.firstCommitAt,
+    latestCommitAt: metadata.latestCommitAt,
+    retainedCommitCount: 67,
+    historyCompleteness: 'complete',
+    reason: null,
+  });
+  assert.equal(matching.verification.checks.retainedGitHistory, 'passed');
+  assert.equal(matching.product.retainedGitHistory.retainedCommitCount, 67);
+  assert.equal(matching.product.retainedGitHistory.historyCompleteness, 'complete');
+  assert.equal(matching.product.retainedGitHistory.firstCommitAt, metadata.firstCommitAt);
+  assert.deepEqual(matching.verification.evidence.retainedGitHistory.catalogDrift, []);
+  assert.match(
+    matching.verification.evidence.retainedGitHistory.method,
+    /git rev-list --count HEAD/,
+  );
+  assert.equal(
+    matching.verification.evidence.retainedGitHistory.checkout,
+    operations.projects.anchor.source.path,
+  );
+  assert.equal(
+    matching.verification.evidence.retainedGitHistory.revision,
+    operations.projects.anchor.source.revision,
+  );
+
+  const drifted = build({
+    firstCommitAt: metadata.firstCommitAt,
+    latestCommitAt: '2026-08-29',
+    retainedCommitCount: 67,
+    historyCompleteness: 'complete',
+    reason: null,
+  });
+  assert.equal(drifted.verification.checks.retainedGitHistory, 'catalog-drift');
+  assert.deepEqual(drifted.verification.evidence.retainedGitHistory.catalogDrift, [
+    'latestCommitAt',
+  ]);
+  assert.equal(drifted.verification.evidence.retainedGitHistory.catalogLatestCommitAt, metadata.latestCommitAt);
+  assert.equal(drifted.product.retainedGitHistory.latestCommitAt, '2026-08-29');
+
+  const shallow = build({
+    firstCommitAt: metadata.firstCommitAt,
+    latestCommitAt: metadata.latestCommitAt,
+    retainedCommitCount: 1,
+    historyCompleteness: 'incomplete',
+    reason: 'Shallow checkout: retained history is truncated.',
+  });
+  assert.equal(shallow.verification.checks.retainedGitHistory, 'incomplete');
+  assert.match(shallow.verification.evidence.retainedGitHistory.reason, /Shallow checkout/);
+
+  const unavailable = build({
+    firstCommitAt: null,
+    latestCommitAt: null,
+    retainedCommitCount: null,
+    historyCompleteness: null,
+    reason: 'The repository checkout is not present in the Fleet workspace.',
+  });
+  assert.equal(unavailable.verification.checks.retainedGitHistory, 'unavailable');
+  assert.equal(unavailable.product.retainedGitHistory.firstCommitAt, null);
+  assert.equal(unavailable.product.retainedGitHistory.retainedCommitCount, null);
+  assert.equal(unavailable.product.retainedGitHistory.historyCompleteness, null);
+  assert.match(
+    unavailable.verification.evidence.retainedGitHistory.reason,
+    /not present in the Fleet workspace/,
+  );
+});
+
+test('dossier validation rejects invented history for an unobserved repository', () => {
+  const { intents } = parsePortfolioIntents(intentMarkdown, catalog.projects);
+  const ownerSources = parseOwnerNarratives(ownerNarrativesMarkdown, catalog.projects);
+  const project = catalog.projects.find((entry) => entry.id === 'anchor');
+  const dossier = buildProjectDossier({
+    catalog,
+    operations,
+    project,
+    operation: operations.projects.anchor,
+    intent: intents.anchor,
+    ownerNarrative: ownerSources.narratives.anchor,
+    relatedNarratives: ownerSources.related.anchor,
+    sourceFingerprints: {
+      catalog: sha256(catalogSource),
+      ownerNarratives: sha256(ownerNarrativesMarkdown),
+      portfolioIntent: sha256(intentMarkdown),
+    },
+  });
+  dossier.product.retainedGitHistory.historyCompleteness = null;
+
+  assert.throws(
+    () => validateProjectDossierYaml(serializeProjectDossier(dossier), 'anchor'),
+    /unobserved Git history must stay null/,
   );
 });

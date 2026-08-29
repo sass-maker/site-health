@@ -14,7 +14,9 @@ import {
   validateProjectDossierYaml,
 } from '../apps/backend/lib/project-dossier-yaml.mjs';
 import {
+  auditRetainedGitHistory,
   parsePortfolioIntents,
+  refreshRetainedGitHistory,
   scanFleetRepositories,
   validateDossierInputs,
 } from '../apps/backend/lib/project-dossiers.mjs';
@@ -67,6 +69,13 @@ if (args.has('--refresh')) {
   operations = scanFleetRepositories(catalog.projects, { fleetRoot, observedAt });
 } else {
   operations = JSON.parse(readFileSync(operationsPath, 'utf8'));
+  if (args.has('--refresh-history')) {
+    operations = refreshRetainedGitHistory(operations, {
+      projects: catalog.projects,
+      fleetRoot,
+      observedAt,
+    });
+  }
 }
 if (args.has('--refresh-github')) {
   operations = await refreshGithubActionsHealth(operations, {
@@ -75,7 +84,7 @@ if (args.has('--refresh-github')) {
     policies: actionsPolicies,
   });
 }
-if (args.has('--refresh') || args.has('--refresh-github')) {
+if (args.has('--refresh') || args.has('--refresh-github') || args.has('--refresh-history')) {
   writeFileSync(operationsPath, `${JSON.stringify(operations, null, 2)}\n`);
 }
 
@@ -141,11 +150,31 @@ if (args.has('--check')) {
   } catch {
     problems.push('project-dossiers/README.md Actions inventory is missing');
   }
+  const historyFindings = auditRetainedGitHistory({ catalog, operations });
+  const notObserved = historyFindings.filter((finding) => finding.status === 'not-observed');
+  for (const finding of notObserved) {
+    problems.push(`${finding.projectId}: ${finding.reason}`);
+  }
   if (problems.length > 0) {
     console.error(`Project dossier check failed:\n- ${problems.join('\n- ')}`);
     process.exitCode = 1;
   } else {
     console.log(`Verified ${renderedById.size} project YAML dossiers`);
+  }
+  const advisory = historyFindings.filter((finding) => finding.status !== 'not-observed');
+  console.log(
+    `Retained Git history audit: ${projectIds.length - historyFindings.length} of ` +
+      `${projectIds.length} projects match their catalog history literals ` +
+      `(observed ${operations.historyObservedAt ?? operations.observedAt}).`,
+  );
+  for (const finding of advisory) {
+    const detail =
+      finding.mismatches.length > 0
+        ? finding.mismatches
+            .map((mismatch) => `${mismatch.field} catalog=${mismatch.catalog} git=${mismatch.observed}`)
+            .join('; ')
+        : finding.reason;
+    console.log(`- ${finding.projectId}: ${finding.status} (${detail})`);
   }
 } else {
   for (const filename of currentYamlFiles) {

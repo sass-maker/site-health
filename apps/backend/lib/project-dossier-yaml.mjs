@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import YAML from 'yaml';
 
 import { summarizeGithubActions } from './github-actions-health.mjs';
+import { RETAINED_HISTORY_METHOD } from './project-dossiers.mjs';
 
 const OWNER_HEADING_TO_ID = new Map(
   Object.entries({
@@ -140,6 +141,51 @@ function workflowVerification(operation, operations) {
   return { status: 'verified', summary, attention, unknowns: [] };
 }
 
+function retainedGitHistoryVerification(metadata, operation, operations) {
+  const history = operation.history ?? null;
+  const observed = history?.historyCompleteness != null;
+  const catalogHistory = {
+    firstCommitAt: metadata.firstCommitAt ?? null,
+    latestCommitAt: metadata.latestCommitAt ?? null,
+  };
+  const catalogDrift = observed
+    ? ['firstCommitAt', 'latestCommitAt'].filter(
+        (field) => (history[field] ?? null) !== catalogHistory[field],
+      )
+    : [];
+  const status = !observed
+    ? 'unavailable'
+    : catalogDrift.length > 0
+      ? 'catalog-drift'
+      : history.historyCompleteness === 'incomplete'
+        ? 'incomplete'
+        : 'passed';
+
+  return {
+    status,
+    product: {
+      firstCommitAt: observed ? (history.firstCommitAt ?? null) : null,
+      latestCommitAt: observed ? (history.latestCommitAt ?? null) : null,
+      retainedCommitCount: observed ? (history.retainedCommitCount ?? null) : null,
+      historyCompleteness: history?.historyCompleteness ?? null,
+    },
+    evidence: {
+      observedAt: operations.historyObservedAt ?? operations.observedAt ?? null,
+      state: operation.source.state,
+      checkout: operation.source.path,
+      revision: operation.source.revision,
+      githubRepository: operation.source.repositorySlug,
+      method: RETAINED_HISTORY_METHOD,
+      retainedMeaning:
+        'Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.',
+      catalogFirstCommitAt: catalogHistory.firstCommitAt,
+      catalogLatestCommitAt: catalogHistory.latestCommitAt,
+      catalogDrift,
+      reason: history?.reason ?? null,
+    },
+  };
+}
+
 export function buildProjectDossier({
   catalog,
   operations,
@@ -154,6 +200,7 @@ export function buildProjectDossier({
   const infrastructure = catalog.infrastructure.projects[project.id];
   const geoIdentity = catalog.geoIdentities.find((identity) => identity.id === project.id) ?? null;
   const actionVerification = workflowVerification(operation, operations);
+  const historyVerification = retainedGitHistoryVerification(metadata, operation, operations);
   const unknowns = [...actionVerification.unknowns];
   const expectedGithubHomepage = publicUrl(project);
   const observedGithubHomepage = operation.githubActionsMeta?.homepage ?? null;
@@ -203,6 +250,7 @@ export function buildProjectDossier({
         repositorySnapshot: operation.source.state === 'available' ? 'passed' : 'unavailable',
         githubHomepage: githubHomepageStatus,
         githubActionsLiveState: actionVerification.status,
+        retainedGitHistory: historyVerification.status,
       },
       evidence: {
         catalog: {
@@ -235,6 +283,7 @@ export function buildProjectDossier({
           observedHomepage: observedGithubHomepage,
           worktree: operation.source.worktree ?? null,
         },
+        retainedGitHistory: historyVerification.evidence,
         githubActions: {
           observedAt: operations.githubObservedAt ?? null,
           staleAfterDays: operations.githubStaleAfterDays ?? null,
@@ -282,8 +331,7 @@ export function buildProjectDossier({
       platforms: metadata.platforms,
       prominentTools: metadata.technologies,
       retainedGitHistory: {
-        firstCommitAt: metadata.firstCommitAt,
-        latestCommitAt: metadata.latestCommitAt,
+        ...historyVerification.product,
         semantics: catalog.publicDirectory.historySemantics,
       },
     },
@@ -373,6 +421,34 @@ export function validateProjectDossierYaml(source, expectedProjectId) {
   }
   if (!parsed.ownerVoice?.whyVerbatim || !parsed.ownerVoice?.fullReviewVerbatim) {
     throw new Error(`${expectedProjectId}: verbatim owner why and review are required`);
+  }
+  const history = parsed.product?.retainedGitHistory;
+  if (!history) throw new Error(`${expectedProjectId}: retained Git history is required`);
+  if (![null, 'complete', 'incomplete'].includes(history.historyCompleteness ?? null)) {
+    throw new Error(`${expectedProjectId}: invalid retained Git history completeness`);
+  }
+  if (
+    history.historyCompleteness == null &&
+    (history.firstCommitAt != null ||
+      history.latestCommitAt != null ||
+      history.retainedCommitCount != null)
+  ) {
+    throw new Error(`${expectedProjectId}: unobserved Git history must stay null`);
+  }
+  if (
+    history.retainedCommitCount != null &&
+    (!Number.isInteger(history.retainedCommitCount) || history.retainedCommitCount < 0)
+  ) {
+    throw new Error(`${expectedProjectId}: retained commit count must be a non-negative integer`);
+  }
+  if (
+    history.historyCompleteness == null &&
+    !parsed.verification?.evidence?.retainedGitHistory?.reason
+  ) {
+    throw new Error(`${expectedProjectId}: unobserved Git history must explain why`);
+  }
+  if (!parsed.verification?.evidence?.retainedGitHistory?.method) {
+    throw new Error(`${expectedProjectId}: retained Git history provenance is required`);
   }
   if (!Array.isArray(parsed.githubActions?.workflows)) {
     throw new Error(`${expectedProjectId}: GitHub Actions workflows must be an array`);
