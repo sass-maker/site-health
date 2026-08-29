@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -83,6 +83,13 @@ identity:
 product:
   description: The original Significant Hobbies experience, now independently owned while preserving its data and authentication boundary.
   publicMakerNote: I wanted a product that helps people live more intentionally through goals, possibilities, and things worth anticipating.
+  purposeContract:
+    purpose: Live helps a person turn passive wanting into a life they can deliberately imagine, plan, and experience.
+    audience: People who want meaningful goals, possibilities, and experiences to look forward to.
+    outcome: Build a personal catalogue of things worth doing and keep moving from possibility toward lived experience.
+    mechanism: The independent app combines a bucket list, goals, discovery, search, and suggestions around one private life catalogue.
+    proof: The product is independently owned, in active dogfooding, and retains its established data and authentication boundary.
+    nextAction: Open Live and use the catalogue, search, and suggestions to add or act on something you genuinely want to experience.
   form: Web app
   platforms:
     - Web

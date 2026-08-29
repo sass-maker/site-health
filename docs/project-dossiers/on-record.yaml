@@ -14,8 +14,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
-      infrastructureUpdatedAt: 2026-08-28
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal Podcasts
@@ -27,7 +27,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -57,8 +57,8 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Index what notable people said on podcasts as evidenced claims, including books/apps they use.
-  currentState: Live at podcasts.highsignal.app as a High Signal sub-product with its own layout; published corpus is still a thin V1 slice.
-  nextDecision: Grow the evidenced recs/stack index and keep the public listing hidden until the corpus is worth sharing.
+  currentState: Reviewed public beta is live at podcasts.highsignal.app with 166 published claims, 183 distinct evidence-linked recommendations, and 139 source episodes.
+  nextDecision: Keep expanding the evidenced recs/stack index while monitoring live search, source coverage, and receipt quality.
 identity:
   name: High Signal Podcasts
   publicName: High Signal Podcasts
@@ -75,6 +75,13 @@ identity:
 product:
   description: A source-backed index of what notable people said on podcasts, including books and tools they use.
   publicMakerNote: I’m building High Signal Podcasts to extract useful insights, recommendations, and emerging technology signals from top podcasts without listening to every episode.
+  purposeContract:
+    purpose: High Signal Podcasts indexes evidenced claims, recommendations, books, and tools mentioned by notable podcast guests.
+    audience: People who want useful ideas from important podcasts without listening to every episode end to end.
+    outcome: Find what a person actually said or recommended and trace it back to the source episode.
+    mechanism: A source-backed corpus extracts attributable claims and organizes them into people, topics, books, tools, and emerging signals.
+    proof: The reviewed public beta is live with 166 published claims, 183 distinct evidence-linked recommendations, and 139 source episodes.
+    nextAction: Browse a recommendation or claim and follow its quote, speaker, episode, and source receipt.
   form: Podcast intelligence web app
   platforms:
     - Web
@@ -86,7 +93,7 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-24
-    latestCommitAt: 2026-08-28
+    latestCommitAt: 2026-08-27
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record

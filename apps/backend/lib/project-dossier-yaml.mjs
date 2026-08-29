@@ -277,6 +277,7 @@ export function buildProjectDossier({
     product: {
       description: metadata.description ?? project.public?.description ?? null,
       publicMakerNote: metadata.makerNote,
+      purposeContract: metadata.purposeContract ?? null,
       form: metadata.form,
       platforms: metadata.platforms,
       prominentTools: metadata.technologies,

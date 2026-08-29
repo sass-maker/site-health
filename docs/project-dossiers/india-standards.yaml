@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -73,6 +73,13 @@ identity:
 product:
   description: A transparent India demographic standards calculator using aggregate PLFS data, explicit uncertainty ranges, and clear source limits.
   publicMakerNote: I wanted official data to provide a more grounded answer to how a person is doing in the Indian context.
+  purposeContract:
+    purpose: India Standards contextualizes a person’s situation against official Indian demographic data without pretending the comparison is exact.
+    audience: People who want a grounded India-specific reference for demographic and economic comparison.
+    outcome: Understand where a value sits in aggregate context and see the uncertainty and source limits behind that estimate.
+    mechanism: A transparent calculator uses aggregate PLFS data, explicit ranges, documented formulas, and visible caveats.
+    proof: The working calculator exposes its aggregate sources and uncertainty, while current data quality limits further expansion.
+    nextAction: Use the calculator as a bounded contextual reference; expansion waits for materially better authoritative data.
   form: Reference web app
   platforms:
     - Web

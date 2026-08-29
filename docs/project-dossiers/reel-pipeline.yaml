@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -74,6 +74,13 @@ identity:
 product:
   description: A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.
   publicMakerNote: I wanted to automate the repetitive work of making and publishing useful product videos.
+  purposeContract:
+    purpose: Reel Pipeline is a reproducible workflow for turning approved source material into publishable short-form product videos.
+    audience: A product operator producing recurring short videos from owned and approved material.
+    outcome: Plan, create, review, and retain useful videos without losing cost, provenance, or operator control.
+    mechanism: A story-first pipeline records source approval, media-generation steps, artifacts, costs, and publication boundaries.
+    proof: The repository contains substantial planning and media automation, but the full publishable loop never shipped and remains held.
+    nextAction: Treat the current work as a held pipeline; reopen only by proving one bounded video-to-publication loop with explicit cost limits.
   form: Video pipeline
   platforms:
     - CLI

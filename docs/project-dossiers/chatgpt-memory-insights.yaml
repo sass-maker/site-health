@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -76,6 +76,13 @@ identity:
 product:
   description: Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.
   publicMakerNote: I wanted to learn what my exported AI conversations reveal about my themes, emotions, memory, and personal change.
+  purposeContract:
+    purpose: Memory Map turns an exported AI conversation history into a private map of recurring themes, facts, emotions, and change.
+    audience: People curious about patterns across their own ChatGPT history who do not want to upload the archive to a service.
+    outcome: Recognize recurring concerns and how interests, language, and personal themes changed over time.
+    mechanism: The browser computes structured conversation analysis locally from an imported export and presents linked historical views.
+    proof: A useful browser-local dashboard exists today; deeper shift analysis and additional export sources remain active work.
+    nextAction: Import a ChatGPT export locally and explore the resulting private map; the source archive stays in the browser.
   form: Web app
   platforms:
     - Web

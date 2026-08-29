@@ -150,6 +150,8 @@ test('project YAML starts with verification and preserves verbatim owner voice',
   assert.match(rendered, /^schemaVersion: 1\nprojectId: anchor\nverification:\n/);
   assert.match(parsed.ownerVoice.whyVerbatim, /The purpose of anchor/);
   assert.match(parsed.product.publicMakerNote, /\b(?:I|me|my)\b/);
+  assert.equal(parsed.product.purposeContract.purpose.length > 0, true);
+  assert.equal(parsed.product.purposeContract.nextAction.length > 0, true);
   assert.equal(parsed.ownerVoice.relatedHistoricalReviews[0].sourceHeading, 'Indulge');
   assert.equal(parsed.verification.evidence.ownerVoice.sourceKind, 'verbatim-owner-message');
 });

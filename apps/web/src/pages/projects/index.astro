@@ -3,8 +3,8 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
 ---
 
 <DashboardLayout
-  title="Projects"
-  description="Current portfolio health with the complete inactive and retained inventory kept within reach."
+  title="One owner view for the whole portfolio"
+  description="Site Health connects project state, domains, performance, Google Search, and AI awareness so portfolio decisions come from evidence instead of scattered dashboards."
   active="projects"
   view="projects"
   showProjectScope={false}
@@ -17,6 +17,20 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
     </button>
     <span class="refresh-status" data-project-refresh-status role="status" aria-live="polite">DRANK · Performance · Search</span>
   </div>
+  <section class="owner-questions" aria-labelledby="owner-questions-title">
+    <div class="owner-questions__intro">
+      <p class="eyebrow">Five owner questions</p>
+      <h2 id="owner-questions-title">Know what exists, what works, and what deserves attention.</h2>
+      <p>This private workspace stays useful even while a collector is unavailable: each area names the decision it supports and keeps missing evidence explicit.</p>
+    </div>
+    <nav class="owner-questions__grid" aria-label="Site Health product areas">
+      <a href="/projects"><span>01</span><strong>Projects</strong><small>What is active, retained, or missing a clear next action?</small></a>
+      <a href="/domains"><span>02</span><strong>Domains</strong><small>Which public identities and owned domains are healthy or drifting?</small></a>
+      <a href="/performance"><span>03</span><strong>Performance</strong><small>Which experiences are fast in repeated evidence, not one flattering run?</small></a>
+      <a href="/search"><span>04</span><strong>Google Search</strong><small>What is discoverable, earning impressions, or invisible to search?</small></a>
+      <a href="/ai-awareness"><span>05</span><strong>AI awareness</strong><small>Which products are understood and recommended by answer engines?</small></a>
+    </nav>
+  </section>
   <section class="portfolio-summary" aria-label="Portfolio summary" data-dashboard-slot="project-summary">
     <div class="loading-state" role="status" aria-live="polite" aria-busy="true">Reading portfolio evidence…</div>
   </section>

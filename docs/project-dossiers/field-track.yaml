@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -72,7 +72,14 @@ identity:
   inRegistry: true
 product:
   description: A private field-location system for managed Android devices and team-scoped route review.
-  publicMakerNote: "I started Field Track for my father: an employee-controlled way to share field location only when work requires it."
+  publicMakerNote: "I started Field Track for my father: a lower-cost way for managers to locate employees carrying administrator-enrolled Android devices and review retained routes."
+  purposeContract:
+    purpose: Field Track is an administrator-managed field-location system for continuously enrolled Android devices and freshness-aware route review.
+    audience: A small field team and its manager, initially the owner’s father’s business.
+    outcome: Let a manager find employees quickly and review retained routes while managed tracking remains visible on each Android device.
+    mechanism: An administrator-enrolled Android app captures points continuously, queues them through weak 4G, and sends them to a team-scoped dashboard where server policy controls retention.
+    proof: A clearly labeled synthetic-data dashboard and bounded MVP path exist; economics and physical Android testing remain unresolved.
+    nextAction: Review the synthetic demo as a held MVP; validate business economics and a real Android device before expanding or onboarding a team.
   form: Android app and dashboard
   platforms:
     - Android

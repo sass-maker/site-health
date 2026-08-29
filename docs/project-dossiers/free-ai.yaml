@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -73,6 +73,13 @@ identity:
 product:
   description: OpenAI-compatible gateway across free-tier model providers.
   publicMakerNote: I built Free AI to make genuinely useful free model capacity easier to discover and use through one resilient interface.
+  purposeContract:
+    purpose: Free AI makes useful free-tier language-model capacity available through one resilient, OpenAI-compatible interface.
+    audience: Fleet applications and developers who need low-cost model access without hard-coding one free provider.
+    outcome: Keep AI-dependent workflows available as provider limits, models, and free capacity change.
+    mechanism: A capability-aware gateway routes compatible requests across supported free-tier providers with fallback behavior.
+    proof: The gateway works for internal consumers and is maintained as shared infrastructure rather than an independent feature product.
+    nextAction: Use the compatible gateway from a named consumer; add providers only when they improve capability, reliability, or capacity.
   form: API gateway
   platforms:
     - API

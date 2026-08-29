@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -73,8 +73,15 @@ identity:
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: A general-purpose rating and comparison experiment.
+  description: Multi-axis ratings for deciding which AI developer tools to adopt.
   publicMakerNote: I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.
+  purposeContract:
+    purpose: EverythingRated helps developers decide which AI development library to adopt by making the important trade-offs visible axis by axis.
+    audience: Developers and technical operators comparing AI development tools for real projects.
+    outcome: Choose an AI library with a clearer view of maintenance, community, license, API stability, footprint, and model portability.
+    mechanism: Anonymous multi-axis ratings, weighted comparisons, confidence counts, and moderated tool submissions focus one directory on adoption decisions.
+    proof: The live surface compares 24 AI development libraries; the broader rate-anything concept and other seeded directories are deliberately parked.
+    nextAction: Compare AI development tools or rate one yourself; broader directory expansion waits for adoption traffic or moderation evidence.
   form: Ratings experiment
   platforms:
     - Web

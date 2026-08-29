@@ -2,7 +2,8 @@
   "$schema": "fleet.design-review.v1",
   "version": 1,
   "project": "site-health",
-  "target": "Projects directory current and inactive sections",
+  "target": "Site Health private portfolio home and project directory",
+  "surfaceMode": "operate",
   "mode": "preserve",
   "register": "product",
   "context": {
@@ -14,29 +15,53 @@
     "probes": [],
     "selected": "existing-design",
     "approval": "not-required",
-    "before": "artifacts/design/before.png"
+    "before": "artifacts/design/landing-ranking-2026-08-27/site-health-local-1440.png",
+    "library": {
+      "strategy": "upstream-first",
+      "primary": "existing-project-system",
+      "sources": [],
+      "runtime": "existing",
+      "customReplacement": {
+        "used": false,
+        "authorization": "not-required",
+        "reason": ""
+      }
+    },
+    "contract": {
+      "purpose": "Site Health gives the owner one private evidence-backed view of portfolio state, domains, performance, Google Search, and AI awareness.",
+      "purposeSource": "canonical Site Health catalog and landing-page purpose audit",
+      "canonicalPurpose": "One private owner view for deciding what exists, what works, and what deserves attention across the Fleet portfolio.",
+      "purposeAlignment": "match",
+      "driftNote": "",
+      "audience": "The Fleet owner operating and prioritizing the portfolio.",
+      "job": "Find the state of a project or metric and decide where attention belongs, even when a collector is temporarily unavailable.",
+      "thesis": "Lead with the five owner decisions, then expose evidence and missing evidence without pretending the local backend is online.",
+      "system": "Dense dark owner console with restrained mint emphasis, strong editorial hierarchy, and explicit operational states.",
+      "signature": "The five-question decision map makes the product model visible before the project directory.",
+      "risk": "A data-heavy dashboard can look like a generic admin panel or become meaningless when its backend is offline."
+    }
   },
   "evidence": {
     "screenshots": [
       {
         "width": 390,
-        "path": "artifacts/design/after-390.png"
+        "path": "artifacts/design/site-health-current/after-390.png"
       },
       {
         "width": 768,
-        "path": "artifacts/design/after-768.png"
+        "path": "artifacts/design/site-health-current/after-768.png"
       },
       {
         "width": 1440,
-        "path": "artifacts/design/after-1440.png"
+        "path": "artifacts/design/site-health-current/after-1440.png"
       }
     ],
     "projectCheck": {
-      "command": "pnpm run check",
+      "command": "pnpm --dir apps/web build",
       "status": "pass"
     },
     "critique": {
-      "score": 34,
+      "score": 35,
       "maximum": 40
     },
     "audit": {
@@ -49,11 +74,50 @@
     },
     "detector": {
       "posture": "advisory",
-      "findings": []
+      "findings": [
+        "The local static preview intentionally shows two backend-unavailable states; their copy remains truthful and the product purpose still reads without live data.",
+        "Site Health is intentionally private and noindex, so public SEO and GEO qualification are not applicable."
+      ]
+    },
+    "comprehension": {
+      "status": "pass",
+      "reviewer": "independent purpose audit plus current responsive visual inspection",
+      "answers": {
+        "product": "A private evidence dashboard for the Fleet portfolio.",
+        "audience": "The portfolio owner.",
+        "value": "It replaces scattered dashboards with one decision view.",
+        "mechanism": "Five areas connect project state, domains, repeated performance evidence, search, and AI awareness.",
+        "proof": "The current surface exposes the five decision areas, live refresh controls, filters, evidence states, and honest unavailable states.",
+        "nextAction": "Refresh the portfolio or choose a decision area/project."
+      },
+      "purposeScore": {
+        "product": 5,
+        "audience": 5,
+        "value": 5,
+        "mechanism": 5,
+        "proof": 5,
+        "nextAction": 5,
+        "total": 100
+      },
+      "mismatches": []
+    },
+    "performance": {
+      "report": ".fleet/evidence/landing-audit/performance.html",
+      "validRuns": 19,
+      "attemptedRuns": 20,
+      "mobileMidP75LcpMs": 1070,
+      "slowMobileP75LcpMs": 2120,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "visualQuality": {
+      "priority": "P2",
+      "score": 86,
+      "minimum": 85
     }
   },
   "ownerFeedback": {
     "decision": "delegated",
-    "note": "Owner explicitly directed the complete inactive inventory to be included in this turn."
+    "note": "Owner delegated portfolio landing quality and asked for priority-scaled execution without repeated review pauses."
   }
 }

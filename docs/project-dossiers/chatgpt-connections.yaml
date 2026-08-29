@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -81,6 +81,13 @@ identity:
 product:
   description: A read-only MCP gateway that exposes selected public Fleet data to ChatGPT connections.
   publicMakerNote: I had many projects but no solid way to connect them to ChatGPT, so I built a selective gateway for that.
+  purposeContract:
+    purpose: ChatGPT Connections lets ChatGPT read selected Fleet product data through one bounded gateway.
+    audience: The Fleet owner and approved ChatGPT conversations that need specific project context.
+    outcome: Ask useful cross-project questions without exposing the private portfolio catalog or granting write access.
+    mechanism: A read-only MCP gateway publishes explicit, privacy-filtered resources for named consumers.
+    proof: The shared gateway is working and already exposes selected public product contracts to ChatGPT.
+    nextAction: Use an existing approved connection; add another resource only when a concrete consumer needs it.
   form: MCP service
   platforms:
     - API

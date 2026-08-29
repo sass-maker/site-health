@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fad38fddd280202283acb885f667e359f266923a59a77c38ff7c53653bb08a7c
+      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -27,7 +27,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: f742edb005fb9e6525f8235fdd6b8d9a6f641200eddfc9388ab4fda6dc5d312a
+      sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-08-28
@@ -73,6 +73,13 @@ identity:
 product:
   description: Browser chess against Stockfish with optional AI move coaching.
   publicMakerNote: I built Chess to explore whether a local AI agent could become a practical, patient partner for improving my game.
+  purposeContract:
+    purpose: Chess Coach explored whether a local AI assistant could make playing and reviewing chess more instructive.
+    audience: A chess learner who wants a patient practice partner rather than only a move engine.
+    outcome: Play against Stockfish and receive optional coaching that explains useful move ideas.
+    mechanism: A browser board pairs engine play with a local AI coaching layer for contextual feedback.
+    proof: The public artifact works, but the owner lost interest in chess and the product has no active roadmap.
+    nextAction: Try the retained chess artifact if useful; expect no active development or product expansion.
   form: Web game
   platforms:
     - Web

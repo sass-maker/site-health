@@ -225,10 +225,20 @@ test('public directory metadata covers every retained identity with bounded publ
     'latestCommitAt',
     'makerNote',
     'platforms',
+    'purposeContract',
     'technologies',
   ]);
+  const purposeContractFields = [
+    'audience',
+    'mechanism',
+    'nextAction',
+    'outcome',
+    'proof',
+    'purpose',
+  ];
+  const purposeContractExemptIds = new Set(['ios-landings']);
 
-  assert.equal(catalog.publicDirectory.schemaVersion, 2);
+  assert.equal(catalog.publicDirectory.schemaVersion, 3);
   assert.deepEqual(directoryIds, projectIds);
 
   for (const [projectId, metadata] of Object.entries(catalog.publicDirectory.projects)) {
@@ -249,6 +259,24 @@ test('public directory metadata covers every retained identity with bounded publ
     assert.equal(Array.isArray(metadata.platforms) && metadata.platforms.length > 0, true);
     assert.equal(Array.isArray(metadata.technologies) && metadata.technologies.length > 0, true);
     assert.equal(metadata.technologies.length <= 4, true, `${projectId} technology list is too long`);
+
+    if (purposeContractExemptIds.has(projectId)) {
+      assert.equal(metadata.purposeContract, undefined, `${projectId} is a non-product factory`);
+    } else {
+      assert.deepEqual(
+        Object.keys(metadata.purposeContract ?? {}).sort(),
+        purposeContractFields,
+        `${projectId} needs one complete purpose contract`,
+      );
+      for (const field of purposeContractFields) {
+        assert.equal(
+          typeof metadata.purposeContract[field] === 'string'
+            && metadata.purposeContract[field].trim().length >= 8,
+          true,
+          `${projectId} purposeContract.${field} is too thin`,
+        );
+      }
+    }
 
     for (const date of [metadata.firstCommitAt, metadata.latestCommitAt]) {
       assert.equal(date === null || /^\d{4}-\d{2}-\d{2}$/.test(date), true);
