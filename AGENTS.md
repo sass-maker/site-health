@@ -19,6 +19,13 @@ This repository contains one product: Site Health and its backend.
   must remain at the top, and verbatim owner fields must never be paraphrased.
   Refresh all dossiers with `pnpm docs:projects:refresh` from the Fleet workspace
   and verify them with `pnpm docs:projects:check`.
+- Retained Git history (`firstCommitAt`, `latestCommitAt`, `retainedCommitCount`,
+  `historyCompleteness`) is observed from each local checkout, never hand-written
+  into the dossiers. `pnpm docs:projects:check` also audits the hand-maintained
+  `publicDirectory.projects.<id>` literals against the last observation and lists
+  drift by project id; that audit is advisory and does not fail the check. Use
+  `pnpm docs:projects:refresh-history` to re-observe only the Git history when a
+  full rescan would churn unrelated fields from mid-flight sibling checkouts.
 - Before changing or reasoning about a project's domains, deployment targets,
   provider resources, GitHub Actions, repository location, or material tooling,
   read its YAML dossier and then verify drift-prone facts in the owning

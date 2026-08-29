@@ -10,6 +10,7 @@
     "docs:projects": "node scripts/generate-project-dossiers.mjs",
     "docs:projects:refresh": "node scripts/generate-project-dossiers.mjs --refresh --refresh-github",
     "docs:projects:refresh-local": "node scripts/generate-project-dossiers.mjs --refresh",
+    "docs:projects:refresh-history": "node scripts/generate-project-dossiers.mjs --refresh-history",
     "docs:projects:check": "node scripts/generate-project-dossiers.mjs --check",
     "docs:purpose-contracts": "node scripts/generate-purpose-contract-report.mjs",
     "docs:purpose-contracts:check": "node scripts/generate-purpose-contract-report.mjs --check",

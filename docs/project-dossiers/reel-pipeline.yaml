@@ -11,6 +11,7 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: verified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
@@ -41,6 +42,19 @@ verification:
         state: dirty
         trackedChangeCount: 1
         deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-08-29
+      state: available
+      checkout: reel-pipeline
+      revision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+      githubRepository: sass-maker/reel-pipeline
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-05-28
+      catalogLatestCommitAt: 2026-08-23
+      catalogDrift:
+        - latestCommitAt
+      reason: null
     githubActions:
       observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
@@ -94,7 +108,9 @@ product:
     - R2
   retainedGitHistory:
     firstCommitAt: 2026-05-28
-    latestCommitAt: 2026-08-23
+    latestCommitAt: 2026-08-26
+    retainedCommitCount: 99
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reel-pipeline

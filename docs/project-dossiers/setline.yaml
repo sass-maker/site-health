@@ -11,6 +11,7 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
@@ -41,6 +42,18 @@ verification:
         state: dirty
         trackedChangeCount: 1
         deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-08-29
+      state: available
+      checkout: setline
+      revision: d4eb9751511c555ff6b76318a217c3accff85679
+      githubRepository: Significant-Hobbies/setline
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-07-27
+      catalogLatestCommitAt: 2026-08-23
+      catalogDrift: []
+      reason: null
     githubActions:
       observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
@@ -90,6 +103,8 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-27
     latestCommitAt: 2026-08-23
+    retainedCommitCount: 99
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: setline

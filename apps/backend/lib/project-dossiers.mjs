@@ -32,6 +32,78 @@ const TOOLING_RULES = [
 
 const WORKFLOW_PATH = /^\.github\/workflows\/[^/]+\.ya?ml$/;
 
+const RETAINED_HISTORY_COMMANDS = [
+  'git rev-parse --is-shallow-repository',
+  'git rev-list --count HEAD',
+  'git log --max-parents=0 --format=%cs',
+  'git log -1 --format=%cs',
+];
+
+/**
+ * The exact read-only commands used to observe retained Git history. Recorded in dossiers so a
+ * reader can reproduce the numbers without trusting the generator.
+ */
+export const RETAINED_HISTORY_METHOD = RETAINED_HISTORY_COMMANDS.join('; ');
+
+export const RETAINED_HISTORY_SHALLOW_REASON =
+  'Shallow checkout: retained history is truncated, so the retained commit count is not a lifetime total.';
+
+const OBSERVATION_SEMANTICS =
+  'Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, package-manager declarations, and the commit dates and commit count retained by the checked-out HEAD only; environment files, credential-bearing configuration, secrets, command values, commit messages, and commit authorship are not retained.';
+
+export const RETAINED_HISTORY_MISSING_REASON =
+  'The repository checkout is not present in the Fleet workspace, so no Git history could be read.';
+
+export function unobservedGitHistory(reason) {
+  return {
+    firstCommitAt: null,
+    latestCommitAt: null,
+    retainedCommitCount: null,
+    historyCompleteness: null,
+    reason,
+  };
+}
+
+function runGitCommand(repositoryPath, args) {
+  return execFileSync('git', ['-C', repositoryPath, ...args], { encoding: 'utf8' }).trim();
+}
+
+/**
+ * Observes the Git history retained by the checked-out HEAD. Retained means reachable from HEAD:
+ * in a complete repository the count equals `git rev-list --count HEAD`, and a shallow checkout is
+ * reported as incomplete rather than being presented as a lifetime total. Only commit dates and a
+ * count are read; commit messages, authors, and email addresses are never retained.
+ */
+export function observeGitHistory(repositoryPath, runGit = runGitCommand) {
+  try {
+    const shallow = runGit(repositoryPath, ['rev-parse', '--is-shallow-repository']) === 'true';
+    const retainedCommitCount = Number.parseInt(
+      runGit(repositoryPath, ['rev-list', '--count', 'HEAD']),
+      10,
+    );
+    if (!Number.isInteger(retainedCommitCount)) {
+      return unobservedGitHistory('The retained commit count could not be read from Git.');
+    }
+    const rootCommitDates = runGit(repositoryPath, ['log', '--max-parents=0', '--format=%cs'])
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .sort();
+    const latestCommitAt = runGit(repositoryPath, ['log', '-1', '--format=%cs']).trim();
+    return {
+      firstCommitAt: rootCommitDates[0] ?? null,
+      latestCommitAt: latestCommitAt || null,
+      retainedCommitCount,
+      historyCompleteness: shallow ? 'incomplete' : 'complete',
+      reason: shallow ? RETAINED_HISTORY_SHALLOW_REASON : null,
+    };
+  } catch (error) {
+    return unobservedGitHistory(
+      error instanceof Error ? error.message.split('\n')[0] : 'git history read failed',
+    );
+  }
+}
+
 export function githubRepositorySlug(remoteUrl) {
   const match = remoteUrl?.trim().match(
     /(?:github\.com[/:])([^/\s]+)\/([^/\s]+?)(?:\.git)?$/,
@@ -93,6 +165,7 @@ export function observeTrackedRepository({
   revision,
   repositorySlug = null,
   worktree = null,
+  history = null,
   trackedFiles,
   readText,
 }) {
@@ -126,6 +199,7 @@ export function observeTrackedRepository({
       repositorySlug,
       worktree,
     },
+    history: history ?? unobservedGitHistory('Retained Git history was not observed.'),
     githubActions,
     toolingSignals,
     packageManager,
@@ -150,6 +224,7 @@ export function scanFleetRepositories(projects, { fleetRoot, observedAt }) {
           repositorySlug: null,
           worktree: null,
         },
+        history: unobservedGitHistory(RETAINED_HISTORY_MISSING_REASON),
         githubActions: [],
         toolingSignals: [],
         packageManager: null,
@@ -194,6 +269,7 @@ export function scanFleetRepositories(projects, { fleetRoot, observedAt }) {
           trackedChangeCount: worktreeLines.length,
           deletedWorkflowFiles,
         },
+        history: observeGitHistory(repositoryPath),
         trackedFiles,
         readText: (file) => readFileSync(resolve(repositoryPath, file), 'utf8'),
       });
@@ -208,6 +284,9 @@ export function scanFleetRepositories(projects, { fleetRoot, observedAt }) {
           worktree: null,
           reason: error instanceof Error ? error.message.split('\n')[0] : 'repository scan failed',
         },
+        history: unobservedGitHistory(
+          error instanceof Error ? error.message.split('\n')[0] : 'repository scan failed',
+        ),
         githubActions: [],
         toolingSignals: [],
         packageManager: null,
@@ -219,10 +298,94 @@ export function scanFleetRepositories(projects, { fleetRoot, observedAt }) {
   return {
     schemaVersion: 1,
     observedAt,
-    observationSemantics:
-      'Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, and package-manager declarations only; environment files, credential-bearing configuration, secrets, and command values are not retained.',
+    historyObservedAt: observedAt,
+    observationSemantics: OBSERVATION_SEMANTICS,
     projects: observations,
   };
+}
+
+/**
+ * Refreshes only the retained Git history of an existing snapshot, leaving every other observed
+ * field (revision, worktree state, workflows, tooling) exactly as it was recorded. Useful when the
+ * surrounding checkouts are mid-flight and a full rescan would churn unrelated fields.
+ */
+export function refreshRetainedGitHistory(operations, { projects, fleetRoot, observedAt }) {
+  const refreshed = {};
+  for (const project of projects) {
+    const observation = operations.projects?.[project.id];
+    if (!observation) continue;
+    const sourcePath = project.repo;
+    const repositoryPath = sourcePath ? resolve(fleetRoot, sourcePath) : null;
+    refreshed[project.id] = {
+      ...observation,
+      history:
+        repositoryPath && existsSync(repositoryPath)
+          ? observeGitHistory(repositoryPath)
+          : unobservedGitHistory(RETAINED_HISTORY_MISSING_REASON),
+    };
+  }
+  return {
+    ...operations,
+    historyObservedAt: observedAt,
+    observationSemantics: OBSERVATION_SEMANTICS,
+    projects: { ...operations.projects, ...refreshed },
+  };
+}
+
+/**
+ * Audits every canonical project's hand-maintained catalog history literals against the observed
+ * Git history, returning one finding per project that does not match, cannot be verified, or is
+ * only partially retained. Projects that match exactly produce no finding.
+ */
+export function auditRetainedGitHistory({ catalog, operations }) {
+  const findings = [];
+  for (const project of catalog.projects) {
+    const metadata = catalog.publicDirectory.projects?.[project.id] ?? {};
+    const history = operations.projects?.[project.id]?.history ?? null;
+    if (!history) {
+      findings.push({
+        projectId: project.id,
+        status: 'not-observed',
+        reason: 'The operations snapshot predates retained Git history collection.',
+        mismatches: [],
+      });
+      continue;
+    }
+    if (history.historyCompleteness == null) {
+      findings.push({
+        projectId: project.id,
+        status: 'unavailable',
+        reason: history.reason ?? 'Retained Git history was not observed.',
+        mismatches: [],
+      });
+      continue;
+    }
+    const mismatches = ['firstCommitAt', 'latestCommitAt']
+      .filter((field) => (metadata[field] ?? null) !== (history[field] ?? null))
+      .map((field) => ({
+        field,
+        catalog: metadata[field] ?? null,
+        observed: history[field] ?? null,
+      }));
+    if (mismatches.length > 0) {
+      findings.push({
+        projectId: project.id,
+        status: 'catalog-drift',
+        reason: 'The hand-maintained catalog literals differ from the observed Git history.',
+        mismatches,
+      });
+      continue;
+    }
+    if (history.historyCompleteness === 'incomplete') {
+      findings.push({
+        projectId: project.id,
+        status: 'incomplete',
+        reason: history.reason ?? RETAINED_HISTORY_SHALLOW_REASON,
+        mismatches: [],
+      });
+    }
+  }
+  return findings;
 }
 
 function normalizeProjectLabel(value) {

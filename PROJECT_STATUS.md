@@ -17,6 +17,16 @@ backend.
 
 ## Timeline
 
+- **2026-08-29:** Automated retained Git history for every canonical project.
+  The refresh now observes the first retained commit date, latest retained
+  commit date, retained commit count, and history completeness from each local
+  checkout, and the 56 verified dossiers carry those values with reproducible
+  provenance instead of hand-maintained literals. Shallow checkouts are marked
+  incomplete and missing checkouts stay null with a stated reason.
+  `pnpm docs:projects:check` now also audits the hand-maintained catalog
+  literals against the observation and lists drift by project id; 52 of 56
+  projects were drifting at the time of the first audit.
+
 - **2026-08-24:** Added a reviewed first-person public maker note to all 54
   canonical identities. Regenerated all 54 verified YAML dossiers so each
   begins with current provenance and includes the public note alongside the
