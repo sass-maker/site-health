@@ -17,6 +17,18 @@ backend.
 
 ## Timeline
 
+- **2026-08-29:** Shipped canonical product-purpose contracts for the whole
+  portfolio. All 55 in-scope canonical identities now carry a resolved
+  purpose, audience, outcome, mechanism, proof, and honest next action;
+  `ios-landings` stays out of scope as a factory rather than a product. The
+  contracts are validated in the dossier schema, projected through SaaS
+  Maker's deny-by-default public catalog, rendered on each public project
+  profile, and scored by the design-workflow purpose gate at a minimum of 85
+  with product / audience / value / mechanism / proof / next-action weights
+  and a separate non-compensating visual score.
+  `pnpm docs:purpose-contracts:check` keeps
+  `docs/product-purpose-contracts-latest.md` honest against the catalog.
+
 - **2026-08-29:** Automated retained Git history for every canonical project.
   The refresh now observes the first retained commit date, latest retained
   commit date, retained commit count, and history completeness from each local
