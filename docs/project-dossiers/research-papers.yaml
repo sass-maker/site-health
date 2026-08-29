@@ -3,7 +3,7 @@ projectId: research-papers
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,23 +30,24 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: research-papers
-      revision: f728624b1c21dc08bcd599669eb876ea279aeb5c
+      revision: 4e942e78c595bfa6397e9a9519b6ffb796caea03
       githubRepository: High-Signal-App/research-papers
       expectedHomepage: https://papers.highsignal.app
       observedHomepage: https://papers.highsignal.app
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 29
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
-        clear: 3
+        clear: 2
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Research paper was my attempt to understand what all there is in the market by adding some RAG on top of it. It has a huge amount of papers. I would want to do some more analysis in the future but for now I think it is done. It's just a lot of research papers.
@@ -94,7 +95,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: research-papers
-  observedRevision: f728624b1c21dc08bcd599669eb876ea279aeb5c
+  observedRevision: 4e942e78c595bfa6397e9a9519b6ffb796caea03
   githubRepository: High-Signal-App/research-papers
   githubHomepageUrl: https://papers.highsignal.app
   worktree: *a1
@@ -143,7 +144,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -151,7 +152,7 @@ githubActions:
   remote:
     repository: High-Signal-App/research-papers
     defaultBranch: main
-    defaultBranchSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
+    defaultBranchSha: 4e942e78c595bfa6397e9a9519b6ffb796caea03
     homepage: https://papers.highsignal.app
     query: verified
     disposition:
@@ -177,16 +178,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898658926
+          id: 33241051842
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
-          createdAt: 2026-08-25T21:01:02Z
-          updatedAt: 2026-08-25T21:03:01Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658926
-        ageDays: 2
+          headSha: 4e942e78c595bfa6397e9a9519b6ffb796caea03
+          createdAt: 2026-08-29T07:31:46Z
+          updatedAt: 2026-08-29T07:33:49Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/33241051842
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -195,16 +196,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898658926
+          id: 33241051842
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
-          createdAt: 2026-08-25T21:01:02Z
-          updatedAt: 2026-08-25T21:03:01Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658926
-        ageDays: 2
+          headSha: 4e942e78c595bfa6397e9a9519b6ffb796caea03
+          createdAt: 2026-08-29T07:31:46Z
+          updatedAt: 2026-08-29T07:33:49Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/33241051842
+        ageDays: 0
       attention: clear
     - name: Deploy research-papers to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -223,16 +224,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 31888543815
+          id: 33242202508
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 19fddd1317fea4e7032509b37cc3954a54a281af
-          createdAt: 2026-08-15T13:56:10Z
-          updatedAt: 2026-08-15T13:57:02Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/31888543815
-        ageDays: 13
+          headSha: 4e942e78c595bfa6397e9a9519b6ffb796caea03
+          createdAt: 2026-08-29T08:02:14Z
+          updatedAt: 2026-08-29T08:03:05Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/33242202508
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -270,14 +271,14 @@ githubActions:
           createdAt: 2026-08-25T21:01:02Z
           updatedAt: 2026-08-25T21:01:14Z
           url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658977
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 4e942e7
         lastRun:
           id: 32898658977
           status: completed
@@ -288,8 +289,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:02Z
           updatedAt: 2026-08-25T21:01:14Z
           url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658977
-        ageDays: 2
-      attention: clear
+      attention: missing-data
 deployment:
   kind: pages
   deployed: true

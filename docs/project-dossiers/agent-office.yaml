@@ -3,7 +3,7 @@ projectId: agent-office
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: agent-office
-      revision: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+      revision: ba4d29fd73a04d2b0ac350feede6f41226fce622
       githubRepository: sass-maker/agent-office
       expectedHomepage: https://office-os.sassmaker.com
       observedHomepage: https://office-os.sassmaker.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 8
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -100,7 +100,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: agent-office
-  observedRevision: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+  observedRevision: ba4d29fd73a04d2b0ac350feede6f41226fce622
   githubRepository: sass-maker/agent-office
   githubHomepageUrl: https://office-os.sassmaker.com
   worktree: *a1
@@ -132,7 +132,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -140,7 +140,7 @@ githubActions:
   remote:
     repository: sass-maker/agent-office
     defaultBranch: main
-    defaultBranchSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
+    defaultBranchSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
     homepage: https://office-os.sassmaker.com
     query: verified
     disposition:
@@ -165,16 +165,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694324697
+          id: 33241055301
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
-          createdAt: 2026-08-24T05:39:45Z
-          updatedAt: 2026-08-24T05:42:54Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/32694324697
-        ageDays: 4
+          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
+          createdAt: 2026-08-29T07:31:52Z
+          updatedAt: 2026-08-29T07:34:59Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33241055301
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -183,16 +183,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694324697
+          id: 33241055301
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
-          createdAt: 2026-08-24T05:39:45Z
-          updatedAt: 2026-08-24T05:42:54Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/32694324697
-        ageDays: 4
+          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
+          createdAt: 2026-08-29T07:31:52Z
+          updatedAt: 2026-08-29T07:34:59Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33241055301
+        ageDays: 0
       attention: clear
     - name: Site Check
       file: .github/workflows/site-check.yml
@@ -212,16 +212,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694324604
+          id: 33241055309
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
-          createdAt: 2026-08-24T05:39:45Z
-          updatedAt: 2026-08-24T05:40:07Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/32694324604
-        ageDays: 4
+          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
+          createdAt: 2026-08-29T07:31:52Z
+          updatedAt: 2026-08-29T07:32:12Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33241055309
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -230,16 +230,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694324604
+          id: 33241055309
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 138ec309b8ba333a8220bd828aa5ebdb376450e6
-          createdAt: 2026-08-24T05:39:45Z
-          updatedAt: 2026-08-24T05:40:07Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/32694324604
-        ageDays: 4
+          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
+          createdAt: 2026-08-29T07:31:52Z
+          updatedAt: 2026-08-29T07:32:12Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33241055309
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

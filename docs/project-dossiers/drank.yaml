@@ -3,7 +3,7 @@ projectId: drank
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,10 +30,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: drank
-      revision: 199fb094dc893afd508337bd2add77ba80f297ce
+      revision: 348d823c3bc692ab5e6d52c45272a88d65030d15
       githubRepository: sass-maker/drank
       expectedHomepage: https://domains.sassmaker.com
       observedHomepage: https://domains.sassmaker.com
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -97,7 +97,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: drank
-  observedRevision: 199fb094dc893afd508337bd2add77ba80f297ce
+  observedRevision: 348d823c3bc692ab5e6d52c45272a88d65030d15
   githubRepository: sass-maker/drank
   githubHomepageUrl: https://domains.sassmaker.com
   worktree: *a1
@@ -148,7 +148,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -156,7 +156,7 @@ githubActions:
   remote:
     repository: sass-maker/drank
     defaultBranch: main
-    defaultBranchSha: 199fb094dc893afd508337bd2add77ba80f297ce
+    defaultBranchSha: 348d823c3bc692ab5e6d52c45272a88d65030d15
     homepage: https://domains.sassmaker.com
     query: verified
     disposition:
@@ -182,16 +182,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32900302011
+          id: 33241048740
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 199fb094dc893afd508337bd2add77ba80f297ce
-          createdAt: 2026-08-25T21:18:33Z
-          updatedAt: 2026-08-25T21:19:17Z
-          url: https://github.com/sass-maker/drank/actions/runs/32900302011
-        ageDays: 2
+          headSha: 348d823c3bc692ab5e6d52c45272a88d65030d15
+          createdAt: 2026-08-29T07:31:41Z
+          updatedAt: 2026-08-29T07:32:25Z
+          url: https://github.com/sass-maker/drank/actions/runs/33241048740
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -200,16 +200,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32900302011
+          id: 33241048740
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 199fb094dc893afd508337bd2add77ba80f297ce
-          createdAt: 2026-08-25T21:18:33Z
-          updatedAt: 2026-08-25T21:19:17Z
-          url: https://github.com/sass-maker/drank/actions/runs/32900302011
-        ageDays: 2
+          headSha: 348d823c3bc692ab5e6d52c45272a88d65030d15
+          createdAt: 2026-08-29T07:31:41Z
+          updatedAt: 2026-08-29T07:32:25Z
+          url: https://github.com/sass-maker/drank/actions/runs/33241048740
+        ageDays: 0
       attention: clear
     - name: Update Global DR History
       file: .github/workflows/update-global-dr.yml
@@ -239,7 +239,7 @@ githubActions:
           createdAt: 2026-08-24T04:51:17Z
           updatedAt: 2026-08-24T04:52:20Z
           url: https://github.com/sass-maker/drank/actions/runs/32691529162
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -253,7 +253,7 @@ githubActions:
           createdAt: 2026-08-24T04:51:17Z
           updatedAt: 2026-08-24T04:52:20Z
           url: https://github.com/sass-maker/drank/actions/runs/32691529162
-        ageDays: 4
+        ageDays: 5
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

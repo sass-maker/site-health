@@ -3,7 +3,7 @@ projectId: reader
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,24 +30,25 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: reader
-      revision: e1729429c51d542a8a6a26168bd61028805868c3
+      revision: 2a5aa0d82eb55d0b364db147ddfd5493ef5b445a
       githubRepository: Significant-Hobbies/reader
       expectedHomepage: https://read.significanthobbies.com
       observedHomepage: https://read.significanthobbies.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 21
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
       attention: &a2
-        clear: 4
+        clear: 3
+        missing-data: 1
         review-history: 1
   unknowns: []
 ownerVoice:
@@ -97,7 +98,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reader
-  observedRevision: e1729429c51d542a8a6a26168bd61028805868c3
+  observedRevision: 2a5aa0d82eb55d0b364db147ddfd5493ef5b445a
   githubRepository: Significant-Hobbies/reader
   githubHomepageUrl: https://read.significanthobbies.com
   worktree: *a1
@@ -174,7 +175,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -183,7 +184,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/reader
     defaultBranch: main
-    defaultBranchSha: e1729429c51d542a8a6a26168bd61028805868c3
+    defaultBranchSha: 2a5aa0d82eb55d0b364db147ddfd5493ef5b445a
     homepage: https://read.significanthobbies.com
     query: verified
     disposition:
@@ -208,16 +209,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898229713
+          id: 33241047558
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e1729429c51d542a8a6a26168bd61028805868c3
-          createdAt: 2026-08-25T20:56:29Z
-          updatedAt: 2026-08-25T20:57:37Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/32898229713
-        ageDays: 2
+          headSha: 2a5aa0d82eb55d0b364db147ddfd5493ef5b445a
+          createdAt: 2026-08-29T07:31:38Z
+          updatedAt: 2026-08-29T07:32:59Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/33241047558
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -226,16 +227,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898229713
+          id: 33241047558
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e1729429c51d542a8a6a26168bd61028805868c3
-          createdAt: 2026-08-25T20:56:29Z
-          updatedAt: 2026-08-25T20:57:37Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/32898229713
-        ageDays: 2
+          headSha: 2a5aa0d82eb55d0b364db147ddfd5493ef5b445a
+          createdAt: 2026-08-29T07:31:38Z
+          updatedAt: 2026-08-29T07:32:59Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/33241047558
+        ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -254,16 +255,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32642002663
+          id: 33242202524
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: de3a01b0414d95f3fd4c901066bc87ce221979e3
-          createdAt: 2026-08-23T13:19:34Z
-          updatedAt: 2026-08-23T13:20:16Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/32642002663
-        ageDays: 5
+          headSha: 2a5aa0d82eb55d0b364db147ddfd5493ef5b445a
+          createdAt: 2026-08-29T08:02:14Z
+          updatedAt: 2026-08-29T08:03:13Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/33242202524
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -301,14 +302,14 @@ githubActions:
           createdAt: 2026-08-25T20:56:29Z
           updatedAt: 2026-08-25T20:56:41Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/32898229714
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 2a5aa0d
         lastRun:
           id: 32898229714
           status: completed
@@ -319,8 +320,7 @@ githubActions:
           createdAt: 2026-08-25T20:56:29Z
           updatedAt: 2026-08-25T20:56:41Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/32898229714
-        ageDays: 2
-      attention: clear
+      attention: missing-data
     - name: AI Code Review
       file: .github/workflows/review.yaml
       triggers:
@@ -347,7 +347,7 @@ githubActions:
           createdAt: 2026-05-08T16:51:58Z
           updatedAt: 2026-05-08T16:52:04Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/25568063470
-        ageDays: 111
+        ageDays: 112
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -382,7 +382,7 @@ githubActions:
           createdAt: 2026-08-24T17:03:51Z
           updatedAt: 2026-08-24T17:04:38Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/32754450067
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

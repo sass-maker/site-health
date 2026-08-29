@@ -3,7 +3,7 @@ projectId: live
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,25 +30,26 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: live
-      revision: b8b9102834143043b210a80a09646e6222707b86
+      revision: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
       githubRepository: Significant-Hobbies/live
       expectedHomepage: https://live.significanthobbies.com
       observedHomepage: https://live.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 14
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 3
       failing: 2
       attention: &a2
-        clear: 4
+        clear: 3
         review-history: 1
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "Help me understand: where was the lab repository and is it still inside Significant Hobbies?"
@@ -104,7 +105,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: live
-  observedRevision: b8b9102834143043b210a80a09646e6222707b86
+  observedRevision: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
   githubRepository: Significant-Hobbies/live
   githubHomepageUrl: https://live.significanthobbies.com
   worktree: *a1
@@ -181,7 +182,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -190,7 +191,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/live
     defaultBranch: main
-    defaultBranchSha: 2b0ba64112a28778ebbda58077108a6a673d8770
+    defaultBranchSha: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
     homepage: https://live.significanthobbies.com
     query: verified
     disposition:
@@ -215,15 +216,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33153912707
+          id: 33241450463
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2b0ba64112a28778ebbda58077108a6a673d8770
-          createdAt: 2026-08-28T08:04:50Z
-          updatedAt: 2026-08-28T08:11:15Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33153912707
+          headSha: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
+          createdAt: 2026-08-29T07:42:04Z
+          updatedAt: 2026-08-29T07:48:13Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33241450463
         ageDays: 0
       schedule:
         health: not-applicable
@@ -233,15 +234,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33153912707
+          id: 33241450463
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2b0ba64112a28778ebbda58077108a6a673d8770
-          createdAt: 2026-08-28T08:04:50Z
-          updatedAt: 2026-08-28T08:11:15Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33153912707
+          headSha: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
+          createdAt: 2026-08-29T07:42:04Z
+          updatedAt: 2026-08-29T07:48:13Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33241450463
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -261,15 +262,15 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33151732708
+          id: 33241758607
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: b8b9102834143043b210a80a09646e6222707b86
-          createdAt: 2026-08-28T07:30:48Z
-          updatedAt: 2026-08-28T07:33:20Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33151732708
+          headSha: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
+          createdAt: 2026-08-29T07:50:17Z
+          updatedAt: 2026-08-29T07:52:45Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33241758607
         ageDays: 0
       schedule:
         health: not-applicable
@@ -307,14 +308,14 @@ githubActions:
           createdAt: 2026-08-28T08:04:50Z
           updatedAt: 2026-08-28T08:05:02Z
           url: https://github.com/Significant-Hobbies/live/actions/runs/33153912769
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 277ed49
         lastRun:
           id: 33153912769
           status: completed
@@ -325,8 +326,7 @@ githubActions:
           createdAt: 2026-08-28T08:04:50Z
           updatedAt: 2026-08-28T08:05:02Z
           url: https://github.com/Significant-Hobbies/live/actions/runs/33153912769
-        ageDays: 0
-      attention: clear
+      attention: missing-data
     - name: Production Smoke
       file: .github/workflows/smoke.yml
       triggers:
@@ -346,29 +346,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33161762473
+          id: 33237421469
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 2b0ba64112a28778ebbda58077108a6a673d8770
-          createdAt: 2026-08-28T10:01:44Z
-          updatedAt: 2026-08-28T10:01:52Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33161762473
+          createdAt: 2026-08-29T06:00:02Z
+          updatedAt: 2026-08-29T06:00:11Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33237421469
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 33161762473
+          id: 33237421469
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 2b0ba64112a28778ebbda58077108a6a673d8770
-          createdAt: 2026-08-28T10:01:44Z
-          updatedAt: 2026-08-28T10:01:52Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33161762473
+          createdAt: 2026-08-29T06:00:02Z
+          updatedAt: 2026-08-29T06:00:11Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33237421469
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:

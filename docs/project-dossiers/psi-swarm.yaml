@@ -3,7 +3,7 @@ projectId: psi-swarm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,10 +30,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: psi-swarm
-      revision: 5cf4c85231d3460efb807614f88c4e6a54641b87
+      revision: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
       githubRepository: sass-maker/psi-swarm
       expectedHomepage: https://performance.sassmaker.com
       observedHomepage: https://performance.sassmaker.com
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
@@ -97,7 +97,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: psi-swarm
-  observedRevision: 5cf4c85231d3460efb807614f88c4e6a54641b87
+  observedRevision: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
   githubRepository: sass-maker/psi-swarm
   githubHomepageUrl: https://performance.sassmaker.com
   worktree: *a1
@@ -140,7 +140,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -149,7 +149,7 @@ githubActions:
   remote:
     repository: sass-maker/psi-swarm
     defaultBranch: main
-    defaultBranchSha: 5cf4c85231d3460efb807614f88c4e6a54641b87
+    defaultBranchSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
     homepage: https://performance.sassmaker.com
     query: verified
     disposition:
@@ -175,16 +175,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32909985136
+          id: 33241060195
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5cf4c85231d3460efb807614f88c4e6a54641b87
-          createdAt: 2026-08-25T23:15:57Z
-          updatedAt: 2026-08-25T23:16:55Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/32909985136
-        ageDays: 2
+          headSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+          createdAt: 2026-08-29T07:32:00Z
+          updatedAt: 2026-08-29T07:32:44Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/33241060195
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -193,16 +193,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32909985136
+          id: 33241060195
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5cf4c85231d3460efb807614f88c4e6a54641b87
-          createdAt: 2026-08-25T23:15:57Z
-          updatedAt: 2026-08-25T23:16:55Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/32909985136
-        ageDays: 2
+          headSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+          createdAt: 2026-08-29T07:32:00Z
+          updatedAt: 2026-08-29T07:32:44Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/33241060195
+        ageDays: 0
       attention: clear
     - name: Deploy psi-swarm-web to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -221,16 +221,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32910394198
+          id: 33242202482
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 5cf4c85231d3460efb807614f88c4e6a54641b87
-          createdAt: 2026-08-25T23:21:27Z
-          updatedAt: 2026-08-25T23:22:08Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/32910394198
-        ageDays: 2
+          headSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+          createdAt: 2026-08-29T08:02:14Z
+          updatedAt: 2026-08-29T08:02:53Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/33242202482
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -266,7 +266,7 @@ githubActions:
           createdAt: 2026-08-25T23:17:14Z
           updatedAt: 2026-08-25T23:21:05Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/32910082428
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -289,7 +289,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 85 days old
+        reason: latest run is 86 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -301,7 +301,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
-        ageDays: 85
+        ageDays: 86
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

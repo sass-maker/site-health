@@ -3,7 +3,7 @@ projectId: significanthobbies
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: significanthobbies
-      revision: 54156d8f12cd329aa97ee507b846cd47cb7ae5f2
+      revision: 9dbd54c15e184b8431f362498514c06b623b2d35
       githubRepository: Significant-Hobbies/significanthobbies
       expectedHomepage: https://significanthobbies.com
       observedHomepage: https://significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -100,7 +100,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: significanthobbies
-  observedRevision: 54156d8f12cd329aa97ee507b846cd47cb7ae5f2
+  observedRevision: 9dbd54c15e184b8431f362498514c06b623b2d35
   githubRepository: Significant-Hobbies/significanthobbies
   githubHomepageUrl: https://significanthobbies.com
   worktree: *a1
@@ -129,7 +129,7 @@ repository:
       - test:swift
       - test:worker
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -137,7 +137,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/significanthobbies
     defaultBranch: main
-    defaultBranchSha: 54156d8f12cd329aa97ee507b846cd47cb7ae5f2
+    defaultBranchSha: 9dbd54c15e184b8431f362498514c06b623b2d35
     homepage: https://significanthobbies.com
     query: verified
     disposition:
@@ -162,16 +162,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898727048
+          id: 33241057702
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 54156d8f12cd329aa97ee507b846cd47cb7ae5f2
-          createdAt: 2026-08-25T21:01:44Z
-          updatedAt: 2026-08-25T21:02:14Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32898727048
-        ageDays: 2
+          headSha: 9dbd54c15e184b8431f362498514c06b623b2d35
+          createdAt: 2026-08-29T07:31:56Z
+          updatedAt: 2026-08-29T07:32:26Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/33241057702
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -180,16 +180,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898727048
+          id: 33241057702
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 54156d8f12cd329aa97ee507b846cd47cb7ae5f2
-          createdAt: 2026-08-25T21:01:44Z
-          updatedAt: 2026-08-25T21:02:14Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32898727048
-        ageDays: 2
+          headSha: 9dbd54c15e184b8431f362498514c06b623b2d35
+          createdAt: 2026-08-29T07:31:56Z
+          updatedAt: 2026-08-29T07:32:26Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/33241057702
+        ageDays: 0
       attention: clear
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates

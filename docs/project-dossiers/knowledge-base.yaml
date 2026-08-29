@@ -3,7 +3,7 @@ projectId: knowledge-base
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,23 +30,24 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: knowledge-base
-      revision: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
+      revision: b5f1e85ddfffcb41e8d307f5b510b1d676e5bc05
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 7
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
-        clear: 3
+        clear: 2
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
@@ -95,7 +96,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
+  observedRevision: b5f1e85ddfffcb41e8d307f5b510b1d676e5bc05
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -148,7 +149,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -156,7 +157,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
+    defaultBranchSha: b5f1e85ddfffcb41e8d307f5b510b1d676e5bc05
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -181,16 +182,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898703347
+          id: 33242713117
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
-          createdAt: 2026-08-25T21:01:29Z
-          updatedAt: 2026-08-25T21:02:37Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703347
-        ageDays: 2
+          headSha: b5f1e85ddfffcb41e8d307f5b510b1d676e5bc05
+          createdAt: 2026-08-29T08:15:14Z
+          updatedAt: 2026-08-29T08:16:11Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/33242713117
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -199,16 +200,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898703347
+          id: 33242713117
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
-          createdAt: 2026-08-25T21:01:29Z
-          updatedAt: 2026-08-25T21:02:37Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703347
-        ageDays: 2
+          headSha: b5f1e85ddfffcb41e8d307f5b510b1d676e5bc05
+          createdAt: 2026-08-29T08:15:14Z
+          updatedAt: 2026-08-29T08:16:11Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/33242713117
+        ageDays: 0
       attention: clear
     - name: docs
       file: .github/workflows/docs.yml
@@ -237,14 +238,14 @@ githubActions:
           createdAt: 2026-08-25T21:01:29Z
           updatedAt: 2026-08-25T21:01:42Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703380
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision b5f1e85
         lastRun:
           id: 32898703380
           status: completed
@@ -255,8 +256,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:29Z
           updatedAt: 2026-08-25T21:01:42Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703380
-        ageDays: 2
-      attention: clear
+      attention: missing-data
     - name: worker-eval-on-pr
       file: .github/workflows/eval.yml
       triggers:
@@ -284,7 +284,7 @@ githubActions:
           createdAt: 2026-08-16T18:27:47Z
           updatedAt: 2026-08-16T18:27:59Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/31964660082
-        ageDays: 11
+        ageDays: 12
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

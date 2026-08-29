@@ -3,7 +3,7 @@ projectId: mashup
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: mashup
-      revision: 90d488f8fc08f406d13dd9dc0ec9b083c0ab6861
+      revision: dc963ae6a8faa92bd5ea30cf7c8dbff2ecebc1d3
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
       observedHomepage: https://mashup.highsignal.app
       worktree: &a1
         state: dirty
-        trackedChangeCount: 4
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -96,7 +96,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mashup
-  observedRevision: 90d488f8fc08f406d13dd9dc0ec9b083c0ab6861
+  observedRevision: dc963ae6a8faa92bd5ea30cf7c8dbff2ecebc1d3
   githubRepository: sass-maker/mashup
   githubHomepageUrl: https://mashup.highsignal.app
   worktree: *a1
@@ -121,6 +121,7 @@ repository:
         evidence:
           - uv.lock
     rootPackageScripts:
+      - deploy
       - format:check
       - lint
       - quality:complexity
@@ -130,7 +131,7 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -138,7 +139,7 @@ githubActions:
   remote:
     repository: sass-maker/mashup
     defaultBranch: main
-    defaultBranchSha: 90d488f8fc08f406d13dd9dc0ec9b083c0ab6861
+    defaultBranchSha: dc963ae6a8faa92bd5ea30cf7c8dbff2ecebc1d3
     homepage: https://mashup.highsignal.app
     query: verified
     disposition:
@@ -164,15 +165,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33164538354
+          id: 33243438595
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 90d488f8fc08f406d13dd9dc0ec9b083c0ab6861
-          createdAt: 2026-08-28T10:45:02Z
-          updatedAt: 2026-08-28T10:46:44Z
-          url: https://github.com/sass-maker/mashup/actions/runs/33164538354
+          headSha: dc963ae6a8faa92bd5ea30cf7c8dbff2ecebc1d3
+          createdAt: 2026-08-29T08:33:29Z
+          updatedAt: 2026-08-29T08:35:21Z
+          url: https://github.com/sass-maker/mashup/actions/runs/33243438595
         ageDays: 0
       schedule:
         health: not-applicable
@@ -182,15 +183,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33164538354
+          id: 33243438595
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 90d488f8fc08f406d13dd9dc0ec9b083c0ab6861
-          createdAt: 2026-08-28T10:45:02Z
-          updatedAt: 2026-08-28T10:46:44Z
-          url: https://github.com/sass-maker/mashup/actions/runs/33164538354
+          headSha: dc963ae6a8faa92bd5ea30cf7c8dbff2ecebc1d3
+          createdAt: 2026-08-29T08:33:29Z
+          updatedAt: 2026-08-29T08:35:21Z
+          url: https://github.com/sass-maker/mashup/actions/runs/33243438595
         ageDays: 0
       attention: clear
 deployment:

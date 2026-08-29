@@ -3,7 +3,7 @@ projectId: chatgpt-connections
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: chatgpt-connections
       revision: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 1
       failing: 1
@@ -139,7 +139,7 @@ repository:
       - types:worker
       - verify:activation
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -183,7 +183,7 @@ githubActions:
           createdAt: 2026-08-25T17:27:01Z
           updatedAt: 2026-08-25T17:27:21Z
           url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32877947109
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -201,7 +201,7 @@ githubActions:
           createdAt: 2026-08-25T17:27:01Z
           updatedAt: 2026-08-25T17:27:21Z
           url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32877947109
-        ageDays: 2
+        ageDays: 3
       attention: clear
     - name: ChatGPT Connections Production Monitor
       file: .github/workflows/production-monitor.yml
@@ -229,7 +229,7 @@ githubActions:
           createdAt: 2026-08-25T03:59:46Z
           updatedAt: 2026-08-25T04:00:08Z
           url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32807246736
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

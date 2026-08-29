@@ -3,7 +3,7 @@ projectId: what-it-takes-to-win
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: what-it-takes-to-win
-      revision: 1fd04b62db702e9525414524395bbe2619e7710a
+      revision: af2d06ae8045a614c81a775d22fc29a28f6f1499
       githubRepository: Significant-Hobbies/what-it-takes-to-win
       expectedHomepage: https://paths.significanthobbies.com
       observedHomepage: https://paths.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -93,7 +93,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: what-it-takes-to-win
-  observedRevision: 1fd04b62db702e9525414524395bbe2619e7710a
+  observedRevision: af2d06ae8045a614c81a775d22fc29a28f6f1499
   githubRepository: Significant-Hobbies/what-it-takes-to-win
   githubHomepageUrl: https://paths.significanthobbies.com
   worktree: *a1
@@ -146,7 +146,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -154,7 +154,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/what-it-takes-to-win
     defaultBranch: main
-    defaultBranchSha: 1fd04b62db702e9525414524395bbe2619e7710a
+    defaultBranchSha: af2d06ae8045a614c81a775d22fc29a28f6f1499
     homepage: https://paths.significanthobbies.com
     query: verified
     disposition:
@@ -179,16 +179,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33013868307
+          id: 33241059944
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1fd04b62db702e9525414524395bbe2619e7710a
-          createdAt: 2026-08-26T21:07:45Z
-          updatedAt: 2026-08-26T21:10:34Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/33013868307
-        ageDays: 1
+          headSha: af2d06ae8045a614c81a775d22fc29a28f6f1499
+          createdAt: 2026-08-29T07:31:59Z
+          updatedAt: 2026-08-29T07:34:08Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/33241059944
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -197,16 +197,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33013868307
+          id: 33241059944
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1fd04b62db702e9525414524395bbe2619e7710a
-          createdAt: 2026-08-26T21:07:45Z
-          updatedAt: 2026-08-26T21:10:34Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/33013868307
-        ageDays: 1
+          headSha: af2d06ae8045a614c81a775d22fc29a28f6f1499
+          createdAt: 2026-08-29T07:31:59Z
+          updatedAt: 2026-08-29T07:34:08Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/33241059944
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

@@ -3,7 +3,7 @@ projectId: karte
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,23 +30,24 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: karte
-      revision: f16c93b6fa897a2715d07d590af5a6d0033bb845
+      revision: 53cb5d800e313aeecab527dcf774c00a2138527a
       githubRepository: Significant-Hobbies/karte
       expectedHomepage: https://karte.cc
       observedHomepage: https://karte.cc
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 27
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
-        clear: 4
+        clear: 3
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
@@ -95,7 +96,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: karte
-  observedRevision: f16c93b6fa897a2715d07d590af5a6d0033bb845
+  observedRevision: 53cb5d800e313aeecab527dcf774c00a2138527a
   githubRepository: Significant-Hobbies/karte
   githubHomepageUrl: https://karte.cc
   worktree: *a1
@@ -169,7 +170,7 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -177,7 +178,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/karte
     defaultBranch: main
-    defaultBranchSha: f16c93b6fa897a2715d07d590af5a6d0033bb845
+    defaultBranchSha: 53cb5d800e313aeecab527dcf774c00a2138527a
     homepage: https://karte.cc
     query: verified
     disposition:
@@ -202,16 +203,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898724428
+          id: 33241290969
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f16c93b6fa897a2715d07d590af5a6d0033bb845
-          createdAt: 2026-08-25T21:01:43Z
-          updatedAt: 2026-08-25T21:04:31Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/32898724428
-        ageDays: 2
+          headSha: 53cb5d800e313aeecab527dcf774c00a2138527a
+          createdAt: 2026-08-29T07:37:48Z
+          updatedAt: 2026-08-29T07:40:43Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/33241290969
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -220,16 +221,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898724428
+          id: 33241290969
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f16c93b6fa897a2715d07d590af5a6d0033bb845
-          createdAt: 2026-08-25T21:01:43Z
-          updatedAt: 2026-08-25T21:04:31Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/32898724428
-        ageDays: 2
+          headSha: 53cb5d800e313aeecab527dcf774c00a2138527a
+          createdAt: 2026-08-29T07:37:48Z
+          updatedAt: 2026-08-29T07:40:43Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/33241290969
+        ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -248,16 +249,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 31888544189
+          id: 33242202562
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 9c9a181778ca4b6a85fb44035791fe51e79272cb
-          createdAt: 2026-08-15T13:56:10Z
-          updatedAt: 2026-08-15T13:58:44Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/31888544189
-        ageDays: 13
+          headSha: 53cb5d800e313aeecab527dcf774c00a2138527a
+          createdAt: 2026-08-29T08:02:14Z
+          updatedAt: 2026-08-29T08:04:46Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/33242202562
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -294,14 +295,14 @@ githubActions:
           createdAt: 2026-08-25T21:01:43Z
           updatedAt: 2026-08-25T21:01:52Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/32898724469
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 53cb5d8
         lastRun:
           id: 32898724469
           status: completed
@@ -312,8 +313,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:43Z
           updatedAt: 2026-08-25T21:01:52Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/32898724469
-        ageDays: 2
-      attention: clear
+      attention: missing-data
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -339,7 +339,7 @@ githubActions:
           createdAt: 2026-08-24T22:53:29Z
           updatedAt: 2026-08-24T22:54:16Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/32786802868
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

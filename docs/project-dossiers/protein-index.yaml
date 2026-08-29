@@ -3,7 +3,7 @@ projectId: protein-index
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,10 +30,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: protein-index
-      revision: 907628c42dba4c0514f5fbb4748bb083a06fdce3
+      revision: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
       githubRepository: Significant-Hobbies/protein-index
       expectedHomepage: https://protein.significanthobbies.com
       observedHomepage: https://protein.significanthobbies.com
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -95,7 +95,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: protein-index
-  observedRevision: 907628c42dba4c0514f5fbb4748bb083a06fdce3
+  observedRevision: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
   githubRepository: Significant-Hobbies/protein-index
   githubHomepageUrl: https://protein.significanthobbies.com
   worktree: *a1
@@ -166,7 +166,7 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -174,7 +174,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/protein-index
     defaultBranch: main
-    defaultBranchSha: 907628c42dba4c0514f5fbb4748bb083a06fdce3
+    defaultBranchSha: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
     homepage: https://protein.significanthobbies.com
     query: verified
     disposition:
@@ -199,16 +199,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898615264
+          id: 33241048908
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 907628c42dba4c0514f5fbb4748bb083a06fdce3
-          createdAt: 2026-08-25T21:00:35Z
-          updatedAt: 2026-08-25T21:01:10Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/32898615264
-        ageDays: 2
+          headSha: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
+          createdAt: 2026-08-29T07:31:41Z
+          updatedAt: 2026-08-29T07:32:11Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/33241048908
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -217,16 +217,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898615264
+          id: 33241048908
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 907628c42dba4c0514f5fbb4748bb083a06fdce3
-          createdAt: 2026-08-25T21:00:35Z
-          updatedAt: 2026-08-25T21:01:10Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/32898615264
-        ageDays: 2
+          headSha: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
+          createdAt: 2026-08-29T07:31:41Z
+          updatedAt: 2026-08-29T07:32:11Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/33241048908
+        ageDays: 0
       attention: clear
 deployment:
   kind: worker

@@ -3,7 +3,7 @@ projectId: calorie
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: calorie
-      revision: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+      revision: 2ef922b8139209a5a44ca9916e0f35c3dbb70017
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
       observedHomepage: https://calorie.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 13
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -105,7 +105,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: calorie
-  observedRevision: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+  observedRevision: 2ef922b8139209a5a44ca9916e0f35c3dbb70017
   githubRepository: Significant-Hobbies/calorie
   githubHomepageUrl: https://calorie.significanthobbies.com
   worktree: *a1
@@ -158,7 +158,7 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -166,7 +166,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/calorie
     defaultBranch: main
-    defaultBranchSha: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
+    defaultBranchSha: 2ef922b8139209a5a44ca9916e0f35c3dbb70017
     homepage: https://calorie.significanthobbies.com
     query: verified
     disposition:
@@ -191,16 +191,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32637598388
+          id: 33241048819
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
-          createdAt: 2026-08-23T11:48:47Z
-          updatedAt: 2026-08-23T11:55:44Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/32637598388
-        ageDays: 5
+          headSha: 2ef922b8139209a5a44ca9916e0f35c3dbb70017
+          createdAt: 2026-08-29T07:31:41Z
+          updatedAt: 2026-08-29T07:43:00Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/33241048819
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -209,16 +209,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32637598388
+          id: 33241048819
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1f7e2bf3b89effa1e63d81858ec172d86497bd6f
-          createdAt: 2026-08-23T11:48:47Z
-          updatedAt: 2026-08-23T11:55:44Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/32637598388
-        ageDays: 5
+          headSha: 2ef922b8139209a5a44ca9916e0f35c3dbb70017
+          createdAt: 2026-08-29T07:31:41Z
+          updatedAt: 2026-08-29T07:43:00Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/33241048819
+        ageDays: 0
       attention: clear
 deployment:
   kind: worker

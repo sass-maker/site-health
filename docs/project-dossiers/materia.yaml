@@ -3,7 +3,7 @@ projectId: materia
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,10 +30,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: materia
-      revision: 742175616d00f6df929089866ab7e05bd9f840ad
+      revision: e33ca4c8ea7343345f52e7ece1782e15f75a2462
       githubRepository: Significant-Hobbies/materia
       expectedHomepage: https://materia.significanthobbies.com
       observedHomepage: https://materia.significanthobbies.com
@@ -42,7 +42,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -94,7 +94,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: materia
-  observedRevision: 742175616d00f6df929089866ab7e05bd9f840ad
+  observedRevision: e33ca4c8ea7343345f52e7ece1782e15f75a2462
   githubRepository: Significant-Hobbies/materia
   githubHomepageUrl: https://materia.significanthobbies.com
   worktree: *a1
@@ -140,7 +140,7 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -148,7 +148,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/materia
     defaultBranch: main
-    defaultBranchSha: 742175616d00f6df929089866ab7e05bd9f840ad
+    defaultBranchSha: e33ca4c8ea7343345f52e7ece1782e15f75a2462
     homepage: https://materia.significanthobbies.com
     query: verified
     disposition:
@@ -173,16 +173,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898677805
+          id: 33241051268
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 742175616d00f6df929089866ab7e05bd9f840ad
-          createdAt: 2026-08-25T21:01:14Z
-          updatedAt: 2026-08-25T21:01:47Z
-          url: https://github.com/Significant-Hobbies/materia/actions/runs/32898677805
-        ageDays: 2
+          headSha: e33ca4c8ea7343345f52e7ece1782e15f75a2462
+          createdAt: 2026-08-29T07:31:45Z
+          updatedAt: 2026-08-29T07:32:17Z
+          url: https://github.com/Significant-Hobbies/materia/actions/runs/33241051268
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -191,16 +191,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898677805
+          id: 33241051268
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 742175616d00f6df929089866ab7e05bd9f840ad
-          createdAt: 2026-08-25T21:01:14Z
-          updatedAt: 2026-08-25T21:01:47Z
-          url: https://github.com/Significant-Hobbies/materia/actions/runs/32898677805
-        ageDays: 2
+          headSha: e33ca4c8ea7343345f52e7ece1782e15f75a2462
+          createdAt: 2026-08-29T07:31:45Z
+          updatedAt: 2026-08-29T07:32:17Z
+          url: https://github.com/Significant-Hobbies/materia/actions/runs/33241051268
+        ageDays: 0
       attention: clear
     - name: Deploy materia to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -219,16 +219,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32562035822
+          id: 33242202599
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 850ee1f60bc99d460727a4a4ea4144868131e76e
-          createdAt: 2026-08-22T08:20:48Z
-          updatedAt: 2026-08-22T08:21:44Z
-          url: https://github.com/Significant-Hobbies/materia/actions/runs/32562035822
-        ageDays: 6
+          headSha: e33ca4c8ea7343345f52e7ece1782e15f75a2462
+          createdAt: 2026-08-29T08:02:14Z
+          updatedAt: 2026-08-29T08:03:18Z
+          url: https://github.com/Significant-Hobbies/materia/actions/runs/33242202599
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

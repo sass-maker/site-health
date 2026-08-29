@@ -3,7 +3,7 @@ projectId: posttrainllm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,19 +30,19 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: posttrainllm
-      revision: cdc9ecd30576a6440922faf235cf6b382df4c040
+      revision: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
       observedHomepage: https://posttrainllm.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 37
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -95,7 +95,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: posttrainllm
-  observedRevision: cdc9ecd30576a6440922faf235cf6b382df4c040
+  observedRevision: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
   githubRepository: PostTrainLLM/posttrainllm
   githubHomepageUrl: https://posttrainllm.com
   worktree: *a1
@@ -143,7 +143,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -151,7 +151,7 @@ githubActions:
   remote:
     repository: PostTrainLLM/posttrainllm
     defaultBranch: main
-    defaultBranchSha: cdc9ecd30576a6440922faf235cf6b382df4c040
+    defaultBranchSha: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
     homepage: https://posttrainllm.com
     query: verified
     disposition:
@@ -177,16 +177,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32694383154
+          id: 33241535311
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cdc9ecd30576a6440922faf235cf6b382df4c040
-          createdAt: 2026-08-24T05:40:43Z
-          updatedAt: 2026-08-24T05:51:26Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32694383154
-        ageDays: 4
+          headSha: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
+          createdAt: 2026-08-29T07:44:26Z
+          updatedAt: 2026-08-29T07:54:34Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/33241535311
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -195,16 +195,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32694383154
+          id: 33241535311
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cdc9ecd30576a6440922faf235cf6b382df4c040
-          createdAt: 2026-08-24T05:40:43Z
-          updatedAt: 2026-08-24T05:51:26Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32694383154
-        ageDays: 4
+          headSha: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
+          createdAt: 2026-08-29T07:44:26Z
+          updatedAt: 2026-08-29T07:54:34Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/33241535311
+        ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -223,16 +223,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32562272768
+          id: 33242103142
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 595f3516bddba1e1a7d0ef877274d5d10854b613
-          createdAt: 2026-08-22T08:26:10Z
-          updatedAt: 2026-08-22T08:27:36Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/32562272768
-        ageDays: 6
+          headSha: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
+          createdAt: 2026-08-29T07:59:59Z
+          updatedAt: 2026-08-29T08:01:19Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/33242103142
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

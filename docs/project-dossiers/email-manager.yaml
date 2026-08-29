@@ -3,7 +3,7 @@ projectId: email-manager
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: email-manager
       revision: ae63375a9b7cd60f70e40798eaffde416fdae149
@@ -38,11 +38,11 @@ verification:
       expectedHomepage: https://mail.significanthobbies.com
       observedHomepage: https://mail.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -162,7 +162,7 @@ repository:
       - typecheck
       - verify:indexing
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -204,7 +204,7 @@ githubActions:
           createdAt: 2026-08-25T21:42:06Z
           updatedAt: 2026-08-25T21:42:48Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902387876
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -222,7 +222,7 @@ githubActions:
           createdAt: 2026-08-25T21:42:06Z
           updatedAt: 2026-08-25T21:42:48Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902387876
-        ageDays: 2
+        ageDays: 3
       attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -285,7 +285,7 @@ githubActions:
           createdAt: 2026-08-24T05:10:52Z
           updatedAt: 2026-08-24T05:11:48Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32692601875
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -3,7 +3,7 @@ projectId: reel-pipeline
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-28
+  generatedAt: 2026-08-29
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -14,7 +14,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b92a0098135368dcfbc8a622eaeb249b9c90e2b8f6fc938edf90cc8a7e30125
+      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -30,7 +30,7 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-28
+      observedAt: 2026-08-29
       state: available
       checkout: reel-pipeline
       revision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
@@ -42,12 +42,13 @@ verification:
         trackedChangeCount: 1
         deletedWorkflowFiles: []
     githubActions:
-      observedAt: 2026-08-28T15:10:35.586Z
+      observedAt: 2026-08-29T09:09:05.908Z
       staleAfterDays: 30
       healthy: 2
-      stale: 1
+      failing: 1
       attention: &a2
-        clear: 3
+        clear: 2
+        review-history: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
@@ -189,11 +190,11 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-08-28T15:10:35.586Z
+  observedAt: 2026-08-29T09:09:05.908Z
   staleAfterDays: 30
   summary:
     healthy: 2
-    stale: 1
+    failing: 1
   attention: *a2
   remote:
     repository: sass-maker/reel-pipeline
@@ -233,7 +234,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:40Z
           updatedAt: 2026-08-25T21:02:32Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720516
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -251,7 +252,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:40Z
           updatedAt: 2026-08-25T21:02:32Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720516
-        ageDays: 2
+        ageDays: 3
       attention: clear
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
@@ -266,20 +267,20 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: stale
-        reason: latest run is 45 days old
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 29273219217
+          id: 33242867241
           status: completed
-          conclusion: success
+          conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: 364f2fd836e1f545360adbd44eac03c7dff993d7
-          createdAt: 2026-07-13T18:07:43Z
-          updatedAt: 2026-07-13T18:08:12Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/29273219217
-        ageDays: 45
+          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+          createdAt: 2026-08-29T08:19:15Z
+          updatedAt: 2026-08-29T08:19:26Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/33242867241
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -288,7 +289,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: review-history
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -316,7 +317,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:40Z
           updatedAt: 2026-08-25T21:01:52Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720425
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -334,7 +335,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:40Z
           updatedAt: 2026-08-25T21:01:52Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720425
-        ageDays: 2
+        ageDays: 3
       attention: clear
 deployment:
   kind: worker
