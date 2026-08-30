@@ -3,7 +3,7 @@ projectId: truehire
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-29
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: truehire
-      revision: 6ea7130d2b8024bc432579b6852dbf42fa8c5339
+      revision: 0effae6f98dcc6e48b173afb8416d391b27171a0
       githubRepository: sarthakagrawal927/truehire
       expectedHomepage: https://truehire.rolepatch.com
       observedHomepage: https://truehire.rolepatch.com
@@ -44,10 +44,10 @@ verification:
         deletedWorkflowFiles:
           - .github/workflows/weekly.yml
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: truehire
-      revision: 6ea7130d2b8024bc432579b6852dbf42fa8c5339
+      revision: 0effae6f98dcc6e48b173afb8416d391b27171a0
       githubRepository: sarthakagrawal927/truehire
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,11 +57,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 1
-      stale: 2
-      failing: 1
+      stale: 1
+      failing: 2
       attention: &a2
         ignored: 4
   unknowns: []
@@ -107,13 +107,13 @@ product:
     - Cloudflare
   retainedGitHistory:
     firstCommitAt: 2026-04-24
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 177
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 179
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: truehire
-  observedRevision: 6ea7130d2b8024bc432579b6852dbf42fa8c5339
+  observedRevision: 0effae6f98dcc6e48b173afb8416d391b27171a0
   githubRepository: sarthakagrawal927/truehire
   githubHomepageUrl: https://truehire.rolepatch.com
   worktree: *a1
@@ -169,17 +169,17 @@ repository:
       - test:e2e:local
       - typecheck
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 1
-    stale: 2
-    failing: 1
+    stale: 1
+    failing: 2
   attention: *a2
   remote:
     repository: sarthakagrawal927/truehire
     defaultBranch: main
-    defaultBranchSha: 6ea7130d2b8024bc432579b6852dbf42fa8c5339
+    defaultBranchSha: 1aa9e195f751fe0d855481d3eef45d9528268313
     homepage: https://truehire.rolepatch.com
     query: verified
     disposition:
@@ -204,34 +204,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33244670497
+          id: 33249459746
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6ea7130d2b8024bc432579b6852dbf42fa8c5339
-          createdAt: 2026-08-29T09:05:34Z
-          updatedAt: 2026-08-29T09:07:21Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33244670497
-        ageDays: 0
+          headSha: d277672881b66219d81986f2bcbb6cb3d544c4e5
+          createdAt: 2026-08-29T11:09:30Z
+          updatedAt: 2026-08-29T11:11:07Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249459746
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 1aa9e19
         lastRun:
-          id: 33244670497
+          id: 33249459746
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6ea7130d2b8024bc432579b6852dbf42fa8c5339
-          createdAt: 2026-08-29T09:05:34Z
-          updatedAt: 2026-08-29T09:07:21Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33244670497
-        ageDays: 0
+          headSha: d277672881b66219d81986f2bcbb6cb3d544c4e5
+          createdAt: 2026-08-29T11:09:30Z
+          updatedAt: 2026-08-29T11:11:07Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249459746
       attention: ignored
     - name: Release CLI
       file: .github/workflows/cli-release.yml
@@ -248,7 +247,7 @@ githubActions:
         reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
       live:
         health: stale
-        reason: latest run is 63 days old
+        reason: latest run is 64 days old
         apiState: active
         lastRun:
           id: 28280282798
@@ -260,7 +259,7 @@ githubActions:
           createdAt: 2026-06-27T05:46:06Z
           updatedAt: 2026-06-27T05:46:43Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/28280282798
-        ageDays: 63
+        ageDays: 64
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -283,20 +282,20 @@ githubActions:
         status: ignored
         reason: Owner explicitly ignores GitHub Actions for this archived concept; the pending weekly-workflow deletion should still remain visible until GitHub reconciles it.
       live:
-        health: stale
-        reason: latest run is 50 days old
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 29036998309
+          id: 33249538914
           status: completed
-          conclusion: success
+          conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: c70650927fc5521975725135894e0cb1a16d9723
-          createdAt: 2026-07-09T17:25:35Z
-          updatedAt: 2026-07-09T17:27:58Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/29036998309
-        ageDays: 50
+          headSha: d277672881b66219d81986f2bcbb6cb3d544c4e5
+          createdAt: 2026-08-29T11:11:27Z
+          updatedAt: 2026-08-29T11:12:00Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249538914
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -334,7 +333,7 @@ githubActions:
           createdAt: 2026-07-27T12:09:59Z
           updatedAt: 2026-07-27T12:10:16Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/30264788208
-        ageDays: 32
+        ageDays: 33
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
@@ -348,7 +347,7 @@ githubActions:
           createdAt: 2026-07-27T12:09:59Z
           updatedAt: 2026-07-27T12:10:16Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/30264788208
-        ageDays: 32
+        ageDays: 33
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

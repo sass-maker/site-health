@@ -3,7 +3,7 @@ projectId: drank
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
+      infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Drank
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: drank
-      revision: 348d823c3bc692ab5e6d52c45272a88d65030d15
+      revision: 3d57f5cbb27f83d26d122ddd9ba14b6f501d3ebb
       githubRepository: sass-maker/drank
       expectedHomepage: https://domains.sassmaker.com
       observedHomepage: https://domains.sassmaker.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: drank
-      revision: 348d823c3bc692ab5e6d52c45272a88d65030d15
+      revision: 3d57f5cbb27f83d26d122ddd9ba14b6f501d3ebb
       githubRepository: sass-maker/drank
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -107,13 +107,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-06-10
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 86
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 88
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: drank
-  observedRevision: 348d823c3bc692ab5e6d52c45272a88d65030d15
+  observedRevision: 3d57f5cbb27f83d26d122ddd9ba14b6f501d3ebb
   githubRepository: sass-maker/drank
   githubHomepageUrl: https://domains.sassmaker.com
   worktree: *a1
@@ -164,7 +164,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -172,7 +172,7 @@ githubActions:
   remote:
     repository: sass-maker/drank
     defaultBranch: main
-    defaultBranchSha: 348d823c3bc692ab5e6d52c45272a88d65030d15
+    defaultBranchSha: 3d57f5cbb27f83d26d122ddd9ba14b6f501d3ebb
     homepage: https://domains.sassmaker.com
     query: verified
     disposition:
@@ -198,15 +198,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33241048740
+          id: 33308493489
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 348d823c3bc692ab5e6d52c45272a88d65030d15
-          createdAt: 2026-08-29T07:31:41Z
-          updatedAt: 2026-08-29T07:32:25Z
-          url: https://github.com/sass-maker/drank/actions/runs/33241048740
+          headSha: 3d57f5cbb27f83d26d122ddd9ba14b6f501d3ebb
+          createdAt: 2026-08-30T11:16:04Z
+          updatedAt: 2026-08-30T11:17:02Z
+          url: https://github.com/sass-maker/drank/actions/runs/33308493489
         ageDays: 0
       schedule:
         health: not-applicable
@@ -216,15 +216,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33241048740
+          id: 33308493489
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 348d823c3bc692ab5e6d52c45272a88d65030d15
-          createdAt: 2026-08-29T07:31:41Z
-          updatedAt: 2026-08-29T07:32:25Z
-          url: https://github.com/sass-maker/drank/actions/runs/33241048740
+          headSha: 3d57f5cbb27f83d26d122ddd9ba14b6f501d3ebb
+          createdAt: 2026-08-30T11:16:04Z
+          updatedAt: 2026-08-30T11:17:02Z
+          url: https://github.com/sass-maker/drank/actions/runs/33308493489
         ageDays: 0
       attention: clear
     - name: Update Global DR History
@@ -255,7 +255,7 @@ githubActions:
           createdAt: 2026-08-24T04:51:17Z
           updatedAt: 2026-08-24T04:52:20Z
           url: https://github.com/sass-maker/drank/actions/runs/32691529162
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -269,7 +269,7 @@ githubActions:
           createdAt: 2026-08-24T04:51:17Z
           updatedAt: 2026-08-24T04:52:20Z
           url: https://github.com/sass-maker/drank/actions/runs/32691529162
-        ageDays: 5
+        ageDays: 6
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -292,6 +292,13 @@ deployment:
         method: wrangler-direct
         state: live
     resources:
+      - provider: cloudflare
+        kind: workers-ai
+        name: AI
+        state: active
+        scope: project
+        operationalOwner: drank
+        attributionReason: "Canonical project owner: drank"
       - provider: cloudflare
         kind: turnstile
         name: drank (Spin)

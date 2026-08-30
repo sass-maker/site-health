@@ -3,7 +3,7 @@ projectId: protein-index
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: protein-index
-      revision: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
+      revision: 7fc67c70ebdf40de1b959ffd40ed02ce0693dcdf
       githubRepository: Significant-Hobbies/protein-index
       expectedHomepage: https://protein.significanthobbies.com
       observedHomepage: https://protein.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: protein-index
-      revision: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
+      revision: 7fc67c70ebdf40de1b959ffd40ed02ce0693dcdf
       githubRepository: Significant-Hobbies/protein-index
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -105,13 +105,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-15
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 239
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 241
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: protein-index
-  observedRevision: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
+  observedRevision: 7fc67c70ebdf40de1b959ffd40ed02ce0693dcdf
   githubRepository: Significant-Hobbies/protein-index
   githubHomepageUrl: https://protein.significanthobbies.com
   worktree: *a1
@@ -182,7 +182,7 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -190,7 +190,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/protein-index
     defaultBranch: main
-    defaultBranchSha: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
+    defaultBranchSha: 7fc67c70ebdf40de1b959ffd40ed02ce0693dcdf
     homepage: https://protein.significanthobbies.com
     query: verified
     disposition:
@@ -215,15 +215,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33241048908
+          id: 33308577360
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
-          createdAt: 2026-08-29T07:31:41Z
-          updatedAt: 2026-08-29T07:32:11Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/33241048908
+          headSha: 7fc67c70ebdf40de1b959ffd40ed02ce0693dcdf
+          createdAt: 2026-08-30T11:18:06Z
+          updatedAt: 2026-08-30T11:18:38Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/33308577360
         ageDays: 0
       schedule:
         health: not-applicable
@@ -233,15 +233,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33241048908
+          id: 33308577360
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9e506dd70bd0963e7b2306ef87d9cd7c52038665
-          createdAt: 2026-08-29T07:31:41Z
-          updatedAt: 2026-08-29T07:32:11Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/33241048908
+          headSha: 7fc67c70ebdf40de1b959ffd40ed02ce0693dcdf
+          createdAt: 2026-08-30T11:18:06Z
+          updatedAt: 2026-08-30T11:18:38Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/33308577360
         ageDays: 0
       attention: clear
 deployment:

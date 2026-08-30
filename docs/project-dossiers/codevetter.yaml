@@ -3,7 +3,7 @@ projectId: codevetter
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: codevetter
-      revision: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
+      revision: 225480e5b6a018014bef1c190ed8ac3914a472e7
       githubRepository: Codevetter/codevetter
       expectedHomepage: https://codevetter.com
       observedHomepage: https://codevetter.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: codevetter
-      revision: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
+      revision: 225480e5b6a018014bef1c190ed8ac3914a472e7
       githubRepository: Codevetter/codevetter
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
-      healthy: 7
+      healthy: 6
+      failing: 1
       attention: &a2
         missing-data: 1
-        clear: 6
+        action-required: 1
+        clear: 5
   unknowns: []
 ownerVoice:
   whyVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
@@ -108,13 +110,13 @@ product:
     - Rust
   retainedGitHistory:
     firstCommitAt: 2025-11-30
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 1003
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 1014
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: codevetter
-  observedRevision: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
+  observedRevision: 225480e5b6a018014bef1c190ed8ac3914a472e7
   githubRepository: Codevetter/codevetter
   githubHomepageUrl: https://codevetter.com
   worktree: *a1
@@ -228,15 +230,16 @@ repository:
       - verification:mcp
       - verify
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
-    healthy: 7
+    healthy: 6
+    failing: 1
   attention: *a2
   remote:
     repository: Codevetter/codevetter
     defaultBranch: main
-    defaultBranchSha: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
+    defaultBranchSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
     homepage: https://codevetter.com
     query: verified
     disposition:
@@ -270,14 +273,14 @@ githubActions:
           createdAt: 2026-08-25T10:24:07Z
           updatedAt: 2026-08-25T10:24:21Z
           url: https://github.com/Codevetter/codevetter/actions/runs/32837031354
-        ageDays: 3
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision aeb3c08
+        reason: no push run at current main revision ce7c028
         lastRun:
           id: 32837031354
           status: completed
@@ -304,19 +307,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33210449971
+          id: 33308569160
           status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
-          createdAt: 2026-08-28T20:57:31Z
-          updatedAt: 2026-08-28T21:06:17Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33210449971
+          conclusion: failure
+          event: pull_request
+          branch: chore/repo-structure-and-quality-gates
+          headSha: 225480e5b6a018014bef1c190ed8ac3914a472e7
+          createdAt: 2026-08-30T11:17:54Z
+          updatedAt: 2026-08-30T11:18:54Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33308569160
         ageDays: 0
       schedule:
         health: not-applicable
@@ -326,17 +329,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33210449971
+          id: 33262918254
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
-          createdAt: 2026-08-28T20:57:31Z
-          updatedAt: 2026-08-28T21:06:17Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33210449971
+          headSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
+          createdAt: 2026-08-29T16:25:18Z
+          updatedAt: 2026-08-29T16:34:26Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33262918254
         ageDays: 0
-      attention: clear
+      attention: action-required
     - name: Deploy Landing Page
       file: .github/workflows/deploy-landing.yml
       triggers:
@@ -363,7 +366,7 @@ githubActions:
           createdAt: 2026-08-29T08:19:16Z
           updatedAt: 2026-08-29T08:20:20Z
           url: https://github.com/Codevetter/codevetter/actions/runs/33242867743
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -391,15 +394,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33210450190
+          id: 33308569158
           status: completed
           conclusion: success
-          event: push
-          branch: main
-          headSha: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
-          createdAt: 2026-08-28T20:57:31Z
-          updatedAt: 2026-08-28T20:57:45Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33210450190
+          event: pull_request
+          branch: chore/repo-structure-and-quality-gates
+          headSha: 225480e5b6a018014bef1c190ed8ac3914a472e7
+          createdAt: 2026-08-30T11:17:54Z
+          updatedAt: 2026-08-30T11:18:06Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33308569158
         ageDays: 0
       schedule:
         health: not-applicable
@@ -409,15 +412,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33210450190
+          id: 33262918291
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: aeb3c08dbf0dd66dc3a172f12bf3ec96d7d02eff
-          createdAt: 2026-08-28T20:57:31Z
-          updatedAt: 2026-08-28T20:57:45Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33210450190
+          headSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
+          createdAt: 2026-08-29T16:25:18Z
+          updatedAt: 2026-08-29T16:25:34Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33262918291
         ageDays: 0
       attention: clear
     - name: Release Desktop App
@@ -447,7 +450,7 @@ githubActions:
           createdAt: 2026-08-25T10:24:18Z
           updatedAt: 2026-08-25T10:54:08Z
           url: https://github.com/Codevetter/codevetter/actions/runs/32837046873
-        ageDays: 3
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -485,7 +488,7 @@ githubActions:
           createdAt: 2026-08-24T09:35:47Z
           updatedAt: 2026-08-24T09:36:10Z
           url: https://github.com/Codevetter/codevetter/actions/runs/32712397940
-        ageDays: 4
+        ageDays: 6
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -499,7 +502,7 @@ githubActions:
           createdAt: 2026-08-24T09:35:47Z
           updatedAt: 2026-08-24T09:36:10Z
           url: https://github.com/Codevetter/codevetter/actions/runs/32712397940
-        ageDays: 4
+        ageDays: 6
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -522,16 +525,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32650684446
+          id: 33308329682
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 67f9c99522f57e9b2bf3d099cf71b87389073e50
-          createdAt: 2026-08-23T16:07:17Z
-          updatedAt: 2026-08-23T16:09:10Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/32650684446
-        ageDays: 5
+          headSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
+          createdAt: 2026-08-30T11:12:09Z
+          updatedAt: 2026-08-30T11:22:45Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33308329682
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

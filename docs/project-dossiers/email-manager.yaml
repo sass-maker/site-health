@@ -3,7 +3,7 @@ projectId: email-manager
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: email-manager
-      revision: ae63375a9b7cd60f70e40798eaffde416fdae149
+      revision: 3355e06fbfe46f579ed2fb4071fbc55ebb8d3b68
       githubRepository: Significant-Hobbies/email-manager
       expectedHomepage: https://mail.significanthobbies.com
       observedHomepage: https://mail.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: email-manager
-      revision: ae63375a9b7cd60f70e40798eaffde416fdae149
+      revision: 3355e06fbfe46f579ed2fb4071fbc55ebb8d3b68
       githubRepository: Significant-Hobbies/email-manager
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -105,13 +105,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-24
-    latestCommitAt: 2026-08-26
-    retainedCommitCount: 249
+    latestCommitAt: 2026-08-29
+    retainedCommitCount: 250
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: email-manager
-  observedRevision: ae63375a9b7cd60f70e40798eaffde416fdae149
+  observedRevision: 3355e06fbfe46f579ed2fb4071fbc55ebb8d3b68
   githubRepository: Significant-Hobbies/email-manager
   githubHomepageUrl: https://mail.significanthobbies.com
   worktree: *a1
@@ -178,7 +178,7 @@ repository:
       - typecheck
       - verify:indexing
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -186,7 +186,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/email-manager
     defaultBranch: main
-    defaultBranchSha: ae63375a9b7cd60f70e40798eaffde416fdae149
+    defaultBranchSha: 3355e06fbfe46f579ed2fb4071fbc55ebb8d3b68
     homepage: https://mail.significanthobbies.com
     query: verified
     disposition:
@@ -211,16 +211,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32902387876
+          id: 33262923658
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ae63375a9b7cd60f70e40798eaffde416fdae149
-          createdAt: 2026-08-25T21:42:06Z
-          updatedAt: 2026-08-25T21:42:48Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902387876
-        ageDays: 3
+          headSha: 3355e06fbfe46f579ed2fb4071fbc55ebb8d3b68
+          createdAt: 2026-08-29T16:25:25Z
+          updatedAt: 2026-08-29T16:26:25Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33262923658
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -229,16 +229,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32902387876
+          id: 33262923658
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ae63375a9b7cd60f70e40798eaffde416fdae149
-          createdAt: 2026-08-25T21:42:06Z
-          updatedAt: 2026-08-25T21:42:48Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32902387876
-        ageDays: 3
+          headSha: 3355e06fbfe46f579ed2fb4071fbc55ebb8d3b68
+          createdAt: 2026-08-29T16:25:25Z
+          updatedAt: 2026-08-29T16:26:25Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33262923658
+        ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -266,7 +266,7 @@ githubActions:
           createdAt: 2026-08-15T13:56:10Z
           updatedAt: 2026-08-15T13:56:56Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/31888543924
-        ageDays: 13
+        ageDays: 14
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -301,7 +301,7 @@ githubActions:
           createdAt: 2026-08-24T05:10:52Z
           updatedAt: 2026-08-24T05:11:48Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/32692601875
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

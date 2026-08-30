@@ -3,7 +3,7 @@ projectId: agent-office
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: agent-office
-      revision: ba4d29fd73a04d2b0ac350feede6f41226fce622
+      revision: 90edbd99c90da74341bc4233835f174f193ed88a
       githubRepository: sass-maker/agent-office
       expectedHomepage: https://office-os.sassmaker.com
       observedHomepage: https://office-os.sassmaker.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: agent-office
-      revision: ba4d29fd73a04d2b0ac350feede6f41226fce622
+      revision: 90edbd99c90da74341bc4233835f174f193ed88a
       githubRepository: sass-maker/agent-office
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -110,13 +110,13 @@ product:
     - Codex CLI
   retainedGitHistory:
     firstCommitAt: 2026-08-09
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 56
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 62
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: agent-office
-  observedRevision: ba4d29fd73a04d2b0ac350feede6f41226fce622
+  observedRevision: 90edbd99c90da74341bc4233835f174f193ed88a
   githubRepository: sass-maker/agent-office
   githubHomepageUrl: https://office-os.sassmaker.com
   worktree: *a1
@@ -148,7 +148,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -156,7 +156,7 @@ githubActions:
   remote:
     repository: sass-maker/agent-office
     defaultBranch: main
-    defaultBranchSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
+    defaultBranchSha: 90edbd99c90da74341bc4233835f174f193ed88a
     homepage: https://office-os.sassmaker.com
     query: verified
     disposition:
@@ -181,15 +181,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33241055301
+          id: 33301749853
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
-          createdAt: 2026-08-29T07:31:52Z
-          updatedAt: 2026-08-29T07:34:59Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/33241055301
+          headSha: 90edbd99c90da74341bc4233835f174f193ed88a
+          createdAt: 2026-08-30T08:30:25Z
+          updatedAt: 2026-08-30T08:34:05Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33301749853
         ageDays: 0
       schedule:
         health: not-applicable
@@ -199,15 +199,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33241055301
+          id: 33301749853
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
-          createdAt: 2026-08-29T07:31:52Z
-          updatedAt: 2026-08-29T07:34:59Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/33241055301
+          headSha: 90edbd99c90da74341bc4233835f174f193ed88a
+          createdAt: 2026-08-30T08:30:25Z
+          updatedAt: 2026-08-30T08:34:05Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33301749853
         ageDays: 0
       attention: clear
     - name: Site Check
@@ -228,15 +228,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33241055309
+          id: 33301749695
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
-          createdAt: 2026-08-29T07:31:52Z
-          updatedAt: 2026-08-29T07:32:12Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/33241055309
+          headSha: 90edbd99c90da74341bc4233835f174f193ed88a
+          createdAt: 2026-08-30T08:30:24Z
+          updatedAt: 2026-08-30T08:30:44Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33301749695
         ageDays: 0
       schedule:
         health: not-applicable
@@ -246,15 +246,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33241055309
+          id: 33301749695
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ba4d29fd73a04d2b0ac350feede6f41226fce622
-          createdAt: 2026-08-29T07:31:52Z
-          updatedAt: 2026-08-29T07:32:12Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/33241055309
+          headSha: 90edbd99c90da74341bc4233835f174f193ed88a
+          createdAt: 2026-08-30T08:30:24Z
+          updatedAt: 2026-08-30T08:30:44Z
+          url: https://github.com/sass-maker/agent-office/actions/runs/33301749695
         ageDays: 0
       attention: clear
 deployment:

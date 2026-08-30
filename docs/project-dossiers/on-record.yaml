@@ -3,7 +3,7 @@ projectId: on-record
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: on-record
-      revision: 1df7563122833675835f2e3589664f7eef4c6369
+      revision: 52c5f20aea154a27c64557432195bbf20894edaf
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 2
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: on-record
-      revision: 1df7563122833675835f2e3589664f7eef4c6369
+      revision: 52c5f20aea154a27c64557432195bbf20894edaf
       githubRepository: Significant-Hobbies/on-record
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,10 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 2
-      cancelled: 1
+      running: 1
       attention: &a2
         clear: 3
   unknowns: []
@@ -106,13 +106,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-24
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 47
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 52
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 1df7563122833675835f2e3589664f7eef4c6369
+  observedRevision: 52c5f20aea154a27c64557432195bbf20894edaf
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -178,16 +178,16 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 2
-    cancelled: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 1df7563122833675835f2e3589664f7eef4c6369
+    defaultBranchSha: 52c5f20aea154a27c64557432195bbf20894edaf
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
@@ -213,15 +213,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33222339844
+          id: 33308993759
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1df7563122833675835f2e3589664f7eef4c6369
-          createdAt: 2026-08-29T00:02:49Z
-          updatedAt: 2026-08-29T00:03:41Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33222339844
+          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
+          createdAt: 2026-08-30T11:28:06Z
+          updatedAt: 2026-08-30T11:28:57Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308993759
         ageDays: 0
       schedule:
         health: not-applicable
@@ -231,15 +231,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33222339844
+          id: 33308993759
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1df7563122833675835f2e3589664f7eef4c6369
-          createdAt: 2026-08-29T00:02:49Z
-          updatedAt: 2026-08-29T00:03:41Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33222339844
+          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
+          createdAt: 2026-08-30T11:28:06Z
+          updatedAt: 2026-08-30T11:28:57Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308993759
         ageDays: 0
       attention: clear
     - name: cron-ingest
@@ -258,35 +258,34 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: cancelled
-        reason: latest run was cancelled
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 33198266076
-          status: completed
-          conclusion: cancelled
+          id: 33308558635
+          status: in_progress
+          conclusion: null
           event: schedule
           branch: main
-          headSha: 9b9e3906d9b2273edf0b2dc3f71fc6b9f57ef90b
-          createdAt: 2026-08-28T18:12:51Z
-          updatedAt: 2026-08-28T20:13:13Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33198266076
+          headSha: 54c72de8bf9b42999a87a332b467976b74004c06
+          createdAt: 2026-08-30T11:17:36Z
+          updatedAt: 2026-08-30T11:17:39Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308558635
         ageDays: 0
       schedule:
-        health: healthy
-        reason: latest scheduled run concluded cancelled
+        health: running
+        reason: latest scheduled run is in_progress
         lastRun:
-          id: 33198266076
-          status: completed
-          conclusion: cancelled
+          id: 33308558635
+          status: in_progress
+          conclusion: null
           event: schedule
           branch: main
-          headSha: 9b9e3906d9b2273edf0b2dc3f71fc6b9f57ef90b
-          createdAt: 2026-08-28T18:12:51Z
-          updatedAt: 2026-08-28T20:13:13Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33198266076
+          headSha: 54c72de8bf9b42999a87a332b467976b74004c06
+          createdAt: 2026-08-30T11:17:36Z
+          updatedAt: 2026-08-30T11:17:39Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308558635
         ageDays: 0
-        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -309,15 +308,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33222401034
+          id: 33307166581
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 1df7563122833675835f2e3589664f7eef4c6369
-          createdAt: 2026-08-29T00:03:58Z
-          updatedAt: 2026-08-29T00:04:37Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33222401034
+          headSha: 54c72de8bf9b42999a87a332b467976b74004c06
+          createdAt: 2026-08-30T10:43:27Z
+          updatedAt: 2026-08-30T10:44:00Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33307166581
         ageDays: 0
       schedule:
         health: not-applicable

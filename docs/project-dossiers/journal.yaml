@@ -3,7 +3,7 @@ projectId: journal
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: not-applicable
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: journal
-      revision: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+      revision: f88567280d805ada7bb54571ea24a66631345d19
       githubRepository: Significant-Hobbies/journal
       expectedHomepage: https://journal.significanthobbies.com
       observedHomepage: https://journal.significanthobbies.com
@@ -43,19 +43,20 @@ verification:
         trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: journal
-      revision: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+      revision: f88567280d805ada7bb54571ea24a66631345d19
       githubRepository: Significant-Hobbies/journal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-11
       catalogLatestCommitAt: 2026-08-23
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -105,13 +106,13 @@ product:
     - Astro
   retainedGitHistory:
     firstCommitAt: 2026-08-11
-    latestCommitAt: 2026-08-23
-    retainedCommitCount: 28
+    latestCommitAt: 2026-08-29
+    retainedCommitCount: 29
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: journal
-  observedRevision: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+  observedRevision: f88567280d805ada7bb54571ea24a66631345d19
   githubRepository: Significant-Hobbies/journal
   githubHomepageUrl: https://journal.significanthobbies.com
   worktree: *a1
@@ -127,14 +128,14 @@ repository:
           - SignificantHobbies.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary: {}
   attention: *a2
   remote:
     repository: Significant-Hobbies/journal
     defaultBranch: main
-    defaultBranchSha: 07b4877b4b3e89dc308fb7b1374432baae95b6c3
+    defaultBranchSha: f88567280d805ada7bb54571ea24a66631345d19
     homepage: https://journal.significanthobbies.com
     query: verified
     disposition:

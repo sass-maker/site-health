@@ -3,7 +3,7 @@ projectId: reel-pipeline
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: reel-pipeline
-      revision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+      revision: 1f0d96a65a8acc4d080326b5d2539b3e4a5b8c58
       githubRepository: sass-maker/reel-pipeline
       expectedHomepage: null
       observedHomepage: null
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: reel-pipeline
-      revision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+      revision: 1f0d96a65a8acc4d080326b5d2539b3e4a5b8c58
       githubRepository: sass-maker/reel-pipeline
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,13 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 2
       failing: 1
       attention: &a2
-        clear: 2
+        clear: 1
         review-history: 1
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
@@ -108,13 +109,13 @@ product:
     - R2
   retainedGitHistory:
     firstCommitAt: 2026-05-28
-    latestCommitAt: 2026-08-26
-    retainedCommitCount: 99
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 102
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reel-pipeline
-  observedRevision: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+  observedRevision: 1f0d96a65a8acc4d080326b5d2539b3e4a5b8c58
   githubRepository: sass-maker/reel-pipeline
   githubHomepageUrl: null
   worktree: *a1
@@ -206,7 +207,7 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -215,7 +216,7 @@ githubActions:
   remote:
     repository: sass-maker/reel-pipeline
     defaultBranch: main
-    defaultBranchSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
+    defaultBranchSha: 1f0d96a65a8acc4d080326b5d2539b3e4a5b8c58
     homepage: null
     query: verified
     disposition:
@@ -241,16 +242,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898720516
+          id: 33309123816
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
-          createdAt: 2026-08-25T21:01:40Z
-          updatedAt: 2026-08-25T21:02:32Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720516
-        ageDays: 3
+          headSha: 1f0d96a65a8acc4d080326b5d2539b3e4a5b8c58
+          createdAt: 2026-08-30T11:31:07Z
+          updatedAt: 2026-08-30T11:32:06Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/33309123816
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -259,16 +260,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32898720516
+          id: 33309123816
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 77c3bdfb7a613f85c1066ed474247ffdad3b2077
-          createdAt: 2026-08-25T21:01:40Z
-          updatedAt: 2026-08-25T21:02:32Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720516
-        ageDays: 3
+          headSha: 1f0d96a65a8acc4d080326b5d2539b3e4a5b8c58
+          createdAt: 2026-08-30T11:31:07Z
+          updatedAt: 2026-08-30T11:32:06Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/33309123816
+        ageDays: 0
       attention: clear
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
@@ -296,7 +297,7 @@ githubActions:
           createdAt: 2026-08-29T08:19:15Z
           updatedAt: 2026-08-29T08:19:26Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/33242867241
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -333,14 +334,14 @@ githubActions:
           createdAt: 2026-08-25T21:01:40Z
           updatedAt: 2026-08-25T21:01:52Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720425
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 1f0d96a
         lastRun:
           id: 32898720425
           status: completed
@@ -351,8 +352,7 @@ githubActions:
           createdAt: 2026-08-25T21:01:40Z
           updatedAt: 2026-08-25T21:01:52Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/32898720425
-        ageDays: 3
-      attention: clear
+      attention: missing-data
 deployment:
   kind: worker
   deployed: true

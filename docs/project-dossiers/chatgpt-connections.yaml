@@ -3,7 +3,7 @@ projectId: chatgpt-connections
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: chatgpt-connections
-      revision: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
+      revision: d42e2e8891abc76a519a17c3b042e4c288353eab
       githubRepository: sass-maker/chatgpt-connections
       expectedHomepage: null
       observedHomepage: null
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: chatgpt-connections
-      revision: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
+      revision: d42e2e8891abc76a519a17c3b042e4c288353eab
       githubRepository: sass-maker/chatgpt-connections
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,13 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 1
       failing: 1
       attention: &a2
         clear: 1
-        review-history: 1
+        action-required: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "ChatGPT connections: the purpose for this was that I have a lot of projects and there was no solid way for me to connect with them with ChatGPT so this was built."
@@ -112,13 +112,13 @@ product:
     - MCP
   retainedGitHistory:
     firstCommitAt: 2026-08-11
-    latestCommitAt: 2026-08-25
-    retainedCommitCount: 32
+    latestCommitAt: 2026-08-29
+    retainedCommitCount: 34
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: chatgpt-connections
-  observedRevision: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
+  observedRevision: d42e2e8891abc76a519a17c3b042e4c288353eab
   githubRepository: sass-maker/chatgpt-connections
   githubHomepageUrl: null
   worktree: *a1
@@ -155,7 +155,7 @@ repository:
       - types:worker
       - verify:activation
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -164,7 +164,7 @@ githubActions:
   remote:
     repository: sass-maker/chatgpt-connections
     defaultBranch: main
-    defaultBranchSha: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
+    defaultBranchSha: 805798b09d8ebde0099353efd5473feb60273143
     homepage: null
     query: verified
     disposition:
@@ -190,16 +190,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32877947109
+          id: 33303938764
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
-          createdAt: 2026-08-25T17:27:01Z
-          updatedAt: 2026-08-25T17:27:21Z
-          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32877947109
-        ageDays: 3
+          headSha: 805798b09d8ebde0099353efd5473feb60273143
+          createdAt: 2026-08-30T09:23:37Z
+          updatedAt: 2026-08-30T09:23:59Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/33303938764
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -208,22 +208,24 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 32877947109
+          id: 33303938764
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2c205e08a1ebe6fe7ee4d02f699bd33c41b78477
-          createdAt: 2026-08-25T17:27:01Z
-          updatedAt: 2026-08-25T17:27:21Z
-          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32877947109
-        ageDays: 3
+          headSha: 805798b09d8ebde0099353efd5473feb60273143
+          createdAt: 2026-08-30T09:23:37Z
+          updatedAt: 2026-08-30T09:23:59Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/33303938764
+        ageDays: 0
       attention: clear
     - name: ChatGPT Connections Production Monitor
       file: .github/workflows/production-monitor.yml
       triggers:
+        - schedule
         - workflow_dispatch
-      schedules: []
+      schedules:
+        - 17 3 * * *
       inventory:
         source: tracked
         local: true
@@ -236,25 +238,35 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 32807246736
+          id: 33303715163
           status: completed
           conclusion: failure
           event: schedule
           branch: main
-          headSha: ef11d5197a5a0ccfee7cf0f387d77e8f101a8b2e
-          createdAt: 2026-08-25T03:59:46Z
-          updatedAt: 2026-08-25T04:00:08Z
-          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/32807246736
-        ageDays: 4
+          headSha: 380f374d3f2eb2766bc198f298c11818198465ca
+          createdAt: 2026-08-30T09:18:13Z
+          updatedAt: 2026-08-30T09:18:38Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/33303715163
+        ageDays: 0
       schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
+        health: failing
+        reason: latest scheduled run concluded failure
+        lastRun:
+          id: 33303715163
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: 380f374d3f2eb2766bc198f298c11818198465ca
+          createdAt: 2026-08-30T09:18:13Z
+          updatedAt: 2026-08-30T09:18:38Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/33303715163
+        ageDays: 0
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: action-required
 deployment:
   kind: worker
   deployed: true

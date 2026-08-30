@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Single source of truth for fleet projects: tier + repo + deploy reality. Replaces the scattered split between agent-surfaces-registry.json (web GEO surfaces only), cloudflare.targets.json (partial deploy map), and project-tiers.md (focus marking). Reconciled against the live Cloudflare account 2026-08-23.",
-    "updated": "2026-08-29",
+    "updated": "2026-08-30",
     "fields": {
       "id": "stable project/surface id",
       "family": "top-level product family this belongs to",
@@ -16,7 +16,7 @@
       "deployTargets": "optional exact per-surface objects with id, kind, name, and sourcePath; required for mixed or multi-source deploys",
       "d1Databases": "optional exact Cloudflare D1 database names currently owned by this project",
       "tursoDatabases": "optional exact Turso database names owned by this project",
-      "databaseResources": "optional exact relational database resources with provider, name, and prepared | authoritative | rollback-held state",
+      "databaseResources": "optional exact relational database resources with provider, name, and prepared | authoritative | rollback-held | retired-account-retained state",
       "infrastructure": "complete per-project deployment and provider-resource inventory; every project id must have one entry, including inactive and local-only projects",
       "domains": "canonical live custom domains (empty = provider hostname only or undeployed; redirect and www aliases may be omitted)",
       "domainProbePaths": "optional per-domain HTTP path overrides for live health probes",
@@ -256,7 +256,7 @@
         {
           "provider": "turso",
           "name": "significanthobbies",
-          "state": "rollback-held"
+          "state": "retired-account-retained"
         }
       ],
       "domains": [
@@ -264,7 +264,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Independent home for the original Significant Hobbies experience, data, authentication, bookmarks, timelines, and deeper application routes. The existing significanthobbies Worker and D1 remain Live-owned; apex / and /hub proxy to the Hub service binding without migrating user data.",
+      "notes": "Independent home for the original Significant Hobbies experience, data, authentication, bookmarks, timelines, and deeper application routes. The existing significanthobbies Worker and D1 remain Live-owned; apex / and /hub proxy to the Hub service binding without migrating user data. The former Turso database is deleted; the empty Turso account is retained for possible future use.",
       "name": "Live",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1170,7 +1170,7 @@
         {
           "provider": "turso",
           "name": "mal-watchlist",
-          "state": "rollback-held"
+          "state": "retired-account-retained"
         }
       ],
       "domains": [
@@ -1178,7 +1178,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 anime-list is authoritative; Turso mal-watchlist is rollback-held and not retired",
+      "notes": "D1 anime-list is authoritative; the former Turso mal-watchlist database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "Anime List",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1306,7 +1306,7 @@
         {
           "provider": "turso",
           "name": "reader",
-          "state": "rollback-held"
+          "state": "retired-account-retained"
         }
       ],
       "domains": [
@@ -1314,7 +1314,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 reader is authoritative; Turso reader is rollback-held and not retired",
+      "notes": "D1 reader is authoritative; the former Turso reader database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "Reader",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1362,7 +1362,7 @@
         {
           "provider": "turso",
           "name": "swe-interview-prep",
-          "state": "rollback-held"
+          "state": "retired-account-retained"
         }
       ],
       "domains": [
@@ -1370,7 +1370,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 swe-interview-prep is authoritative; Turso swe-interview-prep is rollback-held and not retired",
+      "notes": "D1 swe-interview-prep is authoritative; the former Turso swe-interview-prep database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "SWE Interview Prep",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -1722,7 +1722,7 @@
         {
           "provider": "turso",
           "name": "starboard",
-          "state": "rollback-held"
+          "state": "retired-account-retained"
         }
       ],
       "domains": [
@@ -1730,7 +1730,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "D1 starboard is authoritative; Turso starboard is rollback-held and not retired",
+      "notes": "D1 starboard is authoritative; the former Turso starboard database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "Starboard",
       "attention": "toolbox",
       "lifecycle": "maintained",
@@ -3460,10 +3460,10 @@
   "infrastructure": {
     "_meta": {
       "purpose": "Owner-readable deployment and cloud-resource inventory for every Fleet identity, including inactive and local-only projects.",
-      "verifiedAt": "2026-08-29",
+      "verifiedAt": "2026-08-30",
       "evidence": {
         "cloudflare": "Live Pages, known-name Workers, D1, R2, KV, Vectorize, Queues, Workflows, Containers, Tunnels, Turnstile, and account-level service inventory plus tracked Wrangler configuration.",
-        "turso": "Tracked configuration only; the Turso CLI was not authenticated on 2026-08-11.",
+        "turso": "Authenticated Turso CLI inventory on 2026-08-30 confirmed the retained account has zero databases.",
         "local": "PROJECT_STATUS.md, repository deployment scripts, and tracked provider configuration."
       },
       "cloudflareCoverage": [
@@ -3670,8 +3670,8 @@
         {
           "kind": "workers-ai",
           "state": "config-derived",
-          "tracked": 4,
-          "evidence": "Tracked Worker bindings; models are usage surfaces, not persistent per-project objects."
+          "tracked": 10,
+          "evidence": "Tracked Worker and Pages bindings; models are usage surfaces, not persistent per-project objects."
         },
         {
           "kind": "browser-rendering",
@@ -3817,7 +3817,7 @@
         "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
       },
       "live": {
-        "updatedAt": "2026-08-23",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -3874,10 +3874,10 @@
             "provider": "turso",
             "kind": "database",
             "name": "significanthobbies",
-            "state": "rollback-held-unverified"
+            "state": "retired-confirmed-account-retained"
           }
         ],
-        "notes": "Worker version b12f3076-3eb9-4cb0-95b0-fd0dea393fe1 is live from exact Git SHA 62c42a7b4acdbcb74f042da4eaa0f792020d1da9. Live retains its existing data and authentication boundary and proxies only Hub routes to personal-platform."
+        "notes": "Worker version b12f3076-3eb9-4cb0-95b0-fd0dea393fe1 is live from exact Git SHA 62c42a7b4acdbcb74f042da4eaa0f792020d1da9. Live retains its existing data and authentication boundary and proxies only Hub routes to personal-platform. The former Turso database was confirmed deleted on 2026-08-30; the empty account is retained."
       },
       "chatgpt-connections": {
         "updatedAt": "2026-08-22",
@@ -4022,7 +4022,7 @@
         "resources": []
       },
       "drank": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4033,6 +4033,12 @@
           }
         ],
         "resources": [
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
           {
             "provider": "cloudflare",
             "kind": "turnstile",
@@ -4144,7 +4150,7 @@
         "resources": []
       },
       "high-signal": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4166,6 +4172,12 @@
             "provider": "cloudflare",
             "kind": "d1",
             "name": "high-signal-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
             "state": "active"
           },
           {
@@ -4492,7 +4504,7 @@
         ]
       },
       "anime-list": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4520,7 +4532,7 @@
             "provider": "turso",
             "kind": "database",
             "name": "mal-watchlist",
-            "state": "rollback-held-unverified"
+            "state": "retired-confirmed-account-retained"
           }
         ]
       },
@@ -4551,7 +4563,7 @@
         "resources": []
       },
       "reader": {
-        "updatedAt": "2026-08-23",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4581,15 +4593,21 @@
             "state": "active"
           },
           {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
+          },
+          {
             "provider": "turso",
             "kind": "database",
             "name": "reader",
-            "state": "rollback-held-unverified"
+            "state": "retired-confirmed-account-retained"
           }
         ]
       },
       "swe-interview-prep": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4640,7 +4658,7 @@
             "provider": "turso",
             "kind": "database",
             "name": "swe-interview-prep",
-            "state": "rollback-held-unverified"
+            "state": "retired-confirmed-account-retained"
           }
         ]
       },
@@ -4742,7 +4760,7 @@
         "notes": "Private landing factory. Product Pages deployments are attributed to their product rows; Journal native ownership now lives in Significant-Hobbies/journal."
       },
       "rolepatch": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4757,6 +4775,12 @@
             "provider": "cloudflare",
             "kind": "d1",
             "name": "rolepatch",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
             "state": "active"
           },
           {
@@ -4786,7 +4810,7 @@
         ]
       },
       "karte": {
-        "updatedAt": "2026-08-22",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4808,6 +4832,12 @@
             "provider": "cloudflare",
             "kind": "d1",
             "name": "linkchat-auth",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
             "state": "active"
           },
           {
@@ -4867,7 +4897,7 @@
         ]
       },
       "starboard": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4906,7 +4936,7 @@
             "provider": "turso",
             "kind": "database",
             "name": "starboard",
-            "state": "rollback-held-unverified"
+            "state": "retired-confirmed-account-retained"
           }
         ]
       },
@@ -5056,7 +5086,7 @@
         ]
       },
       "open-historia": {
-        "updatedAt": "2026-08-23",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5072,6 +5102,12 @@
             "kind": "d1",
             "name": "open-historia",
             "state": "retained"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "workers-ai",
+            "name": "AI",
+            "state": "active"
           }
         ]
       },

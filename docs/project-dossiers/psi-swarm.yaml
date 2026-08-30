@@ -3,7 +3,7 @@ projectId: psi-swarm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: psi-swarm
-      revision: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+      revision: 2b50c570e4545d41addefe2c06460384b5693101
       githubRepository: sass-maker/psi-swarm
       expectedHomepage: https://performance.sassmaker.com
       observedHomepage: https://performance.sassmaker.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: psi-swarm
-      revision: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+      revision: 2b50c570e4545d41addefe2c06460384b5693101
       githubRepository: sass-maker/psi-swarm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
@@ -107,13 +107,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-06-03
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 70
+    latestCommitAt: 2026-08-30
+    retainedCommitCount: 73
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: psi-swarm
-  observedRevision: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+  observedRevision: 2b50c570e4545d41addefe2c06460384b5693101
   githubRepository: sass-maker/psi-swarm
   githubHomepageUrl: https://performance.sassmaker.com
   worktree: *a1
@@ -156,7 +156,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -165,7 +165,7 @@ githubActions:
   remote:
     repository: sass-maker/psi-swarm
     defaultBranch: main
-    defaultBranchSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
+    defaultBranchSha: 2b50c570e4545d41addefe2c06460384b5693101
     homepage: https://performance.sassmaker.com
     query: verified
     disposition:
@@ -191,15 +191,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33241060195
+          id: 33308994171
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
-          createdAt: 2026-08-29T07:32:00Z
-          updatedAt: 2026-08-29T07:32:44Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/33241060195
+          headSha: 2b50c570e4545d41addefe2c06460384b5693101
+          createdAt: 2026-08-30T11:28:06Z
+          updatedAt: 2026-08-30T11:28:52Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/33308994171
         ageDays: 0
       schedule:
         health: not-applicable
@@ -209,15 +209,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33241060195
+          id: 33308994171
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
-          createdAt: 2026-08-29T07:32:00Z
-          updatedAt: 2026-08-29T07:32:44Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/33241060195
+          headSha: 2b50c570e4545d41addefe2c06460384b5693101
+          createdAt: 2026-08-30T11:28:06Z
+          updatedAt: 2026-08-30T11:28:52Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/33308994171
         ageDays: 0
       attention: clear
     - name: Deploy psi-swarm-web to Cloudflare Pages
@@ -246,7 +246,7 @@ githubActions:
           createdAt: 2026-08-29T08:02:14Z
           updatedAt: 2026-08-29T08:02:53Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/33242202482
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -282,7 +282,7 @@ githubActions:
           createdAt: 2026-08-25T23:17:14Z
           updatedAt: 2026-08-25T23:21:05Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/32910082428
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -305,7 +305,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 86 days old
+        reason: latest run is 87 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -317,7 +317,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
-        ageDays: 86
+        ageDays: 87
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

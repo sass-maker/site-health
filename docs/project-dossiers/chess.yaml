@@ -3,7 +3,7 @@ projectId: chess
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-29
+  generatedAt: 2026-08-30
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0bf437ded0dadd9ee7b45dfaa8e3a3c46303d5e2dda350e8f090e37df127fc14
+      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: e37626ec26c1cce60843348d39d5ba3b27f2b02480f4b6836afaddd1df350a0e
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: chess
-      revision: 5108e232494f48c8f05d6eab69983580e41c1836
+      revision: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
       githubRepository: Significant-Hobbies/chess
       expectedHomepage: https://chess.significanthobbies.com
       observedHomepage: https://chess.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-29
+      observedAt: 2026-08-30
       state: available
       checkout: chess
-      revision: 5108e232494f48c8f05d6eab69983580e41c1836
+      revision: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
       githubRepository: Significant-Hobbies/chess
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-29T09:09:05.908Z
+      observedAt: 2026-08-30T11:36:10.056Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -106,12 +106,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-22
     latestCommitAt: 2026-08-29
-    retainedCommitCount: 96
+    retainedCommitCount: 97
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: chess
-  observedRevision: 5108e232494f48c8f05d6eab69983580e41c1836
+  observedRevision: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
   githubRepository: Significant-Hobbies/chess
   githubHomepageUrl: https://chess.significanthobbies.com
   worktree: *a1
@@ -158,7 +158,7 @@ repository:
       - test:e2e
       - typecheck
 githubActions:
-  observedAt: 2026-08-29T09:09:05.908Z
+  observedAt: 2026-08-30T11:36:10.056Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -166,7 +166,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/chess
     defaultBranch: main
-    defaultBranchSha: 5108e232494f48c8f05d6eab69983580e41c1836
+    defaultBranchSha: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
     homepage: https://chess.significanthobbies.com
     query: verified
     disposition:
@@ -192,15 +192,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33241059519
+          id: 33262914977
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5108e232494f48c8f05d6eab69983580e41c1836
-          createdAt: 2026-08-29T07:31:59Z
-          updatedAt: 2026-08-29T07:33:04Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/33241059519
+          headSha: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
+          createdAt: 2026-08-29T16:25:15Z
+          updatedAt: 2026-08-29T16:26:22Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/33262914977
         ageDays: 0
       schedule:
         health: not-applicable
@@ -210,15 +210,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33241059519
+          id: 33262914977
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5108e232494f48c8f05d6eab69983580e41c1836
-          createdAt: 2026-08-29T07:31:59Z
-          updatedAt: 2026-08-29T07:33:04Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/33241059519
+          headSha: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
+          createdAt: 2026-08-29T16:25:15Z
+          updatedAt: 2026-08-29T16:26:22Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/33262914977
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Pages
@@ -238,16 +238,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33242202584
+          id: 33248974548
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 5108e232494f48c8f05d6eab69983580e41c1836
-          createdAt: 2026-08-29T08:02:14Z
-          updatedAt: 2026-08-29T08:02:56Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/33242202584
-        ageDays: 0
+          headSha: 878446088d57b43c88c3a985346822be5f2b9d07
+          createdAt: 2026-08-29T10:57:01Z
+          updatedAt: 2026-08-29T10:57:34Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/33248974548
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -284,14 +284,14 @@ githubActions:
           createdAt: 2026-08-25T21:18:29Z
           updatedAt: 2026-08-25T21:18:37Z
           url: https://github.com/Significant-Hobbies/chess/actions/runs/32900296311
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 5108e23
+        reason: no push run at current main revision 8ddfbe6
         lastRun:
           id: 32900296311
           status: completed
@@ -328,7 +328,7 @@ githubActions:
           createdAt: 2026-08-24T03:23:34Z
           updatedAt: 2026-08-24T03:24:30Z
           url: https://github.com/Significant-Hobbies/chess/actions/runs/32686282400
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
