@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T18:21:22.539Z
+      observedAt: 2026-08-30T19:05:41.810Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
@@ -173,7 +173,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T18:21:22.539Z
+  observedAt: 2026-08-30T19:05:41.810Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -215,7 +215,7 @@ githubActions:
           createdAt: 2026-08-24T18:26:14Z
           updatedAt: 2026-08-24T18:29:59Z
           url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762410650
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -384,7 +384,7 @@ githubActions:
           createdAt: 2026-08-24T18:25:36Z
           updatedAt: 2026-08-24T18:26:12Z
           url: https://github.com/Significant-Hobbies/looptv/actions/runs/32762350267
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: healthy
         reason: latest scheduled run concluded success

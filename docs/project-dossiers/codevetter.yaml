@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T18:21:22.539Z
+      observedAt: 2026-08-30T19:05:41.810Z
       staleAfterDays: 30
       healthy: 7
       attention: &a2
@@ -228,7 +228,7 @@ repository:
       - verification:mcp
       - verify
 githubActions:
-  observedAt: 2026-08-30T18:21:22.539Z
+  observedAt: 2026-08-30T19:05:41.810Z
   staleAfterDays: 30
   summary:
     healthy: 7
@@ -236,7 +236,7 @@ githubActions:
   remote:
     repository: Codevetter/codevetter
     defaultBranch: main
-    defaultBranchSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
+    defaultBranchSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
     homepage: https://codevetter.com
     query: verified
     disposition:
@@ -277,7 +277,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision babd33e
+        reason: no push run at current main revision ce6e62f
         lastRun:
           id: 32837031354
           status: completed
@@ -308,15 +308,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33327357336
+          id: 33329209748
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
-          createdAt: 2026-08-30T18:11:40Z
-          updatedAt: 2026-08-30T18:20:20Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33327357336
+          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
+          createdAt: 2026-08-30T18:50:33Z
+          updatedAt: 2026-08-30T18:59:33Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33329209748
         ageDays: 0
       schedule:
         health: not-applicable
@@ -326,15 +326,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33327357336
+          id: 33329209748
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
-          createdAt: 2026-08-30T18:11:40Z
-          updatedAt: 2026-08-30T18:20:20Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33327357336
+          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
+          createdAt: 2026-08-30T18:50:33Z
+          updatedAt: 2026-08-30T18:59:33Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33329209748
         ageDays: 0
       attention: clear
     - name: Deploy Landing Page
@@ -391,15 +391,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33327357249
+          id: 33329209688
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
-          createdAt: 2026-08-30T18:11:40Z
-          updatedAt: 2026-08-30T18:11:48Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33327357249
+          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
+          createdAt: 2026-08-30T18:50:33Z
+          updatedAt: 2026-08-30T18:50:44Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33329209688
         ageDays: 0
       schedule:
         health: not-applicable
@@ -409,15 +409,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33327357249
+          id: 33329209688
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
-          createdAt: 2026-08-30T18:11:40Z
-          updatedAt: 2026-08-30T18:11:48Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33327357249
+          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
+          createdAt: 2026-08-30T18:50:33Z
+          updatedAt: 2026-08-30T18:50:44Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33329209688
         ageDays: 0
       attention: clear
     - name: Release Desktop App
@@ -522,15 +522,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308329682
+          id: 33329272210
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
-          createdAt: 2026-08-30T11:12:09Z
-          updatedAt: 2026-08-30T11:22:45Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33308329682
+          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
+          createdAt: 2026-08-30T18:51:54Z
+          updatedAt: 2026-08-30T18:52:46Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33329272210
         ageDays: 0
       schedule:
         health: not-applicable

@@ -56,10 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T18:21:22.539Z
+      observedAt: 2026-08-30T19:05:41.810Z
       staleAfterDays: 30
-      running: 1
-      healthy: 4
+      healthy: 5
       attention: &a2
         clear: 5
   unknowns: []
@@ -197,11 +196,10 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-08-30T18:21:22.539Z
+  observedAt: 2026-08-30T19:05:41.810Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 4
+    healthy: 5
   attention: *a2
   remote:
     repository: Significant-Hobbies/swe-interview-prep
@@ -227,18 +225,18 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 33327801900
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 2ec17639ecc58f5ef87220f091ead20f2c9500d0
           createdAt: 2026-08-30T18:20:48Z
-          updatedAt: 2026-08-30T18:20:51Z
+          updatedAt: 2026-08-30T18:22:29Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33327801900
         ageDays: 0
       schedule:
@@ -246,17 +244,17 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
           id: 33327801900
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 2ec17639ecc58f5ef87220f091ead20f2c9500d0
           createdAt: 2026-08-30T18:20:48Z
-          updatedAt: 2026-08-30T18:20:51Z
+          updatedAt: 2026-08-30T18:22:29Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33327801900
         ageDays: 0
       attention: clear
@@ -277,15 +275,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33303713809
+          id: 33327898258
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: d2e815d3fbc6deb02e0863f1164de0cad723733d
-          createdAt: 2026-08-30T09:18:11Z
-          updatedAt: 2026-08-30T09:19:20Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33303713809
+          headSha: 2ec17639ecc58f5ef87220f091ead20f2c9500d0
+          createdAt: 2026-08-30T18:22:47Z
+          updatedAt: 2026-08-30T18:23:49Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33327898258
         ageDays: 0
       schedule:
         health: not-applicable
