@@ -4325,7 +4325,7 @@
         "resources": []
       },
       "knowledge-base": {
-        "updatedAt": "2026-08-23",
+        "updatedAt": "2026-08-30",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4403,7 +4403,7 @@
             "provider": "cloudflare",
             "kind": "vectorize",
             "name": "rag-gemini-1536",
-            "state": "active"
+            "state": "retained-unreferenced"
           },
           {
             "provider": "cloudflare",
@@ -4439,7 +4439,7 @@
             "provider": "cloudflare",
             "kind": "service-binding",
             "name": "free-ai-gateway",
-            "state": "active"
+            "state": "retired-confirmed-absent"
           },
           {
             "provider": "cloudflare",
@@ -4448,7 +4448,7 @@
             "state": "active-config-derived"
           }
         ],
-        "notes": "The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name."
+        "notes": "The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name. On 2026-08-30 the RAG Worker moved all indexed corpora to Workers AI embeddings, removed its Free AI gateway binding and direct-provider runtime configuration, and retained the old 1536-dimensional Vectorize index only as unreferenced rollback data."
       },
       "significanthobbies": {
         "updatedAt": "2026-08-23",

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b9de07e58d8eb8fdd09b839078c61208838512559774a0e7fff0fe1a9e64b93
-      infrastructureUpdatedAt: 2026-08-23
+      sha256: 7f13a7f43809f8c3f9f8528dee730c0bd7a7390b0c372c45f823af71600d7835
+      infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Knowledge Base
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-08-30
       state: available
       checkout: knowledge-base
-      revision: 9c4809bc73cbf09888070545db512dffffe95238
+      revision: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-08-30
       state: available
       checkout: knowledge-base
-      revision: 9c4809bc73cbf09888070545db512dffffe95238
+      revision: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:36:10.056Z
+      observedAt: 2026-08-30T11:57:46.983Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -107,12 +107,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-27
     latestCommitAt: 2026-08-30
-    retainedCommitCount: 210
+    retainedCommitCount: 211
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: 9c4809bc73cbf09888070545db512dffffe95238
+  observedRevision: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -165,7 +165,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-08-30T11:36:10.056Z
+  observedAt: 2026-08-30T11:57:46.983Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -173,7 +173,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: 9c4809bc73cbf09888070545db512dffffe95238
+    defaultBranchSha: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -198,15 +198,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308993946
+          id: 33310018515
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9c4809bc73cbf09888070545db512dffffe95238
-          createdAt: 2026-08-30T11:28:06Z
-          updatedAt: 2026-08-30T11:29:06Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/33308993946
+          headSha: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
+          createdAt: 2026-08-30T11:52:38Z
+          updatedAt: 2026-08-30T11:53:50Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/33310018515
         ageDays: 0
       schedule:
         health: not-applicable
@@ -216,15 +216,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308993946
+          id: 33310018515
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9c4809bc73cbf09888070545db512dffffe95238
-          createdAt: 2026-08-30T11:28:06Z
-          updatedAt: 2026-08-30T11:29:06Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/33308993946
+          headSha: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
+          createdAt: 2026-08-30T11:52:38Z
+          updatedAt: 2026-08-30T11:53:50Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/33310018515
         ageDays: 0
       attention: clear
     - name: docs
@@ -261,7 +261,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 9c4809b
+        reason: no push run at current main revision 9e7faca
         lastRun:
           id: 32898703380
           status: completed
@@ -403,7 +403,7 @@ deployment:
       - provider: cloudflare
         kind: vectorize
         name: rag-gemini-1536
-        state: active
+        state: retained-unreferenced
         scope: project
         operationalOwner: knowledge-base
         attributionReason: "Canonical project owner: knowledge-base"
@@ -445,7 +445,7 @@ deployment:
       - provider: cloudflare
         kind: service-binding
         name: free-ai-gateway
-        state: active
+        state: retired-confirmed-absent
         scope: project
         operationalOwner: knowledge-base
         attributionReason: "Canonical project owner: knowledge-base"
@@ -488,4 +488,4 @@ sharing:
       state: not-declared
 notes:
   catalog: "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base."
-  infrastructure: The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name.
+  infrastructure: The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name. On 2026-08-30 the RAG Worker moved all indexed corpora to Workers AI embeddings, removed its Free AI gateway binding and direct-provider runtime configuration, and retained the old 1536-dimensional Vectorize index only as unreferenced rollback data.
