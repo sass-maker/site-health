@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
@@ -156,7 +156,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -305,7 +305,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 87 days old
+        reason: latest run is 88 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -317,7 +317,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
-        ageDays: 87
+        ageDays: 88
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

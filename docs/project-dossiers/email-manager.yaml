@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -178,7 +178,7 @@ repository:
       - typecheck
       - verify:indexing
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -220,7 +220,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:25Z
           updatedAt: 2026-08-29T16:26:25Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33262923658
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -238,7 +238,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:25Z
           updatedAt: 2026-08-29T16:26:25Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33262923658
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -266,7 +266,7 @@ githubActions:
           createdAt: 2026-08-15T13:56:10Z
           updatedAt: 2026-08-15T13:56:56Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/31888543924
-        ageDays: 14
+        ageDays: 15
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

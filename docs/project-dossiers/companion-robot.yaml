@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -126,7 +126,7 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -168,7 +168,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:20Z
           updatedAt: 2026-08-29T16:25:29Z
           url: https://github.com/HeyPace/companion-robot/actions/runs/33262920072
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -186,7 +186,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:20Z
           updatedAt: 2026-08-29T16:25:29Z
           url: https://github.com/HeyPace/companion-robot/actions/runs/33262920072
-        ageDays: 0
+        ageDays: 1
       attention: clear
 deployment:
   kind: none

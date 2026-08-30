@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -159,7 +159,7 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -201,7 +201,7 @@ githubActions:
           createdAt: 2026-08-29T16:35:51Z
           updatedAt: 2026-08-29T16:36:17Z
           url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/33263406101
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -219,7 +219,7 @@ githubActions:
           createdAt: 2026-08-29T16:35:51Z
           updatedAt: 2026-08-29T16:36:17Z
           url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/33263406101
-        ageDays: 0
+        ageDays: 1
       attention: clear
 deployment:
   kind: worker

@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -174,7 +174,7 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -216,7 +216,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:07Z
           updatedAt: 2026-08-29T16:32:43Z
           url: https://github.com/Significant-Hobbies/calorie/actions/runs/33262909275
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -234,7 +234,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:07Z
           updatedAt: 2026-08-29T16:32:43Z
           url: https://github.com/Significant-Hobbies/calorie/actions/runs/33262909275
-        ageDays: 0
+        ageDays: 1
       attention: action-required
 deployment:
   kind: worker

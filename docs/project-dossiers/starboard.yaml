@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 8
       disabled: 1
@@ -192,7 +192,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 8
@@ -355,7 +355,7 @@ githubActions:
           createdAt: 2026-08-29T17:23:54Z
           updatedAt: 2026-08-29T17:24:06Z
           url: https://github.com/Codevetter/starboard/actions/runs/33265522349
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -436,7 +436,7 @@ githubActions:
           createdAt: 2026-08-09T13:23:34Z
           updatedAt: 2026-08-09T13:23:48Z
           url: https://github.com/Codevetter/starboard/actions/runs/31315689133
-        ageDays: 20
+        ageDays: 21
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

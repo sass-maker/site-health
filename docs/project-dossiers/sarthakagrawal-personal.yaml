@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -163,7 +163,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -207,7 +207,7 @@ githubActions:
           createdAt: 2026-08-29T16:26:26Z
           updatedAt: 2026-08-29T16:27:09Z
           url: https://github.com/sarthakagrawal927/portfolio/actions/runs/33262971315
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -225,7 +225,7 @@ githubActions:
           createdAt: 2026-08-29T16:26:26Z
           updatedAt: 2026-08-29T16:27:09Z
           url: https://github.com/sarthakagrawal927/portfolio/actions/runs/33262971315
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Build résumé PDF
       file: .github/workflows/resume.yml

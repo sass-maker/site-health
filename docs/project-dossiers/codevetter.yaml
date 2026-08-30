@@ -56,14 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
-      healthy: 6
-      failing: 1
+      healthy: 7
       attention: &a2
         missing-data: 1
-        action-required: 1
-        clear: 5
+        clear: 6
   unknowns: []
 ownerVoice:
   whyVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
@@ -230,16 +228,15 @@ repository:
       - verification:mcp
       - verify
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
-    healthy: 6
-    failing: 1
+    healthy: 7
   attention: *a2
   remote:
     repository: Codevetter/codevetter
     defaultBranch: main
-    defaultBranchSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
+    defaultBranchSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
     homepage: https://codevetter.com
     query: verified
     disposition:
@@ -280,7 +277,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision ce7c028
+        reason: no push run at current main revision babd33e
         lastRun:
           id: 32837031354
           status: completed
@@ -307,19 +304,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308569160
+          id: 33327357336
           status: completed
-          conclusion: failure
-          event: pull_request
-          branch: chore/repo-structure-and-quality-gates
-          headSha: 225480e5b6a018014bef1c190ed8ac3914a472e7
-          createdAt: 2026-08-30T11:17:54Z
-          updatedAt: 2026-08-30T11:18:54Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33308569160
+          conclusion: success
+          event: push
+          branch: main
+          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
+          createdAt: 2026-08-30T18:11:40Z
+          updatedAt: 2026-08-30T18:20:20Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33327357336
         ageDays: 0
       schedule:
         health: not-applicable
@@ -329,17 +326,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262918254
+          id: 33327357336
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
-          createdAt: 2026-08-29T16:25:18Z
-          updatedAt: 2026-08-29T16:34:26Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33262918254
+          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
+          createdAt: 2026-08-30T18:11:40Z
+          updatedAt: 2026-08-30T18:20:20Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33327357336
         ageDays: 0
-      attention: action-required
+      attention: clear
     - name: Deploy Landing Page
       file: .github/workflows/deploy-landing.yml
       triggers:
@@ -394,15 +391,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308569158
+          id: 33327357249
           status: completed
           conclusion: success
-          event: pull_request
-          branch: chore/repo-structure-and-quality-gates
-          headSha: 225480e5b6a018014bef1c190ed8ac3914a472e7
-          createdAt: 2026-08-30T11:17:54Z
-          updatedAt: 2026-08-30T11:18:06Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33308569158
+          event: push
+          branch: main
+          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
+          createdAt: 2026-08-30T18:11:40Z
+          updatedAt: 2026-08-30T18:11:48Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33327357249
         ageDays: 0
       schedule:
         health: not-applicable
@@ -412,15 +409,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262918291
+          id: 33327357249
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ce7c0282cfc3f3fa5471ea8355143b86677d7f52
-          createdAt: 2026-08-29T16:25:18Z
-          updatedAt: 2026-08-29T16:25:34Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33262918291
+          headSha: babd33ecf4f89ac566702817acbf9b7ce47b4328
+          createdAt: 2026-08-30T18:11:40Z
+          updatedAt: 2026-08-30T18:11:48Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33327357249
         ageDays: 0
       attention: clear
     - name: Release Desktop App

@@ -56,10 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 2
-      running: 1
+      cancelled: 1
       attention: &a2
         clear: 3
   unknowns: []
@@ -178,11 +178,11 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 2
-    running: 1
+    cancelled: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
@@ -258,34 +258,35 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: cancelled
+        reason: latest run was cancelled
         apiState: active
         lastRun:
-          id: 33308558635
-          status: in_progress
-          conclusion: null
+          id: 33311637105
+          status: completed
+          conclusion: cancelled
           event: schedule
           branch: main
-          headSha: 54c72de8bf9b42999a87a332b467976b74004c06
-          createdAt: 2026-08-30T11:17:36Z
-          updatedAt: 2026-08-30T11:17:39Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308558635
+          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
+          createdAt: 2026-08-30T12:29:55Z
+          updatedAt: 2026-08-30T15:18:18Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33311637105
         ageDays: 0
       schedule:
-        health: running
-        reason: latest scheduled run is in_progress
+        health: healthy
+        reason: latest scheduled run concluded cancelled
         lastRun:
-          id: 33308558635
-          status: in_progress
-          conclusion: null
+          id: 33311637105
+          status: completed
+          conclusion: cancelled
           event: schedule
           branch: main
-          headSha: 54c72de8bf9b42999a87a332b467976b74004c06
-          createdAt: 2026-08-30T11:17:36Z
-          updatedAt: 2026-08-30T11:17:39Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308558635
+          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
+          createdAt: 2026-08-30T12:29:55Z
+          updatedAt: 2026-08-30T15:18:18Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33311637105
         ageDays: 0
+        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

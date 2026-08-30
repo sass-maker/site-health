@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -138,7 +138,7 @@ repository:
       - preview
       - test
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -180,7 +180,7 @@ githubActions:
           createdAt: 2026-08-29T16:26:39Z
           updatedAt: 2026-08-29T16:27:08Z
           url: https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/33262982202
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -198,7 +198,7 @@ githubActions:
           createdAt: 2026-08-29T16:26:39Z
           updatedAt: 2026-08-29T16:27:08Z
           url: https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/33262982202
-        ageDays: 0
+        ageDays: 1
       attention: clear
 deployment:
   kind: pages

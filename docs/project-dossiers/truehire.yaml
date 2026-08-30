@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -169,7 +169,7 @@ repository:
       - test:e2e:local
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -179,7 +179,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/truehire
     defaultBranch: main
-    defaultBranchSha: 1aa9e195f751fe0d855481d3eef45d9528268313
+    defaultBranchSha: 0effae6f98dcc6e48b173afb8416d391b27171a0
     homepage: https://truehire.rolepatch.com
     query: verified
     disposition:
@@ -204,33 +204,34 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33249459746
+          id: 33327375514
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d277672881b66219d81986f2bcbb6cb3d544c4e5
-          createdAt: 2026-08-29T11:09:30Z
-          updatedAt: 2026-08-29T11:11:07Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249459746
-        ageDays: 1
+          headSha: 0effae6f98dcc6e48b173afb8416d391b27171a0
+          createdAt: 2026-08-30T18:12:03Z
+          updatedAt: 2026-08-30T18:13:45Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33327375514
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 1aa9e19
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 33249459746
+          id: 33327375514
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d277672881b66219d81986f2bcbb6cb3d544c4e5
-          createdAt: 2026-08-29T11:09:30Z
-          updatedAt: 2026-08-29T11:11:07Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249459746
+          headSha: 0effae6f98dcc6e48b173afb8416d391b27171a0
+          createdAt: 2026-08-30T18:12:03Z
+          updatedAt: 2026-08-30T18:13:45Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/33327375514
+        ageDays: 0
       attention: ignored
     - name: Release CLI
       file: .github/workflows/cli-release.yml
@@ -333,7 +334,7 @@ githubActions:
           createdAt: 2026-07-27T12:09:59Z
           updatedAt: 2026-07-27T12:10:16Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/30264788208
-        ageDays: 33
+        ageDays: 34
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
@@ -347,7 +348,7 @@ githubActions:
           createdAt: 2026-07-27T12:09:59Z
           updatedAt: 2026-07-27T12:10:16Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/30264788208
-        ageDays: 33
+        ageDays: 34
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

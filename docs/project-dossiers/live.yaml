@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-08-30T11:57:46.983Z
+      observedAt: 2026-08-30T18:21:22.539Z
       staleAfterDays: 30
       healthy: 3
       failing: 2
@@ -199,7 +199,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-08-30T11:57:46.983Z
+  observedAt: 2026-08-30T18:21:22.539Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -325,7 +325,7 @@ githubActions:
           createdAt: 2026-08-29T12:30:38Z
           updatedAt: 2026-08-29T12:30:47Z
           url: https://github.com/Significant-Hobbies/live/actions/runs/33252681641
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -363,29 +363,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308911071
+          id: 33321813460
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-30T11:25:59Z
-          updatedAt: 2026-08-30T11:26:08Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33308911071
+          createdAt: 2026-08-30T16:12:43Z
+          updatedAt: 2026-08-30T16:12:53Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33321813460
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 33308911071
+          id: 33321813460
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-30T11:25:59Z
-          updatedAt: 2026-08-30T11:26:08Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33308911071
+          createdAt: 2026-08-30T16:12:43Z
+          updatedAt: 2026-08-30T16:12:53Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33321813460
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:
@@ -418,7 +418,7 @@ githubActions:
           createdAt: 2026-08-24T13:36:42Z
           updatedAt: 2026-08-24T13:51:46Z
           url: https://github.com/Significant-Hobbies/live/actions/runs/32733710681
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
