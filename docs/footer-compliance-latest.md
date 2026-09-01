@@ -1,6 +1,6 @@
 # Fleet footer compliance ledger
 
-Generated: 2026-08-27
+Public baseline generated: 2026-08-27. Source qualification updated: 2026-09-01.
 
 ## Required footer contract
 
@@ -21,9 +21,12 @@ non-browser products are excluded.
 
 - **56 / 56 canonical records classified:** 52 visual product identities, 3
   non-applicable identities, and 1 shared landing factory.
-- **52 / 52 visual identities source-ready.** Each visual identity has one
-  project strip followed by one Ask AI integration on its owning surface, either
-  directly or through the iOS landing factory.
+- **51 / 52 visual identities source-ready for unified composition.** Every
+  active visual identity has one project strip followed by one Ask AI
+  integration on its owning surface, either directly or through the iOS
+  landing factory. Retired Protein Index is the sole exception: its source
+  retains the former composition opt-out, and its repository requires explicit
+  reactivation before edits.
 - **1 / 1 shared factory source-ready.** `ios-landings` supplies the contract to
   Setline, Journal, Kith, Motion, and Anchor. Calorie carries a checked-in Worker
   snapshot of the same factory output.
@@ -34,7 +37,12 @@ non-browser products are excluded.
 - **0 / 46 public origins have the new unified composition live.** The public
   SaaS Maker loader is still the previous version, and the consumer source
   changes have not been deployed.
-- No Fleet consumer retains the former `data-compose="false"` opt-out.
+- No active Fleet consumer retains the former `data-compose="false"` opt-out.
+  The only source occurrence is Protein Index's retired landing.
+- The exact source claim is repeatable from SaaS Maker with
+  `pnpm tooling:footers`. The generic public audit reads the private
+  `apps/backend/config/footer-surfaces.json` receipt here, so Tooling does not
+  duplicate Site Health's project inventory.
 
 ### Current public HTML baseline
 
@@ -89,10 +97,10 @@ not claim that the linked public page has been released.
 | P2 | Kith | [Shared iOS landing layout](/Users/sarthak/Desktop/fleet/ios-landings/src/layouts/SiteLayout.astro) | Source-ready with an authored internal-TestFlight and commercial-state footer followed by the project-strip and Ask AI loaders; all 19 product-specific public surfaces are validated | [kith.significanthobbies.com](https://kith.significanthobbies.com/) — neither shared integration is live |
 | P2 | iOS landings | [Shared factory layout](/Users/sarthak/Desktop/fleet/ios-landings/src/layouts/SiteLayout.astro) | Source-ready infrastructure | No independent public product origin |
 | P2 | RolePatch | [Landing layout](/Users/sarthak/Desktop/fleet/rolepatch/landing-astro/src/layouts/Layout.astro) | Source-ready with an authored maintained-state and commercial-boundary footer followed by the project strip and Ask AI loaders on every landing route | [rolepatch.com](https://rolepatch.com/) — project strip only until this source and the shared footer runtime are released |
-| P2 | Karte | [Landing layout](/Users/sarthak/Desktop/fleet/karte/landing-astro/src/layouts/Layout.astro) and [authored footer](/Users/sarthak/Desktop/fleet/karte/landing-astro/src/components/ProductFooter.astro) | Source-ready with an authored product-state and commercial-boundary footer followed by pre-mounted project-strip and Ask AI components on every Astro route; composition is disabled so neither removes the other | [karte.cc](https://karte.cc/) — project strip only until this source is released |
+| P2 | Karte | [Landing layout](/Users/sarthak/Desktop/fleet/karte/landing-astro/src/layouts/Layout.astro) and [authored footer](/Users/sarthak/Desktop/fleet/karte/landing-astro/src/components/ProductFooter.astro) | Source-ready with an authored product-state and commercial-boundary footer followed by pre-mounted project-strip and Ask AI components on every Astro route; the shared loader now composes them into one extension | [karte.cc](https://karte.cc/) — project strip only until this source is released |
 | P2 | Starboard | [Landing layout](/Users/sarthak/Desktop/fleet/starboard/landing-astro/src/layouts/Layout.astro) | Source-ready | [starboard.codevetter.com](https://starboard.codevetter.com/) — project strip only |
 | P4 | AliveVille | [Astro landing layout](/Users/sarthak/Desktop/fleet/aliveville/astro-landing/src/layouts/Layout.astro) | Source-ready | [aliveville.com](https://aliveville.com/) — neither live |
-| P4 | Protein Index | [Landing document](/Users/sarthak/Desktop/fleet/protein-index/index.html) | Source-ready | [protein.significanthobbies.com](https://protein.significanthobbies.com/) — neither live |
+| P4 | Protein Index | [Landing document](/Users/sarthak/Desktop/fleet/protein-index/index.html) | Pending explicit reactivation — retired source retains the legacy composition opt-out | [protein.significanthobbies.com](https://protein.significanthobbies.com/) — neither live |
 | P4 | Recipe Index | [Dashboard page](/Users/sarthak/Desktop/fleet/recipe-dashboard/src/pages/index.astro) | Source-ready | [veg-protein-food.significanthobbies.com](https://veg-protein-food.significanthobbies.com/) — neither live |
 | P2 | App Health | [Web document](/Users/sarthak/Desktop/fleet/app-health/apps/web/index.html) | Source-ready | [health.sassmaker.com](https://health.sassmaker.com/) — project strip only |
 | P2 | Mashup | [Web page](/Users/sarthak/Desktop/fleet/mashup/web/src/pages/index.astro) | Source-ready | No public origin — local application |
@@ -113,6 +121,12 @@ not claim that the linked public page has been released.
 
 ## Corrections made in this pass
 
+- Made the hosted Ask AI loader wait for and compose a project strip that
+  mounts later, while retaining the opt-out only as a non-Fleet escape.
+- Removed the obsolete composition opt-out from every active source that still
+  carried it, including generated Calorie output refreshed from the shared iOS
+  factory. An exact Fleet scan now finds only the retired Protein Index source
+  plus explanatory documentation.
 - Restored SaaS Maker's shared loader as a single, responsive extension that
   keeps Ask AI first and project discovery second.
 - Restored the two-loader contract on SaaS Maker's own showcase and reusable web
@@ -126,6 +140,27 @@ not claim that the linked public page has been released.
 
 ## Verification receipts
 
+- 2026-09-01 composition repair: shared-package checks passed with 23 Ask AI
+  tests and 6 project-strip tests; the 65-page SaaS Maker showcase build passed.
+  The footer source audit's five focused tests passed, and the canonical
+  receipt reproduced 51/52 visual identities source-ready, 1/1 shared factory
+  source-ready, the single dated Protein Index exception, and zero blocking
+  findings.
+  A delayed-load fixture proved that Ask AI mounted first and was later moved
+  beside the project strip inside exactly one extension. Forty consumer
+  identities were exercised from built HTML documents or production-equivalent
+  local Workers at 390, 768, and 1440 px with the local shared loaders: every
+  document had exactly one Ask AI surface, one project strip, one extension,
+  shared parentage, and no width added by the shared extension. This controlled
+  harness isolates the shared runtime contract; the product-specific responsive
+  receipts below remain authoritative for each fully styled host page.
+  Product-owned checks also passed for the changed sources. IssuePages'
+  aggregate `check` remains
+  blocked only by formatting in an unrelated `.impeccable/hook.cache.json`;
+  its typecheck, 53 tests, client budgets, and Worker dry-run pass. PostTrainLLM's
+  browser Astro build passes, while its aggregate command later fails in the
+  unrelated Blume docs build because `@astrojs/mdx` is not resolvable from the
+  generated docs config.
 - SaaS Maker: targeted public-surface tests, showcase build, design-workflow
   check, and responsive browser inspection at 390, 768, and 1440 px passed.
 - High Signal: API typecheck and all 289 API tests passed; the agent-surface contract, web lint, web typecheck, 342-page Next build, and fallback Astro build passed. Responsive inspection at 390, 768, and 1440 px found no overflow.
@@ -141,7 +176,7 @@ not claim that the linked public page has been released.
 - Journal: the native qualification passed 27 tests and a release-simulator build after replacing its stale hard-coded simulator identifier with deterministic iPhone discovery. The shared factory built and validated all eight configured products and all 19 Journal surfaces, including authored HTML and Markdown 404 behavior. Journal passed 99/100 independent purpose review, 36/40 visual review, 18/20 usability review, responsive inspection at 390, 768, and 1440 px, all critical SEO checks, direct GEO route probes, a 71/100 Is Agentic scan, and 20/20 PSI Swarm measurements. Its authored internal-TestFlight and commercial-state footer is followed by the project-strip and Ask AI loaders. A disposable Cloudflare Quick Tunnel was used only for external scans; no deployment was performed.
 - Kith: the native qualification passed 20 tests and a Release simulator build from the clean native repository. The shared factory built and validated all eight configured products and all 19 Kith surfaces. Kith passed 100/100 independent purpose review, 37/40 visual review, 18/20 usability review, responsive inspection at 390, 768, and 1440 px, all critical SEO checks, direct GEO route probes, a 71/100 Is Agentic scan, and 20/20 PSI Swarm measurements. The old no-account, iCloud-only, beta-preparation claims and tiny screenshots were replaced by current optional Hub-sync truth, verified build state, and current native evidence. Its authored internal-TestFlight and commercial-state footer is followed by the project-strip and Ask AI loaders. A disposable Cloudflare Quick Tunnel was used only for external scans; no deployment was performed.
 - RolePatch: lint, typecheck, all 442 tests, the complete Cloudflare/OpenNext build, 21-surface public contract, focused 22-case desktop/mobile journey suite, 100/100 purpose review, 37/40 visual review, 18/20 usability review, and responsive inspection at 390, 768, and 1440 px passed. The evidence-workbench page now states the claim boundary, review-first apply model, exact token packs, guest-versus-account behavior, maintained hold state, and unverified-live-checkout boundary plainly. Its authored product-state footer is followed by the project strip and Ask AI loaders on every Astro route. Is Agentic scored the disposable tunnel 88/100; PSI Swarm completed 20/20 measurements, with a persisted desktop control at 274 ms p75 LCP, 100 performance, zero CLS, and zero TBT. No deployment was performed.
-- Karte: lint, typecheck, all 94 tests, docs checks, the complete Cloudflare/OpenNext build, focused desktop/mobile journeys, 100/100 purpose review, 37/40 visual review, 18/20 usability review, and responsive inspection at 390, 768, and 1440 px passed. The public-inbound-desk page now states person-first purpose, visitor and owner access, current no-billing truth, AI boundaries, and the unshipped company workflow plainly. The authored footer is followed by pre-mounted project-strip and Ask AI components on every Astro route, and `data-compose="false"` prevents the Ask AI loader from removing the strip. Is Agentic scored the final disposable tunnel 97/100; PSI Swarm completed 20/20 measurements plus an eight-run post-font-preload stability control. No deployment was performed.
+- Karte: lint, typecheck, all 94 tests, docs checks, the complete Cloudflare/OpenNext build, focused desktop/mobile journeys, 100/100 purpose review, 37/40 visual review, 18/20 usability review, and responsive inspection at 390, 768, and 1440 px passed. The public-inbound-desk page now states person-first purpose, visitor and owner access, current no-billing truth, AI boundaries, and the unshipped company workflow plainly. The authored footer is followed by pre-mounted project-strip and Ask AI components on every Astro route; the repaired shared loader now composes both surfaces into one extension. Is Agentic scored the final disposable tunnel 97/100; PSI Swarm completed 20/20 measurements plus an eight-run post-font-preload stability control. No deployment was performed.
 - Email Manager: production build, Astro overlay, and indexing verification
   passed.
 - What It Takes to Win: typecheck and production build passed; 7,172 pages were

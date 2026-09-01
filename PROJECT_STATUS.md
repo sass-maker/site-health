@@ -17,6 +17,12 @@ backend.
 
 ## Timeline
 
+- **2026-09-01:** Added the private footer-surface receipt beside the canonical
+  catalog and verified it with SaaS Maker Tooling's credential-free source
+  audit. The repeatable result is 51/52 visual identities source-ready, the
+  shared iOS landing factory source-ready, and Protein Index as the sole dated
+  retired exception, with no blocking drift. No deployment ran.
+
 - **2026-08-29:** Shipped canonical product-purpose contracts for the whole
   portfolio. All 55 in-scope canonical identities now carry a resolved
   purpose, audience, outcome, mechanism, proof, and honest next action;
