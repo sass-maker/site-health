@@ -1,6 +1,7 @@
 # Fleet footer compliance ledger
 
-Public baseline generated: 2026-08-27. Source qualification updated: 2026-09-01.
+Public baseline generated: 2026-08-27. Source and live qualification updated:
+2026-09-01.
 
 ## Required footer contract
 
@@ -32,11 +33,20 @@ non-browser products are excluded.
   snapshot of the same factory output.
 - **3 / 3 exclusions are explicit:** ChatGPT Connections and Companion Robot do
   not have browser surfaces; Mobile Dev Cockpit is a retired native app.
-- **46 / 46 catalog public origins responded HTTP 200** during the 2026-08-27
-  source-tag audit.
-- **0 / 46 public origins have the new unified composition live.** The public
-  SaaS Maker loader is still the previous version, and the consumer source
-  changes have not been deployed.
+- **45 / 45 applicable active public visual origins are live-qualified.** Each
+  returned HTTP 200, mounted exactly one project strip and one Ask AI surface
+  with open shadow roots, and added no horizontal overflow at 390, 768, or
+  1440 px. Six slower applications passed on their single permitted retry
+  after full app load.
+- The current catalog exposes 47 URLs across the included live-product
+  manifest. Two are not footer targets: `search.sassmaker.com` is the
+  Cloudflare Access-protected Knowledge Base service surface, and
+  `aliveville.com` belongs to parked AliveVille, which the owner asked to
+  leave unchanged and which has no required footer-surface record.
+- Both hosted loader assets return HTTP 200 JavaScript from `sassmaker.com`;
+  the Ask AI loader owns the composed-extension runtime used by compatible
+  consumers, while consumers that intentionally opt out of wrapper composition
+  still render the two adjacent shared surfaces.
 - No active Fleet consumer retains the former `data-compose="false"` opt-out.
   The only source occurrence is Protein Index's retired landing.
 - The exact source claim is repeatable from SaaS Maker with
@@ -44,7 +54,10 @@ non-browser products are excluded.
   `apps/backend/config/footer-surfaces.json` receipt here, so Tooling does not
   duplicate Site Health's project inventory.
 
-### Current public HTML baseline
+### Pre-rollout public HTML baseline (2026-08-27)
+
+This table is retained as the historical starting point. The live production
+receipt below supersedes these counts.
 
 | Public state | Origins | Meaning |
 | --- | ---: | --- |
@@ -55,12 +68,75 @@ non-browser products are excluded.
 | Neither integration | 19 | Neither shared footer feature is present in live HTML. |
 | **Unified composition** | **0** | Requires the shared loader release and consumer releases. |
 
+### Current live production receipt (2026-09-01)
+
+All rows below passed the same bounded read-only journey: fetch the canonical
+page, allow normal hydration, verify one mounted `portfolio-project-strip` and
+one mounted `ai-chat-footer`, confirm both custom elements have rendered shadow
+roots and positive height, then resize the same page to 390, 768, and 1440 px
+and confirm that the shared surfaces add no horizontal overflow.
+
+| Product | Public origin | HTTP | 390 / 768 / 1440 |
+| --- | --- | ---: | --- |
+| CodeVetter | `codevetter.com` | 200 | Pass |
+| HeyPace | `heypace.app` | 200 | Pass |
+| PostTrainLLM | `posttrainllm.com` | 200 | Pass |
+| Live | `live.significanthobbies.com` | 200 | Pass |
+| SaaS Maker | `sassmaker.com` | 200 | Pass |
+| GitStat | `git.significanthobbies.com` | 200 | Pass |
+| Email Manager | `mail.significanthobbies.com` | 200 | Pass |
+| Memory Map | `chatgpt.significanthobbies.com` | 200 | Pass |
+| Free AI | `ai-gateway.sassmaker.com` | 200 | Pass |
+| PSI Swarm | `performance.sassmaker.com` | 200 | Pass |
+| High Signal | `highsignal.app` | 200 | Pass |
+| High Signal Podcasts | `podcasts.highsignal.app` | 200 | Pass |
+| IssuePages | `issues.sarthakagrawal.dev` | 200 | Pass |
+| EverythingRated | `ratings.highsignal.app` | 200 | Pass |
+| Research Papers | `papers.highsignal.app` | 200 | Pass |
+| Materia | `materia.significanthobbies.com` | 200 | Pass |
+| Knowledge Base | `knowledgebase.sassmaker.com` | 200 | Pass |
+| Significant Hobbies | `significanthobbies.com` | 200 | Pass |
+| India Standards | `india-standards.significanthobbies.com` | 200 | Pass |
+| India Numbers | `india-numbers.significanthobbies.com` | 200 | Pass |
+| Anime List | `anime.significanthobbies.com` | 200 | Pass |
+| Chess | `chess.significanthobbies.com` | 200 | Pass |
+| LoopTV | `tv.significanthobbies.com` | 200 | Pass |
+| Reader | `read.significanthobbies.com` | 200 | Pass |
+| SWE Interview Prep | `learn.significanthobbies.com` | 200 | Pass |
+| Calorie | `calorie.significanthobbies.com` | 200 | Pass |
+| Setline | `setline.significanthobbies.com` | 200 | Pass |
+| Journal | `journal.significanthobbies.com` | 200 | Pass |
+| Kith | `kith.significanthobbies.com` | 200 | Pass |
+| RolePatch | `rolepatch.com` | 200 | Pass |
+| Karte | `karte.cc` | 200 | Pass |
+| Starboard | `starboard.codevetter.com` | 200 | Pass |
+| Recipe Index | `veg-protein-food.significanthobbies.com` | 200 | Pass |
+| App Health | `health.sassmaker.com` | 200 | Pass |
+| App Health ingest surface | `ingest.sassmaker.com` | 200 | Pass |
+| Mashup | `mashup.highsignal.app` | 200 | Pass |
+| Motion | `motion.significanthobbies.com` | 200 | Pass |
+| Open Historia | `historia.aliveville.com` | 200 | Pass |
+| What It Takes to Win | `paths.significanthobbies.com` | 200 | Pass |
+| Sarthak Agrawal | `sarthakagrawal.dev` | 200 | Pass |
+| Office OS | `office-os.sassmaker.com` | 200 | Pass |
+| Local AI Video Studio | `local-ai-video-studio.sassmaker.com` | 200 | Pass |
+| Field Track | `field-track.sassmaker.com` | 200 | Pass |
+| Reddit Insights | `reddit-insights.highsignal.app` | 200 | Pass |
+| Anchor | `anchor.significanthobbies.com` | 200 | Pass |
+
+The hosted `project-strip.js` asset returned 200 `text/javascript` (23,055
+bytes) and the hosted `ai-chat-footer.js` asset returned 200 `text/javascript`
+(48,483 bytes). CodeVetter emitted an unrelated PostHog initialization error;
+both footer surfaces still mounted and passed all three responsive widths.
+
 ## Complete canonical ledger
 
 “Source-ready” means the checked-out source satisfies the new contract. It does
-not claim that the linked public page has been released.
+not by itself claim that the linked public page has been released. The
+per-product live-state descriptions below preserve the 2026-08-27 baseline;
+the dated production receipt above is the current live authority.
 
-| Priority | Product | Owning browser surface | Source | Public page and current live state |
+| Priority | Product | Owning browser surface | Source | Public page and 2026-08-27 state |
 | --- | --- | --- | --- | --- |
 | P1 | CodeVetter | [Astro landing layout](/Users/sarthak/Desktop/fleet/codevetter/apps/landing-page-astro/src/layouts/Layout.astro) | Source-ready | [codevetter.com](https://codevetter.com/) — project strip only |
 | P1 | HeyPace | [Website base layout](/Users/sarthak/Desktop/fleet/pace/website/src/layouts/BaseLayout.astro) | Source-ready | [heypace.app](https://heypace.app/) — project strip only |
@@ -183,16 +259,12 @@ not claim that the linked public page has been released.
   generated.
 - `git diff --check` passed in every touched repository.
 
-## Release gate
+## Rollout result
 
-The source is ready, but the rollout is not complete until release work is
-explicitly authorized:
-
-1. Release SaaS Maker so the new shared `/ai-chat-footer.js` composition is
-   public.
-2. Release each consumer through its normal repository workflow.
-3. Re-audit all 46 origins at desktop and mobile widths for exactly one Ask AI
-   surface, exactly one project strip, correct ordering, valid provider links,
-   and zero horizontal overflow.
-4. Record source, CI, deployment, and public-render evidence separately in
-   [SaaS Maker issue #76](https://github.com/sass-maker/saas-maker/issues/76).
+The active rollout is complete. Source qualification remains 51/52 visual
+identities because retired Protein Index is intentionally unchanged; this is a
+recorded lifecycle exception, not active release debt. All 45 applicable active
+public visual origins have now passed the production render contract at mobile,
+tablet, and desktop widths. SaaS Maker issue
+[#76](https://github.com/sass-maker/saas-maker/issues/76) carries the release,
+CI, and public-render closure receipt.
