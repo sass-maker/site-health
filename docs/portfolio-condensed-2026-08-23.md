@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
 Date: 2026-08-23
-Scope: all 55 canonical Fleet identities
+Scope: all 56 canonical Fleet identities
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -14,12 +14,12 @@ open issues. Those belong in the canonical catalog, each project's
 | Classification | Count | Meaning |
 | --- | ---: | --- |
 | Flagship | 2 | Products worth sustained market-level investment. |
-| Active | 13 | Being built, integrated, tested, or deliberately dogfooded now. |
+| Active | 14 | Being built, integrated, tested, or deliberately dogfooded now. |
 | Maintenance | 7 | Complete enough; change only for defects or proven needs. |
 | Hold | 22 | Worth retaining, but blocked by a named validation, data, interest, UI, distribution, or economic gate. |
 | Dropped | 3 | Superseded or intentionally stopped; retain history without roadmap work. |
 | Infrastructure | 8 | Shared systems whose roadmap should be driven by consumer needs. |
-| **Total** | **55** | Every canonical Fleet identity appears exactly once. |
+| **Total** | **56** | Every canonical Fleet identity appears exactly once. |
 
 These classifications reflect current owner intent. They deliberately override misleading signals such as a live deployment for a held product or an old repository label that says maintenance while the owner is actively building.
 
@@ -147,6 +147,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 - Habits/Indulge was superseded by Anchor; its original pattern artwork and
   humane replacement framing moved forward, while its separate shell and
   roadmap were retired.
+- SaaS Ideas was absorbed into SaaS Maker; its catalog lives only at SaaS Maker's `/ideas` surface.
 - Workflows and Skills and Hub Backend are no longer separate Fleet identities; their responsibilities now live in SaaS Maker and Significant Hobbies respectively.
 
 ## Portfolio-level conclusions
@@ -161,7 +162,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 
 5. **Infrastructure is already abundant.** Free AI, Knowledge Base, ChatGPT Connections, SaaS Maker, Site Health, Drank, PSI Swarm, and iOS landings form a strong internal platform. Their roadmaps should remain consumer-led to avoid building infrastructure for infrastructure's sake.
 
-6. **Completed tools should stay boring.** Anime List, Calorie, Email Manager, GitStat, LoopTV, Sarthak Agrawal, Research Papers, and SaaS Ideas have achieved their current purpose. Maintenance is success, not neglect.
+6. **Completed tools should stay boring.** Anime List, Calorie, Email Manager, GitStat, LoopTV, Sarthak Agrawal, and Research Papers have achieved their current purpose. Maintenance is success, not neglect.
 
 7. **Three projects should have no active roadmap.** Chess Coach, Mobile Dev Cockpit, and TrueHire should remain historical artifacts unless the owner explicitly changes the underlying decision.
 
