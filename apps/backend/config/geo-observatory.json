@@ -1,5 +1,6 @@
 {
   "$comment": "GEO Observatory query config. Queries are STABLE identifiers — never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product has partial page-one visibility (own domain below top 3 or via an aggregator/directory); C = absent from first page.",
+  "$coverage": "2026-09-05 (SAR-15): extended to every live product with a public organic surface. Excluded by design — chatgpt-connections (MCP endpoints only; mcp.highsignal.app returns 404 to a browser) and reel-pipeline (reels.sassmaker.com returns 401, auth-gated): both are status=live in projects.json but expose nothing a search engine can rank, so an origin-based A/B/C rubric would be meaningless for them. ai-game/aliveville.com is covered by the root-search contract, not here. Re-check this list whenever a project flips to status=live.",
   "cadence": "weekly",
   "classes": ["A", "B", "C"],
   "products": [
@@ -261,6 +262,133 @@
         { "qid": "sarthak-agrawal-brand", "kind": "brand", "q": "Sarthak Agrawal AI infrastructure engineer" },
         { "qid": "sarthak-agrawal-exact-domain", "kind": "brand", "q": "sarthakagrawal.dev" },
         { "qid": "sarthak-agrawal-category", "kind": "category", "q": "AI infrastructure product engineer portfolio" }
+      ]
+    },
+
+    {
+      "id": "on-record",
+      "origin": "https://podcasts.highsignal.app",
+      "$note": "Named priority surface. Four queries — brand, exact domain, category, buyer problem — matching the depth given to pace and high-signal.",
+      "queries": [
+        { "qid": "on-record-brand", "kind": "brand", "q": "High Signal Podcasts" },
+        { "qid": "on-record-exact-domain", "kind": "brand", "q": "podcasts.highsignal.app" },
+        { "qid": "on-record-category", "kind": "category", "q": "search podcast claims with transcript source attached" },
+        { "qid": "on-record-problem", "kind": "problem", "q": "find which podcast episode recommended a book or tool" }
+      ]
+    },
+    {
+      "id": "live",
+      "origin": "https://live.significanthobbies.com",
+      "$note": "Brand probe is the exact hostname — the product name 'Live' is unsearchable on its own.",
+      "queries": [
+        { "qid": "live-brand", "kind": "brand", "q": "live.significanthobbies.com" },
+        { "qid": "live-category", "kind": "category", "q": "bucket list app to discover hobbies worth trying" },
+        { "qid": "live-problem", "kind": "problem", "q": "decide what hobby to try next and keep a record of it" }
+      ]
+    },
+    {
+      "id": "issue-pages",
+      "origin": "https://issues.sarthakagrawal.dev",
+      "queries": [
+        { "qid": "issue-pages-brand", "kind": "brand", "q": "IssuePages issues.sarthakagrawal.dev" },
+        { "qid": "issue-pages-category", "kind": "category", "q": "turn a GitHub issue into a public shareable page" },
+        { "qid": "issue-pages-problem", "kind": "problem", "q": "publish a public page from a GitHub issue without a website" }
+      ]
+    },
+    {
+      "id": "gitstat",
+      "origin": "https://git.significanthobbies.com",
+      "queries": [
+        { "qid": "gitstat-brand", "kind": "brand", "q": "GitStat GitHub analytics" },
+        { "qid": "gitstat-category", "kind": "category", "q": "GitHub contribution analytics code churn and AI involvement" },
+        { "qid": "gitstat-problem", "kind": "problem", "q": "see how much of a GitHub repository was written by AI" }
+      ]
+    },
+    {
+      "id": "field-track",
+      "origin": "https://field-track.sassmaker.com",
+      "queries": [
+        { "qid": "field-track-brand", "kind": "brand", "q": "Field Track sassmaker" },
+        { "qid": "field-track-category", "kind": "category", "q": "Android field employee location tracking manager dashboard" }
+      ]
+    },
+    {
+      "id": "mashup",
+      "origin": "https://mashup.highsignal.app",
+      "queries": [
+        { "qid": "mashup-brand", "kind": "brand", "q": "mashup.highsignal.app" },
+        { "qid": "mashup-category", "kind": "category", "q": "turn a podcast archive into edited clips with provenance" }
+      ]
+    },
+    {
+      "id": "journal",
+      "origin": "https://journal.significanthobbies.com",
+      "queries": [
+        { "qid": "journal-brand", "kind": "brand", "q": "journal.significanthobbies.com" },
+        { "qid": "journal-category", "kind": "category", "q": "private iPhone journal app entries stay on device" }
+      ]
+    },
+    {
+      "id": "everythingrated",
+      "origin": "https://ratings.highsignal.app",
+      "$note": "everythingrated.com is a third party and must never be counted as ours; the brand probe is deliberately qualified so the ledger measures our surface, not the collision.",
+      "queries": [
+        { "qid": "everythingrated-brand", "kind": "brand", "q": "EverythingRated highsignal" },
+        { "qid": "everythingrated-category", "kind": "category", "q": "compare AI dev libraries maintenance license API stability" }
+      ]
+    },
+    {
+      "id": "materia",
+      "origin": "https://materia.significanthobbies.com",
+      "queries": [
+        { "qid": "materia-brand", "kind": "brand", "q": "materia.significanthobbies.com" },
+        { "qid": "materia-category", "kind": "category", "q": "evidence graded herbs and supplements by body system" }
+      ]
+    },
+    {
+      "id": "veg-protein-food",
+      "origin": "https://veg-protein-food.significanthobbies.com",
+      "queries": [
+        { "qid": "veg-protein-food-brand", "kind": "brand", "q": "veg-protein-food.significanthobbies.com" },
+        { "qid": "veg-protein-food-category", "kind": "category", "q": "egg free vegetarian recipes 10g protein per 100 calories" }
+      ]
+    },
+    {
+      "id": "chess",
+      "origin": "https://chess.significanthobbies.com",
+      "queries": [
+        { "qid": "chess-brand", "kind": "brand", "q": "chess.significanthobbies.com" },
+        { "qid": "chess-category", "kind": "category", "q": "play Stockfish in browser with AI move explanations" }
+      ]
+    },
+    {
+      "id": "protein-index",
+      "origin": "https://protein.significanthobbies.com",
+      "$note": "Parked/out-of-fleet surface: one exact-domain probe only. Not being invested in, so the only question worth a weekly probe is whether the retained surface is still indexed. Same rule applies to open-historia, web-playables and truehire below. Do not expand without a decision to reactivate.",
+      "queries": [
+        { "qid": "protein-index-brand", "kind": "brand", "q": "protein.significanthobbies.com" }
+      ]
+    },
+    {
+      "id": "open-historia",
+      "origin": "https://historia.aliveville.com",
+      "queries": [
+        { "qid": "open-historia-brand", "kind": "brand", "q": "historia.aliveville.com" }
+      ]
+    },
+    {
+      "id": "web-playables",
+      "origin": "https://idle.aliveville.com",
+      "queries": [
+        { "qid": "web-playables-brand", "kind": "brand", "q": "idle.aliveville.com" }
+      ]
+    },
+    {
+      "id": "truehire",
+      "origin": "https://truehire.rolepatch.com",
+      "$note": "Archived predecessor to RolePatch. Probed to detect whether the retired landing still absorbs RolePatch-adjacent search.",
+      "queries": [
+        { "qid": "truehire-brand", "kind": "brand", "q": "TrueHire rolepatch" }
       ]
     }
   ]
