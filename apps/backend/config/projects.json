@@ -509,7 +509,10 @@
       "inRegistry": true,
       "status": "live",
       "notes": "Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.",
-      "name": "Drank",
+      "name": "DRank",
+      "aliases": [
+        "Drank"
+      ],
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
@@ -517,7 +520,7 @@
       "public": {
         "listing": "maintained",
         "id": "drank",
-        "name": "Drank",
+        "name": "DRank",
         "description": "Domain Rating intelligence for product, SEO, and market research.",
         "category": "helper",
         "pillarId": "market",
@@ -5459,8 +5462,10 @@
     },
     {
       "id": "drank",
-      "name": "Drank",
-      "aliases": [],
+      "name": "DRank",
+      "aliases": [
+        "Drank"
+      ],
       "origin": "https://domains.sassmaker.com",
       "source": {
         "state": "public",
