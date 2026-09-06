@@ -49,7 +49,22 @@ test('loads the canonical receipt and distinguishes wired surfaces', () => {
       },
     ],
   }));
-  const loaded = loadClarityRegistry(path);
+  const capabilitiesPath = join(directory, 'clarity-capabilities.json');
+  writeFileSync(capabilitiesPath, JSON.stringify({
+    schema: 'fleet.clarity-capabilities.v1',
+    updatedAt: '2026-09-06',
+    capabilities: [
+      { id: 'recordings', label: 'Recordings', mode: 'automatic', defaultState: 'desired' },
+      { id: 'ga4', label: 'GA4 link', mode: 'provider', defaultState: 'conditional', reason: 'no-ga4-property' },
+      { id: 'ai-bot-activity', label: 'AI Bot Activity', mode: 'infrastructure', defaultState: 'blocked' },
+    ],
+  }));
+  const journeysPath = join(directory, 'clarity-journeys.json');
+  writeFileSync(journeysPath, JSON.stringify({
+    schema: 'fleet.clarity-journeys.v1',
+    projects: [],
+  }));
+  const loaded = loadClarityRegistry(path, capabilitiesPath, journeysPath);
   assert.equal(clarityEligibility('wired', loaded).eligible, true);
   assert.deepEqual(clarityEligibility('unwired', loaded), {
     eligible: false,
@@ -59,14 +74,14 @@ test('loads the canonical receipt and distinguishes wired surfaces', () => {
   const wiredCapabilities = clarityCapabilityProjection('wired', loaded);
   assert.equal(wiredCapabilities.state, 'desired');
   assert.equal(wiredCapabilities.providerState, 'unverified');
-  assert.equal(wiredCapabilities.summary.desired, 13);
-  assert.equal(wiredCapabilities.summary.conditional, 3);
+  assert.equal(wiredCapabilities.summary.desired, 1);
+  assert.equal(wiredCapabilities.summary.conditional, 1);
   assert.equal(wiredCapabilities.summary.blocked, 1);
   assert.equal(wiredCapabilities.journeyState, 'not-configured');
 
   const unwiredCapabilities = clarityCapabilityProjection('unwired', loaded);
   assert.equal(unwiredCapabilities.state, 'not-applicable');
-  assert.equal(unwiredCapabilities.summary.notApplicable, 17);
+  assert.equal(unwiredCapabilities.summary.notApplicable, 3);
   assert.equal(unwiredCapabilities.journeyState, 'not-applicable');
 });
 
@@ -109,6 +124,7 @@ test('uses project-specific tokens without allowing a shared fleet fallback', ()
 
   assert.equal(resolveClarityToken('code-vetter', {
     env: {},
+    platform: 'darwin',
     readInfisical() {
       throw new Error('not signed in');
     },
@@ -118,6 +134,19 @@ test('uses project-specific tokens without allowing a shared fleet fallback', ()
     },
   }), 'keychain-token');
   assert.equal(keychainRead, true);
+
+  // The Keychain fallback is macOS-only; elsewhere the resolver reports nothing
+  // rather than reaching for a shared token.
+  assert.equal(resolveClarityToken('code-vetter', {
+    env: {},
+    platform: 'linux',
+    readInfisical() {
+      throw new Error('not signed in');
+    },
+    readKeychain() {
+      throw new Error('the Keychain must not be consulted off macOS');
+    },
+  }), null);
 });
 
 test('stores project tokens in Infisical through stdin without argv, environment, or file exposure', () => {

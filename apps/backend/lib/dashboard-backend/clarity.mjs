@@ -415,6 +415,7 @@ export function clarityTokenEnvironmentKey(projectId) {
 
 export function resolveClarityToken(projectId, {
   env = process.env,
+  platform = process.platform,
   readInfisical = execFileSync,
   readKeychain = execFileSync,
   infisicalRoot = defaultClarityInfisicalRoot,
@@ -438,7 +439,7 @@ export function resolveClarityToken(projectId, {
   } catch {
     // Existing Keychain storage remains a private offline fallback.
   }
-  if (process.platform !== 'darwin') return null;
+  if (platform !== 'darwin') return null;
   try {
     return String(readKeychain('/usr/bin/security', [
       'find-generic-password',
