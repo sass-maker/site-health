@@ -6105,6 +6105,108 @@
       "pricing": {
         "state": "not-applicable"
       }
+    },
+    {
+      "id": "live",
+      "name": "Live",
+      "aliases": [
+        "significant-hobbies-live"
+      ],
+      "description": "The long-running Significant Hobbies experience for recording, exploring, and acting on a life lived beyond passive consumption.",
+      "origin": "https://live.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/live"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/live#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/live"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "journal",
+      "name": "Journal",
+      "aliases": [],
+      "description": "A private iPhone journal for daily writing, reflection, and a personal archive that stays under the owner's control.",
+      "origin": "https://journal.significanthobbies.com",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/journal"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://journal.significanthobbies.com"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/journal"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "field-track",
+      "name": "Field Track",
+      "aliases": [],
+      "description": "A synthetic manager dashboard for continuous, administrator-enrolled Android field tracking, freshness-aware locations, and retained route review.",
+      "origin": "https://field-track.sassmaker.com",
+      "source": {
+        "state": "internal",
+        "path": "field-track"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://field-track.sassmaker.com"
+      },
+      "officialProfiles": [
+        "https://github.com/sass-maker/field-track"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
+    },
+    {
+      "id": "anchor",
+      "name": "Anchor",
+      "aliases": [],
+      "description": "A local-first day planner and focus timer for Mac, iPhone, and Apple Watch that explains the gap between the schedule you planned and the day you lived.",
+      "origin": "https://anchor.significanthobbies.com",
+      "source": {
+        "state": "internal",
+        "path": "anchor"
+      },
+      "docs": {
+        "state": "landing-only",
+        "url": "https://anchor.significanthobbies.com"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/anchor"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "not-declared"
+      }
     }
   ]
 }
