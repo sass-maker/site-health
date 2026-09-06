@@ -161,9 +161,12 @@
     {
       "id": "what-it-takes-to-win",
       "origin": "https://paths.significanthobbies.com",
+      "$note": "Named priority surface. Extended 2026-09-05 (SAR-3) from 2 to 4 queries — brand, exact domain, category, buyer problem — matching the depth given to on-record, and closing scorecard.md gap 1. The pre-existing what-it-takes-to-win-brand qid carries exact-domain text; it is kept verbatim so its trend survives, and what-it-takes-to-win-brand-2 is the real brand query. The bare product name is a common English phrase, so the brand query is disambiguated — SAR-11 returned powerlisting.fandom.com and gamepressure.com for the undisambiguated form.",
       "queries": [
-        { "qid": "what-it-takes-to-win-brand", "kind": "brand", "q": "paths.significanthobbies.com" },
-        { "qid": "what-it-takes-to-win-category", "kind": "category", "q": "database of documented early career breakthroughs" }
+        { "qid": "what-it-takes-to-win-brand", "kind": "exact-domain", "q": "paths.significanthobbies.com" },
+        { "qid": "what-it-takes-to-win-brand-2", "kind": "brand", "q": "What It Takes to Win documented paths" },
+        { "qid": "what-it-takes-to-win-category", "kind": "category", "q": "database of documented early career breakthroughs" },
+        { "qid": "what-it-takes-to-win-problem", "kind": "problem", "q": "at what age did people have their first big breakthrough" }
       ]
     },
     {

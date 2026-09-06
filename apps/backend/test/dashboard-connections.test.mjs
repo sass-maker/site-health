@@ -6,7 +6,7 @@ import test from 'node:test';
 
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 
-test('Dashboard projection contains only project and five-area outcome data', () => {
+test('Dashboard projection contains only project and measurement-outcome data', () => {
   const repositoryRoot = resolve(import.meta.dirname, '../../..');
   const result = buildDashboardProjection({
     repositoryRoot,
@@ -17,9 +17,11 @@ test('Dashboard projection contains only project and five-area outcome data', ()
 
   assert.equal(result.schemaVersion, 'dashboard.projection.v1');
   assert.deepEqual(Object.keys(result).sort(), ['generatedAt', 'outcomes', 'schemaVersion']);
+  // An allowlist, not a snapshot: the projection may only carry measurement outcomes, so a new
+  // family has to be added here deliberately and anything else still fails the boundary.
   assert.deepEqual(
     Object.keys(result.outcomes).sort(),
-    ['aiAwareness', 'aiCoverage', 'domains', 'performance', 'search'],
+    ['aiAwareness', 'aiCoverage', 'domains', 'geoAwareness', 'performance', 'search', 'seoAudit'],
   );
   assert.equal('skills' in result, false);
   assert.equal('workflows' in result, false);
@@ -27,14 +29,10 @@ test('Dashboard projection contains only project and five-area outcome data', ()
   assert.deepEqual(
     result.outcomes.domains.map((row) => row.domain),
     [
-      'aliveville.com',
       'codevetter.com',
       'heypace.app',
       'highsignal.app',
-      'karte.cc',
       'posttrainllm.com',
-      'rolepatch.com',
-      'sarthakagrawal.dev',
       'sassmaker.com',
       'significanthobbies.com',
     ],

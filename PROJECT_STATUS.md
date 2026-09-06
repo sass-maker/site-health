@@ -12,10 +12,68 @@ backend.
 - PSI Swarm provides web-performance evidence.
 - Google Search Console provides search evidence.
 - Configured model providers supply bounded AI Visibility observations.
+- Microsoft Clarity supplies explicit, project-scoped aggregate traffic
+  evidence for canonically wired public surfaces.
 - `sass-maker/saas-maker` owns reusable GitHub Actions, Fleet-owned scripts,
   and agent skills under `tooling/`.
 
 ## Timeline
+
+- **2026-09-01:** Completed the first project-scoped Clarity Data Export run.
+  All 26 active eligible projects now resolve distinct tokens from the Fleet
+  Infisical project's Development root; no token value entered source, argv,
+  environment files, receipts, or collector output. The CodeVetter pilot
+  measured zero sessions, and the fleet sweep reused that exact fresh pilot
+  snapshot so CodeVetter was not requested twice. The one-shot result was 23
+  fresh measured projects, three sanitized provider-unavailable failures
+  (High Signal, Rolepatch, and Field Track), six intentional unwired
+  boundaries, and 24 inactive identities. No failed project was retried. The
+  fresh project snapshots contain only bounded aggregates and collectively
+  reported 9 sessions, 415 bot sessions, and 425 project-scoped unique
+  browser/device identity counts; those identity counts are not fleet-deduped
+  users. Signed-in provider rereads for CodeVetter and Anchor verified Balanced
+  masking and Copilot, while both public installations remained Not Connected;
+  provider totals are therefore 4 verified and 14 accounted capabilities, not
+  blanket verification. The remaining provider batch stayed unverified after
+  Chrome control timed out. AI Bot Activity remains blocked on separately
+  authorized infrastructure/cost work. The web build, 103 backend tests, 11
+  AI-visibility package tests, and SaaS Maker Tooling checks pass. Nothing was
+  committed, pushed, deployed, or changed in production infrastructure.
+
+- **2026-09-01:** Expanded Clarity from traffic-only evidence to an honest
+  full-capability desired-state projection. Site Health now shows the canonical
+  17-feature baseline per product, including recordings, heatmaps, Copilot,
+  Smart Events, funnels, AI Visibility, masking, IP exclusions, GA4, Consent
+  API v2, Data Export, MCP, and benchmarks, while keeping provider verification
+  separate. The current 56-project receipt has 39 wired surfaces, 507 desired
+  assignments, 117 conditional assignments, 39 AI Bot Activity assignments
+  blocked on separately authorized CDN/cost setup, and zero provider settings
+  claimed as verified. Live-root evidence defines 36 Smart Event/funnel
+  candidates; the three remaining rendered-discovery exceptions are inactive
+  retained identities. Narrow dossier and source review found no concrete GA4
+  property or actual analytics-consent flow for any of the 26 active eligible
+  products, so those capabilities remain evidence-based not-applicable pending
+  provider reread. All 26 have plausible Cloudflare infrastructure for AI Bot
+  Activity, but 23 share zones across Clarity identities, CodeVetter's current
+  request route is not proven, and none has production cost/configuration
+  authorization; all remain blocked rather than provider-verified. The web build
+  and all 101 backend tests pass. Provider
+  mutation remains blocked because no authenticated browser connector is
+  available; no credential, deployment, or production configuration changed.
+
+- **2026-09-01:** Added bounded Microsoft Clarity evidence to existing project
+  detail pages without creating an analytics dashboard. Site Health now reads
+  eligibility from SaaS Maker Tooling's canonical Clarity receipt, accepts
+  tokens only from private environment or macOS Keychain channels, calls the
+  documented 1–3 day Data Export endpoint only on an explicit project refresh,
+  and persists only sessions, bot sessions, unique browser/device identities,
+  and pages per session. The official Microsoft MCP CLI is installed locally
+  as a separate optional operator capability; no token was configured and no
+  provider request or deployment ran.
+  The collector also supports all-project cached and explicit live modes: it
+  accounts for every canonical identity, skips unwired and inactive products,
+  continues after per-project failures, and never turns one missing token into
+  a missing fleet report.
 
 - **2026-09-01:** Added the private footer-surface receipt beside the canonical
   catalog and verified it with SaaS Maker Tooling's credential-free source
@@ -154,6 +212,12 @@ backend.
 - PSI and field-performance view.
 - Google Search evidence view.
 - GEO/AI-awareness view with a private provider-independent analysis engine.
+- Project-level Clarity traffic evidence with cached reads, explicit refresh,
+  and no session-replay or visitor-identifier retention.
+- Fleet-wide Clarity status and explicit live collection with one bounded
+  result per canonical identity and partial-failure visibility.
+- Per-product Clarity capability desired-state coverage with provider proof
+  kept separate from policy.
 - Source-specific freshness envelopes with persistent sanitized success,
   failure, unavailable, and in-progress refresh receipts.
 - Every owner-command invocation requests fresh Domains, Performance, Search,

@@ -362,8 +362,8 @@ test('collector refuses unwired projects and persists only the sanitized snapsho
     },
   };
   const projects = [
-    { id: 'wired', publicListing: 'maintained', lifecycle: 'maintained' },
-    { id: 'unwired', publicListing: 'maintained', lifecycle: 'maintained' },
+    { id: 'wired', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+    { id: 'unwired', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
   ];
   await assert.rejects(
     runClarityCollector({ command: 'fetch', projectId: 'unwired', projects, registry: registry(), store }),
@@ -414,8 +414,8 @@ test('fleet status accounts for every identity without resolving tokens or calli
   const result = await runClarityCollector({
     command: 'status-all',
     projects: [
-      { id: 'wired', publicListing: 'maintained', lifecycle: 'maintained' },
-      { id: 'unwired', publicListing: 'maintained', lifecycle: 'maintained' },
+      { id: 'wired', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+      { id: 'unwired', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
     ],
     registry: registry(),
     store,
@@ -453,11 +453,11 @@ test('fleet refresh skips exclusions, continues failures, and never emits tokens
     },
   };
   const projects = [
-    { id: 'measured', publicListing: 'maintained', lifecycle: 'maintained' },
-    { id: 'missing-token', publicListing: 'maintained', lifecycle: 'maintained' },
-    { id: 'provider-failure', publicListing: 'maintained', lifecycle: 'maintained' },
-    { id: 'unwired', publicListing: 'maintained', lifecycle: 'maintained' },
-    { id: 'inactive', publicListing: 'past', lifecycle: 'past', portfolioStatus: 'archived' },
+    { id: 'measured', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+    { id: 'missing-token', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+    { id: 'provider-failure', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+    { id: 'unwired', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+    { id: 'inactive', publicListing: 'past', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null }, portfolioStatus: 'archived' },
   ];
   const fleetRegistry = new Map(projects.map((project) => [project.id, {
     projectId: project.id,
@@ -521,8 +521,8 @@ test('fleet refresh can reuse an exact-range fresh pilot without a second provid
     },
   };
   const projects = [
-    { id: 'pilot', publicListing: 'maintained', lifecycle: 'maintained' },
-    { id: 'other', publicListing: 'maintained', lifecycle: 'maintained' },
+    { id: 'pilot', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
+    { id: 'other', publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } },
   ];
   const fleetRegistry = new Map(projects.map((project) => [project.id, {
     projectId: project.id,

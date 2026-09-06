@@ -229,9 +229,20 @@ h1 { max-width: 780px; margin-bottom: 10px; overflow-wrap: anywhere; font-size: 
 .state.not-started { color: var(--warning); }
 .state.missing, .state.rejected, .state.cancelled, .state.unavailable, .state.reversed, .state.failed, .state.unmeasured { color: var(--critical); }
 .state.draft, .state.open { color: var(--info); }
-.state.known, .state.marketed, .state.fast-enough { color: var(--success); }
-.state.not-known, .state.never-marketed, .state.needs-work, .state.not-measured { color: var(--critical); }
-.state.unmeasured-evidence { color: var(--info); }
+.state.known, .state.marketed, .state.fast-enough, .state.clean, .state.top-three { color: var(--success); }
+.state.not-known, .state.never-marketed, .state.needs-work { color: var(--critical); }
+.state.warnings, .state.page-one { color: var(--warning); }
+/* A measured bad result. Kept in the critical family alongside needs-work so a class C ranking
+   and a failing audit read as findings, not as absences. */
+.state.absent, .state.failing, .state.unreachable { color: var(--critical); }
+/* Absence of measurement is not a bad measurement. These states take the info colour and a
+   dashed edge so "we never collected this" cannot be misread as a measured zero — including by
+   a reader who cannot separate the two colours. */
+.state.unmeasured-evidence,
+.state.not-measured,
+.state.not-audited,
+.state.not-configured,
+.state.not-collected { color: var(--info); border-style: dashed; }
 .outcome-run-control .secondary-action { min-height: 44px; padding-block: 6px; }
 
 .empty-state, .error-state, .loading-state { min-height: 112px; display: grid; align-content: center; gap: 4px; padding: 24px; border: 1px dashed var(--line-strong); color: var(--muted); }
@@ -450,6 +461,18 @@ h1 { max-width: 780px; margin-bottom: 10px; overflow-wrap: anywhere; font-size: 
 .outcome-metric { min-width: 0; }
 .outcome-metric dd { margin-top: 3px; overflow-wrap: anywhere; color: var(--text); font-size: 16px; }
 .outcome-metric small { display: block; margin-top: 3px; color: var(--quiet); font-size: 9px; }
+.geo-result, .seo-result { display: grid; gap: 12px; }
+.geo-query-ledger { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.geo-query { display: flex; align-items: start; gap: 9px; min-width: 0; }
+.geo-query strong { display: block; overflow-wrap: anywhere; font-size: 12px; font-weight: 640; }
+.geo-query small { display: block; margin-top: 2px; color: var(--quiet); font-size: 9px; }
+.geo-query__class { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border: 1px solid var(--line-strong); font: 800 10px ui-monospace, monospace; }
+.geo-query--a .geo-query__class { border-color: var(--success); color: var(--success); }
+.geo-query--b .geo-query__class { border-color: var(--warning); color: var(--warning); }
+.geo-query--c .geo-query__class { border-color: var(--critical); color: var(--critical); }
+.seo-check-list { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; font-size: 10px; }
+.seo-check-list span { color: var(--quiet); text-transform: uppercase; letter-spacing: .04em; font-weight: 800; }
+.seo-check-list code { overflow-wrap: anywhere; color: var(--text); font: 11px ui-monospace, monospace; }
 .search-results { border-top: 1px solid var(--line); }
 .search-result { padding: 24px 4px; border-bottom: 1px solid var(--line); }
 .search-result__head { display: flex; align-items: start; justify-content: space-between; gap: 18px; }

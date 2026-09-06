@@ -79,8 +79,10 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 | reader | capture annotate revisit discuss saved reading (category) | · | C | · | · | C |
 | swe-interview-prep | learn.significanthobbies.com (brand) | · | C | · | · | B |
 | swe-interview-prep | software engineering interview learning OS DSA s (category) | · | C | · | · | C |
-| what-it-takes-to-win | paths.significanthobbies.com (brand) | · | C | · | · | B |
+| what-it-takes-to-win | paths.significanthobbies.com (exact-domain) | · | C | · | · | B |
+| what-it-takes-to-win | What It Takes to Win documented paths (brand) | · | · | · | · | · |
 | what-it-takes-to-win | database of documented early career breakthrough (category) | · | C | · | · | C |
+| what-it-takes-to-win | at what age did people have their first big brea (problem) | · | · | · | · | · |
 | email-manager | mail.significanthobbies.com (brand) | · | C | · | · | C |
 | email-manager | local-first Gmail semantic search sender insight (category) | · | C | · | · | C |
 | saas-maker | sassmaker.com (exact-domain) | · | · | · | · | A |

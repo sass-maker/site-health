@@ -18,9 +18,21 @@ import DashboardLayout from "../components/DashboardLayout.astro";
       <div>
         <h2 id="ai-awareness-title">Core product awareness</h2>
         <p>Model outcomes first. Crawl and referral activity remain supporting discovery evidence.</p>
+        <p class="measurement-boundary-note" data-dashboard-coverage="ai-awareness">Reading provider coverage</p>
       </div>
       <span class="count" data-dashboard-count="ai-awareness">—</span>
     </div>
     <div class="loading-state" data-dashboard-slot="ai-awareness">Building AI awareness view…</div>
+  </section>
+  <section class="owner-section owner-section--directory" aria-labelledby="geo-awareness-title">
+    <div class="section-head">
+      <div>
+        <h2 id="geo-awareness-title">GEO Observatory — organic ranking</h2>
+        <p>Every configured query classed against the live SERP. <strong>A</strong> = own domain in the top three organic results, <strong>B</strong> = partial page-one visibility, <strong>C</strong> = absent from page one. Class C is a measured absence; a product with no panel is an unmeasured one.</p>
+        <p class="measurement-boundary-note" data-dashboard-coverage="geo-awareness">Reading GEO coverage</p>
+      </div>
+      <span class="count" data-dashboard-count="geo-awareness">—</span>
+    </div>
+    <div class="loading-state" data-dashboard-slot="geo-awareness">Building GEO ledger…</div>
   </section>
 </DashboardLayout>

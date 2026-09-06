@@ -32,7 +32,7 @@
       "repositoryAliases": "optional historical or alternate source repositories that belong to the same product identity",
       "metrics": "optional per-project metric eligibility overrides; publicSite true includes a maintained product in all outcome views, while domainCoverage true includes only its live domain in domain-strength coverage",
       "public": "sanitized public listing metadata; listing is maintained | past | hidden",
-    "publicDirectory": "privacy-safe maker rationale, form, platform, curated technology, and Git-history metadata for the complete public SaaS Maker directory; commit dates are evidence dates, not launch claims",
+      "publicDirectory": "privacy-safe maker rationale, form, platform, curated technology, and Git-history metadata for the complete public SaaS Maker directory; commit dates are evidence dates, not launch claims",
       "readyToBeShared": "true only for the exact maintained public surface and evidenced claims that were approved; native, store, download, or binary availability must be tracked separately and never inferred",
       "geoIdentities": "canonical public identity and applicability contract for every maintained visibility product"
     },
@@ -94,7 +94,11 @@
       "notes": "",
       "name": "CodeVetter",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "primary",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -136,7 +140,11 @@
       "notes": "",
       "name": "HeyPace",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -178,7 +186,11 @@
       "notes": "REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic).",
       "name": "PostTrainLLM",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "primary",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -218,10 +230,16 @@
       "notes": "Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories.",
       "name": "Site Health",
       "attention": "foundry",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "lifecycle": {
+        "status": "active",
+        "shareable": false,
+        "resumeCondition": null
+      },
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/site-health",
-      "public": { "listing": "hidden" }
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "live",
@@ -268,7 +286,11 @@
       "notes": "Independent home for the original Significant Hobbies experience, data, authentication, bookmarks, timelines, and deeper application routes. The existing significanthobbies Worker and D1 remain Live-owned; apex / and /hub proxy to the Hub service binding without migrating user data. The former Turso database is deleted; the empty Turso account is retained for possible future use.",
       "name": "Live",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/Significant-Hobbies/live",
       "public": {
@@ -319,10 +341,16 @@
       "notes": "Standalone public-source read-only MCP gateway. The Personal Apps route was merged and deployed at exact SHA b296e05910ca808ce436f47bc0c1ecb1844f04c0 on 2026-08-22; OAuth activation remains owner-scoped and fail-closed.",
       "name": "ChatGPT Connections",
       "attention": "foundry",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/chatgpt-connections",
-      "public": { "listing": "hidden" }
+      "public": {
+        "listing": "hidden"
+      }
     },
     {
       "id": "saas-maker",
@@ -350,10 +378,22 @@
           "name": "saas-maker-home",
           "sourcePath": "saas-maker/apps/showcase"
         },
-        { "id": "feedback-api", "kind": "worker", "name": "saasmaker-api", "sourcePath": "saas-maker/workers/api" },
-        { "id": "feedback-inbox", "kind": "worker", "name": "saasmaker-dashboard", "sourcePath": "saas-maker/apps/cockpit" }
+        {
+          "id": "feedback-api",
+          "kind": "worker",
+          "name": "saasmaker-api",
+          "sourcePath": "saas-maker/workers/api"
+        },
+        {
+          "id": "feedback-inbox",
+          "kind": "worker",
+          "name": "saasmaker-dashboard",
+          "sourcePath": "saas-maker/apps/cockpit"
+        }
       ],
-      "domains": ["sassmaker.com"],
+      "domains": [
+        "sassmaker.com"
+      ],
       "inRegistry": true,
       "status": "live",
       "notes": "Standalone public product directory plus Feedback API and private inbox. Live Cloudflare reconciliation on 2026-08-23 confirmed the saas-maker-home Pages project, both Workers, both R2 buckets, and sassmaker.com; there is no separate SaaS Maker docs Pages project.",
@@ -362,7 +402,11 @@
         "Foundry"
       ],
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/saas-maker",
       "public": {
@@ -396,13 +440,19 @@
       "repo": "gitstat",
       "deployKind": "pages",
       "cfProject": "gitstat",
-      "domains": ["git.significanthobbies.com"],
+      "domains": [
+        "git.significanthobbies.com"
+      ],
       "inRegistry": false,
       "status": "live",
       "notes": "Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.",
       "name": "GitStat",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/gitstat",
       "public": {
@@ -450,7 +500,11 @@
       "notes": "Independent media production, review, and policy-gated distribution product. Canonical source was extracted from Fleet Workspace on 2026-08-20; Content Factory is owned inside the same repository. Existing Cloudflare resources were retained without deployment.",
       "name": "Reel Pipeline",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/reel-pipeline",
       "public": {
@@ -481,7 +535,11 @@
       "notes": "Retired native mobile supervision client extracted from Fleet Workspace on 2026-08-20. Source is retained, but its former Worker, container, and sandbox image versions were deleted from Cloudflare on 2026-08-23.",
       "name": "Mobile Dev Cockpit",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sarthakagrawal927/mobile-dev-cockpit",
       "public": {
@@ -518,7 +576,11 @@
         "Drank"
       ],
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/drank",
       "public": {
@@ -563,7 +625,11 @@
         "Email Manager"
       ],
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -604,7 +670,11 @@
       "notes": "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence.",
       "name": "Memory Map",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -645,7 +715,11 @@
       "notes": "",
       "name": "Free AI",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -687,7 +761,11 @@
       "notes": "Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.",
       "name": "PSI Swarm",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/psi-swarm",
       "public": {
@@ -729,7 +807,11 @@
       "notes": "Next/OpenNext on Workers",
       "name": "High Signal",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -787,7 +869,11 @@
       "notes": "High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.",
       "name": "High Signal Podcasts",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/Significant-Hobbies/on-record",
       "public": {
@@ -847,7 +933,11 @@
       "notes": "Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.",
       "name": "IssuePages",
       "attention": "foundry",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sarthakagrawal927/issue-pages",
       "public": {
@@ -883,7 +973,11 @@
       "notes": "canonical = ratings.highsignal.app; everythingrated.com is NOT ours (external) — do not associate",
       "name": "EverythingRated",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "past",
@@ -920,7 +1014,11 @@
       "notes": "",
       "name": "Research Papers",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -962,7 +1060,11 @@
       "notes": "own bet; hosted on SH domain",
       "name": "Materia",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "past",
@@ -1021,7 +1123,11 @@
       "notes": "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base.",
       "name": "Knowledge Base",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1075,7 +1181,11 @@
       "notes": "Canonical Hub repository and backend for the six-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1118,7 +1228,11 @@
       "notes": "Public Significant Hobbies repository. india-standards.significanthobbies.com is canonical; india-numbers.significanthobbies.com remains a compatibility alias.",
       "name": "India Standards",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "metrics": {
         "publicSite": true
@@ -1191,7 +1305,11 @@
       "notes": "D1 anime-list is authoritative; the former Turso mal-watchlist database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "Anime List",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1233,7 +1351,11 @@
       "notes": "Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0.",
       "name": "Chess",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "past",
@@ -1270,7 +1392,11 @@
       "notes": "",
       "name": "LoopTV",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1327,7 +1453,11 @@
       "notes": "D1 reader is authoritative; the former Turso reader database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "Reader",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1383,7 +1513,11 @@
       "notes": "D1 swe-interview-prep is authoritative; the former Turso swe-interview-prep database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "SWE Interview Prep",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1415,7 +1549,11 @@
       "family": "significanthobbies",
       "tier": "secondary",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repo": "calorie",
       "repositoryVisibility": "public",
       "deployKind": "worker",
@@ -1457,7 +1595,11 @@
       "family": "significanthobbies",
       "tier": "secondary",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "setline",
       "sourcePath": "ios-landings",
       "repositoryVisibility": "public",
@@ -1500,7 +1642,11 @@
       "family": "significanthobbies",
       "tier": "secondary",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "journal",
       "sourcePath": "ios-landings",
       "repositoryVisibility": "public",
@@ -1544,7 +1690,11 @@
       "family": "significanthobbies",
       "tier": "secondary",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "kith",
       "sourcePath": "ios-landings",
       "repositoryVisibility": "public",
@@ -1587,7 +1737,11 @@
       "family": "significanthobbies",
       "tier": "secondary",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "ios-landings",
       "repositoryVisibility": "private",
       "repositoryUrl": "https://github.com/Significant-Hobbies/ios-landings",
@@ -1635,7 +1789,11 @@
       "notes": "",
       "name": "RolePatch",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1686,7 +1844,11 @@
       "notes": "The canonical karte.cc runtime and all 30 sitemap URLs were verified live on 2026-08-14. On 2026-08-16 the owner accepted the documented PLAID KARTE name-collision risk for public sharing; external copy must still identify the canonical karte.cc product clearly.",
       "name": "Karte",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1743,7 +1905,11 @@
       "notes": "D1 starboard is authoritative; the former Turso starboard database is deleted, while the empty Turso account is retained for possible future use.",
       "name": "Starboard",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1801,7 +1967,11 @@
       "notes": "Aliveville world-sim; parked but live (user: leave)",
       "name": "AliveVille",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "sourcePath": "aliveville",
       "repositoryVisibility": "public",
       "metrics": {
@@ -1843,7 +2013,11 @@
       "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development. The sourcePath checkout tracks the superseded Significant-Hobbies/protein-index repository; Significant-Hobbies/protein-index-resilience is the canonical public source.",
       "name": "Protein Index",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index-resilience",
       "repositoryAliases": [
@@ -1884,7 +2058,11 @@
       "notes": "Casual source-linked vegetarian recipe experiment. The public site deploys from clean main by direct Wrangler upload and is intentionally absent from the maintained portfolio listing.",
       "name": "Recipe Index",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food",
       "metrics": {
@@ -1923,7 +2101,11 @@
       "notes": "Independent SaaS Maker-owned aggregate-only endpoint health product. The public repository is sass-maker/app-health; health.sassmaker.com and ingest.sassmaker.com are live.",
       "name": "App Health",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -1965,9 +2147,13 @@
       "notes": "Independent, maintained local-first editorial product for archive analysis, inspectable planning, approval, provenance, and multi-clip rendering. Its Cloudflare Pages surface at mashup.highsignal.app screens approved proof media only; uploads, archive storage, rendering, approvals, and publishing remain local. Reel Pipeline accepts only its finished-media receipt and has no runtime dependency.",
       "name": "Mashup",
       "attention": "foundry",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
-    "repositoryUrl": "https://github.com/sass-maker/mashup",
+      "repositoryUrl": "https://github.com/sass-maker/mashup",
       "public": {
         "listing": "hidden"
       }
@@ -2001,7 +2187,11 @@
       "notes": "Public landing is the ios-landings factory on Cloudflare Pages project motion at motion.significanthobbies.com. The iOS game remains intentionally unreleased while physical-device validation is pending.",
       "name": "Motion",
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -2042,7 +2232,11 @@
       "notes": "Archived and superseded by RolePatch; its standalone archival landing remains live at truehire.rolepatch.com.",
       "name": "TrueHire",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "sourcePath": "truehire",
       "repositoryVisibility": "public",
       "public": {
@@ -2081,7 +2275,11 @@
       "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.",
       "name": "Open Historia",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "past",
@@ -2109,7 +2307,11 @@
       "family": "companion-robot",
       "tier": "out-of-fleet",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "companion-robot",
       "sourcePath": "companion-robot",
       "repositoryVisibility": "public",
@@ -2145,7 +2347,11 @@
       "family": "forecast-lab",
       "tier": "out-of-fleet",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "forecast-lab",
       "sourcePath": "forecast-lab",
       "repositoryVisibility": "public",
@@ -2181,7 +2387,11 @@
       "family": "web-playables",
       "tier": "out-of-fleet",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "web-playables",
       "sourcePath": "web-playables",
       "repositoryVisibility": "public",
@@ -2231,7 +2441,11 @@
         "What It Takes to Win"
       ],
       "attention": "toolbox",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
@@ -2276,7 +2490,11 @@
       "status": "live",
       "notes": "personal portfolio site for Sarthak Agrawal",
       "name": "Sarthak Agrawal",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio",
       "attention": "toolbox",
@@ -2326,8 +2544,12 @@
       "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
       "name": "Office OS",
       "attention": "toolbox",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/agent-office",
       "metrics": {
         "publicSite": true,
@@ -2373,8 +2595,12 @@
       "notes": "The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.",
       "name": "Local AI Video Studio",
       "attention": "toolbox",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/local-ai-video-studio",
       "metrics": {
         "publicSite": true,
@@ -2420,8 +2646,12 @@
       "notes": "The public Cloudflare Worker serves the actual manager dashboard as a clearly labeled synthetic demo. Production employee data, authenticated operations, and physical-device Android pilot validation remain unreleased.",
       "name": "Field Track",
       "attention": "toolbox",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": true,
+        "resumeCondition": null
+      },
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/field-track",
       "public": {
         "listing": "maintained",
@@ -2475,8 +2705,12 @@
       "notes": "Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.",
       "name": "Reddit Insights",
       "attention": "foundry",
-      "lifecycle": "maintained",
-      "repositoryVisibility": "private",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
+      "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/High-Signal-App/research-subreddit",
       "metrics": {
         "publicSite": true,
@@ -2511,7 +2745,11 @@
       "notes": "Historical product identity with a retained public checkout. The verified-bases-api Worker plus D1 and R2 resources still exist, but no live public route was found in the 2026-08-23 inventory.",
       "name": "Verified Bases",
       "attention": "ignored",
-      "lifecycle": "past",
+      "lifecycle": {
+        "status": "inactive",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/verified-bases",
       "public": {
@@ -2528,7 +2766,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-08-24",
-        "reason": "The landing, support, and privacy pages are live. The unified Anchor source is committed, its signed macOS build 12 is installed, and iOS/watchOS build 12 is uploaded to App Store Connect for internal processing."
+          "reason": "The landing, support, and privacy pages are live. The unified Anchor source is committed, its signed macOS build 12 is installed, and iOS/watchOS build 12 is uploaded to App Store Connect for internal processing."
         }
       },
       "name": "Anchor",
@@ -2536,7 +2774,11 @@
       "family": "significanthobbies",
       "tier": "active",
       "attention": "my-work",
-      "lifecycle": "maintained",
+      "lifecycle": {
+        "status": "active",
+        "shareable": false,
+        "resumeCondition": null
+      },
       "repo": "anchor",
       "sourcePath": "ios-landings",
       "repositoryVisibility": "private",
@@ -2549,7 +2791,7 @@
       "inRegistry": true,
       "status": "live",
       "app": "swift",
-  "notes": "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The unified source passes 134 shared tests and focused native UI journeys. Signed build 12 is installed on macOS and uploaded to App Store Connect for iOS/watchOS processing; record 6803853891 and the live landing remain intact.",
+      "notes": "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The unified source passes 134 shared tests and focused native UI journeys. Signed build 12 is installed on macOS and uploaded to App Store Connect for iOS/watchOS processing; record 6803853891 and the live landing remain intact.",
       "public": {
         "listing": "maintained",
         "id": "anchor",
@@ -2577,8 +2819,18 @@
           "nextAction": "Inspect the product and public roadmap; use current evidence to judge the verification workflow while the flagship continues to mature."
         },
         "form": "Desktop app",
-        "platforms": ["macOS", "Windows", "Linux", "Web"],
-        "technologies": ["Tauri", "React", "Go", "Rust"],
+        "platforms": [
+          "macOS",
+          "Windows",
+          "Linux",
+          "Web"
+        ],
+        "technologies": [
+          "Tauri",
+          "React",
+          "Go",
+          "Rust"
+        ],
         "firstCommitAt": "2025-11-30",
         "latestCommitAt": "2026-08-23"
       },
@@ -2593,8 +2845,16 @@
           "nextAction": "Download the current Mac preview, test one recurring voice-and-screen workflow, and judge it against Pace's visible local and off-device trust boundary."
         },
         "form": "macOS app",
-        "platforms": ["macOS", "Web"],
-        "technologies": ["Swift", "SwiftUI", "Astro", "Cloudflare Pages"],
+        "platforms": [
+          "macOS",
+          "Web"
+        ],
+        "technologies": [
+          "Swift",
+          "SwiftUI",
+          "Astro",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-07-13",
         "latestCommitAt": "2026-08-23"
       },
@@ -2609,8 +2869,16 @@
           "nextAction": "Explore the measured recipes and follow new experiments as they produce reproducible proof rather than scale claims."
         },
         "form": "Research platform",
-        "platforms": ["Web", "Local"],
-        "technologies": ["Astro", "Python", "Rust", "Cloudflare Pages"],
+        "platforms": [
+          "Web",
+          "Local"
+        ],
+        "technologies": [
+          "Astro",
+          "Python",
+          "Rust",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-05-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2625,8 +2893,15 @@
           "nextAction": "Run it locally and use its five owner questions to investigate portfolio health; it is not a public SaaS signup."
         },
         "form": "Local dashboard",
-        "platforms": ["Web", "Local"],
-        "technologies": ["Astro", "TypeScript", "Node.js"],
+        "platforms": [
+          "Web",
+          "Local"
+        ],
+        "technologies": [
+          "Astro",
+          "TypeScript",
+          "Node.js"
+        ],
         "description": "A local portfolio dashboard for domains, performance, search, and AI visibility evidence.",
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-08-23"
@@ -2642,8 +2917,15 @@
           "nextAction": "Open Live and use the catalogue, search, and suggestions to add or act on something you genuinely want to experience."
         },
         "form": "Web app",
-        "platforms": ["Web"],
-        "technologies": ["Next.js", "TypeScript", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-08-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2658,8 +2940,15 @@
           "nextAction": "Use an existing approved connection; add another resource only when a concrete consumer needs it."
         },
         "form": "MCP service",
-        "platforms": ["API", "ChatGPT"],
-        "technologies": ["TypeScript", "Cloudflare Workers", "MCP"],
+        "platforms": [
+          "API",
+          "ChatGPT"
+        ],
+        "technologies": [
+          "TypeScript",
+          "Cloudflare Workers",
+          "MCP"
+        ],
         "description": "A read-only MCP gateway that exposes selected public Fleet data to ChatGPT connections.",
         "firstCommitAt": "2026-08-11",
         "latestCommitAt": "2026-08-22"
@@ -2675,8 +2964,16 @@
           "nextAction": "Explore the complete directory or open the public tooling catalogue; product-specific work continues in each owning repository."
         },
         "form": "Web directory and service",
-        "platforms": ["Web", "API"],
-        "technologies": ["Astro", "Cloudflare", "D1", "IssuePages"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Astro",
+          "Cloudflare",
+          "D1",
+          "IssuePages"
+        ],
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-08-23"
       },
@@ -2691,8 +2988,15 @@
           "nextAction": "Use the dashboard for a concrete portfolio question; request new analysis only when an unanswered recurring question appears."
         },
         "form": "Web app",
-        "platforms": ["Web"],
-        "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "React",
+          "Vite",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-08-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2707,8 +3011,17 @@
           "nextAction": "Treat the current work as a held pipeline; reopen only by proving one bounded video-to-publication loop with explicit cost limits."
         },
         "form": "Video pipeline",
-        "platforms": ["CLI", "API", "Local"],
-        "technologies": ["Python", "Rust", "Cloudflare Workers", "R2"],
+        "platforms": [
+          "CLI",
+          "API",
+          "Local"
+        ],
+        "technologies": [
+          "Python",
+          "Rust",
+          "Cloudflare Workers",
+          "R2"
+        ],
         "description": "A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.",
         "firstCommitAt": "2026-05-28",
         "latestCommitAt": "2026-08-23"
@@ -2724,8 +3037,14 @@
           "nextAction": "Read the retained history only; this product is permanently archived and has no active signup or roadmap."
         },
         "form": "Mobile app",
-        "platforms": ["iOS", "Android"],
-        "technologies": ["React Native", "TypeScript"],
+        "platforms": [
+          "iOS",
+          "Android"
+        ],
+        "technologies": [
+          "React Native",
+          "TypeScript"
+        ],
         "description": "A parked mobile supervision client retained for possible future reactivation.",
         "firstCommitAt": "2026-07-13",
         "latestCommitAt": "2026-08-22"
@@ -2741,8 +3060,15 @@
           "nextAction": "Use the evidence through Site Health; maintain the adapter rather than expecting a separate product roadmap."
         },
         "form": "Web tool",
-        "platforms": ["Web"],
-        "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-06-10",
         "latestCommitAt": "2026-08-23"
       },
@@ -2757,8 +3083,16 @@
           "nextAction": "Open the private workspace and investigate a sender or search question; no speculative feature expansion is planned."
         },
         "form": "Web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "React",
+          "Hono",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-02-24",
         "latestCommitAt": "2026-08-23"
       },
@@ -2773,8 +3107,14 @@
           "nextAction": "Import a ChatGPT export locally and explore the resulting private map; the source archive stays in the browser."
         },
         "form": "Web app",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-07-28",
         "latestCommitAt": "2026-08-23"
       },
@@ -2789,8 +3129,16 @@
           "nextAction": "Use the compatible gateway from a named consumer; add providers only when they improve capability, reliability, or capacity."
         },
         "form": "API gateway",
-        "platforms": ["API", "Web"],
-        "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "API",
+          "Web"
+        ],
+        "technologies": [
+          "Hono",
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-02-15",
         "latestCommitAt": "2026-08-23"
       },
@@ -2805,8 +3153,16 @@
           "nextAction": "Run it for a concrete performance investigation or consume its evidence in Site Health; keep the tool operationally narrow."
         },
         "form": "Performance platform",
-        "platforms": ["Web", "CLI"],
-        "technologies": ["Astro", "React", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web",
+          "CLI"
+        ],
+        "technologies": [
+          "Astro",
+          "React",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-06-03",
         "latestCommitAt": "2026-08-23"
       },
@@ -2821,8 +3177,16 @@
           "nextAction": "Read and dogfood the Daily Brief; resume feature work only when repeated use exposes a concrete deficiency."
         },
         "form": "Intelligence web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["Next.js", "React", "Hono", "Cloudflare"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "Hono",
+          "Cloudflare"
+        ],
         "firstCommitAt": "2026-04-25",
         "latestCommitAt": "2026-08-23"
       },
@@ -2837,8 +3201,16 @@
           "nextAction": "Browse a recommendation or claim and follow its quote, speaker, episode, and source receipt."
         },
         "form": "Podcast intelligence web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Astro",
+          "Hono",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-08-24",
         "latestCommitAt": "2026-08-27"
       },
@@ -2853,8 +3225,16 @@
           "nextAction": "Read the current pages or inspect the pilot; public authoring remains gated on moderation and authenticated rendering."
         },
         "form": "Issue-backed publishing website",
-        "platforms": ["Web", "GitHub"],
-        "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "GitHub"
+        ],
+        "technologies": [
+          "Hono",
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "description": "A public website where a GitHub issue becomes a readable, searchable page.",
         "firstCommitAt": "2026-08-25",
         "latestCommitAt": "2026-08-28"
@@ -2870,8 +3250,15 @@
           "nextAction": "Compare AI development tools or rate one yourself; broader directory expansion waits for adoption traffic or moderation evidence."
         },
         "form": "Ratings experiment",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "Next.js", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "Next.js",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-04-26",
         "latestCommitAt": "2026-08-23"
       },
@@ -2886,8 +3273,15 @@
           "nextAction": "Use the library for a named research question; maintain the corpus rather than expanding it speculatively."
         },
         "form": "Research library",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "Python", "React", "TypeScript"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "Python",
+          "React",
+          "TypeScript"
+        ],
         "firstCommitAt": "2026-05-30",
         "latestCommitAt": "2026-08-23"
       },
@@ -2902,8 +3296,15 @@
           "nextAction": "Use the retained material as an educational experiment only; reopen publication work after defining a medical-safety and evidence standard."
         },
         "form": "Interactive experiment",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "React", "Three.js", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "React",
+          "Three.js",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-06-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2918,8 +3319,16 @@
           "nextAction": "Connect it only for a concrete consumer need; change the infrastructure when retrieval evidence shows a real failure."
         },
         "form": "Knowledge platform",
-        "platforms": ["Web", "API"],
-        "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Astro",
+          "Hono",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-05-27",
         "latestCommitAt": "2026-08-23"
       },
@@ -2934,8 +3343,17 @@
           "nextAction": "Open the Hub to reach the six apps; current work focuses on unified authentication and safe cross-app summaries."
         },
         "form": "Personal-app Hub",
-        "platforms": ["Web", "API", "Swift package"],
-        "technologies": ["TypeScript", "Cloudflare Workers", "D1", "Swift"],
+        "platforms": [
+          "Web",
+          "API",
+          "Swift package"
+        ],
+        "technologies": [
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1",
+          "Swift"
+        ],
         "firstCommitAt": "2026-08-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2950,8 +3368,16 @@
           "nextAction": "Use the calculator as a bounded contextual reference; expansion waits for materially better authoritative data."
         },
         "form": "Reference web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["Next.js", "React", "TypeScript", "Cloudflare Workers"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Cloudflare Workers"
+        ],
         "firstCommitAt": "2026-07-27",
         "latestCommitAt": "2026-08-23"
       },
@@ -2966,8 +3392,16 @@
           "nextAction": "Search the catalogue or use the watchlist; maintenance focuses on data quality and core discovery reliability."
         },
         "form": "Web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["React", "Vite", "Hono", "Cloudflare"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "React",
+          "Vite",
+          "Hono",
+          "Cloudflare"
+        ],
         "firstCommitAt": "2025-02-16",
         "latestCommitAt": "2026-08-23"
       },
@@ -2982,8 +3416,15 @@
           "nextAction": "Try the retained chess artifact if useful; expect no active development or product expansion."
         },
         "form": "Web game",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "React",
+          "Vite",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-02-22",
         "latestCommitAt": "2026-08-17"
       },
@@ -2998,8 +3439,16 @@
           "nextAction": "Open a curated channel and watch; future changes are limited to catalogue health or a proven viewing need."
         },
         "form": "Web app",
-        "platforms": ["Web", "TV"],
-        "technologies": ["Astro", "React", "Vite", "Cloudflare Pages"],
+        "platforms": [
+          "Web",
+          "TV"
+        ],
+        "technologies": [
+          "Astro",
+          "React",
+          "Vite",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-04-04",
         "latestCommitAt": "2026-08-23"
       },
@@ -3014,8 +3463,16 @@
           "nextAction": "Use Reader for a real article or PDF; resume improvements only where the capture-to-reading loop actually breaks."
         },
         "form": "Reading web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "React",
+          "Hono",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2025-11-16",
         "latestCommitAt": "2026-08-23"
       },
@@ -3030,8 +3487,15 @@
           "nextAction": "Start a focused learning or practice loop and produce an artifact; new tracks should earn their place by improving retention."
         },
         "form": "Learning web app",
-        "platforms": ["Web"],
-        "technologies": ["React", "Vite", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "React",
+          "Vite",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-02-08",
         "latestCommitAt": "2026-08-23"
       },
@@ -3046,8 +3510,16 @@
           "nextAction": "Log a meal or daily measurement in the app; change the product only when repeated use reveals a concrete gap."
         },
         "form": "iOS app",
-        "platforms": ["iOS", "API"],
-        "technologies": ["SwiftUI", "Hono", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "iOS",
+          "API"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "Hono",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-07-25",
         "latestCommitAt": "2026-08-23"
       },
@@ -3062,8 +3534,14 @@
           "nextAction": "Run an authored workout in Setline and let actual session friction determine the next product change."
         },
         "form": "iOS app",
-        "platforms": ["iOS"],
-        "technologies": ["SwiftUI", "CloudKit", "PersonalSyncKit"],
+        "platforms": [
+          "iOS"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "CloudKit",
+          "PersonalSyncKit"
+        ],
         "firstCommitAt": "2026-07-27",
         "latestCommitAt": "2026-08-23"
       },
@@ -3078,8 +3556,16 @@
           "nextAction": "Write and revisit real entries; future reflection features should follow lived journaling practice and preserve privacy."
         },
         "form": "iOS app",
-        "platforms": ["iOS", "Web"],
-        "technologies": ["SwiftUI", "Swift", "XcodeGen", "Astro"],
+        "platforms": [
+          "iOS",
+          "Web"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "Swift",
+          "XcodeGen",
+          "Astro"
+        ],
         "firstCommitAt": "2026-08-11",
         "latestCommitAt": "2026-08-23"
       },
@@ -3094,16 +3580,28 @@
           "nextAction": "Use Kith with real relationships and let recurring memory and follow-through needs guide improvements."
         },
         "form": "iOS app",
-        "platforms": ["iOS"],
-        "technologies": ["SwiftUI", "CloudKit", "PersonalSyncKit"],
+        "platforms": [
+          "iOS"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "CloudKit",
+          "PersonalSyncKit"
+        ],
         "firstCommitAt": "2026-08-16",
         "latestCommitAt": "2026-08-23"
       },
       "ios-landings": {
         "makerNote": "I built one reusable landing-page engine so each native Significant Hobbies app does not need to reinvent its public home.",
         "form": "Landing-site factory",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-08-17",
         "latestCommitAt": "2026-08-23"
       },
@@ -3118,8 +3616,16 @@
           "nextAction": "Use it against a real application when job hunting resumes; until then, treat the product as held rather than actively marketed."
         },
         "form": "Web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-02-23",
         "latestCommitAt": "2026-08-23"
       },
@@ -3134,8 +3640,16 @@
           "nextAction": "Explore the existing profile experience; company adoption should wait for a focused workflow and a real company test."
         },
         "form": "Web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-03-05",
         "latestCommitAt": "2026-08-23"
       },
@@ -3150,8 +3664,16 @@
           "nextAction": "Connect or explore a Stars collection and use a current project question to drive discovery; avoid unrelated alert or reporting scope."
         },
         "form": "Web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["Next.js", "React", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-02-22",
         "latestCommitAt": "2026-08-23"
       },
@@ -3166,8 +3688,15 @@
           "nextAction": "Treat it as a held game experiment; reopen only with a convincing visual direction and one demonstrably fun playable loop."
         },
         "form": "Web game",
-        "platforms": ["Web"],
-        "technologies": ["React", "Vite", "Three.js", "Cloudflare"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "React",
+          "Vite",
+          "Three.js",
+          "Cloudflare"
+        ],
         "firstCommitAt": "2026-05-03",
         "latestCommitAt": "2026-08-23"
       },
@@ -3182,8 +3711,16 @@
           "nextAction": "Use the retained reference cautiously; reopen active work only when reliable product data can support an honest catalogue."
         },
         "form": "Data API and web app",
-        "platforms": ["Web", "API"],
-        "technologies": ["React", "Hono", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "React",
+          "Hono",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-07-15",
         "latestCommitAt": "2026-08-23"
       },
@@ -3198,8 +3735,13 @@
           "nextAction": "Browse the retained directory; new recipe work waits until cooking variety becomes a real owner need."
         },
         "form": "Food directory",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "Cloudflare Pages"
+        ],
         "description": "A searchable directory of vegetarian protein foods and practical nutrition comparisons.",
         "firstCommitAt": "2026-08-15",
         "latestCommitAt": "2026-08-23"
@@ -3215,8 +3757,16 @@
           "nextAction": "Integrate a real owned service and use observed failures to guide the next change; the dashboard is not a generic public unlock page."
         },
         "form": "Monitoring service",
-        "platforms": ["Web", "API"],
-        "technologies": ["Hono", "TypeScript", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "Hono",
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-07-20",
         "latestCommitAt": "2026-08-23"
       },
@@ -3231,8 +3781,17 @@
           "nextAction": "Use the local tool on a larger approved channel archive and judge whether repeated multi-episode edits sustain the same editorial quality."
         },
         "form": "Local media tool with public proof",
-        "platforms": ["Web", "CLI", "Local"],
-        "technologies": ["Python", "FFmpeg", "Astro", "Cloudflare Pages"],
+        "platforms": [
+          "Web",
+          "CLI",
+          "Local"
+        ],
+        "technologies": [
+          "Python",
+          "FFmpeg",
+          "Astro",
+          "Cloudflare Pages"
+        ],
         "description": "A local-first tool that turns owned media archives into inspectable multi-clip edits.",
         "firstCommitAt": "2026-07-25",
         "latestCommitAt": "2026-08-28"
@@ -3248,8 +3807,17 @@
           "nextAction": "Treat it as a held prototype; reopen around physical-device testing of one genuinely fun control loop."
         },
         "form": "iOS game",
-        "platforms": ["iOS", "iPadOS", "Web"],
-        "technologies": ["SwiftUI", "Apple Vision", "Vite", "TypeScript"],
+        "platforms": [
+          "iOS",
+          "iPadOS",
+          "Web"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "Apple Vision",
+          "Vite",
+          "TypeScript"
+        ],
         "firstCommitAt": "2026-08-17",
         "latestCommitAt": "2026-08-23"
       },
@@ -3264,8 +3832,15 @@
           "nextAction": "Read the archived methodology and retained proof only; there is no active marketplace, signup, or standalone roadmap."
         },
         "form": "Hiring experiment",
-        "platforms": ["Web"],
-        "technologies": ["Next.js", "React", "TypeScript", "Cloudflare"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Cloudflare"
+        ],
         "firstCommitAt": "2026-04-24",
         "latestCommitAt": "2026-08-02"
       },
@@ -3280,8 +3855,15 @@
           "nextAction": "Treat it as a held game; reopen only with a game-quality map and one coherent, enjoyable campaign turn."
         },
         "form": "Strategy web game",
-        "platforms": ["Web"],
-        "technologies": ["React", "Vite", "Hono", "Cloudflare Workers"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "React",
+          "Vite",
+          "Hono",
+          "Cloudflare Workers"
+        ],
         "firstCommitAt": "2026-02-08",
         "latestCommitAt": "2026-08-23"
       },
@@ -3296,8 +3878,17 @@
           "nextAction": "No action is currently available; reopen only after an explicit hardware purchase and a bounded Phase 0 experiment."
         },
         "form": "Hardware experiment",
-        "platforms": ["iOS", "macOS", "ESP32"],
-        "technologies": ["Swift", "Apple Vision", "ESP32", "Local AI"],
+        "platforms": [
+          "iOS",
+          "macOS",
+          "ESP32"
+        ],
+        "technologies": [
+          "Swift",
+          "Apple Vision",
+          "ESP32",
+          "Local AI"
+        ],
         "firstCommitAt": "2026-06-25",
         "latestCommitAt": "2026-07-17"
       },
@@ -3312,8 +3903,16 @@
           "nextAction": "Use it for a specific learning or evaluation question; do not treat the held lab as an active consulting service."
         },
         "form": "Research toolkit",
-        "platforms": ["CLI", "Web"],
-        "technologies": ["Rust", "Python", "React", "Vite"],
+        "platforms": [
+          "CLI",
+          "Web"
+        ],
+        "technologies": [
+          "Rust",
+          "Python",
+          "React",
+          "Vite"
+        ],
         "firstCommitAt": "2026-06-21",
         "latestCommitAt": "2026-07-04"
       },
@@ -3328,8 +3927,15 @@
           "nextAction": "Play the retained game or inspect the kit; add another game only when a specific mechanic is worth studying."
         },
         "form": "Game collection",
-        "platforms": ["Web", "YouTube Playables"],
-        "technologies": ["TypeScript", "Vite", "Cloudflare Pages"],
+        "platforms": [
+          "Web",
+          "YouTube Playables"
+        ],
+        "technologies": [
+          "TypeScript",
+          "Vite",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-07-10",
         "latestCommitAt": "2026-08-23"
       },
@@ -3344,8 +3950,14 @@
           "nextAction": "Complete the guided comparison-futility journey, then inspect the underlying profiles, sources, and coverage."
         },
         "form": "Research publication",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "TypeScript", "Cloudflare Pages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "TypeScript",
+          "Cloudflare Pages"
+        ],
         "firstCommitAt": "2026-07-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -3360,8 +3972,15 @@
           "nextAction": "Explore the current work and résumé or use the listed contact paths; do not infer stale focus areas from older copy."
         },
         "form": "Portfolio website",
-        "platforms": ["Web"],
-        "technologies": ["Astro", "React", "Cloudflare Pages", "IssuePages"],
+        "platforms": [
+          "Web"
+        ],
+        "technologies": [
+          "Astro",
+          "React",
+          "Cloudflare Pages",
+          "IssuePages"
+        ],
         "firstCommitAt": "2026-05-22",
         "latestCommitAt": "2026-08-23"
       },
@@ -3376,8 +3995,15 @@
           "nextAction": "Review the local proof; reopen product investment only after comparing strong alternatives and proving one recurring workflow."
         },
         "form": "macOS app",
-        "platforms": ["macOS", "Local"],
-        "technologies": ["SwiftUI", "SpriteKit", "Codex CLI"],
+        "platforms": [
+          "macOS",
+          "Local"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "SpriteKit",
+          "Codex CLI"
+        ],
         "firstCommitAt": "2026-08-09",
         "latestCommitAt": "2026-08-23"
       },
@@ -3392,8 +4018,16 @@
           "nextAction": "Treat it as a held local experiment; reopen only around a real creator job where deterministic effects clearly help."
         },
         "form": "macOS app",
-        "platforms": ["macOS", "Local"],
-        "technologies": ["SwiftUI", "AVFoundation", "Core Image", "VideoToolbox"],
+        "platforms": [
+          "macOS",
+          "Local"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "AVFoundation",
+          "Core Image",
+          "VideoToolbox"
+        ],
         "firstCommitAt": "2026-08-09",
         "latestCommitAt": "2026-08-23"
       },
@@ -3408,8 +4042,17 @@
           "nextAction": "Review the synthetic demo as a held MVP; validate business economics and a real Android device before expanding or onboarding a team."
         },
         "form": "Android app and dashboard",
-        "platforms": ["Android", "Web", "API"],
-        "technologies": ["React Native", "MapLibre", "Cloudflare Workers", "D1"],
+        "platforms": [
+          "Android",
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "React Native",
+          "MapLibre",
+          "Cloudflare Workers",
+          "D1"
+        ],
         "firstCommitAt": "2026-08-12",
         "latestCommitAt": "2026-08-20"
       },
@@ -3424,8 +4067,15 @@
           "nextAction": "Use it for forward collection or retained snapshots; historical claims must wait for a lawful dependable source."
         },
         "form": "Research collector",
-        "platforms": ["Web", "API"],
-        "technologies": ["TypeScript", "Cloudflare Workers", "R2"],
+        "platforms": [
+          "Web",
+          "API"
+        ],
+        "technologies": [
+          "TypeScript",
+          "Cloudflare Workers",
+          "R2"
+        ],
         "description": "A bounded research collector for subreddit evidence and recurring insight snapshots.",
         "firstCommitAt": "2026-08-07",
         "latestCommitAt": "2026-08-23"
@@ -3441,8 +4091,13 @@
           "nextAction": "Read the retained research identity only; there is no active store or purchasable template until demand and support economics are validated."
         },
         "form": "Research dataset",
-        "platforms": ["GitHub"],
-        "technologies": ["Markdown", "Git"],
+        "platforms": [
+          "GitHub"
+        ],
+        "technologies": [
+          "Markdown",
+          "Git"
+        ],
         "description": "A retained research-data identity with no retained local Git history or standalone public destination.",
         "firstCommitAt": "2026-06-16",
         "latestCommitAt": "2026-07-18"
@@ -3458,8 +4113,18 @@
           "nextAction": "Use Anchor through a real day and review the divergence evidence; let repeated lived patterns decide the next change."
         },
         "form": "Apple app",
-        "platforms": ["macOS", "iOS", "watchOS", "Web"],
-        "technologies": ["SwiftUI", "SwiftData", "CloudKit", "Foundation Models"],
+        "platforms": [
+          "macOS",
+          "iOS",
+          "watchOS",
+          "Web"
+        ],
+        "technologies": [
+          "SwiftUI",
+          "SwiftData",
+          "CloudKit",
+          "Foundation Models"
+        ],
         "firstCommitAt": "2026-08-16",
         "latestCommitAt": "2026-08-23"
       }
@@ -3479,7 +4144,7 @@
           "kind": "pages",
           "state": "provider-complete",
           "observed": 31,
-        "tracked": 32,
+          "tracked": 32,
           "evidence": "Wrangler account list on 2026-08-23: 31 live Pages projects, all attributed in the catalog."
         },
         {
@@ -3917,8 +4582,20 @@
             "method": "wrangler-direct",
             "state": "live"
           },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-api", "method": "wrangler-direct", "state": "live" },
-          { "provider": "cloudflare", "kind": "worker", "name": "saasmaker-dashboard", "method": "open-next-wrangler", "state": "live" }
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "saasmaker-api",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "worker",
+            "name": "saasmaker-dashboard",
+            "method": "open-next-wrangler",
+            "state": "live"
+          }
         ],
         "resources": [
           {
@@ -3927,10 +4604,30 @@
             "name": "sassmaker.com",
             "state": "active-config-derived"
           },
-          { "provider": "cloudflare", "kind": "email-routing", "name": "sassmaker.com", "state": "enabled-catch-all" },
-          { "provider": "cloudflare", "kind": "d1", "name": "saasmaker-db", "state": "active" },
-          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-feedback-images", "state": "active" },
-          { "provider": "cloudflare", "kind": "r2", "name": "saasmaker-dashboard-opennext-cache", "state": "active" },
+          {
+            "provider": "cloudflare",
+            "kind": "email-routing",
+            "name": "sassmaker.com",
+            "state": "enabled-catch-all"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "d1",
+            "name": "saasmaker-db",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "saasmaker-feedback-images",
+            "state": "active"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "r2",
+            "name": "saasmaker-dashboard-opennext-cache",
+            "state": "active"
+          },
           {
             "provider": "cloudflare",
             "kind": "tunnel",
@@ -3980,7 +4677,12 @@
             "scope": "shared-fleet-account",
             "attributionReason": "Shared verified Email Routing destination attributed to SaaS Maker Tooling without storing the private address."
           },
-          { "provider": "github", "kind": "organization-profile", "name": "sass-maker/.github", "state": "active" }
+          {
+            "provider": "github",
+            "kind": "organization-profile",
+            "name": "sass-maker/.github",
+            "state": "active"
+          }
         ],
         "notes": "Owns its product-specific Pages, Workers, databases, and buckets. SaaS Maker Tooling is also the explicit operational steward for shared Fleet account objects whose consuming product is account-wide or not yet verified; this attribution is inventory responsibility, not proof of runtime use."
       },
@@ -5303,27 +6005,27 @@
       "anchor": {
         "updatedAt": "2026-08-24",
         "deployments": [
-        {
-          "provider": "cloudflare",
-          "kind": "pages",
-          "name": "anchor-landing",
-          "method": "wrangler-direct",
-          "state": "live"
-        },
-        {
-          "provider": "cloudflare",
-          "kind": "pages",
-          "name": "habits",
-          "method": "wrangler-direct",
-          "state": "live-compatibility"
-        },
-        {
-          "provider": "cloudflare",
-          "kind": "pages",
-          "name": "indulge",
-          "method": "wrangler-direct",
-          "state": "live-compatibility"
-        },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "anchor-landing",
+            "method": "wrangler-direct",
+            "state": "live"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "habits",
+            "method": "wrangler-direct",
+            "state": "live-compatibility"
+          },
+          {
+            "provider": "cloudflare",
+            "kind": "pages",
+            "name": "indulge",
+            "method": "wrangler-direct",
+            "state": "live-compatibility"
+          },
           {
             "provider": "apple",
             "kind": "app-store-connect",
@@ -5333,7 +6035,7 @@
           }
         ],
         "resources": [],
-      "notes": "Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit."
+        "notes": "Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit."
       }
     },
     "unownedResources": []

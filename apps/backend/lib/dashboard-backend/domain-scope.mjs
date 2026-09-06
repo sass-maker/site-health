@@ -8,14 +8,16 @@ const COMPOUND_PUBLIC_SUFFIXES = new Set([
 
 const EXCLUDED_PUBLIC_METRIC_LIFECYCLES = new Set(['past', 'non-product']);
 
+function lifecycleStatus(project) {
+  if (project.lifecycle && typeof project.lifecycle === 'object') {
+    return project.lifecycle.status;
+  }
+  return project.lifecycle;
+}
+
 export function isCurrentPortfolioProject(project) {
-  return (
-    project.status !== 'orphan' &&
-    !EXCLUDED_PUBLIC_METRIC_LIFECYCLES.has(project.lifecycle) &&
-    project.attention !== 'ignored' &&
-    project.tier !== 'out-of-fleet' &&
-    project.portfolio?.priority !== 'P4'
-  );
+  const lc = lifecycleStatus(project);
+  return lc === 'primary' || lc === 'active';
 }
 
 export function normalizedDomain(value) {
@@ -42,19 +44,22 @@ export function isPublicMetricProject(project) {
   const listing = project.publicListing ?? project.public?.listing ?? null;
   const publicSiteOverride =
     project.metricEligibility?.publicSite === true || project.metrics?.publicSite === true;
+  const lc = lifecycleStatus(project);
   return (
     (listing === 'maintained' || publicSiteOverride) &&
-    !EXCLUDED_PUBLIC_METRIC_LIFECYCLES.has(project.lifecycle) &&
-    project.tier !== 'non-product' &&
+    (lc === 'primary' || lc === 'active') &&
     (project.domains?.length ?? 0) > 0
   );
 }
 
 export function isDomainStrengthProject(project) {
+  const lc = lifecycleStatus(project);
+  const isActive = lc === 'primary' || lc === 'active';
   const domainCoverageOverride =
     project.metricEligibility?.domainCoverage === true ||
     project.metrics?.domainCoverage === true;
   return (
+    isActive &&
     (isPublicMetricProject(project) || domainCoverageOverride) &&
     (project.domains?.length ?? 0) > 0
   );

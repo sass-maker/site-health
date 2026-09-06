@@ -49,7 +49,7 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         attention: project.attention ?? project.tier,
         tier: project.tier ?? null,
         portfolioStatus: project.portfolio?.status ?? null,
-        lifecycle: project.lifecycle ?? 'maintained',
+        lifecycle: project.lifecycle ?? { status: 'inactive', shareable: false, resumeCondition: null },
         publicListing: project.public?.listing ?? null,
         metricEligibility: {
           publicSite: project.metrics?.publicSite === true,

@@ -20,7 +20,7 @@ function project() {
     repo: 'pace',
     domains: ['heypace.app'],
     publicListing: 'maintained',
-    lifecycle: 'maintained',
+    lifecycle: { status: 'active', shareable: true, resumeCondition: null },
   };
 }
 
@@ -107,6 +107,7 @@ test('portfolio and project refreshes exclude inactive identities', () => {
     name: 'Archived product',
     domains: ['archived.example'],
     portfolio: { priority: 'P4', status: 'archived' },
+    lifecycle: { status: 'inactive', shareable: false, resumeCondition: null },
   };
   const controller = createMetricRunController({
     projects: [project(), inactive],

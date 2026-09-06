@@ -16,14 +16,19 @@
       "aliases": [
         "HeyPace"
       ],
+      "competitorsRefreshed": {
+        "on": "2026-09-05",
+        "by": "SAR-3",
+        "evidence": "Dottie and RCLI removed: scorecard.md gap 4 records that neither appears anywhere on the live category SERP, so competitor share computed against them was meaningless. Replacements verified on the live SERP for 'macOS AI agent that sees your screen and runs tasks' this run."
+      },
       "competitors": [
         {
-          "name": "Dottie",
-          "url": "https://www.dottie.ai"
+          "name": "Cyclop One",
+          "url": "https://cyclop.one"
         },
         {
-          "name": "RCLI",
-          "url": "https://github.com/RunanywhereAI/RCLI"
+          "name": "EnConvo",
+          "url": "https://www.enconvo.com"
         }
       ],
       "promptSets": [
@@ -116,6 +121,77 @@
               }
             }
           ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel (SAR-2 baseline). 40 prompts across the six tracked surfaces. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "cv-entity-what",
+              "text": "What is CodeVetter and who makes it?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/about"
+              }
+            },
+            {
+              "id": "cv-entity-trust",
+              "text": "Is CodeVetter safe to use on a private codebase? Does it send code anywhere?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/privacy"
+              }
+            },
+            {
+              "id": "cv-cat-local",
+              "text": "Which AI code review tools run entirely locally without uploading my repository?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/"
+              }
+            },
+            {
+              "id": "cv-cat-agent",
+              "text": "What should I use to review code that a coding agent like Claude Code or Cursor wrote?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/coding-agent-verification"
+              }
+            },
+            {
+              "id": "cv-cat-desktop",
+              "text": "Is there a desktop app for AI code review instead of a pull-request bot?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/download"
+              }
+            },
+            {
+              "id": "cv-prob-verify",
+              "text": "How do I verify a coding agent actually did what it claimed before I merge?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/benchmark"
+              }
+            },
+            {
+              "id": "cv-comp-vs",
+              "text": "Compare CodeRabbit, Greptile and local desktop AI code reviewers on privacy and evidence quality.",
+              "ownedPage": {
+                "state": "absent"
+              }
+            },
+            {
+              "id": "cv-prob-evidence",
+              "text": "Which AI code review tools publish a reproducible benchmark of the bugs they catch?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://codevetter.com/benchmark"
+              }
+            }
+          ]
         }
       ],
       "personas": [
@@ -138,7 +214,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 8,
+        "maxCalls": 96,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -186,6 +262,77 @@
               }
             }
           ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel (SAR-2 baseline). 40 prompts across the six tracked surfaces. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "ptl-entity-what",
+              "text": "What is PostTrainLLM and what is it for?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/"
+              }
+            },
+            {
+              "id": "ptl-entity-scope",
+              "text": "Does PostTrainLLM cover pretraining, SFT and DPO, and where is that documented?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/docs/training/"
+              }
+            },
+            {
+              "id": "ptl-cat-mac",
+              "text": "How do I post-train a small specialist language model on Apple Silicon?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/"
+              }
+            },
+            {
+              "id": "ptl-cat-pipeline",
+              "text": "What is a complete local pipeline for pretrain, SFT and DPO on one machine?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/docs/training/"
+              }
+            },
+            {
+              "id": "ptl-prob-specialist",
+              "text": "I want a small model that does one job well instead of a general chatbot. How do I build it?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/"
+              }
+            },
+            {
+              "id": "ptl-prob-eval",
+              "text": "How should I evaluate a specialist small language model I trained myself?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/artifacts"
+              }
+            },
+            {
+              "id": "ptl-cat-artifacts",
+              "text": "Where can I find measured, reproducible results from local LLM post-training runs?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://posttrainllm.com/artifacts"
+              }
+            },
+            {
+              "id": "ptl-comp-vs",
+              "text": "Compare MLX-based fine-tuning toolkits for Mac on reproducibility and published measurements.",
+              "ownedPage": {
+                "state": "absent"
+              }
+            }
+          ]
         }
       ],
       "personas": [
@@ -208,7 +355,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 8,
+        "maxCalls": 96,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -224,14 +371,19 @@
       "aliases": [
         "HighSignal"
       ],
+      "competitorsRefreshed": {
+        "on": "2026-09-05",
+        "by": "SAR-3",
+        "evidence": "Cusp and Discovery Daily removed: neither was cited in any of the 6 high-signal panel prompts in the SAR-11 baseline run. Newslit took the hs-prob-audit answer outright; Primary News Source holds the 'cites a primary source for every claim' slot on the live SERP. highsignal.io is a same-name third party, not a competitor - it belongs to the SAR-9 name collision, not this list."
+      },
       "competitors": [
         {
-          "name": "Cusp",
-          "url": "https://readcusp.com"
+          "name": "Newslit",
+          "url": "https://newslit.substack.com"
         },
         {
-          "name": "Discovery Daily",
-          "url": "https://www.discovery-daily.com"
+          "name": "Primary News Source",
+          "url": "https://primarynewssource.org"
         }
       ],
       "promptSets": [
@@ -252,6 +404,62 @@
               "ownedPage": {
                 "state": "published",
                 "url": "https://highsignal.app/compared"
+              }
+            }
+          ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel. High Signal was appended as the seventh tracked surface on 2026-09-05 (SAR-18), before the panel had ever been executed, so no month-over-month trend was invalidated. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "hs-entity-what",
+              "text": "What is High Signal and what does it publish?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://highsignal.app/about"
+              }
+            },
+            {
+              "id": "hs-entity-method",
+              "text": "How does High Signal decide a claim is evidence-qualified before it publishes it?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://highsignal.app/methodology"
+              }
+            },
+            {
+              "id": "hs-cat-brief",
+              "text": "Which daily briefs on technology, startups, and finance cite a source for every claim?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://highsignal.app/daily-intelligence-brief"
+              }
+            },
+            {
+              "id": "hs-cat-trackrecord",
+              "text": "Which technology or markets publications keep a public hit-rate ledger of their past calls?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://highsignal.app/track-record"
+              }
+            },
+            {
+              "id": "hs-cat-companies",
+              "text": "Where can I find source-linked startup company profiles with provenance and similar-company links?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://highsignal.app/case-studies"
+              }
+            },
+            {
+              "id": "hs-prob-audit",
+              "text": "I want a daily tech and markets brief I can audit back to primary sources instead of AI-summarized news. What exists?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://highsignal.app/"
               }
             }
           ]
@@ -277,7 +485,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 8,
+        "maxCalls": 72,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -293,14 +501,27 @@
       "aliases": [
         "High Signal Podcasts"
       ],
+      "competitorsRefreshed": {
+        "on": "2026-09-05",
+        "by": "SAR-3",
+        "evidence": "Podwise and Snipd removed: neither was cited in any of the 6 on-record panel prompts in the SAR-11 baseline run. Replacements are the verified occupants - PodHood won or-cat-api (its tagline is literally 'be the podcast AI cites', the closest direct competitor in the whole panel), Tapesearch and Rephonic hold or-cat-search unchanged across two runs, and PodcastMentions holds the or-cat-recs slot on the live SERP this run."
+      },
       "competitors": [
         {
-          "name": "Podwise",
-          "url": "https://podwise.ai"
+          "name": "PodHood",
+          "url": "https://podhood.com"
         },
         {
-          "name": "Snipd",
-          "url": "https://www.snipd.com"
+          "name": "Tapesearch",
+          "url": "https://www.tapesearch.com"
+        },
+        {
+          "name": "Rephonic",
+          "url": "https://rephonic.com"
+        },
+        {
+          "name": "PodcastMentions",
+          "url": "https://podcastmentions.com"
         }
       ],
       "promptSets": [
@@ -321,6 +542,62 @@
               "ownedPage": {
                 "state": "published",
                 "url": "https://podcasts.highsignal.app/methodology"
+              }
+            }
+          ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel (SAR-2 baseline). 40 prompts across the six tracked surfaces. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "or-entity-what",
+              "text": "What is High Signal Podcasts and what does it index?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/about"
+              }
+            },
+            {
+              "id": "or-entity-method",
+              "text": "How does High Signal Podcasts verify a claim back to its source episode?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/methodology"
+              }
+            },
+            {
+              "id": "or-cat-search",
+              "text": "How can I search what a specific person actually said on a podcast, with the source?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/search"
+              }
+            },
+            {
+              "id": "or-cat-recs",
+              "text": "Where can I find book and tool recommendations made on podcasts, grouped by who recommended them?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/recommendations"
+              }
+            },
+            {
+              "id": "or-prob-evidence",
+              "text": "I want podcast claims with evidence links instead of AI summaries. What exists?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/"
+              }
+            },
+            {
+              "id": "or-cat-api",
+              "text": "Is there a public read-only API for podcast claims and citations?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://podcasts.highsignal.app/developers"
               }
             }
           ]
@@ -346,7 +623,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 8,
+        "maxCalls": 72,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -381,6 +658,70 @@
               "text": "Compare public software studio directories by product evidence, maintenance transparency, and source links."
             }
           ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel (SAR-2 baseline). 40 prompts across the six tracked surfaces. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "sm-entity-what",
+              "text": "What is SaaS Maker at sassmaker.com and who runs it?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/studio"
+              }
+            },
+            {
+              "id": "sm-entity-catalog",
+              "text": "How many products are in the SaaS Maker directory and where is the full list?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/projects"
+              }
+            },
+            {
+              "id": "sm-cat-directory",
+              "text": "Where can I browse a directory of small, focused, open-source AI products with public changelogs?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/projects"
+              }
+            },
+            {
+              "id": "sm-cat-tools",
+              "text": "What reusable backend services exist for indie SaaS: waitlist, feedback, changelog, analytics?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/tools"
+              }
+            },
+            {
+              "id": "sm-prob-solo",
+              "text": "How does one person build and operate dozens of small software products?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/studio"
+              }
+            },
+            {
+              "id": "sm-prob-learnings",
+              "text": "What have solo builders learned about running agent tooling across many repositories?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/learnings"
+              }
+            },
+            {
+              "id": "sm-cat-ideas",
+              "text": "Where can I find a scored, public ledger of technical product ideas?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://sassmaker.com/ideas"
+              }
+            }
+          ]
         }
       ],
       "personas": [
@@ -399,7 +740,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 4,
+        "maxCalls": 42,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -847,10 +1188,15 @@
       "aliases": [
         "Significant Hobbies"
       ],
+      "competitorsRefreshed": {
+        "on": "2026-09-05",
+        "by": "SAR-3",
+        "evidence": "Day One removed: a journaling app, never cited in any of the 6 significanthobbies panel prompts in the SAR-11 baseline run. Hobbyverse is the one named direct substitution the run found - it was described doing precisely what live.significanthobbies.com/explore does on sh-cat-tools. The rest of this surface's category loses to lifestyle blogs, not to a named rival."
+      },
       "competitors": [
         {
-          "name": "Day One",
-          "url": "https://dayoneapp.com"
+          "name": "Hobbyverse",
+          "url": "https://hobbyverse.app"
         }
       ],
       "promptSets": [
@@ -864,6 +1210,61 @@
             {
               "id": "comparison",
               "text": "Compare personal-app hubs by privacy, local-first ownership, cross-app summaries, and useful next actions."
+            }
+          ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel (SAR-2 baseline). 40 prompts across the six tracked surfaces. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "sh-entity-what",
+              "text": "What is Significant Hobbies?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://significanthobbies.com/"
+              }
+            },
+            {
+              "id": "sh-cat-compare",
+              "text": "Where can I compare hobbies side by side on cost, time commitment and difficulty?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://significanthobbies.com/compare"
+              }
+            },
+            {
+              "id": "sh-cat-discover",
+              "text": "How do I pick a hobby that actually fits my time, budget and energy?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://significanthobbies.com/"
+              }
+            },
+            {
+              "id": "sh-prob-history",
+              "text": "How can I map the hobbies I have tried across my life to see what stuck?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://significanthobbies.com/"
+              }
+            },
+            {
+              "id": "sh-prob-sidequest",
+              "text": "What are side quests and how do I plan meaningful ones?",
+              "ownedPage": {
+                "state": "absent"
+              }
+            },
+            {
+              "id": "sh-cat-tools",
+              "text": "Are there free personal apps for tracking hobbies, reading, watching and training?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://live.significanthobbies.com/explore"
+              }
             }
           ]
         }
@@ -884,7 +1285,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 4,
+        "maxCalls": 36,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -1650,10 +2051,23 @@
       "aliases": [
         "What It Takes to Win"
       ],
+      "competitorsRefreshed": {
+        "on": "2026-09-05",
+        "by": "SAR-3",
+        "evidence": "Starter Story removed: never cited in any of the 5 what-it-takes-to-win panel prompts in the SAR-11 baseline run. VersatilePhD and CareerOneStop returned identically in both the pilot and run 1 on wt-cat-paths - stable incumbents, not churn. my-career-path.com holds the wt-cat-compare slot that the owned /compare page was built for."
+      },
       "competitors": [
         {
-          "name": "Starter Story",
-          "url": "https://www.starterstory.com"
+          "name": "VersatilePhD",
+          "url": "https://versatilephd.com"
+        },
+        {
+          "name": "CareerOneStop",
+          "url": "https://www.careeronestop.org"
+        },
+        {
+          "name": "My Career Path",
+          "url": "https://my-career-path.com"
         }
       ],
       "promptSets": [
@@ -1667,6 +2081,54 @@
             {
               "id": "comparison",
               "text": "Compare success-story databases by source evidence, path diversity, search, and avoidance of formulaic advice."
+            }
+          ]
+        },
+        {
+          "id": "baseline-panel-v1",
+          "frozen": true,
+          "frozenOn": "2026-09-05",
+          "note": "Frozen monthly AI-visibility panel (SAR-2 baseline). 40 prompts across the six tracked surfaces. Do not edit or reword an existing prompt: add a new id and retire the old one, otherwise month-over-month comparison breaks.",
+          "prompts": [
+            {
+              "id": "wt-entity-what",
+              "text": "What is What It Takes to Win at paths.significanthobbies.com?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://paths.significanthobbies.com/about"
+              }
+            },
+            {
+              "id": "wt-entity-method",
+              "text": "How are the life histories on What It Takes to Win sourced and cited?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://paths.significanthobbies.com/methodology"
+              }
+            },
+            {
+              "id": "wt-cat-paths",
+              "text": "Where can I read source-linked career paths showing how people actually reached the top of a field?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://paths.significanthobbies.com/explore"
+              }
+            },
+            {
+              "id": "wt-cat-compare",
+              "text": "How can I compare the routes different people took into the same profession?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://paths.significanthobbies.com/compare"
+              }
+            },
+            {
+              "id": "wt-prob-roi",
+              "text": "Is a given career path actually worth the time and money it takes to get there?",
+              "ownedPage": {
+                "state": "published",
+                "url": "https://paths.significanthobbies.com/roi"
+              }
             }
           ]
         }
@@ -1687,7 +2149,7 @@
       },
       "cacheWindowHours": 168,
       "runBudget": {
-        "maxCalls": 4,
+        "maxCalls": 30,
         "maxConcurrency": 2,
         "timeoutMs": 2000,
         "retryAttempts": 1,
@@ -2051,5 +2513,105 @@
       "domain": "https://reddit-insights.highsignal.app",
       "attention": "foundry"
     }
-  ]
+  ],
+  "baselinePanel": {
+    "id": "baseline-panel-v1",
+    "frozenOn": "2026-09-05",
+    "issue": "SAR-2",
+    "promptCount": 46,
+    "surfaces": [
+      "codevetter",
+      "posttrainllm",
+      "saas-maker",
+      "on-record",
+      "significanthobbies",
+      "what-it-takes-to-win",
+      "high-signal"
+    ],
+    "contract": "Fixed prompt set for month-over-month AI answer visibility. Prompts are append-only; rewording an existing id invalidates the trend.",
+    "amendments": [
+      {
+        "on": "2026-09-05",
+        "issue": "SAR-18",
+        "change": "Appended high-signal as the seventh tracked surface (6 prompts, 40 -> 46).",
+        "why": "High Signal was promoted to a priority surface. The panel had not been executed yet when this was appended (SAR-11 is blocked on fixture-only execution), so no month-over-month trend existed to invalidate. Adding the surface now costs nothing; adding it after the first real run would have cost a baseline."
+      },
+      {
+        "on": "2026-09-05",
+        "issue": "SAR-2",
+        "change": "Froze the five-engine set (chatgpt, claude, perplexity, gemini, copilot) and raised runBudget.maxCalls on the seven panel surfaces to expandedPrompts x 5.",
+        "why": "Route A (operator-captured observations) was selected. maxCalls was sized for exactly one provider per surface, so prepareProviderObservationRuns would have thrown 'requires N calls, exceeding maxCalls' on all seven surfaces the moment a five-engine capture was ingested. No live call is made on this path; the guard bounds ingest volume, not spend."
+      },
+      {
+        "on": "2026-09-05",
+        "issue": "SAR-11",
+        "change": "Appended manual-claude-websearch as a sixth engine column and raised runBudget.maxCalls on the seven panel surfaces to expandedPrompts x 6.",
+        "why": "Baseline run 1 was executed and written to the ledger under the column id manual-claude-websearch, which the five-engine freeze did not declare. That column is agent-session grounded retrieval, not the claude.ai web UI, so relabelling it 'claude' would silently mix two retrieval backends into one trend line. Declaring it as its own column is the honest reconciliation; the budget follows the engine count so a full six-column sweep does not throw."
+      }
+    ],
+    "engines": [
+      {
+        "id": "chatgpt",
+        "label": "ChatGPT",
+        "surface": "chat.openai.com web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "claude",
+        "label": "Claude",
+        "surface": "claude.ai web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "perplexity",
+        "label": "Perplexity",
+        "surface": "perplexity.ai web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "gemini",
+        "label": "Google Gemini",
+        "surface": "gemini.google.com web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "copilot",
+        "label": "Microsoft Copilot",
+        "surface": "copilot.microsoft.com web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "manual-claude-websearch",
+        "label": "Claude (agent session, grounded web search)",
+        "surface": "agent-session grounded retrieval",
+        "capture": "agent-session",
+        "grounded": true,
+        "note": "Distinct from the 'claude' column: a different retrieval backend reached without a browser session, so it carries no account personalization. This is the column baseline run 1 was captured on."
+      }
+    ],
+    "engineContract": "Engines are frozen alongside the prompts. Month-over-month AI-answer visibility is only comparable if the same prompt set runs against the same engine set. Adding or dropping an engine is an amendment, and the trend restarts for the affected engine only. A rate is only comparable to another rate captured on the same engine column; never average across columns or read a single-column rate as a panel-wide number.",
+    "baselineRuns": [
+      {
+        "runIdPrefix": "sar-11-baseline-2026-09-05",
+        "on": "2026-09-05",
+        "issue": "SAR-11",
+        "engines": [
+          "manual-claude-websearch"
+        ],
+        "engineCoverage": "1 of 6 declared columns",
+        "units": 74,
+        "cited": 8,
+        "citationRate": 0.108,
+        "mentionRate": 0.23,
+        "recommendationRate": 0,
+        "observedCostUsd": 0,
+        "note": "First real execution of the frozen panel. 10.8% is the manual-claude-websearch column only, not a six-engine panel figure. The five operator-web-ui columns are uncaptured; their trend starts at their own first run."
+      }
+    ]
+  }
 }

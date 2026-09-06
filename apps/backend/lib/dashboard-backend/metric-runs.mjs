@@ -269,5 +269,31 @@ export function createMetricRunController({
       const run = runs.get(runId);
       return run ? publicRun(run) : null;
     },
+
+    /**
+     * Mark every in-flight run failed. The child processes outlive nothing —
+     * when this process stops, no `close` handler will ever fire for them, so
+     * without this their receipts stay `running` forever and the dashboard
+     * reports a refresh that is not happening. Idempotent.
+     */
+    abandonActiveRuns({
+      code = 'REFRESH_INTERRUPTED',
+      summary = 'The backend stopped before this refresh reported a result.',
+    } = {}) {
+      const abandoned = [];
+      for (const [key, runId] of [...active.entries()]) {
+        active.delete(key);
+        const run = runs.get(runId);
+        if (!run || run.state !== 'running') continue;
+        run.state = 'failed';
+        run.finishedAt = now();
+        run.code = code;
+        run.summary = summary;
+        run.capture = '';
+        onRunChange(publicRun(run));
+        abandoned.push(publicRun(run));
+      }
+      return abandoned;
+    },
   };
 }

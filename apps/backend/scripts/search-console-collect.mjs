@@ -1,8 +1,12 @@
 #!/usr/bin/env node
+import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
+import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/store.mjs';
 import {
   attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
@@ -61,68 +65,98 @@ const projects = options.projectId
   : eligible;
 if (projects.length === 0) throw new Error(`Unknown Search Console project: ${options.projectId}`);
 
-let discovery = null;
-let googleSitemaps = [];
-if (options.discoveryCycle) {
-  const indexNow = spawnSync(
-    process.execPath,
-    [resolve(REPOSITORY_ROOT, 'apps/backend/scripts/indexnow-submit.mjs')],
-    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
-  );
-  if (indexNow.status !== 0) {
-    throw new Error(`IndexNow discovery update failed: ${indexNow.stderr.trim() || indexNow.stdout.trim() || 'unknown error'}`);
+async function collect() {
+  let discovery = null;
+  let googleSitemaps = [];
+  if (options.discoveryCycle) {
+    const indexNow = spawnSync(
+      process.execPath,
+      [resolve(REPOSITORY_ROOT, 'apps/backend/scripts/indexnow-submit.mjs')],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+    );
+    if (indexNow.status !== 0) {
+      throw new Error(`IndexNow discovery update failed: ${indexNow.stderr.trim() || indexNow.stdout.trim() || 'unknown error'}`);
+    }
+    const indexNowSummary = indexNow.stdout.match(
+      /Done\. urls=(\d+) skipped_already=(\d+) batches_ok=(\d+) batches_fail=(\d+)/,
+    );
+    if (!indexNowSummary || Number(indexNowSummary[4]) > 0) {
+      throw new Error(`IndexNow discovery update was incomplete: ${indexNow.stdout.trim() || 'missing receipt'}`);
+    }
+    googleSitemaps = await ensureSearchConsoleSitemaps({
+      projects,
+      accessToken: accessToken(),
+      quotaProject: config.quotaProject,
+    });
+    discovery = {
+      indexNow: {
+        submittedUrls: Number(indexNowSummary[1]),
+        skippedUrls: Number(indexNowSummary[2]),
+        successfulBatches: Number(indexNowSummary[3]),
+      },
+      googleSitemaps: googleSitemaps.reduce((counts, result) => {
+        counts[result.state] = (counts[result.state] ?? 0) + 1;
+        return counts;
+      }, {}),
+    };
   }
-  const indexNowSummary = indexNow.stdout.match(
-    /Done\. urls=(\d+) skipped_already=(\d+) batches_ok=(\d+) batches_fail=(\d+)/,
-  );
-  if (!indexNowSummary || Number(indexNowSummary[4]) > 0) {
-    throw new Error(`IndexNow discovery update was incomplete: ${indexNow.stdout.trim() || 'missing receipt'}`);
-  }
-  googleSitemaps = await ensureSearchConsoleSitemaps({
+
+  const collected = await collectSearchConsoleOutcomes({
     projects,
     accessToken: accessToken(),
     quotaProject: config.quotaProject,
+    reportingWindowDays: config.reportingWindowDays,
+    reportingLagDays: config.reportingLagDays,
+    searchTermLimit: config.searchTermLimit,
   });
-  discovery = {
-    indexNow: {
-      submittedUrls: Number(indexNowSummary[1]),
-      skippedUrls: Number(indexNowSummary[2]),
-      successfulBatches: Number(indexNowSummary[3]),
-    },
-    googleSitemaps: googleSitemaps.reduce((counts, result) => {
-      counts[result.state] = (counts[result.state] ?? 0) + 1;
-      return counts;
-    }, {}),
+  const outcomeBundle = options.discoveryCycle
+    ? attachSitemapSubmissionState(collected.bundle, googleSitemaps)
+    : collected.bundle;
+  if (outcomeBundle.observations.length === 0) {
+    throw new Error('No accessible Search Console properties matched Fleet projects');
+  }
+  const ledgerPath = options.ledgerPath ?? defaultVisibilityOutcomePath();
+  const receipt = appendVisibilityOutcomeBundle(outcomeBundle, {
+    path: ledgerPath,
+    allowedProjectIds: new Set(eligible.map((project) => project.id)),
+  });
+
+  return {
+    schema: 'fleet.search-console-collection-receipt.v1',
+    period: collected.period,
+    accessibleProperties: collected.propertyCount,
+    measuredProjects: collected.bundle.observations.length,
+    unavailable: collected.unavailable,
+    recorded: receipt.recorded,
+    duplicates: receipt.duplicates,
+    ...(discovery ? { discovery } : {}),
   };
 }
 
-const collected = await collectSearchConsoleOutcomes({
-  projects,
-  accessToken: accessToken(),
-  quotaProject: config.quotaProject,
-  reportingWindowDays: config.reportingWindowDays,
-  reportingLagDays: config.reportingLagDays,
-  searchTermLimit: config.searchTermLimit,
+/**
+ * The collector owns its own refresh receipt. Whoever starts it — the backend's
+ * metric-run controller, a routine, or a hand-run — the receipt reaches a
+ * terminal state in this process, so a crash records `failed` instead of
+ * leaving `running` behind for a supervisor that may not outlive the run.
+ */
+const store = new DashboardStore({
+  databasePath: process.env.DASHBOARD_DB || process.env.FOUNDER_CONTROL_DB || defaultDatabasePath(),
+  projects: loadDashboardProjects(),
 });
-const outcomeBundle = options.discoveryCycle
-  ? attachSitemapSubmissionState(collected.bundle, googleSitemaps)
-  : collected.bundle;
-if (outcomeBundle.observations.length === 0) {
-  throw new Error('No accessible Search Console properties matched Fleet projects');
+try {
+  const summary = await withRefreshReceipt(
+    store,
+    {
+      family: 'search',
+      scope: 'portfolio',
+      projectId: null,
+      runId: `search_${randomUUID().replaceAll('-', '')}`,
+      label: 'Portfolio Search Console evidence',
+    },
+    collect,
+    { summarize: (result) => ({ resultCount: result.measuredProjects }) },
+  );
+  process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+} finally {
+  store.close();
 }
-const ledgerPath = options.ledgerPath ?? defaultVisibilityOutcomePath();
-const receipt = appendVisibilityOutcomeBundle(outcomeBundle, {
-  path: ledgerPath,
-  allowedProjectIds: new Set(eligible.map((project) => project.id)),
-});
-
-process.stdout.write(`${JSON.stringify({
-  schema: 'fleet.search-console-collection-receipt.v1',
-  period: collected.period,
-  accessibleProperties: collected.propertyCount,
-  measuredProjects: collected.bundle.observations.length,
-  unavailable: collected.unavailable,
-  recorded: receipt.recorded,
-  duplicates: receipt.duplicates,
-  ...(discovery ? { discovery } : {}),
-}, null, 2)}\n`);

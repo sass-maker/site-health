@@ -1,8 +1,13 @@
 #!/usr/bin/env node
+import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
+import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/store.mjs';
 
 export function resolveFleetRoot(directory = import.meta.dirname) {
   return resolve(directory, '../../../..');
@@ -78,16 +83,41 @@ export function runPerformancePortfolio(
 }
 
 if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
+  // The runner owns its own refresh receipt so the receipt reaches a terminal
+  // state in the process that does the work — a crash records `failed` rather
+  // than leaving `running` for a supervisor that may not outlive the run.
+  const store = new DashboardStore({
+    databasePath: process.env.DASHBOARD_DB || process.env.FOUNDER_CONTROL_DB || defaultDatabasePath(),
+    projects: loadDashboardProjects(),
+  });
   try {
     const targets = parseTargets(process.argv.slice(2));
-    const result = runPerformancePortfolio(targets);
-    console.log(`Completed ${result.completed}/${targets.length} performance targets.`);
-    if (result.failed.length > 0) {
-      console.error(`Failed: ${result.failed.join(', ')}`);
-      process.exitCode = 1;
-    }
+    await withRefreshReceipt(
+      store,
+      {
+        family: 'psi',
+        scope: 'portfolio',
+        projectId: null,
+        runId: `psi_${randomUUID().replaceAll('-', '')}`,
+        label: 'Portfolio PSI',
+      },
+      async () => {
+        const result = runPerformancePortfolio(targets);
+        console.log(`Completed ${result.completed}/${targets.length} performance targets.`);
+        if (result.failed.length > 0) {
+          throw Object.assign(
+            new Error(`${result.failed.length} performance target(s) failed: ${result.failed.join(', ')}`),
+            { code: 'PSI_TARGETS_FAILED' },
+          );
+        }
+        return result;
+      },
+      { summarize: (result) => ({ resultCount: result.completed }) },
+    );
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exitCode = 1;
+  } finally {
+    store.close();
   }
 }

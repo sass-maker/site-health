@@ -14,6 +14,8 @@ import {
   evaluateAiVisibilityScheduleActivation,
   loadAiVisibilityPortfolio,
 } from './ai-visibility-registry.mjs';
+import { loadClarityRegistry, readClarityProjection } from './clarity.mjs';
+import { readSpendSnapshot } from './spend.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
 
@@ -81,6 +83,8 @@ const OUTCOME_SOURCES = Object.freeze({
   domains: 'drank',
   performance: 'psi',
   search: 'search',
+  'seo-audit': 'seo',
+  'geo-awareness': 'geo',
   'ai-awareness': 'ai',
 });
 
@@ -146,6 +150,22 @@ function outcomeProjection(projection, family, { receipt = null, now } = {}) {
       ctr: boundedSignal(row.ctr, { includeSeries: true }),
       averagePosition: boundedSignal(row.averagePosition, { includeSeries: true }),
     }));
+  } else if (family === 'seo-audit') {
+    rows = (outcomes.seoAudit ?? []).map((row) => ({
+      ...row,
+      pass: boundedSignal(row.pass),
+      fail: boundedSignal(row.fail),
+      warn: boundedSignal(row.warn),
+      failedChecks: (row.failedChecks ?? []).slice(0, 20),
+      warningChecks: (row.warningChecks ?? []).slice(0, 20),
+    }));
+  } else if (family === 'geo-awareness') {
+    rows = (outcomes.geoAwareness ?? []).map((row) => ({
+      ...row,
+      topThree: boundedSignal(row.topThree, { includeSeries: true }),
+      pageOne: boundedSignal(row.pageOne, { includeSeries: true }),
+      observations: (row.observations ?? []).slice(0, 12),
+    }));
   } else {
     return null;
   }
@@ -208,6 +228,7 @@ export function createDashboardHandler({
   metricRunController,
   prefillEvidence,
   projectsProvider = () => store.projects,
+  clarityRegistryProvider = loadClarityRegistry,
 }) {
   let projectionCache = null;
   const completedMetricRuns = new Set();
@@ -257,6 +278,18 @@ export function createDashboardHandler({
   };
   const handleProjectionReadRoutes = (url, projections, response) => {
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
+    const clarityMatch = url.pathname.match(/^\/v1\/projects\/([^/]+)\/clarity$/);
+    if (clarityMatch) {
+      const projectId = decodeURIComponent(clarityMatch[1]);
+      if (!projections.projects.some((project) => project.id === projectId)) {
+        return json(response, 404, { error: 'project not found' });
+      }
+      return json(response, 200, readClarityProjection(
+        store,
+        projectId,
+        clarityRegistryProvider(),
+      ));
+    }
     if (url.pathname === '/v1/capabilities') {
       return json(response, 200, buildCapabilityProjection({ now: now(), store }));
     }
@@ -279,8 +312,9 @@ export function createDashboardHandler({
         capabilities: buildCapabilityProjection({ now: now(), store }).sources,
       });
     }
+    if (url.pathname === '/v1/spend') return json(response, 200, readSpendSnapshot(store));
     const outcomeMatch = url.pathname.match(
-      /^\/v1\/outcomes\/(domains|search|ai-awareness|performance)$/,
+      /^\/v1\/outcomes\/(domains|search|seo-audit|geo-awareness|ai-awareness|performance)$/,
     );
     if (outcomeMatch) {
       const family = outcomeMatch[1];
@@ -364,6 +398,7 @@ export function startDashboardService({
   metricRunController,
   prefillEvidence,
   projectsProvider,
+  clarityRegistryProvider,
 } = {}) {
   const server = createServer(
     createDashboardHandler({
@@ -377,6 +412,7 @@ export function startDashboardService({
       ...(metricRunController ? { metricRunController } : {}),
       ...(prefillEvidence ? { prefillEvidence } : {}),
       ...(projectsProvider ? { projectsProvider } : {}),
+      ...(clarityRegistryProvider ? { clarityRegistryProvider } : {}),
     }),
   );
   return new Promise((resolve, reject) => {

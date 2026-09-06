@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "observedAt": "2026-08-30",
-  "historyObservedAt": "2026-08-30",
+  "historyObservedAt": "2026-09-06",
   "observationSemantics": "Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, package-manager declarations, and the commit dates and commit count retained by the checked-out HEAD only; environment files, credential-bearing configuration, secrets, command values, commit messages, and commit authorship are not retained.",
   "projects": {
     "codevetter": {
@@ -18,8 +18,8 @@
       },
       "history": {
         "firstCommitAt": "2025-11-30",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 1014,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 1336,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -556,8 +556,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 57,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 63,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -789,8 +789,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-21",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 773,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 841,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -983,8 +983,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-02",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 975,
+        "latestCommitAt": "2026-09-05",
+        "retainedCommitCount": 985,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1109,8 +1109,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 542,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 558,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1683,8 +1683,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-26",
-        "latestCommitAt": "2026-08-31",
-        "retainedCommitCount": 1248,
+        "latestCommitAt": "2026-09-07",
+        "retainedCommitCount": 1273,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2331,8 +2331,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-21",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 9,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 12,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2446,8 +2446,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-28",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 102,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 106,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2744,8 +2744,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 33,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 34,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2867,8 +2867,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-10",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 88,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 93,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3077,8 +3077,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-24",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 250,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 260,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3336,8 +3336,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-28",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 50,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 63,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3534,8 +3534,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-15",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 240,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 243,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3880,8 +3880,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-03",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 73,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 76,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4149,8 +4149,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 835,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 868,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5439,8 +5439,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-24",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 52,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 66,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5719,8 +5719,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-25",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 25,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 31,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5858,8 +5858,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 162,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 164,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6189,8 +6189,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-30",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 102,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 107,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6442,8 +6442,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 55,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 57,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6634,8 +6634,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 211,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 215,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6893,8 +6893,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 536,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 543,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7060,8 +7060,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 38,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 40,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7207,8 +7207,8 @@
       },
       "history": {
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 400,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 413,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7723,8 +7723,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 97,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 99,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8010,8 +8010,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-04",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 253,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 259,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8381,8 +8381,8 @@
       },
       "history": {
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 324,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 332,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8755,8 +8755,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 433,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 443,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9148,8 +9148,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 114,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 119,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9299,8 +9299,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 100,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 104,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9429,8 +9429,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-11",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 29,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 30,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9573,8 +9573,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 35,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 39,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9709,8 +9709,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-23",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 417,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 425,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10027,8 +10027,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 498,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 508,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10352,8 +10352,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 388,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 405,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10917,8 +10917,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-03",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 366,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 368,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11187,8 +11187,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-15",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 241,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 243,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11352,8 +11352,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-15",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 9,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 11,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11474,8 +11474,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 84,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 95,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11627,8 +11627,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 46,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 49,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11911,8 +11911,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-24",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 179,
+        "latestCommitAt": "2026-09-05",
+        "retainedCommitCount": 180,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12224,8 +12224,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 214,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 220,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12545,8 +12545,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-25",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 8,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 9,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12641,8 +12641,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 10,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 12,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12776,8 +12776,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-10",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 37,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 39,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12955,8 +12955,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-21",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 258,
+        "latestCommitAt": "2026-09-07",
+        "retainedCommitCount": 269,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13103,8 +13103,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-22",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 83,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 90,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13306,8 +13306,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 62,
+        "latestCommitAt": "2026-09-01",
+        "retainedCommitCount": 64,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13484,8 +13484,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 26,
+        "latestCommitAt": "2026-09-01",
+        "retainedCommitCount": 27,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13669,8 +13669,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-12",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 11,
+        "latestCommitAt": "2026-09-06",
+        "retainedCommitCount": 13,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13793,8 +13793,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-07",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 20,
+        "latestCommitAt": "2026-09-01",
+        "retainedCommitCount": 21,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13933,8 +13933,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-16",
-        "latestCommitAt": "2026-08-29",
-        "retainedCommitCount": 19,
+        "latestCommitAt": "2026-09-01",
+        "retainedCommitCount": 20,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14106,8 +14106,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-08-30",
-        "retainedCommitCount": 80,
+        "latestCommitAt": "2026-08-31",
+        "retainedCommitCount": 87,
         "historyCompleteness": "complete",
         "reason": null
       },

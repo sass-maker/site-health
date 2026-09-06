@@ -41,7 +41,7 @@ function snapshot(projectId, observedAt, sessions) {
 }
 
 function current(id) {
-  return { id, publicListing: 'maintained', lifecycle: 'maintained' };
+  return { id, publicListing: 'maintained', lifecycle: { status: 'active', shareable: true, resumeCondition: null } };
 }
 
 function wired(projectId, extra = {}) {
@@ -57,7 +57,7 @@ function classFixture() {
     current('unavailable-token'),
     current('failed-provider'),
     current('unwired-private'),
-    { id: 'inactive-past', publicListing: 'past', lifecycle: 'past', portfolioStatus: 'archived' },
+    { id: 'inactive-past', publicListing: 'past', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null }, portfolioStatus: 'archived' },
   ];
   const registry = new Map([
     wired('measured-live'),

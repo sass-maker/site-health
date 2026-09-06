@@ -3,17 +3,6 @@
   "cadence": "weekly",
   "roots": [
     {
-      "rootDomain": "aliveville.com",
-      "projectId": "ai-game",
-      "collision": { "state": "clear", "note": "The coined name has no known category-defining search collision." },
-      "queries": [
-        { "id": "aliveville-brand", "kind": "brand", "text": "Aliveville", "status": "active" },
-        { "id": "aliveville-exact-domain", "kind": "exact-domain", "text": "aliveville.com", "status": "active" },
-        { "id": "aliveville-category", "kind": "category", "text": "AI civilization simulation game", "status": "active" },
-        { "id": "aliveville-problem", "kind": "problem", "text": "play an evolving AI world simulation in browser", "status": "active" }
-      ]
-    },
-    {
       "rootDomain": "codevetter.com",
       "projectId": "codevetter",
       "collision": { "state": "clear", "note": "The coined compound name identifies the product without a known dominant collision." },
@@ -51,17 +40,6 @@
       ]
     },
     {
-      "rootDomain": "karte.cc",
-      "projectId": "karte",
-      "collision": { "state": "ambiguous", "note": "Karte is a common German word and the name of unrelated software companies." },
-      "queries": [
-        { "id": "karte-brand-2", "kind": "brand", "text": "Karte AI profile", "status": "active" },
-        { "id": "karte-brand", "kind": "exact-domain", "text": "karte.cc", "status": "active" },
-        { "id": "karte-category", "kind": "category", "text": "AI link-in-bio conversational profile", "status": "active" },
-        { "id": "karte-problem", "kind": "problem", "text": "create a profile people and AI agents can ask questions", "status": "active" }
-      ]
-    },
-    {
       "rootDomain": "posttrainllm.com",
       "projectId": "posttrainllm",
       "collision": { "state": "clear", "note": "The coined name directly describes the product and has no known dominant collision." },
@@ -70,29 +48,6 @@
         { "id": "posttrainllm-exact-domain", "kind": "exact-domain", "text": "posttrainllm.com", "status": "active" },
         { "id": "posttrainllm-category", "kind": "category", "text": "fine-tune LLM specialists on Mac Apple Silicon", "status": "active" },
         { "id": "posttrainllm-problem", "kind": "problem", "text": "train and evaluate a small language model locally on Mac", "status": "active" }
-      ]
-    },
-    {
-      "rootDomain": "rolepatch.com",
-      "projectId": "rolepatch",
-      "collision": { "state": "clear", "note": "The coined compound name identifies the resume product without a dominant collision." },
-      "queries": [
-        { "id": "rolepatch-brand", "kind": "brand", "text": "RolePatch", "status": "active" },
-        { "id": "rolepatch-exact-domain", "kind": "exact-domain", "text": "rolepatch.com", "status": "active" },
-        { "id": "rolepatch-category-2", "kind": "category", "text": "AI resume tailoring tool", "status": "active" },
-        { "id": "rolepatch-problem", "kind": "problem", "text": "tailor resume to a job description", "status": "active" },
-        { "id": "rolepatch-category", "kind": "category", "text": "free ATS resume checker", "status": "historical", "supersededBy": "rolepatch-category-2" }
-      ]
-    },
-    {
-      "rootDomain": "sarthakagrawal.dev",
-      "projectId": "sarthakagrawal-personal",
-      "collision": { "state": "ambiguous", "note": "The personal name collides with other people, including unrelated professional profiles." },
-      "queries": [
-        { "id": "sarthak-agrawal-brand", "kind": "brand", "text": "Sarthak Agrawal AI infrastructure engineer", "status": "active" },
-        { "id": "sarthak-agrawal-exact-domain", "kind": "exact-domain", "text": "sarthakagrawal.dev", "status": "active" },
-        { "id": "sarthak-agrawal-category", "kind": "category", "text": "AI infrastructure product engineer portfolio", "status": "active" },
-        { "id": "sarthak-agrawal-problem", "kind": "problem", "text": "engineer building AI infrastructure and developer tools", "status": "active" }
       ]
     },
     {

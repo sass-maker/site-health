@@ -12,10 +12,10 @@ const contract = JSON.parse(
   readFileSync(new URL('../config/root-brands.json', import.meta.url), 'utf8'),
 );
 
-test('root brand contract covers the ten Domains roots exactly', () => {
+test('root brand contract covers the domain strength roots exactly', () => {
   const brands = validateRootBrandContract(contract, loadDashboardProjects());
 
-  assert.equal(brands.size, 10);
+  assert.equal(brands.size, 6);
   assert.deepEqual(brands.get('heypace.app'), {
     rootDomain: 'heypace.app',
     canonicalName: 'Pace',
@@ -36,7 +36,7 @@ test('root brand lookup consolidates subdomains without optional project ids', (
 
   assert.equal(rootBrandForUrl('https://docs.heypace.app/start', brands)?.canonicalName, 'Pace');
   assert.equal(rootBrandForUrl('https://papers.highsignal.app', brands)?.canonicalName, 'High Signal');
-  assert.equal(rootBrandForUrl('https://sarthakagrawal.dev', brands)?.canonicalName, 'Sarthak Agrawal');
+  assert.equal(rootBrandForUrl('https://codevetter.com', brands)?.canonicalName, 'CodeVetter');
 });
 
 test('root brand contract rejects missing roots and duplicate aliases', () => {
@@ -48,7 +48,7 @@ test('root brand contract rejects missing roots and duplicate aliases', () => {
   );
 
   const duplicate = structuredClone(contract);
-  duplicate.brands[0].alternateNames.push('Aliveville');
+  duplicate.brands[0].alternateNames.push('CodeVetter');
   assert.throws(
     () => validateRootBrandContract(duplicate, loadDashboardProjects()),
     /duplicate brand name/,

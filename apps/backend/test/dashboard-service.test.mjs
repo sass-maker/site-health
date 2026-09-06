@@ -6,6 +6,7 @@ import test from 'node:test';
 
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
+import { claritySnapshotKey } from '../lib/dashboard-backend/clarity.mjs';
 
 const projection = {
   schemaVersion: 'dashboard.projection.v1',
@@ -33,6 +34,9 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
     visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
     prefillEvidence: () => ({ schemaVersion: 'site-health.prefill.v1', sources: [] }),
     projectsProvider: () => currentProjects,
+    clarityRegistryProvider: () => new Map([
+      ['retained', { projectId: 'retained', wired: true, hostname: 'example.com' }],
+    ]),
   });
   context.after(() => new Promise((resolve) => server.close(() => {
     store.close();
@@ -44,8 +48,17 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   const health = await (await fetch(`${base}/health`)).json();
   assert.equal(health.service, 'site-health-backend');
   assert.deepEqual(await (await fetch(`${base}/v1/projects`)).json(), []);
-  currentProjects = [{ id: 'retained', name: 'Retained', status: 'live', lifecycle: 'past' }];
+  currentProjects = [{ id: 'retained', name: 'Retained', status: 'live', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null } }];
   assert.equal((await (await fetch(`${base}/v1/projects`)).json())[0].id, 'retained');
+  store.setMetadata(claritySnapshotKey('retained'), {
+    projectId: 'retained',
+    observedAt: '2026-09-01T08:00:00.000Z',
+    metrics: { sessions: 7 },
+  });
+  const clarity = await (await fetch(`${base}/v1/projects/retained/clarity`)).json();
+  assert.equal(clarity.eligibility.eligible, true);
+  assert.equal(clarity.snapshot.metrics.sessions, 7);
+  assert.equal((await fetch(`${base}/v1/projects/unknown/clarity`)).status, 404);
   assert.equal((await fetch(`${base}/v1/outcomes/domains`)).status, 200);
   assert.equal((await fetch(`${base}/v1/outcomes/search`)).status, 200);
   assert.equal((await fetch(`${base}/v1/outcomes/ai-awareness`)).status, 200);

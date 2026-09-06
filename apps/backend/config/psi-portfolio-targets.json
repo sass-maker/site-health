@@ -1,0 +1,42 @@
+{
+  "schema": "fleet.psi-portfolio-targets.v1",
+  "note": "The six tracked surfaces for the SAR-2 baseline and the SAR-8 monthly re-run. Priorities mirror portfolio.priority in projects.json. Keep this list frozen so month-over-month psi comparison stays valid; add surfaces in a new revision rather than editing in place.",
+  "targets": [
+    {
+      "projectId": "codevetter",
+      "domain": "codevetter.com",
+      "name": "CodeVetter",
+      "priority": "P1"
+    },
+    {
+      "projectId": "posttrainllm",
+      "domain": "posttrainllm.com",
+      "name": "PostTrainLLM",
+      "priority": "P1"
+    },
+    {
+      "projectId": "on-record",
+      "domain": "podcasts.highsignal.app",
+      "name": "High Signal Podcasts",
+      "priority": "P2"
+    },
+    {
+      "projectId": "saas-maker",
+      "domain": "sassmaker.com",
+      "name": "SaaS Maker",
+      "priority": "P2"
+    },
+    {
+      "projectId": "significanthobbies",
+      "domain": "significanthobbies.com",
+      "name": "Significant Hobbies",
+      "priority": "P2"
+    },
+    {
+      "projectId": "what-it-takes-to-win",
+      "domain": "paths.significanthobbies.com",
+      "name": "What It Takes to Win",
+      "priority": "P4"
+    }
+  ]
+}

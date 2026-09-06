@@ -138,9 +138,85 @@ test('every maintained public Fleet identity has product-specific fixture covera
   assert.deepEqual(portfolio.eligible.map((project) => project.slug).sort(), expected);
   assert.equal(portfolio.eligible.length, 36);
   for (const project of portfolio.eligible) {
-    assert.equal(project.promptSets.length, 1);
-    assert.equal(project.promptSets[0].prompts.length, 2);
+    // Every identity keeps its own two-prompt buyer-discovery fixture set.
+    const buyerDiscovery = project.promptSets.filter((set) => set.id === 'buyer-discovery');
+    assert.equal(buyerDiscovery.length, 1);
+    assert.equal(buyerDiscovery[0].prompts.length, 2);
     assert.equal(project.providerPolicy.liveProvidersAllowed, false);
+  }
+});
+
+test('the frozen baseline AI-visibility panel stays intact and append-only', () => {
+  const config = JSON.parse(
+    readFileSync(new URL('../config/ai-visibility.json', import.meta.url), 'utf8'),
+  );
+  const panel = config.baselinePanel;
+  assert.equal(panel.id, 'baseline-panel-v1');
+  assert.equal(panel.promptCount, 46);
+
+  // The panel froze at 40 prompts across six surfaces (SAR-2). It may only grow,
+  // and every count above the original 40 must carry a recorded amendment saying
+  // what was appended and why — otherwise the baseline can drift unexplained.
+  if (panel.promptCount !== 40) {
+    assert.ok(
+      Array.isArray(panel.amendments) && panel.amendments.length > 0,
+      'a panel larger than the original 40 prompts must record an amendment',
+    );
+  }
+
+  const portfolio = loadAiVisibilityPortfolio();
+  const promptIds = [];
+  for (const slug of panel.surfaces) {
+    const project = portfolio.eligible.find((candidate) => candidate.slug === slug);
+    assert.ok(project, `panel surface ${slug} must stay an eligible identity`);
+    const frozen = project.promptSets.find((set) => set.id === panel.id);
+    assert.ok(frozen, `panel surface ${slug} must carry ${panel.id}`);
+    assert.equal(frozen.frozen, true);
+    for (const prompt of frozen.prompts) promptIds.push(prompt.id);
+  }
+  assert.equal(promptIds.length, panel.promptCount);
+  assert.equal(new Set(promptIds).size, panel.promptCount);
+});
+
+test('the frozen engine set stays declared, budgeted, and honestly attributed', () => {
+  const config = JSON.parse(
+    readFileSync(new URL('../config/ai-visibility.json', import.meta.url), 'utf8'),
+  );
+  const panel = config.baselinePanel;
+  const engines = panel.engines;
+  assert.ok(Array.isArray(engines) && engines.length > 0, 'the panel must declare its engine set');
+
+  const engineIds = engines.map((candidate) => candidate.id);
+  assert.equal(new Set(engineIds).size, engineIds.length, 'engine ids must be unique');
+  for (const candidate of engines) {
+    for (const field of ['id', 'label', 'surface', 'capture']) {
+      assert.ok(candidate[field], `engine ${candidate.id} must declare ${field}`);
+    }
+  }
+
+  // A capture is only ingestible if the surface's call budget covers every
+  // expanded prompt on every declared engine — prepareProviderObservationRuns
+  // throws otherwise. Adding an engine without raising the budget silently
+  // breaks the first ingest that uses it, which is how the five-engine freeze
+  // shipped a budget sized for one.
+  const portfolio = loadAiVisibilityPortfolio();
+  for (const slug of panel.surfaces) {
+    const project = portfolio.eligible.find((candidate) => candidate.slug === slug);
+    const expanded = expandVisibilityPrompts(project, panel.id).prompts.length;
+    assert.ok(
+      project.runBudget.maxCalls >= expanded * engines.length,
+      `${slug} budgets ${project.runBudget.maxCalls} calls but a full sweep needs ${expanded * engines.length}`,
+    );
+  }
+
+  // Every executed baseline must name the columns it actually covered. A rate
+  // captured on one column is not a panel-wide rate, and the record is what
+  // stops a later reader from averaging incomparable columns together.
+  for (const run of panel.baselineRuns ?? []) {
+    assert.ok(Array.isArray(run.engines) && run.engines.length > 0, `${run.runIdPrefix} must name its engines`);
+    for (const id of run.engines) {
+      assert.ok(engineIds.includes(id), `${run.runIdPrefix} cites undeclared engine ${id}`);
+    }
   }
 });
 

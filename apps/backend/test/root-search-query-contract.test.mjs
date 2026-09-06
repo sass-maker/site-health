@@ -18,10 +18,10 @@ const brands = validateRootBrandContract(
 );
 const contract = JSON.parse(readFileSync(new URL('../config/root-search-queries.json', import.meta.url)));
 
-test('covers the exact ten roots with one active query per required intent', () => {
+test('covers the exact six roots with one active query per required intent', () => {
   const roots = validateRootSearchQueryContract(contract, brands, projects);
 
-  assert.equal(roots.size, 10);
+  assert.equal(roots.size, 6);
   for (const root of roots.values()) {
     assert.deepEqual(root.activeQueries.map((query) => query.kind), ROOT_SEARCH_QUERY_KINDS);
     assert.equal(root.activeQueries.length, 4);
@@ -34,8 +34,8 @@ test('Search Console covers every contracted root without expanding the public m
   const publicProjects = visibilityProjects(catalog);
   const searchProjects = searchConsoleProjects(catalog, roots);
 
-  assert.equal(publicProjects.length, 36);
-  assert.equal(searchProjects.length, 37);
+  assert.equal(publicProjects.length, 17);
+  assert.equal(searchProjects.length, 17);
   assert.equal(publicProjects.some((project) => project.id === 'ai-game'), false);
   for (const root of roots.values()) {
     const target = searchProjects.find((project) => project.id === root.projectId);

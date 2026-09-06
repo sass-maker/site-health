@@ -1,0 +1,697 @@
+{
+  "generatedAt": "2026-09-05T00:00:00Z",
+  "exclusions": [],
+  "notes": [
+    "free-ai (ai-gateway.sassmaker.com) tripped the 'rate limit' text marker on ordinary load; this is the product's own marketing copy about its gateway's rate limits, not an actual block/challenge. Reclassified pass \u2014 no HTTP 429, no blank page, no error.",
+    "Console-error counts alone were not used to fail/degrade a product unless corroborated by another signal (slow load, failed interaction, failed second-surface nav) or the specific fleet-wide PostHog defect below."
+  ],
+  "products": [
+    {
+      "project": "codevetter",
+      "repo": "codevetter",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "pace",
+      "repo": "pace",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "posttrainllm",
+      "repo": "posttrainllm",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "live",
+      "repo": "live",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "saas-maker",
+      "repo": "saas-maker",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "gitstat",
+      "repo": "gitstat",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 1,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "drank",
+      "repo": "drank",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "email-manager",
+      "repo": "email-manager",
+      "status": "pass",
+      "authModel": "required-user",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "chatgpt-memory-insights",
+      "repo": "chatgpt-memory-insights",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Search",
+          "action": "Click into the detected search input",
+          "expected": "Search input is visible and focusable on the landing view",
+          "observed": "Selector matched an element in the DOM, but Playwright reported it 'not visible' after retries",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=3994",
+            "httpStatus=200"
+          ],
+          "nextAction": "Confirm whether search is intentionally hidden until a toggle/scroll action (benign) or is a broken/orphaned input"
+        },
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "free-ai",
+      "repo": "free-ai",
+      "status": "pass",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 1,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "psi-swarm",
+      "repo": "psi-swarm",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "high-signal",
+      "repo": "high-signal",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "on-record",
+      "repo": "on-record",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "issue-pages",
+      "repo": "issue-pages",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "everythingrated",
+      "repo": "everythingrated",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "research-papers",
+      "repo": "research-papers",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Landing (library)",
+          "action": "Load to network-idle",
+          "expected": "Load settles well under 10s",
+          "observed": "12.2s to reach network-idle (page renders and interaction succeeded)",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=12224",
+            "httpStatus=200"
+          ],
+          "nextAction": "Profile network-idle stragglers; console also shows an unrelated Clarity/undefined-property error worth a separate look"
+        }
+      ]
+    },
+    {
+      "project": "materia",
+      "repo": "materia",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "knowledge-base",
+      "repo": "knowledge-base",
+      "status": "pass",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "significanthobbies",
+      "repo": "significanthobbies",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "india-standards",
+      "repo": "india-standards",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Landing (calculator)",
+          "action": "Load to network-idle",
+          "expected": "Load settles well under 10s",
+          "observed": "13.6s to reach network-idle (page itself renders correctly; interaction succeeded)",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=13647",
+            "httpStatus=200"
+          ],
+          "nextAction": "Profile network-idle stragglers (page also logs 404s); check whether default query params trigger extra fetches"
+        }
+      ]
+    },
+    {
+      "project": "anime-list",
+      "repo": "anime-list",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "chess",
+      "repo": "chess",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "looptv",
+      "repo": "looptv",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "reader",
+      "repo": "reader",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "swe-interview-prep",
+      "repo": "swe-interview-prep",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "calorie",
+      "repo": "calorie",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "setline",
+      "repo": "setline",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "journal",
+      "repo": "journal",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "kith",
+      "repo": "kith",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "rolepatch",
+      "repo": "rolepatch",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "karte",
+      "repo": "karte",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "starboard",
+      "repo": "starboard",
+      "status": "pass",
+      "authModel": "public-personalized",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "ai-game",
+      "repo": "aliveville",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "veg-protein-food",
+      "repo": "recipe-dashboard",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Landing (recipe index)",
+          "action": "Load to network-idle",
+          "expected": "Load settles well under 10s",
+          "observed": "13.2s to reach network-idle (page renders and interaction succeeded)",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=13217",
+            "httpStatus=200"
+          ],
+          "nextAction": "Profile network-idle stragglers; also affected by the fleet-wide PostHog defect below"
+        },
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "app-health",
+      "repo": "app-health",
+      "status": "pass",
+      "authModel": "required-service",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "mashup",
+      "repo": "mashup",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "motion",
+      "repo": "motion",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "open-historia",
+      "repo": "open-historia",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "what-it-takes-to-win",
+      "repo": "what-it-takes-to-win",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "sarthakagrawal-personal",
+      "repo": "portfolio",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    },
+    {
+      "project": "agent-office",
+      "repo": "agent-office",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Landing / primary CTA",
+          "action": "Automated click on the page's primary non-nav control",
+          "expected": "Control is clickable within normal load time",
+          "observed": "Playwright reported the target element 'outside of the viewport' across 3 retries over ~1.6s and gave up",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=4745",
+            "httpStatus=200"
+          ],
+          "nextAction": "Manually load office-os.sassmaker.com and confirm the primary CTA is reachable without extra scrolling/interaction; retry the automated pass once to rule out a script timing artifact"
+        }
+      ]
+    },
+    {
+      "project": "local-ai-video-studio",
+      "repo": "local-ai-video-studio",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Landing / primary CTA",
+          "action": "Automated click on the page's primary non-nav control",
+          "expected": "Control is clickable within normal load time",
+          "observed": "Same 'outside of the viewport' click-timeout pattern as agent-office",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=5830",
+            "httpStatus=200"
+          ],
+          "nextAction": "Manually verify the primary CTA on local-ai-video-studio.sassmaker.com is reachable; likely a shared layout/scroll issue with agent-office given the identical signature"
+        },
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "field-track",
+      "repo": "field-track",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Analytics (PostHog snippet)",
+          "action": "Passive: page load only",
+          "expected": "PostHog client initializes without console errors",
+          "observed": "`t.posthog.init is not a function` plus a CORS block fetching us.i.posthog.com/array.js",
+          "reproduced": 1,
+          "evidence": [
+            "console pageerror: t.posthog.init is not a function",
+            "CORS block on array.js"
+          ],
+          "nextAction": "Shared analytics loader defect across 8 products \u2014 check the common PostHog snippet/version for a breaking change, not per-product"
+        }
+      ]
+    },
+    {
+      "project": "reddit-insights",
+      "repo": "reddit-insights",
+      "status": "degraded",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": [
+        {
+          "surface": "Search",
+          "action": "Click into the detected search input",
+          "expected": "Search input is visible and focusable on the landing view",
+          "observed": "Same 'not visible' search-input signature as chatgpt-memory-insights; page also logs a 404 resource load",
+          "reproduced": 1,
+          "evidence": [
+            "loadMs=4172",
+            "httpStatus=200"
+          ],
+          "nextAction": "Confirm search affordance and investigate the 404 resource referenced in console"
+        }
+      ]
+    },
+    {
+      "project": "anchor",
+      "repo": "anchor",
+      "status": "pass",
+      "authModel": "public-persistent",
+      "guestState": "guest",
+      "surfacesTested": 2,
+      "abuseProtectionPosture": "unknown",
+      "rateLimitEvidence": [],
+      "findings": []
+    }
+  ]
+}

@@ -178,6 +178,14 @@ export class DashboardStore {
       : null;
   }
 
+  listMetadata({ prefix = '' } = {}) {
+    const pattern = `${prefix.replace(/[\\%_]/g, (character) => `\\${character}`)}%`;
+    return this.database
+      .prepare("SELECT key, value_json, updated_at FROM local_metadata WHERE key LIKE ? ESCAPE '\\' ORDER BY key")
+      .all(pattern)
+      .map((row) => ({ key: row.key, value: JSON.parse(row.value_json), updatedAt: row.updated_at }));
+  }
+
   setMetadata(key, value, { now = new Date().toISOString() } = {}) {
     this.database
       .prepare(`

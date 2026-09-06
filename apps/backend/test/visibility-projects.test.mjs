@@ -10,7 +10,7 @@ import {
 function project(overrides = {}) {
   return {
     id: 'example',
-    lifecycle: 'maintained',
+    lifecycle: { status: 'active', shareable: true, resumeCondition: null },
     tier: 'active',
     domains: ['example.com'],
     public: { listing: 'maintained' },
@@ -31,9 +31,8 @@ test('visibility inventory includes maintained public and explicit metric sites'
   );
 });
 
-test('visibility inventory excludes non-products, past projects, and domainless records', () => {
-  assert.equal(isVisibilityProject(project({ tier: 'non-product' })), false);
-  assert.equal(isVisibilityProject(project({ lifecycle: 'past' })), false);
+test('visibility inventory excludes inactive projects and domainless records', () => {
+  assert.equal(isVisibilityProject(project({ lifecycle: { status: 'inactive', shareable: false, resumeCondition: null } })), false);
   assert.equal(isVisibilityProject(project({ domains: [] })), false);
   assert.equal(
     isVisibilityProject(
@@ -50,7 +49,7 @@ test('visibilityProjects preserves catalog order', () => {
   const catalog = {
     projects: [
       project({ id: 'first' }),
-      project({ id: 'excluded', lifecycle: 'past' }),
+      project({ id: 'excluded', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null } }),
       project({ id: 'second' }),
     ],
   };
@@ -64,8 +63,8 @@ test('Search Console targets add contracted roots without changing visibility el
   const catalog = {
     projects: [
       project({ id: 'first', domains: ['first.example'] }),
-      project({ id: 'past-root', lifecycle: 'past', domains: ['past.example'] }),
-      project({ id: 'personal-root', tier: 'non-product', lifecycle: 'non-product', domains: ['person.dev'] }),
+      project({ id: 'past-root', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null }, domains: ['past.example'] }),
+      project({ id: 'personal-root', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null }, domains: ['person.dev'] }),
     ],
   };
   const roots = new Map([

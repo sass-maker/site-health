@@ -1,0 +1,646 @@
+{
+  "codevetter": {
+    "url": "https://codevetter.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "pace": {
+    "url": "https://heypace.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "posttrainllm": {
+    "url": "https://posttrainllm.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "live": {
+    "url": "https://live.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "saas-maker": {
+    "url": "https://sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "drank": {
+    "url": "https://domains.sassmaker.com/",
+    "pass": 13,
+    "fail": 0,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "email-manager": {
+    "url": "https://mail.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "chatgpt-memory-insights": {
+    "url": "https://chatgpt.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "free-ai": {
+    "url": "https://ai-gateway.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "psi-swarm": {
+    "url": "https://performance.sassmaker.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "high-signal": {
+    "url": "https://highsignal.app/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "on-record": {
+    "url": "https://podcasts.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "research-papers": {
+    "url": "https://papers.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "knowledge-base": {
+    "url": "https://knowledgebase.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "significanthobbies": {
+    "url": "https://significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "india-standards": {
+    "url": "https://india-standards.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "anime-list": {
+    "url": "https://anime.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "looptv": {
+    "url": "https://tv.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "reader": {
+    "url": "https://read.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "swe-interview-prep": {
+    "url": "https://learn.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "calorie": {
+    "url": "https://calorie.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "setline": {
+    "url": "https://setline.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "journal": {
+    "url": "https://journal.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "kith": {
+    "url": "https://kith.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "rolepatch": {
+    "url": "https://rolepatch.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "karte": {
+    "url": "https://karte.cc/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "starboard": {
+    "url": "https://starboard.codevetter.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "app-health": {
+    "url": "https://health.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "motion": {
+    "url": "https://motion.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "what-it-takes-to-win": {
+    "url": "https://paths.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "sarthakagrawal-personal": {
+    "url": "https://sarthakagrawal.dev/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "agent-office": {
+    "url": "https://office-os.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "local-ai-video-studio": {
+    "url": "https://local-ai-video-studio.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "field-track": {
+    "url": "https://field-track.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "reddit-insights": {
+    "url": "https://reddit-insights.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "anchor": {
+    "url": "https://anchor.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z"
+  },
+  "gitstat": {
+    "url": "https://git.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "maintained",
+      "tier": "secondary",
+      "listing": "hidden"
+    }
+  },
+  "issue-pages": {
+    "url": "https://issues.sarthakagrawal.dev/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "maintained",
+      "tier": "active",
+      "listing": "hidden"
+    }
+  },
+  "everythingrated": {
+    "url": "https://ratings.highsignal.app/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "secondary",
+      "listing": "past"
+    }
+  },
+  "materia": {
+    "url": "https://materia.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "active",
+      "listing": "past"
+    }
+  },
+  "chess": {
+    "url": "https://chess.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "secondary",
+      "listing": "past"
+    }
+  },
+  "ai-game": {
+    "url": "https://aliveville.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "parked",
+      "listing": "past"
+    }
+  },
+  "protein-index": {
+    "url": "https://protein.significanthobbies.com/",
+    "pass": 8,
+    "fail": 4,
+    "warn": 3,
+    "reachable": true,
+    "failedChecks": [
+      "og:image",
+      "twitter:card",
+      "json-ld",
+      "h1"
+    ],
+    "warningChecks": [
+      "meta-description",
+      "h2",
+      "word-count"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "parked",
+      "listing": "past"
+    }
+  },
+  "veg-protein-food": {
+    "url": "https://veg-protein-food.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "maintained",
+      "tier": "active",
+      "listing": "hidden"
+    }
+  },
+  "mashup": {
+    "url": "https://mashup.highsignal.app/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "maintained",
+      "tier": "active",
+      "listing": "hidden"
+    }
+  },
+  "truehire": {
+    "url": "https://truehire.rolepatch.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "out-of-fleet",
+      "listing": "past"
+    }
+  },
+  "open-historia": {
+    "url": "https://historia.aliveville.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "parked",
+      "listing": "past"
+    }
+  },
+  "web-playables": {
+    "url": "https://idle.aliveville.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-05",
+    "auditedAt": "2026-09-05T07:21:52.307Z",
+    "excludedFromVisibility": {
+      "lifecycle": "past",
+      "tier": "out-of-fleet",
+      "listing": "past"
+    }
+  }
+}

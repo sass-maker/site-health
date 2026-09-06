@@ -75,11 +75,17 @@ function state(value?: string | null) {
   return element("span", { class: `state ${label}` }, [label.replaceAll("-", " ")]);
 }
 
+function lifecycleLabel(lifecycle: unknown): string {
+  if (lifecycle && typeof lifecycle === "object" && "status" in lifecycle) {
+    return (lifecycle as { status: string }).status;
+  }
+  return typeof lifecycle === "string" ? lifecycle : "unknown";
+}
+
+// A dash reads as "nothing here" for both an unmeasured surface and a measured zero. Naming the
+// absence keeps the two apart on every page that renders a signal.
 function value(signal?: JsonRecord | null, suffix = "") {
-  const numeric = Number(signal?.value);
-  return Number.isFinite(numeric)
-    ? `${numeric.toLocaleString("en", { maximumFractionDigits: 1 })}${suffix}`
-    : "—";
+  return signalValue(signal, suffix);
 }
 
 async function api(path: string, options?: RequestInit) {
@@ -144,6 +150,9 @@ const attentionStates = new Set([
   "needs-work",
   "stale",
   "zero-impressions",
+  "failing",
+  "unreachable",
+  "absent",
 ]);
 
 function signalValue(signal?: JsonRecord | null, suffix = "") {
@@ -169,6 +178,22 @@ function sourceStatus(payload: JsonRecord, status?: string | null) {
 
 function sourceValue(payload: JsonRecord, measured: string) {
   return payload?.unavailable ? "Provider unavailable" : measured;
+}
+
+function clarityValue(value: unknown, suffix = "") {
+  if (value === null || value === undefined || value === "") return "Not measured";
+  const numeric = Number(value);
+  return Number.isFinite(numeric)
+    ? `${numeric.toLocaleString("en", { maximumFractionDigits: 2 })}${suffix}`
+    : "Not measured";
+}
+
+function clarityProviderState(value: unknown) {
+  if (value === "provider-verified") return "Verified by reread";
+  if (value === "provider-audited") return "Fully accounted";
+  if (value === "partially-verified") return "Partially verified";
+  if (value === "not-applicable") return "Not applicable";
+  return "Unverified";
 }
 
 function projectOutcomes(projectId: string, payloads: JsonRecord) {
@@ -332,6 +357,95 @@ function searchResult(row: JsonRecord) {
   ]);
 }
 
+// "0 of 12" is a measured zero and reads differently from an unmeasured surface, so the count
+// renderer only falls back to the absence label when the count itself is missing.
+function countOf(count: unknown, total: unknown, absence = "Not measured") {
+  return Number.isFinite(Number(count)) && Number.isFinite(Number(total))
+    ? `${Number(count)} of ${Number(total)}`
+    : absence;
+}
+
+const GEO_CLASS_NOTES: Record<string, string> = {
+  A: "own domain in the top three organic results",
+  B: "partial page-one visibility",
+  C: "absent from page one",
+};
+
+function geoQueryLedger(row: JsonRecord) {
+  const observations = row.observations ?? [];
+  if (!observations.length) {
+    return element("p", { class: "outcome-panel__note" }, [
+      row.status === "not-configured"
+        ? "No GEO panel is configured for this product, so no query has ever been asked."
+        : "A GEO panel is configured but no observation has been recorded yet.",
+    ]);
+  }
+  return element("ul", { class: "geo-query-ledger" }, observations.map((item: JsonRecord) => {
+    const moved = item.previousClass && item.previousClass !== item.class;
+    return element("li", { class: `geo-query geo-query--${String(item.class).toLowerCase()}` }, [
+      element("span", { class: "geo-query__class", title: GEO_CLASS_NOTES[item.class] ?? "" }, [item.class]),
+      element("div", {}, [
+        element("strong", {}, [item.query ?? item.qid]),
+        element("small", {}, [
+          [item.kind, moved ? `${item.previousClass} → ${item.class}` : item.previousClass ? "unchanged" : "first observation"]
+            .filter(Boolean)
+            .join(" · "),
+        ]),
+      ]),
+    ]);
+  }));
+}
+
+function geoResult(row: JsonRecord) {
+  return element("div", { class: "geo-result" }, [
+    metricGrid([
+      { label: "Top three (A)", value: countOf(row.classes?.A, row.queries), detail: GEO_CLASS_NOTES.A },
+      {
+        label: "Page one (A+B)",
+        value: countOf(
+          Number.isFinite(Number(row.classes?.A)) ? Number(row.classes.A) + Number(row.classes.B) : null,
+          row.queries,
+        ),
+        detail: GEO_CLASS_NOTES.B,
+      },
+      { label: "Absent (C)", value: countOf(row.classes?.C, row.queries), detail: GEO_CLASS_NOTES.C },
+      {
+        label: "Top-three rate",
+        value: value(row.topThree, "%"),
+        detail: row.runCount > 1 ? `${row.runCount} runs of history` : "Baseline run only",
+      },
+    ]),
+    geoQueryLedger(row),
+  ]);
+}
+
+function seoCheckList(label: string, checks: string[]) {
+  if (!checks.length) return null;
+  return element("div", { class: "seo-check-list" }, [
+    element("span", {}, [label]),
+    element("code", {}, [checks.join(", ")]),
+  ]);
+}
+
+function seoAuditResult(row: JsonRecord) {
+  return element("div", { class: "seo-result" }, [
+    metricGrid([
+      { label: "Passed", value: value(row.pass), detail: countOf(row.pass?.value, row.checks, "No audit") },
+      { label: "Failed", value: value(row.fail), detail: row.failedChecks?.length ? "Blocking" : "None blocking" },
+      { label: "Warnings", value: value(row.warn), detail: row.warningChecks?.length ? "Non-blocking" : "None" },
+      {
+        label: "Reachable",
+        value: row.reachable === null || row.reachable === undefined
+          ? "Not audited"
+          : row.reachable ? "Yes" : "No",
+        detail: row.url ?? "No audited URL",
+      },
+    ]),
+    seoCheckList("Failed", row.failedChecks ?? []),
+    seoCheckList("Warned", row.warningChecks ?? []),
+  ]);
+}
+
 function outcomeRows(rows: JsonRecord[], renderMetrics: (row: JsonRecord) => Node) {
   return element("div", { class: "project-directory" }, rows.map((row) =>
     element("article", { class: "project-directory__row" }, [
@@ -399,7 +513,7 @@ async function renderProjects() {
       element("div", { class: "project-directory__identity" }, [
         element("div", { class: "project-directory__kicker" }, [
           element("span", {}, [project.priority ?? "Unranked"]),
-          state(project.status ?? project.lifecycle),
+          state(project.status ?? lifecycleLabel(project.lifecycle)),
         ]),
         element("h3", {}, [project.name]),
         element("p", {}, [project.description ?? project.domains?.[0] ?? "Private project"]),
@@ -549,25 +663,65 @@ async function renderDomains() {
   updateOutcomeTime(payload);
 }
 
+// Coverage is the number the whole task exists to make visible: how many surfaces carry a
+// measurement versus how many were never collected. It is stated per section rather than left
+// to be inferred from a list of rows.
+function updateCoverage(slot: string, payload: JsonRecord, missingStates: string[]) {
+  const count = document.querySelector<HTMLElement>(`[data-dashboard-count="${slot}"]`);
+  const note = document.querySelector<HTMLElement>(`[data-dashboard-coverage="${slot}"]`);
+  if (payload.unavailable) {
+    if (count) count.textContent = "—";
+    if (note) note.textContent = "Collector unavailable";
+    return;
+  }
+  const rows = payload.rows ?? [];
+  const missing = rows.filter((row: JsonRecord) => missingStates.includes(String(row.status)));
+  if (count) count.textContent = String(rows.length - missing.length);
+  if (note) {
+    note.textContent = missing.length
+      ? `${rows.length - missing.length} of ${rows.length} measured · ${missing.length} not collected`
+      : `${rows.length} of ${rows.length} measured`;
+  }
+}
+
 async function renderSearch() {
-  const payload = await api("/v1/outcomes/search");
+  const [payload, audit] = await Promise.all([
+    api("/v1/outcomes/search"),
+    optionalOutcome("/v1/outcomes/seo-audit"),
+  ]);
   const period = payload.rows.find((row: JsonRecord) => row.period)?.period;
   const periodTarget = document.querySelector<HTMLElement>("[data-search-period]");
   if (periodTarget) periodTarget.textContent = `Google data: ${reportingPeriod(period)}`;
   replace("search", payload.rows.length
     ? element("div", { class: "search-results" }, payload.rows.map(searchResult))
     : empty("No Google Search evidence"));
+  replace("seo-audit", audit.unavailable
+    ? empty("On-page SEO audit unavailable")
+    : audit.rows.length
+      ? outcomeRows(audit.rows, seoAuditResult)
+      : empty("No on-page SEO audit evidence"));
+  updateCoverage("seo-audit", audit, ["not-audited"]);
   updateOutcomeTime(payload);
 }
 
 async function renderAiAwareness() {
-  const payload = await api("/v1/outcomes/ai-awareness");
+  const [payload, geo] = await Promise.all([
+    api("/v1/outcomes/ai-awareness"),
+    optionalOutcome("/v1/outcomes/geo-awareness"),
+  ]);
   replace("ai-awareness", payload.rows.length ? outcomeRows(payload.rows, (row) => metricGrid([
     { label: "Mentioned", value: value(row.mention, "%") },
     { label: "Recommended", value: value(row.recommendation, "%") },
     { label: "Cited", value: value(row.citation, "%") },
     { label: "Average rank", value: value(row.averageRank) },
   ])) : empty("No provider-backed AI evidence"));
+  updateCoverage("ai-awareness", payload, ["not-measured"]);
+  replace("geo-awareness", geo.unavailable
+    ? empty("GEO Observatory unavailable")
+    : geo.rows.length
+      ? outcomeRows(geo.rows, geoResult)
+      : empty("No GEO Observatory evidence"));
+  updateCoverage("geo-awareness", geo, ["not-measured", "not-configured"]);
   updateOutcomeTime(payload);
 }
 
@@ -595,16 +749,84 @@ function updateOutcomeTime(payload?: JsonRecord) {
   target.textContent = `${source.state} · evidence ${formatted(source.observedAt)} · ${refresh}${blocker}`;
 }
 
+// Infrastructure spend is billed per account, not per product, and the collector records a cost
+// it could not read as `unknown` rather than zero. Both facts are stated on the panel so a
+// per-product page never implies a per-product number that was never measured.
+function spendPanel(
+  spend: JsonRecord,
+  outcomePanel: (
+    label: string,
+    statusValue: string,
+    observedAt: string | null | undefined,
+    metrics: Array<{ label: string; value: string; detail?: string }>,
+    note: string,
+  ) => Node,
+) {
+  const providers = spend.providers ?? [];
+  const known = providers.filter((provider: JsonRecord) => provider.spendState === "known");
+  const total = known.reduce(
+    (sum: number, provider: JsonRecord) =>
+      sum + (provider.costs ?? []).reduce(
+        (inner: number, cost: JsonRecord) => inner + (Number.isFinite(Number(cost.amountUsd)) ? Number(cost.amountUsd) : 0),
+        0,
+      ),
+    0,
+  );
+  const pressure = providers
+    .flatMap((provider: JsonRecord) => provider.quotas ?? [])
+    .filter((quota: JsonRecord) => Number.isFinite(Number(quota.percent)))
+    .sort((left: JsonRecord, right: JsonRecord) => Number(right.percent) - Number(left.percent))[0];
+  return outcomePanel(
+    "Infrastructure spend",
+    spend.unavailable ? "unavailable" : spend.state ?? "not-collected",
+    spend.observedAt,
+    [
+      {
+        label: "Observed cost",
+        value: known.length ? `$${total.toLocaleString("en", { maximumFractionDigits: 2 })}` : "Unknown",
+        detail: known.length
+          ? `${known.length} of ${providers.length} providers reported a cost`
+          : "No provider returned a billable amount; unknown is not zero",
+      },
+      {
+        label: "Providers",
+        value: providers.length
+          ? providers.map((provider: JsonRecord) => `${provider.provider} · ${provider.spendState}`).join(", ")
+          : "Not collected",
+      },
+      {
+        label: "Highest quota pressure",
+        value: pressure ? `${Number(pressure.percent).toFixed(1)}%` : "Not measured",
+        detail: pressure ? String(pressure.metric) : "No quota reading stored",
+      },
+      {
+        label: "Alert",
+        value: spend.alert?.severity ?? (spend.state === "not-collected" ? "Not collected" : "None"),
+        detail: (spend.alert?.reasons ?? [])
+          .map((reason: JsonRecord) => reason.detail)
+          .filter(Boolean)
+          .join(" · ") || undefined,
+      },
+    ],
+    "Cloudflare and Turso bill at account scope, so this figure covers the whole fleet rather than this product alone. A cost the collector could not read stays `unknown` and is never rendered as $0.",
+  );
+}
+
 async function renderProject() {
   const projectId = catalogProjectId(document.body.dataset.projectId);
-  const [projects, domains, search, awareness, performance, capabilities] = await Promise.all([
-    api("/v1/projects"),
-    optionalOutcome("/v1/outcomes/domains"),
-    optionalOutcome("/v1/outcomes/search"),
-    optionalOutcome("/v1/outcomes/ai-awareness"),
-    optionalOutcome("/v1/outcomes/performance"),
-    optionalCapabilities(),
-  ]);
+  const [projects, domains, search, awareness, performance, capabilities, clarity, seo, geo, spend] =
+    await Promise.all([
+      api("/v1/projects"),
+      optionalOutcome("/v1/outcomes/domains"),
+      optionalOutcome("/v1/outcomes/search"),
+      optionalOutcome("/v1/outcomes/ai-awareness"),
+      optionalOutcome("/v1/outcomes/performance"),
+      optionalCapabilities(),
+      optionalOutcome(`/v1/projects/${encodeURIComponent(projectId)}/clarity`),
+      optionalOutcome("/v1/outcomes/seo-audit"),
+      optionalOutcome("/v1/outcomes/geo-awareness"),
+      optionalOutcome("/v1/spend"),
+    ]);
   const project = projects.find((item: JsonRecord) => item.id === projectId);
   if (!project) {
     replace("project-detail", empty("Project not found"));
@@ -614,6 +836,18 @@ async function renderProject() {
   const searchRow = search.rows.find((row: JsonRecord) => row.projectId === projectId);
   const aiRow = awareness.rows.find((row: JsonRecord) => row.projectId === projectId);
   const performanceRow = performance.rows.find((row: JsonRecord) => row.projectId === projectId);
+  const seoRow = seo.rows.find((row: JsonRecord) => row.projectId === projectId);
+  const geoRow = geo.rows.find((row: JsonRecord) => row.projectId === projectId);
+  const claritySnapshot = clarity.snapshot;
+  const clarityMetrics = claritySnapshot?.metrics ?? {};
+  const clarityCapabilities = clarity.capabilities ?? {};
+  const clarityCapabilitySummary = clarityCapabilities.summary ?? {};
+  const clarityCapabilityStates = new Map(
+    (clarityCapabilities.capabilities ?? []).map((item: JsonRecord) => [item.id, item.providerState]),
+  );
+  const journeyProviderVerified = ["smart-events-custom", "funnels"].every(
+    (id) => clarityCapabilityStates.get(id) === "provider-verified",
+  );
   const profileLinks = element("div", { class: "project-profile__links" }, [
     project.websiteUrl ? element("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open website ↗"]) : null,
     project.repositoryUrl ? element("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source ↗"]) : null,
@@ -635,8 +869,8 @@ async function renderProject() {
       element("div", {}, [
         element("div", { class: "project-directory__kicker" }, [
           element("span", {}, [project.priority ?? "Unranked"]),
-          state(project.status ?? project.lifecycle),
-          state(project.lifecycle ?? "unknown"),
+          state(project.status ?? lifecycleLabel(project.lifecycle)),
+          state(lifecycleLabel(project.lifecycle)),
         ]),
         element("p", {}, [project.description ?? "Private Fleet product with no public description."]),
       ]),
@@ -650,7 +884,7 @@ async function renderProject() {
     ]),
     element("section", { class: "profile-section", "aria-labelledby": "site-evidence-title" }, [
       element("div", { class: "section-head" }, [element("div", {}, [
-        element("p", { class: "eyebrow" }, ["Four independent sources"]),
+        element("p", { class: "eyebrow" }, ["Five independent sources"]),
         element("h2", { id: "site-evidence-title" }, ["Site evidence"]),
         element("p", {}, ["Each source keeps its own status and timestamp; missing evidence does not erase the rest."]),
       ])]),
@@ -670,13 +904,62 @@ async function renderProject() {
           { label: "CTR", value: sourceValue(search, signalValue(searchRow?.ctr, "%")) },
           { label: "Position", value: sourceValue(search, signalValue(searchRow?.averagePosition)) },
         ], "Search evidence is collected at portfolio scope from Google Search Console."),
-        outcomePanel("AI Awareness / GEO", sourceStatus(awareness, aiRow?.status), signalTime(aiRow?.mention, aiRow?.recommendation), [
+        outcomePanel("On-page SEO", sourceStatus(seo, seoRow?.status), seoRow?.observedAt, [
+          { label: "Passed", value: sourceValue(seo, signalValue(seoRow?.pass)) },
+          { label: "Failed", value: sourceValue(seo, signalValue(seoRow?.fail)) },
+          { label: "Warnings", value: sourceValue(seo, signalValue(seoRow?.warn)) },
+          {
+            label: "Blocking checks",
+            value: seoRow?.failedChecks?.length ? seoRow.failedChecks.join(", ") : seoRow ? "None" : "Not audited",
+          },
+        ], "The seo-audit skill probes the live public surface. A surface with zero failures is audited and clean; a surface with no audit reports no counts at all."),
+        outcomePanel("GEO / organic ranking", sourceStatus(geo, geoRow?.status), geoRow?.observedAt, [
+          { label: "Top three (A)", value: sourceValue(geo, countOf(geoRow?.classes?.A, geoRow?.queries)) },
+          { label: "Page one (A+B)", value: sourceValue(geo, countOf(
+            Number.isFinite(Number(geoRow?.classes?.A)) ? Number(geoRow.classes.A) + Number(geoRow.classes.B) : null,
+            geoRow?.queries,
+          )) },
+          { label: "Absent (C)", value: sourceValue(geo, countOf(geoRow?.classes?.C, geoRow?.queries)) },
+          {
+            label: "Top-three rate",
+            value: sourceValue(geo, signalValue(geoRow?.topThree, "%")),
+            detail: geoRow?.runCount > 1 ? `${geoRow.runCount} runs of history` : "Baseline run only",
+          },
+        ], "GEO Observatory classes each configured query against the live SERP: A = own domain in the top three, B = partial page-one visibility, C = absent."),
+        outcomePanel("AI Awareness", sourceStatus(awareness, aiRow?.status), signalTime(aiRow?.mention, aiRow?.recommendation), [
           { label: "Mentioned", value: sourceValue(awareness, signalValue(aiRow?.mention, "%")) },
           { label: "Recommended", value: sourceValue(awareness, signalValue(aiRow?.recommendation, "%")) },
           { label: "Cited", value: sourceValue(awareness, signalValue(aiRow?.citation, "%")) },
           { label: "Average rank", value: sourceValue(awareness, signalValue(aiRow?.averageRank)) },
           { label: "Audit trail", value: "Pending", detail: "Elmo run model" },
         ], "Provider-backed observations remain bounded and source-specific. Elmo's per-prompt, per-engine, citation, and query fan-out mechanics will deepen this audit path."),
+        outcomePanel("Clarity / behavior", clarity.unavailable ? "unavailable" : clarity.state, claritySnapshot?.observedAt, [
+          { label: "Sessions", value: clarityValue(clarityMetrics.sessions) },
+          { label: "Unique browser/device identities", value: clarityValue(clarityMetrics.uniqueBrowsers) },
+          { label: "Bot sessions", value: clarityValue(clarityMetrics.botSessions) },
+          { label: "Pages / session", value: clarityValue(clarityMetrics.pagesPerSession) },
+          { label: "Full baseline", value: clarityValue(clarityCapabilitySummary.desired, " desired") },
+          { label: "Conditional", value: clarityValue(clarityCapabilitySummary.conditional) },
+          {
+            label: "Provider audit",
+            value: clarityProviderState(clarityCapabilities.providerState),
+          },
+          {
+            label: "Reread evidence",
+            value: `${clarityValue(clarityCapabilitySummary.providerVerified)} verified · ${clarityValue(clarityCapabilitySummary.providerAccounted)} accounted`,
+          },
+          {
+            label: "Smart event + funnel",
+            value: journeyProviderVerified
+              ? "Verified by reread"
+              : clarityCapabilities.journeyState === "ready"
+              ? "Ready to configure"
+              : clarityCapabilities.journeyState === "discovery-required"
+                ? "Needs rendered audit"
+                : "Not applicable",
+          },
+        ], `${clarity.eligibility?.reason ?? "Microsoft Clarity supplies a bounded 24-hour traffic snapshot."} Unique browser/device identities are not registered-account users.`),
+        spendPanel(spend, outcomePanel),
       ]),
     ]),
     element("section", { class: "profile-section", "aria-labelledby": "capabilities-title" }, [

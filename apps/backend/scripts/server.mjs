@@ -5,7 +5,10 @@ import { resolve } from 'node:path';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
-import { recordRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import {
+  recordRefreshReceipt,
+  reconcileAbandonedRefreshReceipts,
+} from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 import { reconcileCampaignEvidence } from '../lib/dashboard-backend/campaign-reconciliation.mjs';
@@ -85,6 +88,12 @@ if (command === 'status') {
     projectsProvider,
     onRunChange: (run) => recordRefreshReceipt(store, run),
   });
+  // A receipt left `running` by an earlier boot belongs to a process that is
+  // gone; retire it before the dashboard reads it as a refresh in flight.
+  const abandoned = reconcileAbandonedRefreshReceipts(store);
+  if (abandoned.length > 0) {
+    console.log(`Retired ${abandoned.length} abandoned refresh receipt(s): ${abandoned.map((item) => item.key).join(', ')}`);
+  }
   let campaignRefresh = null;
   const prefillEvidence = ({ force = true } = {}) => {
     store.projects = projectsProvider();
@@ -122,9 +131,22 @@ if (command === 'status') {
   const startupPrefill = prefillEvidence({ force: true });
   const startupRefresh = startupPrefill.sources;
   console.log(`Evidence startup: ${startupRefresh.map((item) => `${item.family}=${item.action}`).join(', ')}`);
-  const shutdown = () => server.close(() => store.close());
+  // Idempotent, and never allowed to throw: it also runs on `exit`, by which
+  // point the store may already be closed.
+  const abandonInFlightRuns = () => {
+    try {
+      metricRunController.abandonActiveRuns();
+    } catch (error) {
+      console.error(`Could not retire in-flight refreshes: ${error.message}`);
+    }
+  };
+  const shutdown = () => {
+    abandonInFlightRuns();
+    server.close(() => store.close());
+  };
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);
+  process.on('exit', abandonInFlightRuns);
 } else {
   store.close();
   usage();

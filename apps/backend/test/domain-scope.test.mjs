@@ -13,29 +13,14 @@ const catalog = JSON.parse(
 );
 const projects = catalog.projects;
 
-// Portfolio scope is a board decision, not an implementation detail. These
-// numbers are the current recorded scope; changing them requires changing the
-// decision first (SAR-23). They exist so a field-path change cannot silently
-// move measurement coverage again.
+// Portfolio scope follows the PRD lifecycle allocation (6 Sep 2026):
+// 2 primary + 18 active = 20 current projects. Inactive projects are
+// excluded from portfolio metric scope. These numbers are the current
+// recorded scope; changing them requires changing the decision first.
 const PORTFOLIO_SCOPE = {
-  currentProjects: 32,
-  publicMetricTargets: 26,
-  domainStrengthRoots: 8,
-  // P4 surfaces are excluded from portfolio scope per the SAR-23 board
-  // decision (exclude-p4). These are the 10 that were measured before the
-  // fix and now drop from every portfolio metric family.
-  excludedP4ProjectIds: [
-    'anime-list',
-    'drank',
-    'email-manager',
-    'free-ai',
-    'india-standards',
-    'looptv',
-    'psi-swarm',
-    'reddit-insights',
-    'sarthakagrawal-personal',
-    'what-it-takes-to-win',
-  ],
+  currentProjects: 20,
+  publicMetricTargets: 17,
+  domainStrengthRoots: 6,
 };
 
 test('portfolio priority and status live only under project.portfolio', () => {
@@ -51,11 +36,27 @@ test('portfolio priority and status live only under project.portfolio', () => {
 });
 
 test('the other portfolio scope clauses read fields the catalog actually stores', () => {
-  for (const field of ['status', 'lifecycle', 'attention', 'tier']) {
+  for (const field of ['status', 'attention', 'tier']) {
     assert.equal(
       projects.filter((project) => project[field] !== undefined).length,
       projects.length,
       `every project must define ${field}`,
+    );
+  }
+  // lifecycle is now a three-field object per the PRD lifecycle model
+  for (const project of projects) {
+    assert.ok(
+      project.lifecycle && typeof project.lifecycle === 'object',
+      `${project.id}: lifecycle must be an object with status, shareable, resumeCondition`,
+    );
+    assert.ok(
+      ['primary', 'active', 'inactive'].includes(project.lifecycle.status),
+      `${project.id}: lifecycle.status must be primary, active, or inactive`,
+    );
+    assert.equal(
+      typeof project.lifecycle.shareable,
+      'boolean',
+      `${project.id}: lifecycle.shareable must be a boolean`,
     );
   }
 });
@@ -74,34 +75,13 @@ test('portfolio scope covers the recorded surface count against the real catalog
   );
 });
 
-test('P4 surfaces are excluded from portfolio scope per the board decision', () => {
-  const currentProjects = projects.filter(isCurrentPortfolioProject);
-  const priorityById = new Map(
-    projects.map((project) => [project.id, project.portfolio?.priority]),
+test('inactive projects never reach portfolio scope', () => {
+  const inactive = projects.filter(
+    (project) =>
+      project.lifecycle?.status === 'inactive' ||
+      (typeof project.lifecycle === 'string' && project.lifecycle === 'past'),
   );
-  const measuredP4 = publicMetricTargets(currentProjects)
-    .map((target) => target.projectId)
-    .filter((projectId) => priorityById.get(projectId) === 'P4')
-    .sort();
 
-  // No P4 surface reaches portfolio measurement after the SAR-23 fix.
-  assert.deepEqual(measuredP4, []);
-
-  // The 10 surfaces the board decision removed are all P4 and all excluded.
-  const excludedIds = [...PORTFOLIO_SCOPE.excludedP4ProjectIds].sort();
-  const allP4 = excludedIds.every(
-    (id) => priorityById.get(id) === 'P4',
-  );
-  assert.ok(allP4, 'every excluded id must be P4');
-  const noneInScope = excludedIds.every(
-    (id) => !currentProjects.some((project) => project.id === id),
-  );
-  assert.ok(noneInScope, 'no excluded id may be in portfolio scope');
-});
-
-test('archived projects never reach portfolio scope regardless of the priority clause', () => {
-  const archived = projects.filter((project) => project.portfolio?.status === 'archived');
-
-  assert.ok(archived.length > 0);
-  assert.deepEqual(archived.filter(isCurrentPortfolioProject), []);
+  assert.ok(inactive.length === 36);
+  assert.deepEqual(inactive.filter(isCurrentPortfolioProject), []);
 });

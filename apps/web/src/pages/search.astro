@@ -18,4 +18,15 @@ import DashboardLayout from "../components/DashboardLayout.astro";
   <section class="owner-section owner-section--directory" aria-label="Google Search results by project">
     <div class="loading-state" data-dashboard-slot="search">Building Google Search ledger…</div>
   </section>
+  <section class="owner-section owner-section--directory" aria-labelledby="seo-audit-title">
+    <div class="section-head">
+      <div>
+        <h2 id="seo-audit-title">On-page SEO audit</h2>
+        <p>What Google can read on the page itself, independent of whether anyone has searched for it yet. A surface with zero failures was audited and passed; a surface with no audit reports no counts at all.</p>
+        <p class="measurement-boundary-note" data-dashboard-coverage="seo-audit">Reading audit coverage</p>
+      </div>
+      <span class="count" data-dashboard-count="seo-audit">—</span>
+    </div>
+    <div class="loading-state" data-dashboard-slot="seo-audit">Building on-page SEO ledger…</div>
+  </section>
 </DashboardLayout>
