@@ -7,7 +7,8 @@ Snapshot window is the three days ending `2026-09-04T23:43–23:44Z`, collected 
 `provenance: "provider"` and `state: "verified"` — real Clarity Data Export
 responses, not fixtures.
 
-Reproduce the state table with `pnpm clarity status-all`; refresh the numbers
+Reproduce the state table with `pnpm clarity:table` (schema and classes:
+[`clarity-fleet-health.md`](clarity-fleet-health.md)); refresh the numbers
 with `pnpm clarity:refresh`.
 
 ## Headline
