@@ -97,13 +97,16 @@ test('starts portfolio D-Rank, PSI, and Search runs', () => {
 
 test('portfolio and project refreshes exclude inactive identities', () => {
   const invocations = [];
+  // Portfolio priority and status live under project.portfolio in the catalog
+  // (SAR-23); the flat project.priority / project.portfolioStatus fields this
+  // fixture used to set do not exist on any of the 56 recorded identities, so
+  // it was asserting exclusion through a field path nothing reads.
   const inactive = {
     ...project(),
     id: 'archived-product',
     name: 'Archived product',
     domains: ['archived.example'],
-    priority: 'P4',
-    portfolioStatus: 'archived',
+    portfolio: { priority: 'P4', status: 'archived' },
   };
   const controller = createMetricRunController({
     projects: [project(), inactive],
