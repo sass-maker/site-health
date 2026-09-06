@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1c23798e92d2d44cc7b9aaf7f65ef7a4ecd9fd6613f042814754022273d9d0d8
+      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -86,14 +86,14 @@ identity:
   authenticationModel: public-persistent
   inRegistry: false
 product:
-  description: A source-backed index of what notable people said on podcasts, including books and tools they use.
+  description: Source-backed podcast intelligence with attributable claims and recommendations linked to the original episode.
   publicMakerNote: I’m building High Signal Podcasts to extract useful insights, recommendations, and emerging technology signals from top podcasts without listening to every episode.
   purposeContract:
     purpose: High Signal Podcasts indexes evidenced claims, recommendations, books, and tools mentioned by notable podcast guests.
     audience: People who want useful ideas from important podcasts without listening to every episode end to end.
     outcome: Find what a person actually said or recommended and trace it back to the source episode.
     mechanism: A source-backed corpus extracts attributable claims and organizes them into people, topics, books, tools, and emerging signals.
-    proof: The reviewed public beta is live with 166 published claims, 183 distinct evidence-linked recommendations, and 139 source episodes.
+    proof: The public corpus is live with 11,624 published claims, 294 named references, and 1,190 episodes with evidence.
     nextAction: Browse a recommendation or claim and follow its quote, speaker, episode, and source receipt.
   form: Podcast intelligence web app
   platforms:
@@ -382,7 +382,27 @@ sharing:
   reason: Trusted public corpus is live with 11,624 published claims, 294 quote-safe recommendation evidences in 281 groups, and 1,190 source episodes; exact-SHA CI, 100% API/web deployment traffic, and public route checks passed.
   changelogUrl: https://podcasts.highsignal.app/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/on-record/issues
-  geoIdentity: null
+  geoIdentity:
+    id: on-record
+    name: High Signal Podcasts
+    aliases:
+      - On the Record
+    description: Source-backed podcast intelligence with attributable claims and recommendations linked to the original episode.
+    origin: https://podcasts.highsignal.app
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/on-record
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/on-record#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/on-record
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: published
+      url: https://podcasts.highsignal.app/pricing
 notes:
   catalog: High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.
   infrastructure: null
