@@ -68,6 +68,7 @@
       "family": "codevetter",
       "tier": "focus",
       "repo": "codevetter",
+      "publicDir": "codevetter/apps/landing-page-astro/src/pages",
       "deployKind": "worker+pages",
       "cfProject": "codevetter, codevetter-landing-proxy",
       "deployTargets": [
@@ -357,6 +358,9 @@
       "status": "live",
       "notes": "Standalone public product directory plus Feedback API and private inbox. Live Cloudflare reconciliation on 2026-08-23 confirmed the saas-maker-home Pages project, both Workers, both R2 buckets, and sassmaker.com; there is no separate SaaS Maker docs Pages project.",
       "name": "SaaS Maker",
+      "aliases": [
+        "Foundry"
+      ],
       "attention": "my-work",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
@@ -554,14 +558,17 @@
       "inRegistry": true,
       "status": "live",
       "notes": "Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified.",
-      "name": "Email Manager",
+      "name": "Kinetic",
+      "aliases": [
+        "Email Manager"
+      ],
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
         "id": "email-manager",
-        "name": "Email Manager",
+        "name": "Kinetic",
         "description": "A private Gmail workspace for local semantic search, sender insights, and explicit unsubscribe workflows.",
         "category": "personal",
         "pillarId": "learn",
@@ -2218,16 +2225,19 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "The canonical product and repository are What It Takes to Win; the Cloudflare Pages project retains its historical internal name success-by-26.",
-      "name": "What It Takes to Win",
+      "notes": "The canonical product name is Look Sideways (renamed in-repo and deployed; see SAR-9 decision record). The GitHub repository slug remains what-it-takes-to-win and the Cloudflare Pages project retains its historical internal name success-by-26 — neither is a product name.",
+      "name": "Look Sideways",
+      "aliases": [
+        "What It Takes to Win"
+      ],
       "attention": "toolbox",
       "lifecycle": "maintained",
       "repositoryVisibility": "public",
       "public": {
         "listing": "maintained",
         "id": "what-it-takes-to-win",
-        "name": "What It Takes to Win",
-        "description": "Explore 2,585 documented early-breakthrough paths without pretending success follows a formula.",
+        "name": "Look Sideways",
+        "description": "Explore 3,578 documented early-breakthrough paths without pretending success follows a formula.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
@@ -2634,7 +2644,6 @@
         "form": "Web app",
         "platforms": ["Web"],
         "technologies": ["Next.js", "TypeScript", "Cloudflare Workers", "D1"],
-        "description": "The original Significant Hobbies experience, now independently owned while preserving its data and authentication boundary.",
         "firstCommitAt": "2026-08-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -2740,7 +2749,7 @@
       "email-manager": {
         "makerNote": "Gmail did not help me see who was filling my inbox, so I built a clearer way to understand volume and unsubscribe.",
         "purposeContract": {
-          "purpose": "Email Manager helps a person understand who fills their Gmail inbox and deliberately reduce unwanted volume.",
+          "purpose": "Kinetic helps a person understand who fills their Gmail inbox and deliberately reduce unwanted volume.",
           "audience": "A Gmail user who wants private search, sender-level insight, and explicit unsubscribe control.",
           "outcome": "Find old mail, identify repeat senders, and unsubscribe with a clear understanding of what will change.",
           "mechanism": "A private Gmail workspace combines local semantic search, sender aggregation, and user-confirmed unsubscribe workflows.",
@@ -2824,13 +2833,12 @@
           "audience": "People who want useful ideas from important podcasts without listening to every episode end to end.",
           "outcome": "Find what a person actually said or recommended and trace it back to the source episode.",
           "mechanism": "A source-backed corpus extracts attributable claims and organizes them into people, topics, books, tools, and emerging signals.",
-          "proof": "The reviewed public beta is live with 166 published claims, 183 distinct evidence-linked recommendations, and 139 source episodes.",
+          "proof": "The public corpus is live with 11,624 published claims, 294 named references, and 1,190 episodes with evidence.",
           "nextAction": "Browse a recommendation or claim and follow its quote, speaker, episode, and source receipt."
         },
         "form": "Podcast intelligence web app",
         "platforms": ["Web", "API"],
         "technologies": ["Astro", "Hono", "Cloudflare Workers", "D1"],
-        "description": "A source-backed index of what notable people said on podcasts, including books and tools they use.",
         "firstCommitAt": "2026-08-24",
         "latestCommitAt": "2026-08-27"
       },
@@ -2928,7 +2936,6 @@
         "form": "Personal-app Hub",
         "platforms": ["Web", "API", "Swift package"],
         "technologies": ["TypeScript", "Cloudflare Workers", "D1", "Swift"],
-        "description": "The shared Hub and backend for six maintained Significant Hobbies applications, plus retained compatibility data domains.",
         "firstCommitAt": "2026-08-21",
         "latestCommitAt": "2026-08-23"
       },
@@ -3073,7 +3080,6 @@
         "form": "iOS app",
         "platforms": ["iOS", "Web"],
         "technologies": ["SwiftUI", "Swift", "XcodeGen", "Astro"],
-        "description": "A private daily journal and personal archive with an independently owned native codebase.",
         "firstCommitAt": "2026-08-11",
         "latestCommitAt": "2026-08-23"
       },
@@ -3330,7 +3336,7 @@
       "what-it-takes-to-win": {
         "makerNote": "I wanted to study the real advantages behind success and replace unhelpful comparison with evidence-based understanding.",
         "purposeContract": {
-          "purpose": "What It Takes to Win shows why visible success cannot be reduced to a simple formula or a fair comparison with your own path.",
+          "purpose": "Look Sideways shows why visible success cannot be reduced to a simple formula or a fair comparison with your own path.",
           "audience": "Readers who turn another person’s visible outcome into a judgment about their own pace, ability, or worth.",
           "outcome": "Replace flattened comparison with a more humane, evidence-bounded understanding of conditions, sequence, perseverance, and luck.",
           "mechanism": "A guided research exhibit connects source-linked life events and early-breakthrough paths through what people brought, were handed, and were surrounded by.",
@@ -3404,7 +3410,6 @@
         "form": "Android app and dashboard",
         "platforms": ["Android", "Web", "API"],
         "technologies": ["React Native", "MapLibre", "Cloudflare Workers", "D1"],
-        "description": "A private field-location system for managed Android devices and team-scoped route review.",
         "firstCommitAt": "2026-08-12",
         "latestCommitAt": "2026-08-20"
       },
@@ -5340,6 +5345,7 @@
       "aliases": [
         "Agent Office"
       ],
+      "description": "A local-first Mac workplace where named AI employees have bounded responsibilities and their work stays inspectable.",
       "origin": "https://office-os.sassmaker.com",
       "source": {
         "state": "internal",
@@ -5364,6 +5370,7 @@
       "id": "codevetter",
       "name": "CodeVetter",
       "aliases": [],
+      "description": "Execution-backed verification for AI-written software changes — local-first and inspectable.",
       "origin": "https://codevetter.com",
       "source": {
         "state": "public",
@@ -5390,6 +5397,7 @@
       "aliases": [
         "Pace"
       ],
+      "description": "Local-only macOS voice agent that can understand what is on your screen.",
       "origin": "https://heypace.app",
       "source": {
         "state": "public",
@@ -5408,13 +5416,14 @@
       },
       "pricing": {
         "state": "published",
-        "url": "https://heypace.app"
+        "url": "https://heypace.app/pricing"
       }
     },
     {
       "id": "posttrainllm",
       "name": "PostTrainLLM",
       "aliases": [],
+      "description": "A local factory for training, evaluating, and running specialist language models.",
       "origin": "https://posttrainllm.com",
       "source": {
         "state": "public",
@@ -5438,7 +5447,10 @@
     {
       "id": "saas-maker",
       "name": "SaaS Maker",
-      "aliases": [],
+      "aliases": [
+        "Foundry"
+      ],
+      "description": "Software as a specialized service: a living studio of focused products built for particular problems and maintained in public.",
       "origin": "https://sassmaker.com",
       "source": {
         "state": "public",
@@ -5466,6 +5478,7 @@
       "aliases": [
         "Drank"
       ],
+      "description": "Domain Rating intelligence for product, SEO, and market research.",
       "origin": "https://domains.sassmaker.com",
       "source": {
         "state": "public",
@@ -5489,8 +5502,11 @@
     },
     {
       "id": "email-manager",
-      "name": "Email Manager",
-      "aliases": [],
+      "name": "Kinetic",
+      "aliases": [
+        "Email Manager"
+      ],
+      "description": "A private Gmail workspace for local semantic search, sender insights, and explicit unsubscribe workflows.",
       "origin": "https://mail.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5517,6 +5533,7 @@
       "aliases": [
         "ChatGPT Memory Insights"
       ],
+      "description": "Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.",
       "origin": "https://chatgpt.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5543,6 +5560,7 @@
       "aliases": [
         "AI Gateway"
       ],
+      "description": "OpenAI-compatible gateway across free-tier model providers.",
       "origin": "https://ai-gateway.sassmaker.com",
       "source": {
         "state": "public",
@@ -5569,6 +5587,7 @@
       "aliases": [
         "psi-swarm"
       ],
+      "description": "Repeated Lighthouse distributions for honest website performance tracking.",
       "origin": "https://performance.sassmaker.com",
       "source": {
         "state": "public",
@@ -5594,6 +5613,7 @@
       "id": "high-signal",
       "name": "High Signal",
       "aliases": [],
+      "description": "Evidence-backed daily intelligence across technology, startups, finance, and public markets.",
       "origin": "https://highsignal.app",
       "source": {
         "state": "public",
@@ -5601,7 +5621,7 @@
       },
       "docs": {
         "state": "public",
-        "url": "https://highsignal.app/api-docs"
+        "url": "https://highsignal.app/docs/"
       },
       "officialProfiles": [
         "https://github.com/High-Signal-App/high-signal"
@@ -5612,6 +5632,34 @@
       },
       "pricing": {
         "state": "not-declared"
+      }
+    },
+    {
+      "id": "on-record",
+      "name": "High Signal Podcasts",
+      "aliases": [
+        "On the Record"
+      ],
+      "description": "Source-backed podcast intelligence with attributable claims and recommendations linked to the original episode.",
+      "origin": "https://podcasts.highsignal.app",
+      "source": {
+        "state": "public",
+        "url": "https://github.com/Significant-Hobbies/on-record"
+      },
+      "docs": {
+        "state": "repository-readme",
+        "url": "https://github.com/Significant-Hobbies/on-record#readme"
+      },
+      "officialProfiles": [
+        "https://github.com/Significant-Hobbies/on-record"
+      ],
+      "availability": {
+        "primary": "web",
+        "appStore": "not-applicable"
+      },
+      "pricing": {
+        "state": "published",
+        "url": "https://podcasts.highsignal.app/pricing"
       }
     },
     {
@@ -5646,6 +5694,7 @@
       "aliases": [
         "researchPapers"
       ],
+      "description": "Academic paper discovery and a structured research data asset.",
       "origin": "https://papers.highsignal.app",
       "source": {
         "state": "public",
@@ -5672,6 +5721,7 @@
       "aliases": [
         "Knowledgebase"
       ],
+      "description": "Private agent search over specialized corpora with ranked citations, provenance, and schema-aware retrieval.",
       "origin": "https://knowledgebase.sassmaker.com",
       "source": {
         "state": "public",
@@ -5696,6 +5746,7 @@
       "id": "local-ai-video-studio",
       "name": "Local AI Video Studio",
       "aliases": [],
+      "description": "A local-first Mac studio for comparing reproducible video-effect variants before export.",
       "origin": "https://local-ai-video-studio.sassmaker.com",
       "source": {
         "state": "internal",
@@ -5720,6 +5771,7 @@
       "id": "significanthobbies",
       "name": "Significant Hobbies",
       "aliases": [],
+      "description": "The shared Hub for Live, Journal, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
       "origin": "https://significanthobbies.com",
       "source": {
         "state": "public",
@@ -5744,6 +5796,7 @@
       "id": "india-standards",
       "name": "India Standards",
       "aliases": [],
+      "description": "A transparent India demographic standards calculator using aggregate PLFS data, explicit uncertainty ranges, and clear source limits.",
       "origin": "https://india-standards.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5772,6 +5825,7 @@
         "MAL Explorer",
         "Shelf"
       ],
+      "description": "Anime and manga discovery with multi-axis filtering and personal watchlists.",
       "origin": "https://anime.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5796,6 +5850,7 @@
       "id": "looptv",
       "name": "LoopTV",
       "aliases": [],
+      "description": "A lean-back, TV-style random video player for curated channels.",
       "origin": "https://tv.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5820,6 +5875,7 @@
       "id": "reader",
       "name": "Reader",
       "aliases": [],
+      "description": "Capture, annotate, revisit, and discuss saved reading.",
       "origin": "https://read.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5844,6 +5900,7 @@
       "id": "swe-interview-prep",
       "name": "SWE Interview Prep",
       "aliases": [],
+      "description": "A learning OS for software-engineering interview practice.",
       "origin": "https://learn.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5868,6 +5925,7 @@
       "id": "calorie",
       "name": "Calorie",
       "aliases": [],
+      "description": "A private, local-first food, water, and weight journal with transparent timing guidance.",
       "origin": "https://calorie.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5892,6 +5950,7 @@
       "id": "kith",
       "name": "Kith",
       "aliases": [],
+      "description": "A private iPhone app for the people you actually want to stay close to — closeness-weighted constellation home, standing notes, and a chronological log per person.",
       "origin": "https://kith.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5916,6 +5975,7 @@
       "id": "setline",
       "name": "Setline",
       "aliases": [],
+      "description": "An iOS-native training tracker that runs a written strength, cardio and mobility programme one set at a time and measures each exercise against an authored target.",
       "origin": "https://setline.significanthobbies.com",
       "source": {
         "state": "public",
@@ -5940,6 +6000,7 @@
       "id": "rolepatch",
       "name": "RolePatch",
       "aliases": [],
+      "description": "Evidence-bound resume tailoring and review-first application preparation for one specific job.",
       "origin": "https://rolepatch.com",
       "source": {
         "state": "public",
@@ -5957,13 +6018,15 @@
         "appStore": "not-applicable"
       },
       "pricing": {
-        "state": "not-declared"
+        "state": "published",
+        "url": "https://rolepatch.com/pricing"
       }
     },
     {
       "id": "karte",
       "name": "Karte",
       "aliases": [],
+      "description": "A creator-owned public profile that answers visitor questions and preserves context for better inbound.",
       "origin": "https://karte.cc",
       "source": {
         "state": "public",
@@ -5989,6 +6052,7 @@
       "id": "starboard",
       "name": "Starboard",
       "aliases": [],
+      "description": "Organize and semantically search your GitHub stars.",
       "origin": "https://starboard.codevetter.com",
       "source": {
         "state": "public",
@@ -6013,6 +6077,7 @@
       "id": "app-health",
       "name": "App Health",
       "aliases": [],
+      "description": "Privacy-first endpoint health for Node, Go, and OpenTelemetry services.",
       "origin": "https://health.sassmaker.com",
       "source": {
         "state": "public",
@@ -6037,6 +6102,7 @@
       "id": "motion",
       "name": "Motion",
       "aliases": [],
+      "description": "Use your body as the controller for an iPhone-hosted game that can mirror to a larger screen.",
       "origin": "https://motion.significanthobbies.com",
       "source": {
         "state": "public",
@@ -6059,8 +6125,11 @@
     },
     {
       "id": "what-it-takes-to-win",
-      "name": "What It Takes to Win",
-      "aliases": [],
+      "name": "Look Sideways",
+      "aliases": [
+        "What It Takes to Win"
+      ],
+      "description": "Explore 3,578 documented early-breakthrough paths without pretending success follows a formula.",
       "origin": "https://paths.significanthobbies.com",
       "source": {
         "state": "public",
@@ -6088,6 +6157,7 @@
         "sarthakagrawal.dev",
         "sarthakagrawal927"
       ],
+      "description": "Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.",
       "origin": "https://sarthakagrawal.dev",
       "source": {
         "state": "public",

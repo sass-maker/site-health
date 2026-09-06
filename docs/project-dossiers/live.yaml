@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1c23798e92d2d44cc7b9aaf7f65ef7a4ecd9fd6613f042814754022273d9d0d8
+      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -97,7 +97,7 @@ identity:
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: The original Significant Hobbies experience, now independently owned while preserving its data and authentication boundary.
+  description: The long-running Significant Hobbies experience for recording, exploring, and acting on a life lived beyond passive consumption.
   publicMakerNote: I wanted a product that helps people live more intentionally through goals, possibilities, and things worth anticipating.
   purposeContract:
     purpose: Live helps a person turn passive wanting into a life they can deliberately imagine, plan, and experience.

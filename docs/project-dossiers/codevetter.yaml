@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1c23798e92d2d44cc7b9aaf7f65ef7a4ecd9fd6613f042814754022273d9d0d8
+      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -606,6 +606,7 @@ sharing:
     id: codevetter
     name: CodeVetter
     aliases: []
+    description: Execution-backed verification for AI-written software changes — local-first and inspectable.
     origin: https://codevetter.com
     source:
       state: public

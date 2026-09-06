@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1c23798e92d2d44cc7b9aaf7f65ef7a4ecd9fd6613f042814754022273d9d0d8
+      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -72,9 +72,10 @@ decision:
   currentState: Strong research publication with clear personal motivation and room for deeper coverage.
   nextDecision: Continue studying people, improve source-linked life histories, and reconcile stale public dataset counts during the next refresh.
 identity:
-  name: What It Takes to Win
-  publicName: What It Takes to Win
-  aliases: []
+  name: Look Sideways
+  publicName: Look Sideways
+  aliases:
+    - What It Takes to Win
   family: significanthobbies
   kind: product
   priority: P4
@@ -85,10 +86,10 @@ identity:
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Explore 2,585 documented early-breakthrough paths without pretending success follows a formula.
+  description: Explore 3,578 documented early-breakthrough paths without pretending success follows a formula.
   publicMakerNote: I wanted to study the real advantages behind success and replace unhelpful comparison with evidence-based understanding.
   purposeContract:
-    purpose: What It Takes to Win shows why visible success cannot be reduced to a simple formula or a fair comparison with your own path.
+    purpose: Look Sideways shows why visible success cannot be reduced to a simple formula or a fair comparison with your own path.
     audience: Readers who turn another person’s visible outcome into a judgment about their own pace, ability, or worth.
     outcome: Replace flattened comparison with a more humane, evidence-bounded understanding of conditions, sequence, perseverance, and luck.
     mechanism: A guided research exhibit connects source-linked life events and early-breakthrough paths through what people brought, were handed, and were surrounded by.
@@ -253,8 +254,10 @@ sharing:
   roadmapUrl: https://github.com/Significant-Hobbies/what-it-takes-to-win/issues
   geoIdentity:
     id: what-it-takes-to-win
-    name: What It Takes to Win
-    aliases: []
+    name: Look Sideways
+    aliases:
+      - What It Takes to Win
+    description: Explore 3,578 documented early-breakthrough paths without pretending success follows a formula.
     origin: https://paths.significanthobbies.com
     source:
       state: public
@@ -270,5 +273,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: The canonical product and repository are What It Takes to Win; the Cloudflare Pages project retains its historical internal name success-by-26.
+  catalog: The canonical product name is Look Sideways (renamed in-repo and deployed; see SAR-9 decision record). The GitHub repository slug remains what-it-takes-to-win and the Cloudflare Pages project retains its historical internal name success-by-26 — neither is a product name.
   infrastructure: null
