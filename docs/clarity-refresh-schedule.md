@@ -5,6 +5,9 @@ How the traffic stream from
 recurs. **Installed 2026-09-05** — weekly, Monday 09:40, per the board decision
 on SAR-25. This documents the tooling and the cadence it runs.
 
+All-project run modes, the six reported classes, and the bounded summary schema
+are in [`clarity-fleet-health.md`](clarity-fleet-health.md).
+
 ## The provider constraint
 
 `--days 3` is the widest window the Clarity Data Export API serves

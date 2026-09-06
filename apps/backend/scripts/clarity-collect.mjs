@@ -14,6 +14,11 @@ import {
   recordClarityProviderAudit,
   resolveClarityToken,
 } from '../lib/dashboard-backend/clarity.mjs';
+import {
+  clarityFleetExitFailure,
+  clarityFleetSummary,
+  formatClarityFleetMarkdown,
+} from '../lib/dashboard-backend/clarity-fleet.mjs';
 import { isCurrentPortfolioProject } from '../lib/dashboard-backend/domain-scope.mjs';
 import { recordRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
@@ -25,10 +30,17 @@ function usage() {
 Usage:
   clarity-collect.mjs status <project-id>
   clarity-collect.mjs fetch <project-id> [--days 1|2|3]
-  clarity-collect.mjs status-all
+  clarity-collect.mjs status-all [--format json|markdown]
   clarity-collect.mjs fetch-all [--days 1|2|3] [--reuse-fresh <project-id>]
+                                [--format json|markdown]
   clarity-collect.mjs token-store <project-id>
   clarity-collect.mjs provider-audit <project-id> < receipt.json
+
+status-all reads only stored snapshots: it resolves no token and makes no
+provider request. fetch-all makes at most one bounded Data Export request per
+eligible current project, continues after per-project failures, and reports
+every canonical identity as measured, cached, unavailable, unwired, inactive,
+or failed.
 
 Tokens are read from CLARITY_API_TOKEN_<PROJECT_ID> or the macOS Keychain
 service com.sassmaker.site-health.clarity. token-store uses a native hidden
@@ -103,45 +115,6 @@ async function collectProject({
     });
     throw Object.assign(new Error(failure.message), failure);
   }
-}
-
-function capabilitySummary(results) {
-  return results.reduce((totals, result) => {
-    for (const key of [
-      'desired',
-      'conditional',
-      'blocked',
-      'notApplicable',
-      'providerVerified',
-      'providerAccounted',
-    ]) {
-      totals[key] += Number(result.capabilities?.summary?.[key] ?? 0);
-    }
-    return totals;
-  }, {
-    desired: 0,
-    conditional: 0,
-    blocked: 0,
-    notApplicable: 0,
-    providerVerified: 0,
-    providerAccounted: 0,
-  });
-}
-
-function fleetSummary(results) {
-  const counts = {};
-  for (const result of results) counts[result.state] = (counts[result.state] ?? 0) + 1;
-  const activeEligible = results.filter(
-    (result) => !['inactive', 'not-cataloged', 'unwired'].includes(result.state),
-  );
-  return {
-    schemaVersion: 'site-health.clarity-fleet-collection.v1',
-    projects: results.length,
-    counts,
-    capabilityCounts: capabilitySummary(results),
-    activeEligibleCapabilityCounts: capabilitySummary(activeEligible),
-    results,
-  };
 }
 
 async function runFleetCollector({
@@ -244,7 +217,7 @@ async function runFleetCollector({
       });
     }
   }
-  return fleetSummary(results);
+  return clarityFleetSummary(results, { command, observedAt: now() });
 }
 
 export async function runClarityCollector({
@@ -313,6 +286,12 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(import.meta.filename
   const days = daysIndex >= 0 ? Number(optionArguments[daysIndex + 1]) : 1;
   const reuseFreshIndex = optionArguments.indexOf('--reuse-fresh');
   const reuseProjectIds = reuseFreshIndex >= 0 ? [optionArguments[reuseFreshIndex + 1]] : [];
+  const formatIndex = optionArguments.indexOf('--format');
+  const format = formatIndex >= 0 ? optionArguments[formatIndex + 1] : 'json';
+  if (!['json', 'markdown'].includes(format)) {
+    console.error('CLARITY_FORMAT_INVALID: --format accepts json or markdown');
+    process.exit(1);
+  }
   const projects = loadDashboardProjects();
   const store = new DashboardStore({
     databasePath: process.env.DASHBOARD_DB || process.env.FOUNDER_CONTROL_DB || defaultDatabasePath(),
@@ -350,8 +329,11 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(import.meta.filename
         reuseProjectIds,
       });
     }
-    console.log(JSON.stringify(result, null, 2));
-    if (fleetCommand && ((result.counts.failed ?? 0) > 0 || (result.counts.unavailable ?? 0) > 0)) {
+    const renderMarkdown = fleetCommand && format === 'markdown';
+    console.log(renderMarkdown
+      ? formatClarityFleetMarkdown(result)
+      : JSON.stringify(result, null, 2));
+    if (fleetCommand && clarityFleetExitFailure(result)) {
       process.exitCode = 1;
     }
   } catch (error) {
