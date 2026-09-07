@@ -6,8 +6,9 @@
       "id": "starboard",
       "name": "Starboard",
       "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August.",
-      "shareable": true
+      "biggestBlocker": "Public discovery remains scoped-shareable; saved/private workflows remain untested. Scheduled embedding failed401; source auth contract is fixed, but matching operator token provisioning and verified scheduled recovery remain under #107.",
+      "shareable": true,
+      "repairProgress": "b702a567 pushed clean; exact CI34113562625 and Docs34113562425 passed. All three operator workflows now use STARBOARD_OPERATOR_TOKEN and preflight its presence before remote work.310tests pass, including actual route rejection of gateway credentials and workflow ordering. Secret-name metadata shows the operator token absent; no credential values, provisioning, production calls or reruns performed."
     },
     {
       "id": "on-record",
@@ -338,9 +339,9 @@
       "id": "psi-swarm",
       "name": "PSI Swarm",
       "classification": "Qualification gap",
-      "biggestBlocker": "Real source-built measurements and HTML reporting pass, including percentile and output-path repairs. Fresh release installation, history persistence and controller connection remain unqualified; the repair is not released.",
+      "biggestBlocker": "Fresh public v0.4.2 installation and two real audits/HTML export pass; packaged SQLite save/reopen passes in isolation. The release still has the repaired percentile/output-path defects. A corrected release, CLI history integration and web controller qualification remain required.",
       "shareable": false,
-      "repairProgress": "CLI measurement and HTML report verified locally. Fixed interpolated p75 verdict and missing output-path flag in 97f73fa; follow-up f1643f0 adds failed-run, boundary, weighting and field-data cases: 59 tests pass, 81.73% branches above unchanged 79% floor. Exact-head CI green. Release install/history/controller qualification remains."
+      "repairProgress": "CLI measurement and HTML report verified locally. Fixed interpolated p75 verdict and missing output-path flag in 97f73fa; follow-up f1643f0 adds failed-run, boundary, weighting and field-data cases: 59 tests pass, 81.73% branches above unchanged 79% floor. Exact-head CI green. Release install/history/controller qualification remains. Public-release qualification retained in f3886b7: Node22.23.1/npm10.9.8, fresh temporary prefix, two successful desktop audits13.4s, tablep75LCP207ms versus old terminalverdict206ms. HTML visually reviewed and packaged SQLite synthetic save/reopen passed. All owned temporary resources removed; no normal history writes or new release."
     },
     {
       "id": "reel-pipeline",
