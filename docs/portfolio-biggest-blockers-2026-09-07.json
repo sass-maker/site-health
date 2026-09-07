@@ -14,7 +14,8 @@
       "name": "High Signal Podcasts",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed.",
-      "shareable": true
+      "shareable": true,
+      "repairProgress": "825dd42a pushed clean; exact CI34113186595 passed. Narrow stats projection preserves six joins, trusted shows, quote/speaker validation, deduplication, ordering and 20,000-row cap. Synthetic fixture yields identical 5,001 references; seven-sample median179.09ms to124.88ms and payload84.7% smaller. Local D1 EXPLAIN verifies covering-index use;122 TypeScript and228 Python tests pass. #24 retains approved deployment and live cache-miss/rows-read evidence. No production change."
     },
     {
       "id": "high-signal",
@@ -63,7 +64,7 @@
       "id": "free-ai",
       "name": "Free AI",
       "classification": "Qualification gap",
-      "biggestBlocker": "CI security gate fails on fast-uri 3.1.5; minimum patched version 3.1.6. Actual inference and operator-provisioned access also remain unqualified.",
+      "biggestBlocker": "Actual live inference, operator-provisioned access and consumer qualification remain unverified; current source CI is green. Provider-registry drift remains tracked in #62.",
       "shareable": false,
       "repairProgress": "a70262f5 pushed clean; exact CI34110597834 and Docs34110597738 green.245tests plus built guest/authentication navigation. Copied curl/fetch/JavaScript SDK examples now provide required project_id; actual SDK/gateway/adapter synthetic contract passes. Recent public aggregate telemetry confirms AliveVille and High Signal callers; keep active. #62 and #65 retain registry and authorized live inference/consumer/deploy qualification."
     },
@@ -87,7 +88,7 @@
       "id": "reader",
       "name": "Reader",
       "classification": "Qualification gap",
-      "biggestBlocker": "Hosted import/read/annotate/reopen and guest PDF annotation remain unqualified; PDF guest viewer has no Reader annotation controls.",
+      "biggestBlocker": "Guest PDF rendering and page-note persistence now pass locally. Hosted import/read/annotate/reopen and account PDF controls remain under #55.",
       "shareable": false,
       "repairProgress": "bbc52d9 pushed clean; Docs34112909140 and CI34112909168 passed. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim."
     },
@@ -133,7 +134,7 @@
       "id": "india-standards",
       "name": "India Standards",
       "classification": "Qualification gap",
-      "biggestBlocker": "No calculated result verified; did not bypass verification.",
+      "biggestBlocker": "Local calculator and aggregate evaluation pass with explicit thin-support limits. Hosted calculator qualification and source usage/NFHS gates remain under #35/#36.",
       "shareable": false,
       "repairProgress": "f5312cf pushed clean; 38 tests and full quality pass. Repairs unsupported-data zero estimates, sub-person rarity clamping, share-state drift and denominator disclosure. Real local aggregate evaluation records thin support and source/NFHS limits. Exact-head CI green; hosted qualification #35 and source gates #36 retained in README."
     },
@@ -149,7 +150,7 @@
       "id": "protein-index",
       "name": "Protein Index",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met.",
+      "biggestBlocker": "Provenance disclosure is fixed in source. Divergent owning repository histories must be reconciled before deployment and fresh browser qualification.",
       "shareable": false,
       "repairProgress": "2026-09-07: Pushed 76e54ae; exact CI green. Detail shows evidence status, authority, original records and dates; 16 detail tests pass. Full suite fixed in 4a306f2 (332 unit and 61 Worker tests). Live source points to protein-index; catalog points to divergent resilience repo with unique discovery routes. Deployment, repository reconciliation and browser qualification remain."
     },
@@ -157,7 +158,7 @@
       "id": "everythingrated",
       "name": "EverythingRated",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review.",
+      "biggestBlocker": "Source promises, rubric and sample counts now agree. Deployed homepage/comparison evidence and useful coverage remain to be qualified under #17.",
       "shareable": false,
       "repairProgress": "53a6bc0 pushed clean; substantive 7ab86fd replaces fabricated previews and unsupported confidence claims with current rubric/data/counts, excludes unrated axes from weighted totals. 28 tests, typecheck and build passed; final exact-head CI and Docs green. README/#17 retains live qualification. Zero prior open issues/PRs to close."
     },
@@ -173,7 +174,7 @@
       "id": "truehire",
       "name": "TrueHire",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify.",
+      "biggestBlocker": "Fabricated verification labels are removed in source. Deployed public copy must be rechecked; the retired marketplace has no qualified acquisition workflow.",
       "shareable": false,
       "repairProgress": "6fb5676 pushed clean. Synthetic sample labels now explicit across Astro homepage/Nextfallback/demo; fabricated2h verification removed; demo activity fixed throughJune2026. Typecheck/lint/Astrobuild and108coretests passed; generatedHTML inspected. Exact CI green. Marketplace remains retired; public deployed copy recheck is outstanding."
     },
@@ -216,7 +217,7 @@
       "id": "open-historia",
       "name": "Open Historia",
       "classification": "Verified defect",
-      "biggestBlocker": "Every attempted turn fails because the default Workers AI Llama model was retired. Replace the default and normalize saved legacy model selections; then prove a live completed turn.",
+      "biggestBlocker": "Retired-model mapping is fixed in source. Deployment and two completed live stateful turns remain unverified.",
       "shareable": false,
       "repairProgress": "2026-09-07: Pushed d97de70; 72 tests and exact CI pass. Real turn-route regression covers retired-model mapping and malformed provider output. Deployment and two live stateful turns remain pending."
     },
@@ -337,7 +338,7 @@
       "id": "psi-swarm",
       "name": "PSI Swarm",
       "classification": "Qualification gap",
-      "biggestBlocker": "A real measurement run and intelligible report remain unverified; help output alone is insufficient.",
+      "biggestBlocker": "Real source-built measurements and HTML reporting pass, including percentile and output-path repairs. Fresh release installation, history persistence and controller connection remain unqualified; the repair is not released.",
       "shareable": false,
       "repairProgress": "CLI measurement and HTML report verified locally. Fixed interpolated p75 verdict and missing output-path flag in 97f73fa; follow-up f1643f0 adds failed-run, boundary, weighting and field-data cases: 59 tests pass, 81.73% branches above unchanged 79% floor. Exact-head CI green. Release install/history/controller qualification remains."
     },
@@ -345,7 +346,7 @@
       "id": "reel-pipeline",
       "name": "Reel Pipeline",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "The generated frame has overlapping code-rail text and generic captions that do not explain the supplied brief. Real encoding works, but presentation/value is insufficient for sharing; publishing remains unverified.",
+      "biggestBlocker": "Caption/scene repairs and local synthetic video render/decode/playback pass. Phone/listening quality, other variants and the intended creator/publication workflow remain unqualified.",
       "shareable": false,
       "repairProgress": "7753a45 pushed clean with green CI and Docs. Fixed caption/scene rendering; 542 Node and 68 Rust tests, render smoke and synthetic 12-second video decode/browser playback passed. README retains phone/listening, other variants, optional runtime and publication gates. Zero open issues/PRs; zero closures."
     },
@@ -383,7 +384,7 @@
       "id": "app-health",
       "name": "App Health",
       "classification": "Qualification gap",
-      "biggestBlocker": "Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified.",
+      "biggestBlocker": "Real loopback SDK ingest and dashboard aggregates now pass with truthful fixture labels. External onboarding and production aggregate verification remain under #55.",
       "shareable": false,
       "repairProgress": "2026-09-07: Pushed 1099b1c; exact CI and local gates pass. Fixture labels repaired. Real loopback Express SDK requests verified through Worker ingest and dashboard aggregates (3 requests, 1 error, normalized route, privacy checks). Live external onboarding and production aggregate verification remain."
     },
@@ -399,7 +400,7 @@
       "id": "forecast-lab",
       "name": "Forecast Lab",
       "classification": "Qualification gap",
-      "biggestBlocker": "Dataset-dependent full forecasting experiment not rerun; source inspection alone is insufficient reproducibility proof.",
+      "biggestBlocker": "A reproducible licensed-data one-hour forecasting experiment now passes locally. Distribution and user setup remain unqualified; this is a learning CLI, with paused/domain-validation gates retained in #5.",
       "shareable": false,
       "repairProgress": "15b7130 pushed clean with green CI. Pinned licensed UCI input, timestamp-correct lags and documented one-hour rolling evaluation; 3406 held-out hours, weekly baseline wMAPE 0.2544 versus calendar/past-demand GBT 0.2085, repeated byte-identically. Seven tests pass. Repair #4 closed; remaining paused work retained in README/#5. Scope is reproducible learning CLI, not domain-validated B2B product."
     },
@@ -414,7 +415,7 @@
       "id": "reddit-insights",
       "name": "Reddit Insights",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete.",
+      "biggestBlocker": "Snapshot dates and search routing are fixed in source. Approved deployment and live search/mobile verification remain outstanding.",
       "shareable": false,
       "repairProgress": "2026-09-07: Pushed 4e63e2b; full quality, 93-community export and exact CI pass. Search panel no longer receives community navigation, snapshot ages are dated, unavailable routes no longer substitute another corpus. Approved deployment and live search/mobile checks remain."
     }
