@@ -128,7 +128,8 @@
       "name": "India Standards",
       "classification": "Qualification gap",
       "biggestBlocker": "No calculated result verified; did not bypass verification.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "f5312cf pushed clean; 38 tests and full quality pass. Repairs unsupported-data zero estimates, sub-person rarity clamping, share-state drift and denominator disclosure. Real local aggregate evaluation records thin support and source/NFHS limits. Exact-head CI green; hosted qualification #35 and source gates #36 retained in README."
     },
     {
       "id": "anime-list",
@@ -142,14 +143,16 @@
       "name": "Protein Index",
       "classification": "Product/evidence gap",
       "biggestBlocker": "Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07: Pushed 76e54ae; exact CI green. Detail shows evidence status, authority, original records and dates; 16 detail tests pass. Full suite fixed in 4a306f2 (332 unit and 61 Worker tests). Live source points to protein-index; catalog points to divergent resilience repo with unique discovery routes. Deployment, repository reconciliation and browser qualification remain."
     },
     {
       "id": "everythingrated",
       "name": "EverythingRated",
       "classification": "Product/evidence gap",
       "biggestBlocker": "Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "53a6bc0 pushed clean; substantive 7ab86fd replaces fabricated previews and unsupported confidence claims with current rubric/data/counts, excludes unrated axes from weighted totals. 28 tests, typecheck and build passed; final exact-head CI and Docs green. README/#17 retains live qualification. Zero prior open issues/PRs to close."
     },
     {
       "id": "karte",
@@ -206,7 +209,7 @@
       "classification": "Verified defect",
       "biggestBlocker": "Every attempted turn fails because the default Workers AI Llama model was retired. Replace the default and normalize saved legacy model selections; then prove a live completed turn.",
       "shareable": false,
-      "repairProgress": "2026-09-07 follow-up: pushed retired Workers AI model compatibility repair (b359d33); 70 tests and CI pass. Live completed turn remains unverified; shareability stays false."
+      "repairProgress": "2026-09-07: Pushed d97de70; 72 tests and exact CI pass. Real turn-route regression covers retired-model mapping and malformed provider output. Deployment and two live stateful turns remain pending."
     },
     {
       "id": "ai-game",
@@ -318,14 +321,16 @@
       "name": "PSI Swarm",
       "classification": "Qualification gap",
       "biggestBlocker": "A real measurement run and intelligible report remain unverified; help output alone is insufficient.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "CLI measurement and HTML report verified locally. Fixed interpolated p75 verdict and missing output-path flag in 97f73fa; follow-up f1643f0 adds failed-run, boundary, weighting and field-data cases: 59 tests pass, 81.73% branches above unchanged 79% floor. Exact-head CI green. Release install/history/controller qualification remains."
     },
     {
       "id": "reel-pipeline",
       "name": "Reel Pipeline",
       "classification": "Product/evidence gap",
       "biggestBlocker": "The generated frame has overlapping code-rail text and generic captions that do not explain the supplied brief. Real encoding works, but presentation/value is insufficient for sharing; publishing remains unverified.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "7753a45 pushed clean with green CI and Docs. Fixed caption/scene rendering; 542 Node and 68 Rust tests, render smoke and synthetic 12-second video decode/browser playback passed. README retains phone/listening, other variants, optional runtime and publication gates. Zero open issues/PRs; zero closures."
     },
     {
       "id": "materia",
@@ -353,14 +358,16 @@
       "name": "RolePatch",
       "classification": "Product/evidence gap",
       "biggestBlocker": "5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07: Pushed a2e4a33; 448 tests, lint, types, docs and exact CI pass. Public checker uses matched/total coverage; account/share scores disclose weighted heuristic. Deployment and guest/account persistence qualification remain."
     },
     {
       "id": "app-health",
       "name": "App Health",
       "classification": "Qualification gap",
       "biggestBlocker": "Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07: Pushed 1099b1c; exact CI and local gates pass. Fixture labels repaired. Real loopback Express SDK requests verified through Worker ingest and dashboard aggregates (3 requests, 1 error, normalized route, privacy checks). Live external onboarding and production aggregate verification remain."
     },
     {
       "id": "mashup",
@@ -374,7 +381,8 @@
       "name": "Forecast Lab",
       "classification": "Qualification gap",
       "biggestBlocker": "Dataset-dependent full forecasting experiment not rerun; source inspection alone is insufficient reproducibility proof.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "15b7130 pushed clean with green CI. Pinned licensed UCI input, timestamp-correct lags and documented one-hour rolling evaluation; 3406 held-out hours, weekly baseline wMAPE 0.2544 versus calendar/past-demand GBT 0.2085, repeated byte-identically. Seven tests pass. Repair #4 closed; remaining paused work retained in README/#5. Scope is reproducible learning CLI, not domain-validated B2B product."
     },
     {
       "id": "sarthakagrawal-personal",
@@ -388,7 +396,8 @@
       "name": "Reddit Insights",
       "classification": "Product/evidence gap",
       "biggestBlocker": "Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07: Pushed 4e63e2b; full quality, 93-community export and exact CI pass. Search panel no longer receives community navigation, snapshot ages are dated, unavailable routes no longer substitute another corpus. Approved deployment and live search/mobile checks remain."
     }
   ]
 }

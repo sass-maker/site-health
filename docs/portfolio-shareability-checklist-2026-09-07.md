@@ -87,3 +87,19 @@ Some entries need verification rather than new implementation. The suggested wor
 6. Package retained experiments only where a small, useful public experience is worthwhile; decide the replacement candidates before investing further.
 
 This list belongs to the private portfolio review. Track actual engineering tasks in each owning repository.
+
+
+## Current execution scope and repair receipts
+
+The active request excludes Nomad Data Adventure as well as removed Chess and
+Journal: 54 projects remain in scope. Fourteen have earlier scoped public audit
+passes; 40 remain unqualified. Prepared repairs do not increase that count until
+the promised deployed/installed experience is verified.
+
+Current pushed repair receipts and remaining gates are maintained per project in
+[the blocker record](portfolio-biggest-blockers-2026-09-07.json). This includes
+Open Historia, Protein Index, Reddit Insights, RolePatch, App Health,
+EverythingRated and PSI Swarm. Product READMEs retain their outstanding work.
+The user authorized parallel repository ownership on September 7; root coordinates
+browser, deployment and private/public catalog updates. No production deployment
+has been inferred from the instruction to push through the work.
