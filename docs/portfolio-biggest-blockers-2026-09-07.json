@@ -22,9 +22,9 @@
       "id": "high-signal",
       "name": "High Signal",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Provider recovery, sample/baseline and headline calibration remain unresolved. Latest markets failure was total generation outage after successful ingestion, not a successful publication run.",
+      "biggestBlocker": "Review-sample web presentation only, not broader claim calibration. The public request asked for100 but returned3 published records, all review-only; history access was gated, so no full-corpus conclusion. Mixed-source claims, API/MCP/Daily Brief consistency and provider/publishing recovery remain unqualified. No API, D1, generation or publishing job was changed or rerun.",
       "shareable": false,
-      "repairProgress": "57543dc4 pushed clean; exact CI 34109508853 and Docs 34109508784 green. 422 Python tests plus full quality pass; safe failure categories retained without arbitrary exception text. Existing total-outage exit 3 preserved. No cron rerun or provider recovery claim; #133 remains."
+      "repairProgress": "Web-only source ddefa8dd2e27648a8952e98640f96a682ba9b02b deployed to high-signal-web Worker950432b9-68e9-466d-8c19-78e00ee19e5c at100%. Actual ordinary-URL desktop/390px detail, list, embed, three feeds and methodology navigation pass. Six original review excerpts remain visible; headline describes a selected review sample and explicitly says Trend not established. Generated surge narrative and stored99/low diagnostics remain inspectable in closed disclosures. Noindex and omitted NewsArticle match the bounded evidence policy. A first release exposed regional stale Worker cache; versioned affected HTML/RSC keys repair the reproduced ordinary-URL mismatch."
     },
     {
       "id": "posttrainllm",
@@ -414,7 +414,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified.",
       "shareable": false,
-      "repairProgress": "f7727fc5 pushed clean; exact CI 34111029957 and Docs 34111030049 green,608tests/95files. Account-scoped durable outboxes prevent stale GET overwriting unsent edits; atomic operation receipts prevent duplicated attempts/activity after lost acknowledgements. Root reviewed store and receipt source. #98 closed; #97 retains hosted qualification. One active tab contract; notes/mastery/ELO outside this repair. No production migration/deploy."
+      "repairProgress": "f7727fc5 pushed clean; exact CI 34111029957 and Docs 34111030049 green,608tests/95files. Account-scoped durable outboxes prevent stale GET overwriting unsent edits; atomic operation receipts prevent duplicated attempts/activity after lost acknowledgements. Root reviewed store and receipt source. #98 closed; #97 retains hosted qualification. One active tab contract; notes/mastery/ELO outside this repair. No production migration/deploy. Current main4b0f613929e7ec84cf04e2516950ac21d1ba8741 contains seven bot-refreshed library JSON files only; clean checkout fast-forwarded after inspection. Focused14tests and full local quality608tests/build/size/coverage/docs passed. LocalNode26 versus CI22; no exact-head Actions run, no migration/deployment."
     },
     {
       "id": "rolepatch",

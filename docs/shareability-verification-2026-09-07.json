@@ -61,19 +61,28 @@
         "Read September 7 brief",
         "Opened ChatGPT positive-review signal and its proof section"
       ],
-      "observed": "Signal labels six positive reviews a surge/developer-adoption spike without a comparison baseline; same page shows confidence score 99/Strong evidence and LOW CONFIDENCE. These contradictions affect the evidence-led core promise.",
+      "observed": "Web-only source ddefa8dd2e27648a8952e98640f96a682ba9b02b deployed to high-signal-web Worker950432b9-68e9-466d-8c19-78e00ee19e5c at100%. Actual ordinary-URL desktop/390px detail, list, embed, three feeds and methodology navigation pass. Six original review excerpts remain visible; headline describes a selected review sample and explicitly says Trend not established. Generated surge narrative and stored99/low diagnostics remain inspectable in closed disclosures. Noindex and omitted NewsArticle match the bounded evidence policy. A first release exposed regional stale Worker cache; versioned affected HTML/RSC keys repair the reproduced ordinary-URL mismatch.",
       "urls": [
         "https://highsignal.app/",
         "https://highsignal.app/signals/openai-openai-s-chatgpt-sees-surge-in-positive-reviews"
       ],
-      "limitations": "Working navigation and populated sources; not a claim that the service is down. Needs evidence/claim calibration review before promotion.",
+      "limitations": "Review-sample web presentation only, not broader claim calibration. The public request asked for100 but returned3 published records, all review-only; history access was gated, so no full-corpus conclusion. Mixed-source claims, API/MCP/Daily Brief consistency and provider/publishing recovery remain unqualified. No API, D1, generation or publishing job was changed or rerun.",
       "verifiedAt": "2026-09-07",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "public-surface-inspected",
       "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "screenshot-inspected",
-      "disposition": "retain-unpromoted"
+      "presentation": "Hosted1440/390 screenshots inspected; factual lead and explicit evidence limitations, no horizontal overflow. Six original source excerpts and generated-history disclosures retained.",
+      "disposition": "retain-unpromoted",
+      "release": {
+        "sourceRevision": "ddefa8dd2e27648a8952e98640f96a682ba9b02b",
+        "workerVersion": "950432b9-68e9-466d-8c19-78e00ee19e5c",
+        "deploymentId": "7153ee4f-c164-411c-88ea-2ddc4cba5cbb",
+        "trafficPercent": 100,
+        "ciRun": 34133353634,
+        "rollbackVersion": "608508e0-0f44-46fa-8e80-e26eb2c679d5",
+        "evidence": "../../high-signal/docs/operations/2026-09-07-review-sample-qualification.md"
+      }
     },
     {
       "id": "posttrainllm",

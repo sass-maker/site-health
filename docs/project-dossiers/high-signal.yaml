@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
+      sha256: a0422814bfa0556612d4ace3040b22c417c5f1507aa9063abc55028110076446
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -1268,7 +1268,7 @@ sharing:
   maturity: public-ready
   ready: false
   verifiedAt: 2026-09-07
-  reason: Provider recovery, sample/baseline and headline calibration remain unresolved. Latest markets failure was total generation outage after successful ingestion, not a successful publication run.
+  reason: Review-sample web presentation only, not broader claim calibration. The public request asked for100 but returned3 published records, all review-only; history access was gated, so no full-corpus conclusion. Mixed-source claims, API/MCP/Daily Brief consistency and provider/publishing recovery remain unqualified. No API, D1, generation or publishing job was changed or rerun.
   changelogUrl: https://highsignal.app/changelog
   roadmapUrl: https://github.com/High-Signal-App/high-signal/issues
   geoIdentity:

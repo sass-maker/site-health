@@ -1,6 +1,6 @@
 # Usability and shareability checklist — remaining 55 projects
 
-Current checkpoint: **22 scoped sharing passes, eight retained without an adoption push, 24 remaining qualification/decision items** across54 projects. Public projection:21. [Current decisions](portfolio-verification-2026-09-07.md) and [approved release receipts](portfolio-release-candidates-2026-09-07.md) supersede the chronological checkpoints below.
+Current checkpoint: **22 scoped sharing passes, eight retained without an adoption push, 24 remaining qualification/decision items** across 54 projects. Public projection:21. [Current decisions](portfolio-verification-2026-09-07.md) and [approved release receipts](portfolio-release-candidates-2026-09-07.md) supersede the chronological checkpoints below.
 
 Based on the September 7 hands-on audit and subsequent pushed repairs. These are proposed acceptance conditions, not a claim that completing one item guarantees whole-product quality. The original 14 passing verdicts apply only to named public surfaces. Chess and Journal are excluded.
 

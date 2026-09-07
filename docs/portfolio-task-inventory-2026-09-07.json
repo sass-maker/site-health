@@ -1090,7 +1090,7 @@
       "id": "saas-maker",
       "checkout": "saas-maker",
       "repository": "sass-maker/saas-maker",
-      "revision": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+      "revision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
       "branches": [
         "main"
       ],
@@ -1138,40 +1138,32 @@
       "checks": [
         {
           "conclusion": "success",
-          "databaseId": 34131909672,
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "databaseId": 34135064744,
+          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909672",
-          "workflowName": "Docs"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34131909667,
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
-          "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909667",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064744",
           "workflowName": "Tooling CI"
         },
         {
           "conclusion": "success",
-          "databaseId": 34131909658,
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "databaseId": 34135064770,
+          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909658",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064770",
           "workflowName": "CI"
         }
       ],
-      "checksObservedAt": "2026-09-07T14:20:20.417779+00:00",
+      "checksObservedAt": "2026-09-07T14:52:24.293877+00:00",
       "readmeIssueReferencesMissing": [],
-      "checksRevision": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+      "checksRevision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
       "tasksObservedAt": "2026-09-07T14:20:19.383260+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T14:20:18.178505+00:00",
+      "localObservedAt": "2026-09-07T14:52:24.293877+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "revision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
@@ -1230,46 +1222,45 @@
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+      "revisionAtObservationEnd": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
       "observationStartedAt": "2026-09-07T14:20:18.063469+00:00",
       "observedAt": "2026-09-07T14:21:56.852287+00:00",
       "errors": [],
       "remoteRepository": "sass-maker/saas-maker",
       "remoteDefaultBranch": "main",
-      "remoteDefaultRevision": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
-      "remoteObservedAt": "2026-09-07T14:21:56.807757+00:00",
+      "remoteDefaultRevision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+      "remoteObservedAt": "2026-09-07T14:52:24.293877+00:00",
       "localMatchesRemoteDefault": true,
       "remoteChecks": [
         {
           "conclusion": "success",
-          "databaseId": 34131909672,
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "databaseId": 34135064744,
+          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909672",
-          "workflowName": "Docs"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34131909667,
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
-          "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909667",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064744",
           "workflowName": "Tooling CI"
         },
         {
           "conclusion": "success",
-          "databaseId": 34131909658,
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "databaseId": 34135064770,
+          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909658",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064770",
           "workflowName": "CI"
         }
       ],
-      "remoteChecksRevision": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
-      "remoteChecksObservedAt": "2026-09-07T14:21:56.807775+00:00",
+      "remoteChecksRevision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+      "remoteChecksObservedAt": "2026-09-07T14:52:24.293877+00:00",
       "remoteChecksState": "observed",
-      "localEndObservedAt": "2026-09-07T14:21:56.823974+00:00",
-      "dirtyObservedAt": "2026-09-07T14:21:56.852249+00:00"
+      "localEndObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "dirtyObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "postScanRepair": {
+        "revision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+        "scope": "Shared release guard CI gate only; existing seven unrelated dirty paths preserved. Public directory runtime remains6508136d/Pages021f041d.",
+        "toolingTests": 222,
+        "ciRun": 34135064770,
+        "toolingCiRun": 34135064744
+      }
     },
     {
       "id": "gitstat",
@@ -2203,34 +2194,14 @@
       "id": "high-signal",
       "checkout": "high-signal",
       "repository": "High-Signal-App/high-signal",
-      "revision": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
+      "revision": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
       "branches": [
         "main"
       ],
       "stashes": [
         "stash@{0}: sweep-abandoned-20260906"
       ],
-      "dirty": [
-        " M PROJECT_STATUS.md",
-        " M README.md",
-        " M apps/web/public-corpus-policy.mjs",
-        " M apps/web/src/app/embed/[slug]/page.tsx",
-        " M apps/web/src/app/entities/[id]/[period]/page.tsx",
-        " M apps/web/src/app/entities/[id]/rss/route.ts",
-        " M apps/web/src/app/signals/[slug]/page.tsx",
-        " M apps/web/src/app/signals/atom/route.ts",
-        " M apps/web/src/app/signals/rss/route.ts",
-        " M apps/web/src/app/signals/types/[type]/page.tsx",
-        " M apps/web/src/components/molecules/SignalCard.tsx",
-        " M apps/web/src/lib/signal-format.ts",
-        " M docs/index.md",
-        " M scripts/public-corpus-policy.test.mjs",
-        " M scripts/run-tests.mjs",
-        "?? apps/web/review-sample.mjs",
-        "?? docs/operations/2026-09-07-review-sample-qualification.md",
-        "?? docs/operations/evidence/",
-        "?? scripts/review-sample.test.mjs"
-      ],
+      "dirty": [],
       "issues": [
         {
           "body": "## Why\n\nThe 10:00 IST report currently runs before the full daily ingest and publish sequence, so it can represent yesterday rather than the current Indian business day. Fresh Digg attention can remain only an overlay until the next batch. Hostname-level corroboration can over-count syndication, publishability checks differ by surface, and signal records do not cleanly separate observed facts from business interpretation.\n\nThe operator needs one current-day brief whose material evidence is fresh, whose Digg discoveries enter primary-source verification quickly, and whose publication semantics are identical everywhere.\n\n## What\n\nIn scope:\n\n- Move the daily sequence to ingest 08:00 IST, publish 09:00, validate 09:30, deliver 10:00.\n- Validate current IST edition date and freshness of material evidence.\n- Create threshold-triggered Digg verification work from original source URLs without treating Digg as evidence.\n- Normalize claim identity and originating evidence so syndication does not become independent corroboration.\n- Create one mandatory publishability evaluator shared by signal APIs, Daily Brief composition, and auto-publish.\n- Store observed event, direct entity impact, supply-chain impact, business inference, inference strength, and inference-specific evidence separately.\n- Add metrics needed to measure Digg verification latency and publication-quality failures.\n\nOut of scope:\n\n- Scraping Digg story pages or private endpoints.\n- Treating Digg summaries as evidence.\n- Adding a second equity-price source.\n- Rewriting published signal markdown.\n- Production migration or deployment without a separate explicit release request.\n\n## Design\n\n```mermaid\nflowchart LR\n  A[08:00 IST ingest] --> B[Candidates and claim tuples]\n  D[Digg 30 minute poll] --> E{Threshold crossed}\n  E -->|yes| F[Original source verification]\n  F --> B\n  B --> G[Shared publishability evaluator]\n  G --> H[09:00 publish]\n  H --> I[09:30 IST validation]\n  I --> J[10:00 IST delivery]\n  G --> K[Signals API and daily dump]\n  G --> L[Daily Brief]\n```\n\nSchedule times are expressed in UTC in GitHub Actions: 02:30 ingest, 03:30 publish, 04:00 validation, and 04:30 delivery. Validation uses Asia/Kolkata date semantics and rejects a current edition whose newest material evidence is older than two hours.\n\nDigg threshold crossings create idempotent verification requests keyed by cluster and source URL. The verification worker retrieves only underlying original URLs, records first-seen and verified-at timestamps, and routes extracted evidence through existing candidate gates. Digg retains zero evidence/confidence contribution.\n\nClaims use a normalized identity tuple of entity, event, amount, date, and direction plus an originating-evidence identifier. Corroboration requires verified semantic alignment and a distinct evidentiary origin; hostname difference alone is insufficient.\n\nA shared publishability evaluator returns stable violation codes for future dates, prediction-only evidence, unresolved contradictions, impossible direction labels, insufficient independent origins, and same-entity same-event opposite-direction conflicts. Every public surface and auto-publish uses that result.\n\nSignal interpretation fields remain nullable for backward compatibility. Each inference carries its own cited evidence references and a bounded strength value; observed facts stay distinct from inferred business effects.\n\n## Specs\n\n### Requirement: Current IST report sequence\nThe system SHALL ingest at 08:00 IST, publish at 09:00, validate at 09:30, and deliver at 10:00.\n\n#### Scenario: Daily delivery\n- **WHEN** the scheduled report is delivered\n- **THEN** its edition date equals the current Asia/Kolkata date\n- **AND** its newest material evidence is no more than two hours old\n\n### Requirement: Fast Digg verification\nThe system SHALL enqueue original-source verification when a Digg cluster crosses configured rank, velocity, or distinct-contributor thresholds.\n\n#### Scenario: Threshold crossing\n- **WHEN** a cluster first crosses any materiality threshold\n- **THEN** one idempotent verification request is created immediately\n- **AND** Digg itself receives no evidence or confidence credit\n\n### Requirement: Origin-aware semantic corroboration\nThe system SHALL count corroboration only when a source semantically confirms the same normalized claim and traces to a distinct evidentiary origin.\n\n#### Scenario: Syndicated reporting\n- **WHEN** multiple hosts repeat one originating report\n- **THEN** they count as one evidentiary origin\n\n### Requirement: Mandatory shared publishability\nSignals, briefs, public APIs, and auto-publish SHALL use the same publishability result.\n\n#### Scenario: Invalid candidate\n- **WHEN** a record is future-dated, prediction-only, contradicted, directionally impossible, or conflicts with an unresolved opposite-direction peer\n- **THEN** every publishing surface withholds it using a stable violation code\n\n### Requirement: Observation and inference separation\nThe system SHALL store observed events separately from direct, supply-chain, and business interpretations.\n\n#### Scenario: Business inference\n- **WHEN** an interpretation is attached to an event\n- **THEN** it records inference strength and evidence supporting that specific conclusion\n\n## Tasks\n\n- [x] 1. Reschedule ingest, publish, validation, and delivery; add IST date and evidence-freshness validation tests.\n- [x] 2. Add idempotent threshold-triggered Digg verification and latency instrumentation.\n- [x] 3. Add normalized claim tuples and originating-evidence tracking; require semantic confirmation for corroboration.\n- [x] 4. Implement one shared publishability evaluator and wire auto-publish, signal APIs, daily dump, and Daily Brief to it.\n- [x] 5. Add structured observation/impact/inference fields, migration, API contracts, and inference-specific citations.\n- [x] 6. Run focused tests after each task, then full quality checks and update operational/product documentation.\n- [x] 7. Record acceptance receipts and leave migration/deployment pending explicit release authorization.\n\n\n## September 7 consumer recovery\n\n- Restored and live-tested the installed `get_daily_brief`, `search_signals`, `get_signal`, and `get_track_record` methods in the shared connector; retained the newer daily/evidence tools. CI tests and the production monitor preserve the installed contract.\n- Public today/yesterday Brief signals now read the IST publication ledger, including signals published after cached composition. Errors remain unavailable instead of becoming successful empty feeds.\n- The daily production freshness validator now verifies Brief, Signals, daily JSON, and installed MCP parity for both public days, plus bounded search/ledger and exact signal lookup.\n- Recovery ingest [34094070147](https://github.com/High-Signal-App/high-signal/actions/runs/34094070147) passed: 3,666 events persisted, one draft. Recovery publisher [34096747224](https://github.com/High-Signal-App/high-signal/actions/runs/34096747224) passed freshness and MCP parity; the draft failed the existing editorial structure gate, so September 7 correctly remains without a newly published signal.\n- Final live parity: September 7 zero signals; September 6 the same three across surfaces. All four installed methods returned `ok: true`.\n- Residual investigation: the original native abort did not recur; all-thread fault diagnostics are enabled, but the responsible library is not identified. The successful recovery also reported four failed generation requests out of ten. Do not equate recovery with proven elimination of those failure modes.\n\nFull receipts: [September 7 incident](https://github.com/High-Signal-App/high-signal/blob/main/docs/operations/2026-09-07-publication-incident.md). This does not close the existing scheduled-chain/Digg latency acceptance work or claim immutable snapshot revisions were implemented.\n",
@@ -2257,156 +2228,44 @@
       "checks": [
         {
           "conclusion": "success",
-          "databaseId": 34125897006,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
+          "databaseId": 34134003187,
+          "headSha": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
           "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34125897006",
-          "workflowName": "cron-d2c-opportunities"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34124948525,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34124948525",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34124946237,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34124946237",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34122215083,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34122215083",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34122213076,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34122213076",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34119517181,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34119517181",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34119514663,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34119514663",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34116950859,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34116950859",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34116948158,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34116948158",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34114345574,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34114345574",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34114343089,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34114343089",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34111780348,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34111780348",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34111777533,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34111777533",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "failure",
-          "databaseId": 34110217172,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34110217172",
-          "workflowName": "cron-acceptance-monitor"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34109508853,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34109508853",
-          "workflowName": "CI"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34109508784,
-          "headSha": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34109508784",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34134003187",
           "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34134003102,
+          "headSha": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34134003102",
+          "workflowName": "CI"
         }
       ],
-      "checksObservedAt": "2026-09-07T14:20:28.535809+00:00",
+      "checksObservedAt": "2026-09-07T14:41:34.126570+00:00",
       "readmeIssueReferencesMissing": [],
-      "checksRevision": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
+      "checksRevision": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
       "tasksObservedAt": "2026-09-07T14:20:27.331839+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T14:20:26.150225+00:00",
+      "localObservedAt": "2026-09-07T14:41:34.126570+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
+          "revision": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
       ],
-      "localState": "observed",
+      "localState": "clean",
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
       "issuesObservedAt": "2026-09-07T14:20:26.736619+00:00",
       "issuesState": "observed",
       "prsObservedAt": "2026-09-07T14:20:27.331816+00:00",
       "prsState": "observed",
       "remoteState": "observed",
-      "headDrift": "HEAD_DRIFT",
+      "headDrift": "MATCH",
       "checksState": "observed",
       "latestWorkflowRuns": [
         {
@@ -2501,54 +2360,51 @@
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
+      "revisionAtObservationEnd": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
       "observationStartedAt": "2026-09-07T14:20:26.032397+00:00",
       "observedAt": "2026-09-07T14:22:01.015968+00:00",
       "errors": [],
       "remoteRepository": "High-Signal-App/high-signal",
       "remoteDefaultBranch": "main",
-      "remoteDefaultRevision": "24b8f6422fab397d543673efa39312232f713487",
-      "remoteObservedAt": "2026-09-07T14:21:59.952165+00:00",
-      "localMatchesRemoteDefault": false,
+      "remoteDefaultRevision": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
+      "remoteObservedAt": "2026-09-07T14:41:34.126570+00:00",
+      "localMatchesRemoteDefault": true,
       "remoteChecks": [
         {
           "conclusion": "success",
-          "databaseId": 34130530153,
-          "headSha": "24b8f6422fab397d543673efa39312232f713487",
+          "databaseId": 34134003187,
+          "headSha": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
           "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34130530153",
-          "workflowName": "cron-mts"
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34134003187",
+          "workflowName": "Docs"
         },
         {
           "conclusion": "success",
-          "databaseId": 34130527263,
-          "headSha": "24b8f6422fab397d543673efa39312232f713487",
+          "databaseId": 34134003102,
+          "headSha": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
           "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34130527263",
-          "workflowName": "cron-digg"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34127749106,
-          "headSha": "24b8f6422fab397d543673efa39312232f713487",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34127749106",
-          "workflowName": "cron-mts"
-        },
-        {
-          "conclusion": "success",
-          "databaseId": 34127746426,
-          "headSha": "24b8f6422fab397d543673efa39312232f713487",
-          "status": "completed",
-          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34127746426",
-          "workflowName": "cron-digg"
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34134003102",
+          "workflowName": "CI"
         }
       ],
-      "remoteChecksRevision": "24b8f6422fab397d543673efa39312232f713487",
-      "remoteChecksObservedAt": "2026-09-07T14:22:00.952117+00:00",
+      "remoteChecksRevision": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
+      "remoteChecksObservedAt": "2026-09-07T14:41:34.126570+00:00",
       "remoteChecksState": "observed",
-      "localEndObservedAt": "2026-09-07T14:22:00.982696+00:00",
-      "dirtyObservedAt": "2026-09-07T14:22:01.015940+00:00"
+      "localEndObservedAt": "2026-09-07T14:41:34.126570+00:00",
+      "dirtyObservedAt": "2026-09-07T14:41:34.126570+00:00",
+      "priorScanHeadDrift": {
+        "local": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
+        "remote": "24b8f6422fab397d543673efa39312232f713487",
+        "state": "HEAD_DRIFT",
+        "observedAt": "2026-09-07T14:21:59.952165+00:00"
+      },
+      "postScanRelease": {
+        "webSource": "ddefa8dd2e27648a8952e98640f96a682ba9b02b",
+        "workerVersion": "950432b9-68e9-466d-8c19-78e00ee19e5c",
+        "documentationRevision": "83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9",
+        "ciRun": 34134003102,
+        "limit": "Web presentation/cache repair only; #133 broader calibration remains open. Pre-existing stash preserved."
+      }
     },
     {
       "id": "on-record",
@@ -4035,7 +3891,7 @@
       "id": "swe-interview-prep",
       "checkout": "swe-interview-prep",
       "repository": "Significant-Hobbies/swe-interview-prep",
-      "revision": "f7727fc5e4d1a804988407e557c22fe74353d906",
+      "revision": "4b0f613929e7ec84cf04e2516950ac21d1ba8741",
       "branches": [
         "main"
       ],
@@ -4082,24 +3938,24 @@
       "checksRevision": "f7727fc5e4d1a804988407e557c22fe74353d906",
       "tasksObservedAt": "2026-09-07T14:20:39.538903+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T14:20:38.292417+00:00",
+      "localObservedAt": "2026-09-07T14:32:40.374127+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "f7727fc5e4d1a804988407e557c22fe74353d906",
+          "revision": "4b0f613929e7ec84cf04e2516950ac21d1ba8741",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
       ],
-      "localState": "observed",
+      "localState": "clean",
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
       "issuesObservedAt": "2026-09-07T14:20:38.957539+00:00",
       "issuesState": "observed",
       "prsObservedAt": "2026-09-07T14:20:39.538880+00:00",
       "prsState": "observed",
       "remoteState": "observed",
-      "headDrift": "HEAD_DRIFT",
+      "headDrift": "MATCH",
       "checksState": "observed",
       "latestWorkflowRuns": [
         {
@@ -4170,7 +4026,7 @@
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "f7727fc5e4d1a804988407e557c22fe74353d906",
+      "revisionAtObservationEnd": "4b0f613929e7ec84cf04e2516950ac21d1ba8741",
       "observationStartedAt": "2026-09-07T14:20:38.151708+00:00",
       "observedAt": "2026-09-07T14:22:04.889595+00:00",
       "errors": [],
@@ -4178,13 +4034,25 @@
       "remoteDefaultBranch": "main",
       "remoteDefaultRevision": "4b0f613929e7ec84cf04e2516950ac21d1ba8741",
       "remoteObservedAt": "2026-09-07T14:22:04.290782+00:00",
-      "localMatchesRemoteDefault": false,
+      "localMatchesRemoteDefault": true,
       "remoteChecks": [],
       "remoteChecksRevision": "4b0f613929e7ec84cf04e2516950ac21d1ba8741",
       "remoteChecksObservedAt": "2026-09-07T14:22:04.838138+00:00",
       "remoteChecksState": "no-runs",
-      "localEndObservedAt": "2026-09-07T14:22:04.858522+00:00",
-      "dirtyObservedAt": "2026-09-07T14:22:04.889565+00:00"
+      "localEndObservedAt": "2026-09-07T14:32:40.374127+00:00",
+      "dirtyObservedAt": "2026-09-07T14:32:40.374127+00:00",
+      "localValidation": {
+        "observedAt": "2026-09-07T14:32:40.374127+00:00",
+        "revision": "4b0f613929e7ec84cf04e2516950ac21d1ba8741",
+        "command": "pnpm quality",
+        "result": "passed",
+        "tests": 608,
+        "focusedLibraryTests": 14,
+        "nodeVersion": "26.8.1",
+        "hostedCiNodeVersion": "22",
+        "scope": "Exact-source local checks only; no exact-head Actions run. No deploy/migration/library refresh."
+      },
+      "previousHeadDrift": "HEAD_DRIFT"
     },
     {
       "id": "calorie",
@@ -6523,16 +6391,7 @@
           "url": "https://github.com/sarthakagrawal927/portfolio/issues/28"
         }
       ],
-      "prs": [
-        {
-          "baseRefName": "main",
-          "headRefName": "imgbot",
-          "isDraft": false,
-          "number": 35,
-          "title": "[ImgBot] Optimize images",
-          "url": "https://github.com/sarthakagrawal927/portfolio/pull/35"
-        }
-      ],
+      "prs": [],
       "checks": [
         {
           "conclusion": "success",
@@ -6562,7 +6421,7 @@
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
       "issuesObservedAt": "2026-09-07T14:20:59.097140+00:00",
       "issuesState": "observed",
-      "prsObservedAt": "2026-09-07T14:20:59.665455+00:00",
+      "prsObservedAt": "2026-09-07T14:28:15.553987+00:00",
       "prsState": "observed",
       "remoteState": "observed",
       "headDrift": "MATCH",
@@ -6611,7 +6470,13 @@
       "remoteChecksObservedAt": "2026-09-07T14:22:11.218113+00:00",
       "remoteChecksState": "observed",
       "localEndObservedAt": "2026-09-07T14:22:11.247079+00:00",
-      "dirtyObservedAt": "2026-09-07T14:22:11.277062+00:00"
+      "dirtyObservedAt": "2026-09-07T14:22:11.277062+00:00",
+      "prResolution": {
+        "number": 35,
+        "state": "closed-unmerged",
+        "reason": "Mixed optimization rewrote original release evidence bytes; originals retained. Pixel identity does not preserve receipt hashes.",
+        "review": "https://github.com/sarthakagrawal927/portfolio/pull/35#issuecomment-5572065576"
+      }
     },
     {
       "id": "agent-office",
