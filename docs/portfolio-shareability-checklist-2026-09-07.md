@@ -129,3 +129,23 @@ The snapshot also exposes Live production-smoke failures and a High Signal
 scheduled markets failure despite green build CI. These require independent
 resolution; successful build workflows do not establish all Actions are green.
 Existing unique branches, two stashes and unrelated owner edits are preserved.
+
+
+### Task reconciliation after the repair wave
+
+The refreshed 54-project inventory now contains **41 open issues and 1 open
+PR**. Every open issue has a reference in its owning README (reference coverage
+only; this does not claim all acceptance criteria are implemented). IssuePages
+#4 is editorial content, not an engineering completion. SaaS Maker #103 remains
+in-progress work in a checkout with unrelated edits.
+
+Pace #185 is merged and exact post-merge CI/Docs are green. CodeVetter #263 was
+closed as superseded by #265; the newly reproduced false window-proof verdict
+is repaired in #271 and awaits CI/review. No installed CodeVetter workflow was
+run. Memory Map and Kinetic repairs have green exact-commit CI; complete hosted
+journeys remain unqualified. High Signal's safe error diagnostics are verified,
+but the historical generation outage has not been rerun or declared recovered.
+
+The inventory keeps the earlier CI observation timestamp and revision separate
+from the refreshed task/local state. In-flight work can change after either
+observation. Shareability remains 16 scoped passes out of 54.

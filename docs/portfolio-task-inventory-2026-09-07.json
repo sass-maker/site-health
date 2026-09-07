@@ -1,6 +1,6 @@
 {
-  "observedAt": "2026-09-07T09:53:32.738956+00:00",
-  "scope": "54 projects; Chess, Journal removed; Nomad excluded. In-flight sibling work may change after observation.",
+  "observedAt": "2026-09-07T10:07:51.228220+00:00",
+  "scope": "54 projects; Chess, Journal removed; Nomad excluded. Tasks and local state refreshed; check rows retain their separate earlier observation time.",
   "projects": [
     {
       "id": "codevetter",
@@ -17,6 +17,7 @@
         "fix/native-window-probe",
         "fix/release-qualification-wal-probe",
         "fix/release-wal-continuity-probe",
+        "fix/upgrade-window-evidence",
         "fix/version-single-source",
         "main",
         "release/cut-1.13.4",
@@ -60,11 +61,11 @@
       "prs": [
         {
           "baseRefName": "main",
-          "headRefName": "fix/native-window-probe",
+          "headRefName": "fix/upgrade-window-evidence",
           "isDraft": false,
-          "number": 263,
-          "title": "fix(release): scope the window probe's filter to the process, not to windows",
-          "url": "https://github.com/Codevetter/codevetter/pull/263"
+          "number": 271,
+          "title": "fix: require observed windows in installed-upgrade proof",
+          "url": "https://github.com/Codevetter/codevetter/pull/271"
         }
       ],
       "checks": [
@@ -96,13 +97,16 @@
           "url": "https://github.com/Codevetter/codevetter/actions/runs/34098773696",
           "workflowName": "Repository Security"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099"
     },
     {
       "id": "pace",
       "checkout": "pace",
       "repository": "HeyPace/pace",
-      "revision": "e0074073ca031a11a9628ef01ef61f1c85be9c24",
+      "revision": "35d075c4fb500ed87dd9b4e456d543b75ffe0f4f",
       "branches": [
         "main"
       ],
@@ -150,16 +154,7 @@
           "url": "https://github.com/HeyPace/pace/issues/157"
         }
       ],
-      "prs": [
-        {
-          "baseRefName": "main",
-          "headRefName": "docs/portfolio-retained-work-20260907",
-          "isDraft": false,
-          "number": 185,
-          "title": "docs: retain portfolio requirements in README",
-          "url": "https://github.com/HeyPace/pace/pull/185"
-        }
-      ],
+      "prs": [],
       "checks": [
         {
           "conclusion": "success",
@@ -175,7 +170,10 @@
           "url": "https://github.com/HeyPace/pace/actions/runs/34098944449",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "e0074073ca031a11a9628ef01ef61f1c85be9c24"
     },
     {
       "id": "posttrainllm",
@@ -198,13 +196,16 @@
           "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "4d41f8bdbd957f3576b80bd17b99557aaddc6ae2"
     },
     {
       "id": "site-health",
       "checkout": "site-health",
       "repository": "sass-maker/site-health",
-      "revision": "3a8e86152f51fcdfa7c037bd5af6d8843b623b33",
+      "revision": "5534c14b86d6d1255761108710385beaebbaf5d9",
       "branches": [
         "main"
       ],
@@ -255,13 +256,16 @@
           "url": "https://github.com/sass-maker/site-health/actions/runs/34107549338",
           "workflowName": "Site Health CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "3a8e86152f51fcdfa7c037bd5af6d8843b623b33"
     },
     {
       "id": "live",
       "checkout": "live",
       "repository": "Significant-Hobbies/live",
-      "revision": "c0934cabb019887900dddf0916a53aed217735ac",
+      "revision": "124ecd779e3d5e05a1eba5088e12ce72c7c952a1",
       "branches": [
         "main"
       ],
@@ -305,7 +309,10 @@
           "url": "https://github.com/Significant-Hobbies/live/actions/runs/34022786841",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "c0934cabb019887900dddf0916a53aed217735ac"
     },
     {
       "id": "chatgpt-connections",
@@ -327,13 +334,16 @@
           "url": "https://github.com/sass-maker/chatgpt-connections/actions/runs/34107358677",
           "workflowName": "ChatGPT Connections CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "cd2ca0f408de984142c0ac5cc7373c549a29d8d3"
     },
     {
       "id": "saas-maker",
       "checkout": "saas-maker",
       "repository": "sass-maker/saas-maker",
-      "revision": "c960d128ba3dbc839e4f8051402130c3a6e59d52",
+      "revision": "8b336294056c3defea53ff9d2f0982ff3d5b526e",
       "branches": [
         "main"
       ],
@@ -393,7 +403,10 @@
           "url": "https://github.com/sass-maker/saas-maker/actions/runs/34106548997",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "c960d128ba3dbc839e4f8051402130c3a6e59d52"
     },
     {
       "id": "gitstat",
@@ -415,7 +428,10 @@
           "url": "https://github.com/sass-maker/gitstat/actions/runs/34030231936",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "cb9d0ff663b06c2f53178dbabff466444926b77a"
     },
     {
       "id": "reel-pipeline",
@@ -444,7 +460,10 @@
           "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/34104971607",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "7753a45b47ec15d03b07edf7ebf9edf2b52732ff"
     },
     {
       "id": "mobile-dev-cockpit",
@@ -458,7 +477,10 @@
       "dirty": [],
       "issues": [],
       "prs": [],
-      "checks": []
+      "checks": [],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "2c7da0814b6dfc05f36fa960004db95b372a2f01"
     },
     {
       "id": "drank",
@@ -488,49 +510,28 @@
           "url": "https://github.com/sass-maker/drank/actions/runs/34106354672",
           "workflowName": "DRank CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "fe07a1d87da2e7e663e6a599887d747ed29d8ab4"
     },
     {
       "id": "email-manager",
       "checkout": "email-manager",
       "repository": "Significant-Hobbies/email-manager",
-      "revision": "b8e59d80564ba49e4b1f69f5aae6a78d746427e3",
+      "revision": "6a4eb83117c671b2ced37ca9a496f3cef3fbff4f",
       "branches": [
         "main"
       ],
       "stashes": [],
-      "dirty": [
-        "M PROJECT_STATUS.md",
-        " M docs/architecture/README.md",
-        " M docs/architecture/decisions.md",
-        " M docs/architecture/how-it-works.md",
-        " M docs/architecture/overview.md",
-        " M package.json",
-        " M src/components/EmailDetail.tsx",
-        " M src/components/EmailHoverPreview.tsx",
-        " M src/components/MailboxStoreProvider.tsx",
-        " M src/components/SemanticSearch.tsx",
-        " M src/components/SentMailView.tsx",
-        " M src/components/Subscriptions.tsx",
-        " M src/components/WeeklyDigestView.tsx",
-        " M src/lib/__tests__/inbox-sync-lifecycle.test.ts",
-        " M src/lib/db.ts",
-        " M src/lib/email-index.ts",
-        " M src/lib/get-access-token.ts",
-        " M src/lib/inbox-sync.ts",
-        " M src/lib/semantic-search.ts",
-        " M src/lib/subscription-senders.ts",
-        " M src/pages/HomeClient.tsx",
-        "?? scripts/verify-local-mailbox.mjs",
-        "?? src/lib/__tests__/mailbox-account-auth.test.ts"
-      ],
+      "dirty": [],
       "issues": [
         {
-          "body": "## Why\nAll local messages, embeddings and sync cursors currently share one `email-search` database, while the authenticated mailbox provider has no account scope. Switching users in one browser can expose another user's cached mail.\n\n## What\nBounded repair of cache ownership and account-switch UI state. No mailbox provider mutations, private mail access, compose/drafts, production deployment, credentials or legacy-data deletion.\n\n## Design\nUse explicit authenticated user ID in every IndexedDB operation. Capture that ID in sync/index/search operations so delayed work cannot switch destination. Key the authenticated provider by user ID to reset visible state. Leave the legacy unscoped database unopened and untouched because its owner is unknown.\n\n## Specs\n### Requirement: account-owned cache\n- WHEN synthetic users A and B cache messages with the same message ID, THEN reads and cursors remain independent.\n- WHEN an A sync/index result completes after B mounts, THEN its writes remain owned by A.\n- WHEN signed-out or unscoped code attempts a cache operation, THEN it fails closed.\n- WHEN the account changes, THEN selected messages and search state reset.\n- Existing read/search/organization flow SHALL remain local and read-only.\n\n## Tasks\n- [ ] Thread explicit scope through storage, sync, index, search and authenticated provider.\n- [ ] Verify independent caches and cursors using actual browser IndexedDB with synthetic data, including delayed completion.\n- [ ] Run focused and repo quality/build checks; document real-login qualification limits.\n",
+          "body": "Pending release gates: authorized deployment of account-scoped cache repair; owner-assisted real OAuth/account-switch verification; read/search/sender/digest journey on permitted mailbox data; client ONNX ranking quality and model download behavior; domain/OAuth callback parity. Synthetic local cache/API tests do not qualify these live paths. Read-only Gmail remains intentional: no compose, draft, reply, archive or delete features. No private messages, unsubscribe requests or provider mutations were accessed/performed during local audit.",
           "labels": [],
-          "number": 53,
-          "title": "Isolate browser mailbox caches by authenticated account",
-          "url": "https://github.com/Significant-Hobbies/email-manager/issues/53"
+          "number": 54,
+          "title": "Qualify signed-in Kinetic mailbox and model journeys after deployment",
+          "url": "https://github.com/Significant-Hobbies/email-manager/issues/54"
         }
       ],
       "prs": [],
@@ -549,19 +550,30 @@
           "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34023101585",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "b8e59d80564ba49e4b1f69f5aae6a78d746427e3"
     },
     {
       "id": "chatgpt-memory-insights",
       "checkout": "chatgpt-memory-insights",
       "repository": "Significant-Hobbies/chatgpt-memory-insights",
-      "revision": "72880352e89af4d5e0e43efdcaa6548782bf0b37",
+      "revision": "64c8d733a0c3f20a4a7125b9ccfc94822ba9a759",
       "branches": [
         "main"
       ],
       "stashes": [],
       "dirty": [],
-      "issues": [],
+      "issues": [
+        {
+          "body": "The 2026-09-07 repair qualifies a real built-app failure path: a synthetic conversations.json ZIP is parsed by the actual worker, deterministic statistics appear, blocked external model downloads now show a visible recovery panel, semantic status stops honestly, unavailable save/search controls are disabled, and retry returns to import. Chromium checks pass at 390px and 1280px. No hosted upload, private archive, or deployment occurred.\n\nRemaining acceptance:\n- After separately authorized deployment, record exact deployed SHA and verify the synthetic ZIP import journey.\n- Complete an actual embedding model download/run and inspect topic/evidence output and source-backed search.\n- Explicitly opt into save, reload/restore, and forget; confirm persistence boundaries and no original ZIP storage.\n- Verify large/split archives, model/runtime fallback, and keyboard/mobile evidence inspection without interpreting inferred facts or emotion as verified truths.\n\nThe offline regression is not a semantic-completion, IndexedDB, or hosted shareability receipt. This product has no accounts/server uploads; all archive analysis is browser-local.\n",
+          "labels": [],
+          "number": 37,
+          "title": "Qualify complete semantic import, search, save, restore, and forget journey",
+          "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/37"
+        }
+      ],
       "prs": [],
       "checks": [
         {
@@ -571,7 +583,10 @@
           "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34000504450",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "72880352e89af4d5e0e43efdcaa6548782bf0b37"
     },
     {
       "id": "free-ai",
@@ -609,7 +624,10 @@
           "url": "https://github.com/sass-maker/free-ai/actions/runs/34099954189",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "bd7aa10c6c69ae3987d80d22c139776339167e7f"
     },
     {
       "id": "psi-swarm",
@@ -631,13 +649,16 @@
           "url": "https://github.com/sass-maker/psi-swarm/actions/runs/34105369296",
           "workflowName": "PSI Swarm CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "f1643f0b2b7e819f1c65b06445bec646f87cb600"
     },
     {
       "id": "high-signal",
       "checkout": "high-signal",
       "repository": "High-Signal-App/high-signal",
-      "revision": "5aea1729955287c4251e62f4ad2f57f601f20426",
+      "revision": "57543dc4d5fce8c81aeb27d711c0982928bd7b8d",
       "branches": [
         "main"
       ],
@@ -732,7 +753,10 @@
           "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34099673295",
           "workflowName": "Docs"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "5aea1729955287c4251e62f4ad2f57f601f20426"
     },
     {
       "id": "on-record",
@@ -769,13 +793,16 @@
           "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/34098796104",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "f23aa1bc6f932dfa181cc35af06e5ead515f1b8b"
     },
     {
       "id": "issue-pages",
       "checkout": "issue-pages",
       "repository": "sarthakagrawal927/issue-pages",
-      "revision": "cf6bdf249613561dca29842bcb9520b398eb9d95",
+      "revision": "65e20e96cb9149baf1d7254b738027079541e4ea",
       "branches": [
         "main"
       ],
@@ -806,7 +833,10 @@
           "url": "https://github.com/sarthakagrawal927/issue-pages/actions/runs/34029403303",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "cf6bdf249613561dca29842bcb9520b398eb9d95"
     },
     {
       "id": "everythingrated",
@@ -843,7 +873,10 @@
           "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34105187417",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "53a6bc032e0da7b9ede516e53a103e4e6f26a47d"
     },
     {
       "id": "research-papers",
@@ -872,7 +905,10 @@
           "url": "https://github.com/High-Signal-App/research-papers/actions/runs/34001973170",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "d9597bdcab1b2a8ca7e99bb06be182cbe968ab00"
     },
     {
       "id": "materia",
@@ -901,7 +937,10 @@
           "url": "https://github.com/Significant-Hobbies/materia/actions/runs/34001741007",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "aa0cef3ca98734b587c3b3de1d5a74a85b641c2a"
     },
     {
       "id": "knowledge-base",
@@ -930,7 +969,10 @@
           "url": "https://github.com/sass-maker/knowledge-base/actions/runs/34105763854",
           "workflowName": "ci"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "9e023f9c6c18fb25e7511f55b535770ef8a7823b"
     },
     {
       "id": "significanthobbies",
@@ -973,7 +1015,10 @@
           "url": "https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34098753983",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "5d0de02df0752aced93080ed853028d630fb8e84"
     },
     {
       "id": "india-standards",
@@ -1010,7 +1055,10 @@
           "url": "https://github.com/Significant-Hobbies/india-standards/actions/runs/34105265455",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "f5312cfbed265c8fd1ee83d7478b18810c56a518"
     },
     {
       "id": "anime-list",
@@ -1047,7 +1095,10 @@
           "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242428",
           "workflowName": "Docs"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "93000b31d28215acf88ec76a70dd99bd431674c0"
     },
     {
       "id": "looptv",
@@ -1076,7 +1127,10 @@
           "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34003370462",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "193fc3448abce965b9c85be27885f4b410e21fb5"
     },
     {
       "id": "reader",
@@ -1120,7 +1174,10 @@
           "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34108092917",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "e582a382d76b17408ef0e96f8bc725ea73393101"
     },
     {
       "id": "swe-interview-prep",
@@ -1132,10 +1189,18 @@
         "main"
       ],
       "stashes": [],
-      "dirty": [],
+      "dirty": [
+        "M handlers/artifacts.mjs",
+        " M handlers/drills.mjs",
+        " M handlers/projects.mjs",
+        " M shared/db/d1-client.mjs",
+        "?? handlers/record-sync.mjs",
+        "?? migrations/d1/0003_record_sync_receipts.sql",
+        "?? src/lib/recordSync.ts"
+      ],
       "issues": [
         {
-          "body": "Source inspection during exercise qualification found an existing sync reliability boundary in src/hooks/useUserStore.ts: local edits persist immediately, POST is debounced and errors/non-OK responses are not surfaced, then later GET uses mergeRecords so remote wins even if local changes were never synchronized. This affects generic drill/artifact/project stores.\n\nAcceptance criteria:\n- Reproduce failed/delayed POST plus reload and prove newer unsynced local work is retained.\n- Track pending writes per account and reconcile/acknowledge them without copying progress to another user.\n- Surface local-only/pending/failed/synced states truthfully; safely retry without duplicate attempt increments.\n- Test navigation/unmount, offline recovery and account switching against actual persistence handlers.\n\nDo not solve this by blindly making every local record win or by altering production data. This is separate from the bounded editor-resume repair and requires a deliberate synchronization contract.\n",
+          "body": "## Why\nLocal drill/artifact/project edits currently save into one unscoped browser key, POST failures are ignored, and remote GET overwrites unsynced work. Drill POST increments attempts on every request, so retries also need server idempotency.\n\n## What\nRepair the three generic record stores (drills, artifacts, projects), with visible local-only/pending/failed/synced status and explicit retry. Notes, mastery, ELO, cross-device conflict merging, and deployment remain outside this issue. Preserve older unscoped data as guest-local data; do not infer which account owns it.\n\n## Design\nPersist each account's records and pending operations together in a versioned localStorage envelope. Guest storage remains separate. Local edits create stable operation IDs before networking. GET overlays remote records only where there is no pending local operation. A shared controller serializes writes per store, survives component unmount, retries on mount/online/manual retry, and acknowledges only the exact operation returned. An explicit account ID in mutation bodies must match authenticated server identity.\n\nAdd an additive D1 mutation-receipt table and transactional batch adapter. Record writes and their receipt commit together; a repeated account/operation ID performs no write or second drill attempt/activity increment. Old clients remain supported. No production migration is performed in this task; deployment must apply the additive migration first.\n\n## Specs\n### Requirement: Durable pending work\nThe app SHALL retain pending full-record edits across reload and failed/delayed network responses. Server reads SHALL NOT overwrite a pending record.\n#### Scenario: Lost acknowledgment\n- WHEN the server applies a drill write but its response is lost and the same operation is retried\n- THEN attempts and activity increment once and the operation becomes synced after acknowledgment.\n### Requirement: Account boundaries\nStores and pending writes SHALL be scoped to the account that created them. Account changes SHALL hide the previous account's data immediately and stop its queued requests. The server SHALL reject a mutation for a different authenticated account.\n### Requirement: Honest status\nThe app SHALL distinguish local-only, pending, failed, and synced states, retain an actionable retry, and never claim durable local save after storage failure.\n\n## Tasks\n- [ ] Implement account-scoped durable pending records and reconciliation controller.\n- [ ] Add transactional, idempotent server record writes and migration.\n- [ ] Wire stores and visible synchronization status/retry.\n- [ ] Verify failed/delayed POST, lost acknowledgment, reload, stale GET, retries, unmount, account changes, and no duplicate attempts using real persistence handlers with synthetic SQLite data.\n- [ ] Run local quality, push, verify exact CI, and reconcile README/status. Hosted rollout remains #97.\n",
           "labels": [],
           "number": 98,
           "title": "Preserve unsynced local learning edits during remote reconciliation",
@@ -1165,7 +1230,10 @@
           "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34106058078",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "532484e5d2672673d6bb1ed6ee9360359e65bb94"
     },
     {
       "id": "calorie",
@@ -1187,7 +1255,10 @@
           "url": "https://github.com/Significant-Hobbies/calorie/actions/runs/34002261544",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "d0b71cd56e195bdff23b787b035d378b39af5072"
     },
     {
       "id": "setline",
@@ -1209,7 +1280,10 @@
           "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34004124571",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "84546dd4f81d59c620f53d025f5b958ca65f0aae"
     },
     {
       "id": "kith",
@@ -1231,7 +1305,10 @@
           "url": "https://github.com/Significant-Hobbies/kith/actions/runs/33262949395",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "916e876ede113ea1ba2eb13b56105502ca88bf68"
     },
     {
       "id": "ios-landings",
@@ -1254,7 +1331,10 @@
           "url": "https://github.com/Significant-Hobbies/ios-landings/actions/runs/34092917960",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "957e1fa3a3247cc73ea3114bcd886402c9cbc3ca"
     },
     {
       "id": "rolepatch",
@@ -1283,7 +1363,10 @@
           "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "a2e4a336fe53e82785f39aa49a53339fc5080935"
     },
     {
       "id": "karte",
@@ -1320,7 +1403,10 @@
           "url": "https://github.com/Significant-Hobbies/karte/actions/runs/34107483404",
           "workflowName": "Docs"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "e7072fc6171dc4fa926cac1ee846068b4243b370"
     },
     {
       "id": "starboard",
@@ -1364,7 +1450,10 @@
           "url": "https://github.com/Codevetter/starboard/actions/runs/34098801008",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "13857af485b98c9a917cc404a0f73ec7513ea1c6"
     },
     {
       "id": "ai-game",
@@ -1375,7 +1464,17 @@
         "main"
       ],
       "stashes": [],
-      "dirty": [],
+      "dirty": [
+        "M PROJECT_STATUS.md",
+        " M README.md",
+        " M STATUS.md",
+        " M docs/index.md",
+        " M tests/web3d-world-store.test.ts",
+        " M web3d/src/App.tsx",
+        " M web3d/src/store/world.ts",
+        "?? docs/current/evidence/",
+        "?? docs/current/setup-and-memory-qualification-2026-09-07.md"
+      ],
       "issues": [],
       "prs": [],
       "checks": [
@@ -1393,7 +1492,10 @@
           "url": "https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834863",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "5f9390a05a09d0fd1ce2c49f2272518adcbb7425"
     },
     {
       "id": "protein-index",
@@ -1415,7 +1517,10 @@
           "url": "https://github.com/Significant-Hobbies/protein-index/actions/runs/34102567258",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "76e54ae81580081ff96c19ca19c9c9ed9faa4c15"
     },
     {
       "id": "veg-protein-food",
@@ -1437,7 +1542,10 @@
           "url": "https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/34002269438",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "665bff53538953ac329d6b2322cab9d95163022f"
     },
     {
       "id": "app-health",
@@ -1474,7 +1582,10 @@
           "url": "https://github.com/sass-maker/app-health/actions/runs/34104011538",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "1099b1c39e92863a63125a0d97aff3eb0c264324"
     },
     {
       "id": "mashup",
@@ -1517,7 +1628,10 @@
           "url": "https://github.com/sass-maker/mashup/actions/runs/34107001659",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "9673d781026dad85855edb5d8ac0b6c291f8d53a"
     },
     {
       "id": "motion",
@@ -1560,7 +1674,10 @@
           "url": "https://github.com/Significant-Hobbies/motion/actions/runs/34098810812",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "6ac4700feea7683c86efc214470e6d9dd8bf846a"
     },
     {
       "id": "truehire",
@@ -1582,7 +1699,10 @@
           "url": "https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "6fb5676cae468658562fb4f69e6758ec08252359"
     },
     {
       "id": "open-historia",
@@ -1604,7 +1724,10 @@
           "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "d97de700d48fa0b5af8f00aae7a9959f1cf739d9"
     },
     {
       "id": "companion-robot",
@@ -1626,7 +1749,10 @@
           "url": "https://github.com/HeyPace/companion-robot/actions/runs/34092836947",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "6653a2b6e82f551a48dc125af0437872d98e4dc0"
     },
     {
       "id": "forecast-lab",
@@ -1656,7 +1782,10 @@
           "url": "https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34105011069",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "15b7130f600811170ca94533d540e62f0f0b0324"
     },
     {
       "id": "web-playables",
@@ -1678,7 +1807,10 @@
           "url": "https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "13ee2867522e1da6369a64c57d038db01daa87ce"
     },
     {
       "id": "what-it-takes-to-win",
@@ -1742,7 +1874,10 @@
           "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/34098814095",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "88eafac7886a0f85fdc0d1933996ec2cd0f89be5"
     },
     {
       "id": "sarthakagrawal-personal",
@@ -1845,7 +1980,10 @@
           "url": "https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639",
           "workflowName": "Portfolio CI / Deploy"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "ea76de9f3cc789bab4efd893987fd324beda4161"
     },
     {
       "id": "agent-office",
@@ -1874,7 +2012,10 @@
           "url": "https://github.com/sass-maker/agent-office/actions/runs/34107979534",
           "workflowName": "Native Quality"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "b905c97a9e1aa602295b18456990ca7439e14969"
     },
     {
       "id": "local-ai-video-studio",
@@ -1918,7 +2059,10 @@
           "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/34108066643",
           "workflowName": "Native Quality"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "4b6421eb1fee8940c1b1b9aefc1f1f290670dfb1"
     },
     {
       "id": "field-track",
@@ -1961,7 +2105,10 @@
           "url": "https://github.com/sass-maker/field-track/actions/runs/34098821024",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4"
     },
     {
       "id": "reddit-insights",
@@ -1983,7 +2130,10 @@
           "url": "https://github.com/High-Signal-App/research-subreddit/actions/runs/34103184551",
           "workflowName": "CI"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "4e63e2b4abbefda34981e45d5dad35cc33c3b794"
     },
     {
       "id": "verified-bases",
@@ -2005,7 +2155,10 @@
           "url": "https://github.com/sass-maker/verified-bases/actions/runs/33474907194",
           "workflowName": "ci"
         }
-      ]
+      ],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "a26c100c9a558847a97a370f8e5a9689d53500fa"
     },
     {
       "id": "anchor",
@@ -2076,7 +2229,10 @@
         }
       ],
       "prs": [],
-      "checks": []
+      "checks": [],
+      "checksObservedAt": "2026-09-07T09:53:32.738956+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "a7ae3e2d547408a4d6f6ad672ab523c8addb252c"
     }
   ]
 }

@@ -20,9 +20,9 @@
       "id": "high-signal",
       "name": "High Signal",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Contradictory confidence labels and surge claims from six positive reviews undermine the core evidence promise. Calibrate claims against sample size and baseline.",
+      "biggestBlocker": "Provider recovery, sample/baseline and headline calibration remain unresolved. Latest markets failure was total generation outage after successful ingestion, not a successful publication run.",
       "shareable": false,
-      "repairProgress": "2026-09-07 follow-up: pushed quality-score versus confidence copy correction (5aea172); CI passes. Sample/baseline and headline calibration remain unresolved; shareability stays false."
+      "repairProgress": "57543dc4 pushed clean; exact CI 34109508853 and Docs 34109508784 green. 422 Python tests plus full quality pass; safe failure categories retained without arbitrary exception text. Existing total-outage exit 3 preserved. No cron rerun or provider recovery claim; #133 remains."
     },
     {
       "id": "posttrainllm",
@@ -96,7 +96,8 @@
       "name": "Live",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Saving and authenticated history untested.",
-      "shareable": true
+      "shareable": true,
+      "repairProgress": "124ecd7 pushed clean. Fixed greedy whitespace-stripping identity parser in production smoke; all five actual read-only steps pass and exact Production Smoke 34108841803 green. Guest sharing scope unchanged."
     },
     {
       "id": "gitstat",
@@ -116,8 +117,9 @@
       "id": "email-manager",
       "name": "Kinetic",
       "classification": "Qualification gap",
-      "biggestBlocker": "Mailbox workflow and presentation after sign-in unverified.",
-      "shareable": false
+      "biggestBlocker": "Hosted account switching, real OAuth/mail search and model quality remain unverified.",
+      "shareable": false,
+      "repairProgress": "6a4eb83 pushed clean; CI 34108712914 green. 100 tests and isolated real IndexedDB synthetic sync/search/digest prove account-owned bodies, embeddings and cursors with colliding message IDs; API rejects stale expected-account requests. #53 closed, #54 retains hosted gates. Legacy unscoped mail preserved untouched."
     },
     {
       "id": "knowledge-base",
@@ -286,15 +288,17 @@
       "id": "codevetter",
       "name": "CodeVetter",
       "classification": "Qualification gap",
-      "biggestBlocker": "Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md.",
-      "shareable": false
+      "biggestBlocker": "Native installed workflow remains unqualified. Visible-process metadata previously produced a false visible-window pass; stricter repair is in PR #271 pending CI/review.",
+      "shareable": false,
+      "repairProgress": "Superseded PR #263 closed after comparing merged #265. Independently reproduced false passing proof and pushed 4ab8667a in PR #271: system_events_window required for every launch; process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Temporary worktree removed; unrelated native edits and existing branches preserved."
     },
     {
       "id": "pace",
       "name": "HeyPace",
       "classification": "Qualification gap",
       "biggestBlocker": "Voice/screen permissions and installed core workflow not exercised.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "README task PR #185 merged as 35d075c4; exact CI 34109016417 and Docs 34109016363 green. Main clean and synced. #172 and #157 remain explicit unfinished requirements."
     },
     {
       "id": "anchor",
@@ -314,8 +318,9 @@
       "id": "chatgpt-memory-insights",
       "name": "Memory Map",
       "classification": "Qualification gap",
-      "biggestBlocker": "Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted.",
-      "shareable": false
+      "biggestBlocker": "Successful semantic embedding/search/save/restore/forget remains unqualified; local synthetic import now exposes model failure and retry honestly. Hosted upload remains unperformed.",
+      "shareable": false,
+      "repairProgress": "64c8d733 pushed clean; exact CI 34109082173 green. 65 tests and real built-browser synthetic ZIP failure/retry checks at 390px and 1280px pass. Statistics retained, failed semantic processing disclosed, unavailable actions disabled. #37 retains complete workflow qualification."
     },
     {
       "id": "drank",
