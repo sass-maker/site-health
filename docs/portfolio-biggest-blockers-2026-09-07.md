@@ -61,3 +61,11 @@ Priority: restore Open Historia turns; correct High Signal evidence claims; repa
 | Forecast Lab | Qualification gap | Dataset-dependent full forecasting experiment not rerun; source inspection alone is insufficient reproducibility proof. |
 | Sarthak Agrawal | No blocker to scoped sharing | Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked. |
 | Reddit Insights | Product/evidence gap | Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete. |
+
+## Repair progress after push authorization
+
+2026-09-07 follow-up: pushed retired Workers AI model compatibility repair (b359d33); 70 tests and CI pass. Live completed turn remains unverified; shareability stays false.
+
+2026-09-07 follow-up: pushed quality-score versus confidence copy correction (5aea172); CI passes. Sample/baseline and headline calibration remain unresolved; shareability stays false.
+
+2026-09-07 follow-up: pushed fast-uri-only lockfile patch to 3.1.7 (bd7aa10); local dependency gate reports zero high/critical findings and 242 tests pass. Inference/access qualification remains unverified.

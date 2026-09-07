@@ -21,7 +21,8 @@
       "name": "High Signal",
       "classification": "Product/evidence gap",
       "biggestBlocker": "Contradictory confidence labels and surge claims from six positive reviews undermine the core evidence promise. Calibrate claims against sample size and baseline.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07 follow-up: pushed quality-score versus confidence copy correction (5aea172); CI passes. Sample/baseline and headline calibration remain unresolved; shareability stays false."
     },
     {
       "id": "posttrainllm",
@@ -63,7 +64,8 @@
       "name": "Free AI",
       "classification": "Qualification gap",
       "biggestBlocker": "CI security gate fails on fast-uri 3.1.5; minimum patched version 3.1.6. Actual inference and operator-provisioned access also remain unqualified.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07 follow-up: pushed fast-uri-only lockfile patch to 3.1.7 (bd7aa10); local dependency gate reports zero high/critical findings and 242 tests pass. Inference/access qualification remains unverified."
     },
     {
       "id": "agent-office",
@@ -203,7 +205,8 @@
       "name": "Open Historia",
       "classification": "Verified defect",
       "biggestBlocker": "Every attempted turn fails because the default Workers AI Llama model was retired. Replace the default and normalize saved legacy model selections; then prove a live completed turn.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "2026-09-07 follow-up: pushed retired Workers AI model compatibility repair (b359d33); 70 tests and CI pass. Live completed turn remains unverified; shareability stays false."
     },
     {
       "id": "ai-game",

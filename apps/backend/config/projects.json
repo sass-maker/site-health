@@ -712,7 +712,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "",
+      "notes": "2026-09-07 follow-up: pushed fast-uri-only lockfile patch to 3.1.7 (bd7aa10); local dependency gate reports zero high/critical findings and 242 tests pass. Inference/access qualification remains unverified.",
       "name": "Free AI",
       "attention": "toolbox",
       "lifecycle": {
@@ -804,7 +804,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Next/OpenNext on Workers",
+      "notes": "Next/OpenNext on Workers 2026-09-07 follow-up: pushed quality-score versus confidence copy correction (5aea172); CI passes. Sample/baseline and headline calibration remain unresolved; shareability stays false.",
       "name": "High Signal",
       "attention": "my-work",
       "lifecycle": {
@@ -2288,7 +2288,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep.",
+      "notes": "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep. 2026-09-07 follow-up: pushed retired Workers AI model compatibility repair (b359d33); 70 tests and CI pass. Live completed turn remains unverified; shareability stays false.",
       "name": "Open Historia",
       "attention": "ignored",
       "lifecycle": {

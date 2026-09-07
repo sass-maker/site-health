@@ -1,0 +1,356 @@
+{
+  "observedAt": "2026-09-07",
+  "organizationProfile": {
+    "repository": "Significant-Hobbies/.github",
+    "commit": "864b083",
+    "removedLinksVerified": true
+  },
+  "pacePullRequest": "https://github.com/HeyPace/pace/pull/185",
+  "projects": [
+    {
+      "project": "site-health",
+      "head": "7f0045c71b8b0dde0409af4c96f9618274d4d96c",
+      "githubRepository": "sass-maker/site-health",
+      "remoteMain": "7f0045c71b8b0dde0409af4c96f9618274d4d96c",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "7f0045c71b8b0dde0409af4c96f9618274d4d96c",
+          "name": "Site Health CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/site-health/actions/runs/34098745713"
+        }
+      ]
+    },
+    {
+      "project": "saas-maker",
+      "head": "59f9a7ed168de9c5a468b13d0bfea8fb65c86bae",
+      "githubRepository": "sass-maker/saas-maker",
+      "remoteMain": "59f9a7ed168de9c5a468b13d0bfea8fb65c86bae",
+      "worktreeChanges": [
+        "M PROJECT_STATUS.md",
+        " M tooling/scripts/agent-stack.sh",
+        " M tooling/skills/site-health/SKILL.md",
+        " M tooling/test/capability-catalog.test.mjs",
+        "?? tooling/skills/media-acquisition/",
+        "?? tooling/skills/seo-research/",
+        "?? tooling/skills/web-extraction/"
+      ],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "59f9a7ed168de9c5a468b13d0bfea8fb65c86bae",
+          "name": "Tooling CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34099794966"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "59f9a7ed168de9c5a468b13d0bfea8fb65c86bae",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34099795091"
+        }
+      ]
+    },
+    {
+      "project": "portfolio",
+      "head": "ea76de9f3cc789bab4efd893987fd324beda4161",
+      "githubRepository": "sarthakagrawal927/portfolio",
+      "remoteMain": "ea76de9f3cc789bab4efd893987fd324beda4161",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "ea76de9f3cc789bab4efd893987fd324beda4161",
+          "name": "Portfolio CI / Deploy",
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639"
+        }
+      ]
+    },
+    {
+      "project": "significanthobbies",
+      "head": "5d0de02df0752aced93080ed853028d630fb8e84",
+      "githubRepository": "Significant-Hobbies/significanthobbies",
+      "remoteMain": "5d0de02df0752aced93080ed853028d630fb8e84",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "5d0de02df0752aced93080ed853028d630fb8e84",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34098753983"
+        }
+      ]
+    },
+    {
+      "project": "truehire",
+      "head": "3cc362b8060a6bab831526e24cdff1358578e669",
+      "githubRepository": "sarthakagrawal927/truehire",
+      "remoteMain": "3cc362b8060a6bab831526e24cdff1358578e669",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "3cc362b8060a6bab831526e24cdff1358578e669",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/truehire/actions/runs/34098761939"
+        }
+      ]
+    },
+    {
+      "project": "codevetter",
+      "head": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+      "githubRepository": "Codevetter/codevetter",
+      "remoteMain": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "",
+          "headSha": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+          "name": "Push on main",
+          "status": "in_progress",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098775137"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098774048"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+          "name": "Docs",
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098773755"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+          "name": "Repository Security",
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098773696"
+        }
+      ]
+    },
+    {
+      "project": "pace",
+      "head": "e0074073ca031a11a9628ef01ef61f1c85be9c24",
+      "githubRepository": "HeyPace/pace",
+      "remoteMain": "ef0c60bfa56ce1b3aef9f3ac1acc987f9c385d0f",
+      "worktreeChanges": [],
+      "currentHeadRuns": []
+    },
+    {
+      "project": "free-ai",
+      "head": "bd7aa10c6c69ae3987d80d22c139776339167e7f",
+      "githubRepository": "sass-maker/free-ai",
+      "remoteMain": "bd7aa10c6c69ae3987d80d22c139776339167e7f",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "bd7aa10c6c69ae3987d80d22c139776339167e7f",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/free-ai/actions/runs/34099954189"
+        }
+      ]
+    },
+    {
+      "project": "high-signal",
+      "head": "5aea1729955287c4251e62f4ad2f57f601f20426",
+      "githubRepository": "High-Signal-App/high-signal",
+      "remoteMain": "5aea1729955287c4251e62f4ad2f57f601f20426",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "5aea1729955287c4251e62f4ad2f57f601f20426",
+          "name": "Docs",
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34099673295"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "5aea1729955287c4251e62f4ad2f57f601f20426",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34099673313"
+        }
+      ]
+    },
+    {
+      "project": "on-record",
+      "head": "f23aa1bc6f932dfa181cc35af06e5ead515f1b8b",
+      "githubRepository": "Significant-Hobbies/on-record",
+      "remoteMain": "f23aa1bc6f932dfa181cc35af06e5ead515f1b8b",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "f23aa1bc6f932dfa181cc35af06e5ead515f1b8b",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/34098796104"
+        }
+      ]
+    },
+    {
+      "project": "starboard",
+      "head": "13857af485b98c9a917cc404a0f73ec7513ea1c6",
+      "githubRepository": "Codevetter/starboard",
+      "remoteMain": "13857af485b98c9a917cc404a0f73ec7513ea1c6",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "13857af485b98c9a917cc404a0f73ec7513ea1c6",
+          "name": "Docs",
+          "status": "completed",
+          "url": "https://github.com/Codevetter/starboard/actions/runs/34098800991"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "13857af485b98c9a917cc404a0f73ec7513ea1c6",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/Codevetter/starboard/actions/runs/34098801008"
+        }
+      ]
+    },
+    {
+      "project": "app-health",
+      "head": "11733dc6cca2e8565933d042ccdd37aa91ef1828",
+      "githubRepository": "sass-maker/app-health",
+      "remoteMain": "11733dc6cca2e8565933d042ccdd37aa91ef1828",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "failure",
+          "headSha": "11733dc6cca2e8565933d042ccdd37aa91ef1828",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/app-health/actions/runs/34098803508"
+        }
+      ]
+    },
+    {
+      "project": "mashup",
+      "head": "90d351481c37218cc5fb27af278d38af046213cf",
+      "githubRepository": "sass-maker/mashup",
+      "remoteMain": "90d351481c37218cc5fb27af278d38af046213cf",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "90d351481c37218cc5fb27af278d38af046213cf",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/mashup/actions/runs/34098806690"
+        }
+      ]
+    },
+    {
+      "project": "motion",
+      "head": "6ac4700feea7683c86efc214470e6d9dd8bf846a",
+      "githubRepository": "Significant-Hobbies/motion",
+      "remoteMain": "6ac4700feea7683c86efc214470e6d9dd8bf846a",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "6ac4700feea7683c86efc214470e6d9dd8bf846a",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/motion/actions/runs/34098810812"
+        }
+      ]
+    },
+    {
+      "project": "what-it-takes-to-win",
+      "head": "88eafac7886a0f85fdc0d1933996ec2cd0f89be5",
+      "githubRepository": "Significant-Hobbies/what-it-takes-to-win",
+      "remoteMain": "88eafac7886a0f85fdc0d1933996ec2cd0f89be5",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "88eafac7886a0f85fdc0d1933996ec2cd0f89be5",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/34098814095"
+        }
+      ]
+    },
+    {
+      "project": "local-ai-video-studio",
+      "head": "f6855dda942e1983cdeb989414468631d280eb55",
+      "githubRepository": "sass-maker/local-ai-video-studio",
+      "remoteMain": "f6855dda942e1983cdeb989414468631d280eb55",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "f6855dda942e1983cdeb989414468631d280eb55",
+          "name": "Site Check",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/34098817410"
+        },
+        {
+          "conclusion": "success",
+          "headSha": "f6855dda942e1983cdeb989414468631d280eb55",
+          "name": "Native Quality",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/34098817371"
+        }
+      ]
+    },
+    {
+      "project": "field-track",
+      "head": "3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4",
+      "githubRepository": "sass-maker/field-track",
+      "remoteMain": "3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/field-track/actions/runs/34098821024"
+        }
+      ]
+    },
+    {
+      "project": "anchor",
+      "head": "a7ae3e2d547408a4d6f6ad672ab523c8addb252c",
+      "githubRepository": "Significant-Hobbies/anchor",
+      "remoteMain": "a7ae3e2d547408a4d6f6ad672ab523c8addb252c",
+      "worktreeChanges": [],
+      "currentHeadRuns": []
+    },
+    {
+      "project": "open-historia",
+      "head": "b359d331dc64cb50b6b85cea75ccbefe510876f9",
+      "githubRepository": "sarthakagrawal927/open-historia",
+      "remoteMain": "b359d331dc64cb50b6b85cea75ccbefe510876f9",
+      "worktreeChanges": [],
+      "currentHeadRuns": [
+        {
+          "conclusion": "success",
+          "headSha": "b359d331dc64cb50b6b85cea75ccbefe510876f9",
+          "name": "CI",
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/34099089795"
+        }
+      ]
+    }
+  ]
+}

@@ -118,3 +118,17 @@ Detailed evidence: [verification JSON](shareability-verification-2026-09-07.json
 4. After the README handoffs are published, retire the corresponding engineering issues and Project items. Preserve the five publication/draft records. Branches containing unique work and both pre-existing stashes need reconciliation rather than deletion.
 
 Fresh account/device/import qualification remains separate work: no missing evidence is counted as a pass.
+
+## Authorized push follow-up
+
+The owner authorized pushing the reviewed changes and continuing blocker repairs. The Significant Hobbies organization profile no longer contains Chess links; Journal was already absent. Source repositories and historical data are preserved. Catalog membership and public projections exclude both removed products.
+
+- Reviewed cleanup commits are pushed; Pace requires a pull request, so its README handoff is in [PR #185](https://github.com/HeyPace/pace/pull/185), with all five checks passing. No branch-protection bypass was attempted.
+- Open Historia: retired default/saved Workers AI model selections now resolve to the supported Llama 3.1 fast variant; 70 tests, typecheck, build, lint and CI pass. A live completed turn remains unverified. [Cloudflare deprecation evidence](https://developers.cloudflare.com/changelog/post/2026-05-08-planned-model-deprecations/).
+- High Signal: removed the false conversion from automated quality scores to “strong evidence.” Editorial confidence stays separate; underlying headline and sample/baseline calibration still blocks promotion. Typecheck, lint, documentation check and CI pass.
+- Free AI: only fast-uri changed, from 3.1.5 to 3.1.7, in an eight-line lockfile diff. Unrelated resolver updates were excluded. Dependency gate reports zero high/critical findings; 242 tests and typecheck pass.
+- SaaS Maker: full 53-test suite and all six package typechecks pass; current CI and Tooling CI pass after removing obsolete proof-set assumptions and empty-list typing.
+- Personal site: full quality pipeline passes, including eight tests, 100% configured GitHub-core coverage, build, agent surfaces and repository hygiene. Remote CI also passes.
+- A browser check still found the old personal-site listing, including Chess. The green push workflow skipped its manual deployment step. Production listings and live model behavior must therefore not be described as updated yet. Manual deployment was not triggered in this push follow-up.
+
+See [all 55 leading blockers](portfolio-biggest-blockers-2026-09-07.md) and [push/Actions receipts](portfolio-push-receipts-2026-09-07.json). Earlier audit findings above remain dated observations; these follow-up receipts supersede earlier pending-push and patch status.
