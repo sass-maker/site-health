@@ -470,7 +470,7 @@
     {
       "id": "reel-pipeline",
       "portfolio": {
-        "kind": "product",
+        "kind": "experiment",
         "priority": "P2",
         "status": "active",
         "deployed": true,
@@ -1782,7 +1782,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified."
+          "reason": "Guest resume save/reload, manual job entry and the guest cover-letter route pass. AI tailoring still returns a safe failure with no output (Workers AI AiError); truthful generation/export, optional file import and signed-in persistence remain issue #68."
         }
       },
       "authModel": "public-persistent",

@@ -1090,13 +1090,13 @@
       "id": "saas-maker",
       "checkout": "saas-maker",
       "repository": "sass-maker/saas-maker",
-      "revision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+      "revision": "54e932c812e3d5160178a7b7ab220942c712867e",
       "branches": [
         "main"
       ],
       "stashes": [],
       "dirty": [
-        " M PROJECT_STATUS.md",
+        "M PROJECT_STATUS.md",
         " M tooling/scripts/agent-stack.sh",
         " M tooling/skills/site-health/SKILL.md",
         " M tooling/test/capability-catalog.test.mjs",
@@ -1106,29 +1106,11 @@
       ],
       "issues": [
         {
-          "body": "## Why\n\nFleet has recurring web extraction and public-media acquisition work, but the reusable skill catalog does not currently encode how to choose safe, bounded tooling or produce receipts. SEO research also needs provider-backed keyword and competitor data without duplicating Fleet's existing technical SEO audit or making a paid provider mandatory.\n\nRepository evidence already shows `yt-dlp` in active LoopTV and High Signal workflows. Scrapling has a maintained agent-facing extraction surface. OpenSEO publishes useful research workflows, while Maxun, Crawl4AI, and Treg would overlap existing capabilities or introduce platform, credential, cost, or routing concerns.\n\n## What\n\nIn scope:\n\n- Add a Fleet-owned `web-extraction` skill using Scrapling as an optional structured-crawl backend.\n- Add a Fleet-owned `media-acquisition` skill using the already-installed `yt-dlp`; reserve Instaloader as a conditional future backend rather than adding it now.\n- Add a Fleet-owned `seo-research` skill for keyword, competitor, backlink-prospect, and local-search research, with OpenSEO as an optional provider-backed evidence source.\n- Route provider-optional SEO research from the existing `site-health` parent.\n- Expose the three skills through Fleet's selected runtime catalog.\n- Add execution profiles, Codex UI metadata, validation coverage, and bounded receipt contracts.\n\nOut of scope:\n\n- Installing Scrapling, browsers, Instaloader, OpenSEO, MCP servers, or production dependencies.\n- Reading or storing cookies, credentials, environment files, provider response bodies, or private provider data.\n- Bypassing access controls, scraping authenticated pages, downloading media without rights, or making paid provider calls without explicit user intent.\n- Adding Maxun, Crawl4AI, or Treg to the default Fleet skill surface.\n- Replacing Fleet's existing `seo-audit`, Site Health collectors, browser tools, or repository-local product pipelines.\n\n## Design\n\n```mermaid\nflowchart LR\n  U[Operator request] --> R{Capability router}\n  R --> W[web-extraction]\n  R --> M[media-acquisition]\n  R --> S[seo-research]\n  W --> B[Built-in browser or Scrapling if available]\n  M --> Y[yt-dlp public metadata and media]\n  S --> F[First-party and cached evidence]\n  S --> O[Optional OpenSEO MCP]\n  W --> E[Bounded receipt]\n  M --> E\n  F --> E\n  O --> E\n```\n\nEach skill owns decision guidance and evidence semantics, not a copied upstream manual. Missing optional tools and provider access are reported as `unavailable`, never silently installed or converted to zero. Existing product-specific scripts remain authoritative where they exist.\n\n## Specs\n\n### Requirement: Safe web extraction\n\nThe `web-extraction` skill SHALL start with the least invasive available method and SHALL treat authenticated access, anti-bot evasion, proxy use, and CAPTCHA solving as outside its default workflow.\n\n#### Scenario: Scrapling is unavailable\n\n- **WHEN** a structured crawl would benefit from Scrapling but its executable or package is absent\n- **THEN** the skill reports the backend as unavailable\n- **AND** does not install it without explicit authorization.\n\n### Requirement: Reproducible public-media acquisition\n\nThe `media-acquisition` skill SHALL default to metadata inspection before downloads and SHALL preserve source URL, selected format, output location, and command outcome in its receipt.\n\n#### Scenario: A user requests YouTube catalog metadata\n\n- **WHEN** `yt-dlp` is available and the target is public\n- **THEN** the skill uses metadata-only and flat-playlist modes where sufficient\n- **AND** avoids downloading media bytes unnecessarily.\n\n### Requirement: Provider-optional SEO research\n\nThe `seo-research` skill SHALL distinguish measured, cached, unavailable, and inferred evidence and SHALL not require OpenSEO for credential-free research.\n\n#### Scenario: OpenSEO is not connected\n\n- **WHEN** keyword volume, difficulty, backlink, or local SERP metrics require OpenSEO and its MCP is unavailable\n- **THEN** the skill marks those fields unavailable with the exact reason\n- **AND** continues with first-party, live-page, Search Console, or cached evidence that is actually available.\n\n### Requirement: Non-overlapping routing\n\nThe new skills SHALL NOT replace technical SEO audit, browser interaction, or product-specific ingestion pipelines.\n\n#### Scenario: The user asks for title, canonical, sitemap, or structured-data checks\n\n- **WHEN** the request is technical on-page SEO rather than market research\n- **THEN** `site-health` routes to the existing `seo-audit` skill instead of `seo-research`.\n\n### Requirement: Selected runtime exposure\n\nAll three skills SHALL be discoverable from Fleet-selected agent runtimes and carry valid execution profiles and interface metadata.\n\n#### Scenario: Tooling validation runs\n\n- **WHEN** the capability catalog and skill validators execute\n- **THEN** all new skills are counted, linked, and pass the repository contracts.\n\n## Tasks\n\n- [x] 1. Add the three skill packages with bounded workflows and receipts.\n- [x] 2. Route SEO research from `site-health` and expose all three skills.\n- [x] 3. Update catalog expectations and durable project status.\n- [x] 4. Run skill, tooling, catalog, and targeted behavioral validation.\n\n",
-          "labels": [
-            {
-              "id": "LA_kwDORZn9q88AAAACZdjYBw",
-              "name": "enhancement",
-              "description": "New feature or request",
-              "color": "a2eeef"
-            }
-          ],
           "number": 103,
           "title": "Add bounded web, media, and SEO research skills",
           "url": "https://github.com/sass-maker/saas-maker/issues/103"
         },
         {
-          "body": "We also need to ensure all the open source projects have their GitHub repositories properly linked to the websites with icons. No GitHub text, please. It is embarrassing. Also, all repositories are properly public or private after decisions. ",
-          "labels": [
-            {
-              "id": "LA_kwDORZn9q88AAAAC0DBwBQ",
-              "name": "blocked: owner-decision",
-              "description": "Needs a yes/no or scope call only the owner can make.",
-              "color": "B60205"
-            }
-          ],
           "number": 91,
           "title": "Cleanup repos and migrate unused projects to personal org",
           "url": "https://github.com/sass-maker/saas-maker/issues/91"
@@ -1137,47 +1119,95 @@
       "prs": [],
       "checks": [
         {
-          "conclusion": "success",
-          "databaseId": 34135064744,
-          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+          "databaseId": 34135760698,
+          "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064744",
-          "workflowName": "Tooling CI"
+          "conclusion": "success",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760698",
+          "workflowName": "CI"
         },
         {
-          "conclusion": "success",
-          "databaseId": 34135064770,
-          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+          "databaseId": 34135760697,
+          "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064770",
-          "workflowName": "CI"
+          "conclusion": "success",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760697",
+          "workflowName": "Tooling CI"
         }
       ],
-      "checksObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "checksObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "readmeIssueReferencesMissing": [],
-      "checksRevision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
-      "tasksObservedAt": "2026-09-07T14:20:19.383260+00:00",
+      "checksRevision": "54e932c812e3d5160178a7b7ab220942c712867e",
+      "tasksObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "localObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+          "revision": "54e932c812e3d5160178a7b7ab220942c712867e",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
       ],
       "localState": "observed",
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
-      "issuesObservedAt": "2026-09-07T14:20:18.742630+00:00",
+      "issuesObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "issuesState": "observed",
-      "prsObservedAt": "2026-09-07T14:20:19.383242+00:00",
+      "prsObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "prsState": "observed",
       "remoteState": "observed",
       "headDrift": "MATCH",
       "checksState": "observed",
       "latestWorkflowRuns": [
+        {
+          "conclusion": "success",
+          "createdAt": "2026-09-07T14:57:33Z",
+          "databaseId": 34135760698,
+          "event": "push",
+          "headBranch": "main",
+          "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760698",
+          "workflowName": "CI",
+          "matchesRemoteDefaultRevision": true
+        },
+        {
+          "conclusion": "success",
+          "createdAt": "2026-09-07T14:57:33Z",
+          "databaseId": 34135760697,
+          "event": "push",
+          "headBranch": "main",
+          "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760697",
+          "workflowName": "Tooling CI",
+          "matchesRemoteDefaultRevision": true
+        },
+        {
+          "conclusion": "success",
+          "createdAt": "2026-09-07T14:31:15Z",
+          "databaseId": 34133397064,
+          "event": "schedule",
+          "headBranch": "main",
+          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34133397064",
+          "workflowName": "Weekly Quality Check",
+          "matchesRemoteDefaultRevision": false
+        },
+        {
+          "conclusion": "success",
+          "createdAt": "2026-09-07T14:31:05Z",
+          "databaseId": 34133381548,
+          "event": "schedule",
+          "headBranch": "main",
+          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34133381548",
+          "workflowName": "Public Performance Sweep",
+          "matchesRemoteDefaultRevision": false
+        },
         {
           "conclusion": "success",
           "createdAt": "2026-09-07T14:14:55Z",
@@ -1188,72 +1218,48 @@
           "status": "completed",
           "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909672",
           "workflowName": "Docs",
-          "matchesRemoteDefaultRevision": true
-        },
-        {
-          "conclusion": "success",
-          "createdAt": "2026-09-07T14:14:55Z",
-          "databaseId": 34131909667,
-          "event": "push",
-          "headBranch": "main",
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
-          "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909667",
-          "workflowName": "Tooling CI",
-          "matchesRemoteDefaultRevision": true
-        },
-        {
-          "conclusion": "success",
-          "createdAt": "2026-09-07T14:14:55Z",
-          "databaseId": 34131909658,
-          "event": "push",
-          "headBranch": "main",
-          "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
-          "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909658",
-          "workflowName": "CI",
-          "matchesRemoteDefaultRevision": true
+          "matchesRemoteDefaultRevision": false
         }
       ],
-      "latestWorkflowRunsObservedAt": "2026-09-07T14:20:21.969639+00:00",
+      "latestWorkflowRunsObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "latestWorkflowRunsScope": "Latest occurrence of each workflow within the 30 most recent repository runs; includes tag/manual/branch runs. Not a complete historical workflow inventory.",
-      "readmeObservedAt": "2026-09-07T14:20:21.969799+00:00",
-      "readmeRevision": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+      "readmeObservedAt": "2026-09-07T15:50:21.298802+00:00",
+      "readmeRevision": "54e932c812e3d5160178a7b7ab220942c712867e",
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
-      "observationStartedAt": "2026-09-07T14:20:18.063469+00:00",
-      "observedAt": "2026-09-07T14:21:56.852287+00:00",
+      "revisionAtObservationEnd": "54e932c812e3d5160178a7b7ab220942c712867e",
+      "observationStartedAt": "2026-09-07T15:50:21.298802+00:00",
+      "observedAt": "2026-09-07T15:50:21.298802+00:00",
       "errors": [],
       "remoteRepository": "sass-maker/saas-maker",
       "remoteDefaultBranch": "main",
-      "remoteDefaultRevision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
-      "remoteObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "remoteDefaultRevision": "54e932c812e3d5160178a7b7ab220942c712867e",
+      "remoteObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "localMatchesRemoteDefault": true,
       "remoteChecks": [
         {
-          "conclusion": "success",
-          "databaseId": 34135064744,
-          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+          "databaseId": 34135760698,
+          "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064744",
-          "workflowName": "Tooling CI"
+          "conclusion": "success",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760698",
+          "workflowName": "CI"
         },
         {
-          "conclusion": "success",
-          "databaseId": 34135064770,
-          "headSha": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
+          "databaseId": 34135760697,
+          "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
           "status": "completed",
-          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135064770",
-          "workflowName": "CI"
+          "conclusion": "success",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760697",
+          "workflowName": "Tooling CI"
         }
       ],
-      "remoteChecksRevision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
-      "remoteChecksObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "remoteChecksRevision": "54e932c812e3d5160178a7b7ab220942c712867e",
+      "remoteChecksObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "remoteChecksState": "observed",
-      "localEndObservedAt": "2026-09-07T14:52:24.293877+00:00",
-      "dirtyObservedAt": "2026-09-07T14:52:24.293877+00:00",
+      "localEndObservedAt": "2026-09-07T15:50:21.298802+00:00",
+      "dirtyObservedAt": "2026-09-07T15:50:21.298802+00:00",
       "postScanRepair": {
         "revision": "1d4061ea27e1fa8cb521004e4640b0eea4c9b146",
         "scope": "Shared release guard CI gate only; existing seven unrelated dirty paths preserved. Public directory runtime remains6508136d/Pages021f041d.",
@@ -4426,52 +4432,58 @@
       "id": "rolepatch",
       "checkout": "rolepatch",
       "repository": "Significant-Hobbies/rolepatch",
-      "revision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+      "revision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
       "branches": [
         "main"
       ],
       "stashes": [],
       "dirty": [],
-      "issues": [],
+      "issues": [
+        {
+          "number": 68,
+          "title": "Restore guest tailoring generation and cover-letter qualification",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/issues/68"
+        }
+      ],
       "prs": [],
       "checks": [
         {
-          "conclusion": "success",
-          "databaseId": 34103708926,
-          "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "databaseId": 34139567864,
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926",
-          "workflowName": "Docs"
+          "conclusion": "success",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864",
+          "workflowName": "CI"
         },
         {
-          "conclusion": "success",
-          "databaseId": 34103708907,
-          "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "databaseId": 34139567820,
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907",
-          "workflowName": "CI"
+          "conclusion": "success",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820",
+          "workflowName": "Docs"
         }
       ],
-      "checksObservedAt": "2026-09-07T14:20:47.254672+00:00",
+      "checksObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "readmeIssueReferencesMissing": [],
-      "checksRevision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-      "tasksObservedAt": "2026-09-07T14:20:46.221821+00:00",
+      "checksRevision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+      "tasksObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T14:20:45.092279+00:00",
+      "localObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "revision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
       ],
       "localState": "observed",
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
-      "issuesObservedAt": "2026-09-07T14:20:45.644843+00:00",
+      "issuesObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "issuesState": "observed",
-      "prsObservedAt": "2026-09-07T14:20:46.221797+00:00",
+      "prsObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "prsState": "observed",
       "remoteState": "observed",
       "headDrift": "MATCH",
@@ -4479,92 +4491,80 @@
       "latestWorkflowRuns": [
         {
           "conclusion": "success",
-          "createdAt": "2026-09-07T09:01:31Z",
-          "databaseId": 34103708926,
-          "event": "push",
+          "createdAt": "2026-09-07T15:46:28Z",
+          "databaseId": 34140001776,
+          "event": "workflow_dispatch",
           "headBranch": "main",
-          "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926",
-          "workflowName": "Docs",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776",
+          "workflowName": "Deploy to Cloudflare Workers",
           "matchesRemoteDefaultRevision": true
         },
         {
           "conclusion": "success",
-          "createdAt": "2026-09-07T09:01:31Z",
-          "databaseId": 34103708907,
+          "createdAt": "2026-09-07T15:41:13Z",
+          "databaseId": 34139567864,
           "event": "push",
           "headBranch": "main",
-          "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864",
           "workflowName": "CI",
           "matchesRemoteDefaultRevision": true
         },
         {
           "conclusion": "success",
-          "createdAt": "2026-09-06T06:06:29Z",
-          "databaseId": 34015644392,
-          "event": "workflow_dispatch",
+          "createdAt": "2026-09-07T15:41:13Z",
+          "databaseId": 34139567820,
+          "event": "push",
           "headBranch": "main",
-          "headSha": "b0280989a2a322ec14677f70d8d73c944fd08e42",
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34015644392",
-          "workflowName": "Deploy to Cloudflare Workers",
-          "matchesRemoteDefaultRevision": false
-        },
-        {
-          "conclusion": "success",
-          "createdAt": "2026-08-31T23:34:39Z",
-          "databaseId": 33451261514,
-          "event": "dynamic",
-          "headBranch": "main",
-          "headSha": "8d2f048734c8185e765a2f5e9599e0b03cc38bc0",
-          "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/33451261514",
-          "workflowName": "Dependabot Updates",
-          "matchesRemoteDefaultRevision": false
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820",
+          "workflowName": "Docs",
+          "matchesRemoteDefaultRevision": true
         }
       ],
-      "latestWorkflowRunsObservedAt": "2026-09-07T14:20:48.858935+00:00",
+      "latestWorkflowRunsObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "latestWorkflowRunsScope": "Latest occurrence of each workflow within the 30 most recent repository runs; includes tag/manual/branch runs. Not a complete historical workflow inventory.",
-      "readmeObservedAt": "2026-09-07T14:20:48.859352+00:00",
-      "readmeRevision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+      "readmeObservedAt": "2026-09-07T15:50:17.834400+00:00",
+      "readmeRevision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-      "observationStartedAt": "2026-09-07T14:20:44.924769+00:00",
-      "observedAt": "2026-09-07T14:22:06.248576+00:00",
+      "revisionAtObservationEnd": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+      "observationStartedAt": "2026-09-07T15:50:17.834400+00:00",
+      "observedAt": "2026-09-07T15:50:17.834400+00:00",
       "errors": [],
       "remoteRepository": "Significant-Hobbies/rolepatch",
       "remoteDefaultBranch": "main",
-      "remoteDefaultRevision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-      "remoteObservedAt": "2026-09-07T14:22:06.199002+00:00",
+      "remoteDefaultRevision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+      "remoteObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "localMatchesRemoteDefault": true,
       "remoteChecks": [
         {
-          "conclusion": "success",
-          "databaseId": 34103708926,
-          "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "databaseId": 34139567864,
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926",
-          "workflowName": "Docs"
+          "conclusion": "success",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864",
+          "workflowName": "CI"
         },
         {
-          "conclusion": "success",
-          "databaseId": 34103708907,
-          "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+          "databaseId": 34139567820,
+          "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907",
-          "workflowName": "CI"
+          "conclusion": "success",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820",
+          "workflowName": "Docs"
         }
       ],
-      "remoteChecksRevision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-      "remoteChecksObservedAt": "2026-09-07T14:22:06.199046+00:00",
+      "remoteChecksRevision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+      "remoteChecksObservedAt": "2026-09-07T15:50:17.834400+00:00",
       "remoteChecksState": "observed",
-      "localEndObservedAt": "2026-09-07T14:22:06.220665+00:00",
-      "dirtyObservedAt": "2026-09-07T14:22:06.248530+00:00"
+      "localEndObservedAt": "2026-09-07T15:50:17.834400+00:00",
+      "dirtyObservedAt": "2026-09-07T15:50:17.834400+00:00"
     },
     {
       "id": "karte",

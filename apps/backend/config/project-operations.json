@@ -1294,7 +1294,7 @@
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 1016,
+        "retainedCommitCount": 1018,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1989,18 +1989,18 @@
       "source": {
         "state": "available",
         "path": "saas-maker",
-        "revision": "6edd205333aca4915254606069bd6d2bf3e84165",
+        "revision": "54e932c812e3d5160178a7b7ab220942c712867e",
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 7,
+          "trackedChangeCount": 4,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 1286,
+        "retainedCommitCount": 1293,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2028,15 +2028,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34126475640,
+              "id": 34135760698,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6edd205333aca4915254606069bd6d2bf3e84165",
-              "createdAt": "2026-09-07T13:16:30Z",
-              "updatedAt": "2026-09-07T13:18:10Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34126475640"
+              "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
+              "createdAt": "2026-09-07T14:57:33Z",
+              "updatedAt": "2026-09-07T14:58:57Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760698"
             },
             "ageDays": 0
           },
@@ -2049,15 +2049,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34126475640,
+              "id": 34135760698,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6edd205333aca4915254606069bd6d2bf3e84165",
-              "createdAt": "2026-09-07T13:16:30Z",
-              "updatedAt": "2026-09-07T13:18:10Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34126475640"
+              "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
+              "createdAt": "2026-09-07T14:57:33Z",
+              "updatedAt": "2026-09-07T14:58:57Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760698"
             },
             "ageDays": 0
           },
@@ -2085,15 +2085,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34109718819,
+              "id": 34131909672,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "8b336294056c3defea53ff9d2f0982ff3d5b526e",
-              "createdAt": "2026-09-07T10:07:01Z",
-              "updatedAt": "2026-09-07T10:07:17Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34109718819"
+              "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+              "createdAt": "2026-09-07T14:14:55Z",
+              "updatedAt": "2026-09-07T14:15:06Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909672"
             },
             "ageDays": 0
           },
@@ -2104,17 +2104,17 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 6edd205",
+            "reason": "no push run at current main revision 54e932c",
             "lastRun": {
-              "id": 34109718819,
+              "id": 34131909672,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "8b336294056c3defea53ff9d2f0982ff3d5b526e",
-              "createdAt": "2026-09-07T10:07:01Z",
-              "updatedAt": "2026-09-07T10:07:17Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34109718819"
+              "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+              "createdAt": "2026-09-07T14:14:55Z",
+              "updatedAt": "2026-09-07T14:15:06Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909672"
             }
           },
           "attention": "missing-data"
@@ -2247,15 +2247,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34126475621,
+              "id": 34135760697,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6edd205333aca4915254606069bd6d2bf3e84165",
-              "createdAt": "2026-09-07T13:16:30Z",
-              "updatedAt": "2026-09-07T13:16:56Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34126475621"
+              "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
+              "createdAt": "2026-09-07T14:57:33Z",
+              "updatedAt": "2026-09-07T14:58:00Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760697"
             },
             "ageDays": 0
           },
@@ -2268,15 +2268,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34126475621,
+              "id": 34135760697,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6edd205333aca4915254606069bd6d2bf3e84165",
-              "createdAt": "2026-09-07T13:16:30Z",
-              "updatedAt": "2026-09-07T13:16:56Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34126475621"
+              "headSha": "54e932c812e3d5160178a7b7ab220942c712867e",
+              "createdAt": "2026-09-07T14:57:33Z",
+              "updatedAt": "2026-09-07T14:58:00Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34135760697"
             },
             "ageDays": 0
           },
@@ -2306,33 +2306,33 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 33414111507,
+              "id": 34133381548,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "acb2726952a0fca94440aa5f92287e896410813b",
-              "createdAt": "2026-08-31T16:26:33Z",
-              "updatedAt": "2026-08-31T16:26:49Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/33414111507"
+              "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+              "createdAt": "2026-09-07T14:31:05Z",
+              "updatedAt": "2026-09-07T14:31:17Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34133381548"
             },
-            "ageDays": 6
+            "ageDays": 0
           },
           "schedule": {
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 33414111507,
+              "id": 34133381548,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "acb2726952a0fca94440aa5f92287e896410813b",
-              "createdAt": "2026-08-31T16:26:33Z",
-              "updatedAt": "2026-08-31T16:26:49Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/33414111507"
+              "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+              "createdAt": "2026-09-07T14:31:05Z",
+              "updatedAt": "2026-09-07T14:31:17Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34133381548"
             },
-            "ageDays": 6,
+            "ageDays": 0,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -2461,33 +2461,33 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 33414114258,
+              "id": 34133397064,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "acb2726952a0fca94440aa5f92287e896410813b",
-              "createdAt": "2026-08-31T16:26:35Z",
-              "updatedAt": "2026-08-31T16:27:55Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/33414114258"
+              "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+              "createdAt": "2026-09-07T14:31:15Z",
+              "updatedAt": "2026-09-07T14:32:42Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34133397064"
             },
-            "ageDays": 6
+            "ageDays": 0
           },
           "schedule": {
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 33414114258,
+              "id": 34133397064,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "acb2726952a0fca94440aa5f92287e896410813b",
-              "createdAt": "2026-08-31T16:26:35Z",
-              "updatedAt": "2026-08-31T16:27:55Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/33414114258"
+              "headSha": "51e35d68469a1a3aee780eac5ee6d75fd300a56b",
+              "createdAt": "2026-09-07T14:31:15Z",
+              "updatedAt": "2026-09-07T14:32:42Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/34133397064"
             },
-            "ageDays": 6,
+            "ageDays": 0,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -2625,7 +2625,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/saas-maker",
         "defaultBranch": "main",
-        "defaultBranchSha": "6edd205333aca4915254606069bd6d2bf3e84165",
+        "defaultBranchSha": "54e932c812e3d5160178a7b7ab220942c712867e",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -4471,7 +4471,7 @@
       "history": {
         "firstCommitAt": "2026-04-25",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 878,
+        "retainedCommitCount": 883,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9118,7 +9118,7 @@
       "history": {
         "firstCommitAt": "2026-02-08",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 447,
+        "retainedCommitCount": 448,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10059,7 +10059,7 @@
       "source": {
         "state": "available",
         "path": "rolepatch",
-        "revision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+        "revision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
         "repositorySlug": "Significant-Hobbies/rolepatch",
         "worktree": {
           "state": "clean",
@@ -10070,7 +10070,7 @@
       "history": {
         "firstCommitAt": "2026-02-23",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 426,
+        "retainedCommitCount": 429,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10097,15 +10097,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34103708907,
+              "id": 34139567864,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-              "createdAt": "2026-09-07T09:01:31Z",
-              "updatedAt": "2026-09-07T09:04:57Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907"
+              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+              "createdAt": "2026-09-07T15:41:13Z",
+              "updatedAt": "2026-09-07T15:44:35Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864"
             },
             "ageDays": 0
           },
@@ -10118,15 +10118,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34103708907,
+              "id": 34139567864,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-              "createdAt": "2026-09-07T09:01:31Z",
-              "updatedAt": "2026-09-07T09:04:57Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907"
+              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+              "createdAt": "2026-09-07T15:41:13Z",
+              "updatedAt": "2026-09-07T15:44:35Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864"
             },
             "ageDays": 0
           },
@@ -10154,17 +10154,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34015644392,
+              "id": 34140001776,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "b0280989a2a322ec14677f70d8d73c944fd08e42",
-              "createdAt": "2026-09-06T06:06:29Z",
-              "updatedAt": "2026-09-06T06:08:53Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34015644392"
+              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+              "createdAt": "2026-09-07T15:46:28Z",
+              "updatedAt": "2026-09-07T15:48:42Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776"
             },
-            "ageDays": 1
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -10200,15 +10200,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34103708926,
+              "id": 34139567820,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-              "createdAt": "2026-09-07T09:01:31Z",
-              "updatedAt": "2026-09-07T09:01:40Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926"
+              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+              "createdAt": "2026-09-07T15:41:13Z",
+              "updatedAt": "2026-09-07T15:41:25Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820"
             },
             "ageDays": 0
           },
@@ -10221,15 +10221,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34103708926,
+              "id": 34139567820,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
-              "createdAt": "2026-09-07T09:01:31Z",
-              "updatedAt": "2026-09-07T09:01:40Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926"
+              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+              "createdAt": "2026-09-07T15:41:13Z",
+              "updatedAt": "2026-09-07T15:41:25Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820"
             },
             "ageDays": 0
           },
@@ -10241,8 +10241,8 @@
           "triggers": [],
           "schedules": [],
           "inventory": {
-            "source": "github-generated",
-            "local": false,
+            "source": "tracked",
+            "local": true,
             "remote": true
           },
           "ownerDisposition": {
@@ -10364,7 +10364,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/rolepatch",
         "defaultBranch": "main",
-        "defaultBranchSha": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+        "defaultBranchSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
         "homepage": "https://rolepatch.com",
         "query": "verified",
         "disposition": {
@@ -10388,7 +10388,7 @@
       "history": {
         "firstCommitAt": "2026-03-05",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 509,
+        "retainedCommitCount": 511,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13405,7 +13405,7 @@
       "history": {
         "firstCommitAt": "2026-05-22",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 92,
+        "retainedCommitCount": 94,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14499,7 +14499,7 @@
         "latestCommitAt": null,
         "retainedCommitCount": null,
         "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
+        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data rev-parse --is-shallow-repository"
       },
       "githubActions": [],
       "toolingSignals": [],

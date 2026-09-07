@@ -419,10 +419,10 @@
     {
       "id": "rolepatch",
       "name": "RolePatch",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified.",
+      "classification": "Live core-workflow failure",
+      "biggestBlocker": "Guest resume save/reload, manual job entry and the guest cover-letter route pass. AI tailoring still returns a safe failure with no output (Workers AI AiError); truthful generation/export, optional file import and signed-in persistence remain issue #68.",
       "shareable": false,
-      "repairProgress": "2026-09-07: Pushed a2e4a33; 448 tests, lint, types, docs and exact CI pass. Public checker uses matched/total coverage; account/share scores disclose weighted heuristic. Deployment and guest/account persistence qualification remain."
+      "repairProgress": "Source 93ba59bb: all 460 tests and full local quality pass, exact CI34139567864 and Docs34139567820 success. Approved deploy34140001776 success, Worker6247f781-e933-4104-99ec-d38b4b74d505 at 100%, exact source tag confirmed. Safe error boundary, guest job routing and scraper module-scope EvalError repaired. Live core inference remains failed; #68 stays open."
     },
     {
       "id": "app-health",

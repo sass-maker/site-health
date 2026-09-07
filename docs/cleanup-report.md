@@ -163,8 +163,36 @@ High Signal's final receipt `83d16d6fb9a1c7cda0c6a485a53e6f693032ebb9` is pushed
 
 ## Shared release guard repair
 
+Follow-up `54e932c8` fixes recognition of valid `&&` package-script chains,
+which the initial guard incorrectly rejected as background execution. Twenty-one
+focused regressions pass, including rejection of single/background `&` and
+malformed `&&&`; exact Tooling CI34135760697 and CI34135760698 passed.
+The real RolePatch preflight then passed all six gates without a bypass.
+
 The wave exposed a shared guard defect: one green Docs run could mask pending or failed build/test CI at the same source. SaaS Maker now contains the repair in source commit `882317ae`, integrated with an unrelated automated performance report at `1d4061ea27e1fa8cb521004e4640b0eea4c9b146`. It queries all exact-head push runs, uses the latest attempt per workflow, requires all observed runs to succeed and requires a source-backed build/test definition. Unsupported, conditional or error-masked validators fail closed; it does not execute scripts while discovering their meaning. No new bypass or production dependency was added.
 
 Twenty focused regressions cover Docs-only/pending/red CI, identity/pagination/rerun handling, disabled or error-masked validators, informational commands and Bash 3 portability. Exact Tooling CI34135064744 passed all 222 tests and script/skill validation. The corresponding main CI34135064770 also passed all validation and build stages. A real read-only guard run against clean High Signal `83d16d6f` independently confirms two completed push workflows and a build/test definition; no deployment ran. Monorepo target selection still requires explicit inspection: the project-level guard discovers the API config, while the actual authorized High Signal release used the separately verified web target and rollback.
 
 Seven unrelated SaaS Maker working paths were preserved exactly. Guard test fixtures and logs were removed; public-directory runtime remains its separately recorded release.
+
+## Sequential RolePatch qualification
+
+RolePatch is the eleventh project in this approved runtime release wave. Final
+source `93ba59bb` passed all 460 tests, full local quality and exact hosted CI;
+[deployment 34140001776](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776)
+succeeded with the exact tag on Worker `6247f781-e933-4104-99ec-d38b4b74d505` at 100%.
+Guest cover-letter routing and a confirmed Worker module-load EvalError were
+repaired. Expected AI errors now display safely rather than being redacted by
+Next.js. Guest resume save/reload and manual job entry pass. AI generation still
+fails at the binding with no numeric provider code, so shareability remains false.
+[The receipt](qualification/rolepatch-2026-09-07/README.md) and owning
+[issue #68](https://github.com/Significant-Hobbies/rolepatch/issues/68) retain the
+remaining inference, import/export and signed-in requirements. The issue is
+referenced in the owning README and remains open. This adds an issue to the
+earlier 43-issue fleet snapshot; only RolePatch and SaaS Maker were re-observed
+in the task inventory for this continuation.
+
+The owner experiment decision is retained for both Reel Pipeline and Forecast
+Lab; Reel Pipeline now also uses `portfolio.kind: experiment`. The 54-project
+sharing accounting is unchanged: 22 scoped passes, 8 retention outcomes, 24
+remaining qualification/decision items. No other project was promoted.
