@@ -2,7 +2,7 @@
 
 Observed 2026-09-07T10:22:06.702659+00:00.
 
-These 16 source heads have successful exact-commit CI in the current GitHub observation. This is a review list, not deployment authorization, provider parity proof or a claim that every listed project is ready to share. Recheck the selected head, owning release instructions, pending migrations and target immediately before an approved one-project rollout. Workflow filenames below identify existing entry points only; their inputs and effects must be inspected before execution.
+These 17 source heads have successful exact-commit CI in the current GitHub observation. This is a review list, not deployment authorization, provider parity proof or a claim that every listed project is ready to share. Recheck the selected head, owning release instructions, pending migrations and target immediately before an approved one-project rollout. Workflow filenames below identify existing entry points only; their inputs and effects must be inspected before execution.
 
 | Project / exact source | Observed checks | Deployment entry / prerequisite | Required live evidence |
 | --- | --- | --- | --- |
@@ -22,10 +22,11 @@ These 16 source heads have successful exact-commit CI in the current GitHub obse
 | [truehire `6fb5676c`](https://github.com/sarthakagrawal927/truehire/commit/6fb5676cae468658562fb4f69e6758ec08252359) | [CI](https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493) success | [deploy.yml](https://github.com/sarthakagrawal927/truehire/blob/6fb5676cae468658562fb4f69e6758ec08252359/.github/workflows/deploy.yml) | Verify all sample profiles are labelled fictional/synthetic and timestamps are truthful; complete a fresh public sample journey without real candidate records. |
 | [open-historia `d97de700`](https://github.com/sarthakagrawal927/open-historia/commit/d97de700d48fa0b5af8f00aae7a9959f1cf739d9) | [CI](https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719) success | [deploy.yml](https://github.com/sarthakagrawal927/open-historia/blob/d97de700d48fa0b5af8f00aae7a9959f1cf739d9/.github/workflows/deploy.yml) | Complete two authorized synthetic turns, save and reload history; verify retired-model mapping against a real response. |
 | [reddit-insights `4e63e2b4`](https://github.com/High-Signal-App/research-subreddit/commit/4e63e2b4abbefda34981e45d5dad35cc33c3b794) | [CI](https://github.com/High-Signal-App/research-subreddit/actions/runs/34103184551) success | Use owning manual release instructions; no deploy-named workflow identified. | Search a community, inspect source dates, navigate results and check a genuinely unavailable community on desktop/mobile. |
+| [swe-interview-prep `f7727fc5`](https://github.com/Significant-Hobbies/swe-interview-prep/commit/f7727fc5e4d1a804988407e557c22fe74353d906) | [CI](https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34111029957) success; [Docs](https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34111030049) success | Review and apply migration0003 in an approved rollout before deploying the new handlers. | Verify real login, failed sync/reload/retry without duplicated progress and account isolation; inspect Monaco/mobile interaction. One-active-tab contract only. |
 
 ## Work still changing or requiring a different qualification lane
 
-- SWE Prep synchronization repair is still being checked. Its new receipt-table migration must be reviewed and applied in an approved rollout before relying on hosted retries.
+- SWE Prep synchronization repair is checked at `f7727fc5`;608tests passed. Its new receipt-table migration0003 must be reviewed and applied in an approved rollout before relying on hosted retries. Issue#98 is closed;#97 retains real hosted qualification.
 - Hub and Live routing are being repaired together. Final ordering, host routing and session behavior must be verified from the resulting commits; existing host-only cookies and data authorities must remain intact.
 - AliveVille has verified local scripted memory/save/restore, but font resilience and notification fixes are in progress. Hosted Worker restore parity and actual AI conversation remain separate gates.
 - CodeVetter PR #271 still awaits native CI/review. A package release needs actual window/upgrade evidence and installed qualification, beyond its focused tests.

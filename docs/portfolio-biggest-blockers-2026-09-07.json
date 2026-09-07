@@ -65,7 +65,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "CI security gate fails on fast-uri 3.1.5; minimum patched version 3.1.6. Actual inference and operator-provisioned access also remain unqualified.",
       "shareable": false,
-      "repairProgress": "2026-09-07 follow-up: pushed fast-uri-only lockfile patch to 3.1.7 (bd7aa10); local dependency gate reports zero high/critical findings and 242 tests pass. Inference/access qualification remains unverified."
+      "repairProgress": "a70262f5 pushed clean; exact CI34110597834 and Docs34110597738 green.245tests plus built guest/authentication navigation. Copied curl/fetch/JavaScript SDK examples now provide required project_id; actual SDK/gateway/adapter synthetic contract passes. Recent public aggregate telemetry confirms AliveVille and High Signal callers; keep active. #62 and #65 retain registry and authorized live inference/consumer/deploy qualification."
     },
     {
       "id": "agent-office",
@@ -281,8 +281,9 @@
       "id": "verified-bases",
       "name": "Verified Bases",
       "classification": "Qualification gap",
-      "biggestBlocker": "No usable marketplace inventory or acquisition flow verified.",
-      "shareable": false
+      "biggestBlocker": "Retained priced TinyGPT listing has no currently qualified preview/acquisition/delivery; listed preview hostname failed local DNS resolution. Buyer demand and support economics remain unproven.",
+      "shareable": false,
+      "repairProgress": "02c2151 pushed clean with green CI. Corrected conflicting empty-catalog documentation: a source listing exists, but historical badges are not current verification. Preserve inactive storefront history; validate one buyer and prefer an existing storefront before expanding marketplace infrastructure."
     },
     {
       "id": "codevetter",
@@ -364,9 +365,9 @@
       "id": "swe-interview-prep",
       "name": "SWE Interview Prep",
       "classification": "Qualification gap",
-      "biggestBlocker": "Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved.",
+      "biggestBlocker": "Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified.",
       "shareable": false,
-      "repairProgress": "532484e pushed clean with green CI/Docs.598tests including real tokenizer grading/local persistence/remount and delayed account hydration; repaired route draft leakage and saved-code restoration. README/#97 retains live/account qualification;#98 retains unsynced remote-write reconciliation."
+      "repairProgress": "f7727fc5 pushed clean; exact CI34111029957 and Docs34111030049 green,608tests/95files. Account-scoped durable outboxes prevent stale GET overwriting unsent edits; atomic operation receipts prevent duplicated attempts/activity after lost acknowledgements. Root reviewed store and receipt source. #98 closed; #97 retains hosted qualification. One active tab contract; notes/mastery/ELO outside this repair. No production migration/deploy."
     },
     {
       "id": "rolepatch",
