@@ -71,22 +71,25 @@
       "id": "agent-office",
       "name": "Office OS",
       "classification": "Qualification gap",
-      "biggestBlocker": "Informational surface does not prove an accessible product workflow.",
-      "shareable": false
+      "biggestBlocker": "Native UI assignment/review workflow remains unqualified because computer-use native pipe failed. Compare recurring work with existing assistants before further product expansion.",
+      "shareable": false,
+      "repairProgress": "b905c97 pushed clean; exact CI green. 403 tests and full code health pass; built and launched app, but native UI automation failed, then stopped own process. README and assessment preserve employee-contract research and comparative trial gates; no issue closures or distribution."
     },
     {
       "id": "local-ai-video-studio",
       "name": "Local AI Video Studio",
       "classification": "Qualification gap",
-      "biggestBlocker": "No public installation and editing workflow verified.",
-      "shareable": false
+      "biggestBlocker": "No supported public installation or human creator workflow; catalog effects exceed actual renderer capability. Keep inactive and evaluate established editors before broadening.",
+      "shareable": false,
+      "repairProgress": "4b6421e pushed clean; Native CI 34108066643 and Site CI 34108066689 green. Real Apple local-model planning, graph edits, native rendering, current-variant export and stale-export rejection verified on original synthetic footage. 71 tests pass; no human UI/audio or creator value qualification. #33 retained."
     },
     {
       "id": "reader",
       "name": "Reader",
       "classification": "Qualification gap",
-      "biggestBlocker": "Static sample is not proof of import/read/annotate workflow; private library not accessed.",
-      "shareable": false
+      "biggestBlocker": "Hosted import/read/annotate/reopen and guest PDF annotation remain unqualified; PDF guest viewer has no Reader annotation controls.",
+      "shareable": false,
+      "repairProgress": "e582a382 pushed clean; CI 34108092917 and Docs 34108092925 green. Atomic IndexedDB patches fix reproduced concurrent lost notes. 126 tests plus real Chromium persistence checks pass, including synthetic PDF byte reload. Issues #55 and #56 retained; no hosted uploads or deployment."
     },
     {
       "id": "live",
@@ -136,8 +139,9 @@
       "id": "anime-list",
       "name": "Anime List",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Guest workflow and personal tracking unverified; no private content retained.",
-      "shareable": false
+      "biggestBlocker": "Hosted tracking, real login, reload persistence and account isolation need deployment and browser qualification.",
+      "shareable": false,
+      "repairProgress": "93000b31 pushed clean; CI 34107242387 and Docs 34107242428 green. Account-scoped query clients and keyed drafts prevent cross-account cached detail leakage. 155 tests and local D1 rehearsal pass; #89 retained."
     },
     {
       "id": "protein-index",
@@ -159,8 +163,9 @@
       "id": "karte",
       "name": "Karte",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified.",
-      "shareable": false
+      "biggestBlocker": "Public profile still serves truncated booking links until deployment; protected creation/editing and fresh AI answer remain unqualified.",
+      "shareable": false,
+      "repairProgress": "e7072fc pushed clean; CI 34107483418 and Docs 34107483404 green. Renderer disables incomplete URLs, homepage blog links use Visit website, and section writes reject incomplete URLs. 172 tests and full build pass; #82 retained."
     },
     {
       "id": "truehire",
@@ -378,8 +383,9 @@
       "id": "mashup",
       "name": "Mashup",
       "classification": "Verified defect",
-      "biggestBlocker": "Core local clipping workflow not exercised; reachable media URL alone is not playback proof.",
-      "shareable": false
+      "biggestBlocker": "Public MP4 URLs return homepage HTML; checked recovered media bundle awaits deployment. Automatic editorial selection and real creator pilot remain unqualified.",
+      "shareable": false,
+      "repairProgress": "9673d78 pushed clean; CI 34107001659 green. Approved media recovered and hash-checked in local staging, both videos played. Operator-reviewed 36-second synthetic archive export decoded and played; automatic cold-opening rejection preserved. 502 tests pass; #11 retained."
     },
     {
       "id": "forecast-lab",

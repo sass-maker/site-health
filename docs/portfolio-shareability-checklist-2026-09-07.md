@@ -107,3 +107,25 @@ has been inferred from the instruction to push through the work.
 Later verification: **15 of 54 have scoped hands-on passes; 39 remain unqualified.** Web Playables now passes as a desktop parked experiment after a real upgrade decision, revenue effect, close/reopen persistence and screenshot review. This does not qualify mobile, fresh onboarding or YouTube certification. Knowledge Base retains its authenticated deployed-consumer gate despite 93 passing local API tests.
 
 Public MCP verification raises the scoped count to **16 of 54; 38 remain unqualified**. ChatGPT Connections passed anonymous protocol/read/provenance checks and an independent SDK call. Private OAuth and ChatGPT installation remain unverified, and its existing hidden directory listing is preserved.
+
+
+## Task inventory and repair reconciliation
+
+The fresh 54-project GitHub/local snapshot is
+[portfolio-task-inventory-2026-09-07.json](portfolio-task-inventory-2026-09-07.json).
+It records **40 open issues and 2 open PRs** at its observation time. These
+include qualification gates, unfinished feature work and owner publication
+drafts; zero issues is not a shareability verdict. Concurrent agent edits are
+identified by dirty paths and must be rechecked before final cleanup.
+
+Reader, Anime List, Karte, Mashup, Office OS and Local AI Video Studio now have
+checked, pushed repair or qualification receipts with exact-commit green CI.
+Their remaining gates are retained in owning READMEs and the blocker report.
+This does not change the **16/54 scoped experience passes; 38 unqualified**.
+Native builds, synthetic pipelines and account-isolation tests do not replace
+hosted login, installation or human interface qualification.
+
+The snapshot also exposes Live production-smoke failures and a High Signal
+scheduled markets failure despite green build CI. These require independent
+resolution; successful build workflows do not establish all Actions are green.
+Existing unique branches, two stashes and unrelated owner edits are preserved.

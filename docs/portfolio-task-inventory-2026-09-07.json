@@ -1,0 +1,2082 @@
+{
+  "observedAt": "2026-09-07T09:53:32.738956+00:00",
+  "scope": "54 projects; Chess, Journal removed; Nomad excluded. In-flight sibling work may change after observation.",
+  "projects": [
+    {
+      "id": "codevetter",
+      "checkout": "codevetter",
+      "repository": "Codevetter/codevetter",
+      "revision": "4516f5e2bd6fc05c3b46e7ec46c72476aebac099",
+      "branches": [
+        "chore/landing-docs-and-evidence",
+        "chore/repo-cleanup-reviewed",
+        "chore/repo-structure-and-quality-gates",
+        "content/p3-download",
+        "content/p3-download-clean",
+        "feat/native-macos-evidence-workbench",
+        "fix/native-window-probe",
+        "fix/release-qualification-wal-probe",
+        "fix/release-wal-continuity-probe",
+        "fix/version-single-source",
+        "main",
+        "release/cut-1.13.4",
+        "release/cut-1.13.5"
+      ],
+      "stashes": [],
+      "dirty": [
+        "M apps/macos/CodeVetterPackage/Sources/CodeVetterFeature/WorkbenchModel.swift",
+        " M apps/macos/CodeVetterPackage/Tests/CodeVetterFeatureTests/CodeVetterFeatureTests.swift"
+      ],
+      "issues": [
+        {
+          "body": "Writing the rewrite of `codevetter.com/download` surfaced three claims on the live page that do not currently hold. Filing together because they share one likely root cause: the cutover to the native SwiftUI release pipeline.\n\n## 1. The six newest releases ship no downloadable build\n\n`v1.12.0` through `v1.13.2` \u2014 six releases cut between 2026-09-04 23:11Z and 2026-09-05 11:10Z \u2014 all have **zero release assets**.\n\nThe newest release carrying a DMG is **v1.11.1 (2026-09-03)**. Every release from `v1.5.3` onward carries four assets, so this is a regression rather than intent.\n\nThe `/download` page's \"Latest release \u2192\" link therefore sends visitors to a release with nothing to download.\n\n`PROJECT_STATUS.md:43` describes `auto-release.yml` cutting a `v<version>` tag on `Shared.xcconfig` version bumps while `release.yml` signs, notarizes, qualifies and uploads. That split is consistent with tags being cut while the upload job does not complete.\n\n## 2. The documented filename pattern matches no published asset\n\n`/download` states the artifact is `CodeVetter-<version>-arm64.dmg`.\n\nEvery published asset is `CodeVetter_<version>_aarch64.dmg` \u2014 underscores, and `aarch64` rather than `arm64`. Anyone scripting against the documented name gets nothing.\n\n## 3. The Sparkle auto-update claim is contradicted by the repo's own evidence\n\n`/download` states installed copies \"update through the in-app Sparkle appcast\".\n\n- `https://codevetter.com/appcast.xml` \u2192 **404**\n- `evidence/verification/native-release-readiness-2026-09-02.md:28` \u2014 \"no production HTTPS Sparkle appcast is configured\"\n- `crates/codevetter-core/src/capabilities.rs:298` \u2014 \"Sparkle is locally packaged but remains disabled until production signing, appcast, EdDSA, and installed-upgrade gates pass\"\n- `crates/codevetter-core/src/capabilities.rs:666` \u2014 \"Sparkle remains inactive unless a production HTTPS appcast and EdDSA public key are present\"\n\nOn the evidence available, auto-update is not live. I could not disprove that it was enabled in the days since 2026-09-02 \u2014 there is no appcast at the conventional URL and nothing in the repo points at another one. Someone with the deploy view should confirm.\n\nThis is the most expensive of the three to leave standing: a download page asserting an update mechanism that the product's own verification evidence says is disabled sits badly against \"Review suggests. Evidence decides.\"\n\n## Suggested fixes\n\n- Make `release.yml` fail loudly when a tag is cut without assets uploaded, so this cannot regress silently again.\n- Correct the filename pattern on `/download`, or template it from the release feed.\n- Either enable the production appcast or change the page to say updates are manual for now.\n- Template the version string on `/download` rather than hardcoding \u2014 six releases landed in under 13 hours.\n\n---\n\nFound while drafting SEO/GEO content against the live surface. Nothing has been published; the draft is held pending these.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOQfzwtM8AAAAC0DB3ag",
+              "name": "in-progress: agent",
+              "description": "An agent is actively working it today.",
+              "color": "1D76DB"
+            }
+          ],
+          "number": 253,
+          "title": "Download page: latest releases ship no assets, filename pattern is wrong, and the Sparkle update claim is unsubstantiated",
+          "url": "https://github.com/Codevetter/codevetter/issues/253"
+        },
+        {
+          "body": "## What blocks\n\n`native-production-qualification.yml` fails at **Qualify isolated upgrade, relaunch, custom rubric, data, and rollback**, which is the last gate before release assets upload. No release has ever published assets because of it.\n\n```\nCommand failed: .../codevetter-native-upgrade/installation/CodeVetter.app/Contents/MacOS/codevetter \\\n  rubrics --id hosted-migration-proof --name Hosted migration proof ... --json\ncodevetter: unknown command `rubrics`\n```\n\nObserved on run [33962630311](https://github.com/Codevetter/codevetter/actions/runs/33962630311) for `v1.13.2`.\n\n## Why\n\nThe workflow pins the incumbent to the last Tauri release:\n\n```yaml\ngh release download v1.11.0 --pattern 'CodeVetter_aarch64.app.tar.gz'\n```\n\n`v1.11.0` is the newest tag carrying assets, so it is the only usable incumbent. Its bundled CLI predates the `rubrics` command, but the proof uses `rubrics` to create the durable record whose survival across upgrade and rollback is the thing being proven. The incumbent can never seed that data, so the gate cannot pass as written.\n\n## Decisions needed\n\nThis is a product decision about what the migration guarantee asserts, not a mechanical fix:\n\n1. Seed the durable record with a command the `v1.11.0` CLI does have, and assert survival of that instead.\n2. Publish assets for a newer incumbent first, then pin to it.\n3. Narrow the proof to data written by the candidate itself, accepting that cross-shell migration from Tauri is no longer exercised.\n\n## Context\n\n`PROJECT_STATUS.md` lists the exact-archive installed-upgrade proof as pending under #249 tasks 6-8, but #249 is closed, so this was untracked.\n\nEverything before this gate now passes: Developer ID signing, notarization, stapling, and Sparkle appcast generation and cryptographic inspection.",
+          "labels": [
+            {
+              "id": "LA_kwDOQfzwtM8AAAAC0DB3ag",
+              "name": "in-progress: agent",
+              "description": "An agent is actively working it today.",
+              "color": "1D76DB"
+            }
+          ],
+          "number": 252,
+          "title": "Installed-upgrade proof cannot seed data: v1.11.0 incumbent CLI has no `rubrics` command",
+          "url": "https://github.com/Codevetter/codevetter/issues/252"
+        }
+      ],
+      "prs": [
+        {
+          "baseRefName": "main",
+          "headRefName": "fix/native-window-probe",
+          "isDraft": false,
+          "number": 263,
+          "title": "fix(release): scope the window probe's filter to the process, not to windows",
+          "url": "https://github.com/Codevetter/codevetter/pull/263"
+        }
+      ],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098775137,
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098775137",
+          "workflowName": "CodeQL"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34098774048,
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098774048",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34098773755,
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098773755",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34098773696,
+          "status": "completed",
+          "url": "https://github.com/Codevetter/codevetter/actions/runs/34098773696",
+          "workflowName": "Repository Security"
+        }
+      ]
+    },
+    {
+      "id": "pace",
+      "checkout": "pace",
+      "repository": "HeyPace/pace",
+      "revision": "e0074073ca031a11a9628ef01ef61f1c85be9c24",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Why\n\nPace currently consumes third-party MCP servers, but it does not expose its own local Mac capabilities to Codex. That leaves Pace isolated from the agent doing the broader work and makes Codex recreate context or use generic APIs instead of asking the app that already owns local screen understanding, memory, approvals, and the iPad companion.\n\nThe goal is not to turn Pace into another generic connector catalog or another reasoning layer. The goal is to make Pace the local, physical capability layer for Codex while preserving Pace's on-device privacy boundary and existing user-approval system.\n\n## What\n\n### In scope for V1\n\n- Add an opt-in, loopback-only Streamable HTTP MCP endpoint hosted by the running Pace Mac app.\n- Require an explicit in-app connection approval before an MCP session becomes usable. The session is ephemeral, single-client, and invalidated when Pace quits or MCP access is disabled.\n- Expose a deliberately small set of Pace-only tools:\n  - `pace_get_status`: report Pace readiness, permission state, current interaction state, and iPad companion connection state.\n  - `pace_observe_screen`: return semantic current-screen context from Pace's existing AX-first, OCR-enriched, VLM-fallback pipeline. Do not return a raw screenshot by default.\n  - `pace_search_memory`: search Pace's existing local unified memory with its current sensitive-topic filtering.\n  - `pace_execute_action`: execute a typed action through the existing tool registry, preflight, approval, audit, and action executor. Codex does not send arbitrary shell commands and does not bypass Pace approval.\n  - `pace_notify_companion`: display and optionally speak a bounded message through Pace's existing restrained proactive pipeline and connected iPad.\n- Return structured, bounded results that Codex can reason about without sending them through Pace's planner.\n- Publish concise MCP server instructions describing when Codex should use Pace and when it should use a direct API instead.\n- Add a project-scoped example configuration and a setup surface in Pace that shows the exact local Codex command/config without writing to Codex configuration automatically.\n\n### Explicitly out of scope\n\n- Generic GitHub, Gmail, calendar, weather, web-fetch, filesystem, or SaaS API wrappers when Codex can use the direct API or an existing MCP server.\n- A natural-language `ask_pace` tool that sends Codex requests back through Pace's planner; that creates duplicate reasoning and a recursion risk when Codex is the caller.\n- Arbitrary shell execution.\n- Bypassing macOS TCC, Pace's preflight checks, or Pace's mutation approvals.\n- Cloud relay, remote internet access, multi-user access, or multiple simultaneous MCP clients.\n- Continuous screen capture, raw screen streaming, camera streaming, or automatic memory export.\n- Making the iPad a second intelligence or MCP host.\n\n## Design\n\n```mermaid\nflowchart LR\n    Codex[Codex local client] -->|Streamable HTTP on 127.0.0.1| MCP[Pace MCP adapter]\n    MCP --> Session[Ephemeral in-app session approval]\n    Session --> Context[AX + OCR + VLM screen context]\n    Session --> Memory[Unified local memory retriever]\n    Session --> Actions[Typed Pace action facade]\n    Session --> Companion[Mac + iPad companion output]\n    Actions --> Preflight[Tool registry + preflight]\n    Preflight --> Approval[Pace approval UI]\n    Approval --> Executor[Existing action executor + audit]\n```\n\n### Transport and lifecycle\n\n- Bind a fixed documented port on `127.0.0.1` only; never advertise this endpoint over Bonjour or bind to the LAN interface.\n- Keep MCP disabled by default. Enabling it starts the listener and shows a persistent status/disable control in Settings.\n- On `initialize`, Pace shows which local client is requesting access. Approval creates one in-memory MCP session ID. Reject concurrent clients and invalidate the session on app quit, disable, or explicit disconnect.\n- Fail loud when the port is occupied or Pace lacks a required permission. Do not silently fall back to another interface or cloud path.\n- Implement only the MCP methods needed for Codex V1: `initialize`, `notifications/initialized`, `ping`, `tools/list`, and `tools/call`, with protocol/version and JSON-RPC error coverage.\n- Use tool annotations and Codex setup guidance so read-only tools are distinguishable from mutating tools. Pace's own approval gate remains authoritative for mutations regardless of Codex configuration.\n\n### Tool behavior\n\n- `pace_get_status` is fast and does not start the planner, VLM, or microphone.\n- `pace_observe_screen` respects the existing Read My Screen preference and visible activity indicators. It uses AX first, OCR enrichment second, and VLM only when needed. Results are semantic and size-bounded.\n- `pace_search_memory` reuses `PaceMemoryRetriever`, honors exclusions and sensitive-topic preferences, and returns a typed result rather than the planner-formatted context block.\n- `pace_execute_action` accepts only typed registry-backed actions. It performs `PaceToolPreflight`, invokes the existing approval surface when required, executes through `PaceActionExecutor`, and returns the resulting observations. No planner hop is involved.\n- `pace_notify_companion` reuses the existing restraint and proactive queue. It must not speak during active calls, focus suppression, quiet mode, or a conflicting conversation.\n\n### Privacy and audit\n\n- MCP calls remain on-device and are recorded in the existing local API/audit log with tool name, duration, outcome, and output size; never record raw screen images, memory payloads, or session identifiers.\n- The Pace UI must make MCP connected/active state visible and provide one-click disconnect.\n- Screen and memory tools must return a clear disabled/permission result rather than changing privacy preferences.\n- Requested raw screenshots, camera frames, and unrestricted memory export remain unavailable in V1.\n\n## Specs\n\n### Connection and session\n\n- **Given** MCP access is disabled, **when** a local client connects, **then** no Pace tool or context is exposed.\n- **Given** MCP access is enabled, **when** Codex initializes a session, **then** Pace requires explicit local approval before returning a usable session.\n- **Given** an approved session, **when** Pace quits, MCP is disabled, or the user disconnects it, **then** the session becomes unusable immediately.\n- **Given** an active session, **when** a second client initializes, **then** Pace rejects it without replacing the approved client.\n- **Given** the configured port is occupied, **when** MCP starts, **then** Pace shows an actionable local error and does not bind another interface.\n\n### Read-only tools\n\n- **Given** Pace is running, **when** Codex calls `pace_get_status`, **then** it receives bounded structured state without starting any model.\n- **Given** Read My Screen is enabled and permission is granted, **when** Codex calls `pace_observe_screen`, **then** it receives semantic AX/OCR/VLM-fallback context and no raw image bytes.\n- **Given** Read My Screen is disabled or permission is missing, **when** the screen tool is called, **then** it returns a typed disabled/permission result and does not alter settings.\n- **Given** a memory query, **when** Codex calls `pace_search_memory`, **then** results come from the existing local memory index and obey current sensitive-topic filtering.\n\n### Actions and companion\n\n- **Given** a valid registry-backed action that does not require approval, **when** Codex calls `pace_execute_action`, **then** Pace performs normal preflight, execution, observation, and audit behavior.\n- **Given** a mutation or blocked preflight, **when** Codex calls `pace_execute_action`, **then** Pace shows its existing approval UI and executes only after Allow Once.\n- **Given** an unknown tool, malformed arguments, or arbitrary shell request, **when** Codex calls the action tool, **then** Pace rejects it before execution.\n- **Given** companion speech is currently restrained, **when** Codex calls `pace_notify_companion`, **then** the message queues or remains silent according to the existing restraint policy.\n\n### End-to-end acceptance\n\n- From a real local Codex session, `pace_get_status`, `pace_observe_screen`, and `pace_search_memory` return useful results from the running Pace app.\n- From the same session, a safe typed action completes and a mutation cannot complete without Pace approval.\n- A companion message visibly reaches the Mac surface and, when connected, the iPad.\n- Restarting Pace invalidates the old MCP session; reconnecting requires a fresh in-app approval and does not require editing configuration.\n- The full Pace unit suite, MCP protocol integration tests, docs validation, and a real-hardware smoke pass are green.\n\n## Tasks\n\n- [ ] Add MCP protocol DTOs, JSON-RPC validation, bounded response/error types, and unit tests.\n- [ ] Add the loopback-only listener, fixed-port failure handling, ephemeral single-client session approval, disconnect, and lifecycle tests.\n- [ ] Add `pace_get_status` without model startup.\n- [ ] Extract a typed semantic observation result from `PaceScreenContextService` and add `pace_observe_screen` with privacy/permission tests.\n- [ ] Add a typed read-only search facade over `PaceMemoryRetriever` and cover sensitive-topic filtering.\n- [ ] Add a typed action decoder over `PaceToolRegistry`, route through preflight/approval/executor, and add rejection/approval tests.\n- [ ] Route `pace_notify_companion` through the existing restraint/proactive pipeline and companion server.\n- [ ] Add MCP connected/active/error controls and one-click disconnect to Pace Settings.\n- [ ] Add server instructions and a project-scoped Codex configuration example, aligned with current Codex Streamable HTTP support.\n- [ ] Update architecture, key-files, capability, privacy, and project-status docs only as implementation becomes true.\n- [ ] Run focused protocol/tool tests, `bash scripts/test-pace.sh`, `bash scripts/validate-docs.sh`, and a real local Codex-to-Pace smoke test.\n- [ ] Walk the real-hardware release smoke checklist before any release.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSs6wMs8AAAAClbsSLQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOSs6wMs8AAAAC0DByeg",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 172,
+          "title": "Expose Pace's local Mac capabilities to Codex through MCP",
+          "url": "https://github.com/HeyPace/pace/issues/172"
+        },
+        {
+          "body": "## Goal\n\nAdd a fully on-device **Spatial Teach Mode** that lets a user point or paint over part of the Mac UI, speak a request such as \u201cmove this there\u201d or \u201cteach this workflow,\u201d and gives Pace an exact, window-bound context packet. When the user demonstrates repeated work, compile that trace into an evidence-rich deterministic flow that replays without a model on the healthy path and halts when the target or result cannot be proven.\n\nThis combines four useful patterns while preserving Pace's native Swift runtime, privacy moat, approval model, and RAM discipline:\n\n| Source | Pattern to adapt for Pace |\n| --- | --- |\n| [Supamaus Lite](https://lite.supamaus.com/) | A spatial context packet containing screenshot/crop, gesture trail or regions, spoken/typed instruction, and the window's text; short-lived capture sessions across displays. |\n| [TipTour macOS](https://github.com/milind-soni/tiptour-macos) | Listen-only freeform highlight chord; bind the trail to window ID/PID/bundle/title, intersected AX element, and selected text; \u201cAutopilot\u201d vs \u201cTour Guide\u201d presentation; local CoreML + Vision grounding shape. |\n| [CUA Driver](https://github.com/trycua/cua/tree/main/libs/cua-driver) | Exact `(pid, window_id)` targeting with ambiguity refusal; window-scoped capture; separate typed action facts from caller-defined postcondition verification; short lifecycle sessions and trajectories. |\n| [OpenAdapt Flow](https://github.com/OpenAdaptAI/openadapt-flow) | Treat a demonstration as source, compile it into redundant target evidence + pre/postconditions, replay deterministically, and halt/teach/promote a reviewed repair instead of guessing. |\n\n## Why this belongs in Pace\n\nPace already owns the hard native substrate: push-to-talk, ScreenCaptureKit, AX/OCR/VLM context, cursor/annotation overlays, approval/audit/undo, plan-act-observe, recorded flows, deterministic Programs, and planner-grounded skills.\n\nThe missing seam is between \u201cthe user means **this**\u201d and \u201cPace can safely reuse that demonstration later\u201d:\n\n- Teach-by-demonstration is already listed as deferred in [the teachable-skills PRD](https://github.com/HeyPace/pace/blob/main/docs/product/prds/teachable-skills.md).\n- `PaceRecordedStep.axPress` persists only a role path and label in [PaceFlowReplay.swift](https://github.com/HeyPace/pace/blob/main/leanring-buddy/PaceFlowReplay.swift).\n- The flow replayer resolves an AX target, but its production action sink cannot carry the live AX element and re-resolves at the current cursor position in [PaceFlowReplayer.swift](https://github.com/HeyPace/pace/blob/main/leanring-buddy/PaceFlowReplayer.swift). Spatial teaching must close that identity/dispatch gap before adding broader replay.\n\n## Proposed v1\n\n### 1. Short-lived spatial context packet\n\nIntroduce a pure versioned value such as `PaceSpatialContextPacket` containing only the evidence available for the current interaction:\n\n- stable packet/session ID and timestamp;\n- display ID and coordinate-space metadata;\n- sampled/capped gesture polyline, bounding region, direction, and optional multiple named regions (`this`, `there`);\n- exact hovered window identity: PID, CGWindowID, bundle identifier, app name, title, and frame;\n- intersected/focused AX element evidence: identifier, role/subrole, label/title/description/value shape, frame, and ancestor fingerprint;\n- selected-text evidence when available, excluding secure fields;\n- tightly cropped screenshot evidence plus local Vision OCR/AX window text;\n- the on-device speech transcript or typed instruction;\n- explicit provenance and privacy flags for every field.\n\nThe packet is bounded-memory and interaction-scoped by default. Pace overlays must be excluded from capture. Do not persist a full-window screenshot merely because a packet was created.\n\n### 2. Spatial highlight interaction\n\n- Add a configurable hold-to-highlight chord (provisional default: Control+Shift) using a listen-only event tap.\n- Render the sampled trail and named endpoints/regions in Pace's existing non-activating overlay.\n- On release, bind the trail to the exact window and strongest available AX/text evidence.\n- Support at minimum:\n  - \u201cwhat is this?\u201d\n  - \u201cclick this\u201d\n  - \u201cchange this text\u201d\n  - \u201cmove this there\u201d\n  - \u201cteach/record this workflow\u201d\n- Keep the normal approval path authoritative. A gesture narrows intent; it does not grant action authority.\n\n### 3. Evidence-rich `PaceRecordedFlow` v2\n\nMigrate v1 flows without breaking their current JSON representation. New steps should be able to retain:\n\n- action and typed arguments/parameter placeholders;\n- exact app/window identity;\n- structural AX locator and ancestor evidence;\n- optional local crop, OCR label, nearby landmarks, and recorded coordinate as fallback evidence;\n- risk class;\n- bounded precondition and postcondition;\n- whether a model fallback is allowed;\n- provenance, schema version, and integrity digest.\n\nCompilation should remove incidental input, group typing, suppress secrets, infer only conservative literal parameters, and refuse partial/ambiguous output. Healthy replay makes no planner/VLM call.\n\n### 4. Fail-closed resolution and execution contract\n\nUse a Pace-native ladder:\n\n1. exact AX identifier/handle inside the exact recorded PID + window;\n2. unique AX role/name/ancestor match inside that window;\n3. local crop/template + OCR/landmark evidence;\n4. optional on-device VLM grounding when the step policy allows it;\n5. halt and ask the user to re-teach.\n\nAmbiguity is a refusal, not permission to fall through to a weaker rung. Carry the resolved live AX element or an opaque execution handle through dispatch; never substitute the user's current cursor position.\n\nSeparate:\n\n- **Action fact:** confirmed / partial / unverifiable / suspected-noop / refused, plus route and evidence.\n- **Postcondition:** satisfied / unsatisfied / unknown.\n\nOnly `satisfied` advances a dependent consequential step. Preserve the completed prefix and leave the suffix unattempted after failure.\n\n### 5. Repair and guide surfaces\n\n- On drift, show what Pace expected, what it found, and the exact halted step.\n- Let the user point at the corrected target and produce a reviewable repair candidate.\n- Do not silently mutate the active flow. Promote only after a deterministic regression replay.\n- Reuse the cursor overlay for a \u201cGuide me\u201d mode that points/narrates one step at a time without acting. This is presentation over the same compiled flow, not a separate workflow format.\n\n## Acceptance criteria\n\n- [ ] An OpenSpec proposal defines the packet, flow-v2 schema, migration, privacy retention, resolver ladder, typed outcomes, and failure states before implementation.\n- [ ] A user can hold the highlight chord, draw a visible freeform trail, release it, and receive a packet bound to the correct display and exact app/window.\n- [ ] `this` and `there` can be represented as distinct regions in one bounded interaction.\n- [ ] AX element/text selection evidence is preferred; secure text is never captured or serialized.\n- [ ] Full screenshots remain ephemeral; persisted flows retain only the minimum approved crops/evidence needed for deterministic replay.\n- [ ] Existing v1 flows load and replay without behavior drift.\n- [ ] A v2 replay performs the resolved AX action on the resolved target rather than the current physical cursor.\n- [ ] Multiple eligible windows or elements return a typed ambiguity refusal before input.\n- [ ] Every mutating step returns an action fact; every dependent step with a required result waits for a separate typed postcondition.\n- [ ] Theme change, moved control, and safe label drift succeed through stronger retained evidence where possible.\n- [ ] Wrong app/window, duplicate labels without independent identity, occlusion, surprise modal, missing permission, and unverifiable postcondition halt before later dependent actions.\n- [ ] Failed drift creates a reviewable repair candidate; the active flow is unchanged until promotion.\n- [ ] Guide mode can point/narrate compiled steps without performing them.\n- [ ] Spatial capture, compilation, replay, and repair stay on-device and produce no network egress.\n- [ ] Focused unit/fixture tests run through `bash scripts/test-pace.sh <suite>`; do not invoke terminal `xcodebuild`.\n\n## Evaluation matrix\n\nMeasure at least:\n\n- correct completion;\n- silent incorrect completion;\n- safe halt;\n- unnecessary halt;\n- resolution rung used;\n- action-to-evidence latency;\n- planner/VLM calls on healthy replay;\n- peak memory and retained artifact size.\n\nFixtures should cover two windows from one PID, two same-label siblings, moved/renamed controls, theme drift, AX-sparse/canvas UI, stale screenshots, display scaling, multi-monitor coordinates, secure fields, user cancellation, and surprise dialogs.\n\n## Privacy, licensing, and release boundaries\n\n- No cloud LLM/STT/VLM path may be introduced. TipTour's Gemini/Worker path is explicitly not applicable to Pace.\n- Supamaus Lite is a commercial closed product: borrow the interaction concept only, not implementation or assets.\n- CUA and TipTour use/private-reference undocumented SkyLight and AX SPI for background input. Do **not** ship private-API background control in v1. Any later experiment must be isolated behind a separate release/legal/TCC evaluation and may not silently replace Pace's public AX/CGEvent path.\n- Do not turn Pace into an unauthenticated local screen-serving MCP/HTTP server. Any future external context export requires a separate threat model, explicit per-client consent, visible off-device indication when relevant, and audit logging.\n- TipTour's bundled `UIElementDetector.mlpackage` identifies itself as an Ultralytics YOLO11m artifact under AGPL-3.0 and does not establish training-data provenance. Do **not** copy its model or weights. A Pace detector must use a verified permissive model/data chain or be trained in-house and benchmarked against the existing AX + OCR + set-of-mark/VLM path.\n- OpenAdapt-authored engine code and CUA/TipTour source are MIT, but copied substantial code requires retained attribution. OpenAdapt's isolated AGPL benchmark files are outside its MIT package boundary.\n- Do not add a Python/Rust daemon or new production dependency for v1. Port the narrow contracts into Pace's existing native Swift process.\n\n## Out of scope for v1\n\n- Cross-platform or VM/sandbox infrastructure.\n- Background/no-focus input through private macOS APIs.\n- An external MCP context server for Codex/Claude.\n- Cloud repair or hosted workflow storage.\n- Full autonomous generalization from multiple demonstrations.\n- Persisting raw screen history.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSs6wMs8AAAAClbsSLQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOSs6wMs8AAAAC0DByeg",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 157,
+          "title": "Build Spatial Teach Mode and evidence-rich compiled flows",
+          "url": "https://github.com/HeyPace/pace/issues/157"
+        }
+      ],
+      "prs": [
+        {
+          "baseRefName": "main",
+          "headRefName": "docs/portfolio-retained-work-20260907",
+          "isDraft": false,
+          "number": 185,
+          "title": "docs: retain portfolio requirements in README",
+          "url": "https://github.com/HeyPace/pace/pull/185"
+        }
+      ],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098944448,
+          "status": "completed",
+          "url": "https://github.com/HeyPace/pace/actions/runs/34098944448",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34098944449,
+          "status": "completed",
+          "url": "https://github.com/HeyPace/pace/actions/runs/34098944449",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "posttrainllm",
+      "checkout": "posttrainllm",
+      "repository": "PostTrainLLM/posttrainllm",
+      "revision": "4d41f8bdbd957f3576b80bd17b99557aaddc6ae2",
+      "branches": [
+        "docs/issue-139-study-links",
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34092921882,
+          "status": "completed",
+          "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "site-health",
+      "checkout": "site-health",
+      "repository": "sass-maker/site-health",
+      "revision": "3a8e86152f51fcdfa7c037bd5af6d8843b623b33",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Why\n\nThe 56-project portfolio has accumulated overlapping lifecycle signals (`lifecycle: maintained/past`, `tier: focus/active/secondary/parked/out-of-fleet`, `portfolio.status: active/archived`, `portfolio.priority: P1-P4`, `attention`, `readyToShare`). These are ambiguous, drift-prone, and don't clearly separate development allocation from shareability. The owner approved a bounded cleanup (decision date 6 Sep 2026) that collapses these into three explicit fields: `status`, `shareable`, `resumeCondition`.\n\n## Status: Complete\n\n### Completed\n- [x] 1. Inventory all consumers of lifecycle fields across site-health and saas-maker\n- [x] 2. Map PRD Appendix A to all 56 projects; verify no dropped/duplicated IDs\n- [x] 3. Assign `shareable` per evidence (fails closed to `false`); assign `resumeCondition` (all null)\n- [x] 4. Add three lifecycle fields to `projects.json`; preserve existing metadata\n- [x] 5. Update `saas-maker/catalog/generated/public.json` via `pnpm catalog:sync-public`\n- [x] 6. Update consumers: registry.mjs, domain-scope.mjs, public-products.mjs, dashboard-client.ts, visibility-projects.mjs, root-brands.json, root-search-queries.json\n- [x] 7. Update tests (7 test files) with new lifecycle fixtures and scope counts\n- [x] 8. Regenerate all 56 project dossiers\n- [x] 9. Write private `cleanup-report.md`\n- [x] 10. Gate automation: 36 inactive projects marked `disposition: ignored` in actions policy; 82 workflows gated; fleet-level cron retained\n- [x] 11. Update `portfolio-condensed-2026-08-23.md` with new lifecycle model (3-status, 2/18/36 allocation)\n\n### Verification\n- site-health backend tests: 133/133 pass\n- saas-maker catalog check: passes (56 identities, matches Site Health)\n- saas-maker catalog validation: passes\n- Dossier check: passes (56 verified YAML dossiers)\n\n### Key scope changes\n| Metric | Old | New |\n|---|---|---|\n| Current projects | 32 | 20 (2 primary + 18 active) |\n| Public metric targets | 26 | 17 |\n| Domain strength roots | 8 | 6 |\n| Visibility projects | 36 | 17 |\n| Root brand roots | 10 | 6 |\n| Gated workflows | 2 | 82 (36 inactive projects) |\n\n### Files changed\n- site-health: 91 files (projects.json, 6 lib files, 7 test files, 56 dossiers, 3 config files, cleanup-report.md, portfolio-condensed doc)\n- saas-maker: 3 files (public-products.mjs, public.json, directory.test.ts)\n\n### Unresolved\n- No fresh shareability verification was performed (PRD requires it before promoting any project)\n- No resume conditions were assigned (all null \u2014 no evidence to fabricate from)\n- Fleet-root `AGENTS.md` still references \"54-project intent\" for the portfolio-condensed doc; updating that rules file requires owner approval\n\nFull PRD: `/Users/sarthak/Downloads/PORTFOLIO_CLEANUP_PRD_FINAL.md`\nCleanup report: `site-health/docs/cleanup-report.md`",
+          "labels": [
+            {
+              "id": "LA_kwDOSSV8p88AAAACvKlRGQ",
+              "name": "maintenance",
+              "description": "Cleanup, chores, release upkeep, infra hygiene",
+              "color": "0E8A16"
+            }
+          ],
+          "number": 491,
+          "title": "Portfolio lifecycle cleanup: three-field model (2 primary, 18 active, 36 inactive)",
+          "url": "https://github.com/sass-maker/site-health/issues/491"
+        },
+        {
+          "body": "## Why\n\nFleet has one Microsoft Clarity project per catalog identity and a deterministic Site Health traffic collector, but it does not yet account for the rest of Clarity: recordings, heatmaps, Copilot insights, Smart Events, funnels, AI Visibility, masking, IP exclusions, or focused MCP investigation. The owner has explicitly approved using the full free Clarity feature set across eligible Fleet web products.\n\n## What\n\nIn scope:\n\n- Preserve the existing project-scoped Data Export adapter and official MCP CLI.\n- Define a complete Clarity capability policy for each canonically wired public surface.\n- Treat recordings, heatmaps, automatic Smart Events, Copilot insights, and AI Visibility as the default desired baseline for every eligible public surface.\n- Define product-specific custom events and funnels from real routes and user actions.\n- Track provider-side configuration and verification separately from source wiring and deployment.\n- Report capability coverage inside the existing Site Health project evidence surface and fleet collector.\n- Use focused MCP session-recording investigation without persisting raw recordings or visitor identifiers.\n\nOut of scope:\n\n- Inventing browser surfaces for native-only, local-only, retired, archived, or resource-only products.\n- Silently overriding an explicit product promise of no analytics or telemetry.\n- Capturing passwords, payment values, private inboxes, private documents, health data, or user-provided model inputs.\n- Storing API tokens, raw recordings, heatmap payloads, URLs containing sensitive values, or visitor identifiers in Site Health.\n- Deploying products, generating tokens, or weakening legally required consent without separate authorization.\n\n## Design\n\n```mermaid\nflowchart LR\n  R[Canonical Clarity receipt] --> P[Per-product capability policy]\n  P --> S[Source instrumentation]\n  P --> U[Provider settings audit]\n  S --> C[Clarity capture]\n  U --> C\n  C --> E[Data Export aggregates]\n  C --> M[Focused MCP investigation]\n  E --> H[Site Health evidence]\n  M --> H\n```\n\nThe canonical SaaS Maker Clarity receipt remains the identity and source-wiring authority. Site Health projects a capability contract and provider verification state; it never treats a desired setting as observed. Passive Clarity features default on for wired public surfaces. Custom events and funnels remain product-specific. Provider-side state, source state, deployment state, and observed data are separate gates.\n\n## Specs\n\n### Requirement: Full capability accounting\n\nSite Health SHALL report every relevant Clarity capability for every canonical identity as enabled, desired, not applicable, blocked, or unverified.\n\n#### Scenario: A wired public product has no provider audit\n\n- **WHEN** the canonical receipt proves source wiring but no signed-in settings receipt exists\n- **THEN** passive features are reported as desired and provider-unverified\n- **AND** Site Health does not claim they are enabled.\n\n### Requirement: Product-specific behavior measurement\n\nEvery eligible product SHOULD define meaningful conversion events and at least one funnel when its real user journey contains two or more observable steps.\n\n#### Scenario: A marketing-only landing has one outbound action\n\n- **WHEN** no multi-step on-site journey exists\n- **THEN** the product uses an explicit CTA event\n- **AND** records the funnel as not applicable rather than inventing steps.\n\n### Requirement: Privacy and product boundaries\n\nFull Clarity adoption SHALL preserve explicit no-telemetry promises and hard sensitive-data exclusions.\n\n#### Scenario: A private or sensitive route exists beside a public surface\n\n- **WHEN** the public surface is instrumented\n- **THEN** private routes remain excluded or strictly masked\n- **AND** Site Health records that boundary.\n\n### Requirement: Honest provider verification\n\nProvider settings SHALL be changed only through authenticated Clarity controls and verified after mutation.\n\n#### Scenario: Browser control is unavailable\n\n- **WHEN** the authenticated Clarity workspace cannot be controlled\n- **THEN** source and policy work continues\n- **AND** provider settings remain explicitly blocked rather than inferred.\n\n### Requirement: Bounded internal evidence\n\nSite Health SHALL retain only normalized aggregate metrics and capability receipts.\n\n#### Scenario: An operator investigates session recordings through MCP\n\n- **WHEN** a focused read-only investigation runs\n- **THEN** raw playback data and visitor identifiers are not persisted\n- **AND** only a bounded conclusion may be recorded.\n\n## Tasks\n\n- [x] 1. Install and verify the official Clarity MCP CLI.\n- [x] 2. Add deterministic project and fleet Data Export collection.\n- [x] 3. Render aggregate Clarity evidence in existing project details.\n- [x] 4. Add a canonical per-project Clarity capability policy and validator.\n- [x] 5. Add Site Health capability coverage projections and focused tests.\n- [ ] 6. Define source-backed custom events and funnels for eligible products.\n- [ ] 7. Audit and configure provider-side masking, IP blocking, Smart Events, funnels, Copilot, and AI Visibility.\n- [x] 8. Validate both repositories and record exact blocked or completed gates.\n- [ ] 9. Commit, push, and close the issue only after separate shipping authorization.\n\n\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSSV8p88AAAAChmbBKQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOSSV8p88AAAAC0DBw1g",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 485,
+          "title": "Adopt Microsoft Clarity capabilities across Fleet site health",
+          "url": "https://github.com/sass-maker/site-health/issues/485"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34107549338,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/site-health/actions/runs/34107549338",
+          "workflowName": "Site Health CI"
+        }
+      ]
+    },
+    {
+      "id": "live",
+      "checkout": "live",
+      "repository": "Significant-Hobbies/live",
+      "revision": "c0934cabb019887900dddf0916a53aed217735ac",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "failure",
+          "databaseId": 34079347281,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/live/actions/runs/34079347281",
+          "workflowName": "Production Smoke"
+        },
+        {
+          "conclusion": "failure",
+          "databaseId": 34056921275,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/live/actions/runs/34056921275",
+          "workflowName": "Production Smoke"
+        },
+        {
+          "conclusion": "failure",
+          "databaseId": 34041083983,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/live/actions/runs/34041083983",
+          "workflowName": "Production Smoke"
+        },
+        {
+          "conclusion": "failure",
+          "databaseId": 34027390706,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/live/actions/runs/34027390706",
+          "workflowName": "Production Smoke"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34022786841,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/live/actions/runs/34022786841",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-connections",
+      "checkout": "chatgpt-connections",
+      "repository": "sass-maker/chatgpt-connections",
+      "revision": "cd2ca0f408de984142c0ac5cc7373c549a29d8d3",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34107358677,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/chatgpt-connections/actions/runs/34107358677",
+          "workflowName": "ChatGPT Connections CI"
+        }
+      ]
+    },
+    {
+      "id": "saas-maker",
+      "checkout": "saas-maker",
+      "repository": "sass-maker/saas-maker",
+      "revision": "c960d128ba3dbc839e4f8051402130c3a6e59d52",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [
+        "M PROJECT_STATUS.md",
+        " M tooling/scripts/agent-stack.sh",
+        " M tooling/skills/site-health/SKILL.md",
+        " M tooling/test/capability-catalog.test.mjs",
+        "?? tooling/skills/media-acquisition/",
+        "?? tooling/skills/seo-research/",
+        "?? tooling/skills/web-extraction/"
+      ],
+      "issues": [
+        {
+          "body": "## Why\n\nFleet has recurring web extraction and public-media acquisition work, but the reusable skill catalog does not currently encode how to choose safe, bounded tooling or produce receipts. SEO research also needs provider-backed keyword and competitor data without duplicating Fleet's existing technical SEO audit or making a paid provider mandatory.\n\nRepository evidence already shows `yt-dlp` in active LoopTV and High Signal workflows. Scrapling has a maintained agent-facing extraction surface. OpenSEO publishes useful research workflows, while Maxun, Crawl4AI, and Treg would overlap existing capabilities or introduce platform, credential, cost, or routing concerns.\n\n## What\n\nIn scope:\n\n- Add a Fleet-owned `web-extraction` skill using Scrapling as an optional structured-crawl backend.\n- Add a Fleet-owned `media-acquisition` skill using the already-installed `yt-dlp`; reserve Instaloader as a conditional future backend rather than adding it now.\n- Add a Fleet-owned `seo-research` skill for keyword, competitor, backlink-prospect, and local-search research, with OpenSEO as an optional provider-backed evidence source.\n- Route provider-optional SEO research from the existing `site-health` parent.\n- Expose the three skills through Fleet's selected runtime catalog.\n- Add execution profiles, Codex UI metadata, validation coverage, and bounded receipt contracts.\n\nOut of scope:\n\n- Installing Scrapling, browsers, Instaloader, OpenSEO, MCP servers, or production dependencies.\n- Reading or storing cookies, credentials, environment files, provider response bodies, or private provider data.\n- Bypassing access controls, scraping authenticated pages, downloading media without rights, or making paid provider calls without explicit user intent.\n- Adding Maxun, Crawl4AI, or Treg to the default Fleet skill surface.\n- Replacing Fleet's existing `seo-audit`, Site Health collectors, browser tools, or repository-local product pipelines.\n\n## Design\n\n```mermaid\nflowchart LR\n  U[Operator request] --> R{Capability router}\n  R --> W[web-extraction]\n  R --> M[media-acquisition]\n  R --> S[seo-research]\n  W --> B[Built-in browser or Scrapling if available]\n  M --> Y[yt-dlp public metadata and media]\n  S --> F[First-party and cached evidence]\n  S --> O[Optional OpenSEO MCP]\n  W --> E[Bounded receipt]\n  M --> E\n  F --> E\n  O --> E\n```\n\nEach skill owns decision guidance and evidence semantics, not a copied upstream manual. Missing optional tools and provider access are reported as `unavailable`, never silently installed or converted to zero. Existing product-specific scripts remain authoritative where they exist.\n\n## Specs\n\n### Requirement: Safe web extraction\n\nThe `web-extraction` skill SHALL start with the least invasive available method and SHALL treat authenticated access, anti-bot evasion, proxy use, and CAPTCHA solving as outside its default workflow.\n\n#### Scenario: Scrapling is unavailable\n\n- **WHEN** a structured crawl would benefit from Scrapling but its executable or package is absent\n- **THEN** the skill reports the backend as unavailable\n- **AND** does not install it without explicit authorization.\n\n### Requirement: Reproducible public-media acquisition\n\nThe `media-acquisition` skill SHALL default to metadata inspection before downloads and SHALL preserve source URL, selected format, output location, and command outcome in its receipt.\n\n#### Scenario: A user requests YouTube catalog metadata\n\n- **WHEN** `yt-dlp` is available and the target is public\n- **THEN** the skill uses metadata-only and flat-playlist modes where sufficient\n- **AND** avoids downloading media bytes unnecessarily.\n\n### Requirement: Provider-optional SEO research\n\nThe `seo-research` skill SHALL distinguish measured, cached, unavailable, and inferred evidence and SHALL not require OpenSEO for credential-free research.\n\n#### Scenario: OpenSEO is not connected\n\n- **WHEN** keyword volume, difficulty, backlink, or local SERP metrics require OpenSEO and its MCP is unavailable\n- **THEN** the skill marks those fields unavailable with the exact reason\n- **AND** continues with first-party, live-page, Search Console, or cached evidence that is actually available.\n\n### Requirement: Non-overlapping routing\n\nThe new skills SHALL NOT replace technical SEO audit, browser interaction, or product-specific ingestion pipelines.\n\n#### Scenario: The user asks for title, canonical, sitemap, or structured-data checks\n\n- **WHEN** the request is technical on-page SEO rather than market research\n- **THEN** `site-health` routes to the existing `seo-audit` skill instead of `seo-research`.\n\n### Requirement: Selected runtime exposure\n\nAll three skills SHALL be discoverable from Fleet-selected agent runtimes and carry valid execution profiles and interface metadata.\n\n#### Scenario: Tooling validation runs\n\n- **WHEN** the capability catalog and skill validators execute\n- **THEN** all new skills are counted, linked, and pass the repository contracts.\n\n## Tasks\n\n- [x] 1. Add the three skill packages with bounded workflows and receipts.\n- [x] 2. Route SEO research from `site-health` and expose all three skills.\n- [x] 3. Update catalog expectations and durable project status.\n- [x] 4. Run skill, tooling, catalog, and targeted behavioral validation.\n\n",
+          "labels": [
+            {
+              "id": "LA_kwDORZn9q88AAAACZdjYBw",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            }
+          ],
+          "number": 103,
+          "title": "Add bounded web, media, and SEO research skills",
+          "url": "https://github.com/sass-maker/saas-maker/issues/103"
+        },
+        {
+          "body": "We also need to ensure all the open source projects have their GitHub repositories properly linked to the websites with icons. No GitHub text, please. It is embarrassing. Also, all repositories are properly public or private after decisions. ",
+          "labels": [
+            {
+              "id": "LA_kwDORZn9q88AAAAC0DBwBQ",
+              "name": "blocked: owner-decision",
+              "description": "Needs a yes/no or scope call only the owner can make.",
+              "color": "B60205"
+            }
+          ],
+          "number": 91,
+          "title": "Cleanup repos and migrate unused projects to personal org",
+          "url": "https://github.com/sass-maker/saas-maker/issues/91"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34106549002,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34106549002",
+          "workflowName": "Tooling CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34106548997,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/saas-maker/actions/runs/34106548997",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "gitstat",
+      "checkout": "gitstat",
+      "repository": "sass-maker/gitstat",
+      "revision": "cb9d0ff663b06c2f53178dbabff466444926b77a",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34030231936,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/gitstat/actions/runs/34030231936",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "reel-pipeline",
+      "checkout": "reel-pipeline",
+      "repository": "sass-maker/reel-pipeline",
+      "revision": "7753a45b47ec15d03b07edf7ebf9edf2b52732ff",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34104971921,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/34104971921",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34104971607,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/34104971607",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "checkout": "mobile-dev-cockpit",
+      "repository": "sarthakagrawal927/mobile-dev-cockpit",
+      "revision": "2c7da0814b6dfc05f36fa960004db95b372a2f01",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": []
+    },
+    {
+      "id": "drank",
+      "checkout": "drank",
+      "repository": "sass-maker/drank",
+      "revision": "fe07a1d87da2e7e663e6a599887d747ed29d8ab4",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Retained task reconciliation, 2026-09-07: no open issues or PRs preceded this review. Freshness repair is #17; this issue preserves the remaining real operational gates without inventing an independent feature roadmap.\n\n- Qualify authorized Ahrefs access in the scheduled collector and the deployed personal lookup function without exposing credentials. The September 7 scheduled run succeeded but all 45 global latest observations remained August 17; fresh provider observations have not been obtained in this repair.\n- After production authorization, deploy the checked honesty/deep-link fix and current successful dataset, then verify public /data, matching history deep links, stale/partial disclosure, and successful new lookup. The default runtime source is same-origin deployed JSON; GitHub commits alone do not refresh that deployed copy.\n- Verify the public integration consumed by Site Health against actual observation timestamps, not the historical lastUpdated field.\n- The seven owner-authored `Why here:` learning notes remain for the owner to fill after studying; do not invent their rationale.\n\nAlways-on personal tracking, paid/backlink data, accounts and server storage remain explicitly out of scope without a separate product decision.\n",
+          "labels": [],
+          "number": 18,
+          "title": "Qualify fresh provider observations and deployed data visibility",
+          "url": "https://github.com/sass-maker/drank/issues/18"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34106354672,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/drank/actions/runs/34106354672",
+          "workflowName": "DRank CI"
+        }
+      ]
+    },
+    {
+      "id": "email-manager",
+      "checkout": "email-manager",
+      "repository": "Significant-Hobbies/email-manager",
+      "revision": "b8e59d80564ba49e4b1f69f5aae6a78d746427e3",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [
+        "M PROJECT_STATUS.md",
+        " M docs/architecture/README.md",
+        " M docs/architecture/decisions.md",
+        " M docs/architecture/how-it-works.md",
+        " M docs/architecture/overview.md",
+        " M package.json",
+        " M src/components/EmailDetail.tsx",
+        " M src/components/EmailHoverPreview.tsx",
+        " M src/components/MailboxStoreProvider.tsx",
+        " M src/components/SemanticSearch.tsx",
+        " M src/components/SentMailView.tsx",
+        " M src/components/Subscriptions.tsx",
+        " M src/components/WeeklyDigestView.tsx",
+        " M src/lib/__tests__/inbox-sync-lifecycle.test.ts",
+        " M src/lib/db.ts",
+        " M src/lib/email-index.ts",
+        " M src/lib/get-access-token.ts",
+        " M src/lib/inbox-sync.ts",
+        " M src/lib/semantic-search.ts",
+        " M src/lib/subscription-senders.ts",
+        " M src/pages/HomeClient.tsx",
+        "?? scripts/verify-local-mailbox.mjs",
+        "?? src/lib/__tests__/mailbox-account-auth.test.ts"
+      ],
+      "issues": [
+        {
+          "body": "## Why\nAll local messages, embeddings and sync cursors currently share one `email-search` database, while the authenticated mailbox provider has no account scope. Switching users in one browser can expose another user's cached mail.\n\n## What\nBounded repair of cache ownership and account-switch UI state. No mailbox provider mutations, private mail access, compose/drafts, production deployment, credentials or legacy-data deletion.\n\n## Design\nUse explicit authenticated user ID in every IndexedDB operation. Capture that ID in sync/index/search operations so delayed work cannot switch destination. Key the authenticated provider by user ID to reset visible state. Leave the legacy unscoped database unopened and untouched because its owner is unknown.\n\n## Specs\n### Requirement: account-owned cache\n- WHEN synthetic users A and B cache messages with the same message ID, THEN reads and cursors remain independent.\n- WHEN an A sync/index result completes after B mounts, THEN its writes remain owned by A.\n- WHEN signed-out or unscoped code attempts a cache operation, THEN it fails closed.\n- WHEN the account changes, THEN selected messages and search state reset.\n- Existing read/search/organization flow SHALL remain local and read-only.\n\n## Tasks\n- [ ] Thread explicit scope through storage, sync, index, search and authenticated provider.\n- [ ] Verify independent caches and cursors using actual browser IndexedDB with synthetic data, including delayed completion.\n- [ ] Run focused and repo quality/build checks; document real-login qualification limits.\n",
+          "labels": [],
+          "number": 53,
+          "title": "Isolate browser mailbox caches by authenticated account",
+          "url": "https://github.com/Significant-Hobbies/email-manager/issues/53"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34085731510,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34085731510",
+          "workflowName": "Dependabot Updates"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34023101585,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34023101585",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "checkout": "chatgpt-memory-insights",
+      "repository": "Significant-Hobbies/chatgpt-memory-insights",
+      "revision": "72880352e89af4d5e0e43efdcaa6548782bf0b37",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34000504450,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34000504450",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "free-ai",
+      "checkout": "free-ai",
+      "repository": "sass-maker/free-ai",
+      "revision": "bd7aa10c6c69ae3987d80d22c139776339167e7f",
+      "branches": [
+        "fix/rename-ai-gateway-to-free-ai",
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Automated provider resync found a condition requiring review in run https://github.com/sass-maker/free-ai/actions/runs/32630705293.\n\n- Catalog coverage: 3/14\n- Stale models: 3\n- New models: 0\n- Replay smoke: skipped\n\nIncomplete catalogs:\n- workers_ai: unsupported - model discovery uses the Cloudflare binding rather than an HTTP catalog\n- gemini: error - catalog returned HTTP 400\n- sambanova: missing_key - SAMBANOVA_API_KEY is not configured\n- nvidia: missing_key - NVIDIA_API_KEY is not configured\n- github_models: missing_key - GITHUB_MODELS_TOKEN is not configured\n- pollinations: unsupported - no stable official text model-list contract is configured\n- cohere: missing_key - COHERE_API_KEY is not configured\n- mistral: missing_key - MISTRAL_API_KEY is not configured\n- zai: missing_key - ZAI_API_KEY is not configured\n- modelscope: missing_key - MODELSCOPE_API_KEY is not configured\n- siliconflow: missing_key - SILICONFLOW_API_KEY is not configured\n\nDownload the workflow artifact for the full reports and optional conservative patch. Review before enabling any model.\n",
+          "labels": [
+            {
+              "id": "LA_kwDORQvKx88AAAAC0DBvlg",
+              "name": "blocked: external",
+              "description": "Waiting on a third party or an automated signal; no action possible.",
+              "color": "FBCA04"
+            }
+          ],
+          "number": 62,
+          "title": "[provider-registry] Catalog drift or coverage gap",
+          "url": "https://github.com/sass-maker/free-ai/issues/62"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34099954189,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/free-ai/actions/runs/34099954189",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "psi-swarm",
+      "checkout": "psi-swarm",
+      "repository": "sass-maker/psi-swarm",
+      "revision": "f1643f0b2b7e819f1c65b06445bec646f87cb600",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34105369296,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/psi-swarm/actions/runs/34105369296",
+          "workflowName": "PSI Swarm CI"
+        }
+      ]
+    },
+    {
+      "id": "high-signal",
+      "checkout": "high-signal",
+      "repository": "High-Signal-App/high-signal",
+      "revision": "5aea1729955287c4251e62f4ad2f57f601f20426",
+      "branches": [
+        "main"
+      ],
+      "stashes": [
+        "stash@{0}"
+      ],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Why\n\nThe 10:00 IST report currently runs before the full daily ingest and publish sequence, so it can represent yesterday rather than the current Indian business day. Fresh Digg attention can remain only an overlay until the next batch. Hostname-level corroboration can over-count syndication, publishability checks differ by surface, and signal records do not cleanly separate observed facts from business interpretation.\n\nThe operator needs one current-day brief whose material evidence is fresh, whose Digg discoveries enter primary-source verification quickly, and whose publication semantics are identical everywhere.\n\n## What\n\nIn scope:\n\n- Move the daily sequence to ingest 08:00 IST, publish 09:00, validate 09:30, deliver 10:00.\n- Validate current IST edition date and freshness of material evidence.\n- Create threshold-triggered Digg verification work from original source URLs without treating Digg as evidence.\n- Normalize claim identity and originating evidence so syndication does not become independent corroboration.\n- Create one mandatory publishability evaluator shared by signal APIs, Daily Brief composition, and auto-publish.\n- Store observed event, direct entity impact, supply-chain impact, business inference, inference strength, and inference-specific evidence separately.\n- Add metrics needed to measure Digg verification latency and publication-quality failures.\n\nOut of scope:\n\n- Scraping Digg story pages or private endpoints.\n- Treating Digg summaries as evidence.\n- Adding a second equity-price source.\n- Rewriting published signal markdown.\n- Production migration or deployment without a separate explicit release request.\n\n## Design\n\n```mermaid\nflowchart LR\n  A[08:00 IST ingest] --> B[Candidates and claim tuples]\n  D[Digg 30 minute poll] --> E{Threshold crossed}\n  E -->|yes| F[Original source verification]\n  F --> B\n  B --> G[Shared publishability evaluator]\n  G --> H[09:00 publish]\n  H --> I[09:30 IST validation]\n  I --> J[10:00 IST delivery]\n  G --> K[Signals API and daily dump]\n  G --> L[Daily Brief]\n```\n\nSchedule times are expressed in UTC in GitHub Actions: 02:30 ingest, 03:30 publish, 04:00 validation, and 04:30 delivery. Validation uses Asia/Kolkata date semantics and rejects a current edition whose newest material evidence is older than two hours.\n\nDigg threshold crossings create idempotent verification requests keyed by cluster and source URL. The verification worker retrieves only underlying original URLs, records first-seen and verified-at timestamps, and routes extracted evidence through existing candidate gates. Digg retains zero evidence/confidence contribution.\n\nClaims use a normalized identity tuple of entity, event, amount, date, and direction plus an originating-evidence identifier. Corroboration requires verified semantic alignment and a distinct evidentiary origin; hostname difference alone is insufficient.\n\nA shared publishability evaluator returns stable violation codes for future dates, prediction-only evidence, unresolved contradictions, impossible direction labels, insufficient independent origins, and same-entity same-event opposite-direction conflicts. Every public surface and auto-publish uses that result.\n\nSignal interpretation fields remain nullable for backward compatibility. Each inference carries its own cited evidence references and a bounded strength value; observed facts stay distinct from inferred business effects.\n\n## Specs\n\n### Requirement: Current IST report sequence\nThe system SHALL ingest at 08:00 IST, publish at 09:00, validate at 09:30, and deliver at 10:00.\n\n#### Scenario: Daily delivery\n- **WHEN** the scheduled report is delivered\n- **THEN** its edition date equals the current Asia/Kolkata date\n- **AND** its newest material evidence is no more than two hours old\n\n### Requirement: Fast Digg verification\nThe system SHALL enqueue original-source verification when a Digg cluster crosses configured rank, velocity, or distinct-contributor thresholds.\n\n#### Scenario: Threshold crossing\n- **WHEN** a cluster first crosses any materiality threshold\n- **THEN** one idempotent verification request is created immediately\n- **AND** Digg itself receives no evidence or confidence credit\n\n### Requirement: Origin-aware semantic corroboration\nThe system SHALL count corroboration only when a source semantically confirms the same normalized claim and traces to a distinct evidentiary origin.\n\n#### Scenario: Syndicated reporting\n- **WHEN** multiple hosts repeat one originating report\n- **THEN** they count as one evidentiary origin\n\n### Requirement: Mandatory shared publishability\nSignals, briefs, public APIs, and auto-publish SHALL use the same publishability result.\n\n#### Scenario: Invalid candidate\n- **WHEN** a record is future-dated, prediction-only, contradicted, directionally impossible, or conflicts with an unresolved opposite-direction peer\n- **THEN** every publishing surface withholds it using a stable violation code\n\n### Requirement: Observation and inference separation\nThe system SHALL store observed events separately from direct, supply-chain, and business interpretations.\n\n#### Scenario: Business inference\n- **WHEN** an interpretation is attached to an event\n- **THEN** it records inference strength and evidence supporting that specific conclusion\n\n## Tasks\n\n- [x] 1. Reschedule ingest, publish, validation, and delivery; add IST date and evidence-freshness validation tests.\n- [x] 2. Add idempotent threshold-triggered Digg verification and latency instrumentation.\n- [x] 3. Add normalized claim tuples and originating-evidence tracking; require semantic confirmation for corroboration.\n- [x] 4. Implement one shared publishability evaluator and wire auto-publish, signal APIs, daily dump, and Daily Brief to it.\n- [x] 5. Add structured observation/impact/inference fields, migration, API contracts, and inference-specific citations.\n- [x] 6. Run focused tests after each task, then full quality checks and update operational/product documentation.\n- [x] 7. Record acceptance receipts and leave migration/deployment pending explicit release authorization.\n\n\n## September 7 consumer recovery\n\n- Restored and live-tested the installed `get_daily_brief`, `search_signals`, `get_signal`, and `get_track_record` methods in the shared connector; retained the newer daily/evidence tools. CI tests and the production monitor preserve the installed contract.\n- Public today/yesterday Brief signals now read the IST publication ledger, including signals published after cached composition. Errors remain unavailable instead of becoming successful empty feeds.\n- The daily production freshness validator now verifies Brief, Signals, daily JSON, and installed MCP parity for both public days, plus bounded search/ledger and exact signal lookup.\n- Recovery ingest [34094070147](https://github.com/High-Signal-App/high-signal/actions/runs/34094070147) passed: 3,666 events persisted, one draft. Recovery publisher [34096747224](https://github.com/High-Signal-App/high-signal/actions/runs/34096747224) passed freshness and MCP parity; the draft failed the existing editorial structure gate, so September 7 correctly remains without a newly published signal.\n- Final live parity: September 7 zero signals; September 6 the same three across surfaces. All four installed methods returned `ok: true`.\n- Residual investigation: the original native abort did not recur; all-thread fault diagnostics are enabled, but the responsible library is not identified. The successful recovery also reported four failed generation requests out of ten. Do not equate recovery with proven elimination of those failure modes.\n\nFull receipts: [September 7 incident](https://github.com/High-Signal-App/high-signal/blob/main/docs/operations/2026-09-07-publication-incident.md). This does not close the existing scheduled-chain/Digg latency acceptance work or claim immutable snapshot revisions were implemented.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSMWr288AAAACgvRQUg",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOSMWr288AAAAC0DBySA",
+              "name": "blocked: external",
+              "description": "Waiting on a third party or an automated signal; no action possible.",
+              "color": "FBCA04"
+            }
+          ],
+          "number": 133,
+          "title": "Harden daily freshness, Digg verification, and publishability",
+          "url": "https://github.com/High-Signal-App/high-signal/issues/133"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34106382331,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34106382331",
+          "workflowName": "cron-mts"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34106379028,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34106379028",
+          "workflowName": "cron-digg"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34103592088,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34103592088",
+          "workflowName": "cron-mts"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34103589733,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34103589733",
+          "workflowName": "cron-digg"
+        },
+        {
+          "conclusion": "failure",
+          "databaseId": 34101952108,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34101952108",
+          "workflowName": "cron-markets"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34100927969,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34100927969",
+          "workflowName": "cron-mts"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34100925304,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34100925304",
+          "workflowName": "cron-digg"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34099673313,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34099673313",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34099673295,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34099673295",
+          "workflowName": "Docs"
+        }
+      ]
+    },
+    {
+      "id": "on-record",
+      "checkout": "on-record",
+      "repository": "Significant-Hobbies/on-record",
+      "revision": "f23aa1bc6f932dfa181cc35af06e5ead515f1b8b",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Split out of #11, which is otherwise closed.\n\nAfter read replication + the Sessions API (#22) and the service binding (#23), every public endpoint sits at 320\u2013650ms on a forced cache miss except one:\n\n| endpoint | forced MISS |\n|---|---|\n| `/api/stats` | **1028ms** |\n| `/api/sources?limit=5` | 650ms |\n| `/api/people?limit=8` | 584ms |\n| `/api/recommendation-groups?limit=8` | 529ms |\n| `/api/search` | 417ms |\n\nThis is no longer round-trip latency \u2014 replication took that out, and the same measurement was 1654ms before any of this work. What is left is work: `publishedReferences` is a six-table join scanned over ~20k rows with `REFERENCE_SCAN_CEILING`, and `/api/stats` awaits it alongside three aggregates.\n\nThe response cache hides this from almost every real visit (TTL 3600s, generation-busted on publish), so this is not user-visible latency today \u2014 it shows up on a cold colo and in `rows_read`, which `wrangler d1 info` puts at ~62M/24h.\n\nWorth checking with `EXPLAIN QUERY PLAN` whether an index makes the join cheap, or whether the published-reference count belongs in a precomputed column the way `has_published_claims` did in #14.",
+          "labels": [
+            {
+              "id": "LA_kwDOUC6pYs8AAAAC0DBzMA",
+              "name": "blocked: owner-decision",
+              "description": "Needs a yes/no or scope call only the owner can make.",
+              "color": "B60205"
+            }
+          ],
+          "number": 24,
+          "title": "/api/stats costs ~1s on a cache miss: the publishedReferences six-table scan",
+          "url": "https://github.com/Significant-Hobbies/on-record/issues/24"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098796104,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/34098796104",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "issue-pages",
+      "checkout": "issue-pages",
+      "repository": "sarthakagrawal927/issue-pages",
+      "revision": "cf6bdf249613561dca29842bcb9520b398eb9d95",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "> [!NOTE]\n> This page was published by opening a real GitHub issue during the owner-only pilot.\n\nIssuePages keeps GitHub as the editor, identity, and discussion system while the website becomes the reading surface.\n\n## What this live test covers\n\n- [x] Signed issue webhook\n- [x] GitHub-flavoured Markdown and sanitization\n- [x] D1 publication and search\n- [ ] A future stranger-publishing study after OpenAI moderation is connected\n\nInline math remains readable: $E = mc^2$.\n\n```mermaid\nflowchart LR\n  Issue --> Safety\n  Safety --> Page\n  Page --> Reader\n```\n\n<details>\n<summary>Why leave the source visible?</summary>\n\nBecause provenance is part of the page, not implementation trivia.\n\n</details>\n\nThe permanent identity is the issue number even if this title changes.[^1]\n\n[^1]: This footnote is also part of the renderer acceptance test.\n\n\n\n## Live edit\n\nThis paragraph was added after publication to prove that an issue edit updates the same permanent page.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOUDcIac8AAAAC0DB3HQ",
+              "name": "needs: details",
+              "description": "A bare link or one-liner with no acceptance criteria; owner must say what \"done\" means.",
+              "color": "0E8A16"
+            }
+          ],
+          "number": 4,
+          "title": "A live edited field note from the issue-to-page pilot",
+          "url": "https://github.com/sarthakagrawal927/issue-pages/issues/4"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34029403303,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/issue-pages/actions/runs/34029403303",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "everythingrated",
+      "checkout": "everythingrated",
+      "repository": "High-Signal-App/everythingrated",
+      "revision": "53a6bc032e0da7b9ede516e53a103e4e6f26a47d",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Source repairs f4bd19d7ccc1aa1dcd144a06368460ea1ff48f38 align homepage promises with actual directory axes, replace invented rankings with current tool/count previews, and preserve per-axis counts and missing-data coverage in comparisons. Exact-head CI and Docs passed.\n\nAcceptance criteria:\n- Obtain deployment approval and deploy the checked source.\n- Verify homepage rubric and current preview names/counts match the live comparison board.\n- Open the Aider/Claude Code deep link and verify selections, weights, actual counts, sparse/empty states and mobile layout.\n- Keep tiny samples labelled as early opinions; never infer shareability from CI or promise community consensus.\n\nNo deployment or live qualification was performed in the source-repair task. See README.md and PROJECT_STATUS.md.\n",
+          "labels": [],
+          "number": 17,
+          "title": "Qualify deployed homepage and comparison evidence before sharing",
+          "url": "https://github.com/High-Signal-App/everythingrated/issues/17"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34105187548,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34105187548",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34105187417,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34105187417",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "research-papers",
+      "checkout": "research-papers",
+      "repository": "High-Signal-App/research-papers",
+      "revision": "d9597bdcab1b2a8ca7e99bb06be182cbe968ab00",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34015636573,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/research-papers/actions/runs/34015636573",
+          "workflowName": "Deploy research-papers to Cloudflare Pages"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34001973170,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/research-papers/actions/runs/34001973170",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "materia",
+      "checkout": "materia",
+      "repository": "Significant-Hobbies/materia",
+      "revision": "aa0cef3ca98734b587c3b3de1d5a74a85b641c2a",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34015641731,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/materia/actions/runs/34015641731",
+          "workflowName": "Deploy materia to Cloudflare Pages"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34001741007,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/materia/actions/runs/34001741007",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "knowledge-base",
+      "checkout": "knowledge-base",
+      "repository": "sass-maker/knowledge-base",
+      "revision": "9e023f9c6c18fb25e7511f55b535770ef8a7823b",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34105763830,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/knowledge-base/actions/runs/34105763830",
+          "workflowName": "docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34105763854,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/knowledge-base/actions/runs/34105763854",
+          "workflowName": "ci"
+        }
+      ]
+    },
+    {
+      "id": "significanthobbies",
+      "checkout": "significanthobbies",
+      "repository": "Significant-Hobbies/significanthobbies",
+      "revision": "5d0de02df0752aced93080ed853028d630fb8e84",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Why\nThe Significant Hobbies Hub joins independently useful Apple-native products, but their visual foundations are drifting. Anchor is currently developing stronger neutral paper/charcoal surfaces, tactile controls, preference groups, responsive layout, and drawn-line motion. Reimplementing those mechanics in every app would create inconsistent quality and repeated bugs; copying Anchor wholesale would erase each product identity.\n\nThe product family needs a shared foundation that makes the apps feel related while keeping each app's doodles, accent moments, information architecture, and domain language distinct.\n\n## What\n\n### In scope\n- Add a SwiftUI library product named SignificantDesignKit to this repository.\n- Define semantic theme roles for canvas, surfaces, text hierarchy, actions, borders, status, spacing, radii, and motion.\n- Provide state-free, accessible primitives for tactile buttons, preference groups and rows, responsive content framing, drawn underlines/traces, and Reduce Motion behavior.\n- Allow every consumer to supply a product accent, illustration assets, copy, and domain-specific states.\n- Use the Hub and Anchor as the first two consumers after the current Anchor visual pass receives owner keep feedback.\n- Document an incremental adoption contract for the remaining maintained personal apps.\n\n### Out of scope\n- Making every app visually identical.\n- Moving product models, storage, navigation, analytics, or local data authority into the Hub.\n- Sharing Anchor-specific doodles, interruption colors, habit semantics, or schedule components as generic UI.\n- Migrating every product in one unreviewable batch.\n- Publishing a package revision or changing consumer pins without explicit release approval.\n\n## Design\nSignificantDesignKit is a presentation-only SwiftUI product beside PersonalSyncKit. It owns semantic mechanics and accepts product-provided visual identity. Apps remain independent consumers.\n\n```mermaid\nflowchart LR\n  DK[SignificantDesignKit] --> H[Hub]\n  DK --> A[Anchor]\n  DK --> C[Calorie]\n  DK --> K[Kith]\n  DK --> S[Setline]\n  DK --> SH[Significant Hobbies]\n  A --> AI[Anchor doodles and day semantics]\n  H --> HI[Hub provenance and product directory]\n```\n\nThe package SHALL have no dependency on AnchorCore, PersonalSyncKit account state, CloudKit, analytics, or any product store. Theme values SHALL be semantic rather than named after one consumer. Shared motion SHALL honor Reduce Motion. Public components SHALL accept content/action closures rather than embed navigation or persistence.\n\nDeployment impact: none until a new package revision is explicitly committed, pushed, and pinned by consumers. Product adoption remains separate, reviewable changes.\n\n## Specs\n\n### Requirement: Shared family foundation\nSignificantDesignKit SHALL expose semantic SwiftUI tokens and components that make Hub products visibly related without requiring identical screens or product accents.\n\n#### Scenario: A product adopts the kit\n- **WHEN** an app maps its palette and imports a shared component\n- **THEN** the component uses the same spacing, hierarchy, interaction physics, accessibility behavior, and light/dark contract as the family while retaining that product's supplied content and accent\n\n### Requirement: Product boundaries remain strict\nThe design kit SHALL NOT import product models, storage, sync, or business logic.\n\n#### Scenario: Anchor extracts a preference row\n- **WHEN** the row moves into SignificantDesignKit\n- **THEN** Anchor continues to own appearance persistence, onboarding actions, behavior-profile counts, Hub status, and all copy\n\n### Requirement: Accessibility is inherited\nShared interactive components SHALL support Dynamic Type, VoiceOver, keyboard focus where applicable, 44-point minimum targets, increased contrast, and Reduce Motion.\n\n#### Scenario: Reduce Motion is enabled\n- **WHEN** a shared tactile or drawn-line component changes state\n- **THEN** meaning and hierarchy remain intact without hover movement, large spatial animation, or looping decoration\n\n### Requirement: Adoption is incremental\nEach maintained app SHALL receive a visual review before adopting the shared kit. A consumer SHALL not be migrated solely by mechanical token replacement.\n\n#### Scenario: A product has a distinct visual need\n- **WHEN** its operating context conflicts with a default kit treatment\n- **THEN** the product supplies an override or keeps a product-owned component rather than weakening the family foundation\n\n## Tasks\n- [ ] 1. Inventory current Hub and Apple-product theme systems and record shared roles versus product-owned identity.\n- [ ] 2. Add the SignificantDesignKit Swift package product with semantic theme, spacing, radius, motion, and accessibility contracts.\n- [ ] 3. Add generic tactile buttons, preference groups/rows, responsive framing, and drawn-line primitives with unit or source-contract tests.\n- [ ] 4. Finish and obtain owner keep feedback on the Anchor Settings/core-loop pass before freezing its reusable mechanics.\n- [ ] 5. Adopt the kit in Hub and Anchor as separate reviewable changes; verify light/dark, Dynamic Type, keyboard/touch, and Reduce Motion.\n- [ ] 6. Document and execute a product-by-product adoption order for the remaining maintained personal apps.\n- [ ] 7. Run Hub checks, Swift tests, representative native builds, and responsive visual QA before publishing a package revision.\n- [ ] 8. Prepare a release handoff; do not commit, push, publish, or update consumer pins without explicit approval.\n",
+          "labels": [
+            {
+              "id": "LA_kwDORb4e4M8AAAACZyOvQw",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDORb4e4M8AAAAC0DB1qw",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 147,
+          "title": "Add a shared Significant Hobbies design foundation",
+          "url": "https://github.com/Significant-Hobbies/significanthobbies/issues/147"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098753983,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34098753983",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "india-standards",
+      "checkout": "india-standards",
+      "repository": "Significant-Hobbies/india-standards",
+      "revision": "f5312cfbed265c8fd1ee83d7478b18810c56a518",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Preserve the existing product/data intentions without representing them as completed work. Current PLFS aggregate manifest remains pending; usage_scope and nfhs_height_model are pending. The UI correctly remains a PLFS-backed preview with height excluded.\n\nAcceptance criteria before any full Survey-backed claim:\n- Owner/data steward resolves and records PLFS usage-scope authorization.\n- Acquire and admit NFHS height inputs only through authorized channels; validate exclusions, survey weights/design and cross-dataset modelling.\n- Preserve product exclusions and explicit ages 18\u201360 population scope.\n- Run the documented source gates and obtain approval for any activation/deployment.\n\nThis is blocked/deferred work, not permission to acquire data, modify production or expand the product. See PRODUCT.md and docs/data-contract.md.\n",
+          "labels": [],
+          "number": 36,
+          "title": "Resolve source usage and NFHS gates before Survey-backed activation",
+          "url": "https://github.com/Significant-Hobbies/india-standards/issues/36"
+        },
+        {
+          "body": "The September 7 guest audit could not obtain a hosted calculator result: human verification and hosted-model failure remained visible. Source repairs now prevent unavailable support from becoming zero, preserve fractional rarity, disclose national denominators/source exclusions, and share the displayed result filters.\n\nAcceptance criteria:\n- Obtain explicit deployment approval and deploy the checked commit.\n- Complete normal Turnstile verification; verify a real hosted PLFS result without bypassing protection.\n- Compare the default, sparse, and unsupported cases with the admitted aggregate dataset; record exact source year and denominators.\n- Verify changing location does not relabel national denominators, stale-result sharing uses displayed filters, and mobile/keyboard states remain usable.\n- Record hosted provider health and source validation independently from local tests/CI.\n\nBlocked on approved deployment and hosted interactive verification. Local aggregate receipts live in docs/knowledge/audits/calculator-shareability.md. Do not mark the product shareable from CI alone.\n",
+          "labels": [],
+          "number": 35,
+          "title": "Qualify deployed calculator and hosted aggregate results before sharing",
+          "url": "https://github.com/Significant-Hobbies/india-standards/issues/35"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34105265455,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/india-standards/actions/runs/34105265455",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "anime-list",
+      "checkout": "anime-list",
+      "repository": "Significant-Hobbies/anime-list",
+      "revision": "93000b31d28215acf88ec76a70dd99bd431674c0",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "The 2026-09-07 local repair isolates React Query caches and mounted drafts by account, labels guest tracking as requiring sign-in, and extends the isolated D1 rehearsal. React DOM integration proves detail -> Watching -> remount restores the fixture-backed status; actual local D1 proves Watching -> Completed plus note, other-account read/edit rejection, and export/import persistence.\n\nRemaining qualification after separately authorized deployment:\n- Record exact frontend/backend deployed revisions.\n- In an approved test account, search -> detail -> track -> change status/note -> full reload and sign out/in; confirm persistence.\n- Switch accounts and sign out on an open detail and watchlist route; confirm no previous status/note/draft appears.\n- Confirm guest search/detail works and tracking clearly requires sign-in.\n- Verify auth expiry, write failure, and recovery without silently losing a change.\n\nNo hosted account writes or deployment were performed for this source repair. Local fixtures and CI do not qualify hosted cookies, Google sign-in, deployed D1, or visual behavior.\n",
+          "labels": [],
+          "number": 89,
+          "title": "Qualify hosted tracking persistence and account isolation after deployment",
+          "url": "https://github.com/Significant-Hobbies/anime-list/issues/89"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34107242387,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242387",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34107242428,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242428",
+          "workflowName": "Docs"
+        }
+      ]
+    },
+    {
+      "id": "looptv",
+      "checkout": "looptv",
+      "repository": "Significant-Hobbies/looptv",
+      "revision": "193fc3448abce965b9c85be27885f4b410e21fb5",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34015657270,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34015657270",
+          "workflowName": "Deploy to Cloudflare Pages"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34003370462,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34003370462",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "reader",
+      "checkout": "reader",
+      "repository": "Significant-Hobbies/reader",
+      "revision": "e582a382d76b17408ef0e96f8bc725ea73393101",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "LocalReaderClient renders guest PDFs through PdfArticleView (iframe plus Open link), without ReaderCore annotation controls. Local PDFs persist in IndexedDB, but guest PDF annotation is not implemented. Preserve the product intention to annotate PDFs; do not mark it complete from storage-byte tests.\n\nDecide and implement the intended guest PDF annotation path, keeping annotations local unless the user explicitly chooses account storage. Verify a valid synthetic PDF can be imported, rendered, annotated, reopened, and still show the note and anchor. The 2026-09-07 bounded repair only clarifies this limitation and fixes concurrent local article updates; no live uploads are authorized here.\n",
+          "labels": [],
+          "number": 56,
+          "title": "Complete the guest PDF annotation journey",
+          "url": "https://github.com/Significant-Hobbies/reader/issues/56"
+        },
+        {
+          "body": "The 2026-09-07 repair fixes a reproduced IndexedDB lost-update bug: concurrent local note/title edits used separate read/write transactions and reloaded with notes missing. The browser storage regression now passes using one atomic readwrite transaction. Hono route fixtures prove guest cloud import/read/update returns 401 and account reads/ownership checks carry the correct account ID.\n\nRemaining gates after separately approved deployment:\n- Use an approved synthetic article/PDF and real test account for import -> read -> annotate -> reopen/full reload.\n- Verify Google sign-in/cookies, D1/R2 storage, account switching, expired sessions, and write failure recovery.\n- Exercise guest URL import and actual annotation controls, including rapid edit/navigation and pending saves.\n- Inspect desktop/mobile rendering and annotation anchors.\n\nNo live upload, account write, or deployment performed. The isolated Chromium storage harness uses real IndexedDB/FileReader and a synthetic PDF byte payload; it does not qualify PDF rendering, the full Reader UI, cloud storage, or hosted ownership enforcement.\n",
+          "labels": [],
+          "number": 55,
+          "title": "Qualify actual import, annotation, and reopen journeys after deployment",
+          "url": "https://github.com/Significant-Hobbies/reader/issues/55"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34108092925,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34108092925",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34108092917,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34108092917",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "swe-interview-prep",
+      "checkout": "swe-interview-prep",
+      "repository": "Significant-Hobbies/swe-interview-prep",
+      "revision": "532484e5d2672673d6bb1ed6ee9360359e65bb94",
+      "branches": [
+        "docs/issue-94-raw-bits-to-react",
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Source inspection during exercise qualification found an existing sync reliability boundary in src/hooks/useUserStore.ts: local edits persist immediately, POST is debounced and errors/non-OK responses are not surfaced, then later GET uses mergeRecords so remote wins even if local changes were never synchronized. This affects generic drill/artifact/project stores.\n\nAcceptance criteria:\n- Reproduce failed/delayed POST plus reload and prove newer unsynced local work is retained.\n- Track pending writes per account and reconcile/acknowledge them without copying progress to another user.\n- Surface local-only/pending/failed/synced states truthfully; safely retry without duplicate attempt increments.\n- Test navigation/unmount, offline recovery and account switching against actual persistence handlers.\n\nDo not solve this by blindly making every local record win or by altering production data. This is separate from the bounded editor-resume repair and requires a deliberate synchronization contract.\n",
+          "labels": [],
+          "number": 98,
+          "title": "Preserve unsynced local learning edits during remote reconciliation",
+          "url": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/98"
+        },
+        {
+          "body": "September 7 repair fixes drill-route draft leakage and late account-code hydration. React DOM evidence now completes the actual build-tokenizer grading flow through the real local drill store and restores completion after remount. Two regression tests fail on the pre-repair source and pass with the repair.\n\nRemaining acceptance criteria:\n- Approve deployment of the checked source and record the exact live revision.\n- Fresh guest: open the exercise, reject a wrong solution, complete it, navigate to another exercise and reload; verify correct saved code/status.\n- Authorized test account: verify real Google login, D1 persistence/reload and account scoping without changing existing learner progress.\n- Inspect Monaco, keyboard/mobile interactions, and the post-solve explain-back path in a real browser.\n\nThe local DOM test replaces Monaco with a textarea and mocks authentication, mastery/AI side effects and hosted reads. It proves real grading/local persistence, not hosted D1 or live browser success. CI does not establish shareability.\n",
+          "labels": [],
+          "number": 97,
+          "title": "Qualify fresh exercise completion and account persistence on deployed app",
+          "url": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/97"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34106058184,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34106058184",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34106058078,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34106058078",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "calorie",
+      "checkout": "calorie",
+      "repository": "Significant-Hobbies/calorie",
+      "revision": "d0b71cd56e195bdff23b787b035d378b39af5072",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34002261544,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/calorie/actions/runs/34002261544",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "setline",
+      "checkout": "setline",
+      "repository": "Significant-Hobbies/setline",
+      "revision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34004124571,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34004124571",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "kith",
+      "checkout": "kith",
+      "repository": "Significant-Hobbies/kith",
+      "revision": "916e876ede113ea1ba2eb13b56105502ca88bf68",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 33262949395,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/kith/actions/runs/33262949395",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "ios-landings",
+      "checkout": "ios-landings",
+      "repository": "Significant-Hobbies/ios-landings",
+      "revision": "957e1fa3a3247cc73ea3114bcd886402c9cbc3ca",
+      "branches": [
+        "docs/issue-11-landing-patterns",
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34092917960,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/ios-landings/actions/runs/34092917960",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "rolepatch",
+      "checkout": "rolepatch",
+      "repository": "Significant-Hobbies/rolepatch",
+      "revision": "a2e4a336fe53e82785f39aa49a53339fc5080935",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34103708926,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34103708907,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "karte",
+      "checkout": "karte",
+      "repository": "Significant-Hobbies/karte",
+      "revision": "e7072fc6171dc4fa926cac1ee846068b4243b370",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Remaining release gates after local public-link validation: owner must replace the truncated secondary booking destination and three generic homepage article destinations on /sarthak with intended URLs; deploy checked source only with explicit authorization; verify fresh profile creation and a protected live chat response using real provider configuration; confirm custom-domain qualification separately. Local renderer and mocked API tests do not establish production content correction, onboarding, provider grounding, or company adoption. No messages or bookings should be sent as part of read-only qualification.",
+          "labels": [],
+          "number": 82,
+          "title": "Qualify published profile destinations and fresh protected journeys",
+          "url": "https://github.com/Significant-Hobbies/karte/issues/82"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34107483418,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/karte/actions/runs/34107483418",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34107483404,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/karte/actions/runs/34107483404",
+          "workflowName": "Docs"
+        }
+      ]
+    },
+    {
+      "id": "starboard",
+      "checkout": "starboard",
+      "repository": "Codevetter/starboard",
+      "revision": "13857af485b98c9a917cc404a0f73ec7513ea1c6",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "The scheduled `Seed popular repos` run finished with result `failure`.\n\n- Failing run: https://github.com/Codevetter/starboard/actions/runs/34020569401\n- Job steps: migrations \u2192 `db:seed-popular` \u2192 Worker embedding \u2192 `db:enrich-tools`\n\nThis issue closes automatically when the next scheduled run succeeds.",
+          "labels": [
+            {
+              "id": "LA_kwDORVrtj88AAAACwdUxjA",
+              "name": "scheduled-job-failure",
+              "description": "A scheduled workflow run failed",
+              "color": "B60205"
+            }
+          ],
+          "number": 107,
+          "title": "Scheduled seed run failed",
+          "url": "https://github.com/Codevetter/starboard/issues/107"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098800991,
+          "status": "completed",
+          "url": "https://github.com/Codevetter/starboard/actions/runs/34098800991",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34098801008,
+          "status": "completed",
+          "url": "https://github.com/Codevetter/starboard/actions/runs/34098801008",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "ai-game",
+      "checkout": "aliveville",
+      "repository": "sarthakagrawal927/aliveville",
+      "revision": "5f9390a05a09d0fd1ce2c49f2272518adcbb7425",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34092834885,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834885",
+          "workflowName": "Docs"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34092834863,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834863",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "protein-index",
+      "checkout": "protein-index",
+      "repository": "Significant-Hobbies/protein-index",
+      "revision": "76e54ae81580081ff96c19ca19c9c9ed9faa4c15",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34102567258,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/protein-index/actions/runs/34102567258",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "veg-protein-food",
+      "checkout": "recipe-dashboard",
+      "repository": "Significant-Hobbies/veg-protein-food",
+      "revision": "665bff53538953ac329d6b2322cab9d95163022f",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34002269438,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/34002269438",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "app-health",
+      "checkout": "app-health",
+      "repository": "sass-maker/app-health",
+      "revision": "1099b1c39e92863a63125a0d97aff3eb0c264324",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Context\n\nApp Health V0 is live at `health.sassmaker.com` / `ingest.sassmaker.com`.\nThe owner narrative and the Site Health dossier both identify the next\ndecision as integrating App Health across the owned Fleet production\nservices and letting observed failures drive future improvements.\n\nCurrent adoption is uneven:\n\n- `free-ai` already sends full endpoint telemetry via `@saas-maker/app-health/hono`.\n- Several projects use the zero-dependency `ping.ts` server log client\n  (`high-signal`, `issue-pages`, `anime-list`, `calorie`, `karte`, `live`,\n  `on-record`, etc.).\n- Many static/landing sites embed the `public/app-health-log.js` browser\n  snippet.\n- The majority of Fleet projects have no App Health integration yet.\n\n## Goal\n\nMake App Health the default observability layer for endpoint health and\nowner-authored logs across all Fleet production services, using official\nSDKs/drop-ins, product-scoped ingest keys, and fail-open configuration.\n\n## In scope\n\n- Add endpoint telemetry to every Fleet service that serves HTTP traffic.\n- Add owner-authored application logs where useful (sign-ups, payments,\n  moderation, webhooks, errors, etc.).\n- Provision one App Health app and environment per Fleet project and per\n  deployed environment (`local` / `staging` / `production`).\n- Configure `APP_HEALTH_INGEST_KEY` and `APP_HEALTH_ENVIRONMENT` per\n  deployment.\n- Verify each integration reaches \"connected\" state and populates the\n  App Health dashboard.\n- Track the rollout in this issue and document the pattern.\n\n## Out of scope\n\n- New App Health product features (alerts, incidents, stored trace\n  exploration, teams/roles, billing).\n- Removing PostHog, Sentry, or other existing observability tools.\n- Changes to the App Health backend architecture.\n\n## Acceptance criteria\n\n1. **Inventory** \u2014 List every Fleet project that serves production traffic,\n   its runtime, and current App Health state.\n2. **Choose the official adapter per project** \u2014 Express, Hono, Pages,\n   Go Echo, Go net/http, OpenTelemetry, or browser log snippet.\n3. **Provisioning** \u2014 Create an App Health app per project, store\n   `APP_HEALTH_INGEST_KEY` as a secret, set `APP_HEALTH_ENVIRONMENT`.\n   Services must remain functional when the key is missing (fail-open).\n4. **Privacy boundary** \u2014 Only method, normalized route, status, duration,\n   timestamp, and optional release. Never capture headers, bodies, cookies,\n   identity, or stacks.\n5. **Verification** \u2014 Confirm observed endpoints/logs appear in the\n   dashboard for each environment.\n6. **Tracking** \u2014 This issue is the fleet-wide epic. Each project gets its\n   own linked issue/PR.\n7. **Documentation** \u2014 Add a fleet integration runbook summarizing the\n   per-runtime pattern, key management, and environment naming convention.\n\n## Rollout plan\n\n1. **Phase 1 \u2014 high-traffic backends**: free-ai, high-signal API,\n   issue-pages worker, anime-list worker, karte, live, on-record, calorie.\n2. **Phase 2 \u2014 static/landing sites with existing browser logs**: verify\n   public keys and add endpoint telemetry where backends exist.\n3. **Phase 3 \u2014 remaining Fleet projects**: integrate any project with no\n   current App Health wiring.\n4. **Phase 4 \u2014 observe and act**: review dashboard health states and file\n   follow-up issues for failures that should drive improvements.",
+          "labels": [
+            {
+              "id": "LA_kwDOTd5esc8AAAAC0DBwsw",
+              "name": "in-progress: agent",
+              "description": "An agent is actively working it today.",
+              "color": "1D76DB"
+            }
+          ],
+          "number": 55,
+          "title": "Integrate across fleet",
+          "url": "https://github.com/sass-maker/app-health/issues/55"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34104011538,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/app-health/actions/runs/34104011538",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "mashup",
+      "checkout": "mashup",
+      "repository": "sass-maker/mashup",
+      "revision": "9673d781026dad85855edb5d8ac0b6c291f8d53a",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Why\n\nMashup already has the editorial engine for source-faithful podcast clipping, but its current short lane produces one local clip at a time. The first useful product proof is not a generalized clip factory or a hosted SaaS. It is a local operator desk that can take an entitled archive in one field\u2014starting with **Startups**\u2014and reliably prepare a small, varied batch for human review and posting.\n\nThe operator needs to learn whether category-led curation creates repeat value before Mashup grows URL intake, accounts, scheduling, or publishing. The pilot must preserve Mashup's source-rights, provenance, approval, and non-repetition boundaries.\n\n## What\n\n### Phase 0: Startups operator pilot\n\n- Add a checked-in `startups` collection preset with a concise editorial identity and reusable angles such as product-market fit, fundraising, distribution, hiring, founder failure, moats, and contrarian lessons.\n- Add a batch-short planning command that generates 3\u20135 distinct 30\u201360 second clips for one angle.\n- Reject repeated or overlapping source windows across the whole batch.\n- Add an explicit vertical social render profile targeting 1080\u00d71920, with source-faithful fit rather than destructive face-blind cropping.\n- Burn readable social captions, preserve source heading and collection watermark, and keep the normal EDL score terms and provenance.\n- Write a batch manifest and a static local review index linking each clip's preview, transcript/EDL, source, status, and export artifact.\n- Keep approval and posting manual. Track review state locally; do not call social platforms.\n\n### In scope\n\n- Local creator-owned, licensed, or public-domain media already acquired by the operator.\n- One collection (`startups`) and one operator.\n- CLI and machine-agent support for repeatable batch creation.\n- Review/download/export artifacts under the requested output directory.\n- Focused Python and web/static-output verification.\n\n### Out of scope\n\n- URL, YouTube, or RSS acquisition.\n- Hosting, accounts, billing, teams, or multi-tenant storage.\n- Social OAuth, scheduling, direct publication, or engagement scraping.\n- Face tracking, speaker diarization, auto-reframing, word-level karaoke captions, or synthetic speech.\n- Claims about virality or automated rights clearance.\n- Production deployment or new paid/provider dependencies.\n\n## Design\n\nThe local collection preset supplies the page identity and angle vocabulary. Existing archive ingestion, enrichment, embeddings, and retrieval remain unchanged. Batch planning repeatedly selects complete short windows while excluding source intervals already chosen by the batch. Each selected EDL is rendered with an explicit social profile and recorded in one batch manifest. A generated local review index reads that manifest; it does not introduce a new service or database.\n\n```mermaid\nflowchart LR\n  A[Entitled startup media] --> B[Existing ingest and enrichment]\n  P[Startups collection preset] --> C[Batch short planner]\n  B --> C\n  C --> D[3-5 non-overlapping EDLs]\n  D --> E[1080x1920 renders and captions]\n  E --> F[Local review index and manifest]\n  F --> G[Manual approval and posting]\n```\n\nThe existing Astro/React transcript editor keeps its visual language. The new review artifact is an operator surface: compact, source-forward, responsive, and honest about local-only state. There is no deployment impact.\n\n## Specs\n\n### Requirement: Collection preset\n\nMashup SHALL expose a `startups` preset with a stable identifier, display name, watermark, editorial description, and reusable category angles. The operator SHALL be able to override the angle with a free-form prompt.\n\n#### Scenario: Discover startup angles\n\n- **WHEN** the operator lists collections\n- **THEN** Mashup reports the Startups preset and its available angles without loading a model or archive\n\n### Requirement: Distinct clip batch\n\nMashup SHALL create 3\u20135 complete 30\u201360 second EDLs from one enriched archive. No two selected clips SHALL repeat a material identifier or overlap planned source audio. Planning SHALL fail clearly when the archive cannot supply the requested count.\n\n#### Scenario: Generate a fundraising batch\n\n- **WHEN** the operator requests five Startups clips for the `fundraising` angle\n- **THEN** five ranked EDLs are written with stable indexes and pairwise non-overlapping source ranges\n\n#### Scenario: Insufficient distinct material\n\n- **WHEN** fewer than the requested number of complete, non-overlapping windows exist\n- **THEN** no misleading complete batch is reported and the result states the achieved and requested counts\n\n### Requirement: Vertical social rendering\n\nMashup SHALL accept an explicit social render profile that outputs 1080\u00d71920 H.264 video. Landscape source SHALL be fitted within the frame without face-blind destructive cropping. Captions, source heading, and the Startups watermark SHALL remain readable inside conservative mobile safe areas.\n\n#### Scenario: Render landscape podcast footage\n\n- **WHEN** a landscape source clip is rendered with the social profile\n- **THEN** the output is 1080\u00d71920, preserves the full source frame, includes burned captions, and retains source attribution\n\n### Requirement: Local review batch\n\nMashup SHALL write a versioned JSON batch manifest and a local responsive HTML review index. Each item SHALL expose preview, angle, duration, score, source title/timecode, EDL path, caption path, video path, and review state. The index SHALL not require a running backend.\n\n#### Scenario: Review after rendering\n\n- **WHEN** the batch command completes\n- **THEN** the operator can open one local index and play or inspect every generated candidate\n\n### Requirement: Existing boundaries\n\nEvery output SHALL retain the eight independent score terms. Rendering SHALL remain approval-compatible, provenance SHALL remain available, and Mashup SHALL not publish media or introduce synthetic speech.\n\n#### Scenario: No external side effect\n\n- **WHEN** a Startups batch is generated and reviewed\n- **THEN** no account, social platform, or production service is contacted\n\n## Tasks\n\n- [x] 1. Add collection preset models, Startups content, CLI discovery, and tests.\n- [x] 2. Implement distinct batch-short selection and batch manifest validation with focused tests.\n- [x] 3. Add explicit 1080\u00d71920 social rendering and safe caption/source treatment with render tests.\n- [x] 4. Add the static local review index and responsive operator design evidence.\n- [x] 5. Expose the batch through the strict agent manifest with validate-only behavior.\n- [x] 6. Document the pilot workflow and update durable project status after verification.\n- [x] 7. Run Python tests, Ruff checks, Astro check/build, render smoke tests, and design workflow checks.\n\n## Continue/kill criterion\n\nRun one manually operated Startups page for 20\u201330 approved clips. Continue toward hosted intake only if the operator can consistently prepare an acceptable 3\u20135 clip batch in under 20 minutes of hands-on review and at least one repeatable angle shows materially better retention or sharing than the page baseline. Otherwise improve editorial selection/treatment or stop before adding distribution infrastructure.\n\n\n",
+          "labels": [
+            {
+              "id": "LA_kwDOTjO6PM8AAAACtQaKYA",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOTjO6PM8AAAAC0DBxqQ",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 11,
+          "title": "[Mashup] Ship the Startups clipping desk pilot",
+          "url": "https://github.com/sass-maker/mashup/issues/11"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34107001659,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/mashup/actions/runs/34107001659",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "motion",
+      "checkout": "motion",
+      "repository": "Significant-Hobbies/motion",
+      "revision": "6ac4700feea7683c86efc214470e6d9dd8bf846a",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Why now\n\nThe iOS app compiles cleanly for the iOS Simulator but has **never run on physical hardware** \u2014 the Simulator has no camera. This is already recorded in two places:\n\n- `PROJECT_STATUS.md` (2026-08-11): \"App Store Connect record creation and physical camera/ReplayKit verification remain separate manual gates.\"\n- `foundry-evidence.json`: `device.state: blocked` \u2014 \"No physical device in CI; camera + ReplayKit need a device.\"\n\n#20 (App Store Connect record + TestFlight upload) was deferred by the owner on 2026-08-13 specifically until this verification is complete. Since #20 was the repository's only open issue, the gate it waits on was untracked \u2014 #20 pointed at work that had no home. This issue is that home.\n\nIt is also Motion's reopen condition in the fleet portfolio: *\"Reopen for focused physical-device playtesting of one genuinely fun control loop.\"*\n\n## Acceptance\n\n- [ ] The app runs on a physical iPhone or iPad with camera and Photos permissions granted.\n- [ ] Apple Vision 2D body-pose detection runs on the front camera at a usable rate. Record observed FPS and input latency.\n- [ ] **Left/right joint mapping matches the player.** Front-camera mirroring is the specific risk called out in `README.md`.\n- [ ] **ReplayKit captures the `WKWebView` game content** rather than a black frame. The second risk called out in `README.md`.\n- [ ] The combined recording (game plus camera inset) saves to Photos as one video.\n- [ ] The bundled `webgame/` path works with no Vite dev server and no Mac on the network.\n- [ ] Screen-mirrored to a TV via AirPlay, Chromecast, or QuickTime, the game remains playable at that added latency.\n- [ ] After a few minutes of *Motion Maker* grab/toss, **a written verdict on control feel.**\n\nThe first seven are pass/fail engineering checks. The last one is the actual decision. `README.md` and `PROJECT_STATUS.md` both state that the central product risk is control feel, not infrastructure \u2014 which is why v1 deliberately strips out every server and network hop. Nothing currently asks that question.\n\n## Out of scope\n\n- The App Store Connect record and TestFlight upload \u2014 that is #20, and it stays deferred until this closes.\n- v2 work: the PartyKit relay, browser display, Chromecast receiver, and multiplayer. All parked in-repo on purpose.\n- New game mechanics. This verifies the loop that exists.\n\n## Done when\n\nRecorded evidence exists (FPS, input latency, one saved recording) alongside a written verdict on control feel, and then either:\n\n- #20 is reactivated and Motion proceeds to TestFlight, or\n- Motion stays Hold with the reason written down.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOTcU0sM8AAAACtx0vig",
+              "name": "deferred",
+              "description": "Valid work intentionally parked for later",
+              "color": "C5DEF5"
+            },
+            {
+              "id": "LA_kwDOTcU0sM8AAAAC0DB12Q",
+              "name": "blocked: device-test",
+              "description": "Needs a physical device / TestFlight / signed build on the owner's Mac.",
+              "color": "D93F0B"
+            }
+          ],
+          "number": 38,
+          "title": "Verify Motion v1 on a physical device: camera, pose mapping, ReplayKit, and control feel",
+          "url": "https://github.com/Significant-Hobbies/motion/issues/38"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098810812,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/motion/actions/runs/34098810812",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "truehire",
+      "checkout": "truehire",
+      "repository": "sarthakagrawal927/truehire",
+      "revision": "6fb5676cae468658562fb4f69e6758ec08252359",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34106861493,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "open-historia",
+      "checkout": "open-historia",
+      "repository": "sarthakagrawal927/open-historia",
+      "revision": "d97de700d48fa0b5af8f00aae7a9959f1cf739d9",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34101298719,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "companion-robot",
+      "checkout": "companion-robot",
+      "repository": "HeyPace/companion-robot",
+      "revision": "6653a2b6e82f551a48dc125af0437872d98e4dc0",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34092836947,
+          "status": "completed",
+          "url": "https://github.com/HeyPace/companion-robot/actions/runs/34092836947",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "forecast-lab",
+      "checkout": "forecast-lab",
+      "repository": "sarthakagrawal927/forecast-lab",
+      "revision": "15b7130f600811170ca94533d540e62f0f0b0324",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Task reconciliation on 2026-09-07 preserves these unresolved requirements from PROJECT_STATUS.md, event-forecast/PROJECT_STATUS.md and the learning roadmaps. The portfolio hold remains; this is a retained queue, not a declaration that product work has resumed.\n\n- Owner learning: fill seven `Why here:` study-queue entries after personally studying them; do not invent the owner's rationale.\n- Recommender curriculum: complete remaining Source links and lessons entries, then requalify dataset-dependent historical metrics when a learning need exists.\n- Event forecast: choose a permitted real stream with sufficient volume and evaluate the transparent baseline; the 14-event fixture cannot establish accuracy. Only then decide whether an augurs benchmark is justified.\n- Optional event explorer alert-profile editor remains unimplemented/unqualified.\n- Historical roadmap phases 6+, persisted alert delivery, geocoding and production/auth/tenant work remain deferred product decisions, not acceptance criteria for the current local learning experiment.\n- Further demand qualification needs multiple temporal folds, multi-step forecasts where relevant, forecast-available weather, and appropriate commerce data before operational claims.\n\nCompleted separately: issue #4 repairs and qualifies the existing hourly bike experiment with licensed pinned input and held-out baseline comparison. That receipt does not close this queue.\n",
+          "labels": [],
+          "number": 5,
+          "title": "Retain paused learning and real-data qualification gates",
+          "url": "https://github.com/sarthakagrawal927/forecast-lab/issues/5"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34105011069,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34105011069",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "web-playables",
+      "checkout": "web-playables",
+      "repository": "sarthakagrawal927/web-playables",
+      "revision": "13ee2867522e1da6369a64c57d038db01daa87ce",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34106166702,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "checkout": "what-it-takes-to-win",
+      "repository": "Significant-Hobbies/what-it-takes-to-win",
+      "revision": "88eafac7886a0f85fdc0d1933996ec2cd0f89be5",
+      "branches": [
+        "docs/issue-33-pokemon-cards-decision",
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Tracking issue for the Look Sideways podcast: recorded conversations with accomplished people about the conditions, sequence, and luck behind their early breakthroughs. Re-files #30, which was closed as not planned pending owner outreach. The owner is now starting the outreach.\n\n## Why\n\nEvery profile in the archive is reconstructed from third-party sources. The people themselves have never been asked what they brought, what they were handed, what surrounded them, where they persisted, and where a door was encountered rather than authored. A conversation gets at sequence and luck in a way a biography rarely does, and it gives the exhibit a human voice without turning it into a coaching product.\n\nThe audience is the same as the site's: readers who turn someone else's visible finish into a verdict on themselves. Participants are a second audience: they need to understand the project quickly and trust how their words will be used.\n\n## What\n\nIn scope:\n\n- A participant-facing brief that explains the project and the recording terms (the repository already has `docs/brief.md` as the starting point).\n- An outreach and scheduling list, kept private, not in this repository.\n- A consent and retention template covering recording, publication, correction, and takedown.\n- A recording and transcript workflow.\n- A way to show what a participant said on their own profile, clearly separated from independently sourced fact.\n- Decisions about where episodes are hosted and how they are linked from the site.\n\nOut of scope:\n\n- Any change to the two-independent-source publication gate. Testimony does not admit a person to the archive.\n- Scores, ratings, or any reading of the interview as evidence for the condition factors.\n- Editing a participant's account into third-person biography.\n\n## Design\n\nProposed evidence class: `first_person_account`. It is a third layer beside the biographical layer and the annotation layer, never counted toward `minimum_source_origins` or `minimum_independent_sources` in `data/research/coverage/gate-registry.json`, and never used to change a condition-factor score.\n\nOn a profile it renders as a distinct section, provisionally \"In their own words\", with a timestamped quote, the episode link, the recording date, and an interpretation boundary stating that this is the participant's account and has not been independently verified. The clarity audit gains a check that the section carries that boundary.\n\nEpisodes are hosted off-site (YouTube or a podcast host) and linked. The repository stores only the published claims and timestamps, not audio. A `/podcast/` index page lists episodes and links each to the participant's profile where one exists. Participants without a published profile appear on the index only; they do not get a profile through the interview.\n\n```mermaid\nflowchart LR\n  outreach[Outreach + consent] --> record[Recording]\n  record --> transcript[Transcript]\n  transcript --> claims[Timestamped claims<br/>reviewed by participant]\n  claims --> data[first_person_account<br/>on the record]\n  data --> profile[Profile section<br/>with boundary]\n  data --> index[/podcast/ index]\n  record --> host[Off-site episode host]\n  host --> index\n```\n\n## Specs\n\n### Requirement: testimony is separate from evidence\nThe exhibit SHALL show first-person accounts in a distinct section with an interpretation boundary, and SHALL NOT count them toward any publication gate or score.\n\n#### Scenario: participant already has a profile\n- **WHEN** an episode with a published participant is added\n- **THEN** their profile shows the account section with quote, timestamp, episode link, date, and boundary, and their condition-factor scores are unchanged\n\n#### Scenario: participant has no profile\n- **WHEN** an episode with a participant who fails the publication gate is added\n- **THEN** the episode appears on the index with no profile created and no gate bypassed\n\n### Requirement: consent and correction\nParticipants SHALL review the claims drawn from their episode before publication and SHALL be able to request correction or removal.\n\n#### Scenario: takedown\n- **WHEN** a participant requests removal\n- **THEN** the account section and index entry are removed in the next deploy and the episode link is dropped\n\n### Requirement: participant brief\nEvery participant SHALL receive the same written brief before recording, stating what the project is, what it refuses to do, how their words will be shown, and how to correct or withdraw.\n\n## Tasks\n\n- [ ] 1. Finalise the participant brief from `docs/brief.md` and add the recording terms\n- [ ] 2. Write the consent, retention, correction, and takedown template\n- [ ] 3. Decide the episode host and the interview format (length, question spine built on the five chapters)\n- [ ] 4. Run the first three outreach conversations and record at least one pilot episode\n- [ ] 5. Define the `first_person_account` fields in the data dictionary and methodology, with the gate-registry note that it is excluded from all gates\n- [ ] 6. Build the profile section and the `/podcast/` index, including the clarity-audit check for the boundary\n- [ ] 7. Add the pilot episode's reviewed claims and publish\n\n## Open questions\n\n- Which questions form the spine of every episode so accounts are comparable across participants?\n- Do transcripts get published in full, or only the reviewed claims?\n- Does the podcast carry the Look Sideways name or a separate one?\n",
+          "labels": [
+            {
+              "id": "LA_kwDOTerGy88AAAACsmSwlQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOTerGy88AAAAC0DBzuQ",
+              "name": "blocked: owner-decision",
+              "description": "Needs a yes/no or scope call only the owner can make.",
+              "color": "B60205"
+            }
+          ],
+          "number": 36,
+          "title": "Start the Look Sideways podcast: first-person accounts beside the evidence",
+          "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/36"
+        },
+        {
+          "body": "## Why\n\nLook Sideways currently publishes a purposive sample of 3,577 early-breakthrough paths and documents a 5,000-record ceiling. That boundary conflicts with the product goal now established by the owner: comprehensive coverage of people who are exceptionally successful for their age.\n\nThe target band is the top 0.001% (approximately the 99.999th percentile, or one person per 100,000) for an exact-age cohort. The current source-order batch workflow does not measure this band, expose candidate-research gaps, or continuously detect new outcomes. Neil Movva demonstrates the failure: he exists in the YC candidate corpus and an unprocessed W23 batch, while his later Sail Research outcome never caused prioritization or publication.\n\nThe product needs to change from a capped purposive sample to an uncapped, continuously refreshed census of every publicly discoverable and independently verifiable person who clears an audited age-relative outcome gate. Coverage\u2014not a target record count\u2014is the governing objective.\n\n## What\n\n### In scope\n\n- Remove the 5,000-record ceiling from product and data contracts.\n- Target documented milestones at age 30 or younger for birth cohorts from 1950 onward; retain the exact age-at-event rather than treating everyone under 30 as one band.\n- Define a top-0.001%-calibrated inclusion contract using official exact-age population denominators and field-specific outcome evidence.\n- Maintain an uncapped candidate/event ledger with explicit lifecycle states: discovered, enriched, queued, researched, eligible, ineligible, published, and stale.\n- Continuously discover candidates across founders/operators, researchers/engineers, athletes, creators/artists, and additional defensible fields.\n- Resolve people across aliases, employers, companies, projects, and time so later outcomes update an existing candidate.\n- Prioritize research by outcome strength, age rarity, evidence confidence, recency, and uncovered cohort/field gaps instead of source order.\n- Require independently verifiable, dated milestone and age evidence before publication.\n- Publish a coverage ledger for candidate throughput, research backlog, source/field/geography gaps, detection delay, and verification status.\n- Replace or adapt the current per-profile static-generation architecture before corpus growth exceeds Cloudflare Pages file limits.\n- Backtest the system against known misses, beginning with Neil Movva.\n\n### Out of scope\n\n- Claiming access to private, confidential, or unpublicized achievements.\n- Treating fundraising, fame, wealth, audience size, or any single proxy as universal proof of success.\n- Publishing a composite merit, worth, grit, talent, or causal success score.\n- Claiming a mathematically exact global rank where cross-field denominators are not comparable.\n- Lowering the two-source evidence standard to increase apparent coverage.\n- Deploying or migrating production infrastructure without a separately reviewed release decision.\n\n## Design\n\nThe discovery and publication systems are separate. Discovery is deliberately high-recall; publication remains evidence-gated. The public language may say `0.001%-calibrated` only when the calibration ledger supports that description. Exact percentile claims require an authoritative comparable denominator.\n\n```mermaid\nflowchart LR\n    S[Source and event registry] --> C[Candidate and event ledger]\n    C --> I[Identity and age resolution]\n    I --> P[Age-relative research priority]\n    P --> V[Two-source verification]\n    V -->|eligible| D[Published corpus]\n    V -->|ineligible or uncertain| C\n    C --> L[Coverage ledger]\n    V --> L\n    D --> L\n```\n\nEach candidate stores source provenance, aliases, birth date or bounded estimate with confidence, dated outcome events, field, research status, last-seen timestamp, and rejection/uncertainty reason. Candidate priority is an internal queue mechanism only; it is not shown as a public person score.\n\nOutcome gates are field-specific and independently audited. Examples include authoritative competitive rank, major award, company outcome, research impact, independently evidenced adoption, or platform reach. The system calibrates the combined unique qualifier rate by exact age against official population denominators and reports sensitivity rather than forcing incomparable people into a single ordered list.\n\nBefore uncapped expansion, the implementation must prove a publication architecture whose file count does not grow by multiple generated documents per person. The architecture decision may use chunked static data and a bounded route shell or a Cloudflare-native dynamic lookup, but it must preserve stable person URLs, machine-readable access, source provenance, and the existing release gates.\n\nDeploy impact: data generation, research tooling, methodology, evidence coverage, Explore/profile delivery, sitemap/Markdown discovery, and potentially Cloudflare runtime/storage architecture. No production deployment or migration is authorized by this issue alone.\n\n## Specs\n\n### Requirement: Coverage replaces the record ceiling\n\nThe product SHALL NOT impose an arbitrary maximum number of qualifying profiles.\n\n#### Scenario: The corpus exceeds 5,000 verified people\n- **WHEN** additional candidates meet the evidence and calibration contracts\n- **THEN** they SHALL remain eligible for publication and SHALL NOT be downsampled to preserve a target count\n\n#### Scenario: Public evidence is unavailable\n- **WHEN** a potentially successful person cannot be independently verified\n- **THEN** the candidate SHALL remain uncertain or unpublished with a recorded reason rather than being counted as covered\n\n### Requirement: Exact-age calibration\n\nEvery qualifying event SHALL be evaluated at the person's age when the event occurred, with a default target of age 30 or younger and birth year 1950 or later.\n\n#### Scenario: A person achieves a qualifying result at age 28\n- **WHEN** reliable sources establish the birth date or bounded age and event date\n- **THEN** the result SHALL be calibrated against the age-28 cohort rather than rejected by the former age-26 ceiling\n\n#### Scenario: Age cannot be established precisely\n- **WHEN** sources support only an age range\n- **THEN** the system SHALL use the least favorable plausible age for qualification and expose age confidence\n\n### Requirement: Honest top-0.001% interpretation\n\nThe system SHALL treat top 0.001% as an audited prevalence calibration, not an unsupported universal ranking.\n\n#### Scenario: An authoritative field denominator exists\n- **WHEN** a source supports an exact or bounded age-relative rank\n- **THEN** the product MAY publish the supported percentile or range with its denominator\n\n#### Scenario: Cross-field outcomes are incomparable\n- **WHEN** no defensible shared ordering exists\n- **THEN** the product SHALL publish the qualifying outcome and calibration gate without inventing an exact cross-field rank\n\n### Requirement: Continuous candidate discovery\n\nThe discovery system SHALL ingest repeatable public sources and dated outcome events rather than depend on one-time curated lists.\n\n#### Scenario: A known candidate starts a new company or receives a major outcome\n- **WHEN** a monitored source reports the event\n- **THEN** entity resolution SHALL attach it to the existing person and recompute research priority\n\n#### Scenario: A source stops updating or fails\n- **WHEN** its freshness threshold is exceeded\n- **THEN** the coverage ledger SHALL mark that source stale and SHALL NOT silently claim current coverage\n\n### Requirement: Explicit research lifecycle\n\nEvery discovered candidate SHALL have one current research state and a timestamped reason for that state.\n\n#### Scenario: A batch has not been researched\n- **WHEN** candidates remain queued beyond the service-level target\n- **THEN** the coverage ledger SHALL expose the backlog by source, cohort, field, and age\n\n#### Scenario: Research rejects a candidate\n- **WHEN** the milestone or age threshold is not met\n- **THEN** the ledger SHALL preserve the rejection reason so the candidate is not repeatedly rediscovered without new evidence\n\n### Requirement: Evidence-gated publication\n\nEvery published qualifier SHALL have a dated outcome, age evidence, and at least two independently useful sources.\n\n#### Scenario: A strong funding announcement is detected\n- **WHEN** it is the only available evidence\n- **THEN** it SHALL create a high-priority candidate but SHALL NOT by itself complete publication\n\n#### Scenario: Two sources repeat the same press release\n- **WHEN** they provide no independent corroboration\n- **THEN** they SHALL count as one evidence origin rather than two independent sources\n\n### Requirement: Growth-safe public delivery\n\nCorpus growth SHALL not fail because each person produces multiple static files under a provider file limit.\n\n#### Scenario: Forecast corpus size exceeds the static-file budget\n- **WHEN** generated routes and discovery mirrors would cross the guarded threshold\n- **THEN** the build SHALL fail with an architecture warning until a bounded-file delivery path is active\n\n#### Scenario: Delivery architecture changes\n- **WHEN** profiles move to chunked or dynamic lookup\n- **THEN** stable URLs, accessibility, source visibility, machine-readable discovery, and local verification SHALL remain available\n\n### Requirement: Recall and bias evaluation\n\nThe system SHALL measure coverage using a maintained gold set and cohort matrix rather than total profile count alone.\n\n#### Scenario: Neil Movva is used as a backtest\n- **WHEN** the event-driven pipeline processes historical sources\n- **THEN** it SHALL discover his Sail outcome, resolve it to the existing Blyss candidate, prioritize research, and produce an auditable eligibility decision\n\n#### Scenario: A geography or field is undercovered\n- **WHEN** source and publication rates fall materially below comparable cohorts\n- **THEN** the ledger SHALL expose the gap and prioritize source expansion without weakening evidence gates\n\n## Tasks\n\n- [x] 1. Replace the 5,000 ceiling and purposive-sample language with the approved uncapped coverage objective; define the age-30 and birth-year-1950 defaults in the methodology contract.\n- [ ] 2. Audit all existing candidate sources and research artifacts; produce lifecycle and backlog counts by source, cohort, field, geography, exact age, and freshness.\n- [ ] 3. Define the candidate, identity, event, source, age-confidence, calibration-gate, and research-state schemas with deterministic validation.\n- [ ] 4. Create the denominator and calibration ledger using authoritative exact-age population data; document field gates and uncertainty/sensitivity behavior.\n- [ ] 5. Build repeatable source/event ingestion and entity resolution, preserving provenance and preventing duplicate people or repeated rejected work.\n- [ ] 6. Replace source-order batching with a deterministic priority queue based on outcome evidence, age rarity, recency, confidence, and coverage gaps.\n- [ ] 7. Create a maintained recall gold set and backtest harness; include Neil Movva and representative people from every supported field and geography.\n- [ ] 8. Research and adjudicate the highest-priority existing backlog without lowering the two-source requirement.\n- [ ] 9. Select and implement a growth-safe profile/data delivery architecture; prove file-count, latency, search, stable URL, Markdown/agent discovery, and Cloudflare cost boundaries before migration.\n- [ ] 10. Rebuild the public Evidence ledger around source coverage, candidate throughput, backlog age, stale feeds, verification depth, and known blind spots.\n- [ ] 11. Add focused schema, ingestion, entity-resolution, prioritization, calibration, recall, dataset, and public-delivery tests; run `pnpm run check`, the smallest relevant tests, then `pnpm run ready`.\n- [ ] 12. Conduct an independent methodology and bias review before publishing the top-0.001%-calibrated label.\n- [ ] 13. Update `PROJECT_STATUS.md` only after the new coverage system is implemented and verified; obtain separate authorization before any production deployment or migration.\n\n",
+          "labels": [
+            {
+              "id": "LA_kwDOTerGy88AAAACsmSwlQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOTerGy88AAAAC0DBzcg",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 32,
+          "title": "Build comprehensive age-outlier coverage",
+          "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/32"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098814095,
+          "status": "completed",
+          "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/34098814095",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "checkout": "portfolio",
+      "repository": "sarthakagrawal927/portfolio",
+      "revision": "ea76de9f3cc789bab4efd893987fd324beda4161",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "Rise of idle games for not only AI time pass but also to harness subconscious mind. Larger question is how to make people comfortable and free their mind often to harness it\u2028\n\nDo people make games which help others feel good, and feel accomplished by giving a false sense of challenge. Start with web based and get to YT games asap. Find other similar places to publish.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSky2x88AAAACyL6QQw",
+              "name": "issues",
+              "description": "Issue-native writing published on the personal site",
+              "color": "087f6f"
+            },
+            {
+              "id": "LA_kwDOSky2x88AAAAC0DB28A",
+              "name": "needs: details",
+              "description": "A bare link or one-liner with no acceptance criteria; owner must say what \"done\" means.",
+              "color": "0E8A16"
+            }
+          ],
+          "number": 33,
+          "title": "Rise of idle games",
+          "url": "https://github.com/sarthakagrawal927/portfolio/issues/33"
+        },
+        {
+          "body": "AI coding tools do not only change how much software gets written. They change the load placed on the systems around the code.\n\nA developer using agents may create more branches, commits, pull requests, checks, logs, artifacts, comments, and API calls than the same developer did before. Much of that activity converges on GitHub. Even when generated code is discarded, the surrounding workflow may still consume infrastructure.\n\nMy first attempt to reason about this used an intentionally aggressive toy model.\n\n## The toy model\n\nSuppose a high-output cohort previously produced a share **p** of all activity, and AI multiplies that cohort\u2019s output by **m** while everyone else stays flat.\n\nThe new activity multiplier is:\n\n> **(1 \u2212 p) + (p \u00d7 m)**\n\nIf the cohort previously produced 40% of activity and then became 20 times as active, the result would be:\n\n> 0.6 + (0.4 \u00d7 20) = **8.6\u00d7**\n\nThat is a 760% increase.\n\nIt is also not an estimate of GitHub\u2019s real traffic.\n\nThe 40% share is a hypothetical concentration, not a verified measurement of GitHub commits. The 20\u00d7 multiplier comes from my own experience using coding agents, not a representative developer study. Small changes to either assumption produce very different results:\n\n| Prior activity share | AI multiplier | Resulting total |\n| ---: | ---: | ---: |\n| 10% | 5\u00d7 | 1.4\u00d7 |\n| 20% | 10\u00d7 | 2.8\u00d7 |\n| 40% | 20\u00d7 | 8.6\u00d7 |\n\nThe point of the model is not the 8.6. It is the shape of the problem: when output is concentrated and the most active users adopt a multiplier first, aggregate load can move much faster than the median user.\n\n## What the public data says\n\nGitHub\u2019s [2025 Octoverse report](https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/) gives us a real baseline. GitHub reported nearly 986 million commits in 2025, up about 25% year over year, and an average of 43.2 million pull requests merged per month, up 23%.\n\nThat is nowhere near the toy model\u2019s 760% increase. It is still enormous in absolute terms.\n\nGitHub is careful about causality. The report says the activity records coincided with growing use of LLMs and agents, but calls them observational signals rather than proof that AI caused the increase. That is the right caveat: platform growth, new users, repository creation, automation, and changing workflows all move together.\n\n## Commits are only part of the load\n\nThe infrastructure effect is broader than Git object storage.\n\nAn agent-heavy workflow can trigger:\n\n- repository and API reads while gathering context;\n- frequent pushes and force-updated branches;\n- pull-request creation and review events;\n- Actions jobs, logs, caches, and artifacts;\n- status checks from external integrations;\n- notifications, webhooks, indexing, and search updates;\n- repeated diff and blame computation.\n\nOne accepted pull request can be the end of a much larger tree of attempted changes. Counting merged code alone misses the work the platform did along the way.\n\n## The impressive part\n\nCould GitHub have predicted the exact shape of agent-driven development? Probably not. Capacity planning is hard when both the number of developers and the activity per developer are changing.\n\nBut the platform absorbed a record year while the workflow itself was being rewritten. There were outages and rough edges, as there are on any system at this scale. The more interesting fact is that the basic abstraction held: repositories, pull requests, checks, and issues continued to work while automation began exercising them at a very different cadence.\n\nThe 8.6\u00d7 toy result should not be repeated as a fact. The defensible conclusion is narrower:\n\n> AI raises the activity ceiling of individual developers, and infrastructure built for human-paced workflows now has to absorb machine-paced bursts.\n\nGitHub\u2019s measured growth already shows meaningful stress. The next question is not whether more activity is coming, but which parts of the collaboration stack become the bottleneck first.\n\n---\n\n**AI contribution: 2/5** \u2014 the model, argument, and original draft are human; an AI restructured the article, added source checks, and clarified the caveats under direction.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSky2x88AAAACyL6QQw",
+              "name": "issues",
+              "description": "Issue-native writing published on the personal site",
+              "color": "087f6f"
+            },
+            {
+              "id": "LA_kwDOSky2x88AAAAC0DB2yw",
+              "name": "marker: live-note",
+              "description": "Intentionally open; the issue body IS the published content (portfolio blog notes via issue-pages).",
+              "color": "C5DEF5"
+            }
+          ],
+          "number": 30,
+          "title": "The hidden infrastructure stress AI puts on GitHub",
+          "url": "https://github.com/sarthakagrawal927/portfolio/issues/30"
+        },
+        {
+          "body": "\u201cWritten with AI\u201d has become almost meaningless.\n\nIt can describe a human essay that received a grammar pass. It can also describe a generated article whose author supplied only the title. Those are very different creative processes, but the usual disclosure collapses them into one label.\n\nI want a small scale that tells readers what actually happened.\n\n## The scale\n\nThe number measures **human authorship**, not quality. A higher number means more of the language and structure came directly from the named author.\n\n### 0 \u2014 Generated\n\nThe AI chose or received the prompt and produced the publishable text. The human did not contribute meaningful ideas, language, or review.\n\n### 1 \u2014 Prompted\n\nThe human supplied a title, a few sentences, or a loose direction. The AI decided most of the argument, structure, and wording.\n\n### 2 \u2014 Directed\n\nThe human supplied the core idea, position, and constraints. The AI expanded them into a draft and wrote most of the final language.\n\n### 3 \u2014 Reviewed\n\nThe process began like level 2, but the human then checked the claims, changed the weak parts, and accepted responsibility for the published result.\n\nReview must be substantive. Reading the draft and clicking publish is not enough.\n\n### 4 \u2014 Human draft, AI polish\n\nThe human wrote the article. AI helped with limited editing: tightening sentences, fixing grammar, changing formatting, or suggesting small local revisions.\n\nThe ideas, structure, and recognizable voice remain human.\n\n### 5 \u2014 Human\n\nThe human wrote and edited the published text without generative assistance.\n\nOrdinary tools such as spellcheck, search, or a thesaurus do not lower the score. The scale is about generative authorship, not whether software was involved.\n\n## What the number does not mean\n\nThis is not a quality score. A level-1 article may be excellent; a level-5 article may be careless.\n\nIt is not a truth score either. Human writing can be wrong, and AI-assisted writing can be carefully sourced.\n\nThe scale answers one narrower question:\n\n> How much of the published expression came from the person whose name is on it?\n\nThat question matters because readers make judgments about voice, effort, expertise, and accountability. A useful disclosure should help them make those judgments without forcing every author to publish a production log.\n\n## How I will use it\n\nA short footer is enough:\n\n> **AI contribution: 3/5** \u2014 the idea and direction are mine; AI produced an early draft, which I fact-checked and substantially rewrote.\n\nThe explanation matters as much as the number. Two writers can use the same tools differently, and edge cases will never fit perfectly into six buckets.\n\nThis is intentionally not a percentage. \u201c37% AI\u201d looks precise while hiding arbitrary decisions about whether ideas, sentences, edits, or time should count. A small ordinal scale is less scientific and more honest.\n\nThe goal is not to shame AI use. It is to make the creative contract legible.\n\n---\n\n**AI contribution: 2/5** \u2014 the scale and its definitions began as a human note; an AI expanded and edited the publishable version under direction.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSky2x88AAAACyL6QQw",
+              "name": "issues",
+              "description": "Issue-native writing published on the personal site",
+              "color": "087f6f"
+            },
+            {
+              "id": "LA_kwDOSky2x88AAAAC0DB2yw",
+              "name": "marker: live-note",
+              "description": "Intentionally open; the issue body IS the published content (portfolio blog notes via issue-pages).",
+              "color": "C5DEF5"
+            }
+          ],
+          "number": 29,
+          "title": "How much of this was written by AI? A five-point scale",
+          "url": "https://github.com/sarthakagrawal927/portfolio/issues/29"
+        },
+        {
+          "body": "\u201cLLMs are fuzzy databases with tool calling\u201d is a useful mental model. It is also wrong in exactly the ways that matter.\n\nThe analogy works because a language model can return something that feels like a database lookup even when no database is present. Ask for a fact, a pattern, or a familiar piece of code and the model reconstructs a likely answer from its parameters. The lookup is fuzzy: phrasing changes the result, confidence is not reliability, and the output may be a plausible invention.\n\nThen tools make the system look more conventional. Retrieval adds an external corpus. A calculator makes arithmetic deterministic. A browser supplies current information. An API lets the model act on structured state.\n\nThat gives us a compact picture:\n\n> A fuzzy store of learned patterns, plus a planner that can call precise external systems.\n\nIt is a good starting point. It is not the whole machine.\n\n## A small experiment worth running\n\nTake twenty questions whose answers can be checked exactly. Mix stable facts, recent facts, arithmetic, and questions that require combining two sources. Run each question in three modes:\n\n| Mode | What the model receives | What to measure |\n| --- | --- | --- |\n| Closed book | Only the question | Accuracy, consistency across repeated runs, and invented detail |\n| Supplied source | The question plus the relevant document | Whether the answer follows the document and cites the right passage |\n| Tool backed | The question plus access to search, a calculator, or an API | Tool choice, argument quality, exactness, and whether the final answer matches the result |\n\nThe useful result is not simply that tools improve scores. It is seeing where the error moves.\n\nIn closed-book mode, the main risk is faulty recall. With retrieval, the risk moves to finding and interpreting the right context. With tools, the risk moves again: choosing the right tool, constructing the call, and using its result faithfully.\n\nThe system becomes more dependable, but it does not become a database.\n\n## Where the analogy breaks\n\nA database is designed to store and retrieve explicit records. A language model is trained to predict tokens.\n\nThe original Transformer architecture is built around attention, not rows, keys, or query plans. Facts may be represented across many weights, and the same weights also encode grammar, style, associations, and useful computational patterns. There is no supported operation that says \u201creturn the exact record that produced this sentence.\u201d\n\nThis is why the distinction in the [Retrieval-Augmented Generation paper](https://arxiv.org/abs/2005.11401) is helpful. It describes model parameters as **parametric memory** and the retrieved index as **non-parametric memory**. One is learned and difficult to inspect or update precisely. The other is explicit, replaceable, and capable of carrying provenance.\n\nTool use adds another layer. [Toolformer](https://arxiv.org/abs/2302.04761) showed a language model learning when and how to call external APIs while retaining its language-modeling ability. The model is not the calculator or search index. It is the component deciding how those systems fit into the next tokens.\n\nThere is another important difference: a model can transform information, not merely retrieve it. It can compare two documents, translate an explanation, propose a test, or combine familiar patterns into a new program. Those outputs may still be wrong, but \u201cdatabase lookup\u201d undersells the generative part of the system.\n\n## The mental model I prefer\n\nMy current shorthand is:\n\n> **fuzzy prior + temporary context + tools + verification**\n\n- The **fuzzy prior** supplies learned patterns and broad competence.\n- **Temporary context** gives the model the task and the evidence available right now.\n- **Tools** provide current, exact, or actionable state.\n- **Verification** decides whether the result is safe to trust.\n\nThat last term matters most. Tools do not remove uncertainty by themselves. A model can call the wrong tool perfectly, or call the right tool and misread the answer.\n\nSo yes, \u201cfuzzy database with tool calling\u201d is a productive simplification. It reminds us not to mistake fluent recall for exact storage and not to ask a probabilistic model to do work that a deterministic system can do better.\n\nJust do not forget the part after the analogy: the model is generating, routing, and transforming\u2014not merely fetching.\n\n---\n\nSources: [Attention Is All You Need](https://arxiv.org/abs/1706.03762), [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401), and [Toolformer](https://arxiv.org/abs/2302.04761).\n\n**AI contribution: 2/5** \u2014 the title and central idea are human; an AI expanded the argument and produced this draft under direction.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOSky2x88AAAACyL6QQw",
+              "name": "issues",
+              "description": "Issue-native writing published on the personal site",
+              "color": "087f6f"
+            },
+            {
+              "id": "LA_kwDOSky2x88AAAAC0DB2yw",
+              "name": "marker: live-note",
+              "description": "Intentionally open; the issue body IS the published content (portfolio blog notes via issue-pages).",
+              "color": "C5DEF5"
+            }
+          ],
+          "number": 28,
+          "title": "LLMs are fuzzy databases with tool calling\u2014until the analogy breaks",
+          "url": "https://github.com/sarthakagrawal927/portfolio/issues/28"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34099717639,
+          "status": "completed",
+          "url": "https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639",
+          "workflowName": "Portfolio CI / Deploy"
+        }
+      ]
+    },
+    {
+      "id": "agent-office",
+      "checkout": "agent-office",
+      "repository": "sass-maker/agent-office",
+      "revision": "b905c97a9e1aa602295b18456990ca7439e14969",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34107979727,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/agent-office/actions/runs/34107979727",
+          "workflowName": "Site Check"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34107979534,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/agent-office/actions/runs/34107979534",
+          "workflowName": "Native Quality"
+        }
+      ]
+    },
+    {
+      "id": "local-ai-video-studio",
+      "checkout": "local-ai-video-studio",
+      "repository": "sass-maker/local-ai-video-studio",
+      "revision": "4b6421eb1fee8940c1b1b9aefc1f1f290670dfb1",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "https://chatcut.io/",
+          "labels": [
+            {
+              "id": "LA_kwDOTzY5qc8AAAAC0DBxNw",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 33,
+          "title": "We should at least have these capabilities, but with local AI.",
+          "url": "https://github.com/sass-maker/local-ai-video-studio/issues/33"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34108066689,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/34108066689",
+          "workflowName": "Site Check"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 34108066643,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/34108066643",
+          "workflowName": "Native Quality"
+        }
+      ]
+    },
+    {
+      "id": "field-track",
+      "checkout": "field-track",
+      "repository": "sass-maker/field-track",
+      "revision": "3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "The implementation is ready for native build and device validation, but Android SDK/NDK license acceptance must be completed by the owner first.\n\n## Acceptance\n\n- [ ] Review and accept the Android SDK/NDK terms on the build machine.\n- [ ] Install platform tools, Android 37.0, Build Tools 37.0.0, and NDK 27.1.12297006.\n- [ ] Run `./gradlew :app:assembleDebug` successfully.\n- [ ] Install the debug APK on an emulator and at least one representative low-end Android phone.\n- [ ] Enroll using a dashboard-created one-time code and the assigned active SIM.\n- [ ] Confirm the persistent notification, location permissions, and continuous tracking state.\n- [ ] Confirm offline points upload after connectivity returns.\n- [ ] Confirm app restart and phone reboot recovery.\n- [ ] Record battery use and route completeness over a representative shift.\n\n## Current blocker\n\nGoogle's SDK/NDK terms require owner acceptance; the agent deliberately did not accept them on the owner's behalf.",
+          "labels": [
+            {
+              "id": "LA_kwDOT2dhp88AAAACwDJ5zA",
+              "name": "blocked",
+              "description": "Waiting on owner action or an external prerequisite",
+              "color": "B60205"
+            },
+            {
+              "id": "LA_kwDOT2dhp88AAAAC0DByBg",
+              "name": "blocked: device-test",
+              "description": "Needs a physical device / TestFlight / signed build on the owner's Mac.",
+              "color": "D93F0B"
+            }
+          ],
+          "number": 2,
+          "title": "Verify Android debug APK on physical pilot devices",
+          "url": "https://github.com/sass-maker/field-track/issues/2"
+        }
+      ],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34098821024,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/field-track/actions/runs/34098821024",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "reddit-insights",
+      "checkout": "reddit-insights",
+      "repository": "High-Signal-App/research-subreddit",
+      "revision": "4e63e2b4abbefda34981e45d5dad35cc33c3b794",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 34103184551,
+          "status": "completed",
+          "url": "https://github.com/High-Signal-App/research-subreddit/actions/runs/34103184551",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "id": "verified-bases",
+      "checkout": "verified-bases",
+      "repository": "sass-maker/verified-bases",
+      "revision": "a26c100c9a558847a97a370f8e5a9689d53500fa",
+      "branches": [
+        "main"
+      ],
+      "stashes": [],
+      "dirty": [],
+      "issues": [],
+      "prs": [],
+      "checks": [
+        {
+          "conclusion": "success",
+          "databaseId": 33474907194,
+          "status": "completed",
+          "url": "https://github.com/sass-maker/verified-bases/actions/runs/33474907194",
+          "workflowName": "ci"
+        }
+      ]
+    },
+    {
+      "id": "anchor",
+      "checkout": "anchor",
+      "repository": "Significant-Hobbies/anchor",
+      "revision": "a7ae3e2d547408a4d6f6ad672ab523c8addb252c",
+      "branches": [
+        "main"
+      ],
+      "stashes": [
+        "stash@{0}"
+      ],
+      "dirty": [],
+      "issues": [
+        {
+          "body": "## Background\n\nAnchor schedules the day as `PlanBlock`s (concrete, dated intentions) generated from weekly `ScheduleTemplate`s. The app already syncs its own data through a private CloudKit container, and it has no integration with the system Reminders database.\n\nUsers who live in Apple Reminders would like their Anchor plan to be visible there, and they may want completion state to flow back so the Today view stays honest without duplicate entry.\n\n## User story\n\nAs someone who plans my day in Anchor, I can turn on an Apple Reminders sync so that my planned blocks show up in a Reminders list and so that completing a block in either place updates the other.\n\n## Scope\n\n**In scope for MVP:**\n- One-way export of `PlanBlock`s to Apple Reminders, with optional two-way completion status.\n- A single chosen Reminders list (or default list).\n- Manual enable/disable toggle in Settings.\n- Permission handling for Reminders access.\n- Sync triggered on plan create/update/delete, materialization, and app foreground.\n\n**Out of scope for MVP:**\n- Sync of `HabitCompletion`s / behavior-change habits.\n- Import of arbitrary existing Reminders into Anchor.\n- Full two-way edit of title/dates from Reminders back into Anchor.\n\n## Acceptance criteria\n\n1. **Authorization** \u2014 `requestFullAccessToReminders()` on macOS/iOS. Add `NSRemindersFullAccessUsageDescription` to Info.plist files. Add `com.apple.security.personal-information.calendars` to macOS entitlements.\n2. **Data model** \u2014 `PlanBlock` gains optional `reminderExternalIdentifier: String?` and `reminderLastSyncedAt: Date?`. Schema stays CloudKit-compatible.\n3. **Sync behavior** \u2014 Create/update/delete `EKReminder` on `PlanBlock` changes. Map `title` \u2192 reminder title, `plannedStart` \u2192 due date, `state == .completed` \u2192 `isCompleted`. Do not export `details` unless explicitly opted in.\n4. **Architecture** \u2014 New `RemindersSyncService` in `Sources/AnchorCore/Reminders/` working on `PlanBlockRecord` snapshots. Wrap `EKEventStore` behind an injectable protocol.\n5. **UI** \u2014 Add \"Reminders\" section to SettingsScreen with toggle, list picker, and status line.\n6. **Testing** \u2014 Unit tests for mapping and conflict resolution with mock event store. Build passes for macOS, iOS, and watchOS schemes.\n\n## Privacy constraints\n\n- Do not export `Distraction.note` or `FocusSession.notes` to Reminders.\n- Do not interfere with the wall-clock timing model.\n- Keep the schema CloudKit-compatible: optional new fields only.\n\n## Open questions\n\n1. Should recurring `ScheduleTemplate`s be exported as one recurring `EKReminder` or one Reminder per materialized occurrence?\n2. Should `PlanBlock.details` be exported to Reminder notes by default, hidden behind opt-in, or never exported?\n3. If a user completes a Reminder while the linked `FocusSession` is running, should Anchor ignore it, complete the block but leave the session running, or end the session?\n4. How far into the future should Anchor sync blocks? (suggestion: today + next 7 days)",
+          "labels": [
+            {
+              "id": "LA_kwDOT_oSt88AAAAC0DB1DQ",
+              "name": "needs: details",
+              "description": "A bare link or one-liner with no acceptance criteria; owner must say what \"done\" means.",
+              "color": "0E8A16"
+            }
+          ],
+          "number": 50,
+          "title": "Sync with Apple Reminders",
+          "url": "https://github.com/Significant-Hobbies/anchor/issues/50"
+        },
+        {
+          "body": "## Context\n\nDuring the 2026-08-28 macOS release qualification, the app UI claimed that Anchor shipped a bundled anchor-mcp helper. The signed build did not contain that helper. A copy-phase prototype could bundle and Developer ID-sign the raw command-line tool, but macOS still denied it access to the protected app-group store. Xcode also rejects provisioning profiles for command-line-tool targets.\n\nThe misleading Settings action and Analytics copy have been removed from current source. The repo-built MCP server remains available as a developer tool.\n\n## Goal\n\nShip a supported, signed, app-mediated local bridge so MCP clients can query Anchor data without weakening sandboxing or asking a raw helper to open the app store directly.\n\n## Acceptance criteria\n\n- [ ] Choose and document the smallest supported architecture, such as an app-owned XPC service or authenticated local RPC bridge.\n- [ ] Keep all processing on device; distraction notes never leave the Mac.\n- [ ] Preserve read-only behavior for history queries and require an explicit user-selected path for workbook export.\n- [ ] Work from an installed Developer ID build without broad Full Disk Access.\n- [ ] Keep production CloudKit and app-group entitlements intact, with hardened runtime and notarization-compatible nested signing.\n- [ ] Restore Settings setup copy only after the installed-artifact journey passes.\n- [ ] Add an automated packaging check plus an installed-app smoke test that queries a synthetic isolated store.\n\n## Non-goals\n\n- Sending user text to a cloud model or analytics service.\n- Weakening Debug or Release signing to make the helper run.\n- Direct mutation of session history through MCP.\n",
+          "labels": [
+            {
+              "id": "LA_kwDOT_oSt88AAAACxdVszQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOT_oSt88AAAAC0DB1gw",
+              "name": "deferred: portfolio-cut",
+              "description": "P3 L/XL bet that only proceeds if the product survives the 2026-09-06 portfolio cut.",
+              "color": "5319E7"
+            }
+          ],
+          "number": 41,
+          "title": "Ship a signed app-mediated MCP bridge for macOS",
+          "url": "https://github.com/Significant-Hobbies/anchor/issues/41"
+        },
+        {
+          "body": "## Why\n\nThe Hub account feature itself has shipped: onboarding and Settings share the same optional account panel, local-only use remains fully supported, Google cancellation no longer crashes Anchor, and Production CloudKit accepts the current schema.\n\nOne acceptance risk remains. Owner testing previously showed unexplained older data after signing in. We must prove that real signed-account flows preserve clear provenance and never make remote Hub history appear as local planner history.\n\n## Shipped baseline\n\n- [x] Optional Hub stage in onboarding with one-tap local continuation.\n- [x] Shared account panel across onboarding and Settings on macOS and iOS.\n- [x] Sign in with Apple and Google entry points, progress, error, connected, sync, sign-out, and deletion states.\n- [x] Google Safari/XPC cancellation returns to a live app without the executor crash.\n- [x] Hub payload excludes distraction notes, schedules, behavior selections, and private reflections.\n- [x] Production CloudKit schema imports and exports successfully.\n\n## Remaining acceptance\n\n- [ ] Complete Google sign-in on a signed production-capable Mac build and confirm the expected connected identity.\n- [ ] Complete Sign in with Apple on a signed production-capable build and confirm the expected connected identity.\n- [ ] Verify cancellation and provider errors remain recoverable without trapping or terminating Anchor.\n- [ ] Start initial sync and confirm only permitted finished-session summaries leave the device.\n- [ ] Confirm a fresh account and clean local store show no unexplained or silently imported planner history.\n- [ ] Confirm an existing account labels any server-side summary history clearly and never inserts it into the local planner.\n- [ ] Sign out and confirm future Hub sync stops while local Focus, Today, Habits, History, and iCloud continuity remain usable.\n\n## Acceptance boundary\n\nClose this issue only after the signed walkthrough records the account used, build number, observed local-data starting state, resulting Hub state, and sign-out result without including credentials or private user content.\n\n## Out of scope\n\n- Redesigning the shipped account panel.\n- Making an account mandatory.\n- Changing authentication providers or the Hub backend without a separately approved defect.\n- Sending distraction text, full schedules, behavior selections, or reflections outside local or private Apple storage.",
+          "labels": [
+            {
+              "id": "LA_kwDOT_oSt88AAAACxdVszQ",
+              "name": "enhancement",
+              "description": "New feature or request",
+              "color": "a2eeef"
+            },
+            {
+              "id": "LA_kwDOT_oSt88AAAAC0DB0kg",
+              "name": "blocked: device-test",
+              "description": "Needs a physical device / TestFlight / signed build on the owner's Mac.",
+              "color": "D93F0B"
+            }
+          ],
+          "number": 40,
+          "title": "Verify signed Hub authentication and clean account provenance",
+          "url": "https://github.com/Significant-Hobbies/anchor/issues/40"
+        }
+      ],
+      "prs": [],
+      "checks": []
+    }
+  ]
+}
