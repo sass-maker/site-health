@@ -17,6 +17,10 @@ open issues. Those belong in the canonical catalog, each project's
 > catalog. The decision content below is preserved; only the classification
 > labels have been remapped.
 
+Project purpose is separately categorized as `utility`, `media`, or `experimental`.
+See [the complete category list](project-categories-2026-09-07.md). Categories do not
+change lifecycle or sharing decisions.
+
 ## Portfolio summary
 
 | Status | Count | Meaning |
@@ -34,7 +38,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | --- | --- | --- | --- | --- |
 | Office OS (`agent-office`) | Inactive | Give humans and non-coding agents durable ownership of outcomes. | Built to a credible testable stage, but not yet part of the owner's routine; the category has also become crowded. | Compare the strongest alternatives, define a differentiated wedge, then run a real recurring workflow before adding features. |
 | AliveVille | Inactive | Create a long-running AI-agent world with memory, conflict, grudges, and open-world behavior. | The simulation thesis remains compelling, but no attempted UI made the game emotionally attractive enough to continue. | Reopen only with a convincing playable visual direction and a small fun loop—not more simulation depth. |
-| Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; signed build 12 is installed on macOS and uploaded for internal iOS/watchOS processing. | Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change. |
+| Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the owner simplified the daily loop to direct habit tracking, editable/copyable days, project-linked entries and pause recovery. Development build 22 is installed on iPhone; Mac build 21 is preserved pending Production CloudKit promotion. | Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change. |
 | Anime List | Active | Add better anime filtering, discovery, and a personal watchlist. | Complete and frequently used; broader anime-community features are unwanted. | Maintain the directory/watchlist and fix only meaningful regressions or missing core functions. |
 | App Health | Active | Replace fragmented Sentry, PostHog, Slack, and cloud-console checking with easy high-level observability. | Good v0/v1 with a coherent OpenTelemetry-friendly model. | Integrate it across owned production services and let observed failures drive improvements. |
 | Calorie | Active | Support weight loss through food logging, fasting windows, exercise timing, and daily performance. | Functionally done and connected to the Hub family. | Keep using it; change it only when repeated use reveals a gap. |
@@ -98,12 +102,11 @@ These statuses reflect current owner intent. They deliberately override misleadi
 
 - Anchor
 - Calorie
-- Journal
 - Kith
 - Live
 - Setline
 
-Each app keeps ownership of its immediate data. `iOS Landings` supplies eligible native-app marketing surfaces. The normal integration direction is typed summaries and semantic actions through the Hub—not merging the six applications into one codebase.
+Each app keeps ownership of its immediate data. `iOS Landings` supplies eligible native-app marketing surfaces. The normal integration direction is typed summaries and semantic actions through the Hub—not merging the five applications into one codebase.
 
 Anchor is the deliberate exception to that general boundary: Indulge/Habits
 competed for the same schedule and time-tracking loop, so its useful behavioral

@@ -314,6 +314,7 @@ export function buildProjectDossier({
       publicName: project.public?.name ?? null,
       aliases: project.aliases ?? [],
       family: project.family,
+      category: project.category ?? null,
       kind: project.portfolio.kind,
       priority: project.portfolio.priority,
       tier: project.tier,

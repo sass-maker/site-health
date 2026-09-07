@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,10 +55,9 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
-      healthy: 3
-      running: 1
+      healthy: 4
       attention: &a2
         ignored: 4
   unknowns: []
@@ -76,6 +75,7 @@ identity:
   publicName: Karte
   aliases: []
   family: karte
+  category: utility
   kind: product
   priority: P2
   tier: secondary
@@ -188,16 +188,15 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
-    healthy: 3
-    running: 1
+    healthy: 4
   attention: *a2
   remote:
     repository: Significant-Hobbies/karte
     defaultBranch: main
-    defaultBranchSha: e7072fc6171dc4fa926cac1ee846068b4243b370
+    defaultBranchSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
     homepage: https://karte.cc
     query: verified
     disposition:
@@ -222,15 +221,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34107483418
+          id: 34130582355
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
-          createdAt: 2026-09-07T09:41:55Z
-          updatedAt: 2026-09-07T09:44:35Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483418
+          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
+          createdAt: 2026-09-07T14:00:47Z
+          updatedAt: 2026-09-07T14:03:31Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582355
         ageDays: 0
       schedule:
         health: not-applicable
@@ -240,15 +239,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34107483418
+          id: 34130582355
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
-          createdAt: 2026-09-07T09:41:55Z
-          updatedAt: 2026-09-07T09:44:35Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483418
+          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
+          createdAt: 2026-09-07T14:00:47Z
+          updatedAt: 2026-09-07T14:03:31Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582355
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -264,18 +263,18 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34129473645
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
           createdAt: 2026-09-07T13:48:37Z
-          updatedAt: 2026-09-07T13:48:42Z
+          updatedAt: 2026-09-07T13:51:08Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34129473645
         ageDays: 0
       schedule:
@@ -305,15 +304,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34107483404
+          id: 34130582349
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
-          createdAt: 2026-09-07T09:41:55Z
-          updatedAt: 2026-09-07T09:42:04Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483404
+          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
+          createdAt: 2026-09-07T14:00:47Z
+          updatedAt: 2026-09-07T14:00:58Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
         ageDays: 0
       schedule:
         health: not-applicable
@@ -323,15 +322,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34107483404
+          id: 34130582349
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
-          createdAt: 2026-09-07T09:41:55Z
-          updatedAt: 2026-09-07T09:42:04Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483404
+          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
+          createdAt: 2026-09-07T14:00:47Z
+          updatedAt: 2026-09-07T14:00:58Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
         ageDays: 0
       attention: ignored
     - name: Dependabot Updates
@@ -339,8 +338,8 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
         status: ignored

@@ -1,0 +1,39 @@
+[
+  {
+    "app": "kith",
+    "version": "1.0.0",
+    "build": "7",
+    "bundle": "com.significanthobbies.kith",
+    "signing": "Apple Development, personal team",
+    "installation": "succeeded",
+    "physicalJourney": "not verified: phone locked"
+  },
+  {
+    "app": "setline",
+    "version": "1.0.0",
+    "build": "7",
+    "bundle": "com.significanthobbies.setline",
+    "signing": "Apple Development, personal team",
+    "installation": "succeeded",
+    "physicalJourney": "not verified: phone locked"
+  },
+  {
+    "app": "calorie",
+    "version": "1.0.0",
+    "build": "11",
+    "bundle": "com.significanthobbies.calorie",
+    "signing": "Apple Development, personal team",
+    "installation": "succeeded",
+    "physicalJourney": "not verified: phone locked"
+  },
+  {
+    "app": "anchor",
+    "version": "1.0",
+    "build": "22",
+    "bundle": "com.significanthobbies.anchor",
+    "signing": "Apple Development, personal team; stable Xcode 26.6",
+    "installation": "succeeded",
+    "physicalJourney": "not verified: phone locked",
+    "source": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997"
+  }
+]

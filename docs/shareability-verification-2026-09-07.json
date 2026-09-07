@@ -107,18 +107,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native iOS app",
-      "observed": "Live landing explicitly states internal TestFlight only, no public invite or App Store listing.",
+      "observed": "Complete native gate and Release build pass with 64.6356% production-line coverage after using an available iPhone simulator. Development-signed version 1.0.0 build 11 installed on owner iPhone from d0b71cd56e195bdff23b787b035d378b39af5072. Actual installed journey and TestFlight/public availability remain unverified.",
       "urls": [
         "https://calorie.significanthobbies.com/"
       ],
-      "limitations": "No public consumer installation path.",
+      "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
       "verifiedAt": "2026-09-07",
-      "confidence": "low",
+      "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
+      "loggedOut": "development-build-installed; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
     },
     {
       "id": "motion",
@@ -144,18 +145,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native relationship app",
-      "observed": "Live landing states internal TestFlight only, latest processed build 3/source 7, no public enrollment.",
+      "observed": "Repository iOS gate and signed Release build pass. Development-signed version 1.0.0 build 7 installed on owner iPhone from 916e876ede113ea1ba2eb13b56105502ca88bf68. Launch could not proceed because phone was locked. No TestFlight or public enrollment qualification inferred.",
       "urls": [
         "https://kith.significanthobbies.com/"
       ],
-      "limitations": "No public consumer installation path.",
+      "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
       "verifiedAt": "2026-09-07",
-      "confidence": "low",
+      "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
+      "loggedOut": "development-build-installed; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
     },
     {
       "id": "journal",
@@ -181,18 +183,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native workout app",
-      "observed": "Live landing says iPhone in development and not on App Store; offers source and static explanation.",
+      "observed": "pnpm check and complete native gate pass, including 80.6850% production-line coverage. Development-signed version 1.0.0 build 7 installed on owner iPhone from 84546dd4f81d59c620f53d025f5b958ca65f0aae. Physical launch blocked by phone lock; App Store availability is not established.",
       "urls": [
         "https://setline.significanthobbies.com/"
       ],
-      "limitations": "No public consumer installation path observed.",
+      "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
       "verifiedAt": "2026-09-07",
-      "confidence": "low",
+      "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
+      "loggedOut": "development-build-installed; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
     },
     {
       "id": "free-ai",
@@ -740,15 +743,16 @@
       "shareable": false,
       "verdict": "not_verified",
       "surface": "Native day planner and focus timer",
-      "observed": "Account isolation repair plus native test/heuristic corrections pushed at 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b. Exact hosted run 34118659206 final gate success: 182 package tests, Mac 14/14, iPhone 7/7 zero failures/skips, watch build success. Actual heuristic diagnostics 8/8 distractions and 4/4 goals; 24 catalog PNGs validated and visually reviewed. Google OAuth start/cancel passed without credentials. Earlier failed run 34116034709 is superseded by this explicit repair and rerun.",
-      "limitations": "Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration.",
+      "observed": "Simpler daily habits, schedule copy, project tags and pause recovery pushed at 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997. 185 package tests and three focused iPhone simulator journeys pass; 27 visual catalog surfaces rendered and scoped visual receipt passes. Stable-Xcode 26.6 development build 22 installed on owner iPhone. Full hosted native run 34151609977 is in progress. Mac installed build 21 preserved; two additive CloudKit fields verified in Development only.",
+      "limitations": "Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified.",
       "verifiedAt": "2026-09-07",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "unsigned-hosted-native-core-UI-qualified; installed-release-not-qualified",
-      "loggedIn": "synthetic-account-transport-isolation-verified; signed-provider-not-verified",
+      "loggedOut": "development-build-installed; physical-journey-not-qualified",
+      "loggedIn": "not-verified",
       "presentation": "24 rendered catalog surfaces reviewed; hosted Mac/iPhone UI suites passed, not physical-device qualification",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
     },
     {
       "id": "saas-maker",
@@ -896,18 +900,27 @@
     },
     {
       "id": "rolepatch",
-      "shareable": false,
-      "verdict": "degraded",
-      "surface": "Guest resume editor and tailoring workflow",
-      "observed": "Source 18c041f4 recovered actual hosted generation in 6.4 seconds. Synthetic dates, education and 240/160 ms metrics survived, AWS/Kubernetes were not invented, and Accept & Save restored byte-exact output after reload. Desktop screenshot inspected. Source 1cf2c875 deployed the mobile scroll repair: a fresh reload with no inline override scrolled the full diff to its final Skills section, with no horizontal overflow or page errors. Guest export endpoint independently returned 404.",
-      "limitations": "Hosted guest tailoring and byte-exact save/reload pass for a synthetic resume with candidate facts preserved. Guest export returns 404 and the tailoring view has no export control; optional file import, broader output checks and signed-in persistence remain #68. Mobile diff scrolling is repaired and verified on the deployed source.",
+      "shareable": true,
+      "verdict": "pass",
+      "surface": "Guest resume-tailoring and document-export experiment",
+      "observed": "Exact source d28b05a3 deployed at 100%. A fresh UI-created guest resume and manually pasted job generated a tailored result in 5.229 seconds. Dates, education, employer and 240/160 ms metrics remained intact; unsupported AWS/Kubernetes skills were absent. Accept & Save and reload retained exact output. Real text, HTML and Word-compatible .doc downloads succeeded; text was byte-exact. Standalone print output inspected: one-page tailored resume and two-page unsaved 8075-character fixture with all 36 items and final sentinel preserved. Mobile 390px export controls inspected, no overflow or page errors.",
+      "limitations": "Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Account sync, file import, URL scraping, broader AI features and real application submission remain unqualified in #68.",
       "verifiedAt": "2026-09-07",
-      "confidence": "high",
+      "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "screenshot-inspected",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "demonstrated-hosted-create-manual-job-generate-review-save-reload-download-print",
+      "loggedIn": "not-verified; regular browser bridge failed to start",
+      "presentation": "Desktop/mobile export UI and all three PDF pages visually inspected; no clipping or document overflow.",
+      "disposition": "share-guest-experiment",
+      "release": {
+        "sourceRevision": "d28b05a34766aced89c11d138a2d5654c9b568c2",
+        "workerVersion": "faaa3a1f-da95-4009-967c-0f3c3091dda1",
+        "deploymentId": "319a41d4-4328-4839-9863-a1039248aac8",
+        "trafficPercent": 100
+      },
+      "evidence": [
+        "site-health/docs/qualification/rolepatch-2026-09-07/export/README.md"
+      ]
     },
     {
       "id": "app-health",

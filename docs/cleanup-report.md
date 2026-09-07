@@ -135,7 +135,7 @@ This verifies removal from the organization profile, not deletion of source repo
 
 ## Current approved release checkpoint
 
-**22 scoped sharing passes + 8 retained without adoption + 24 remaining = 54.** The public projection has 21 entries because ChatGPT Connections retains its separate hidden listing. Five newly qualified surfaces are EverythingRated's early opinion comparison, Memory Map's browser-local experiment, Reddit Insights' dated archive, Mashup's finished public examples and Protein Index's dated food-label reference. These do not claim full-product or logged-in qualification.
+**23 scoped sharing passes + 8 retained without adoption + 23 remaining = 54.** The public projection has 22 entries because ChatGPT Connections retains its separate hidden listing. Five newly qualified surfaces are EverythingRated's early opinion comparison, Memory Map's browser-local experiment, Reddit Insights' dated archive, Mashup's finished public examples and Protein Index's dated food-label reference. These do not claim full-product or logged-in qualification.
 
 Ten products received approved runtime releases: LoopTV, EverythingRated, Memory Map, Reddit Insights, Mashup, Protein Index, Karte, SaaS Maker, the personal portfolio and High Signal. Exact source/provider receipts and rollback evidence are linked in the release record. Karte remains nonshareable: public links are repaired, but the real Turnstile challenge failed in the isolated browser and no chat or lead was created. EverythingRated's local release succeeded while its Actions deployment authentication remains open (#18).
 
@@ -191,16 +191,26 @@ pass; Worker `f5303141-f245-4ad7-aa39-2ae208ea0cb2` serves that tag at 100%.
 A fresh 390px reload, without the diagnostic style override, scrolled the diff
 to the final Skills section with no horizontal overflow or page errors.
 
-Guest export independently returns 404 and the tailoring view has no export
-control. Shareability remains false until output can be used. Optional import,
-broader output checks and signed-in qualification also remain in
-[issue #68](https://github.com/Significant-Hobbies/rolepatch/issues/68), with
-[the receipt](qualification/rolepatch-2026-09-07/README.md) preserving exact limits.
-The owning README references the open issue. Only RolePatch was freshly
-re-observed in the task inventory for this continuation; the full-fleet task
-snapshot remains older. Unrelated local changes were preserved.
+The earlier export diagnosis was corrected: the guest editor deliberately offered
+Print and did not call the protected endpoint. The actual gap was exporting a
+tailored result. Source `d28b05a3` adds safe browser-local document export while
+retaining signed-in server export. All 473 tests/full local quality and exact CI
+pass; [deployment 34146632823](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34146632823)
+serves Worker `faaa3a1f-da95-4009-967c-0f3c3091dda1` at 100% with the exact tag.
+
+A fresh UI-created guest workflow now passes generation in 5.229 seconds,
+reviewed synthetic facts, byte-exact save/reload and text download, HTML/.doc
+downloads, and one-/two-page print-to-PDF with all content retained. Desktop/mobile
+controls and all PDF pages were visually inspected. RolePatch is now a scoped
+shareable guest experiment, with medium confidence and explicit account, import,
+URL-scraping and broader AI limitations in [#68](https://github.com/Significant-Hobbies/rolepatch/issues/68).
+[The receipt](qualification/rolepatch-2026-09-07/export/README.md) preserves the
+print-engine versus native-dialog verification distinction and the browser crash.
+The owning README links remaining work. All 57 repository Actions inventories
+were refreshed (56 verified, excluded unversioned Nomad unverifiable); task/issue
+inventory is only freshly re-observed for RolePatch. Unrelated local changes remain preserved.
 
 The owner experiment decision is retained for both Reel Pipeline and Forecast
 Lab; Reel Pipeline now also uses `portfolio.kind: experiment`. The 54-project
-sharing accounting is unchanged: 22 scoped passes, 8 retention outcomes, 24
+sharing accounting is unchanged: 23 scoped passes, 8 retention outcomes, 23
 remaining qualification/decision items. No other project was promoted.

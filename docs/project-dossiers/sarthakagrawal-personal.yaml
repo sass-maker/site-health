@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -79,6 +79,7 @@ identity:
     - sarthakagrawal.dev
     - sarthakagrawal927
   family: personal
+  category: media
   kind: product
   priority: P4
   tier: secondary
@@ -166,7 +167,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -175,7 +176,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/portfolio
     defaultBranch: main
-    defaultBranchSha: ea76de9f3cc789bab4efd893987fd324beda4161
+    defaultBranchSha: 096d62df1dc97128c86b0b607a8b02deb5068234
     homepage: https://sarthakagrawal.dev
     query: verified
     disposition:
@@ -201,34 +202,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34099717639
+          id: 34131820751
           status: completed
           conclusion: success
-          event: push
-          branch: main
-          headSha: ea76de9f3cc789bab4efd893987fd324beda4161
-          createdAt: 2026-09-07T08:16:23Z
-          updatedAt: 2026-09-07T08:16:57Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639
+          event: pull_request
+          branch: imgbot
+          headSha: d65deeab4e1c1fea45fceac9be3718a53b83f0d7
+          createdAt: 2026-09-07T14:13:58Z
+          updatedAt: 2026-09-07T14:14:32Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34131820751
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 096d62d
         lastRun:
-          id: 34099717639
+          id: 32039217118
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ea76de9f3cc789bab4efd893987fd324beda4161
-          createdAt: 2026-09-07T08:16:23Z
-          updatedAt: 2026-09-07T08:16:57Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639
-        ageDays: 0
+          headSha: 3c5a3d37550ced1c62d8a3b3e100b8b831f7c0d7
+          createdAt: 2026-08-17T14:29:29Z
+          updatedAt: 2026-08-17T14:30:15Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32039217118
       attention: ignored
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
@@ -264,7 +264,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision ea76de9
+        reason: no push run at current main revision 096d62d
         lastRun:
           id: 26280785969
           status: completed

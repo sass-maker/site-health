@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -75,6 +75,7 @@ identity:
   publicName: null
   aliases: []
   family: mobile-dev-cockpit
+  category: utility
   kind: product
   priority: P4
   tier: parked
@@ -145,7 +146,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
     stuck: 1
@@ -176,7 +177,7 @@ githubActions:
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stuck
-        reason: latest run has remained queued for 17 day(s)
+        reason: latest run has remained queued for 18 day(s)
         apiState: active
         lastRun:
           id: 32396632476
@@ -188,7 +189,7 @@ githubActions:
           createdAt: 2026-08-20T17:15:48Z
           updatedAt: 2026-08-20T17:15:48Z
           url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
-        ageDays: 17
+        ageDays: 18
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

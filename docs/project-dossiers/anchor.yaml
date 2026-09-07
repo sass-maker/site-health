@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
+      revision: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
+      revision: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,9 +55,9 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
-      healthy: 1
+      running: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -80,13 +80,14 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Plan a realistic day, follow it with a focus timer, and explain why the lived day differed.
-  currentState: Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; signed build 12 is installed on macOS and uploaded for internal iOS/watchOS processing.
+  currentState: Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the owner simplified the daily loop to direct habit tracking, editable/copyable days, project-linked entries and pause recovery. Development build 22 is installed on iPhone; Mac build 21 is preserved pending Production CloudKit promotion.
   nextDecision: Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change.
 identity:
   name: Anchor
   publicName: Anchor
   aliases: []
   family: significanthobbies
+  category: utility
   kind: product
   priority: P2
   tier: active
@@ -122,12 +123,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 91
+    retainedCommitCount: 92
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
+  observedRevision: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -143,15 +144,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
+    defaultBranchSha: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -171,19 +172,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34118659206
-          status: completed
-          conclusion: success
+          id: 34151609977
+          status: in_progress
+          conclusion: null
           event: workflow_dispatch
           branch: main
-          headSha: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
-          createdAt: 2026-09-07T11:50:11Z
-          updatedAt: 2026-09-07T12:07:33Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34118659206
+          headSha: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
+          createdAt: 2026-09-07T18:26:05Z
+          updatedAt: 2026-09-07T18:26:10Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977
         ageDays: 0
       schedule:
         health: not-applicable
@@ -233,7 +234,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-07
-  reason: Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration.
+  reason: Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified.
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:

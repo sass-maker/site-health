@@ -2,9 +2,13 @@
 
 The canonical catalog contains **57 retained identities: 2 primary, 19 active and 36 inactive**. All have exactly `status`, `shareable` and `resumeCondition` in the lifecycle object; every resume condition remains null. Chess and Journal are removed from the lineup; Nomad is active and excluded from this 54-project exercise.
 
-**Current 54-project accounting: 22 scoped sharing passes, 8 retention outcomes without an adoption push, and 24 remaining qualification or decision items.** A pass applies only to the described experience. Authentication, native distribution and broader data/model coverage remain separate when unverified. Confidence is qualitative confidence in that bounded verdict.
+**Current 54-project accounting: 23 scoped sharing passes, 8 retention outcomes without an adoption push, and 23 remaining qualification or decision items.** A pass applies only to the described experience. Authentication, native distribution and broader data/model coverage remain separate when unverified. Confidence is qualitative confidence in that bounded verdict.
 
 The owner approved prepared releases and synthetic verification, and explicitly retained Reel Pipeline and Forecast Lab as nonshareable experiments. Companion Robot, AliveVille, Open Historia and Motion are also held experiments under the recorded owner intent; TrueHire and Mobile Dev Cockpit remain historical work. Office OS and Local AI Video Studio remain reconsideration decisions. Retention does not erase future-sharing limitations.
+
+## Immediate Hub use
+
+Kith 7, Setline 7, Calorie 11 and Anchor 22 are installed on the owner iPhone as development builds. Physical use remains unverified while the phone is locked. Anchor Mac build 21 is preserved pending Production CloudKit promotion. See [the bounded owner-use receipt](qualification/hub-2026-09-07/README.md). These installations do not change the 23 scoped sharing passes.
 
 ## Use existing products instead
 
@@ -57,11 +61,11 @@ This table is derived from the canonical lifecycle, latest verification JSON and
 | LoopTV | inactive | Yes | high | Curated video experiment | No blocker to scoped guest viewing/search. Hosted desktop/mobile acceptance passed and #51 closed; representative-video and synthetic-error limits remain explicit. |
 | Reader | inactive | No | medium | Personal reading library | Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export. |
 | SWE Interview Prep | active | No | low | Learning workspace | Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified. |
-| Calorie | active | No | low | Native iOS app | No public consumer installation path. |
-| Setline | active | No | low | Native workout app | No public consumer installation path observed. |
-| Kith | inactive | No | low | Native relationship app | No public consumer installation path. |
+| Calorie | active | No | medium | Native iOS app | Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass. |
+| Setline | active | No | medium | Native workout app | Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass. |
+| Kith | inactive | No | medium | Native relationship app | Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass. |
 | iOS landings | active | No | low | Shared native landing factory | No independent public product workflow; internal dependency can remain active. |
-| RolePatch | inactive | No | high | Guest resume editor and tailoring workflow | Hosted guest tailoring and byte-exact save/reload pass for a synthetic resume with candidate facts preserved. Guest export returns 404 and the tailoring view has no export control; optional file import, broader output checks and signed-in persistence remain #68. Mobile diff scrolling is repaired and verified on the deployed source. |
+| RolePatch | inactive | Yes | medium | Guest resume-tailoring and document-export experiment | Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Account sync, file import, URL scraping, broader AI features and real application submission remain unqualified in #68. |
 | Karte | inactive | No | medium | Public profile and inbound desk | Protected profile creation/editing and fresh AI answer remain unqualified. The isolated browser could not complete the real Turnstile challenge; this does not prove failure for every browser. No synthetic lead/conversation was created. #82 remains open. |
 | Starboard | active | Yes | high | Public repository discovery | Public discovery remains scoped-shareable; saved/private workflows remain untested. Scheduled embedding failed401; source auth contract is fixed, but matching operator token provisioning and verified scheduled recovery remain under #107. |
 | AliveVille | inactive | No | medium | Browser AI town experiment | Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign. |
@@ -82,7 +86,7 @@ This table is derived from the canonical lifecycle, latest verification JSON and
 | Field Track | inactive | Yes | high | Explicit synthetic dashboard demo | Demo only; no Android/device/real workforce qualification. |
 | Reddit Insights | inactive | Yes | medium | Subreddit archive experiment | Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim. |
 | Verified Bases | inactive | No | low | Software marketplace | Retained priced TinyGPT listing has no currently qualified preview/acquisition/delivery; listed preview hostname failed local DNS resolution. Buyer demand and support economics remain unproven. |
-| Anchor | active | No | medium | Native day planner and focus timer | Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration. |
+| Anchor | active | No | medium | Native day planner and focus timer | Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified. |
 
 ## Evidence and operational limits
 

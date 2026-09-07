@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+      revision: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+      revision: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
       githubRepository: Significant-Hobbies/rolepatch
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -75,27 +75,28 @@ identity:
   publicName: RolePatch
   aliases: []
   family: rolepatch
+  category: utility
   kind: product
   priority: P2
   tier: secondary
   attention: toolbox
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Evidence-bound resume tailoring and review-first application preparation for one specific job.
+  description: A guest resume-tailoring experiment with a reviewable diff and browser-local document exports.
   publicMakerNote: I wanted a focused way to tailor a resume and its supporting material to the actual job description.
   purposeContract:
     purpose: RolePatch tailors a resume and supporting application material to the evidence and language of a specific job.
     audience: A job seeker preparing a serious application for a particular role.
     outcome: Present relevant experience more clearly and prepare for the role without inventing qualifications.
-    mechanism: The product joins job-description analysis, resume tailoring, role research, proof review, and interview preparation in one workflow.
-    proof: A strong working product exists, including the evidence ideas retained from TrueHire, but owner job-search intent is currently absent.
-    nextAction: Use it against a real application when job hunting resumes; until then, treat the product as held rather than actively marketed.
+    mechanism: Paste a resume and job description, review the generated changes, save in the browser, and export the current document.
+    proof: The guest resume, tailoring, review, save/reload and local document-export path has been verified with synthetic examples. Account sync and broader application tools remain unqualified.
+    nextAction: Try the guest workflow for one job, review every proposed claim, and export the version you want to use.
   form: Web app
   platforms:
     - Web
@@ -108,12 +109,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-23
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 432
+    retainedCommitCount: 434
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+  observedRevision: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -181,7 +182,7 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -189,7 +190,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+    defaultBranchSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
     homepage: https://rolepatch.com
     query: verified
     disposition:
@@ -214,15 +215,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34144569758
+          id: 34147870517
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
-          createdAt: 2026-09-07T16:43:28Z
-          updatedAt: 2026-09-07T16:46:45Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758
+          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+          createdAt: 2026-09-07T17:30:15Z
+          updatedAt: 2026-09-07T17:33:37Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870517
         ageDays: 0
       schedule:
         health: not-applicable
@@ -232,15 +233,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34144569758
+          id: 34147870517
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
-          createdAt: 2026-09-07T16:43:28Z
-          updatedAt: 2026-09-07T16:46:45Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758
+          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+          createdAt: 2026-09-07T17:30:15Z
+          updatedAt: 2026-09-07T17:33:37Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870517
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -261,15 +262,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34144865225
+          id: 34148200452
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
-          createdAt: 2026-09-07T16:47:34Z
-          updatedAt: 2026-09-07T16:50:00Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144865225
+          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+          createdAt: 2026-09-07T17:34:59Z
+          updatedAt: 2026-09-07T17:37:23Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34148200452
         ageDays: 0
       schedule:
         health: not-applicable
@@ -298,15 +299,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34144569768
+          id: 34147870503
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
-          createdAt: 2026-09-07T16:43:28Z
-          updatedAt: 2026-09-07T16:43:38Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768
+          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+          createdAt: 2026-09-07T17:30:15Z
+          updatedAt: 2026-09-07T17:30:28Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870503
         ageDays: 0
       schedule:
         health: not-applicable
@@ -316,15 +317,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34144569768
+          id: 34147870503
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
-          createdAt: 2026-09-07T16:43:28Z
-          updatedAt: 2026-09-07T16:43:38Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768
+          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+          createdAt: 2026-09-07T17:30:15Z
+          updatedAt: 2026-09-07T17:30:28Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870503
         ageDays: 0
       attention: ignored
     - name: Dependabot Updates
@@ -426,9 +427,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Hosted guest tailoring and byte-exact save/reload pass for a synthetic resume with candidate facts preserved. Guest export returns 404 and the tailoring view has no export control; optional file import, broader output checks and signed-in persistence remain #68. Mobile diff scrolling is repaired and verified on the deployed source."
+  reason: "Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Account sync, file import, URL scraping, broader AI features and real application submission remain unqualified in #68."
   changelogUrl: https://rolepatch.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/rolepatch/issues
   geoIdentity:

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,14 +55,15 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
       healthy: 10
       manual-or-reusable-never-run: 2
       failing: 1
       attention: &a2
         missing-data: 2
-        clear: 11
+        clear: 10
+        review-history: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
@@ -78,6 +79,7 @@ identity:
   publicName: CodeVetter
   aliases: []
   family: codevetter
+  category: utility
   kind: product
   priority: P1
   tier: focus
@@ -277,7 +279,7 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
     healthy: 10
@@ -678,30 +680,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33414467514
+          id: 34133706581
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
-          createdAt: 2026-08-31T16:30:23Z
-          updatedAt: 2026-08-31T16:30:50Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33414467514
-        ageDays: 6
+          headSha: f051219b1bf534d892dec7de0c5d5f9a0ab5fc10
+          createdAt: 2026-09-07T14:34:40Z
+          updatedAt: 2026-09-07T14:35:00Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/34133706581
+        ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 33414467514
+          id: 34133706581
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
-          createdAt: 2026-08-31T16:30:23Z
-          updatedAt: 2026-08-31T16:30:50Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/33414467514
-        ageDays: 6
+          headSha: f051219b1bf534d892dec7de0c5d5f9a0ab5fc10
+          createdAt: 2026-09-07T14:34:40Z
+          updatedAt: 2026-09-07T14:35:00Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/34133706581
+        ageDays: 0
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -713,12 +715,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: active
+        reason: tracked workflow
       live:
         health: failing
         reason: latest run concluded failure
@@ -742,18 +744,18 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: review-history
     - name: Dependency Graph
       file: dynamic/dependabot/update-graph
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success
@@ -783,12 +785,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success

@@ -1,7 +1,8 @@
 # RolePatch qualification — 7 September 2026
 
-The product remains **not shareable**. This receipt separates working guest
-storage, recovered synthetic generation, and the remaining export blocker.
+The current verdict is **shareable as a guest resume-tailoring experiment**.
+[The export qualification](export/README.md) supersedes the historical failures
+below; account and broader feature qualification remain open.
 
 ## Browser evidence
 
@@ -115,3 +116,11 @@ are retained for repeatable export qualification. The disposable browser was
 closed and the local AI probe server stopped. No real application, account write,
 outreach or payment occurred. Rollback predecessor is Worker
 `fe163417-64ed-462a-80c5-a4b8d7cf99f5` (source `18c041f4`).
+
+## Correction and current export verdict
+
+The earlier direct export endpoint probe returned 404, but subsequent source
+and live UI inspection confirmed that guests already had browser Print and did
+not call that protected route. The 404 was expected authorization behavior, not
+an observed guest UI export defect. The real missing tailored export control is
+now repaired and verified; see [the final export receipt](export/README.md).

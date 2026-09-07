@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
+      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
+      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T13:50:29.112Z
+      observedAt: 2026-09-07T18:28:46.354Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
@@ -76,6 +76,7 @@ identity:
   publicName: Reader
   aliases: []
   family: significanthobbies
+  category: utility
   kind: product
   priority: P2
   tier: secondary
@@ -195,7 +196,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-09-07T13:50:29.112Z
+  observedAt: 2026-09-07T18:28:46.354Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -367,7 +368,7 @@ githubActions:
           createdAt: 2026-05-08T16:51:58Z
           updatedAt: 2026-05-08T16:52:04Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/25568063470
-        ageDays: 121
+        ageDays: 122
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -382,8 +383,8 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
         status: ignored
@@ -393,16 +394,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33417551449
+          id: 34146036275
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: eb3c312532fff4b69125333b73d98a804003cc14
-          createdAt: 2026-08-31T17:04:14Z
-          updatedAt: 2026-08-31T17:05:05Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/33417551449
-        ageDays: 6
+          headSha: c9db01b353a9351282e46bc2d30448f590cd50a8
+          createdAt: 2026-09-07T17:04:15Z
+          updatedAt: 2026-09-07T17:04:50Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34146036275
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
