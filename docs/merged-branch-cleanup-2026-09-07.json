@@ -1,0 +1,55 @@
+{
+  "observedAt": "2026-09-07T12:33:24.210477+00:00",
+  "scope": "Seven redundant local names only; commits remain reachable from main; no remote/unique refs, worktrees, stashes or working files removed.",
+  "branches": [
+    {
+      "repository": "codevetter",
+      "branch": "fix/release-qualification-wal-probe",
+      "retainedCommit": "629edb0e99122d6a1372cb1c2909a8bc7ede7812",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C codevetter branch fix/release-qualification-wal-probe 629edb0e99122d6a1372cb1c2909a8bc7ede7812"
+    },
+    {
+      "repository": "codevetter",
+      "branch": "fix/release-wal-continuity-probe",
+      "retainedCommit": "629edb0e99122d6a1372cb1c2909a8bc7ede7812",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C codevetter branch fix/release-wal-continuity-probe 629edb0e99122d6a1372cb1c2909a8bc7ede7812"
+    },
+    {
+      "repository": "codevetter",
+      "branch": "release/cut-1.13.5",
+      "retainedCommit": "bf25d8a32b0c9fe4d7eb77ec3f2b14c72c4e92de",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C codevetter branch release/cut-1.13.5 bf25d8a32b0c9fe4d7eb77ec3f2b14c72c4e92de"
+    },
+    {
+      "repository": "posttrainllm",
+      "branch": "docs/issue-139-study-links",
+      "retainedCommit": "a6b948ee4f380fb48a1238704e15852bf60434a9",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C posttrainllm branch docs/issue-139-study-links a6b948ee4f380fb48a1238704e15852bf60434a9"
+    },
+    {
+      "repository": "free-ai",
+      "branch": "fix/rename-ai-gateway-to-free-ai",
+      "retainedCommit": "39d537d8859dc54a18d9a38722aeb59f152152a0",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C free-ai branch fix/rename-ai-gateway-to-free-ai 39d537d8859dc54a18d9a38722aeb59f152152a0"
+    },
+    {
+      "repository": "swe-interview-prep",
+      "branch": "docs/issue-94-raw-bits-to-react",
+      "retainedCommit": "89a53f10330dc125c1cd52620d43cc1a3209e89a",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C swe-interview-prep branch docs/issue-94-raw-bits-to-react 89a53f10330dc125c1cd52620d43cc1a3209e89a"
+    },
+    {
+      "repository": "ios-landings",
+      "branch": "docs/issue-11-landing-patterns",
+      "retainedCommit": "571447df5109e5c805317ae59919486ca1cff6a7",
+      "proof": "ancestor of main; no attached worktree",
+      "restoreCommand": "git -C ios-landings branch docs/issue-11-landing-patterns 571447df5109e5c805317ae59919486ca1cff6a7"
+    }
+  ]
+}

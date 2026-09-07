@@ -2593,7 +2593,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live site labels held Mac experiment, shows illustrative bench and native screenshots but no usable public download. Limit: No public installation and editing workflow verified."
+          "reason": "Source 8c9f345f4a87b6cef4a55924896de1e8100a7fa3 corrects five misleading ready-effect claims: crossfade/audio normalization are unsupported fallbacks, blur affects the whole frame, and flash/zoom are timed rather than audio-reactive. One readiness note feeds catalog, plan warnings and inspector; real AVFoundation export records fallback degradation. Full quality passes 74 tests; exact Native CI 34122300862 and Site 34122300774 pass. Limit: No supported public installation or full creator workflow qualified. Native app built/launched, but computer-use pipe failed before panel inspection; app was stopped. Preserve inactive experiment and evaluate established editors before further expansion."
         }
       },
       "authModel": "public-persistent",

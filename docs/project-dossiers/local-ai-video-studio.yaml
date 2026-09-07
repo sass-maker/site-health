@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e0a1d0cb68afc14f8db5754434dc272ffa4324c9ce84bb52d163ba4d7527ec32
+      sha256: b70bd1d3bfaac7e4968aedba55b20957359d531aed494be303e9878f60233f65
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -290,7 +290,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Live site labels held Mac experiment, shows illustrative bench and native screenshots but no usable public download. Limit: No public installation and editing workflow verified."
+  reason: "Source 8c9f345f4a87b6cef4a55924896de1e8100a7fa3 corrects five misleading ready-effect claims: crossfade/audio normalization are unsupported fallbacks, blur affects the whole frame, and flash/zoom are timed rather than audio-reactive. One readiness note feeds catalog, plan warnings and inspector; real AVFoundation export records fallback degradation. Full quality passes 74 tests; exact Native CI 34122300862 and Site 34122300774 pass. Limit: No supported public installation or full creator workflow qualified. Native app built/launched, but computer-use pipe failed before panel inspection; app was stopped. Preserve inactive experiment and evaluate established editors before further expansion."
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/local-ai-video-studio/issues
   geoIdentity:
