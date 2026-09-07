@@ -43,9 +43,11 @@
     {
       "id": "motion",
       "name": "Motion",
-      "classification": "Qualification gap",
-      "biggestBlocker": "No public consumer installation path; no camera or physical-control test performed.",
-      "shareable": false
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Held physical-play experiment; any future functioning-game claim still needs camera/control/device evidence.",
+      "shareable": false,
+      "currentWorkDecision": "Held physical-play experiment; any future functioning-game claim still needs camera/control/device evidence.",
+      "futureSharingLimitations": "No public consumer installation path; no camera or physical-control test performed."
     },
     {
       "id": "kith",
@@ -150,34 +152,48 @@
     {
       "id": "protein-index",
       "name": "Protein Index",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate.",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately.",
       "shareable": false,
-      "repairProgress": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role."
+      "repairProgress": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role.",
+      "latestRelease": {
+        "sourceRevision": "51c0583792f2c7d3aac70efa5e3d8b1f314ec77e",
+        "workerVersion": "ddbfef68-5616-467d-b2ce-44f7b7dab7e3",
+        "deploymentId": "e8676237-c42c-498b-bc34-93413ef341e0",
+        "trafficPercent": 100
+      }
     },
     {
       "id": "everythingrated",
       "name": "EverythingRated",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "Source promises, rubric and sample counts now agree. Deployed homepage/comparison evidence and useful coverage remain to be qualified under #17.",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Hosted guest comparison and all36canonical URLs pass. Rating writes remain unverified; Actions authentication remains #18.",
       "shareable": false,
-      "repairProgress": "53a6bc0 pushed clean; substantive 7ab86fd replaces fabricated previews and unsupported confidence claims with current rubric/data/counts, excludes unrated axes from weighted totals. 28 tests, typecheck and build passed; final exact-head CI and Docs green. README/#17 retains live qualification. Zero prior open issues/PRs to close."
+      "repairProgress": "53a6bc0 pushed clean; substantive 7ab86fd replaces fabricated previews and unsupported confidence claims with current rubric/data/counts, excludes unrated axes from weighted totals. 28 tests, typecheck and build passed; final exact-head CI and Docs green. README/#17 retains live qualification. Zero prior open issues/PRs to close.",
+      "latestRelease": {
+        "sourceRevision": "ffc8884bf368fba20edcf0c1f90a7ff99b1240a4",
+        "workerVersion": "99e2d028-5ea5-4f00-8f07-37a026bde697",
+        "deploymentId": "1fb633db-fd11-4988-9109-7c8da06562b4",
+        "trafficPercent": 100
+      }
     },
     {
       "id": "karte",
       "name": "Karte",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Public profile still serves truncated booking links until deployment; protected creation/editing and fresh AI answer remain unqualified.",
+      "biggestBlocker": "Protected profile creation/editing and fresh AI answer remain unqualified. The isolated browser could not complete the real Turnstile challenge; this does not prove failure for every browser. No synthetic lead/conversation was created. #82 remains open.",
       "shareable": false,
-      "repairProgress": "e7072fc pushed clean; CI 34107483418 and Docs 34107483404 green. Renderer disables incomplete URLs, homepage blog links use Visit website, and section writes reject incomplete URLs. 172 tests and full build pass; #82 retained."
+      "repairProgress": "Approved e7072fc deployed to linkchat Worker 8f4a28c3-db91-40d2-9749-58b0404fa1ab at 100%. Desktop and 390px public profile correctly disables the incomplete booking link, labels three generic destinations Visit website, and renders all three published modes. A real Turnstile checkbox attempt failed verification; Send stayed disabled and no chat request was made. Exact synthetic-email D1 counts were zero before and after."
     },
     {
       "id": "truehire",
       "name": "TrueHire",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "Fabricated verification labels are removed in source. Deployed public copy must be rechecked; the retired marketplace has no qualified acquisition workflow.",
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Recorded owner retirement intent; preserve historical source rather than reviving a generic marketplace.",
       "shareable": false,
-      "repairProgress": "6fb5676 pushed clean. Synthetic sample labels now explicit across Astro homepage/Nextfallback/demo; fabricated2h verification removed; demo activity fixed throughJune2026. Typecheck/lint/Astrobuild and108coretests passed; generatedHTML inspected. Exact CI green. Marketplace remains retired; public deployed copy recheck is outstanding."
+      "repairProgress": "6fb5676 pushed clean. Synthetic sample labels now explicit across Astro homepage/Nextfallback/demo; fabricated2h verification removed; demo activity fixed throughJune2026. Typecheck/lint/Astrobuild and108coretests passed; generatedHTML inspected. Exact CI green. Marketplace remains retired; public deployed copy recheck is outstanding.",
+      "currentWorkDecision": "Recorded owner retirement intent; preserve historical source rather than reviving a generic marketplace.",
+      "futureSharingLimitations": "Fabricated verification labels are removed in source. Deployed public copy must be rechecked; the retired marketplace has no qualified acquisition workflow."
     },
     {
       "id": "nomad-data-adventure",
@@ -217,24 +233,28 @@
     {
       "id": "open-historia",
       "name": "Open Historia",
-      "classification": "Verified defect",
-      "biggestBlocker": "Retired-model mapping is fixed in source. Deployment and two completed live stateful turns remain unverified.",
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention.",
       "shareable": false,
-      "repairProgress": "2026-09-07: Pushed d97de70; 72 tests and exact CI pass. Real turn-route regression covers retired-model mapping and malformed provider output. Deployment and two live stateful turns remain pending."
+      "repairProgress": "2026-09-07: Pushed d97de70; 72 tests and exact CI pass. Real turn-route regression covers retired-model mapping and malformed provider output. Deployment and two live stateful turns remain pending.",
+      "currentWorkDecision": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention.",
+      "futureSharingLimitations": "Retired-model mapping is fixed in source. Deployment and two completed live stateful turns remain unverified."
     },
     {
       "id": "ai-game",
       "name": "AliveVille",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "Hosted Worker restore parity, actual AI conversation and playability remain unqualified; local scripted talk/memory/save/reload now passes.",
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign.",
       "shareable": false,
-      "repairProgress": "dd3bdd9c pushed clean; CI 34111889148 and Docs 34111889253 passed. 477 tests plus built-browser evidence: blocked external fonts preserve the town and movement; duplicate notices collapse and a bounded scrollable log preserves distinct events without covering the objective. Earlier d0e57c1b proves local scripted memory and explicit OPFS save/reload, and holds the world clock during setup. #30 retains live, model and human qualification gates."
+      "repairProgress": "dd3bdd9c pushed clean; CI 34111889148 and Docs 34111889253 passed. 477 tests plus built-browser evidence: blocked external fonts preserve the town and movement; duplicate notices collapse and a bounded scrollable log preserves distinct events without covering the objective. Earlier d0e57c1b proves local scripted memory and explicit OPFS save/reload, and holds the world clock during setup. #30 retains live, model and human qualification gates.",
+      "currentWorkDecision": "Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign.",
+      "futureSharingLimitations": "Hosted Worker restore parity, actual AI conversation and playability remain unqualified; local scripted talk/memory/save/reload now passes."
     },
     {
       "id": "web-playables",
       "name": "Web Playables",
       "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Desktop game upgrade and resumed persistence verified. Fresh onboarding, mobile/touch and YouTube certification unverified; shared external footer deployment still contains retired Journal link.",
+      "biggestBlocker": "Existing save used; fresh onboarding, mobile/touch, full balance and YouTube certification remain unverified. Shared footer assets now exclude retired projects; the game itself was not requalified in this release wave.",
       "shareable": true
     },
     {
@@ -257,8 +277,9 @@
       "id": "site-health",
       "name": "Site Health",
       "classification": "Qualification gap",
-      "biggestBlocker": "Local full check now passes. Publish the canonical catalog and verify the deployed private dashboard; do not confuse local evidence with provider state.",
-      "shareable": false
+      "biggestBlocker": "Private owner dashboard, not an external product. Provider collections, normal historical database receipts and independently onboarded operator setup remain unqualified. File-backed local UI proof does not establish current provider health.",
+      "shareable": false,
+      "repairProgress": "Real local services and canonical file-backed data audited with temporary SQLite. All five areas and desktop/mobile navigation pass without page errors or overflow and with no collection/provider writes. Repaired Projects UI independently filters lifecycle (2 primary/19 active/36 inactive), shareability (22) and resume conditions (0 defined/57 null), combines filters and displays canonical experiment rationale. Actual 390/768/1440 browser assertions pass; response-only synthetic fixture proves non-null condition display. Missing refresh receipts now stay explicit; AI state resolves from actual evidence."
     },
     {
       "id": "ios-landings",
@@ -270,17 +291,21 @@
     {
       "id": "mobile-dev-cockpit",
       "name": "Mobile Dev Cockpit",
-      "classification": "Qualification gap",
-      "biggestBlocker": "Physical private-phone pairing, SecureStore/background/network, full native device workflow and layout/preview/voice acceptance remain in README. Inactive reference lifecycle retained; Actions enablement not performed.",
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Recorded owner retirement/reference intent; preserve pairing source instead of creating a new native adoption task.",
       "shareable": false,
-      "repairProgress": "Source b2c188804af738f4b534c6a3e7909f1a028accde fixes stale socket callbacks, hung replacement handshakes and delayed same-client credential writes. Real local CockpitClient/BridgeServer pair/discover/approval/test/log/reconnect/Forget passed. 69 tests, quality, bridge build and web/iOS JavaScript exports pass. GitHub Actions is disabled; exact head has no CI run."
+      "repairProgress": "Source b2c188804af738f4b534c6a3e7909f1a028accde fixes stale socket callbacks, hung replacement handshakes and delayed same-client credential writes. Real local CockpitClient/BridgeServer pair/discover/approval/test/log/reconnect/Forget passed. 69 tests, quality, bridge build and web/iOS JavaScript exports pass. GitHub Actions is disabled; exact head has no CI run.",
+      "currentWorkDecision": "Recorded owner retirement/reference intent; preserve pairing source instead of creating a new native adoption task.",
+      "futureSharingLimitations": "Physical private-phone pairing, SecureStore/background/network, full native device workflow and layout/preview/voice acceptance remain in README. Inactive reference lifecycle retained; Actions enablement not performed."
     },
     {
       "id": "companion-robot",
       "name": "Companion Robot",
-      "classification": "Qualification gap",
-      "biggestBlocker": "No working hardware/software product to share.",
-      "shareable": false
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Classified from recorded owner ideation-only hardware intent under permission to retain other experiments; no implementation or release target.",
+      "shareable": false,
+      "currentWorkDecision": "Classified from recorded owner ideation-only hardware intent under permission to retain other experiments; no implementation or release target.",
+      "futureSharingLimitations": "No working hardware/software product to share."
     },
     {
       "id": "verified-bases",
@@ -318,16 +343,23 @@
       "id": "saas-maker",
       "name": "SaaS Maker",
       "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction required.",
-      "shareable": true
+      "biggestBlocker": "Public directory and shared projection only. This does not qualify every listed product beyond its stated scope or the separate maker API, inbox and authenticated tooling.",
+      "shareable": true,
+      "repairProgress": "Approved 6508136d deployed to saas-maker-home Pages 021f041d-7f23-4df9-80b1-7092acf6edcd. Ordinary-domain desktop and 390px checks find exactly 21 qualified public entries, Memory Map search/detail navigation and 16 past entries; no horizontal overflow. Shared projects.json, project-strip.js and ai-chat-footer.js exactly match the release build. Actual LoopTV footer excludes Chess, Journal and held experiments."
     },
     {
       "id": "chatgpt-memory-insights",
       "name": "Memory Map",
-      "classification": "Qualification gap",
-      "biggestBlocker": "Hosted deployment and synthetic import remain unverified. Adapter preflight does not recover GPU failures after initialization; large/multilingual archives remain unqualified. Attribution drawer exposes titles/dates, not full transcripts.",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Hosted small synthetic browser-local import/search/save/reload/forget passes. Analytics initialization is repaired and verified live. Large/multilingual/GPU-recovery acceptance remains #37; no broad archive qualification is claimed.",
       "shareable": false,
-      "repairProgress": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass."
+      "repairProgress": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass.",
+      "latestRelease": {
+        "sourceRevision": "0120fdbd70e7457c6b07b150981d33b3f8a457af",
+        "deploymentId": "c9571467-d553-4a15-b801-e2f93f9266d7",
+        "url": "https://c9571467.chatgpt-memory-insights.pages.dev",
+        "coreJourneyRelease": "c02a7506-70a0-4ea7-83d2-436137aa5ef7"
+      }
     },
     {
       "id": "drank",
@@ -348,10 +380,12 @@
     {
       "id": "reel-pipeline",
       "name": "Reel Pipeline",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "Repository-wide source license/usage grant for demonstrated Node pipeline is missing; Rust crate MIT alone does not cover it. Owner license choice is required. Phone/publishing/other variants are outside this bounded local developer example, not prerequisites for its source-tool sharing.",
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Owner explicitly says it is an experiment and does not need sharing. No license choice or release required for retention.",
       "shareable": false,
-      "repairProgress": "Source 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9 corrects documented frozen pnpm10.33.2 install and Node22.16+ requirement. Isolated cached setup passed546Node+68Rust tests and actual Kokoro/Chrome/FFmpeg rates-lesson rerender matched the retained qualified video; exact CI34124384488 and Docs34124384388 passed. Blank evidence source rejection, readable synthetic table and completed browser playback remain verified."
+      "repairProgress": "Source 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9 corrects documented frozen pnpm10.33.2 install and Node22.16+ requirement. Isolated cached setup passed546Node+68Rust tests and actual Kokoro/Chrome/FFmpeg rates-lesson rerender matched the retained qualified video; exact CI34124384488 and Docs34124384388 passed. Blank evidence source rejection, readable synthetic table and completed browser playback remain verified.",
+      "currentWorkDecision": "Owner explicitly says it is an experiment and does not need sharing. No license choice or release required for retention.",
+      "futureSharingLimitations": "Repository-wide source license/usage grant for demonstrated Node pipeline is missing; Rust crate MIT alone does not cover it. Owner license choice is required. Phone/publishing/other variants are outside this bounded local developer example, not prerequisites for its source-tool sharing."
     },
     {
       "id": "materia",
@@ -364,9 +398,15 @@
       "id": "looptv",
       "name": "LoopTV",
       "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Fixes are not deployed; hosted desktop/mobile station verification remains #51.",
+      "biggestBlocker": "No blocker to scoped guest viewing/search. Hosted desktop/mobile acceptance passed and #51 closed; representative-video and synthetic-error limits remain explicit.",
       "shareable": true,
-      "repairProgress": "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass."
+      "repairProgress": "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass.",
+      "latestRelease": {
+        "sourceRevision": "9325870796b41d777be63ad73ece4c6279572398",
+        "run": 34125220328,
+        "url": "https://779ffe6c.looptv.pages.dev",
+        "documentationRevision": "825d342646b3e2f4fa02c34d1a336001484418c5"
+      }
     },
     {
       "id": "swe-interview-prep",
@@ -395,33 +435,47 @@
     {
       "id": "mashup",
       "name": "Mashup",
-      "classification": "Verified defect",
-      "biggestBlocker": "Public MP4 URLs return homepage HTML; checked recovered media bundle awaits deployment. Automatic editorial selection and real creator pilot remain unqualified.",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Public finished-example playback, exact media receipts and corrected desktop/mobile captions pass. Automatic editorial selection, source installation and the real creator/operator pilot remain unqualified under #11.",
       "shareable": false,
-      "repairProgress": "9673d78 pushed clean; CI 34107001659 green. Approved media recovered and hash-checked in local staging, both videos played. Operator-reviewed 36-second synthetic archive export decoded and played; automatic cold-opening rejection preserved. 502 tests pass; #11 retained."
+      "repairProgress": "9673d78 pushed clean; CI 34107001659 green. Approved media recovered and hash-checked in local staging, both videos played. Operator-reviewed 36-second synthetic archive export decoded and played; automatic cold-opening rejection preserved. 502 tests pass; #11 retained.",
+      "latestRelease": {
+        "sourceRevision": "40c03b061d56a21a23116630a4eb7afc9e5df3eb",
+        "deploymentId": "7f6d4f77-fd4c-4bdd-a722-15bc4fe35e66",
+        "url": "https://7f6d4f77.mashup-a6h.pages.dev"
+      }
     },
     {
       "id": "forecast-lab",
       "name": "Forecast Lab",
-      "classification": "Qualification gap",
-      "biggestBlocker": "Fresh public setup and complete bounded bike learning experiment now pass; source-code licensing decision is the remaining sharing gate for that example. Broader domain/product requirements remain paused in #5.",
+      "classification": "Retained; no adoption push required",
+      "biggestBlocker": "Owner explicitly says it is an experiment and does not need sharing. Preserve bounded learning evidence; no license/release task required now.",
       "shareable": false,
-      "repairProgress": "15b7130 pushed clean with green CI. Pinned licensed UCI input, timestamp-correct lags and documented one-hour rolling evaluation; 3406 held-out hours, weekly baseline wMAPE 0.2544 versus calendar/past-demand GBT 0.2085, repeated byte-identically. Seven tests pass. Repair #4 closed; remaining paused work retained in README/#5. Scope is reproducible learning CLI, not domain-validated B2B product. Fresh unauthenticated archive qualification recorded in8b245ad: frozen setup17packages, automatic input download,7tests, byte-identical metrics/predictions and independently recomputed rounded wMAPE. No source license exists; owner choice requested. Temporary checkout/environment/data removed. #5 retains the rights gate."
+      "repairProgress": "15b7130 pushed clean with green CI. Pinned licensed UCI input, timestamp-correct lags and documented one-hour rolling evaluation; 3406 held-out hours, weekly baseline wMAPE 0.2544 versus calendar/past-demand GBT 0.2085, repeated byte-identically. Seven tests pass. Repair #4 closed; remaining paused work retained in README/#5. Scope is reproducible learning CLI, not domain-validated B2B product. Fresh unauthenticated archive qualification recorded in8b245ad: frozen setup17packages, automatic input download,7tests, byte-identical metrics/predictions and independently recomputed rounded wMAPE. No source license exists; owner choice requested. Temporary checkout/environment/data removed. #5 retains the rights gate.",
+      "currentWorkDecision": "Owner explicitly says it is an experiment and does not need sharing. Preserve bounded learning evidence; no license/release task required now.",
+      "futureSharingLimitations": "Fresh public setup and complete bounded bike learning experiment now pass; source-code licensing decision is the remaining sharing gate for that example. Broader domain/product requirements remain paused in #5."
     },
     {
       "id": "sarthakagrawal-personal",
       "name": "Sarthak Agrawal",
       "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked.",
-      "shareable": true
+      "biggestBlocker": "Public publication and navigation qualified; historical benchmark claims were not re-benchmarked and linked products retain their independent limits.",
+      "shareable": true,
+      "repairProgress": "Approved 568ab963 deployed to sarthakagrawal Pages 80d37be0-94f9-49da-b45d-b725f7fe08c5. Actual desktop/390px home, Projects and About navigation pass. Primary-focus copy names CodeVetter and PostTrainLLM; public spotlights only PostTrainLLM and SaaS Maker; directory shows the same 21 qualified names without Chess, Journal or held experiments."
     },
     {
       "id": "reddit-insights",
       "name": "Reddit Insights",
-      "classification": "Product/evidence gap",
-      "biggestBlocker": "Snapshot dates and search routing are fixed in source. Approved deployment and live search/mobile verification remain outstanding.",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim.",
       "shareable": false,
-      "repairProgress": "2026-09-07: Pushed 4e63e2b; full quality, 93-community export and exact CI pass. Search panel no longer receives community navigation, snapshot ages are dated, unavailable routes no longer substitute another corpus. Approved deployment and live search/mobile checks remain."
+      "repairProgress": "2026-09-07: Pushed 4e63e2b; full quality, 93-community export and exact CI pass. Search panel no longer receives community navigation, snapshot ages are dated, unavailable routes no longer substitute another corpus. Approved deployment and live search/mobile checks remain.",
+      "latestRelease": {
+        "sourceRevision": "4e63e2b4abbefda34981e45d5dad35cc33c3b794",
+        "deploymentId": "c574318f-38da-4148-b7a5-6fbe5eb4c15b",
+        "url": "https://c574318f.reddit-insights.pages.dev",
+        "documentationRevision": "3d6c61e40f0c239ff129e84a2efa3d31ce217826"
+      }
     }
   ]
 }

@@ -1,8 +1,10 @@
+import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
 import {
   inactiveProjectState,
   isCurrentProject,
   matchesProjectFilters,
   partitionProjects,
+  projectSharingLabel,
 } from "../lib/project-directory.mjs";
 
 type JsonRecord = Record<string, any>;
@@ -488,7 +490,7 @@ async function renderProjects() {
     awareness.generatedAt,
   ))}`;
   replace("project-summary", element("dl", { class: "portfolio-summary__grid" }, [
-    element("div", {}, [element("dt", {}, ["Current products"]), element("dd", {}, [String(current.length)]), element("small", {}, ["Active P1 and P2 owner scope"])]),
+    element("div", {}, [element("dt", {}, ["Current products"]), element("dd", {}, [String(current.length)]), element("small", {}, ["Primary and active lifecycle"])]),
     element("div", {}, [element("dt", {}, ["With evidence"]), element("dd", {}, [`${measured} / ${current.length}`]), element("small", {}, [`${observedSignals} source observations`])]),
     element("div", {}, [element("dt", {}, ["Needs attention"]), element("dd", {}, [String(needsAttention)]), element("small", {}, ["Measured regression or zero search"])]),
     element("div", {}, [
@@ -514,6 +516,7 @@ async function renderProjects() {
         element("div", { class: "project-directory__kicker" }, [
           element("span", {}, [project.priority ?? "Unranked"]),
           state(project.status ?? lifecycleLabel(project.lifecycle)),
+          element("span", {}, [projectSharingLabel(project)]),
         ]),
         element("h3", {}, [project.name]),
         element("p", {}, [project.description ?? project.domains?.[0] ?? "Private project"]),
@@ -531,7 +534,7 @@ async function renderProjects() {
     element("div", { class: "directory-section-head" }, [
       element("div", {}, [
         element("h2", { id: "current-projects-title" }, ["Current products"]),
-        element("p", {}, ["Operational P1 and P2 identities with portfolio evidence."]),
+        element("p", {}, ["Primary and active identities, independent of priority and shareability."]),
       ]),
       element("span", {}, [`${current.length} products`]),
     ]),
@@ -570,6 +573,7 @@ async function renderProjects() {
           element("div", { class: "project-directory__kicker" }, [
             element("span", {}, [project.priority ?? "Unranked"]),
             state(inactiveProjectState(project)),
+            element("span", {}, [projectSharingLabel(project)]),
           ]),
           element("h3", {}, [project.name]),
           element("p", {}, [project.description ?? "Historical Fleet identity retained in the canonical catalog."]),
@@ -581,7 +585,7 @@ async function renderProjects() {
   const directory = element("div", { class: "project-directory-groups" }, [currentSection, inactiveDetails]);
   directory.append(element("div", { class: "directory-filter-empty", "data-project-filter-empty": "", hidden: "" }, [
     element("strong", {}, ["No projects match these filters."]),
-    element("span", {}, ["Clear the search or choose a broader priority or state."]),
+    element("span", {}, ["Clear the search or choose broader project filters."]),
   ]));
   replace("project-statuses", directory);
   bindProjectFilters(projects);
@@ -591,6 +595,9 @@ function bindProjectFilters(projects: JsonRecord[]) {
   const searchInput = document.querySelector<HTMLInputElement>("[data-project-search]");
   const priority = document.querySelector<HTMLSelectElement>("[data-project-priority]");
   const health = document.querySelector<HTMLSelectElement>("[data-project-health]");
+  const sharing = document.querySelector<HTMLSelectElement>("[data-project-sharing]");
+  const lifecycle = document.querySelector<HTMLSelectElement>("[data-project-lifecycle]");
+  const resume = document.querySelector<HTMLSelectElement>("[data-project-resume]");
   const reset = document.querySelector<HTMLButtonElement>("[data-project-filter-reset]");
   const result = document.querySelector<HTMLElement>("[data-project-result-count]");
   const projectById = new Map(projects.map((project) => [project.id, project]));
@@ -607,6 +614,9 @@ function bindProjectFilters(projects: JsonRecord[]) {
         query,
         priority: priority?.value ?? "",
         health: health?.value ?? "",
+        sharing: sharing?.value ?? "",
+        lifecycle: lifecycle?.value ?? "",
+        resume: resume?.value ?? "",
       }) : false;
       row.hidden = !matches;
       if (matches && row.dataset.projectSection === "current") currentCount += 1;
@@ -616,7 +626,7 @@ function bindProjectFilters(projects: JsonRecord[]) {
     const inactiveDetails = document.querySelector<HTMLDetailsElement>("[data-inactive-projects]");
     const inactiveCountLabel = document.querySelector<HTMLElement>("[data-inactive-visible-count]");
     const revealInactive = Boolean(
-      query || health?.value === "inactive" || priority?.value === "P4",
+      query || health?.value === "inactive" || priority?.value === "P4" || sharing?.value || lifecycle?.value === "inactive" || resume?.value,
     );
     if (currentSection) currentSection.hidden = currentCount === 0;
     if (inactiveDetails) {
@@ -643,10 +653,16 @@ function bindProjectFilters(projects: JsonRecord[]) {
     searchInput.addEventListener("input", apply);
     priority?.addEventListener("change", apply);
     health?.addEventListener("change", apply);
+    sharing?.addEventListener("change", apply);
+    lifecycle?.addEventListener("change", apply);
+    resume?.addEventListener("change", apply);
     reset?.addEventListener("click", () => {
       searchInput.value = "";
       if (priority) priority.value = "";
       if (health) health.value = "";
+      if (sharing) sharing.value = "";
+      if (lifecycle) lifecycle.value = "";
+      if (resume) resume.value = "";
       apply();
       searchInput.focus();
     });
@@ -716,6 +732,8 @@ async function renderAiAwareness() {
     { label: "Average rank", value: value(row.averageRank) },
   ])) : empty("No provider-backed AI evidence"));
   updateCoverage("ai-awareness", payload, ["not-measured"]);
+  const awarenessState = document.querySelector<HTMLElement>("[data-ai-awareness-state]");
+  if (awarenessState) awarenessState.textContent = evidenceStateLabel(payload.source);
   replace("geo-awareness", geo.unavailable
     ? empty("GEO Observatory unavailable")
     : geo.rows.length
@@ -745,8 +763,8 @@ function updateOutcomeTime(payload?: JsonRecord) {
   const blocker = source.failure?.code
     ? ` · ${String(source.failure.code).toLowerCase().replaceAll("_", " ")}`
     : "";
-  const refresh = source.lastAttemptAt ? `refresh ${formatted(source.lastAttemptAt)}` : "no refresh needed";
-  target.textContent = `${source.state} · evidence ${formatted(source.observedAt)} · ${refresh}${blocker}`;
+  const refresh = refreshAttemptLabel(source, formatted);
+  target.textContent = `${evidenceStateLabel(source)} · evidence ${formatted(source.observedAt)} · ${refresh}${blocker}`;
 }
 
 // Infrastructure spend is billed per account, not per product, and the collector records a cost
@@ -848,6 +866,18 @@ async function renderProject() {
   const journeyProviderVerified = ["smart-events-custom", "funnels"].every(
     (id) => clarityCapabilityStates.get(id) === "provider-verified",
   );
+  const sharingDetails = element("section", { class: "profile-section", "aria-label": "Lifecycle and sharing" }, [
+    element("h2", {}, ["Lifecycle and sharing"]),
+    metricGrid([
+      { label: "Development", value: lifecycleLabel(project.lifecycle) },
+      { label: "Sharing", value: projectSharingLabel(project) },
+    ]),
+    element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."]),
+    project.sharingReadiness?.verifiedAt
+      ? element("small", {}, [`Assessed ${shortDate.format(new Date(project.sharingReadiness.verifiedAt))}`]) : null,
+    project.lifecycle?.resumeCondition
+      ? element("p", {}, [element("strong", {}, ["Resume condition: "]), project.lifecycle.resumeCondition]) : null,
+  ]);
   const profileLinks = element("div", { class: "project-profile__links" }, [
     project.websiteUrl ? element("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open website ↗"]) : null,
     project.repositoryUrl ? element("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source ↗"]) : null,
@@ -870,6 +900,7 @@ async function renderProject() {
         element("div", { class: "project-directory__kicker" }, [
           element("span", {}, [project.priority ?? "Unranked"]),
           state(project.status ?? lifecycleLabel(project.lifecycle)),
+          element("span", {}, [projectSharingLabel(project)]),
           state(lifecycleLabel(project.lifecycle)),
         ]),
         element("p", {}, [project.description ?? "Private Fleet product with no public description."]),
@@ -882,6 +913,7 @@ async function renderProject() {
         { label: "Visibility", value: project.repositoryVisibility ?? "Unknown" },
       ]),
     ]),
+    sharingDetails,
     element("section", { class: "profile-section", "aria-labelledby": "site-evidence-title" }, [
       element("div", { class: "section-head" }, [element("div", {}, [
         element("p", { class: "eyebrow" }, ["Five independent sources"]),
@@ -1151,6 +1183,8 @@ async function start() {
     if (connection) connection.dataset.dashboardEvidenceState = "online";
     if (connectionLabel) connectionLabel.textContent = "Live evidence";
   } catch (error) {
+    const awarenessState = document.querySelector<HTMLElement>("[data-ai-awareness-state]");
+    if (awarenessState) awarenessState.textContent = "Unavailable";
     const failure = element("div", { class: "error-state", role: "alert" }, [
       element("strong", {}, ["Site Health unavailable"]),
       element("span", {}, [error instanceof Error ? error.message : "Unknown backend error"]),

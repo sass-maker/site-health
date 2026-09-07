@@ -127,7 +127,8 @@
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-experiment-unpromoted",
+      "retentionDecision": "Held physical-play experiment; any future functioning-game claim still needs camera/control/device evidence."
     },
     {
       "id": "kith",
@@ -381,48 +382,73 @@
     },
     {
       "id": "protein-index",
-      "verdict": "degraded",
-      "shareable": false,
-      "surface": "Food-label discovery reference",
-      "observed": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role.",
-      "limitations": "Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate.",
+      "verdict": "pass",
+      "shareable": true,
+      "surface": "Dated food-label reference",
+      "observed": "Canonical source51c0583792f2c7d3aac70efa5e3d8b1f314ec77e deployed with its exact tag as Worker ddbfef68-5616-467d-b2ce-44f7b7dab7e3 at100% traffic. Hosted1280/390 search/detail distinguish unverified community data from machine-checked label data, with original source and observation date. Root reviewed the source label and mobile detail:26.1g protein and378kcal per100g match; displayed density6.9g/100kcal follows the ratio. No overflow/page errors.",
+      "limitations": "One label sample and one unverified-record path, not full-catalog accuracy or current shopping qualification. Merchant title now differs from the stored product name; dated label evidence matches but retail identity/current-market accuracy is not guaranteed. Canonical and historical alias histories remain separate. No source data or migrations changed.",
       "verifiedAt": "2026-09-07",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "demonstrated-hosted-search-detail-and-original-label-sample",
+      "loggedIn": "not-applicable-to-qualified-public-reference",
+      "presentation": "Hosted desktop/mobile detail screenshots inspected; readable source/authority/date disclosures and no overflow.",
+      "disposition": "keep-experiment",
+      "release": {
+        "sourceRevision": "51c0583792f2c7d3aac70efa5e3d8b1f314ec77e",
+        "workerVersion": "ddbfef68-5616-467d-b2ce-44f7b7dab7e3",
+        "deploymentId": "e8676237-c42c-498b-bc34-93413ef341e0",
+        "trafficPercent": 100
+      },
+      "evidence": [
+        "https://github.com/Significant-Hobbies/protein-index-resilience"
+      ]
     },
     {
       "id": "everythingrated",
-      "verdict": "degraded",
-      "shareable": false,
+      "verdict": "pass",
+      "shareable": true,
       "surface": "Public comparison directory",
-      "observed": "Aider vs Claude Code deep link selected both tools with per-axis ratings and Early Signal labels.",
-      "limitations": "Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review.",
+      "observed": "Source 53a6bc032e0da7b9ede516e53a103e4e6f26a47d deployed as Worker ef424402-21f6-405c-bf39-e2455b44a4d5 at100% traffic. Hosted desktop1440/mobile390 guest comparison shows 24 tools, five actual axes and consistent rater/per-axis counts. Aider/Claude Code selection, changed-weight URL reopening, clear/one-item prompts and zero-weight unavailable totals pass. Root reviewed mobile screenshot; comparison second column is accessible by horizontal scrolling. Follow-up sourceffc8884 metadata release now passes all36sitemap URLs with exact canonical/og:url and repeated mobile comparison.",
+      "limitations": "Small anonymous samples and starter owner opinions, not benchmarks or consensus. Rating writes, independent contributors and real missing-axis fixtures unverified. Actions deployment token unavailable; local documented release succeeded. Canonical metadata is now verified live across36URLs.",
       "verifiedAt": "2026-09-07",
-      "confidence": "medium",
+      "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "demonstrated-hosted-guest-comparison-and-share-link",
+      "loggedIn": "not-applicable-to-qualified-guest-surface; rating-submission-not-verified",
+      "presentation": "Desktop/mobile screenshots inspected; no document overflow, horizontally scrollable comparison.",
+      "disposition": "keep-experiment",
+      "release": {
+        "sourceRevision": "ffc8884bf368fba20edcf0c1f90a7ff99b1240a4",
+        "workerVersion": "99e2d028-5ea5-4f00-8f07-37a026bde697",
+        "deploymentId": "1fb633db-fd11-4988-9109-7c8da06562b4",
+        "trafficPercent": 100
+      },
+      "evidence": [
+        "everythingrated/docs/verification/2026-09-07-release.md"
+      ]
     },
     {
       "id": "karte",
       "verdict": "degraded",
       "shareable": false,
       "surface": "Public profile and inbound desk",
-      "observed": "Published owner profile loads with projects, three generated profile modes, chat panel. Desktop layout is coherent.",
-      "limitations": "Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified.",
+      "observed": "Approved e7072fc deployed to linkchat Worker 8f4a28c3-db91-40d2-9749-58b0404fa1ab at 100%. Desktop and 390px public profile correctly disables the incomplete booking link, labels three generic destinations Visit website, and renders all three published modes. A real Turnstile checkbox attempt failed verification; Send stayed disabled and no chat request was made. Exact synthetic-email D1 counts were zero before and after.",
+      "limitations": "Protected profile creation/editing and fresh AI answer remain unqualified. The isolated browser could not complete the real Turnstile challenge; this does not prove failure for every browser. No synthetic lead/conversation was created. #82 remains open.",
       "verifiedAt": "2026-09-07",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
+      "loggedOut": "public-profile-qualified; fresh-chat-not-qualified",
       "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "presentation": "Hosted desktop and 390px screenshots inspected; readable profile, no page errors or horizontal overflow.",
+      "disposition": "retain-unpromoted",
+      "release": {
+        "source": "e7072fc6171dc4fa926cac1ee846068b4243b370",
+        "providerVersion": "8f4a28c3-db91-40d2-9749-58b0404fa1ab",
+        "workflowRun": "34129473645",
+        "rollbackVersion": "51cc9395-19ce-4992-9ee0-2317cca88840",
+        "evidence": "../../karte/docs/knowledge/audits/2026-09-07-release/README.md"
+      }
     },
     {
       "id": "truehire",
@@ -437,7 +463,8 @@
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "replace-recommended"
+      "disposition": "retain-historical-unpromoted",
+      "retentionDecision": "Recorded owner retirement intent; preserve historical source rather than reviving a generic marketplace."
     },
     {
       "id": "nomad-data-adventure",
@@ -527,7 +554,8 @@
       "loggedOut": "public-surface-inspected",
       "loggedIn": "not-applicable-to-qualified-public-surface",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-experiment-unpromoted",
+      "retentionDecision": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention."
     },
     {
       "id": "ai-game",
@@ -542,7 +570,8 @@
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-experiment-unpromoted",
+      "retentionDecision": "Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign."
     },
     {
       "id": "web-playables",
@@ -550,7 +579,7 @@
       "shareable": true,
       "surface": "Retained idle game",
       "observed": "Live Chrome: purchased $80K CI upgrade; net revenue rose from about $1.03K to $1.99K/day, payroll stayed $900/day. Closed/reopened game retained upgrade and team. Desktop screenshot reviewed.",
-      "limitations": "Existing save used; fresh onboarding, mobile/touch, full balance and YouTube certification remain unverified. External studio footer still includes retired Journal link.",
+      "limitations": "Existing save used; fresh onboarding, mobile/touch, full balance and YouTube certification remain unverified. Shared footer assets now exclude retired projects; the game itself was not requalified in this release wave.",
       "verifiedAt": "2026-09-07",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
@@ -594,15 +623,16 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Private portfolio operations",
-      "observed": "Read canonical catalog, owning repository and fresh GitHub CI evidence. Private operator tool, no public adoption path.",
-      "limitations": "Full private dashboard workflow untested; CI currently fails stale generated dossiers.",
+      "observed": "Real local services and canonical file-backed data audited with temporary SQLite. All five areas and desktop/mobile navigation pass without page errors or overflow and with no collection/provider writes. Repaired Projects UI independently filters lifecycle (2 primary/19 active/36 inactive), shareability (22) and resume conditions (0 defined/57 null), combines filters and displays canonical experiment rationale. Actual 390/768/1440 browser assertions pass; response-only synthetic fixture proves non-null condition display. Missing refresh receipts now stay explicit; AI state resolves from actual evidence.",
+      "limitations": "Private owner dashboard, not an external product. Provider collections, normal historical database receipts and independently onboarded operator setup remain unqualified. File-backed local UI proof does not establish current provider health.",
       "verifiedAt": "2026-09-07",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "presentation": "Actual local desktop/tablet/mobile screenshots reviewed; lifecycle filters/details and all five areas render without overflow.",
+      "disposition": "retain-unpromoted",
+      "evidence": "docs/verification/2026-09-07-lifecycle-ui/README.md"
     },
     {
       "id": "ios-landings",
@@ -632,7 +662,8 @@
       "loggedOut": "not-qualified",
       "loggedIn": "synthetic-local-paired-bridge-qualified; physical-device-not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "replace-recommended"
+      "disposition": "retain-historical-unpromoted",
+      "retentionDecision": "Recorded owner retirement/reference intent; preserve pairing source instead of creating a new native adoption task."
     },
     {
       "id": "companion-robot",
@@ -647,7 +678,8 @@
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-experiment-unpromoted",
+      "retentionDecision": "Classified from recorded owner ideation-only hardware intent under permission to retain other experiments; no implementation or release target."
     },
     {
       "id": "verified-bases",
@@ -712,32 +744,46 @@
     {
       "id": "saas-maker",
       "shareable": true,
-      "verdict": "degraded",
+      "verdict": "pass",
       "surface": "Public directory experiment",
-      "observed": "Directory search for posttrain filters 56 entries to one with source and product links.",
-      "limitations": "Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction required.",
+      "observed": "Approved 6508136d deployed to saas-maker-home Pages 021f041d-7f23-4df9-80b1-7092acf6edcd. Ordinary-domain desktop and 390px checks find exactly 21 qualified public entries, Memory Map search/detail navigation and 16 past entries; no horizontal overflow. Shared projects.json, project-strip.js and ai-chat-footer.js exactly match the release build. Actual LoopTV footer excludes Chess, Journal and held experiments.",
+      "limitations": "Public directory and shared projection only. This does not qualify every listed product beyond its stated scope or the separate maker API, inbox and authenticated tooling.",
       "verifiedAt": "2026-09-07",
-      "confidence": "medium",
+      "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "public-surface-inspected",
+      "loggedOut": "qualified-public-directory-and-shared-projection",
       "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "screenshot-inspected",
-      "disposition": "keep-experiment"
+      "presentation": "Actual hosted desktop and 390px directory screenshots inspected; search, details, navigation and layout pass.",
+      "disposition": "keep-experiment",
+      "release": {
+        "source": "6508136de51d86d9f03bb66cbaa98f5edf0e82a4",
+        "providerDeployment": "021f041d-7f23-4df9-80b1-7092acf6edcd",
+        "rollbackDeployment": "39bfc313-dbe2-4a5b-ab05-296089db30f7"
+      }
     },
     {
       "id": "chatgpt-memory-insights",
-      "shareable": false,
-      "verdict": "not_verified",
+      "shareable": true,
+      "verdict": "pass",
       "surface": "Browser-local import experiment",
-      "observed": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass.",
-      "limitations": "Hosted deployment and synthetic import remain unverified. Adapter preflight does not recover GPU failures after initialization; large/multilingual archives remain unqualified. Attribution drawer exposes titles/dates, not full transcripts.",
+      "observed": "Source3417cca5a1eb13e9e666ed29dda7a2857bd3f741 deployed as Pages c02a7506-70a0-4ea7-83d2-436137aa5ef7. After propagation, ordinary custom-domain assets byte-match the build. Hosted real pinned compact WASM q8 model processed 12 synthetic conversations/questions and two facts in5.971s. Relevant semantic search,390px source attribution, opt-in save, reload/search and forget/empty reload pass. Root reviewed mobile attribution screenshot. Follow-up0120fdb analytics release now serves the repaired bootstrap on the ordinary domain; real SDK initializes without page errors. Config and telemetry requests were intercepted; synthetic archive content was absent from request bodies. #38 closed.",
+      "limitations": "Small synthetic Latin-script archive only; large/multilingual archives, optional generators and post-initialization GPU recovery remain unqualified. Attribution shows titles/dates, not full transcripts. Analytics backend ingestion was not exercised; its real SDK initialization was verified with telemetry intercepted.",
       "verifiedAt": "2026-09-07",
-      "confidence": "medium",
+      "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "real-local-model-import-search-save-reload-forget-qualified; hosted-not-verified",
-      "loggedIn": "not-applicable; browser-local archive",
-      "presentation": "Local report/search and readable source attribution reviewed at desktop and 390px",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "demonstrated-hosted-synthetic-import-semantic-search-save-reload-forget",
+      "loggedIn": "not-applicable; browser-local archive without account",
+      "presentation": "Hosted report/search and readable source attribution reviewed at desktop and390px; no horizontal overflow.",
+      "disposition": "keep-experiment",
+      "release": {
+        "sourceRevision": "0120fdbd70e7457c6b07b150981d33b3f8a457af",
+        "deploymentId": "c9571467-d553-4a15-b801-e2f93f9266d7",
+        "url": "https://c9571467.chatgpt-memory-insights.pages.dev",
+        "coreJourneyRelease": "c02a7506-70a0-4ea7-83d2-436137aa5ef7"
+      },
+      "evidence": [
+        "chatgpt-memory-insights/docs/qualification/2026-09-07/"
+      ]
     },
     {
       "id": "drank",
@@ -782,7 +828,8 @@
       "loggedOut": "local-draft-render-and-playback-verified",
       "loggedIn": "provider-and-publication-not-verified",
       "presentation": "Root visually reviewed five-scene synthetic rates lesson; readable source table and synthetic label, full desktop/mobile browser playback",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-experiment-unpromoted",
+      "retentionDecision": "Owner explicitly says it is an experiment and does not need sharing. No license choice or release required for retention."
     },
     {
       "id": "materia",
@@ -802,17 +849,26 @@
     {
       "id": "looptv",
       "shareable": true,
-      "verdict": "degraded",
+      "verdict": "pass",
       "surface": "Curated video experiment",
-      "observed": "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass.",
-      "limitations": "Fixes are not deployed; hosted desktop/mobile station verification remains #51.",
+      "observed": "Source 9325870796b41d777be63ad73ece4c6279572398 deployed through successful run34125220328 to https://779ffe6c.looptv.pages.dev. Fresh hosted Chromium at1280/390: initial Play, immediate Next and ready Next match actual YouTube title/video identity with advancing playback; pause/resume and immune search/Escape pass. Station strip absent, browsing footer visible, no overflow. Controlled hosted 101/150 errors auto-skip.",
+      "limitations": "Representative videos only; not full-catalog, long-session or physical-device qualification. Error101/150 checks inject a synthetic YouTube API error against hosted code. No account workflow exists.",
       "verifiedAt": "2026-09-07",
-      "confidence": "medium",
+      "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "public-surface-inspected",
+      "loggedOut": "demonstrated-hosted-playback-search-and-controls",
       "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "screenshot-inspected",
-      "disposition": "keep-experiment"
+      "presentation": "Hosted desktop/mobile screenshots reviewed; no station overlap or horizontal overflow.",
+      "disposition": "keep-experiment",
+      "evidence": [
+        "https://github.com/Significant-Hobbies/looptv/blob/825d342646b3e2f4fa02c34d1a336001484418c5/docs/development/hosted-playback-qualification.md"
+      ],
+      "release": {
+        "sourceRevision": "9325870796b41d777be63ad73ece4c6279572398",
+        "run": 34125220328,
+        "url": "https://779ffe6c.looptv.pages.dev",
+        "documentationRevision": "825d342646b3e2f4fa02c34d1a336001484418c5"
+      }
     },
     {
       "id": "swe-interview-prep",
@@ -861,18 +917,26 @@
     },
     {
       "id": "mashup",
-      "shareable": false,
-      "verdict": "fail",
-      "surface": "Public clipping proof",
-      "observed": "Clicked play on public example twice. Video source responds to HEAD but player remains readyState 0, time 0, unknown duration and does not play.",
-      "limitations": "Core local clipping workflow not exercised; reachable media URL alone is not playback proof.",
+      "shareable": true,
+      "verdict": "pass",
+      "surface": "Public finished-edit examples",
+      "observed": "Source40c03b061d56a21a23116630a4eb7afc9e5df3eb deployed as Pages7f6d4f77-fd4c-4bdd-a722-15bc4fe35e66 using the complete approved media bundle. Ordinary public MP4/VTT hashes match approved receipts. Both actual players advance beyond2s with decoded frames at1440/390 and no overflow/media errors. Default native tracks are disabled so burned-in captions do not overlap; optional VTT tracks retain11/4cues. Root reviewed the corrected hosted mobile screenshot.",
+      "limitations": "Qualifies the public finished-example showcase, not a hosted clipping service, automatic editorial selection, public source installation or a real creator pilot. Automated playback was muted; no independent listening or full creator workflow was qualified.",
       "verifiedAt": "2026-09-07",
       "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "demonstrated-hosted-example-playback-and-media-receipts",
+      "loggedIn": "not-applicable-to-qualified-public-showcase",
+      "presentation": "Root inspected corrected hosted mobile video: one readable caption layer, footage and controls visible; desktop/mobile have no document overflow.",
+      "disposition": "keep-experiment",
+      "release": {
+        "sourceRevision": "40c03b061d56a21a23116630a4eb7afc9e5df3eb",
+        "deploymentId": "7f6d4f77-fd4c-4bdd-a722-15bc4fe35e66",
+        "url": "https://7f6d4f77.mashup-a6h.pages.dev"
+      },
+      "evidence": [
+        "mashup/docs/public-proof-release-2026-09-07.md"
+      ]
     },
     {
       "id": "forecast-lab",
@@ -887,37 +951,55 @@
       "loggedOut": "Public archive download and credential-free documented CLI setup/run passed.",
       "loggedIn": "not-applicable: bounded local learning CLI needs no account.",
       "presentation": "Readable terminal metrics table and machine-readable provenance/predictions inspected.",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-experiment-unpromoted",
+      "retentionDecision": "Owner explicitly says it is an experiment and does not need sharing. Preserve bounded learning evidence; no license/release task required now."
     },
     {
       "id": "sarthakagrawal-personal",
       "shareable": true,
-      "verdict": "degraded",
+      "verdict": "pass",
       "surface": "Personal case-study publication",
-      "observed": "Home and PostTrainLLM case study render with architecture, engineering decisions and public source/demo links.",
-      "limitations": "Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked.",
+      "observed": "Approved 568ab963 deployed to sarthakagrawal Pages 80d37be0-94f9-49da-b45d-b725f7fe08c5. Actual desktop/390px home, Projects and About navigation pass. Primary-focus copy names CodeVetter and PostTrainLLM; public spotlights only PostTrainLLM and SaaS Maker; directory shows the same 21 qualified names without Chess, Journal or held experiments.",
+      "limitations": "Public publication and navigation qualified; historical benchmark claims were not re-benchmarked and linked products retain their independent limits.",
       "verifiedAt": "2026-09-07",
-      "confidence": "medium",
+      "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "public-surface-inspected",
+      "loggedOut": "qualified-public-publication",
       "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "Screenshot inspected: readable layout and usable hierarchy on the assessed public surface.",
-      "disposition": "keep-experiment"
+      "presentation": "Hosted desktop and 390px home/projects screenshots inspected; mobile menu and navigation pass with no overflow.",
+      "disposition": "keep-experiment",
+      "release": {
+        "source": "568ab963f33917e2fd8f946851ed2f74bf62c7c0",
+        "providerDeployment": "80d37be0-94f9-49da-b45d-b725f7fe08c5",
+        "workflowRun": "34130129691",
+        "rollbackDeployment": "1b5416b8-260c-4190-84c4-5abc5fde4e9d",
+        "evidence": "../../portfolio/artifacts/releases/2026-09-07/README.md"
+      }
     },
     {
       "id": "reddit-insights",
-      "shareable": false,
-      "verdict": "degraded",
+      "shareable": true,
+      "verdict": "pass",
       "surface": "Subreddit archive experiment",
-      "observed": "Dated corpus boundaries and ranked posts visible. Filled search box and clicked Search repeatedly; input resets and no search result appears.",
-      "limitations": "Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete.",
+      "observed": "Source4e63e2b4abbefda34981e45d5dad35cc33c3b794 deployed as Pages c574318f-38da-4148-b7a5-6fbe5eb4c15b; ordinary custom-domain bytes match release. Hosted1280/390 search retained query and returned25source-linked results; no-results state, keyboard community selection, explicit August8snapshot/age bands, genuine unavailable-community404 and recovery pass with no overflow/page errors. Root reviewed mobile screenshot and independently opened one original Reddit post: title and visible opening excerpt match.",
+      "limitations": "Historical93-community discovery experiment, not live monitoring or a verified complete corpus. Capture provenance and full-corpus fidelity remain incomplete. One source was independently checked; headless direct Reddit access encountered a network-security block while independent public web access resolved it.",
       "verifiedAt": "2026-09-07",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "public-surface-inspected",
-      "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "demonstrated-hosted-historical-search-navigation-and-source-sample",
+      "loggedIn": "not-applicable-to-qualified-public-archive",
+      "presentation": "Hosted1280/390 search screenshots inspected; readable source-linked results and no document overflow.",
+      "disposition": "keep-experiment",
+      "release": {
+        "sourceRevision": "4e63e2b4abbefda34981e45d5dad35cc33c3b794",
+        "deploymentId": "c574318f-38da-4148-b7a5-6fbe5eb4c15b",
+        "url": "https://c574318f.reddit-insights.pages.dev",
+        "documentationRevision": "3d6c61e40f0c239ff129e84a2efa3d31ce217826"
+      },
+      "evidence": [
+        "reddit-insights/docs/release-2026-09-07.md",
+        "https://www.reddit.com/r/AI_Agents/comments/1s7xuw7/you_can_now_give_an_ai_agent_its_own_email_phone/"
+      ]
     }
   ],
   "ownerScope": {
@@ -925,6 +1007,9 @@
     "chess": "Remove from Fleet lineup",
     "journal": "Remove from Fleet lineup",
     "agent-office": "Reconsider",
-    "local-ai-video-studio": "Reconsider"
+    "local-ai-video-studio": "Reconsider",
+    "reel-pipeline": "Retain experiment; sharing not required (latest owner instruction)",
+    "forecast-lab": "Retain experiment; sharing not required (latest owner instruction)",
+    "releaseApproval": "Prepared production releases and corresponding synthetic verification approved; no license changes for retained experiments."
   }
 }

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: reader
-      revision: 09866165252689297718414a55c3eecee7f5956b
+      revision: c9db01b353a9351282e46bc2d30448f590cd50a8
       githubRepository: Significant-Hobbies/reader
       expectedHomepage: https://read.significanthobbies.com
       observedHomepage: https://read.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 6
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: reader
-      revision: 09866165252689297718414a55c3eecee7f5956b
+      revision: c9db01b353a9351282e46bc2d30448f590cd50a8
       githubRepository: Significant-Hobbies/reader
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
@@ -114,7 +114,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reader
-  observedRevision: 09866165252689297718414a55c3eecee7f5956b
+  observedRevision: c9db01b353a9351282e46bc2d30448f590cd50a8
   githubRepository: Significant-Hobbies/reader
   githubHomepageUrl: https://read.significanthobbies.com
   worktree: *a1
@@ -195,7 +195,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -382,8 +382,8 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: tracked
-        local: true
+        source: github-generated
+        local: false
         remote: true
       ownerDisposition:
         status: ignored
@@ -471,7 +471,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Guest/account PDF and article notes pass local create/edit/delete/retry/reopen and delayed A/B checks. Source and strengthened viewport evidence pushed c9db01b353a9351282e46bc2d30448f590cd50a8; exact CI 34118340457 success. Clean cache revalidation retains newer notes; pending saves serialize newer edits/reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, account keys isolate A/B. Full quality: 126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
+  reason: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export.
   changelogUrl: https://read.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/reader/issues
   geoIdentity:

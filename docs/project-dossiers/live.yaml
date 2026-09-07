@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
@@ -199,7 +199,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -364,40 +364,31 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34108841803
+          id: 34118458535
           status: completed
           conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 124ecd779e3d5e05a1eba5088e12ce72c7c952a1
-          createdAt: 2026-09-07T09:57:10Z
-          updatedAt: 2026-09-07T09:57:23Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34108841803
-        ageDays: 0
-      schedule:
-        health: recovered-manually
-        reason: a newer manual run succeeded after the failed scheduled run
-        lastRun:
-          id: 34079347281
-          status: completed
-          conclusion: failure
           event: schedule
           branch: main
-          headSha: c0934cabb019887900dddf0916a53aed217735ac
-          createdAt: 2026-09-07T03:21:02Z
-          updatedAt: 2026-09-07T03:21:14Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34079347281
-        recoveryRun:
-          id: 34108841803
+          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
+          createdAt: 2026-09-07T11:47:48Z
+          updatedAt: 2026-09-07T11:48:05Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34118458535
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 34118458535
           status: completed
           conclusion: success
-          event: workflow_dispatch
+          event: schedule
           branch: main
-          headSha: 124ecd779e3d5e05a1eba5088e12ce72c7c952a1
-          createdAt: 2026-09-07T09:57:10Z
-          updatedAt: 2026-09-07T09:57:23Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34108841803
+          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
+          createdAt: 2026-09-07T11:47:48Z
+          updatedAt: 2026-09-07T11:48:05Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34118458535
         ageDays: 0
+        freshnessDays: 1
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -419,16 +410,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33397866391
+          id: 34128326947
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-31T13:36:09Z
-          updatedAt: 2026-08-31T13:36:53Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33397866391
-        ageDays: 6
+          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
+          createdAt: 2026-09-07T13:36:20Z
+          updatedAt: 2026-09-07T13:37:02Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34128326947
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -518,7 +509,7 @@ sharing:
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
-  reason: "Completed nine choices; generated Scholar result with relevant hobbies and small test plans. Limit: Saving and authenticated history untested."
+  reason: Saving and authenticated history untested.
   changelogUrl: https://live.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/live/issues
   geoIdentity:

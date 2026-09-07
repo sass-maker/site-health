@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: knowledge-base
-      revision: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+      revision: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 10
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: knowledge-base
-      revision: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+      revision: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -113,7 +113,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+  observedRevision: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -166,7 +166,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -466,7 +466,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Gated source protocol 98181c0e0dcc09f67c1a33a7a500fa11598e1f05 passes full quality: 387 Worker tests including 23 actual SQLite/Hono ownership scenarios and 6 dashboard tests; exact CI 34120165885/docs 34120165947 success. New-generation raw/parse/vector ownership supports independent A/B deletion, delayed writers and source visibility. Protocol remains default false; production legacy path unchanged. Limit: Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
+  reason: "Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
   changelogUrl: https://knowledgebase.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/knowledge-base/issues
   geoIdentity:

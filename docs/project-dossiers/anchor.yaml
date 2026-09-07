@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
+      revision: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
+      revision: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -127,7 +127,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
+  observedRevision: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -143,7 +143,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -233,7 +233,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Account isolation repair plus native test/heuristic corrections pushed at 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b. Exact hosted run 34118659206 final gate success: 182 package tests, Mac 14/14, iPhone 7/7 zero failures/skips, watch build success. Actual heuristic diagnostics 8/8 distractions and 4/4 goals; 24 catalog PNGs validated and visually reviewed. Google OAuth start/cancel passed without credentials. Earlier failed run 34116034709 is superseded by this explicit repair and rerun. Limit: Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration."
+  reason: Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration.
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:

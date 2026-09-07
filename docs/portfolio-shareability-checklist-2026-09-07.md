@@ -1,5 +1,7 @@
 # Usability and shareability checklist — remaining 55 projects
 
+Current checkpoint: **22 scoped sharing passes, eight retained without an adoption push, 24 remaining qualification/decision items** across54 projects. Public projection:21. [Current decisions](portfolio-verification-2026-09-07.md) and [approved release receipts](portfolio-release-candidates-2026-09-07.md) supersede the chronological checkpoints below.
+
 Based on the September 7 hands-on audit and subsequent pushed repairs. These are proposed acceptance conditions, not a claim that completing one item guarantees whole-product quality. The original 14 passing verdicts apply only to named public surfaces. Chess and Journal are excluded.
 
 ## Common acceptance bar
@@ -168,6 +170,18 @@ clean public setup, actual audits/save/history/controller/restart and MIT rights
 were verified. Exact CI 34123793244 is green. This raises the current scoped
 count to **17 of 54, with 37 unqualified**; prior counts above are historical.
 Old package defects and hosted/controller/AI variants are not part of this pass.
-Reel Pipeline has a useful local example but still needs a source license;
+Reel Pipeline has a useful local example; public redistribution was not qualified;
 its setup-command/runtime mismatch is corrected at4027d5f with green CI. Memory Map's real local
 semantic workflow passes at 3417cca with green CI, but deployment remains a gate.
+
+## Latest owner scope
+
+The owner approved prepared releases and synthetic verification, and explicitly
+retains Reel Pipeline and Forecast Lab as nonshareable experiments. Under the
+same direction, Companion Robot, AliveVille, Open Historia and Motion remain
+held experiments; TrueHire and Mobile Dev Cockpit remain historical work.
+Their future-sharing limitations are preserved, but they do not require an
+adoption campaign or a license choice merely to remain retained. The current
+54-project accounting is 17 scoped sharing passes, eight retention outcomes
+and 29 remaining qualification or decision items. Office OS and Local AI Video
+Studio remain explicit reconsideration decisions.

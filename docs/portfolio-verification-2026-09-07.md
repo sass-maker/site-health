@@ -1,10 +1,10 @@
 # Portfolio verification — 7 September 2026
 
-**The previous cleanup was not complete.** The old public directory ignored `lifecycle.shareable`, and the migration reused readiness flags. This review independently checked public interactions, source boundaries, GitHub state and a bounded local media render.
+The canonical catalog contains **57 retained identities: 2 primary, 19 active and 36 inactive**. All have exactly `status`, `shareable` and `resumeCondition` in the lifecycle object; every resume condition remains null. Chess and Journal are removed from the lineup; Nomad is active and excluded from this 54-project exercise.
 
-The canonical catalog now has **57 retained records: 2 primary, 19 active, 36 inactive**. Nomad Data Adventure is active. Chess and Journal are removed from the lineup and public projection, with private historical records and infrastructure attribution retained. All resume conditions remain null; no owner conditions were invented.
+**Current 54-project accounting: 22 scoped sharing passes, 8 retention outcomes without an adoption push, and 24 remaining qualification or decision items.** A pass applies only to the described experience. Authentication, native distribution and broader data/model coverage remain separate when unverified. Confidence is qualitative confidence in that bounded verdict.
 
-**14 surfaces currently qualify for sharing**, including experiments and reference publications. A pass applies to the described surface only. It does not qualify private account actions, native distribution, every dataset row, or production integrations. Not-verified is deliberately distinct from a reproduced failure. The companion JSON records guest/account coverage, evidence, confidence and presentation checks for every identity.
+The owner approved prepared releases and synthetic verification, and explicitly retained Reel Pipeline and Forecast Lab as nonshareable experiments. Companion Robot, AliveVille, Open Historia and Motion are also held experiments under the recorded owner intent; TrueHire and Mobile Dev Cockpit remain historical work. Office OS and Local AI Video Studio remain reconsideration decisions. Retention does not erase future-sharing limitations.
 
 ## Use existing products instead
 
@@ -23,112 +23,72 @@ These are product judgments based on the observed Fleet scope and current offici
 
 The strongest additional “replace rather than build” calls are **Office OS, the generic Reader, and the full Local AI Video Studio editor**. Preserve distinctive research or small reusable components where they remain interesting.
 
-## Per-project decision
+## Current per-project decisions
 
-Confidence is qualitative confidence in this stated surface verdict. Low-confidence non-shareable decisions generally reflect unverified access or workflow gaps, not proof of broken software.
+This table is derived from the canonical lifecycle, latest verification JSON and blocker record. It supersedes earlier chronological snapshots.
 
-| Project | Lifecycle | Shareable | Confidence | Surface assessed | Limit or blocker |
+| Project | Lifecycle | Shareable | Confidence | Assessed surface | Current limit or decision |
 | --- | --- | --- | --- | --- | --- |
-| CodeVetter | primary | No | low | Native macOS app | Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md. |
+| CodeVetter | primary | No | low | Native macOS app | Native installed workflow remains unqualified. The visible-process false positive is repaired in merged PR #271; release qualification still requires actual window and upgrade evidence. |
 | HeyPace | active | No | low | macOS assistant | Voice/screen permissions and installed core workflow not exercised. |
 | PostTrainLLM | primary | Yes | high | Browser learning demo | Qualifies for the working browser demo only; native factory and Mac distribution remain unverified. |
-| Site Health | active | No | low | Private portfolio operations | Full private dashboard workflow untested; CI currently fails stale generated dossiers. |
+| Site Health | active | No | low | Private portfolio operations | Private owner dashboard, not an external product. Provider collections, normal historical database receipts and independently onboarded operator setup remain unqualified. File-backed local UI proof does not establish current provider health. |
 | Live | active | Yes | high | Guest hobby quiz | Saving and authenticated history untested. |
-| ChatGPT Connections | active | No | low | Public MCP integrations | No complete external-client tool invocation verified; may be edge access restriction. |
-| SaaS Maker | active | Yes | medium | Public directory experiment | Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction implemented; deployment pending. |
+| ChatGPT Connections | active | Yes | medium | Public read-only MCP API | Public MCP reads qualified by live monitor and independent SDK client. Actual ChatGPT installation and private OAuth/account flows still unverified. |
+| SaaS Maker | active | Yes | high | Public directory experiment | Public directory and shared projection only. This does not qualify every listed product beyond its stated scope or the separate maker API, inbox and authenticated tooling. |
 | GitStat | inactive | Yes | high | Public GitHub analysis | One public profile; private repositories untested. |
-| Reel Pipeline | inactive | No | medium | Local media pipeline | Brand fixture source capture is a mostly blank application shell, so the rendered claim lacks useful visual evidence. Phone hardware, human listening, other variants, full creator workflow and policy-approved publication remain unqualified. Optional command smoke still misclassifies all nonzero exits as skipped. |
-| Mobile Dev Cockpit | inactive | No | low | Private local mobile bridge | No paired device core loop verified. |
-| DRank | inactive | No | low | Shared domain metric history | Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data. |
-| Kinetic | inactive | No | low | Gmail workspace | Mailbox workflow and presentation after sign-in unverified. |
-| Memory Map | inactive | No | low | Browser-local import experiment | Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted. |
-| Free AI | active | No | low | Inference API | No approved service identity used; actual inference unverified; CTA implies self-service that is unavailable. |
-| PSI Swarm | inactive | No | low | Local performance CLI | A real measurement run and intelligible report remain unverified; help output alone is insufficient. |
-| High Signal | active | No | medium | Daily Brief and signal evidence | Working navigation and populated sources; not a claim that the service is down. Needs evidence/claim calibration review before promotion. |
+| Reel Pipeline | inactive | No | medium | Local media pipeline | Owner explicitly says it is an experiment and does not need sharing. No license choice or release required for retention. |
+| Mobile Dev Cockpit | inactive | No | medium | Private local mobile bridge | Recorded owner retirement/reference intent; preserve pairing source instead of creating a new native adoption task. |
+| DRank | inactive | No | medium | Shared domain metric history | Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested. |
+| Kinetic | inactive | No | low | Gmail workspace | Hosted account switching, real OAuth/mail search and model quality remain unverified. |
+| Memory Map | inactive | Yes | high | Browser-local import experiment | Hosted small synthetic browser-local import/search/save/reload/forget passes. Analytics initialization is repaired and verified live. Large/multilingual/GPU-recovery acceptance remains #37; no broad archive qualification is claimed. |
+| Free AI | active | No | low | Inference API | Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery. |
+| PSI Swarm | inactive | Yes | high | Source-installed local performance CLI and controller | Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics. |
+| High Signal | active | No | medium | Daily Brief and signal evidence | Provider recovery, sample/baseline and headline calibration remain unresolved. Latest markets failure was total generation outage after successful ingestion, not a successful publication run. |
 | High Signal Podcasts | inactive | Yes | high | Public podcast evidence search | Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed. |
 | IssuePages | inactive | Yes | high | Read-only public GitHub issue reader | New issue publication not tested or required for retained read-only surface. |
-| EverythingRated | inactive | No | medium | Public comparison directory | Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review. |
+| EverythingRated | inactive | Yes | high | Public comparison directory | Hosted guest comparison and all36canonical URLs pass. Rating writes remain unverified; Actions authentication remains #18. |
 | Research Papers | inactive | Yes | high | Public research reference | Cited synthesis and private research functions untested. |
 | Materia | inactive | Yes | high | Educational reference experiment | One representative path; not clinical validation or personalized treatment qualification. |
-| Knowledge Base | active | No | low | Internal retrieval infrastructure | No public core document workflow. |
-| Significant Hobbies | active | No | low | Private integration Hub | Private summary/sync workflow unverified; guest quiz belongs to Live. |
-| India Standards | inactive | No | low | Hosted aggregate calculator | No calculated result verified; did not bypass verification. |
-| Anime List | active | No | medium | Catalog search in existing signed-in session | Guest workflow and personal tracking unverified; no private content retained. |
-| Chess | inactive | No | high | Browser Stockfish practice | Natural-language coaching requires local bridge; keyboard/drop and click did not move piece, direct drag worked. |
-| LoopTV | inactive | Yes | medium | Curated video experiment | Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked. |
+| Knowledge Base | active | No | medium | Internal retrieval infrastructure | Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow. |
+| Significant Hobbies | active | No | low | Private integration Hub | The local session/return-path defect is repaired. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unqualified. |
+| India Standards | inactive | No | low | Hosted aggregate calculator | Local calculator and aggregate evaluation pass with explicit thin-support limits. Hosted calculator qualification and source usage/NFHS gates remain under #35/#36. |
+| Anime List | active | No | medium | Catalog search in existing signed-in session | Hosted tracking, real login, reload persistence and account isolation need deployment and browser qualification. |
+| LoopTV | inactive | Yes | high | Curated video experiment | No blocker to scoped guest viewing/search. Hosted desktop/mobile acceptance passed and #51 closed; representative-video and synthetic-error limits remain explicit. |
 | Reader | inactive | No | medium | Personal reading library | Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export. |
-| SWE Interview Prep | active | No | low | Learning workspace | Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved. |
+| SWE Interview Prep | active | No | low | Learning workspace | Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified. |
 | Calorie | active | No | low | Native iOS app | No public consumer installation path. |
 | Setline | active | No | low | Native workout app | No public consumer installation path observed. |
-| Journal | inactive | No | low | Native journal | No public consumer installation path. |
 | Kith | inactive | No | low | Native relationship app | No public consumer installation path. |
 | iOS landings | active | No | low | Shared native landing factory | No independent public product workflow; internal dependency can remain active. |
 | RolePatch | inactive | No | medium | Resume keyword tool experiment | 5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified. |
-| Karte | inactive | No | medium | Public profile and inbound desk | Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified. |
-| Starboard | active | Yes | high | Public repository discovery | Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August. |
-| AliveVille | inactive | No | medium | Browser AI town experiment | Local scripted talk, memory, explicit save/reload, blocked-font resilience and bounded notifications now pass. Hosted restore parity, real AI conversation and playability remain unqualified. |
-| Protein Index | inactive | No | medium | Food-label discovery reference | Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met. |
+| Karte | inactive | No | medium | Public profile and inbound desk | Protected profile creation/editing and fresh AI answer remain unqualified. The isolated browser could not complete the real Turnstile challenge; this does not prove failure for every browser. No synthetic lead/conversation was created. #82 remains open. |
+| Starboard | active | Yes | high | Public repository discovery | Public discovery remains scoped-shareable; saved/private workflows remain untested. Scheduled embedding failed401; source auth contract is fixed, but matching operator token provisioning and verified scheduled recovery remain under #107. |
+| AliveVille | inactive | No | medium | Browser AI town experiment | Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign. |
+| Protein Index | inactive | Yes | medium | Dated food-label reference | Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately. |
 | Recipe Index | inactive | Yes | high | Curated vegetarian recipe reference | Publisher macros are not laboratory validation; only representative source checked. |
-| App Health | active | No | low | SDK and telemetry dashboard | Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified. |
-| Mashup | inactive | No | high | Public clipping proof | Core local clipping workflow not exercised; reachable media URL alone is not playback proof. |
-| Motion | inactive | No | low | Native motion game | No public consumer installation path; no camera or physical-control test performed. |
-| TrueHire | inactive | No | medium | Retained hiring research artifact | Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify. |
-| Open Historia | inactive | No | high | Browser strategy experiment | No completed turn; historical map also contains generic factions. No secrets supplied. |
-| Companion Robot | inactive | No | low | Hardware research notes | No working hardware/software product to share. |
-| Forecast Lab | inactive | No | high | Forecasting learning CLI | Fresh unauthenticated source setup, full bike experiment and seven tests pass; output hashes match. Source-code license choice remains pending. Other datasets and commercial forecasting claims remain unqualified. |
-| Web Playables | inactive | No | low | Retained idle game | Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state. |
+| App Health | active | No | low | SDK and telemetry dashboard | Real loopback SDK ingest and dashboard aggregates now pass with truthful fixture labels. External onboarding and production aggregate verification remain under #55. |
+| Mashup | inactive | Yes | high | Public finished-edit examples | Public finished-example playback, exact media receipts and corrected desktop/mobile captions pass. Automatic editorial selection, source installation and the real creator/operator pilot remain unqualified under #11. |
+| Motion | inactive | No | low | Native motion game | Held physical-play experiment; any future functioning-game claim still needs camera/control/device evidence. |
+| TrueHire | inactive | No | medium | Retained hiring research artifact | Recorded owner retirement intent; preserve historical source rather than reviving a generic marketplace. |
+| Open Historia | inactive | No | high | Browser strategy experiment | Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention. |
+| Companion Robot | inactive | No | low | Hardware research notes | Classified from recorded owner ideation-only hardware intent under permission to retain other experiments; no implementation or release target. |
+| Forecast Lab | inactive | No | high | Forecasting research toolkit | Owner explicitly says it is an experiment and does not need sharing. Preserve bounded learning evidence; no license/release task required now. |
+| Web Playables | inactive | Yes | medium | Retained idle game | Existing save used; fresh onboarding, mobile/touch, full balance and YouTube certification remain unverified. Shared footer assets now exclude retired projects; the game itself was not requalified in this release wave. |
 | Look Sideways | active | Yes | high | Documented-path reference | One profile/source checked; full corpus not fact-checked. |
-| Sarthak Agrawal | inactive | Yes | medium | Personal case-study publication | Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked. |
-| Office OS | inactive | No | low | Native AI workplace | Informational surface does not prove an accessible product workflow. |
-| Local AI Video Studio | inactive | No | low | Native video editor | No public installation and editing workflow verified. |
+| Sarthak Agrawal | inactive | Yes | high | Personal case-study publication | Public publication and navigation qualified; historical benchmark claims were not re-benchmarked and linked products retain their independent limits. |
+| Office OS | inactive | No | low | Native AI workplace | Native UI assignment/review workflow remains unqualified because computer-use native pipe failed. Compare recurring work with existing assistants before further product expansion. |
+| Local AI Video Studio | inactive | No | medium | Native video editor | No supported public installation or full creator workflow qualified. Native app built/launched, but computer-use pipe failed before panel inspection; app was stopped. Preserve inactive experiment and evaluate established editors before further expansion. |
 | Field Track | inactive | Yes | high | Explicit synthetic dashboard demo | Demo only; no Android/device/real workforce qualification. |
-| Reddit Insights | inactive | No | medium | Subreddit archive experiment | Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete. |
-| Verified Bases | inactive | No | low | Software marketplace | No usable marketplace inventory or acquisition flow verified. |
+| Reddit Insights | inactive | Yes | medium | Subreddit archive experiment | Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim. |
+| Verified Bases | inactive | No | low | Software marketplace | Retained priced TinyGPT listing has no currently qualified preview/acquisition/delivery; listed preview hostname failed local DNS resolution. Buyer demand and support economics remain unproven. |
 | Anchor | active | No | medium | Native day planner and focus timer | Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration. |
-| Nomad Data Adventure | active | No | low | Local data collection workspace | Dataset rights, reproducible setup, user-facing value and distribution not qualified. |
 
-## Cleanup and release state
+## Evidence and operational limits
 
-- Local source corrections: lifecycle catalog, fail-closed public filtering, lifecycle-aware private directory, SaaS Maker pages/Markdown/project strip, personal-site projections, and Journal removal from Hub promotional surfaces.
-- The August owner narrative archive was preserved; a new dated Nomad quote was appended verbatim. All 57 dossiers are regenerated from catalog and observed repository evidence.
-- Twenty-two unresolved task briefs are preserved in owning READMEs with original issue links and concrete completion criteria. Five issue-based publication/draft records are intentionally retained in place. Transferred requirements are not presented as completed implementations.
-- TrueHire's two-file formatting defect is corrected locally. Free AI's failing dependency gate is traced to transitive `fast-uri` 3.1.5; the advisories specify 3.1.6 as the minimum patched version. No production dependency upgrade has been applied.
-- Deployment audit found 30 target SHA mismatches/unknown tags. Some may be documentation-only drift; source parity is separate from runtime health. No production rollout was performed.
-- CodeVetter is changing concurrently and has distinct unmerged work. High Signal and Anchor each have a nonempty pre-existing stash. Those are preserved; a single-branch/no-stash claim would be false.
-- Commit, push, deployment and final GitHub issue retirement remain pending the explicit authorization required by the supplied AGENTS instructions. Local changes do not make remote Actions green.
+- [Per-project verification JSON](shareability-verification-2026-09-07.json) records guest/account coverage, observed actions, presentation and exact limits.
+- [Cleanup report](cleanup-report.md) separates source checks, deployments, task closure and remaining operational work.
+- [Task inventory](portfolio-task-inventory-2026-09-07.json) retains observation times, open issues, branches, stashes and exact-revision checks. README references do not turn unfinished requirements into completed implementations.
+- [Release record](portfolio-release-candidates-2026-09-07.md) retains the source and provider receipts for approved releases.
 
-Detailed evidence: [verification JSON](shareability-verification-2026-09-07.json), [GitHub/local inventory](portfolio-operational-inventory-2026-09-07.json), and [canonical catalog](../apps/backend/config/projects.json).
-
-## Local validation and audit cleanup
-
-- Canonical evidence coverage: all 57 lifecycle decisions match the verification JSON; migration rerun is idempotent. The first normalization changed JSON formatting only.
-- Site Health: full `pnpm run check` passes: 57 dossier checks, web build, 138 backend tests, 11 AI-engine tests and clean packed-consumer qualification. Installed only the already-locked TypeScript development toolchain to enable this check; no manifest or lockfile change. Nomad retained-history evidence remains explicitly unavailable because its folder has no Git repository.
-- SaaS Maker: all 11 focused showcase/catalog tests pass; 23-page build succeeds; generated public catalog matches Site Health.
-- Personal site: type check has zero errors, warnings or hints; all four contract tests pass; 14-page build succeeds. Both product cards and source cards now derive from the same public projection, which matches SaaS Maker.
-- Significant Hobbies Hub: type generation, typecheck, all 47 tests and deployment dry-run pass. Journal disappears from promotional cards while retained Journal-domain summaries still pass integration tests.
-- TrueHire: lint passes after the two formatting-only corrections.
-- README checks pass for Starboard, SaaS Maker, Free AI and High Signal. Pace's documentation check remains unavailable because its local Blume toolchain is missing. Whitespace checks pass across all 18 touched repositories.
-- Audit-owned browser tabs were closed, both local preview servers stopped, and the synthetic video-render temporary directory removed. No branches or stashes were created by this audit. Pre-existing and concurrent work remains intact.
-
-## Reviewable next batch
-
-1. Commit and push only this audit's catalog, projection, UI/copy, formatting, evidence and README changes. Exclude concurrent SaaS Maker tooling and CodeVetter source/release work. Recheck each current remote head before pushing; never force-push.
-2. Apply the specifically identified Free AI `fast-uri` 3.1.5 → at least 3.1.6 transitive security patch, then rerun its dependency gate and owning tests. No blanket dependency upgrade is proposed.
-3. Deploy the checked public-directory/personal-site/Hub corrections through existing project workflows and verify the live projections and corresponding Actions. Review the other deployment SHA discrepancies individually; documentation drift alone does not justify a rollout.
-4. After the README handoffs are published, retire the corresponding engineering issues and Project items. Preserve the five publication/draft records. Branches containing unique work and both pre-existing stashes need reconciliation rather than deletion.
-
-Fresh account/device/import qualification remains separate work: no missing evidence is counted as a pass.
-
-## Authorized push follow-up
-
-The owner authorized pushing the reviewed changes and continuing blocker repairs. The Significant Hobbies organization profile no longer contains Chess links; Journal was already absent. Source repositories and historical data are preserved. Catalog membership and public projections exclude both removed products.
-
-- Reviewed cleanup commits are pushed; Pace requires a pull request, so its README handoff is in [PR #185](https://github.com/HeyPace/pace/pull/185), with all five checks passing. No branch-protection bypass was attempted.
-- Open Historia: retired default/saved Workers AI model selections now resolve to the supported Llama 3.1 fast variant; 70 tests, typecheck, build, lint and CI pass. A live completed turn remains unverified. [Cloudflare deprecation evidence](https://developers.cloudflare.com/changelog/post/2026-05-08-planned-model-deprecations/).
-- High Signal: removed the false conversion from automated quality scores to “strong evidence.” Editorial confidence stays separate; underlying headline and sample/baseline calibration still blocks promotion. Typecheck, lint, documentation check and CI pass.
-- Free AI: only fast-uri changed, from 3.1.5 to 3.1.7, in an eight-line lockfile diff. Unrelated resolver updates were excluded. Dependency gate reports zero high/critical findings; 242 tests and typecheck pass.
-- SaaS Maker: full 53-test suite and all six package typechecks pass; current CI and Tooling CI pass after removing obsolete proof-set assumptions and empty-list typing.
-- Personal site: full quality pipeline passes, including eight tests, 100% configured GitHub-core coverage, build, agent surfaces and repository hygiene. Remote CI also passes.
-- A browser check still found the old personal-site listing, including Chess. The green push workflow skipped its manual deployment step. Production listings and live model behavior must therefore not be described as updated yet. Manual deployment was not triggered in this push follow-up.
-
-See [all 55 leading blockers](portfolio-biggest-blockers-2026-09-07.md) and [push/Actions receipts](portfolio-push-receipts-2026-09-07.json). Earlier audit findings above remain dated observations; these follow-up receipts supersede earlier pending-push and patch status.
+The entire fleet is not yet green or universally clean. Existing unique branches, stashes and unrelated edits are preserved. Provider credentials, signed-account/device journeys, distribution rights and unresolved product decisions remain explicit rather than being converted into passes.

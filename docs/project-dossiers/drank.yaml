@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: drank
-      revision: fe07a1d87da2e7e663e6a599887d747ed29d8ab4
+      revision: f531e56c2f5715d2c73e54404e9ca042f99e7e48
       githubRepository: sass-maker/drank
       expectedHomepage: https://domains.sassmaker.com
       observedHomepage: https://domains.sassmaker.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: drank
-      revision: fe07a1d87da2e7e663e6a599887d747ed29d8ab4
+      revision: f531e56c2f5715d2c73e54404e9ca042f99e7e48
       githubRepository: sass-maker/drank
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -116,7 +116,7 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: drank
-  observedRevision: fe07a1d87da2e7e663e6a599887d747ed29d8ab4
+  observedRevision: f531e56c2f5715d2c73e54404e9ca042f99e7e48
   githubRepository: sass-maker/drank
   githubHomepageUrl: https://domains.sassmaker.com
   worktree: *a1
@@ -167,7 +167,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -317,7 +317,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Live anonymous Chrome: add owned domain, real proxy lookup and refresh, reload, export and fresh-mobile import preserved exact history. All 45 shared-domain public proxy lookups returned fresh valid results. Source f531e56 fixes reactive personal counts and mobile control labels/bounds; built browser checks passed at 390/1440 px, quality: 80 tests and build passed. Limit: Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested."
+  reason: Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested.
   changelogUrl: https://domains.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/drank/issues
   geoIdentity:

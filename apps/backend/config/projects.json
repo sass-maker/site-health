@@ -61,7 +61,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public download and release metadata inspected; current CI passes but release assets and version claims are being repaired in concurrent work. Limit: Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md."
+          "reason": "Native installed workflow remains unqualified. The visible-process false positive is repaired in merged PR #271; release qualification still requires actual window and upgrade evidence."
         }
       },
       "authModel": "public-persistent",
@@ -122,7 +122,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public v0.3.19 ZIP is reachable; distribution is ad-hoc signed and README identifies Gatekeeper restrictions. Limit: Voice/screen permissions and installed core workflow not exercised."
+          "reason": "Voice/screen permissions and installed core workflow not exercised."
         }
       },
       "authModel": "public-persistent",
@@ -168,7 +168,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Loaded Shakespeare gallery model; clicked Generate; completed in 5.76s at 53.7 tok/s with visible generated text and model-quality limitations. Limit: Qualifies for the working browser demo only; native factory and Mac distribution remain unverified."
+          "reason": "Qualifies for the working browser demo only; native factory and Mac distribution remain unverified."
         }
       },
       "authModel": "public-persistent",
@@ -214,7 +214,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Read canonical catalog, owning repository and fresh GitHub CI evidence. Private operator tool, no public adoption path. Limit: Full private dashboard workflow untested; CI currently fails stale generated dossiers."
+          "reason": "Private owner dashboard, not an external product. Provider collections, normal historical database receipts and independently onboarded operator setup remain unqualified. File-backed local UI proof does not establish current provider health."
         }
       },
       "aliases": [],
@@ -251,7 +251,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Completed nine choices; generated Scholar result with relevant hobbies and small test plans. Limit: Saving and authenticated history untested."
+          "reason": "Saving and authenticated history untested."
         }
       },
       "aliases": [
@@ -315,7 +315,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public MCP API scope qualified:47live checks pass,0fail,1small-dataset pagination skip.Independent SDK client initialized Starboard, listed tools and searched sqlite, returning2useful repositories with source links and pagination. Private OAuth/ChatGPT installation and planned host activation remain unverified; existing hidden listing preserved."
+          "reason": "Public MCP reads qualified by live monitor and independent SDK client. Actual ChatGPT installation and private OAuth/account flows still unverified."
         }
       },
       "aliases": [
@@ -362,7 +362,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Directory search for posttrain filters 56 entries to one with source and product links. Limit: Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction required."
+          "reason": "Public directory and shared projection only. This does not qualify every listed product beyond its stated scope or the separate maker API, inbox and authenticated tooling."
         }
       },
       "authModel": "public-persistent",
@@ -431,7 +431,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Submitted octocat; completed repository and commit analysis with overview and drilldown tabs. Limit: One public profile; private repositories untested."
+          "reason": "One public profile; private repositories untested."
         }
       },
       "authModel": "public-persistent",
@@ -477,7 +477,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9 corrects documented frozen pnpm10.33.2 install and Node22.16+ requirement. Isolated cached setup passed546Node+68Rust tests and actual Kokoro/Chrome/FFmpeg rates-lesson rerender matched the retained qualified video; exact CI34124384488 and Docs34124384388 passed. Blank evidence source rejection, readable synthetic table and completed browser playback remain verified. Limit: Repository-wide source license/usage grant for demonstrated Node pipeline is missing; Rust crate MIT alone does not cover it. Owner license choice is required. Phone/publishing/other variants are outside this bounded local developer example, not prerequisites for its source-tool sharing."
+          "reason": "Owner explicitly says it is an experiment and does not need sharing. No license choice or release required for retention."
         }
       },
       "authModel": "required-service",
@@ -521,7 +521,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source b2c188804af738f4b534c6a3e7909f1a028accde fixes stale socket callbacks, hung replacement handshakes and delayed same-client credential writes. Real local CockpitClient/BridgeServer pair/discover/approval/test/log/reconnect/Forget passed. 69 tests, quality, bridge build and web/iOS JavaScript exports pass. GitHub Actions is disabled; exact head has no CI run. Limit: Physical private-phone pairing, SecureStore/background/network, full native device workflow and layout/preview/voice acceptance remain in README. Inactive reference lifecycle retained; Actions enablement not performed."
+          "reason": "Recorded owner retirement/reference intent; preserve pairing source instead of creating a new native adoption task."
         }
       },
       "authModel": "required-service",
@@ -556,7 +556,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live anonymous Chrome: add owned domain, real proxy lookup and refresh, reload, export and fresh-mobile import preserved exact history. All 45 shared-domain public proxy lookups returned fresh valid results. Source f531e56 fixes reactive personal counts and mobile control labels/bounds; built browser checks passed at 390/1440 px, quality: 80 tests and build passed. Limit: Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested."
+          "reason": "Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested."
         }
       },
       "authModel": "public-persistent",
@@ -605,7 +605,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Opened app; Google sign-in required before core mailbox search. Limit: Mailbox workflow and presentation after sign-in unverified."
+          "reason": "Hosted account switching, real OAuth/mail search and model quality remain unverified."
         }
       },
       "authModel": "required-user",
@@ -650,10 +650,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass. Limit: Hosted deployment and synthetic import remain unverified. Adapter preflight does not recover GPU failures after initialization; large/multilingual archives remain unqualified. Attribution drawer exposes titles/dates, not full transcripts."
+          "reason": "Hosted small synthetic browser-local import/search/save/reload/forget passes. Analytics initialization is repaired and verified live. Large/multilingual/GPU-recovery acceptance remains #37; no broad archive qualification is claimed."
         }
       },
       "authModel": "public-persistent",
@@ -672,7 +672,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -680,11 +680,11 @@
         "listing": "maintained",
         "id": "chatgpt-memory-insights",
         "name": "Memory Map",
-        "description": "Turn a ChatGPT export into a private, browser-computed map of recurring themes, facts, and conversations.",
+        "description": "A browser-local experiment for importing a ChatGPT export, exploring semantic themes and search, and optionally saving analysis on your device.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Significant-Hobbies/chatgpt-memory-insights"
       }
     },
@@ -698,7 +698,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source 555915b9238e3dc1a2830ba47bb0169a9e841f66 repairs Gemini catalog pagination with bounded fixed-origin requests and fail-closed incomplete results. 252 tests/full quality, docs/playground build and exact CI 34120940384/Docs 34120940338 pass. Limit: Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery."
+          "reason": "Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery."
         }
       },
       "authModel": "required-service",
@@ -744,7 +744,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source-installed local developer workflow qualified: clean public source archive/frozen cached install on Node 22, CLI/web builds, real Lighthouse audit/default save and separate-process history passed. CLI two runs plus controller two runs persisted across agent restart and fresh-browser reopen. MIT license and public dependencies verified. Source 6c9b1b8991d50ae47829429d47c240439590cc20 adds receipts/setup guidance and neutral empty-link copy; exact CI 34123793244 passed. Limit: Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics."
+          "reason": "Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics."
         }
       },
       "authModel": "public-persistent",
@@ -790,7 +790,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Signal labels six positive reviews a surge/developer-adoption spike without a comparison baseline; same page shows confidence score 99/Strong evidence and LOW CONFIDENCE. These contradictions affect the evidence-led core promise. Limit: Working navigation and populated sources; not a claim that the service is down. Needs evidence/claim calibration review before promotion."
+          "reason": "Provider recovery, sample/baseline and headline calibration remain unresolved. Latest markets failure was total generation outage after successful ingestion, not a successful publication run."
         }
       },
       "authModel": "public-persistent",
@@ -835,7 +835,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "50 results; receipt supplied speaker, date, transcript context and original episode link. Original publication title/date matched. Limit: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed."
+          "reason": "Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed."
         }
       },
       "authModel": "public-persistent",
@@ -898,7 +898,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Entered microsoft/typescript; rendered current issue list and opened full issue detail. Owner-only publishing scope clearly stated. Limit: New issue publication not tested or required for retained read-only surface."
+          "reason": "New issue publication not tested or required for retained read-only surface."
         }
       },
       "authModel": "public-persistent",
@@ -958,10 +958,10 @@
         "priority": "P4",
         "status": "archived",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Aider vs Claude Code deep link selected both tools with per-axis ratings and Early Signal labels. Limit: Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review."
+          "reason": "Hosted guest comparison and all36canonical URLs pass. Rating writes remain unverified; Actions authentication remains #18."
         }
       },
       "authModel": "public-persistent",
@@ -981,7 +981,7 @@
       "attention": "ignored",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -989,7 +989,7 @@
         "listing": "past",
         "id": "everythingrated",
         "name": "EverythingRated",
-        "description": "Multi-axis ratings for deciding which AI developer tools to adopt.",
+        "description": "A ratings experiment for comparing AI developer tools, with visible small-sample counts and shareable weighting.",
         "repositoryUrl": "https://github.com/High-Signal-App/everythingrated"
       }
     },
@@ -1003,7 +1003,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Searched transformer; returned relevant sourced papers including Attention Is All You Need; original arXiv page resolves with matching title/date. Desktop results are readable and scope is labelled static export. Limit: Cited synthesis and private research functions untested."
+          "reason": "Cited synthesis and private research functions untested."
         }
       },
       "authModel": "public-persistent",
@@ -1048,7 +1048,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Body-part navigation reaches knee condition and Boswellia remedy; evidence is condition-specific, hand OA negative result distinguished, safety and cited sources present; screenshot is readable and polished. MSKCC source resolves. Limit: One representative path; not clinical validation or personalized treatment qualification."
+          "reason": "One representative path; not clinical validation or personalized treatment qualification."
         }
       },
       "authModel": "public-persistent",
@@ -1094,7 +1094,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Gated source protocol 98181c0e0dcc09f67c1a33a7a500fa11598e1f05 passes full quality: 387 Worker tests including 23 actual SQLite/Hono ownership scenarios and 6 dashboard tests; exact CI 34120165885/docs 34120165947 success. New-generation raw/parse/vector ownership supports independent A/B deletion, delayed writers and source visibility. Protocol remains default false; production legacy path unchanged. Limit: Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
+          "reason": "Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
         }
       },
       "authModel": "required-service",
@@ -1161,7 +1161,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Local source qualification at Hub 3cd97827 and Live b7a47863 passes actual test-provider sessions, two-account summary isolation, expiry/revocation, unavailable-auth and visible login/retry. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unverified; keep not shareable."
+          "reason": "The local session/return-path defect is repaired. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unqualified."
         }
       },
       "aliases": [
@@ -1220,7 +1220,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Estimate displayed hosted model verification failure and human-verification requirement; usage scope labeled under review. Limit: No calculated result verified; did not bypass verification."
+          "reason": "Local calculator and aggregate evaluation pass with explicit thin-support limits. Hosted calculator qualification and source usage/NFHS gates remain under #35/#36."
         }
       },
       "authModel": "public-persistent",
@@ -1269,7 +1269,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Searched Cowboy Bebop; two results; opened detailed episode/synopsis page. Limit: Guest workflow and personal tracking unverified; no private content retained."
+          "reason": "Hosted tracking, real login, reload persistence and account isolation need deployment and browser qualification."
         }
       },
       "authModel": "public-persistent",
@@ -1385,7 +1385,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass. Limit: Fixes are not deployed; hosted desktop/mobile station verification remains #51."
+          "reason": "No blocker to scoped guest viewing/search. Hosted desktop/mobile acceptance passed and #51 closed; representative-video and synthetic-error limits remain explicit."
         }
       },
       "authModel": "public-persistent",
@@ -1431,7 +1431,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Guest/account PDF and article notes pass local create/edit/delete/retry/reopen and delayed A/B checks. Source and strengthened viewport evidence pushed c9db01b353a9351282e46bc2d30448f590cd50a8; exact CI 34118340457 success. Clean cache revalidation retains newer notes; pending saves serialize newer edits/reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, account keys isolate A/B. Full quality: 126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
+          "reason": "Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
         }
       },
       "authModel": "public-persistent",
@@ -1491,7 +1491,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Existing signed-in learning dashboard renders and links concept, drill and practice. API Design lesson includes a mental model, mistakes, original sources and review prompts. Limit: Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved."
+          "reason": "Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified."
         }
       },
       "authModel": "public-persistent",
@@ -1551,7 +1551,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live landing explicitly states internal TestFlight only, no public invite or App Store listing. Limit: No public consumer installation path."
+          "reason": "No public consumer installation path."
         }
       },
       "name": "Calorie",
@@ -1597,7 +1597,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live landing says iPhone in development and not on App Store; offers source and static explanation. Limit: No public consumer installation path observed."
+          "reason": "No public consumer installation path observed."
         }
       },
       "name": "Setline",
@@ -1692,7 +1692,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live landing states internal TestFlight only, latest processed build 3/source 7, no public enrollment. Limit: No public consumer installation path."
+          "reason": "No public consumer installation path."
         }
       },
       "name": "Kith",
@@ -1739,7 +1739,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Read factory README and product-specific live landing outputs; intended infrastructure for owned native apps. Limit: No independent public product workflow; internal dependency can remain active."
+          "reason": "No independent public product workflow; internal dependency can remain active."
         }
       },
       "name": "iOS landings",
@@ -1782,7 +1782,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Synthetic resume/JD analysis runs and identifies matching TypeScript/PostgreSQL and missing Kubernetes keywords; result layout inspected. Limit: 5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified."
+          "reason": "5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified."
         }
       },
       "authModel": "public-persistent",
@@ -1827,7 +1827,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Published owner profile loads with projects, three generated profile modes, chat panel. Desktop layout is coherent. Limit: Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified."
+          "reason": "Protected profile creation/editing and fresh AI answer remain unqualified. The isolated browser could not complete the real Turnstile challenge; this does not prove failure for every browser. No synthetic lead/conversation was created. #82 remains open."
         }
       },
       "authModel": "public-persistent",
@@ -1883,7 +1883,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Search returned networkx first; detail loaded metadata, detected pytest/GitHub Actions, star history and similar projects. Limit: Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August."
+          "reason": "Public discovery remains scoped-shareable; saved/private workflows remain untested. Scheduled embedding failed401; source auth contract is fixed, but matching operator token provisioning and verified scheduled recovery remain under #107."
         }
       },
       "authModel": "public-personalized",
@@ -1943,7 +1943,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Generated labelled Lanternmere demo, selected Wanderer, rendered six-NPC 3D town at116FPS. Town reached fallen state while inspecting setup. Closed tab to stop local simulation. Limit: No useful talk/memory loop completed; no explicit save clicked; not qualified merely by3D rendering."
+          "reason": "Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign."
         }
       },
       "aliases": [
@@ -2002,10 +2002,10 @@
         "priority": "P4",
         "status": "archived",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role. Limit: Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate."
+          "reason": "Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately."
         }
       },
       "authModel": "public-persistent",
@@ -2020,12 +2020,12 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Inactive reference; no reactivation or deployment performed. The sourcePath checkout tracks historical alias Significant-Hobbies/protein-index. Canonical public source Significant-Hobbies/protein-index-resilience now contains the nutrition evidence repairs at 51c0583 with green CI; its existing automation differs from the retired alias. Production source revision remains unverified.",
+      "notes": "Inactive dated reference. The sourcePath checkout preserves historical alias Significant-Hobbies/protein-index; canonical public source is Significant-Hobbies/protein-index-resilience. Approved production release now has exact tag51c0583792f2c7d3aac70efa5e3d8b1f314ec77e at100% traffic. The prior production Git revision was unknown. Distinct source histories and automation remain preserved.",
       "name": "Protein Index",
       "attention": "ignored",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2037,7 +2037,7 @@
         "listing": "past",
         "id": "protein-index",
         "name": "Protein Index",
-        "description": "Searchable protein and nutrition reference.",
+        "description": "Explore dated nutrition records with original label links, observation dates and explicit verification limits.",
         "repositoryUrl": "https://github.com/Significant-Hobbies/protein-index-resilience"
       }
     },
@@ -2051,7 +2051,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Tofu search narrowed 50 to 13; published Easy Tofu Scramble source resolves and exactly matches 18g protein/159kcal, derived11.3g per100kcal. Readable desktop table. Limit: Publisher macros are not laboratory validation; only representative source checked."
+          "reason": "Publisher macros are not laboratory validation; only representative source checked."
         }
       },
       "authModel": "public-persistent",
@@ -2099,7 +2099,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Documented local populated demo starts successfully; four route rows, latency/error metrics and collection-transparency view work. Limit: Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified."
+          "reason": "Real loopback SDK ingest and dashboard aggregates now pass with truthful fixture labels. External onboarding and production aggregate verification remain under #55."
         }
       },
       "authModel": "required-service",
@@ -2143,10 +2143,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Clicked play on public example twice. Video source responds to HEAD but player remains readyState 0, time 0, unknown duration and does not play. Limit: Core local clipping workflow not exercised; reachable media URL alone is not playback proof."
+          "reason": "Public finished-example playback, exact media receipts and corrected desktop/mobile captions pass. Automatic editorial selection, source installation and the real creator/operator pilot remain unqualified under #11."
         }
       },
       "authModel": "public-persistent",
@@ -2165,13 +2165,17 @@
       "attention": "foundry",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/mashup",
       "public": {
-        "listing": "hidden"
+        "listing": "past",
+        "id": "mashup",
+        "name": "Mashup",
+        "description": "Two playable examples of a local media-editing pipeline, with captions and inspectable source and approval receipts.",
+        "repositoryUrl": "https://github.com/sass-maker/mashup"
       }
     },
     {
@@ -2184,7 +2188,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live landing states held internal prototype, no public invite or App Store listing; control feel and fun unproven. Limit: No public consumer installation path; no camera or physical-control test performed."
+          "reason": "Held physical-play experiment; any future functioning-game claim still needs camera/control/device evidence."
         }
       },
       "authModel": "public-persistent",
@@ -2231,7 +2235,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Landing explicitly archived with no signup and sample profile. Limit: Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify."
+          "reason": "Recorded owner retirement intent; preserve historical source rather than reviving a generic marketplace."
         }
       },
       "authModel": "public-persistent",
@@ -2273,7 +2277,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Opened sourced WWII example, selected UK, queued one humanitarian diplomacy order and advanced; Game Master failed with deprecated Cloudflare model error. Limit: No completed turn; historical map also contains generic factions. No secrets supplied."
+          "reason": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention."
         }
       },
       "authModel": "public-persistent",
@@ -2315,7 +2319,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "README states hardware not ordered and no code shipped. Limit: No working hardware/software product to share."
+          "reason": "Classified from recorded owner ideation-only hardware intent under permission to retain other experiments; no implementation or release target."
         }
       },
       "name": "Companion Robot",
@@ -2355,7 +2359,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Fresh unauthenticated public archive15b7130f: documented frozen uv setup, automatic pinned-data download, full bike experiment and7tests pass; outputs byte-match prior receipt. CLI results/provenance reviewed and metrics independently recomputed. Source-code license is absent; owner license decision remains pending. Scoped learning example only, not other datasets or a commercial forecasting service."
+          "reason": "Owner explicitly says it is an experiment and does not need sharing. Preserve bounded learning evidence; no license/release task required now."
         }
       },
       "name": "Forecast Lab",
@@ -2395,7 +2399,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live desktop experiment qualified: CI upgrade increased net revenue from about $1.03K to $1.99K/day; closed and reopened game retained upgrade and team; illustrated desktop layout reviewed. Scope excludes fresh onboarding, mobile/touch and YouTube certification. External studio footer still needs retired-link deployment refresh."
+          "reason": "Existing save used; fresh onboarding, mobile/touch, full balance and YouTube certification remain unverified. Shared footer assets now exclude retired projects; the game itself was not requalified in this release wave."
         }
       },
       "name": "Web Playables",
@@ -2437,7 +2441,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Opened Bonnie Tyler profile with age-relative milestone, context and source links; original Wikipedia page resolved. Explicit survivor/outlier limitations and as-of 2025 position. Desktop layout presentable. Limit: One profile/source checked; full corpus not fact-checked."
+          "reason": "One profile/source checked; full corpus not fact-checked."
         }
       },
       "authModel": "public-persistent",
@@ -2485,7 +2489,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Home and PostTrainLLM case study render with architecture, engineering decisions and public source/demo links. Limit: Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked."
+          "reason": "Public publication and navigation qualified; historical benchmark claims were not re-benchmarked and linked products retain their independent limits."
         }
       },
       "aliases": [
@@ -2539,7 +2543,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Live site explicitly labels working local Mac POC, no public download or checkout; workday is illustrative. Limit: Informational surface does not prove an accessible product workflow."
+          "reason": "Native UI assignment/review workflow remains unqualified because computer-use native pipe failed. Compare recurring work with existing assistants before further product expansion."
         }
       },
       "aliases": [
@@ -2593,7 +2597,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Source 8c9f345f4a87b6cef4a55924896de1e8100a7fa3 corrects five misleading ready-effect claims: crossfade/audio normalization are unsupported fallbacks, blur affects the whole frame, and flash/zoom are timed rather than audio-reactive. One readiness note feeds catalog, plan warnings and inspector; real AVFoundation export records fallback degradation. Full quality passes 74 tests; exact Native CI 34122300862 and Site 34122300774 pass. Limit: No supported public installation or full creator workflow qualified. Native app built/launched, but computer-use pipe failed before panel inspection; app was stopped. Preserve inactive experiment and evaluate established editors before further expansion."
+          "reason": "No supported public installation or full creator workflow qualified. Native app built/launched, but computer-use pipe failed before panel inspection; app was stopped. Preserve inactive experiment and evaluate established editors before further expansion."
         }
       },
       "authModel": "public-persistent",
@@ -2644,7 +2648,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Searched Meera; opened matching roster detail and route metrics. Limit: Demo only; no Android/device/real workforce qualification."
+          "reason": "Demo only; no Android/device/real workforce qualification."
         }
       },
       "authModel": "public-persistent",
@@ -2687,10 +2691,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Dated corpus boundaries and ranked posts visible. Filled search box and clicked Search repeatedly; input resets and no search result appears. Limit: Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete."
+          "reason": "Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim."
         }
       },
       "authModel": "public-persistent",
@@ -2723,7 +2727,7 @@
       "attention": "foundry",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2733,7 +2737,11 @@
         "domainCoverage": true
       },
       "public": {
-        "listing": "hidden"
+        "listing": "past",
+        "id": "reddit-insights",
+        "name": "Reddit Insights",
+        "description": "Search a dated snapshot of 93 Reddit communities in your browser, with links to original posts and explicit provenance limits.",
+        "repositoryUrl": "https://github.com/High-Signal-App/research-subreddit"
       }
     },
     {
@@ -2746,7 +2754,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "README identifies empty first-base inventory and unfinished launch. Limit: No usable marketplace inventory or acquisition flow verified."
+          "reason": "Retained priced TinyGPT listing has no currently qualified preview/acquisition/delivery; listed preview hostname failed local DNS resolution. Buyer demand and support economics remain unproven."
         }
       },
       "authModel": "public-persistent",
@@ -2782,7 +2790,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Account isolation repair plus native test/heuristic corrections pushed at 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b. Exact hosted run 34118659206 final gate success: 182 package tests, Mac 14/14, iPhone 7/7 zero failures/skips, watch build success. Actual heuristic diagnostics 8/8 distractions and 4/4 goals; 24 catalog PNGs validated and visually reviewed. Google OAuth start/cancel passed without credentials. Earlier failed run 34116034709 is superseded by this explicit repair and rerun. Limit: Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration."
+          "reason": "Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration."
         }
       },
       "name": "Anchor",
@@ -2830,7 +2838,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Found nomads-data containing collection scripts and generated city data; no Git repository or README. Owner explicitly requested active inclusion. Limit: Dataset rights, reproducible setup, user-facing value and distribution not qualified."
+          "reason": "Dataset rights, reproducible setup, user-facing value and distribution not qualified."
         }
       },
       "authModel": "local-only",
@@ -3174,7 +3182,8 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-28",
-        "latestCommitAt": "2026-09-07"
+        "latestCommitAt": "2026-09-07",
+        "description": "A browser-local experiment for importing a ChatGPT export, exploring semantic themes and search, and optionally saving analysis on your device."
       },
       "free-ai": {
         "makerNote": "I built Free AI to make genuinely useful free model capacity easier to discover and use through one resilient interface.",
@@ -3302,12 +3311,12 @@
       "everythingrated": {
         "makerNote": "I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.",
         "purposeContract": {
-          "purpose": "EverythingRated helps developers decide which AI development library to adopt by making the important trade-offs visible axis by axis.",
+          "purpose": "EverythingRated makes anonymous opinions about AI developer tools visible axis by axis.",
           "audience": "Developers and technical operators comparing AI development tools for real projects.",
-          "outcome": "Choose an AI library with a clearer view of maintenance, community, license, API stability, footprint, and model portability.",
-          "mechanism": "Anonymous multi-axis ratings, weighted comparisons, confidence counts, and moderated tool submissions focus one directory on adoption decisions.",
-          "proof": "The live surface compares 24 AI development libraries; the broader rate-anything concept and other seeded directories are deliberately parked.",
-          "nextAction": "Compare AI development tools or rate one yourself; broader directory expansion waits for adoption traffic or moderation evidence."
+          "outcome": "Inspect trade-offs across Speed, Accuracy, Cost, Ergonomics and Integration depth, with the sample size visible.",
+          "mechanism": "A public directory combines per-axis rating counts with weighted comparison links; unrated axes remain visibly unavailable.",
+          "proof": "The hosted guest comparison covers a 24-tool directory with five axes. Initial owner ratings and small samples are early opinions, not benchmarks or consensus.",
+          "nextAction": "Compare tools, inspect the per-axis evidence counts, and share a weighted comparison as an experiment. Rating submission is outside the verified guest workflow."
         },
         "form": "Ratings experiment",
         "platforms": [
@@ -3320,7 +3329,8 @@
           "D1"
         ],
         "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-09-07"
+        "latestCommitAt": "2026-09-07",
+        "description": "A ratings experiment for comparing AI developer tools, with visible small-sample counts and shareable weighting."
       },
       "research-papers": {
         "makerNote": "I wanted one large, searchable research library where retrieval could help me understand what already exists in a market.",
@@ -3512,7 +3522,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-04-04",
-        "latestCommitAt": "2026-09-06",
+        "latestCommitAt": "2026-09-07",
         "description": "An experimental lean-back queue of curated science and other videos."
       },
       "reader": {
@@ -3769,10 +3779,10 @@
         "purposeContract": {
           "purpose": "Protein Index was built to catalogue and compare protein products available in India using trustworthy nutrition data.",
           "audience": "Indian shoppers comparing packaged protein sources on nutrition, price, and practical fit.",
-          "outcome": "Choose among products using a consistent searchable reference instead of scattered marketing claims.",
+          "outcome": "Inspect recorded nutrition alongside its source, observation date and verification authority.",
           "mechanism": "A product catalogue normalizes nutrition and comparison fields across available Indian protein products.",
-          "proof": "The product structure exists, but authoritative and affordable market data is not available enough for current coverage.",
-          "nextAction": "Use the retained reference cautiously; reopen active work only when reliable product data can support an honest catalogue."
+          "proof": "Hosted search and detail expose dated source and authority labels; one original nutrition label and its density calculation were independently checked. This does not verify the entire catalogue.",
+          "nextAction": "Explore dated records and inspect original labels; current product identity and packaging require separate verification."
         },
         "form": "Data API and web app",
         "platforms": [
@@ -3786,7 +3796,8 @@
           "D1"
         ],
         "firstCommitAt": "2026-07-15",
-        "latestCommitAt": "2026-09-07"
+        "latestCommitAt": "2026-09-07",
+        "description": "Explore dated nutrition records with original label links, observation dates and explicit verification limits."
       },
       "veg-protein-food": {
         "makerNote": "I wanted a practical collection of higher-protein recipes that works with ingredients people actually use in Indian kitchens.",
@@ -3842,7 +3853,7 @@
           "outcome": "Find, approve, sequence, and render useful clips without losing source provenance or editorial control.",
           "mechanism": "A local pipeline combines archive analysis, clipping, editable EDLs, source receipts, approval boundaries, and deterministic rendering.",
           "proof": "The first public Startups proof assembles a source-faithful 47-second argument from four beats across three Creative Commons podcast episodes, with captions and media receipts.",
-          "nextAction": "Use the local tool on a larger approved channel archive and judge whether repeated multi-episode edits sustain the same editorial quality."
+          "nextAction": "Watch the public examples and inspect their source receipts. The local operator workflow and creator pilot remain separate from this showcase."
         },
         "form": "Local media tool with public proof",
         "platforms": [
@@ -3856,7 +3867,7 @@
           "Astro",
           "Cloudflare Pages"
         ],
-        "description": "A local-first tool that turns owned media archives into inspectable multi-clip edits.",
+        "description": "Two playable examples of a local media-editing pipeline, with captions and inspectable source and approval receipts.",
         "firstCommitAt": "2026-07-25",
         "latestCommitAt": "2026-09-07"
       },
@@ -4143,7 +4154,7 @@
           "Cloudflare Workers",
           "R2"
         ],
-        "description": "A bounded research collector for subreddit evidence and recurring insight snapshots.",
+        "description": "Search a dated snapshot of 93 Reddit communities in your browser, with links to original posts and explicit provenance limits.",
         "firstCommitAt": "2026-08-07",
         "latestCommitAt": "2026-09-07"
       },

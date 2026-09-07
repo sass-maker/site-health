@@ -1,8 +1,29 @@
 # Reviewed source candidates and remaining live qualification
 
+## Current approved release receipts
+
+The following actual deployments supersede the earlier candidate notes below. Documentation-only follow-up commits do not require a runtime redeployment. Every promotion remains scoped to the inspected experience.
+
+| Project | Runtime source | Current provider receipt | Actual acceptance / limit |
+| --- | --- | --- | --- |
+| LoopTV | `9325870796b41d777be63ad73ece4c6279572398` | Pages `779ffe6c`; Actions34125220328 | Desktop/mobile playback, Next, title agreement, search and pause/resume pass; representative catalog only. [Receipt](../../looptv/docs/development/hosted-playback-qualification.md). |
+| EverythingRated | `ffc8884bf368fba20edcf0c1f90a7ff99b1240a4` | Worker `99e2d028-5ea5-4f00-8f07-37a026bde697`, 100% | Guest weights/comparison and 36 canonical routes pass; small anonymous opinion samples, not benchmarks. Actions deployment still lacks its token (#18); authenticated local release succeeded. [Receipt](../../everythingrated/docs/verification/2026-09-07-release.md). |
+| Memory Map | `0120fdbd70e7457c6b07b150981d33b3f8a457af` | Pages `c9571467-d553-4a15-b801-e2f93f9266d7` | Real hosted MiniLM import/search/save/reload/forget passed on prior core release; analytics-only follow-up verified actual SDK loading. Small synthetic archive only. [Receipt](../../chatgpt-memory-insights/docs/qualification/2026-09-07/hosted/README.md). |
+| Reddit Insights | `4e63e2b4abbefda34981e45d5dad35cc33c3b794` | Pages `c574318f-38da-4148-b7a5-6fbe5eb4c15b` | Desktop/mobile dated snapshot search, navigation and genuine unavailable-community recovery pass; historical discovery, incomplete capture provenance. [Receipt](../../reddit-insights/docs/release-2026-09-07.md). |
+| Mashup | `40c03b061d56a21a23116630a4eb7afc9e5df3eb` | Pages `7f6d4f77-fd4c-4bdd-a722-15bc4fe35e66` | Both finished examples play on desktop/mobile; selectable captions no longer duplicate burned captions. Full media bundle retained; clipping service and creator pilot unqualified. [Receipt](../../mashup/docs/public-proof-release-2026-09-07.md). |
+| Protein Index | `51c0583792f2c7d3aac70efa5e3d8b1f314ec77e` | Worker `ddbfef68-5616-467d-b2ce-44f7b7dab7e3`, 100% | Canonical resilience repository deployed. Actual human/machine/unverified distinctions and dated label basis pass; current merchant identity and market reliability not guaranteed. [Receipt](https://github.com/Significant-Hobbies/protein-index-resilience/blob/main/docs/operations/release-2026-09-07.md). |
+| Karte | `e7072fc6171dc4fa926cac1ee846068b4243b370` | Worker `8f4a28c3-db91-40d2-9749-58b0404fa1ab`, 100%; Actions34129473645 | Public links/modes pass. Real Turnstile attempt failed, no chat POST or lead; remains nonshareable (#82). [Receipt](../../karte/docs/knowledge/audits/2026-09-07-release/README.md). |
+| SaaS Maker | `6508136de51d86d9f03bb66cbaa98f5edf0e82a4` | Pages `021f041d-7f23-4df9-80b1-7092acf6edcd` | Exactly21 public IDs, desktop/mobile search/profile/filter and byte-exact shared footer assets pass. [Receipt](../../saas-maker/docs/releases/2026-09-07-public-directory/README.md). |
+| Personal portfolio | `568ab963f33917e2fd8f946851ed2f74bf62c7c0` | Pages `80d37be0-94f9-49da-b45d-b725f7fe08c5`; Actions34130129691 | Correct primary focus, qualified spotlights and21-entry projection; desktop/mobile navigation pass. [Receipt](../../portfolio/artifacts/releases/2026-09-07/README.md). |
+
+Reel Pipeline, Forecast Lab, Companion Robot, AliveVille, Open Historia, Motion, TrueHire and Mobile Dev Cockpit are retained without a release/adoption requirement. Earlier candidate journeys for them are future-sharing limitations, not active release tasks.
+
+## Historical candidate preparation
+
+
 Initial observation 2026-09-07T10:22:06.702659+00:00; selected source receipts updated later on September 7. Each row retains its exact revision/check.
 
-These source revisions have successful exact-commit CI in their named GitHub observations; this is not a current-head inventory. This is a review list, not deployment authorization, provider parity proof or a claim that every listed project is ready to share. Recheck the selected head, owning release instructions, pending migrations and target immediately before an approved one-project rollout. Workflow filenames below identify existing entry points only; their inputs and effects must be inspected before execution.
+These source revisions have successful exact-commit CI in their named GitHub observations; this is not a current-head inventory. This is a review list, not provider parity proof or a claim that every listed project is ready to share. The owner subsequently approved prepared releases; per-project preflight still applies. Recheck the selected head, owning release instructions, pending migrations and target immediately before an approved one-project rollout. Workflow filenames below identify existing entry points only; their inputs and effects must be inspected before execution.
 
 | Project / exact source | Observed checks | Deployment entry / prerequisite | Required live evidence |
 | --- | --- | --- | --- |
@@ -51,10 +72,20 @@ workflow only probes the homepage, so separately verify desktop/mobile station
 playback, immediate Next while loading, title/video agreement, search and watched
 state. The repaired local build already passed those bounded checks.
 
-Approval is required before dispatch. Record the existing production deployment
+The owner subsequently approved the prepared releases and synthetic verification. Record the existing production deployment
 before release; Pages retains deployments and the workflow documents restoring
 the previous deployment through the Pages dashboard if verification regresses.
 Do not count the source build as deployed or promote sharing before the live
 journey passes. EverythingRated additionally needs existing schema compatibility
 confirmed; Reddit Insights needs the reviewed compact display bundle. Neither is
 included in this first release request.
+
+## Owner-approved release wave
+
+LoopTV source `9325870796b41d777be63ad73ece4c6279572398` deployed successfully
+through [run34125220328](https://github.com/Significant-Hobbies/looptv/actions/runs/34125220328).
+Fresh hosted desktop/mobile playback advances and matches the selected title.
+Remaining bounded acceptance is being recorded in its owning repository.
+EverythingRated follows after schema compatibility and rollback verification;
+Memory Map follows with the permitted synthetic export. TrueHire and Open Historia
+are retained without a release push under the latest experiment/retirement scope.

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -67,9 +67,9 @@ ownerVoice:
   relatedHistoricalReviews: []
 decision:
   classification: Inactive
-  whySummary: Learn forecasting and model regional/time-based commerce demand.
-  currentState: Valuable as an evaluation-first learning lab, not a credible B2B SaaS without data and domain expertise.
-  nextDecision: Reopen for a concrete learning or customer problem with suitable data.
+  whySummary: Learn forecasting through reproducible experiments.
+  currentState: Retained experiment; the owner explicitly does not require sharing or a release.
+  nextDecision: Preserve the bounded learning example and source; no adoption or license-choice task is required for retention.
 identity:
   name: Forecast Lab
   publicName: Forecast Lab
@@ -147,7 +147,7 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -227,7 +227,7 @@ sharing:
   maturity: null
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Fresh unauthenticated public archive15b7130f: documented frozen uv setup, automatic pinned-data download, full bike experiment and7tests pass; outputs byte-match prior receipt. CLI results/provenance reviewed and metrics independently recomputed. Source-code license is absent; owner license decision remains pending. Scoped learning example only, not other datasets or a commercial forecasting service."
+  reason: Owner explicitly says it is an experiment and does not need sharing. Preserve bounded learning evidence; no license/release task required now.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/forecast-lab/issues
   geoIdentity: null

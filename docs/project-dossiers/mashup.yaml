@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: mashup
-      revision: 9673d781026dad85855edb5d8ac0b6c291f8d53a
+      revision: b75e14f506197600dbb722ba318853e356826f3d
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
       observedHomepage: https://mashup.highsignal.app
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: mashup
-      revision: 9673d781026dad85855edb5d8ac0b6c291f8d53a
+      revision: b75e14f506197600dbb722ba318853e356826f3d
       githubRepository: sass-maker/mashup
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -72,7 +72,7 @@ decision:
   nextDecision: Reopen around one real creator archive and prove the comedy-topic workflow end to end.
 identity:
   name: Mashup
-  publicName: null
+  publicName: Mashup
   aliases: []
   family: mashup
   kind: experiment
@@ -81,13 +81,13 @@ identity:
   attention: foundry
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
 product:
-  description: A local-first tool that turns owned media archives into inspectable multi-clip edits.
+  description: Two playable examples of a local media-editing pipeline, with captions and inspectable source and approval receipts.
   publicMakerNote: I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.
   purposeContract:
     purpose: Mashup turns an owned creator archive into coherent topic-specific compilations while keeping every edit inspectable.
@@ -95,7 +95,7 @@ product:
     outcome: Find, approve, sequence, and render useful clips without losing source provenance or editorial control.
     mechanism: A local pipeline combines archive analysis, clipping, editable EDLs, source receipts, approval boundaries, and deterministic rendering.
     proof: The first public Startups proof assembles a source-faithful 47-second argument from four beats across three Creative Commons podcast episodes, with captions and media receipts.
-    nextAction: Use the local tool on a larger approved channel archive and judge whether repeated multi-episode edits sustain the same editorial quality.
+    nextAction: Watch the public examples and inspect their source receipts. The local operator workflow and creator pilot remain separate from this showcase.
   form: Local media tool with public proof
   platforms:
     - Web
@@ -109,12 +109,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-25
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 51
+    retainedCommitCount: 54
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mashup
-  observedRevision: 9673d781026dad85855edb5d8ac0b6c291f8d53a
+  observedRevision: b75e14f506197600dbb722ba318853e356826f3d
   githubRepository: sass-maker/mashup
   githubHomepageUrl: https://mashup.highsignal.app
   worktree: *a1
@@ -149,7 +149,7 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -157,7 +157,7 @@ githubActions:
   remote:
     repository: sass-maker/mashup
     defaultBranch: main
-    defaultBranchSha: 9673d781026dad85855edb5d8ac0b6c291f8d53a
+    defaultBranchSha: b75e14f506197600dbb722ba318853e356826f3d
     homepage: https://mashup.highsignal.app
     query: verified
     disposition:
@@ -183,15 +183,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34107001659
+          id: 34129122957
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9673d781026dad85855edb5d8ac0b6c291f8d53a
-          createdAt: 2026-09-07T09:36:47Z
-          updatedAt: 2026-09-07T09:39:04Z
-          url: https://github.com/sass-maker/mashup/actions/runs/34107001659
+          headSha: b75e14f506197600dbb722ba318853e356826f3d
+          createdAt: 2026-09-07T13:44:54Z
+          updatedAt: 2026-09-07T13:46:55Z
+          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
         ageDays: 0
       schedule:
         health: not-applicable
@@ -201,15 +201,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34107001659
+          id: 34129122957
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9673d781026dad85855edb5d8ac0b6c291f8d53a
-          createdAt: 2026-09-07T09:36:47Z
-          updatedAt: 2026-09-07T09:39:04Z
-          url: https://github.com/sass-maker/mashup/actions/runs/34107001659
+          headSha: b75e14f506197600dbb722ba318853e356826f3d
+          createdAt: 2026-09-07T13:44:54Z
+          updatedAt: 2026-09-07T13:46:55Z
+          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
         ageDays: 0
       attention: ignored
 deployment:
@@ -232,11 +232,11 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: hidden
+  publicListing: past
   maturity: null
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Clicked play on public example twice. Video source responds to HEAD but player remains readyState 0, time 0, unknown duration and does not play. Limit: Core local clipping workflow not exercised; reachable media URL alone is not playback proof."
+  reason: "Public finished-example playback, exact media receipts and corrected desktop/mobile captions pass. Automatic editorial selection, source installation and the real creator/operator pilot remain unqualified under #11."
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/mashup/issues
   geoIdentity: null

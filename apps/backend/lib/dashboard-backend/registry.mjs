@@ -50,6 +50,7 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         tier: project.tier ?? null,
         portfolioStatus: project.portfolio?.status ?? null,
         lifecycle: project.lifecycle ?? { status: 'inactive', shareable: false, resumeCondition: null },
+        sharingReadiness: project.portfolio?.sharingReadiness ?? null,
         publicListing: project.public?.listing ?? null,
         metricEligibility: {
           publicSite: project.metrics?.publicSite === true,

@@ -53,7 +53,7 @@ independent project repositories.
 
 These are unresolved requirements retained at the owner’s request. They are not completed features. Work should follow a concrete need and fresh evidence.
 
-### Portfolio lifecycle cleanup: three-field model (2 primary, 18 active, 36 inactive)
+### Portfolio lifecycle cleanup: three-field model (2 primary, 19 active, 36 inactive)
 
 Finish live shareability verification, lifecycle consumers, public projections, task retirement, Git cleanup and deployment/CI receipts. Local catalog changes alone do not complete the rollout.
 

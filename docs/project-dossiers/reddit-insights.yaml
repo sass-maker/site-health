@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: reddit-insights
-      revision: 4e63e2b4abbefda34981e45d5dad35cc33c3b794
+      revision: 3d6c61e40f0c239ff129e84a2efa3d31ce217826
       githubRepository: High-Signal-App/research-subreddit
       expectedHomepage: https://reddit-insights.highsignal.app
       observedHomepage: https://reddit-insights.highsignal.app
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: reddit-insights
-      revision: 4e63e2b4abbefda34981e45d5dad35cc33c3b794
+      revision: 3d6c61e40f0c239ff129e84a2efa3d31ce217826
       githubRepository: High-Signal-App/research-subreddit
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -72,7 +72,7 @@ decision:
   nextDecision: Either begin collecting forward-looking data now or reopen when a lawful historical source is available.
 identity:
   name: Reddit Insights
-  publicName: null
+  publicName: Reddit Insights
   aliases: []
   family: high-signal
   kind: experiment
@@ -81,13 +81,13 @@ identity:
   attention: foundry
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: A bounded research collector for subreddit evidence and recurring insight snapshots.
+  description: Search a dated snapshot of 93 Reddit communities in your browser, with links to original posts and explicit provenance limits.
   publicMakerNote: I wanted to understand how the signals and emotions inside a subreddit change over time, even though historical data is difficult to obtain.
   purposeContract:
     purpose: Reddit Insights studies how topics, signals, and emotional tone inside a subreddit change over time.
@@ -107,12 +107,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-07
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 23
+    retainedCommitCount: 24
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reddit-insights
-  observedRevision: 4e63e2b4abbefda34981e45d5dad35cc33c3b794
+  observedRevision: 3d6c61e40f0c239ff129e84a2efa3d31ce217826
   githubRepository: High-Signal-App/research-subreddit
   githubHomepageUrl: https://reddit-insights.highsignal.app
   worktree: *a1
@@ -160,7 +160,7 @@ repository:
       - typecheck
       - ui
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -168,7 +168,7 @@ githubActions:
   remote:
     repository: High-Signal-App/research-subreddit
     defaultBranch: main
-    defaultBranchSha: 4e63e2b4abbefda34981e45d5dad35cc33c3b794
+    defaultBranchSha: 3d6c61e40f0c239ff129e84a2efa3d31ce217826
     homepage: https://reddit-insights.highsignal.app
     query: verified
     disposition:
@@ -193,15 +193,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34103184551
+          id: 34128114103
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4e63e2b4abbefda34981e45d5dad35cc33c3b794
-          createdAt: 2026-09-07T08:55:29Z
-          updatedAt: 2026-09-07T08:56:08Z
-          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34103184551
+          headSha: 3d6c61e40f0c239ff129e84a2efa3d31ce217826
+          createdAt: 2026-09-07T13:34:09Z
+          updatedAt: 2026-09-07T13:34:48Z
+          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34128114103
         ageDays: 0
       schedule:
         health: not-applicable
@@ -211,15 +211,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34103184551
+          id: 34128114103
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4e63e2b4abbefda34981e45d5dad35cc33c3b794
-          createdAt: 2026-09-07T08:55:29Z
-          updatedAt: 2026-09-07T08:56:08Z
-          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34103184551
+          headSha: 3d6c61e40f0c239ff129e84a2efa3d31ce217826
+          createdAt: 2026-09-07T13:34:09Z
+          updatedAt: 2026-09-07T13:34:48Z
+          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34128114103
         ageDays: 0
       attention: ignored
 deployment:
@@ -267,11 +267,11 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: hidden
+  publicListing: past
   maturity: null
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Dated corpus boundaries and ranked posts visible. Filled search box and clicked Search repeatedly; input resets and no search result appears. Limit: Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete."
+  reason: Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim.
   changelogUrl: null
   roadmapUrl: https://github.com/High-Signal-App/research-subreddit/issues
   geoIdentity:

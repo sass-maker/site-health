@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: everythingrated
-      revision: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
+      revision: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
       githubRepository: High-Signal-App/everythingrated
       expectedHomepage: https://ratings.highsignal.app
       observedHomepage: https://ratings.highsignal.app
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: everythingrated
-      revision: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
+      revision: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
       githubRepository: High-Signal-App/everythingrated
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -82,21 +82,21 @@ identity:
   attention: ignored
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Multi-axis ratings for deciding which AI developer tools to adopt.
+  description: A ratings experiment for comparing AI developer tools, with visible small-sample counts and shareable weighting.
   publicMakerNote: I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.
   purposeContract:
-    purpose: EverythingRated helps developers decide which AI development library to adopt by making the important trade-offs visible axis by axis.
+    purpose: EverythingRated makes anonymous opinions about AI developer tools visible axis by axis.
     audience: Developers and technical operators comparing AI development tools for real projects.
-    outcome: Choose an AI library with a clearer view of maintenance, community, license, API stability, footprint, and model portability.
-    mechanism: Anonymous multi-axis ratings, weighted comparisons, confidence counts, and moderated tool submissions focus one directory on adoption decisions.
-    proof: The live surface compares 24 AI development libraries; the broader rate-anything concept and other seeded directories are deliberately parked.
-    nextAction: Compare AI development tools or rate one yourself; broader directory expansion waits for adoption traffic or moderation evidence.
+    outcome: Inspect trade-offs across Speed, Accuracy, Cost, Ergonomics and Integration depth, with the sample size visible.
+    mechanism: A public directory combines per-axis rating counts with weighted comparison links; unrated axes remain visibly unavailable.
+    proof: The hosted guest comparison covers a 24-tool directory with five axes. Initial owner ratings and small samples are early opinions, not benchmarks or consensus.
+    nextAction: Compare tools, inspect the per-axis evidence counts, and share a weighted comparison as an experiment. Rating submission is outside the verified guest workflow.
   form: Ratings experiment
   platforms:
     - Web
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-04-26
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 167
+    retainedCommitCount: 170
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: everythingrated
-  observedRevision: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
+  observedRevision: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
   githubRepository: High-Signal-App/everythingrated
   githubHomepageUrl: https://ratings.highsignal.app
   worktree: *a1
@@ -174,7 +174,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -183,7 +183,7 @@ githubActions:
   remote:
     repository: High-Signal-App/everythingrated
     defaultBranch: main
-    defaultBranchSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
+    defaultBranchSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
     homepage: https://ratings.highsignal.app
     query: verified
     disposition:
@@ -208,15 +208,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34105187417
+          id: 34128373024
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
-          createdAt: 2026-09-07T09:17:37Z
-          updatedAt: 2026-09-07T09:19:07Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34105187417
+          headSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+          createdAt: 2026-09-07T13:36:49Z
+          updatedAt: 2026-09-07T13:38:32Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128373024
         ageDays: 0
       schedule:
         health: not-applicable
@@ -226,15 +226,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34105187417
+          id: 34128373024
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
-          createdAt: 2026-09-07T09:17:37Z
-          updatedAt: 2026-09-07T09:19:07Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34105187417
+          headSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+          createdAt: 2026-09-07T13:36:49Z
+          updatedAt: 2026-09-07T13:38:32Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128373024
         ageDays: 0
       attention: ignored
     - name: Deploy Cloudflare
@@ -254,16 +254,16 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34015631729
+          id: 34125905065
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
-          createdAt: 2026-09-06T06:06:12Z
-          updatedAt: 2026-09-06T06:07:29Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34015631729
-        ageDays: 1
+          headSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
+          createdAt: 2026-09-07T13:10:35Z
+          updatedAt: 2026-09-07T13:12:10Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34125905065
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -292,15 +292,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34105187548
+          id: 34128372984
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
-          createdAt: 2026-09-07T09:17:37Z
-          updatedAt: 2026-09-07T09:17:43Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34105187548
+          headSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+          createdAt: 2026-09-07T13:36:49Z
+          updatedAt: 2026-09-07T13:36:57Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128372984
         ageDays: 0
       schedule:
         health: not-applicable
@@ -310,15 +310,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34105187548
+          id: 34128372984
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
-          createdAt: 2026-09-07T09:17:37Z
-          updatedAt: 2026-09-07T09:17:43Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34105187548
+          headSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+          createdAt: 2026-09-07T13:36:49Z
+          updatedAt: 2026-09-07T13:36:57Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128372984
         ageDays: 0
       attention: ignored
     - name: Weekly Quality Check
@@ -399,9 +399,9 @@ deployment:
 sharing:
   publicListing: past
   maturity: null
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Aider vs Claude Code deep link selected both tools with per-axis ratings and Early Signal labels. Limit: Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review."
+  reason: "Hosted guest comparison and all36canonical URLs pass. Rating writes remain unverified; Actions authentication remains #18."
   changelogUrl: null
   roadmapUrl: https://github.com/High-Signal-App/everythingrated/issues
   geoIdentity: null

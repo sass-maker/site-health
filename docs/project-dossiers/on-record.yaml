@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 2
       cancelled: 1
@@ -180,7 +180,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -264,30 +264,30 @@ githubActions:
         reason: latest run was cancelled
         apiState: active
         lastRun:
-          id: 34030342849
+          id: 34117613027
           status: completed
           conclusion: cancelled
           event: schedule
           branch: main
-          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
-          createdAt: 2026-09-06T11:28:19Z
-          updatedAt: 2026-09-06T14:15:32Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34030342849
-        ageDays: 1
+          headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+          createdAt: 2026-09-07T11:37:55Z
+          updatedAt: 2026-09-07T13:38:39Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34117613027
+        ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded cancelled
         lastRun:
-          id: 34030342849
+          id: 34117613027
           status: completed
           conclusion: cancelled
           event: schedule
           branch: main
-          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
-          createdAt: 2026-09-06T11:28:19Z
-          updatedAt: 2026-09-06T14:15:32Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34030342849
-        ageDays: 1
+          headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+          createdAt: 2026-09-07T11:37:55Z
+          updatedAt: 2026-09-07T13:38:39Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34117613027
+        ageDays: 0
         freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
@@ -381,7 +381,7 @@ sharing:
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
-  reason: "50 results; receipt supplied speaker, date, transcript context and original episode link. Original publication title/date matched. Limit: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed."
+  reason: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed.
   changelogUrl: https://podcasts.highsignal.app/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/on-record/issues
   geoIdentity:

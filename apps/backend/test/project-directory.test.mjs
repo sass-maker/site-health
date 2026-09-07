@@ -7,6 +7,7 @@ import {
   isCurrentProject,
   matchesProjectFilters,
   partitionProjects,
+  projectSharingLabel,
 } from '../../web/src/lib/project-directory.mjs';
 
 const projects = loadDashboardProjects();
@@ -50,4 +51,38 @@ test('current evidence filters exclude inactive identities explicitly', () => {
     inactive.filter((project) => matchesProjectFilters({ ...project, health: 'inactive' }, criteria)).length,
     0,
   );
+});
+
+test('sharing is independent of development status and fails closed for missing evidence', () => {
+  const fixtures = [
+    { name: 'Active tool', lifecycle: { status: 'active', shareable: false } },
+    { name: 'Retained tool', lifecycle: { status: 'inactive', shareable: true } },
+    { name: 'Unknown tool' },
+  ];
+  assert.deepEqual(fixtures.filter(p => matchesProjectFilters(p, { sharing: 'shareable' })).map(p => p.name), ['Retained tool']);
+  assert.deepEqual(fixtures.filter(p => matchesProjectFilters(p, { sharing: 'not-shareable' })).map(p => p.name), ['Active tool', 'Unknown tool']);
+  assert.equal(projectSharingLabel(fixtures[2]), 'Not shareable');
+  assert.equal(matchesProjectFilters({ ...fixtures[1], priority: 'P4', health: 'inactive' }, { query: 'retained', priority: 'P4', health: 'inactive', sharing: 'shareable' }), true);
+  assert.equal(matchesProjectFilters({ ...fixtures[1], health: 'inactive' }, { health: 'attention', sharing: 'shareable' }), false);
+});
+
+test('registry retains canonical experiment rationale without making it shareable', () => {
+  for (const id of ['reel-pipeline', 'forecast-lab']) {
+    const project = projects.find(p => p.id === id);
+    assert.equal(project.lifecycle.shareable, false);
+    assert.match(project.sharingReadiness.reason, /experiment/);
+    assert.equal(project.lifecycle.resumeCondition, null);
+  }
+});
+
+test('lifecycle and resume filters use their own fields, including non-null conditions', () => {
+  for (const [lifecycle, count] of [['primary', 2], ['active', 19], ['inactive', 36]]) {
+    assert.equal(projects.filter(p => matchesProjectFilters(p, { lifecycle })).length, count);
+  }
+  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).length, 0);
+  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length, 57);
+  const fixture = { priority: 'P4', lifecycle: { status: 'inactive', shareable: true, resumeCondition: 'An owner-approved recurring workflow needs this tool' } };
+  assert.equal(matchesProjectFilters(fixture, { lifecycle: 'inactive', sharing: 'shareable', resume: 'defined', priority: 'P4' }), true);
+  assert.equal(matchesProjectFilters(fixture, { resume: 'not-defined' }), false);
+  assert.equal(matchesProjectFilters(fixture, { lifecycle: 'active' }), false);
 });

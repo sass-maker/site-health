@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: psi-swarm
-      revision: f3886b736540c3222727c89e580628443c1a1888
+      revision: 6c9b1b8991d50ae47829429d47c240439590cc20
       githubRepository: sass-maker/psi-swarm
       expectedHomepage: https://performance.sassmaker.com
       observedHomepage: https://performance.sassmaker.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: psi-swarm
-      revision: f3886b736540c3222727c89e580628443c1a1888
+      revision: 6c9b1b8991d50ae47829429d47c240439590cc20
       githubRepository: sass-maker/psi-swarm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
@@ -109,12 +109,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-06-03
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 79
+    retainedCommitCount: 80
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: psi-swarm
-  observedRevision: f3886b736540c3222727c89e580628443c1a1888
+  observedRevision: 6c9b1b8991d50ae47829429d47c240439590cc20
   githubRepository: sass-maker/psi-swarm
   githubHomepageUrl: https://performance.sassmaker.com
   worktree: *a1
@@ -157,7 +157,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -166,7 +166,7 @@ githubActions:
   remote:
     repository: sass-maker/psi-swarm
     defaultBranch: main
-    defaultBranchSha: f3886b736540c3222727c89e580628443c1a1888
+    defaultBranchSha: 6c9b1b8991d50ae47829429d47c240439590cc20
     homepage: https://performance.sassmaker.com
     query: verified
     disposition:
@@ -192,15 +192,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34114025994
+          id: 34123793244
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f3886b736540c3222727c89e580628443c1a1888
-          createdAt: 2026-09-07T10:56:24Z
-          updatedAt: 2026-09-07T10:57:19Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34114025994
+          headSha: 6c9b1b8991d50ae47829429d47c240439590cc20
+          createdAt: 2026-09-07T12:47:27Z
+          updatedAt: 2026-09-07T12:48:14Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34123793244
         ageDays: 0
       schedule:
         health: not-applicable
@@ -210,15 +210,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34114025994
+          id: 34123793244
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f3886b736540c3222727c89e580628443c1a1888
-          createdAt: 2026-09-07T10:56:24Z
-          updatedAt: 2026-09-07T10:57:19Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34114025994
+          headSha: 6c9b1b8991d50ae47829429d47c240439590cc20
+          createdAt: 2026-09-07T12:47:27Z
+          updatedAt: 2026-09-07T12:48:14Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34123793244
         ageDays: 0
       attention: ignored
     - name: Deploy psi-swarm-web to Cloudflare Pages
@@ -352,7 +352,7 @@ sharing:
   maturity: maintained
   ready: true
   verifiedAt: 2026-09-07
-  reason: "Source-installed local developer workflow qualified: clean public source archive/frozen cached install on Node 22, CLI/web builds, real Lighthouse audit/default save and separate-process history passed. CLI two runs plus controller two runs persisted across agent restart and fresh-browser reopen. MIT license and public dependencies verified. Source 6c9b1b8991d50ae47829429d47c240439590cc20 adds receipts/setup guidance and neutral empty-link copy; exact CI 34123793244 passed. Limit: Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics."
+  reason: Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics.
   changelogUrl: https://performance.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/psi-swarm/issues
   geoIdentity:

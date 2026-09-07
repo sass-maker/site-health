@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
       state: available
       checkout: protein-index
-      revision: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
+      revision: 25b503da33092dfb937271a2126b185f5a8b63f5
       githubRepository: Significant-Hobbies/protein-index
       expectedHomepage: https://protein.significanthobbies.com
       observedHomepage: https://protein.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: protein-index
-      revision: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
+      revision: 25b503da33092dfb937271a2126b185f5a8b63f5
       githubRepository: Significant-Hobbies/protein-index
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -81,21 +81,21 @@ identity:
   attention: ignored
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Searchable protein and nutrition reference.
+  description: Explore dated nutrition records with original label links, observation dates and explicit verification limits.
   publicMakerNote: I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.
   purposeContract:
     purpose: Protein Index was built to catalogue and compare protein products available in India using trustworthy nutrition data.
     audience: Indian shoppers comparing packaged protein sources on nutrition, price, and practical fit.
-    outcome: Choose among products using a consistent searchable reference instead of scattered marketing claims.
+    outcome: Inspect recorded nutrition alongside its source, observation date and verification authority.
     mechanism: A product catalogue normalizes nutrition and comparison fields across available Indian protein products.
-    proof: The product structure exists, but authoritative and affordable market data is not available enough for current coverage.
-    nextAction: Use the retained reference cautiously; reopen active work only when reliable product data can support an honest catalogue.
+    proof: Hosted search and detail expose dated source and authority labels; one original nutrition label and its density calculation were independently checked. This does not verify the entire catalogue.
+    nextAction: Explore dated records and inspect original labels; current product identity and packaging require separate verification.
   form: Data API and web app
   platforms:
     - Web
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-15
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 246
+    retainedCommitCount: 247
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: protein-index
-  observedRevision: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
+  observedRevision: 25b503da33092dfb937271a2126b185f5a8b63f5
   githubRepository: Significant-Hobbies/protein-index
   githubHomepageUrl: https://protein.significanthobbies.com
   worktree: *a1
@@ -184,7 +184,7 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -192,7 +192,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/protein-index
     defaultBranch: main
-    defaultBranchSha: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
+    defaultBranchSha: 25b503da33092dfb937271a2126b185f5a8b63f5
     homepage: https://protein.significanthobbies.com
     query: verified
     disposition:
@@ -217,15 +217,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34102567258
+          id: 34121612116
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
-          createdAt: 2026-09-07T08:48:33Z
-          updatedAt: 2026-09-07T08:49:06Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34102567258
+          headSha: 25b503da33092dfb937271a2126b185f5a8b63f5
+          createdAt: 2026-09-07T12:23:35Z
+          updatedAt: 2026-09-07T12:24:05Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34121612116
         ageDays: 0
       schedule:
         health: not-applicable
@@ -235,15 +235,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34102567258
+          id: 34121612116
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
-          createdAt: 2026-09-07T08:48:33Z
-          updatedAt: 2026-09-07T08:49:06Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34102567258
+          headSha: 25b503da33092dfb937271a2126b185f5a8b63f5
+          createdAt: 2026-09-07T12:23:35Z
+          updatedAt: 2026-09-07T12:24:05Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34121612116
         ageDays: 0
       attention: ignored
 deployment:
@@ -282,12 +282,12 @@ deployment:
 sharing:
   publicListing: past
   maturity: null
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role. Limit: Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate."
+  reason: Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately.
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/protein-index-resilience/issues
   geoIdentity: null
 notes:
-  catalog: Inactive reference; no reactivation or deployment performed. The sourcePath checkout tracks historical alias Significant-Hobbies/protein-index. Canonical public source Significant-Hobbies/protein-index-resilience now contains the nutrition evidence repairs at 51c0583 with green CI; its existing automation differs from the retired alias. Production source revision remains unverified.
+  catalog: Inactive dated reference. The sourcePath checkout preserves historical alias Significant-Hobbies/protein-index; canonical public source is Significant-Hobbies/protein-index-resilience. Approved production release now has exact tag51c0583792f2c7d3aac70efa5e3d8b1f314ec77e at100% traffic. The prior production Git revision was unknown. Distinct source histories and automation remain preserved.
   infrastructure: null

@@ -49,13 +49,38 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
       </select>
     </label>
     <label>
-      <span>State</span>
+      <span>Evidence state</span>
       <select data-project-health>
         <option value="">All states</option>
         <option value="attention">Needs attention</option>
         <option value="measured">Has evidence</option>
         <option value="missing">Missing evidence</option>
         <option value="inactive">Inactive / retained</option>
+      </select>
+    </label>
+    <label>
+      <span>Sharing</span>
+      <select data-project-sharing>
+        <option value="">All sharing states</option>
+        <option value="shareable">Shareable</option>
+        <option value="not-shareable">Not shareable</option>
+      </select>
+    </label>
+    <label>
+      <span>Lifecycle</span>
+      <select data-project-lifecycle>
+        <option value="">All lifecycles</option>
+        <option value="primary">Primary</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </label>
+    <label>
+      <span>Resume condition</span>
+      <select data-project-resume>
+        <option value="">All conditions</option>
+        <option value="defined">Defined</option>
+        <option value="not-defined">Not defined</option>
       </select>
     </label>
     <button class="directory-reset" type="button" data-project-filter-reset>Clear filters</button>

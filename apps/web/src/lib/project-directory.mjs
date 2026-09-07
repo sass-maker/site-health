@@ -21,7 +21,7 @@ export function inactiveProjectState(project) {
   return "inactive";
 }
 
-export function matchesProjectFilters(project, { query = "", priority = "", health = "" } = {}) {
+export function matchesProjectFilters(project, { query = "", priority = "", health = "", sharing = "", lifecycle = "", resume = "" } = {}) {
   const normalizedQuery = query.trim().toLowerCase();
   const searchText = [
     project.name,
@@ -32,5 +32,12 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
 
   return (!normalizedQuery || searchText.includes(normalizedQuery))
     && (!priority || project.priority === priority)
-    && (!health || project.health === health);
+    && (!health || project.health === health)
+    && (!lifecycle || project.lifecycle?.status === lifecycle)
+    && (!resume || (resume === "defined" ? project.lifecycle?.resumeCondition != null : project.lifecycle?.resumeCondition == null))
+    && (!sharing || (sharing === "shareable" ? project.lifecycle?.shareable === true : project.lifecycle?.shareable !== true));
+}
+
+export function projectSharingLabel(project) {
+  return project.lifecycle?.shareable === true ? "Shareable" : "Not shareable";
 }

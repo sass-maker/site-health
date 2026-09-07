@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24122d2b1e35cebe0039102568af5983e17d8037ceaa56d5add149135c1041e5
+      sha256: 75263c6c5dfd13421273735ffb86a1faf451b356b38a1d5a12e484a0e3b8e815
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sha256: c475745459b958555dafd089dcd26e6914efec89f4420b58d3110ac6523d563c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-07
@@ -39,8 +39,8 @@ verification:
       expectedHomepage: https://karte.cc
       observedHomepage: https://karte.cc
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 2
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
@@ -55,9 +55,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T11:37:27.407Z
+      observedAt: 2026-09-07T13:50:29.112Z
       staleAfterDays: 30
-      healthy: 4
+      healthy: 3
+      running: 1
       attention: &a2
         ignored: 4
   unknowns: []
@@ -187,10 +188,11 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-09-07T11:37:27.407Z
+  observedAt: 2026-09-07T13:50:29.112Z
   staleAfterDays: 30
   summary:
-    healthy: 4
+    healthy: 3
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/karte
@@ -262,20 +264,20 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34015627365
-          status: completed
-          conclusion: success
+          id: 34129473645
+          status: in_progress
+          conclusion: null
           event: workflow_dispatch
           branch: main
-          headSha: a13ca64988d2cb0795132c8df317d0f4d603203e
-          createdAt: 2026-09-06T06:06:05Z
-          updatedAt: 2026-09-06T06:08:31Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34015627365
-        ageDays: 1
+          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
+          createdAt: 2026-09-07T13:48:37Z
+          updatedAt: 2026-09-07T13:48:42Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34129473645
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -473,7 +475,7 @@ sharing:
   maturity: public-ready
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Published owner profile loads with projects, three generated profile modes, chat panel. Desktop layout is coherent. Limit: Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified."
+  reason: "Protected profile creation/editing and fresh AI answer remain unqualified. The isolated browser could not complete the real Turnstile challenge; this does not prove failure for every browser. No synthetic lead/conversation was created. #82 remains open."
   changelogUrl: https://karte.cc/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/karte/issues
   geoIdentity:
