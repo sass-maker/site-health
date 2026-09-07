@@ -576,18 +576,18 @@
     },
     {
       "id": "chatgpt-connections",
-      "verdict": "not_verified",
-      "shareable": false,
-      "surface": "Public MCP integrations",
-      "observed": "Read documented endpoints; direct unauthenticated tools/list probes for High Signal, Research Papers and Hobbies each returned403.",
-      "limitations": "No complete external-client tool invocation verified; may be edge access restriction.",
+      "verdict": "pass",
+      "shareable": true,
+      "surface": "Public read-only MCP API",
+      "observed": "Fresh live monitor47passed0failed1skipped; independent MCP SDK client initialized Starboard, listed tools, searched sqlite and received sqlite/sqlite and asg017/sqlite-vec with source URLs and continuation state.",
+      "limitations": "Private OAuth consent/account isolation/refresh/revocation, actual ChatGPT installation, planned hostnames and full High Signal pagination remain unverified. Public API service qualification only.",
       "verifiedAt": "2026-09-07",
-      "confidence": "low",
+      "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
+      "loggedOut": "qualified-anonymous-public-MCP",
       "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "presentation": "structured-tool-output-with-description-provenance-pagination",
+      "disposition": "share-public-MCP-scope"
     },
     {
       "id": "site-health",

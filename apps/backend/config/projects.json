@@ -312,10 +312,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Read documented endpoints; direct unauthenticated tools/list probes for High Signal, Research Papers and Hobbies each returned403. Limit: No complete external-client tool invocation verified; may be edge access restriction."
+          "reason": "Public MCP API scope qualified:47live checks pass,0fail,1small-dataset pagination skip.Independent SDK client initialized Starboard, listed tools and searched sqlite, returning2useful repositories with source links and pagination. Private OAuth/ChatGPT installation and planned host activation remain unverified; existing hidden listing preserved."
         }
       },
       "aliases": [
@@ -343,7 +343,7 @@
       "attention": "foundry",
       "lifecycle": {
         "status": "active",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",

@@ -105,3 +105,5 @@ browser, deployment and private/public catalog updates. No production deployment
 has been inferred from the instruction to push through the work.
 
 Later verification: **15 of 54 have scoped hands-on passes; 39 remain unqualified.** Web Playables now passes as a desktop parked experiment after a real upgrade decision, revenue effect, close/reopen persistence and screenshot review. This does not qualify mobile, fresh onboarding or YouTube certification. Knowledge Base retains its authenticated deployed-consumer gate despite 93 passing local API tests.
+
+Public MCP verification raises the scoped count to **16 of 54; 38 remain unqualified**. ChatGPT Connections passed anonymous protocol/read/provenance checks and an independent SDK call. Private OAuth and ChatGPT installation remain unverified, and its existing hidden directory listing is preserved.

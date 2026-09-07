@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e8f102aa5a8f5d6ea2b7356204c36b032525dcd8ce74395eb59f963815629bff
+      sha256: 4d09668fa2ae3a682834ca79af593d74c48e6ae053e3685fc2b164d4b02d8f2a
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -87,7 +87,7 @@ identity:
   attention: foundry
   lifecycle:
     status: active
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-personalized
@@ -299,9 +299,9 @@ deployment:
 sharing:
   publicListing: hidden
   maturity: null
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Read documented endpoints; direct unauthenticated tools/list probes for High Signal, Research Papers and Hobbies each returned403. Limit: No complete external-client tool invocation verified; may be edge access restriction."
+  reason: Public MCP API scope qualified:47live checks pass,0fail,1small-dataset pagination skip.Independent SDK client initialized Starboard, listed tools and searched sqlite, returning2useful repositories with source links and pagination. Private OAuth/ChatGPT installation and planned host activation remain unverified; existing hidden listing preserved.
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/chatgpt-connections/issues
   geoIdentity: null

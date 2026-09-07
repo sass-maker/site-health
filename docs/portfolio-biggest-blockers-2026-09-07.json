@@ -168,7 +168,7 @@
       "classification": "Product/evidence gap",
       "biggestBlocker": "Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify.",
       "shareable": false,
-      "repairProgress": "6fb5676 pushed clean. Synthetic sample labels now explicit across Astro homepage/Nextfallback/demo; fabricated2h verification removed; demo activity fixed throughJune2026. Typecheck/lint/Astrobuild and108coretests passed; generatedHTML inspected. ExactCIpending. Marketplace remains retired; public deployed copy recheck is outstanding."
+      "repairProgress": "6fb5676 pushed clean. Synthetic sample labels now explicit across Astro homepage/Nextfallback/demo; fabricated2h verification removed; demo activity fixed throughJune2026. Typecheck/lint/Astrobuild and108coretests passed; generatedHTML inspected. Exact CI green. Marketplace remains retired; public deployed copy recheck is outstanding."
     },
     {
       "id": "nomad-data-adventure",
@@ -237,9 +237,10 @@
     {
       "id": "chatgpt-connections",
       "name": "ChatGPT Connections",
-      "classification": "Qualification gap",
-      "biggestBlocker": "No complete external-client tool invocation verified; may be edge access restriction.",
-      "shareable": false
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Public MCP reads qualified by live monitor and independent SDK client. Actual ChatGPT installation and private OAuth/account flows still unverified.",
+      "shareable": true,
+      "repairProgress": "cd2ca0f4 pushed: retained redacted live receipt and corrected stale Starboard outage claim;107local tests pass. Existing hidden public listing preserved."
     },
     {
       "id": "site-health",
