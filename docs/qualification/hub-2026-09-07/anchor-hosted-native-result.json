@@ -1,0 +1,25 @@
+{
+  "source": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+  "run": "https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977",
+  "finalGate": "failure",
+  "mac": {
+    "passed": 11,
+    "failed": 3,
+    "skipped": 0,
+    "failures": [
+      "Weekday manager test used removed Set up usual week entry point",
+      "Habit edit test queried Button instead of observed MenuButton",
+      "Mini-timer test broad accessibility snapshot query timed out"
+    ]
+  },
+  "iphone": {
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0
+  },
+  "watchBuild": "success",
+  "stepConclusionCaveat": "continue-on-error gives successful conclusions for failed Mac step; use raw outcome and final enforcement gate",
+  "correctionHead": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+  "currentRun": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
+  "currentRunStatus": "in_progress"
+}

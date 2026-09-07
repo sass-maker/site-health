@@ -4178,7 +4178,7 @@
       "id": "setline",
       "checkout": "setline",
       "repository": "Significant-Hobbies/setline",
-      "revision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+      "revision": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
       "branches": [
         "main"
       ],
@@ -4189,34 +4189,34 @@
       "checks": [
         {
           "conclusion": "success",
-          "createdAt": "2026-09-06T01:31:36Z",
-          "databaseId": 34004124571,
+          "createdAt": "2026-09-07T18:39:12Z",
+          "databaseId": 34152489065,
           "event": "push",
           "headBranch": "main",
-          "headSha": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+          "headSha": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34004124571",
+          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34152489065",
           "workflowName": "CI"
         }
       ],
-      "checksObservedAt": "2026-09-07T18:29:50.785918+00:00",
+      "checksObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "readmeIssueReferencesMissing": [],
-      "checksRevision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
-      "tasksObservedAt": "2026-09-07T18:29:47.438470+00:00",
+      "checksRevision": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
+      "tasksObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T18:29:46.311191+00:00",
+      "localObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+          "revision": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
       ],
       "localState": "observed",
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
-      "issuesObservedAt": "2026-09-07T18:29:47.438470+00:00",
+      "issuesObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "issuesState": "observed",
       "prsObservedAt": "2026-09-07T18:29:47.438470+00:00",
       "prsState": "observed",
@@ -4226,51 +4226,51 @@
       "latestWorkflowRuns": [
         {
           "conclusion": "success",
-          "createdAt": "2026-09-06T01:31:36Z",
-          "databaseId": 34004124571,
+          "createdAt": "2026-09-07T18:39:12Z",
+          "databaseId": 34152489065,
           "event": "push",
           "headBranch": "main",
-          "headSha": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+          "headSha": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34004124571",
+          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34152489065",
           "workflowName": "CI",
           "matchesRemoteDefaultRevision": true
         }
       ],
-      "latestWorkflowRunsObservedAt": "2026-09-07T18:29:50.785918+00:00",
+      "latestWorkflowRunsObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "latestWorkflowRunsScope": "Latest occurrence of each workflow within the 30 most recent repository runs; includes tag/manual/branch runs. Not a complete historical workflow inventory.",
-      "readmeObservedAt": "2026-09-07T18:29:50.831709+00:00",
-      "readmeRevision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+      "readmeObservedAt": "2026-09-07T19:09:46.883946+00:00",
+      "readmeRevision": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+      "revisionAtObservationEnd": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
       "observationStartedAt": "2026-09-07T18:29:46.311191+00:00",
-      "observedAt": "2026-09-07T18:29:50.831704+00:00",
+      "observedAt": "2026-09-07T19:09:46.883946+00:00",
       "errors": [],
       "remoteRepository": "Significant-Hobbies/setline",
       "remoteDefaultBranch": "main",
-      "remoteDefaultRevision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
-      "remoteObservedAt": "2026-09-07T18:29:48.562377+00:00",
+      "remoteDefaultRevision": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
+      "remoteObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "localMatchesRemoteDefault": true,
       "remoteChecks": [
         {
           "conclusion": "success",
-          "createdAt": "2026-09-06T01:31:36Z",
-          "databaseId": 34004124571,
+          "createdAt": "2026-09-07T18:39:12Z",
+          "databaseId": 34152489065,
           "event": "push",
           "headBranch": "main",
-          "headSha": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
+          "headSha": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
           "status": "completed",
-          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34004124571",
+          "url": "https://github.com/Significant-Hobbies/setline/actions/runs/34152489065",
           "workflowName": "CI"
         }
       ],
-      "remoteChecksRevision": "84546dd4f81d59c620f53d025f5b958ca65f0aae",
-      "remoteChecksObservedAt": "2026-09-07T18:29:50.785918+00:00",
+      "remoteChecksRevision": "f59f01b8df9815f4536717e5ae41da437ba9fe5c",
+      "remoteChecksObservedAt": "2026-09-07T19:09:46.883946+00:00",
       "remoteChecksState": "observed",
-      "localEndObservedAt": "2026-09-07T18:29:50.831694+00:00",
-      "dirtyObservedAt": "2026-09-07T18:29:50.831703+00:00"
+      "localEndObservedAt": "2026-09-07T19:09:46.883946+00:00",
+      "dirtyObservedAt": "2026-09-07T19:09:46.883946+00:00"
     },
     {
       "id": "kith",
@@ -7116,7 +7116,7 @@
       "id": "anchor",
       "checkout": "anchor",
       "repository": "Significant-Hobbies/anchor",
-      "revision": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+      "revision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
       "branches": [
         "main"
       ],
@@ -7126,7 +7126,7 @@
       "dirty": [],
       "issues": [
         {
-          "body": "## Why\n\nThe owner wants Anchor usable tomorrow on iPhone and Mac. The current product obscures a simple daily loop with progression prompts, schedule confirmations, and separate habit/planning concepts. In the distraction sheet the owner can park or end, but cannot pause and return. Habits cannot be checked off directly from their own screen.\n\n## What\n\nSimplify the existing product around replacing unwanted habits, tracking good habits, making and editing a daily schedule, copying it to other days, tagging entries to projects, playing an entry, adding spontaneous entries, and logging distractions. Keep the existing native visual language and preserve all user history. No new analytics system or automatic coaching.\n\n## Design\n\nReuse FocusController/TimeAccount for pause and resume; expose pause inside capture and retain the free return prompt. Reuse HabitDayService for direct check-offs without manufacturing timed blocks. Remove upgrade/streak prompts from the primary habit interface; retain historical fields. Add explicit day-copy with target-date selection and no silent overwrite. Reuse saved project/tag identities for schedule entries and carry them into focus sessions. Keep schema additions defaulted and CloudKit-compatible; verify production schema before any installed release using new fields.\n\n## Specs\n\n### Requirement: interruption recovery\n- WHEN something interrupts a running session, THEN the owner can park it and continue, pause and return, or end the session.\n- WHEN paused, THEN elapsed focus excludes the break and the same session can resume without losing prior focus time.\n- WHEN resuming, THEN the owner may dismiss the interruption prompt freely; logging must not double-count a previously captured interruption.\n\n### Requirement: simple habits\n- WHEN a habit is completed, THEN one click records it for the selected day without requiring a schedule entry, with undo and durable persistence.\n- WHEN a habit replaces an unwanted pattern, THEN that relationship is editable in plain language.\n- WHEN scheduling is useful, THEN the habit can become a dated entry; scheduling is optional.\n\n### Requirement: daily schedule\n- WHEN the owner selects a day, THEN they can add and modify entries, associate each with a project, and play an entry using the same focus timer.\n- WHEN copying to another day, THEN planned content and project tags carry over, while completion, session history, and actual timings do not; existing target entries are preserved.\n- WHEN something spontaneous comes up, THEN a new entry can be added directly without creating a habit or recurring rule.\n\n## Tasks\n- [x] Inspect current source, installed Mac version, and existing workflow gaps.\n- [x] Simplify habit and day surfaces around the owner's daily loop.\n- [x] Add direct habit completion and undo to Habits.\n- [x] Add discoverable pause/resume from interruption capture.\n- [x] Add project tags to schedule entries and propagate them into sessions.\n- [x] Add safe day-copy with explicit target date.\n- [x] Verify timing, persistence, copy isolation, and tag propagation with focused tests.\n- [ ] Inspect native phone and Mac layouts and complete native checks.\n- [ ] Prepare, verify, and install signed iPhone and Mac builds; record installation and actual-use limits separately.\n\nPriority: owner daily use on 8 September 2026, ahead of the wider portfolio audit. Kith, Setline, Calorie, Live, and the Hub are the other immediate-use surfaces; Journal is excluded.\n\n\n## Verification update\n\nImplementation and three focused iPhone simulator journeys pass; all 185 package tests and the native visual receipt pass. Stable-Xcode 26.6 development build 22 is installed on the owner iPhone. Physical launch remains blocked by the locked phone. Mac interaction and Production CloudKit promotion remain open release gates; installed Mac build 21 is preserved. Durable evidence is in `docs/qualification/simple-day-2026-09-07/`.\n",
+          "body": "## Why\n\nThe owner wants Anchor usable tomorrow on iPhone and Mac. The current product obscures a simple daily loop with progression prompts, schedule confirmations, and separate habit/planning concepts. In the distraction sheet the owner can park or end, but cannot pause and return. Habits cannot be checked off directly from their own screen.\n\n## What\n\nSimplify the existing product around replacing unwanted habits, tracking good habits, making and editing a daily schedule, copying it to other days, tagging entries to projects, playing an entry, adding spontaneous entries, and logging distractions. Keep the existing native visual language and preserve all user history. No new analytics system or automatic coaching.\n\n## Design\n\nReuse FocusController/TimeAccount for pause and resume; expose pause inside capture and retain the free return prompt. Reuse HabitDayService for direct check-offs without manufacturing timed blocks. Remove upgrade/streak prompts from the primary habit interface; retain historical fields. Add explicit day-copy with target-date selection and no silent overwrite. Reuse saved project/tag identities for schedule entries and carry them into focus sessions. Keep schema additions defaulted and CloudKit-compatible; verify production schema before any installed release using new fields.\n\n## Specs\n\n### Requirement: interruption recovery\n- WHEN something interrupts a running session, THEN the owner can park it and continue, pause and return, or end the session.\n- WHEN paused, THEN elapsed focus excludes the break and the same session can resume without losing prior focus time.\n- WHEN resuming, THEN the owner may dismiss the interruption prompt freely; logging must not double-count a previously captured interruption.\n\n### Requirement: simple habits\n- WHEN a habit is completed, THEN one click records it for the selected day without requiring a schedule entry, with undo and durable persistence.\n- WHEN a habit replaces an unwanted pattern, THEN that relationship is editable in plain language.\n- WHEN scheduling is useful, THEN the habit can become a dated entry; scheduling is optional.\n\n### Requirement: daily schedule\n- WHEN the owner selects a day, THEN they can add and modify entries, associate each with a project, and play an entry using the same focus timer.\n- WHEN copying to another day, THEN planned content and project tags carry over, while completion, session history, and actual timings do not; existing target entries are preserved.\n- WHEN something spontaneous comes up, THEN a new entry can be added directly without creating a habit or recurring rule.\n\n## Tasks\n- [x] Inspect current source, installed Mac version, and existing workflow gaps.\n- [x] Simplify habit and day surfaces around the owner's daily loop.\n- [x] Add direct habit completion and undo to Habits.\n- [x] Add discoverable pause/resume from interruption capture.\n- [x] Add project tags to schedule entries and propagate them into sessions.\n- [x] Add safe day-copy with explicit target date.\n- [x] Verify timing, persistence, copy isolation, and tag propagation with focused tests.\n- [ ] Inspect native phone and Mac layouts and complete native checks.\n- [ ] Prepare, verify, and install signed iPhone and Mac builds; record installation and actual-use limits separately.\n\nPriority: owner daily use on 8 September 2026, ahead of the wider portfolio audit. Kith, Setline, Calorie, Live, and the Hub are the other immediate-use surfaces; Journal is excluded.\n\n\n## Verification update\n\nFinal product source `fdde4e5`, current validation head `12bd3079a00105fa38ecd41a08649327d2c9feea`. All 185 package tests pass. Full hosted run 34151609977 passed 8/8 iPhone tests and the Watch build but failed 3/14 Mac tests; its continue-on-error step conclusion was not a pass. Corrected navigation, observed MenuButton/MenuItem roles, and narrowed a timed-out text query; corrected Mac tests compile. Final hosted run: https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520 (pending).\n\nAn actual iPhone screenshot led to the existing compact Today header; the copy/persistence journey passed again after that change. Final stable-Xcode development build 22 is installed on the owner iPhone. Physical launch remains unverified while the phone is locked.\n\nStable-Xcode ReleaseDirect archive/export and Developer ID DMG verification pass. Final signed DMG SHA-256: `33d96c04ac6d4aee5da260316be7b3454e90b33c3e2b4ef2d5aa61587dfc247c`. Notarization cannot proceed with the documented missing `anchor-notary` Keychain profile. A fresh Production CloudKit reread still lacks the two additive project fields; Development is prepared. Mac build 21 remains installed.\n\nThe remaining work is also linked from README. Source evidence lives in `docs/qualification/simple-day-2026-09-07/`; private final release/installation receipts live in Site Health `docs/qualification/hub-2026-09-07/`. No TestFlight/public release, signed-in cross-device sync, or complete Mac pass is claimed.\n",
           "number": 51,
           "state": "OPEN",
           "title": "Simplify Anchor for daily use: habits, day schedules, project tags, and pause",
@@ -7158,36 +7158,34 @@
       "checks": [
         {
           "conclusion": "",
-          "createdAt": "2026-09-07T18:26:05Z",
-          "databaseId": 34151609977,
+          "createdAt": "2026-09-07T19:05:00Z",
+          "databaseId": 34154195520,
           "event": "workflow_dispatch",
           "headBranch": "main",
-          "headSha": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+          "headSha": "12bd3079a00105fa38ecd41a08649327d2c9feea",
           "status": "in_progress",
-          "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977",
+          "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
           "workflowName": "Anchor native review"
         }
       ],
-      "checksObservedAt": "2026-09-07T18:29:54.705163+00:00",
-      "readmeIssueReferencesMissing": [
-        51
-      ],
-      "checksRevision": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
-      "tasksObservedAt": "2026-09-07T18:29:52.029927+00:00",
+      "checksObservedAt": "2026-09-07T19:09:49.925463+00:00",
+      "readmeIssueReferencesMissing": [],
+      "checksRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+      "tasksObservedAt": "2026-09-07T19:09:49.925463+00:00",
       "revisionChangedDuringObservation": false,
-      "localObservedAt": "2026-09-07T18:29:50.831766+00:00",
+      "localObservedAt": "2026-09-07T19:09:49.925463+00:00",
       "currentBranch": "main",
       "branchDetails": [
         {
           "name": "main",
-          "revision": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+          "revision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
           "upstream": "origin/main",
           "commitsNotOnObservedHead": 0
         }
       ],
       "localState": "observed",
       "localStateMeaning": "Snapshot only; dirty paths and branches may belong to active unrelated work. No cleanup performed.",
-      "issuesObservedAt": "2026-09-07T18:29:52.029927+00:00",
+      "issuesObservedAt": "2026-09-07T19:09:49.925463+00:00",
       "issuesState": "observed",
       "prsObservedAt": "2026-09-07T18:29:52.029927+00:00",
       "prsState": "observed",
@@ -7197,63 +7195,59 @@
       "latestWorkflowRuns": [
         {
           "conclusion": "",
-          "createdAt": "2026-09-07T18:26:05Z",
-          "databaseId": 34151609977,
+          "createdAt": "2026-09-07T19:05:00Z",
+          "databaseId": 34154195520,
           "event": "workflow_dispatch",
           "headBranch": "main",
-          "headSha": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+          "headSha": "12bd3079a00105fa38ecd41a08649327d2c9feea",
           "status": "in_progress",
-          "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977",
+          "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
           "workflowName": "Anchor native review",
           "matchesRemoteDefaultRevision": true
         }
       ],
-      "latestWorkflowRunsObservedAt": "2026-09-07T18:29:54.705163+00:00",
+      "latestWorkflowRunsObservedAt": "2026-09-07T19:09:49.925463+00:00",
       "latestWorkflowRunsScope": "Latest occurrence of each workflow within the 30 most recent repository runs; includes tag/manual/branch runs. Not a complete historical workflow inventory.",
-      "readmeObservedAt": "2026-09-07T18:29:54.761877+00:00",
-      "readmeRevision": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+      "readmeObservedAt": "2026-09-07T19:09:49.925463+00:00",
+      "readmeRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
       "readmeSource": "Current working-tree README.md (may include active uncommitted changes).",
       "readmeReferenceCheckState": "observed",
       "readmeReferenceMeaning": "Open issue numbers absent from same-repository issue links or explicit #number references; no issue closure inferred.",
-      "revisionAtObservationEnd": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+      "revisionAtObservationEnd": "12bd3079a00105fa38ecd41a08649327d2c9feea",
       "observationStartedAt": "2026-09-07T18:29:50.831766+00:00",
-      "observedAt": "2026-09-07T18:29:54.761873+00:00",
+      "observedAt": "2026-09-07T19:09:49.925463+00:00",
       "errors": [],
       "remoteRepository": "Significant-Hobbies/anchor",
       "remoteDefaultBranch": "main",
-      "remoteDefaultRevision": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
-      "remoteObservedAt": "2026-09-07T18:29:53.166460+00:00",
+      "remoteDefaultRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+      "remoteObservedAt": "2026-09-07T19:09:49.925463+00:00",
       "localMatchesRemoteDefault": true,
       "remoteChecks": [
         {
           "conclusion": "",
-          "createdAt": "2026-09-07T18:26:05Z",
-          "databaseId": 34151609977,
+          "createdAt": "2026-09-07T19:05:00Z",
+          "databaseId": 34154195520,
           "event": "workflow_dispatch",
           "headBranch": "main",
-          "headSha": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+          "headSha": "12bd3079a00105fa38ecd41a08649327d2c9feea",
           "status": "in_progress",
-          "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977",
+          "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
           "workflowName": "Anchor native review"
         }
       ],
-      "remoteChecksRevision": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
-      "remoteChecksObservedAt": "2026-09-07T18:29:54.705163+00:00",
+      "remoteChecksRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+      "remoteChecksObservedAt": "2026-09-07T19:09:49.925463+00:00",
       "remoteChecksState": "observed",
-      "localEndObservedAt": "2026-09-07T18:29:54.761859+00:00",
-      "dirtyObservedAt": "2026-09-07T18:29:54.761871+00:00"
+      "localEndObservedAt": "2026-09-07T19:09:49.925463+00:00",
+      "dirtyObservedAt": "2026-09-07T19:09:49.925463+00:00"
     }
   ],
   "partialRefresh": {
-    "observedAt": "2026-09-07T18:29:54.762091+00:00",
+    "observedAt": "2026-09-07T19:09:53.028512+00:00",
     "projectIds": [
       "anchor",
-      "calorie",
-      "kith",
-      "rolepatch",
-      "saas-maker",
       "setline"
     ],
-    "meaning": "Only these six rows refreshed; other rows retain their own observation timestamps."
+    "meaning": "Current revisions, issues, README references and checks refreshed. Other observations retain their own timestamps."
   }
 }

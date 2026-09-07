@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
+      sha256: 50bf8a92aeb0f0c715bc5be7ce662b6a382e1d97d9e49ea089d7c8d71d210674
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: setline
-      revision: 84546dd4f81d59c620f53d025f5b958ca65f0aae
+      revision: f59f01b8df9815f4536717e5ae41da437ba9fe5c
       githubRepository: Significant-Hobbies/setline
       expectedHomepage: https://setline.significanthobbies.com
       observedHomepage: https://setline.significanthobbies.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: setline
-      revision: 84546dd4f81d59c620f53d025f5b958ca65f0aae
+      revision: f59f01b8df9815f4536717e5ae41da437ba9fe5c
       githubRepository: Significant-Hobbies/setline
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-27
       catalogLatestCommitAt: 2026-09-06
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-07T18:28:46.354Z
+      observedAt: 2026-09-07T19:07:32.254Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -106,13 +107,13 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-07-27
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 104
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 105
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: setline
-  observedRevision: 84546dd4f81d59c620f53d025f5b958ca65f0aae
+  observedRevision: f59f01b8df9815f4536717e5ae41da437ba9fe5c
   githubRepository: Significant-Hobbies/setline
   githubHomepageUrl: https://setline.significanthobbies.com
   worktree: *a1
@@ -147,10 +148,9 @@ repository:
       - quality:native
       - quality:suppressions
       - quality:unused
-      - site
       - test
 githubActions:
-  observedAt: 2026-09-07T18:28:46.354Z
+  observedAt: 2026-09-07T19:07:32.254Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -158,7 +158,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/setline
     defaultBranch: main
-    defaultBranchSha: 84546dd4f81d59c620f53d025f5b958ca65f0aae
+    defaultBranchSha: f59f01b8df9815f4536717e5ae41da437ba9fe5c
     homepage: https://setline.significanthobbies.com
     query: verified
     disposition:
@@ -183,16 +183,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34004124571
+          id: 34152489065
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 84546dd4f81d59c620f53d025f5b958ca65f0aae
-          createdAt: 2026-09-06T01:31:36Z
-          updatedAt: 2026-09-06T01:40:01Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/34004124571
-        ageDays: 1
+          headSha: f59f01b8df9815f4536717e5ae41da437ba9fe5c
+          createdAt: 2026-09-07T18:39:12Z
+          updatedAt: 2026-09-07T18:49:31Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34152489065
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -201,16 +201,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34004124571
+          id: 34152489065
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 84546dd4f81d59c620f53d025f5b958ca65f0aae
-          createdAt: 2026-09-06T01:31:36Z
-          updatedAt: 2026-09-06T01:40:01Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/34004124571
-        ageDays: 1
+          headSha: f59f01b8df9815f4536717e5ae41da437ba9fe5c
+          createdAt: 2026-09-07T18:39:12Z
+          updatedAt: 2026-09-07T18:49:31Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34152489065
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

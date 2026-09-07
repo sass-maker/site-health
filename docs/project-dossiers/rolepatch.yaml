@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
-      infrastructureUpdatedAt: 2026-08-30
+      sha256: 50bf8a92aeb0f0c715bc5be7ce662b6a382e1d97d9e49ea089d7c8d71d210674
+      infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: RolePatch
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T18:28:46.354Z
+      observedAt: 2026-09-07T19:07:32.254Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -182,7 +182,7 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-09-07T18:28:46.354Z
+  observedAt: 2026-09-07T19:07:32.254Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -333,8 +333,8 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
         status: ignored
@@ -378,6 +378,11 @@ deployment:
         name: resume-tailor
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-07T18:47:02.322222+00:00
+          deploymentId: f85a8f01-5348-4faf-af1c-928e9b957319
+          sourceCommit: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+          evidencePath: docs/qualification/rolepatch-2026-09-07/export/final-worker-parity.json
     resources:
       - provider: cloudflare
         kind: d1

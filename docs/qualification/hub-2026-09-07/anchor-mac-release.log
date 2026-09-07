@@ -1,0 +1,27 @@
+==> Anchor 1.0 — direct-download release
+==> Archiving (ReleaseDirect)
+   preserved previous build at ~/Desktop/fleet/anchor/build/release-mac.previous-20260907T182903Z
+** ARCHIVE SUCCEEDED **
+==> Exporting (developer-id)
+2026-09-07 23:59:40.148 xcodebuild[69140:14057765] [MT] IDEDistribution: -[IDEDistributionLogging _createLoggingBundleAtPath:]: Created bundle at path "/var/folders/9_/1109_2dd1qz6zyvmxb5zp8pc0000gn/T/Anchor (macOS)_2026-09-07_23-59-40.148.xcdistributionlogs".
+** EXPORT SUCCEEDED **
+==> Verifying signature
+~/Desktop/fleet/anchor/build/release-mac/export/Anchor.app: valid on disk
+~/Desktop/fleet/anchor/build/release-mac/export/Anchor.app: satisfies its Designated Requirement
+Identifier=com.significanthobbies.anchor
+Authority=Developer ID Application: Sarthak Agrawal (8F7LXHTJZR)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+   hardened runtime: on
+   debug entitlements: none
+   production CloudKit entitlements: ok
+==> Packaging DMG
+hdiutil: WARNING: 'hdiutil create -volname -format ...' is deprecated. Please use 'diskutil image create from/blank --volumeName --format ...' instead.
+created: ~/Desktop/fleet/anchor/dist/Anchor-1.0-22.dmg
+==> Signing DMG
+~/Desktop/fleet/anchor/dist/Anchor-1.0-22.dmg: satisfies its Designated Requirement
+==> Notarising as 'anchor-notary' (this takes a few minutes)
+Conducting pre-submission checks for Anchor-1.0-22.dmg and initiating connection to the Apple notary service...
+Error: No Keychain password item found for profile: anchor-notary
+
+Run 'notarytool store-credentials' to create another credential profile.

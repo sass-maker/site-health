@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
-      infrastructureUpdatedAt: 2026-08-24
+      sha256: 50bf8a92aeb0f0c715bc5be7ce662b6a382e1d97d9e49ea089d7c8d71d210674
+      infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T18:28:46.354Z
+      observedAt: 2026-09-07T19:07:32.254Z
       staleAfterDays: 30
       healthy: 7
       manual-or-reusable-never-run: 4
@@ -187,7 +187,7 @@ repository:
       - tooling:footers
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T18:28:46.354Z
+  observedAt: 2026-09-07T19:07:32.254Z
   staleAfterDays: 30
   summary:
     healthy: 7
@@ -605,12 +605,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success
@@ -662,6 +662,11 @@ deployment:
         name: saas-maker-home
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-07T18:47:02.322108+00:00
+          deploymentId: eb06ec6c-3308-4998-b43f-d028ada797de
+          sourceCommit: e2d1bb120a697d74d249c70bc7a94a8d21314672
+          evidencePath: docs/qualification/rolepatch-2026-09-07/export/directory-deployment.json
       - provider: cloudflare
         kind: worker
         name: saasmaker-api

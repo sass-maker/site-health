@@ -1,0 +1,39 @@
+{
+  "sourceCommit": "fdde4e577567db2ced30ab8b0159dbd2acb6cfcb",
+  "version": "1.0",
+  "build": "22",
+  "configuration": "ReleaseDirect",
+  "xcode": "26.6",
+  "artifact": "anchor/dist/Anchor-1.0-22.dmg",
+  "sha256": "33d96c04ac6d4aee5da260316be7b3454e90b33c3e2b4ef2d5aa61587dfc247c",
+  "archive": "succeeded",
+  "export": "succeeded",
+  "developerIdSignature": "verified",
+  "hardenedRuntime": true,
+  "debugEntitlements": false,
+  "productionCloudKitEntitlements": "verified",
+  "notarization": "blocked: documented anchor-notary Keychain profile missing",
+  "installedMac": "preserved build 21",
+  "productionSchema": "promotion pending; two additive project-reference fields verified only in Development",
+  "hostedNativeRun": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
+  "hostedNativeRunResult": {
+    "runId": 34151609977,
+    "status": "failed",
+    "mac": {
+      "passed": 11,
+      "failed": 3,
+      "skipped": 0
+    },
+    "iphone": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "watchBuild": "passed",
+    "correctionCommit": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+    "rerun": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
+    "rerunStatus": "in_progress"
+  },
+  "validationHead": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+  "previousArtifact": "anchor/dist/Anchor-1.0-22-5f62e8f.dmg"
+}

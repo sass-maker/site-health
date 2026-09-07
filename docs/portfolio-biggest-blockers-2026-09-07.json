@@ -157,7 +157,7 @@
       "name": "Protein Index",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately.",
-      "shareable": false,
+      "shareable": true,
       "repairProgress": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role.",
       "latestRelease": {
         "sourceRevision": "51c0583792f2c7d3aac70efa5e3d8b1f314ec77e",
@@ -171,7 +171,7 @@
       "name": "EverythingRated",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Hosted guest comparison and all36canonical URLs pass. Rating writes remain unverified; Actions authentication remains #18.",
-      "shareable": false,
+      "shareable": true,
       "repairProgress": "53a6bc0 pushed clean; substantive 7ab86fd replaces fabricated previews and unsupported confidence claims with current rubric/data/counts, excludes unrated axes from weighted totals. 28 tests, typecheck and build passed; final exact-head CI and Docs green. README/#17 retains live qualification. Zero prior open issues/PRs to close.",
       "latestRelease": {
         "sourceRevision": "ffc8884bf368fba20edcf0c1f90a7ff99b1240a4",
@@ -340,7 +340,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified.",
       "shareable": false,
-      "repairProgress": "Simpler daily habits, schedule copy, project tags and pause recovery pushed at 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997. 185 package tests and three focused iPhone simulator journeys pass; 27 visual catalog surfaces rendered and scoped visual receipt passes. Stable-Xcode 26.6 development build 22 installed on owner iPhone. Full hosted native run 34151609977 is in progress. Mac installed build 21 preserved; two additive CloudKit fields verified in Development only."
+      "repairProgress": "Daily habit check-off, selected-day copy/editing, project-linked entries and pause recovery implemented. Final product source fdde4e577567db2ced30ab8b0159dbd2acb6cfcb; validation head 12bd3079a00105fa38ecd41a08649327d2c9feea. All 185 package tests pass. Prior hosted run 34151609977 passed 8/8 iPhone tests and Watch build, but failed 3/14 Mac tests. The two stale navigation/role queries and broad snapshot query are corrected and compiled; current run 34154195520 is pending. Compact Today native iPhone copy/persistence retest passes and screenshot is inspected. Final development build 22 is installed; final Developer ID Mac DMG is prepared but not notarized."
     },
     {
       "id": "saas-maker",
@@ -355,7 +355,7 @@
       "name": "Memory Map",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Hosted small synthetic browser-local import/search/save/reload/forget passes. Analytics initialization is repaired and verified live. Large/multilingual/GPU-recovery acceptance remains #37; no broad archive qualification is claimed.",
-      "shareable": false,
+      "shareable": true,
       "repairProgress": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass.",
       "latestRelease": {
         "sourceRevision": "0120fdbd70e7457c6b07b150981d33b3f8a457af",
@@ -440,7 +440,7 @@
       "name": "Mashup",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Public finished-example playback, exact media receipts and corrected desktop/mobile captions pass. Automatic editorial selection, source installation and the real creator/operator pilot remain unqualified under #11.",
-      "shareable": false,
+      "shareable": true,
       "repairProgress": "9673d78 pushed clean; CI 34107001659 green. Approved media recovered and hash-checked in local staging, both videos played. Operator-reviewed 36-second synthetic archive export decoded and played; automatic cold-opening rejection preserved. 502 tests pass; #11 retained.",
       "latestRelease": {
         "sourceRevision": "40c03b061d56a21a23116630a4eb7afc9e5df3eb",
@@ -471,7 +471,7 @@
       "name": "Reddit Insights",
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim.",
-      "shareable": false,
+      "shareable": true,
       "repairProgress": "2026-09-07: Pushed 4e63e2b; full quality, 93-community export and exact CI pass. Search panel no longer receives community navigation, snapshot ages are dated, unavailable routes no longer substitute another corpus. Approved deployment and live search/mobile checks remain.",
       "latestRelease": {
         "sourceRevision": "4e63e2b4abbefda34981e45d5dad35cc33c3b794",

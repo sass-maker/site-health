@@ -74,3 +74,13 @@ favicon; the temporary local check used Webpack, matching production.
 Remaining work is tracked in [RolePatch #68](https://github.com/Significant-Hobbies/rolepatch/issues/68)
 and linked from its README. Local servers and disposable browsers are closed at
 the end of this pass; only these synthetic receipts are retained.
+
+## Final source and directory parity
+
+The documentation follow-up at `0bd2285c4d59c77626fa39c35c02c93f8b89997b`
+is live on Worker `resume-tailor`, at 100% with the exact Git SHA tag. See
+`final-worker-parity.json`. SaaS Maker's checked public projection is deployed
+from `e2d1bb120a697d74d249c70bc7a94a8d21314672`; all four production directory
+checks pass. The browser renders RolePatch's explicit guest limits, and the
+22-item JSON directory excludes Chess and Journal. See the adjacent directory
+deployment receipt and actual browser snapshot.

@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9af725dcec5bdb0b2fc6acf57fdd79b41de38039ed087a1668187d7f248a62bb
+      sha256: 50bf8a92aeb0f0c715bc5be7ce662b6a382e1d97d9e49ea089d7c8d71d210674
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
+      revision: 12bd3079a00105fa38ecd41a08649327d2c9feea
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
+      revision: 12bd3079a00105fa38ecd41a08649327d2c9feea
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-07T18:28:46.354Z
+      observedAt: 2026-09-07T19:07:32.254Z
       staleAfterDays: 30
       running: 1
       attention: &a2
@@ -122,13 +123,13 @@ product:
     - Foundation Models
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 92
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 95
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
+  observedRevision: 12bd3079a00105fa38ecd41a08649327d2c9feea
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -144,7 +145,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-07T18:28:46.354Z
+  observedAt: 2026-09-07T19:07:32.254Z
   staleAfterDays: 30
   summary:
     running: 1
@@ -152,7 +153,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
+    defaultBranchSha: 12bd3079a00105fa38ecd41a08649327d2c9feea
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -176,15 +177,15 @@ githubActions:
         reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34151609977
+          id: 34154195520
           status: in_progress
           conclusion: null
           event: workflow_dispatch
           branch: main
-          headSha: 5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997
-          createdAt: 2026-09-07T18:26:05Z
-          updatedAt: 2026-09-07T18:26:10Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977
+          headSha: 12bd3079a00105fa38ecd41a08649327d2c9feea
+          createdAt: 2026-09-07T19:05:00Z
+          updatedAt: 2026-09-07T19:05:35Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520
         ageDays: 0
       schedule:
         health: not-applicable

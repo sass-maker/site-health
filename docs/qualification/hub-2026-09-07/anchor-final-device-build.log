@@ -1,0 +1,15 @@
+
+🔨 Build
+
+   Scheme: Anchor (iOS)
+   Project: Apps/Anchor.xcodeproj
+   Configuration: Release
+   Platform: iOS
+   Derived Data: /tmp/anchor-simple-day-20260907/final-device-build
+
+✅ Build succeeded. (⏱️ 55.4s)
+  └ Files:
+     └ Build Logs: ~/Library/Developer/XcodeBuildMCP/workspaces/anchor-084ad8da25bb/logs/build_device_2026-09-07T19-00-50-147Z_pid88847_9dcc6c63.log
+
+Next steps:
+1. Get built device app path: xcodebuildmcp device get-app-path --scheme 'Anchor (iOS)' --derived-data-path /tmp/anchor-simple-day-20260907/final-device-build
