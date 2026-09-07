@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle model updated 2026-09-06)
-Scope: all 56 canonical Fleet identities
+Date: 2026-08-23 (lifecycle and owner decisions updated 2026-09-07)
+Scope: all 57 retained identities; Chess and Journal are removed from the Fleet lineup
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -22,9 +22,9 @@ open issues. Those belong in the canonical catalog, each project's
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 18 | Supported and kept useful; improvements follow concrete needs. |
+| Active | 19 | Supported and kept useful; improvements follow concrete needs. |
 | Inactive | 36 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
-| **Total** | **56** | Every canonical Fleet identity appears exactly once. |
+| **Total** | **57** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
 
@@ -40,7 +40,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Calorie | Active | Support weight loss through food logging, fasting windows, exercise timing, and daily performance. | Functionally done and connected to the Hub family. | Keep using it; change it only when repeated use reveals a gap. |
 | ChatGPT Connections | Active | Let ChatGPT securely reach selected Fleet projects. | Working shared read-only gateway; ChatGPT is the destination and MCP is the protocol. | Add stronger or additional connections only when a concrete consumer needs them. |
 | Memory Map (`chatgpt-memory-insights`) | Inactive | Analyse exported AI conversations for themes, memory, emotion, and personal change. | Useful but not complete; dashboard and insight quality can improve. | Deepen historical-shift insights, then add Codex, Claude, and other sources without weakening the browser-local privacy boundary. |
-| Chess Coach (`chess`) | Inactive | Use a local AI agent as a chess improvement partner. | Complete enough, but the owner has lost interest in chess. | No roadmap; retain the working public artifact. |
+| Chess Coach (`chess`) | Inactive | Use a local AI agent as a chess improvement partner. | Owner explicitly removed it from Fleet on 2026-09-07. | Use Lichess; preserve source and history without promotion or new work. |
 | CodeVetter | Primary | Build a strong local-first reviewer for AI-generated code. | Feature-rich but far from the intended market standard. | Keep iterating toward executable, receipt-backed verification and make it one of the category's best products. |
 | Companion Robot | Inactive | Explore a future embodied AI companion. | Ideation and planning only. | Reopen when there is an explicit hardware purchase and a bounded Phase 0 experiment. |
 | Drank | Inactive | Track Domain Rating after the relevant API became freely usable. | Finished and already consumed by Site Health. | Maintain the adapter/data flow; no independent feature roadmap. |
@@ -55,7 +55,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | India Standards | Inactive | Use official data to contextualize how a person is doing in India. | The transparent aggregate calculator exists, but data quality limits expansion. | Reopen when materially better authoritative data becomes available. |
 | IssuePages (`issue-pages`) | Inactive | Make publishing a public page as simple as opening a GitHub issue. | Owner-only production pilot is live at issues.sarthakagrawal.dev; the issue/edit/archive/search/render loop is proven, while public moderation and authenticated GitHub rendering remain gated. | Connect the GitHub render token, then OpenAI moderation; study whether strangers publish and readers continue browsing. |
 | iOS landings (`ios-landings`) | Active | Reuse one landing-page engine across native Significant Hobbies products. | Canonical shared factory with multiple product-specific sites. | Add products and capabilities only when a native app actually needs a public landing surface. |
-| Journal | Inactive | Make journaling a durable habit within the Hub. | Currently being built as a private, device-first writing app. | Use it, add features from real practice, and explore careful emotional-pattern detection. |
+| Journal | Inactive | Make journaling a durable habit within the Hub. | Owner explicitly removed it from Fleet on 2026-09-07. | Use an existing journal; preserve source and history without promotion or new work. |
 | Karte | Inactive | Evolve a link-in-bio page into a greeting card, company profile, and personal agent. | Strong individual profile and conversational foundation already exist. | Make the positioning and workflows company-friendly, then validate real company use. |
 | Kith | Inactive | Provide a beautiful personal relationship-memory app. | Built as a device-first constellation rather than a CRM. | Use it regularly and let relationship-management behavior determine improvements. |
 | Knowledge Base | Active | Supply private, cited retrieval to other Fleet applications. | Working shared RAG service with healthy consumers. | Leave it alone until a consumer failure, retrieval regression, or new corpus requires work. |
@@ -65,6 +65,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Mashup | Inactive | Turn a creator's archive into coherent topic-specific comedy, motivation, podcast, or clipping compilations. | Strong local clipper/merger with provenance and approval boundaries. | Reopen around one real creator archive and prove the comedy-topic workflow end to end. |
 | Materia | Inactive | Build an interactive anatomy and evidence-based remedies encyclopedia. | Technically and editorially ambitious; evidence quality and content maintenance dominate the cost. | Reopen only with a defined evidence standard, medical-safety boundary, and sustained content budget. |
 | Mobile Dev Cockpit | Inactive | Supervise desktop development workflows from a phone. | Its required desktop-control dependency was abandoned; the owner now prefers purpose-built apps. | Archive permanently; retain pairing, allowlisting, and approval patterns as reference. |
+| Nomad Data Adventure (`nomad-data-adventure`) | Active | Explore city data in a bounded local experiment. | Owner confirmed active; local collection and slicing scripts exist, with no verified public product or redistribution rights. | Establish a useful reproducible exploration and data rights before sharing. |
 | Motion | Inactive | Turn body movement captured by a phone into games displayed on a TV. | Promising body-as-controller prototype, but physical play quality and distribution remain unproven. | Reopen for focused physical-device playtesting of one genuinely fun control loop. |
 | Open Historia | Inactive | Recreate an AI grand-strategy game locally and without credit limits. | Durable country memory is compelling, but the map and campaign loop were not enjoyable enough. | Reopen during a live build with a game-quality map and one coherent campaign-turn loop. |
 | HeyPace (`pace`) | Active | Build a fast, privacy-first local Mac assistant inspired by Hey Clicky. | Technically broad and well made, but the owner never formed a usage habit. | Find one or two moments it should own through daily use before building more capabilities. |
@@ -78,9 +79,9 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Reel Pipeline | Inactive | Automate product-video creation and posting. | Scope spiralled, accumulated features, and never shipped. | Before reopening, reduce it to one publishable video loop with explicit cost and operator-time limits. |
 | Research Papers | Inactive | Maintain a large RAG-assisted library of market and research papers. | Essentially complete as a corpus. | Preserve and analyse it when a concrete research question appears. |
 | RolePatch | Inactive | Tailor a resume and supporting application material to a job description. | Strong product, but unused because the owner is not job hunting. | Test it against real applications when job-search intent returns; let that test trim unnecessary breadth. |
-| SaaS Maker | Active | House reusable packages, public Fleet discovery, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home and public 56-identity directory after reconciliation. | Stabilize its package boundaries and let real Fleet consumers determine which packages deserve investment. |
+| SaaS Maker | Active | House reusable packages, public Fleet discovery, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home; public directory includes only verified shareable surfaces. Private inventory retains all identities. | Stabilize its package boundaries and let real Fleet consumers determine which packages deserve investment. |
 | Setline | Active | Execute workouts one set at a time with accurate timing and performance tracking. | Actively being built as a focused native workout player. | Continue the working workout loop and validate it through real sessions. |
-| Significant Hobbies | Active | Join six maintained personal applications in one Hub while each retains ownership of its data. | Hub UI, backend, typed sync package, and extracted product boundaries are canonical. The historical `habits` domain remains available as compatibility data but is no longer a separate app card. | Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains. |
+| Significant Hobbies | Active | Join retained personal applications in one Hub while each retains ownership of its data. | Hub UI, backend, typed sync package, and extracted product boundaries are canonical. Journal is removed from the lineup; historical data and compatibility domains remain attributable. | Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains. |
 | Site Health | Active | Give the owner one local view of Fleet inventory, domain rank, performance, search, and AI visibility. | Actively maintained canonical private catalog and operational dashboard. | Keep it local; improve only the five owner questions and their evidence adapters. |
 | Starboard | Active | Replace GitHub Stars' overloaded UI with better personal exploration. | Core synchronization, search, tags, lists, and project-aware discovery are largely complete. | Continue focused exploration improvements without expanding into unrelated alerts or reporting. |
 | SWE Interview Prep | Active | Create a learning-by-doing system using Pomodoro, Feynman, retrieval practice, and roadmaps. | Broad active work-in-progress with a strong learning loop and growing scope. | Strengthen practice and retention; resist adding tracks that do not improve personal learning. |

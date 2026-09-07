@@ -3,7 +3,7 @@ projectId: ai-game
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 1b7d8831446bbe65b30a457cee946d561b29b60bb4ed413ee1c3e1763696e906
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: aliveville
-      revision: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
+      revision: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
       githubRepository: sarthakagrawal927/aliveville
       expectedHomepage: https://aliveville.com
       observedHomepage: https://aliveville.com
@@ -43,24 +43,23 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: aliveville
-      revision: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
+      revision: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
       githubRepository: sarthakagrawal927/aliveville
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-03
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
-        clear: 3
+        ignored: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: I started AliveVille with a vision that there will be AI agents that are going on their life in a real-life-based game. It can be a fantasy game also but it will be AI, a long-running AI agent essentially doing actions, getting into fights, all the standard open-world game characteristics. With AI having long-form memory they can hold grudges and they can do things. It was a fairly technical thing to start so I wanted to do it.
@@ -72,7 +71,7 @@ ownerVoice:
     What's next? I would definitely like to pick this up because I think this will be made in the future even if I don't build it. Someone will build it. But as of now it is on hold.
   relatedHistoricalReviews: []
 decision:
-  classification: Hold
+  classification: Inactive
   whySummary: Create a long-running AI-agent world with memory, conflict, grudges, and open-world behavior.
   currentState: The simulation thesis remains compelling, but no attempted UI made the game emotionally attractive enough to continue.
   nextDecision: Reopen only with a convincing playable visual direction and a small fun loop—not more simulation depth.
@@ -86,7 +85,10 @@ identity:
   priority: P4
   tier: parked
   attention: ignored
-  lifecycle: past
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
@@ -110,13 +112,13 @@ product:
     - Cloudflare
   retainedGitHistory:
     firstCommitAt: 2026-05-03
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 366
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 368
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: aliveville
-  observedRevision: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
+  observedRevision: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
   githubRepository: sarthakagrawal927/aliveville
   githubHomepageUrl: https://aliveville.com
   worktree: *a1
@@ -180,7 +182,7 @@ repository:
       - typecheck
       - verify:readiness
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -188,12 +190,12 @@ githubActions:
   remote:
     repository: sarthakagrawal927/aliveville
     defaultBranch: main
-    defaultBranchSha: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
+    defaultBranchSha: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
     homepage: https://aliveville.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -206,22 +208,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308575309
+          id: 34092834863
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
-          createdAt: 2026-08-30T11:18:03Z
-          updatedAt: 2026-08-30T11:18:48Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/33308575309
+          headSha: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
+          createdAt: 2026-09-07T06:53:25Z
+          updatedAt: 2026-09-07T06:54:08Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834863
         ageDays: 0
       schedule:
         health: not-applicable
@@ -231,17 +233,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308575309
+          id: 34092834863
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
-          createdAt: 2026-08-30T11:18:03Z
-          updatedAt: 2026-08-30T11:18:48Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/33308575309
+          headSha: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
+          createdAt: 2026-09-07T06:53:25Z
+          updatedAt: 2026-09-07T06:54:08Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834863
         ageDays: 0
-      attention: clear
+      attention: ignored
     - name: Deploy aliveville landing
       file: .github/workflows/deploy-aliveville.yml
       triggers:
@@ -252,23 +254,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32562374731
+          id: 34015634206
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 896231fd63d8bf57570820c2215b3e0e160fee2b
-          createdAt: 2026-08-22T08:28:29Z
-          updatedAt: 2026-08-22T08:29:15Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/32562374731
-        ageDays: 8
+          headSha: 31440a576e900479055bd7f49b41811c512d6675
+          createdAt: 2026-09-06T06:06:15Z
+          updatedAt: 2026-09-06T06:07:02Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34015634206
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -277,7 +279,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -289,22 +291,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308575332
+          id: 34092834885
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
-          createdAt: 2026-08-30T11:18:03Z
-          updatedAt: 2026-08-30T11:18:14Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/33308575332
+          headSha: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
+          createdAt: 2026-09-07T06:53:25Z
+          updatedAt: 2026-09-07T06:53:38Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834885
         ageDays: 0
       schedule:
         health: not-applicable
@@ -314,17 +316,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308575332
+          id: 34092834885
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cc7e8133f65a02cc3bf1e63a8f721643bbbb0fbe
-          createdAt: 2026-08-30T11:18:03Z
-          updatedAt: 2026-08-30T11:18:14Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/33308575332
+          headSha: 5f9390a05a09d0fd1ce2c49f2272518adcbb7425
+          createdAt: 2026-09-07T06:53:25Z
+          updatedAt: 2026-09-07T06:53:38Z
+          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34092834885
         ageDays: 0
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker+pages
   deployed: true
@@ -375,8 +377,8 @@ sharing:
   publicListing: past
   maturity: null
   ready: false
-  verifiedAt: 2026-08-11
-  reason: Archived projects are not ready for active sharing.
+  verifiedAt: 2026-09-07
+  reason: "Generated labelled Lanternmere demo, selected Wanderer, rendered six-NPC 3D town at116FPS. Town reached fallen state while inspecting setup. Closed tab to stop local simulation. Limit: No useful talk/memory loop completed; no explicit save clicked; not qualified merely by3D rendering."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/aliveville/issues
   geoIdentity: null

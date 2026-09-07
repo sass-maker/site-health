@@ -3,7 +3,7 @@ projectId: knowledge-base
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: d98a957f3fbb826c0e849256b217a66fdd9bd7e3c42ae73c5c5819ba17c43197
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: knowledge-base
-      revision: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
+      revision: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -43,20 +43,19 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: knowledge-base
-      revision: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
+      revision: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-27
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -68,7 +67,7 @@ ownerVoice:
   fullReviewVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
   relatedHistoricalReviews: []
 decision:
-  classification: Infrastructure
+  classification: Active
   whySummary: Supply private, cited retrieval to other Fleet applications.
   currentState: Working shared RAG service with healthy consumers.
   nextDecision: Leave it alone until a consumer failure, retrieval regression, or new corpus requires work.
@@ -81,7 +80,10 @@ identity:
   priority: P2
   tier: active
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: active
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: required-service
   inRegistry: true
@@ -106,13 +108,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-05-27
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 211
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 215
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
+  observedRevision: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -165,7 +167,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -173,7 +175,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
+    defaultBranchSha: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -198,15 +200,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33310018515
+          id: 34021588151
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
-          createdAt: 2026-08-30T11:52:38Z
-          updatedAt: 2026-08-30T11:53:50Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/33310018515
+          headSha: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
+          createdAt: 2026-09-06T08:20:44Z
+          updatedAt: 2026-09-06T08:21:53Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34021588151
         ageDays: 0
       schedule:
         health: not-applicable
@@ -216,15 +218,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33310018515
+          id: 34021588151
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9e7faca3620072e0e6c935d037a0bf786fdabbbf
-          createdAt: 2026-08-30T11:52:38Z
-          updatedAt: 2026-08-30T11:53:50Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/33310018515
+          headSha: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
+          createdAt: 2026-09-06T08:20:44Z
+          updatedAt: 2026-09-06T08:21:53Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34021588151
         ageDays: 0
       attention: clear
     - name: docs
@@ -254,14 +256,14 @@ githubActions:
           createdAt: 2026-08-25T21:01:29Z
           updatedAt: 2026-08-25T21:01:42Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703380
-        ageDays: 4
+        ageDays: 12
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 9e7faca
+        reason: no push run at current main revision 0f10c50
         lastRun:
           id: 32898703380
           status: completed
@@ -300,7 +302,7 @@ githubActions:
           createdAt: 2026-08-16T18:27:47Z
           updatedAt: 2026-08-16T18:27:59Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/31964660082
-        ageDays: 14
+        ageDays: 21
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -462,9 +464,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Public page explicitly describes internal infrastructure; operator console protected by Fleet Access. Limit: No public core document workflow."
   changelogUrl: https://knowledgebase.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/knowledge-base/issues
   geoIdentity:

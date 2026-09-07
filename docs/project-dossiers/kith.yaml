@@ -3,7 +3,7 @@ projectId: kith
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 08cbe2a327edb11ee198800b0042ab6dbd2347f16e6d8673820a95887b1c93b6
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: kith
       revision: 916e876ede113ea1ba2eb13b56105502ca88bf68
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: kith
       revision: 916e876ede113ea1ba2eb13b56105502ca88bf68
@@ -51,23 +51,22 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-08-29
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
-        clear: 1
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
   fullReviewVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive
   whySummary: Provide a beautiful personal relationship-memory app.
   currentState: Built as a device-first constellation rather than a CRM.
   nextDecision: Use it regularly and let relationship-management behavior determine improvements.
@@ -80,7 +79,10 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -125,7 +127,7 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -137,8 +139,8 @@ githubActions:
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -151,8 +153,8 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
@@ -167,7 +169,7 @@ githubActions:
           createdAt: 2026-08-29T16:25:58Z
           updatedAt: 2026-08-29T16:33:20Z
           url: https://github.com/Significant-Hobbies/kith/actions/runs/33262949395
-        ageDays: 1
+        ageDays: 8
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -185,8 +187,8 @@ githubActions:
           createdAt: 2026-08-29T16:25:58Z
           updatedAt: 2026-08-29T16:33:20Z
           url: https://github.com/Significant-Hobbies/kith/actions/runs/33262949395
-        ageDays: 1
-      attention: clear
+        ageDays: 8
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -215,8 +217,8 @@ sharing:
   publicListing: maintained
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-08-21
-  reason: Landing is live at kith.significanthobbies.com from the ios-landings factory. Hub-enabled Kith 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; no public TestFlight or App Store build is approved.
+  verifiedAt: 2026-09-07
+  reason: "Live landing states internal TestFlight only, latest processed build 3/source 7, no public enrollment. Limit: No public consumer installation path."
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:

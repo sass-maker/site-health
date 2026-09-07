@@ -3,7 +3,7 @@ projectId: psi-swarm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 55b49e5ecd9836910ae1bac58c819379f6b3c865701ff418910a9f559f54edd7
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: psi-swarm
-      revision: 2b50c570e4545d41addefe2c06460384b5693101
+      revision: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
       githubRepository: sass-maker/psi-swarm
       expectedHomepage: https://performance.sassmaker.com
       observedHomepage: https://performance.sassmaker.com
@@ -43,33 +43,31 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: psi-swarm
-      revision: 2b50c570e4545d41addefe2c06460384b5693101
+      revision: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
       githubRepository: sass-maker/psi-swarm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-03
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
       attention: &a2
-        clear: 3
-        missing-data: 1
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
   fullReviewVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
   relatedHistoricalReviews: []
 decision:
-  classification: Infrastructure
+  classification: Inactive
   whySummary: Measure real product performance across repeated Lighthouse conditions.
   currentState: Completed operational CLI and Site Health input.
   nextDecision: Maintain compatibility and measurement integrity; no independent feature roadmap.
@@ -82,7 +80,10 @@ identity:
   priority: P4
   tier: active
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -107,13 +108,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-06-03
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 73
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 76
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: psi-swarm
-  observedRevision: 2b50c570e4545d41addefe2c06460384b5693101
+  observedRevision: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
   githubRepository: sass-maker/psi-swarm
   githubHomepageUrl: https://performance.sassmaker.com
   worktree: *a1
@@ -156,7 +157,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -165,12 +166,12 @@ githubActions:
   remote:
     repository: sass-maker/psi-swarm
     defaultBranch: main
-    defaultBranchSha: 2b50c570e4545d41addefe2c06460384b5693101
+    defaultBranchSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
     homepage: https://performance.sassmaker.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: PSI Swarm CI
       file: .github/workflows/ci.yml
@@ -184,23 +185,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308994171
+          id: 34004623699
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2b50c570e4545d41addefe2c06460384b5693101
-          createdAt: 2026-08-30T11:28:06Z
-          updatedAt: 2026-08-30T11:28:52Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/33308994171
-        ageDays: 0
+          headSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+          createdAt: 2026-09-06T01:43:20Z
+          updatedAt: 2026-09-06T01:44:06Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34004623699
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -209,17 +210,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308994171
+          id: 34004623699
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2b50c570e4545d41addefe2c06460384b5693101
-          createdAt: 2026-08-30T11:28:06Z
-          updatedAt: 2026-08-30T11:28:52Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/33308994171
-        ageDays: 0
-      attention: clear
+          headSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+          createdAt: 2026-09-06T01:43:20Z
+          updatedAt: 2026-09-06T01:44:06Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34004623699
+        ageDays: 1
+      attention: ignored
     - name: Deploy psi-swarm-web to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -230,22 +231,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33242202482
+          id: 34015763349
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 1dc4ea98c4335f3cc807186a83ed82fa42d52fdf
-          createdAt: 2026-08-29T08:02:14Z
-          updatedAt: 2026-08-29T08:02:53Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/33242202482
+          headSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+          createdAt: 2026-09-06T06:09:24Z
+          updatedAt: 2026-09-06T06:09:57Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34015763349
         ageDays: 1
       schedule:
         health: not-applicable
@@ -255,7 +256,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Release PSI Swarm CLI
       file: .github/workflows/release-cli.yml
       triggers:
@@ -266,8 +267,8 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
@@ -282,7 +283,7 @@ githubActions:
           createdAt: 2026-08-25T23:17:14Z
           updatedAt: 2026-08-25T23:21:05Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/32910082428
-        ageDays: 4
+        ageDays: 12
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -291,7 +292,7 @@ githubActions:
         health: missing
         reason: no push run was returned for main
         lastRun: null
-      attention: missing-data
+      attention: ignored
     - name: pages-build-deployment
       file: dynamic/pages/pages-build-deployment
       triggers: []
@@ -301,11 +302,11 @@ githubActions:
         local: false
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stale
-        reason: latest run is 88 days old
+        reason: latest run is 95 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -317,7 +318,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
-        ageDays: 88
+        ageDays: 95
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -326,7 +327,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -349,9 +350,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Installed CLI help, run help and presets execute successfully. Limit: A real measurement run and intelligible report remain unverified; help output alone is insufficient."
   changelogUrl: https://performance.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/psi-swarm/issues
   geoIdentity:

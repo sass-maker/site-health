@@ -3,7 +3,7 @@ projectId: chess
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 71abe88c117cde1773bf230e1af7a8ae206bee923e4fa18f41f7d8fb7370a87d
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: chess
-      revision: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
+      revision: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
       githubRepository: Significant-Hobbies/chess
       expectedHomepage: https://chess.significanthobbies.com
       observedHomepage: https://chess.significanthobbies.com
@@ -43,35 +43,33 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: chess
-      revision: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
+      revision: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
       githubRepository: Significant-Hobbies/chess
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-22
-      catalogLatestCommitAt: 2026-08-17
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
-        clear: 3
-        missing-data: 1
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: I started off to have a chess player on board which can use my local AI agent to help me improve but I would call it B-0 completed. I have no intention of making more progress in this project since I have a bit lost interest in the game.
   fullReviewVerbatim: I started off to have a chess player on board which can use my local AI agent to help me improve but I would call it B-0 completed. I have no intention of making more progress in this project since I have a bit lost interest in the game.
   relatedHistoricalReviews: []
 decision:
-  classification: Dropped
+  classification: Inactive
   whySummary: Use a local AI agent as a chess improvement partner.
-  currentState: Complete enough, but the owner has lost interest in chess.
-  nextDecision: No roadmap; retain the working public artifact.
+  currentState: Owner explicitly removed it from Fleet on 2026-09-07.
+  nextDecision: Use Lichess; preserve source and history without promotion or new work.
 identity:
   name: Chess
   publicName: Chess Coach
@@ -79,12 +77,15 @@ identity:
   family: significanthobbies
   kind: experiment
   priority: P4
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
-  lifecycle: past
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Browser chess against Stockfish with optional AI move coaching.
   publicMakerNote: I built Chess to explore whether a local AI agent could become a practical, patient partner for improving my game.
@@ -93,8 +94,8 @@ product:
     audience: A chess learner who wants a patient practice partner rather than only a move engine.
     outcome: Play against Stockfish and receive optional coaching that explains useful move ideas.
     mechanism: A browser board pairs engine play with a local AI coaching layer for contextual feedback.
-    proof: The public artifact works, but the owner lost interest in chess and the product has no active roadmap.
-    nextAction: Try the retained chess artifact if useful; expect no active development or product expansion.
+    proof: Retained historical experiment; the owner explicitly removed it from Fleet on 2026-09-07.
+    nextAction: Use an existing journal or chess product; preserve this repository as history without an active roadmap.
   form: Web game
   platforms:
     - Web
@@ -105,13 +106,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-02-22
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 97
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 99
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: chess
-  observedRevision: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
+  observedRevision: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
   githubRepository: Significant-Hobbies/chess
   githubHomepageUrl: https://chess.significanthobbies.com
   worktree: *a1
@@ -158,7 +159,7 @@ repository:
       - test:e2e
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -166,12 +167,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/chess
     defaultBranch: main
-    defaultBranchSha: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
+    defaultBranchSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
     homepage: https://chess.significanthobbies.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -185,22 +186,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262914977
+          id: 34002481600
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
-          createdAt: 2026-08-29T16:25:15Z
-          updatedAt: 2026-08-29T16:26:22Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/33262914977
+          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
+          createdAt: 2026-09-06T00:53:55Z
+          updatedAt: 2026-09-06T00:55:21Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/34002481600
         ageDays: 1
       schedule:
         health: not-applicable
@@ -210,17 +211,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262914977
+          id: 34002481600
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8ddfbe6b79ec9dc9f9177b4133c93038b24642b1
-          createdAt: 2026-08-29T16:25:15Z
-          updatedAt: 2026-08-29T16:26:22Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/33262914977
+          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
+          createdAt: 2026-09-06T00:53:55Z
+          updatedAt: 2026-09-06T00:55:21Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/34002481600
         ageDays: 1
-      attention: clear
+      attention: ignored
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -231,22 +232,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33248974548
+          id: 34015639226
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 878446088d57b43c88c3a985346822be5f2b9d07
-          createdAt: 2026-08-29T10:57:01Z
-          updatedAt: 2026-08-29T10:57:34Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/33248974548
+          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
+          createdAt: 2026-09-06T06:06:22Z
+          updatedAt: 2026-09-06T06:06:53Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/34015639226
         ageDays: 1
       schedule:
         health: not-applicable
@@ -256,7 +257,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -268,8 +269,8 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
@@ -284,14 +285,14 @@ githubActions:
           createdAt: 2026-08-25T21:18:29Z
           updatedAt: 2026-08-25T21:18:37Z
           url: https://github.com/Significant-Hobbies/chess/actions/runs/32900296311
-        ageDays: 4
+        ageDays: 12
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 8ddfbe6
+        reason: no push run at current main revision e8a34f7
         lastRun:
           id: 32900296311
           status: completed
@@ -302,7 +303,7 @@ githubActions:
           createdAt: 2026-08-25T21:18:29Z
           updatedAt: 2026-08-25T21:18:37Z
           url: https://github.com/Significant-Hobbies/chess/actions/runs/32900296311
-      attention: missing-data
+      attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -312,23 +313,23 @@ githubActions:
         local: false
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32686282400
+          id: 34079494964
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: c4d877ddbbbcaf1096ef31e69e15105a4073dc40
-          createdAt: 2026-08-24T03:23:34Z
-          updatedAt: 2026-08-24T03:24:30Z
-          url: https://github.com/Significant-Hobbies/chess/actions/runs/32686282400
-        ageDays: 6
+          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
+          createdAt: 2026-09-07T03:23:43Z
+          updatedAt: 2026-09-07T03:24:21Z
+          url: https://github.com/Significant-Hobbies/chess/actions/runs/34079494964
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -337,7 +338,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -358,14 +359,14 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: past
+  publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-08-20
-  reason: Archived at the owner's request; the live surface is retained but is no longer an active sharing target.
+  verifiedAt: 2026-09-07
+  reason: "Loaded engine, displayed suggested d5 arrow, dragged black pawn d7 to d5; Stockfish replied Bf4 and move history graded d5 Best with +0.3. Desktop board readable. Limit: Natural-language coaching requires local bridge; keyboard/drop and click did not move piece, direct drag worked."
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/chess/issues
   geoIdentity: null
 notes:
-  catalog: Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0.
+  catalog: "Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0. Owner decision 2026-09-07: remove from Fleet; retain source, history and attributed infrastructure without promotion or new product work."
   infrastructure: null

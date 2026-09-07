@@ -1,0 +1,160 @@
+schemaVersion: 1
+projectId: nomad-data-adventure
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-07
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: not-applicable
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
+      infrastructureUpdatedAt: 2026-09-07
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Nomad Data Adventure
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-07
+      reviewSha256: 6f8d1cd0b0cddf38d6be96eaf8f6438fd527525f9fcc15fa22a8cb9e9490c49c
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-07
+      state: unavailable
+      checkout: nomads-data
+      revision: null
+      githubRepository: null
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-07
+      state: unavailable
+      checkout: nomads-data
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
+      catalogDrift: []
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
+    githubActions:
+      observedAt: 2026-09-07T07:49:31.533Z
+      staleAfterDays: 30
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: keep as active for now, ensure to cleanup after yourself
+  fullReviewVerbatim: keep as active for now, ensure to cleanup after yourself
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Explore city data in a bounded local experiment.
+  currentState: Owner confirmed active; local collection and slicing scripts exist, with no verified public product or redistribution rights.
+  nextDecision: Establish a useful reproducible exploration and data rights before sharing.
+identity:
+  name: Nomad Data Adventure
+  publicName: Nomad Data Adventure
+  aliases: []
+  family: significanthobbies
+  kind: experiment
+  priority: P2
+  tier: active
+  attention: toolbox
+  lifecycle:
+    status: active
+    shareable: false
+    resumeCondition: null
+  operationalStatus: undeployed
+  authenticationModel: local-only
+  inRegistry: true
+product:
+  description: A local city-data exploration experiment.
+  publicMakerNote: I am keeping Nomad Data Adventure active for now as a data exploration experiment.
+  purposeContract:
+    purpose: Explore city data through a bounded local experiment.
+    audience: The owner exploring the available city datasets.
+    outcome: Learn what useful comparisons the data supports.
+    mechanism: Local Python collection and slicing scripts produce JSON datasets.
+    proof: Scripts and generated local files exist; no public viewer or reproducible product journey is verified.
+    nextAction: Keep active; establish data rights and a useful reproducible exploration before sharing.
+  form: Data experiment
+  platforms:
+    - Local
+    - CLI
+  prominentTools:
+    - Python
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: nomads-data
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: private
+  url: null
+  aliases: []
+  sourceOverride: nomads-data
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-07T07:49:31.533Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a1
+  remote:
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Found nomads-data containing collection scripts and generated city data; no Git repository or README. Owner explicitly requested active inclusion. Limit: Dataset rights, reproducible setup, user-facing value and distribution not qualified."
+  changelogUrl: null
+  roadmapUrl: null
+  geoIdentity: null
+notes:
+  catalog: Owner confirmed active on 2026-09-07. Local nomads-data directory has collection scripts and generated data, but no Git repository or public deployment. Do not publish raw collected datasets without establishing redistribution rights.
+  infrastructure: No Git repository or deployed provider resources verified; local directory only.

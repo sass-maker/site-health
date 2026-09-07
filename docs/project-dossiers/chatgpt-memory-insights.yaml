@@ -3,7 +3,7 @@ projectId: chatgpt-memory-insights
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 038ac2e074abdddc9e0e8287d9742723ae4cc51b2c49414e0f5eb6a60b19390b
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: chatgpt-memory-insights
-      revision: c047a9db181868f955a8b6d8fd25164483eb0f67
+      revision: 72880352e89af4d5e0e43efdcaa6548782bf0b37
       githubRepository: Significant-Hobbies/chatgpt-memory-insights
       expectedHomepage: https://chatgpt.significanthobbies.com
       observedHomepage: https://chatgpt.significanthobbies.com
@@ -43,25 +43,23 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: chatgpt-memory-insights
-      revision: c047a9db181868f955a8b6d8fd25164483eb0f67
+      revision: 72880352e89af4d5e0e43efdcaa6548782bf0b37
       githubRepository: Significant-Hobbies/chatgpt-memory-insights
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-28
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
-        clear: 1
-        missing-data: 1
+        ignored: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: I started off this product to have a way to analyse my conversations I have with ChatGPT. Its purpose is that I can use an exported version of ChatGPT's conversation and it will give me insights into memory, what I talk about, my emotions, and other relevant things.
@@ -71,7 +69,7 @@ ownerVoice:
     I would say it is at a good stage but I would not call it complete. I think the dashboard and Insights can still use some improvement. In future I would want to include local codecs and cloud agent chats and more cloud services maybe, but add more insights I would say. maybe historical shift
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive
   whySummary: Analyse exported AI conversations for themes, memory, emotion, and personal change.
   currentState: Useful but not complete; dashboard and insight quality can improve.
   nextDecision: Deepen historical-shift insights, then add Codex, Claude, and other sources without weakening the browser-local privacy boundary.
@@ -84,7 +82,10 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -107,13 +108,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-28
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 50
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 63
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: chatgpt-memory-insights
-  observedRevision: c047a9db181868f955a8b6d8fd25164483eb0f67
+  observedRevision: 72880352e89af4d5e0e43efdcaa6548782bf0b37
   githubRepository: Significant-Hobbies/chatgpt-memory-insights
   githubHomepageUrl: https://chatgpt.significanthobbies.com
   worktree: *a1
@@ -164,7 +165,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -172,12 +173,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/chatgpt-memory-insights
     defaultBranch: main
-    defaultBranchSha: c047a9db181868f955a8b6d8fd25164483eb0f67
+    defaultBranchSha: 72880352e89af4d5e0e43efdcaa6548782bf0b37
     homepage: https://chatgpt.significanthobbies.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -190,23 +191,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33276242143
+          id: 34000504450
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c047a9db181868f955a8b6d8fd25164483eb0f67
-          createdAt: 2026-08-29T21:30:29Z
-          updatedAt: 2026-08-29T21:31:15Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33276242143
-        ageDays: 0
+          headSha: 72880352e89af4d5e0e43efdcaa6548782bf0b37
+          createdAt: 2026-09-06T00:08:28Z
+          updatedAt: 2026-09-06T00:09:03Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34000504450
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -215,17 +216,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33276242143
+          id: 34000504450
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c047a9db181868f955a8b6d8fd25164483eb0f67
-          createdAt: 2026-08-29T21:30:29Z
-          updatedAt: 2026-08-29T21:31:15Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33276242143
-        ageDays: 0
-      attention: clear
+          headSha: 72880352e89af4d5e0e43efdcaa6548782bf0b37
+          createdAt: 2026-09-06T00:08:28Z
+          updatedAt: 2026-09-06T00:09:03Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34000504450
+        ageDays: 1
+      attention: ignored
     - name: memory-pack release
       file: .github/workflows/packer-release.yml
       triggers:
@@ -237,23 +238,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33270365448
+          id: 33382333378
           status: completed
           conclusion: success
           event: push
-          branch: memory-pack-v0.1.0
-          headSha: 961f1d2a737b65872839707bdfbbe63765937244
-          createdAt: 2026-08-29T19:14:45Z
-          updatedAt: 2026-08-29T19:16:11Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33270365448
-        ageDays: 0
+          branch: memory-pack-v0.1.2
+          headSha: 04ffcd4934075d7cf4782a5028db61a6977af449
+          createdAt: 2026-08-31T10:25:24Z
+          updatedAt: 2026-08-31T10:27:17Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33382333378
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -262,7 +263,7 @@ githubActions:
         health: missing
         reason: no push run was returned for main
         lastRun: null
-      attention: missing-data
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -285,9 +286,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Landing and ZIP import affordance inspected; no built-in synthetic sample observed. Limit: Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted."
   changelogUrl: https://chatgpt.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues
   geoIdentity:

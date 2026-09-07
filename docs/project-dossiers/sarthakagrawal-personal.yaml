@@ -3,7 +3,7 @@ projectId: sarthakagrawal-personal
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,53 +23,51 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 654979ba95b70df5ef8213f6ad7d44f7f2e991cfed86a79eae6da66b809a941d
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: portfolio
-      revision: 8e520d5ec54d80735a702358ef0003c93d7bb42f
+      revision: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
       githubRepository: sarthakagrawal927/portfolio
       expectedHomepage: https://sarthakagrawal.dev
       observedHomepage: https://sarthakagrawal.dev
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 8
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: portfolio
-      revision: 8e520d5ec54d80735a702358ef0003c93d7bb42f
+      revision: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
       githubRepository: sarthakagrawal927/portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-22
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
       attention: &a2
-        clear: 1
-        missing-data: 1
+        ignored: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
   fullReviewVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
   relatedHistoricalReviews: []
 decision:
-  classification: Maintenance
+  classification: Inactive
   whySummary: Maintain the owner's necessary personal website and professional record.
   currentState: Complete and satisfactory.
   nextDecision: Update only when the underlying work, writing, résumé, or positioning changes.
@@ -85,12 +83,15 @@ identity:
   priority: P4
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.
+  description: Selected engineering case studies, technical writing and working project demonstrations.
   publicMakerNote: I maintain a personal website because I need one durable, accurate public record of my work and professional identity.
   purposeContract:
     purpose: Sarthak Agrawal’s personal site is the durable public record of his work, writing, résumé, and professional identity.
@@ -109,13 +110,13 @@ product:
     - IssuePages
   retainedGitHistory:
     firstCommitAt: 2026-05-22
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 83
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 90
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: portfolio
-  observedRevision: 8e520d5ec54d80735a702358ef0003c93d7bb42f
+  observedRevision: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
   githubRepository: sarthakagrawal927/portfolio
   githubHomepageUrl: https://sarthakagrawal.dev
   worktree: *a1
@@ -163,7 +164,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -172,12 +173,12 @@ githubActions:
   remote:
     repository: sarthakagrawal927/portfolio
     defaultBranch: main
-    defaultBranchSha: 8e520d5ec54d80735a702358ef0003c93d7bb42f
+    defaultBranchSha: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
     homepage: https://sarthakagrawal.dev
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: Portfolio CI / Deploy
       file: .github/workflows/deploy.yml
@@ -191,22 +192,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262971315
+          id: 34015654909
           status: completed
           conclusion: success
-          event: push
+          event: workflow_dispatch
           branch: main
-          headSha: 8e520d5ec54d80735a702358ef0003c93d7bb42f
-          createdAt: 2026-08-29T16:26:26Z
-          updatedAt: 2026-08-29T16:27:09Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/33262971315
+          headSha: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
+          createdAt: 2026-09-06T06:06:42Z
+          updatedAt: 2026-09-06T06:07:35Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34015654909
         ageDays: 1
       schedule:
         health: not-applicable
@@ -216,17 +217,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262971315
+          id: 34003176548
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8e520d5ec54d80735a702358ef0003c93d7bb42f
-          createdAt: 2026-08-29T16:26:26Z
-          updatedAt: 2026-08-29T16:27:09Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/33262971315
+          headSha: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
+          createdAt: 2026-09-06T01:09:55Z
+          updatedAt: 2026-09-06T01:11:04Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34003176548
         ageDays: 1
-      attention: clear
+      attention: ignored
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
       triggers:
@@ -238,11 +239,11 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stale
-        reason: latest run is 100 days old
+        reason: latest run is 107 days old
         apiState: active
         lastRun:
           id: 26280785969
@@ -254,14 +255,14 @@ githubActions:
           createdAt: 2026-05-22T09:48:57Z
           updatedAt: 2026-05-22T09:50:23Z
           url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-        ageDays: 100
+        ageDays: 107
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 8e520d5
+        reason: no push run at current main revision 1919ca6
         lastRun:
           id: 26280785969
           status: completed
@@ -272,7 +273,7 @@ githubActions:
           createdAt: 2026-05-22T09:48:57Z
           updatedAt: 2026-05-22T09:50:23Z
           url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-      attention: missing-data
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -308,10 +309,10 @@ deployment:
     resources: []
 sharing:
   publicListing: maintained
-  maturity: maintained
+  maturity: experiment
   ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  verifiedAt: 2026-09-07
+  reason: "Home and PostTrainLLM case study render with architecture, engineering decisions and public source/demo links. Limit: Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked."
   changelogUrl: https://sarthakagrawal.dev/changelog
   roadmapUrl: https://github.com/sarthakagrawal927/portfolio/issues
   geoIdentity:

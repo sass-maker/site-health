@@ -3,7 +3,7 @@ projectId: everythingrated
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 3ddc5658f254146bc339f2acb1d78abbdbbf91c9a36c46aba2b7eed1ed2934ca
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: everythingrated
-      revision: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
+      revision: d4039cd037bafce6c462b61f5439b434e1bb8e6a
       githubRepository: High-Signal-App/everythingrated
       expectedHomepage: https://ratings.highsignal.app
       observedHomepage: https://ratings.highsignal.app
@@ -43,33 +43,31 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: everythingrated
-      revision: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
+      revision: d4039cd037bafce6c462b61f5439b434e1bb8e6a
       githubRepository: High-Signal-App/everythingrated
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-04-26
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
       attention: &a2
-        clear: 3
-        review-history: 1
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: Everything Rated. This is also a fancy project that I had wanted to build for a long time. The purpose of this product was that you can come, make lists, and rate things. After building it out I realised this is a social product. As of now I didn't really have a lot of energy to build out a social product because it's a big chicken-and-egg problem to solve in those cases. This is something I would re-pick again once I'm more confident in my marketing skills.
   fullReviewVerbatim: Everything Rated. This is also a fancy project that I had wanted to build for a long time. The purpose of this product was that you can come, make lists, and rate things. After building it out I realised this is a social product. As of now I didn't really have a lot of energy to build out a social product because it's a big chicken-and-egg problem to solve in those cases. This is something I would re-pick again once I'm more confident in my marketing skills.
   relatedHistoricalReviews: []
 decision:
-  classification: Hold
+  classification: Inactive
   whySummary: Let people create lists and rate anything.
   currentState: The build exposed a social-network cold-start and moderation problem.
   nextDecision: Reopen only with stronger distribution/marketing ability or a narrow community that solves the chicken-and-egg problem.
@@ -82,7 +80,10 @@ identity:
   priority: P4
   tier: secondary
   attention: ignored
-  lifecycle: past
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -106,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-04-26
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 162
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 164
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: everythingrated
-  observedRevision: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
+  observedRevision: d4039cd037bafce6c462b61f5439b434e1bb8e6a
   githubRepository: High-Signal-App/everythingrated
   githubHomepageUrl: https://ratings.highsignal.app
   worktree: *a1
@@ -173,7 +174,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -182,12 +183,12 @@ githubActions:
   remote:
     repository: High-Signal-App/everythingrated
     defaultBranch: main
-    defaultBranchSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
+    defaultBranchSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
     homepage: https://ratings.highsignal.app
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -200,22 +201,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262926142
+          id: 34001781163
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
-          createdAt: 2026-08-29T16:25:27Z
-          updatedAt: 2026-08-29T16:26:56Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33262926142
+          headSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
+          createdAt: 2026-09-06T00:37:37Z
+          updatedAt: 2026-09-06T00:38:55Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34001781163
         ageDays: 1
       schedule:
         health: not-applicable
@@ -225,17 +226,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262926142
+          id: 34001781163
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
-          createdAt: 2026-08-29T16:25:27Z
-          updatedAt: 2026-08-29T16:26:56Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33262926142
+          headSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
+          createdAt: 2026-09-06T00:37:37Z
+          updatedAt: 2026-09-06T00:38:55Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34001781163
         ageDays: 1
-      attention: clear
+      attention: ignored
     - name: Deploy Cloudflare
       file: .github/workflows/cloudflare-deploy.yml
       triggers:
@@ -246,22 +247,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: failing
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33242202523
+          id: 34015631729
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: 2211f771f270c11a495b7ce8e2bac057f8ef47fb
-          createdAt: 2026-08-29T08:02:14Z
-          updatedAt: 2026-08-29T08:03:55Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33242202523
+          headSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
+          createdAt: 2026-09-06T06:06:12Z
+          updatedAt: 2026-09-06T06:07:29Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34015631729
         ageDays: 1
       schedule:
         health: not-applicable
@@ -271,7 +272,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -284,22 +285,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262926138
+          id: 34001781116
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
-          createdAt: 2026-08-29T16:25:27Z
-          updatedAt: 2026-08-29T16:25:34Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33262926138
+          headSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
+          createdAt: 2026-09-06T00:37:37Z
+          updatedAt: 2026-09-06T00:37:44Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34001781116
         ageDays: 1
       schedule:
         health: not-applicable
@@ -309,17 +310,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262926138
+          id: 34001781116
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
-          createdAt: 2026-08-29T16:25:27Z
-          updatedAt: 2026-08-29T16:25:34Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33262926138
+          headSha: d4039cd037bafce6c462b61f5439b434e1bb8e6a
+          createdAt: 2026-09-06T00:37:37Z
+          updatedAt: 2026-09-06T00:37:44Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/34001781116
         ageDays: 1
-      attention: clear
+      attention: ignored
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -332,43 +333,43 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32713159194
+          id: 33415608657
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
-          createdAt: 2026-08-24T09:44:30Z
-          updatedAt: 2026-08-24T09:45:30Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32713159194
+          headSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
+          createdAt: 2026-08-31T16:42:42Z
+          updatedAt: 2026-08-31T16:43:50Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33415608657
         ageDays: 6
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 32713159194
+          id: 33415608657
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 69f2066dc704ff50499634cb18773b57674b1d1f
-          createdAt: 2026-08-24T09:44:30Z
-          updatedAt: 2026-08-24T09:45:30Z
-          url: https://github.com/High-Signal-App/everythingrated/actions/runs/32713159194
+          headSha: 6601e17d7bf2458ce64f0ae47d4d036d2a004e3e
+          createdAt: 2026-08-31T16:42:42Z
+          updatedAt: 2026-08-31T16:43:50Z
+          url: https://github.com/High-Signal-App/everythingrated/actions/runs/33415608657
         ageDays: 6
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -399,8 +400,8 @@ sharing:
   publicListing: past
   maturity: null
   ready: false
-  verifiedAt: 2026-08-11
-  reason: Archived projects are not ready for active sharing.
+  verifiedAt: 2026-09-07
+  reason: "Aider vs Claude Code deep link selected both tools with per-axis ratings and Early Signal labels. Limit: Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review."
   changelogUrl: null
   roadmapUrl: https://github.com/High-Signal-App/everythingrated/issues
   geoIdentity: null

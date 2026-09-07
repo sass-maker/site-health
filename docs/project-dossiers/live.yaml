@@ -3,7 +3,7 @@ projectId: live
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 441d4838d21077af4bc4513865ec9fb571b9b6c889cef9dcf0234c1dbca6af19
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: live
-      revision: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
+      revision: c0934cabb019887900dddf0916a53aed217735ac
       githubRepository: Significant-Hobbies/live
       expectedHomepage: https://live.significanthobbies.com
       observedHomepage: https://live.significanthobbies.com
@@ -43,28 +43,27 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: live
-      revision: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
+      revision: c0934cabb019887900dddf0916a53aed217735ac
       githubRepository: Significant-Hobbies/live
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: 2026-08-21
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-03-01
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       failing: 2
       attention: &a2
-        clear: 3
+        clear: 2
         review-history: 1
         missing-data: 1
+        action-required: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "Help me understand: where was the lab repository and is it still inside Significant Hobbies?"
@@ -92,12 +91,15 @@ identity:
   priority: P2
   tier: active
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: active
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: The long-running Significant Hobbies experience for recording, exploring, and acting on a life lived beyond passive consumption.
+  description: A free personality and hobby quiz that suggests a small experiment to try; account planning is not yet qualified.
   publicMakerNote: I wanted a product that helps people live more intentionally through goals, possibilities, and things worth anticipating.
   purposeContract:
     purpose: Live helps a person turn passive wanting into a life they can deliberately imagine, plan, and experience.
@@ -116,13 +118,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-03-01
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 542
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 558
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: live
-  observedRevision: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
+  observedRevision: c0934cabb019887900dddf0916a53aed217735ac
   githubRepository: Significant-Hobbies/live
   githubHomepageUrl: https://live.significanthobbies.com
   worktree: *a1
@@ -199,7 +201,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -208,7 +210,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/live
     defaultBranch: main
-    defaultBranchSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
+    defaultBranchSha: c0934cabb019887900dddf0916a53aed217735ac
     homepage: https://live.significanthobbies.com
     query: verified
     disposition:
@@ -233,15 +235,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33300594424
+          id: 34022786841
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-30T08:02:11Z
-          updatedAt: 2026-08-30T08:08:18Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33300594424
+          headSha: c0934cabb019887900dddf0916a53aed217735ac
+          createdAt: 2026-09-06T08:46:21Z
+          updatedAt: 2026-09-06T08:51:53Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34022786841
         ageDays: 0
       schedule:
         health: not-applicable
@@ -251,15 +253,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33300594424
+          id: 34022786841
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-30T08:02:11Z
-          updatedAt: 2026-08-30T08:08:18Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33300594424
+          headSha: c0934cabb019887900dddf0916a53aed217735ac
+          createdAt: 2026-09-06T08:46:21Z
+          updatedAt: 2026-09-06T08:51:53Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34022786841
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -279,15 +281,15 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33241758607
+          id: 34016193990
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: 277ed492bb20c8a9d30d3bede88c64db480d5e2c
-          createdAt: 2026-08-29T07:50:17Z
-          updatedAt: 2026-08-29T07:52:45Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33241758607
+          headSha: b78fe4d66b2f0862accd5d8151867897d9d6c626
+          createdAt: 2026-09-06T06:19:34Z
+          updatedAt: 2026-09-06T06:19:43Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34016193990
         ageDays: 1
       schedule:
         health: not-applicable
@@ -325,14 +327,14 @@ githubActions:
           createdAt: 2026-08-29T12:30:38Z
           updatedAt: 2026-08-29T12:30:47Z
           url: https://github.com/Significant-Hobbies/live/actions/runs/33252681641
-        ageDays: 1
+        ageDays: 8
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 55e7540
+        reason: no push run at current main revision c0934ca
         lastRun:
           id: 33252681641
           status: completed
@@ -359,40 +361,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33321813460
+          id: 34079347281
           status: completed
-          conclusion: success
+          conclusion: failure
           event: schedule
           branch: main
-          headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-30T16:12:43Z
-          updatedAt: 2026-08-30T16:12:53Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33321813460
+          headSha: c0934cabb019887900dddf0916a53aed217735ac
+          createdAt: 2026-09-07T03:21:02Z
+          updatedAt: 2026-09-07T03:21:14Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34079347281
         ageDays: 0
       schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
+        health: failing
+        reason: latest scheduled run concluded failure
         lastRun:
-          id: 33321813460
+          id: 34079347281
           status: completed
-          conclusion: success
+          conclusion: failure
           event: schedule
           branch: main
-          headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
-          createdAt: 2026-08-30T16:12:43Z
-          updatedAt: 2026-08-30T16:12:53Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/33321813460
+          headSha: c0934cabb019887900dddf0916a53aed217735ac
+          createdAt: 2026-09-07T03:21:02Z
+          updatedAt: 2026-09-07T03:21:14Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34079347281
         ageDays: 0
-        freshnessDays: 1
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: action-required
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -405,19 +406,19 @@ githubActions:
         status: managed
         reason: GitHub-generated workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32733710681
+          id: 33397866391
           status: completed
-          conclusion: failure
+          conclusion: success
           event: dynamic
           branch: main
-          headSha: a615741f17c8984b2c18b8d5f9cf3859e4097483
-          createdAt: 2026-08-24T13:36:42Z
-          updatedAt: 2026-08-24T13:51:46Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/32733710681
+          headSha: 55e7540a042ee7be58d2fc06f2ef28d2e1479ff3
+          createdAt: 2026-08-31T13:36:09Z
+          updatedAt: 2026-08-31T13:36:53Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/33397866391
         ageDays: 6
       schedule:
         health: not-applicable
@@ -505,10 +506,10 @@ deployment:
         attributionReason: "Canonical project owner: live"
 sharing:
   publicListing: maintained
-  maturity: maintained
+  maturity: experiment
   ready: true
-  verifiedAt: 2026-08-23
-  reason: The independent Live repository is deployed at live.significanthobbies.com; its Worker also preserves existing Live routes while proxying the Hub apex.
+  verifiedAt: 2026-09-07
+  reason: "Completed nine choices; generated Scholar result with relevant hobbies and small test plans. Limit: Saving and authenticated history untested."
   changelogUrl: https://live.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/live/issues
   geoIdentity:

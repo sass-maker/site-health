@@ -3,7 +3,7 @@ projectId: site-health
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,44 +23,43 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 898ad3494adf0f2eac9def552e57e351278a79ed8b7c20ed339f2d2d1f76bd3e
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: site-health
-      revision: 6b2516d1b94ea7cb22ba1027ea2060d90e1e3fcb
+      revision: 383b55d1f124aeaff0e601bcabcbe7b67d15aa72
       githubRepository: sass-maker/site-health
       expectedHomepage: null
       observedHomepage: https://sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 69
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: site-health
-      revision: 6b2516d1b94ea7cb22ba1027ea2060d90e1e3fcb
+      revision: 383b55d1f124aeaff0e601bcabcbe7b67d15aa72
       githubRepository: sass-maker/site-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-02
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-07
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
-      healthy: 1
+      failing: 1
       attention: &a2
-        clear: 1
+        action-required: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: |-
@@ -79,7 +78,7 @@ ownerVoice:
     - Other thingsIt is being actively worked on and it will continue as is.
   relatedHistoricalReviews: []
 decision:
-  classification: Infrastructure
+  classification: Active
   whySummary: Give the owner one local view of Fleet inventory, domain rank, performance, search, and AI visibility.
   currentState: Actively maintained canonical private catalog and operational dashboard.
   nextDecision: Keep it local; improve only the five owner questions and their evidence adapters.
@@ -92,7 +91,10 @@ identity:
   priority: P2
   tier: active
   attention: foundry
-  lifecycle: maintained
+  lifecycle:
+    status: active
+    shareable: false
+    resumeCondition: null
   operationalStatus: local-only
   authenticationModel: local-only
   inRegistry: false
@@ -116,17 +118,17 @@ product:
     - Node.js
   retainedGitHistory:
     firstCommitAt: 2026-05-02
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 975
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 989
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: site-health
-  observedRevision: 6b2516d1b94ea7cb22ba1027ea2060d90e1e3fcb
+  observedRevision: 383b55d1f124aeaff0e601bcabcbe7b67d15aa72
   githubRepository: sass-maker/site-health
   githubHomepageUrl: https://sassmaker.com
   worktree: *a1
-  visibility: private
+  visibility: public
   url: https://github.com/sass-maker/site-health
   aliases: []
   sourceOverride: null
@@ -145,6 +147,10 @@ repository:
       - backend
       - build
       - check
+      - clarity
+      - clarity:refresh
+      - clarity:schedule
+      - clarity:table
       - dashboard
       - dev
       - docs:projects
@@ -158,15 +164,15 @@ repository:
       - test:ai
       - test:backend
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    failing: 1
   attention: *a2
   remote:
     repository: sass-maker/site-health
     defaultBranch: main
-    defaultBranchSha: 6b2516d1b94ea7cb22ba1027ea2060d90e1e3fcb
+    defaultBranchSha: 383b55d1f124aeaff0e601bcabcbe7b67d15aa72
     homepage: https://sassmaker.com
     query: verified
     disposition:
@@ -188,39 +194,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33327868742
+          id: 34057394309
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 6b2516d1b94ea7cb22ba1027ea2060d90e1e3fcb
-          createdAt: 2026-08-30T18:22:10Z
-          updatedAt: 2026-08-30T18:22:45Z
-          url: https://github.com/sass-maker/site-health/actions/runs/33327868742
+          headSha: 383b55d1f124aeaff0e601bcabcbe7b67d15aa72
+          createdAt: 2026-09-06T20:15:00Z
+          updatedAt: 2026-09-06T20:15:22Z
+          url: https://github.com/sass-maker/site-health/actions/runs/34057394309
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 33327868742
+          id: 34057394309
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 6b2516d1b94ea7cb22ba1027ea2060d90e1e3fcb
-          createdAt: 2026-08-30T18:22:10Z
-          updatedAt: 2026-08-30T18:22:45Z
-          url: https://github.com/sass-maker/site-health/actions/runs/33327868742
+          headSha: 383b55d1f124aeaff0e601bcabcbe7b67d15aa72
+          createdAt: 2026-09-06T20:15:00Z
+          updatedAt: 2026-09-06T20:15:22Z
+          url: https://github.com/sass-maker/site-health/actions/runs/34057394309
         ageDays: 0
-      attention: clear
+      attention: action-required
 deployment:
   kind: none
   deployed: false
@@ -238,8 +244,8 @@ sharing:
   publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-08-22
-  reason: Site Health is intentionally local-only and has no intended public deployment; its obsolete public edge hostname and Access application were retired on 2026-08-22.
+  verifiedAt: 2026-09-07
+  reason: "Read canonical catalog, owning repository and fresh GitHub CI evidence. Private operator tool, no public adoption path. Limit: Full private dashboard workflow untested; CI currently fails stale generated dossiers."
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/site-health/issues
   geoIdentity: null

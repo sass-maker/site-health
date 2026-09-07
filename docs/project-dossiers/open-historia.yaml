@@ -3,7 +3,7 @@ projectId: open-historia
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,53 +23,51 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: be4f60bec0e9467fe167c5f742e76d78a7c4aa5aa2124021e2518e9a84526118
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: open-historia
-      revision: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
+      revision: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
       githubRepository: sarthakagrawal927/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 10
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: open-historia
-      revision: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
+      revision: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
       githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
       attention: &a2
-        clear: 3
-        review-history: 1
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
   fullReviewVerbatim: I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
   relatedHistoricalReviews: []
 decision:
-  classification: Hold
+  classification: Inactive
   whySummary: Recreate an AI grand-strategy game locally and without credit limits.
   currentState: Durable country memory is compelling, but the map and campaign loop were not enjoyable enough.
   nextDecision: Reopen during a live build with a game-quality map and one coherent campaign-turn loop.
@@ -82,7 +80,10 @@ identity:
   priority: P4
   tier: parked
   attention: ignored
-  lifecycle: past
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -106,13 +107,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 214
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 220
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: open-historia
-  observedRevision: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
+  observedRevision: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
   githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
@@ -175,7 +176,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -184,12 +185,12 @@ githubActions:
   remote:
     repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
+    defaultBranchSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -202,22 +203,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308491120
+          id: 34030000462
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
-          createdAt: 2026-08-30T11:16:01Z
-          updatedAt: 2026-08-30T11:16:40Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/33308491120
+          headSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+          createdAt: 2026-09-06T11:21:13Z
+          updatedAt: 2026-09-06T11:21:51Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34030000462
         ageDays: 0
       schedule:
         health: not-applicable
@@ -227,17 +228,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308491120
+          id: 34030000462
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
-          createdAt: 2026-08-30T11:16:01Z
-          updatedAt: 2026-08-30T11:16:40Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/33308491120
+          headSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+          createdAt: 2026-09-06T11:21:13Z
+          updatedAt: 2026-09-06T11:21:51Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34030000462
         ageDays: 0
-      attention: clear
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
@@ -248,23 +249,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: failing
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33309175829
+          id: 34015652329
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
-          createdAt: 2026-08-30T11:32:20Z
-          updatedAt: 2026-08-30T11:32:44Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/33309175829
-        ageDays: 0
+          headSha: 739caac563f2d1e0a030e9183bf7fb6918e0a806
+          createdAt: 2026-09-06T06:06:39Z
+          updatedAt: 2026-09-06T06:07:03Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34015652329
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -273,7 +274,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: ignored
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -286,43 +287,43 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32712132547
+          id: 33414077478
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
-          createdAt: 2026-08-24T09:32:50Z
-          updatedAt: 2026-08-24T09:33:27Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32712132547
+          headSha: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
+          createdAt: 2026-08-31T16:26:13Z
+          updatedAt: 2026-08-31T16:26:46Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/33414077478
         ageDays: 6
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 32712132547
+          id: 33414077478
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
-          createdAt: 2026-08-24T09:32:50Z
-          updatedAt: 2026-08-24T09:33:27Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32712132547
+          headSha: 5d430f70292a4ddd6588ce1b0bd0076b299f4d23
+          createdAt: 2026-08-31T16:26:13Z
+          updatedAt: 2026-08-31T16:26:46Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/33414077478
         ageDays: 6
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -332,23 +333,23 @@ githubActions:
         local: false
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32697892470
+          id: 34091435528
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: e7c9a77e6f548eaeaa8a2d24d76d53c3fd757f71
-          createdAt: 2026-08-24T06:34:34Z
-          updatedAt: 2026-08-24T06:35:23Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/32697892470
-        ageDays: 6
+          headSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+          createdAt: 2026-09-07T06:34:18Z
+          updatedAt: 2026-09-07T06:35:05Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34091435528
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -357,7 +358,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -395,8 +396,8 @@ sharing:
   publicListing: past
   maturity: null
   ready: false
-  verifiedAt: 2026-08-11
-  reason: Archived projects are not ready for active sharing.
+  verifiedAt: 2026-09-07
+  reason: "Opened sourced WWII example, selected UK, queued one humanitarian diplomacy order and advanced; Game Master failed with deprecated Cloudflare model error. Limit: No completed turn; historical map also contains generic factions. No secrets supplied."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/open-historia/issues
   geoIdentity: null

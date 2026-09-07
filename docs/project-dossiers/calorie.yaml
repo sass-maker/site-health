@@ -3,7 +3,7 @@ projectId: calorie
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: cb46ebf564dc0c6c578d85885e358487c3b52e59c681d6fd134a932a4dbdf337
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: calorie
-      revision: d39bb68b6266870b7b959e6389b5cd13f8221356
+      revision: d0b71cd56e195bdff23b787b035d378b39af5072
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
       observedHomepage: https://calorie.significanthobbies.com
@@ -43,24 +43,23 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: calorie
-      revision: d39bb68b6266870b7b959e6389b5cd13f8221356
+      revision: d0b71cd56e195bdff23b787b035d378b39af5072
       githubRepository: Significant-Hobbies/calorie
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-25
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        action-required: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: |-
@@ -77,7 +76,7 @@ ownerVoice:
     I think it is at a good stage. I would say it's done. For next, this is to just use it more and connect it to the hub that I am building.
   relatedHistoricalReviews: []
 decision:
-  classification: Maintenance
+  classification: Active
   whySummary: Support weight loss through food logging, fasting windows, exercise timing, and daily performance.
   currentState: Functionally done and connected to the Hub family.
   nextDecision: Keep using it; change it only when repeated use reveals a gap.
@@ -90,7 +89,10 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: active
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -115,13 +117,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-25
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 114
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 119
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: calorie
-  observedRevision: d39bb68b6266870b7b959e6389b5cd13f8221356
+  observedRevision: d0b71cd56e195bdff23b787b035d378b39af5072
   githubRepository: Significant-Hobbies/calorie
   githubHomepageUrl: https://calorie.significanthobbies.com
   worktree: *a1
@@ -174,15 +176,15 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/calorie
     defaultBranch: main
-    defaultBranchSha: d39bb68b6266870b7b959e6389b5cd13f8221356
+    defaultBranchSha: d0b71cd56e195bdff23b787b035d378b39af5072
     homepage: https://calorie.significanthobbies.com
     query: verified
     disposition:
@@ -203,39 +205,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262909275
+          id: 34002261544
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: d39bb68b6266870b7b959e6389b5cd13f8221356
-          createdAt: 2026-08-29T16:25:07Z
-          updatedAt: 2026-08-29T16:32:43Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/33262909275
+          headSha: d0b71cd56e195bdff23b787b035d378b39af5072
+          createdAt: 2026-09-06T00:48:43Z
+          updatedAt: 2026-09-06T00:57:40Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/34002261544
         ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 33262909275
+          id: 34002261544
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: d39bb68b6266870b7b959e6389b5cd13f8221356
-          createdAt: 2026-08-29T16:25:07Z
-          updatedAt: 2026-08-29T16:32:43Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/33262909275
+          headSha: d0b71cd56e195bdff23b787b035d378b39af5072
+          createdAt: 2026-09-06T00:48:43Z
+          updatedAt: 2026-09-06T00:57:40Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/34002261544
         ageDays: 1
-      attention: action-required
+      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -270,9 +272,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Live landing explicitly states internal TestFlight only, no public invite or App Store listing. Limit: No public consumer installation path."
   changelogUrl: https://calorie.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/calorie/issues
   geoIdentity:

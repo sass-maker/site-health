@@ -3,7 +3,7 @@ projectId: rolepatch
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 39863a3a3682861cb619b47b7761540ae597975492698d55446fcab46660346a
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
+      revision: b0280989a2a322ec14677f70d8d73c944fd08e42
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
@@ -43,31 +43,30 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
+      revision: b0280989a2a322ec14677f70d8d73c944fd08e42
       githubRepository: Significant-Hobbies/rolepatch
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-23
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
-        clear: 4
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: Role patch was my attempt to build a tool for generating a resume for a job description. I am not actively looking for a job so I am not using it but it's a good product and I will test and start using it soon.
   fullReviewVerbatim: Role patch was my attempt to build a tool for generating a resume for a job description. I am not actively looking for a job so I am not using it but it's a good product and I will test and start using it soon.
   relatedHistoricalReviews: []
 decision:
-  classification: Hold
+  classification: Inactive
   whySummary: Tailor a resume and supporting application material to a job description.
   currentState: Strong product, but unused because the owner is not job hunting.
   nextDecision: Test it against real applications when job-search intent returns; let that test trim unnecessary breadth.
@@ -80,7 +79,10 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -105,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-23
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 417
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 425
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
+  observedRevision: b0280989a2a322ec14677f70d8d73c944fd08e42
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -179,7 +181,7 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -187,12 +189,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
+    defaultBranchSha: b0280989a2a322ec14677f70d8d73c944fd08e42
     homepage: https://rolepatch.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -205,23 +207,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308996268
+          id: 34002805653
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
-          createdAt: 2026-08-30T11:28:09Z
-          updatedAt: 2026-08-30T11:31:23Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/33308996268
-        ageDays: 0
+          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
+          createdAt: 2026-09-06T01:01:25Z
+          updatedAt: 2026-09-06T01:04:52Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805653
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -230,17 +232,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308996268
+          id: 34002805653
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
-          createdAt: 2026-08-30T11:28:09Z
-          updatedAt: 2026-08-30T11:31:23Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/33308996268
-        ageDays: 0
-      attention: clear
+          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
+          createdAt: 2026-09-06T01:01:25Z
+          updatedAt: 2026-09-06T01:04:52Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805653
+        ageDays: 1
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
@@ -252,23 +254,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33309186372
+          id: 34015644392
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
-          createdAt: 2026-08-30T11:32:35Z
-          updatedAt: 2026-08-30T11:34:50Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/33309186372
-        ageDays: 0
+          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
+          createdAt: 2026-09-06T06:06:29Z
+          updatedAt: 2026-09-06T06:08:53Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34015644392
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -277,7 +279,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -289,23 +291,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308996269
+          id: 34002805626
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
-          createdAt: 2026-08-30T11:28:09Z
-          updatedAt: 2026-08-30T11:28:17Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/33308996269
-        ageDays: 0
+          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
+          createdAt: 2026-09-06T01:01:25Z
+          updatedAt: 2026-09-06T01:01:33Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805626
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -314,17 +316,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308996269
+          id: 34002805626
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
-          createdAt: 2026-08-30T11:28:09Z
-          updatedAt: 2026-08-30T11:28:17Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/33308996269
-        ageDays: 0
-      attention: clear
+          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
+          createdAt: 2026-09-06T01:01:25Z
+          updatedAt: 2026-09-06T01:01:33Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805626
+        ageDays: 1
+      attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -334,23 +336,23 @@ githubActions:
         local: false
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32789951838
+          id: 33451261514
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: eaae584b62c4cf44b4da399f0842ed5af3ce70b1
-          createdAt: 2026-08-24T23:34:33Z
-          updatedAt: 2026-08-24T23:35:22Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/32789951838
-        ageDays: 5
+          headSha: 8d2f048734c8185e765a2f5e9599e0b03cc38bc0
+          createdAt: 2026-08-31T23:34:39Z
+          updatedAt: 2026-08-31T23:35:24Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/33451261514
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -359,7 +361,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -424,9 +426,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Synthetic resume/JD analysis runs and identifies matching TypeScript/PostgreSQL and missing Kubernetes keywords; result layout inspected. Limit: 5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified."
   changelogUrl: https://rolepatch.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/rolepatch/issues
   geoIdentity:

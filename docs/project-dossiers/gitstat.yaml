@@ -3,7 +3,7 @@ projectId: gitstat
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 3e52bb0c260d1fb0d88301274f64783d6f332dac8da370c55bfbdedd10168207
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: gitstat
-      revision: d6304d9832bcab76779afaeea813bcc111e6e489
+      revision: cb9d0ff663b06c2f53178dbabff466444926b77a
       githubRepository: sass-maker/gitstat
       expectedHomepage: https://git.significanthobbies.com
       observedHomepage: https://git.significanthobbies.com
@@ -43,31 +43,30 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: gitstat
-      revision: d6304d9832bcab76779afaeea813bcc111e6e489
+      revision: cb9d0ff663b06c2f53178dbabff466444926b77a
       githubRepository: sass-maker/gitstat
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-21
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
-        clear: 1
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
   fullReviewVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
   relatedHistoricalReviews: []
 decision:
-  classification: Maintenance
+  classification: Inactive
   whySummary: Understand work and code churn across the owner's repositories.
   currentState: More or less complete; no unanswered recurring question is currently known.
   nextDecision: Use it and add analysis only when a specific question is missing.
@@ -80,12 +79,15 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
 product:
-  description: A GitHub analytics dashboard for contribution history, code churn, collaboration, and AI-assisted work.
+  description: An experimental public GitHub analysis tool for repository activity, contributions and code churn.
   publicMakerNote: I built GitStat to understand how my time and code churn are distributed across a large collection of repositories.
   purposeContract:
     purpose: GitStat explains how engineering effort, contribution history, and code churn are distributed across many repositories.
@@ -104,13 +106,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-21
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 9
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 12
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: gitstat
-  observedRevision: d6304d9832bcab76779afaeea813bcc111e6e489
+  observedRevision: cb9d0ff663b06c2f53178dbabff466444926b77a
   githubRepository: sass-maker/gitstat
   githubHomepageUrl: https://git.significanthobbies.com
   worktree: *a1
@@ -135,7 +137,7 @@ repository:
       - lint
       - preview
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -143,12 +145,12 @@ githubActions:
   remote:
     repository: sass-maker/gitstat
     defaultBranch: main
-    defaultBranchSha: d6304d9832bcab76779afaeea813bcc111e6e489
+    defaultBranchSha: cb9d0ff663b06c2f53178dbabff466444926b77a
     homepage: https://git.significanthobbies.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -162,23 +164,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262934576
+          id: 34030231936
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d6304d9832bcab76779afaeea813bcc111e6e489
-          createdAt: 2026-08-29T16:25:37Z
-          updatedAt: 2026-08-29T16:26:02Z
-          url: https://github.com/sass-maker/gitstat/actions/runs/33262934576
-        ageDays: 1
+          headSha: cb9d0ff663b06c2f53178dbabff466444926b77a
+          createdAt: 2026-09-06T11:25:52Z
+          updatedAt: 2026-09-06T11:26:10Z
+          url: https://github.com/sass-maker/gitstat/actions/runs/34030231936
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -187,17 +189,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262934576
+          id: 34030231936
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d6304d9832bcab76779afaeea813bcc111e6e489
-          createdAt: 2026-08-29T16:25:37Z
-          updatedAt: 2026-08-29T16:26:02Z
-          url: https://github.com/sass-maker/gitstat/actions/runs/33262934576
-        ageDays: 1
-      attention: clear
+          headSha: cb9d0ff663b06c2f53178dbabff466444926b77a
+          createdAt: 2026-09-06T11:25:52Z
+          updatedAt: 2026-09-06T11:26:10Z
+          url: https://github.com/sass-maker/gitstat/actions/runs/34030231936
+        ageDays: 0
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -218,12 +220,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: hidden
-  maturity: in-progress
-  ready: false
-  verifiedAt: 2026-08-22
-  reason: GitStat is an active Fleet product with a verified live public surface. Keep sharing gated until its optional GitHub connection flow is repaired.
-  changelogUrl: null
+  publicListing: maintained
+  maturity: experiment
+  ready: true
+  verifiedAt: 2026-09-07
+  reason: "Submitted octocat; completed repository and commit analysis with overview and drilldown tabs. Limit: One public profile; private repositories untested."
+  changelogUrl: https://git.significanthobbies.com/changelog
   roadmapUrl: https://github.com/sass-maker/gitstat/issues
   geoIdentity: null
 notes:

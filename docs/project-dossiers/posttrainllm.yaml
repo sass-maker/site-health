@@ -3,7 +3,7 @@ projectId: posttrainllm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 4d1869634815abb32d4ab07adf10304a07226c4b3a3d1d8253b500e50c927cbc
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: posttrainllm
-      revision: 7c1ac7e3be8f1619807b8608e404c98afbbc7e9e
+      revision: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
       observedHomepage: https://posttrainllm.com
@@ -43,20 +43,19 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: posttrainllm
-      revision: 7c1ac7e3be8f1619807b8608e404c98afbbc7e9e
+      revision: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
       githubRepository: PostTrainLLM/posttrainllm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-21
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-07
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -67,7 +66,7 @@ ownerVoice:
   fullReviewVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
   relatedHistoricalReviews: []
 decision:
-  classification: Flagship
+  classification: Primary
   whySummary: Explore browser and Mac-local model training, then turn that work into repeatable specialist-model recipes.
   currentState: Ongoing, ambitious, and rich in experiments and future plans.
   nextDecision: Continue measured local training/evaluation recipes and publish reproducible proof rather than chasing scale.
@@ -80,12 +79,15 @@ identity:
   priority: P1
   tier: focus
   attention: my-work
-  lifecycle: maintained
+  lifecycle:
+    status: primary
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: A local factory for training, evaluating, and running specialist language models.
+  description: "An experimental browser model playground: run small language models locally with visible generation metrics."
   publicMakerNote: I use PostTrainLLM to explore local model training and turn those experiments into repeatable recipes for specialist models.
   purposeContract:
     purpose: PostTrainLLM turns local model-training experiments into measured, reproducible recipes for useful specialist language models.
@@ -105,13 +107,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-05-21
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 773
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 843
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: posttrainllm
-  observedRevision: 7c1ac7e3be8f1619807b8608e404c98afbbc7e9e
+  observedRevision: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
   githubRepository: PostTrainLLM/posttrainllm
   githubHomepageUrl: https://posttrainllm.com
   worktree: *a1
@@ -145,6 +147,7 @@ repository:
         evidence:
           - browser/vitest.config.ts
     rootPackageScripts:
+      - completion:check
       - deploy
       - format:check
       - lint
@@ -158,7 +161,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -166,7 +169,7 @@ githubActions:
   remote:
     repository: PostTrainLLM/posttrainllm
     defaultBranch: main
-    defaultBranchSha: 7c1ac7e3be8f1619807b8608e404c98afbbc7e9e
+    defaultBranchSha: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
     homepage: https://posttrainllm.com
     query: verified
     disposition:
@@ -192,15 +195,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308569026
+          id: 34092921882
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 7c1ac7e3be8f1619807b8608e404c98afbbc7e9e
-          createdAt: 2026-08-30T11:17:54Z
-          updatedAt: 2026-08-30T11:29:22Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/33308569026
+          headSha: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
+          createdAt: 2026-09-07T06:54:33Z
+          updatedAt: 2026-09-07T07:05:48Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882
         ageDays: 0
       schedule:
         health: not-applicable
@@ -210,15 +213,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308569026
+          id: 34092921882
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 7c1ac7e3be8f1619807b8608e404c98afbbc7e9e
-          createdAt: 2026-08-30T11:17:54Z
-          updatedAt: 2026-08-30T11:29:22Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/33308569026
+          headSha: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
+          createdAt: 2026-09-07T06:54:33Z
+          updatedAt: 2026-09-07T07:05:48Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Pages
@@ -238,16 +241,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33242103142
+          id: 34029128125
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 5a799b393a2f2e350eb3738ac0ff4f68dd713147
-          createdAt: 2026-08-29T07:59:59Z
-          updatedAt: 2026-08-29T08:01:19Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/33242103142
-        ageDays: 1
+          headSha: 234de2a8924661acb1ea56e55260e949c0410f8b
+          createdAt: 2026-09-06T11:03:22Z
+          updatedAt: 2026-09-06T11:04:42Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34029128125
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -299,10 +302,10 @@ deployment:
         attributionReason: "Canonical project owner: posttrainllm"
 sharing:
   publicListing: maintained
-  maturity: public-ready
+  maturity: experiment
   ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  verifiedAt: 2026-09-07
+  reason: "Loaded Shakespeare gallery model; clicked Generate; completed in 5.76s at 53.7 tok/s with visible generated text and model-quality limitations. Limit: Qualifies for the working browser demo only; native factory and Mac distribution remain unverified."
   changelogUrl: https://posttrainllm.com/changelog
   roadmapUrl: https://github.com/PostTrainLLM/posttrainllm/issues
   geoIdentity:

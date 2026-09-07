@@ -1,0 +1,391 @@
+{
+  "observedAt": "2026-09-07",
+  "scope": "55 remaining identities; Chess and Journal excluded. One leading blocker or qualification limit per project, based on fresh audit evidence.",
+  "projects": [
+    {
+      "id": "starboard",
+      "name": "Starboard",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August.",
+      "shareable": true
+    },
+    {
+      "id": "on-record",
+      "name": "High Signal Podcasts",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed.",
+      "shareable": true
+    },
+    {
+      "id": "high-signal",
+      "name": "High Signal",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Contradictory confidence labels and surge claims from six positive reviews undermine the core evidence promise. Calibrate claims against sample size and baseline.",
+      "shareable": false
+    },
+    {
+      "id": "posttrainllm",
+      "name": "PostTrainLLM",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Qualifies for the working browser demo only; native factory and Mac distribution remain unverified.",
+      "shareable": true
+    },
+    {
+      "id": "calorie",
+      "name": "Calorie",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No public consumer installation path.",
+      "shareable": false
+    },
+    {
+      "id": "motion",
+      "name": "Motion",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No public consumer installation path; no camera or physical-control test performed.",
+      "shareable": false
+    },
+    {
+      "id": "kith",
+      "name": "Kith",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No public consumer installation path.",
+      "shareable": false
+    },
+    {
+      "id": "setline",
+      "name": "Setline",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No public consumer installation path observed.",
+      "shareable": false
+    },
+    {
+      "id": "free-ai",
+      "name": "Free AI",
+      "classification": "Qualification gap",
+      "biggestBlocker": "CI security gate fails on fast-uri 3.1.5; minimum patched version 3.1.6. Actual inference and operator-provisioned access also remain unqualified.",
+      "shareable": false
+    },
+    {
+      "id": "agent-office",
+      "name": "Office OS",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Informational surface does not prove an accessible product workflow.",
+      "shareable": false
+    },
+    {
+      "id": "local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No public installation and editing workflow verified.",
+      "shareable": false
+    },
+    {
+      "id": "reader",
+      "name": "Reader",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Static sample is not proof of import/read/annotate workflow; private library not accessed.",
+      "shareable": false
+    },
+    {
+      "id": "live",
+      "name": "Live",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Saving and authenticated history untested.",
+      "shareable": true
+    },
+    {
+      "id": "gitstat",
+      "name": "GitStat",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "One public profile; private repositories untested.",
+      "shareable": true
+    },
+    {
+      "id": "field-track",
+      "name": "Field Track",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Demo only; no Android/device/real workforce qualification.",
+      "shareable": true
+    },
+    {
+      "id": "email-manager",
+      "name": "Kinetic",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Mailbox workflow and presentation after sign-in unverified.",
+      "shareable": false
+    },
+    {
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No public core document workflow.",
+      "shareable": false
+    },
+    {
+      "id": "india-standards",
+      "name": "India Standards",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No calculated result verified; did not bypass verification.",
+      "shareable": false
+    },
+    {
+      "id": "anime-list",
+      "name": "Anime List",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Guest workflow and personal tracking unverified; no private content retained.",
+      "shareable": false
+    },
+    {
+      "id": "protein-index",
+      "name": "Protein Index",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met.",
+      "shareable": false
+    },
+    {
+      "id": "everythingrated",
+      "name": "EverythingRated",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review.",
+      "shareable": false
+    },
+    {
+      "id": "karte",
+      "name": "Karte",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified.",
+      "shareable": false
+    },
+    {
+      "id": "truehire",
+      "name": "TrueHire",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify.",
+      "shareable": false
+    },
+    {
+      "id": "nomad-data-adventure",
+      "name": "Nomad Data Adventure",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Dataset rights, reproducible setup, user-facing value and distribution not qualified.",
+      "shareable": false
+    },
+    {
+      "id": "research-papers",
+      "name": "Research Papers",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Cited synthesis and private research functions untested.",
+      "shareable": true
+    },
+    {
+      "id": "what-it-takes-to-win",
+      "name": "Look Sideways",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "One profile/source checked; full corpus not fact-checked.",
+      "shareable": true
+    },
+    {
+      "id": "veg-protein-food",
+      "name": "Recipe Index",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Publisher macros are not laboratory validation; only representative source checked.",
+      "shareable": true
+    },
+    {
+      "id": "issue-pages",
+      "name": "IssuePages",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "New issue publication not tested or required for retained read-only surface.",
+      "shareable": true
+    },
+    {
+      "id": "open-historia",
+      "name": "Open Historia",
+      "classification": "Verified defect",
+      "biggestBlocker": "Every attempted turn fails because the default Workers AI Llama model was retired. Replace the default and normalize saved legacy model selections; then prove a live completed turn.",
+      "shareable": false
+    },
+    {
+      "id": "ai-game",
+      "name": "AliveVille",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "No useful talk/memory loop completed; no explicit save clicked; not qualified merely by3D rendering.",
+      "shareable": false
+    },
+    {
+      "id": "web-playables",
+      "name": "Web Playables",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state.",
+      "shareable": false
+    },
+    {
+      "id": "significanthobbies",
+      "name": "Significant Hobbies",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Private summary/sync workflow unverified; guest quiz belongs to Live.",
+      "shareable": false
+    },
+    {
+      "id": "chatgpt-connections",
+      "name": "ChatGPT Connections",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No complete external-client tool invocation verified; may be edge access restriction.",
+      "shareable": false
+    },
+    {
+      "id": "site-health",
+      "name": "Site Health",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Local full check now passes. Publish the canonical catalog and verify the deployed private dashboard; do not confuse local evidence with provider state.",
+      "shareable": false
+    },
+    {
+      "id": "ios-landings",
+      "name": "iOS landings",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No independent public product workflow; internal dependency can remain active.",
+      "shareable": false
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "name": "Mobile Dev Cockpit",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No paired device core loop verified.",
+      "shareable": false
+    },
+    {
+      "id": "companion-robot",
+      "name": "Companion Robot",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No working hardware/software product to share.",
+      "shareable": false
+    },
+    {
+      "id": "verified-bases",
+      "name": "Verified Bases",
+      "classification": "Qualification gap",
+      "biggestBlocker": "No usable marketplace inventory or acquisition flow verified.",
+      "shareable": false
+    },
+    {
+      "id": "codevetter",
+      "name": "CodeVetter",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md.",
+      "shareable": false
+    },
+    {
+      "id": "pace",
+      "name": "HeyPace",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Voice/screen permissions and installed core workflow not exercised.",
+      "shareable": false
+    },
+    {
+      "id": "anchor",
+      "name": "Anchor",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Installed capture/retrieval and account/MCP workflows not verified.",
+      "shareable": false
+    },
+    {
+      "id": "saas-maker",
+      "name": "SaaS Maker",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction required.",
+      "shareable": true
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "name": "Memory Map",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted.",
+      "shareable": false
+    },
+    {
+      "id": "drank",
+      "name": "DRank",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data.",
+      "shareable": false
+    },
+    {
+      "id": "psi-swarm",
+      "name": "PSI Swarm",
+      "classification": "Qualification gap",
+      "biggestBlocker": "A real measurement run and intelligible report remain unverified; help output alone is insufficient.",
+      "shareable": false
+    },
+    {
+      "id": "reel-pipeline",
+      "name": "Reel Pipeline",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "The generated frame has overlapping code-rail text and generic captions that do not explain the supplied brief. Real encoding works, but presentation/value is insufficient for sharing; publishing remains unverified.",
+      "shareable": false
+    },
+    {
+      "id": "materia",
+      "name": "Materia",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "One representative path; not clinical validation or personalized treatment qualification.",
+      "shareable": true
+    },
+    {
+      "id": "looptv",
+      "name": "LoopTV",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked.",
+      "shareable": true
+    },
+    {
+      "id": "swe-interview-prep",
+      "name": "SWE Interview Prep",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved.",
+      "shareable": false
+    },
+    {
+      "id": "rolepatch",
+      "name": "RolePatch",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified.",
+      "shareable": false
+    },
+    {
+      "id": "app-health",
+      "name": "App Health",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified.",
+      "shareable": false
+    },
+    {
+      "id": "mashup",
+      "name": "Mashup",
+      "classification": "Verified defect",
+      "biggestBlocker": "Core local clipping workflow not exercised; reachable media URL alone is not playback proof.",
+      "shareable": false
+    },
+    {
+      "id": "forecast-lab",
+      "name": "Forecast Lab",
+      "classification": "Qualification gap",
+      "biggestBlocker": "Dataset-dependent full forecasting experiment not rerun; source inspection alone is insufficient reproducibility proof.",
+      "shareable": false
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "name": "Sarthak Agrawal",
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked.",
+      "shareable": true
+    },
+    {
+      "id": "reddit-insights",
+      "name": "Reddit Insights",
+      "classification": "Product/evidence gap",
+      "biggestBlocker": "Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete.",
+      "shareable": false
+    }
+  ]
+}

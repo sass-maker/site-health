@@ -3,7 +3,7 @@ projectId: journal
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: not-applicable
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,40 +23,39 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: ab4be138914270e62e5dd15e9b7015f59b36594d4e3ec5faf749f2f8452d29a6
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: journal
-      revision: f88567280d805ada7bb54571ea24a66631345d19
+      revision: 81f437780292cd8d71309fcd31f03b5c1521a592
       githubRepository: Significant-Hobbies/journal
       expectedHomepage: https://journal.significanthobbies.com
       observedHomepage: https://journal.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: journal
-      revision: f88567280d805ada7bb54571ea24a66631345d19
+      revision: 81f437780292cd8d71309fcd31f03b5c1521a592
       githubRepository: Significant-Hobbies/journal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-11
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -68,23 +67,26 @@ ownerVoice:
     Journal is currently being built. What's next for it? As I use it, I will add more features to it and have some emotional detection also.
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive
   whySummary: Make journaling a durable habit within the Hub.
-  currentState: Currently being built as a private, device-first writing app.
-  nextDecision: Use it, add features from real practice, and explore careful emotional-pattern detection.
+  currentState: Owner explicitly removed it from Fleet on 2026-09-07.
+  nextDecision: Use an existing journal; preserve source and history without promotion or new work.
 identity:
   name: Journal
   publicName: Journal
   aliases: []
   family: significanthobbies
   kind: product
-  priority: P2
-  tier: secondary
-  attention: toolbox
-  lifecycle: maintained
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: A private iPhone journal for daily writing, reflection, and a personal archive that stays under the owner's control.
   publicMakerNote: I believe journaling is an important habit, so I wanted a durable journal that fits naturally inside the Hub.
@@ -93,8 +95,8 @@ product:
     audience: An iPhone user who wants a quiet, device-first journal inside the Significant Hobbies family.
     outcome: Write regularly, revisit a personal archive, and notice useful patterns without surrendering ownership of the entries.
     mechanism: An independently owned native app keeps the writing loop simple, private, and compatible with privacy-safe Hub summaries.
-    proof: The app is actively being built and dogfooded as a private device-first journal with its own native codebase.
-    nextAction: Write and revisit real entries; future reflection features should follow lived journaling practice and preserve privacy.
+    proof: Retained historical experiment; the owner explicitly removed it from Fleet on 2026-09-07.
+    nextAction: Use an existing journal or chess product; preserve this repository as history without an active roadmap.
   form: iOS app
   platforms:
     - iOS
@@ -106,13 +108,13 @@ product:
     - Astro
   retainedGitHistory:
     firstCommitAt: 2026-08-11
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 29
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 30
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: journal
-  observedRevision: f88567280d805ada7bb54571ea24a66631345d19
+  observedRevision: 81f437780292cd8d71309fcd31f03b5c1521a592
   githubRepository: Significant-Hobbies/journal
   githubHomepageUrl: https://journal.significanthobbies.com
   worktree: *a1
@@ -128,19 +130,19 @@ repository:
           - SignificantHobbies.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary: {}
   attention: *a2
   remote:
     repository: Significant-Hobbies/journal
     defaultBranch: main
-    defaultBranchSha: f88567280d805ada7bb54571ea24a66631345d19
+    defaultBranchSha: 81f437780292cd8d71309fcd31f03b5c1521a592
     homepage: https://journal.significanthobbies.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows: []
 deployment:
   kind: pages
@@ -167,12 +169,12 @@ deployment:
         state: testflight-processed
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-08-23
-  reason: The independent native repository and public landing are live, but no public TestFlight or App Store release is approved.
-  changelogUrl: https://journal.significanthobbies.com/changelog
+  verifiedAt: 2026-09-07
+  reason: "Live landing states internal TestFlight only, processed build 5/source 6, no public enrollment. Limit: No public consumer installation path."
+  changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/journal/issues
   geoIdentity:
     id: journal
@@ -194,5 +196,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository.
+  catalog: "Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository. Owner decision 2026-09-07: remove from Fleet; retain source, history and attributed infrastructure without promotion or new product work."
   infrastructure: The native source is independently owned by Significant-Hobbies/journal. Cloudflare Pages project journal serves the ios-landings-generated public surface; build 1.0.0 (3) remains internal-only in TestFlight.

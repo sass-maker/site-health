@@ -58,10 +58,10 @@
         "priority": "P1",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Public download and release metadata inspected; current CI passes but release assets and version claims are being repaired in concurrent work. Limit: Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md."
         }
       },
       "authModel": "public-persistent",
@@ -96,7 +96,7 @@
       "attention": "my-work",
       "lifecycle": {
         "status": "primary",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -119,10 +119,10 @@
         "priority": "P1",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Public v0.3.19 ZIP is reachable; distribution is ad-hoc signed and README identifies Gatekeeper restrictions. Limit: Voice/screen permissions and installed core workflow not exercised."
         }
       },
       "authModel": "public-persistent",
@@ -142,7 +142,7 @@
       "attention": "my-work",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -167,8 +167,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Loaded Shakespeare gallery model; clicked Generate; completed in 5.76s at 53.7 tok/s with visible generated text and model-quality limitations. Limit: Qualifies for the working browser demo only; native factory and Mac distribution remain unverified."
         }
       },
       "authModel": "public-persistent",
@@ -196,11 +196,11 @@
         "listing": "maintained",
         "id": "posttrainllm",
         "name": "PostTrainLLM",
-        "description": "A local factory for training, evaluating, and running specialist language models.",
+        "description": "An experimental browser model playground: run small language models locally with visible generation metrics.",
         "category": "product",
         "pillarId": "build",
         "spotlight": true,
-        "maturity": "public-ready",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/PostTrainLLM/posttrainllm"
       }
     },
@@ -213,8 +213,8 @@
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-22",
-          "reason": "Site Health is intentionally local-only and has no intended public deployment; its obsolete public edge hostname and Access application were retired on 2026-08-22."
+          "verifiedAt": "2026-09-07",
+          "reason": "Read canonical catalog, owning repository and fresh GitHub CI evidence. Private operator tool, no public adoption path. Limit: Full private dashboard workflow untested; CI currently fails stale generated dossiers."
         }
       },
       "aliases": [],
@@ -250,8 +250,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-23",
-          "reason": "The independent Live repository is deployed at live.significanthobbies.com; its Worker also preserves existing Live routes while proxying the Hub apex."
+          "verifiedAt": "2026-09-07",
+          "reason": "Completed nine choices; generated Scholar result with relevant hobbies and small test plans. Limit: Saving and authenticated history untested."
         }
       },
       "aliases": [
@@ -297,11 +297,11 @@
         "listing": "maintained",
         "id": "live",
         "name": "Live",
-        "description": "The long-running Significant Hobbies experience for recording, exploring, and acting on a life lived beyond passive consumption.",
+        "description": "A free personality and hobby quiz that suggests a small experiment to try; account planning is not yet qualified.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Significant-Hobbies/live"
       }
     },
@@ -314,8 +314,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-22",
-          "reason": "The source repository is public and the read-only MCP gateway is live for configured integrations, but the service is infrastructure rather than a general public product."
+          "verifiedAt": "2026-09-07",
+          "reason": "Read documented endpoints; direct unauthenticated tools/list probes for High Signal, Research Papers and Hobbies each returned403. Limit: No complete external-client tool invocation verified; may be edge access restriction."
         }
       },
       "aliases": [
@@ -361,8 +361,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-23",
-          "reason": "The canonical public directory is live at sassmaker.com, and both the feedback API and private inbox Workers are provisioned and live."
+          "verifiedAt": "2026-09-07",
+          "reason": "Directory search for posttrain filters 56 entries to one with source and product links. Limit: Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction required."
         }
       },
       "authModel": "public-persistent",
@@ -413,11 +413,11 @@
         "listing": "maintained",
         "id": "saas-maker",
         "name": "SaaS Maker",
-        "description": "Software as a specialized service: a living studio of focused products built for particular problems and maintained in public.",
+        "description": "A public directory of working experiments, reference projects and reusable tooling.",
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "public-ready",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/sass-maker/saas-maker"
       }
     },
@@ -428,10 +428,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-22",
-          "reason": "GitStat is an active Fleet product with a verified live public surface. Keep sharing gated until its optional GitHub connection flow is repaired."
+          "verifiedAt": "2026-09-07",
+          "reason": "Submitted octocat; completed repository and commit analysis with overview and drilldown tabs. Limit: One public profile; private repositories untested."
         }
       },
       "authModel": "public-persistent",
@@ -450,20 +450,20 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/gitstat",
       "public": {
-        "listing": "hidden",
+        "listing": "maintained",
         "id": "gitstat",
         "name": "GitStat",
-        "description": "A GitHub analytics dashboard for contribution history, code churn, collaboration, and AI-assisted work.",
+        "description": "An experimental public GitHub analysis tool for repository activity, contributions and code churn.",
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "in-progress",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/sass-maker/gitstat"
       }
     },
@@ -476,8 +476,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-20",
-          "reason": "The standalone source and retained artifact Worker are current, but no public product surface is approved for sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Ran the repository ASCII raster renderer with a synthetic five-second brief. FFprobe confirms a real 1080x1920 H.264/AAC MP4, 259270 bytes and 60 frames. Inspected a frame at two seconds. Limit: The generated frame has overlapping code-rail text and generic captions that do not explain the supplied brief. Real encoding works, but presentation/value is insufficient for sharing; publishing remains unverified."
         }
       },
       "authModel": "required-service",
@@ -520,8 +520,8 @@
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-23",
-          "reason": "The product is retired with no active deployment or retained Cloudflare resources."
+          "verifiedAt": "2026-09-07",
+          "reason": "Read README: paired Expo/private Tailscale environment required; no public install path. Limit: No paired device core loop verified."
         }
       },
       "authModel": "required-service",
@@ -553,10 +553,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Public shared list exposes 45 sites and dated observations; search filters personal sites separately. Limit: Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data."
         }
       },
       "authModel": "public-persistent",
@@ -578,7 +578,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -602,10 +602,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Opened app; Google sign-in required before core mailbox search. Limit: Mailbox workflow and presentation after sign-in unverified."
         }
       },
       "authModel": "required-user",
@@ -627,7 +627,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -650,10 +650,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Landing and ZIP import affordance inspected; no built-in synthetic sample observed. Limit: Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted."
         }
       },
       "authModel": "public-persistent",
@@ -672,7 +672,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -695,10 +695,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Followed Get my free API key through getting-started to Authentication. Docs say operator-provisioned keys and self-serve POST /access/request-key is not live. Limit: No approved service identity used; actual inference unverified; CTA implies self-service that is unavailable."
         }
       },
       "authModel": "required-service",
@@ -717,7 +717,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -741,10 +741,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Installed CLI help, run help and presets execute successfully. Limit: A real measurement run and intelligible report remain unverified; help output alone is insufficient."
         }
       },
       "authModel": "public-persistent",
@@ -763,7 +763,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -787,10 +787,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Signal labels six positive reviews a surge/developer-adoption spike without a comparison baseline; same page shows confidence score 99/Strong evidence and LOW CONFIDENCE. These contradictions affect the evidence-led core promise. Limit: Working navigation and populated sources; not a claim that the service is down. Needs evidence/claim calibration review before promotion."
         }
       },
       "authModel": "public-persistent",
@@ -809,7 +809,7 @@
       "attention": "my-work",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -834,8 +834,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-28",
-          "reason": "Trusted public corpus is live with 11,624 published claims, 294 quote-safe recommendation evidences in 281 groups, and 1,190 source episodes; exact-SHA CI, 100% API/web deployment traffic, and public route checks passed."
+          "verifiedAt": "2026-09-07",
+          "reason": "50 results; receipt supplied speaker, date, transcript context and original episode link. Original publication title/date matched. Limit: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed."
         }
       },
       "authModel": "public-persistent",
@@ -880,11 +880,11 @@
         "listing": "maintained",
         "id": "on-record",
         "name": "High Signal Podcasts",
-        "description": "Source-backed podcast intelligence with attributable claims and recommendations linked to the original episode.",
+        "description": "Search evidenced podcast claims and follow links back to the original episode or publication.",
         "category": "product",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "public-ready",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Significant-Hobbies/on-record"
       }
     },
@@ -895,10 +895,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-25",
-          "reason": "The owner-only production pilot is live and proven for issues, edits, archive state, search, and rendering, but public moderation and reliable authenticated GitHub rendering are not connected yet."
+          "verifiedAt": "2026-09-07",
+          "reason": "Entered microsoft/typescript; rendered current issue list and opened full issue detail. Owner-only publishing scope clearly stated. Limit: New issue publication not tested or required for retained read-only surface."
         }
       },
       "authModel": "public-persistent",
@@ -935,14 +935,20 @@
       "attention": "foundry",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sarthakagrawal927/issue-pages",
       "public": {
-        "listing": "hidden",
-        "repositoryUrl": "https://github.com/sarthakagrawal927/issue-pages"
+        "listing": "maintained",
+        "repositoryUrl": "https://github.com/sarthakagrawal927/issue-pages",
+        "name": "IssuePages",
+        "description": "Read public GitHub issues as focused articles; publishing requires repository-owner access.",
+        "category": "experiment",
+        "pillarId": "build",
+        "maturity": "experiment",
+        "spotlight": false
       }
     },
     {
@@ -954,8 +960,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Aider vs Claude Code deep link selected both tools with per-axis ratings and Early Signal labels. Limit: Homepage promises library maintenance/license/API stability axes; actual comparison covers coding tools speed/accuracy/cost. Tiny 1-2 rater sample; value and truthful promise need review."
         }
       },
       "authModel": "public-persistent",
@@ -996,8 +1002,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Searched transformer; returned relevant sourced papers including Attention Is All You Need; original arXiv page resolves with matching title/date. Desktop results are readable and scope is labelled static export. Limit: Cited synthesis and private research functions untested."
         }
       },
       "authModel": "public-persistent",
@@ -1024,11 +1030,11 @@
         "listing": "maintained",
         "id": "research-papers",
         "name": "Research Papers",
-        "description": "Academic paper discovery and a structured research data asset.",
+        "description": "Search academic papers and follow original sources; account-based research chat is not yet qualified.",
         "category": "product",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/High-Signal-App/research-papers"
       }
     },
@@ -1039,10 +1045,10 @@
         "priority": "P4",
         "status": "archived",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Body-part navigation reaches knee condition and Boswellia remedy; evidence is condition-specific, hand OA negative result distinguished, safety and cited sources present; screenshot is readable and polished. MSKCC source resolves. Limit: One representative path; not clinical validation or personalized treatment qualification."
         }
       },
       "authModel": "public-persistent",
@@ -1062,16 +1068,20 @@
       "attention": "ignored",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
       "public": {
-        "listing": "past",
+        "listing": "maintained",
         "id": "materia",
         "name": "Materia",
-        "description": "Evidence-graded remedy reference organized by body system.",
-        "repositoryUrl": "https://github.com/Significant-Hobbies/materia"
+        "description": "An educational body-and-remedy reference with condition-specific research citations and explicit uncertainty.",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/materia",
+        "category": "experiment",
+        "pillarId": "build",
+        "maturity": "experiment",
+        "spotlight": false
       }
     },
     {
@@ -1081,10 +1091,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Public page explicitly describes internal infrastructure; operator console protected by Fleet Access. Limit: No public core document workflow."
         }
       },
       "authModel": "required-service",
@@ -1125,7 +1135,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1148,10 +1158,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-23",
-          "reason": "The six-product Hub is deployed from the canonical Significant Hobbies repository and publicly verified through the Live-owned apex proxy; the retained habits domain is compatibility data, not a separate product."
+          "verifiedAt": "2026-09-07",
+          "reason": "Landing states owner-only; Open private Hub redirects to Live login. Continue with Google returned to login without completing access. Limit: Private summary/sync workflow unverified; guest quiz belongs to Live."
         }
       },
       "aliases": [
@@ -1183,7 +1193,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1207,10 +1217,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-12",
-          "reason": "Verified active, deployed, live canonical calculator and public discovery surfaces with a maintained repository listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Estimate displayed hosted model verification failure and human-verification requirement; usage scope labeled under review. Limit: No calculated result verified; did not bypass verification."
         }
       },
       "authModel": "public-persistent",
@@ -1230,7 +1240,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1256,10 +1266,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Searched Cowboy Bebop; two results; opened detailed episode/synopsis page. Limit: Guest workflow and personal tracking unverified; no private content retained."
         }
       },
       "authModel": "public-persistent",
@@ -1307,7 +1317,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1332,13 +1342,13 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-20",
-          "reason": "Archived at the owner's request; the live surface is retained but is no longer an active sharing target."
+          "verifiedAt": "2026-09-07",
+          "reason": "Loaded engine, displayed suggested d5 arrow, dragged black pawn d7 to d5; Stockfish replied Bf4 and move history graded d5 Best with +0.3. Desktop board readable. Limit: Natural-language coaching requires local bridge; keyboard/drop and click did not move piece, direct drag worked."
         }
       },
       "authModel": "public-persistent",
       "family": "significanthobbies",
-      "tier": "secondary",
+      "tier": "out-of-fleet",
       "repo": "chess",
       "sourcePath": "chess",
       "deployKind": "pages",
@@ -1346,9 +1356,9 @@
       "domains": [
         "chess.significanthobbies.com"
       ],
-      "inRegistry": true,
+      "inRegistry": false,
       "status": "live",
-      "notes": "Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0.",
+      "notes": "Archived on 2026-08-20; the existing Cloudflare Pages surface remains live. Project auto-named chess-9a0. Owner decision 2026-09-07: remove from Fleet; retain source, history and attributed infrastructure without promotion or new product work.",
       "name": "Chess",
       "attention": "ignored",
       "lifecycle": {
@@ -1358,7 +1368,7 @@
       },
       "repositoryVisibility": "public",
       "public": {
-        "listing": "past",
+        "listing": "hidden",
         "id": "chess",
         "name": "Chess Coach",
         "description": "Browser chess against Stockfish with optional AI move coaching.",
@@ -1374,8 +1384,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Science channel lists 1007 videos; Play starts video and sequential playback reaches Inside a Kangaroo Pouch with matching imagery/title. Limit: Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked."
         }
       },
       "authModel": "public-persistent",
@@ -1402,11 +1412,11 @@
         "listing": "maintained",
         "id": "looptv",
         "name": "LoopTV",
-        "description": "A lean-back, TV-style random video player for curated channels.",
+        "description": "An experimental lean-back queue of curated science and other videos.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Significant-Hobbies/looptv",
         "roadmapPath": null
       }
@@ -1418,10 +1428,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Followed Try a sample document to sample article with static highlights/notes; only actions lead to library. Limit: Static sample is not proof of import/read/annotate workflow; private library not accessed."
         }
       },
       "authModel": "public-persistent",
@@ -1455,7 +1465,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1478,10 +1488,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Existing signed-in learning dashboard renders and links concept, drill and practice. API Design lesson includes a mental model, mistakes, original sources and review prompts. Limit: Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved."
         }
       },
       "authModel": "public-persistent",
@@ -1515,7 +1525,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1538,10 +1548,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live landing explicitly states internal TestFlight only, no public invite or App Store listing. Limit: No public consumer installation path."
         }
       },
       "name": "Calorie",
@@ -1551,7 +1561,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repo": "calorie",
@@ -1586,8 +1596,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-17",
-          "reason": "Landing is live at setline.significanthobbies.com from the ios-landings factory. Not ready to share: no public TestFlight or App Store build is approved."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live landing says iPhone in development and not on App Store; offers source and static explanation. Limit: No public consumer installation path observed."
         }
       },
       "name": "Setline",
@@ -1628,20 +1638,20 @@
       "id": "journal",
       "portfolio": {
         "kind": "product",
-        "priority": "P2",
-        "status": "active",
+        "priority": "P4",
+        "status": "archived",
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-23",
-          "reason": "The independent native repository and public landing are live, but no public TestFlight or App Store release is approved."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live landing states internal TestFlight only, processed build 5/source 6, no public enrollment. Limit: No public consumer installation path."
         }
       },
       "name": "Journal",
       "authModel": "public-persistent",
       "family": "significanthobbies",
-      "tier": "secondary",
-      "attention": "toolbox",
+      "tier": "out-of-fleet",
+      "attention": "ignored",
       "lifecycle": {
         "status": "inactive",
         "shareable": false,
@@ -1656,11 +1666,11 @@
       "domains": [
         "journal.significanthobbies.com"
       ],
-      "inRegistry": true,
+      "inRegistry": false,
       "status": "live",
       "app": "ios",
       "public": {
-        "listing": "maintained",
+        "listing": "hidden",
         "id": "journal",
         "name": "Journal",
         "description": "A private iPhone journal for daily writing, reflection, and a personal archive that stays under the owner's control.",
@@ -1670,7 +1680,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/journal"
       },
-      "notes": "Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository."
+      "notes": "Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository. Owner decision 2026-09-07: remove from Fleet; retain source, history and attributed infrastructure without promotion or new product work."
     },
     {
       "id": "kith",
@@ -1681,8 +1691,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "Landing is live at kith.significanthobbies.com from the ios-landings factory. Hub-enabled Kith 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; no public TestFlight or App Store build is approved."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live landing states internal TestFlight only, latest processed build 3/source 7, no public enrollment. Limit: No public consumer installation path."
         }
       },
       "name": "Kith",
@@ -1728,8 +1738,8 @@
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-21",
-          "reason": "Private source factory that builds native-product landings; each public deployment is owned by its product row."
+          "verifiedAt": "2026-09-07",
+          "reason": "Read factory README and product-specific live landing outputs; intended infrastructure for owned native apps. Limit: No independent public product workflow; internal dependency can remain active."
         }
       },
       "name": "iOS landings",
@@ -1769,10 +1779,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Synthetic resume/JD analysis runs and identifies matching TypeScript/PostgreSQL and missing Kubernetes keywords; result layout inspected. Limit: 5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified."
         }
       },
       "authModel": "public-persistent",
@@ -1791,7 +1801,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1814,10 +1824,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-16",
-          "reason": "The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Published owner profile loads with projects, three generated profile modes, chat panel. Desktop layout is coherent. Limit: Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified."
         }
       },
       "authModel": "public-persistent",
@@ -1846,7 +1856,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -1872,8 +1882,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Search returned networkx first; detail loaded metadata, detected pytest/GitHub Actions, star history and similar projects. Limit: Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August."
         }
       },
       "authModel": "public-personalized",
@@ -1915,11 +1925,11 @@
         "listing": "maintained",
         "id": "starboard",
         "name": "Starboard",
-        "description": "Organize and semantically search your GitHub stars.",
+        "description": "Explore public GitHub repositories and related projects through a searchable discovery experiment.",
         "category": "product",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Codevetter/starboard"
       }
     },
@@ -1932,8 +1942,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Generated labelled Lanternmere demo, selected Wanderer, rendered six-NPC 3D town at116FPS. Town reached fallen state while inspecting setup. Closed tab to stop local simulation. Limit: No useful talk/memory loop completed; no explicit save clicked; not qualified merely by3D rendering."
         }
       },
       "aliases": [
@@ -1994,8 +2004,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Amul search narrowed 1732 records to 17; Protein Water detail showed 4g protein,16kcal,25g/100kcal with clear layout. Limit: Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met."
         }
       },
       "authModel": "public-persistent",
@@ -2038,10 +2048,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-15",
-          "reason": "The public test surface is live, but this remains a casual experiment without an approved portfolio listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Tofu search narrowed 50 to 13; published Easy Tofu Scramble source resolves and exactly matches 18g protein/159kcal, derived11.3g per100kcal. Readable desktop table. Limit: Publisher macros are not laboratory validation; only representative source checked."
         }
       },
       "authModel": "public-persistent",
@@ -2060,7 +2070,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2069,8 +2079,14 @@
         "domainCoverage": true
       },
       "public": {
-        "listing": "hidden",
-        "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food"
+        "listing": "maintained",
+        "repositoryUrl": "https://github.com/Significant-Hobbies/veg-protein-food",
+        "name": "Recipe Index",
+        "description": "Search vegetarian recipes by protein and calories, with links to the original recipe publishers.",
+        "category": "experiment",
+        "pillarId": "build",
+        "maturity": "experiment",
+        "spotlight": false
       }
     },
     {
@@ -2080,10 +2096,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Documented local populated demo starts successfully; four route rows, latency/error metrics and collection-transparency view work. Limit: Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified."
         }
       },
       "authModel": "required-service",
@@ -2103,7 +2119,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2127,10 +2143,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-28",
-          "reason": "The approved static proof surface is deployed with a source-faithful multi-episode result, captions, provenance, and explicit local-only product boundaries."
+          "verifiedAt": "2026-09-07",
+          "reason": "Clicked play on public example twice. Video source responds to HEAD but player remains readyState 0, time 0, unknown duration and does not play. Limit: Core local clipping workflow not exercised; reachable media URL alone is not playback proof."
         }
       },
       "authModel": "public-persistent",
@@ -2149,7 +2165,7 @@
       "attention": "foundry",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2165,10 +2181,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live landing states held internal prototype, no public invite or App Store listing; control feel and fun unproven. Limit: No public consumer installation path; no camera or physical-control test performed."
         }
       },
       "authModel": "public-persistent",
@@ -2189,7 +2205,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2214,8 +2230,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Landing explicitly archived with no signup and sample profile. Limit: Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify."
         }
       },
       "authModel": "public-persistent",
@@ -2256,8 +2272,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Opened sourced WWII example, selected UK, queued one humanitarian diplomacy order and advanced; Game Master failed with deprecated Cloudflare model error. Limit: No completed turn; historical map also contains generic factions. No secrets supplied."
         }
       },
       "authModel": "public-persistent",
@@ -2298,8 +2314,8 @@
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "README states hardware not ordered and no code shipped. Limit: No working hardware/software product to share."
         }
       },
       "name": "Companion Robot",
@@ -2338,8 +2354,8 @@
         "deployed": false,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "README/tutorial and demand-forecast trend evaluation source inspected. Limit: Dataset-dependent full forecasting experiment not rerun; source inspection alone is insufficient reproducibility proof."
         }
       },
       "name": "Forecast Lab",
@@ -2378,8 +2394,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Opened Idle Startup; existing saved company loaded and counters ran; squad detail opened. Limit: Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state."
         }
       },
       "name": "Web Playables",
@@ -2420,8 +2436,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Opened Bonnie Tyler profile with age-relative milestone, context and source links; original Wikipedia page resolved. Explicit survivor/outlier limitations and as-of 2025 position. Desktop layout presentable. Limit: One profile/source checked; full corpus not fact-checked."
         }
       },
       "authModel": "public-persistent",
@@ -2451,11 +2467,11 @@
         "listing": "maintained",
         "id": "what-it-takes-to-win",
         "name": "Look Sideways",
-        "description": "Explore 3,578 documented early-breakthrough paths without pretending success follows a formula.",
+        "description": "Explore sourced career turning points with explicit survivorship and forecasting limits.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Significant-Hobbies/what-it-takes-to-win"
       }
     },
@@ -2468,8 +2484,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Verified active, deployed, live canonical public surface with a maintained listing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Home and PostTrainLLM case study render with architecture, engineering decisions and public source/demo links. Limit: Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked."
         }
       },
       "aliases": [
@@ -2505,11 +2521,11 @@
         "listing": "maintained",
         "id": "sarthakagrawal-personal",
         "name": "Sarthak Agrawal",
-        "description": "Personal portfolio of Sarthak Agrawal — AI infrastructure and product engineer.",
+        "description": "Selected engineering case studies, technical writing and working project demonstrations.",
         "category": "personal",
         "pillarId": "personal",
         "spotlight": false,
-        "maturity": "maintained",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/sarthakagrawal927/portfolio"
       }
     },
@@ -2520,10 +2536,10 @@
         "priority": "P1",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-16",
-          "reason": "The owner approved the verified maintained informational site for public sharing; no Mac download, signed binary, or direct distribution claim is approved."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live site explicitly labels working local Mac POC, no public download or checkout; workday is illustrative. Limit: Informational surface does not prove an accessible product workflow."
         }
       },
       "aliases": [
@@ -2546,7 +2562,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2574,10 +2590,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": true,
+        "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-16",
-          "reason": "The owner approved the verified maintained informational site for public sharing; no downloadable app, signed binary, or public release channel is approved."
+          "verifiedAt": "2026-09-07",
+          "reason": "Live site labels held Mac experiment, shows illustrative bench and native screenshots but no usable public download. Limit: No public installation and editing workflow verified."
         }
       },
       "authModel": "public-persistent",
@@ -2597,7 +2613,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": true,
+        "shareable": false,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -2627,8 +2643,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-23",
-          "reason": "The actual manager dashboard is verified at field-track.sassmaker.com as a credential-free synthetic demo; production employee data and the managed Android rollout remain unavailable."
+          "verifiedAt": "2026-09-07",
+          "reason": "Searched Meera; opened matching roster detail and route metrics. Limit: Demo only; no Android/device/real workforce qualification."
         }
       },
       "authModel": "public-persistent",
@@ -2657,11 +2673,11 @@
         "listing": "maintained",
         "id": "field-track",
         "name": "Field Track",
-        "description": "A synthetic manager dashboard for continuous, administrator-enrolled Android field tracking, freshness-aware locations, and retained route review.",
+        "description": "A labelled synthetic field-team demo for exploring routes, visits and agent summaries; Android tracking is not qualified.",
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
-        "maturity": "in-progress"
+        "maturity": "experiment"
       }
     },
     {
@@ -2673,8 +2689,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "No maintained public listing is currently approved."
+          "verifiedAt": "2026-09-07",
+          "reason": "Dated corpus boundaries and ranked posts visible. Filled search box and clicked Search repeatedly; input resets and no search result appears. Limit: Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete."
         }
       },
       "authModel": "public-persistent",
@@ -2729,8 +2745,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-11",
-          "reason": "Archived projects are not ready for active sharing."
+          "verifiedAt": "2026-09-07",
+          "reason": "README identifies empty first-base inventory and unfinished launch. Limit: No usable marketplace inventory or acquisition flow verified."
         }
       },
       "authModel": "public-persistent",
@@ -2765,8 +2781,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-08-24",
-          "reason": "The landing, support, and privacy pages are live. The unified Anchor source is committed, its signed macOS build 12 is installed, and iOS/watchOS build 12 is uploaded to App Store Connect for internal processing."
+          "verifiedAt": "2026-09-07",
+          "reason": "Public Anchor-1.0.dmg responds 200; landing describes a Mac beta. Limit: Installed capture/retrieval and account/MCP workflows not verified."
         }
       },
       "name": "Anchor",
@@ -2802,6 +2818,44 @@
         "spotlight": false,
         "maturity": "in-progress"
       }
+    },
+    {
+      "id": "nomad-data-adventure",
+      "name": "Nomad Data Adventure",
+      "portfolio": {
+        "kind": "experiment",
+        "priority": "P2",
+        "status": "active",
+        "deployed": false,
+        "readyToBeShared": false,
+        "sharingReadiness": {
+          "verifiedAt": "2026-09-07",
+          "reason": "Found nomads-data containing collection scripts and generated city data; no Git repository or README. Owner explicitly requested active inclusion. Limit: Dataset rights, reproducible setup, user-facing value and distribution not qualified."
+        }
+      },
+      "authModel": "local-only",
+      "family": "significanthobbies",
+      "tier": "active",
+      "attention": "toolbox",
+      "lifecycle": {
+        "status": "active",
+        "shareable": false,
+        "resumeCondition": null
+      },
+      "repo": "nomads-data",
+      "sourcePath": "nomads-data",
+      "repositoryVisibility": "private",
+      "deployKind": "none",
+      "cfProject": null,
+      "domains": [],
+      "inRegistry": true,
+      "status": "undeployed",
+      "public": {
+        "listing": "hidden",
+        "name": "Nomad Data Adventure",
+        "description": "A local city-data exploration experiment; public data rights and a usable viewer remain unverified."
+      },
+      "notes": "Owner confirmed active on 2026-09-07. Local nomads-data directory has collection scripts and generated data, but no Git repository or public deployment. Do not publish raw collected datasets without establishing redistribution rights."
     }
   ],
   "publicDirectory": {
@@ -2832,7 +2886,7 @@
           "Rust"
         ],
         "firstCommitAt": "2025-11-30",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "pace": {
         "makerNote": "I wanted a fast, privacy-first Mac assistant that could understand what is on my screen while keeping the work local.",
@@ -2856,7 +2910,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "posttrainllm": {
         "makerNote": "I use PostTrainLLM to explore local model training and turn those experiments into repeatable recipes for specialist models.",
@@ -2880,7 +2934,8 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-05-21",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07",
+        "description": "An experimental browser model playground: run small language models locally with visible generation metrics."
       },
       "site-health": {
         "makerNote": "I built Site Health because I needed one clear view of Fleet’s domains, performance, search visibility, and AI visibility.",
@@ -2904,7 +2959,7 @@
         ],
         "description": "A local portfolio dashboard for domains, performance, search, and AI visibility evidence.",
         "firstCommitAt": "2026-05-02",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "live": {
         "makerNote": "I wanted a product that helps people live more intentionally through goals, possibilities, and things worth anticipating.",
@@ -2926,8 +2981,9 @@
           "Cloudflare Workers",
           "D1"
         ],
-        "firstCommitAt": "2026-08-21",
-        "latestCommitAt": "2026-08-23"
+        "firstCommitAt": "2026-03-01",
+        "latestCommitAt": "2026-09-06",
+        "description": "A free personality and hobby quiz that suggests a small experiment to try; account planning is not yet qualified."
       },
       "chatgpt-connections": {
         "makerNote": "I had many projects but no solid way to connect them to ChatGPT, so I built a selective gateway for that.",
@@ -2951,7 +3007,7 @@
         ],
         "description": "A read-only MCP gateway that exposes selected public Fleet data to ChatGPT connections.",
         "firstCommitAt": "2026-08-11",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-09-07"
       },
       "saas-maker": {
         "makerNote": "I use SaaS Maker as the public home for Fleet and as a workshop for reusable feedback, workflow, and automation tools.",
@@ -2975,7 +3031,8 @@
           "IssuePages"
         ],
         "firstCommitAt": "2026-02-26",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07",
+        "description": "A public directory of working experiments, reference projects and reusable tooling."
       },
       "gitstat": {
         "makerNote": "I built GitStat to understand how my time and code churn are distributed across a large collection of repositories.",
@@ -2998,7 +3055,8 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-08-21",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06",
+        "description": "An experimental public GitHub analysis tool for repository activity, contributions and code churn."
       },
       "reel-pipeline": {
         "makerNote": "I wanted to automate the repetitive work of making and publishing useful product videos.",
@@ -3024,7 +3082,7 @@
         ],
         "description": "A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.",
         "firstCommitAt": "2026-05-28",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "mobile-dev-cockpit": {
         "makerNote": "I explored whether development work running on a desktop could be supervised clearly from a phone.",
@@ -3047,7 +3105,7 @@
         ],
         "description": "A parked mobile supervision client retained for possible future reactivation.",
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-08-22"
+        "latestCommitAt": "2026-09-06"
       },
       "drank": {
         "makerNote": "I built DRank when domain-rating data became accessible enough to track the strength of my own domains over time.",
@@ -3070,7 +3128,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-06-10",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "email-manager": {
         "makerNote": "Gmail did not help me see who was filling my inbox, so I built a clearer way to understand volume and unsubscribe.",
@@ -3094,7 +3152,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-24",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "chatgpt-memory-insights": {
         "makerNote": "I wanted to learn what my exported AI conversations reveal about my themes, emotions, memory, and personal change.",
@@ -3116,7 +3174,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-28",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "free-ai": {
         "makerNote": "I built Free AI to make genuinely useful free model capacity easier to discover and use through one resilient interface.",
@@ -3140,7 +3198,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-15",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "psi-swarm": {
         "makerNote": "I wanted repeatable evidence of how my products perform under real Lighthouse conditions, not a single flattering test.",
@@ -3164,7 +3222,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-06-03",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "high-signal": {
         "makerNote": "I built High Signal to combine scattered news and data sources and extract the signals that are actually useful.",
@@ -3188,7 +3246,7 @@
           "Cloudflare"
         ],
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "on-record": {
         "makerNote": "I’m building High Signal Podcasts to extract useful insights, recommendations, and emerging technology signals from top podcasts without listening to every episode.",
@@ -3212,7 +3270,8 @@
           "D1"
         ],
         "firstCommitAt": "2026-08-24",
-        "latestCommitAt": "2026-08-27"
+        "latestCommitAt": "2026-09-06",
+        "description": "Search evidenced podcast claims and follow links back to the original episode or publication."
       },
       "issue-pages": {
         "makerNote": "I wanted publishing a public page to be as simple as opening a GitHub issue.",
@@ -3235,9 +3294,9 @@
           "Cloudflare Workers",
           "D1"
         ],
-        "description": "A public website where a GitHub issue becomes a readable, searchable page.",
+        "description": "Read public GitHub issues as focused articles; publishing requires repository-owner access.",
         "firstCommitAt": "2026-08-25",
-        "latestCommitAt": "2026-08-28"
+        "latestCommitAt": "2026-09-06"
       },
       "everythingrated": {
         "makerNote": "I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.",
@@ -3260,7 +3319,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "research-papers": {
         "makerNote": "I wanted one large, searchable research library where retrieval could help me understand what already exists in a market.",
@@ -3283,7 +3342,8 @@
           "TypeScript"
         ],
         "firstCommitAt": "2026-05-30",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06",
+        "description": "Search academic papers and follow original sources; account-based research chat is not yet qualified."
       },
       "materia": {
         "makerNote": "I want to make anatomy explorable and connect body concerns to clear, evidence-based information about treatments and remedies.",
@@ -3306,7 +3366,8 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06",
+        "description": "An educational body-and-remedy reference with condition-specific research citations and explicit uncertainty."
       },
       "knowledge-base": {
         "makerNote": "I built Knowledge Base as the private, cited retrieval layer that other Fleet applications can rely on.",
@@ -3330,7 +3391,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "significanthobbies": {
         "makerNote": "I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.",
@@ -3354,8 +3415,8 @@
           "D1",
           "Swift"
         ],
-        "firstCommitAt": "2026-08-21",
-        "latestCommitAt": "2026-08-23"
+        "firstCommitAt": "2026-03-01",
+        "latestCommitAt": "2026-09-06"
       },
       "india-standards": {
         "makerNote": "I wanted official data to provide a more grounded answer to how a person is doing in the Indian context.",
@@ -3379,7 +3440,7 @@
           "Cloudflare Workers"
         ],
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "anime-list": {
         "makerNote": "I wanted better anime filtering and discovery than the standard catalog experience, with a watchlist that works for me.",
@@ -3403,7 +3464,7 @@
           "Cloudflare"
         ],
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "chess": {
         "makerNote": "I built Chess to explore whether a local AI agent could become a practical, patient partner for improving my game.",
@@ -3412,8 +3473,8 @@
           "audience": "A chess learner who wants a patient practice partner rather than only a move engine.",
           "outcome": "Play against Stockfish and receive optional coaching that explains useful move ideas.",
           "mechanism": "A browser board pairs engine play with a local AI coaching layer for contextual feedback.",
-          "proof": "The public artifact works, but the owner lost interest in chess and the product has no active roadmap.",
-          "nextAction": "Try the retained chess artifact if useful; expect no active development or product expansion."
+          "proof": "Retained historical experiment; the owner explicitly removed it from Fleet on 2026-09-07.",
+          "nextAction": "Use an existing journal or chess product; preserve this repository as history without an active roadmap."
         },
         "form": "Web game",
         "platforms": [
@@ -3426,7 +3487,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-08-17"
+        "latestCommitAt": "2026-09-06"
       },
       "looptv": {
         "makerNote": "I wanted a more controlled and curated way to watch YouTube, shaped like television rather than an endless feed.",
@@ -3450,7 +3511,8 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-04-04",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06",
+        "description": "An experimental lean-back queue of curated science and other videos."
       },
       "reader": {
         "makerNote": "I wanted any article or PDF to become a focused reading and research surface instead of another forgotten browser tab.",
@@ -3474,7 +3536,7 @@
           "D1"
         ],
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "swe-interview-prep": {
         "makerNote": "I built this as a learning-by-doing system that combines Pomodoro, Feynman, retrieval practice, and practical roadmaps.",
@@ -3497,7 +3559,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "calorie": {
         "makerNote": "I wanted one personal system for weight loss that connects food logging, fasting, exercise timing, and daily performance.",
@@ -3521,7 +3583,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "setline": {
         "makerNote": "I built Setline to make workouts easier to execute one set at a time, with timing and performance kept accurate.",
@@ -3543,7 +3605,7 @@
           "PersonalSyncKit"
         ],
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "journal": {
         "makerNote": "I believe journaling is an important habit, so I wanted a durable journal that fits naturally inside the Hub.",
@@ -3552,8 +3614,8 @@
           "audience": "An iPhone user who wants a quiet, device-first journal inside the Significant Hobbies family.",
           "outcome": "Write regularly, revisit a personal archive, and notice useful patterns without surrendering ownership of the entries.",
           "mechanism": "An independently owned native app keeps the writing loop simple, private, and compatible with privacy-safe Hub summaries.",
-          "proof": "The app is actively being built and dogfooded as a private device-first journal with its own native codebase.",
-          "nextAction": "Write and revisit real entries; future reflection features should follow lived journaling practice and preserve privacy."
+          "proof": "Retained historical experiment; the owner explicitly removed it from Fleet on 2026-09-07.",
+          "nextAction": "Use an existing journal or chess product; preserve this repository as history without an active roadmap."
         },
         "form": "iOS app",
         "platforms": [
@@ -3567,7 +3629,7 @@
           "Astro"
         ],
         "firstCommitAt": "2026-08-11",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "kith": {
         "makerNote": "I wanted a beautiful personal relationship-memory app that helps me stay more thoughtful about the people in my life.",
@@ -3589,7 +3651,7 @@
           "PersonalSyncKit"
         ],
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-08-29"
       },
       "ios-landings": {
         "makerNote": "I built one reusable landing-page engine so each native Significant Hobbies app does not need to reinvent its public home.",
@@ -3603,7 +3665,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "rolepatch": {
         "makerNote": "I wanted a focused way to tailor a resume and its supporting material to the actual job description.",
@@ -3627,7 +3689,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-23",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "karte": {
         "makerNote": "I wanted a link-in-bio surface that could grow into something more personal: a greeting card, profile, and small agent.",
@@ -3651,7 +3713,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "starboard": {
         "makerNote": "GitHub Stars stopped working for me at scale, so I built a better personal interface for exploring what I had saved.",
@@ -3675,7 +3737,8 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06",
+        "description": "Explore public GitHub repositories and related projects through a searchable discovery experiment."
       },
       "ai-game": {
         "makerNote": "I wanted to create a long-running world where AI characters remember, form grudges, make choices, and live through open-ended conflict.",
@@ -3698,7 +3761,7 @@
           "Cloudflare"
         ],
         "firstCommitAt": "2026-05-03",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "protein-index": {
         "makerNote": "I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.",
@@ -3722,7 +3785,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-07-15",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "veg-protein-food": {
         "makerNote": "I wanted a practical collection of higher-protein recipes that works with ingredients people actually use in Indian kitchens.",
@@ -3742,9 +3805,9 @@
           "Astro",
           "Cloudflare Pages"
         ],
-        "description": "A searchable directory of vegetarian protein foods and practical nutrition comparisons.",
+        "description": "Search vegetarian recipes by protein and calories, with links to the original recipe publishers.",
         "firstCommitAt": "2026-08-15",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "app-health": {
         "makerNote": "I built App Health because checking Sentry, PostHog, Slack, and cloud consoles separately made basic product health too fragmented.",
@@ -3768,7 +3831,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "mashup": {
         "makerNote": "I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.",
@@ -3794,7 +3857,7 @@
         ],
         "description": "A local-first tool that turns owned media archives into inspectable multi-clip edits.",
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-08-28"
+        "latestCommitAt": "2026-09-06"
       },
       "motion": {
         "makerNote": "I wanted body movement captured by a phone to become playful games on a television—and a workout without feeling like one.",
@@ -3818,7 +3881,7 @@
           "Vite",
           "TypeScript"
         ],
-        "firstCommitAt": "2026-08-17",
+        "firstCommitAt": "2026-07-18",
         "latestCommitAt": "2026-08-23"
       },
       "truehire": {
@@ -3842,7 +3905,7 @@
           "Cloudflare"
         ],
         "firstCommitAt": "2026-04-24",
-        "latestCommitAt": "2026-08-02"
+        "latestCommitAt": "2026-09-07"
       },
       "open-historia": {
         "makerNote": "I wanted a local, credit-free version of an AI grand-strategy game where long-form memory could make countries feel alive.",
@@ -3865,7 +3928,7 @@
           "Cloudflare Workers"
         ],
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "companion-robot": {
         "makerNote": "I am keeping this as a future exploration of what a genuinely useful embodied AI companion could become.",
@@ -3890,7 +3953,7 @@
           "Local AI"
         ],
         "firstCommitAt": "2026-06-25",
-        "latestCommitAt": "2026-07-17"
+        "latestCommitAt": "2026-09-06"
       },
       "forecast-lab": {
         "makerNote": "I wanted to learn forecasting by modeling how regional, temporal, and behavioral signals shape commerce demand.",
@@ -3914,7 +3977,7 @@
           "Vite"
         ],
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-07-04"
+        "latestCommitAt": "2026-09-06"
       },
       "web-playables": {
         "makerNote": "I built this laboratory to understand how idle and HTML-based games are designed, shipped, and distributed.",
@@ -3937,7 +4000,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-10",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06"
       },
       "what-it-takes-to-win": {
         "makerNote": "I wanted to study the real advantages behind success and replace unhelpful comparison with evidence-based understanding.",
@@ -3959,7 +4022,8 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-21",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07",
+        "description": "Explore sourced career turning points with explicit survivorship and forecasting limits."
       },
       "sarthakagrawal-personal": {
         "makerNote": "I maintain a personal website because I need one durable, accurate public record of my work and professional identity.",
@@ -3982,7 +4046,8 @@
           "IssuePages"
         ],
         "firstCommitAt": "2026-05-22",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-06",
+        "description": "Selected engineering case studies, technical writing and working project demonstrations."
       },
       "agent-office": {
         "makerNote": "I wanted to explore a company where humans and non-coding agents each own outcomes and keep working toward them over time.",
@@ -4005,7 +4070,7 @@
           "Codex CLI"
         ],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-01"
       },
       "local-ai-video-studio": {
         "makerNote": "I wanted editing intent to choose efficient local video tools before defaulting to expensive generative video.",
@@ -4029,7 +4094,7 @@
           "VideoToolbox"
         ],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-01"
       },
       "field-track": {
         "makerNote": "I started Field Track for my father: a lower-cost way for managers to locate employees carrying administrator-enrolled Android devices and review retained routes.",
@@ -4054,7 +4119,8 @@
           "D1"
         ],
         "firstCommitAt": "2026-08-12",
-        "latestCommitAt": "2026-08-20"
+        "latestCommitAt": "2026-09-06",
+        "description": "A labelled synthetic field-team demo for exploring routes, visits and agent summaries; Android tracking is not qualified."
       },
       "reddit-insights": {
         "makerNote": "I wanted to understand how the signals and emotions inside a subreddit change over time, even though historical data is difficult to obtain.",
@@ -4078,7 +4144,7 @@
         ],
         "description": "A bounded research collector for subreddit evidence and recurring insight snapshots.",
         "firstCommitAt": "2026-08-07",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-01"
       },
       "verified-bases": {
         "makerNote": "I explored whether the native codebases I already build could become inexpensive, verified templates for other makers.",
@@ -4100,7 +4166,7 @@
         ],
         "description": "A retained research-data identity with no retained local Git history or standalone public destination.",
         "firstCommitAt": "2026-06-16",
-        "latestCommitAt": "2026-07-18"
+        "latestCommitAt": "2026-09-01"
       },
       "anchor": {
         "makerNote": "I wanted a realistic daily planner that could help me follow the day and explain why the lived plan diverged from the intended one.",
@@ -4126,7 +4192,29 @@
           "Foundation Models"
         ],
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
+      },
+      "nomad-data-adventure": {
+        "makerNote": "I am keeping Nomad Data Adventure active for now as a data exploration experiment.",
+        "description": "A local city-data exploration experiment.",
+        "purposeContract": {
+          "purpose": "Explore city data through a bounded local experiment.",
+          "audience": "The owner exploring the available city datasets.",
+          "outcome": "Learn what useful comparisons the data supports.",
+          "mechanism": "Local Python collection and slicing scripts produce JSON datasets.",
+          "proof": "Scripts and generated local files exist; no public viewer or reproducible product journey is verified.",
+          "nextAction": "Keep active; establish data rights and a useful reproducible exploration before sharing."
+        },
+        "form": "Data experiment",
+        "platforms": [
+          "Local",
+          "CLI"
+        ],
+        "technologies": [
+          "Python"
+        ],
+        "firstCommitAt": null,
+        "latestCommitAt": null
       }
     }
   },
@@ -6036,6 +6124,12 @@
         ],
         "resources": [],
         "notes": "Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit."
+      },
+      "nomad-data-adventure": {
+        "updatedAt": "2026-09-07",
+        "deployments": [],
+        "resources": [],
+        "notes": "No Git repository or deployed provider resources verified; local directory only."
       }
     },
     "unownedResources": []

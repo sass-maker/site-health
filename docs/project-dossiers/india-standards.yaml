@@ -3,7 +3,7 @@ projectId: india-standards
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: a4472aa73179917eca02ccf14b7d8eba36286890949d79b402d03c32475c3143
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: india-standards
-      revision: 59c2948d535d124d7002bbc533bd831267492367
+      revision: 34070e6fe6291fcf7824be5b814b968757a029e3
       githubRepository: Significant-Hobbies/india-standards
       expectedHomepage: https://india-standards.significanthobbies.com
       observedHomepage: https://india-standards.significanthobbies.com
@@ -43,31 +43,30 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: india-standards
-      revision: 59c2948d535d124d7002bbc533bd831267492367
+      revision: 34070e6fe6291fcf7824be5b814b968757a029e3
       githubRepository: Significant-Hobbies/india-standards
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-27
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
-        clear: 1
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
   fullReviewVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
   relatedHistoricalReviews: []
 decision:
-  classification: Hold
+  classification: Inactive
   whySummary: Use official data to contextualize how a person is doing in India.
   currentState: The transparent aggregate calculator exists, but data quality limits expansion.
   nextDecision: Reopen when materially better authoritative data becomes available.
@@ -80,7 +79,10 @@ identity:
   priority: P4
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -105,13 +107,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-07-27
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 38
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 40
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: india-standards
-  observedRevision: 59c2948d535d124d7002bbc533bd831267492367
+  observedRevision: 34070e6fe6291fcf7824be5b814b968757a029e3
   githubRepository: Significant-Hobbies/india-standards
   githubHomepageUrl: https://india-standards.significanthobbies.com
   worktree: *a1
@@ -162,7 +164,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -170,12 +172,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/india-standards
     defaultBranch: main
-    defaultBranchSha: 59c2948d535d124d7002bbc533bd831267492367
+    defaultBranchSha: 34070e6fe6291fcf7824be5b814b968757a029e3
     homepage: https://india-standards.significanthobbies.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -189,22 +191,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262936734
+          id: 34003224995
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 59c2948d535d124d7002bbc533bd831267492367
-          createdAt: 2026-08-29T16:25:40Z
-          updatedAt: 2026-08-29T16:26:52Z
-          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/33262936734
+          headSha: 34070e6fe6291fcf7824be5b814b968757a029e3
+          createdAt: 2026-09-06T01:11:00Z
+          updatedAt: 2026-09-06T01:12:15Z
+          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/34003224995
         ageDays: 1
       schedule:
         health: not-applicable
@@ -214,17 +216,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262936734
+          id: 34003224995
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 59c2948d535d124d7002bbc533bd831267492367
-          createdAt: 2026-08-29T16:25:40Z
-          updatedAt: 2026-08-29T16:26:52Z
-          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/33262936734
+          headSha: 34070e6fe6291fcf7824be5b814b968757a029e3
+          createdAt: 2026-09-06T01:11:00Z
+          updatedAt: 2026-09-06T01:12:15Z
+          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/34003224995
         ageDays: 1
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -255,9 +257,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: true
-  verifiedAt: 2026-08-12
-  reason: Verified active, deployed, live canonical calculator and public discovery surfaces with a maintained repository listing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Estimate displayed hosted model verification failure and human-verification requirement; usage scope labeled under review. Limit: No calculated result verified; did not bypass verification."
   changelogUrl: https://india-standards.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/india-standards/issues
   geoIdentity:

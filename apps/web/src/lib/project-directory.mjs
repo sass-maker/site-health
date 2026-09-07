@@ -1,10 +1,5 @@
 export function isCurrentProject(project) {
-  return project.status !== "orphan"
-    && !["past", "non-product"].includes(project.lifecycle ?? "")
-    && project.attention !== "ignored"
-    && project.tier !== "out-of-fleet"
-    && project.priority !== "P4"
-    && project.portfolioStatus !== "archived";
+  return ['primary', 'active'].includes(project.lifecycle?.status);
 }
 
 export function partitionProjects(projects) {

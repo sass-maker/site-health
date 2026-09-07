@@ -47,3 +47,20 @@ or an explicit shared operational steward.
 The repository preserves the historical Fleet Workspace Git history, but owns
 only Site Health. The Fleet directory itself is an unversioned container for
 independent project repositories.
+
+<!-- portfolio-retained-work:2026-09-07 -->
+## Retained work from the portfolio review
+
+These are unresolved requirements retained at the owner’s request. They are not completed features. Work should follow a concrete need and fresh evidence.
+
+### Portfolio lifecycle cleanup: three-field model (2 primary, 18 active, 36 inactive)
+
+Finish live shareability verification, lifecycle consumers, public projections, task retirement, Git cleanup and deployment/CI receipts. Local catalog changes alone do not complete the rollout.
+
+Original requirements and discussion: [#491](https://github.com/sass-maker/site-health/issues/491).
+
+### Adopt Microsoft Clarity capabilities across Fleet site health
+
+Distinguish Clarity source wiring, provider settings and measured traffic; preserve unavailable states and privacy.
+
+Original requirements and discussion: [#485](https://github.com/sass-maker/site-health/issues/485).

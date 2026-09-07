@@ -3,7 +3,7 @@ projectId: on-record
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,52 +23,51 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-25
       reviewSha256: c54c9d1797d06ae6718206b930e554f1041ea39cae1eee8bb4180b610a0fa52f
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: on-record
-      revision: 52c5f20aea154a27c64557432195bbf20894edaf
+      revision: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
       worktree: &a1
         state: dirty
-        trackedChangeCount: 2
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: on-record
-      revision: 52c5f20aea154a27c64557432195bbf20894edaf
+      revision: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
       githubRepository: Significant-Hobbies/on-record
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-24
-      catalogLatestCommitAt: 2026-08-27
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 2
       cancelled: 1
       attention: &a2
-        clear: 3
+        ignored: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
   fullReviewVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive
   whySummary: Index what notable people said on podcasts as evidenced claims, including books/apps they use.
   currentState: Reviewed public beta is live at podcasts.highsignal.app with 166 published claims, 183 distinct evidence-linked recommendations, and 139 source episodes.
   nextDecision: Keep expanding the evidenced recs/stack index while monitoring live search, source coverage, and receipt quality.
@@ -81,12 +80,15 @@ identity:
   priority: P2
   tier: active
   attention: my-work
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
 product:
-  description: Source-backed podcast intelligence with attributable claims and recommendations linked to the original episode.
+  description: Search evidenced podcast claims and follow links back to the original episode or publication.
   publicMakerNote: I’m building High Signal Podcasts to extract useful insights, recommendations, and emerging technology signals from top podcasts without listening to every episode.
   purposeContract:
     purpose: High Signal Podcasts indexes evidenced claims, recommendations, books, and tools mentioned by notable podcast guests.
@@ -106,13 +108,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-24
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 52
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 66
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 52c5f20aea154a27c64557432195bbf20894edaf
+  observedRevision: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -178,7 +180,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -187,12 +189,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 52c5f20aea154a27c64557432195bbf20894edaf
+    defaultBranchSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -206,22 +208,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33308993759
+          id: 34029803522
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
-          createdAt: 2026-08-30T11:28:06Z
-          updatedAt: 2026-08-30T11:28:57Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308993759
+          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+          createdAt: 2026-09-06T11:17:17Z
+          updatedAt: 2026-09-06T11:18:22Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029803522
         ageDays: 0
       schedule:
         health: not-applicable
@@ -231,17 +233,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33308993759
+          id: 34029803522
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
-          createdAt: 2026-08-30T11:28:06Z
-          updatedAt: 2026-08-30T11:28:57Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33308993759
+          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+          createdAt: 2026-09-06T11:17:17Z
+          updatedAt: 2026-09-06T11:18:22Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029803522
         ageDays: 0
-      attention: clear
+      attention: ignored
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
       triggers:
@@ -255,43 +257,43 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: cancelled
         reason: latest run was cancelled
         apiState: active
         lastRun:
-          id: 33311637105
+          id: 34030342849
           status: completed
           conclusion: cancelled
           event: schedule
           branch: main
-          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
-          createdAt: 2026-08-30T12:29:55Z
-          updatedAt: 2026-08-30T15:18:18Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33311637105
+          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+          createdAt: 2026-09-06T11:28:19Z
+          updatedAt: 2026-09-06T14:15:32Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34030342849
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded cancelled
         lastRun:
-          id: 33311637105
+          id: 34030342849
           status: completed
           conclusion: cancelled
           event: schedule
           branch: main
-          headSha: 52c5f20aea154a27c64557432195bbf20894edaf
-          createdAt: 2026-08-30T12:29:55Z
-          updatedAt: 2026-08-30T15:18:18Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33311637105
+          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+          createdAt: 2026-09-06T11:28:19Z
+          updatedAt: 2026-09-06T14:15:32Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34030342849
         ageDays: 0
         freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: deploy
       file: .github/workflows/deploy.yml
       triggers:
@@ -302,22 +304,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33307166581
+          id: 34029806639
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 54c72de8bf9b42999a87a332b467976b74004c06
-          createdAt: 2026-08-30T10:43:27Z
-          updatedAt: 2026-08-30T10:44:00Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/33307166581
+          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+          createdAt: 2026-09-06T11:17:20Z
+          updatedAt: 2026-09-06T11:17:53Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029806639
         ageDays: 0
       schedule:
         health: not-applicable
@@ -327,7 +329,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -376,10 +378,10 @@ deployment:
     resources: []
 sharing:
   publicListing: maintained
-  maturity: public-ready
+  maturity: experiment
   ready: true
-  verifiedAt: 2026-08-28
-  reason: Trusted public corpus is live with 11,624 published claims, 294 quote-safe recommendation evidences in 281 groups, and 1,190 source episodes; exact-SHA CI, 100% API/web deployment traffic, and public route checks passed.
+  verifiedAt: 2026-09-07
+  reason: "50 results; receipt supplied speaker, date, transcript context and original episode link. Original publication title/date matched. Limit: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed."
   changelogUrl: https://podcasts.highsignal.app/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/on-record/issues
   geoIdentity:

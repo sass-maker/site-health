@@ -12,8 +12,8 @@
  *   }
  *
  * Status allocation is binding from PRD Appendix A.
- * shareable is derived from existing portfolio.readyToShare/readyToBeShared
- * + sharingReadiness evidence (fails closed to false).
+ * Existing lifecycle decisions are preserved. Legacy readiness flags never
+ * establish shareability; an unmigrated project starts unverified (false).
  * resumeCondition is null for primary/active; null for inactive unless
  * explicit owner evidence exists (never fabricated).
  */
@@ -32,7 +32,8 @@ const STATUS_MAP = {
   codevetter: 'primary',
   posttrainllm: 'primary',
 
-  // Active — 18
+  // Active — 19 (Nomad added by owner on 2026-09-07)
+  'nomad-data-adventure': 'active',
   starboard: 'active',
   'swe-interview-prep': 'active',
   'high-signal': 'active',
@@ -91,35 +92,17 @@ const STATUS_MAP = {
   'forecast-lab': 'inactive',
 };
 
-// ─── Shareability evidence ───
-//
-// Derived from portfolio.readyToShare / readyToBeShared + sharingReadiness.
-// Fails closed to false when no verification evidence exists.
-// The PRD says "Preserve latest explicit owner intent. Reuse sufficiently
-// specific existing evidence." The existing readyToShare + verifiedAt date
-// IS that evidence.
-
+// Preserve the canonical decision when this migration is rerun. Recorded
+// legacy readiness flags are not runtime verification evidence.
 function deriveShareable(project) {
-  const port = project.portfolio ?? {};
-  const rts = port.readyToShare ?? port.readyToBeShared ?? false;
-  const sr = port.sharingReadiness ?? {};
-  const verifiedAt = sr.verifiedAt ?? '';
-  // Only set shareable: true if there's explicit verification evidence
-  if (rts && verifiedAt) return true;
-  return false;
+  return typeof project.lifecycle === 'object'
+    && project.lifecycle !== null
+    && project.lifecycle.shareable === true;
 }
 
-// ─── Resume conditions ───
-//
-// null for primary/active (PRD invariant).
-// null for inactive unless explicit owner evidence exists.
-// Never fabricated.
-
 function deriveResumeCondition(project, status) {
-  if (status === 'primary' || status === 'active') return null;
-  // Inactive: no explicit resume conditions in existing data.
-  // Do not fabricate. All null for now.
-  return null;
+  if (status !== 'inactive') return null;
+  return project.lifecycle?.resumeCondition ?? null;
 }
 
 // ─── Migration ───
@@ -144,9 +127,9 @@ async function main() {
   // Count check
   const counts = { primary: 0, active: 0, inactive: 0 };
   for (const id of statusIds) counts[STATUS_MAP[id]]++;
-  if (counts.primary !== 2 || counts.active !== 18 || counts.inactive !== 36) {
+  if (counts.primary !== 2 || counts.active !== 19 || counts.inactive !== 36) {
     throw new Error(
-      `Count mismatch: primary=${counts.primary} (expect 2), active=${counts.active} (expect 18), inactive=${counts.inactive} (expect 36)`,
+      `Count mismatch: primary=${counts.primary} (expect 2), active=${counts.active} (expect 19), inactive=${counts.inactive} (expect 36)`,
     );
   }
 
@@ -187,7 +170,7 @@ async function main() {
   console.log();
   for (const r of report) {
     console.log(
-      `  ${r.id.padEnd(35)} ${r.oldLifecycle.padEnd(12)} → ${r.newStatus.padEnd(10)} shareable=${r.shareable}`,
+      `  ${r.id.padEnd(35)} ${String(r.oldLifecycle?.status ?? r.oldLifecycle).padEnd(12)} → ${r.newStatus.padEnd(10)} shareable=${r.shareable}`,
     );
   }
 }

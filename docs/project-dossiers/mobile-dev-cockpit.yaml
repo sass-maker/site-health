@@ -3,7 +3,7 @@ projectId: mobile-dev-cockpit
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,40 +23,39 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 0dffe3ecb4b19a8cb67029589f8bc22f2a874d787b3ce4543e18f708cab3d69a
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: mobile-dev-cockpit
-      revision: dd3c442aa88e2a262addbf7a7b6b8f36caaa0b58
+      revision: 2c7da0814b6dfc05f36fa960004db95b372a2f01
       githubRepository: sarthakagrawal927/mobile-dev-cockpit
       expectedHomepage: null
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: mobile-dev-cockpit
-      revision: dd3c442aa88e2a262addbf7a7b6b8f36caaa0b58
+      revision: 2c7da0814b6dfc05f36fa960004db95b372a2f01
       githubRepository: sarthakagrawal927/mobile-dev-cockpit
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-13
-      catalogLatestCommitAt: 2026-08-22
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -67,7 +66,7 @@ ownerVoice:
   fullReviewVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
   relatedHistoricalReviews: []
 decision:
-  classification: Dropped
+  classification: Inactive
   whySummary: Supervise desktop development workflows from a phone.
   currentState: Its required desktop-control dependency was abandoned; the owner now prefers purpose-built apps.
   nextDecision: Archive permanently; retain pairing, allowlisting, and approval patterns as reference.
@@ -80,7 +79,10 @@ identity:
   priority: P4
   tier: parked
   attention: ignored
-  lifecycle: past
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: retired
   authenticationModel: required-service
   inRegistry: false
@@ -103,13 +105,13 @@ product:
     - TypeScript
   retainedGitHistory:
     firstCommitAt: 2026-07-13
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 33
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 34
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mobile-dev-cockpit
-  observedRevision: dd3c442aa88e2a262addbf7a7b6b8f36caaa0b58
+  observedRevision: 2c7da0814b6dfc05f36fa960004db95b372a2f01
   githubRepository: sarthakagrawal927/mobile-dev-cockpit
   githubHomepageUrl: null
   worktree: *a1
@@ -143,7 +145,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     stuck: 1
@@ -151,12 +153,12 @@ githubActions:
   remote:
     repository: sarthakagrawal927/mobile-dev-cockpit
     defaultBranch: main
-    defaultBranchSha: dd3c442aa88e2a262addbf7a7b6b8f36caaa0b58
+    defaultBranchSha: 2c7da0814b6dfc05f36fa960004db95b372a2f01
     homepage: null
     query: verified
     disposition:
       disposition: ignored
-      reason: The canonical catalog marks this project retired with owner attention ignored; repository-level Actions remain intentionally disabled.
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -171,10 +173,10 @@ githubActions:
         remote: true
       ownerDisposition:
         status: ignored
-        reason: The canonical catalog marks this project retired with owner attention ignored; repository-level Actions remain intentionally disabled.
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stuck
-        reason: latest run has remained queued for 10 day(s)
+        reason: latest run has remained queued for 17 day(s)
         apiState: active
         lastRun:
           id: 32396632476
@@ -186,14 +188,14 @@ githubActions:
           createdAt: 2026-08-20T17:15:48Z
           updatedAt: 2026-08-20T17:15:48Z
           url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
-        ageDays: 10
+        ageDays: 17
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision dd3c442
+        reason: no push run at current main revision 2c7da08
         lastRun:
           id: 30117645410
           status: completed
@@ -222,8 +224,8 @@ sharing:
   publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-08-23
-  reason: The product is retired with no active deployment or retained Cloudflare resources.
+  verifiedAt: 2026-09-07
+  reason: "Read README: paired Expo/private Tailscale environment required; no public install path. Limit: No paired device core loop verified."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/mobile-dev-cockpit/issues
   geoIdentity: null

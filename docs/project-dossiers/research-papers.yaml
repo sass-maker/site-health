@@ -3,7 +3,7 @@ projectId: research-papers
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 95a2bd8236cf586cc58041bd07c30446dde5dfaa614f0f899b556d4d1b6c99e3
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: research-papers
-      revision: 1201836f2410aeeaa54532b1166f297d38a6937e
+      revision: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
       githubRepository: High-Signal-App/research-papers
       expectedHomepage: https://papers.highsignal.app
       observedHomepage: https://papers.highsignal.app
@@ -43,32 +43,30 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: research-papers
-      revision: 1201836f2410aeeaa54532b1166f297d38a6937e
+      revision: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
       githubRepository: High-Signal-App/research-papers
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-30
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
-        clear: 2
-        missing-data: 1
+        ignored: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: Research paper was my attempt to understand what all there is in the market by adding some RAG on top of it. It has a huge amount of papers. I would want to do some more analysis in the future but for now I think it is done. It's just a lot of research papers.
   fullReviewVerbatim: Research paper was my attempt to understand what all there is in the market by adding some RAG on top of it. It has a huge amount of papers. I would want to do some more analysis in the future but for now I think it is done. It's just a lot of research papers.
   relatedHistoricalReviews: []
 decision:
-  classification: Maintenance
+  classification: Inactive
   whySummary: Maintain a large RAG-assisted library of market and research papers.
   currentState: Essentially complete as a corpus.
   nextDecision: Preserve and analyse it when a concrete research question appears.
@@ -81,12 +79,15 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Academic paper discovery and a structured research data asset.
+  description: Search academic papers and follow original sources; account-based research chat is not yet qualified.
   publicMakerNote: I wanted one large, searchable research library where retrieval could help me understand what already exists in a market.
   purposeContract:
     purpose: Research Papers is a structured, searchable library for discovering and interrogating academic and market research.
@@ -105,13 +106,13 @@ product:
     - TypeScript
   retainedGitHistory:
     firstCommitAt: 2026-05-30
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 102
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 107
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: research-papers
-  observedRevision: 1201836f2410aeeaa54532b1166f297d38a6937e
+  observedRevision: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
   githubRepository: High-Signal-App/research-papers
   githubHomepageUrl: https://papers.highsignal.app
   worktree: *a1
@@ -131,8 +132,13 @@ repository:
       - name: Docker
         evidence:
           - docker-compose.yml
+      - name: npm
+        evidence:
+          - package-lock.json
+          - web/package-lock.json
       - name: pnpm
         evidence:
+          - pnpm-lock.yaml
           - web/pnpm-lock.yaml
       - name: Python pyproject
         evidence:
@@ -160,7 +166,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -168,12 +174,12 @@ githubActions:
   remote:
     repository: High-Signal-App/research-papers
     defaultBranch: main
-    defaultBranchSha: 1201836f2410aeeaa54532b1166f297d38a6937e
+    defaultBranchSha: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
     homepage: https://papers.highsignal.app
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -187,22 +193,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262987815
+          id: 34001973170
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1201836f2410aeeaa54532b1166f297d38a6937e
-          createdAt: 2026-08-29T16:26:47Z
-          updatedAt: 2026-08-29T16:29:06Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/33262987815
+          headSha: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
+          createdAt: 2026-09-06T00:42:02Z
+          updatedAt: 2026-09-06T00:43:41Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/34001973170
         ageDays: 1
       schedule:
         health: not-applicable
@@ -212,17 +218,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262987815
+          id: 34001973170
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1201836f2410aeeaa54532b1166f297d38a6937e
-          createdAt: 2026-08-29T16:26:47Z
-          updatedAt: 2026-08-29T16:29:06Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/33262987815
+          headSha: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
+          createdAt: 2026-09-06T00:42:02Z
+          updatedAt: 2026-09-06T00:43:41Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/34001973170
         ageDays: 1
-      attention: clear
+      attention: ignored
     - name: Deploy research-papers to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -233,22 +239,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33242202508
+          id: 34015636573
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 4e942e78c595bfa6397e9a9519b6ffb796caea03
-          createdAt: 2026-08-29T08:02:14Z
-          updatedAt: 2026-08-29T08:03:05Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/33242202508
+          headSha: d9597bdcab1b2a8ca7e99bb06be182cbe968ab00
+          createdAt: 2026-09-06T06:06:19Z
+          updatedAt: 2026-09-06T06:07:14Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/34015636573
         ageDays: 1
       schedule:
         health: not-applicable
@@ -258,7 +264,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -271,41 +277,41 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898658977
+          id: 33474907508
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
-          createdAt: 2026-08-25T21:01:02Z
-          updatedAt: 2026-08-25T21:01:14Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658977
-        ageDays: 4
+          headSha: d8c390cf349612e1efa63e092d47eca3dc503562
+          createdAt: 2026-09-01T05:46:42Z
+          updatedAt: 2026-09-01T05:46:54Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/33474907508
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 1201836
+        reason: no push run at current main revision d9597bd
         lastRun:
-          id: 32898658977
+          id: 33474907508
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f728624b1c21dc08bcd599669eb876ea279aeb5c
-          createdAt: 2026-08-25T21:01:02Z
-          updatedAt: 2026-08-25T21:01:14Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/32898658977
-      attention: missing-data
+          headSha: d8c390cf349612e1efa63e092d47eca3dc503562
+          createdAt: 2026-09-01T05:46:42Z
+          updatedAt: 2026-09-01T05:46:54Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/33474907508
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -334,10 +340,10 @@ deployment:
     resources: []
 sharing:
   publicListing: maintained
-  maturity: maintained
+  maturity: experiment
   ready: true
-  verifiedAt: 2026-08-11
-  reason: Verified active, deployed, live canonical public surface with a maintained listing.
+  verifiedAt: 2026-09-07
+  reason: "Searched transformer; returned relevant sourced papers including Attention Is All You Need; original arXiv page resolves with matching title/date. Desktop results are readable and scope is labelled static export. Limit: Cited synthesis and private research functions untested."
   changelogUrl: https://papers.highsignal.app/changelog
   roadmapUrl: https://github.com/High-Signal-App/research-papers/issues
   geoIdentity:

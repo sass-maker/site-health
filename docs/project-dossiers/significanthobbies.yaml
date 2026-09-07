@@ -3,7 +3,7 @@ projectId: significanthobbies
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,41 +23,39 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 2fbbfd2ed2ba8141b8be5c1ba7fbe416f6a77882e5088b10c1a9d53b29b2ee8e
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: significanthobbies
-      revision: b44dff5806cccc21d33932131716ab84242000e6
+      revision: 0f9a02ea79444b757bfce1d9f42684c0598b5eee
       githubRepository: Significant-Hobbies/significanthobbies
       expectedHomepage: https://significanthobbies.com
       observedHomepage: https://significanthobbies.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 7
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: significanthobbies
-      revision: b44dff5806cccc21d33932131716ab84242000e6
+      revision: 0f9a02ea79444b757bfce1d9f42684c0598b5eee
       githubRepository: Significant-Hobbies/significanthobbies
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: 2026-08-21
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-03-01
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -72,8 +70,8 @@ ownerVoice:
   relatedHistoricalReviews: []
 decision:
   classification: Active
-  whySummary: Join six maintained personal applications in one Hub while each retains ownership of its data.
-  currentState: Hub UI, backend, typed sync package, and extracted product boundaries are canonical. The historical `habits` domain remains available as compatibility data but is no longer a separate app card.
+  whySummary: Join retained personal applications in one Hub while each retains ownership of its data.
+  currentState: Hub UI, backend, typed sync package, and extracted product boundaries are canonical. Journal is removed from the lineup; historical data and compatibility domains remain attributable.
   nextDecision: Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains.
 identity:
   name: Significant Hobbies
@@ -85,7 +83,10 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: active
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -111,13 +112,13 @@ product:
     - Swift
   retainedGitHistory:
     firstCommitAt: 2026-03-01
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 536
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 543
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: significanthobbies
-  observedRevision: b44dff5806cccc21d33932131716ab84242000e6
+  observedRevision: 0f9a02ea79444b757bfce1d9f42684c0598b5eee
   githubRepository: Significant-Hobbies/significanthobbies
   githubHomepageUrl: https://significanthobbies.com
   worktree: *a1
@@ -146,7 +147,7 @@ repository:
       - test:swift
       - test:worker
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -154,7 +155,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/significanthobbies
     defaultBranch: main
-    defaultBranchSha: b44dff5806cccc21d33932131716ab84242000e6
+    defaultBranchSha: 0f9a02ea79444b757bfce1d9f42684c0598b5eee
     homepage: https://significanthobbies.com
     query: verified
     disposition:
@@ -179,16 +180,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262995195
+          id: 34023054081
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b44dff5806cccc21d33932131716ab84242000e6
-          createdAt: 2026-08-29T16:26:58Z
-          updatedAt: 2026-08-29T16:27:26Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/33262995195
-        ageDays: 1
+          headSha: 0f9a02ea79444b757bfce1d9f42684c0598b5eee
+          createdAt: 2026-09-06T08:52:07Z
+          updatedAt: 2026-09-06T08:52:51Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34023054081
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -197,16 +198,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262995195
+          id: 34023054081
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b44dff5806cccc21d33932131716ab84242000e6
-          createdAt: 2026-08-29T16:26:58Z
-          updatedAt: 2026-08-29T16:27:26Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/33262995195
-        ageDays: 1
+          headSha: 0f9a02ea79444b757bfce1d9f42684c0598b5eee
+          createdAt: 2026-09-06T08:52:07Z
+          updatedAt: 2026-09-06T08:52:51Z
+          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34023054081
+        ageDays: 0
       attention: clear
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
@@ -233,7 +234,7 @@ githubActions:
           createdAt: 2026-08-17T12:44:38Z
           updatedAt: 2026-08-17T12:45:28Z
           url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32031376545
-        ageDays: 13
+        ageDays: 20
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -286,9 +287,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: public-ready
-  ready: true
-  verifiedAt: 2026-08-23
-  reason: The six-product Hub is deployed from the canonical Significant Hobbies repository and publicly verified through the Live-owned apex proxy; the retained habits domain is compatibility data, not a separate product.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Landing states owner-only; Open private Hub redirects to Live login. Continue with Google returned to login without completing access. Limit: Private summary/sync workflow unverified; guest quiz belongs to Live."
   changelogUrl: https://significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/significanthobbies/issues
   geoIdentity:

@@ -1091,3 +1091,14 @@ The purpose for this project was to research what are the advantages held by peo
 - Public link: [paths.significanthobbies.com](https://paths.significanthobbies.com) and [repository](https://github.com/Significant-Hobbies/what-it-takes-to-win).
 - Open issues: #30, interview accomplished people and add their past-life accounts; #29, external submissions and edits; #28, better 3D animation.
 - Catalog state: active, live, maintained P4 secondary Significant Hobbies research publication. The rendered project dataset currently says 3,577 paths while the public catalog description says 2,585, so reconcile that stale public count when the next data refresh is published.
+
+
+## Nomad Data Adventure
+
+<!-- owner-captured-at: 2026-09-07 -->
+
+```text
+keep as active for now, ensure to cleanup after yourself
+```
+
+Context: owner response to including the latest Nomad Data Adventure in this portfolio review. The existing August archive above is preserved verbatim.

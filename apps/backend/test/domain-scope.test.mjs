@@ -14,11 +14,11 @@ const catalog = JSON.parse(
 const projects = catalog.projects;
 
 // Portfolio scope follows the PRD lifecycle allocation (6 Sep 2026):
-// 2 primary + 18 active = 20 current projects. Inactive projects are
+// 2 primary + 19 active = 21 current projects. Inactive projects are
 // excluded from portfolio metric scope. These numbers are the current
 // recorded scope; changing them requires changing the decision first.
 const PORTFOLIO_SCOPE = {
-  currentProjects: 20,
+  currentProjects: 21,
   publicMetricTargets: 17,
   domainStrengthRoots: 6,
 };

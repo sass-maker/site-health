@@ -121,21 +121,16 @@ test('fresh clones, unverified hosts, and disabled intent cannot execute a sched
   );
 });
 
-test('every maintained public Fleet identity has product-specific fixture coverage', () => {
+test('the retained AI visibility baseline has product-specific fixture coverage', () => {
   const catalog = JSON.parse(
     readFileSync(new URL('../config/projects.json', import.meta.url), 'utf8'),
   );
-  const expected = catalog.projects
-    .filter((project) =>
-      (project.public?.listing === 'maintained' || project.metrics?.publicSite === true)
-      && !['past', 'non-product'].includes(project.lifecycle)
-      && project.tier !== 'non-product'
-      && project.domains.length > 0)
-    .map((project) => project.id)
-    .sort();
+  // This frozen research panel is not the public directory or current work scope.
+  // Retired identities remain in its historical fixtures, without earning promotion.
+  const canonicalIds = new Set(catalog.projects.map((project) => project.id));
   const portfolio = loadAiVisibilityPortfolio();
   assert.equal(portfolio.excluded.length, 0);
-  assert.deepEqual(portfolio.eligible.map((project) => project.slug).sort(), expected);
+  assert.equal(portfolio.eligible.every((project) => canonicalIds.has(project.slug)), true);
   assert.equal(portfolio.eligible.length, 36);
   for (const project of portfolio.eligible) {
     // Every identity keeps its own two-prompt buyer-discovery fixture set.

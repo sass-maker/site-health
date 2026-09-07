@@ -289,14 +289,15 @@ test('public directory metadata covers every retained identity with bounded publ
 
 test('current product scope stays smaller than the complete retained inventory', () => {
   const current = catalog.projects.filter((project) =>
-    project.status !== 'orphan'
-    && !['past', 'non-product'].includes(project.lifecycle)
-    && project.attention !== 'ignored'
-    && project.tier !== 'out-of-fleet'
-    && project.portfolio?.priority !== 'P4'
-    && project.portfolio?.status !== 'archived');
+    ['primary', 'active'].includes(project.lifecycle.status));
 
-  assert.equal(catalog.projects.length, 56);
-  assert.equal(current.length, 32);
-  assert.equal(current.some((project) => project.id === 'gitstat'), true);
+  assert.equal(catalog.projects.length, 57);
+  assert.equal(current.length, 21);
+  assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), true);
+  for (const id of ['chess', 'journal']) {
+    const project = catalog.projects.find((project) => project.id === id);
+    assert.equal(project.inRegistry, false);
+    assert.equal(project.lifecycle.shareable, false);
+    assert.equal(project.public.listing, 'hidden');
+  }
 });

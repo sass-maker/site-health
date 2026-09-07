@@ -3,7 +3,7 @@ projectId: field-track
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,51 +23,50 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: bd2cebe346fa12514d45548c18c23a2403760622491e49436fa6dd61d43c6363
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: field-track
-      revision: cadac271ff57716e1490a1609fae27c11e88395d
+      revision: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
       githubRepository: sass-maker/field-track
       expectedHomepage: https://field-track.sassmaker.com
       observedHomepage: https://field-track.sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: field-track
-      revision: cadac271ff57716e1490a1609fae27c11e88395d
+      revision: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
       githubRepository: sass-maker/field-track
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-12
-      catalogLatestCommitAt: 2026-08-20
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
-        clear: 1
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Fieldtrack is a product I'm building for my dad but as of now the economics of this do not make sense and I will have to build it out eventually. I am kind of delaying it because I did not want to deal with android application building. It's a product in which you can track the employees by installing an application on their phone. They can choose when they want to track
   fullReviewVerbatim: Fieldtrack is a product I'm building for my dad but as of now the economics of this do not make sense and I will have to build it out eventually. I am kind of delaying it because I did not want to deal with android application building. It's a product in which you can track the employees by installing an application on their phone. They can choose when they want to track
   relatedHistoricalReviews: []
 decision:
-  classification: Hold
+  classification: Inactive
   whySummary: Give the owner's father an employee-controlled field-location tracker.
   currentState: A small MVP path exists, but economics and Android work are unresolved.
   nextDecision: Validate business economics and test on a physical Android device before expanding.
@@ -80,12 +79,15 @@ identity:
   priority: P2
   tier: active
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: true
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: A synthetic manager dashboard for continuous, administrator-enrolled Android field tracking, freshness-aware locations, and retained route review.
+  description: A labelled synthetic field-team demo for exploring routes, visits and agent summaries; Android tracking is not qualified.
   publicMakerNote: "I started Field Track for my father: a lower-cost way for managers to locate employees carrying administrator-enrolled Android devices and review retained routes."
   purposeContract:
     purpose: Field Track is an administrator-managed field-location system for continuously enrolled Android devices and freshness-aware route review.
@@ -106,17 +108,17 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-12
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 11
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 13
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: field-track
-  observedRevision: cadac271ff57716e1490a1609fae27c11e88395d
+  observedRevision: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
   githubRepository: sass-maker/field-track
   githubHomepageUrl: https://field-track.sassmaker.com
   worktree: *a1
-  visibility: private
+  visibility: public
   url: https://github.com/sass-maker/field-track
   aliases: []
   sourceOverride: null
@@ -144,7 +146,7 @@ repository:
       - quality
       - test
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -152,12 +154,12 @@ githubActions:
   remote:
     repository: sass-maker/field-track
     defaultBranch: main
-    defaultBranchSha: cadac271ff57716e1490a1609fae27c11e88395d
+    defaultBranchSha: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
     homepage: https://field-track.sassmaker.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -170,22 +172,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262928088
+          id: 34002942687
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cadac271ff57716e1490a1609fae27c11e88395d
-          createdAt: 2026-08-29T16:25:30Z
-          updatedAt: 2026-08-29T16:29:51Z
-          url: https://github.com/sass-maker/field-track/actions/runs/33262928088
+          headSha: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
+          createdAt: 2026-09-06T01:04:33Z
+          updatedAt: 2026-09-06T01:09:31Z
+          url: https://github.com/sass-maker/field-track/actions/runs/34002942687
         ageDays: 1
       schedule:
         health: not-applicable
@@ -195,17 +197,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262928088
+          id: 34002942687
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cadac271ff57716e1490a1609fae27c11e88395d
-          createdAt: 2026-08-29T16:25:30Z
-          updatedAt: 2026-08-29T16:29:51Z
-          url: https://github.com/sass-maker/field-track/actions/runs/33262928088
+          headSha: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
+          createdAt: 2026-09-06T01:04:33Z
+          updatedAt: 2026-09-06T01:09:31Z
+          url: https://github.com/sass-maker/field-track/actions/runs/34002942687
         ageDays: 1
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -227,10 +229,10 @@ deployment:
     resources: []
 sharing:
   publicListing: maintained
-  maturity: in-progress
+  maturity: experiment
   ready: true
-  verifiedAt: 2026-08-23
-  reason: The actual manager dashboard is verified at field-track.sassmaker.com as a credential-free synthetic demo; production employee data and the managed Android rollout remain unavailable.
+  verifiedAt: 2026-09-07
+  reason: "Searched Meera; opened matching roster detail and route metrics. Limit: Demo only; no Android/device/real workforce qualification."
   changelogUrl: https://field-track.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/field-track/issues
   geoIdentity:

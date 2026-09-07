@@ -3,7 +3,7 @@ projectId: karte
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-08-30
+  generatedAt: 2026-09-07
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b3b6f28033d46c772b2b4fe7b76f7ef88ffc196b3c5908cc95af3fb7c8ce8dc7
+      sha256: 87dbb7365e2edc4f53e65a22db3bfb57bb7513bdfb14c9e4f88d0e6b2da18366
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 5000d64494f2fb9df5ed6632ec7222d51d4406022d831ef8390237fc7ae479ab
-      documentSha256: 0aa05af66965c65e7c782dffcb1d95069bb2906934f622fd0b1115324a91b962
+      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 77047dcf56ceef0be17dea8300ea1aaa9401fd45b53b9426ffeb89febf206d66
+      sha256: c4445107af04f6d31e6344963d88a544e52a9bfab7ec4ffd6f46d256004c4148
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: karte
-      revision: 8a27cda21210f6379cfb26695305c186a01c0ad6
+      revision: a13ca64988d2cb0795132c8df317d0f4d603203e
       githubRepository: Significant-Hobbies/karte
       expectedHomepage: https://karte.cc
       observedHomepage: https://karte.cc
@@ -43,32 +43,30 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-08-30
+      observedAt: 2026-09-07
       state: available
       checkout: karte
-      revision: 8a27cda21210f6379cfb26695305c186a01c0ad6
+      revision: a13ca64988d2cb0795132c8df317d0f4d603203e
       githubRepository: Significant-Hobbies/karte
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-03-05
-      catalogLatestCommitAt: 2026-08-23
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-06
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-08-30T19:05:41.810Z
+      observedAt: 2026-09-07T07:49:31.533Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
-        clear: 3
-        missing-data: 1
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
   fullReviewVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive
   whySummary: Evolve a link-in-bio page into a greeting card, company profile, and personal agent.
   currentState: Strong individual profile and conversational foundation already exist.
   nextDecision: Make the positioning and workflows company-friendly, then validate real company use.
@@ -81,7 +79,10 @@ identity:
   priority: P2
   tier: secondary
   attention: toolbox
-  lifecycle: maintained
+  lifecycle:
+    status: inactive
+    shareable: false
+    resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -106,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-03-05
-    latestCommitAt: 2026-08-30
-    retainedCommitCount: 498
+    latestCommitAt: 2026-09-06
+    retainedCommitCount: 508
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: karte
-  observedRevision: 8a27cda21210f6379cfb26695305c186a01c0ad6
+  observedRevision: a13ca64988d2cb0795132c8df317d0f4d603203e
   githubRepository: Significant-Hobbies/karte
   githubHomepageUrl: https://karte.cc
   worktree: *a1
@@ -186,7 +187,7 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-08-30T19:05:41.810Z
+  observedAt: 2026-09-07T07:49:31.533Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -194,12 +195,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/karte
     defaultBranch: main
-    defaultBranchSha: 8a27cda21210f6379cfb26695305c186a01c0ad6
+    defaultBranchSha: a13ca64988d2cb0795132c8df317d0f4d603203e
     homepage: https://karte.cc
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -212,23 +213,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33309123655
+          id: 34002337390
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8a27cda21210f6379cfb26695305c186a01c0ad6
-          createdAt: 2026-08-30T11:31:07Z
-          updatedAt: 2026-08-30T11:33:56Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/33309123655
-        ageDays: 0
+          headSha: a13ca64988d2cb0795132c8df317d0f4d603203e
+          createdAt: 2026-09-06T00:50:28Z
+          updatedAt: 2026-09-06T00:53:03Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34002337390
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -237,17 +238,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33309123655
+          id: 34002337390
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8a27cda21210f6379cfb26695305c186a01c0ad6
-          createdAt: 2026-08-30T11:31:07Z
-          updatedAt: 2026-08-30T11:33:56Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/33309123655
-        ageDays: 0
-      attention: clear
+          headSha: a13ca64988d2cb0795132c8df317d0f4d603203e
+          createdAt: 2026-09-06T00:50:28Z
+          updatedAt: 2026-09-06T00:53:03Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34002337390
+        ageDays: 1
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
@@ -258,23 +259,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33309399564
+          id: 34015627365
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 8a27cda21210f6379cfb26695305c186a01c0ad6
-          createdAt: 2026-08-30T11:37:33Z
-          updatedAt: 2026-08-30T11:40:14Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/33309399564
-        ageDays: 0
+          headSha: a13ca64988d2cb0795132c8df317d0f4d603203e
+          createdAt: 2026-09-06T06:06:05Z
+          updatedAt: 2026-09-06T06:08:31Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34015627365
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -283,7 +284,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -295,8 +296,8 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
@@ -311,14 +312,14 @@ githubActions:
           createdAt: 2026-08-29T17:31:08Z
           updatedAt: 2026-08-29T17:31:17Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/33265837829
-        ageDays: 1
+        ageDays: 8
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 8a27cda
+        reason: no push run at current main revision a13ca64
         lastRun:
           id: 33265837829
           status: completed
@@ -329,7 +330,7 @@ githubActions:
           createdAt: 2026-08-29T17:31:08Z
           updatedAt: 2026-08-29T17:31:17Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/33265837829
-      attention: missing-data
+      attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -339,23 +340,23 @@ githubActions:
         local: false
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32786802868
+          id: 33448291953
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 5dd0c0e6b43ed162a2e0f7e0368e63b8730d8281
-          createdAt: 2026-08-24T22:53:29Z
-          updatedAt: 2026-08-24T22:54:16Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/32786802868
-        ageDays: 5
+          headSha: 8a27cda21210f6379cfb26695305c186a01c0ad6
+          createdAt: 2026-08-31T22:53:36Z
+          updatedAt: 2026-08-31T22:54:22Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/33448291953
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -364,7 +365,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -469,9 +470,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: public-ready
-  ready: true
-  verifiedAt: 2026-08-16
-  reason: The public runtime and all 30 sitemap URLs are verified live; the owner accepted the documented name-collision risk for public sharing.
+  ready: false
+  verifiedAt: 2026-09-07
+  reason: "Published owner profile loads with projects, three generated profile modes, chat panel. Desktop layout is coherent. Limit: Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified."
   changelogUrl: https://karte.cc/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/karte/issues
   geoIdentity:
