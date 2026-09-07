@@ -1294,7 +1294,7 @@
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 1018,
+        "retainedCommitCount": 1019,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10059,7 +10059,7 @@
       "source": {
         "state": "available",
         "path": "rolepatch",
-        "revision": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+        "revision": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
         "repositorySlug": "Significant-Hobbies/rolepatch",
         "worktree": {
           "state": "clean",
@@ -10070,7 +10070,7 @@
       "history": {
         "firstCommitAt": "2026-02-23",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 429,
+        "retainedCommitCount": 432,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10097,15 +10097,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34139567864,
+              "id": 34144569758,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
-              "createdAt": "2026-09-07T15:41:13Z",
-              "updatedAt": "2026-09-07T15:44:35Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864"
+              "headSha": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
+              "createdAt": "2026-09-07T16:43:28Z",
+              "updatedAt": "2026-09-07T16:46:45Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758"
             },
             "ageDays": 0
           },
@@ -10118,15 +10118,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34139567864,
+              "id": 34144569758,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
-              "createdAt": "2026-09-07T15:41:13Z",
-              "updatedAt": "2026-09-07T15:44:35Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864"
+              "headSha": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
+              "createdAt": "2026-09-07T16:43:28Z",
+              "updatedAt": "2026-09-07T16:46:45Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758"
             },
             "ageDays": 0
           },
@@ -10154,15 +10154,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34140001776,
+              "id": 34144865225,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
-              "createdAt": "2026-09-07T15:46:28Z",
-              "updatedAt": "2026-09-07T15:48:42Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776"
+              "headSha": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
+              "createdAt": "2026-09-07T16:47:34Z",
+              "updatedAt": "2026-09-07T16:50:00Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144865225"
             },
             "ageDays": 0
           },
@@ -10200,15 +10200,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34139567820,
+              "id": 34144569768,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
-              "createdAt": "2026-09-07T15:41:13Z",
-              "updatedAt": "2026-09-07T15:41:25Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820"
+              "headSha": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
+              "createdAt": "2026-09-07T16:43:28Z",
+              "updatedAt": "2026-09-07T16:43:38Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768"
             },
             "ageDays": 0
           },
@@ -10221,15 +10221,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34139567820,
+              "id": 34144569768,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
-              "createdAt": "2026-09-07T15:41:13Z",
-              "updatedAt": "2026-09-07T15:41:25Z",
-              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820"
+              "headSha": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
+              "createdAt": "2026-09-07T16:43:28Z",
+              "updatedAt": "2026-09-07T16:43:38Z",
+              "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768"
             },
             "ageDays": 0
           },
@@ -10241,8 +10241,8 @@
           "triggers": [],
           "schedules": [],
           "inventory": {
-            "source": "tracked",
-            "local": true,
+            "source": "github-generated",
+            "local": false,
             "remote": true
           },
           "ownerDisposition": {
@@ -10364,7 +10364,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/rolepatch",
         "defaultBranch": "main",
-        "defaultBranchSha": "93ba59bb241e02b2e11c668ec2013944a9197dcb",
+        "defaultBranchSha": "1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0",
         "homepage": "https://rolepatch.com",
         "query": "verified",
         "disposition": {

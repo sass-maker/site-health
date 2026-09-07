@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9852e60df1ec169bf308fff921a4f5d2797d617ac6c9da664b3294ef39ac6f8b
+      sha256: 1b5722644c4b287c809fd443cd4296a107ea4a4ef7471747f12b78480d57d6a6
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: 93ba59bb241e02b2e11c668ec2013944a9197dcb
+      revision: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: 93ba59bb241e02b2e11c668ec2013944a9197dcb
+      revision: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
       githubRepository: Significant-Hobbies/rolepatch
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-23
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 429
+    retainedCommitCount: 432
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: 93ba59bb241e02b2e11c668ec2013944a9197dcb
+  observedRevision: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -189,7 +189,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: 93ba59bb241e02b2e11c668ec2013944a9197dcb
+    defaultBranchSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
     homepage: https://rolepatch.com
     query: verified
     disposition:
@@ -214,15 +214,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34139567864
+          id: 34144569758
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93ba59bb241e02b2e11c668ec2013944a9197dcb
-          createdAt: 2026-09-07T15:41:13Z
-          updatedAt: 2026-09-07T15:44:35Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864
+          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+          createdAt: 2026-09-07T16:43:28Z
+          updatedAt: 2026-09-07T16:46:45Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758
         ageDays: 0
       schedule:
         health: not-applicable
@@ -232,15 +232,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34139567864
+          id: 34144569758
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93ba59bb241e02b2e11c668ec2013944a9197dcb
-          createdAt: 2026-09-07T15:41:13Z
-          updatedAt: 2026-09-07T15:44:35Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864
+          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+          createdAt: 2026-09-07T16:43:28Z
+          updatedAt: 2026-09-07T16:46:45Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -261,15 +261,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34140001776
+          id: 34144865225
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 93ba59bb241e02b2e11c668ec2013944a9197dcb
-          createdAt: 2026-09-07T15:46:28Z
-          updatedAt: 2026-09-07T15:48:42Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776
+          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+          createdAt: 2026-09-07T16:47:34Z
+          updatedAt: 2026-09-07T16:50:00Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144865225
         ageDays: 0
       schedule:
         health: not-applicable
@@ -298,15 +298,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34139567820
+          id: 34144569768
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93ba59bb241e02b2e11c668ec2013944a9197dcb
-          createdAt: 2026-09-07T15:41:13Z
-          updatedAt: 2026-09-07T15:41:25Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820
+          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+          createdAt: 2026-09-07T16:43:28Z
+          updatedAt: 2026-09-07T16:43:38Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768
         ageDays: 0
       schedule:
         health: not-applicable
@@ -316,15 +316,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34139567820
+          id: 34144569768
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93ba59bb241e02b2e11c668ec2013944a9197dcb
-          createdAt: 2026-09-07T15:41:13Z
-          updatedAt: 2026-09-07T15:41:25Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820
+          headSha: 1cf2c875a6e3ffd27dc3ea85884106e92a7a73d0
+          createdAt: 2026-09-07T16:43:28Z
+          updatedAt: 2026-09-07T16:43:38Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768
         ageDays: 0
       attention: ignored
     - name: Dependabot Updates
@@ -332,8 +332,8 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: tracked
-        local: true
+        source: github-generated
+        local: false
         remote: true
       ownerDisposition:
         status: ignored
@@ -428,7 +428,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Guest resume save/reload, manual job entry and the guest cover-letter route pass. AI tailoring still returns a safe failure with no output (Workers AI AiError); truthful generation/export, optional file import and signed-in persistence remain issue #68."
+  reason: "Hosted guest tailoring and byte-exact save/reload pass for a synthetic resume with candidate facts preserved. Guest export returns 404 and the tailoring view has no export control; optional file import, broader output checks and signed-in persistence remain #68. Mobile diff scrolling is repaired and verified on the deployed source."
   changelogUrl: https://rolepatch.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/rolepatch/issues
   geoIdentity:

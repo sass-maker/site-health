@@ -177,20 +177,28 @@ Seven unrelated SaaS Maker working paths were preserved exactly. Guard test fixt
 
 ## Sequential RolePatch qualification
 
-RolePatch is the eleventh project in this approved runtime release wave. Final
-source `93ba59bb` passed all 460 tests, full local quality and exact hosted CI;
-[deployment 34140001776](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776)
-succeeded with the exact tag on Worker `6247f781-e933-4104-99ec-d38b4b74d505` at 100%.
-Guest cover-letter routing and a confirmed Worker module-load EvalError were
-repaired. Expected AI errors now display safely rather than being redacted by
-Next.js. Guest resume save/reload and manual job entry pass. AI generation still
-fails at the binding with no numeric provider code, so shareability remains false.
-[The receipt](qualification/rolepatch-2026-09-07/README.md) and owning
-[issue #68](https://github.com/Significant-Hobbies/rolepatch/issues/68) retain the
-remaining inference, import/export and signed-in requirements. The issue is
-referenced in the owning README and remains open. This adds an issue to the
-earlier 43-issue fleet snapshot; only RolePatch and SaaS Maker were re-observed
-in the task inventory for this continuation.
+RolePatch is the eleventh project in this approved runtime release wave. Source
+`18c041f4` passed all 467 tests, full local quality and exact hosted CI;
+[deployment 34143940332](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34143940332)
+succeeded with Worker `fe163417-64ed-462a-80c5-a4b8d7cf99f5` at 100% and the exact tag.
+The old Workers AI model had been retired. Its replacement initially timed out;
+bounded generation now succeeds in 6.4 seconds on the synthetic guest workflow.
+Candidate facts and metrics survived, unsupported skills were omitted, and
+Accept & Save retained byte-exact output after reload. The lower mobile diff
+was clipped; source `1cf2c875` restores internal scrolling. Its exact CI and
+[deployment 34144865225](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144865225)
+pass; Worker `f5303141-f245-4ad7-aa39-2ae208ea0cb2` serves that tag at 100%.
+A fresh 390px reload, without the diagnostic style override, scrolled the diff
+to the final Skills section with no horizontal overflow or page errors.
+
+Guest export independently returns 404 and the tailoring view has no export
+control. Shareability remains false until output can be used. Optional import,
+broader output checks and signed-in qualification also remain in
+[issue #68](https://github.com/Significant-Hobbies/rolepatch/issues/68), with
+[the receipt](qualification/rolepatch-2026-09-07/README.md) preserving exact limits.
+The owning README references the open issue. Only RolePatch was freshly
+re-observed in the task inventory for this continuation; the full-fleet task
+snapshot remains older. Unrelated local changes were preserved.
 
 The owner experiment decision is retained for both Reel Pipeline and Forecast
 Lab; Reel Pipeline now also uses `portfolio.kind: experiment`. The 54-project

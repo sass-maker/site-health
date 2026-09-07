@@ -1,0 +1,54 @@
+{
+  "observedAt": "2026-09-07",
+  "method": "Local isolated Worker with real remote AI binding and synthetic resume/job only; not hosted acceptance",
+  "probes": [
+    {
+      "probe": "sdk-result",
+      "success": false,
+      "elapsedMs": 90006,
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "preservesSyntheticMetrics": null,
+      "unsupportedSkillsAbsent": null,
+      "hasHtmlLineBreaks": false,
+      "changesCount": 0,
+      "categories": [
+        "timeout",
+        "aborted"
+      ]
+    },
+    {
+      "probe": "direct-result",
+      "success": true,
+      "elapsedMs": 24328,
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "preservesSyntheticMetrics": null,
+      "unsupportedSkillsAbsent": null,
+      "hasHtmlLineBreaks": false,
+      "changesCount": null,
+      "categories": []
+    },
+    {
+      "probe": "sdk-bounded-result",
+      "success": true,
+      "elapsedMs": 5637,
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "preservesSyntheticMetrics": true,
+      "unsupportedSkillsAbsent": true,
+      "hasHtmlLineBreaks": true,
+      "changesCount": 0,
+      "categories": []
+    },
+    {
+      "probe": "sdk-markdown-result",
+      "success": true,
+      "elapsedMs": 6704,
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "preservesSyntheticMetrics": true,
+      "unsupportedSkillsAbsent": true,
+      "hasHtmlLineBreaks": true,
+      "changesCount": 0,
+      "categories": []
+    }
+  ],
+  "interpretation": "Timing varied. Bounded probes succeeded locally, with facts preserved in this sample. HTML line breaks require recovery. No general adapter bug or general truthfulness guarantee established."
+}

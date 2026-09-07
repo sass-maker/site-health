@@ -1782,7 +1782,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Guest resume save/reload, manual job entry and the guest cover-letter route pass. AI tailoring still returns a safe failure with no output (Workers AI AiError); truthful generation/export, optional file import and signed-in persistence remain issue #68."
+          "reason": "Hosted guest tailoring and byte-exact save/reload pass for a synthetic resume with candidate facts preserved. Guest export returns 404 and the tailoring view has no export control; optional file import, broader output checks and signed-in persistence remain #68. Mobile diff scrolling is repaired and verified on the deployed source."
         }
       },
       "authModel": "public-persistent",

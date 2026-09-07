@@ -419,10 +419,10 @@
     {
       "id": "rolepatch",
       "name": "RolePatch",
-      "classification": "Live core-workflow failure",
-      "biggestBlocker": "Guest resume save/reload, manual job entry and the guest cover-letter route pass. AI tailoring still returns a safe failure with no output (Workers AI AiError); truthful generation/export, optional file import and signed-in persistence remain issue #68.",
+      "classification": "Guest output export blocker",
+      "biggestBlocker": "Hosted guest tailoring and byte-exact save/reload pass for a synthetic resume with candidate facts preserved. Guest export returns 404 and the tailoring view has no export control; optional file import, broader output checks and signed-in persistence remain #68. Mobile diff scrolling is repaired and verified on the deployed source.",
       "shareable": false,
-      "repairProgress": "Source 93ba59bb: all 460 tests and full local quality pass, exact CI34139567864 and Docs34139567820 success. Approved deploy34140001776 success, Worker6247f781-e933-4104-99ec-d38b4b74d505 at 100%, exact source tag confirmed. Safe error boundary, guest job routing and scraper module-scope EvalError repaired. Live core inference remains failed; #68 stays open."
+      "repairProgress": "Source 18c041f4: 467 tests and full local quality pass; CI34143647744 and Docs34143647730 success. Deploy34143940332 success, Worker fe163417-64ed-462a-80c5-a4b8d7cf99f5 at 100%, exact source tag verified. Retired default model replaced, generation bounded, Markdown breaks restored and change explanations grounded. Live synthetic generation/save/reload now pass. Export remains broken and #68 stays open. Mobile fix 1cf2c875 passed CI34144569758 and Docs34144569768; deploy34144865225 succeeded, exact Worker f5303141-f245-4ad7-aa39-2ae208ea0cb2 at 100%. Fresh 390px runtime reload verified full internal diff scrolling."
     },
     {
       "id": "app-health",

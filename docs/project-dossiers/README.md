@@ -7,7 +7,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 - Workflows: 176
 - Cron/scheduled workflows: 25
 - Attention: action-required 5, clear 80, ignored 81, missing-data 7, reconcile 1, review-history 2
-- Inventory sources: github-generated 15, remote-only 1, tracked 160
+- Inventory sources: github-generated 16, remote-only 1, tracked 159
 
 “Latest” is the latest run of any trigger. “Default branch” checks the latest push run against the exact current default-branch SHA. “Schedule” queries scheduled runs separately so a manual dispatch cannot hide a stopped cron.
 
@@ -147,10 +147,10 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [research-papers](./research-papers.yaml) | [CI](https://github.com/High-Signal-App/research-papers/actions/runs/34001973170) | `.github/workflows/ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-09-06) | healthy (2026-09-06) | not-applicable | ignored | ignored |
 | [research-papers](./research-papers.yaml) | [Deploy research-papers to Cloudflare Pages](https://github.com/High-Signal-App/research-papers/actions/runs/34015636573) | `.github/workflows/deploy.yml` | tracked | active | workflow_dispatch | — | healthy (2026-09-06) | not-applicable | not-applicable | ignored | ignored |
 | [research-papers](./research-papers.yaml) | [Docs](https://github.com/High-Signal-App/research-papers/actions/runs/33474907508) | `.github/workflows/docs.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-09-01) | missing (2026-09-01) | not-applicable | ignored | ignored |
-| [rolepatch](./rolepatch.yaml) | [CI](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567864) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-09-07) | healthy (2026-09-07) | not-applicable | ignored | ignored |
-| [rolepatch](./rolepatch.yaml) | [Deploy to Cloudflare Workers](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34140001776) | `.github/workflows/deploy.yml` | tracked | active | pull_request, workflow_dispatch | — | healthy (2026-09-07) | not-applicable | not-applicable | ignored | ignored |
-| [rolepatch](./rolepatch.yaml) | [Docs](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34139567820) | `.github/workflows/docs.yml` | tracked | active | pull_request, push | — | healthy (2026-09-07) | healthy (2026-09-07) | not-applicable | ignored | ignored |
-| [rolepatch](./rolepatch.yaml) | [Dependabot Updates](https://github.com/Significant-Hobbies/rolepatch/actions/runs/33451261514) | `dynamic/dependabot/dependabot-updates` | tracked | active | unknown | — | healthy (2026-08-31) | not-applicable | not-applicable | ignored | ignored |
+| [rolepatch](./rolepatch.yaml) | [CI](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569758) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-09-07) | healthy (2026-09-07) | not-applicable | ignored | ignored |
+| [rolepatch](./rolepatch.yaml) | [Deploy to Cloudflare Workers](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144865225) | `.github/workflows/deploy.yml` | tracked | active | pull_request, workflow_dispatch | — | healthy (2026-09-07) | not-applicable | not-applicable | ignored | ignored |
+| [rolepatch](./rolepatch.yaml) | [Docs](https://github.com/Significant-Hobbies/rolepatch/actions/runs/34144569768) | `.github/workflows/docs.yml` | tracked | active | pull_request, push | — | healthy (2026-09-07) | healthy (2026-09-07) | not-applicable | ignored | ignored |
+| [rolepatch](./rolepatch.yaml) | [Dependabot Updates](https://github.com/Significant-Hobbies/rolepatch/actions/runs/33451261514) | `dynamic/dependabot/dependabot-updates` | github-generated | active | unknown | — | healthy (2026-08-31) | not-applicable | not-applicable | ignored | ignored |
 | [saas-maker](./saas-maker.yaml) | [CI](https://github.com/sass-maker/saas-maker/actions/runs/34135760698) | `.github/workflows/ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-09-07) | healthy (2026-09-07) | not-applicable | active | clear |
 | [saas-maker](./saas-maker.yaml) | [Docs](https://github.com/sass-maker/saas-maker/actions/runs/34131909672) | `.github/workflows/docs.yml` | tracked | active | pull_request, push | — | healthy (2026-09-07) | missing (2026-09-07) | not-applicable | active | missing-data |
 | [saas-maker](./saas-maker.yaml) | Drank CI | `.github/workflows/drank-ci.yml` | tracked | active | workflow_call | — | manual-or-reusable-never-run | not-applicable | not-applicable | active | clear |

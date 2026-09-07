@@ -1,0 +1,12 @@
+{
+  "synthetic": true,
+  "sourceRevision": "18c041f4c795af5281d6c82ef96e75c775acac3b",
+  "elapsedMs": 6377,
+  "fixture": {
+    "name": "Synthetic RolePatch Application",
+    "resume": "# Riley Example\n\nriley@example.invalid | Synthetic qualification profile\n\n## Experience\n\n**Software Engineer** — Example Tools | 2023–2025\n\n- Built TypeScript and Node.js REST APIs for a task-management application.\n- Tuned PostgreSQL queries, reducing measured p95 response time from 240 ms to 160 ms.\n- Wrote Vitest unit tests and documented API error handling with a three-person engineering team.\n\n## Education\n\n**BSc Computer Science** — Example University | 2023\n\n## Skills\n\nTypeScript, Node.js, SQL, PostgreSQL, Git, Vitest",
+    "jd": "Example Systems seeks a Platform Engineer to build reliable TypeScript and Node.js REST APIs, optimize PostgreSQL queries, write automated tests, and document error handling with a small engineering team. Experience with AWS and Kubernetes is desirable, but describe only technologies actually used. This is a synthetic qualification role; do not apply or send messages."
+  },
+  "tailored": "# Riley Example\nriley@example.invalid | Synthetic qualification profile\n\n## Experience\n\n**Software Engineer** — Example Tools | 2023–2025\n\n- Built reliable TypeScript and Node.js REST APIs for a task-management application.\n- Optimized PostgreSQL queries, reducing measured p95 response time from 240 ms to 160 ms.\n- Wrote automated Vitest unit tests and documented API error handling with a small three-person engineering team.\n\n## Education\n\n**BSc Computer Science** — Example University | 2023\n\n## Skills\n\nTypeScript, Node.js, PostgreSQL, SQL, Git, Vitest",
+  "saveReloadExact": true
+}
