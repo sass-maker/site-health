@@ -121,7 +121,8 @@
       "name": "Knowledge Base",
       "classification": "Qualification gap",
       "biggestBlocker": "No public core document workflow.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "9e023f9 README qualification receipt pushed with green CI.93 local API tests pass including ingestion/cited answers/traces/tenant isolation with simulated bindings. Zero open issues/PRs,zero closures. Authenticated deployed consumer and operator review remain explicitly unfinished."
     },
     {
       "id": "india-standards",
@@ -221,9 +222,9 @@
     {
       "id": "web-playables",
       "name": "Web Playables",
-      "classification": "Qualification gap",
-      "biggestBlocker": "Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state.",
-      "shareable": false
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Desktop game upgrade and resumed persistence verified. Fresh onboarding, mobile/touch and YouTube certification unverified; shared external footer deployment still contains retired Journal link.",
+      "shareable": true
     },
     {
       "id": "significanthobbies",

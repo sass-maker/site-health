@@ -546,18 +546,18 @@
     },
     {
       "id": "web-playables",
-      "verdict": "not_verified",
-      "shareable": false,
+      "verdict": "pass",
+      "shareable": true,
       "surface": "Retained idle game",
-      "observed": "Opened Idle Startup; existing saved company loaded and counters ran; squad detail opened.",
-      "limitations": "Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state.",
+      "observed": "Live Chrome: purchased $80K CI upgrade; net revenue rose from about $1.03K to $1.99K/day, payroll stayed $900/day. Closed/reopened game retained upgrade and team. Desktop screenshot reviewed.",
+      "limitations": "Existing save used; fresh onboarding, mobile/touch, full balance and YouTube certification remain unverified. External studio footer still includes retired Journal link.",
       "verifiedAt": "2026-09-07",
-      "confidence": "low",
+      "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "qualified-desktop-browser-save-no-account",
+      "loggedIn": "not-applicable",
+      "presentation": "desktop-illustrated-two-column-layout-reviewed",
+      "disposition": "share-as-parked-experiment"
     },
     {
       "id": "significanthobbies",

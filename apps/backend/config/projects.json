@@ -2392,10 +2392,10 @@
         "priority": "P4",
         "status": "archived",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Opened Idle Startup; existing saved company loaded and counters ran; squad detail opened. Limit: Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state."
+          "reason": "Live desktop experiment qualified: CI upgrade increased net revenue from about $1.03K to $1.99K/day; closed and reopened game retained upgrade and team; illustrated desktop layout reviewed. Scope excludes fresh onboarding, mobile/touch and YouTube certification. External studio footer still needs retired-link deployment refresh."
         }
       },
       "name": "Web Playables",
@@ -2405,7 +2405,7 @@
       "attention": "ignored",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repo": "web-playables",

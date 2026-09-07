@@ -103,3 +103,5 @@ EverythingRated and PSI Swarm. Product READMEs retain their outstanding work.
 The user authorized parallel repository ownership on September 7; root coordinates
 browser, deployment and private/public catalog updates. No production deployment
 has been inferred from the instruction to push through the work.
+
+Later verification: **15 of 54 have scoped hands-on passes; 39 remain unqualified.** Web Playables now passes as a desktop parked experiment after a real upgrade decision, revenue effect, close/reopen persistence and screenshot review. This does not qualify mobile, fresh onboarding or YouTube certification. Knowledge Base retains its authenticated deployed-consumer gate despite 93 passing local API tests.

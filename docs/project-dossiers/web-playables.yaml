@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0c2c8e05a1b6e86328d812ff49f84e30d998ebe01b27850ac7d42d85a1d1b758
+      sha256: e8f102aa5a8f5d6ea2b7356204c36b032525dcd8ce74395eb59f963815629bff
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -82,7 +82,7 @@ identity:
   attention: ignored
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
@@ -273,9 +273,9 @@ deployment:
 sharing:
   publicListing: past
   maturity: null
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Opened Idle Startup; existing saved company loaded and counters ran; squad detail opened. Limit: Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state."
+  reason: "Live desktop experiment qualified: CI upgrade increased net revenue from about $1.03K to $1.99K/day; closed and reopened game retained upgrade and team; illustrated desktop layout reviewed. Scope excludes fresh onboarding, mobile/touch and YouTube certification. External studio footer still needs retired-link deployment refresh."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/web-playables/issues
   geoIdentity: null
