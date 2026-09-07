@@ -224,8 +224,9 @@
       "id": "ai-game",
       "name": "AliveVille",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "No useful talk/memory loop completed; no explicit save clicked; not qualified merely by3D rendering.",
-      "shareable": false
+      "biggestBlocker": "Hosted Worker restore parity, actual AI conversation and playability remain unqualified; local scripted talk/memory/save/reload now passes.",
+      "shareable": false,
+      "repairProgress": "dd3bdd9c pushed clean; CI34111889148 and Docs34111889253 passed. 477 tests plus built-browser evidence: blocked external fonts preserve the town and movement; duplicate notices collapse and a bounded scrollable log preserves distinct events without covering the objective. Earlier d0e57c1b proves local scripted memory and explicit OPFS save/reload, and holds the world clock during setup. #30 retains live, model and human qualification gates."
     },
     {
       "id": "web-playables",
@@ -289,9 +290,9 @@
       "id": "codevetter",
       "name": "CodeVetter",
       "classification": "Qualification gap",
-      "biggestBlocker": "Native installed workflow remains unqualified. Visible-process metadata previously produced a false visible-window pass; stricter repair is in PR #271 pending CI/review.",
+      "biggestBlocker": "Native installed workflow remains unqualified. The visible-process false positive is repaired in merged PR #271; release qualification still requires actual window and upgrade evidence.",
       "shareable": false,
-      "repairProgress": "Superseded PR #263 closed after comparing merged #265. Independently reproduced false passing proof and pushed 4ab8667a in PR #271: system_events_window required for every launch; process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Temporary worktree removed; unrelated native edits and existing branches preserved."
+      "repairProgress": "PR #271 merged as f051219b; post-merge CI34111555307, Docs and Repo Security passed; CodeQL34111554221 still running at observation. Independently reproduced false passing proof: system_events_window is now required for every launch and process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Superseded PR #263 closed. Temporary worktree and owned local branch removed; unrelated native edits and existing histories preserved."
     },
     {
       "id": "pace",

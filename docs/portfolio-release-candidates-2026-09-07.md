@@ -28,8 +28,8 @@ These 17 source heads have successful exact-commit CI in the current GitHub obse
 
 - SWE Prep synchronization repair is checked at `f7727fc5`;608tests passed. Its new receipt-table migration0003 must be reviewed and applied in an approved rollout before relying on hosted retries. Issue#98 is closed;#97 retains real hosted qualification.
 - Hub and Live routing are being repaired together. Final ordering, host routing and session behavior must be verified from the resulting commits; existing host-only cookies and data authorities must remain intact.
-- AliveVille has verified local scripted memory/save/restore, but font resilience and notification fixes are in progress. Hosted Worker restore parity and actual AI conversation remain separate gates.
-- CodeVetter PR #271 still awaits native CI/review. A package release needs actual window/upgrade evidence and installed qualification, beyond its focused tests.
+- AliveVille has verified local scripted memory/save/restore plus font-failure resilience and bounded, deduplicated notifications at `dd3bdd9c`; CI 34111889148 and Docs 34111889253 passed. Hosted Worker restore parity, actual AI conversation and playability remain separate gates.
+- CodeVetter PR #271 merged as `f051219b`; post-merge native CI 34111555307 passed, while CodeQL 34111554221 was still running at this observation. A package release needs actual window/upgrade evidence and installed qualification, beyond its focused tests.
 - Pace, Anchor, Calorie, Setline, Kith, Motion and other native products require their own installed/device journeys. No signed release or hardware qualification is implied here.
 - High Signal diagnostic fixes do not prove that its failed generation run recovered. Do not rerun publishing or billable jobs merely to turn a check green.
 

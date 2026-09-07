@@ -19,7 +19,7 @@ These are product judgments based on the observed Fleet scope and current offici
 | Mobile Dev Cockpit | Do not revive | The owner already abandoned its required dependency. Use existing agent desktop/mobile task surfaces; retain pairing and approval patterns as reference. |
 | Reader | Replace the generic reading app | Use [Readwise Reader](https://readwise.io/read) for articles, PDFs, RSS and highlights, or [Zotero](https://www.zotero.org/support/pdf_reader) for scholarly PDF annotation. Resume personal reading before investing in another reading platform. |
 | TrueHire | Retire the marketplace | A generic candidate-scoring marketplace has both trust and distribution costs; the observed public sample does not prove verified candidate onboarding. Use existing public work and direct evidence review rather than building another score-based hiring destination. |
-| Verified Bases | Drop the marketplace until there is a buyer | An empty template marketplace creates an ongoing support obligation without demonstrated demand. If a real buyer appears, sell one documented, verified template through an existing storefront; do not rebuild marketplace infrastructure. |
+| Verified Bases | Drop the marketplace until there is a buyer | A priced source listing exists, but its historical badges do not prove a working preview, purchase or delivery today. The marketplace creates an ongoing support obligation without demonstrated demand. If a real buyer appears, sell one documented, verified template through an existing storefront; do not rebuild marketplace infrastructure. |
 
 The strongest additional “replace rather than build” calls are **Office OS, the generic Reader, and the full Local AI Video Studio editor**. Preserve distinctive research or small reusable components where they remain interesting.
 
@@ -66,7 +66,7 @@ Confidence is qualitative confidence in this stated surface verdict. Low-confide
 | RolePatch | inactive | No | medium | Resume keyword tool experiment | 5/15 matched keywords yields 79 ATS score without externally validated ATS meaning; serious application workflow and account persistence unverified. |
 | Karte | inactive | No | medium | Public profile and inbound desk | Profile retains placeholder truncated booking URL and article cards all point to same generic domain; profile creation and fresh AI answer unverified. |
 | Starboard | active | Yes | high | Public repository discovery | Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August. |
-| AliveVille | inactive | No | medium | Browser AI town experiment | No useful talk/memory loop completed; no explicit save clicked; not qualified merely by 3D rendering. |
+| AliveVille | inactive | No | medium | Browser AI town experiment | Local scripted talk, memory, explicit save/reload, blocked-font resilience and bounded notifications now pass. Hosted restore parity, real AI conversation and playability remain unqualified. |
 | Protein Index | inactive | No | medium | Food-label discovery reference | Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met. |
 | Recipe Index | inactive | Yes | high | Curated vegetarian recipe reference | Publisher macros are not laboratory validation; only representative source checked. |
 | App Health | active | No | low | SDK and telemetry dashboard | Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified. |
