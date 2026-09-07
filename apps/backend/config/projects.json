@@ -653,7 +653,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Landing and ZIP import affordance inspected; no built-in synthetic sample observed. Limit: Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted."
+          "reason": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass. Limit: Hosted deployment and synthetic import remain unverified. Adapter preflight does not recover GPU failures after initialization; large/multilingual archives remain unqualified. Attribution drawer exposes titles/dates, not full transcripts."
         }
       },
       "authModel": "public-persistent",
@@ -741,10 +741,10 @@
         "priority": "P4",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Installed CLI help, run help and presets execute successfully. Limit: A real measurement run and intelligible report remain unverified; help output alone is insufficient."
+          "reason": "Source-installed local developer workflow qualified: clean public source archive/frozen cached install on Node 22, CLI/web builds, real Lighthouse audit/default save and separate-process history passed. CLI two runs plus controller two runs persisted across agent restart and fresh-browser reopen. MIT license and public dependencies verified. Source 6c9b1b8991d50ae47829429d47c240439590cc20 adds receipts/setup guidance and neutral empty-link copy; exact CI 34123793244 passed. Limit: Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics."
         }
       },
       "authModel": "public-persistent",
@@ -763,7 +763,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "inactive",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -772,7 +772,7 @@
         "listing": "maintained",
         "id": "psi-swarm",
         "name": "PSI Swarm",
-        "description": "Repeated Lighthouse distributions for honest website performance tracking.",
+        "description": "Source-installed local Lighthouse audits with saved history; use the documented source setup, not the older packaged release.",
         "category": "helper",
         "pillarId": "visibility",
         "spotlight": false,
@@ -3210,19 +3210,20 @@
           "proof": "The completed measurement tool already feeds repeated performance evidence into the portfolio dashboard.",
           "nextAction": "Run it for a concrete performance investigation or consume its evidence in Site Health; keep the tool operationally narrow."
         },
-        "form": "Performance platform",
+        "form": "Local performance tool",
         "platforms": [
           "Web",
           "CLI"
         ],
         "technologies": [
-          "Astro",
-          "React",
           "TypeScript",
-          "Cloudflare Pages"
+          "Lighthouse",
+          "SQLite",
+          "Astro"
         ],
         "firstCommitAt": "2026-06-03",
-        "latestCommitAt": "2026-09-07"
+        "latestCommitAt": "2026-09-07",
+        "description": "Source-installed local Lighthouse audits with saved history; use the documented source setup, not the older packaged release."
       },
       "high-signal": {
         "makerNote": "I built High Signal to combine scattered news and data sources and extract the signals that are actually useful.",

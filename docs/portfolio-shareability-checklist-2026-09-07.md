@@ -160,3 +160,14 @@ Drank f531e56c. Anchor's repaired native gate is green; Cockpit Actions remains
 disabled. Drank's live personal journey and all 45 proxy lookups pass, while
 scheduled direct collection, distribution terms and deployment remain gates.
 The scoped sharing count remains 16 of 54, with 38 not yet qualified.
+
+## Source-tool qualification checkpoint
+
+PSI Swarm now passes as a source-installed local developer tool under PRD §5:
+clean public setup, actual audits/save/history/controller/restart and MIT rights
+were verified. Exact CI 34123793244 is green. This raises the current scoped
+count to **17 of 54, with 37 unqualified**; prior counts above are historical.
+Old package defects and hosted/controller/AI variants are not part of this pass.
+Reel Pipeline has a useful local example but still needs a source license;
+its setup-command/runtime mismatch is being corrected. Memory Map's real local
+semantic workflow passes at 3417cca with green CI, but deployment remains a gate.

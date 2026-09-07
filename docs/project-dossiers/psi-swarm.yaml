@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b70bd1d3bfaac7e4968aedba55b20957359d531aed494be303e9878f60233f65
+      sha256: 753328ca95bbe099e36a3a4da3d5e54621f4ec3205419b60ffdd980e35ccffd2
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -82,13 +82,13 @@ identity:
   attention: toolbox
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Repeated Lighthouse distributions for honest website performance tracking.
+  description: Source-installed local Lighthouse audits with saved history; use the documented source setup, not the older packaged release.
   publicMakerNote: I wanted repeatable evidence of how my products perform under real Lighthouse conditions, not a single flattering test.
   purposeContract:
     purpose: PSI Swarm measures website performance as repeated distributions instead of a single flattering Lighthouse run.
@@ -97,15 +97,15 @@ product:
     mechanism: An operational CLI runs and aggregates multiple PageSpeed and Lighthouse observations for Site Health.
     proof: The completed measurement tool already feeds repeated performance evidence into the portfolio dashboard.
     nextAction: Run it for a concrete performance investigation or consume its evidence in Site Health; keep the tool operationally narrow.
-  form: Performance platform
+  form: Local performance tool
   platforms:
     - Web
     - CLI
   prominentTools:
-    - Astro
-    - React
     - TypeScript
-    - Cloudflare Pages
+    - Lighthouse
+    - SQLite
+    - Astro
   retainedGitHistory:
     firstCommitAt: 2026-06-03
     latestCommitAt: 2026-09-07
@@ -350,9 +350,9 @@ deployment:
 sharing:
   publicListing: maintained
   maturity: maintained
-  ready: false
+  ready: true
   verifiedAt: 2026-09-07
-  reason: "Installed CLI help, run help and presets execute successfully. Limit: A real measurement run and intelligible report remain unverified; help output alone is insufficient."
+  reason: "Source-installed local developer workflow qualified: clean public source archive/frozen cached install on Node 22, CLI/web builds, real Lighthouse audit/default save and separate-process history passed. CLI two runs plus controller two runs persisted across agent restart and fresh-browser reopen. MIT license and public dependencies verified. Source 6c9b1b8991d50ae47829429d47c240439590cc20 adds receipts/setup guidance and neutral empty-link copy; exact CI 34123793244 passed. Limit: Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics."
   changelogUrl: https://performance.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/psi-swarm/issues
   geoIdentity:

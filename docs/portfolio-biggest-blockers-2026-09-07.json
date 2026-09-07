@@ -325,9 +325,9 @@
       "id": "chatgpt-memory-insights",
       "name": "Memory Map",
       "classification": "Qualification gap",
-      "biggestBlocker": "Successful semantic embedding/search/save/restore/forget remains unqualified; local synthetic import now exposes model failure and retry honestly. Hosted upload remains unperformed.",
+      "biggestBlocker": "Hosted deployment and synthetic import remain unverified. Adapter preflight does not recover GPU failures after initialization; large/multilingual archives remain unqualified. Attribution drawer exposes titles/dates, not full transcripts.",
       "shareable": false,
-      "repairProgress": "64c8d733 pushed clean; exact CI 34109082173 green. 65 tests and real built-browser synthetic ZIP failure/retry checks at 390px and 1280px pass. Statistics retained, failed semantic processing disclosed, unavailable actions disabled. #37 retains complete workflow qualification."
+      "repairProgress": "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass."
     },
     {
       "id": "drank",
@@ -340,16 +340,16 @@
     {
       "id": "psi-swarm",
       "name": "PSI Swarm",
-      "classification": "Qualification gap",
-      "biggestBlocker": "Fresh public v0.4.2 installation and two real audits/HTML export pass; packaged SQLite save/reopen passes in isolation. The release still has the repaired percentile/output-path defects. A corrected release, CLI history integration and web controller qualification remain required.",
-      "shareable": false,
-      "repairProgress": "CLI measurement and HTML report verified locally. Fixed interpolated p75 verdict and missing output-path flag in 97f73fa; follow-up f1643f0 adds failed-run, boundary, weighting and field-data cases: 59 tests pass, 81.73% branches above unchanged 79% floor. Exact-head CI green. Release install/history/controller qualification remains. Public-release qualification retained in f3886b7: Node22.23.1/npm10.9.8, fresh temporary prefix, two successful desktop audits13.4s, tablep75LCP207ms versus old terminalverdict206ms. HTML visually reviewed and packaged SQLite synthetic save/reopen passed. All owned temporary resources removed; no normal history writes or new release."
+      "classification": "No blocker to scoped source sharing",
+      "biggestBlocker": "Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics.",
+      "shareable": true,
+      "repairProgress": "Source-installed local developer workflow qualified: clean public source archive/frozen cached install on Node 22, CLI/web builds, real Lighthouse audit/default save and separate-process history passed. CLI two runs plus controller two runs persisted across agent restart and fresh-browser reopen. MIT license and public dependencies verified. Source 6c9b1b8991d50ae47829429d47c240439590cc20 adds receipts/setup guidance and neutral empty-link copy; exact CI 34123793244 passed."
     },
     {
       "id": "reel-pipeline",
       "name": "Reel Pipeline",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Qualified local teaching fixture only: localhost provenance is not a publication destination. Real product evidence, human listening/physical phone, other variants and approved publication remain unverified. Optional mode smoke still classifies nonzero commands as skipped.",
+      "biggestBlocker": "Useful local synthetic CLI example now passes. Source sharing remains blocked by no clear license for the demonstrated Node pipeline/assets; Rust crate MIT declaration alone does not cover it. Validate Node setup requirement. Publishing/phone/other variants remain outside this bounded developer-tool qualification.",
       "shareable": false,
       "repairProgress": "Source 131d0f672d358cefc51d3497239e472771ae2d76 rejects failed/blank/hidden evidence sources before synthesis and waits for substantive delayed content. Real local Kokoro/Chrome/FFmpeg renders a clearly synthetic rates lesson with a readable 80% versus 60% table. Full decode and browser playback reach the end at 390/1440 px. Exact CI 34121772466 and Docs 34121772556 pass: 546 Node and 68 Rust tests."
     },

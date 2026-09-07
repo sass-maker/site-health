@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b70bd1d3bfaac7e4968aedba55b20957359d531aed494be303e9878f60233f65
+      sha256: 753328ca95bbe099e36a3a4da3d5e54621f4ec3205419b60ffdd980e35ccffd2
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -289,7 +289,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Landing and ZIP import affordance inspected; no built-in synthetic sample observed. Limit: Real import/output awaits synthetic-file upload authorization; old readiness flags not accepted."
+  reason: "Source 3417cca5a1eb13e9e666ed29dda7a2857bd3f741 checks actual GPU adapter availability before initializing Transformers. Real pinned WASM q8 model embedded all 12 synthetic conversations/questions and two fact candidates; semantic search returned relevant source questions. Explicit save, restored search after reload, forget and empty reload passed; phone attribution drawer reviewed. 66 tests and exact CI 34123513464 pass. Limit: Hosted deployment and synthetic import remain unverified. Adapter preflight does not recover GPU failures after initialization; large/multilingual archives remain unqualified. Attribution drawer exposes titles/dates, not full transcripts."
   changelogUrl: https://chatgpt.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues
   geoIdentity:
