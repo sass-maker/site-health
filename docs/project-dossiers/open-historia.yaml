@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: open-historia
-      revision: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+      revision: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
       githubRepository: sarthakagrawal927/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: open-historia
-      revision: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+      revision: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
       githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -107,13 +107,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 220
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 222
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: open-historia
-  observedRevision: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+  observedRevision: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
   githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
@@ -176,7 +176,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -185,7 +185,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
+    defaultBranchSha: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
@@ -210,15 +210,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34030000462
+          id: 34101298719
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
-          createdAt: 2026-09-06T11:21:13Z
-          updatedAt: 2026-09-06T11:21:51Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34030000462
+          headSha: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
+          createdAt: 2026-09-07T08:34:25Z
+          updatedAt: 2026-09-07T08:35:06Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719
         ageDays: 0
       schedule:
         health: not-applicable
@@ -228,15 +228,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34030000462
+          id: 34101298719
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3ffc4c54d8734a4bf020defaa3639f7d42ef6576
-          createdAt: 2026-09-06T11:21:13Z
-          updatedAt: 2026-09-06T11:21:51Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34030000462
+          headSha: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
+          createdAt: 2026-09-07T08:34:25Z
+          updatedAt: 2026-09-07T08:35:06Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers

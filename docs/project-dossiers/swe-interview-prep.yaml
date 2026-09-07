@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: swe-interview-prep
-      revision: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
+      revision: f7727fc5e4d1a804988407e557c22fe74353d906
       githubRepository: Significant-Hobbies/swe-interview-prep
       expectedHomepage: https://learn.significanthobbies.com
       observedHomepage: https://learn.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: swe-interview-prep
-      revision: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
+      revision: f7727fc5e4d1a804988407e557c22fe74353d906
       githubRepository: Significant-Hobbies/swe-interview-prep
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,12 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
-        clear: 4
-        missing-data: 1
+        missing-data: 2
+        clear: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: SWE Interview Prep. This project's purpose was to give me a platform for learning by doing a lot of techniques (permodoro, Feynman's, and others). I have added a lot more roadmaps and it is doing a lot more now. This is still a work in progress and working.
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-08
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 445
+    retainedCommitCount: 447
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: swe-interview-prep
-  observedRevision: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
+  observedRevision: f7727fc5e4d1a804988407e557c22fe74353d906
   githubRepository: Significant-Hobbies/swe-interview-prep
   githubHomepageUrl: https://learn.significanthobbies.com
   worktree: *a1
@@ -199,7 +199,7 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -207,7 +207,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/swe-interview-prep
     defaultBranch: main
-    defaultBranchSha: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
+    defaultBranchSha: 4b0f613929e7ec84cf04e2516950ac21d1ba8741
     homepage: https://learn.significanthobbies.com
     query: verified
     disposition:
@@ -232,35 +232,34 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34092930251
+          id: 34111029957
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
-          createdAt: 2026-09-07T06:54:39Z
-          updatedAt: 2026-09-07T06:56:19Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34092930251
+          headSha: f7727fc5e4d1a804988407e557c22fe74353d906
+          createdAt: 2026-09-07T10:21:39Z
+          updatedAt: 2026-09-07T10:23:11Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34111029957
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 4b0f613
         lastRun:
-          id: 34092930251
+          id: 34111029957
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
-          createdAt: 2026-09-07T06:54:39Z
-          updatedAt: 2026-09-07T06:56:19Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34092930251
-        ageDays: 0
-      attention: clear
+          headSha: f7727fc5e4d1a804988407e557c22fe74353d906
+          createdAt: 2026-09-07T10:21:39Z
+          updatedAt: 2026-09-07T10:23:11Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34111029957
+      attention: missing-data
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -316,33 +315,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33724463774
+          id: 34111030049
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: bfe5fa3c1d9cf1ab8ae7d608f56548935e3e40e4
-          createdAt: 2026-09-03T06:42:16Z
-          updatedAt: 2026-09-03T06:42:26Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33724463774
-        ageDays: 4
+          headSha: f7727fc5e4d1a804988407e557c22fe74353d906
+          createdAt: 2026-09-07T10:21:39Z
+          updatedAt: 2026-09-07T10:21:53Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34111030049
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision e63e952
+        reason: no push run at current main revision 4b0f613
         lastRun:
-          id: 33724463774
+          id: 34111030049
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: bfe5fa3c1d9cf1ab8ae7d608f56548935e3e40e4
-          createdAt: 2026-09-03T06:42:16Z
-          updatedAt: 2026-09-03T06:42:26Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33724463774
+          headSha: f7727fc5e4d1a804988407e557c22fe74353d906
+          createdAt: 2026-09-07T10:21:39Z
+          updatedAt: 2026-09-07T10:21:53Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34111030049
       attention: missing-data
     - name: Refresh Library
       file: .github/workflows/fetch-library.yml
@@ -363,30 +362,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33389122406
+          id: 34113238833
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 2ec17639ecc58f5ef87220f091ead20f2c9500d0
-          createdAt: 2026-08-31T11:54:05Z
-          updatedAt: 2026-08-31T11:55:42Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33389122406
-        ageDays: 6
+          headSha: f7727fc5e4d1a804988407e557c22fe74353d906
+          createdAt: 2026-09-07T10:47:03Z
+          updatedAt: 2026-09-07T10:49:18Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34113238833
+        ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 33389122406
+          id: 34113238833
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 2ec17639ecc58f5ef87220f091ead20f2c9500d0
-          createdAt: 2026-08-31T11:54:05Z
-          updatedAt: 2026-08-31T11:55:42Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33389122406
-        ageDays: 6
+          headSha: f7727fc5e4d1a804988407e557c22fe74353d906
+          createdAt: 2026-09-07T10:47:03Z
+          updatedAt: 2026-09-07T10:49:18Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34113238833
+        ageDays: 0
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -409,16 +408,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33375047380
+          id: 34103011927
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 2ec17639ecc58f5ef87220f091ead20f2c9500d0
-          createdAt: 2026-08-31T08:53:54Z
-          updatedAt: 2026-08-31T08:54:47Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/33375047380
-        ageDays: 6
+          headSha: e63e9523304f6cd7daaa7e0deb1d142fc0167e3c
+          createdAt: 2026-09-07T08:53:36Z
+          updatedAt: 2026-09-07T08:54:30Z
+          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34103011927
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

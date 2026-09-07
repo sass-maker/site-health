@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,30 +34,31 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: reader
-      revision: 6a2914b0f82d4cf3868cc6071630734427769227
+      revision: 09866165252689297718414a55c3eecee7f5956b
       githubRepository: Significant-Hobbies/reader
       expectedHomepage: https://read.significanthobbies.com
       observedHomepage: https://read.significanthobbies.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 6
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: reader
-      revision: 6a2914b0f82d4cf3868cc6071630734427769227
+      revision: 09866165252689297718414a55c3eecee7f5956b
       githubRepository: Significant-Hobbies/reader
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2025-11-16
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
-      healthy: 4
+      running: 1
+      healthy: 3
       failing: 1
       attention: &a2
         ignored: 5
@@ -108,13 +109,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2025-11-16
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 332
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 336
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reader
-  observedRevision: 6a2914b0f82d4cf3868cc6071630734427769227
+  observedRevision: 09866165252689297718414a55c3eecee7f5956b
   githubRepository: Significant-Hobbies/reader
   githubHomepageUrl: https://read.significanthobbies.com
   worktree: *a1
@@ -182,8 +183,12 @@ repository:
       - quality:suppressions
       - quality:unused
       - test
+      - test:account-notes
+      - test:account-pdf
       - test:coverage
       - test:e2e
+      - test:guest-pdf
+      - test:local-library
       - test:watch
       - type-check
       - typecheck
@@ -191,16 +196,17 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
-    healthy: 4
+    running: 1
+    healthy: 3
     failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/reader
     defaultBranch: main
-    defaultBranchSha: 6a2914b0f82d4cf3868cc6071630734427769227
+    defaultBranchSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
     homepage: https://read.significanthobbies.com
     query: verified
     disposition:
@@ -221,38 +227,38 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34002304481
-          status: completed
-          conclusion: success
+          id: 34118041225
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 6a2914b0f82d4cf3868cc6071630734427769227
-          createdAt: 2026-09-06T00:49:44Z
-          updatedAt: 2026-09-06T00:50:49Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34002304481
-        ageDays: 1
+          headSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
+          createdAt: 2026-09-07T11:42:57Z
+          updatedAt: 2026-09-07T11:43:01Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041225
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 34002304481
-          status: completed
-          conclusion: success
+          id: 34118041225
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 6a2914b0f82d4cf3868cc6071630734427769227
-          createdAt: 2026-09-06T00:49:44Z
-          updatedAt: 2026-09-06T00:50:49Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34002304481
-        ageDays: 1
+          headSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
+          createdAt: 2026-09-07T11:42:57Z
+          updatedAt: 2026-09-07T11:43:01Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041225
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -309,33 +315,34 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898229714
+          id: 34118041258
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e1729429c51d542a8a6a26168bd61028805868c3
-          createdAt: 2026-08-25T20:56:29Z
-          updatedAt: 2026-08-25T20:56:41Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/32898229714
-        ageDays: 12
+          headSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
+          createdAt: 2026-09-07T11:42:58Z
+          updatedAt: 2026-09-07T11:43:10Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041258
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 6a2914b
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32898229714
+          id: 34118041258
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e1729429c51d542a8a6a26168bd61028805868c3
-          createdAt: 2026-08-25T20:56:29Z
-          updatedAt: 2026-08-25T20:56:41Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/32898229714
+          headSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
+          createdAt: 2026-09-07T11:42:58Z
+          updatedAt: 2026-09-07T11:43:10Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041258
+        ageDays: 0
       attention: ignored
     - name: AI Code Review
       file: .github/workflows/review.yaml
@@ -378,8 +385,8 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
         status: ignored
@@ -467,7 +474,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Followed Try a sample document to sample article with static highlights/notes; only actions lead to library. Limit: Static sample is not proof of import/read/annotate workflow; private library not accessed."
+  reason: "Guest PDF and account PDF page notes pass local create/edit/delete/retry/reopen and delayed A/B response checks. Non-PDF cached-note data loss is repaired in pushed bec336d2b988b13ed85285aefddc4a36cf788bf4: clean cache revalidation retains newer notes, pending saves serialize newer edits and marker reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, and account keys isolate A/B. Local quality126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Exact CI34118041225 is pending; mobile viewport evidence is being strengthened. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
   changelogUrl: https://read.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/reader/issues
   geoIdentity:

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: psi-swarm
-      revision: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+      revision: f3886b736540c3222727c89e580628443c1a1888
       githubRepository: sass-maker/psi-swarm
       expectedHomepage: https://performance.sassmaker.com
       observedHomepage: https://performance.sassmaker.com
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: psi-swarm
-      revision: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+      revision: f3886b736540c3222727c89e580628443c1a1888
       githubRepository: sass-maker/psi-swarm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-03
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
@@ -108,13 +108,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-06-03
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 76
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 79
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: psi-swarm
-  observedRevision: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+  observedRevision: f3886b736540c3222727c89e580628443c1a1888
   githubRepository: sass-maker/psi-swarm
   githubHomepageUrl: https://performance.sassmaker.com
   worktree: *a1
@@ -157,7 +157,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -166,7 +166,7 @@ githubActions:
   remote:
     repository: sass-maker/psi-swarm
     defaultBranch: main
-    defaultBranchSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
+    defaultBranchSha: f3886b736540c3222727c89e580628443c1a1888
     homepage: https://performance.sassmaker.com
     query: verified
     disposition:
@@ -192,16 +192,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34004623699
+          id: 34114025994
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
-          createdAt: 2026-09-06T01:43:20Z
-          updatedAt: 2026-09-06T01:44:06Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34004623699
-        ageDays: 1
+          headSha: f3886b736540c3222727c89e580628443c1a1888
+          createdAt: 2026-09-07T10:56:24Z
+          updatedAt: 2026-09-07T10:57:19Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34114025994
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -210,16 +210,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34004623699
+          id: 34114025994
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
-          createdAt: 2026-09-06T01:43:20Z
-          updatedAt: 2026-09-06T01:44:06Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34004623699
-        ageDays: 1
+          headSha: f3886b736540c3222727c89e580628443c1a1888
+          createdAt: 2026-09-07T10:56:24Z
+          updatedAt: 2026-09-07T10:57:19Z
+          url: https://github.com/sass-maker/psi-swarm/actions/runs/34114025994
+        ageDays: 0
       attention: ignored
     - name: Deploy psi-swarm-web to Cloudflare Pages
       file: .github/workflows/deploy.yml

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: web-playables
-      revision: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
+      revision: 13ee2867522e1da6369a64c57d038db01daa87ce
       githubRepository: sarthakagrawal927/web-playables
       expectedHomepage: https://idle.aliveville.com
       observedHomepage: https://idle.aliveville.com
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: web-playables
-      revision: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
+      revision: 13ee2867522e1da6369a64c57d038db01daa87ce
       githubRepository: sarthakagrawal927/web-playables
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-10
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 1
       failing: 1
@@ -107,13 +107,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-10
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 39
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 40
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: web-playables
-  observedRevision: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
+  observedRevision: 13ee2867522e1da6369a64c57d038db01daa87ce
   githubRepository: sarthakagrawal927/web-playables
   githubHomepageUrl: https://idle.aliveville.com
   worktree: *a1
@@ -152,7 +152,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -161,7 +161,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/web-playables
     defaultBranch: main
-    defaultBranchSha: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
+    defaultBranchSha: 13ee2867522e1da6369a64c57d038db01daa87ce
     homepage: https://idle.aliveville.com
     query: verified
     disposition:
@@ -186,16 +186,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002901534
+          id: 34106166702
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
-          createdAt: 2026-09-06T01:03:36Z
-          updatedAt: 2026-09-06T01:04:02Z
-          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34002901534
-        ageDays: 1
+          headSha: 13ee2867522e1da6369a64c57d038db01daa87ce
+          createdAt: 2026-09-07T09:28:01Z
+          updatedAt: 2026-09-07T09:28:26Z
+          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -204,16 +204,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002901534
+          id: 34106166702
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
-          createdAt: 2026-09-06T01:03:36Z
-          updatedAt: 2026-09-06T01:04:02Z
-          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34002901534
-        ageDays: 1
+          headSha: 13ee2867522e1da6369a64c57d038db01daa87ce
+          createdAt: 2026-09-07T09:28:01Z
+          updatedAt: 2026-09-07T09:28:26Z
+          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702
+        ageDays: 0
       attention: ignored
     - name: Deploy web-playables to Cloudflare Pages
       file: .github/workflows/deploy.yml

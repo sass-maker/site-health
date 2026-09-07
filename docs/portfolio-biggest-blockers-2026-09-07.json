@@ -89,9 +89,9 @@
       "id": "reader",
       "name": "Reader",
       "classification": "Qualification gap",
-      "biggestBlocker": "Guest PDF rendering and page-note persistence now pass locally. Hosted import/read/annotate/reopen and account PDF controls remain under #55.",
+      "biggestBlocker": "Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export.",
       "shareable": false,
-      "repairProgress": "bbc52d9 pushed clean; Docs34112909140 and CI34112909168 passed. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim. Account-PDF affordance/mobile repair1b3456d2 is now pushed with CI34113990220 and Docs34113990544 green. Inert font/Notes controls removed; actual page/zoom/background behavior and mobile PDF reachability proved with synthetic built UI; spoken text checked through a stubbed sink, not listening quality. Full account PDF note persistence remains active work under #55."
+      "repairProgress": "Guest PDF and account PDF page notes pass local create/edit/delete/retry/reopen and delayed A/B response checks. Non-PDF cached-note data loss is repaired in pushed bec336d2b988b13ed85285aefddc4a36cf788bf4: clean cache revalidation retains newer notes, pending saves serialize newer edits and marker reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, and account keys isolate A/B. Local quality126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Exact CI34118041225 is pending; mobile viewport evidence is being strengthened."
     },
     {
       "id": "live",
@@ -309,8 +309,9 @@
       "id": "anchor",
       "name": "Anchor",
       "classification": "Qualification gap",
-      "biggestBlocker": "Installed capture/retrieval and account/MCP workflows not verified.",
-      "shareable": false
+      "biggestBlocker": "Hosted native gate failed: unsigned Apple button expectation, iPhone focus-state test race and two heuristic diagnostic misses are under repair. Signed account, installed planner/focus/review, CloudKit, MCP and Reminders acceptance remain open.",
+      "shareable": false,
+      "repairProgress": "Account sync isolation repair fb2e9f4 passes 180 shared Swift tests with exact pinned dependency. Real source/transport and disk fixtures prove separate A/B outboxes, cursor, fingerprints and receipts; delayed A callbacks cannot alter B. Hosted native review 34116034709 failed its final gate: Mac and iPhone UI step outcomes are failure despite continue-on-error step conclusions; watch build passed. Artifact investigation is ongoing. #40/#41/#50 remain open; existing stash/editable SwiftPM link preserved."
     },
     {
       "id": "saas-maker",
@@ -347,9 +348,9 @@
       "id": "reel-pipeline",
       "name": "Reel Pipeline",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Caption/scene repairs and local synthetic video render/decode/playback pass. Phone/listening quality, other variants and the intended creator/publication workflow remain unqualified.",
+      "biggestBlocker": "Brand fixture source capture is a mostly blank application shell, so the rendered claim lacks useful visual evidence. Phone hardware, human listening, other variants, full creator workflow and policy-approved publication remain unqualified. Optional command smoke still misclassifies all nonzero exits as skipped.",
       "shareable": false,
-      "repairProgress": "7753a45 pushed clean with green CI and Docs. Fixed caption/scene rendering; 542 Node and 68 Rust tests, render smoke and synthetic 12-second video decode/browser playback passed. README retains phone/listening, other variants, optional runtime and publication gates. Zero open issues/PRs; zero closures."
+      "repairProgress": "137c2dcff65bdb4bd4ad06cf9e4d21fc3a30de1f pushed;545 Node and68 Rust tests and docs validation pass. Docs34117404957 and CI34117405016 success. Real media evidence retained in fixtures/brand-shareability. README holds visual evidence, command-smoke classification, listening/device/other variants and publication gates. Zero issues/PRs at fresh scan; no closures."
     },
     {
       "id": "materia",

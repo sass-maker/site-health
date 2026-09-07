@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-29
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: truehire
-      revision: 6b5b3c0069cba5e6bf8ce16c2ee36d96992e0053
+      revision: 6fb5676cae468658562fb4f69e6758ec08252359
       githubRepository: sarthakagrawal927/truehire
       expectedHomepage: https://truehire.rolepatch.com
       observedHomepage: https://truehire.rolepatch.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: truehire
-      revision: 6b5b3c0069cba5e6bf8ce16c2ee36d96992e0053
+      revision: 6fb5676cae468658562fb4f69e6758ec08252359
       githubRepository: sarthakagrawal927/truehire
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,10 +55,11 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
-      failing: 2
+      healthy: 1
       stale: 1
+      failing: 1
       attention: &a2
         ignored: 3
   unknowns: []
@@ -108,12 +109,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-04-24
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 181
+    retainedCommitCount: 183
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: truehire
-  observedRevision: 6b5b3c0069cba5e6bf8ce16c2ee36d96992e0053
+  observedRevision: 6fb5676cae468658562fb4f69e6758ec08252359
   githubRepository: sarthakagrawal927/truehire
   githubHomepageUrl: https://truehire.rolepatch.com
   worktree: *a1
@@ -169,16 +170,17 @@ repository:
       - test:e2e:local
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
-    failing: 2
+    healthy: 1
     stale: 1
+    failing: 1
   attention: *a2
   remote:
     repository: sarthakagrawal927/truehire
     defaultBranch: main
-    defaultBranchSha: 6b5b3c0069cba5e6bf8ce16c2ee36d96992e0053
+    defaultBranchSha: 6fb5676cae468658562fb4f69e6758ec08252359
     homepage: https://truehire.rolepatch.com
     query: verified
     disposition:
@@ -199,37 +201,37 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34093425595
+          id: 34106861493
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 6b5b3c0069cba5e6bf8ce16c2ee36d96992e0053
-          createdAt: 2026-09-07T07:01:02Z
-          updatedAt: 2026-09-07T07:01:31Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/34093425595
+          headSha: 6fb5676cae468658562fb4f69e6758ec08252359
+          createdAt: 2026-09-07T09:35:18Z
+          updatedAt: 2026-09-07T09:37:02Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34093425595
+          id: 34106861493
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 6b5b3c0069cba5e6bf8ce16c2ee36d96992e0053
-          createdAt: 2026-09-07T07:01:02Z
-          updatedAt: 2026-09-07T07:01:31Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/34093425595
+          headSha: 6fb5676cae468658562fb4f69e6758ec08252359
+          createdAt: 2026-09-07T09:35:18Z
+          updatedAt: 2026-09-07T09:37:02Z
+          url: https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493
         ageDays: 0
       attention: ignored
     - name: Release CLI
@@ -295,7 +297,7 @@ githubActions:
           createdAt: 2026-08-29T11:11:27Z
           updatedAt: 2026-08-29T11:12:00Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249538914
-        ageDays: 8
+        ageDays: 9
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

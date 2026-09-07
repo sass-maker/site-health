@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: saas-maker
-      revision: 47b540c90fad4bed6933de2fc6d7a0e949557a12
+      revision: 7846bb00af2a5dd2e87718d22e7adb0932cd7e03
       githubRepository: sass-maker/saas-maker
       expectedHomepage: https://sassmaker.com
       observedHomepage: https://sassmaker.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 17
+        trackedChangeCount: 4
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: saas-maker
-      revision: 47b540c90fad4bed6933de2fc6d7a0e949557a12
+      revision: 7846bb00af2a5dd2e87718d22e7adb0932cd7e03
       githubRepository: sass-maker/saas-maker
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,9 +55,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
-      healthy: 7
+      running: 1
+      healthy: 6
       manual-or-reusable-never-run: 4
       attention: &a2
         clear: 10
@@ -114,12 +115,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-26
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 1274
+    retainedCommitCount: 1282
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: saas-maker
-  observedRevision: 47b540c90fad4bed6933de2fc6d7a0e949557a12
+  observedRevision: 7846bb00af2a5dd2e87718d22e7adb0932cd7e03
   githubRepository: sass-maker/saas-maker
   githubHomepageUrl: https://sassmaker.com
   worktree: *a1
@@ -186,16 +187,17 @@ repository:
       - tooling:footers
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
-    healthy: 7
+    running: 1
+    healthy: 6
     manual-or-reusable-never-run: 4
   attention: *a2
   remote:
     repository: sass-maker/saas-maker
     defaultBranch: main
-    defaultBranchSha: 47b540c90fad4bed6933de2fc6d7a0e949557a12
+    defaultBranchSha: 88464f082258ddcbeed1b6082ec739d1427ed8d6
     homepage: https://sassmaker.com
     query: verified
     disposition:
@@ -217,37 +219,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34057430868
-          status: completed
-          conclusion: success
+          id: 34117970975
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 47b540c90fad4bed6933de2fc6d7a0e949557a12
-          createdAt: 2026-09-06T20:15:39Z
-          updatedAt: 2026-09-06T20:17:22Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/34057430868
+          headSha: 88464f082258ddcbeed1b6082ec739d1427ed8d6
+          createdAt: 2026-09-07T11:42:07Z
+          updatedAt: 2026-09-07T11:42:11Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/34117970975
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 34057430868
-          status: completed
-          conclusion: success
+          id: 34117970975
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 47b540c90fad4bed6933de2fc6d7a0e949557a12
-          createdAt: 2026-09-06T20:15:39Z
-          updatedAt: 2026-09-06T20:17:22Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/34057430868
+          headSha: 88464f082258ddcbeed1b6082ec739d1427ed8d6
+          createdAt: 2026-09-07T11:42:07Z
+          updatedAt: 2026-09-07T11:42:11Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/34117970975
         ageDays: 0
       attention: clear
     - name: Docs
@@ -268,33 +270,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33982163121
+          id: 34109718819
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5aa909515617768565a70bd5ecb7499c38edb887
-          createdAt: 2026-09-05T17:49:43Z
-          updatedAt: 2026-09-05T17:49:50Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/33982163121
-        ageDays: 1
+          headSha: 8b336294056c3defea53ff9d2f0982ff3d5b526e
+          createdAt: 2026-09-07T10:07:01Z
+          updatedAt: 2026-09-07T10:07:17Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/34109718819
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 47b540c
+        reason: no push run at current main revision 88464f0
         lastRun:
-          id: 33982163121
+          id: 34109718819
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5aa909515617768565a70bd5ecb7499c38edb887
-          createdAt: 2026-09-05T17:49:43Z
-          updatedAt: 2026-09-05T17:49:50Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/33982163121
+          headSha: 8b336294056c3defea53ff9d2f0982ff3d5b526e
+          createdAt: 2026-09-07T10:07:01Z
+          updatedAt: 2026-09-07T10:07:17Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/34109718819
       attention: missing-data
     - name: Drank CI
       file: .github/workflows/drank-ci.yml
@@ -396,15 +398,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34057430833
+          id: 34117970940
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 47b540c90fad4bed6933de2fc6d7a0e949557a12
-          createdAt: 2026-09-06T20:15:38Z
-          updatedAt: 2026-09-06T20:16:05Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/34057430833
+          headSha: 88464f082258ddcbeed1b6082ec739d1427ed8d6
+          createdAt: 2026-09-07T11:42:07Z
+          updatedAt: 2026-09-07T11:42:37Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/34117970940
         ageDays: 0
       schedule:
         health: not-applicable
@@ -414,15 +416,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34057430833
+          id: 34117970940
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 47b540c90fad4bed6933de2fc6d7a0e949557a12
-          createdAt: 2026-09-06T20:15:38Z
-          updatedAt: 2026-09-06T20:16:05Z
-          url: https://github.com/sass-maker/saas-maker/actions/runs/34057430833
+          headSha: 88464f082258ddcbeed1b6082ec739d1427ed8d6
+          createdAt: 2026-09-07T11:42:07Z
+          updatedAt: 2026-09-07T11:42:37Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/34117970940
         ageDays: 0
       attention: clear
     - name: Public Performance Sweep
@@ -502,7 +504,7 @@ githubActions:
           createdAt: 2026-09-02T11:39:13Z
           updatedAt: 2026-09-02T11:39:39Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/33625719214
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -516,7 +518,7 @@ githubActions:
           createdAt: 2026-09-02T11:39:13Z
           updatedAt: 2026-09-02T11:39:39Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/33625719214
-        ageDays: 4
+        ageDays: 5
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -604,12 +606,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: fb82692401ac00ca19455d26b92b0bc7d82b1764
+      revision: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: anchor
-      revision: fb82692401ac00ca19455d26b92b0bc7d82b1764
+      revision: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -122,12 +122,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 88
+    retainedCommitCount: 90
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: fb82692401ac00ca19455d26b92b0bc7d82b1764
+  observedRevision: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -143,7 +143,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -151,7 +151,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: fb82692401ac00ca19455d26b92b0bc7d82b1764
+    defaultBranchSha: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -175,16 +175,16 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33415639672
+          id: 34116034709
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: dc07a8c8d4f3ba1303423f7932cc5e8142c727fb
-          createdAt: 2026-08-31T16:43:03Z
-          updatedAt: 2026-08-31T16:43:09Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/33415639672
-        ageDays: 6
+          headSha: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
+          createdAt: 2026-09-07T11:19:31Z
+          updatedAt: 2026-09-07T11:41:24Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34116034709
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -233,7 +233,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Public Anchor-1.0.dmg responds 200; landing describes a Mac beta. Limit: Installed capture/retrieval and account/MCP workflows not verified."
+  reason: "Account sync isolation repair fb2e9f4 passes 180 shared Swift tests with exact pinned dependency. Real source/transport and disk fixtures prove separate A/B outboxes, cursor, fingerprints and receipts; delayed A callbacks cannot alter B. Hosted native review 34116034709 failed its final gate: Mac and iPhone UI step outcomes are failure despite continue-on-error step conclusions; watch build passed. Artifact investigation is ongoing. Limit: Signed account, installed planner/focus/review, CloudKit, MCP and Reminders acceptance remain open."
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:

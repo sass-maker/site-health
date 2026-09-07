@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: protein-index
-      revision: 2310e2a6a34a359167b9d3cd36e533b2e74e0773
+      revision: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
       githubRepository: Significant-Hobbies/protein-index
       expectedHomepage: https://protein.significanthobbies.com
       observedHomepage: https://protein.significanthobbies.com
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: protein-index
-      revision: 2310e2a6a34a359167b9d3cd36e533b2e74e0773
+      revision: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
       githubRepository: Significant-Hobbies/protein-index
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -107,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-15
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 243
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 246
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: protein-index
-  observedRevision: 2310e2a6a34a359167b9d3cd36e533b2e74e0773
+  observedRevision: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
   githubRepository: Significant-Hobbies/protein-index
   githubHomepageUrl: https://protein.significanthobbies.com
   worktree: *a1
@@ -184,7 +184,7 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -192,7 +192,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/protein-index
     defaultBranch: main
-    defaultBranchSha: 2310e2a6a34a359167b9d3cd36e533b2e74e0773
+    defaultBranchSha: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
     homepage: https://protein.significanthobbies.com
     query: verified
     disposition:
@@ -217,16 +217,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002277974
+          id: 34102567258
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2310e2a6a34a359167b9d3cd36e533b2e74e0773
-          createdAt: 2026-09-06T00:49:05Z
-          updatedAt: 2026-09-06T00:49:33Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34002277974
-        ageDays: 1
+          headSha: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
+          createdAt: 2026-09-07T08:48:33Z
+          updatedAt: 2026-09-07T08:49:06Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34102567258
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -235,16 +235,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002277974
+          id: 34102567258
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2310e2a6a34a359167b9d3cd36e533b2e74e0773
-          createdAt: 2026-09-06T00:49:05Z
-          updatedAt: 2026-09-06T00:49:33Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34002277974
-        ageDays: 1
+          headSha: 76e54ae81580081ff96c19ca19c9c9ed9faa4c15
+          createdAt: 2026-09-07T08:48:33Z
+          updatedAt: 2026-09-07T08:49:06Z
+          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34102567258
+        ageDays: 0
       attention: ignored
 deployment:
   kind: worker

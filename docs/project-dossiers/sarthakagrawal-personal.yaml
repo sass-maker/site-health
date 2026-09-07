@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,28 +34,28 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: portfolio
-      revision: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
+      revision: ea76de9f3cc789bab4efd893987fd324beda4161
       githubRepository: sarthakagrawal927/portfolio
       expectedHomepage: https://sarthakagrawal.dev
       observedHomepage: https://sarthakagrawal.dev
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 8
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: portfolio
-      revision: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
+      revision: ea76de9f3cc789bab4efd893987fd324beda4161
       githubRepository: sarthakagrawal927/portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-22
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -110,13 +110,13 @@ product:
     - IssuePages
   retainedGitHistory:
     firstCommitAt: 2026-05-22
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 90
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 92
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: portfolio
-  observedRevision: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
+  observedRevision: ea76de9f3cc789bab4efd893987fd324beda4161
   githubRepository: sarthakagrawal927/portfolio
   githubHomepageUrl: https://sarthakagrawal.dev
   worktree: *a1
@@ -145,6 +145,8 @@ repository:
     rootPackageScripts:
       - astro
       - build
+      - catalog:check-public
+      - catalog:sync-public
       - check
       - dev
       - format:check
@@ -164,7 +166,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -173,7 +175,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/portfolio
     defaultBranch: main
-    defaultBranchSha: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
+    defaultBranchSha: ea76de9f3cc789bab4efd893987fd324beda4161
     homepage: https://sarthakagrawal.dev
     query: verified
     disposition:
@@ -199,16 +201,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34015654909
+          id: 34099717639
           status: completed
           conclusion: success
-          event: workflow_dispatch
+          event: push
           branch: main
-          headSha: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
-          createdAt: 2026-09-06T06:06:42Z
-          updatedAt: 2026-09-06T06:07:35Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34015654909
-        ageDays: 1
+          headSha: ea76de9f3cc789bab4efd893987fd324beda4161
+          createdAt: 2026-09-07T08:16:23Z
+          updatedAt: 2026-09-07T08:16:57Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -217,16 +219,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34003176548
+          id: 34099717639
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1919ca6cb21a656270aae7087d6d9c83e9d42d9a
-          createdAt: 2026-09-06T01:09:55Z
-          updatedAt: 2026-09-06T01:11:04Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34003176548
-        ageDays: 1
+          headSha: ea76de9f3cc789bab4efd893987fd324beda4161
+          createdAt: 2026-09-07T08:16:23Z
+          updatedAt: 2026-09-07T08:16:57Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34099717639
+        ageDays: 0
       attention: ignored
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
@@ -243,7 +245,7 @@ githubActions:
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stale
-        reason: latest run is 107 days old
+        reason: latest run is 108 days old
         apiState: active
         lastRun:
           id: 26280785969
@@ -255,14 +257,14 @@ githubActions:
           createdAt: 2026-05-22T09:48:57Z
           updatedAt: 2026-05-22T09:50:23Z
           url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-        ageDays: 107
+        ageDays: 108
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 1919ca6
+        reason: no push run at current main revision ea76de9
         lastRun:
           id: 26280785969
           status: completed

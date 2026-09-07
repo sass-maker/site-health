@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: karte
-      revision: a13ca64988d2cb0795132c8df317d0f4d603203e
+      revision: e7072fc6171dc4fa926cac1ee846068b4243b370
       githubRepository: Significant-Hobbies/karte
       expectedHomepage: https://karte.cc
       observedHomepage: https://karte.cc
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: karte
-      revision: a13ca64988d2cb0795132c8df317d0f4d603203e
+      revision: e7072fc6171dc4fa926cac1ee846068b4243b370
       githubRepository: Significant-Hobbies/karte
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-03-05
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -107,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-03-05
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 508
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 509
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: karte
-  observedRevision: a13ca64988d2cb0795132c8df317d0f4d603203e
+  observedRevision: e7072fc6171dc4fa926cac1ee846068b4243b370
   githubRepository: Significant-Hobbies/karte
   githubHomepageUrl: https://karte.cc
   worktree: *a1
@@ -187,7 +187,7 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -195,7 +195,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/karte
     defaultBranch: main
-    defaultBranchSha: a13ca64988d2cb0795132c8df317d0f4d603203e
+    defaultBranchSha: e7072fc6171dc4fa926cac1ee846068b4243b370
     homepage: https://karte.cc
     query: verified
     disposition:
@@ -220,16 +220,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002337390
+          id: 34107483418
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: a13ca64988d2cb0795132c8df317d0f4d603203e
-          createdAt: 2026-09-06T00:50:28Z
-          updatedAt: 2026-09-06T00:53:03Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34002337390
-        ageDays: 1
+          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
+          createdAt: 2026-09-07T09:41:55Z
+          updatedAt: 2026-09-07T09:44:35Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483418
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -238,16 +238,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002337390
+          id: 34107483418
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: a13ca64988d2cb0795132c8df317d0f4d603203e
-          createdAt: 2026-09-06T00:50:28Z
-          updatedAt: 2026-09-06T00:53:03Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34002337390
-        ageDays: 1
+          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
+          createdAt: 2026-09-07T09:41:55Z
+          updatedAt: 2026-09-07T09:44:35Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483418
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -303,33 +303,34 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33265837829
+          id: 34107483404
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0f2e274e38cea6ed6bc2f157bbba26ac3568ddd1
-          createdAt: 2026-08-29T17:31:08Z
-          updatedAt: 2026-08-29T17:31:17Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/33265837829
-        ageDays: 8
+          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
+          createdAt: 2026-09-07T09:41:55Z
+          updatedAt: 2026-09-07T09:42:04Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483404
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision a13ca64
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 33265837829
+          id: 34107483404
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0f2e274e38cea6ed6bc2f157bbba26ac3568ddd1
-          createdAt: 2026-08-29T17:31:08Z
-          updatedAt: 2026-08-29T17:31:17Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/33265837829
+          headSha: e7072fc6171dc4fa926cac1ee846068b4243b370
+          createdAt: 2026-09-07T09:41:55Z
+          updatedAt: 2026-09-07T09:42:04Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34107483404
+        ageDays: 0
       attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates

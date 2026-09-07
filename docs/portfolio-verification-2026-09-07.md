@@ -37,7 +37,7 @@ Confidence is qualitative confidence in this stated surface verdict. Low-confide
 | ChatGPT Connections | active | No | low | Public MCP integrations | No complete external-client tool invocation verified; may be edge access restriction. |
 | SaaS Maker | active | Yes | medium | Public directory experiment | Current live projection wrongly includes unshareable work and stale technology/status metadata; local correction implemented; deployment pending. |
 | GitStat | inactive | Yes | high | Public GitHub analysis | One public profile; private repositories untested. |
-| Reel Pipeline | inactive | No | medium | Local media pipeline | The generated frame has overlapping code-rail text and generic captions that do not explain the supplied brief. Real encoding works, but presentation/value is insufficient for sharing; publishing remains unverified. |
+| Reel Pipeline | inactive | No | medium | Local media pipeline | Brand fixture source capture is a mostly blank application shell, so the rendered claim lacks useful visual evidence. Phone hardware, human listening, other variants, full creator workflow and policy-approved publication remain unqualified. Optional command smoke still misclassifies all nonzero exits as skipped. |
 | Mobile Dev Cockpit | inactive | No | low | Private local mobile bridge | No paired device core loop verified. |
 | DRank | inactive | No | low | Shared domain metric history | Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data. |
 | Kinetic | inactive | No | low | Gmail workspace | Mailbox workflow and presentation after sign-in unverified. |
@@ -56,7 +56,7 @@ Confidence is qualitative confidence in this stated surface verdict. Low-confide
 | Anime List | active | No | medium | Catalog search in existing signed-in session | Guest workflow and personal tracking unverified; no private content retained. |
 | Chess | inactive | No | high | Browser Stockfish practice | Natural-language coaching requires local bridge; keyboard/drop and click did not move piece, direct drag worked. |
 | LoopTV | inactive | Yes | medium | Curated video experiment | Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked. |
-| Reader | inactive | No | low | Personal reading library | Static sample is not proof of import/read/annotate workflow; private library not accessed. |
+| Reader | inactive | No | medium | Personal reading library | Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export. |
 | SWE Interview Prep | active | No | low | Learning workspace | Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved. |
 | Calorie | active | No | low | Native iOS app | No public consumer installation path. |
 | Setline | active | No | low | Native workout app | No public consumer installation path observed. |
@@ -84,7 +84,7 @@ Confidence is qualitative confidence in this stated surface verdict. Low-confide
 | Field Track | inactive | Yes | high | Explicit synthetic dashboard demo | Demo only; no Android/device/real workforce qualification. |
 | Reddit Insights | inactive | No | medium | Subreddit archive experiment | Recent/now language and relative ages remain tied to August corpus, misleading in September; source provenance explicitly incomplete. |
 | Verified Bases | inactive | No | low | Software marketplace | No usable marketplace inventory or acquisition flow verified. |
-| Anchor | active | No | low | macOS beta | Installed capture/retrieval and account/MCP workflows not verified. |
+| Anchor | active | No | medium | Native day planner and focus timer | Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration. |
 | Nomad Data Adventure | active | No | low | Local data collection workspace | Dataset rights, reproducible setup, user-facing value and distribution not qualified. |
 
 ## Cleanup and release state

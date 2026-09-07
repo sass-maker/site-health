@@ -477,7 +477,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Ran the repository ASCII raster renderer with a synthetic five-second brief. FFprobe confirms a real 1080x1920 H.264/AAC MP4, 259270 bytes and 60 frames. Inspected a frame at two seconds. Limit: The generated frame has overlapping code-rail text and generic captions that do not explain the supplied brief. Real encoding works, but presentation/value is insufficient for sharing; publishing remains unverified."
+          "reason": "Fixed overlapping ASCII captions and verified a 12-second export. Fixed both Content Factory CLI import graphs and premature scene endings; actual local Kokoro/Chromium/FFmpeg brand draft is 16.727 seconds, 1080x1920 H.264/AAC, 500 frames and 434585 bytes. Full decode and advancing 390/1440 browser playback pass; measured receipt matches encoded duration. Limit: Brand fixture source capture is a mostly blank application shell, so the rendered claim lacks useful visual evidence. Phone hardware, human listening, other variants, full creator workflow and policy-approved publication remain unqualified. Optional command smoke still misclassifies all nonzero exits as skipped."
         }
       },
       "authModel": "required-service",
@@ -1431,7 +1431,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Followed Try a sample document to sample article with static highlights/notes; only actions lead to library. Limit: Static sample is not proof of import/read/annotate workflow; private library not accessed."
+          "reason": "Guest PDF and account PDF page notes pass local create/edit/delete/retry/reopen and delayed A/B response checks. Non-PDF cached-note data loss is repaired in pushed bec336d2b988b13ed85285aefddc4a36cf788bf4: clean cache revalidation retains newer notes, pending saves serialize newer edits and marker reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, and account keys isolate A/B. Local quality126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Exact CI34118041225 is pending; mobile viewport evidence is being strengthened. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
         }
       },
       "authModel": "public-persistent",
@@ -2782,7 +2782,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public Anchor-1.0.dmg responds 200; landing describes a Mac beta. Limit: Installed capture/retrieval and account/MCP workflows not verified."
+          "reason": "Account sync isolation repair fb2e9f4 passes 180 shared Swift tests with exact pinned dependency. Real source/transport and disk fixtures prove separate A/B outboxes, cursor, fingerprints and receipts; delayed A callbacks cannot alter B. Hosted native review 34116034709 failed its final gate: Mac and iPhone UI step outcomes are failure despite continue-on-error step conclusions; watch build passed. Artifact investigation is ongoing. Limit: Signed account, installed planner/focus/review, CloudKit, MCP and Reminders acceptance remain open."
         }
       },
       "name": "Anchor",
@@ -2910,7 +2910,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "posttrainllm": {
         "makerNote": "I use PostTrainLLM to explore local model training and turn those experiments into repeatable recipes for specialist models.",
@@ -2982,7 +2982,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-09-06",
+        "latestCommitAt": "2026-09-07",
         "description": "A free personality and hobby quiz that suggests a small experiment to try; account planning is not yet qualified."
       },
       "chatgpt-connections": {
@@ -3082,7 +3082,7 @@
         ],
         "description": "A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.",
         "firstCommitAt": "2026-05-28",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "mobile-dev-cockpit": {
         "makerNote": "I explored whether development work running on a desktop could be supervised clearly from a phone.",
@@ -3128,7 +3128,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-06-10",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "email-manager": {
         "makerNote": "Gmail did not help me see who was filling my inbox, so I built a clearer way to understand volume and unsubscribe.",
@@ -3152,7 +3152,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-24",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "chatgpt-memory-insights": {
         "makerNote": "I wanted to learn what my exported AI conversations reveal about my themes, emotions, memory, and personal change.",
@@ -3174,7 +3174,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-28",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "free-ai": {
         "makerNote": "I built Free AI to make genuinely useful free model capacity easier to discover and use through one resilient interface.",
@@ -3222,7 +3222,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-06-03",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "high-signal": {
         "makerNote": "I built High Signal to combine scattered news and data sources and extract the signals that are actually useful.",
@@ -3270,7 +3270,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-08-24",
-        "latestCommitAt": "2026-09-06",
+        "latestCommitAt": "2026-09-07",
         "description": "Search evidenced podcast claims and follow links back to the original episode or publication."
       },
       "issue-pages": {
@@ -3296,7 +3296,7 @@
         ],
         "description": "Read public GitHub issues as focused articles; publishing requires repository-owner access.",
         "firstCommitAt": "2026-08-25",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "everythingrated": {
         "makerNote": "I have long wanted a place where people can make lists and rate anything, while recognizing that its social loop needs real care.",
@@ -3319,7 +3319,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "research-papers": {
         "makerNote": "I wanted one large, searchable research library where retrieval could help me understand what already exists in a market.",
@@ -3391,7 +3391,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "significanthobbies": {
         "makerNote": "I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.",
@@ -3416,7 +3416,7 @@
           "Swift"
         ],
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "india-standards": {
         "makerNote": "I wanted official data to provide a more grounded answer to how a person is doing in the Indian context.",
@@ -3440,7 +3440,7 @@
           "Cloudflare Workers"
         ],
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "anime-list": {
         "makerNote": "I wanted better anime filtering and discovery than the standard catalog experience, with a watchlist that works for me.",
@@ -3464,7 +3464,7 @@
           "Cloudflare"
         ],
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "chess": {
         "makerNote": "I built Chess to explore whether a local AI agent could become a practical, patient partner for improving my game.",
@@ -3536,7 +3536,7 @@
           "D1"
         ],
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "swe-interview-prep": {
         "makerNote": "I built this as a learning-by-doing system that combines Pomodoro, Feynman, retrieval practice, and practical roadmaps.",
@@ -3689,7 +3689,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-23",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "karte": {
         "makerNote": "I wanted a link-in-bio surface that could grow into something more personal: a greeting card, profile, and small agent.",
@@ -3713,7 +3713,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "starboard": {
         "makerNote": "GitHub Stars stopped working for me at scale, so I built a better personal interface for exploring what I had saved.",
@@ -3737,7 +3737,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-09-06",
+        "latestCommitAt": "2026-09-07",
         "description": "Explore public GitHub repositories and related projects through a searchable discovery experiment."
       },
       "ai-game": {
@@ -3761,7 +3761,7 @@
           "Cloudflare"
         ],
         "firstCommitAt": "2026-05-03",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "protein-index": {
         "makerNote": "I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.",
@@ -3785,7 +3785,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-07-15",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "veg-protein-food": {
         "makerNote": "I wanted a practical collection of higher-protein recipes that works with ingredients people actually use in Indian kitchens.",
@@ -3831,7 +3831,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "mashup": {
         "makerNote": "I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.",
@@ -3857,7 +3857,7 @@
         ],
         "description": "A local-first tool that turns owned media archives into inspectable multi-clip edits.",
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "motion": {
         "makerNote": "I wanted body movement captured by a phone to become playful games on a television—and a workout without feeling like one.",
@@ -3882,7 +3882,7 @@
           "TypeScript"
         ],
         "firstCommitAt": "2026-07-18",
-        "latestCommitAt": "2026-08-23"
+        "latestCommitAt": "2026-09-07"
       },
       "truehire": {
         "makerNote": "I explored whether candidates could be ranked more transparently using verified evidence from their public GitHub work.",
@@ -3928,7 +3928,7 @@
           "Cloudflare Workers"
         ],
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "companion-robot": {
         "makerNote": "I am keeping this as a future exploration of what a genuinely useful embodied AI companion could become.",
@@ -3977,7 +3977,7 @@
           "Vite"
         ],
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "web-playables": {
         "makerNote": "I built this laboratory to understand how idle and HTML-based games are designed, shipped, and distributed.",
@@ -4000,7 +4000,7 @@
           "Cloudflare Pages"
         ],
         "firstCommitAt": "2026-07-10",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "what-it-takes-to-win": {
         "makerNote": "I wanted to study the real advantages behind success and replace unhelpful comparison with evidence-based understanding.",
@@ -4046,7 +4046,7 @@
           "IssuePages"
         ],
         "firstCommitAt": "2026-05-22",
-        "latestCommitAt": "2026-09-06",
+        "latestCommitAt": "2026-09-07",
         "description": "Selected engineering case studies, technical writing and working project demonstrations."
       },
       "agent-office": {
@@ -4070,7 +4070,7 @@
           "Codex CLI"
         ],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-09-01"
+        "latestCommitAt": "2026-09-07"
       },
       "local-ai-video-studio": {
         "makerNote": "I wanted editing intent to choose efficient local video tools before defaulting to expensive generative video.",
@@ -4094,7 +4094,7 @@
           "VideoToolbox"
         ],
         "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-09-01"
+        "latestCommitAt": "2026-09-07"
       },
       "field-track": {
         "makerNote": "I started Field Track for my father: a lower-cost way for managers to locate employees carrying administrator-enrolled Android devices and review retained routes.",
@@ -4119,7 +4119,7 @@
           "D1"
         ],
         "firstCommitAt": "2026-08-12",
-        "latestCommitAt": "2026-09-06",
+        "latestCommitAt": "2026-09-07",
         "description": "A labelled synthetic field-team demo for exploring routes, visits and agent summaries; Android tracking is not qualified."
       },
       "reddit-insights": {
@@ -4144,7 +4144,7 @@
         ],
         "description": "A bounded research collector for subreddit evidence and recurring insight snapshots.",
         "firstCommitAt": "2026-08-07",
-        "latestCommitAt": "2026-09-01"
+        "latestCommitAt": "2026-09-07"
       },
       "verified-bases": {
         "makerNote": "I explored whether the native codebases I already build could become inexpensive, verified templates for other makers.",
@@ -4166,7 +4166,7 @@
         ],
         "description": "A retained research-data identity with no retained local Git history or standalone public destination.",
         "firstCommitAt": "2026-06-16",
-        "latestCommitAt": "2026-09-01"
+        "latestCommitAt": "2026-09-07"
       },
       "anchor": {
         "makerNote": "I wanted a realistic daily planner that could help me follow the day and explain why the lived plan diverged from the intended one.",

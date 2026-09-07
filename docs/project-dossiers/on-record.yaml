@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,28 +34,28 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: on-record
-      revision: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+      revision: 825dd42a0484e7e23bde360aebe86cc819e0a43f
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: on-record
-      revision: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+      revision: 825dd42a0484e7e23bde360aebe86cc819e0a43f
       githubRepository: Significant-Hobbies/on-record
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-24
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 2
       cancelled: 1
@@ -108,13 +108,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-24
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 66
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 69
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+  observedRevision: 825dd42a0484e7e23bde360aebe86cc819e0a43f
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -180,7 +180,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -189,7 +189,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
+    defaultBranchSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
@@ -215,15 +215,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34029803522
+          id: 34113186595
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
-          createdAt: 2026-09-06T11:17:17Z
-          updatedAt: 2026-09-06T11:18:22Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029803522
+          headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+          createdAt: 2026-09-07T10:46:25Z
+          updatedAt: 2026-09-07T10:47:18Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
         ageDays: 0
       schedule:
         health: not-applicable
@@ -233,15 +233,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34029803522
+          id: 34113186595
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
-          createdAt: 2026-09-06T11:17:17Z
-          updatedAt: 2026-09-06T11:18:22Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029803522
+          headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+          createdAt: 2026-09-07T10:46:25Z
+          updatedAt: 2026-09-07T10:47:18Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
         ageDays: 0
       attention: ignored
     - name: cron-ingest
@@ -273,7 +273,7 @@ githubActions:
           createdAt: 2026-09-06T11:28:19Z
           updatedAt: 2026-09-06T14:15:32Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34030342849
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: healthy
         reason: latest scheduled run concluded cancelled
@@ -287,7 +287,7 @@ githubActions:
           createdAt: 2026-09-06T11:28:19Z
           updatedAt: 2026-09-06T14:15:32Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34030342849
-        ageDays: 0
+        ageDays: 1
         freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
@@ -320,7 +320,7 @@ githubActions:
           createdAt: 2026-09-06T11:17:20Z
           updatedAt: 2026-09-06T11:17:53Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029806639
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

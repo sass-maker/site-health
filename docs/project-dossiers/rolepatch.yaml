@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: b0280989a2a322ec14677f70d8d73c944fd08e42
+      revision: a2e4a336fe53e82785f39aa49a53339fc5080935
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: rolepatch
-      revision: b0280989a2a322ec14677f70d8d73c944fd08e42
+      revision: a2e4a336fe53e82785f39aa49a53339fc5080935
       githubRepository: Significant-Hobbies/rolepatch
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-23
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -107,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-23
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 425
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 426
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: b0280989a2a322ec14677f70d8d73c944fd08e42
+  observedRevision: a2e4a336fe53e82785f39aa49a53339fc5080935
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -181,7 +181,7 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -189,7 +189,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: b0280989a2a322ec14677f70d8d73c944fd08e42
+    defaultBranchSha: a2e4a336fe53e82785f39aa49a53339fc5080935
     homepage: https://rolepatch.com
     query: verified
     disposition:
@@ -214,16 +214,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002805653
+          id: 34103708907
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
-          createdAt: 2026-09-06T01:01:25Z
-          updatedAt: 2026-09-06T01:04:52Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805653
-        ageDays: 1
+          headSha: a2e4a336fe53e82785f39aa49a53339fc5080935
+          createdAt: 2026-09-07T09:01:31Z
+          updatedAt: 2026-09-07T09:04:57Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -232,16 +232,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002805653
+          id: 34103708907
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
-          createdAt: 2026-09-06T01:01:25Z
-          updatedAt: 2026-09-06T01:04:52Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805653
-        ageDays: 1
+          headSha: a2e4a336fe53e82785f39aa49a53339fc5080935
+          createdAt: 2026-09-07T09:01:31Z
+          updatedAt: 2026-09-07T09:04:57Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708907
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -298,16 +298,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002805626
+          id: 34103708926
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
-          createdAt: 2026-09-06T01:01:25Z
-          updatedAt: 2026-09-06T01:01:33Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805626
-        ageDays: 1
+          headSha: a2e4a336fe53e82785f39aa49a53339fc5080935
+          createdAt: 2026-09-07T09:01:31Z
+          updatedAt: 2026-09-07T09:01:40Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -316,16 +316,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002805626
+          id: 34103708926
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b0280989a2a322ec14677f70d8d73c944fd08e42
-          createdAt: 2026-09-06T01:01:25Z
-          updatedAt: 2026-09-06T01:01:33Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34002805626
-        ageDays: 1
+          headSha: a2e4a336fe53e82785f39aa49a53339fc5080935
+          createdAt: 2026-09-07T09:01:31Z
+          updatedAt: 2026-09-07T09:01:40Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34103708926
+        ageDays: 0
       attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates

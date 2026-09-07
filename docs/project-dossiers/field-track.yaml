@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,28 +34,28 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: field-track
-      revision: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
+      revision: 3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4
       githubRepository: sass-maker/field-track
       expectedHomepage: https://field-track.sassmaker.com
       observedHomepage: https://field-track.sassmaker.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: field-track
-      revision: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
+      revision: 3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4
       githubRepository: sass-maker/field-track
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-12
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -108,13 +108,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-12
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 13
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 14
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: field-track
-  observedRevision: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
+  observedRevision: 3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4
   githubRepository: sass-maker/field-track
   githubHomepageUrl: https://field-track.sassmaker.com
   worktree: *a1
@@ -146,7 +146,7 @@ repository:
       - quality
       - test
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -154,7 +154,7 @@ githubActions:
   remote:
     repository: sass-maker/field-track
     defaultBranch: main
-    defaultBranchSha: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
+    defaultBranchSha: 3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4
     homepage: https://field-track.sassmaker.com
     query: verified
     disposition:
@@ -179,16 +179,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002942687
+          id: 34098821024
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
-          createdAt: 2026-09-06T01:04:33Z
-          updatedAt: 2026-09-06T01:09:31Z
-          url: https://github.com/sass-maker/field-track/actions/runs/34002942687
-        ageDays: 1
+          headSha: 3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4
+          createdAt: 2026-09-07T08:06:24Z
+          updatedAt: 2026-09-07T08:10:49Z
+          url: https://github.com/sass-maker/field-track/actions/runs/34098821024
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -197,16 +197,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002942687
+          id: 34098821024
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d13b2bb6953614e419a3de4ec2ce4b5b1a71eba8
-          createdAt: 2026-09-06T01:04:33Z
-          updatedAt: 2026-09-06T01:09:31Z
-          url: https://github.com/sass-maker/field-track/actions/runs/34002942687
-        ageDays: 1
+          headSha: 3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4
+          createdAt: 2026-09-07T08:06:24Z
+          updatedAt: 2026-09-07T08:10:49Z
+          url: https://github.com/sass-maker/field-track/actions/runs/34098821024
+        ageDays: 0
       attention: ignored
 deployment:
   kind: worker

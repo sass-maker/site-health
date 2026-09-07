@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,33 +34,32 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: knowledge-base
-      revision: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
+      revision: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 10
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-07
       state: available
       checkout: knowledge-base
-      revision: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
+      revision: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-27
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
-        clear: 2
-        missing-data: 1
+        clear: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
@@ -108,13 +107,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-05-27
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 215
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 219
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
+  observedRevision: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -167,7 +166,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -175,7 +174,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
+    defaultBranchSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -200,15 +199,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34021588151
+          id: 34115852563
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
-          createdAt: 2026-09-06T08:20:44Z
-          updatedAt: 2026-09-06T08:21:53Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34021588151
+          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+          createdAt: 2026-09-07T11:17:20Z
+          updatedAt: 2026-09-07T11:18:30Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852563
         ageDays: 0
       schedule:
         health: not-applicable
@@ -218,15 +217,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34021588151
+          id: 34115852563
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0f10c50e0dd7fce85ba16e01da82bc54d1da5893
-          createdAt: 2026-09-06T08:20:44Z
-          updatedAt: 2026-09-06T08:21:53Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34021588151
+          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+          createdAt: 2026-09-07T11:17:20Z
+          updatedAt: 2026-09-07T11:18:30Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852563
         ageDays: 0
       attention: clear
     - name: docs
@@ -247,34 +246,35 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 32898703380
+          id: 34115852471
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
-          createdAt: 2026-08-25T21:01:29Z
-          updatedAt: 2026-08-25T21:01:42Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703380
-        ageDays: 12
+          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+          createdAt: 2026-09-07T11:17:20Z
+          updatedAt: 2026-09-07T11:17:29Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852471
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 0f10c50
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 32898703380
+          id: 34115852471
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: dc51e6647b5bdeba879b48ab0368b0bf915dc79b
-          createdAt: 2026-08-25T21:01:29Z
-          updatedAt: 2026-08-25T21:01:42Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/32898703380
-      attention: missing-data
+          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+          createdAt: 2026-09-07T11:17:20Z
+          updatedAt: 2026-09-07T11:17:29Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852471
+        ageDays: 0
+      attention: clear
     - name: worker-eval-on-pr
       file: .github/workflows/eval.yml
       triggers:

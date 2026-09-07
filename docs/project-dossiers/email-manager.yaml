@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7b48b330ba2aaade1ea3d5a49e52fa09c6258b53d0b9f6ca0ee03f6220d79224
+      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: email-manager
-      revision: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
+      revision: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
       githubRepository: Significant-Hobbies/email-manager
       expectedHomepage: https://mail.significanthobbies.com
       observedHomepage: https://mail.significanthobbies.com
@@ -46,16 +46,16 @@ verification:
       observedAt: 2026-09-07
       state: available
       checkout: email-manager
-      revision: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
+      revision: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
       githubRepository: Significant-Hobbies/email-manager
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-24
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T07:49:31.533Z
+      observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -108,13 +108,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-24
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 260
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 261
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: email-manager
-  observedRevision: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
+  observedRevision: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
   githubRepository: Significant-Hobbies/email-manager
   githubHomepageUrl: https://mail.significanthobbies.com
   worktree: *a1
@@ -180,8 +180,9 @@ repository:
       - test:unit
       - typecheck
       - verify:indexing
+      - verify:local-mailbox
 githubActions:
-  observedAt: 2026-09-07T07:49:31.533Z
+  observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -189,7 +190,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/email-manager
     defaultBranch: main
-    defaultBranchSha: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
+    defaultBranchSha: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
     homepage: https://mail.significanthobbies.com
     query: verified
     disposition:
@@ -214,15 +215,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34023101585
+          id: 34108712914
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
-          createdAt: 2026-09-06T08:53:14Z
-          updatedAt: 2026-09-06T08:54:14Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34023101585
+          headSha: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
+          createdAt: 2026-09-07T09:55:38Z
+          updatedAt: 2026-09-07T09:56:29Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34108712914
         ageDays: 0
       schedule:
         health: not-applicable
@@ -232,15 +233,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34023101585
+          id: 34108712914
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
-          createdAt: 2026-09-06T08:53:14Z
-          updatedAt: 2026-09-06T08:54:14Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34023101585
+          headSha: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
+          createdAt: 2026-09-07T09:55:38Z
+          updatedAt: 2026-09-07T09:56:29Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34108712914
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -269,7 +270,7 @@ githubActions:
           createdAt: 2026-09-05T11:04:48Z
           updatedAt: 2026-09-05T11:05:19Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33962356232
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
