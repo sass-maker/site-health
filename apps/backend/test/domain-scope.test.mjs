@@ -58,6 +58,10 @@ test('the other portfolio scope clauses read fields the catalog actually stores'
       'boolean',
       `${project.id}: lifecycle.shareable must be a boolean`,
     );
+    assert.deepEqual(Object.keys(project.lifecycle).sort(), ['resumeCondition', 'shareable', 'status']);
+    const condition = project.lifecycle.resumeCondition;
+    assert.ok(condition === null || (typeof condition === 'string' && condition.trim() === condition && condition.length > 0));
+    if (project.lifecycle.status !== 'inactive') assert.equal(condition, null);
   }
 });
 
@@ -84,4 +88,18 @@ test('inactive projects never reach portfolio scope', () => {
 
   assert.ok(inactive.length === 36);
   assert.deepEqual(inactive.filter(isCurrentPortfolioProject), []);
+});
+
+test('sharing and restart conditions never reactivate inactive projects or exclude active internal tools', () => {
+  for (const shareable of [false, true]) {
+    for (const resumeCondition of [null, 'Three named pilot users request a supported release.']) {
+      const project = { lifecycle: { status: 'inactive', shareable, resumeCondition } };
+      const before = structuredClone(project);
+      assert.equal(isCurrentPortfolioProject(project), false);
+      assert.deepEqual(project, before);
+    }
+  }
+  assert.equal(isCurrentPortfolioProject({
+    lifecycle: { status: 'active', shareable: false, resumeCondition: null },
+  }), true);
 });

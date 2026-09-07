@@ -91,7 +91,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Guest PDF rendering and page-note persistence now pass locally. Hosted import/read/annotate/reopen and account PDF controls remain under #55.",
       "shareable": false,
-      "repairProgress": "bbc52d9 pushed clean; Docs34112909140 and CI34112909168 passed. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim."
+      "repairProgress": "bbc52d9 pushed clean; Docs34112909140 and CI34112909168 passed. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim. Account-PDF affordance/mobile repair1b3456d2 is now pushed with CI34113990220 and Docs34113990544 green. Inert font/Notes controls removed; actual page/zoom/background behavior and mobile PDF reachability proved with synthetic built UI; spoken text checked through a stubbed sink, not listening quality. Full account PDF note persistence remains active work under #55."
     },
     {
       "id": "live",
@@ -127,9 +127,9 @@
       "id": "knowledge-base",
       "name": "Knowledge Base",
       "classification": "Qualification gap",
-      "biggestBlocker": "No public core document workflow.",
+      "biggestBlocker": "Shared raw/parse artifacts cross tenant boundaries. The immediate shared-delete guard passes locally, but atomic concurrency protection and full tenant/file-owned artifacts remain incomplete under #48; live consumer/dashboard qualification is also outstanding.",
       "shareable": false,
-      "repairProgress": "9e023f9 README qualification receipt pushed with green CI.93 local API tests pass including ingestion/cited answers/traces/tenant isolation with simulated bindings. Zero open issues/PRs,zero closures. Authenticated deployed consumer and operator review remain explicitly unfinished."
+      "repairProgress": "Guard8d157697 pushed with exact runs34114322809/34114322752 green.364Worker tests and full root quality pass. Synthetic authenticated multipart upload, inline ingest, cited extractive query, raw/file reopen and sole-owner deletion pass; missing/foreign access rejected. Shared two-tenant deletion previously removed another tenant raw data; it now returns409 before changes for observed sharing. The preflight is not atomic and does not complete shared deletion. Direct tenant/hash SQL lookup follow-up b2ae1c99 is pushed clean with exact CI34114687748 passed. Actual SQL tests cover tenant-positive/negative ownership. #48 remains open for complete isolation."
     },
     {
       "id": "india-standards",
