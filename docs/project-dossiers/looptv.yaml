@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
+      sha256: cf05c1669bc35f21954f7f8ea5b12a501f400556205f5234f07f0d8af3ee6beb
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -430,7 +430,7 @@ sharing:
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
-  reason: "Science channel lists 1007 videos; Play starts video and sequential playback reaches Inside a Kangaroo Pouch with matching imagery/title. Limit: Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked."
+  reason: "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass. Limit: Fixes are not deployed; hosted desktop/mobile station verification remains #51."
   changelogUrl: https://tv.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/looptv/issues
   geoIdentity:

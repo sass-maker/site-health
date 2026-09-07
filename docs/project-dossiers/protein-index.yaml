@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
+      sha256: cf05c1669bc35f21954f7f8ea5b12a501f400556205f5234f07f0d8af3ee6beb
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -284,10 +284,10 @@ sharing:
   maturity: null
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Amul search narrowed 1732 records to 17; Protein Water detail showed 4g protein,16kcal,25g/100kcal with clear layout. Limit: Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met."
+  reason: "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role. Limit: Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate."
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/protein-index-resilience/issues
   geoIdentity: null
 notes:
-  catalog: Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development. The sourcePath checkout tracks the superseded Significant-Hobbies/protein-index repository; Significant-Hobbies/protein-index-resilience is the canonical public source.
+  catalog: Inactive reference; no reactivation or deployment performed. The sourcePath checkout tracks historical alias Significant-Hobbies/protein-index. Canonical public source Significant-Hobbies/protein-index-resilience now contains the nutrition evidence repairs at 51c0583 with green CI; its existing automation differs from the retired alias. Production source revision remains unverified.
   infrastructure: null

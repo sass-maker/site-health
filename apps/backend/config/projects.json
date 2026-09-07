@@ -698,7 +698,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public landing and access documentation inspected; real provider availability varies and keys require operator provisioning. Corrected quickstart/access source a70262f5 has green CI and synthetic SDK/gateway proof, but deployment and an authorized real inference remain unverified."
+          "reason": "Source 555915b9238e3dc1a2830ba47bb0169a9e841f66 repairs Gemini catalog pagination with bounded fixed-origin requests and fail-closed incomplete results. 252 tests/full quality, docs/playground build and exact CI 34120940384/Docs 34120940338 pass. Limit: Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery."
         }
       },
       "authModel": "required-service",
@@ -1385,7 +1385,7 @@
         "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Science channel lists 1007 videos; Play starts video and sequential playback reaches Inside a Kangaroo Pouch with matching imagery/title. Limit: Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked."
+          "reason": "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass. Limit: Fixes are not deployed; hosted desktop/mobile station verification remains #51."
         }
       },
       "authModel": "public-persistent",
@@ -2005,7 +2005,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Amul search narrowed 1732 records to 17; Protein Water detail showed 4g protein,16kcal,25g/100kcal with clear layout. Limit: Table marks values unverified but detail drawer drops that evidence label and exposes no original source; provenance requirement not yet met."
+          "reason": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role. Limit: Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate."
         }
       },
       "authModel": "public-persistent",
@@ -2020,7 +2020,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Retired on 2026-07-24; GitHub Actions removed and explicit reactivation is required. Existing live surface is retained without active development. The sourcePath checkout tracks the superseded Significant-Hobbies/protein-index repository; Significant-Hobbies/protein-index-resilience is the canonical public source.",
+      "notes": "Inactive reference; no reactivation or deployment performed. The sourcePath checkout tracks historical alias Significant-Hobbies/protein-index. Canonical public source Significant-Hobbies/protein-index-resilience now contains the nutrition evidence repairs at 51c0583 with green CI; its existing automation differs from the retired alias. Production source revision remains unverified.",
       "name": "Protein Index",
       "attention": "ignored",
       "lifecycle": {

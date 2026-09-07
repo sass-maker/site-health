@@ -8,7 +8,7 @@
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Public discovery remains scoped-shareable; saved/private workflows remain untested. Scheduled embedding failed401; source auth contract is fixed, but matching operator token provisioning and verified scheduled recovery remain under #107.",
       "shareable": true,
-      "repairProgress": "b702a567 pushed clean; exact CI34113562625 and Docs34113562425 passed. All three operator workflows now use STARBOARD_OPERATOR_TOKEN and preflight its presence before remote work.310tests pass, including actual route rejection of gateway credentials and workflow ordering. Secret-name metadata shows the operator token absent; no credential values, provisioning, production calls or reruns performed."
+      "repairProgress": "b702a567 pushed clean; exact CI 34113562625 and Docs 34113562425 passed. All three operator workflows now use STARBOARD_OPERATOR_TOKEN and preflight its presence before remote work.310tests pass, including actual route rejection of gateway credentials and workflow ordering. Secret-name metadata shows the operator token absent; no credential values, provisioning, production calls or reruns performed."
     },
     {
       "id": "on-record",
@@ -16,7 +16,7 @@
       "classification": "No blocker to scoped sharing",
       "biggestBlocker": "Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed.",
       "shareable": true,
-      "repairProgress": "825dd42a pushed clean; exact CI34113186595 passed. Narrow stats projection preserves six joins, trusted shows, quote/speaker validation, deduplication, ordering and 20,000-row cap. Synthetic fixture yields identical 5,001 references; seven-sample median179.09ms to124.88ms and payload84.7% smaller. Local D1 EXPLAIN verifies covering-index use;122 TypeScript and228 Python tests pass. #24 retains approved deployment and live cache-miss/rows-read evidence. No production change."
+      "repairProgress": "825dd42a pushed clean; exact CI 34113186595 passed. Narrow stats projection preserves six joins, trusted shows, quote/speaker validation, deduplication, ordering and 20,000-row cap. Synthetic fixture yields identical 5,001 references; seven-sample median179.09ms to124.88ms and payload84.7% smaller. Local D1 EXPLAIN verifies covering-index use;122 TypeScript and228 Python tests pass. #24 retains approved deployment and live cache-miss/rows-read evidence. No production change."
     },
     {
       "id": "high-signal",
@@ -65,9 +65,9 @@
       "id": "free-ai",
       "name": "Free AI",
       "classification": "Qualification gap",
-      "biggestBlocker": "Actual live inference, operator-provisioned access and consumer qualification remain unverified; current source CI is green. Provider-registry drift remains tracked in #62.",
+      "biggestBlocker": "Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery.",
       "shareable": false,
-      "repairProgress": "a70262f5 pushed clean; exact CI34110597834 and Docs34110597738 green.245tests plus built guest/authentication navigation. Copied curl/fetch/JavaScript SDK examples now provide required project_id; actual SDK/gateway/adapter synthetic contract passes. Recent public aggregate telemetry confirms AliveVille and High Signal callers; keep active. #62 and #65 retain registry and authorized live inference/consumer/deploy qualification."
+      "repairProgress": "Source 555915b9238e3dc1a2830ba47bb0169a9e841f66 repairs Gemini catalog pagination with bounded fixed-origin requests and fail-closed incomplete results. 252 tests/full quality, docs/playground build and exact CI 34120940384/Docs 34120940338 pass."
     },
     {
       "id": "agent-office",
@@ -151,9 +151,9 @@
       "id": "protein-index",
       "name": "Protein Index",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Provenance disclosure is fixed in source. Divergent owning repository histories must be reconciled before deployment and fresh browser qualification.",
+      "biggestBlocker": "Production revision remains unverified; canonical and historical repositories retain divergent history. Authorized release and real desktop/mobile provenance qualification remain required; reliable affordable market data is still a reactivation gate.",
       "shareable": false,
-      "repairProgress": "2026-09-07: Pushed 76e54ae; exact CI green. Detail shows evidence status, authority, original records and dates; 16 detail tests pass. Full suite fixed in 4a306f2 (332 unit and 61 Worker tests). Live source points to protein-index; catalog points to divergent resilience repo with unique discovery routes. Deployment, repository reconciliation and browser qualification remain."
+      "repairProgress": "Canonical public source 51c0583792f2c7d3aac70efa5e3d8b1f314ec77e now contains nutrition authority, original source, observation date and density qualification repairs, preserving its discovery routes/data notices. 343 unit+62 Worker tests, docs and exact CI 34121530575/Docs 34121530565 pass. Older checkout 25b503d documents its historical alias role."
     },
     {
       "id": "everythingrated",
@@ -228,7 +228,7 @@
       "classification": "Product/evidence gap",
       "biggestBlocker": "Hosted Worker restore parity, actual AI conversation and playability remain unqualified; local scripted talk/memory/save/reload now passes.",
       "shareable": false,
-      "repairProgress": "dd3bdd9c pushed clean; CI34111889148 and Docs34111889253 passed. 477 tests plus built-browser evidence: blocked external fonts preserve the town and movement; duplicate notices collapse and a bounded scrollable log preserves distinct events without covering the objective. Earlier d0e57c1b proves local scripted memory and explicit OPFS save/reload, and holds the world clock during setup. #30 retains live, model and human qualification gates."
+      "repairProgress": "dd3bdd9c pushed clean; CI 34111889148 and Docs 34111889253 passed. 477 tests plus built-browser evidence: blocked external fonts preserve the town and movement; duplicate notices collapse and a bounded scrollable log preserves distinct events without covering the objective. Earlier d0e57c1b proves local scripted memory and explicit OPFS save/reload, and holds the world clock during setup. #30 retains live, model and human qualification gates."
     },
     {
       "id": "web-playables",
@@ -243,7 +243,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "The local session/return-path defect is repaired. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unqualified.",
       "shareable": false,
-      "repairProgress": "Hub 3cd97827 and Live b7a47863 pushed; Hub CI34112613899 and Live CI34112604750 passed. Actual local better-auth sessions with host-only cookies prove two-account Setline summary isolation, expiry/revocation and unavailable-auth behavior. Login screenshots independently reviewed. #154 retains hosted qualification and #147 shared design work. No production changes."
+      "repairProgress": "Hub 3cd97827 and Live b7a47863 pushed; Hub CI 34112613899 and Live CI 34112604750 passed. Actual local better-auth sessions with host-only cookies prove two-account Setline summary isolation, expiry/revocation and unavailable-auth behavior. Login screenshots independently reviewed. #154 retains hosted qualification and #147 shared design work. No production changes."
     },
     {
       "id": "chatgpt-connections",
@@ -296,7 +296,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Native installed workflow remains unqualified. The visible-process false positive is repaired in merged PR #271; release qualification still requires actual window and upgrade evidence.",
       "shareable": false,
-      "repairProgress": "PR #271 merged as f051219b; post-merge CI34111555307, CodeQL34111554221, Docs and Repo Security passed. Independently reproduced false passing proof: system_events_window is now required for every launch and process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Superseded PR #263 closed. Temporary worktree and owned local branch removed; unrelated native edits and existing histories preserved."
+      "repairProgress": "PR #271 merged as f051219b; post-merge CI 34111555307, CodeQL34111554221, Docs and Repo Security passed. Independently reproduced false passing proof: system_events_window is now required for every launch and process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Superseded PR #263 closed. Temporary worktree and owned local branch removed; unrelated native edits and existing histories preserved."
     },
     {
       "id": "pace",
@@ -351,7 +351,7 @@
       "classification": "Product/evidence gap",
       "biggestBlocker": "Brand fixture source capture is a mostly blank application shell, so the rendered claim lacks useful visual evidence. Phone hardware, human listening, other variants, full creator workflow and policy-approved publication remain unqualified. Optional command smoke still misclassifies all nonzero exits as skipped.",
       "shareable": false,
-      "repairProgress": "137c2dcff65bdb4bd4ad06cf9e4d21fc3a30de1f pushed;545 Node and68 Rust tests and docs validation pass. Docs34117404957 and CI34117405016 success. Real media evidence retained in fixtures/brand-shareability. README holds visual evidence, command-smoke classification, listening/device/other variants and publication gates. Zero issues/PRs at fresh scan; no closures."
+      "repairProgress": "137c2dcff65bdb4bd4ad06cf9e4d21fc3a30de1f pushed;545 Node and68 Rust tests and docs validation pass. Docs 34117404957 and CI 34117405016 success. Real media evidence retained in fixtures/brand-shareability. README holds visual evidence, command-smoke classification, listening/device/other variants and publication gates. Zero issues/PRs at fresh scan; no closures."
     },
     {
       "id": "materia",
@@ -364,8 +364,9 @@
       "id": "looptv",
       "name": "LoopTV",
       "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Studio promotion strip overlaps upper video area; queue breadth and all upstream videos not checked.",
-      "shareable": true
+      "biggestBlocker": "Fixes are not deployed; hosted desktop/mobile station verification remains #51.",
+      "shareable": true,
+      "repairProgress": "Source 9325870796b41d777be63ad73ece4c6279572398 removes station promotion overlap and honors Next selected before YouTube readiness. 233 tests, delayed-iframe regression and three built viewports pass. Actual YouTube title matched selected rail and playback advanced 3 seconds. Exact CI 34121414543 and Docs 34121414743 pass."
     },
     {
       "id": "swe-interview-prep",
@@ -373,7 +374,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified.",
       "shareable": false,
-      "repairProgress": "f7727fc5 pushed clean; exact CI34111029957 and Docs34111030049 green,608tests/95files. Account-scoped durable outboxes prevent stale GET overwriting unsent edits; atomic operation receipts prevent duplicated attempts/activity after lost acknowledgements. Root reviewed store and receipt source. #98 closed; #97 retains hosted qualification. One active tab contract; notes/mastery/ELO outside this repair. No production migration/deploy."
+      "repairProgress": "f7727fc5 pushed clean; exact CI 34111029957 and Docs 34111030049 green,608tests/95files. Account-scoped durable outboxes prevent stale GET overwriting unsent edits; atomic operation receipts prevent duplicated attempts/activity after lost acknowledgements. Root reviewed store and receipt source. #98 closed; #97 retains hosted qualification. One active tab contract; notes/mastery/ELO outside this repair. No production migration/deploy."
     },
     {
       "id": "rolepatch",
