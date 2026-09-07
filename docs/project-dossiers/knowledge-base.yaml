@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
+      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -108,7 +108,7 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-27
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 219
+    retainedCommitCount: 220
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
@@ -174,7 +174,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
+    defaultBranchSha: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -199,15 +199,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34115852563
+          id: 34120165885
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
-          createdAt: 2026-09-07T11:17:20Z
-          updatedAt: 2026-09-07T11:18:30Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852563
+          headSha: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
+          createdAt: 2026-09-07T12:07:35Z
+          updatedAt: 2026-09-07T12:08:48Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34120165885
         ageDays: 0
       schedule:
         health: not-applicable
@@ -217,15 +217,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34115852563
+          id: 34120165885
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
-          createdAt: 2026-09-07T11:17:20Z
-          updatedAt: 2026-09-07T11:18:30Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852563
+          headSha: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
+          createdAt: 2026-09-07T12:07:35Z
+          updatedAt: 2026-09-07T12:08:48Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34120165885
         ageDays: 0
       attention: clear
     - name: docs
@@ -246,15 +246,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34115852471
+          id: 34120165947
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
-          createdAt: 2026-09-07T11:17:20Z
-          updatedAt: 2026-09-07T11:17:29Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852471
+          headSha: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
+          createdAt: 2026-09-07T12:07:35Z
+          updatedAt: 2026-09-07T12:07:46Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34120165947
         ageDays: 0
       schedule:
         health: not-applicable
@@ -264,15 +264,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34115852471
+          id: 34120165947
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0c444d1cc630598003e2f4ec9666fb42fe4ebf72
-          createdAt: 2026-09-07T11:17:20Z
-          updatedAt: 2026-09-07T11:17:29Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34115852471
+          headSha: 98181c0e0dcc09f67c1a33a7a500fa11598e1f05
+          createdAt: 2026-09-07T12:07:35Z
+          updatedAt: 2026-09-07T12:07:46Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34120165947
         ageDays: 0
       attention: clear
     - name: worker-eval-on-pr
@@ -466,7 +466,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Public page explicitly describes internal infrastructure; operator console protected by Fleet Access. Limit: No public core document workflow."
+  reason: "Gated source protocol 98181c0e0dcc09f67c1a33a7a500fa11598e1f05 passes full quality: 387 Worker tests including 23 actual SQLite/Hono ownership scenarios and 6 dashboard tests; exact CI 34120165885/docs 34120165947 success. New-generation raw/parse/vector ownership supports independent A/B deletion, delayed writers and source visibility. Protocol remains default false; production legacy path unchanged. Limit: Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
   changelogUrl: https://knowledgebase.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/knowledge-base/issues
   geoIdentity:

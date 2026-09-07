@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
+      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -57,9 +57,9 @@ verification:
     githubActions:
       observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        review-history: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
@@ -122,7 +122,7 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 90
+    retainedCommitCount: 91
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
@@ -146,12 +146,12 @@ githubActions:
   observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
+    defaultBranchSha: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -171,19 +171,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34116034709
+          id: 34118659206
           status: completed
-          conclusion: failure
+          conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: fb2e9f4d69002c7c0d40c2c46951b894a9cbff87
-          createdAt: 2026-09-07T11:19:31Z
-          updatedAt: 2026-09-07T11:41:24Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34116034709
+          headSha: 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b
+          createdAt: 2026-09-07T11:50:11Z
+          updatedAt: 2026-09-07T12:07:33Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34118659206
         ageDays: 0
       schedule:
         health: not-applicable
@@ -193,7 +193,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -233,7 +233,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Account sync isolation repair fb2e9f4 passes 180 shared Swift tests with exact pinned dependency. Real source/transport and disk fixtures prove separate A/B outboxes, cursor, fingerprints and receipts; delayed A callbacks cannot alter B. Hosted native review 34116034709 failed its final gate: Mac and iPhone UI step outcomes are failure despite continue-on-error step conclusions; watch build passed. Artifact investigation is ongoing. Limit: Signed account, installed planner/focus/review, CloudKit, MCP and Reminders acceptance remain open."
+  reason: "Account isolation repair plus native test/heuristic corrections pushed at 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b. Exact hosted run 34118659206 final gate success: 182 package tests, Mac 14/14, iPhone 7/7 zero failures/skips, watch build success. Actual heuristic diagnostics 8/8 distractions and 4/4 goals; 24 catalog PNGs validated and visually reviewed. Google OAuth start/cancel passed without credentials. Earlier failed run 34116034709 is superseded by this explicit repair and rerun. Limit: Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration."
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:

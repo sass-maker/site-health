@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
+      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -51,7 +51,7 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-13
-      catalogLatestCommitAt: 2026-09-06
+      catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
       reason: null
     githubActions:
@@ -105,8 +105,8 @@ product:
     - TypeScript
   retainedGitHistory:
     firstCommitAt: 2026-07-13
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 34
+    latestCommitAt: 2026-09-07
+    retainedCommitCount: 35
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
@@ -153,7 +153,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/mobile-dev-cockpit
     defaultBranch: main
-    defaultBranchSha: 2c7da0814b6dfc05f36fa960004db95b372a2f01
+    defaultBranchSha: b2c188804af738f4b534c6a3e7909f1a028accde
     homepage: null
     query: verified
     disposition:
@@ -195,7 +195,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 2c7da08
+        reason: no push run at current main revision b2c1888
         lastRun:
           id: 30117645410
           status: completed
@@ -225,7 +225,7 @@ sharing:
   maturity: null
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Read README: paired Expo/private Tailscale environment required; no public install path. Limit: No paired device core loop verified."
+  reason: "Source b2c188804af738f4b534c6a3e7909f1a028accde fixes stale socket callbacks, hung replacement handshakes and delayed same-client credential writes. Real local CockpitClient/BridgeServer pair/discover/approval/test/log/reconnect/Forget passed. 69 tests, quality, bridge build and web/iOS JavaScript exports pass. GitHub Actions is disabled; exact head has no CI run. Limit: Physical private-phone pairing, SecureStore/background/network, full native device workflow and layout/preview/voice acceptance remain in README. Inactive reference lifecycle retained; Actions enablement not performed."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/mobile-dev-cockpit/issues
   geoIdentity: null

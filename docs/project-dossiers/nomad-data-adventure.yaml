@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
+      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
       infrastructureUpdatedAt: 2026-09-07
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -50,7 +50,7 @@ verification:
       catalogFirstCommitAt: null
       catalogLatestCommitAt: null
       catalogDrift: []
-      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data rev-parse --is-shallow-repository"
     githubActions:
       observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30

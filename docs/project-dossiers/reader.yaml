@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
+      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -57,8 +57,7 @@ verification:
     githubActions:
       observedAt: 2026-09-07T11:37:27.407Z
       staleAfterDays: 30
-      running: 1
-      healthy: 3
+      healthy: 4
       failing: 1
       attention: &a2
         ignored: 5
@@ -110,7 +109,7 @@ product:
   retainedGitHistory:
     firstCommitAt: 2025-11-16
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 336
+    retainedCommitCount: 338
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
@@ -199,14 +198,13 @@ githubActions:
   observedAt: 2026-09-07T11:37:27.407Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 3
+    healthy: 4
     failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/reader
     defaultBranch: main
-    defaultBranchSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
+    defaultBranchSha: c9db01b353a9351282e46bc2d30448f590cd50a8
     homepage: https://read.significanthobbies.com
     query: verified
     disposition:
@@ -227,37 +225,37 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34118041225
-          status: in_progress
-          conclusion: null
+          id: 34118340457
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
-          createdAt: 2026-09-07T11:42:57Z
-          updatedAt: 2026-09-07T11:43:01Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041225
+          headSha: c9db01b353a9351282e46bc2d30448f590cd50a8
+          createdAt: 2026-09-07T11:46:25Z
+          updatedAt: 2026-09-07T11:48:47Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118340457
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34118041225
-          status: in_progress
-          conclusion: null
+          id: 34118340457
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: bec336d2b988b13ed85285aefddc4a36cf788bf4
-          createdAt: 2026-09-07T11:42:57Z
-          updatedAt: 2026-09-07T11:43:01Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041225
+          headSha: c9db01b353a9351282e46bc2d30448f590cd50a8
+          createdAt: 2026-09-07T11:46:25Z
+          updatedAt: 2026-09-07T11:48:47Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34118340457
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -330,8 +328,8 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision c9db01b
         lastRun:
           id: 34118041258
           status: completed
@@ -342,7 +340,6 @@ githubActions:
           createdAt: 2026-09-07T11:42:58Z
           updatedAt: 2026-09-07T11:43:10Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/34118041258
-        ageDays: 0
       attention: ignored
     - name: AI Code Review
       file: .github/workflows/review.yaml
@@ -474,7 +471,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Guest PDF and account PDF page notes pass local create/edit/delete/retry/reopen and delayed A/B response checks. Non-PDF cached-note data loss is repaired in pushed bec336d2b988b13ed85285aefddc4a36cf788bf4: clean cache revalidation retains newer notes, pending saves serialize newer edits and marker reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, and account keys isolate A/B. Local quality126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Exact CI34118041225 is pending; mobile viewport evidence is being strengthened. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
+  reason: "Guest/account PDF and article notes pass local create/edit/delete/retry/reopen and delayed A/B checks. Source and strengthened viewport evidence pushed c9db01b353a9351282e46bc2d30448f590cd50a8; exact CI 34118340457 success. Clean cache revalidation retains newer notes; pending saves serialize newer edits/reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, account keys isolate A/B. Full quality: 126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
   changelogUrl: https://read.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/reader/issues
   geoIdentity:

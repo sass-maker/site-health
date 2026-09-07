@@ -149,3 +149,14 @@ but the historical generation outage has not been rerun or declared recovered.
 The inventory keeps the earlier CI observation timestamp and revision separate
 from the refreshed task/local state. In-flight work can change after either
 observation. Shareability remains 16 scoped passes out of 54.
+
+### Latest source and task checkpoint
+
+The subsequent fresh scan still has 43 open issues and zero PRs. All 43 have
+owning README references; unresolved acceptance and editorial drafts remain
+open. Current source receipts are in the blocker record: Reader c9db01b3,
+Anchor 1e62db0d, Knowledge Base 98181c0e, Mobile Dev Cockpit b2c18880 and
+Drank f531e56c. Anchor's repaired native gate is green; Cockpit Actions remains
+disabled. Drank's live personal journey and all 45 proxy lookups pass, while
+scheduled direct collection, distribution terms and deployment remain gates.
+The scoped sharing count remains 16 of 54, with 38 not yet qualified.

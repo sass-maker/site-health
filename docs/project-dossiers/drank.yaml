@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b9bec85627e29c3d561b0f9afd6577b0b87241b07f7a2db5daa1afd9cad7d3aa
+      sha256: 823e90d149bd45b339edac786de3bbb85a4070873f2e9790fcc74371a486b977
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -111,7 +111,7 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-06-10
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 95
+    retainedCommitCount: 96
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
@@ -175,7 +175,7 @@ githubActions:
   remote:
     repository: sass-maker/drank
     defaultBranch: main
-    defaultBranchSha: fe07a1d87da2e7e663e6a599887d747ed29d8ab4
+    defaultBranchSha: f531e56c2f5715d2c73e54404e9ca042f99e7e48
     homepage: https://domains.sassmaker.com
     query: verified
     disposition:
@@ -201,15 +201,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34106354672
+          id: 34120517281
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: fe07a1d87da2e7e663e6a599887d747ed29d8ab4
-          createdAt: 2026-09-07T09:30:02Z
-          updatedAt: 2026-09-07T09:31:00Z
-          url: https://github.com/sass-maker/drank/actions/runs/34106354672
+          headSha: f531e56c2f5715d2c73e54404e9ca042f99e7e48
+          createdAt: 2026-09-07T12:11:26Z
+          updatedAt: 2026-09-07T12:12:26Z
+          url: https://github.com/sass-maker/drank/actions/runs/34120517281
         ageDays: 0
       schedule:
         health: not-applicable
@@ -219,15 +219,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34106354672
+          id: 34120517281
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: fe07a1d87da2e7e663e6a599887d747ed29d8ab4
-          createdAt: 2026-09-07T09:30:02Z
-          updatedAt: 2026-09-07T09:31:00Z
-          url: https://github.com/sass-maker/drank/actions/runs/34106354672
+          headSha: f531e56c2f5715d2c73e54404e9ca042f99e7e48
+          createdAt: 2026-09-07T12:11:26Z
+          updatedAt: 2026-09-07T12:12:26Z
+          url: https://github.com/sass-maker/drank/actions/runs/34120517281
         ageDays: 0
       attention: ignored
     - name: Update Global DR History
@@ -317,7 +317,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Public shared list exposes 45 sites and dated observations; search filters personal sites separately. Limit: Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data."
+  reason: "Live anonymous Chrome: add owned domain, real proxy lookup and refresh, reload, export and fresh-mobile import preserved exact history. All 45 shared-domain public proxy lookups returned fresh valid results. Source f531e56 fixes reactive personal counts and mobile control labels/bounds; built browser checks passed at 390/1440 px, quality: 80 tests and build passed. Limit: Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested."
   changelogUrl: https://domains.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/drank/issues
   geoIdentity:

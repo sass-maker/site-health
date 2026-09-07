@@ -521,7 +521,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Read README: paired Expo/private Tailscale environment required; no public install path. Limit: No paired device core loop verified."
+          "reason": "Source b2c188804af738f4b534c6a3e7909f1a028accde fixes stale socket callbacks, hung replacement handshakes and delayed same-client credential writes. Real local CockpitClient/BridgeServer pair/discover/approval/test/log/reconnect/Forget passed. 69 tests, quality, bridge build and web/iOS JavaScript exports pass. GitHub Actions is disabled; exact head has no CI run. Limit: Physical private-phone pairing, SecureStore/background/network, full native device workflow and layout/preview/voice acceptance remain in README. Inactive reference lifecycle retained; Actions enablement not performed."
         }
       },
       "authModel": "required-service",
@@ -556,7 +556,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public shared list exposes 45 sites and dated observations; search filters personal sites separately. Limit: Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data."
+          "reason": "Live anonymous Chrome: add owned domain, real proxy lookup and refresh, reload, export and fresh-mobile import preserved exact history. All 45 shared-domain public proxy lookups returned fresh valid results. Source f531e56 fixes reactive personal counts and mobile control labels/bounds; built browser checks passed at 390/1440 px, quality: 80 tests and build passed. Limit: Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested."
         }
       },
       "authModel": "public-persistent",
@@ -1094,7 +1094,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Public page explicitly describes internal infrastructure; operator console protected by Fleet Access. Limit: No public core document workflow."
+          "reason": "Gated source protocol 98181c0e0dcc09f67c1a33a7a500fa11598e1f05 passes full quality: 387 Worker tests including 23 actual SQLite/Hono ownership scenarios and 6 dashboard tests; exact CI 34120165885/docs 34120165947 success. New-generation raw/parse/vector ownership supports independent A/B deletion, delayed writers and source visibility. Protocol remains default false; production legacy path unchanged. Limit: Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
         }
       },
       "authModel": "required-service",
@@ -1431,7 +1431,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Guest PDF and account PDF page notes pass local create/edit/delete/retry/reopen and delayed A/B response checks. Non-PDF cached-note data loss is repaired in pushed bec336d2b988b13ed85285aefddc4a36cf788bf4: clean cache revalidation retains newer notes, pending saves serialize newer edits and marker reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, and account keys isolate A/B. Local quality126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Exact CI34118041225 is pending; mobile viewport evidence is being strengthened. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
+          "reason": "Guest/account PDF and article notes pass local create/edit/delete/retry/reopen and delayed A/B checks. Source and strengthened viewport evidence pushed c9db01b353a9351282e46bc2d30448f590cd50a8; exact CI 34118340457 success. Clean cache revalidation retains newer notes; pending saves serialize newer edits/reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, account keys isolate A/B. Full quality: 126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass. Limit: Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
         }
       },
       "authModel": "public-persistent",
@@ -2782,7 +2782,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Account sync isolation repair fb2e9f4 passes 180 shared Swift tests with exact pinned dependency. Real source/transport and disk fixtures prove separate A/B outboxes, cursor, fingerprints and receipts; delayed A callbacks cannot alter B. Hosted native review 34116034709 failed its final gate: Mac and iPhone UI step outcomes are failure despite continue-on-error step conclusions; watch build passed. Artifact investigation is ongoing. Limit: Signed account, installed planner/focus/review, CloudKit, MCP and Reminders acceptance remain open."
+          "reason": "Account isolation repair plus native test/heuristic corrections pushed at 1e62db0d0a99a88d8f76cf89aba8c1dc2bdf720b. Exact hosted run 34118659206 final gate success: 182 package tests, Mac 14/14, iPhone 7/7 zero failures/skips, watch build success. Actual heuristic diagnostics 8/8 distractions and 4/4 goals; 24 catalog PNGs validated and visually reviewed. Google OAuth start/cancel passed without credentials. Earlier failed run 34116034709 is superseded by this explicit repair and rerun. Limit: Signed Apple/Google account workflows, installed planner/focus/interruption/review, CloudKit continuity, app-mediated MCP and Reminders qualification remain open. Synthetic transport and unsigned hosted UI checks do not prove signed production integration."
         }
       },
       "name": "Anchor",
@@ -3105,7 +3105,7 @@
         ],
         "description": "A parked mobile supervision client retained for possible future reactivation.",
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-09-06"
+        "latestCommitAt": "2026-09-07"
       },
       "drank": {
         "makerNote": "I built DRank when domain-rating data became accessible enough to track the strength of my own domains over time.",

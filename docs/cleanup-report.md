@@ -48,7 +48,7 @@ and separate [condensed intent](portfolio-condensed-2026-08-23.md) remain distin
 | Exact lifecycle schema and allocation | Directly checked all 57 current records; 54 remain in goal scope after the owner's later decisions. No invented resume conditions. |
 | Independent shareability | Public/lifecycle tests and catalog validation exist; current promotion uses recorded hands-on evidence, not the old flags. Each pass still has a bounded scope. |
 | Public projection | Regenerated from Site Health after catalog changes; 15 public identities. A source projection does not prove deployed footers and pages have changed. |
-| Project tasks | The 54-repository scan at 11:34:09Z found 43 open issues, zero PRs and every issue referenced in its README. Exact-revision runs were refreshed too: High Signal retains a failed cron monitor, Anchor native review was running at that snapshot and subsequently failed its Mac/iPhone final gate and Mobile Dev Cockpit has no run at its current revision. Later repairs and new findings change these counts; this snapshot is not a completed-task claim. Publication drafts and unfinished requirements remain open. |
+| Project tasks | The 54-repository scan at 11:34:09Z found 43 open issues, zero PRs and every issue referenced in its README. Exact-revision runs were refreshed too: High Signal retains a failed cron monitor, Anchor subsequently passed its repaired exact-head native run34118659206 after an earlier failed gate, and Mobile Dev Cockpit has Actions disabled with no current-head run. Later repairs and new findings change these counts; this snapshot is not a completed-task claim. Publication drafts and unfinished requirements remain open. |
 | Source checks | Checked repairs have per-commit receipts in the linked records. Local build/CI success does not prove hosted authentication, real providers, device behavior or deployment. |
 | Clean repositories | Owned temporary installations, databases, browser instances and worktrees are cleaned after each bounded task. Unrelated edits, unique branch history and pre-existing stashes remain preserved; the portfolio is not universally single-branch or clean. |
 | Automation | Dashboard `ignored` policy is an attention setting, not an execution lock. Dispatcher, local scheduler and provider-trigger enforcement require their own evidence; the historical claim that 82 workflows were gated is insufficient. Required consumer operations must survive. |
@@ -76,8 +76,10 @@ with their owning repository's rollout and rollback requirements.
 Continue complete core journeys with authorized synthetic inputs, repair actual
 failures, then verify the intended distribution surface. Ongoing work includes
 Reader hosted acceptance and concurrency limits after its cached-note repair,
-Knowledge Base shared-document isolation, and Anchor native test/heuristic repairs
-after the failed hosted gate. Keep every unfinished requirement actionable in its owning
+Knowledge Base legacy migration/live qualification after its gated isolation repair,
+and Anchor signed-account/installed acceptance after the repaired hosted gate passed.
+Drank live personal tracking and 45/45 fresh proxy reads now pass; scheduled direct
+collection, distribution terms and source deployment remain separate gates. Keep every unfinished requirement actionable in its owning
 README/issue. Do not mark the overall goal achieved until all 54 intended
 experiences satisfy their applicable access, value, presentation and evidence
 gates, and the required operational reconciliation is verified.
