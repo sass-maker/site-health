@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4d09668fa2ae3a682834ca79af593d74c48e6ae053e3685fc2b164d4b02d8f2a
+      sha256: 33787367ff282a778149a94dd8fedfc24a9492d8f2ff9e07cea356504e90eb42
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -91,15 +91,15 @@ identity:
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: The shared Hub for Live, Journal, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.
+  description: The shared Hub for Live, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.
   publicMakerNote: I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.
   purposeContract:
-    purpose: Significant Hobbies is the shared home and privacy-aware control plane for six independently owned personal applications.
-    audience: One person using Live, Journal, Calorie, Setline, Kith, and Anchor as a connected personal system.
-    outcome: See and act across the six apps without collapsing their data ownership or product identities.
+    purpose: Significant Hobbies is the shared home and privacy-aware control plane for five independently owned personal applications.
+    audience: One person using Live, Calorie, Setline, Kith, and Anchor as a connected personal system.
+    outcome: See and act across the five apps without collapsing their data ownership or product identities.
     mechanism: A Hub, backend, and typed sync contracts exchange privacy-safe summaries and semantic actions while each app keeps its own source and data.
-    proof: The canonical Hub supports exactly six maintained apps; the former Habits domain remains compatibility data, not a seventh product.
-    nextAction: Open the Hub to reach the six apps; current work focuses on unified authentication and safe cross-app summaries.
+    proof: The canonical Hub lists five maintained apps. Journal is removed from the product lineup; Journal and Habits source/data compatibility history remains retained. Private cross-app use still needs hosted qualification.
+    nextAction: Open the Hub to reach the five apps; current work focuses on unified authentication and safe cross-app summaries.
   form: Personal-app Hub
   platforms:
     - Web
@@ -296,7 +296,7 @@ sharing:
     id: significanthobbies
     name: Significant Hobbies
     aliases: []
-    description: The shared Hub for Live, Journal, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.
+    description: The shared Hub for Live, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.
     origin: https://significanthobbies.com
     source:
       state: public
@@ -312,5 +312,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Canonical Hub repository and backend for the six-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.
+  catalog: Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.
   infrastructure: Worker version dc4e0603-594f-4bf3-a584-459efe46c2e1 is live from exact Git SHA 56bf264b8bcf2aed5230398b34f9250f0de5c14a. D1 personal-platform and both domain service bindings remain active.

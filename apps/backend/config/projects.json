@@ -698,7 +698,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Followed Get my free API key through getting-started to Authentication. Docs say operator-provisioned keys and self-serve POST /access/request-key is not live. Limit: No approved service identity used; actual inference unverified; CTA implies self-service that is unavailable."
+          "reason": "Public landing and access documentation inspected; real provider availability varies and keys require operator provisioning. Corrected quickstart/access source a70262f5 has green CI and synthetic SDK/gateway proof, but deployment and an authorized real inference remain unverified."
         }
       },
       "authModel": "required-service",
@@ -712,7 +712,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "2026-09-07 follow-up: pushed fast-uri-only lockfile patch to 3.1.7 (bd7aa10); local dependency gate reports zero high/critical findings and 242 tests pass. Inference/access qualification remains unverified.",
+      "notes": "2026-09-07: a70262f5 checked and pushed with green CI; copied quickstarts now carry required project_id and access copy describes operator provisioning. Public aggregate telemetry reports recent AliveVille and High Signal callers, so keep active. Actual authorized inference, deployed copy and consumer qualification remain unverified; no retirement or provider change performed.",
       "name": "Free AI",
       "attention": "toolbox",
       "lifecycle": {
@@ -725,7 +725,7 @@
         "listing": "maintained",
         "id": "free-ai",
         "name": "Free AI",
-        "description": "OpenAI-compatible gateway across free-tier model providers.",
+        "description": "An OpenAI-compatible free-tier model gateway with operator-provisioned project access.",
         "category": "product",
         "pillarId": "build",
         "spotlight": false,
@@ -1188,7 +1188,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical Hub repository and backend for the six-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
+      "notes": "Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": {
@@ -1201,7 +1201,7 @@
         "listing": "maintained",
         "id": "significanthobbies",
         "name": "Significant Hobbies",
-        "description": "The shared Hub for Live, Journal, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
+        "description": "The shared Hub for Live, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
         "category": "personal",
         "pillarId": "learn",
         "spotlight": false,
@@ -3396,12 +3396,12 @@
       "significanthobbies": {
         "makerNote": "I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.",
         "purposeContract": {
-          "purpose": "Significant Hobbies is the shared home and privacy-aware control plane for six independently owned personal applications.",
-          "audience": "One person using Live, Journal, Calorie, Setline, Kith, and Anchor as a connected personal system.",
-          "outcome": "See and act across the six apps without collapsing their data ownership or product identities.",
+          "purpose": "Significant Hobbies is the shared home and privacy-aware control plane for five independently owned personal applications.",
+          "audience": "One person using Live, Calorie, Setline, Kith, and Anchor as a connected personal system.",
+          "outcome": "See and act across the five apps without collapsing their data ownership or product identities.",
           "mechanism": "A Hub, backend, and typed sync contracts exchange privacy-safe summaries and semantic actions while each app keeps its own source and data.",
-          "proof": "The canonical Hub supports exactly six maintained apps; the former Habits domain remains compatibility data, not a seventh product.",
-          "nextAction": "Open the Hub to reach the six apps; current work focuses on unified authentication and safe cross-app summaries."
+          "proof": "The canonical Hub lists five maintained apps. Journal is removed from the product lineup; Journal and Habits source/data compatibility history remains retained. Private cross-app use still needs hosted qualification.",
+          "nextAction": "Open the Hub to reach the five apps; current work focuses on unified authentication and safe cross-app summaries."
         },
         "form": "Personal-app Hub",
         "platforms": [
@@ -6567,7 +6567,7 @@
       "id": "significanthobbies",
       "name": "Significant Hobbies",
       "aliases": [],
-      "description": "The shared Hub for Live, Journal, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
+      "description": "The shared Hub for Live, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.",
       "origin": "https://significanthobbies.com",
       "source": {
         "state": "public",
