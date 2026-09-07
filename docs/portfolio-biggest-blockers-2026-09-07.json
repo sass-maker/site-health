@@ -89,7 +89,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Hosted import/read/annotate/reopen and guest PDF annotation remain unqualified; PDF guest viewer has no Reader annotation controls.",
       "shareable": false,
-      "repairProgress": "bbc52d9 pushed clean; Docs34112909140 passed and CI34112909168 running at observation. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim."
+      "repairProgress": "bbc52d9 pushed clean; Docs34112909140 and CI34112909168 passed. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim."
     },
     {
       "id": "live",
@@ -293,7 +293,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Native installed workflow remains unqualified. The visible-process false positive is repaired in merged PR #271; release qualification still requires actual window and upgrade evidence.",
       "shareable": false,
-      "repairProgress": "PR #271 merged as f051219b; post-merge CI34111555307, Docs and Repo Security passed; CodeQL34111554221 still running at observation. Independently reproduced false passing proof: system_events_window is now required for every launch and process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Superseded PR #263 closed. Temporary worktree and owned local branch removed; unrelated native edits and existing histories preserved."
+      "repairProgress": "PR #271 merged as f051219b; post-merge CI34111555307, CodeQL34111554221, Docs and Repo Security passed. Independently reproduced false passing proof: system_events_window is now required for every launch and process fallback is diagnostic only. 13 focused tests and changed-file Biome pass. Superseded PR #263 closed. Temporary worktree and owned local branch removed; unrelated native edits and existing histories preserved."
     },
     {
       "id": "pace",
