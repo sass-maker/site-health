@@ -167,7 +167,8 @@
       "name": "TrueHire",
       "classification": "Product/evidence gap",
       "biggestBlocker": "Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "6fb5676 pushed clean. Synthetic sample labels now explicit across Astro homepage/Nextfallback/demo; fabricated2h verification removed; demo activity fixed throughJune2026. Typecheck/lint/Astrobuild and108coretests passed; generatedHTML inspected. ExactCIpending. Marketplace remains retired; public deployed copy recheck is outstanding."
     },
     {
       "id": "nomad-data-adventure",
@@ -315,7 +316,8 @@
       "name": "DRank",
       "classification": "Qualification gap",
       "biggestBlocker": "Fresh collection and useful historical comparison not yet demonstrated; weekly promise conflicts with three-week-old data.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "fe07a1d pushed clean; exact CI green.80tests and build pass. Collector now fails all-failed collection without rewriting dates; UI labels actual observation freshness and unavailable weekly movement. Root live browser reproduced broken deep-link; repaired local build opens history and retains45-row dated historical table. Repair#17closed;#18retains fresh provider collection/deployment/integration gates."
     },
     {
       "id": "psi-swarm",
@@ -352,7 +354,8 @@
       "name": "SWE Interview Prep",
       "classification": "Qualification gap",
       "biggestBlocker": "Fresh guest journey and a complete exercise have not been verified; existing learner progress was preserved.",
-      "shareable": false
+      "shareable": false,
+      "repairProgress": "532484e pushed clean with green CI/Docs.598tests including real tokenizer grading/local persistence/remount and delayed account hydration; repaired route draft leakage and saved-code restoration. README/#97 retains live/account qualification;#98 retains unsynced remote-write reconciliation."
     },
     {
       "id": "rolepatch",
