@@ -89,7 +89,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Hosted import/read/annotate/reopen and guest PDF annotation remain unqualified; PDF guest viewer has no Reader annotation controls.",
       "shareable": false,
-      "repairProgress": "e582a382 pushed clean; CI 34108092917 and Docs 34108092925 green. Atomic IndexedDB patches fix reproduced concurrent lost notes. 126 tests plus real Chromium persistence checks pass, including synthetic PDF byte reload. Issues #55 and #56 retained; no hosted uploads or deployment."
+      "repairProgress": "bbc52d9 pushed clean; Docs34112909140 passed and CI34112909168 running at observation. Full local quality passed 126 app and 20 extension tests. Built-browser synthetic two-page PDF renders and page notes survive create, storage failure/retry, reload, anchor navigation, edit/delete/reload with no API writes; 390/768/1440 controls and layout verified. Fixed react-pdf/worker version mismatch using existing pdf.js version. #55 retains hosted/account qualification; no text-highlight or embedded-PDF annotation claim."
     },
     {
       "id": "live",
@@ -239,8 +239,9 @@
       "id": "significanthobbies",
       "name": "Significant Hobbies",
       "classification": "Qualification gap",
-      "biggestBlocker": "Private summary/sync workflow unverified; guest quiz belongs to Live.",
-      "shareable": false
+      "biggestBlocker": "The local session/return-path defect is repaired. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unqualified.",
+      "shareable": false,
+      "repairProgress": "Hub 3cd97827 and Live b7a47863 pushed; Hub CI34112613899 and Live CI34112604750 passed. Actual local better-auth sessions with host-only cookies prove two-account Setline summary isolation, expiry/revocation and unavailable-auth behavior. Login screenshots independently reviewed. #154 retains hosted qualification and #147 shared design work. No production changes."
     },
     {
       "id": "chatgpt-connections",

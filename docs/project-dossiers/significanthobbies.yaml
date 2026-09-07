@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 33787367ff282a778149a94dd8fedfc24a9492d8f2ff9e07cea356504e90eb42
+      sha256: f3643b5ee5e7927695e5e8382a242387440b5e129c04898977dbde2a2a60886b
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -289,7 +289,7 @@ sharing:
   maturity: public-ready
   ready: false
   verifiedAt: 2026-09-07
-  reason: "Landing states owner-only; Open private Hub redirects to Live login. Continue with Google returned to login without completing access. Limit: Private summary/sync workflow unverified; guest quiz belongs to Live."
+  reason: Local source qualification at Hub 3cd97827 and Live b7a47863 passes actual test-provider sessions, two-account summary isolation, expiry/revocation, unavailable-auth and visible login/retry. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unverified; keep not shareable.
   changelogUrl: https://significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/significanthobbies/issues
   geoIdentity:
@@ -312,5 +312,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.
+  catalog: Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route. Source revisions Hub 3cd97827 and Live b7a47863 keep the public directory at https://significanthobbies.com/ and move the private entry to https://live.significanthobbies.com/hub through the existing Hub binding and Live host-only session. This routing change is locally qualified and not yet deployed. PersonalSyncKit is versioned from this repository for native consumers.
   infrastructure: Worker version dc4e0603-594f-4bf3-a584-459efe46c2e1 is live from exact Git SHA 56bf264b8bcf2aed5230398b34f9250f0de5c14a. D1 personal-platform and both domain service bindings remain active.

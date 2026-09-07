@@ -1161,7 +1161,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
-          "reason": "Landing states owner-only; Open private Hub redirects to Live login. Continue with Google returned to login without completing access. Limit: Private summary/sync workflow unverified; guest quiz belongs to Live."
+          "reason": "Local source qualification at Hub 3cd97827 and Live b7a47863 passes actual test-provider sessions, two-account summary isolation, expiry/revocation, unavailable-auth and visible login/retry. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unverified; keep not shareable."
         }
       },
       "aliases": [
@@ -1188,7 +1188,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route and proxies / and /hub to this service. PersonalSyncKit is versioned from this repository for native consumers.",
+      "notes": "Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route. Source revisions Hub 3cd97827 and Live b7a47863 keep the public directory at https://significanthobbies.com/ and move the private entry to https://live.significanthobbies.com/hub through the existing Hub binding and Live host-only session. This routing change is locally qualified and not yet deployed. PersonalSyncKit is versioned from this repository for native consumers.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": {
