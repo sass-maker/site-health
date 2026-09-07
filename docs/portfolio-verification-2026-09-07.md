@@ -75,7 +75,7 @@ Confidence is qualitative confidence in this stated surface verdict. Low-confide
 | TrueHire | inactive | No | medium | Retained hiring research artifact | Synthetic sample says Verified and last verified 2h ago without an as-of source; static sample alone does not qualify. |
 | Open Historia | inactive | No | high | Browser strategy experiment | No completed turn; historical map also contains generic factions. No secrets supplied. |
 | Companion Robot | inactive | No | low | Hardware research notes | No working hardware/software product to share. |
-| Forecast Lab | inactive | No | low | Forecasting research toolkit | Dataset-dependent full forecasting experiment not rerun; source inspection alone is insufficient reproducibility proof. |
+| Forecast Lab | inactive | No | high | Forecasting learning CLI | Fresh unauthenticated source setup, full bike experiment and seven tests pass; output hashes match. Source-code license choice remains pending. Other datasets and commercial forecasting claims remain unqualified. |
 | Web Playables | inactive | No | low | Retained idle game | Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state. |
 | Look Sideways | active | Yes | high | Documented-path reference | One profile/source checked; full corpus not fact-checked. |
 | Sarthak Agrawal | inactive | Yes | medium | Personal case-study publication | Current-focus copy still calls Pace a flagship; historical benchmark claims not re-benchmarked. |

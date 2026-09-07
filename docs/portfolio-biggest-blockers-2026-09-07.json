@@ -401,9 +401,9 @@
       "id": "forecast-lab",
       "name": "Forecast Lab",
       "classification": "Qualification gap",
-      "biggestBlocker": "A reproducible licensed-data one-hour forecasting experiment now passes locally. Distribution and user setup remain unqualified; this is a learning CLI, with paused/domain-validation gates retained in #5.",
+      "biggestBlocker": "Fresh public setup and complete bounded bike learning experiment now pass; source-code licensing decision is the remaining sharing gate for that example. Broader domain/product requirements remain paused in #5.",
       "shareable": false,
-      "repairProgress": "15b7130 pushed clean with green CI. Pinned licensed UCI input, timestamp-correct lags and documented one-hour rolling evaluation; 3406 held-out hours, weekly baseline wMAPE 0.2544 versus calendar/past-demand GBT 0.2085, repeated byte-identically. Seven tests pass. Repair #4 closed; remaining paused work retained in README/#5. Scope is reproducible learning CLI, not domain-validated B2B product."
+      "repairProgress": "15b7130 pushed clean with green CI. Pinned licensed UCI input, timestamp-correct lags and documented one-hour rolling evaluation; 3406 held-out hours, weekly baseline wMAPE 0.2544 versus calendar/past-demand GBT 0.2085, repeated byte-identically. Seven tests pass. Repair #4 closed; remaining paused work retained in README/#5. Scope is reproducible learning CLI, not domain-validated B2B product. Fresh unauthenticated archive qualification recorded in8b245ad: frozen setup17packages, automatic input download,7tests, byte-identical metrics/predictions and independently recomputed rounded wMAPE. No source license exists; owner choice requested. Temporary checkout/environment/data removed. #5 retains the rights gate."
     },
     {
       "id": "sarthakagrawal-personal",
