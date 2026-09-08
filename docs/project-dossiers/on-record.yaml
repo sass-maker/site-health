@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 757adf5f468cde170225e8e5a69c94c9721a0adfaefd72c114fba41ce08312fb
+      sha256: 2215e41dac4f0feb2178e16830130c64c4c044718cf049b859e65d90d7b65791
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: af3751ce145a99b3e1af7656949520b36116b891f30eb9d09d8146ee9c307d47
+      sha256: 9a06e8f7e45c161fdea60a2498588e371e48cb6899f438f74e174345fed23acf
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-08
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T19:23:40.560Z
+      observedAt: 2026-09-08T19:42:29.714Z
       staleAfterDays: 30
       healthy: 2
       failing: 1
@@ -181,7 +181,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T19:23:40.560Z
+  observedAt: 2026-09-08T19:42:29.714Z
   staleAfterDays: 30
   summary:
     healthy: 2
