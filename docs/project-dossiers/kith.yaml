@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f85f2e81364310b5987d83a091e21ea1cf6587a37f2660b84ccc5aa44cd16043
+      sha256: c56e88a9978c83e41d4757d35155f0810e17e92776f7c9de17947740a0375784
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T17:39:52.239Z
+      observedAt: 2026-09-08T17:51:56.715Z
       staleAfterDays: 30
-      running: 1
+      healthy: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -129,10 +129,10 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T17:39:52.239Z
+  observedAt: 2026-09-08T17:51:56.715Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/kith
@@ -158,18 +158,18 @@ githubActions:
         status: active
         reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34258378181
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 5f2fa818c2790b8bb7420780fd048573bf452bba
           createdAt: 2026-09-08T17:39:00Z
-          updatedAt: 2026-09-08T17:39:08Z
+          updatedAt: 2026-09-08T17:48:55Z
           url: https://github.com/Significant-Hobbies/kith/actions/runs/34258378181
         ageDays: 0
       schedule:
@@ -177,17 +177,17 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
           id: 34258378181
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 5f2fa818c2790b8bb7420780fd048573bf452bba
           createdAt: 2026-09-08T17:39:00Z
-          updatedAt: 2026-09-08T17:39:08Z
+          updatedAt: 2026-09-08T17:48:55Z
           url: https://github.com/Significant-Hobbies/kith/actions/runs/34258378181
         ageDays: 0
       attention: clear
@@ -220,7 +220,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-08
-  reason: Build 11/source 5f2fa81 repairs reproduced resurrection of deleted people and notes after restart. Atomic deletion markers recover failed outbox writes and survive stale Hub/iCloud copies. All 25 core/app tests and the full local native unit/UI/Release gate pass. Exact-source hosted CI 34258378181 is running; build 10 remains installed. Physical use, real signed-in isolation/sync and public distribution remain unqualified.
+  reason: Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Landing copy correction 61118eb passed CI 34259137764 but publication is held by deploy-guard build/test workflow recognition.
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:
@@ -243,5 +243,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Private native people-and-notes journal. Build 11/source 5f2fa818c2790b8bb7420780fd048573bf452bba adds durable deletion markers and retries saved deletion work after restart. The local full native gate passed; hosted CI and phone installation are pending under issue 27. Build 10 is the verified installed phone app. Physical use and actual signed-in convergence remain unqualified.
+  catalog: Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Landing copy correction 61118eb passed CI 34259137764 but publication is held by deploy-guard build/test workflow recognition.
   infrastructure: Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight.

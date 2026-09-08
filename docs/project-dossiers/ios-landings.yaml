@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f85f2e81364310b5987d83a091e21ea1cf6587a37f2660b84ccc5aa44cd16043
+      sha256: c56e88a9978c83e41d4757d35155f0810e17e92776f7c9de17947740a0375784
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: ios-landings
-      revision: 957e1fa3a3247cc73ea3114bcd886402c9cbc3ca
+      revision: 61118ebcf20539d9defb7b494138adab913236ec
       githubRepository: Significant-Hobbies/ios-landings
       expectedHomepage: null
       observedHomepage: null
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: ios-landings
-      revision: 957e1fa3a3247cc73ea3114bcd886402c9cbc3ca
+      revision: 61118ebcf20539d9defb7b494138adab913236ec
       githubRepository: Significant-Hobbies/ios-landings
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-17
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T17:39:52.239Z
+      observedAt: 2026-09-08T17:51:56.715Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -100,13 +101,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-17
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 41
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 42
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ios-landings
-  observedRevision: 957e1fa3a3247cc73ea3114bcd886402c9cbc3ca
+  observedRevision: 61118ebcf20539d9defb7b494138adab913236ec
   githubRepository: Significant-Hobbies/ios-landings
   githubHomepageUrl: null
   worktree: *a1
@@ -150,7 +151,7 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: 2026-09-08T17:39:52.239Z
+  observedAt: 2026-09-08T17:51:56.715Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -158,7 +159,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/ios-landings
     defaultBranch: main
-    defaultBranchSha: 957e1fa3a3247cc73ea3114bcd886402c9cbc3ca
+    defaultBranchSha: 61118ebcf20539d9defb7b494138adab913236ec
     homepage: null
     query: verified
     disposition:
@@ -183,16 +184,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34092917960
+          id: 34259137764
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 957e1fa3a3247cc73ea3114bcd886402c9cbc3ca
-          createdAt: 2026-09-07T06:54:30Z
-          updatedAt: 2026-09-07T06:55:16Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34092917960
-        ageDays: 1
+          headSha: 61118ebcf20539d9defb7b494138adab913236ec
+          createdAt: 2026-09-08T17:46:48Z
+          updatedAt: 2026-09-08T17:47:37Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34259137764
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -201,16 +202,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34092917960
+          id: 34259137764
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 957e1fa3a3247cc73ea3114bcd886402c9cbc3ca
-          createdAt: 2026-09-07T06:54:30Z
-          updatedAt: 2026-09-07T06:55:16Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34092917960
-        ageDays: 1
+          headSha: 61118ebcf20539d9defb7b494138adab913236ec
+          createdAt: 2026-09-08T17:46:48Z
+          updatedAt: 2026-09-08T17:47:37Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34259137764
+        ageDays: 0
       attention: clear
 deployment:
   kind: none
