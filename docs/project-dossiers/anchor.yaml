@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 62d1ba2f85f89675febf4716e76cc864bcf96c435b0be979d3ee1958f7103b24
+      sha256: 943fcefa4f7b4b4b136968e331062eb5e298ed6f15bad42b8a98d9009a7e003b
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T20:20:04.530Z
+      observedAt: 2026-09-08T20:46:30.750Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        review-history: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
@@ -145,10 +145,10 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T20:20:04.530Z
+  observedAt: 2026-09-08T20:46:30.750Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
@@ -173,19 +173,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34268576639
+          id: 34274284513
           status: completed
-          conclusion: failure
+          conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 5d1f87ac2673fa288124ac3f94fdec1d62d5e450
-          createdAt: 2026-09-08T19:22:28Z
-          updatedAt: 2026-09-08T19:59:12Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34268576639
+          headSha: b75c1c2161752fc531721b69f2ef1a8655787b9a
+          createdAt: 2026-09-08T20:21:05Z
+          updatedAt: 2026-09-08T20:42:40Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34274284513
         ageDays: 0
       schedule:
         health: not-applicable
@@ -195,7 +195,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -235,7 +235,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Build 24/source 5d1f87ac2673fa288124ac3f94fdec1d62d5e450 is pushed. A reproduced cross-account history export now requires explicit durable approval and per-session ownership; shared runtime verifies the account across async operations. A reproduced keyboard-toolbar overlap in first-session onboarding is repaired. Local checks passed 195 package tests, all 8 iPhone UI journeys, Watch simulator compilation, 27 offscreen renders and 8/8 distraction plus 4/4 goal on-device diagnostics. The signed iPhone Release build passed strict/deep signature verification and build 24 installed successfully on the physical iPhone on September 9 IST. A fresh launch was refused because the phone was locked; physical use remains unverified. Local Mac UI runner hung before connecting; no Mac assertions ran. Hosted native review 34268576639 failed: Mac authentication cancellation did not restore Google sign-in, and the iPhone metadata test failed to open its editor. Test-only fix b75c1c2 waits for a tappable settings control and editor appearance; its focused local iPhone test passed. A fresh Mac reproduction hung before runner connection and provides no app assertion evidence. Hosted requalification remains pending. Production CloudKit compatibility, distraction-note iCloud privacy boundary, physical signed-in use and notarization remain unqualified. Last verified installations are iPhone build 24 and Mac build 21. The public Mac download was independently checked as build 20 with a valid signature and accepted Notarized Developer ID assessment; it was not executed."
+  reason: "Build 24 product source 5d1f87ac2673fa288124ac3f94fdec1d62d5e450 repairs durable Hub account ownership and keyboard-accessible session start. Test-only b75c1c2161752fc531721b69f2ef1a8655787b9a passed hosted native review 34274284513: 14 Mac UI tests, all 8 iPhone UI tests and Watch build; raw logs and final outcome gates verified. Mac Google cancellation passed via Escape this time without a Mac code change; the earlier failure remains intermittent evidence. Build 24 ReleaseDirect archive/export and strict Developer ID signature, hardened runtime and production CloudKit entitlements passed. Gatekeeper rejects this new app as Unnotarized Developer ID; documented anchor-notary profile is absent, so it was not installed or publicly released. Physical iPhone build 24 is installed but a fresh launch remains blocked by device lock. Installed Mac remains build 21; public notarized download remains build 20. Real signed-in use, production CloudKit compatibility and the distraction-note privacy boundary remain unqualified."
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:
@@ -258,5 +258,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer for macOS, iOS and watchOS, with direct habit tracking, optional scheduling, day copying and pause/return. Build 24 source 5d1f87a repairs local-history account ownership and keyboard-accessible session start; hosted native review 34268576639 failed Mac authentication cancellation and iPhone metadata navigation. Test-only b75c1c2 fixes visibility handling and passes the focused local iPhone test; Mac cancellation remains unresolved. Last verified installed builds are iPhone 24 and Mac 21; the build 24 launch attempt was blocked by the locked phone. Hub excludes distraction notes, but their private iCloud boundary needs reconciliation with the device-only repo contract. See issue 51 and docs/qualification/hub-ownership-2026-09-09/README.md in Anchor."
+  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build 24 product repairs Hub history ownership and keyboard-accessible start. Hosted native review 34274284513 at test fix b75c1c2 passed 14 Mac and 8 iPhone UI tests plus Watch build. New signed Mac build 24 is prepared but notarization is blocked by missing anchor-notary profile; installed Mac remains 21. iPhone 24 is installed but physical launch remains Locked. Real account/CloudKit use and private-note iCloud boundary remain open. See Anchor issue 51."
   infrastructure: Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit.

@@ -86,14 +86,16 @@ Hub family: Kith, Setline, Anchor, Calorie and Live.
   canvas are repaired. A fresh production guest smoke passed; the real signed-in
   Google/D1/R2 import/read/annotate/reopen journey remains open. See
   [Reader issue 55 release receipt](https://github.com/Significant-Hobbies/reader/issues/55#issuecomment-5591320099).
-- Anchor hosted review `34268576639` failed Mac authentication cancellation and
-  iPhone metadata navigation. Test-only source `b75c1c2` repairs the latter
-  test visibility handling and passes its focused local iPhone journey. The
-  Mac runner and manual local launch did not reach a usable reproduction;
-  neither clears the hosted cancellation failure. Installed iPhone build 24
-  and Mac build 21 do not establish physical signed-in use, CloudKit compatibility
-  or the distraction-note privacy boundary. See
-  [Anchor issue 51 checkpoint](https://github.com/Significant-Hobbies/anchor/issues/51#issuecomment-5591335590).
+- Anchor source `b75c1c2` passed hosted review `34274284513`: raw logs confirm
+  14 Mac and all 8 iPhone UI tests, and the final gate confirms the Watch build.
+  The Mac Escape cancellation test passed without a Mac code change, so the
+  earlier failure remains an intermittent reliability concern. Build 24 was
+  archived/exported with a valid Developer ID signature, hardened runtime and
+  production CloudKit entitlements. Gatekeeper rejects it as unnotarized and
+  the documented notarization profile is missing; installed Mac build 21 was
+  preserved. Physical iPhone build 24 remains installed but locked at launch.
+  Real account/CloudKit use and the distraction-note privacy boundary remain open.
+  See [Anchor issue 51 checkpoint](https://github.com/Significant-Hobbies/anchor/issues/51#issuecomment-5591609376).
 - Knowledge Base retains legacy-data and live-provider qualification gates;
   Drank retains scheduled direct-provider collection and distribution gates.
   Their local or bounded public checks do not close those requirements.
