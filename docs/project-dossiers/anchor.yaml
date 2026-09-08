@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2215e41dac4f0feb2178e16830130c64c4c044718cf049b859e65d90d7b65791
+      sha256: 62d1ba2f85f89675febf4716e76cc864bcf96c435b0be979d3ee1958f7103b24
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anchor
-      revision: 5d1f87ac2673fa288124ac3f94fdec1d62d5e450
+      revision: b75c1c2161752fc531721b69f2ef1a8655787b9a
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anchor
-      revision: 5d1f87ac2673fa288124ac3f94fdec1d62d5e450
+      revision: b75c1c2161752fc531721b69f2ef1a8655787b9a
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T19:42:29.714Z
+      observedAt: 2026-09-08T20:20:04.530Z
       staleAfterDays: 30
-      running: 1
+      failing: 1
       attention: &a2
-        clear: 1
+        review-history: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 98
+    retainedCommitCount: 99
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 5d1f87ac2673fa288124ac3f94fdec1d62d5e450
+  observedRevision: b75c1c2161752fc531721b69f2ef1a8655787b9a
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -145,15 +145,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T19:42:29.714Z
+  observedAt: 2026-09-08T20:20:04.530Z
   staleAfterDays: 30
   summary:
-    running: 1
+    failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: 5d1f87ac2673fa288124ac3f94fdec1d62d5e450
+    defaultBranchSha: b75c1c2161752fc531721b69f2ef1a8655787b9a
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -173,18 +173,18 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
           id: 34268576639
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: failure
           event: workflow_dispatch
           branch: main
           headSha: 5d1f87ac2673fa288124ac3f94fdec1d62d5e450
           createdAt: 2026-09-08T19:22:28Z
-          updatedAt: 2026-09-08T19:22:40Z
+          updatedAt: 2026-09-08T19:59:12Z
           url: https://github.com/Significant-Hobbies/anchor/actions/runs/34268576639
         ageDays: 0
       schedule:
@@ -195,7 +195,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: review-history
 deployment:
   kind: pages
   deployed: true
@@ -235,7 +235,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-09
-  reason: Build 24/source 5d1f87ac2673fa288124ac3f94fdec1d62d5e450 is pushed. A reproduced cross-account history export now requires explicit durable approval and per-session ownership; shared runtime verifies the account across async operations. A reproduced keyboard-toolbar overlap in first-session onboarding is repaired. Local checks passed 195 package tests, all 8 iPhone UI journeys, Watch simulator compilation, 27 offscreen renders and 8/8 distraction plus 4/4 goal on-device diagnostics. The signed iPhone Release build passed strict/deep signature verification and build 24 installed successfully on the physical iPhone on September 9 IST. A fresh launch was refused because the phone was locked; physical use remains unverified. Local Mac UI runner hung before connecting; no Mac assertions ran. Exact-source hosted native review 34268576639 is running. Production CloudKit compatibility, distraction-note iCloud privacy boundary, physical signed-in use and notarization remain unqualified. Last verified installations are iPhone build 24 and Mac build 21. The public Mac download was independently checked as build 20 with a valid signature and accepted Notarized Developer ID assessment; it was not executed.
+  reason: "Build 24/source 5d1f87ac2673fa288124ac3f94fdec1d62d5e450 is pushed. A reproduced cross-account history export now requires explicit durable approval and per-session ownership; shared runtime verifies the account across async operations. A reproduced keyboard-toolbar overlap in first-session onboarding is repaired. Local checks passed 195 package tests, all 8 iPhone UI journeys, Watch simulator compilation, 27 offscreen renders and 8/8 distraction plus 4/4 goal on-device diagnostics. The signed iPhone Release build passed strict/deep signature verification and build 24 installed successfully on the physical iPhone on September 9 IST. A fresh launch was refused because the phone was locked; physical use remains unverified. Local Mac UI runner hung before connecting; no Mac assertions ran. Hosted native review 34268576639 failed: Mac authentication cancellation did not restore Google sign-in, and the iPhone metadata test failed to open its editor. Test-only fix b75c1c2 waits for a tappable settings control and editor appearance; its focused local iPhone test passed. A fresh Mac reproduction hung before runner connection and provides no app assertion evidence. Hosted requalification remains pending. Production CloudKit compatibility, distraction-note iCloud privacy boundary, physical signed-in use and notarization remain unqualified. Last verified installations are iPhone build 24 and Mac build 21. The public Mac download was independently checked as build 20 with a valid signature and accepted Notarized Developer ID assessment; it was not executed."
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:
@@ -258,5 +258,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer for macOS, iOS and watchOS, with direct habit tracking, optional scheduling, day copying and pause/return. Build 24 source 5d1f87a repairs local-history account ownership and keyboard-accessible session start; hosted native review is pending. Last verified installed builds are iPhone 24 and Mac 21; the build 24 launch attempt was blocked by the locked phone. Hub excludes distraction notes, but their private iCloud boundary needs reconciliation with the device-only repo contract. See issue 51 and docs/qualification/hub-ownership-2026-09-09/README.md in Anchor."
+  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer for macOS, iOS and watchOS, with direct habit tracking, optional scheduling, day copying and pause/return. Build 24 source 5d1f87a repairs local-history account ownership and keyboard-accessible session start; hosted native review 34268576639 failed Mac authentication cancellation and iPhone metadata navigation. Test-only b75c1c2 fixes visibility handling and passes the focused local iPhone test; Mac cancellation remains unresolved. Last verified installed builds are iPhone 24 and Mac 21; the build 24 launch attempt was blocked by the locked phone. Hub excludes distraction notes, but their private iCloud boundary needs reconciliation with the device-only repo contract. See issue 51 and docs/qualification/hub-ownership-2026-09-09/README.md in Anchor."
   infrastructure: Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit.

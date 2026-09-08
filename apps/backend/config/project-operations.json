@@ -1283,18 +1283,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "2e31394a662b5b1d6d0d16d395eb3fdcf38f7022",
+        "revision": "8fb59dd3a0c6a4b6d34fcad0ac9dc8186957c2d9",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 2,
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-09",
-        "retainedCommitCount": 1067,
+        "retainedCommitCount": 1068,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1322,15 +1322,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34268813724,
+              "id": 34270627021,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "2e31394a662b5b1d6d0d16d395eb3fdcf38f7022",
-              "createdAt": "2026-09-08T19:24:55Z",
-              "updatedAt": "2026-09-08T19:25:39Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34268813724"
+              "headSha": "8fb59dd3a0c6a4b6d34fcad0ac9dc8186957c2d9",
+              "createdAt": "2026-09-08T19:43:31Z",
+              "updatedAt": "2026-09-08T19:44:00Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34270627021"
             },
             "ageDays": 0
           },
@@ -1343,15 +1343,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34268813724,
+              "id": 34270627021,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "2e31394a662b5b1d6d0d16d395eb3fdcf38f7022",
-              "createdAt": "2026-09-08T19:24:55Z",
-              "updatedAt": "2026-09-08T19:25:39Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34268813724"
+              "headSha": "8fb59dd3a0c6a4b6d34fcad0ac9dc8186957c2d9",
+              "createdAt": "2026-09-08T19:43:31Z",
+              "updatedAt": "2026-09-08T19:44:00Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34270627021"
             },
             "ageDays": 0
           },
@@ -1400,7 +1400,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "2e31394a662b5b1d6d0d16d395eb3fdcf38f7022",
+        "defaultBranchSha": "8fb59dd3a0c6a4b6d34fcad0ac9dc8186957c2d9",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -4871,15 +4871,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34269406380,
+              "id": 34272304586,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "16547a2f205d2a4d586429dbc95c580a2c9d5f4b",
-              "createdAt": "2026-09-08T19:30:55Z",
-              "updatedAt": "2026-09-08T19:31:36Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34269406380"
+              "createdAt": "2026-09-08T20:00:55Z",
+              "updatedAt": "2026-09-08T20:01:36Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34272304586"
             },
             "ageDays": 0
           },
@@ -5081,15 +5081,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34269409105,
+              "id": 34272306900,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "16547a2f205d2a4d586429dbc95c580a2c9d5f4b",
-              "createdAt": "2026-09-08T19:30:57Z",
-              "updatedAt": "2026-09-08T19:34:44Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34269409105"
+              "createdAt": "2026-09-08T20:00:57Z",
+              "updatedAt": "2026-09-08T20:04:49Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34272306900"
             },
             "ageDays": 0
           },
@@ -8786,7 +8786,7 @@
       "source": {
         "state": "available",
         "path": "reader",
-        "revision": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
+        "revision": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
         "repositorySlug": "Significant-Hobbies/reader",
         "worktree": {
           "state": "clean",
@@ -8796,8 +8796,8 @@
       },
       "history": {
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-09-08",
-        "retainedCommitCount": 340,
+        "latestCommitAt": "2026-09-09",
+        "retainedCommitCount": 341,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8824,15 +8824,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34201035372,
+              "id": 34273051317,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
-              "createdAt": "2026-09-08T07:46:36Z",
-              "updatedAt": "2026-09-08T07:48:55Z",
-              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34201035372"
+              "headSha": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
+              "createdAt": "2026-09-08T20:08:32Z",
+              "updatedAt": "2026-09-08T20:11:27Z",
+              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34273051317"
             },
             "ageDays": 0
           },
@@ -8845,15 +8845,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34201035372,
+              "id": 34273051317,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
-              "createdAt": "2026-09-08T07:46:36Z",
-              "updatedAt": "2026-09-08T07:48:55Z",
-              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34201035372"
+              "headSha": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
+              "createdAt": "2026-09-08T20:08:32Z",
+              "updatedAt": "2026-09-08T20:11:27Z",
+              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34273051317"
             },
             "ageDays": 0
           },
@@ -8880,15 +8880,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34201302561,
+              "id": 34273454449,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
-              "createdAt": "2026-09-08T07:49:48Z",
-              "updatedAt": "2026-09-08T07:50:39Z",
-              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34201302561"
+              "headSha": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
+              "createdAt": "2026-09-08T20:12:40Z",
+              "updatedAt": "2026-09-08T20:13:35Z",
+              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34273454449"
             },
             "ageDays": 0
           },
@@ -8927,15 +8927,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34201035387,
+              "id": 34273051412,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
-              "createdAt": "2026-09-08T07:46:36Z",
-              "updatedAt": "2026-09-08T07:46:47Z",
-              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34201035387"
+              "headSha": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
+              "createdAt": "2026-09-08T20:08:32Z",
+              "updatedAt": "2026-09-08T20:08:42Z",
+              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34273051412"
             },
             "ageDays": 0
           },
@@ -8948,15 +8948,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34201035387,
+              "id": 34273051412,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
-              "createdAt": "2026-09-08T07:46:36Z",
-              "updatedAt": "2026-09-08T07:46:47Z",
-              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34201035387"
+              "headSha": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
+              "createdAt": "2026-09-08T20:08:32Z",
+              "updatedAt": "2026-09-08T20:08:42Z",
+              "url": "https://github.com/Significant-Hobbies/reader/actions/runs/34273051412"
             },
             "ageDays": 0
           },
@@ -9152,7 +9152,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/reader",
         "defaultBranch": "main",
-        "defaultBranchSha": "6a7c1942edba96561e4375fd9ed9d391e351c6f4",
+        "defaultBranchSha": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
         "homepage": "https://read.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -14458,7 +14458,7 @@
       "source": {
         "state": "available",
         "path": "anchor",
-        "revision": "5d1f87ac2673fa288124ac3f94fdec1d62d5e450",
+        "revision": "b75c1c2161752fc531721b69f2ef1a8655787b9a",
         "repositorySlug": "Significant-Hobbies/anchor",
         "worktree": {
           "state": "clean",
@@ -14469,7 +14469,7 @@
       "history": {
         "firstCommitAt": "2026-08-16",
         "latestCommitAt": "2026-09-09",
-        "retainedCommitCount": 98,
+        "retainedCommitCount": 99,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14491,18 +14491,18 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "failing",
+            "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
               "id": 34268576639,
-              "status": "in_progress",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "failure",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "5d1f87ac2673fa288124ac3f94fdec1d62d5e450",
               "createdAt": "2026-09-08T19:22:28Z",
-              "updatedAt": "2026-09-08T19:22:40Z",
+              "updatedAt": "2026-09-08T19:59:12Z",
               "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34268576639"
             },
             "ageDays": 0
@@ -14517,7 +14517,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "clear"
+          "attention": "review-history"
         }
       ],
       "toolingSignals": [
@@ -14534,7 +14534,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/anchor",
         "defaultBranch": "main",
-        "defaultBranchSha": "5d1f87ac2673fa288124ac3f94fdec1d62d5e450",
+        "defaultBranchSha": "b75c1c2161752fc531721b69f2ef1a8655787b9a",
         "homepage": "https://anchor.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -14577,7 +14577,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-08T19:42:29.714Z",
+  "githubObservedAt": "2026-09-08T20:20:04.530Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }
