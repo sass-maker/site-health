@@ -1581,7 +1581,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 13/source 2c98db2 repairs queue state after failed compaction, acknowledgement and clear writes, and prevents an unread queue from being silently overwritten on retry. Four regressions reproduce the defects; all 30 core tests pass under Swift 6 and pnpm check passes. Local native qualification is unavailable because no iPhone simulator was found; hosted CI 34249949575 is running. Build 12 is the last verified phone installation. Physical use, real-account isolation, signed-in sync and public distribution remain unqualified."
+          "reason": "Build 13/source 2c98db2 repairs queue state after failed writes and prevents an unread queue being overwritten on retry. Hosted CI 34249949575 passed all 71 tests, Release compilation and 66.2213% coverage above the unchanged floor. Stable-Xcode build 13 passed signature verification and is installed on the iPhone. Physical use, real-account isolation, signed-in sync and public distribution remain unqualified; the phone was freshly confirmed locked during the preceding Setline/Kith launch checks."
         }
       },
       "name": "Calorie",
@@ -1628,7 +1628,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 9/source d4c3dc2 also preserves detailed native workouts against returning Hub summaries, retries failed download commits before advancing the cursor, and labels imported summaries without re-exporting them. General checks and the full local native gate passed: 204 unit tests, 17 UI tests, Release and 80.8899% coverage; one iCloud-credential test skipped. Product-source CI 34247640551 and current-head CI 34247853312 passed; hosted coverage is 81.2247%. Build 8 is the last verified phone installation. Physical workout/restart, signed-in sync and public distribution remain unqualified."
+          "reason": "Build 9/source d4c3dc2 also preserves detailed native workouts against returning Hub summaries, retries failed download commits before advancing the cursor, and labels imported summaries without re-exporting them. General checks and the full local native gate passed: 204 unit tests, 17 UI tests, Release and 80.8899% coverage; one iCloud-credential test skipped. Product-source CI 34247640551 and current-head CI 34247853312 passed; hosted coverage is 81.2247%. Build 9 passed signature verification and is now installed on the iPhone; its fresh launch was blocked by FBS Locked. Physical workout/restart, signed-in sync and public distribution remain unqualified."
         }
       },
       "name": "Setline",
@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 10 commits downloaded people and notes before acknowledging the Hub cursor; synthetic native failure/retry, reopen and duplicate-free replay passed. Local gate: 19 unit tests, 8 UI tests and Release compilation. Shared-package CI passed 25 Swift and 53 Worker tests. Local startup no longer waits for network calls. Build 8 remains the last verified phone installation; build-10 installation, physical signed-in use and public distribution remain unqualified."
+          "reason": "Build 10/source a225208 fixes local-save outcomes, network-dependent startup and failed-download retry. All 27 tests and Release compilation passed hosted CI. Stable-Xcode build 10 passed signature verification and is now installed on the iPhone; its fresh launch was blocked by FBS Locked. Physical person/note editing, real-account synchronization and public distribution remain unqualified."
         }
       },
       "name": "Kith",

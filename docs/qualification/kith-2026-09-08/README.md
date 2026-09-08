@@ -71,3 +71,9 @@ Five focused regressions now pass: failed person save/retry, failed load preserv
 Build 8 was development-signed, verified with codesign, and installed on the connected iPhone. Launching the newly installed build still failed with CoreDeviceError 10002 / FBS Locked. Physical add-person/note/restart/edit/delete and optional account/sync journeys remain unqualified. No TestFlight or public distribution is implied.
 
 [Issue 27](https://github.com/Significant-Hobbies/kith/issues/27) retains the owner-use checklist. Site Health's old ignored-Actions policy has been corrected to active in accordance with the owner's explicit priority.
+
+## Current phone installation
+
+Build 10 was built with task-local stable Xcode 26.6, its bundle identifier/version inspected, and `codesign --verify --deep --strict` passed. XcodeBuildMCP CLI 2.7.0 device installation returned `SUCCEEDED` on the connected iPhone. The fresh launch was denied with CoreDeviceError 10002 / FBS Locked. This replaces the earlier last-installed-build statements above; hands-on use, real-account round trips and public distribution remain unqualified. No owner records were edited.
+
+The combined build-and-run tool labeled the overall attempt “Build failed,” but the build log explicitly reports `BUILD SUCCEEDED`; its diagnostic identifies the failure as the locked-device launch. A separate installation receipt confirmed success, so build, installation and launch are recorded independently. The main checkout remains clean; later README-only documentation updates do not change the installed binary.

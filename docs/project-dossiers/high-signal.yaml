@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64f77ebc15b5cf7907c1e9aff9248e3e2b1fc5746f746aeee1730ce7b54fd2a9
+      sha256: 02a0a88be02c3b3be99a05adf4a7408e84d5a5f4ebb1964dc2bb8430f5f78c2f
       infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,11 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T16:16:33.959Z
+      observedAt: 2026-09-08T16:31:41.208Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 2
-      healthy: 19
+      healthy: 18
+      running: 1
       attention: &a2
         clear: 20
         missing-data: 2
@@ -272,12 +273,13 @@ repository:
       - watchlist-impact:test
       - youtube:brand-probe
 githubActions:
-  observedAt: 2026-09-08T16:16:33.959Z
+  observedAt: 2026-09-08T16:31:41.208Z
   staleAfterDays: 30
   summary:
     stale: 1
     manual-or-reusable-never-run: 2
-    healthy: 19
+    healthy: 18
+    running: 1
   attention: *a2
   remote:
     repository: High-Signal-App/high-signal
@@ -559,19 +561,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34248433727
-          status: completed
-          conclusion: success
+          id: 34251520428
+          status: in_progress
+          conclusion: null
           event: workflow_dispatch
           branch: main
           headSha: 16547a2f205d2a4d586429dbc95c580a2c9d5f4b
-          createdAt: 2026-09-08T16:00:56Z
-          updatedAt: 2026-09-08T16:01:37Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34248433727
+          createdAt: 2026-09-08T16:30:56Z
+          updatedAt: 2026-09-08T16:31:00Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34251520428
         ageDays: 0
       schedule:
         health: not-applicable
@@ -733,15 +735,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34248437487
+          id: 34251523901
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: 16547a2f205d2a4d586429dbc95c580a2c9d5f4b
-          createdAt: 2026-09-08T16:00:58Z
-          updatedAt: 2026-09-08T16:11:43Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34248437487
+          createdAt: 2026-09-08T16:30:58Z
+          updatedAt: 2026-09-08T16:31:43Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34251523901
         ageDays: 0
       schedule:
         health: not-applicable
