@@ -97,3 +97,9 @@ ios-landings source `61118ebcf20539d9defb7b494138adab913236ec` removes stale cur
 Factory source `c768b012676e3e77ff577650f4b123342ada8ec2` passed all eight jobs in CI 34260027560 and all six unmodified deploy-guard gates. Four synthetic CLI tests cover scoped deployment, missing targets, failed builds and invalid options. `pnpm run deploy kith --existing-only` published only Kith, without project creation or domain attachment. Cloudflare lists production deployment `b31f1441-d684-40d3-8371-836e6a2bf3bb` from that source.
 
 Both `https://kith.significanthobbies.com/` and `/testflight/` returned HTTP 200 with the corrected private-beta copy and without the stale current-build claim. The deployment URL also returned 200. Python urllib initially received 403; curl with a browser user agent received the expected content on both hosts. These are HTTP/content checks, not a new visual review or a public native distribution receipt.
+
+## Build 12: local Hub ownership
+
+Build 12/source 8d661d8 saves explicit Hub account approval with the local document before backfill, refuses cross-account ownership/downloads, and pauses incompatible iCloud mirrors. Four ownership regressions and full local native unit/UI/Release passed. Exact-source CI 34262940871 and installation pending; build 11 remains installed. Actual signed-in approval/reconciliation, physical use and public native distribution remain unqualified. Corrected private-beta landing is live (b31f1441).
+
+The temporary Mac harness passed all 20 app tests using actual app/shared sources; only temporary fixture file protection is omitted. The required native gate ran on the configured iOS simulator with production protection unchanged. Existing demo UI tests do not establish the new signed-in account approval journey. See issue 27 and Hub issue 156.
