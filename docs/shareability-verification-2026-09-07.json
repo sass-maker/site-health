@@ -258,17 +258,17 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Personal reading library",
-      "observed": "Routing regression repaired and deployed: source 48ef4f272794a5216bad1751c8369f33b53784f0, CI34199770055/Docs34199770042 and deploy34200018115 passed. Worker b2765665-1624-458d-b20c-7e9e50a9e671 serves exact SHA at 100%. Canonical session GET returns 200/null, protected guest snapshot 401, and discovery 200; generic discovery 404 no longer intercepts product APIs. Full local quality passes 129 app and 20 extension tests; exact CI includes four browser suites. No pending D1 migrations. Actual Google sign-in button reaches the Google credential page; no preauthenticated account is available in this browser, so OAuth callback/session persistence remains unqualified.",
+      "observed": "Source 6a7c1942edba96561e4375fd9ed9d391e351c6f4 passed CI34201035372/Docs34201035387 and deploy34201302561. Worker 6b0b85f4-d645-47a1-8ced-f2edf464a932 serves exact SHA at 100%. Actual hosted guest URL flow preserves URL/category through login-page navigation and return, handles blocked storage without losing input, and clears canceled drafts; no snapshot request. Actual hosted synthetic PDF import/render/page-2 note save/failure/retry/reload/edit/delete passes with zero Reader API writes and no overflow at 390/768/1440px. APIs are not intercepted; Google authenticated return remains simulated only in local tests.",
       "urls": [
         "https://read.significanthobbies.com/sample"
       ],
-      "limitations": "Guest URL import is offered by the UI but the snapshot endpoint requires sign-in. Real Google/D1/R2 import/read/annotate/reopen remains unqualified. Hosted synthetic PDF upload was blocked by browser connector file-root configuration. Whole-array notes do not merge independent concurrent editors.",
+      "limitations": "Authenticated cloud URL/PDF import, notes and reopen remain unqualified: Google handoff reaches the credential page but no signed-in test account is available in the verification browser. Expiry/account switching/write recovery and broader extension/provider paths remain. Whole-array notes do not merge independent concurrent editors.",
       "verifiedAt": "2026-09-08",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "local-guest-PDF-qualified; hosted-library-not-qualified",
-      "loggedIn": "synthetic-local-account-PDF-qualified; hosted-account-not-verified",
-      "presentation": "Guest/account PDF controls and article source/notes inspected at phone/tablet/desktop widths",
+      "loggedOut": "hosted-local-PDF-note-lifecycle-and-import-signin-handoff-qualified",
+      "loggedIn": "Google-handoff-only; authenticated-cloud-journey-unqualified",
+      "presentation": "Actual hosted PDF screenshots inspected; no overflow at 390/768/1440. Guest import phone form preserves entered URL and explains sign-in.",
       "disposition": "replace-recommended"
     },
     {

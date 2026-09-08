@@ -1459,7 +1459,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Guest URL import is offered by the UI but the snapshot endpoint requires sign-in. Real Google/D1/R2 import/read/annotate/reopen remains unqualified. Hosted synthetic PDF upload was blocked by browser connector file-root configuration. Whole-array notes do not merge independent concurrent editors."
+          "reason": "Authenticated cloud URL/PDF import, notes and reopen remain unqualified: Google handoff reaches the credential page but no signed-in test account is available in the verification browser. Expiry/account switching/write recovery and broader extension/provider paths remain. Whole-array notes do not merge independent concurrent editors."
         }
       },
       "authModel": "public-persistent",

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: c98e577dfa43015e6c6f2a70700ad33359c942f652121df379810bacc4534fbe
+      sha256: 088821512e37e49aed9e501a58bcc0fe4ba5ab9526ad5c30926f00837560a659
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: reader
-      revision: 48ef4f272794a5216bad1751c8369f33b53784f0
+      revision: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
       githubRepository: Significant-Hobbies/reader
       expectedHomepage: https://read.significanthobbies.com
       observedHomepage: https://read.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: reader
-      revision: 48ef4f272794a5216bad1751c8369f33b53784f0
+      revision: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
       githubRepository: Significant-Hobbies/reader
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:37:51.505Z
+      observedAt: 2026-09-08T07:52:31.109Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
@@ -111,12 +111,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2025-11-16
     latestCommitAt: 2026-09-08
-    retainedCommitCount: 339
+    retainedCommitCount: 340
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reader
-  observedRevision: 48ef4f272794a5216bad1751c8369f33b53784f0
+  observedRevision: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
   githubRepository: Significant-Hobbies/reader
   githubHomepageUrl: https://read.significanthobbies.com
   worktree: *a1
@@ -197,7 +197,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-09-08T07:37:51.505Z
+  observedAt: 2026-09-08T07:52:31.109Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -206,7 +206,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/reader
     defaultBranch: main
-    defaultBranchSha: 48ef4f272794a5216bad1751c8369f33b53784f0
+    defaultBranchSha: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
     homepage: https://read.significanthobbies.com
     query: verified
     disposition:
@@ -231,15 +231,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34199770055
+          id: 34201035372
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 48ef4f272794a5216bad1751c8369f33b53784f0
-          createdAt: 2026-09-08T07:31:41Z
-          updatedAt: 2026-09-08T07:34:04Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34199770055
+          headSha: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
+          createdAt: 2026-09-08T07:46:36Z
+          updatedAt: 2026-09-08T07:48:55Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34201035372
         ageDays: 0
       schedule:
         health: not-applicable
@@ -249,15 +249,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34199770055
+          id: 34201035372
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 48ef4f272794a5216bad1751c8369f33b53784f0
-          createdAt: 2026-09-08T07:31:41Z
-          updatedAt: 2026-09-08T07:34:04Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34199770055
+          headSha: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
+          createdAt: 2026-09-08T07:46:36Z
+          updatedAt: 2026-09-08T07:48:55Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34201035372
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -277,15 +277,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34200018115
+          id: 34201302561
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 48ef4f272794a5216bad1751c8369f33b53784f0
-          createdAt: 2026-09-08T07:34:36Z
-          updatedAt: 2026-09-08T07:35:27Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34200018115
+          headSha: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
+          createdAt: 2026-09-08T07:49:48Z
+          updatedAt: 2026-09-08T07:50:39Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34201302561
         ageDays: 0
       schedule:
         health: not-applicable
@@ -315,15 +315,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34199770042
+          id: 34201035387
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 48ef4f272794a5216bad1751c8369f33b53784f0
-          createdAt: 2026-09-08T07:31:41Z
-          updatedAt: 2026-09-08T07:31:50Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34199770042
+          headSha: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
+          createdAt: 2026-09-08T07:46:36Z
+          updatedAt: 2026-09-08T07:46:47Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34201035387
         ageDays: 0
       schedule:
         health: not-applicable
@@ -333,15 +333,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34199770042
+          id: 34201035387
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 48ef4f272794a5216bad1751c8369f33b53784f0
-          createdAt: 2026-09-08T07:31:41Z
-          updatedAt: 2026-09-08T07:31:50Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34199770042
+          headSha: 6a7c1942edba96561e4375fd9ed9d391e351c6f4
+          createdAt: 2026-09-08T07:46:36Z
+          updatedAt: 2026-09-08T07:46:47Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34201035387
         ageDays: 0
       attention: ignored
     - name: AI Code Review
@@ -474,7 +474,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-08
-  reason: Guest URL import is offered by the UI but the snapshot endpoint requires sign-in. Real Google/D1/R2 import/read/annotate/reopen remains unqualified. Hosted synthetic PDF upload was blocked by browser connector file-root configuration. Whole-array notes do not merge independent concurrent editors.
+  reason: "Authenticated cloud URL/PDF import, notes and reopen remain unqualified: Google handoff reaches the credential page but no signed-in test account is available in the verification browser. Expiry/account switching/write recovery and broader extension/provider paths remain. Whole-array notes do not merge independent concurrent editors."
   changelogUrl: https://read.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/reader/issues
   geoIdentity:
