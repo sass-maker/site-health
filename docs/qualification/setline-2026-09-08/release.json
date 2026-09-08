@@ -92,7 +92,7 @@
   "issue": "https://github.com/Significant-Hobbies/setline/issues/77",
   "ci": {
     "run": 34216322092,
-    "state": "in_progress",
+    "state": "success",
     "previousRun": 34213847193,
     "previousConclusion": "cancelled at 20-minute limit; workout storage test awaited first-use notification permission",
     "correction": "Inject recording notifier into filesystem regression; default production RestNotifier unchanged. All six focused tests and complete native gate pass."

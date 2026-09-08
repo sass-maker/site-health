@@ -64,7 +64,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
       "shareable": false,
-      "repairProgress": "0283a79 pushed: serialize local writes, acknowledge committed saves, preserve failed editor drafts and unread files, retain backup recovery, and recover local workouts without waiting on optional account services. Full native gate passed, coverage 80.9537%; build 8 signed, installed on the physical iPhone. bdc99dd pushes notifier isolation after the first CI timed out on the permission dialog; full local gate passed again and exact CI 34216322092 is running; issue 77 retains physical workout/restart and sync qualification."
+      "repairProgress": "0283a79 pushed: serialize local writes, acknowledge committed saves, preserve failed editor drafts and unread files, retain backup recovery, and recover local workouts without waiting on optional account services. Full native gate passed, coverage 80.9537%; build 8 signed, installed on the physical iPhone. bdc99dd pushes notifier isolation after the first CI timed out on the permission dialog; full local gate passed again and exact CI 34216322092 passed; issue 77 retains physical workout/restart and sync qualification."
     },
     {
       "id": "free-ai",
