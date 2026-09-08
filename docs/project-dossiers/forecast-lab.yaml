@@ -3,7 +3,7 @@ projectId: forecast-lab
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-07
+  generatedAt: 2026-09-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e365e1f4c4359011f00c85ab4affba0bbe9c6be6e238f9eda9ffe6f68205f8b1
+      sha256: a949808b459a7b49110db33bb1738bf492dfded74131925435ecdc0d99b5ccf8
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-07
+      observedAt: 2026-09-08
       state: available
       checkout: forecast-lab
       revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-07
+      observedAt: 2026-09-08
       state: available
       checkout: forecast-lab
       revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T19:27:22.612Z
+      observedAt: 2026-09-08T06:07:39.989Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -148,7 +148,7 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-07T19:27:22.612Z
+  observedAt: 2026-09-08T06:07:39.989Z
   staleAfterDays: 30
   summary:
     healthy: 1

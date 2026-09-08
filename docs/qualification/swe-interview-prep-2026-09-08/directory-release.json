@@ -1,0 +1,18 @@
+{
+  "observedAt": "2026-09-08T06:07:39.725819+00:00",
+  "deploymentId": "094c63fa-b6d4-4db8-894b-a1a7d3bc8dd7",
+  "sourceRevision": "d2c832a51beb0da0f9cbaef98ce6a76bf73934cb",
+  "ciRuns": [
+    34193054416,
+    34193054439
+  ],
+  "url": "https://sassmaker.com/p/swe-interview-prep",
+  "smoke": "4/4 passed",
+  "browser": {
+    "listed": true,
+    "guestLocalAndUnqualifiedSyncCopyVisible": true,
+    "directoryCount": 23,
+    "chessAndJournalAbsent": true
+  },
+  "scope": "Pages saas-maker-home only; no API/cockpit Worker deployment"
+}

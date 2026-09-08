@@ -3,7 +3,7 @@ projectId: anime-list
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-07
+  generatedAt: 2026-09-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e365e1f4c4359011f00c85ab4affba0bbe9c6be6e238f9eda9ffe6f68205f8b1
+      sha256: a949808b459a7b49110db33bb1738bf492dfded74131925435ecdc0d99b5ccf8
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-07
+      observedAt: 2026-09-08
       state: available
       checkout: anime-list
       revision: 93000b31d28215acf88ec76a70dd99bd431674c0
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-07
+      observedAt: 2026-09-08
       state: available
       checkout: anime-list
       revision: 93000b31d28215acf88ec76a70dd99bd431674c0
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T19:27:22.612Z
+      observedAt: 2026-09-08T06:07:39.989Z
       staleAfterDays: 30
       healthy: 5
       cancelled: 1
@@ -204,7 +204,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-07T19:27:22.612Z
+  observedAt: 2026-09-08T06:07:39.989Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -395,7 +395,7 @@ githubActions:
           createdAt: 2026-07-01T04:24:36Z
           updatedAt: 2026-07-01T04:37:27Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28493405418
-        ageDays: 68
+        ageDays: 69
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -443,7 +443,7 @@ githubActions:
           createdAt: 2026-07-01T05:15:13Z
           updatedAt: 2026-07-01T05:17:44Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28495233930
-        ageDays: 68
+        ageDays: 69
         freshnessDays: 100
       currentDefaultBranch:
         health: not-applicable
@@ -469,29 +469,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34076958649
+          id: 34181479330
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 87627a78504825100bf818c46590b63fb235cd6b
-          createdAt: 2026-09-07T02:38:32Z
-          updatedAt: 2026-09-07T02:41:38Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34076958649
+          headSha: 93000b31d28215acf88ec76a70dd99bd431674c0
+          createdAt: 2026-09-08T02:51:06Z
+          updatedAt: 2026-09-08T02:54:11Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34181479330
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 34076958649
+          id: 34181479330
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 87627a78504825100bf818c46590b63fb235cd6b
-          createdAt: 2026-09-07T02:38:32Z
-          updatedAt: 2026-09-07T02:41:38Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34076958649
+          headSha: 93000b31d28215acf88ec76a70dd99bd431674c0
+          createdAt: 2026-09-08T02:51:06Z
+          updatedAt: 2026-09-08T02:54:11Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34181479330
         ageDays: 0
         freshnessDays: 2
       currentDefaultBranch:
