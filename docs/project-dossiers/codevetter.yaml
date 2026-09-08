@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3c1dfb46e0bec2fddc9fcee63f6f62c860ee9aedde94a85372d8c3d626db950d
+      sha256: cf0895d72ad7b1c49fd023ef6404071551fb19c7019cb75c1ce496d39ca355ab
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T09:38:36.478Z
+      observedAt: 2026-09-08T10:36:52.432Z
       staleAfterDays: 30
       healthy: 10
       manual-or-reusable-never-run: 2
@@ -278,7 +278,7 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-08T09:38:36.478Z
+  observedAt: 2026-09-08T10:36:52.432Z
   staleAfterDays: 30
   summary:
     healthy: 10
@@ -369,7 +369,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:39Z
           updatedAt: 2026-09-07T10:32:57Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111555307
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -387,7 +387,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:39Z
           updatedAt: 2026-09-07T10:32:57Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111555307
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Deploy Landing Page
       file: .github/workflows/deploy-landing.yml
@@ -452,7 +452,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:39Z
           updatedAt: 2026-09-07T10:27:48Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111555089
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -470,7 +470,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:39Z
           updatedAt: 2026-09-07T10:27:48Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111555089
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Native macOS production-candidate qualification
       file: .github/workflows/native-production-qualification.yml
@@ -640,7 +640,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:39Z
           updatedAt: 2026-09-07T10:28:05Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111555105
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -658,7 +658,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:39Z
           updatedAt: 2026-09-07T10:28:05Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111555105
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
@@ -804,7 +804,7 @@ githubActions:
           createdAt: 2026-09-07T10:27:38Z
           updatedAt: 2026-09-07T10:45:19Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34111554221
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

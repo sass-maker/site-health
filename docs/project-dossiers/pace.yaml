@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3c1dfb46e0bec2fddc9fcee63f6f62c860ee9aedde94a85372d8c3d626db950d
+      sha256: cf0895d72ad7b1c49fd023ef6404071551fb19c7019cb75c1ce496d39ca355ab
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T09:38:36.478Z
+      observedAt: 2026-09-08T10:36:52.432Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -151,7 +151,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T09:38:36.478Z
+  observedAt: 2026-09-08T10:36:52.432Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -194,7 +194,7 @@ githubActions:
           createdAt: 2026-09-07T09:59:13Z
           updatedAt: 2026-09-07T10:03:57Z
           url: https://github.com/HeyPace/pace/actions/runs/34109016417
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -212,7 +212,7 @@ githubActions:
           createdAt: 2026-09-07T09:59:13Z
           updatedAt: 2026-09-07T10:03:57Z
           url: https://github.com/HeyPace/pace/actions/runs/34109016417
-        ageDays: 0
+        ageDays: 1
       attention: clear
     - name: Deploy pace to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -278,7 +278,7 @@ githubActions:
           createdAt: 2026-09-07T09:59:13Z
           updatedAt: 2026-09-07T09:59:55Z
           url: https://github.com/HeyPace/pace/actions/runs/34109016363
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -296,7 +296,7 @@ githubActions:
           createdAt: 2026-09-07T09:59:13Z
           updatedAt: 2026-09-07T09:59:55Z
           url: https://github.com/HeyPace/pace/actions/runs/34109016363
-        ageDays: 0
+        ageDays: 1
       attention: clear
 deployment:
   kind: pages

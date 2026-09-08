@@ -183,19 +183,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native workout app",
-      "observed": "pnpm check and complete native gate pass, including 80.6850% production-line coverage. Development-signed version 1.0.0 build 7 installed on owner iPhone from 84546dd4f81d59c620f53d025f5b958ca65f0aae. Physical launch blocked by phone lock; App Store availability is not established.",
+      "observed": "0283a79 build 8 fixes three reproduced storage defects and preserves failed workout recording/finish through retry. Six storage regressions, recovery UI and full native gate pass: 182 core, 17 app and 17 UI tests, one explicit iCloud-credential skip, Release build and 80.9537% coverage. Optional account validation follows local load and is skipped during active workouts. Signed development build 8 installed on the physical iPhone; installation does not establish a physical workout or sync pass.",
       "urls": [
         "https://setline.significanthobbies.com/"
       ],
       "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-08",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "development-build-installed; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
       "disposition": "retain-unpromoted",
-      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
+      "evidencePath": "docs/qualification/setline-2026-09-08/README.md"
     },
     {
       "id": "free-ai",

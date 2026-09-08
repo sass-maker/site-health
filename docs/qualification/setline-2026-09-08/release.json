@@ -1,0 +1,100 @@
+{
+  "source": "bdc99ddb1586c7e489c21522348378339a05503a",
+  "build": 8,
+  "observedAt": "2026-09-08",
+  "before": {
+    "summary": {
+      "status": "FAILED",
+      "durationMs": 21430,
+      "counts": {
+        "passed": 0,
+        "failed": 3,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "failures": [
+      {
+        "suite": "SetlineLocalSaveTests",
+        "test": "testConcurrentMeasurementsDoNotOverwriteEachOther",
+        "message": "XCTAssertEqual failed: (\"nil\") is not equal to (\"Optional(11.0)\")",
+        "location": "/Users/sarthak/Desktop/fleet/setline/ios/Tests/SetlineTests/SetlineLocalSaveTests.swift:41"
+      },
+      {
+        "suite": "SetlineLocalSaveTests",
+        "test": "testConcurrentMeasurementsDoNotOverwriteEachOther()",
+        "message": "XCTAssertEqual failed: (\"nil\") is not equal to (\"Optional(11.0)\")"
+      },
+      {
+        "suite": "SetlineLocalSaveTests",
+        "test": "testFailedLoadDoesNotAllowAnInitialDocumentToOverwriteTheFile",
+        "message": "XCTAssertEqual failed: (\"4502 bytes\") is not equal to (\"35 bytes\")",
+        "location": "/Users/sarthak/Desktop/fleet/setline/ios/Tests/SetlineTests/SetlineLocalSaveTests.swift:55"
+      },
+      {
+        "suite": "SetlineLocalSaveTests",
+        "test": "testFailedLoadDoesNotAllowAnInitialDocumentToOverwriteTheFile()",
+        "message": "XCTAssertEqual failed: (\"4502 bytes\") is not equal to (\"35 bytes\")"
+      },
+      {
+        "suite": "SetlineLocalSaveTests",
+        "test": "testFailedTemplateSaveCannotReportSuccessAndCanRetry",
+        "message": "XCTAssertNotEqual failed: (\"Optional(\"Template saved.\")\") is equal to (\"Optional(\"Template saved.\")\")",
+        "location": "/Users/sarthak/Desktop/fleet/setline/ios/Tests/SetlineTests/SetlineLocalSaveTests.swift:22"
+      },
+      {
+        "suite": "SetlineLocalSaveTests",
+        "test": "testFailedTemplateSaveCannotReportSuccessAndCanRetry()",
+        "message": "XCTAssertNotEqual failed: (\"Optional(\"Template saved.\")\") is equal to (\"Optional(\"Template saved.\")\")"
+      }
+    ]
+  },
+  "focusedStorage": {
+    "summary": {
+      "status": "SUCCEEDED",
+      "durationMs": 21850,
+      "counts": {
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "tests": [
+      "SetlineTests/SetlineLocalSaveTests/testConcurrentMeasurementsDoNotOverwriteEachOther",
+      "SetlineTests/SetlineLocalSaveTests/testExplicitBackupRestoreRecoversUnreadableFileAndAllowsLaterEdits",
+      "SetlineTests/SetlineLocalSaveTests/testFailedGoalAndCheckInSavesKeepPriorValues",
+      "SetlineTests/SetlineLocalSaveTests/testFailedLoadDoesNotAllowAnInitialDocumentToOverwriteTheFile",
+      "SetlineTests/SetlineLocalSaveTests/testFailedTemplateSaveCannotReportSuccessAndCanRetry",
+      "SetlineTests/SetlineLocalSaveTests/testFailedWorkoutWritePreservesSessionAndRetrySurvivesReload"
+    ]
+  },
+  "recoveryUI": "passed in isolated recovery demo; actual corrupt-file and restore tested separately in temporary storage",
+  "nodeCheck": "passed",
+  "nativeGate": {
+    "coreTestsPassed": 182,
+    "appTestsPassed": 17,
+    "uiTestsPassed": 17,
+    "explicitICloudCredentialSkip": 1,
+    "release": "passed",
+    "coveragePercent": 80.9537,
+    "coverageFloorPercent": 80.6
+  },
+  "device": {
+    "build8": "installed, development-signed Debug build",
+    "physicalJourney": "unverified; fresh build-8 launch returned CoreDeviceError 10002 / FBS Locked",
+    "bundleId": "com.significanthobbies.setline",
+    "version": "1.0.0",
+    "signatureVerification": "codesign --verify --deep --strict passed",
+    "installedSource": "0283a79349f0771be72715f2a140499741587693"
+  },
+  "shareable": false,
+  "issue": "https://github.com/Significant-Hobbies/setline/issues/77",
+  "ci": {
+    "run": 34216322092,
+    "state": "in_progress",
+    "previousRun": 34213847193,
+    "previousConclusion": "cancelled at 20-minute limit; workout storage test awaited first-use notification permission",
+    "correction": "Inject recording notifier into filesystem regression; default production RestNotifier unchanged. All six focused tests and complete native gate pass."
+  }
+}

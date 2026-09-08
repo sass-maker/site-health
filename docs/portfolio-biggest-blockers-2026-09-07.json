@@ -64,7 +64,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
       "shareable": false,
-      "repairProgress": "pnpm check and complete native gate pass, including 80.6850% production-line coverage. Development-signed version 1.0.0 build 7 installed on owner iPhone from 84546dd4f81d59c620f53d025f5b958ca65f0aae. Physical launch blocked by phone lock; App Store availability is not established."
+      "repairProgress": "0283a79 pushed: serialize local writes, acknowledge committed saves, preserve failed editor drafts and unread files, retain backup recovery, and recover local workouts without waiting on optional account services. Full native gate passed, coverage 80.9537%; build 8 signed, installed on the physical iPhone. bdc99dd pushes notifier isolation after the first CI timed out on the permission dialog; full local gate passed again and exact CI 34216322092 is running; issue 77 retains physical workout/restart and sync qualification."
     },
     {
       "id": "free-ai",

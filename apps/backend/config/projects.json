@@ -1627,8 +1627,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass."
+          "verifiedAt": "2026-09-08",
+          "reason": "Build 8 fixes failed-save false success, lost concurrent writes and unread-file overwrite risk. Six storage regressions, recovery UI and full native gate pass at 80.9537% coverage (80.60% floor retained). Local launch no longer waits for optional account validation. Actual physical workout/restart, signed-in sync and public distribution remain unqualified."
         }
       },
       "name": "Setline",
