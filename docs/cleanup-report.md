@@ -235,3 +235,9 @@ The owner experiment decision is retained for both Reel Pipeline and Forecast
 Lab; Reel Pipeline now also uses `portfolio.kind: experiment`. The 54-project
 sharing accounting is unchanged: 23 scoped passes, 8 retention outcomes, 23
 remaining qualification/decision items. No other project was promoted.
+
+### CodeVetter release reconciliation — 2026-09-09
+
+The live download HTML and Markdown now match the published v1.13.7 assets. Landing source `f051219b1bf534d892dec7de0c5d5f9a0ab5fc10` was built with its existing landing/docs checks and deployed to Pages `fc868277-6431-4f8d-b246-e2ecbd596bf0` and Worker `ef571fd9-51ac-4559-91fb-c21339cd650b` (100% traffic). Canonical download, Markdown, docs and privacy returned HTTP 200. No zone configuration was changed.
+
+Downloaded release run [34095571484](https://github.com/Codevetter/codevetter/actions/runs/34095571484) proves hosted-Mac upgrade from Tauri v1.11.1, relaunch, rollback and custom-rubric preservation, with all four windows observed through System Events. The qualified ZIP digest matches the published release. Issue #252 is closed. Notarization, Gatekeeper and appcast signature checks passed; actual in-app Sparkle installation remains outside this proof and #253 stays open. Shareability remains false pending the representative core task and remaining installed behavior. The owner Mac was not upgraded; its two source edits remain preserved.

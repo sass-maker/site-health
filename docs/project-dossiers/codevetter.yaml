@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 943fcefa4f7b4b4b136968e331062eb5e298ed6f15bad42b8a98d9009a7e003b
+      sha256: c4955e46031d6ade2d2923c197d45ffe1fc97de9f55d1baa317e6c7301ffa295
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T20:46:30.750Z
+      observedAt: 2026-09-08T21:14:12.333Z
       staleAfterDays: 30
       healthy: 10
       manual-or-reusable-never-run: 2
@@ -278,7 +278,7 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-08T20:46:30.750Z
+  observedAt: 2026-09-08T21:14:12.333Z
   staleAfterDays: 30
   summary:
     healthy: 10
@@ -871,8 +871,8 @@ sharing:
   publicListing: maintained
   maturity: public-ready
   ready: false
-  verifiedAt: 2026-09-07
-  reason: "Native installed workflow remains unqualified. The visible-process false positive is repaired in merged PR #271; release qualification still requires actual window and upgrade evidence."
+  verifiedAt: 2026-09-09
+  reason: "Release v1.13.7 hosted-Mac proof verifies visible windows, upgrade, relaunch, rollback and custom-rubric preservation; issue #252 closed. Download HTML/Markdown now match published assets. Landing main f051219b1bf534d892dec7de0c5d5f9a0ab5fc10 deployed to Pages fc868277-6431-4f8d-b246-e2ecbd596bf0 and Worker ef571fd9-51ac-4559-91fb-c21339cd650b at 100% traffic. Signed appcast and notarization verified; actual in-app Sparkle update and representative end-to-end verification task remain unqualified (#253). Owner installation was not upgraded."
   changelogUrl: https://codevetter.com/changelog
   roadmapUrl: https://github.com/Codevetter/codevetter/issues
   geoIdentity:
