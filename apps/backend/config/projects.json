@@ -1581,7 +1581,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 13/source 2c98db2 repairs queue state after failed writes and prevents an unread queue being overwritten on retry. Hosted CI 34249949575 passed all 71 tests, Release compilation and 66.2213% coverage above the unchanged floor. Stable-Xcode build 13 passed signature verification and is installed on the iPhone. Physical use, real-account isolation, signed-in sync and public distribution remain unqualified; the phone was freshly confirmed locked during the preceding Setline/Kith launch checks."
+          "reason": "Build 14/source 6ecaf4f repairs reproduced account-switching and stale queue acknowledgement failures, persists journal ownership, and requires explicit reconciliation for legacy or differently owned journals. All 32 focused account/local-save tests and pnpm check pass. Hosted iOS CI 34255598804 is in progress; the local native gate found no available iPhone simulator. Build 13 remains installed. Physical use, real-account sync/isolation and public distribution remain unqualified."
         }
       },
       "name": "Calorie",
@@ -1615,7 +1615,7 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/calorie"
       },
-      "notes": "Native-first food journal with optional private cloud sync. Development build 12 from 59fecf539853fa402f8085e62e4297994b3468f6 is installed on the owner iPhone; its fresh launch was blocked by the locked device. Local failure/retry, concurrent writes, backup recovery and one-off nutrient edits are tested. Actual physical use, live signed-in sync and current TestFlight/public distribution remain unverified.",
+      "notes": "Native-first food journal with optional private cloud sync. Development build 13 from 2c98db238afc67c2f2f9a2663d2d7c66dde35972 is installed on the owner iPhone. Build 14/source 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308 adds account-bound replay and persistent journal ownership; exact-source hosted iOS verification and installation are pending. Physical use, signed-in sync and public distribution remain unverified. See issue 88 and docs/qualification/calorie-2026-09-08/.",
       "category": "utility"
     },
     {
