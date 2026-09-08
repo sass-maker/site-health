@@ -1243,8 +1243,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Local calculator and aggregate evaluation pass with explicit thin-support limits. Hosted calculator qualification and source usage/NFHS gates remain under #35/#36."
+          "verifiedAt": "2026-09-08",
+          "reason": "Normal human verification has not yielded a hosted calculator result; provider health, default/sparse/unsupported cases and displayed-filter sharing remain unqualified under #35. PLFS usage scope and NFHS activation remain #36."
         }
       },
       "authModel": "public-persistent",

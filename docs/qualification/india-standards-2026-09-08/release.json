@@ -1,0 +1,32 @@
+{
+  "source": "b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd",
+  "ciRun": 34196345876,
+  "deployMethod": "pnpm deploy:cf after six-gate guard",
+  "deploymentId": "da1bab76-c864-4dd5-afa7-b4c614b227fd",
+  "traffic": [
+    {
+      "version_id": "fb43de73-0d04-459b-ad1a-e84552fe4e8b",
+      "percentage": 100
+    }
+  ],
+  "versions": [
+    {
+      "id": "fb43de73-0d04-459b-ad1a-e84552fe4e8b",
+      "annotations": {
+        "workers/tag": "b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd",
+        "workers/triggered_by": "version_upload"
+      }
+    }
+  ],
+  "browser": {
+    "width": 390,
+    "scrollWidth": 390,
+    "busy": false,
+    "status": "Waiting for human verification.",
+    "estimateRequests": 0
+  },
+  "limitations": [
+    "Normal human verification did not produce a token; no hosted estimate qualified.",
+    "PLFS usage scope and NFHS activation remain issue 36."
+  ]
+}

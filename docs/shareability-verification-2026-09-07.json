@@ -351,15 +351,16 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Hosted aggregate calculator",
-      "observed": "Estimate displayed hosted model verification failure and human-verification requirement; usage scope labeled under review.",
-      "limitations": "No calculated result verified; did not bypass verification.",
-      "verifiedAt": "2026-09-07",
+      "observed": "Deployed b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd after green CI 34196345876 and six-gate guard. Worker version fb43de73-0d04-459b-ad1a-e84552fe4e8b carries the full source tag at 100% traffic. Accuracy repairs and truthful verification waiting state are live. Hosted 390px page has no overflow, aria-busy=false and no estimate request before verification. All 38 local tests and full quality pass.",
+      "limitations": "Normal human verification has not yielded a hosted calculator result; provider health, default/sparse/unsupported cases and displayed-filter sharing remain unqualified under #35. PLFS usage scope and NFHS activation remain #36.",
+      "verifiedAt": "2026-09-08",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/india-standards-2026-09-08/release.json"
     },
     {
       "id": "anime-list",

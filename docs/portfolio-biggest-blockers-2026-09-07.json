@@ -140,9 +140,9 @@
       "id": "india-standards",
       "name": "India Standards",
       "classification": "Qualification gap",
-      "biggestBlocker": "Local calculator and aggregate evaluation pass with explicit thin-support limits. Hosted calculator qualification and source usage/NFHS gates remain under #35/#36.",
+      "biggestBlocker": "Normal human verification has not yielded a hosted calculator result; provider health, default/sparse/unsupported cases and displayed-filter sharing remain unqualified under #35. PLFS usage scope and NFHS activation remain #36.",
       "shareable": false,
-      "repairProgress": "f5312cf pushed clean; 38 tests and full quality pass. Repairs unsupported-data zero estimates, sub-person rarity clamping, share-state drift and denominator disclosure. Real local aggregate evaluation records thin support and source/NFHS limits. Exact-head CI green; hosted qualification #35 and source gates #36 retained in README."
+      "repairProgress": "Deployed b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd after green CI 34196345876 and six-gate guard. Worker version fb43de73-0d04-459b-ad1a-e84552fe4e8b carries the full source tag at 100% traffic. Accuracy repairs and truthful verification waiting state are live. Hosted 390px page has no overflow, aria-busy=false and no estimate request before verification. All 38 local tests and full quality pass."
     },
     {
       "id": "anime-list",
