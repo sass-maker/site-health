@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 267e32b07208f4ee1ea23bb3f869fb5ab44cceea15970d11f4ed0a117ef500cf
+      sha256: b7c3b789811fecec2424a4ac04e38831437317d509c36e2a8a5ede605f7ad465
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T21:33:45.113Z
+      observedAt: 2026-09-08T22:44:41.655Z
       staleAfterDays: 30
       healthy: 5
       stale: 2
@@ -197,7 +197,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T21:33:45.113Z
+  observedAt: 2026-09-08T22:44:41.655Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -276,7 +276,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 37 days old
+        reason: latest run is 38 days old
         apiState: active
         lastRun:
           id: 30721106035
@@ -288,7 +288,7 @@ githubActions:
           createdAt: 2026-08-01T22:22:08Z
           updatedAt: 2026-08-01T22:22:48Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721106035
-        ageDays: 37
+        ageDays: 38
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -396,7 +396,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 37 days old
+        reason: latest run is 38 days old
         apiState: active
         lastRun:
           id: 30721198381
@@ -408,7 +408,7 @@ githubActions:
           createdAt: 2026-08-01T22:24:44Z
           updatedAt: 2026-08-01T22:25:14Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721198381
-        ageDays: 37
+        ageDays: 38
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

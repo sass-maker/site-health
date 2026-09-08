@@ -8,7 +8,7 @@
       "source": {
         "state": "available",
         "path": "codevetter",
-        "revision": "6e7a77ab199a10602ba600c05a637c00e5bb1dcb",
+        "revision": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
         "repositorySlug": "Codevetter/codevetter",
         "worktree": {
           "state": "dirty",
@@ -19,7 +19,7 @@
       "history": {
         "firstCommitAt": "2025-11-30",
         "latestCommitAt": "2026-09-09",
-        "retainedCommitCount": 1344,
+        "retainedCommitCount": 1345,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -46,17 +46,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34095553779,
+              "id": 34283937910,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "56a4ee26eaccdca99efac68a9168716b1aed06e8",
-              "createdAt": "2026-09-07T07:27:27Z",
-              "updatedAt": "2026-09-07T07:44:24Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34095553779"
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:03:50Z",
+              "updatedAt": "2026-09-08T22:20:46Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283937910"
             },
-            "ageDays": 1
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -64,21 +64,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "missing",
-            "reason": "no push run at current main revision 6e7a77a",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34095553779,
+              "id": 34283937910,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "56a4ee26eaccdca99efac68a9168716b1aed06e8",
-              "createdAt": "2026-09-07T07:27:27Z",
-              "updatedAt": "2026-09-07T07:44:24Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34095553779"
-            }
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:03:50Z",
+              "updatedAt": "2026-09-08T22:20:46Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283937910"
+            },
+            "ageDays": 0
           },
-          "attention": "missing-data"
+          "attention": "clear"
         },
         {
           "name": "CI",
@@ -103,15 +104,15 @@
             "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 34281054681,
+              "id": 34286941554,
               "status": "in_progress",
               "conclusion": null,
               "event": "pull_request",
-              "branch": "release/1.13.8-verification-fixes",
-              "headSha": "467c1b72f055f91825f078be782a341586a5253b",
-              "createdAt": "2026-09-08T21:31:14Z",
-              "updatedAt": "2026-09-08T21:31:21Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34281054681"
+              "branch": "fix/unqualified-qa-intent",
+              "headSha": "9be3a16cd8d9499147c272fea5ca2ed192c6f712",
+              "createdAt": "2026-09-08T22:38:42Z",
+              "updatedAt": "2026-09-08T22:38:49Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34286941554"
             },
             "ageDays": 0
           },
@@ -124,15 +125,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34280441959,
+              "id": 34283938140,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6e7a77ab199a10602ba600c05a637c00e5bb1dcb",
-              "createdAt": "2026-09-08T21:24:41Z",
-              "updatedAt": "2026-09-08T21:30:29Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34280441959"
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:03:50Z",
+              "updatedAt": "2026-09-08T22:08:30Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283938140"
             },
             "ageDays": 0
           },
@@ -205,15 +206,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34281054445,
+              "id": 34286941482,
               "status": "completed",
               "conclusion": "success",
               "event": "pull_request",
-              "branch": "release/1.13.8-verification-fixes",
-              "headSha": "467c1b72f055f91825f078be782a341586a5253b",
-              "createdAt": "2026-09-08T21:31:14Z",
-              "updatedAt": "2026-09-08T21:31:23Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34281054445"
+              "branch": "fix/unqualified-qa-intent",
+              "headSha": "9be3a16cd8d9499147c272fea5ca2ed192c6f712",
+              "createdAt": "2026-09-08T22:38:42Z",
+              "updatedAt": "2026-09-08T22:38:51Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34286941482"
             },
             "ageDays": 0
           },
@@ -226,15 +227,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34280441535,
+              "id": 34283937843,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6e7a77ab199a10602ba600c05a637c00e5bb1dcb",
-              "createdAt": "2026-09-08T21:24:40Z",
-              "updatedAt": "2026-09-08T21:24:54Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34280441535"
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:03:50Z",
+              "updatedAt": "2026-09-08T22:04:02Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283937843"
             },
             "ageDays": 0
           },
@@ -258,18 +259,18 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is queued",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
               "id": 34281069143,
-              "status": "queued",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "release/1.13.8-verification-fixes",
               "headSha": "467c1b72f055f91825f078be782a341586a5253b",
               "createdAt": "2026-09-08T21:31:23Z",
-              "updatedAt": "2026-09-08T21:31:23Z",
+              "updatedAt": "2026-09-08T22:01:41Z",
               "url": "https://github.com/Codevetter/codevetter/actions/runs/34281069143"
             },
             "ageDays": 0
@@ -304,18 +305,18 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
               "id": 34280592654,
-              "status": "in_progress",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "6e7a77ab199a10602ba600c05a637c00e5bb1dcb",
               "createdAt": "2026-09-08T21:26:15Z",
-              "updatedAt": "2026-09-08T21:26:25Z",
+              "updatedAt": "2026-09-08T21:48:17Z",
               "url": "https://github.com/Codevetter/codevetter/actions/runs/34280592654"
             },
             "ageDays": 0
@@ -355,15 +356,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34281054426,
+              "id": 34286372385,
               "status": "completed",
               "conclusion": "success",
               "event": "pull_request",
-              "branch": "release/1.13.8-verification-fixes",
-              "headSha": "467c1b72f055f91825f078be782a341586a5253b",
-              "createdAt": "2026-09-08T21:31:14Z",
-              "updatedAt": "2026-09-08T21:32:10Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34281054426"
+              "branch": "fix/web-docs-security-20260909",
+              "headSha": "af5b3fb9fdf091b9072166213f377dae782937e8",
+              "createdAt": "2026-09-08T22:31:50Z",
+              "updatedAt": "2026-09-08T22:32:45Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34286372385"
             },
             "ageDays": 0
           },
@@ -373,21 +374,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "missing",
-            "reason": "no push run at current main revision 6e7a77a",
+            "health": "failing",
+            "reason": "current main push concluded failure",
             "lastRun": {
-              "id": 34095553726,
+              "id": 34283937911,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "event": "push",
               "branch": "main",
-              "headSha": "56a4ee26eaccdca99efac68a9168716b1aed06e8",
-              "createdAt": "2026-09-07T07:27:27Z",
-              "updatedAt": "2026-09-07T07:28:21Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34095553726"
-            }
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:03:50Z",
+              "updatedAt": "2026-09-08T22:04:38Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283937911"
+            },
+            "ageDays": 0
           },
-          "attention": "missing-data"
+          "attention": "action-required"
         },
         {
           "name": "Release Native macOS App",
@@ -411,17 +413,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34095571484,
+              "id": 34283955902,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "56a4ee26eaccdca99efac68a9168716b1aed06e8",
-              "createdAt": "2026-09-07T07:27:40Z",
-              "updatedAt": "2026-09-07T07:43:48Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34095571484"
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:04:03Z",
+              "updatedAt": "2026-09-08T22:20:34Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283955902"
             },
-            "ageDays": 1
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -458,15 +460,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34281054472,
+              "id": 34286941279,
               "status": "completed",
               "conclusion": "success",
               "event": "pull_request",
-              "branch": "release/1.13.8-verification-fixes",
-              "headSha": "467c1b72f055f91825f078be782a341586a5253b",
-              "createdAt": "2026-09-08T21:31:14Z",
-              "updatedAt": "2026-09-08T21:31:40Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34281054472"
+              "branch": "fix/unqualified-qa-intent",
+              "headSha": "9be3a16cd8d9499147c272fea5ca2ed192c6f712",
+              "createdAt": "2026-09-08T22:38:42Z",
+              "updatedAt": "2026-09-08T22:39:18Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34286941279"
             },
             "ageDays": 0
           },
@@ -476,22 +478,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "failing",
+            "reason": "current main push concluded failure",
             "lastRun": {
-              "id": 34280441599,
+              "id": 34283937818,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "event": "push",
               "branch": "main",
-              "headSha": "6e7a77ab199a10602ba600c05a637c00e5bb1dcb",
-              "createdAt": "2026-09-08T21:24:40Z",
-              "updatedAt": "2026-09-08T21:25:11Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34280441599"
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:03:50Z",
+              "updatedAt": "2026-09-08T22:07:33Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34283937818"
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "action-required"
         },
         {
           "name": "Weekly Quality Check",
@@ -572,17 +574,17 @@
             "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
-              "id": 34029549004,
+              "id": 34285141238,
               "status": "completed",
               "conclusion": "failure",
               "event": "dynamic",
               "branch": "main",
-              "headSha": "9dacf5973f5d3439d98351ae29d2587b6670f9f5",
-              "createdAt": "2026-09-06T11:12:01Z",
-              "updatedAt": "2026-09-06T11:15:40Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34029549004"
+              "headSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
+              "createdAt": "2026-09-08T22:17:33Z",
+              "updatedAt": "2026-09-08T22:18:34Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34285141238"
             },
-            "ageDays": 2
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -658,15 +660,15 @@
             "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 34281052066,
+              "id": 34286369976,
               "status": "in_progress",
               "conclusion": null,
               "event": "dynamic",
-              "branch": "refs/pull/274/head",
-              "headSha": "467c1b72f055f91825f078be782a341586a5253b",
-              "createdAt": "2026-09-08T21:31:12Z",
-              "updatedAt": "2026-09-08T21:31:23Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/34281052066"
+              "branch": "refs/pull/275/head",
+              "headSha": "af5b3fb9fdf091b9072166213f377dae782937e8",
+              "createdAt": "2026-09-08T22:31:49Z",
+              "updatedAt": "2026-09-08T22:32:00Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/34286369976"
             },
             "ageDays": 0
           },
@@ -862,7 +864,7 @@
       "githubActionsMeta": {
         "repository": "Codevetter/codevetter",
         "defaultBranch": "main",
-        "defaultBranchSha": "6e7a77ab199a10602ba600c05a637c00e5bb1dcb",
+        "defaultBranchSha": "eacf1a055e9601f83d625a1051ba58fb24ad5672",
         "homepage": "https://codevetter.com",
         "query": "verified",
         "disposition": {
@@ -1303,18 +1305,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "00b0bc833afc660c790d46d315d222471d253345",
+        "revision": "cf92e96213cb41c44f1550038f947f50b07d7a1c",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 1,
+          "trackedChangeCount": 2,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-09",
-        "retainedCommitCount": 1073,
+        "retainedCommitCount": 1074,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1342,15 +1344,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34280740488,
+              "id": 34281463348,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "00b0bc833afc660c790d46d315d222471d253345",
-              "createdAt": "2026-09-08T21:27:51Z",
-              "updatedAt": "2026-09-08T21:28:23Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34280740488"
+              "headSha": "cf92e96213cb41c44f1550038f947f50b07d7a1c",
+              "createdAt": "2026-09-08T21:35:38Z",
+              "updatedAt": "2026-09-08T21:36:10Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34281463348"
             },
             "ageDays": 0
           },
@@ -1363,15 +1365,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34280740488,
+              "id": 34281463348,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "00b0bc833afc660c790d46d315d222471d253345",
-              "createdAt": "2026-09-08T21:27:51Z",
-              "updatedAt": "2026-09-08T21:28:23Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34280740488"
+              "headSha": "cf92e96213cb41c44f1550038f947f50b07d7a1c",
+              "createdAt": "2026-09-08T21:35:38Z",
+              "updatedAt": "2026-09-08T21:36:10Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34281463348"
             },
             "ageDays": 0
           },
@@ -1420,7 +1422,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "00b0bc833afc660c790d46d315d222471d253345",
+        "defaultBranchSha": "cf92e96213cb41c44f1550038f947f50b07d7a1c",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -4892,15 +4894,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34281026060,
+              "id": 34286294549,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "16547a2f205d2a4d586429dbc95c580a2c9d5f4b",
-              "createdAt": "2026-09-08T21:30:55Z",
-              "updatedAt": "2026-09-08T21:31:31Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34281026060"
+              "createdAt": "2026-09-08T22:30:55Z",
+              "updatedAt": "2026-09-08T22:31:41Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34286294549"
             },
             "ageDays": 0
           },
@@ -5045,15 +5047,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34266751466,
+              "id": 34284162252,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "16547a2f205d2a4d586429dbc95c580a2c9d5f4b",
-              "createdAt": "2026-09-08T19:03:50Z",
-              "updatedAt": "2026-09-08T19:07:36Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34266751466"
+              "createdAt": "2026-09-08T22:06:22Z",
+              "updatedAt": "2026-09-08T22:10:35Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34284162252"
             },
             "ageDays": 0
           },
@@ -5061,15 +5063,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 34266751466,
+              "id": 34284162252,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "16547a2f205d2a4d586429dbc95c580a2c9d5f4b",
-              "createdAt": "2026-09-08T19:03:50Z",
-              "updatedAt": "2026-09-08T19:07:36Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34266751466"
+              "createdAt": "2026-09-08T22:06:22Z",
+              "updatedAt": "2026-09-08T22:10:35Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34284162252"
             },
             "ageDays": 0,
             "freshnessDays": 1
@@ -5098,19 +5100,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34281028234,
-              "status": "in_progress",
-              "conclusion": null,
+              "id": 34286296592,
+              "status": "completed",
+              "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "16547a2f205d2a4d586429dbc95c580a2c9d5f4b",
-              "createdAt": "2026-09-08T21:30:57Z",
-              "updatedAt": "2026-09-08T21:31:01Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34281028234"
+              "createdAt": "2026-09-08T22:30:57Z",
+              "updatedAt": "2026-09-08T22:34:46Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34286296592"
             },
             "ageDays": 0
           },
@@ -10874,7 +10876,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 37 days old",
+            "reason": "latest run is 38 days old",
             "apiState": "active",
             "lastRun": {
               "id": 30721106035,
@@ -10887,7 +10889,7 @@
               "updatedAt": "2026-08-01T22:22:48Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/30721106035"
             },
-            "ageDays": 37
+            "ageDays": 38
           },
           "schedule": {
             "health": "not-applicable",
@@ -11022,7 +11024,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 37 days old",
+            "reason": "latest run is 38 days old",
             "apiState": "active",
             "lastRun": {
               "id": 30721198381,
@@ -11035,7 +11037,7 @@
               "updatedAt": "2026-08-01T22:25:14Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/30721198381"
             },
-            "ageDays": 37
+            "ageDays": 38
           },
           "schedule": {
             "health": "not-applicable",
@@ -14598,7 +14600,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-08T21:33:45.113Z",
+  "githubObservedAt": "2026-09-08T22:44:41.655Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }
