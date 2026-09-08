@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 10/source a225208 fixes local-save outcomes, network-dependent startup and failed-download retry. All 27 tests and Release compilation passed hosted CI. Stable-Xcode build 10 passed signature verification and is now installed on the iPhone; its fresh launch was blocked by FBS Locked. Physical person/note editing, real-account synchronization and public distribution remain unqualified."
+          "reason": "Build 11/source 5f2fa81 repairs reproduced resurrection of deleted people and notes after restart. Atomic deletion markers recover failed outbox writes and survive stale Hub/iCloud copies. All 25 core/app tests and the full local native unit/UI/Release gate pass. Exact-source hosted CI 34258378181 is running; build 10 remains installed. Physical use, real signed-in isolation/sync and public distribution remain unqualified."
         }
       },
       "name": "Kith",
@@ -1760,7 +1760,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "Public landing is the ios-landings factory on Cloudflare Pages project kith. App Store Connect record Kith by Significant Hobbies (6803666674) and Hub-enabled native iPhone build 1.0.0 (2) completed internal-only TestFlight processing on personal team 8F7LXHTJZR on 2026-08-21; the landing does not invent a public App Store or TestFlight URL.",
+      "notes": "Private native people-and-notes journal. Build 11/source 5f2fa818c2790b8bb7420780fd048573bf452bba adds durable deletion markers and retries saved deletion work after restart. The local full native gate passed; hosted CI and phone installation are pending under issue 27. Build 10 is the verified installed phone app. Physical use and actual signed-in convergence remain unqualified.",
       "category": "utility"
     },
     {
