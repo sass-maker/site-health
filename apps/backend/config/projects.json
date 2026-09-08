@@ -2845,8 +2845,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Build 23/source a32e94a fixes a reproduced false-zero pending count after failed Hub acknowledgement. Exact-source hosted review passed 186 package tests, 14 Mac UI tests, 8 iPhone UI tests, Watch compilation and the final outcome gate. Stable-Xcode build 23 passed signature verification and is installed on iPhone. Physical use, real-account sync, Production CloudKit and notarization remain unqualified. Mac build 21 is preserved."
+          "verifiedAt": "2026-09-09",
+          "reason": "Build 24/source 5d1f87ac2673fa288124ac3f94fdec1d62d5e450 is pushed. A reproduced cross-account history export now requires explicit durable approval and per-session ownership; shared runtime verifies the account across async operations. A reproduced keyboard-toolbar overlap in first-session onboarding is repaired. Local checks passed 195 package tests, all 8 iPhone UI journeys, Watch simulator compilation, 27 offscreen renders and 8/8 distraction plus 4/4 goal on-device diagnostics. The signed iPhone Release build passed strict/deep signature verification but is not installed yet. Local Mac UI runner hung before connecting; no Mac assertions ran. Exact-source hosted native review 34268576639 is running. Production CloudKit compatibility, distraction-note iCloud privacy boundary, physical signed-in use and notarization remain unqualified. Last verified installations remain iPhone build 23 and Mac build 21."
         }
       },
       "name": "Anchor",
@@ -2871,7 +2871,7 @@
       "inRegistry": true,
       "status": "live",
       "app": "swift",
-      "notes": "Sole maintained successor to Indulge/Habits: a local-first day planner and focus timer for macOS, iOS, and watchOS that compares planned and observed time, preserves interruption evidence, and offers non-moralizing pattern replacements. Optional Hub synchronization publishes finished-session metadata only; distraction notes and behavior-profile selections never leave local/private Apple storage. The unified source passes 134 shared tests and focused native UI journeys. Signed build 12 is installed on macOS and uploaded to App Store Connect for iOS/watchOS processing; record 6803853891 and the live landing remain intact.",
+      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer for macOS, iOS and watchOS, with direct habit tracking, optional scheduling, day copying and pause/return. Build 24 source 5d1f87a repairs local-history account ownership and keyboard-accessible session start; hosted native review is pending. Last verified installed builds are iPhone 23 and Mac 21. Hub excludes distraction notes, but their private iCloud boundary needs reconciliation with the device-only repo contract. See issue 51 and docs/qualification/hub-ownership-2026-09-09/README.md in Anchor.",
       "public": {
         "listing": "maintained",
         "id": "anchor",

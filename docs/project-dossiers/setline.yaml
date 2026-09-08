@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 24b0177fb29ce03b9378b375bbe6ac55167d49ba3fafd2398c80032f5c5efa05
+      sha256: 757adf5f468cde170225e8e5a69c94c9721a0adfaefd72c114fba41ce08312fb
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T19:00:10.082Z
+      observedAt: 2026-09-08T19:23:40.560Z
       staleAfterDays: 30
-      running: 1
+      healthy: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -150,10 +150,10 @@ repository:
       - quality:unused
       - test
 githubActions:
-  observedAt: 2026-09-08T19:00:10.082Z
+  observedAt: 2026-09-08T19:23:40.560Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/setline
@@ -179,18 +179,18 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34266337786
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 3004cd0d8551f20762b54ad3ecdb8c2d22d2b3bf
           createdAt: 2026-09-08T18:59:48Z
-          updatedAt: 2026-09-08T18:59:57Z
+          updatedAt: 2026-09-08T19:09:35Z
           url: https://github.com/Significant-Hobbies/setline/actions/runs/34266337786
         ageDays: 0
       schedule:
@@ -198,17 +198,17 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
           id: 34266337786
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 3004cd0d8551f20762b54ad3ecdb8c2d22d2b3bf
           createdAt: 2026-09-08T18:59:48Z
-          updatedAt: 2026-09-08T18:59:57Z
+          updatedAt: 2026-09-08T19:09:35Z
           url: https://github.com/Significant-Hobbies/setline/actions/runs/34266337786
         ageDays: 0
       attention: clear
