@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 165da6dfa176ebcddf92dea3b786cea131052aea5610b0299b7b37837b0c45f8
+      sha256: 91cd6aa47938ab8b1bec886c4bfe1364e2ecd5ba0b3872e54e55be4065e03dde
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: verified-bases
-      revision: 02c215186b8ca38fdc7349d36d5c6997b5ed39a1
+      revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
       githubRepository: sass-maker/verified-bases
       expectedHomepage: null
       observedHomepage: https://verified-bases-web.pages.dev
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: verified-bases
-      revision: 02c215186b8ca38fdc7349d36d5c6997b5ed39a1
+      revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
       githubRepository: sass-maker/verified-bases
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-16
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T12:33:47.285Z
+      observedAt: 2026-09-08T12:44:14.768Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -84,7 +85,7 @@ identity:
   lifecycle:
     status: inactive
     shareable: false
-    resumeCondition: null
+    resumeCondition: A concrete buyer need and validated support economics for one verified software package; prefer an existing storefront before reviving marketplace infrastructure.
   operationalStatus: retained-resources
   authenticationModel: public-persistent
   inRegistry: false
@@ -106,13 +107,13 @@ product:
     - Git
   retainedGitHistory:
     firstCommitAt: 2026-06-16
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 21
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 22
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: verified-bases
-  observedRevision: 02c215186b8ca38fdc7349d36d5c6997b5ed39a1
+  observedRevision: c2c389e20b51e1fda144ff5250fe47274ba272d4
   githubRepository: sass-maker/verified-bases
   githubHomepageUrl: https://verified-bases-web.pages.dev
   worktree: *a1
@@ -142,7 +143,7 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-08T12:33:47.285Z
+  observedAt: 2026-09-08T12:44:14.768Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -151,7 +152,7 @@ githubActions:
   remote:
     repository: sass-maker/verified-bases
     defaultBranch: main
-    defaultBranchSha: 02c215186b8ca38fdc7349d36d5c6997b5ed39a1
+    defaultBranchSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
     homepage: https://verified-bases-web.pages.dev
     query: verified
     disposition:
@@ -176,16 +177,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34110424578
+          id: 34227660448
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 02c215186b8ca38fdc7349d36d5c6997b5ed39a1
-          createdAt: 2026-09-07T10:14:39Z
-          updatedAt: 2026-09-07T10:15:05Z
-          url: https://github.com/sass-maker/verified-bases/actions/runs/34110424578
-        ageDays: 1
+          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
+          createdAt: 2026-09-08T12:43:07Z
+          updatedAt: 2026-09-08T12:43:38Z
+          url: https://github.com/sass-maker/verified-bases/actions/runs/34227660448
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -194,16 +195,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34110424578
+          id: 34227660448
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 02c215186b8ca38fdc7349d36d5c6997b5ed39a1
-          createdAt: 2026-09-07T10:14:39Z
-          updatedAt: 2026-09-07T10:15:05Z
-          url: https://github.com/sass-maker/verified-bases/actions/runs/34110424578
-        ageDays: 1
+          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
+          createdAt: 2026-09-08T12:43:07Z
+          updatedAt: 2026-09-08T12:43:38Z
+          url: https://github.com/sass-maker/verified-bases/actions/runs/34227660448
+        ageDays: 0
       attention: ignored
     - name: Deploy API Worker
       file: .github/workflows/deploy-api.yml
@@ -284,8 +285,8 @@ sharing:
   publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Retained priced TinyGPT listing has no currently qualified preview/acquisition/delivery; listed preview hostname failed local DNS resolution. Buyer demand and support economics remain unproven.
+  verifiedAt: 2026-09-08
+  reason: Owner-held archived experiment, not an active launch queue. Retained TinyGPT listing is unqualified; preview, Pages and target hostnames fail local DNS. Launch requirements consolidated into README; zero open GitHub issues. Prefer an existing storefront if buyer demand appears.
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/verified-bases/issues
   geoIdentity: null

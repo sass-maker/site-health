@@ -80,8 +80,9 @@ test('lifecycle and resume filters use their own fields, including non-null cond
   for (const [lifecycle, count] of [['primary', 2], ['active', 20], ['inactive', 35]]) {
     assert.equal(projects.filter(p => matchesProjectFilters(p, { lifecycle })).length, count);
   }
-  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).length, 0);
-  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length, 57);
+  assert.deepEqual(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).map(p => p.id), ['verified-bases']);
+  assert.match(projects.find(p => p.id === 'verified-bases').lifecycle.resumeCondition, /buyer need/);
+  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length, 56);
   const fixture = { priority: 'P4', lifecycle: { status: 'inactive', shareable: true, resumeCondition: 'An owner-approved recurring workflow needs this tool' } };
   assert.equal(matchesProjectFilters(fixture, { lifecycle: 'inactive', sharing: 'shareable', resume: 'defined', priority: 'P4' }), true);
   assert.equal(matchesProjectFilters(fixture, { resume: 'not-defined' }), false);

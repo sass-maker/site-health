@@ -701,16 +701,17 @@
       "id": "verified-bases",
       "verdict": "not_verified",
       "shareable": false,
-      "surface": "Software marketplace",
-      "observed": "README identifies empty first-base inventory and unfinished launch.",
-      "limitations": "No usable marketplace inventory or acquisition flow verified.",
-      "verifiedAt": "2026-09-07",
+      "surface": "Archived storefront prototype",
+      "observed": "Source c2c389e confirms archived storefront prototype with a retained TinyGPT listing. Three recorded preview/storefront hostnames fail local DNS. Zero open GitHub Issues; historical launch tasks consolidated into README with original status preserved byte-for-byte.",
+      "limitations": "No buyer demand, working preview, test purchase or delivery is qualified. DNS results are from this verification machine; no provider removal or payment action was performed.",
+      "verifiedAt": "2026-09-08",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "replace-recommended"
+      "disposition": "replace-recommended",
+      "evidencePath": "docs/qualification/verified-bases-2026-09-08/README.md"
     },
     {
       "id": "codevetter",

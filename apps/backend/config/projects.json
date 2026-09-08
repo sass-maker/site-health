@@ -2808,8 +2808,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Retained priced TinyGPT listing has no currently qualified preview/acquisition/delivery; listed preview hostname failed local DNS resolution. Buyer demand and support economics remain unproven."
+          "verifiedAt": "2026-09-08",
+          "reason": "Owner-held archived experiment, not an active launch queue. Retained TinyGPT listing is unqualified; preview, Pages and target hostnames fail local DNS. Launch requirements consolidated into README; zero open GitHub issues. Prefer an existing storefront if buyer demand appears."
         }
       },
       "authModel": "public-persistent",
@@ -2827,7 +2827,7 @@
       "lifecycle": {
         "status": "inactive",
         "shareable": false,
-        "resumeCondition": null
+        "resumeCondition": "A concrete buyer need and validated support economics for one verified software package; prefer an existing storefront before reviving marketplace infrastructure."
       },
       "repositoryVisibility": "public",
       "repositoryUrl": "https://github.com/sass-maker/verified-bases",

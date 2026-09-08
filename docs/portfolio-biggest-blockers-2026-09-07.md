@@ -43,7 +43,7 @@ Priority: restore Open Historia turns; correct High Signal evidence claims; repa
 | iOS landings | Qualification gap | No independent public product workflow; internal dependency can remain active. |
 | Mobile Dev Cockpit | Qualification gap | No paired device core loop verified. |
 | Companion Robot | Qualification gap | No working hardware/software product to share. |
-| Verified Bases | Qualification gap | No usable marketplace inventory or acquisition flow verified. |
+| Verified Bases | Owner-held experiment | Keep archived. Use an existing storefront for a first validated package; buyer demand and support economics must justify resuming. Historical launch tasks are consolidated into README. |
 | CodeVetter | Qualification gap | Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md. |
 | HeyPace | Qualification gap | Voice/screen permissions and installed core workflow not exercised. |
 | Anchor | Qualification gap | Installed capture/retrieval and account/MCP workflows not verified. |
