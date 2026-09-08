@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b5db5b1e3d0a012b7943ebd4a287b07a5d574e3109f3c31c12f7336f38d3f9f5
+      sha256: 34b2f1eeaac3dd680515388ef7f1dfc0fcefc6e9418dd26ca9555c35e0b88a4a
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anchor
-      revision: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
+      revision: a32e94a2c5dd415ea96dfa51e24ad53763694459
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anchor
-      revision: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
+      revision: a32e94a2c5dd415ea96dfa51e24ad53763694459
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T15:59:18.721Z
+      observedAt: 2026-09-08T16:08:47.716Z
       staleAfterDays: 30
-      healthy: 1
+      running: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-08
-    retainedCommitCount: 96
+    retainedCommitCount: 97
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
+  observedRevision: a32e94a2c5dd415ea96dfa51e24ad53763694459
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -145,15 +145,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T15:59:18.721Z
+  observedAt: 2026-09-08T16:08:47.716Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
+    defaultBranchSha: a32e94a2c5dd415ea96dfa51e24ad53763694459
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -173,19 +173,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34193610638
-          status: completed
-          conclusion: success
+          id: 34249040267
+          status: in_progress
+          conclusion: null
           event: workflow_dispatch
           branch: main
-          headSha: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
-          createdAt: 2026-09-08T06:11:40Z
-          updatedAt: 2026-09-08T06:38:42Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34193610638
+          headSha: a32e94a2c5dd415ea96dfa51e24ad53763694459
+          createdAt: 2026-09-08T16:06:43Z
+          updatedAt: 2026-09-08T16:06:55Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34249040267
         ageDays: 0
       schedule:
         health: not-applicable
@@ -235,7 +235,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-08
-  reason: Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved.
+  reason: Build 23/source a32e94a fixes a reproduced false-zero pending count after a failed Hub acknowledgement write. All 186 package tests pass in an isolated checkout against the repaired remote dependency; hosted native review is running. Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Phone build 22 and Mac build 21 are the last verified installations; no new device or Production schema observation is claimed.
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:

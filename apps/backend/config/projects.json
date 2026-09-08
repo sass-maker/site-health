@@ -1184,7 +1184,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "The local session/return-path defect is repaired. Shared sync source e52fc1c now acknowledges downloads after an app commit and preserves bookkeeping on failed writes; CI passed 25 Swift and 53 Worker tests. Kith adopted the contract with green CI; Setline build 9 also adopts it and passes local native qualification, with hosted CI pending. Remaining consumer migration is tracked in issue 155. Hosted Google sign-in, deployed binding topology, production session retention and physical native-app sync remain unqualified."
+          "reason": "The local session/return-path defect is repaired. Shared sync source e52fc1c now acknowledges downloads after an app commit and preserves bookkeeping on failed writes; CI passed 25 Swift and 53 Worker tests. Kith and Setline adopted the contract with green native CI. Anchor build 23/source a32e94a preserves its outbound-only boundary and passes 186 package tests against the repaired remote pin; hosted native review is running. Remaining consumer audit is tracked in issue 155. Hosted Google sign-in, deployed binding topology, production session retention and physical native-app sync remain unqualified."
         }
       },
       "aliases": [
@@ -1628,7 +1628,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 9/source d4c3dc2 also preserves detailed native workouts against returning Hub summaries, retries failed download commits before advancing the cursor, and labels imported summaries without re-exporting them. General checks and the full local native gate passed: 204 unit tests, 17 UI tests, Release and 80.8899% coverage; one iCloud-credential test skipped. Exact-source hosted CI is pending. Build 8 is the last verified phone installation. Physical workout/restart, signed-in sync and public distribution remain unqualified."
+          "reason": "Build 9/source d4c3dc2 also preserves detailed native workouts against returning Hub summaries, retries failed download commits before advancing the cursor, and labels imported summaries without re-exporting them. General checks and the full local native gate passed: 204 unit tests, 17 UI tests, Release and 80.8899% coverage; one iCloud-credential test skipped. Product-source CI 34247640551 and current-head CI 34247853312 passed; hosted coverage is 81.2247%. Build 8 is the last verified phone installation. Physical workout/restart, signed-in sync and public distribution remain unqualified."
         }
       },
       "name": "Setline",
@@ -2846,7 +2846,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved."
+          "reason": "Build 23/source a32e94a fixes a reproduced false-zero pending count after a failed Hub acknowledgement write. All 186 package tests pass in an isolated checkout against the repaired remote dependency; hosted native review is running. Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Phone build 22 and Mac build 21 are the last verified installations; no new device or Production schema observation is claimed."
         }
       },
       "name": "Anchor",
