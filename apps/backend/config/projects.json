@@ -1116,7 +1116,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Read-only legacy inventory is locally verified at 3bff4e9 with 391 Worker and 6 dashboard tests. Byte-copy/hash verification, provenance backfill, unresolved-write recovery, activation and live private document journey remain issue 48. Inventory does not authorize migration or certify provider state."
+          "reason": "Read-only inventory and verified offline raw-copy staging pass local quality at 4562c71 with 395 Worker and 6 dashboard tests. Source bytes and snapshot remain unchanged. Live provider verification, provenance backfill, unresolved-write recovery, activation and private document journey remain issue 48; staged exports do not qualify publication."
         }
       },
       "authModel": "required-service",
