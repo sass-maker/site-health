@@ -148,9 +148,9 @@
       "id": "anime-list",
       "name": "Anime List",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Hosted tracking, real login, reload persistence and account isolation need deployment and browser qualification.",
+      "biggestBlocker": "Real Google login, hosted watchlist writes/reload persistence, account switching and auth/write-failure recovery remain unqualified under issue 89.",
       "shareable": false,
-      "repairProgress": "93000b31 pushed clean; CI 34107242387 and Docs 34107242428 green. Account-scoped query clients and keyed drafts prevent cross-account cached detail leakage. 155 tests and local D1 rehearsal pass; #89 retained."
+      "repairProgress": "Source 83b6713d5de114a685b4a82fc96115077e2eb6ae passed CI 34195411062 and deployed through run 34195638204. Pages source and Worker full-SHA tag at 100% traffic independently verified. Actual guest search/detail and manga adaptation names/URLs work; tracking explicitly requires sign-in. Phone, tablet and desktop layouts at 390/768/1440 pixels have no horizontal overflow and visible Google controls. Issue 90 closed."
     },
     {
       "id": "protein-index",
@@ -338,9 +338,9 @@
       "id": "anchor",
       "name": "Anchor",
       "classification": "Qualification gap",
-      "biggestBlocker": "Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified.",
+      "biggestBlocker": "Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved.",
       "shareable": false,
-      "repairProgress": "Daily habit check-off, selected-day copy/editing, project-linked entries and pause recovery implemented. Final product source fdde4e577567db2ced30ab8b0159dbd2acb6cfcb; validation head 12bd3079a00105fa38ecd41a08649327d2c9feea. All 185 package tests pass. Prior hosted run 34151609977 passed 8/8 iPhone tests and Watch build, but failed 3/14 Mac tests. The two stale navigation/role queries and broad snapshot query are corrected and compiled; current run 34154195520 is pending. Compact Today native iPhone copy/persistence retest passes and screenshot is inspected. Final development build 22 is installed; final Developer ID Mac DMG is prepared but not notarized."
+      "repairProgress": "Final hosted native run 34193610638 at validation source 094c93f8ecf8a1f5d9229e4eb987871862333e4a passed 185 package tests, 14/14 macOS UI tests and 8/8 iPhone UI tests with zero failures or skips; Watch build and authoritative final gate passed. Product source fdde4e577567db2ced30ab8b0159dbd2acb6cfcb is unchanged. Development iPhone build 22 is installed; signed Mac DMG is prepared, not notarized or installed."
     },
     {
       "id": "saas-maker",

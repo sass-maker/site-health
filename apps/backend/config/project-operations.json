@@ -1283,18 +1283,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "ec0883257ed9440fb969556db2d185cada2039b4",
+        "revision": "94f68e3141ebdbae1b13b071c1e02812439f5c36",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 2,
+          "trackedChangeCount": 5,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-08",
-        "retainedCommitCount": 1023,
+        "retainedCommitCount": 1024,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1322,15 +1322,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34192925377,
+              "id": 34193429777,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "ec0883257ed9440fb969556db2d185cada2039b4",
-              "createdAt": "2026-09-08T06:01:46Z",
-              "updatedAt": "2026-09-08T06:02:22Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34192925377"
+              "headSha": "94f68e3141ebdbae1b13b071c1e02812439f5c36",
+              "createdAt": "2026-09-08T06:09:03Z",
+              "updatedAt": "2026-09-08T06:09:36Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34193429777"
             },
             "ageDays": 0
           },
@@ -1343,15 +1343,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34192925377,
+              "id": 34193429777,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "ec0883257ed9440fb969556db2d185cada2039b4",
-              "createdAt": "2026-09-08T06:01:46Z",
-              "updatedAt": "2026-09-08T06:02:22Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34192925377"
+              "headSha": "94f68e3141ebdbae1b13b071c1e02812439f5c36",
+              "createdAt": "2026-09-08T06:09:03Z",
+              "updatedAt": "2026-09-08T06:09:36Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34193429777"
             },
             "ageDays": 0
           },
@@ -1400,7 +1400,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "ec0883257ed9440fb969556db2d185cada2039b4",
+        "defaultBranchSha": "94f68e3141ebdbae1b13b071c1e02812439f5c36",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -1517,7 +1517,7 @@
               "updatedAt": "2026-09-06T06:19:43Z",
               "url": "https://github.com/Significant-Hobbies/live/actions/runs/34016193990"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -2858,7 +2858,7 @@
               "updatedAt": "2026-09-01T06:13:13Z",
               "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/33476639197"
             },
-            "ageDays": 6
+            "ageDays": 7
           },
           "schedule": {
             "health": "not-applicable",
@@ -4296,7 +4296,7 @@
               "updatedAt": "2026-09-06T06:09:57Z",
               "url": "https://github.com/sass-maker/psi-swarm/actions/runs/34015763349"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -4813,15 +4813,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34192814379,
+              "id": 34194995246,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "b1023613b348689a515049284c272d62f012d807",
-              "createdAt": "2026-09-08T06:00:14Z",
-              "updatedAt": "2026-09-08T06:00:54Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34192814379"
+              "createdAt": "2026-09-08T06:30:56Z",
+              "updatedAt": "2026-09-08T06:31:36Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34194995246"
             },
             "ageDays": 0
           },
@@ -5023,15 +5023,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34192816769,
+              "id": 34194997563,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "b1023613b348689a515049284c272d62f012d807",
-              "createdAt": "2026-09-08T06:00:16Z",
-              "updatedAt": "2026-09-08T06:03:42Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34192816769"
+              "createdAt": "2026-09-08T06:30:57Z",
+              "updatedAt": "2026-09-08T06:33:54Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34194997563"
             },
             "ageDays": 0
           },
@@ -7562,7 +7562,7 @@
       "source": {
         "state": "available",
         "path": "anime-list",
-        "revision": "93000b31d28215acf88ec76a70dd99bd431674c0",
+        "revision": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
         "repositorySlug": "Significant-Hobbies/anime-list",
         "worktree": {
           "state": "clean",
@@ -7572,8 +7572,8 @@
       },
       "history": {
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 414,
+        "latestCommitAt": "2026-09-08",
+        "retainedCommitCount": 417,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7601,15 +7601,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34107242387,
+              "id": 34195411062,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93000b31d28215acf88ec76a70dd99bd431674c0",
-              "createdAt": "2026-09-07T09:39:20Z",
-              "updatedAt": "2026-09-07T09:41:21Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242387"
+              "headSha": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
+              "createdAt": "2026-09-08T06:36:31Z",
+              "updatedAt": "2026-09-08T06:38:33Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34195411062"
             },
             "ageDays": 0
           },
@@ -7622,15 +7622,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34107242387,
+              "id": 34195411062,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93000b31d28215acf88ec76a70dd99bd431674c0",
-              "createdAt": "2026-09-07T09:39:20Z",
-              "updatedAt": "2026-09-07T09:41:21Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242387"
+              "headSha": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
+              "createdAt": "2026-09-08T06:36:31Z",
+              "updatedAt": "2026-09-08T06:38:33Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34195411062"
             },
             "ageDays": 0
           },
@@ -7657,17 +7657,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34022486430,
+              "id": 34195638204,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "87627a78504825100bf818c46590b63fb235cd6b",
-              "createdAt": "2026-09-06T08:40:03Z",
-              "updatedAt": "2026-09-06T08:40:50Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34022486430"
+              "headSha": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
+              "createdAt": "2026-09-08T06:39:40Z",
+              "updatedAt": "2026-09-08T06:40:28Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34195638204"
             },
-            "ageDays": 1
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -7704,15 +7704,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34107242428,
+              "id": 34194878258,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93000b31d28215acf88ec76a70dd99bd431674c0",
-              "createdAt": "2026-09-07T09:39:20Z",
-              "updatedAt": "2026-09-07T09:39:34Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242428"
+              "headSha": "595ec661d4edcdf9b87da20a750de13ba1ddd3fe",
+              "createdAt": "2026-09-08T06:29:26Z",
+              "updatedAt": "2026-09-08T06:29:37Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258"
             },
             "ageDays": 0
           },
@@ -7722,22 +7722,21 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "missing",
+            "reason": "no push run at current main revision 83b6713",
             "lastRun": {
-              "id": 34107242428,
+              "id": 34194878258,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "93000b31d28215acf88ec76a70dd99bd431674c0",
-              "createdAt": "2026-09-07T09:39:20Z",
-              "updatedAt": "2026-09-07T09:39:34Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242428"
-            },
-            "ageDays": 0
+              "headSha": "595ec661d4edcdf9b87da20a750de13ba1ddd3fe",
+              "createdAt": "2026-09-08T06:29:26Z",
+              "updatedAt": "2026-09-08T06:29:37Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258"
+            }
           },
-          "attention": "clear"
+          "attention": "missing-data"
         },
         {
           "name": "Quarterly Anime Sync",
@@ -8058,7 +8057,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/anime-list",
         "defaultBranch": "main",
-        "defaultBranchSha": "93000b31d28215acf88ec76a70dd99bd431674c0",
+        "defaultBranchSha": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
         "homepage": "https://anime.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -12724,7 +12723,7 @@
               "updatedAt": "2026-09-07T06:35:05Z",
               "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/34091435528"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -14401,7 +14400,7 @@
       "source": {
         "state": "available",
         "path": "anchor",
-        "revision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+        "revision": "094c93f8ecf8a1f5d9229e4eb987871862333e4a",
         "repositorySlug": "Significant-Hobbies/anchor",
         "worktree": {
           "state": "clean",
@@ -14412,7 +14411,7 @@
       "history": {
         "firstCommitAt": "2026-08-16",
         "latestCommitAt": "2026-09-08",
-        "retainedCommitCount": 95,
+        "retainedCommitCount": 96,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14434,19 +14433,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "failing",
-            "reason": "latest run concluded failure",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34154195520,
+              "id": 34193610638,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "12bd3079a00105fa38ecd41a08649327d2c9feea",
-              "createdAt": "2026-09-07T19:05:00Z",
-              "updatedAt": "2026-09-07T19:29:30Z",
-              "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520"
+              "headSha": "094c93f8ecf8a1f5d9229e4eb987871862333e4a",
+              "createdAt": "2026-09-08T06:11:40Z",
+              "updatedAt": "2026-09-08T06:38:42Z",
+              "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/34193610638"
             },
             "ageDays": 0
           },
@@ -14460,7 +14459,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "review-history"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -14477,7 +14476,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/anchor",
         "defaultBranch": "main",
-        "defaultBranchSha": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+        "defaultBranchSha": "094c93f8ecf8a1f5d9229e4eb987871862333e4a",
         "homepage": "https://anchor.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -14520,7 +14519,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-08T06:07:39.989Z",
+  "githubObservedAt": "2026-09-08T06:44:05.281Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }

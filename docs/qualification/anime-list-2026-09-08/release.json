@@ -1,0 +1,47 @@
+{
+  "source": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
+  "ciRun": 34195411062,
+  "deployRun": 34195638204,
+  "conclusion": "success",
+  "pages": {
+    "Id": "91f01d84-20f8-4012-9eec-768ceaed5748",
+    "Environment": "Production",
+    "Branch": "main",
+    "Source": "83b6713",
+    "Deployment": "https://91f01d84.anime-list-9lk.pages.dev",
+    "Status": "1 minute ago",
+    "Build": "https://dash.cloudflare.com/7d048325699a5acddb44d3be31cf6ba9/pages/view/anime-list/91f01d84-20f8-4012-9eec-768ceaed5748"
+  },
+  "worker": {
+    "deploymentId": "c052e765-a23c-4a6e-a1da-35f1bd716786",
+    "traffic": [
+      {
+        "version_id": "511e5aeb-268a-485d-99e2-2de5b46c0c6a",
+        "percentage": 100
+      }
+    ],
+    "versions": [
+      {
+        "id": "511e5aeb-268a-485d-99e2-2de5b46c0c6a",
+        "annotations": {
+          "workers/tag": "83b6713d5de114a685b4a82fc96115077e2eb6ae",
+          "workers/triggered_by": "version_upload"
+        }
+      }
+    ]
+  },
+  "browser": {
+    "viewportWidths": [
+      390,
+      768,
+      1440
+    ],
+    "horizontalOverflow": false,
+    "standardGoogleLabelFullyVisible": true,
+    "mangaRelationsCorrect": true,
+    "guestTrackingDisabled": true
+  },
+  "limits": [
+    "Real account Google OAuth and persistence remain unverified in issue 89"
+  ]
+}

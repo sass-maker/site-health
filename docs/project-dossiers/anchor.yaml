@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a949808b459a7b49110db33bb1738bf492dfded74131925435ecdc0d99b5ccf8
+      sha256: 46f5fd2e15ba9d48123713f0a4634851ddc4c049b97f1c0c453f664939b2752e
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anchor
-      revision: 12bd3079a00105fa38ecd41a08649327d2c9feea
+      revision: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anchor
-      revision: 12bd3079a00105fa38ecd41a08649327d2c9feea
+      revision: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T06:07:39.989Z
+      observedAt: 2026-09-08T06:44:05.281Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        review-history: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-08
-    retainedCommitCount: 95
+    retainedCommitCount: 96
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 12bd3079a00105fa38ecd41a08649327d2c9feea
+  observedRevision: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -145,15 +145,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T06:07:39.989Z
+  observedAt: 2026-09-08T06:44:05.281Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: 12bd3079a00105fa38ecd41a08649327d2c9feea
+    defaultBranchSha: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -173,19 +173,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34154195520
+          id: 34193610638
           status: completed
-          conclusion: failure
+          conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 12bd3079a00105fa38ecd41a08649327d2c9feea
-          createdAt: 2026-09-07T19:05:00Z
-          updatedAt: 2026-09-07T19:29:30Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520
+          headSha: 094c93f8ecf8a1f5d9229e4eb987871862333e4a
+          createdAt: 2026-09-08T06:11:40Z
+          updatedAt: 2026-09-08T06:38:42Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34193610638
         ageDays: 0
       schedule:
         health: not-applicable
@@ -195,7 +195,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -234,8 +234,8 @@ sharing:
   publicListing: maintained
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified.
+  verifiedAt: 2026-09-08
+  reason: Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved.
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:

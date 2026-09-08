@@ -1,16 +1,12 @@
 {
-  "source": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
-  "run": "https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977",
-  "finalGate": "failure",
+  "source": "094c93f8ecf8a1f5d9229e4eb987871862333e4a",
+  "run": "https://github.com/Significant-Hobbies/anchor/actions/runs/34193610638",
+  "finalGate": "success",
+  "packageTestsPassed": 185,
   "mac": {
-    "passed": 11,
-    "failed": 3,
-    "skipped": 0,
-    "failures": [
-      "Weekday manager test used removed Set up usual week entry point",
-      "Habit edit test queried Button instead of observed MenuButton",
-      "Mini-timer test broad accessibility snapshot query timed out"
-    ]
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0
   },
   "iphone": {
     "passed": 8,
@@ -18,29 +14,21 @@
     "skipped": 0
   },
   "watchBuild": "success",
-  "stepConclusionCaveat": "continue-on-error gives successful conclusions for failed Mac step; use raw outcome and final enforcement gate",
-  "correctionHead": "12bd3079a00105fa38ecd41a08649327d2c9feea",
-  "currentRun": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
-  "currentRunStatus": "in_progress",
-  "finalRun": {
-    "id": 34154195520,
-    "sourceRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
-    "conclusion": "failure",
+  "artifactId": 10043744911,
+  "evidence": "Raw XcodeBuildMCP counts and authoritative gate MAC_UI_OUTCOME, IOS_UI_OUTCOME, WATCH_BUILD_OUTCOME all success.",
+  "limitations": "Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved.",
+  "previousEvidence": {
+    "source": "5f62e8fdb6bb2a35ce77c1c0256d8d1ef2d84997",
+    "run": "https://github.com/Significant-Hobbies/anchor/actions/runs/34151609977",
+    "finalGate": "failure",
     "mac": {
-      "passed": 12,
-      "failed": 2,
+      "passed": 11,
+      "failed": 3,
       "skipped": 0,
       "failures": [
-        {
-          "test": "testEveryWeekdayCanHaveADifferentSchedule",
-          "location": "AnchorMacUITests.swift:249",
-          "message": "XCTAssertTrue failed"
-        },
-        {
-          "test": "testHabitsCanBeAddedEditedAndRescheduled",
-          "location": "AnchorMacUITests.swift:221",
-          "message": "Timed out while evaluating UI query"
-        }
+        "Weekday manager test used removed Set up usual week entry point",
+        "Habit edit test queried Button instead of observed MenuButton",
+        "Mini-timer test broad accessibility snapshot query timed out"
       ]
     },
     "iphone": {
@@ -48,7 +36,39 @@
       "failed": 0,
       "skipped": 0
     },
-    "watchBuild": "passed",
-    "evidence": "Actual final guard MAC_UI_OUTCOME=failure and XcodeBuildMCP testCases/testFailures in run log; continue-on-error step conclusions are not pass evidence."
+    "watchBuild": "success",
+    "stepConclusionCaveat": "continue-on-error gives successful conclusions for failed Mac step; use raw outcome and final enforcement gate",
+    "correctionHead": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+    "currentRun": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
+    "currentRunStatus": "in_progress",
+    "finalRun": {
+      "id": 34154195520,
+      "sourceRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+      "conclusion": "failure",
+      "mac": {
+        "passed": 12,
+        "failed": 2,
+        "skipped": 0,
+        "failures": [
+          {
+            "test": "testEveryWeekdayCanHaveADifferentSchedule",
+            "location": "AnchorMacUITests.swift:249",
+            "message": "XCTAssertTrue failed"
+          },
+          {
+            "test": "testHabitsCanBeAddedEditedAndRescheduled",
+            "location": "AnchorMacUITests.swift:221",
+            "message": "Timed out while evaluating UI query"
+          }
+        ]
+      },
+      "iphone": {
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0
+      },
+      "watchBuild": "passed",
+      "evidence": "Actual final guard MAC_UI_OUTCOME=failure and XcodeBuildMCP testCases/testFailures in run log; continue-on-error step conclusions are not pass evidence."
+    }
   }
 }

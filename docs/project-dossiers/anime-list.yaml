@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a949808b459a7b49110db33bb1738bf492dfded74131925435ecdc0d99b5ccf8
+      sha256: 46f5fd2e15ba9d48123713f0a4634851ddc4c049b97f1c0c453f664939b2752e
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anime-list
-      revision: 93000b31d28215acf88ec76a70dd99bd431674c0
+      revision: 83b6713d5de114a685b4a82fc96115077e2eb6ae
       githubRepository: Significant-Hobbies/anime-list
       expectedHomepage: https://anime.significanthobbies.com
       observedHomepage: https://anime.significanthobbies.com
@@ -46,22 +46,24 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: anime-list
-      revision: 93000b31d28215acf88ec76a70dd99bd431674c0
+      revision: 83b6713d5de114a685b4a82fc96115077e2eb6ae
       githubRepository: Significant-Hobbies/anime-list
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2025-02-16
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T06:07:39.989Z
+      observedAt: 2026-09-08T06:44:05.281Z
       staleAfterDays: 30
       healthy: 5
       cancelled: 1
       stale: 1
       attention: &a2
-        clear: 6
+        clear: 5
+        missing-data: 1
         action-required: 1
   unknowns: []
 ownerVoice:
@@ -116,13 +118,13 @@ product:
     - Cloudflare
   retainedGitHistory:
     firstCommitAt: 2025-02-16
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 414
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 417
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anime-list
-  observedRevision: 93000b31d28215acf88ec76a70dd99bd431674c0
+  observedRevision: 83b6713d5de114a685b4a82fc96115077e2eb6ae
   githubRepository: Significant-Hobbies/anime-list
   githubHomepageUrl: https://anime.significanthobbies.com
   worktree: *a1
@@ -204,7 +206,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T06:07:39.989Z
+  observedAt: 2026-09-08T06:44:05.281Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -214,7 +216,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anime-list
     defaultBranch: main
-    defaultBranchSha: 93000b31d28215acf88ec76a70dd99bd431674c0
+    defaultBranchSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
     homepage: https://anime.significanthobbies.com
     query: verified
     disposition:
@@ -240,15 +242,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34107242387
+          id: 34195411062
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93000b31d28215acf88ec76a70dd99bd431674c0
-          createdAt: 2026-09-07T09:39:20Z
-          updatedAt: 2026-09-07T09:41:21Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242387
+          headSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
+          createdAt: 2026-09-08T06:36:31Z
+          updatedAt: 2026-09-08T06:38:33Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34195411062
         ageDays: 0
       schedule:
         health: not-applicable
@@ -258,15 +260,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34107242387
+          id: 34195411062
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93000b31d28215acf88ec76a70dd99bd431674c0
-          createdAt: 2026-09-07T09:39:20Z
-          updatedAt: 2026-09-07T09:41:21Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242387
+          headSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
+          createdAt: 2026-09-08T06:36:31Z
+          updatedAt: 2026-09-08T06:38:33Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34195411062
         ageDays: 0
       attention: clear
     - name: Deploy anime_list to Cloudflare Pages
@@ -286,16 +288,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34022486430
+          id: 34195638204
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 87627a78504825100bf818c46590b63fb235cd6b
-          createdAt: 2026-09-06T08:40:03Z
-          updatedAt: 2026-09-06T08:40:50Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34022486430
-        ageDays: 1
+          headSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
+          createdAt: 2026-09-08T06:39:40Z
+          updatedAt: 2026-09-08T06:40:28Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34195638204
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -324,35 +326,34 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34107242428
+          id: 34194878258
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93000b31d28215acf88ec76a70dd99bd431674c0
-          createdAt: 2026-09-07T09:39:20Z
-          updatedAt: 2026-09-07T09:39:34Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242428
+          headSha: 595ec661d4edcdf9b87da20a750de13ba1ddd3fe
+          createdAt: 2026-09-08T06:29:26Z
+          updatedAt: 2026-09-08T06:29:37Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 83b6713
         lastRun:
-          id: 34107242428
+          id: 34194878258
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 93000b31d28215acf88ec76a70dd99bd431674c0
-          createdAt: 2026-09-07T09:39:20Z
-          updatedAt: 2026-09-07T09:39:34Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34107242428
-        ageDays: 0
-      attention: clear
+          headSha: 595ec661d4edcdf9b87da20a750de13ba1ddd3fe
+          createdAt: 2026-09-08T06:29:26Z
+          updatedAt: 2026-09-08T06:29:37Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258
+      attention: missing-data
     - name: Quarterly Anime Sync
       file: .github/workflows/quarterly-anime-sync.yml
       triggers:
@@ -584,8 +585,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Hosted tracking, real login, reload persistence and account isolation need deployment and browser qualification.
+  verifiedAt: 2026-09-08
+  reason: Real Google login, hosted watchlist writes/reload persistence, account switching and auth/write-failure recovery remain unqualified under issue 89.
   changelogUrl: https://anime.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anime-list/issues
   geoIdentity:

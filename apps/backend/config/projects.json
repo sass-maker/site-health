@@ -1293,8 +1293,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Hosted tracking, real login, reload persistence and account isolation need deployment and browser qualification."
+          "verifiedAt": "2026-09-08",
+          "reason": "Real Google login, hosted watchlist writes/reload persistence, account switching and auth/write-failure recovery remain unqualified under issue 89."
         }
       },
       "authModel": "public-persistent",
@@ -2845,8 +2845,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Physical iPhone use is blocked by phone lock. Production CloudKit needs two additive project fields promoted through signed-in Apple Console before replacing Mac build 21. Hosted native checks are running. Signed Hub/CloudKit continuity remains unqualified."
+          "verifiedAt": "2026-09-08",
+          "reason": "Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved."
         }
       },
       "name": "Anchor",

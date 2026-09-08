@@ -1,5 +1,16 @@
 # Hub owner-use readiness, 7 September 2026
 
+## Latest verified result — 8 September 2026
+
+Final hosted native run 34193610638 at validation source 094c93f8ecf8a1f5d9229e4eb987871862333e4a passed 185 package tests, 14/14 macOS UI tests and 8/8 iPhone UI tests with zero failures or skips; Watch build and authoritative final gate passed. Product source fdde4e577567db2ced30ab8b0159dbd2acb6cfcb is unchanged. Development iPhone build 22 is installed; signed Mac DMG is prepared, not notarized or installed.
+
+Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Last device observation was locked; last Production schema reread lacked two additive project fields. Mac build 21 is preserved.
+
+The dated checkpoints below are retained history; earlier native failures and
+running states are superseded by the successful run above.
+
+## Earlier qualification checkpoints
+
 Kith 7, Setline 7, Calorie 11 and Anchor 22 were built, signed with Apple
 Development, and installed on the owner's iPhone. These are local development
 installations, not TestFlight availability or public distribution receipts.
