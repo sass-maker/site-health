@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8076c7f9e888657ef1766701524b4d415dc15d2d722620f46a9d40b76e4c2ff7
+      sha256: c98e577dfa43015e6c6f2a70700ad33359c942f652121df379810bacc4534fbe
       infrastructureUpdatedAt: 2026-08-15
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:23:35.692Z
+      observedAt: 2026-09-08T07:37:51.505Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -141,7 +141,7 @@ repository:
       - preview
       - test
 githubActions:
-  observedAt: 2026-09-08T07:23:35.692Z
+  observedAt: 2026-09-08T07:37:51.505Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -169,7 +169,6 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -203,6 +202,7 @@ githubActions:
           updatedAt: 2026-09-06T00:49:08Z
           url: https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/34002269438
         ageDays: 2
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8076c7f9e888657ef1766701524b4d415dc15d2d722620f46a9d40b76e4c2ff7
+      sha256: c98e577dfa43015e6c6f2a70700ad33359c942f652121df379810bacc4534fbe
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:23:35.692Z
+      observedAt: 2026-09-08T07:37:51.505Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -169,7 +169,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T07:23:35.692Z
+  observedAt: 2026-09-08T07:37:51.505Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -198,7 +198,6 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -232,6 +231,7 @@ githubActions:
           updatedAt: 2026-09-08T07:16:22Z
           url: https://github.com/sass-maker/drank/actions/runs/34198440414
         ageDays: 0
+      attention: ignored
     - name: Update Global DR History
       file: .github/workflows/update-global-dr.yml
       triggers:
@@ -246,7 +246,6 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -281,6 +280,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

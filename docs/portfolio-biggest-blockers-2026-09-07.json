@@ -94,9 +94,9 @@
       "id": "reader",
       "name": "Reader",
       "classification": "Qualification gap",
-      "biggestBlocker": "Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export.",
+      "biggestBlocker": "Guest URL import is offered by the UI but the snapshot endpoint requires sign-in. Real Google/D1/R2 import/read/annotate/reopen remains unqualified. Hosted synthetic PDF upload was blocked by browser connector file-root configuration. Whole-array notes do not merge independent concurrent editors.",
       "shareable": false,
-      "repairProgress": "Guest/account PDF and article notes pass local create/edit/delete/retry/reopen and delayed A/B checks. Source and strengthened viewport evidence pushed c9db01b353a9351282e46bc2d30448f590cd50a8; exact CI 34118340457 success. Clean cache revalidation retains newer notes; pending saves serialize newer edits/reanchors, stale acknowledgments preserve drafts, failed saves stop until retry/new edit, account keys isolate A/B. Full quality: 126 app+20 extension and four actual Hono/Drizzle/SQLite browser checks pass."
+      "repairProgress": "Routing regression repaired and deployed: source 48ef4f272794a5216bad1751c8369f33b53784f0, CI34199770055/Docs34199770042 and deploy34200018115 passed. Worker b2765665-1624-458d-b20c-7e9e50a9e671 serves exact SHA at 100%. Canonical session GET returns 200/null, protected guest snapshot 401, and discovery 200; generic discovery 404 no longer intercepts product APIs. Full local quality passes 129 app and 20 extension tests; exact CI includes four browser suites. No pending D1 migrations."
     },
     {
       "id": "live",

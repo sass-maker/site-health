@@ -1,0 +1,39 @@
+{
+  "project": "reader",
+  "verifiedAt": "2026-09-08",
+  "source": "48ef4f272794a5216bad1751c8369f33b53784f0",
+  "ci": {
+    "id": 34199770055,
+    "conclusion": "success"
+  },
+  "docsCi": {
+    "id": 34199770042,
+    "conclusion": "success"
+  },
+  "deployRun": {
+    "id": 34200018115,
+    "conclusion": "success"
+  },
+  "worker": {
+    "name": "reader",
+    "deploymentId": "ac9ecc91-21d5-40ed-8cba-3666699ffa12",
+    "versionId": "b2765665-1624-458d-b20c-7e9e50a9e671",
+    "tag": "48ef4f272794a5216bad1751c8369f33b53784f0",
+    "trafficPercent": 100
+  },
+  "checks": [
+    "Full quality: 129 app tests and 20 extension tests; code-health, builds and docs pass",
+    "Exact CI includes local-library, guest PDF, account PDF and account-notes browser regressions",
+    "Remote D1: no pending migrations",
+    "Canonical isolated browser session endpoint: 200 null; guest snapshot: 401 Unauthorized; discovery: 200",
+    "Actual Sign in with Google button reaches accounts.google.com sign-in for significanthobbies.com; browser has no preauthenticated Google account. Callback/session creation and cloud data remain untested."
+  ],
+  "limitations": [
+    "Guest URL import is offered by UI but protected endpoint requires sign-in",
+    "Real Google login, cloud article/PDF import, notes and reload remain unqualified",
+    "Hosted PDF upload was not performed: browser upload connector rejected both /tmp and workspace synthetic fixture paths as outside its configured roots",
+    "Concurrent independent editors are not merged by the whole-notes-array API"
+  ],
+  "cleanup": "Verification browser closed; temporary workspace synthetic PDF moved to Trash; no owner data or credentials accessed",
+  "shareable": false
+}

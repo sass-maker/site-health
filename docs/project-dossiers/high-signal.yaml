@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8076c7f9e888657ef1766701524b4d415dc15d2d722620f46a9d40b76e4c2ff7
+      sha256: c98e577dfa43015e6c6f2a70700ad33359c942f652121df379810bacc4534fbe
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:23:35.692Z
+      observedAt: 2026-09-08T07:37:51.505Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 2
@@ -273,7 +273,7 @@ repository:
       - watchlist-impact:test
       - youtube:brand-probe
 githubActions:
-  observedAt: 2026-09-08T07:23:35.692Z
+  observedAt: 2026-09-08T07:37:51.505Z
   staleAfterDays: 30
   summary:
     stale: 1
@@ -564,15 +564,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34197272040
+          id: 34199706789
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: b1023613b348689a515049284c272d62f012d807
-          createdAt: 2026-09-08T07:00:55Z
-          updatedAt: 2026-09-08T07:01:38Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34197272040
+          createdAt: 2026-09-08T07:30:55Z
+          updatedAt: 2026-09-08T07:31:34Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34199706789
         ageDays: 0
       schedule:
         health: not-applicable
@@ -734,15 +734,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34197274124
+          id: 34199709009
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: b1023613b348689a515049284c272d62f012d807
-          createdAt: 2026-09-08T07:00:57Z
-          updatedAt: 2026-09-08T07:02:46Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34197274124
+          createdAt: 2026-09-08T07:30:57Z
+          updatedAt: 2026-09-08T07:32:12Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34199709009
         ageDays: 0
       schedule:
         health: not-applicable

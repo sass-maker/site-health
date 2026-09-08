@@ -1458,8 +1458,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Hosted import/read/annotate/reopen remains unverified. Whole-array notes API remains susceptible to independent concurrent-client conflicts; no multitab merge claim. PDF notes are page anchored, not PDF text highlights or embedded export."
+          "verifiedAt": "2026-09-08",
+          "reason": "Guest URL import is offered by the UI but the snapshot endpoint requires sign-in. Real Google/D1/R2 import/read/annotate/reopen remains unqualified. Hosted synthetic PDF upload was blocked by browser connector file-root configuration. Whole-array notes do not merge independent concurrent editors."
         }
       },
       "authModel": "public-persistent",
