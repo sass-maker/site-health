@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f8945932ae40235d44c55b396c03a9b90bc3c40a6f31150885afbbc570e91ad0
+      sha256: 8953338e89dd5eb763103b830ec68d19884a5fe34c918e96f9ee0e85bd90b2b4
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T13:42:28.935Z
+      observedAt: 2026-09-08T14:03:38.388Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -150,7 +150,7 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-09-08T13:42:28.935Z
+  observedAt: 2026-09-08T14:03:38.388Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -193,7 +193,7 @@ githubActions:
           createdAt: 2026-09-07T13:44:54Z
           updatedAt: 2026-09-07T13:46:55Z
           url: https://github.com/sass-maker/mashup/actions/runs/34129122957
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -211,7 +211,7 @@ githubActions:
           createdAt: 2026-09-07T13:44:54Z
           updatedAt: 2026-09-07T13:46:55Z
           url: https://github.com/sass-maker/mashup/actions/runs/34129122957
-        ageDays: 0
+        ageDays: 1
       attention: ignored
 deployment:
   kind: pages

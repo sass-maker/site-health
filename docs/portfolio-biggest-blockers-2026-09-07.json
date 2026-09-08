@@ -237,11 +237,11 @@
       "id": "open-historia",
       "name": "Open Historia",
       "classification": "Retained; no adoption push required",
-      "biggestBlocker": "A real guest AI turn now succeeds and narrative/event memory reloads, but save/reload loses diplomatic relationships and timeline snapshots. Historical scenarios still use generic factions; 390px panels overlap controls. Pending orders do not persist across reload; authenticated saves remain unqualified.",
+      "biggestBlocker": "Live guest turn, save, reload and re-save now preserve relations, timeline, story memory and queued orders. Historical scenarios still use generic factions; 390px panels overlap controls. Complete rewind memory and authenticated cloud saves remain unqualified.",
       "shareable": false,
-      "repairProgress": "September 8: source 655c552977f8f907435d2b0a26f8af9a46b15633 deployed at 100% as Worker cb069b72-25f8-4fbd-b92f-f826af6f83fc after exact CI 34233038420. Repairs retired model, canonical game URLs, failed-turn queue/year retention, explicit AI output schemas and raw provider error exposure. Live guest turn returned HTTP 200 in 3452ms with one diplomacy event, two relations and story memory. Save/reload retained narrative/event but lost relations/timeline; remains unqualified.",
-      "currentWorkDecision": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention.",
-      "futureSharingLimitations": "Retired-model mapping is fixed in source. Deployment and two completed live stateful turns remain unverified."
+      "repairProgress": "September 8: d7a9ecdf6c81ca6613f896a2c3744b8f623b833a deployed at 100% as Worker 12af469a-2861-4486-8d3f-47ac6db823ad after exact CI 34235188140. All 79 unit tests and two browser regressions pass. Real guest turn HTTP 200 in 4266ms; three relations, one timeline snapshot and queued follow-up order survived reload and re-save. Historical/mobile/cloud qualification remains outstanding.",
+      "currentWorkDecision": "Owner-held experiment remains inactive; repaired existing campaign data loss without expanding product scope.",
+      "futureSharingLimitations": "Historical factions/map, mobile controls, complete rewind memory and authenticated cloud-save journeys remain unqualified."
     },
     {
       "id": "ai-game",

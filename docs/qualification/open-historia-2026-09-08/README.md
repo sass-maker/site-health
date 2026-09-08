@@ -48,3 +48,13 @@ A fresh logged-out WWII campaign as United Kingdom completed a real humanitarian
 Saving and reloading the canonical campaign URL restored the narrative and event. Before reload the UI had two relations and a timeline snapshot; afterward the relations panel was absent and the timeline said no snapshots. The stored local game snapshot has no relations/timeline fields. This is a reproduced persistence defect, not merely untested functionality. Pending orders also remain page-session-only. Desktop screenshot was inspected; 390px overlap remains a failure.
 
 The experiment stays inactive/shareable=false. Issue 27 remains open for actual campaign-state persistence, historical map/faction coherence, usable mobile controls and authenticated saves. No production database or account data was modified; guest saves used an isolated browser context.
+
+## Campaign persistence repair and live verification
+
+Source `d7a9ecdf6c81ca6613f896a2c3744b8f623b833a` adds backward-compatible save format 3.2.0 with relations, chat threads, timeline, advisor history, queued orders and completed story steps. Timeline snapshots now capture post-turn territory ownership. Failed saves keep the campaign open; unreadable stored save lists cannot be overwritten by save/delete operations.
+
+All 79 unit tests, typecheck, lint and two built-browser regressions passed locally and in [CI 34235188140](https://github.com/sarthakagrawal927/open-historia/actions/runs/34235188140). All six deployment gates passed. Worker version `12af469a-2861-4486-8d3f-47ac6db823ad`, deployment `f3419707-b120-4fa5-9c96-dea8bd4da837`, serves 100% traffic with the exact source tag.
+
+A fresh isolated guest WWII campaign completed a real AI turn, HTTP 200 in 4266ms. The save contained three diplomatic relations, one timeline snapshot, story memory and a queued follow-up shipment order. Reload restored the relations control, timeline and queued order. Saving the restored UI again retained all these fields. This supersedes the earlier reproduced local persistence failures. Synthetic saves were removed and the owned browser tab closed.
+
+Historical faction/map coherence, overlapping mobile controls, complete rewind/branch memory and authenticated cloud-save journeys remain unqualified. Chat/advisor persistence has unit coverage but was not exercised through live provider conversations in this pass. No database migration or provider configuration change was made. The owner-held experiment remains inactive and shareable=false.

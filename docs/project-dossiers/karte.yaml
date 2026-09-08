@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f8945932ae40235d44c55b396c03a9b90bc3c40a6f31150885afbbc570e91ad0
+      sha256: 8953338e89dd5eb763103b830ec68d19884a5fe34c918e96f9ee0e85bd90b2b4
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T13:42:28.935Z
+      observedAt: 2026-09-08T14:03:38.388Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -188,7 +188,7 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-09-08T13:42:28.935Z
+  observedAt: 2026-09-08T14:03:38.388Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -230,7 +230,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:03:31Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582355
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -248,7 +248,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:03:31Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582355
-        ageDays: 0
+        ageDays: 1
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -276,7 +276,7 @@ githubActions:
           createdAt: 2026-09-07T13:48:37Z
           updatedAt: 2026-09-07T13:51:08Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34129473645
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -313,7 +313,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:00:58Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -331,7 +331,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:00:58Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
-        ageDays: 0
+        ageDays: 1
       attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
