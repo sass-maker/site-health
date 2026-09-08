@@ -89,7 +89,7 @@
       "domains": [
         "codevetter.com"
       ],
-      "app": "tauri",
+      "app": "swift",
       "inRegistry": true,
       "status": "live",
       "notes": "",
@@ -2940,16 +2940,13 @@
         },
         "form": "Desktop app",
         "platforms": [
-          "macOS",
-          "Windows",
-          "Linux",
-          "Web"
+          "macOS"
         ],
         "technologies": [
-          "Tauri",
-          "React",
-          "Go",
-          "Rust"
+          "Swift",
+          "SwiftUI",
+          "Rust",
+          "SQLite"
         ],
         "firstCommitAt": "2025-11-30",
         "latestCommitAt": "2026-09-07"
