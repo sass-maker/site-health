@@ -1,0 +1,15 @@
+{
+  "source": "189ed565967cfe04d73e8af97139f07624d12994",
+  "ciRun": 34197187095,
+  "release": "https://github.com/sass-maker/app-health/releases/tag/node-v0.3.0",
+  "sha256": "d2db44764de58e9822afe48d8febe4298fc2983279a34c95cdb2100b370fbbdf",
+  "publicAssetDownloaded": true,
+  "publishedConsumerBrowserLogger": "ESM/CommonJS import and synthetic flush pass",
+  "workerVersion": "3b411447-5be2-4387-a1a9-42c30879ac3d",
+  "workerDeployment": "8f2c454b-f67a-45f7-b139-5037e9d60906",
+  "workerTrafficPercent": 100,
+  "limitations": [
+    "Hosted owner-key onboarding and production aggregate verification not exercised.",
+    "npm registry package remains unavailable; GitHub release is supported installation."
+  ]
+}

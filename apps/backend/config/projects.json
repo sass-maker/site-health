@@ -2139,8 +2139,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Real loopback SDK ingest and dashboard aggregates now pass with truthful fixture labels. External onboarding and production aggregate verification remain under #55."
+          "verifiedAt": "2026-09-08",
+          "reason": "Public SDK 0.3.0 installation and release parity are verified; hosted owner-key onboarding, origin-allowlisted browser ingest and real production aggregates remain unqualified under #55."
         }
       },
       "authModel": "required-service",

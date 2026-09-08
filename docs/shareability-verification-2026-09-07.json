@@ -930,15 +930,16 @@
       "shareable": false,
       "verdict": "not_verified",
       "surface": "SDK and telemetry dashboard",
-      "observed": "Documented local populated demo starts successfully; four route rows, latency/error metrics and collection-transparency view work.",
-      "limitations": "Demo says SDK connected while using fixtures; no real SDK ingest-to-dashboard or external onboarding verified.",
-      "verifiedAt": "2026-09-07",
+      "observed": "Released SDK node-v0.3.0 at 189ed565967cfe04d73e8af97139f07624d12994 after full local checks and CI 34197187095. Public download checksum matches; fresh published-package ESM/CommonJS browser logger and synthetic flush pass. All five packed exports are verified. Deployed Worker version 3b411447-5be2-4387-a1a9-42c30879ac3d has full source tag at 100% traffic; actual served dashboard bundle contains corrected 0.3.0 installation URLs. Issue 57 closed.",
+      "limitations": "Public SDK 0.3.0 installation and release parity are verified; hosted owner-key onboarding, origin-allowlisted browser ingest and real production aggregates remain unqualified under #55.",
+      "verifiedAt": "2026-09-08",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/app-health-2026-09-08/release.json"
     },
     {
       "id": "mashup",

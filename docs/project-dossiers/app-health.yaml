@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: bb5ef2a76923aa33b553ea1fcaba665766827cb9274a4ddf86982eb218e1e53b
+      sha256: 30baad5912b3386e11db620ad2d8ff9fcc59c47b854ff7876dd5da106e4b2f1e
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: app-health
-      revision: 1099b1c39e92863a63125a0d97aff3eb0c264324
+      revision: 189ed565967cfe04d73e8af97139f07624d12994
       githubRepository: sass-maker/app-health
       expectedHomepage: https://health.sassmaker.com
       observedHomepage: https://health.sassmaker.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: app-health
-      revision: 1099b1c39e92863a63125a0d97aff3eb0c264324
+      revision: 189ed565967cfe04d73e8af97139f07624d12994
       githubRepository: sass-maker/app-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-20
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T06:53:01.082Z
+      observedAt: 2026-09-08T07:05:36.439Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -122,13 +123,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-20
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 98
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 100
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: app-health
-  observedRevision: 1099b1c39e92863a63125a0d97aff3eb0c264324
+  observedRevision: 189ed565967cfe04d73e8af97139f07624d12994
   githubRepository: sass-maker/app-health
   githubHomepageUrl: https://health.sassmaker.com
   worktree: *a1
@@ -184,7 +185,7 @@ repository:
       - typecheck
       - verify:local-sdk
 githubActions:
-  observedAt: 2026-09-08T06:53:01.082Z
+  observedAt: 2026-09-08T07:05:36.439Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -192,7 +193,7 @@ githubActions:
   remote:
     repository: sass-maker/app-health
     defaultBranch: main
-    defaultBranchSha: 1099b1c39e92863a63125a0d97aff3eb0c264324
+    defaultBranchSha: 189ed565967cfe04d73e8af97139f07624d12994
     homepage: https://health.sassmaker.com
     query: verified
     disposition:
@@ -217,15 +218,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34104011538
+          id: 34197187095
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1099b1c39e92863a63125a0d97aff3eb0c264324
-          createdAt: 2026-09-07T09:04:54Z
-          updatedAt: 2026-09-07T09:06:28Z
-          url: https://github.com/sass-maker/app-health/actions/runs/34104011538
+          headSha: 189ed565967cfe04d73e8af97139f07624d12994
+          createdAt: 2026-09-08T06:59:57Z
+          updatedAt: 2026-09-08T07:01:35Z
+          url: https://github.com/sass-maker/app-health/actions/runs/34197187095
         ageDays: 0
       schedule:
         health: not-applicable
@@ -235,15 +236,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34104011538
+          id: 34197187095
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1099b1c39e92863a63125a0d97aff3eb0c264324
-          createdAt: 2026-09-07T09:04:54Z
-          updatedAt: 2026-09-07T09:06:28Z
-          url: https://github.com/sass-maker/app-health/actions/runs/34104011538
+          headSha: 189ed565967cfe04d73e8af97139f07624d12994
+          createdAt: 2026-09-08T06:59:57Z
+          updatedAt: 2026-09-08T07:01:35Z
+          url: https://github.com/sass-maker/app-health/actions/runs/34197187095
         ageDays: 0
       attention: clear
 deployment:
@@ -284,8 +285,8 @@ sharing:
   publicListing: maintained
   maturity: public-ready
   ready: false
-  verifiedAt: 2026-09-07
-  reason: "Real loopback SDK ingest and dashboard aggregates now pass with truthful fixture labels. External onboarding and production aggregate verification remain under #55."
+  verifiedAt: 2026-09-08
+  reason: "Public SDK 0.3.0 installation and release parity are verified; hosted owner-key onboarding, origin-allowlisted browser ingest and real production aggregates remain unqualified under #55."
   changelogUrl: https://health.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/app-health/issues
   geoIdentity:
