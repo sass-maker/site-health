@@ -2321,8 +2321,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention."
+          "verifiedAt": "2026-09-08",
+          "reason": "A real guest AI turn now succeeds and narrative/event memory reloads, but save/reload loses diplomatic relationships and timeline snapshots. Historical scenarios still use generic factions; 390px panels overlap controls. Pending orders do not persist across reload; authenticated saves remain unqualified."
         }
       },
       "authModel": "public-persistent",
@@ -2337,7 +2337,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Live product at historia.aliveville.com (aliveville family) \u2014 NOT an orphan; keep. 2026-09-07 follow-up: pushed retired Workers AI model compatibility repair (b359d33); 70 tests and CI pass. Live completed turn remains unverified; shareability stays false.",
+      "notes": "September 8: source 655c552977f8f907435d2b0a26f8af9a46b15633 deployed at 100% as Worker cb069b72-25f8-4fbd-b92f-f826af6f83fc after exact CI 34233038420. Repairs retired model, canonical game URLs, failed-turn queue/year retention, explicit AI output schemas and raw provider error exposure. Live guest turn returned HTTP 200 in 3452ms with one diplomacy event, two relations and story memory. Save/reload retained narrative/event but lost relations/timeline; remains unqualified.",
       "name": "Open Historia",
       "attention": "ignored",
       "lifecycle": {
@@ -5974,7 +5974,7 @@
         ]
       },
       "open-historia": {
-        "updatedAt": "2026-08-30",
+        "updatedAt": "2026-09-08",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5997,7 +5997,8 @@
             "name": "AI",
             "state": "active"
           }
-        ]
+        ],
+        "notes": "Worker release 655c552977f8f907435d2b0a26f8af9a46b15633: version cb069b72-25f8-4fbd-b92f-f826af6f83fc, deployment b1344088-7280-49b7-8eb6-8f85450c4862, 100%. No database migration or provider configuration change. Evidence: docs/qualification/open-historia-2026-09-08/README.md."
       },
       "companion-robot": {
         "updatedAt": "2026-08-11",

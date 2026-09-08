@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 74bcf25e8bb7c87060b402cb9912c6c4f5d06d5c50ee9efc93b5aff9c680b083
-      infrastructureUpdatedAt: 2026-08-30
+      sha256: f8945932ae40235d44c55b396c03a9b90bc3c40a6f31150885afbbc570e91ad0
+      infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Open Historia
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: open-historia
-      revision: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
+      revision: 655c552977f8f907435d2b0a26f8af9a46b15633
       githubRepository: sarthakagrawal927/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: open-historia
-      revision: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
+      revision: 655c552977f8f907435d2b0a26f8af9a46b15633
       githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T13:15:57.215Z
+      observedAt: 2026-09-08T13:42:28.935Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -108,13 +109,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 222
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 225
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: open-historia
-  observedRevision: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
+  observedRevision: 655c552977f8f907435d2b0a26f8af9a46b15633
   githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
@@ -177,7 +178,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-08T13:15:57.215Z
+  observedAt: 2026-09-08T13:42:28.935Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -186,7 +187,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
+    defaultBranchSha: 655c552977f8f907435d2b0a26f8af9a46b15633
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
@@ -211,16 +212,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34101298719
+          id: 34233038420
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
-          createdAt: 2026-09-07T08:34:25Z
-          updatedAt: 2026-09-07T08:35:06Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719
-        ageDays: 1
+          headSha: 655c552977f8f907435d2b0a26f8af9a46b15633
+          createdAt: 2026-09-08T13:36:45Z
+          updatedAt: 2026-09-08T13:38:33Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34233038420
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -229,16 +230,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34101298719
+          id: 34233038420
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d97de700d48fa0b5af8f00aae7a9959f1cf739d9
-          createdAt: 2026-09-07T08:34:25Z
-          updatedAt: 2026-09-07T08:35:06Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34101298719
-        ageDays: 1
+          headSha: 655c552977f8f907435d2b0a26f8af9a46b15633
+          createdAt: 2026-09-08T13:36:45Z
+          updatedAt: 2026-09-08T13:38:33Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34233038420
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -397,11 +398,11 @@ sharing:
   publicListing: past
   maturity: null
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention.
+  verifiedAt: 2026-09-08
+  reason: A real guest AI turn now succeeds and narrative/event memory reloads, but save/reload loses diplomatic relationships and timeline snapshots. Historical scenarios still use generic factions; 390px panels overlap controls. Pending orders do not persist across reload; authenticated saves remain unqualified.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/open-historia/issues
   geoIdentity: null
 notes:
-  catalog: "Live product at historia.aliveville.com (aliveville family) — NOT an orphan; keep. 2026-09-07 follow-up: pushed retired Workers AI model compatibility repair (b359d33); 70 tests and CI pass. Live completed turn remains unverified; shareability stays false."
-  infrastructure: null
+  catalog: "September 8: source 655c552977f8f907435d2b0a26f8af9a46b15633 deployed at 100% as Worker cb069b72-25f8-4fbd-b92f-f826af6f83fc after exact CI 34233038420. Repairs retired model, canonical game URLs, failed-turn queue/year retention, explicit AI output schemas and raw provider error exposure. Live guest turn returned HTTP 200 in 3452ms with one diplomacy event, two relations and story memory. Save/reload retained narrative/event but lost relations/timeline; remains unqualified."
+  infrastructure: "Worker release 655c552977f8f907435d2b0a26f8af9a46b15633: version cb069b72-25f8-4fbd-b92f-f826af6f83fc, deployment b1344088-7280-49b7-8eb6-8f85450c4862, 100%. No database migration or provider configuration change. Evidence: docs/qualification/open-historia-2026-09-08/README.md."

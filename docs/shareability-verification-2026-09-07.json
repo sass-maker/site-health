@@ -563,19 +563,33 @@
     },
     {
       "id": "open-historia",
-      "verdict": "fail",
+      "verdict": "degraded",
       "shareable": false,
       "surface": "Browser strategy experiment",
-      "observed": "Opened sourced WWII example, selected UK, queued one humanitarian diplomacy order and advanced; Game Master failed with deprecated Cloudflare model error.",
-      "limitations": "No completed turn; historical map also contains generic factions. No secrets supplied.",
-      "verifiedAt": "2026-09-07",
+      "observed": "September 8: source 655c552977f8f907435d2b0a26f8af9a46b15633 deployed at 100% as Worker cb069b72-25f8-4fbd-b92f-f826af6f83fc after exact CI 34233038420. Repairs retired model, canonical game URLs, failed-turn queue/year retention, explicit AI output schemas and raw provider error exposure. Live guest turn returned HTTP 200 in 3452ms with one diplomacy event, two relations and story memory. Save/reload retained narrative/event but lost relations/timeline; remains unqualified.",
+      "limitations": "A real guest AI turn now succeeds and narrative/event memory reloads, but save/reload loses diplomatic relationships and timeline snapshots. Historical scenarios still use generic factions; 390px panels overlap controls. Pending orders do not persist across reload; authenticated saves remain unqualified.",
+      "verifiedAt": "2026-09-08",
       "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "public-surface-inspected",
-      "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "not-separately-screenshot-qualified",
+      "loggedOut": "guest-turn-and-local-save-inspected",
+      "loggedIn": "not-verified",
+      "presentation": "Desktop map and panels inspected; map geometry remains coarse. At 390px the story/diplomacy panels overlap map and command controls despite document width matching viewport. Mobile layout is not a pass.",
       "disposition": "retain-experiment-unpromoted",
-      "retentionDecision": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention."
+      "retentionDecision": "Held game experiment under recorded owner intent; live playable claims remain unverified, but no release is required for retention.",
+      "actions": [
+        "Created fresh guest WWII campaign as United Kingdom",
+        "Issued humanitarian shipping order through real Workers AI",
+        "Saved and reloaded canonical campaign URL",
+        "Inspected 390px and 1440px layouts"
+      ],
+      "release": {
+        "sourceRevision": "655c552977f8f907435d2b0a26f8af9a46b15633",
+        "workerVersion": "cb069b72-25f8-4fbd-b92f-f826af6f83fc",
+        "deploymentId": "b1344088-7280-49b7-8eb6-8f85450c4862",
+        "trafficPercent": 100,
+        "ciRun": 34233038420,
+        "evidence": "docs/qualification/open-historia-2026-09-08/README.md"
+      }
     },
     {
       "id": "ai-game",
