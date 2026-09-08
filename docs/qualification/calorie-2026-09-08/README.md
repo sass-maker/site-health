@@ -12,4 +12,4 @@ The Today screenshot uses a sample fixture and was manually inspected for readab
 
 [Issue 88](https://github.com/Significant-Hobbies/calorie/issues/88) retains release and owner-use qualification. Shareability remains false. Installed-source CI 34218849801 passed both general and native jobs.
 
-Current source 754fcc800c732c41bd33950509004d5895c870b4 adds only that recovery-dismissal test assertion. Its CI run 34219785217 is in progress; installed production code remains the verified 59fecf5 build.
+Current source 754fcc800c732c41bd33950509004d5895c870b4 adds only that recovery-dismissal test assertion. Its CI run 34219785217 passed both jobs; installed production code remains the verified 59fecf5 build.
