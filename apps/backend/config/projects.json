@@ -1627,8 +1627,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Build 9/source d4c3dc2 also preserves detailed native workouts against returning Hub summaries, retries failed download commits before advancing the cursor, and labels imported summaries without re-exporting them. General checks and the full local native gate passed: 204 unit tests, 17 UI tests, Release and 80.8899% coverage; one iCloud-credential test skipped. Product-source CI 34247640551 and current-head CI 34247853312 passed; hosted coverage is 81.2247%. Build 9 passed signature verification and is now installed on the iPhone; its fresh launch was blocked by FBS Locked. Physical workout/restart, signed-in sync and public distribution remain unqualified."
+          "verifiedAt": "2026-09-09",
+          "reason": "Build 10 source 6c1b1f4d694f1804c47861a774af476dd1038996 is pushed. Explicit approval durably binds local workout history and waiting Hub changes to a verified account; another account cannot adopt owned history. Session ownership survives existing iCloud payloads, active workouts stay offline, and incoming summaries preserve native details. Eight new core/app regressions and the full local unit/UI/Release gate passed with 81.1086% coverage against the unchanged 80.60% floor. General hosted checks passed; native CI 34265090575 is running. Build 9 remains the last verified phone installation, with launch blocked by FBS Locked. Build 10 device installation, physical workout/restart, real signed-in continuity and public distribution remain unqualified."
         }
       },
       "name": "Setline",
