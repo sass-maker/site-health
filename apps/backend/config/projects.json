@@ -1115,8 +1115,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow."
+          "verifiedAt": "2026-09-08",
+          "reason": "Read-only legacy inventory is locally verified at 3bff4e9 with 391 Worker and 6 dashboard tests. Byte-copy/hash verification, provenance backfill, unresolved-write recovery, activation and live private document journey remain issue 48. Inventory does not authorize migration or certify provider state."
         }
       },
       "authModel": "required-service",
