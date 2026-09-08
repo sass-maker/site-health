@@ -16,9 +16,10 @@ test('Projects partitions the complete catalog without changing current scope', 
   const { current, inactive } = partitionProjects(projects);
 
   assert.equal(projects.length, 57);
-  assert.equal(current.length, 21);
-  assert.equal(inactive.length, 36);
+  assert.equal(current.length, 22);
+  assert.equal(inactive.length, 35);
   assert.equal(current.every(isCurrentProject), true);
+  assert.equal(current.some(project => project.id === 'kith'), true);
   assert.equal(inactive.every((project) => !isCurrentProject(project)), true);
   assert.equal(current.findIndex((project) => project.priority === 'P2') > 0, true);
   assert.equal(
@@ -76,7 +77,7 @@ test('registry retains canonical experiment rationale without making it shareabl
 });
 
 test('lifecycle and resume filters use their own fields, including non-null conditions', () => {
-  for (const [lifecycle, count] of [['primary', 2], ['active', 19], ['inactive', 36]]) {
+  for (const [lifecycle, count] of [['primary', 2], ['active', 20], ['inactive', 35]]) {
     assert.equal(projects.filter(p => matchesProjectFilters(p, { lifecycle })).length, count);
   }
   assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).length, 0);

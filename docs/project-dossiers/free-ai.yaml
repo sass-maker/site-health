@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 088821512e37e49aed9e501a58bcc0fe4ba5ab9526ad5c30926f00837560a659
+      sha256: 8820d0f149b558de369a191d8bc29a5c34b002f94d4e9deb22937558e729a64c
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 76169120a0051fd4114e1c5d792f49031424bc4bb88ad9af445f9ab9e5176a76
+      sha256: af3751ce145a99b3e1af7656949520b36116b891f30eb9d09d8146ee9c307d47
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-08
       state: available
       checkout: free-ai
-      revision: 555915b9238e3dc1a2830ba47bb0169a9e841f66
+      revision: d77eb5a3f272219ef668a228d4f9b7187a58775a
       githubRepository: sass-maker/free-ai
       expectedHomepage: https://ai-gateway.sassmaker.com
       observedHomepage: https://ai-gateway.sassmaker.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: free-ai
-      revision: 555915b9238e3dc1a2830ba47bb0169a9e841f66
+      revision: d77eb5a3f272219ef668a228d4f9b7187a58775a
       githubRepository: sass-maker/free-ai
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-15
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:52:31.109Z
+      observedAt: 2026-09-08T08:09:38.257Z
       staleAfterDays: 30
       failing: 1
       healthy: 3
@@ -110,13 +111,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-15
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 249
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 250
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: free-ai
-  observedRevision: 555915b9238e3dc1a2830ba47bb0169a9e841f66
+  observedRevision: d77eb5a3f272219ef668a228d4f9b7187a58775a
   githubRepository: sass-maker/free-ai
   githubHomepageUrl: https://ai-gateway.sassmaker.com
   worktree: *a1
@@ -195,7 +196,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T07:52:31.109Z
+  observedAt: 2026-09-08T08:09:38.257Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -204,7 +205,7 @@ githubActions:
   remote:
     repository: sass-maker/free-ai
     defaultBranch: main
-    defaultBranchSha: 555915b9238e3dc1a2830ba47bb0169a9e841f66
+    defaultBranchSha: d77eb5a3f272219ef668a228d4f9b7187a58775a
     homepage: https://ai-gateway.sassmaker.com
     query: verified
     disposition:
@@ -277,15 +278,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34120940384
+          id: 34202239449
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 555915b9238e3dc1a2830ba47bb0169a9e841f66
-          createdAt: 2026-09-07T12:15:55Z
-          updatedAt: 2026-09-07T12:16:52Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34120940384
+          headSha: d77eb5a3f272219ef668a228d4f9b7187a58775a
+          createdAt: 2026-09-08T08:00:57Z
+          updatedAt: 2026-09-08T08:01:54Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34202239449
         ageDays: 0
       schedule:
         health: not-applicable
@@ -295,15 +296,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34120940384
+          id: 34202239449
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 555915b9238e3dc1a2830ba47bb0169a9e841f66
-          createdAt: 2026-09-07T12:15:55Z
-          updatedAt: 2026-09-07T12:16:52Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34120940384
+          headSha: d77eb5a3f272219ef668a228d4f9b7187a58775a
+          createdAt: 2026-09-08T08:00:57Z
+          updatedAt: 2026-09-08T08:01:54Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34202239449
         ageDays: 0
       attention: clear
     - name: Deploy Cloudflare
@@ -323,16 +324,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33242202434
+          id: 34202735854
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 850ec73fc80fb8149331867f5d4ecb4953c75dcf
-          createdAt: 2026-08-29T08:02:14Z
-          updatedAt: 2026-08-29T08:03:39Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/33242202434
-        ageDays: 9
+          headSha: d77eb5a3f272219ef668a228d4f9b7187a58775a
+          createdAt: 2026-09-08T08:06:36Z
+          updatedAt: 2026-09-08T08:08:09Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34202735854
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -360,15 +361,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34120940338
+          id: 34202239589
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 555915b9238e3dc1a2830ba47bb0169a9e841f66
-          createdAt: 2026-09-07T12:15:55Z
-          updatedAt: 2026-09-07T12:16:51Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34120940338
+          headSha: d77eb5a3f272219ef668a228d4f9b7187a58775a
+          createdAt: 2026-09-08T08:00:57Z
+          updatedAt: 2026-09-08T08:02:03Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34202239589
         ageDays: 0
       schedule:
         health: not-applicable
@@ -378,15 +379,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34120940338
+          id: 34202239589
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 555915b9238e3dc1a2830ba47bb0169a9e841f66
-          createdAt: 2026-09-07T12:15:55Z
-          updatedAt: 2026-09-07T12:16:51Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34120940338
+          headSha: d77eb5a3f272219ef668a228d4f9b7187a58775a
+          createdAt: 2026-09-08T08:00:57Z
+          updatedAt: 2026-09-08T08:02:03Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34202239589
         ageDays: 0
       attention: clear
 deployment:
@@ -461,8 +462,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-07
-  reason: "Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery."
+  verifiedAt: 2026-09-08
+  reason: "Routing fix d77eb5a3 is live at 100 percent and public ordering now prefers higher-success models. Actual authorized inference, sustained recovery, operator access and consumer qualification remain #65; GATEWAY_API_KEY is absent from this session and GitHub Actions. Provider catalog coverage gaps remain #62."
   changelogUrl: https://ai-gateway.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/free-ai/issues
   geoIdentity:

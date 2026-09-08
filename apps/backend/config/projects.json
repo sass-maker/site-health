@@ -711,8 +711,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery."
+          "verifiedAt": "2026-09-08",
+          "reason": "Routing fix d77eb5a3 is live at 100 percent and public ordering now prefers higher-success models. Actual authorized inference, sustained recovery, operator access and consumer qualification remain #65; GATEWAY_API_KEY is absent from this session and GitHub Actions. Provider catalog coverage gaps remain #62."
         }
       },
       "authModel": "required-service",
@@ -1734,7 +1734,7 @@
       "tier": "secondary",
       "attention": "toolbox",
       "lifecycle": {
-        "status": "inactive",
+        "status": "active",
         "shareable": false,
         "resumeCondition": null
       },

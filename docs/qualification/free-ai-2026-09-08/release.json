@@ -1,0 +1,16 @@
+{
+  "source": "d77eb5a3f272219ef668a228d4f9b7187a58775a",
+  "ci": 34202239449,
+  "deployRun": 34202735854,
+  "workerVersion": "5d56c1e2-4408-49f9-ba33-0a8af1a87b60",
+  "deployment": "e2c455a4-f145-498f-bab8-6f204612856b",
+  "trafficPercent": 100,
+  "routingObservedAt": "2026-09-08T08:09:04.620Z",
+  "firstModels": [
+    "mistral-codestral",
+    "mistral-medium"
+  ],
+  "zeroSuccessCerebrasRank": 5,
+  "actualInference": "unqualified - smoke credential unavailable",
+  "shareable": false
+}
