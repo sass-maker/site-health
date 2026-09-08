@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 8 repairs false local saves, failed-load overwrite risk and premature onboarding completion. Five storage regressions, 17 unit tests, 8 UI journeys and unsigned Release build passed. Physical installed workflow, signed-in sync and TestFlight/public distribution remain unqualified; device lock persists."
+          "reason": "Build 9 also opens local people and notes before optional network startup completes. A suspended-iCloud regression and the full local gate passed: 18 unit tests, 8 UI journeys and unsigned Release compilation. Build 8 remains the last verified phone installation. Signed-in sync still advances its download cursor before the app's local save; failure/retry needs repair. Build-9 installation, physical use and public distribution remain unqualified; physical-device tools are unavailable in the current session."
         }
       },
       "name": "Kith",
