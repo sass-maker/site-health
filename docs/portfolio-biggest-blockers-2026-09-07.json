@@ -414,10 +414,10 @@
     {
       "id": "swe-interview-prep",
       "name": "SWE Interview Prep",
-      "classification": "Qualification gap",
-      "biggestBlocker": "Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified.",
-      "shareable": false,
-      "repairProgress": "f7727fc5 pushed clean; exact CI 34111029957 and Docs 34111030049 green,608tests/95files. Account-scoped durable outboxes prevent stale GET overwriting unsent edits; atomic operation receipts prevent duplicated attempts/activity after lost acknowledgements. Root reviewed store and receipt source. #98 closed; #97 retains hosted qualification. One active tab contract; notes/mastery/ELO outside this repair. No production migration/deploy. Current main4b0f613929e7ec84cf04e2516950ac21d1ba8741 contains seven bot-refreshed library JSON files only; clean checkout fast-forwarded after inspection. Focused14tests and full local quality608tests/build/size/coverage/docs passed. LocalNode26 versus CI22; no exact-head Actions run, no migration/deployment."
+      "classification": "No blocker to scoped sharing",
+      "biggestBlocker": "Guest learning loop qualified; real Google login, hosted account persistence/retries and physical phone remain #97.",
+      "shareable": true,
+      "repairProgress": "b11f6c7 clean and pushed; full CI34155197720 and deployment34155332070 green. Migration0003 applied, no pending migrations on reread. Pagesd47298d6 matches source. Fresh Monaco wrong/correct grading, navigation/reload persistence and390px layout verified. No broader account/cross-device pass inferred."
     },
     {
       "id": "rolepatch",

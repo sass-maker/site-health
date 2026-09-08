@@ -1517,10 +1517,10 @@
         "priority": "P2",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Migration 0003 and approved deployment must precede hosted retry qualification; real login, Monaco/mobile and account persistence remain unverified."
+          "verifiedAt": "2026-09-08",
+          "reason": "Verified guest practice: real Monaco editing, wrong-answer rejection, solved code restored after navigation/reload, and readable 390px layout. Guest progress stays in this browser. Google login, account sync and physical-phone editing remain unqualified (#97)."
         }
       },
       "authModel": "public-persistent",
@@ -1554,7 +1554,7 @@
       "attention": "toolbox",
       "lifecycle": {
         "status": "active",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -3614,8 +3614,8 @@
           "audience": "Software engineers preparing for interviews or strengthening practical technical judgment through active study.",
           "outcome": "Build causal understanding that survives recall and can be demonstrated through code, diagrams, explanations, or projects.",
           "mechanism": "An evidence-gated Concept \u2192 Drill \u2192 Build \u2192 Review \u2192 Apply loop combines retrieval practice, Feynman explain-backs, roadmaps, and adaptive review.",
-          "proof": "The active product already unifies broad curriculum, practice, build labs, Socratic help, and a shared mastery model.",
-          "nextAction": "Start a focused learning or practice loop and produce an artifact; new tracks should earn their place by improving retention."
+          "proof": "A fresh guest can complete a graded TypeScript drill and return to saved code in the same browser. Account sync and AI-graded mastery require sign-in and remain separately unqualified.",
+          "nextAction": "Try a coding drill as a guest; progress stays in this browser. Use the issue tracker for account-sync qualification limits."
         },
         "form": "Learning web app",
         "platforms": [
@@ -5481,14 +5481,20 @@
         ]
       },
       "swe-interview-prep": {
-        "updatedAt": "2026-08-30",
+        "updatedAt": "2026-09-08",
         "deployments": [
           {
             "provider": "cloudflare",
             "kind": "pages",
             "name": "swe-interview-prep",
-            "method": "git-connected",
-            "state": "live"
+            "method": "github-actions-wrangler",
+            "state": "live",
+            "verification": {
+              "observedAt": "2026-09-08",
+              "deploymentId": "d47298d6-3506-4565-86ac-9a0a1973ad03",
+              "sourceCommit": "b11f6c766251486d5621b0681b131de619cf9367",
+              "evidencePath": "docs/qualification/swe-interview-prep-2026-09-08/guest-release.json"
+            }
           }
         ],
         "resources": [

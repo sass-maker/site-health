@@ -63,3 +63,10 @@ retried against the known missing profile. Production schema still needs the
 two additive fields. Current hosted run: [34154195520](https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520).
 It supersedes interim runs started before the final layout and observed-role
 correction; no full Mac pass is claimed until its final gate succeeds.
+
+
+Final run 34154195520 has now failed its authoritative gate. iPhone passes
+8/8 and Watch builds; Mac passes12/14, with weekday scheduling failing at
+line249 and the habit-edit query timing out at line221. The mini-timer test
+now passes. Inspect the saved xcresult before another correction; no new
+Mac suite pass or release is claimed.

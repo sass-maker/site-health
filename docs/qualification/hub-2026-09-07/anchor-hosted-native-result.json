@@ -21,5 +21,34 @@
   "stepConclusionCaveat": "continue-on-error gives successful conclusions for failed Mac step; use raw outcome and final enforcement gate",
   "correctionHead": "12bd3079a00105fa38ecd41a08649327d2c9feea",
   "currentRun": "https://github.com/Significant-Hobbies/anchor/actions/runs/34154195520",
-  "currentRunStatus": "in_progress"
+  "currentRunStatus": "in_progress",
+  "finalRun": {
+    "id": 34154195520,
+    "sourceRevision": "12bd3079a00105fa38ecd41a08649327d2c9feea",
+    "conclusion": "failure",
+    "mac": {
+      "passed": 12,
+      "failed": 2,
+      "skipped": 0,
+      "failures": [
+        {
+          "test": "testEveryWeekdayCanHaveADifferentSchedule",
+          "location": "AnchorMacUITests.swift:249",
+          "message": "XCTAssertTrue failed"
+        },
+        {
+          "test": "testHabitsCanBeAddedEditedAndRescheduled",
+          "location": "AnchorMacUITests.swift:221",
+          "message": "Timed out while evaluating UI query"
+        }
+      ]
+    },
+    "iphone": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "watchBuild": "passed",
+    "evidence": "Actual final guard MAC_UI_OUTCOME=failure and XcodeBuildMCP testCases/testFailures in run log; continue-on-error step conclusions are not pass evidence."
+  }
 }

@@ -1,0 +1,39 @@
+{
+  "observedAt": "2026-09-08",
+  "sourceRevision": "b11f6c766251486d5621b0681b131de619cf9367",
+  "productionDeployment": "d47298d6-3506-4565-86ac-9a0a1973ad03",
+  "url": "https://learn.significanthobbies.com",
+  "ciRun": 34155197720,
+  "deployRun": 34155332070,
+  "migration": "0003_record_sync_receipts.sql applied; remote reread has no pending migrations",
+  "guestContext": "fresh isolated Chrome context; visible Sign in; no owner state",
+  "journeys": [
+    {
+      "action": "Submit tokenize returning empty array",
+      "observed": "Explicit expected-versus-actual failure; remains unsolved"
+    },
+    {
+      "action": "Type valid tokenize function via actual Monaco keyboard input and Mark solved",
+      "observed": "All tests passed; solved with one attempt; explain-back honestly requires sign in"
+    },
+    {
+      "action": "Visit inverted-index drill",
+      "observed": "Unsolved, fresh starter, no tokenizer code"
+    },
+    {
+      "action": "Return, reload via mobile emulation and Run",
+      "observed": "Saved function restored and tests pass, one attempt retained"
+    },
+    {
+      "action": "Inspect 390x844 mobile-touch screenshot",
+      "observed": "Readable controls and wrapped code; viewport and scroll width both390; guest-local storage boundary visible"
+    }
+  ],
+  "limits": [
+    "No real Google login or hosted account D1 persistence qualification",
+    "No authenticated failed-write or lost-ack replay",
+    "No physical iPhone/Safari keyboard qualification",
+    "No full 305-problem correctness audit",
+    "One active tab sync contract; notes/mastery/ELO outside repair"
+  ]
+}

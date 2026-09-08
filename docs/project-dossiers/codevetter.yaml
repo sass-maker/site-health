@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 50bf8a92aeb0f0c715bc5be7ce662b6a382e1d97d9e49ea089d7c8d71d210674
+      sha256: e365e1f4c4359011f00c85ab4affba0bbe9c6be6e238f9eda9ffe6f68205f8b1
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,15 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-07T19:07:32.254Z
+      observedAt: 2026-09-07T19:27:22.612Z
       staleAfterDays: 30
       healthy: 10
       manual-or-reusable-never-run: 2
       failing: 1
       attention: &a2
         missing-data: 2
-        clear: 10
-        review-history: 1
+        clear: 11
   unknowns: []
 ownerVoice:
   whyVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
@@ -279,7 +278,7 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-07T19:07:32.254Z
+  observedAt: 2026-09-07T19:27:22.612Z
   staleAfterDays: 30
   summary:
     healthy: 10
@@ -715,12 +714,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: tracked
-        local: true
+        source: github-generated
+        local: false
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: managed
+        reason: GitHub-generated workflow
       live:
         health: failing
         reason: latest run concluded failure
@@ -744,18 +743,18 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: clear
     - name: Dependency Graph
       file: dynamic/dependabot/update-graph
       triggers: []
       schedules: []
       inventory:
-        source: tracked
-        local: true
+        source: github-generated
+        local: false
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: managed
+        reason: GitHub-generated workflow
       live:
         health: healthy
         reason: latest run concluded success
@@ -770,7 +769,7 @@ githubActions:
           createdAt: 2026-08-30T19:15:49Z
           updatedAt: 2026-08-30T19:16:21Z
           url: https://github.com/Codevetter/codevetter/actions/runs/33330376112
-        ageDays: 7
+        ageDays: 8
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -785,12 +784,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: tracked
-        local: true
+        source: github-generated
+        local: false
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: managed
+        reason: GitHub-generated workflow
       live:
         health: healthy
         reason: latest run concluded success
