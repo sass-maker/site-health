@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d0f0334280ab763574d026db25f92a315124c1679d8727ad207c08223ecd30c9
+      sha256: 8b6f07b8d2b71f953377510ba9cb2a0325abc5ffe44a0ff4df8e0d3654bece1e
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T17:14:29.368Z
+      observedAt: 2026-09-08T17:24:33.235Z
       staleAfterDays: 30
-      running: 1
+      healthy: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -178,10 +178,10 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-09-08T17:14:29.368Z
+  observedAt: 2026-09-08T17:24:33.235Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/calorie
@@ -207,18 +207,18 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34255598804
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308
           createdAt: 2026-09-08T17:11:33Z
-          updatedAt: 2026-09-08T17:11:43Z
+          updatedAt: 2026-09-08T17:22:46Z
           url: https://github.com/Significant-Hobbies/calorie/actions/runs/34255598804
         ageDays: 0
       schedule:
@@ -226,17 +226,17 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
           id: 34255598804
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: push
           branch: main
           headSha: 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308
           createdAt: 2026-09-08T17:11:33Z
-          updatedAt: 2026-09-08T17:11:43Z
+          updatedAt: 2026-09-08T17:22:46Z
           url: https://github.com/Significant-Hobbies/calorie/actions/runs/34255598804
         ageDays: 0
       attention: clear
@@ -276,7 +276,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-08
-  reason: Build 14/source 6ecaf4f repairs reproduced account-switching and stale queue acknowledgement failures, persists journal ownership, and requires explicit reconciliation for legacy or differently owned journals. All 32 focused account/local-save tests and pnpm check pass. Hosted iOS CI 34255598804 is in progress; the local native gate found no available iPhone simulator. Build 13 remains installed. Physical use, real-account sync/isolation and public distribution remain unqualified.
+  reason: Build 14/source 6ecaf4f repairs account-switching and stale queue acknowledgement failures and persists explicit journal ownership. Hosted CI 34255598804 passed all 80 tests, Release and 67.6728% coverage. The signed build is installed on the iPhone; fresh launch returned CoreDeviceError 10002 / FBS Locked. Physical use and real-account sync/isolation remain unqualified. Public landing and TestFlight-status pages return 200 but disclose internal-only access with no public install link.
   changelogUrl: https://calorie.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/calorie/issues
   geoIdentity:
@@ -299,5 +299,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Native-first food journal with optional private cloud sync. Development build 13 from 2c98db238afc67c2f2f9a2663d2d7c66dde35972 is installed on the owner iPhone. Build 14/source 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308 adds account-bound replay and persistent journal ownership; exact-source hosted iOS verification and installation are pending. Physical use, signed-in sync and public distribution remain unverified. See issue 88 and docs/qualification/calorie-2026-09-08/.
+  catalog: Native-first food journal with optional private cloud sync. Development build 14 from 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308 is installed on the owner iPhone following full hosted native qualification. Actual physical use is blocked by the locked device; signed-in isolation/sync and public distribution remain unverified. See issue 88 and docs/qualification/calorie-2026-09-08/.
   infrastructure: Worker version 56590a7b-7467-4074-a3af-008fc3fd3d7e is live from exact Git SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Additive shared-identity migration 0008 is applied. Build 1.0.0 (3) remains available to internal testers while signed build 1.0.0 (4) waits for Xcode personal-account authentication.
