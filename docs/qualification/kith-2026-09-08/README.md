@@ -103,3 +103,9 @@ Both `https://kith.significanthobbies.com/` and `/testflight/` returned HTTP 200
 Build 12/source 8d661d8 saves explicit Hub account approval with the local document before backfill, refuses cross-account ownership/downloads, and pauses incompatible iCloud mirrors. Four ownership regressions and full local native unit/UI/Release passed. Exact-source CI 34262940871 and installation pending; build 11 remains installed. Actual signed-in approval/reconciliation, physical use and public native distribution remain unqualified. Corrected private-beta landing is live (b31f1441).
 
 The temporary Mac harness passed all 20 app tests using actual app/shared sources; only temporary fixture file protection is omitted. The required native gate ran on the configured iOS simulator with production protection unchanged. Existing demo UI tests do not establish the new signed-in account approval journey. See issue 27 and Hub issue 156.
+
+## Build 12 installation — 9 September
+
+Exact-source native CI 34262940871 passed for 8d661d8736baa0e3388e2b542d020b6fa248a02c. Stable Xcode 26.6 produced the device build; bundle version 12 and strict/deep codesign verification passed. XcodeBuildMCP installation succeeded. The fresh launch was denied with CoreDeviceError 10002 / FBS Locked. No owner records were edited.
+
+An additional temporary test exercised actual AppModel backfill against independently approved A and B runtimes: A queued its person and note; B received zero mutations and the A-owned document remained intact. Log: swift_package_test_2026-09-08T18-28-29-626Z_pid50013_47833d77.log. This synthetic test does not qualify physical sign-in, approval or reconciliation. Build 12 supersedes the earlier last-installed-build statements.
