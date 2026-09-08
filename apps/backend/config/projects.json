@@ -2322,7 +2322,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Live guest turn, save, reload and re-save now preserve relations, timeline, story memory and queued orders. Historical scenarios still use generic factions; 390px panels overlap controls. Complete rewind memory and authenticated cloud saves remain unqualified."
+          "reason": "Live guest turns, save/reload and 390px controls are verified. Historical scenarios still use generic factions and coarse geography; complete rewind memory and authenticated cloud saves remain unqualified."
         }
       },
       "authModel": "public-persistent",
@@ -2337,7 +2337,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "September 8: d7a9ecdf6c81ca6613f896a2c3744b8f623b833a deployed at 100% as Worker 12af469a-2861-4486-8d3f-47ac6db823ad after exact CI 34235188140. All 79 unit tests and two browser regressions pass. Real guest turn HTTP 200 in 4266ms; three relations, one timeline snapshot and queued follow-up order survived reload and re-save. Historical/mobile/cloud qualification remains outstanding.",
+      "notes": "September 8: a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021 deployed at 100% as d420bcf2-f9e9-46af-9703-c1aa78b38731 after exact CI 34238119844. Responsive campaign panels, local terminal scrolling, empty timeline reopening and valid map zoom expression repaired. Both browser projects passed in CI. Live 390px guest turn returned HTTP 200 in 4117ms; map, controls, narrative, relation and timeline save verified. Remains held/unqualified for historical coherence and authenticated cloud journeys.",
       "name": "Open Historia",
       "attention": "ignored",
       "lifecycle": {
@@ -5998,7 +5998,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker release d7a9ecdf6c81ca6613f896a2c3744b8f623b833a: version 12af469a-2861-4486-8d3f-47ac6db823ad, deployment f3419707-b120-4fa5-9c96-dea8bd4da837, 100%. No database migration or provider configuration change. Evidence: docs/qualification/open-historia-2026-09-08/README.md."
+        "notes": "Worker release a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021: version d420bcf2-f9e9-46af-9703-c1aa78b38731, deployment e52bc48d-da5a-4ec2-9ee4-d5fded78c575, 100%. No database migration or provider configuration change. Evidence: docs/qualification/open-historia-2026-09-08/README.md."
       },
       "companion-robot": {
         "updatedAt": "2026-08-11",

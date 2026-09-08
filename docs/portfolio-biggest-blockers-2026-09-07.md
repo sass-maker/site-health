@@ -34,7 +34,7 @@ Priority: restore Open Historia turns; correct High Signal evidence claims; repa
 | Look Sideways | No blocker to scoped sharing | One profile/source checked; full corpus not fact-checked. |
 | Recipe Index | No blocker to scoped sharing | Publisher macros are not laboratory validation; only representative source checked. |
 | IssuePages | No blocker to scoped sharing | New issue publication not tested or required for retained read-only surface. |
-| Open Historia | Campaign quality | Live turn and reload/re-save preserve relations, timeline and queued orders. Generic historical factions, overlapping mobile panels, full rewind memory and authenticated cloud saves remain. |
+| Open Historia | Campaign quality | Live turn and reload/re-save preserve relations, timeline and queued orders. Mobile panels now reflow and a live 390px turn/save passed. Historical factions/map, full rewind memory and authenticated cloud saves remain. |
 | AliveVille | Product/evidence gap | No useful talk/memory loop completed; no explicit save clicked; not qualified merely by3D rendering. |
 | Web Playables | Qualification gap | Preserved existing save; did not purchase/hire/fire/reset. Fresh core loop needs isolated synthetic state. |
 | Significant Hobbies | Qualification gap | Private summary/sync workflow unverified; guest quiz belongs to Live. |
