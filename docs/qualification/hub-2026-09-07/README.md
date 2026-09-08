@@ -2,6 +2,8 @@
 
 ## Latest verified result — 8 September 2026
 
+Kith update, 8 September: source 59f4e313792f24389f1ba95d72dfdef96c07280e repairs false local saves and failed-load overwrite risk. Full native gate passed; signed build 8 is installed on the physical iPhone. The new build still cannot launch because of FBS Locked. See `../kith-2026-09-08/README.md`.
+
 Priority recheck: the owner reaffirmed Kith, Setline, Anchor, Calorie and Live for immediate personal use. Kith lifecycle is active. On 8 September the physical iPhone was reachable, but XcodeBuildMCP launching `com.significanthobbies.kith` returned CoreDeviceError 10002 / FBS Locked. Unlock is requested; this is not an installed-journey pass. Live retains only its scoped guest quiz qualification; authenticated planning and saving remain outstanding.
 
 Final hosted native run 34193610638 at validation source 094c93f8ecf8a1f5d9229e4eb987871862333e4a passed 185 package tests, 14/14 macOS UI tests and 8/8 iPhone UI tests with zero failures or skips; Watch build and authoritative final gate passed. Product source fdde4e577567db2ced30ab8b0159dbd2acb6cfcb is unchanged. Development iPhone build 22 is installed; signed Mac DMG is prepared, not notarized or installed.

@@ -56,7 +56,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
       "shareable": false,
-      "repairProgress": "Repository iOS gate and signed Release build pass. Development-signed version 1.0.0 build 7 installed on owner iPhone from 916e876ede113ea1ba2eb13b56105502ca88bf68. Launch could not proceed because phone was locked. No TestFlight or public enrollment qualification inferred."
+      "repairProgress": "59f4e31 pushed: await atomic local writes, retain drafts and records on failure, prevent edits after unreadable load, serialize writes and commit onboarding state after save. Five regressions and full native gate passed; signed build 8 installed. Native CI 34210896238 passed; physical launch blocked by locked phone. Issue 27 tracks remaining owner-use qualification."
     },
     {
       "id": "setline",

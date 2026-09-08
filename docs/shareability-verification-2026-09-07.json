@@ -145,19 +145,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native relationship app",
-      "observed": "Repository iOS gate and signed Release build pass. Development-signed version 1.0.0 build 7 installed on owner iPhone from 916e876ede113ea1ba2eb13b56105502ca88bf68. Launch could not proceed because phone was locked. No TestFlight or public enrollment qualification inferred.",
+      "observed": "Source 59f4e31 build 8 repairs false local saves and failed-load mutation. Two before-fix regressions failed; all five focused regressions and full native gate passed (9 core, 8 app, 8 UI tests and Release build). Physical launch remains blocked by FBS Locked. Signed development build 8 installed successfully; its fresh launch remains blocked by FBS Locked.",
       "urls": [
         "https://kith.significanthobbies.com/"
       ],
       "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-08",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "development-build-installed; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
       "disposition": "retain-unpromoted",
-      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
+      "evidencePath": "docs/qualification/kith-2026-09-08/README.md"
     },
     {
       "id": "journal",

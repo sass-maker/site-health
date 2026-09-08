@@ -1724,8 +1724,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass."
+          "verifiedAt": "2026-09-08",
+          "reason": "Build 8 repairs false local saves, failed-load overwrite risk and premature onboarding completion. Five storage regressions, 17 unit tests, 8 UI journeys and unsigned Release build passed. Physical installed workflow, signed-in sync and TestFlight/public distribution remain unqualified; device lock persists."
         }
       },
       "name": "Kith",

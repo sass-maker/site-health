@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 770a8e93ede407806d99cfe5be901b3c71e3af023777960536e04e6ce7a82059
+      sha256: 3c1dfb46e0bec2fddc9fcee63f6f62c860ee9aedde94a85372d8c3d626db950d
       infrastructureUpdatedAt: 2026-08-29
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T09:12:45.402Z
+      observedAt: 2026-09-08T09:38:36.478Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -171,7 +171,7 @@ repository:
       - test:e2e:local
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T09:12:45.402Z
+  observedAt: 2026-09-08T09:38:36.478Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -215,7 +215,7 @@ githubActions:
           createdAt: 2026-09-07T09:35:18Z
           updatedAt: 2026-09-07T09:37:02Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -233,7 +233,7 @@ githubActions:
           createdAt: 2026-09-07T09:35:18Z
           updatedAt: 2026-09-07T09:37:02Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/34106861493
-        ageDays: 0
+        ageDays: 1
       attention: ignored
     - name: Release CLI
       file: .github/workflows/cli-release.yml

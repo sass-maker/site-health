@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 770a8e93ede407806d99cfe5be901b3c71e3af023777960536e04e6ce7a82059
+      sha256: 3c1dfb46e0bec2fddc9fcee63f6f62c860ee9aedde94a85372d8c3d626db950d
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T09:12:45.402Z
+      observedAt: 2026-09-08T09:38:36.478Z
       staleAfterDays: 30
       healthy: 5
       failing: 1
@@ -202,7 +202,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-08T09:12:45.402Z
+  observedAt: 2026-09-08T09:38:36.478Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -448,12 +448,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: tracked
-        local: true
+        source: github-generated
+        local: false
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: managed
+        reason: GitHub-generated workflow
       live:
         health: healthy
         reason: latest run concluded success

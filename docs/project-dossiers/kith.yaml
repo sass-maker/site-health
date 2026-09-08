@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 770a8e93ede407806d99cfe5be901b3c71e3af023777960536e04e6ce7a82059
+      sha256: 3c1dfb46e0bec2fddc9fcee63f6f62c860ee9aedde94a85372d8c3d626db950d
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: kith
-      revision: 916e876ede113ea1ba2eb13b56105502ca88bf68
+      revision: 59f4e313792f24389f1ba95d72dfdef96c07280e
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
       observedHomepage: https://kith.significanthobbies.com
@@ -46,20 +46,21 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: kith
-      revision: 916e876ede113ea1ba2eb13b56105502ca88bf68
+      revision: 59f4e313792f24389f1ba95d72dfdef96c07280e
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
       catalogLatestCommitAt: 2026-08-29
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T09:12:45.402Z
+      observedAt: 2026-09-08T09:38:36.478Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
-        ignored: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
@@ -106,13 +107,13 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-08-29
-    retainedCommitCount: 44
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 45
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: 916e876ede113ea1ba2eb13b56105502ca88bf68
+  observedRevision: 59f4e313792f24389f1ba95d72dfdef96c07280e
   githubRepository: Significant-Hobbies/kith
   githubHomepageUrl: https://kith.significanthobbies.com
   worktree: *a1
@@ -128,7 +129,7 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T09:12:45.402Z
+  observedAt: 2026-09-08T09:38:36.478Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -136,12 +137,12 @@ githubActions:
   remote:
     repository: Significant-Hobbies/kith
     defaultBranch: main
-    defaultBranchSha: 916e876ede113ea1ba2eb13b56105502ca88bf68
+    defaultBranchSha: 59f4e313792f24389f1ba95d72dfdef96c07280e
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      disposition: active
+      reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -154,23 +155,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+        status: active
+        reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33262949395
+          id: 34210896238
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 916e876ede113ea1ba2eb13b56105502ca88bf68
-          createdAt: 2026-08-29T16:25:58Z
-          updatedAt: 2026-08-29T16:33:20Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/33262949395
-        ageDays: 9
+          headSha: 59f4e313792f24389f1ba95d72dfdef96c07280e
+          createdAt: 2026-09-08T09:36:04Z
+          updatedAt: 2026-09-08T09:44:18Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34210896238
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -179,17 +180,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 33262949395
+          id: 34210896238
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 916e876ede113ea1ba2eb13b56105502ca88bf68
-          createdAt: 2026-08-29T16:25:58Z
-          updatedAt: 2026-08-29T16:33:20Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/33262949395
-        ageDays: 9
-      attention: ignored
+          headSha: 59f4e313792f24389f1ba95d72dfdef96c07280e
+          createdAt: 2026-09-08T09:36:04Z
+          updatedAt: 2026-09-08T09:44:18Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34210896238
+        ageDays: 0
+      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -218,8 +219,8 @@ sharing:
   publicListing: maintained
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.
+  verifiedAt: 2026-09-08
+  reason: Build 8 repairs false local saves, failed-load overwrite risk and premature onboarding completion. Five storage regressions, 17 unit tests, 8 UI journeys and unsigned Release build passed. Physical installed workflow, signed-in sync and TestFlight/public distribution remain unqualified; device lock persists.
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:
