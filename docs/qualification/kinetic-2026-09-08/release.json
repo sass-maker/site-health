@@ -1,0 +1,31 @@
+{
+  "observedAt": "2026-09-08",
+  "source": "210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6",
+  "ci": {
+    "run": 34223394319,
+    "state": "success"
+  },
+  "deployment": {
+    "worker": "email-manager",
+    "version": "c8900fd9-0d92-4973-b2dd-7e1509427081",
+    "id": "1cd0620c-d582-4262-a00c-070fda259190",
+    "percentage": 100
+  },
+  "validation": {
+    "localQuality": "passed; 103 tests, unchanged gates",
+    "docs": "45 files passed",
+    "isolatedMailbox": "real IndexedDB, synthetic mail and embeddings; colliding account IDs, distinct cursors and delayed writes passed",
+    "routingRegression": "three exported-Worker tests failed before repair and passed after"
+  },
+  "liveGuestRoutes": {
+    "/api/health": 200,
+    "/api/auth/get-session": 200,
+    "/api/emails": 401,
+    "/api/ai": 200,
+    "/openapi.json": 200
+  },
+  "openapiVersion": "3.1.0",
+  "loggedIn": "unverified; owner Google sign-in pending",
+  "shareable": false,
+  "issue": "https://github.com/Significant-Hobbies/email-manager/issues/54"
+}

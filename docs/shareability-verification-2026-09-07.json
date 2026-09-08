@@ -321,15 +321,16 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Gmail workspace",
-      "observed": "Opened app; Google sign-in required before core mailbox search.",
+      "observed": "Account-cache and public-discovery routing repairs deployed at exact 210e6ad, CI green; 103 local tests pass. Isolated live guest session/health/catalog/OpenAPI 200, mail 401. Google form reached; owner login pending.",
       "limitations": "Mailbox workflow and presentation after sign-in unverified.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-08",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "live sign-in surface and anonymous API boundaries verified",
+      "loggedIn": "not-verified; owner Google sign-in pending",
+      "presentation": "public hero visually inspected at 390px; terms renders within 390px viewport",
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/kinetic-2026-09-08/README.md"
     },
     {
       "id": "knowledge-base",

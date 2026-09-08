@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 98cf14b5748433ec068099b27ef7e84c070dbd677ef5caec5b628a6cb1fd1464
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: dd5b2015dbe5fee8cb97181a14d03c18838ff11a8ed51e1b80217959ab550948
+      infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Email Manager
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: email-manager
-      revision: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
+      revision: 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6
       githubRepository: Significant-Hobbies/email-manager
       expectedHomepage: https://mail.significanthobbies.com
       observedHomepage: https://mail.significanthobbies.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: email-manager
-      revision: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
+      revision: 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6
       githubRepository: Significant-Hobbies/email-manager
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-24
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T11:39:30.502Z
+      observedAt: 2026-09-08T12:02:00.387Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -109,13 +110,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-24
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 261
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 263
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: email-manager
-  observedRevision: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
+  observedRevision: 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6
   githubRepository: Significant-Hobbies/email-manager
   githubHomepageUrl: https://mail.significanthobbies.com
   worktree: *a1
@@ -183,7 +184,7 @@ repository:
       - verify:indexing
       - verify:local-mailbox
 githubActions:
-  observedAt: 2026-09-08T11:39:30.502Z
+  observedAt: 2026-09-08T12:02:00.387Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -191,7 +192,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/email-manager
     defaultBranch: main
-    defaultBranchSha: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
+    defaultBranchSha: 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6
     homepage: https://mail.significanthobbies.com
     query: verified
     disposition:
@@ -216,16 +217,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34108712914
+          id: 34223394319
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
-          createdAt: 2026-09-07T09:55:38Z
-          updatedAt: 2026-09-07T09:56:29Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34108712914
-        ageDays: 1
+          headSha: 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6
+          createdAt: 2026-09-08T11:57:10Z
+          updatedAt: 2026-09-08T11:58:11Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34223394319
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -234,16 +235,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34108712914
+          id: 34223394319
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6a4eb83117c671b2ced37ca9a496f3cef3fbff4f
-          createdAt: 2026-09-07T09:55:38Z
-          updatedAt: 2026-09-07T09:56:29Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34108712914
-        ageDays: 1
+          headSha: 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6
+          createdAt: 2026-09-08T11:57:10Z
+          updatedAt: 2026-09-08T11:58:11Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34223394319
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -346,8 +347,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Hosted account switching, real OAuth/mail search and model quality remain unverified.
+  verifiedAt: 2026-09-08
+  reason: Account-scoped cache and discovery-routing repairs are deployed at exact source 210e6ad with green CI. Live anonymous session/health/catalog/OpenAPI respond and mail is denied with 401. Owner OAuth completion, account switching, real mailbox workflows and ONNX model quality remain issue 54.
   changelogUrl: https://mail.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/email-manager/issues
   geoIdentity:
@@ -371,5 +372,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified.
-  infrastructure: null
+  catalog: Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified. Source 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 is deployed at 100% after account-cache and Worker routing verification; actual Google sign-in completion remains pending.
+  infrastructure: Worker version c8900fd9-0d92-4973-b2dd-7e1509427081, deployment 1cd0620c-d582-4262-a00c-070fda259190, carries exact source 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 at 100%. Existing D1/auth configuration retained; signed-in qualification remains open.

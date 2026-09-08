@@ -126,7 +126,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Hosted account switching, real OAuth/mail search and model quality remain unverified.",
       "shareable": false,
-      "repairProgress": "6a4eb83 pushed clean; CI 34108712914 green. 100 tests and isolated real IndexedDB synthetic sync/search/digest prove account-owned bodies, embeddings and cursors with colliding message IDs; API rejects stale expected-account requests. #53 closed, #54 retains hosted gates. Legacy unscoped mail preserved untouched."
+      "repairProgress": "210e6ad deployed at 100% with green exact-source CI. Account-scoped IndexedDB verifier and 103 local tests pass. Reproduced discovery interception of auth/mail GETs and missing OpenAPI; exported-Worker regression tests and live guest checks now pass. Owner Google sign-in, real mail and ONNX quality remain issue 54."
     },
     {
       "id": "knowledge-base",

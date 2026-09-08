@@ -1283,18 +1283,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "f061f95070bdd2518951766b6bcf1f019fc5d7f7",
+        "revision": "eb75ad2a51e55d169afa9cc983a6f22af50fbc54",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 2,
+          "trackedChangeCount": 3,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-08",
-        "retainedCommitCount": 1038,
+        "retainedCommitCount": 1040,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1322,15 +1322,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34221224134,
+              "id": 34222596081,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "f061f95070bdd2518951766b6bcf1f019fc5d7f7",
-              "createdAt": "2026-09-08T11:32:24Z",
-              "updatedAt": "2026-09-08T11:32:54Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34221224134"
+              "headSha": "eb75ad2a51e55d169afa9cc983a6f22af50fbc54",
+              "createdAt": "2026-09-08T11:48:07Z",
+              "updatedAt": "2026-09-08T11:48:38Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34222596081"
             },
             "ageDays": 0
           },
@@ -1343,15 +1343,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34221224134,
+              "id": 34222596081,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "f061f95070bdd2518951766b6bcf1f019fc5d7f7",
-              "createdAt": "2026-09-08T11:32:24Z",
-              "updatedAt": "2026-09-08T11:32:54Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34221224134"
+              "headSha": "eb75ad2a51e55d169afa9cc983a6f22af50fbc54",
+              "createdAt": "2026-09-08T11:48:07Z",
+              "updatedAt": "2026-09-08T11:48:38Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34222596081"
             },
             "ageDays": 0
           },
@@ -1400,7 +1400,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "f061f95070bdd2518951766b6bcf1f019fc5d7f7",
+        "defaultBranchSha": "eb75ad2a51e55d169afa9cc983a6f22af50fbc54",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -3441,7 +3441,7 @@
       "source": {
         "state": "available",
         "path": "email-manager",
-        "revision": "6a4eb83117c671b2ced37ca9a496f3cef3fbff4f",
+        "revision": "210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6",
         "repositorySlug": "Significant-Hobbies/email-manager",
         "worktree": {
           "state": "clean",
@@ -3451,8 +3451,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-24",
-        "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 261,
+        "latestCommitAt": "2026-09-08",
+        "retainedCommitCount": 263,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3479,17 +3479,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34108712914,
+              "id": 34223394319,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6a4eb83117c671b2ced37ca9a496f3cef3fbff4f",
-              "createdAt": "2026-09-07T09:55:38Z",
-              "updatedAt": "2026-09-07T09:56:29Z",
-              "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34108712914"
+              "headSha": "210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6",
+              "createdAt": "2026-09-08T11:57:10Z",
+              "updatedAt": "2026-09-08T11:58:11Z",
+              "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34223394319"
             },
-            "ageDays": 1
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -3500,17 +3500,17 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34108712914,
+              "id": 34223394319,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6a4eb83117c671b2ced37ca9a496f3cef3fbff4f",
-              "createdAt": "2026-09-07T09:55:38Z",
-              "updatedAt": "2026-09-07T09:56:29Z",
-              "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34108712914"
+              "headSha": "210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6",
+              "createdAt": "2026-09-08T11:57:10Z",
+              "updatedAt": "2026-09-08T11:58:11Z",
+              "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/34223394319"
             },
-            "ageDays": 1
+            "ageDays": 0
           },
           "attention": "ignored"
         },
@@ -3688,7 +3688,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/email-manager",
         "defaultBranch": "main",
-        "defaultBranchSha": "6a4eb83117c671b2ced37ca9a496f3cef3fbff4f",
+        "defaultBranchSha": "210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6",
         "homepage": "https://mail.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -4870,15 +4870,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34221094601,
+              "id": 34223728836,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "b1023613b348689a515049284c272d62f012d807",
-              "createdAt": "2026-09-08T11:30:56Z",
-              "updatedAt": "2026-09-08T11:31:32Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34221094601"
+              "createdAt": "2026-09-08T12:00:56Z",
+              "updatedAt": "2026-09-08T12:01:50Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34223728836"
             },
             "ageDays": 0
           },
@@ -5075,19 +5075,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "running",
+            "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 34221096897,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 34223732184,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "workflow_dispatch",
               "branch": "main",
               "headSha": "b1023613b348689a515049284c272d62f012d807",
-              "createdAt": "2026-09-08T11:30:57Z",
-              "updatedAt": "2026-09-08T11:32:07Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34221096897"
+              "createdAt": "2026-09-08T12:00:58Z",
+              "updatedAt": "2026-09-08T12:01:02Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34223732184"
             },
             "ageDays": 0
           },
@@ -7077,18 +7077,18 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
               "id": 34221819695,
-              "status": "in_progress",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
               "headSha": "4562c71d80e9bc8861e525bb0f0f442d7455675f",
               "createdAt": "2026-09-08T11:39:12Z",
-              "updatedAt": "2026-09-08T11:39:16Z",
+              "updatedAt": "2026-09-08T11:40:35Z",
               "url": "https://github.com/sass-maker/knowledge-base/actions/runs/34221819695"
             },
             "ageDays": 0
@@ -7099,17 +7099,17 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "running",
-            "reason": "current main push is in_progress",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
               "id": 34221819695,
-              "status": "in_progress",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
               "headSha": "4562c71d80e9bc8861e525bb0f0f442d7455675f",
               "createdAt": "2026-09-08T11:39:12Z",
-              "updatedAt": "2026-09-08T11:39:16Z",
+              "updatedAt": "2026-09-08T11:40:35Z",
               "url": "https://github.com/sass-maker/knowledge-base/actions/runs/34221819695"
             },
             "ageDays": 0
@@ -14575,7 +14575,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-08T11:39:30.502Z",
+  "githubObservedAt": "2026-09-08T12:02:00.387Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }

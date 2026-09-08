@@ -1,0 +1,9 @@
+# Kinetic release and live verification — 8 September 2026
+
+Production was two commits behind the account-scoped mailbox-cache repair. The isolated mailbox verifier passed with real browser IndexedDB and synthetic messages/embeddings, including colliding IDs across accounts, separate cursors and a delayed prior-account response. The checked repair was published, then live route testing found a separate regression in public discovery: GET session/mailbox requests were intercepted with 404, and the advertised OpenAPI route fell through to static assets.
+
+Three tests against the exported Worker entry point reproduced those failures. The repair limits discovery to public documents and its catalog, preserves product API routing, and places discovery before static fallback. Full quality passed 103 tests and unchanged code-health/coverage gates; 45 Markdown files passed validation. Current runbooks use `pnpm run deploy` because bare `pnpm deploy` invoked pnpm's separate built-in command and failed before publication.
+
+Exact-source CI 34223394319 passed. Worker version c8900fd9-0d92-4973-b2dd-7e1509427081 is tagged 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 and receives 100% traffic in deployment 1cd0620c-d582-4262-a00c-070fda259190. The separate logged-out browser context returned health/session/catalog/OpenAPI 200 and mailbox 401. OpenAPI parsed as 3.1.0. The public hero was visually inspected at 390px; the rendered Terms route had matching 390px viewport/document width.
+
+The canonical Google button reaches the account form without a redirect mismatch. Owner sign-in is pending in the retained Kinetic tab. This does not prove OAuth callback completion, mailbox search, account switching, sender/digest workflows or real ONNX model quality. No mailbox contents or unsubscribe actions were accessed. Test tabs were closed; the owner sign-in tab remains. Shareability stays false and issue 54 remains open.

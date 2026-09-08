@@ -616,8 +616,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Hosted account switching, real OAuth/mail search and model quality remain unverified."
+          "verifiedAt": "2026-09-08",
+          "reason": "Account-scoped cache and discovery-routing repairs are deployed at exact source 210e6ad with green CI. Live anonymous session/health/catalog/OpenAPI respond and mail is denied with 401. Owner OAuth completion, account switching, real mailbox workflows and ONNX model quality remain issue 54."
         }
       },
       "authModel": "required-user",
@@ -631,7 +631,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified.",
+      "notes": "Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified. Source 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 is deployed at 100% after account-cache and Worker routing verification; actual Google sign-in completion remains pending.",
       "name": "Kinetic",
       "aliases": [
         "Email Manager"
@@ -4922,7 +4922,7 @@
         ]
       },
       "email-manager": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-09-08",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4939,7 +4939,8 @@
             "name": "email-manager-auth",
             "state": "active"
           }
-        ]
+        ],
+        "notes": "Worker version c8900fd9-0d92-4973-b2dd-7e1509427081, deployment 1cd0620c-d582-4262-a00c-070fda259190, carries exact source 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 at 100%. Existing D1/auth configuration retained; signed-in qualification remains open."
       },
       "chatgpt-memory-insights": {
         "updatedAt": "2026-08-11",
