@@ -368,9 +368,9 @@
       "id": "drank",
       "name": "DRank",
       "classification": "Qualification gap",
-      "biggestBlocker": "Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested.",
+      "biggestBlocker": "Scheduled direct-provider collection remains unqualified: AHREFS_API_KEY is absent from repository Actions secrets (metadata-only check). All 45 shared latest observations remain August 17. Separate raw-data redistribution permission is unresolved; advisor and public nominations remain untested.",
       "shareable": false,
-      "repairProgress": "Live anonymous Chrome: add owned domain, real proxy lookup and refresh, reload, export and fresh-mobile import preserved exact history. All 45 shared-domain public proxy lookups returned fresh valid results. Source f531e56 fixes reactive personal counts and mobile control labels/bounds; built browser checks passed at 390/1440 px, quality: 80 tests and build passed."
+      "repairProgress": "Source 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc passed CI34198440414 and deployed to production Pages 8ec543fd-2fb1-4a85-b92e-0a239f7d356b. Canonical live host at 390px visually confirms unclipped unavailable movement, accessible header controls and adjacent Ahrefs attribution; document widths match at 390 and 1440. Earlier September 8 isolated personal add returned real DR9.0 for sassmaker.com and retained count/rating after reload. No fresh shared dataset published."
     },
     {
       "id": "psi-swarm",

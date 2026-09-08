@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 30baad5912b3386e11db620ad2d8ff9fcc59c47b854ff7876dd5da106e4b2f1e
+      sha256: 8076c7f9e888657ef1766701524b4d415dc15d2d722620f46a9d40b76e4c2ff7
       infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:05:36.439Z
+      observedAt: 2026-09-08T07:23:35.692Z
       staleAfterDays: 30
       healthy: 7
       manual-or-reusable-never-run: 4
@@ -188,7 +188,7 @@ repository:
       - tooling:footers
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T07:05:36.439Z
+  observedAt: 2026-09-08T07:23:35.692Z
   staleAfterDays: 30
   summary:
     healthy: 7
@@ -218,6 +218,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: healthy
         reason: latest run concluded success
@@ -251,7 +252,6 @@ githubActions:
           updatedAt: 2026-09-08T06:05:21Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/34193054416
         ageDays: 0
-      attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -265,6 +265,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: missing-data
       live:
         health: healthy
         reason: latest run concluded success
@@ -297,7 +298,6 @@ githubActions:
           createdAt: 2026-09-07T14:14:55Z
           updatedAt: 2026-09-07T14:15:06Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/34131909672
-      attention: missing-data
     - name: Drank CI
       file: .github/workflows/drank-ci.yml
       triggers:
@@ -310,6 +310,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: manual-or-reusable-never-run
         reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
@@ -324,7 +325,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: PSI Swarm CI
       file: .github/workflows/psi-swarm-ci.yml
       triggers:
@@ -337,6 +337,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: manual-or-reusable-never-run
         reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
@@ -351,7 +352,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: Site Health CI
       file: .github/workflows/site-health-ci.yml
       triggers:
@@ -364,6 +364,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: manual-or-reusable-never-run
         reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
@@ -378,7 +379,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: Tooling CI
       file: .github/workflows/tooling-ci.yml
       triggers:
@@ -393,6 +393,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: healthy
         reason: latest run concluded success
@@ -426,7 +427,6 @@ githubActions:
           updatedAt: 2026-09-08T06:04:02Z
           url: https://github.com/sass-maker/saas-maker/actions/runs/34193054439
         ageDays: 0
-      attention: clear
     - name: Public Performance Sweep
       file: .github/workflows/tooling-performance-sweep.yml
       triggers:
@@ -441,6 +441,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: healthy
         reason: latest run concluded success
@@ -475,7 +476,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: Public Surface Audit
       file: .github/workflows/tooling-surface-audit.yml
       triggers:
@@ -490,6 +490,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: healthy
         reason: latest run concluded success
@@ -524,7 +525,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: Verify Local
       file: .github/workflows/verify-local.yml
       triggers:
@@ -537,6 +537,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: manual-or-reusable-never-run
         reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
@@ -551,7 +552,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -566,6 +566,7 @@ githubActions:
       ownerDisposition:
         status: active
         reason: tracked workflow
+      attention: clear
       live:
         health: healthy
         reason: latest run concluded success
@@ -600,7 +601,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []

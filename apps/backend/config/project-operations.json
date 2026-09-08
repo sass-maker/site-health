@@ -1122,6 +1122,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -1159,8 +1160,7 @@
               "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882"
             },
             "ageDays": 1
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Deploy to Cloudflare Pages",
@@ -1178,6 +1178,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -1204,8 +1205,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         }
       ],
       "toolingSignals": [
@@ -1283,7 +1283,7 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "1dfacbca8849e5efe9d264645f1dc5d7cbcccebe",
+        "revision": "48ff491fb058f85ca0e769c0f42ba71d184a1c2e",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
@@ -1294,7 +1294,7 @@
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-08",
-        "retainedCommitCount": 1026,
+        "retainedCommitCount": 1027,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1317,20 +1317,21 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34196841405,
+              "id": 34197899527,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "1dfacbca8849e5efe9d264645f1dc5d7cbcccebe",
-              "createdAt": "2026-09-08T06:55:26Z",
-              "updatedAt": "2026-09-08T06:55:55Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34196841405"
+              "headSha": "48ff491fb058f85ca0e769c0f42ba71d184a1c2e",
+              "createdAt": "2026-09-08T07:08:44Z",
+              "updatedAt": "2026-09-08T07:09:11Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34197899527"
             },
             "ageDays": 0
           },
@@ -1343,19 +1344,18 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34196841405,
+              "id": 34197899527,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "1dfacbca8849e5efe9d264645f1dc5d7cbcccebe",
-              "createdAt": "2026-09-08T06:55:26Z",
-              "updatedAt": "2026-09-08T06:55:55Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34196841405"
+              "headSha": "48ff491fb058f85ca0e769c0f42ba71d184a1c2e",
+              "createdAt": "2026-09-08T07:08:44Z",
+              "updatedAt": "2026-09-08T07:09:11Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34197899527"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         }
       ],
       "toolingSignals": [
@@ -1400,7 +1400,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "1dfacbca8849e5efe9d264645f1dc5d7cbcccebe",
+        "defaultBranchSha": "48ff491fb058f85ca0e769c0f42ba71d184a1c2e",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -1446,6 +1446,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -1483,8 +1484,7 @@
               "url": "https://github.com/Significant-Hobbies/live/actions/runs/34112604750"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Deploy to Cloudflare Workers",
@@ -1502,6 +1502,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "review-history",
           "live": {
             "health": "failing",
             "reason": "latest run concluded failure",
@@ -1528,8 +1529,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "review-history"
+          }
         },
         {
           "name": "docs",
@@ -1548,6 +1548,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -1585,8 +1586,7 @@
               "url": "https://github.com/Significant-Hobbies/live/actions/runs/34112604719"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Production Smoke",
@@ -1607,6 +1607,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -1645,8 +1646,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Dependabot Updates",
@@ -2023,6 +2023,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2060,8 +2061,7 @@
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/34193054416"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Docs",
@@ -2080,6 +2080,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "missing-data",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2116,8 +2117,7 @@
               "updatedAt": "2026-09-07T14:15:06Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/34131909672"
             }
-          },
-          "attention": "missing-data"
+          }
         },
         {
           "name": "Drank CI",
@@ -2135,6 +2135,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "manual-or-reusable-never-run",
             "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
@@ -2151,8 +2152,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "PSI Swarm CI",
@@ -2170,6 +2170,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "manual-or-reusable-never-run",
             "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
@@ -2186,8 +2187,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Site Health CI",
@@ -2205,6 +2205,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "manual-or-reusable-never-run",
             "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
@@ -2221,8 +2222,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Tooling CI",
@@ -2242,6 +2242,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2279,8 +2280,7 @@
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/34193054439"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Public Performance Sweep",
@@ -2301,6 +2301,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2339,8 +2340,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Public Surface Audit",
@@ -2361,6 +2361,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2399,8 +2400,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Verify Local",
@@ -2418,6 +2418,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "manual-or-reusable-never-run",
             "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
@@ -2434,8 +2435,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Weekly Quality Check",
@@ -2456,6 +2456,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2494,8 +2495,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Dependabot Updates",
@@ -2787,6 +2787,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2824,8 +2825,7 @@
               "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/34124384488"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         },
         {
           "name": "Deploy artifacts worker",
@@ -2843,6 +2843,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2869,8 +2870,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "ignored"
+          }
         },
         {
           "name": "Docs",
@@ -2889,6 +2889,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -2926,8 +2927,7 @@
               "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -3175,7 +3175,7 @@
       "source": {
         "state": "available",
         "path": "drank",
-        "revision": "f531e56c2f5715d2c73e54404e9ca042f99e7e48",
+        "revision": "7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc",
         "repositorySlug": "sass-maker/drank",
         "worktree": {
           "state": "clean",
@@ -3185,8 +3185,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-10",
-        "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 96,
+        "latestCommitAt": "2026-09-08",
+        "retainedCommitCount": 98,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3209,20 +3209,21 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34120517281,
+              "id": 34198440414,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "f531e56c2f5715d2c73e54404e9ca042f99e7e48",
-              "createdAt": "2026-09-07T12:11:26Z",
-              "updatedAt": "2026-09-07T12:12:26Z",
-              "url": "https://github.com/sass-maker/drank/actions/runs/34120517281"
+              "headSha": "7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc",
+              "createdAt": "2026-09-08T07:15:30Z",
+              "updatedAt": "2026-09-08T07:16:22Z",
+              "url": "https://github.com/sass-maker/drank/actions/runs/34198440414"
             },
             "ageDays": 0
           },
@@ -3235,19 +3236,18 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34120517281,
+              "id": 34198440414,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "f531e56c2f5715d2c73e54404e9ca042f99e7e48",
-              "createdAt": "2026-09-07T12:11:26Z",
-              "updatedAt": "2026-09-07T12:12:26Z",
-              "url": "https://github.com/sass-maker/drank/actions/runs/34120517281"
+              "headSha": "7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc",
+              "createdAt": "2026-09-08T07:15:30Z",
+              "updatedAt": "2026-09-08T07:16:22Z",
+              "url": "https://github.com/sass-maker/drank/actions/runs/34198440414"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         },
         {
           "name": "Update Global DR History",
@@ -3268,6 +3268,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -3306,8 +3307,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -3372,7 +3372,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/drank",
         "defaultBranch": "main",
-        "defaultBranchSha": "f531e56c2f5715d2c73e54404e9ca042f99e7e48",
+        "defaultBranchSha": "7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc",
         "homepage": "https://domains.sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -3678,6 +3678,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -3715,8 +3716,7 @@
               "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34128651214"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         },
         {
           "name": "memory-pack release",
@@ -3735,6 +3735,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -3761,8 +3762,7 @@
             "health": "missing",
             "reason": "no push run was returned for main",
             "lastRun": null
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -5335,7 +5335,7 @@
               "updatedAt": "2026-09-07T07:23:51Z",
               "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34095182610"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -5380,7 +5380,7 @@
               "updatedAt": "2026-09-07T07:15:07Z",
               "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34094290469"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -6569,6 +6569,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -6606,8 +6607,7 @@
               "url": "https://github.com/High-Signal-App/research-papers/actions/runs/34001973170"
             },
             "ageDays": 2
-          },
-          "attention": "ignored"
+          }
         },
         {
           "name": "Deploy research-papers to Cloudflare Pages",
@@ -6625,6 +6625,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -6651,8 +6652,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "ignored"
+          }
         },
         {
           "name": "Docs",
@@ -6672,6 +6672,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -6708,8 +6709,7 @@
               "updatedAt": "2026-09-01T05:46:54Z",
               "url": "https://github.com/High-Signal-App/research-papers/actions/runs/33474907508"
             }
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -7449,6 +7449,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -7486,8 +7487,7 @@
               "url": "https://github.com/Significant-Hobbies/india-standards/actions/runs/34196345876"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -9140,6 +9140,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -9177,8 +9178,7 @@
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34155197720"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Deploy to Cloudflare Pages",
@@ -9196,6 +9196,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -9222,8 +9223,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Docs",
@@ -9243,6 +9243,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -9280,8 +9281,7 @@
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34155197726"
             },
             "ageDays": 0
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Refresh Library",
@@ -9302,6 +9302,7 @@
             "status": "active",
             "reason": "tracked workflow"
           },
+          "attention": "clear",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -9340,8 +9341,7 @@
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
-          },
-          "attention": "clear"
+          }
         },
         {
           "name": "Dependabot Updates",
@@ -11572,6 +11572,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -11609,8 +11610,7 @@
               "url": "https://github.com/Significant-Hobbies/protein-index/actions/runs/34121612116"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -11737,6 +11737,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -11774,8 +11775,7 @@
               "url": "https://github.com/Significant-Hobbies/veg-protein-food/actions/runs/34002269438"
             },
             "ageDays": 2
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -12014,6 +12014,7 @@
             "status": "ignored",
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
+          "attention": "ignored",
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
@@ -12051,8 +12052,7 @@
               "url": "https://github.com/sass-maker/mashup/actions/runs/34129122957"
             },
             "ageDays": 0
-          },
-          "attention": "ignored"
+          }
         }
       ],
       "toolingSignals": [
@@ -14519,7 +14519,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-08T07:05:36.439Z",
+  "githubObservedAt": "2026-09-08T07:23:35.692Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }

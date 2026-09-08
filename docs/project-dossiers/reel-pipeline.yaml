@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 30baad5912b3386e11db620ad2d8ff9fcc59c47b854ff7876dd5da106e4b2f1e
+      sha256: 8076c7f9e888657ef1766701524b4d415dc15d2d722620f46a9d40b76e4c2ff7
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:05:36.439Z
+      observedAt: 2026-09-08T07:23:35.692Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -207,7 +207,7 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-09-08T07:05:36.439Z
+  observedAt: 2026-09-08T07:23:35.692Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -236,6 +236,7 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -269,7 +270,6 @@ githubActions:
           updatedAt: 2026-09-07T12:55:14Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384488
         ageDays: 0
-      attention: ignored
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
       triggers:
@@ -282,6 +282,7 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -305,7 +306,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -319,6 +319,7 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -352,7 +353,6 @@ githubActions:
           updatedAt: 2026-09-07T12:54:09Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388
         ageDays: 0
-      attention: ignored
 deployment:
   kind: worker
   deployed: true

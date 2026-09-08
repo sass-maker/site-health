@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 30baad5912b3386e11db620ad2d8ff9fcc59c47b854ff7876dd5da106e4b2f1e
+      sha256: 8076c7f9e888657ef1766701524b4d415dc15d2d722620f46a9d40b76e4c2ff7
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: drank
-      revision: f531e56c2f5715d2c73e54404e9ca042f99e7e48
+      revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
       githubRepository: sass-maker/drank
       expectedHomepage: https://domains.sassmaker.com
       observedHomepage: https://domains.sassmaker.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: drank
-      revision: f531e56c2f5715d2c73e54404e9ca042f99e7e48
+      revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
       githubRepository: sass-maker/drank
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-10
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T07:05:36.439Z
+      observedAt: 2026-09-08T07:23:35.692Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -111,13 +112,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-06-10
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 96
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 98
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: drank
-  observedRevision: f531e56c2f5715d2c73e54404e9ca042f99e7e48
+  observedRevision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
   githubRepository: sass-maker/drank
   githubHomepageUrl: https://domains.sassmaker.com
   worktree: *a1
@@ -168,7 +169,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T07:05:36.439Z
+  observedAt: 2026-09-08T07:23:35.692Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -176,7 +177,7 @@ githubActions:
   remote:
     repository: sass-maker/drank
     defaultBranch: main
-    defaultBranchSha: f531e56c2f5715d2c73e54404e9ca042f99e7e48
+    defaultBranchSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
     homepage: https://domains.sassmaker.com
     query: verified
     disposition:
@@ -197,20 +198,21 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34120517281
+          id: 34198440414
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f531e56c2f5715d2c73e54404e9ca042f99e7e48
-          createdAt: 2026-09-07T12:11:26Z
-          updatedAt: 2026-09-07T12:12:26Z
-          url: https://github.com/sass-maker/drank/actions/runs/34120517281
+          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
+          createdAt: 2026-09-08T07:15:30Z
+          updatedAt: 2026-09-08T07:16:22Z
+          url: https://github.com/sass-maker/drank/actions/runs/34198440414
         ageDays: 0
       schedule:
         health: not-applicable
@@ -220,17 +222,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34120517281
+          id: 34198440414
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f531e56c2f5715d2c73e54404e9ca042f99e7e48
-          createdAt: 2026-09-07T12:11:26Z
-          updatedAt: 2026-09-07T12:12:26Z
-          url: https://github.com/sass-maker/drank/actions/runs/34120517281
+          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
+          createdAt: 2026-09-08T07:15:30Z
+          updatedAt: 2026-09-08T07:16:22Z
+          url: https://github.com/sass-maker/drank/actions/runs/34198440414
         ageDays: 0
-      attention: ignored
     - name: Update Global DR History
       file: .github/workflows/update-global-dr.yml
       triggers:
@@ -245,6 +246,7 @@ githubActions:
       ownerDisposition:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      attention: ignored
       live:
         health: healthy
         reason: latest run concluded success
@@ -279,7 +281,6 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -317,8 +318,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Scheduled direct-provider collection is not proven by proxy success. Shared production observations remain stale; source fixes not deployed. Attribution and raw-data redistribution require review against current Ahrefs terms before publishing a new bulk snapshot. Advisor and public nominations untested.
+  verifiedAt: 2026-09-08
+  reason: "Scheduled direct-provider collection remains unqualified: AHREFS_API_KEY is absent from repository Actions secrets (metadata-only check). All 45 shared latest observations remain August 17. Separate raw-data redistribution permission is unresolved; advisor and public nominations remain untested."
   changelogUrl: https://domains.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/drank/issues
   geoIdentity:
