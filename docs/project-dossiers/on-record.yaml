@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: cf0895d72ad7b1c49fd023ef6404071551fb19c7019cb75c1ce496d39ca355ab
+      sha256: 78bb6a4ed5d094169e48474059b8b5f844e5696a59993faaf18bf4d2d58f79de
       infrastructureUpdatedAt: 2026-08-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,10 +55,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T10:36:52.432Z
+      observedAt: 2026-09-08T11:21:03.729Z
       staleAfterDays: 30
       healthy: 2
-      cancelled: 1
+      running: 1
       attention: &a2
         ignored: 3
   unknowns: []
@@ -181,11 +181,11 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T10:36:52.432Z
+  observedAt: 2026-09-08T11:21:03.729Z
   staleAfterDays: 30
   summary:
     healthy: 2
-    cancelled: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
@@ -225,7 +225,7 @@ githubActions:
           createdAt: 2026-09-07T10:46:25Z
           updatedAt: 2026-09-07T10:47:18Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -243,7 +243,7 @@ githubActions:
           createdAt: 2026-09-07T10:46:25Z
           updatedAt: 2026-09-07T10:47:18Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
-        ageDays: 0
+        ageDays: 1
       attention: ignored
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
@@ -261,35 +261,34 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: cancelled
-        reason: latest run was cancelled
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34117613027
-          status: completed
-          conclusion: cancelled
+          id: 34216404620
+          status: in_progress
+          conclusion: null
           event: schedule
           branch: main
           headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
-          createdAt: 2026-09-07T11:37:55Z
-          updatedAt: 2026-09-07T13:38:39Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34117613027
+          createdAt: 2026-09-08T10:37:09Z
+          updatedAt: 2026-09-08T10:37:13Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34216404620
         ageDays: 0
       schedule:
-        health: healthy
-        reason: latest scheduled run concluded cancelled
+        health: running
+        reason: latest scheduled run is in_progress
         lastRun:
-          id: 34117613027
-          status: completed
-          conclusion: cancelled
+          id: 34216404620
+          status: in_progress
+          conclusion: null
           event: schedule
           branch: main
           headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
-          createdAt: 2026-09-07T11:37:55Z
-          updatedAt: 2026-09-07T13:38:39Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34117613027
+          createdAt: 2026-09-08T10:37:09Z
+          updatedAt: 2026-09-08T10:37:13Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34216404620
         ageDays: 0
-        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -321,7 +320,7 @@ githubActions:
           createdAt: 2026-09-06T11:17:20Z
           updatedAt: 2026-09-06T11:17:53Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029806639
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

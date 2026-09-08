@@ -1,5 +1,8 @@
 # Hub owner-use readiness, 7 September 2026
 
+
+Calorie update, 8 September: 59fecf5 repairs local-save and outbox data loss, unread-file recovery and one-off serving totals. The full native gate passed 67 tests and 66.2357% coverage. Signed build 12 installed; fresh physical launch remains blocked by FBS Locked. See `../calorie-2026-09-08/README.md`.
+
 ## Latest verified result — 8 September 2026
 
 Setline update, 8 September: source 0283a79349f0771be72715f2a140499741587693 repairs failed saves, concurrent writes and backup recovery, and keeps optional account validation out of local launch. Full native gate passed at 80.9537% coverage. Signed build 8 is installed; its fresh physical launch remains blocked by FBS Locked. See `../setline-2026-09-08/README.md`.

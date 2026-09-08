@@ -1,0 +1,230 @@
+{
+  "source": "754fcc800c732c41bd33950509004d5895c870b4",
+  "build": 12,
+  "observedAt": "2026-09-08",
+  "originalStorageRegressions": {
+    "summary": {
+      "status": "FAILED",
+      "durationMs": 25226,
+      "counts": {
+        "passed": 0,
+        "failed": 3,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "failures": [
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testConcurrentWaterEntriesBothPersist",
+        "message": "XCTAssertEqual failed: (\"1\") is not equal to (\"2\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:42"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testConcurrentWaterEntriesBothPersist",
+        "message": "XCTAssertEqual failed: (\"1\") is not equal to (\"2\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:43"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testConcurrentWaterEntriesBothPersist()",
+        "message": "XCTAssertEqual failed: (\"1\") is not equal to (\"2\")"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testFailedFoodSaveRetainsSheetAndReportsFailureUntilRetry",
+        "message": "XCTAssertTrue failed",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:22"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testFailedFoodSaveRetainsSheetAndReportsFailureUntilRetry",
+        "message": "XCTAssertNotEqual failed: (\"Optional(\"Synthetic bowl added.\")\") is equal to (\"Optional(\"Synthetic bowl added.\")\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:23"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testFailedFoodSaveRetainsSheetAndReportsFailureUntilRetry()",
+        "message": "XCTAssertNotEqual failed: (\"Optional(\"Synthetic bowl added.\")\") is equal to (\"Optional(\"Synthetic bowl added.\")\")"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testFailedFoodSaveRetainsSheetAndReportsFailureUntilRetry()",
+        "message": "XCTAssertTrue failed"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testFailedLoadPreservesUnreadJournalAgainstLaterEdits",
+        "message": "XCTAssertEqual failed: (\"2699 bytes\") is not equal to (\"32 bytes\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:56"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testFailedLoadPreservesUnreadJournalAgainstLaterEdits()",
+        "message": "XCTAssertEqual failed: (\"2699 bytes\") is not equal to (\"32 bytes\")"
+      }
+    ]
+  },
+  "outboxRegression": {
+    "summary": {
+      "status": "FAILED",
+      "durationMs": 14498,
+      "counts": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "failures": [
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange",
+        "message": "XCTAssertEqual failed: (\"pending\") is not equal to (\"conflict\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/NativeAccountTests.swift:251"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange",
+        "message": "XCTAssertEqual failed: (\"2500\") is not equal to (\"2750\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/NativeAccountTests.swift:254"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange",
+        "message": "XCTAssertTrue failed",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/NativeAccountTests.swift:255"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange",
+        "message": "XCTAssertEqual failed: (\"synced\") is not equal to (\"conflict\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/NativeAccountTests.swift:256"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange()",
+        "message": "XCTAssertEqual failed: (\"2500\") is not equal to (\"2750\")"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange()",
+        "message": "XCTAssertEqual failed: (\"pending\") is not equal to (\"conflict\")"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange()",
+        "message": "XCTAssertEqual failed: (\"synced\") is not equal to (\"conflict\")"
+      },
+      {
+        "suite": "NativeAccountTests",
+        "test": "testFailedSyncQueueCannotOverwriteCommittedLocalChange()",
+        "message": "XCTAssertTrue failed"
+      }
+    ]
+  },
+  "oneOffRegression": {
+    "summary": {
+      "status": "FAILED",
+      "durationMs": 12133,
+      "counts": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "failures": [
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testBackdatedOneOffEditUpdatesNutrientsAndSurvivesReload",
+        "message": "XCTAssertEqual failed: (\"300.0\") is not equal to (\"600.0\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:155"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testBackdatedOneOffEditUpdatesNutrientsAndSurvivesReload",
+        "message": "XCTAssertEqual failed: (\"20.0\") is not equal to (\"40.0\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:156"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testBackdatedOneOffEditUpdatesNutrientsAndSurvivesReload",
+        "message": "XCTAssertEqual failed: (\"5.0\") is not equal to (\"10.0\")",
+        "location": "/Users/sarthak/Desktop/fleet/calorie/ios/Tests/CalorieTests/CalorieLocalSaveTests.swift:157"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testBackdatedOneOffEditUpdatesNutrientsAndSurvivesReload()",
+        "message": "XCTAssertEqual failed: (\"20.0\") is not equal to (\"40.0\")"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testBackdatedOneOffEditUpdatesNutrientsAndSurvivesReload()",
+        "message": "XCTAssertEqual failed: (\"300.0\") is not equal to (\"600.0\")"
+      },
+      {
+        "suite": "CalorieLocalSaveTests",
+        "test": "testBackdatedOneOffEditUpdatesNutrientsAndSurvivesReload()",
+        "message": "XCTAssertEqual failed: (\"5.0\") is not equal to (\"10.0\")"
+      }
+    ]
+  },
+  "appTests": {
+    "summary": {
+      "status": "SUCCEEDED",
+      "durationMs": 14664,
+      "counts": {
+        "passed": 32,
+        "failed": 0,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "failures": []
+  },
+  "recoveryDismissal": {
+    "summary": {
+      "status": "SUCCEEDED",
+      "durationMs": 12335,
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "target": "simulator"
+    },
+    "failures": []
+  },
+  "nativeGate": {
+    "coreTestsPassed": 26,
+    "appTestsPassed": 32,
+    "uiTestsPassed": 9,
+    "release": "passed",
+    "coveragePercent": 66.2357,
+    "coverageFloorPercent": 54.3,
+    "additionalUITestAssertion": "Focused test and complete follow-up gate passed"
+  },
+  "device": {
+    "build12": "installed, development-signed Debug build",
+    "installedSource": "59fecf539853fa402f8085e62e4297994b3468f6",
+    "signatureVerification": "codesign --verify --deep --strict passed",
+    "physicalJourney": "unverified; fresh build-12 launch returned CoreDeviceError 10002 / FBS Locked"
+  },
+  "presentation": {
+    "today": "sample fixture screenshot manually inspected; legible mobile hierarchy, food log and primary logging action",
+    "recovery": "layout inspected with alert; manual tool taps did not dismiss it, while focused XCTest explicitly confirmed alert disappearance and recovery controls",
+    "account": "not verified"
+  },
+  "ci": {
+    "run": 34219785217,
+    "state": "in_progress"
+  },
+  "shareable": false,
+  "issue": "https://github.com/Significant-Hobbies/calorie/issues/88",
+  "installedSourceCI": {
+    "run": 34218849801,
+    "state": "success"
+  }
+}

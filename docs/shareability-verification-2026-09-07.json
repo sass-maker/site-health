@@ -107,19 +107,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native iOS app",
-      "observed": "Complete native gate and Release build pass with 64.6356% production-line coverage after using an available iPhone simulator. Development-signed version 1.0.0 build 11 installed on owner iPhone from d0b71cd56e195bdff23b787b035d378b39af5072. Actual installed journey and TestFlight/public availability remain unverified.",
+      "observed": "59fecf5 build 12 repairs reproduced local-save and outbox data-loss paths plus one-off serving totals. Complete native gate passed 26 core, 32 app and 9 UI tests, Release and 66.2357% production coverage. Signed development build 12 installed; physical launch returned CoreDeviceError 10002 / FBS Locked. Real account, phone and distribution qualification remain outstanding.",
       "urls": [
         "https://calorie.significanthobbies.com/"
       ],
       "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-08",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "development-build-installed; physical-journey-not-qualified",
       "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
+      "presentation": "sample Today screenshot inspected; recovery layout inspected with alert, and focused XCTest verifies dismissal; no complete visual/accessibility qualification",
       "disposition": "retain-unpromoted",
-      "evidencePath": "docs/qualification/hub-2026-09-07/README.md"
+      "evidencePath": "docs/qualification/calorie-2026-09-08/README.md"
     },
     {
       "id": "motion",

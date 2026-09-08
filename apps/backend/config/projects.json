@@ -1580,8 +1580,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass."
+          "verifiedAt": "2026-09-08",
+          "reason": "Build 12 repairs reproduced failed-save false success, lost concurrent entries, unread-file overwrite, failed-outbox overwrite and one-off serving totals. Full local native gate passes 67 tests and 66.2357% coverage. Signed development build installed; fresh launch blocked by FBS Locked. Actual physical logging/relaunch, signed-in sync and public distribution remain unqualified."
         }
       },
       "name": "Calorie",
@@ -1615,7 +1615,7 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/calorie"
       },
-      "notes": "Finished local-first calorie journal with optional Apple or Google sign-in and private D1 sync. Shared-identity migration 0008 is live at exact Worker SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Native build 1.0.0 (3) is available to internal TestFlight testers; Apple Distribution-signed build 1.0.0 (4) is prepared and waits for Xcode personal-account authentication.",
+      "notes": "Native-first food journal with optional private cloud sync. Development build 12 from 59fecf539853fa402f8085e62e4297994b3468f6 is installed on the owner iPhone; its fresh launch was blocked by the locked device. Local failure/retry, concurrent writes, backup recovery and one-off nutrient edits are tested. Actual physical use, live signed-in sync and current TestFlight/public distribution remain unverified.",
       "category": "utility"
     },
     {
