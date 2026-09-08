@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 02a0a88be02c3b3be99a05adf4a7408e84d5a5f4ebb1964dc2bb8430f5f78c2f
+      sha256: a02859eba357b91547eeb717c6ea5ab3e57fdbdfe3e1b28b4ccbc036c64eeeac
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T16:31:41.208Z
+      observedAt: 2026-09-08T16:40:16.957Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -167,7 +167,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T16:31:41.208Z
+  observedAt: 2026-09-08T16:40:16.957Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -220,15 +220,15 @@ githubActions:
         health: missing
         reason: no push run at current main revision 096d62d
         lastRun:
-          id: 33099726865
+          id: 32039217118
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 5fe783199539d2fa3be467c6b89dfbe5808558a3
-          createdAt: 2026-08-27T17:41:53Z
-          updatedAt: 2026-08-27T17:42:30Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/33099726865
+          headSha: 3c5a3d37550ced1c62d8a3b3e100b8b831f7c0d7
+          createdAt: 2026-08-17T14:29:29Z
+          updatedAt: 2026-08-17T14:30:15Z
+          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/32039217118
       attention: ignored
     - name: Build résumé PDF
       file: .github/workflows/resume.yml

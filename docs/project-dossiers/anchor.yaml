@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 02a0a88be02c3b3be99a05adf4a7408e84d5a5f4ebb1964dc2bb8430f5f78c2f
+      sha256: a02859eba357b91547eeb717c6ea5ab3e57fdbdfe3e1b28b4ccbc036c64eeeac
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T16:31:41.208Z
+      observedAt: 2026-09-08T16:40:16.957Z
       staleAfterDays: 30
-      running: 1
+      healthy: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -145,10 +145,10 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T16:31:41.208Z
+  observedAt: 2026-09-08T16:40:16.957Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
@@ -173,18 +173,18 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34249040267
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: a32e94a2c5dd415ea96dfa51e24ad53763694459
           createdAt: 2026-09-08T16:06:43Z
-          updatedAt: 2026-09-08T16:06:55Z
+          updatedAt: 2026-09-08T16:34:55Z
           url: https://github.com/Significant-Hobbies/anchor/actions/runs/34249040267
         ageDays: 0
       schedule:
@@ -235,7 +235,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-08
-  reason: Build 23/source a32e94a fixes a reproduced false-zero pending count after a failed Hub acknowledgement write. All 186 package tests pass in an isolated checkout against the repaired remote dependency; hosted native review is running. Production CloudKit promotion, notarization, physical installed-device journeys and signed-in cross-device sync remain unqualified. Phone build 22 and Mac build 21 are the last verified installations; no new device or Production schema observation is claimed.
+  reason: Build 23/source a32e94a fixes a reproduced false-zero pending count after failed Hub acknowledgement. Exact-source hosted review passed 186 package tests, 14 Mac UI tests, 8 iPhone UI tests, Watch compilation and the final outcome gate. Stable-Xcode build 23 passed signature verification and is installed on iPhone. Physical use, real-account sync, Production CloudKit and notarization remain unqualified. Mac build 21 is preserved.
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:
